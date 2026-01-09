@@ -653,9 +653,15 @@ function buildFinalResponse(
   const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
   const rawTitle = consensus.agreedPrimaryAttributes.product_title || rawProduct.Product_Title_Web_Retailer || '';
   const rawDescription = consensus.agreedPrimaryAttributes.description || rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
-  const rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
   
-  logger.info('Text cleaner input', { rawBrand, rawTitle: rawTitle?.substring(0, 50) });
+  // Handle features from AI - could be string (HTML), array, or missing
+  let rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
+  if (Array.isArray(rawFeatures)) {
+    // AI returned an array - convert to HTML
+    rawFeatures = '<ul>' + rawFeatures.map((f: string) => `<li>${f}</li>`).join('') + '</ul>';
+  }
+  
+  logger.info('Text cleaner input', { rawBrand, rawTitle: rawTitle?.substring(0, 50), rawFeaturesLength: rawFeatures?.length });
   
   // Clean and enhance customer-facing text
   const cleanedText = cleanCustomerFacingText(

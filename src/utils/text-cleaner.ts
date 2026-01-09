@@ -365,7 +365,7 @@ export function extractFeatures(description: string | undefined | null, existing
   const features: string[] = [];
   const seenFeatures = new Set<string>();
   
-  // Parse existing features if provided
+  // Parse existing features if provided (from AI or raw data)
   if (existingFeatures) {
     // Ensure we're working with a string
     const featuresStr = typeof existingFeatures === 'string' ? existingFeatures : String(existingFeatures);
@@ -384,25 +384,48 @@ export function extractFeatures(description: string | undefined | null, existing
     }
   }
   
+  // If we already have enough features from existing data, return them
+  if (features.length >= 5) {
+    return features.slice(0, 15);
+  }
+  
+  // Otherwise, extract features from description
   if (!description) return features;
   
   const cleanDesc = cleanEncodingIssues(description);
   
-  // Split by sentence-like boundaries that indicate features
+  // Expanded list of feature keywords for appliances
+  const featureKeywords = [
+    // Technology features
+    'wifi', 'smart', 'connect', 'app', 'bluetooth', 'digital', 'electronic',
+    'sensor', 'touch', 'control', 'precision', 'monitor', 'technology',
+    // Cooking features
+    'convection', 'air fry', 'steam', 'bake', 'broil', 'grill', 'roast',
+    'simmer', 'boil', 'rapid', 'even', 'preheat',
+    // Cleaning features
+    'self-clean', 'steam clean', 'easy clean', 'no chemical', 'clean',
+    // Capacity/size features
+    'capacity', 'spacious', 'large', 'cu ft', 'burner', 'rack', 'drawer',
+    // Energy/efficiency
+    'energy', 'efficient', 'quiet', 'save',
+    // Material/design
+    'stainless', 'glass', 'cast iron', 'continuous grate', 'edge-to-edge',
+    // Temperature features
+    'temperature', 'probe', 'btu', 'degrees', 'thermostat',
+    // Convenience features
+    'timer', 'delay', 'adjustable', 'removable', 'flexible', 'convertible',
+    // Specific appliance features
+    'ice', 'water', 'filter', 'door', 'led', 'light', 'warming'
+  ];
+  
+  // Split by sentence boundaries
   const sentences = cleanDesc.split(/(?<=[.!])\s+/);
   
   for (const sentence of sentences) {
     // Skip very short or very long sentences
-    if (sentence.length < 20 || sentence.length > 200) continue;
+    if (sentence.length < 15 || sentence.length > 250) continue;
     
     // Check if sentence describes a feature
-    const featureKeywords = [
-      'wifi', 'smart', 'connect', 'app', 'convection', 'self-clean', 'energy',
-      'quiet', 'efficient', 'capacity', 'adjustable', 'stainless', 'led',
-      'temperature', 'timer', 'delay', 'air fry', 'steam', 'sensor', 'touch',
-      'control', 'burner', 'rack', 'drawer', 'ice', 'water', 'filter', 'door'
-    ];
-    
     const hasKeyword = featureKeywords.some(kw => 
       sentence.toLowerCase().includes(kw)
     );
@@ -413,12 +436,39 @@ export function extractFeatures(description: string | undefined | null, existing
       
       // Clean up the feature text
       feature = feature.replace(/^[-•*]\s*/, '');
-      feature = formatSentence(feature);
+      feature = feature.replace(/^\d+\.\s*/, ''); // Remove numbered list markers
+      
+      // Only capitalize first letter if needed
+      if (feature.length > 0) {
+        feature = feature.charAt(0).toUpperCase() + feature.slice(1);
+      }
+      
+      // Ensure ends with period
+      if (!/[.!?]$/.test(feature)) {
+        feature += '.';
+      }
       
       // Avoid duplicates
-      if (!seenFeatures.has(feature.toLowerCase()) && feature.length > 10) {
+      if (!seenFeatures.has(feature.toLowerCase()) && feature.length > 15 && feature.length <= 200) {
         features.push(feature);
         seenFeatures.add(feature.toLowerCase());
+      }
+    }
+  }
+  
+  // If still no features, be more aggressive - take all meaningful sentences
+  if (features.length < 3 && sentences.length > 0) {
+    for (const sentence of sentences) {
+      if (sentence.length >= 30 && sentence.length <= 200 && features.length < 8) {
+        let feature = sentence.trim();
+        feature = feature.replace(/^[-•*]\s*/, '');
+        
+        if (feature.length > 0 && !seenFeatures.has(feature.toLowerCase())) {
+          feature = feature.charAt(0).toUpperCase() + feature.slice(1);
+          if (!/[.!?]$/.test(feature)) feature += '.';
+          features.push(feature);
+          seenFeatures.add(feature.toLowerCase());
+        }
       }
     }
   }
