@@ -138,6 +138,11 @@ const LOWERCASE_WORDS = new Set([
 export function cleanEncodingIssues(text: string | undefined | null): string {
   if (!text) return '';
   
+  // Ensure we're working with a string
+  if (typeof text !== 'string') {
+    text = String(text);
+  }
+  
   let cleaned = text;
   
   // Apply brand corrections first - use case-insensitive string replacement
@@ -192,7 +197,9 @@ export function cleanEncodingIssues(text: string | undefined | null): string {
 export function fixBrandName(brand: string | undefined | null): string {
   if (!brand) return '';
   
-  const trimmed = brand.trim();
+  // Ensure we're working with a string
+  const brandStr = typeof brand === 'string' ? brand : String(brand);
+  const trimmed = brandStr.trim();
   
   // Check for exact match first
   if (BRAND_CORRECTIONS[trimmed]) {
@@ -224,7 +231,10 @@ function escapeRegex(text: string): string {
 export function formatTitle(title: string | undefined | null, brand?: string, _category?: string): string {
   if (!title) return '';
   
-  let formatted = cleanEncodingIssues(title);
+  // Ensure we're working with a string
+  const titleStr = typeof title === 'string' ? title : String(title);
+  
+  let formatted = cleanEncodingIssues(titleStr);
   
   // Remove excessive quotation marks and apostrophes at start/end
   formatted = formatted.replace(/^["']+|["']+$/g, '');
@@ -282,7 +292,10 @@ export function formatTitle(title: string | undefined | null, brand?: string, _c
 export function formatDescription(description: string | undefined | null): string {
   if (!description) return '';
   
-  let formatted = cleanEncodingIssues(description);
+  // Ensure we're working with a string
+  const descStr = typeof description === 'string' ? description : String(description);
+  
+  let formatted = cleanEncodingIssues(descStr);
   
   // Protect known camelCase words before sentence splitting
   const protectedWords: Record<string, string> = {
@@ -354,7 +367,9 @@ export function extractFeatures(description: string | undefined | null, existing
   
   // Parse existing features if provided
   if (existingFeatures) {
-    const existingList = existingFeatures
+    // Ensure we're working with a string
+    const featuresStr = typeof existingFeatures === 'string' ? existingFeatures : String(existingFeatures);
+    const existingList = featuresStr
       .replace(/<[^>]+>/g, '\n')  // Remove HTML tags, replace with newlines
       .split(/[\n•\-\*]+/)
       .map(f => f.trim())
