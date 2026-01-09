@@ -10,15 +10,15 @@
 
 import { PREMIUM_BRANDS } from '../config/category-schema';
 
-// Refrigerator configurations (door styles)
-const REFRIGERATOR_CONFIGURATIONS = [
+// Refrigerator configurations (door styles) - exported for external use
+export const REFRIGERATOR_CONFIGURATIONS = [
   'French Door', 'Side-by-Side', 'Side by Side',
   'Top Freezer', 'Bottom Freezer', 'Top Mount', 'Bottom Mount',
   'Single Door', 'Column', 'All Refrigerator', 'All Freezer'
 ];
 
-// Installation types (how appliance is installed)
-const INSTALLATION_TYPES = [
+// Installation types (how appliance is installed) - exported for external use
+export const INSTALLATION_TYPES = [
   'Built-In', 'Built In', 'Freestanding', 'Counter-Depth', 'Counter Depth',
   'Under-Counter', 'Under Counter', 'Slide-In', 'Drop-In', 'Wall Mount'
 ];
@@ -274,8 +274,9 @@ function getInstallationType(input: TitleInput, alreadyShownConfig: string | nul
 
 /**
  * Get style or type descriptor (LEGACY - for non-refrigerator categories)
+ * Exported for external use
  */
-function getStyleType(input: TitleInput): string | null {
+export function getStyleType(input: TitleInput): string | null {
   const candidates: string[] = [];
   
   if (input.configuration) candidates.push(input.configuration);

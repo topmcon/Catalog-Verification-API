@@ -38,8 +38,9 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   ]
 };
 
-// Keyword mappings for better matching
-const CATEGORY_KEYWORDS: Record<string, string[]> = {
+// Keyword mappings for better matching (reserved for future enhanced matching)
+// @ts-ignore - reserved for future use
+export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   'Refrigerator': ['refrigerator', 'fridge', 'french door', 'side by side', 'bottom freezer', 'top freezer'],
   'Dishwasher': ['dishwasher', 'dish washer'],
   'Range': ['range', 'stove', 'gas range', 'electric range', 'dual fuel range'],

@@ -65,7 +65,7 @@ export async function enrichProduct(rawData: RawProductData): Promise<Enrichment
     const categorySchema = getCategorySchema(categoryMatch.categoryName);
     const requiredAttrs = categorySchema 
       ? getRequiredAttributes(categoryMatch.categoryName)
-      : GLOBAL_PRIMARY_ATTRIBUTES;
+      : [...GLOBAL_PRIMARY_ATTRIBUTES];
     
     // Step 2: Extract attributes from source data
     const { attributes, usedFields, missingFields } = extractSourceAttributes(rawData, requiredAttrs);
@@ -138,7 +138,7 @@ export async function enrichProduct(rawData: RawProductData): Promise<Enrichment
 /**
  * Extract attributes from source data - USE SOURCE FIRST
  */
-function extractSourceAttributes(rawData: RawProductData, requiredAttrs: string[] = GLOBAL_PRIMARY_ATTRIBUTES): {
+function extractSourceAttributes(rawData: RawProductData, requiredAttrs: readonly string[] | string[] = GLOBAL_PRIMARY_ATTRIBUTES): {
   attributes: Record<string, any>;
   usedFields: string[];
   missingFields: string[];

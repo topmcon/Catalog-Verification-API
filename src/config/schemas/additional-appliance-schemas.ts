@@ -3,7 +3,7 @@
  * Wine coolers, ice makers, specialty appliances
  */
 
-import { CategoryAttributeConfig } from './category-attributes';
+import { CategoryAttributeConfig } from '../category-attributes';
 
 export const ALL_IN_ONE_WASHER_DRYER_SCHEMA: CategoryAttributeConfig = {
   categoryName: 'All in One Washer / Dryer',

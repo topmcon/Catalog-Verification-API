@@ -3,7 +3,7 @@
  * Complete attribute definitions for lighting fixtures
  */
 
-import { CategoryAttributeConfig } from './category-attributes';
+import { CategoryAttributeConfig } from '../category-attributes';
 
 export const CEILING_LIGHT_SCHEMA: CategoryAttributeConfig = {
   categoryName: 'Ceiling Lights #',

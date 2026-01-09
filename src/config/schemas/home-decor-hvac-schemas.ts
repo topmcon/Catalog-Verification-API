@@ -2,7 +2,7 @@
  * Home Decor & Fixtures and HVAC Category Schemas
  */
 
-import { CategoryAttributeConfig } from './category-attributes';
+import { CategoryAttributeConfig } from '../category-attributes';
 
 // HOME DECOR & FIXTURES
 

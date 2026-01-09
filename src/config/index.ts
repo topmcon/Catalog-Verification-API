@@ -112,3 +112,6 @@ const config: Config = {
 };
 
 export default config;
+
+// Re-export master category attributes
+export * from './master-category-attributes';

@@ -1,0 +1,274 @@
+/**
+ * Salesforce Data Types
+ * Defines the incoming and outgoing data structures for Salesforce integration
+ */
+
+/**
+ * ============================================
+ * INCOMING DATA FROM SALESFORCE (What we receive)
+ * ============================================
+ */
+
+export interface SalesforceIncomingAttribute {
+  name: string;
+  value: string;
+}
+
+export interface SalesforceIncomingProduct {
+  // Salesforce Record Identifiers
+  SF_Catalog_Id: string;
+  SF_Catalog_Name: string;  // Model number
+
+  // Web Retailer Data (Primary Source - your catalog data)
+  Brand_Web_Retailer: string;
+  Model_Number_Web_Retailer: string;
+  MSRP_Web_Retailer: string;
+  Color_Finish_Web_Retailer: string;
+  Product_Title_Web_Retailer: string;
+  Depth_Web_Retailer: string;
+  Width_Web_Retailer: string;
+  Height_Web_Retailer: string;
+  Capacity_Web_Retailer: string;
+  Weight_Web_Retailer: string;
+  Features_Web_Retailer: string;  // HTML content
+  Product_Description_Web_Retailer: string;
+  Web_Retailer_Category: string;
+  Web_Retailer_SubCategory: string;
+  Specification_Table: string;  // HTML table
+  Web_Retailer_Specs: SalesforceIncomingAttribute[];
+
+  // Ferguson Data (Comparison Source)
+  Ferguson_Title: string;
+  Ferguson_URL: string;
+  Ferguson_Finish: string;
+  Ferguson_Color: string;  // Hex color code
+  Ferguson_Brand: string;
+  Ferguson_Model_Number: string;
+  Ferguson_Price: string;
+  Ferguson_Base_Type: string;
+  Ferguson_Product_Type: string;
+  Ferguson_Base_Category: string;
+  Ferguson_Business_Category: string;
+  Ferguson_Min_Price: string;
+  Ferguson_Max_Price: string;
+  Ferguson_Width: string;
+  Ferguson_Height: string;
+  Ferguson_Depth: string;
+  Ferguson_Categories: string;  // Newline-separated
+  Ferguson_Related_Categories: string;  // Newline-separated
+  Ferguson_Diameter: string;
+  Ferguson_Recommanded_Options: string;  // Newline-separated
+  Ferguson_Manufacturer_Warranty: string;
+  Ferguson_Collection: string;
+  Ferguson_Certifications: string;
+  Ferguson_Description: string;  // HTML content
+  Ferguson_Attributes: SalesforceIncomingAttribute[];
+}
+
+/**
+ * ============================================
+ * OUTGOING DATA TO SALESFORCE (What we send back)
+ * ============================================
+ */
+
+// Primary Display Attributes (Global - applies to ALL products)
+export interface PrimaryDisplayAttributes {
+  Brand_Verified: string;
+  Category_Verified: string;
+  SubCategory_Verified: string;
+  Product_Family_Verified: string;
+  Product_Style_Verified: string;  // Category-specific
+  Depth_Verified: string;
+  Width_Verified: string;
+  Height_Verified: string;
+  Weight_Verified: string;
+  MSRP_Verified: string;
+  Market_Value: string;  // From Ferguson pricing
+  Market_Value_Min: string;
+  Market_Value_Max: string;
+  Description_Verified: string;
+  Product_Title_Verified: string;
+  Details_Verified: string;
+  Features_List_HTML: string;  // Cleaned/enhanced HTML
+  UPC_GTIN_Verified: string;
+  Model_Number_Verified: string;
+  Model_Number_Alias: string;  // Symbols removed
+  Model_Parent: string;
+  Model_Variant_Number: string;
+  Total_Model_Variants: string;  // Comma-separated list
+}
+
+// Top Filter Attributes (Category-Specific - Top 15 for filtering)
+export interface TopFilterAttributes {
+  // These vary by category - this is a generic interface
+  [key: string]: string | number | boolean | null;
+}
+
+// Additional Attributes (Everything else as HTML table)
+export interface AdditionalAttributesHTML {
+  html: string;  // Pre-formatted HTML table
+}
+
+// Verification Metadata
+export interface VerificationMetadata {
+  verification_timestamp: string;  // ISO 8601
+  verification_session_id: string;
+  verification_score: number;  // 0-100
+  verification_status: 'verified' | 'needs_review' | 'enriched' | 'failed';
+  data_sources_used: string[];  // ['Web_Retailer', 'Ferguson', 'AI_OpenAI', 'AI_xAI']
+  corrections_made: CorrectionRecord[];
+  missing_fields: string[];
+  confidence_scores: Record<string, number>;
+}
+
+export interface CorrectionRecord {
+  field: string;
+  original_value: string | null;
+  corrected_value: string;
+  source: 'Ferguson' | 'AI_OpenAI' | 'AI_xAI' | 'Consensus' | 'Manual';
+  confidence: number;
+  reason: string;
+}
+
+// Price Analysis
+export interface PriceAnalysis {
+  msrp_web_retailer: number;
+  market_value_ferguson: number;
+  market_value_min: number;
+  market_value_max: number;
+  price_difference: number;
+  price_difference_percent: number;
+  price_position: 'above_market' | 'at_market' | 'below_market';
+}
+
+// Complete Verification Response (What we return to Salesforce)
+export interface SalesforceVerificationResponse {
+  // Record Identification
+  SF_Catalog_Id: string;
+  SF_Catalog_Name: string;
+
+  // Primary Display Attributes (Global)
+  Primary_Attributes: PrimaryDisplayAttributes;
+
+  // Top Category Filter Attributes (Category-Specific Top 15)
+  Top_Filter_Attributes: TopFilterAttributes;
+
+  // Additional Attributes as HTML Table
+  Additional_Attributes_HTML: string;
+
+  // Price Analysis
+  Price_Analysis: PriceAnalysis;
+
+  // Verification Metadata
+  Verification: VerificationMetadata;
+
+  // Status
+  Status: 'success' | 'partial' | 'failed';
+  Error_Message?: string;
+}
+
+/**
+ * ============================================
+ * CATEGORY-SPECIFIC TOP FILTER ATTRIBUTES
+ * ============================================
+ */
+
+// Range (Gas/Electric/Dual Fuel) - Top 15 Filter Attributes
+export interface RangeTopFilterAttributes extends TopFilterAttributes {
+  Fuel_Type: string;  // Gas, Electric, Dual Fuel, Induction
+  Installation_Type: string;  // Freestanding, Slide-In, Drop-In
+  Width_Nominal: string;  // 30", 36", 48"
+  Number_of_Burners: number;
+  Oven_Capacity_CuFt: number;
+  Convection: boolean;
+  Self_Cleaning: boolean;
+  Finish_Color: string;
+  Continuous_Grates: boolean;
+  Double_Oven: boolean;
+  Griddle: boolean;
+  Warming_Drawer: boolean;
+  BTU_Highest_Burner: number;
+  Smart_Features: boolean;
+  WiFi_Enabled: boolean;
+}
+
+// Refrigerator - Top 15 Filter Attributes
+export interface RefrigeratorTopFilterAttributes extends TopFilterAttributes {
+  Configuration: string;  // French Door, Side-by-Side, etc.
+  Installation_Type: string;  // Built-In, Freestanding, Counter-Depth
+  Width_Nominal: string;
+  Total_Capacity_CuFt: number;
+  Refrigerator_Capacity_CuFt: number;
+  Freezer_Capacity_CuFt: number;
+  Finish_Color: string;
+  Ice_Maker: boolean;
+  Water_Dispenser: boolean;
+  Panel_Ready: boolean;
+  Number_of_Doors: number;
+  Energy_Star: boolean;
+  Smart_Features: boolean;
+  WiFi_Enabled: boolean;
+  Counter_Depth: boolean;
+}
+
+// Dishwasher - Top 15 Filter Attributes
+export interface DishwasherTopFilterAttributes extends TopFilterAttributes {
+  Installation_Type: string;  // Built-In, Portable, Drawer
+  Width_Nominal: string;
+  Control_Location: string;  // Top, Front
+  Tub_Material: string;  // Stainless Steel, Plastic
+  Decibel_Level: number;
+  Place_Settings: number;
+  Number_of_Wash_Cycles: number;
+  Finish_Color: string;
+  Panel_Ready: boolean;
+  Third_Rack: boolean;
+  Adjustable_Upper_Rack: boolean;
+  Soil_Sensor: boolean;
+  Energy_Star: boolean;
+  ADA_Compliant: boolean;
+  Smart_Features: boolean;
+}
+
+/**
+ * ============================================
+ * HELPER TYPES
+ * ============================================
+ */
+
+// Batch Processing
+export interface SalesforceVerificationBatchRequest {
+  session_id: string;
+  products: SalesforceIncomingProduct[];
+  options?: {
+    enrich_missing_fields?: boolean;
+    use_ai_enhancement?: boolean;
+    generate_descriptions?: boolean;
+    generate_titles?: boolean;
+  };
+}
+
+export interface SalesforceVerificationBatchResponse {
+  session_id: string;
+  total_products: number;
+  verified_count: number;
+  needs_review_count: number;
+  failed_count: number;
+  results: SalesforceVerificationResponse[];
+  processing_time_ms: number;
+}
+
+// Webhook Payload
+export interface SalesforceWebhookPayload {
+  event_type: 'verification_complete' | 'verification_failed' | 'batch_complete';
+  session_id: string;
+  sf_catalog_id: string;
+  status: string;
+  result?: SalesforceVerificationResponse;
+  error?: string;
+  timestamp: string;
+}
+
+export default {
+  // Types are exported above
+};

@@ -3,7 +3,7 @@
  * Complete attribute definitions for plumbing fixtures
  */
 
-import { CategoryAttributeConfig } from './category-attributes';
+import { CategoryAttributeConfig } from '../category-attributes';
 
 export const BATHROOM_SINK_SCHEMA: CategoryAttributeConfig = {
   categoryName: 'Bathroom Sinks #',

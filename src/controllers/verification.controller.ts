@@ -368,10 +368,129 @@ export async function getSessionLogs(req: Request, res: Response): Promise<void>
   });
 }
 
+/**
+ * Verify Salesforce product - Dual AI verification endpoint
+ * Takes raw Salesforce data, runs it through both OpenAI and xAI independently,
+ * and returns verified data where both AIs agree
+ * 
+ * WORKFLOW:
+ * 1. Raw data goes to BOTH AIs (OpenAI + xAI) in parallel
+ * 2. Each AI determines the category and maps data to attributes
+ * 3. AIs compare results to reach consensus
+ * 4. If missing data, AIs research independently
+ * 5. Return final agreed-upon verified data
+ */
+export async function verifySalesforceProduct(req: Request, res: Response): Promise<void> {
+  const startTime = Date.now();
+  const { dualAIVerificationService } = await import('../services/dual-ai-verification.service');
+  
+  const sfProduct = req.body;
+  
+  if (!sfProduct || !sfProduct.SF_Catalog_Id) {
+    throw new ApiError(400, 'INVALID_REQUEST', 'SF_Catalog_Id is required');
+  }
+
+  logger.info('Starting Dual AI Salesforce verification', {
+    catalogId: sfProduct.SF_Catalog_Id,
+    modelNumber: sfProduct.Model_Number_Web_Retailer
+  });
+
+  try {
+    const sessionId = uuidv4();
+    const result = await dualAIVerificationService.verifyProductWithDualAI(sfProduct, sessionId);
+    
+    const processingTime = Date.now() - startTime;
+    logger.info('Dual AI verification completed', {
+      catalogId: sfProduct.SF_Catalog_Id,
+      status: result.Status,
+      score: result.Verification.verification_score,
+      processingTimeMs: processingTime
+    });
+
+    res.status(200).json({
+      success: true,
+      data: result,
+      sessionId,
+      processingTimeMs: processingTime
+    });
+  } catch (error) {
+    logger.error('Dual AI verification failed', {
+      catalogId: sfProduct.SF_Catalog_Id,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    throw error;
+  }
+}
+
+/**
+ * Batch verify Salesforce products
+ */
+export async function verifySalesforceProductBatch(req: Request, res: Response): Promise<void> {
+  const startTime = Date.now();
+  const { dualAIVerificationService } = await import('../services/dual-ai-verification.service');
+  
+  const { products, options } = req.body as {
+    products: any[];
+    options?: { concurrency?: number };
+  };
+  
+  if (!products || !Array.isArray(products) || products.length === 0) {
+    throw new ApiError(400, 'INVALID_REQUEST', 'Products array is required');
+  }
+
+  const concurrency = options?.concurrency || 3;
+  
+  logger.info('Starting batch Dual AI verification', {
+    productCount: products.length,
+    concurrency
+  });
+
+  const batchSessionId = uuidv4();
+  const results: any[] = [];
+  
+  // Process in batches
+  for (let i = 0; i < products.length; i += concurrency) {
+    const batch = products.slice(i, i + concurrency);
+    const batchResults = await Promise.all(
+      batch.map((p, idx) => dualAIVerificationService.verifyProductWithDualAI(p, `${batchSessionId}-${i + idx}`))
+    );
+    results.push(...batchResults);
+  }
+
+  const processingTime = Date.now() - startTime;
+  const successCount = results.filter(r => r.Status === 'success').length;
+  const partialCount = results.filter(r => r.Status === 'partial').length;
+  const failedCount = results.filter(r => r.Status === 'failed').length;
+
+  logger.info('Batch Salesforce verification completed', {
+    productCount: products.length,
+    successCount,
+    partialCount,
+    failedCount,
+    processingTimeMs: processingTime
+  });
+
+  res.status(200).json({
+    success: true,
+    data: {
+      results,
+      summary: {
+        total: products.length,
+        success: successCount,
+        partial: partialCount,
+        failed: failedCount
+      }
+    },
+    processingTimeMs: processingTime
+  });
+}
+
 export default {
   verify,
   getSessionStatus,
   getSessionProducts,
   exportToSalesforce,
   getSessionLogs,
+  verifySalesforceProduct,
+  verifySalesforceProductBatch,
 };

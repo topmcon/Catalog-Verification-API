@@ -7,6 +7,9 @@ export { default as enrichmentService } from './enrichment.service';
 export { default as titleGeneratorService } from './title-generator.service';
 export { default as descriptionGeneratorService } from './description-generator.service';
 export { default as categoryMatcherService } from './category-matcher.service';
+export { default as salesforceVerificationService } from './salesforce-verification.service';
+export { default as aiPromptBuilderService } from './ai-prompt-builder.service';
+export { default as dualAIVerificationService } from './dual-ai-verification.service';
 
 // Named exports with explicit naming to avoid conflicts
 export { validateProduct as openaiValidateProduct, validateProducts as openaiValidateProducts, healthCheck as openaiHealthCheck } from './openai.service';
@@ -18,3 +21,6 @@ export { enrichProduct } from './enrichment.service';
 export { matchCategory, getAllCategories } from './category-matcher.service';
 export { generateTitle } from './title-generator.service';
 export { generateDescription, enhanceDescription } from './description-generator.service';
+export { verifyProduct } from './salesforce-verification.service';
+export { buildVerificationPrompt, buildResearchPrompt } from './ai-prompt-builder.service';
+export { verifyProductWithDualAI, dualAIVerificationService as dualAIService } from './dual-ai-verification.service';

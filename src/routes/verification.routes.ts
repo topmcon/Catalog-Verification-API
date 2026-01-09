@@ -16,6 +16,26 @@ router.post(
 );
 
 /**
+ * @route   POST /api/verify/salesforce
+ * @desc    Verify a single Salesforce product using dual AI consensus
+ * @access  Protected
+ */
+router.post(
+  '/salesforce',
+  asyncHandler(verificationController.verifySalesforceProduct)
+);
+
+/**
+ * @route   POST /api/verify/salesforce/batch
+ * @desc    Batch verify Salesforce products using dual AI consensus
+ * @access  Protected
+ */
+router.post(
+  '/salesforce/batch',
+  asyncHandler(verificationController.verifySalesforceProductBatch)
+);
+
+/**
  * @route   GET /api/verify/session/:sessionId
  * @desc    Get verification session status
  * @access  Protected

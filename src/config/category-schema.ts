@@ -161,10 +161,113 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
 // Export the full schema (will be populated from JSON)
 export type CategorySchema = Record<string, Department>;
 
+// Import category schemas
+import {
+  REFRIGERATOR_SCHEMA,
+  DISHWASHER_SCHEMA,
+  RANGE_SCHEMA,
+  OVEN_SCHEMA,
+  COOKTOP_SCHEMA,
+  MICROWAVE_SCHEMA,
+  RANGE_HOOD_SCHEMA,
+  WASHER_SCHEMA,
+  DRYER_SCHEMA,
+  FREEZER_SCHEMA,
+  CategoryAttributeConfig
+} from './category-attributes';
+
+// Category Schema Lookup Map
+const CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig> = {
+  // Exact matches
+  'Refrigerator': REFRIGERATOR_SCHEMA,
+  'Dishwasher': DISHWASHER_SCHEMA,
+  'Range': RANGE_SCHEMA,
+  'Oven': OVEN_SCHEMA,
+  'Cooktop': COOKTOP_SCHEMA,
+  'Microwave': MICROWAVE_SCHEMA,
+  'Range Hood': RANGE_HOOD_SCHEMA,
+  'Washer': WASHER_SCHEMA,
+  'Dryer': DRYER_SCHEMA,
+  'Freezer': FREEZER_SCHEMA,
+  
+  // Web Retailer category variations
+  'REFRIGERATORS': REFRIGERATOR_SCHEMA,
+  'GAS RANGES': RANGE_SCHEMA,
+  'ELECTRIC RANGES': RANGE_SCHEMA,
+  'DUAL FUEL RANGES': RANGE_SCHEMA,
+  'SLIDE IN GAS RANGE': RANGE_SCHEMA,
+  'SLIDE IN ELECTRIC RANGE': RANGE_SCHEMA,
+  'FREESTANDING GAS RANGE': RANGE_SCHEMA,
+  'FREESTANDING ELECTRIC RANGE': RANGE_SCHEMA,
+  'DISHWASHERS': DISHWASHER_SCHEMA,
+  'WALL OVENS': OVEN_SCHEMA,
+  'COOKTOPS': COOKTOP_SCHEMA,
+  'MICROWAVES': MICROWAVE_SCHEMA,
+  'RANGE HOODS': RANGE_HOOD_SCHEMA,
+  'VENTILATION': RANGE_HOOD_SCHEMA,
+  'WASHERS': WASHER_SCHEMA,
+  'DRYERS': DRYER_SCHEMA,
+  'FREEZERS': FREEZER_SCHEMA,
+  
+  // Ferguson category variations
+  'Cooking Appliances': RANGE_SCHEMA,
+  'Ovens Ranges Cooktops': RANGE_SCHEMA,
+  'Range with Single Oven': RANGE_SCHEMA,
+};
+
+/**
+ * Get the category schema for a given category name
+ * Returns the appropriate schema with attributes for verification
+ */
+export function getCategorySchema(categoryName: string): CategoryAttributeConfig | null {
+  // Try exact match first
+  if (CATEGORY_SCHEMA_MAP[categoryName]) {
+    return CATEGORY_SCHEMA_MAP[categoryName];
+  }
+  
+  // Try case-insensitive match
+  const upperName = categoryName.toUpperCase();
+  for (const [key, schema] of Object.entries(CATEGORY_SCHEMA_MAP)) {
+    if (key.toUpperCase() === upperName) {
+      return schema;
+    }
+  }
+  
+  // Try partial match
+  const lowerName = categoryName.toLowerCase();
+  for (const [key, schema] of Object.entries(CATEGORY_SCHEMA_MAP)) {
+    if (key.toLowerCase().includes(lowerName) || lowerName.includes(key.toLowerCase())) {
+      return schema;
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Get all available category schemas
+ */
+export function getAllCategorySchemas(): CategoryAttributeConfig[] {
+  return [
+    REFRIGERATOR_SCHEMA,
+    DISHWASHER_SCHEMA,
+    RANGE_SCHEMA,
+    OVEN_SCHEMA,
+    COOKTOP_SCHEMA,
+    MICROWAVE_SCHEMA,
+    RANGE_HOOD_SCHEMA,
+    WASHER_SCHEMA,
+    DRYER_SCHEMA,
+    FREEZER_SCHEMA
+  ];
+}
+
 export default {
   GLOBAL_PRIMARY_ATTRIBUTES,
   PREMIUM_FEATURE_KEYWORDS,
   PREMIUM_BRANDS,
   MID_TIER_BRANDS,
-  CATEGORY_ALIASES
+  CATEGORY_ALIASES,
+  getCategorySchema,
+  getAllCategorySchemas
 };
