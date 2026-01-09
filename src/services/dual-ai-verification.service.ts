@@ -764,9 +764,10 @@ function buildFinalResponse(
 }
 
 function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysis {
-  const parsePrice = (val: string | undefined): number => {
-    if (!val) return 0;
-    return parseFloat(val.replace(/[^0-9.]/g, '')) || 0;
+  const parsePrice = (val: string | number | undefined | null): number => {
+    if (val === null || val === undefined) return 0;
+    if (typeof val === 'number') return val;
+    return parseFloat(String(val).replace(/[^0-9.]/g, '')) || 0;
   };
 
   const msrp = parsePrice(rawProduct.MSRP_Web_Retailer);
