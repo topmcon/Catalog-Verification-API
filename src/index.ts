@@ -5,17 +5,55 @@ import logger from './utils/logger';
 
 /**
  * Application Entry Point
- * Build version: 2026-01-09-v2 (text cleaner with brand corrections)
+ * Build version: 2026-01-09-v3 (Vercel serverless compatible)
+ * 
+ * Supports both:
+ * - Vercel serverless: exports handler, lazy DB connection
+ * - Traditional server: npm start runs main()
  */
 
+// Create Express app (always available)
+const app = createApp();
+
+// Database connection state for serverless
+let dbConnected = false;
+
+/**
+ * Ensure database is connected (for serverless cold starts)
+ */
+async function ensureDbConnected(): Promise<void> {
+  if (!dbConnected && process.env.MONGODB_URI) {
+    try {
+      await databaseService.connect();
+      dbConnected = true;
+    } catch (error) {
+      logger.error('Database connection failed', { error });
+      // Continue without DB - some routes may still work
+    }
+  }
+}
+
+/**
+ * Vercel Serverless Handler
+ * Exported for Vercel to use as the request handler
+ */
+export default async function handler(req: any, res: any): Promise<void> {
+  await ensureDbConnected();
+  return app(req, res);
+}
+
+// Also export the app directly for flexibility
+export { app };
+
+/**
+ * Traditional Server Mode
+ * Only runs when executed directly (not imported by Vercel)
+ */
 async function main(): Promise<void> {
   try {
-    // Connect to database
     logger.info('Starting Catalog Verification API...');
     await databaseService.connect();
-
-    // Create and start Express app
-    const app = createApp();
+    dbConnected = true;
 
     const server = app.listen(config.port, () => {
       logger.info(`Server started on port ${config.port}`, {
@@ -42,7 +80,6 @@ async function main(): Promise<void> {
         }
       });
 
-      // Force shutdown after 30 seconds
       setTimeout(() => {
         logger.error('Forced shutdown due to timeout');
         process.exit(1);
@@ -52,7 +89,6 @@ async function main(): Promise<void> {
     process.on('SIGTERM', () => shutdown('SIGTERM'));
     process.on('SIGINT', () => shutdown('SIGINT'));
 
-    // Handle uncaught exceptions
     process.on('uncaughtException', (error: Error) => {
       logger.error('Uncaught Exception', { error: error.message, stack: error.stack });
       process.exit(1);
@@ -71,4 +107,8 @@ async function main(): Promise<void> {
   }
 }
 
-main();
+// Only start server if running directly (not in Vercel serverless)
+// Vercel sets VERCEL=1 environment variable
+if (!process.env.VERCEL) {
+  main();
+}
