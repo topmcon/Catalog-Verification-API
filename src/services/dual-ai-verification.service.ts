@@ -31,6 +31,7 @@ import {
 import { generateAttributeTable } from '../utils/html-generator';
 import logger from '../utils/logger';
 import config from '../config';
+import trackingService from './tracking.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -79,22 +80,67 @@ interface ConsensusResult {
 
 export async function verifyProductWithDualAI(
   rawProduct: SalesforceIncomingProduct,
-  sessionId?: string
+  sessionId?: string,
+  requestContext?: { endpoint: string; method: string; ipAddress: string; userAgent: string; apiKey?: string }
 ): Promise<SalesforceVerificationResponse> {
   const verificationSessionId = sessionId || uuidv4();
   const startTime = Date.now();
   
+  // Start tracking
+  const trackingId = await trackingService.startTracking(
+    verificationSessionId,
+    requestContext?.endpoint || '/api/verify/salesforce',
+    requestContext?.method || 'POST',
+    requestContext?.ipAddress || 'unknown',
+    requestContext?.userAgent || 'unknown',
+    requestContext?.apiKey,
+    rawProduct,
+    rawProduct as unknown as Record<string, unknown>
+  );
+  
   logger.info('Starting dual AI verification', {
     sessionId: verificationSessionId,
+    trackingId,
     productId: rawProduct.SF_Catalog_Id,
     modelNumber: rawProduct.Model_Number_Web_Retailer
   });
 
   try {
+    const openaiStartTime = Date.now();
+    const xaiStartTime = Date.now();
+    
     const [openaiResult, xaiResult] = await Promise.all([
       analyzeWithOpenAI(rawProduct, verificationSessionId),
       analyzeWithXAI(rawProduct, verificationSessionId)
     ]);
+
+    // Track OpenAI result
+    trackingService.recordOpenAIResult(trackingId, {
+      success: openaiResult.success,
+      determinedCategory: openaiResult.determinedCategory,
+      categoryConfidence: openaiResult.categoryConfidence,
+      processingTimeMs: Date.now() - openaiStartTime,
+      fieldsPopulated: Object.keys(openaiResult.primaryAttributes).length + Object.keys(openaiResult.top15Attributes).length,
+      fieldsMissing: openaiResult.missingFields.length,
+      correctionsApplied: openaiResult.corrections.length,
+      researchPerformed: openaiResult.researchPerformed,
+      overallConfidence: openaiResult.confidence,
+      errorMessage: openaiResult.error,
+    });
+
+    // Track xAI result
+    trackingService.recordXAIResult(trackingId, {
+      success: xaiResult.success,
+      determinedCategory: xaiResult.determinedCategory,
+      categoryConfidence: xaiResult.categoryConfidence,
+      processingTimeMs: Date.now() - xaiStartTime,
+      fieldsPopulated: Object.keys(xaiResult.primaryAttributes).length + Object.keys(xaiResult.top15Attributes).length,
+      fieldsMissing: xaiResult.missingFields.length,
+      correctionsApplied: xaiResult.corrections.length,
+      researchPerformed: xaiResult.researchPerformed,
+      overallConfidence: xaiResult.confidence,
+      errorMessage: xaiResult.error,
+    });
 
     logger.info('Initial AI analysis complete', {
       sessionId: verificationSessionId,
@@ -103,9 +149,14 @@ export async function verifyProductWithDualAI(
     });
 
     let consensus = buildConsensus(openaiResult, xaiResult);
+    let crossValidationPerformed = false;
+    let researchPhaseTriggered = false;
+    let retryCount = 0;
     
     if (!consensus.agreed && openaiResult.determinedCategory !== xaiResult.determinedCategory) {
       logger.info('Category disagreement - initiating cross-validation', { sessionId: verificationSessionId });
+      crossValidationPerformed = true;
+      retryCount++;
       
       const [openaiRevised, xaiRevised] = await Promise.all([
         reanalyzeWithContext(rawProduct, 'openai', xaiResult, verificationSessionId),
@@ -117,6 +168,7 @@ export async function verifyProductWithDualAI(
 
     if (consensus.needsResearch.length > 0 && consensus.agreedCategory) {
       logger.info('Missing data - initiating research phase', { sessionId: verificationSessionId });
+      researchPhaseTriggered = true;
       
       const [openaiResearch, xaiResearch] = await Promise.all([
         researchMissingData(rawProduct, consensus.needsResearch, 'openai', consensus.agreedCategory, verificationSessionId),
@@ -126,12 +178,39 @@ export async function verifyProductWithDualAI(
       consensus = mergeResearchResults(consensus, openaiResearch, xaiResearch);
     }
 
+    // Track consensus result
+    trackingService.recordConsensusResult(trackingId, {
+      agreed: consensus.agreed,
+      consensusScore: consensus.overallConfidence,
+      categoryAgreed: openaiResult.determinedCategory === xaiResult.determinedCategory || consensus.agreedCategory !== null,
+      finalCategory: consensus.agreedCategory || 'unknown',
+      fieldsAgreed: Object.keys(consensus.agreedPrimaryAttributes).length + Object.keys(consensus.agreedTop15Attributes).length,
+      fieldsDisagreed: consensus.disagreements.length,
+      fieldsResolved: consensus.disagreements.filter(d => d.resolution !== 'unresolved').length,
+      fieldsUnresolved: consensus.disagreements.filter(d => d.resolution === 'unresolved').length,
+      retryCount,
+      crossValidationPerformed,
+      researchPhaseTriggered,
+      disagreementFields: consensus.disagreements.map(d => d.field),
+      unresolvedFields: consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field),
+    });
+
     const processingTime = Date.now() - startTime;
-    return buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
+    
+    // Complete tracking with successful response
+    await trackingService.completeTracking(trackingId, response, 200);
+    
+    return response;
 
   } catch (error) {
     logger.error('Dual AI verification failed', { sessionId: verificationSessionId, error });
-    return buildErrorResponse(rawProduct, verificationSessionId, error);
+    const errorResponse = buildErrorResponse(rawProduct, verificationSessionId, error);
+    
+    // Complete tracking with error
+    await trackingService.completeTrackingWithError(trackingId, error instanceof Error ? error : new Error(String(error)), 500);
+    
+    return errorResponse;
   }
 }
 

@@ -3,6 +3,7 @@ import verificationRoutes from './verification.routes';
 import webhookRoutes from './webhook.routes';
 import healthRoutes from './health.routes';
 import enrichmentRoutes from './enrichment.routes';
+import analyticsRoutes from './analytics.routes';
 import { apiKeyAuth } from '../middleware';
 
 const router = Router();
@@ -14,6 +15,7 @@ router.use('/health', healthRoutes);
 router.use('/api/verify', apiKeyAuth, verificationRoutes);
 router.use('/api/enrich', apiKeyAuth, enrichmentRoutes);
 router.use('/api/webhook', webhookRoutes);
+router.use('/api/analytics', apiKeyAuth, analyticsRoutes);
 
 // Root endpoint
 router.get('/', (_req, res) => {
@@ -26,6 +28,7 @@ router.get('/', (_req, res) => {
       verify: '/api/verify',
       enrich: '/api/enrich',
       enrichSingle: '/api/enrich/single',
+      analytics: '/api/analytics',
     },
   });
 });

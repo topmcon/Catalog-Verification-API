@@ -397,7 +397,17 @@ export async function verifySalesforceProduct(req: Request, res: Response): Prom
 
   try {
     const sessionId = uuidv4();
-    const result = await dualAIVerificationService.verifyProductWithDualAI(sfProduct, sessionId);
+    
+    // Build request context for tracking
+    const requestContext = {
+      endpoint: req.originalUrl || '/api/verify/salesforce',
+      method: req.method,
+      ipAddress: req.ip || req.socket?.remoteAddress || 'unknown',
+      userAgent: req.get('User-Agent') || 'unknown',
+      apiKey: req.get('X-API-KEY'),
+    };
+    
+    const result = await dualAIVerificationService.verifyProductWithDualAI(sfProduct, sessionId, requestContext);
     
     const processingTime = Date.now() - startTime;
     logger.info('Dual AI verification completed', {
