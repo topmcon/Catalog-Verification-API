@@ -802,7 +802,7 @@ function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysi
 
 function determineStatus(consensus: ConsensusResult, openaiResult: AIAnalysisResult, xaiResult: AIAnalysisResult): 'verified' | 'needs_review' | 'failed' {
   if (!openaiResult.success && !xaiResult.success) return 'failed';
-  if (consensus.agreed && consensus.overallConfidence >= 0.8) return 'verified';
+  if (consensus.overallConfidence >= 0.85) return 'verified';  // 85%+ confidence = verified (even with minor disagreements)
   if (consensus.overallConfidence >= 0.6) return 'needs_review';
   return 'failed';
 }
