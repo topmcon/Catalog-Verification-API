@@ -604,6 +604,8 @@ function buildFinalResponse(
   const rawDescription = consensus.agreedPrimaryAttributes.description || rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
   const rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
   
+  logger.info('Text cleaner input', { rawBrand, rawTitle: rawTitle?.substring(0, 50) });
+  
   // Clean and enhance customer-facing text
   const cleanedText = cleanCustomerFacingText(
     rawTitle,
@@ -612,6 +614,8 @@ function buildFinalResponse(
     rawBrand,
     consensus.agreedCategory || undefined
   );
+  
+  logger.info('Text cleaner output', { cleanedBrand: cleanedText.brand, cleanedTitle: cleanedText.title?.substring(0, 50) });
   
   // Track any text cleaning corrections
   const textCorrections: CorrectionRecord[] = [];
