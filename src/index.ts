@@ -5,6 +5,7 @@ import logger from './utils/logger';
 
 /**
  * Application Entry Point
+ * Build version: 2026-01-09-v2 (text cleaner with brand corrections)
  */
 
 async function main(): Promise<void> {
