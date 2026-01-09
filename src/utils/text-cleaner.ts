@@ -4,10 +4,13 @@
  */
 
 /**
- * Common encoding fixes for brand names and special characters
+ * Known brand name mappings to proper format
  */
-const ENCODING_FIXES: Record<string, string> = {
-  // Brand name encoding issues
+const BRAND_CORRECTIONS: Record<string, string> = {
+  // Café brand variants (GE Appliances)
+  'cafe': 'Café',
+  'Cafe': 'Café',
+  'CAFE': 'Café',
   'Caf(eback)': 'Café',
   'CAF(EBACK)': 'Café',
   'Cafe(back)': 'Café',
@@ -15,7 +18,63 @@ const ENCODING_FIXES: Record<string, string> = {
   'Caf?(eback)': 'Café',
   'Caf\\u00e9': 'Café',
   'Caf&eacute;': 'Café',
-  
+  // Monogram brand
+  'monogram': 'Monogram',
+  'MONOGRAM': 'Monogram',
+  // Bosch
+  'bosch': 'Bosch',
+  'BOSCH': 'Bosch',
+  // Thermador
+  'thermador': 'Thermador',
+  'THERMADOR': 'Thermador',
+  // KitchenAid
+  'kitchenaid': 'KitchenAid',
+  'KITCHENAID': 'KitchenAid',
+  'Kitchenaid': 'KitchenAid',
+  'kitchen aid': 'KitchenAid',
+  'Kitchen Aid': 'KitchenAid',
+  // SubZero / Sub-Zero
+  'subzero': 'Sub-Zero',
+  'sub zero': 'Sub-Zero',
+  'Sub Zero': 'Sub-Zero',
+  'SUBZERO': 'Sub-Zero',
+  'SUB-ZERO': 'Sub-Zero',
+  'SUB ZERO': 'Sub-Zero',
+  // Wolf
+  'wolf': 'Wolf',
+  'WOLF': 'Wolf',
+  // Miele
+  'miele': 'Miele',
+  'MIELE': 'Miele',
+  // Viking
+  'viking': 'Viking',
+  'VIKING': 'Viking',
+  // Samsung
+  'samsung': 'Samsung',
+  'SAMSUNG': 'Samsung',
+  // LG
+  'lg': 'LG',
+  // Whirlpool
+  'whirlpool': 'Whirlpool',
+  'WHIRLPOOL': 'Whirlpool',
+  // Maytag
+  'maytag': 'Maytag',
+  'MAYTAG': 'Maytag',
+  // Frigidaire
+  'frigidaire': 'Frigidaire',
+  'FRIGIDAIRE': 'Frigidaire',
+  // GE Profile
+  'ge profile': 'GE Profile',
+  'GE PROFILE': 'GE Profile',
+  'Ge Profile': 'GE Profile',
+  // GE
+  'ge': 'GE',
+};
+
+/**
+ * Common encoding fixes for special characters
+ */
+const ENCODING_FIXES: Record<string, string> = {
   // Trademark and copyright symbols
   '(TM)': '™',
   '(tm)': '™',
@@ -81,6 +140,13 @@ export function cleanEncodingIssues(text: string | undefined | null): string {
   
   let cleaned = text;
   
+  // Apply brand corrections first (full word matches)
+  for (const [bad, good] of Object.entries(BRAND_CORRECTIONS)) {
+    // Use word boundary regex for brand names
+    const regex = new RegExp(`\\b${escapeRegex(bad)}\\b`, 'g');
+    cleaned = cleaned.replace(regex, good);
+  }
+  
   // Apply encoding fixes
   for (const [bad, good] of Object.entries(ENCODING_FIXES)) {
     cleaned = cleaned.split(bad).join(good);
@@ -100,6 +166,38 @@ export function cleanEncodingIssues(text: string | undefined | null): string {
   cleaned = cleaned.normalize('NFC');
   
   return cleaned.trim();
+}
+
+/**
+ * Fix brand name to proper format
+ */
+export function fixBrandName(brand: string | undefined | null): string {
+  if (!brand) return '';
+  
+  const trimmed = brand.trim();
+  
+  // Check for exact match first
+  if (BRAND_CORRECTIONS[trimmed]) {
+    return BRAND_CORRECTIONS[trimmed];
+  }
+  
+  // Check case-insensitive
+  const lower = trimmed.toLowerCase();
+  for (const [bad, good] of Object.entries(BRAND_CORRECTIONS)) {
+    if (bad.toLowerCase() === lower) {
+      return good;
+    }
+  }
+  
+  // Return cleaned version
+  return cleanEncodingIssues(trimmed);
+}
+
+/**
+ * Escape special regex characters
+ */
+function escapeRegex(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 /**
@@ -372,13 +470,6 @@ export function escapeHtml(text: string): string {
 }
 
 /**
- * Escape special regex characters
- */
-function escapeRegex(text: string): string {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-/**
  * Clean all customer-facing text in a product response
  */
 export interface CustomerFacingText {
@@ -396,7 +487,7 @@ export function cleanCustomerFacingText(
   brand: string | undefined | null,
   category?: string
 ): CustomerFacingText {
-  const cleanBrand = cleanEncodingIssues(brand);
+  const cleanBrand = fixBrandName(brand);
   const cleanTitle = formatTitle(title, cleanBrand, category);
   const cleanDescription = formatDescription(description);
   const features = extractFeatures(description, existingFeatures || undefined);
@@ -413,6 +504,7 @@ export function cleanCustomerFacingText(
 
 export default {
   cleanEncodingIssues,
+  fixBrandName,
   formatTitle,
   formatDescription,
   extractFeatures,
