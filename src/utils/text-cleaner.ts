@@ -140,10 +140,28 @@ export function cleanEncodingIssues(text: string | undefined | null): string {
   
   let cleaned = text;
   
-  // Apply brand corrections first (full word matches)
-  for (const [bad, good] of Object.entries(BRAND_CORRECTIONS)) {
-    // Use word boundary regex for brand names
-    const regex = new RegExp(`\\b${escapeRegex(bad)}\\b`, 'g');
+  // Apply brand corrections first - use case-insensitive string replacement
+  // Sort by length descending to match longer patterns first (e.g., "CAF(EBACK)" before "Cafe")
+  const sortedBrands = Object.entries(BRAND_CORRECTIONS)
+    .sort((a, b) => b[0].length - a[0].length);
+  
+  for (const [bad, good] of sortedBrands) {
+    // For short patterns (< 4 chars), use word boundaries to avoid matching inside words
+    // For patterns with special chars (parentheses), use literal matching
+    const hasSpecialChars = /[()\\[\]{}]/.test(bad);
+    const isShort = bad.length < 4;
+    
+    let regex: RegExp;
+    if (hasSpecialChars) {
+      // Exact match for patterns with special characters
+      regex = new RegExp(escapeRegex(bad), 'gi');
+    } else if (isShort) {
+      // Word boundary match for short patterns like "ge", "lg"
+      regex = new RegExp(`\\b${escapeRegex(bad)}\\b`, 'gi');
+    } else {
+      // Case-insensitive for longer patterns
+      regex = new RegExp(escapeRegex(bad), 'gi');
+    }
     cleaned = cleaned.replace(regex, good);
   }
   
@@ -266,8 +284,31 @@ export function formatDescription(description: string | undefined | null): strin
   
   let formatted = cleanEncodingIssues(description);
   
+  // Protect known camelCase words before sentence splitting
+  const protectedWords: Record<string, string> = {
+    'WiFi': '___WIFI___',
+    'SmartHQ': '___SMARTHQ___',
+    'AirFry': '___AIRFRY___',
+    'TrueConvection': '___TRUECONVECTION___',
+    'EasyClean': '___EASYCLEAN___',
+    'PowerBoil': '___POWERBOIL___',
+    'PowerPlus': '___POWERPLUS___',
+    'AutoClean': '___AUTOCLEAN___',
+    'QuietMark': '___QUIETMARK___',
+  };
+  
+  // Replace protected words with placeholders
+  for (const [word, placeholder] of Object.entries(protectedWords)) {
+    formatted = formatted.replace(new RegExp(word, 'gi'), placeholder);
+  }
+  
   // Split run-on sentences (sentences without proper spacing)
   formatted = formatted.replace(/([a-z])([A-Z][a-z])/g, '$1. $2');
+  
+  // Restore protected words
+  for (const [word, placeholder] of Object.entries(protectedWords)) {
+    formatted = formatted.replace(new RegExp(placeholder, 'g'), word);
+  }
   
   // Fix missing spaces after periods
   formatted = formatted.replace(/\.([A-Z])/g, '. $1');
