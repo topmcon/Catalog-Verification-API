@@ -3,7 +3,7 @@ node_modules/
 frontend/node_modules/
 
 # Build outputs
-dist/
+# dist/ - INCLUDED for Vercel deployment
 frontend/dist/
 build/
 *.tsbuildinfo
