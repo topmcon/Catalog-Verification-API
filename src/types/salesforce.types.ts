@@ -123,10 +123,12 @@ export interface VerificationMetadata {
 
 export interface CorrectionRecord {
   field: string;
-  original_value: string | null;
-  corrected_value: string;
-  source: 'Ferguson' | 'AI_OpenAI' | 'AI_xAI' | 'Consensus' | 'Manual';
-  confidence: number;
+  original_value?: string | null;
+  originalValue?: string | null; // Alias for compatibility
+  corrected_value?: string;
+  correctedValue?: string; // Alias for compatibility
+  source: 'Ferguson' | 'AI_OpenAI' | 'AI_xAI' | 'Consensus' | 'Manual' | 'text_cleaner';
+  confidence?: number;
   reason: string;
 }
 

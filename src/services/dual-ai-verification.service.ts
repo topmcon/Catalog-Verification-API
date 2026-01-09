@@ -8,7 +8,8 @@
  * 4. Compare results for consensus
  * 5. If disagree, re-analyze with context
  * 6. Research missing data if needed
- * 7. Return verified response to Salesforce
+ * 7. Clean and enhance customer-facing text
+ * 8. Return verified response to Salesforce
  */
 
 import { v4 as uuidv4 } from 'uuid';
@@ -29,6 +30,7 @@ import {
   getAllCategoriesWithTop15ForPrompt
 } from '../config/master-category-attributes';
 import { generateAttributeTable } from '../utils/html-generator';
+import { cleanCustomerFacingText, cleanEncodingIssues } from '../utils/text-cleaner';
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
@@ -596,12 +598,57 @@ function buildFinalResponse(
   xaiResult: AIAnalysisResult
 ): SalesforceVerificationResponse {
   
+  // Get raw values for customer-facing text
+  const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
+  const rawTitle = consensus.agreedPrimaryAttributes.product_title || rawProduct.Product_Title_Web_Retailer || '';
+  const rawDescription = consensus.agreedPrimaryAttributes.description || rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
+  const rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
+  
+  // Clean and enhance customer-facing text
+  const cleanedText = cleanCustomerFacingText(
+    rawTitle,
+    rawDescription,
+    rawFeatures,
+    rawBrand,
+    consensus.agreedCategory || undefined
+  );
+  
+  // Track any text cleaning corrections
+  const textCorrections: CorrectionRecord[] = [];
+  if (cleanedText.brand !== rawBrand && rawBrand) {
+    textCorrections.push({
+      field: 'brand',
+      originalValue: rawBrand,
+      correctedValue: cleanedText.brand,
+      reason: 'Fixed encoding issues and standardized brand name',
+      source: 'text_cleaner'
+    });
+  }
+  if (cleanedText.title !== rawTitle && rawTitle) {
+    textCorrections.push({
+      field: 'product_title',
+      originalValue: rawTitle,
+      correctedValue: cleanedText.title,
+      reason: 'Cleaned and formatted title for customer display',
+      source: 'text_cleaner'
+    });
+  }
+  if (cleanedText.description !== rawDescription && rawDescription) {
+    textCorrections.push({
+      field: 'description',
+      originalValue: rawDescription.substring(0, 100) + '...',
+      correctedValue: cleanedText.description.substring(0, 100) + '...',
+      reason: 'Cleaned grammar, spelling, and formatting for customer display',
+      source: 'text_cleaner'
+    });
+  }
+  
   const primaryAttributes: PrimaryDisplayAttributes = {
-    Brand_Verified: consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer,
-    Category_Verified: consensus.agreedCategory || '',
-    SubCategory_Verified: consensus.agreedPrimaryAttributes.subcategory || '',
-    Product_Family_Verified: consensus.agreedPrimaryAttributes.product_family || '',
-    Product_Style_Verified: consensus.agreedPrimaryAttributes.product_style || '',
+    Brand_Verified: cleanedText.brand,
+    Category_Verified: cleanEncodingIssues(consensus.agreedCategory || ''),
+    SubCategory_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.subcategory || ''),
+    Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
+    Product_Style_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
     Depth_Verified: consensus.agreedPrimaryAttributes.depth_length || rawProduct.Depth_Web_Retailer,
     Width_Verified: consensus.agreedPrimaryAttributes.width || rawProduct.Width_Web_Retailer,
     Height_Verified: consensus.agreedPrimaryAttributes.height || rawProduct.Height_Web_Retailer,
@@ -610,23 +657,28 @@ function buildFinalResponse(
     Market_Value: rawProduct.Ferguson_Price || '',
     Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
     Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
-    Description_Verified: consensus.agreedPrimaryAttributes.description || rawProduct.Product_Description_Web_Retailer,
-    Product_Title_Verified: consensus.agreedPrimaryAttributes.product_title || rawProduct.Product_Title_Web_Retailer,
-    Details_Verified: consensus.agreedPrimaryAttributes.details || '',
-    Features_List_HTML: consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '',
+    Description_Verified: cleanedText.description,
+    Product_Title_Verified: cleanedText.title,
+    Details_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.details || ''),
+    Features_List_HTML: cleanedText.featuresHtml,
     UPC_GTIN_Verified: consensus.agreedPrimaryAttributes.upc_gtin || '',
     Model_Number_Verified: consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer,
     Model_Number_Alias: consensus.agreedPrimaryAttributes.model_number_alias || '',
     Model_Parent: consensus.agreedPrimaryAttributes.model_parent || '',
     Model_Variant_Number: consensus.agreedPrimaryAttributes.model_variant_number || '',
-    Total_Model_Variants: consensus.agreedPrimaryAttributes.total_model_variants || ''
+    Total_Model_Variants: cleanEncodingIssues(consensus.agreedPrimaryAttributes.total_model_variants || '')
   };
 
-  const topFilterAttributes: TopFilterAttributes = { ...consensus.agreedTop15Attributes };
+  // Clean top filter attributes
+  const topFilterAttributes: TopFilterAttributes = {};
+  for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
+    topFilterAttributes[key] = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+  }
+  
   const additionalHtml = generateAttributeTable(consensus.agreedAdditionalAttributes);
   const priceAnalysis = buildPriceAnalysis(rawProduct);
   const status = determineStatus(consensus, openaiResult, xaiResult);
-  const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections];
+  const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];
 
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
