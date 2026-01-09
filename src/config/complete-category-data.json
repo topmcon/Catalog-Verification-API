@@ -1,0 +1,536 @@
+{
+  "version": "master-1.0",
+  "sources": {
+    "attribute_analysis": {
+      "file": "category_attribute_analysis_v3.json",
+      "notes": "Global primary display attributes + per-category top15 filter attributes + html_table_attributes + ranked counts."
+    },
+    "taxonomy_tiers": {
+      "file": "category_taxonomy_tiers_v2_data_derived.json",
+      "notes": "Data-derived tier-2 axes (type/style/installation/mount/etc) with top values per category."
+    }
+  },
+  "global": {
+    "primary_display_attributes": [
+      "Brand (Verified)",
+      "Category / Subcategory (Verified)",
+      "Product Family (Verified)",
+      "Product Style (Verified) (Category Specific)",
+      "Depth / length (Verified)",
+      "Width (Verified)",
+      "Height (Verified)",
+      "Weight (Verified)",
+      "MSRP (Verified)",
+      "Market Value",
+      "Description",
+      "Product Title (Verified)",
+      "Details",
+      "Features list",
+      "UPC / GTIN (Verified)",
+      "Model Number (Verified)",
+      "Model Number Alias (Symbols Removed)",
+      "Model Parent",
+      "Model Varient Number",
+      "Total Model Varients (List all varient models)"
+    ],
+    "method_notes": {
+      "filters_top15": "Per category, top 15 filter attributes chosen from most prevalent applicable attributes, excluding primary duplicates and excluded patterns (v3 rules).",
+      "html_table_attributes": "All remaining applicable attributes (non-null in category) excluding primary duplicates and top15 filter attributes."
+    }
+  },
+  "departments": {
+    "categories": {
+      "Air Conditioners #": {
+        "category_name": "Air Conditioners #",
+        "department": "Other / Needs Review",
+        "attribute_system": {
+          "rows_in_category": 5,
+          "applicable_attribute_count": 31,
+          "primary_display_global": [
+            "Brand (Verified)",
+            "Category / Subcategory (Verified)",
+            "Product Family (Verified)",
+            "Product Style (Verified) (Category Specific)",
+            "Depth / length (Verified)",
+            "Width (Verified)",
+            "Height (Verified)",
+            "Weight (Verified)",
+            "MSRP (Verified)",
+            "Market Value",
+            "Description",
+            "Product Title (Verified)",
+            "Details",
+            "Features list",
+            "UPC / GTIN (Verified)",
+            "Model Number (Verified)",
+            "Model Number Alias (Symbols Removed)",
+            "Model Parent",
+            "Model Varient Number",
+            "Total Model Varients (List all varient models)"
+          ],
+          "top15_filter_attributes": [
+            "Air Filter Type",
+            "Amperage",
+            "BTU Cooling",
+            "CEER Rating",
+            "CFM",
+            "Control Type",
+            "Cooling Area",
+            "Display Type",
+            "Fan Speeds",
+            "Heater Included",
+            "Includes Remote",
+            "Includes Thermostat",
+            "Installation Type",
+            "Noise Level",
+            "Nominal Depth"
+          ],
+          "html_table_attributes": [
+            "Country Of Origin",
+            "Manufacturer Warranty",
+            "Nominal Height",
+            "Nominal Width",
+            "Outdoor Approved",
+            "Plug Type",
+            "Product Weight",
+            "Programmable",
+            "Refrigerant",
+            "Sleep Mode",
+            "Voltage",
+            "Wattage",
+            "With Casters"
+          ]
+        }
+      },
+      "Barbeques": {
+        "category_name": "Barbeques",
+        "department": "Other / Needs Review"
+      },
+      "Chemicals & Compounds #": {
+        "category_name": "Chemicals & Compounds #",
+        "department": "Other / Needs Review"
+      },
+      "Coffee Maker": {
+        "category_name": "Coffee Maker",
+        "department": "Other / Needs Review"
+      },
+      "Do Not List (On Hold)": {
+        "category_name": "Do Not List (On Hold)",
+        "department": "Other / Needs Review"
+      },
+      "Drawer": {
+        "category_name": "Drawer",
+        "department": "Other / Needs Review"
+      },
+      "Flush and Semi-Flush #": {
+        "category_name": "Flush and Semi-Flush #",
+        "department": "Other / Needs Review"
+      },
+      "Home Electronics #": {
+        "category_name": "Home Electronics #",
+        "department": "Other / Needs Review"
+      },
+      "Icemaker": {
+        "category_name": "Icemaker",
+        "department": "Other / Needs Review"
+      },
+      "Industrial Strainers #": {
+        "category_name": "Industrial Strainers #",
+        "department": "Other / Needs Review"
+      },
+      "Kitchen Storage & Organization #": {
+        "category_name": "Kitchen Storage & Organization #",
+        "department": "Other / Needs Review"
+      },
+      "Laundry Appliances": {
+        "category_name": "Laundry Appliances",
+        "department": "Other / Needs Review"
+      },
+      "Light Bulbs #": {
+        "category_name": "Light Bulbs #",
+        "department": "Other / Needs Review"
+      },
+      "Standalone Pedestal": {
+        "category_name": "Standalone Pedestal",
+        "department": "Other / Needs Review"
+      },
+      "Water Fountain #": {
+        "category_name": "Water Fountain #",
+        "department": "Other / Needs Review"
+      }
+    },
+    "Appliances": {
+      "categories": {
+        "All in One Washer / Dryer": {
+          "category_name": "All in One Washer / Dryer",
+          "department": "Appliances"
+        },
+        "Cooktop": {
+          "category_name": "Cooktop",
+          "department": "Appliances"
+        },
+        "Dishwasher": {
+          "category_name": "Dishwasher",
+          "department": "Appliances"
+        },
+        "Dryer": {
+          "category_name": "Dryer",
+          "department": "Appliances"
+        },
+        "Freezer": {
+          "category_name": "Freezer",
+          "department": "Appliances"
+        },
+        "Microwave": {
+          "category_name": "Microwave",
+          "department": "Appliances"
+        },
+        "Oven": {
+          "category_name": "Oven",
+          "department": "Appliances"
+        },
+        "Pizza Oven": {
+          "category_name": "Pizza Oven",
+          "department": "Appliances"
+        },
+        "Range": {
+          "category_name": "Range",
+          "department": "Appliances"
+        },
+        "Range Hood": {
+          "category_name": "Range Hood",
+          "department": "Appliances"
+        },
+        "Refrigerator": {
+          "category_name": "Refrigerator",
+          "department": "Appliances"
+        },
+        "Washer": {
+          "category_name": "Washer",
+          "department": "Appliances"
+        }
+      }
+    },
+    "Plumbing & Bath": {
+      "categories": {
+        "Bar & Prep Sinks #": {
+          "category_name": "Bar & Prep Sinks #",
+          "department": "Plumbing & Bath"
+        },
+        "Bar Faucets #": {
+          "category_name": "Bar Faucets #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Faucets #": {
+          "category_name": "Bathroom Faucets #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Hardware and Accessories #": {
+          "category_name": "Bathroom Hardware and Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Lighting #": {
+          "category_name": "Bathroom Lighting #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Mirrors #": {
+          "category_name": "Bathroom Mirrors #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Sinks #": {
+          "category_name": "Bathroom Sinks #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathroom Vanities #": {
+          "category_name": "Bathroom Vanities #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathtub Waste & Overflow #": {
+          "category_name": "Bathtub Waste & Overflow #",
+          "department": "Plumbing & Bath"
+        },
+        "Bathtubs #": {
+          "category_name": "Bathtubs #",
+          "department": "Plumbing & Bath",
+          "attribute_system": {
+            "rows_in_category": 39,
+            "applicable_attribute_count": 79,
+            "primary_display_global": [
+              "Brand (Verified)",
+              "Category / Subcategory (Verified)",
+              "Product Family (Verified)",
+              "Product Style (Verified) (Category Specific)",
+              "Depth / length (Verified)",
+              "Width (Verified)",
+              "Height (Verified)",
+              "Weight (Verified)",
+              "MSRP (Verified)",
+              "Market Value",
+              "Description",
+              "Product Title (Verified)",
+              "Details",
+              "Features list",
+              "UPC / GTIN (Verified)",
+              "Model Number (Verified)",
+              "Model Number Alias (Symbols Removed)",
+              "Model Parent",
+              "Model Varient Number",
+              "Total Model Varients (List all varient models)"
+            ],
+            "top15_filter_attributes": [
+              "Installation Type",
+              "Material",
+              "Drain Placement",
+              "Nominal Length",
+              "Nominal Width",
+              "Number Of Bathers",
+              "Product Weight",
+              "Tub Shape",
+              "Capacity (Gallons)",
+              "Overflow",
+              "Drain Assembly Included",
+              "Overflow Height",
+              "Water Depth",
+              "Accepts Deck Mount Faucet",
+              "Collection"
+            ],
+            "html_table_attributes": [
+              "Country Of Origin",
+              "Manufacturer Warranty",
+              "Handshower Included",
+              "Faucet Included",
+              "Heater Included",
+              "Theme",
+              "Light Included",
+              "Approved for Commercial Use",
+              "Certifications",
+              "ADA",
+              "Made in America",
+              "Self Leveling Base",
+              "Slip Resistant",
+              "Tile Flange",
+              "Commercial Warranty",
+              "Apron Front",
+              "Sound Dampening",
+              "Chromatherapy",
+              "Number of Jets",
+              "Amperage",
+              "Control Type",
+              "Faucet Holes",
+              "ANSI Certification",
+              "CSA Code",
+              "Arm Rests Included",
+              "Voltage",
+              "Pump Placement",
+              "Frequency",
+              "Water Capacity",
+              "ASME Code",
+              "Basin Depth",
+              "Blower",
+              "Faucet Centers",
+              "Illumatherapy",
+              "Lead Leaching Certified NSF/ANSI 61",
+              "Nominal Tub Length / Width",
+              "Walk-In Tub",
+              "CA Drought Compliant",
+              "Diverter Included",
+              "Experience",
+              "Flow Rate (GPM)",
+              "Handle Style",
+              "Handshower",
+              "Handshower Flow Rate",
+              "Horsepower",
+              "Jet Type",
+              "Luxury Whirlpool",
+              "Mounting Type",
+              "Number Of Handles",
+              "Pure Air",
+              "Salon Spa",
+              "Soaking",
+              "Speeds",
+              "Spout Height",
+              "Spout Reach",
+              "Valve Included",
+              "Valve Type",
+              "Water Connection",
+              "Water Connection Type",
+              "Wattage"
+            ]
+          }
+        },
+        "Bidets #": {
+          "category_name": "Bidets #",
+          "department": "Plumbing & Bath"
+        },
+        "Cabinet Hardware #": {
+          "category_name": "Cabinet Hardware #",
+          "department": "Plumbing & Bath"
+        },
+        "Ceiling Fan Accessories #": {
+          "category_name": "Ceiling Fan Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Door Hardware Parts #": {
+          "category_name": "Door Hardware Parts #",
+          "department": "Plumbing & Bath"
+        },
+        "Drainage & Waste #": {
+          "category_name": "Drainage & Waste #",
+          "department": "Plumbing & Bath"
+        },
+        "Drains #": {
+          "category_name": "Drains #",
+          "department": "Plumbing & Bath"
+        },
+        "Garbage Disposals #": {
+          "category_name": "Garbage Disposals #",
+          "department": "Plumbing & Bath"
+        },
+        "Kitchen Accessories #": {
+          "category_name": "Kitchen Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Kitchen Faucets #": {
+          "category_name": "Kitchen Faucets #",
+          "department": "Plumbing & Bath"
+        },
+        "Kitchen Sinks #": {
+          "category_name": "Kitchen Sinks #",
+          "department": "Plumbing & Bath"
+        },
+        "Lighting Accessories #": {
+          "category_name": "Lighting Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Mirrors #": {
+          "category_name": "Mirrors #",
+          "department": "Plumbing & Bath"
+        },
+        "Pot Filler Faucets #": {
+          "category_name": "Pot Filler Faucets #",
+          "department": "Plumbing & Bath"
+        },
+        "Rough-In Valves #": {
+          "category_name": "Rough-In Valves #",
+          "department": "Plumbing & Bath"
+        },
+        "Shower Accessories #": {
+          "category_name": "Shower Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Showers #": {
+          "category_name": "Showers #",
+          "department": "Plumbing & Bath"
+        },
+        "Steam Showers #": {
+          "category_name": "Steam Showers #",
+          "department": "Plumbing & Bath"
+        },
+        "Toilet Seats #": {
+          "category_name": "Toilet Seats #",
+          "department": "Plumbing & Bath"
+        },
+        "Toilets #": {
+          "category_name": "Toilets #",
+          "department": "Plumbing & Bath"
+        },
+        "Tub Faucets #": {
+          "category_name": "Tub Faucets #",
+          "department": "Plumbing & Bath"
+        },
+        "Tub and Shower Accessories #": {
+          "category_name": "Tub and Shower Accessories #",
+          "department": "Plumbing & Bath"
+        },
+        "Vanity Lighting #": {
+          "category_name": "Vanity Lighting #",
+          "department": "Plumbing & Bath"
+        },
+        "Water Heaters #": {
+          "category_name": "Water Heaters #",
+          "department": "Plumbing & Bath"
+        }
+      }
+    },
+    "Home Decor & Fixtures": {
+      "categories": {
+        "Cabinet Organization and Storage #": {
+          "category_name": "Cabinet Organization and Storage #",
+          "department": "Home Decor & Fixtures"
+        },
+        "Furniture #": {
+          "category_name": "Furniture #",
+          "department": "Home Decor & Fixtures"
+        },
+        "Outdoor Fireplaces #": {
+          "category_name": "Outdoor Fireplaces #",
+          "department": "Home Decor & Fixtures"
+        },
+        "Storage Drawers/Doors #": {
+          "category_name": "Storage Drawers/Doors #",
+          "department": "Home Decor & Fixtures"
+        }
+      }
+    },
+    "Lighting": {
+      "categories": {
+        "Ceiling Fans #": {
+          "category_name": "Ceiling Fans #",
+          "department": "Lighting"
+        },
+        "Ceiling Fans with Light #": {
+          "category_name": "Ceiling Fans with Light #",
+          "department": "Lighting"
+        },
+        "Ceiling Lights #": {
+          "category_name": "Ceiling Lights #",
+          "department": "Lighting"
+        },
+        "Chandeliers #": {
+          "category_name": "Chandeliers #",
+          "department": "Lighting"
+        },
+        "Commercial Lighting #": {
+          "category_name": "Commercial Lighting #",
+          "department": "Lighting"
+        },
+        "Kitchen Lighting #": {
+          "category_name": "Kitchen Lighting #",
+          "department": "Lighting"
+        },
+        "Lamps #": {
+          "category_name": "Lamps #",
+          "department": "Lighting"
+        },
+        "Outdoor Lighting #": {
+          "category_name": "Outdoor Lighting #",
+          "department": "Lighting"
+        },
+        "Pendants #": {
+          "category_name": "Pendants #",
+          "department": "Lighting"
+        },
+        "Recessed Lighting #": {
+          "category_name": "Recessed Lighting #",
+          "department": "Lighting"
+        },
+        "Track and Rail Lighting #": {
+          "category_name": "Track and Rail Lighting #",
+          "department": "Lighting"
+        },
+        "Wall Sconces #": {
+          "category_name": "Wall Sconces #",
+          "department": "Lighting"
+        }
+      }
+    },
+    "HVAC": {
+      "categories": {
+        "Hydronic Expansion Tanks #": {
+          "category_name": "Hydronic Expansion Tanks #",
+          "department": "HVAC"
+        }
+      }
+    }
+  }
+}

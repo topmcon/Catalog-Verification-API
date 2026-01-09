@@ -393,24 +393,109 @@ export const ICE_MAKER_SCHEMA: CategorySchema = {
 
 /**
  * ============================================
- * MASTER CATEGORY MAP
+ * MASTER CATEGORY MAP - POPULATED FROM JSON
  * ============================================
  */
-export const MASTER_CATEGORIES: Record<string, CategorySchema> = {
-  'range': RANGE_SCHEMA,
-  'refrigerator': REFRIGERATOR_SCHEMA,
-  'dishwasher': DISHWASHER_SCHEMA,
-  'wall_oven': WALL_OVEN_SCHEMA,
-  'oven': WALL_OVEN_SCHEMA,
-  'cooktop': COOKTOP_SCHEMA,
-  'microwave': MICROWAVE_SCHEMA,
-  'range_hood': RANGE_HOOD_SCHEMA,
-  'washer': WASHER_SCHEMA,
-  'dryer': DRYER_SCHEMA,
-  'freezer': FREEZER_SCHEMA,
-  'wine_cooler': WINE_COOLER_SCHEMA,
-  'ice_maker': ICE_MAKER_SCHEMA
-};
+
+// Import the complete category data JSON
+import completeCategoryData from './complete-category-data.json';
+
+/**
+ * Build MASTER_CATEGORIES from the comprehensive JSON data
+ */
+function buildMasterCategoriesFromJSON(): Record<string, CategorySchema> {
+  const masterCategories: Record<string, CategorySchema> = {};
+  
+  // The JSON structure is:
+  // departments: {
+  //   categories: { ... misc categories },
+  //   "Appliances": { categories: { ... } },
+  //   "Plumbing & Bath": { categories: { ... } },
+  //   "Lighting": { categories: { ... } },
+  //   etc.
+  // }
+  
+  const departments = completeCategoryData.departments as Record<string, any>;
+  
+  // Iterate through all department keys
+  for (const [deptKey, deptData] of Object.entries(departments)) {
+    // Each department has a 'categories' object
+    const categories = deptData.categories || {};
+    
+    for (const [categoryName, categoryData] of Object.entries(categories) as [string, any][]) {
+      // Skip if categoryData is not an object or doesn't have basic info
+      if (!categoryData || typeof categoryData !== 'object') continue;
+      
+      // Normalize category ID (remove special chars, lowercase, replace spaces with underscores)
+      const categoryId = categoryName
+        .toLowerCase()
+        .replace(/\s+#\s*$/g, '') // Remove trailing #
+        .replace(/[^a-z0-9\s]/g, '') // Remove special chars
+        .replace(/\s+/g, '_') // Replace spaces with underscores
+        .trim();
+      
+      // Build top15FilterAttributes from the JSON data
+      const top15Attrs = categoryData?.attribute_system?.top15_filter_attributes || [];
+      const taxonomyTiers = categoryData?.taxonomy_tiers || {};
+      
+      const top15FilterAttributes: FilterAttributeDefinition[] = top15Attrs.map((attrName: string) => {
+        const fieldKey = attrName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        
+        // Infer type based on attribute name patterns
+        let type: 'string' | 'number' | 'boolean' | 'enum' = 'string';
+        let unit: string | undefined;
+        let allowedValues: string[] | undefined;
+        
+        if (attrName.match(/\((in|inches|ft|feet|cm|mm)\)/i)) {
+          type = 'number';
+          const unitMatch = attrName.match(/\((in|inches|ft|feet|cm|mm)\)/i);
+          unit = unitMatch ? unitMatch[1] : undefined;
+        } else if (attrName.match(/\((lbs?|pounds?|kg|gallons?|gal|cu\.?\s*ft\.?)\)/i)) {
+          type = 'number';
+          const unitMatch = attrName.match(/\((lbs?|pounds?|kg|gallons?|gal|cu\.?\s*ft\.?)\)/i);
+          unit = unitMatch ? unitMatch[1] : undefined;
+        } else if (attrName.match(/\((BTU|CFM|watts?|volts?|amps?|dB|sones|RPM)\)/i)) {
+          type = 'number';
+          const unitMatch = attrName.match(/\((BTU|CFM|watts?|volts?|amps?|dB|sones|RPM)\)/i);
+          unit = unitMatch ? unitMatch[1] : undefined;
+        } else if (attrName.match(/^(number|count|quantity)/i) || attrName.match(/(width|height|depth|length|capacity|size|dimension)/i)) {
+          type = 'number';
+        } else if (attrName.match(/^(has|is|includes?|accepts?)/i) || attrName.match(/(included|approved)/i)) {
+          type = 'boolean';
+        } else if (taxonomyTiers[attrName]) {
+          // If taxonomy tier exists, it's an enum
+          type = 'enum';
+          allowedValues = taxonomyTiers[attrName];
+        }
+        
+        return {
+          name: attrName,
+          fieldKey,
+          type,
+          ...(unit && { unit }),
+          ...(allowedValues && { allowedValues }),
+          description: attrName
+        };
+      });
+      
+      // Create the category schema
+      const schema: CategorySchema = {
+        categoryId,
+        categoryName: categoryName.replace(/\s+#\s*$/g, '').trim(), // Remove trailing #
+        department: categoryData.department || deptKey,
+        aliases: [], // Could be enhanced later
+        top15FilterAttributes
+      };
+      
+      masterCategories[categoryId] = schema;
+    }
+  }
+  
+  return masterCategories;
+}
+
+// Build the master categories map from JSON
+export const MASTER_CATEGORIES: Record<string, CategorySchema> = buildMasterCategoriesFromJSON();
 
 /**
  * ============================================
