@@ -97,8 +97,9 @@ ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join(
 
 2. **Brand Verification**: Must match exactly (case-insensitive). Common variations:
    - "GE APPLIANCES" = "GE" 
-   - "Cafe" = "Café" = "CAFE"
+   - "Cafe" = "Café" = "CAFE" = "Caf(eback)" = "CAF(EBACK)"
    - "Sub-Zero" = "Sub Zero" = "SUBZERO"
+   - "KitchenAid" = "KITCHENAID" = "Kitchen Aid"
 
 3. **Dimension Format**: Convert all to decimal inches (e.g., "29 1/2" → "29.5", "29 7/8 in" → "29.875")
 
@@ -106,11 +107,47 @@ ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join(
 
 5. **Boolean Attributes**: Convert "Yes"/"No" to true/false. Empty = null.
 
-6. **Missing Data**: If a required field cannot be found in the raw data, set to null and flag for research.
+6. **Missing Data**: If a required field cannot be found in the raw data, USE EXTERNAL RESEARCH to find the answer. Search manufacturer websites, product databases, and specifications sheets.
 
 7. **Duplicate Removal**: The raw specs may contain duplicates. Return only unique values.
 
 8. **HTML Cleanup**: Remove all HTML tags from text values. Convert <br> to commas in lists.
+
+## ⚠️ CRITICAL: TEXT QUALITY ENHANCEMENT (Customer-Facing Data)
+
+ALL text output must be CUSTOMER-READY. Fix these issues:
+
+9. **Run-on Sentences**: Add proper spacing after periods. "word.Another" → "word. Another"
+
+10. **Encoding Issues**: Fix corrupted characters:
+    - "Caf(eback)" or "CAF(EBACK)" → "Café"
+    - "(TM)" or "(tm)" → "™"
+    - "(R)" or "(r)" → "®"
+    - "&amp;" → "&"
+    - "â€™" → "'"
+    - Remove random parentheses from brand names
+
+11. **Proper Capitalization**:
+    - Brand names: "Café" not "CAFE" or "cafe"
+    - Product titles: Title Case for key words
+    - Preserve technical terms: "BTU", "WiFi", "SmartHQ"
+
+12. **Grammar & Punctuation**:
+    - Add spaces after periods, commas, colons
+    - Remove duplicate punctuation
+    - Fix sentence fragments
+
+13. **Description Enhancement**:
+    - Maximum 500 characters
+    - Complete sentences only
+    - Professional tone
+    - Include key selling points
+
+14. **Feature Extraction**: Extract 5-10 key features from the description as bullet points:
+    - Each feature should be a single selling point
+    - Keep features concise (under 100 characters each)
+    - Start with action verbs or key specs
+    - Examples: "21,000 BTU power burner for rapid boiling", "WiFi enabled with SmartHQ app control", "No Preheat Air Fry technology"
 
 ${retryContext ? buildRetryInstructions(retryContext) : ''}
 

@@ -293,6 +293,48 @@ Your task is to:
 3. MAP the raw data to the correct attributes for that category
 4. VERIFY and CLEAN the data (fix obvious errors, standardize formats)
 5. IDENTIFY any missing required fields
+6. GENERATE high-quality, customer-facing text for title, description, and features
+
+## ⚠️ CRITICAL: TEXT QUALITY ENHANCEMENT (Customer-Facing Data)
+
+ALL text output must be CUSTOMER-READY. You MUST fix these issues:
+
+**Run-on Sentences**: Add proper spacing after periods. 
+- WRONG: "word.Another" 
+- CORRECT: "word. Another"
+
+**Encoding Issues**: Fix corrupted characters:
+- "Caf(eback)" or "CAF(EBACK)" → "Café"
+- "(TM)" or "(tm)" → "™"
+- "(R)" or "(r)" → "®"
+- "&amp;" → "&"
+- "â€™" → "'"
+- Remove random parentheses from brand names
+
+**Proper Capitalization**:
+- Brand names: "Café" not "CAFE" or "cafe"
+- Product titles: Title Case for key words
+- Preserve technical terms: "BTU", "WiFi", "SmartHQ"
+
+**Grammar & Punctuation**:
+- Add spaces after periods, commas, colons
+- Remove duplicate punctuation
+- Fix sentence fragments
+
+**Description Enhancement**:
+- Maximum 500 characters
+- Complete sentences only
+- Professional tone
+- Include key selling points
+
+**Feature List Generation**: 
+You MUST extract 5-10 key features from the product description and specifications.
+Each feature should be:
+- A single selling point (under 100 characters)
+- Action-oriented when possible
+- Example: "21,000 BTU power burner for rapid boiling"
+- Example: "WiFi enabled with SmartHQ app control"
+- Example: "No Preheat Air Fry technology"
 
 ATTRIBUTE STRUCTURE:
 
@@ -323,10 +365,10 @@ You must respond with valid JSON in this exact format:
     "weight": "value in lbs",
     "msrp": "value",
     "market_value": "value",
-    "description": "full description",
-    "product_title": "standardized title",
+    "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
+    "product_title": "ENHANCED standardized title (proper capitalization, cleaned encoding)",
     "details": "additional details",
-    "features_list": "HTML formatted list",
+    "features_list": "GENERATED feature list as HTML <ul><li>Feature 1</li><li>Feature 2</li>...</ul>",
     "upc_gtin": "value",
     "model_number": "value",
     "model_number_alias": "symbols removed",
@@ -356,7 +398,8 @@ IMPORTANT:
 - Standardize units (dimensions in inches, capacity in cu. ft.)
 - Clean up formatting (proper capitalization, remove extra spaces)
 - Flag fields you cannot determine with confidence
-- For TOP 15 attributes, use only the attributes defined for the determined category`;
+- For TOP 15 attributes, use only the attributes defined for the determined category
+- ALWAYS generate a features_list even if no features are in the raw data - extract them from description and specs`;
 }
 
 function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct): string {
@@ -368,9 +411,17 @@ ${JSON.stringify(rawProduct, null, 2)}
 Tasks:
 1. Determine the product category from our master list
 2. Map all available data to the correct attribute fields for that category
-3. Clean and standardize the values
-4. List any missing required fields
-5. Note any corrections you made
+3. **CRITICAL**: Clean and enhance ALL customer-facing text:
+   - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
+   - Fix run-on sentences (add spaces after periods)
+   - Ensure proper capitalization
+   - Professional grammar and punctuation
+4. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
+5. List any missing required fields
+6. Note any corrections you made
+
+The product_title, description, and features_list will be displayed directly to customers.
+They MUST be professional, well-formatted, and error-free.
 
 Return your analysis as JSON.`;
 }
