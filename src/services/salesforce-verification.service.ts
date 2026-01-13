@@ -499,6 +499,8 @@ function buildPrimaryAttributes(
     SubCategory_Verified: getConsensusValue(consensusMap, 'subcategory') || rawProduct.Web_Retailer_SubCategory,
     Product_Family_Verified: getConsensusValue(consensusMap, 'product_family') || '',
     Product_Style_Verified: getConsensusValue(consensusMap, 'product_style') || '',
+    Color_Verified: getConsensusValue(consensusMap, 'color') || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || '',
+    Finish_Verified: getConsensusValue(consensusMap, 'finish') || rawProduct.Ferguson_Finish || '',
     Depth_Verified: getConsensusValue(consensusMap, 'depth') || rawProduct.Depth_Web_Retailer,
     Width_Verified: getConsensusValue(consensusMap, 'width') || rawProduct.Width_Web_Retailer,
     Height_Verified: getConsensusValue(consensusMap, 'height') || rawProduct.Height_Web_Retailer,

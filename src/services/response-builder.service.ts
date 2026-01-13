@@ -71,9 +71,19 @@ export function buildPrimaryAttributes(
   corrections: CorrectionRecord[]
 ): PrimaryDisplayAttributes {
   // Helper to get corrected value or original
+  // Supports both snake_case and camelCase property names for compatibility
   const getCorrected = (field: string, original: string): string => {
-    const correction = corrections.find(c => c.field === field);
-    return correction ? String(correction.corrected_value) : original;
+    // Map field name variations (e.g., 'title' matches 'product_title')
+    const fieldVariants = [field, `product_${field}`, field.replace(/_/g, '')];
+    const correction = corrections.find(c => 
+      fieldVariants.some(v => c.field.toLowerCase().includes(v.toLowerCase()))
+    );
+    if (correction) {
+      // Support both corrected_value and correctedValue
+      const correctedVal = correction.corrected_value || correction.correctedValue;
+      if (correctedVal) return String(correctedVal);
+    }
+    return original || '';
   };
 
   // Parse dimensions - prefer Ferguson for verified dimensions, fall back to Web Retailer
@@ -88,11 +98,19 @@ export function buildPrimaryAttributes(
   );
   const verifiedSubCategory = mapToVerifiedSubCategory(
     incoming.Web_Retailer_SubCategory,
-    incoming.Ferguson_Product_Type
+    incoming.Ferguson_Product_Type,
+    incoming.Ferguson_Attributes
   );
 
+  // Extract finish from model number if not provided
+  const extractedFinish = extractFinishFromModel(
+    incoming.Ferguson_Model_Number || incoming.Model_Number_Web_Retailer
+  );
+  const verifiedFinish = incoming.Ferguson_Finish || extractedFinish;
+  const verifiedColor = incoming.Ferguson_Color || incoming.Color_Finish_Web_Retailer || '';
+
   // Build model number alias (remove symbols)
-  const modelNumberAlias = incoming.Model_Number_Web_Retailer
+  const modelNumberAlias = (incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number || '')
     .replace(/[^a-zA-Z0-9]/g, '')
     .toUpperCase();
 
@@ -102,6 +120,8 @@ export function buildPrimaryAttributes(
     SubCategory_Verified: verifiedSubCategory,
     Product_Family_Verified: determineProductFamily(verifiedCategory, verifiedSubCategory),
     Product_Style_Verified: determineProductStyle(incoming),
+    Color_Verified: verifiedColor,
+    Finish_Verified: verifiedFinish,
     Depth_Verified: depth,
     Width_Verified: width,
     Height_Verified: height,
@@ -110,15 +130,15 @@ export function buildPrimaryAttributes(
     Market_Value: incoming.Ferguson_Price,
     Market_Value_Min: incoming.Ferguson_Min_Price,
     Market_Value_Max: incoming.Ferguson_Max_Price,
-    Description_Verified: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer)),
+    Description_Verified: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer) || incoming.Ferguson_Description),
     Product_Title_Verified: getCorrected('title', buildVerifiedTitle(incoming)),
     Details_Verified: extractDetails(incoming),
     Features_List_HTML: buildFeaturesListHTML(incoming),
     UPC_GTIN_Verified: getAttributeValue(incoming.Ferguson_Attributes, 'UPC') || '',
-    Model_Number_Verified: incoming.Model_Number_Web_Retailer,
+    Model_Number_Verified: incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number,
     Model_Number_Alias: modelNumberAlias,
-    Model_Parent: extractModelParent(incoming.Model_Number_Web_Retailer),
-    Model_Variant_Number: extractModelVariant(incoming.Model_Number_Web_Retailer),
+    Model_Parent: extractModelParent(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
+    Model_Variant_Number: extractModelVariant(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
     Total_Model_Variants: '',  // Would need catalog lookup
   };
 }
@@ -139,13 +159,20 @@ export function buildTopFilterAttributes(
 
   const filterAttrs: TopFilterAttributes = {};
   const allSourceAttrs = mergeAttributes(incoming);
+  // Track added normalized keys to prevent duplicates
+  const addedKeys = new Set<string>();
 
   // Map top 15 filter attributes from schema
   for (const attrName of schema.top15FilterAttributes) {
     const value = findAttributeValue(allSourceAttrs, attrName);
     if (value !== null && value !== undefined && value !== '') {
       const normalizedKey = normalizeAttributeKey(attrName);
-      filterAttrs[normalizedKey] = value;
+      const lowerKey = normalizedKey.toLowerCase();
+      // Only add if not already added (prevents duplicates)
+      if (!addedKeys.has(lowerKey)) {
+        addedKeys.add(lowerKey);
+        filterAttrs[normalizedKey] = value;
+      }
     }
   }
 
@@ -286,6 +313,67 @@ export function buildVerificationResponse(
 // HELPER FUNCTIONS
 // ============================================
 
+/**
+ * Extract finish/color from model number suffix
+ * Common codes: PN=Polished Nickel, BN=Brushed Nickel, MB=Matte Black, etc.
+ */
+function extractFinishFromModel(modelNumber: string): string {
+  if (!modelNumber) return '';
+  
+  // Common finish code mappings
+  const finishCodes: Record<string, string> = {
+    // Nickel finishes
+    'PN': 'Polished Nickel',
+    'BN': 'Brushed Nickel',
+    'SN': 'Satin Nickel',
+    // Chrome finishes
+    'PC': 'Polished Chrome',
+    'CH': 'Chrome',
+    'CP': 'Chrome Polished',
+    // Black finishes
+    'MB': 'Matte Black',
+    'BLK': 'Black',
+    'BL': 'Black',
+    'FB': 'Flat Black',
+    // Brass finishes
+    'PB': 'Polished Brass',
+    'AB': 'Antique Brass',
+    'BB': 'Brushed Brass',
+    'SB': 'Satin Brass',
+    'ULB': 'Unlacquered Brass',
+    // Bronze finishes
+    'ORB': 'Oil Rubbed Bronze',
+    'RB': 'Rustic Bronze',
+    'VB': 'Venetian Bronze',
+    // Gold finishes
+    'PG': 'Polished Gold',
+    'BG': 'Brushed Gold',
+    'FG': 'French Gold',
+    // Steel finishes
+    'SS': 'Stainless Steel',
+    'BSS': 'Brushed Stainless Steel',
+    // White
+    'WH': 'White',
+    'MW': 'Matte White',
+  };
+
+  // Extract suffix (usually after last hyphen)
+  const parts = modelNumber.toUpperCase().split('-');
+  if (parts.length >= 2) {
+    const suffix = parts[parts.length - 1];
+    if (finishCodes[suffix]) {
+      return finishCodes[suffix];
+    }
+    // Try 2-char prefix of suffix
+    const shortSuffix = suffix.substring(0, 2);
+    if (finishCodes[shortSuffix]) {
+      return finishCodes[shortSuffix];
+    }
+  }
+  
+  return '';
+}
+
 function parseDimension(value: string): string {
   if (!value) return '';
   // Handle fractions like "29 1/2" or "29.5 in"
@@ -319,7 +407,7 @@ function mapToVerifiedCategory(webCategory: string, fergusonCategory: string): s
          fergusonCategory;
 }
 
-function mapToVerifiedSubCategory(webSubCategory: string, fergusonProductType: string): string {
+function mapToVerifiedSubCategory(webSubCategory: string, fergusonProductType: string, fergusonAttrs?: Array<{name: string; value: string}>): string {
   const subCategoryMap: Record<string, string> = {
     'SLIDE IN GAS RANGE': 'Slide-In Gas Range',
     'SLIDE IN ELECTRIC RANGE': 'Slide-In Electric Range',
@@ -327,10 +415,31 @@ function mapToVerifiedSubCategory(webSubCategory: string, fergusonProductType: s
     'Cooking Appliances': 'Gas Range',
   };
 
-  return subCategoryMap[webSubCategory] || 
-         subCategoryMap[fergusonProductType] || 
-         webSubCategory || 
-         fergusonProductType;
+  // Direct mapping first
+  if (subCategoryMap[webSubCategory]) return subCategoryMap[webSubCategory];
+  if (subCategoryMap[fergusonProductType]) return subCategoryMap[fergusonProductType];
+  
+  // For Kitchen Faucets, derive subcategory from attributes
+  if (fergusonProductType === 'Faucet' && fergusonAttrs) {
+    const pulloutSpray = fergusonAttrs.find(a => a.name === 'Pullout Spray')?.value;
+    const pulloutDir = fergusonAttrs.find(a => a.name === 'Pullout Direction')?.value;
+    const numHandles = fergusonAttrs.find(a => a.name === 'Number Of Handles')?.value;
+    
+    const subParts: string[] = [];
+    if (pulloutSpray === 'Yes') {
+      subParts.push(pulloutDir === 'Down' ? 'Pull-Down' : 'Pull-Out');
+    }
+    if (numHandles === '1') {
+      subParts.push('Single Handle');
+    } else if (numHandles === '2') {
+      subParts.push('Double Handle');
+    }
+    if (subParts.length > 0) {
+      return subParts.join(' ') + ' Faucet';
+    }
+  }
+
+  return webSubCategory || fergusonProductType || '';
 }
 
 function determineProductFamily(category: string, _subCategory: string): string {
@@ -346,6 +455,21 @@ function determineProductFamily(category: string, _subCategory: string): string 
     'Dishwasher': 'Kitchen Cleanup',
     'Washer': 'Laundry',
     'Dryer': 'Laundry',
+    // Plumbing
+    'Kitchen Faucets': 'Kitchen Plumbing',
+    'Kitchen Faucets #': 'Kitchen Plumbing',
+    'Bathroom Faucets': 'Bathroom Plumbing',
+    'Bathroom Faucets #': 'Bathroom Plumbing',
+    'Kitchen Sinks': 'Kitchen Plumbing',
+    'Kitchen Sinks #': 'Kitchen Plumbing',
+    'Bathroom Sinks': 'Bathroom Plumbing',
+    'Bathroom Sinks #': 'Bathroom Plumbing',
+    'Toilets': 'Bathroom Plumbing',
+    'Toilets #': 'Bathroom Plumbing',
+    'Bathtubs': 'Bathroom Plumbing',
+    'Bathtubs #': 'Bathroom Plumbing',
+    'Showers': 'Bathroom Plumbing',
+    'Showers #': 'Bathroom Plumbing',
   };
 
   return familyMap[category] || 'Appliances';
@@ -356,12 +480,17 @@ function determineProductStyle(incoming: SalesforceIncomingProduct): string {
   const productType = getAttributeValue(incoming.Web_Retailer_Specs, 'Product Type') ||
                       getAttributeValue(incoming.Ferguson_Attributes, 'Installation Type');
   
+  // For appliances, style is installation type
   if (productType) {
     if (productType.toLowerCase().includes('slide-in')) return 'Slide-In';
     if (productType.toLowerCase().includes('freestanding')) return 'Freestanding';
     if (productType.toLowerCase().includes('drop-in')) return 'Drop-In';
     if (productType.toLowerCase().includes('built-in')) return 'Built-In';
   }
+
+  // For plumbing, get theme/style attribute
+  const theme = getAttributeValue(incoming.Ferguson_Attributes, 'Theme');
+  if (theme) return theme;
 
   return incoming.Web_Retailer_SubCategory || '';
 }
@@ -428,16 +557,36 @@ function buildFeaturesListHTML(incoming: SalesforceIncomingProduct): string {
   // Build features list from attributes
   const features: string[] = [];
   
-  // Extract key features from Ferguson attributes
-  const featureAttrs = [
+  // Appliance-specific features
+  const applianceFeatures = [
     'Convection', 'Self Cleaning', 'Smart Home', 'WiFi Enabled',
     'Air Fry', 'Griddle', 'Sabbath Mode', 'Continuous Grates'
   ];
 
-  for (const attr of featureAttrs) {
+  // Plumbing/faucet-specific features
+  const plumbingFeatures = [
+    'Pullout Spray', 'Magnetic Docking', 'Touchless', 'Electronic',
+    'Water Efficient', 'ADA', 'Low Lead Compliant', 'Valve Included',
+    'Handles Included', 'Installation Hardware Included'
+  ];
+
+  // Combine all feature attributes to check
+  const allFeatureAttrs = [...applianceFeatures, ...plumbingFeatures];
+
+  for (const attr of allFeatureAttrs) {
     const value = getAttributeValue(incoming.Ferguson_Attributes, attr);
     if (value === 'Yes') {
       features.push(formatFeatureName(attr));
+    }
+  }
+
+  // Also extract features from Ferguson description if present
+  if (incoming.Ferguson_Description && features.length < 10) {
+    const descFeatures = extractFeaturesFromDescription(incoming.Ferguson_Description);
+    for (const feat of descFeatures) {
+      if (!features.includes(feat) && features.length < 12) {
+        features.push(feat);
+      }
     }
   }
 
@@ -450,6 +599,7 @@ function buildFeaturesListHTML(incoming: SalesforceIncomingProduct): string {
 
 function formatFeatureName(attr: string): string {
   const nameMap: Record<string, string> = {
+    // Appliance features
     'Convection': 'True Convection Cooking',
     'Self Cleaning': 'Self-Cleaning Oven',
     'Smart Home': 'Smart Home Compatible',
@@ -458,8 +608,40 @@ function formatFeatureName(attr: string): string {
     'Griddle': 'Included Cast Iron Griddle',
     'Sabbath Mode': 'Certified Sabbath Mode',
     'Continuous Grates': 'Edge-to-Edge Continuous Grates',
+    // Plumbing features
+    'Pullout Spray': 'Pull-Down Spray Head',
+    'Magnetic Docking': 'Magnetic Docking System',
+    'Touchless': 'Touchless Activation',
+    'Electronic': 'Electronic Operation',
+    'Water Efficient': 'WaterSense Certified',
+    'ADA': 'ADA Compliant',
+    'Low Lead Compliant': 'Lead-Free Construction',
+    'Valve Included': 'Valve Included',
+    'Handles Included': 'Handle(s) Included',
+    'Installation Hardware Included': 'Installation Hardware Included',
   };
   return nameMap[attr] || attr;
+}
+
+/**
+ * Extract features from Ferguson description HTML
+ */
+function extractFeaturesFromDescription(descriptionHtml: string): string[] {
+  const features: string[] = [];
+  
+  // Extract list items from description
+  const liRegex = /<li[^>]*>([^<]+)<\/li>/gi;
+  let match;
+  
+  while ((match = liRegex.exec(descriptionHtml)) !== null) {
+    const text = match[1].trim();
+    // Skip specification-like items (contain measurements/numbers)
+    if (text.length > 15 && text.length < 100 && !text.match(/^\d|:\s*\d|"|\d+[\-\/]\d+/)) {
+      features.push(text);
+    }
+  }
+  
+  return features.slice(0, 8); // Limit to 8 features from description
 }
 
 function getAttributeValue(
@@ -487,20 +669,29 @@ function extractModelVariant(modelNumber: string): string {
 
 function mergeAttributes(incoming: SalesforceIncomingProduct): Record<string, string> {
   const merged: Record<string, string> = {};
+  // Track normalized keys to prevent duplicates
+  const normalizedKeys: Map<string, string> = new Map();
+
+  // Helper to add attribute only if not duplicate
+  const addIfNotDuplicate = (name: string, value: string) => {
+    const normalizedKey = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!normalizedKeys.has(normalizedKey) && value && value.trim() !== '') {
+      normalizedKeys.set(normalizedKey, name);
+      merged[name] = value;
+    }
+  };
 
   // Add Ferguson attributes (preferred source for verification)
   if (incoming.Ferguson_Attributes) {
     for (const attr of incoming.Ferguson_Attributes) {
-      merged[attr.name] = attr.value;
+      addIfNotDuplicate(attr.name, attr.value);
     }
   }
 
   // Add Web Retailer specs (fill gaps)
   if (incoming.Web_Retailer_Specs) {
     for (const attr of incoming.Web_Retailer_Specs) {
-      if (!merged[attr.name]) {
-        merged[attr.name] = attr.value;
-      }
+      addIfNotDuplicate(attr.name, attr.value);
     }
   }
 

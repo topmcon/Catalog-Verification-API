@@ -78,6 +78,8 @@ export interface PrimaryDisplayAttributes {
   SubCategory_Verified: string;
   Product_Family_Verified: string;
   Product_Style_Verified: string;  // Category-specific
+  Color_Verified: string;          // Extracted/verified color
+  Finish_Verified: string;         // Extracted/verified finish
   Depth_Verified: string;
   Width_Verified: string;
   Height_Verified: string;

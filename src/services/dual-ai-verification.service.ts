@@ -710,6 +710,8 @@ function buildFinalResponse(
     SubCategory_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.subcategory || ''),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
     Product_Style_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
+    Color_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.color || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''),
+    Finish_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.finish || rawProduct.Ferguson_Finish || ''),
     Depth_Verified: consensus.agreedPrimaryAttributes.depth_length || rawProduct.Depth_Web_Retailer,
     Width_Verified: consensus.agreedPrimaryAttributes.width || rawProduct.Width_Web_Retailer,
     Height_Verified: consensus.agreedPrimaryAttributes.height || rawProduct.Height_Web_Retailer,
