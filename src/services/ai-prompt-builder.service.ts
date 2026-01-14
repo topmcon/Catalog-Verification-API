@@ -6,7 +6,7 @@
  * Results are compared for consensus
  */
 
-import { SalesforceIncomingProduct, SalesforceIncomingAttribute } from '../types/salesforce.types';
+import { SalesforceIncomingProduct, SalesforceIncomingAttribute, SalesforceStockImage, SalesforceDocument } from '../types/salesforce.types';
 import { CategoryAttributeConfig } from '../config/category-attributes';
 import { GLOBAL_PRIMARY_ATTRIBUTES, PREMIUM_BRANDS, MID_TIER_BRANDS } from '../config/category-schema';
 
@@ -73,6 +73,16 @@ ${determineBrandTier(rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand)
 
 ### Warranty
 - Ferguson Warranty: ${rawProduct.Ferguson_Manufacturer_Warranty}
+
+### Product Images (Available for visual context):
+${formatImageList(rawProduct.Stock_Images)}
+
+### Reference URLs (Product pages for verification):
+- Ferguson Product Page: ${rawProduct.Ferguson_URL || '(not provided)'}
+- Third-Party Retailer URL: ${rawProduct.Reference_URL || '(not provided)'}
+
+### Documents (URLs to specs, manuals, installation guides):
+${formatDocumentList(rawProduct.Documents)}
 
 ### Web Retailer Specifications (may contain duplicates):
 ${formatAttributeList(rawProduct.Web_Retailer_Specs)}
@@ -211,7 +221,22 @@ Return a JSON object with this EXACT structure:
     "Feature 1 (cleaned, no HTML)",
     "Feature 2",
     "..."
-  ]
+  ],
+
+  "documentEvaluation": [
+    {
+      "url": "document URL",
+      "recommendation": "use|skip|review",
+      "relevanceScore": number (0-100),
+      "reason": "why this document is useful or not",
+      "extractedInfo": ["key info found", "specs", "certifications"]
+    }
+  ],
+
+  "primaryImageRecommendation": {
+    "recommendedIndex": number (0-based index of best image),
+    "reason": "why this image is best for primary display"
+  }
 }
 
 Respond ONLY with the JSON object. No explanations or markdown formatting.`;
@@ -270,6 +295,28 @@ function determineBrandTier(brand: string): string {
   }
   
   return '- Brand Tier: VALUE/UNKNOWN';
+}
+
+/**
+ * Format image list for prompt
+ */
+function formatImageList(images: SalesforceStockImage[] | undefined): string {
+  if (!images || images.length === 0) return '(no images provided)';
+  
+  return images.map((img, idx) => `${idx + 1}. ${img.url}`).join('\n');
+}
+
+/**
+ * Format document list for prompt - AI should evaluate these
+ */
+function formatDocumentList(docs: SalesforceDocument[] | undefined): string {
+  if (!docs || docs.length === 0) return '(no documents provided)';
+  
+  return docs.map((doc, idx) => {
+    const name = doc.name || 'Unnamed Document';
+    const type = doc.type || 'unknown';
+    return `${idx + 1}. [${type}] ${name}: ${doc.url}`;
+  }).join('\n');
 }
 
 /**

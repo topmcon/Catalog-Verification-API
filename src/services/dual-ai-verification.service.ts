@@ -743,6 +743,11 @@ function buildFinalResponse(
   const status = determineStatus(consensus, openaiResult, xaiResult);
   const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];
 
+  // Build new sections for media, links, and documents
+  const mediaAssets = buildMediaAssets(rawProduct);
+  const referenceLinks = buildReferenceLinks(rawProduct);
+  const documentsSection = buildDocumentsSection(rawProduct);
+
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
     verification_session_id: sessionId,
@@ -766,6 +771,9 @@ function buildFinalResponse(
     Top_Filter_Attributes: topFilterAttributes,
     Additional_Attributes_HTML: additionalHtml,
     Price_Analysis: priceAnalysis,
+    Media: mediaAssets,
+    Reference_Links: referenceLinks,
+    Documents: documentsSection,
     Verification: verification,
     Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
   };
@@ -809,6 +817,75 @@ function determineStatus(consensus: ConsensusResult, openaiResult: AIAnalysisRes
   return 'failed';
 }
 
+/**
+ * Build Media Assets section from incoming product images
+ */
+function buildMediaAssets(rawProduct: SalesforceIncomingProduct): {
+  Primary_Image_URL: string;
+  All_Image_URLs: string[];
+  Image_Count: number;
+} {
+  const stockImages = rawProduct.Stock_Images || [];
+  const imageUrls = stockImages.map(img => img.url).filter(url => url && url.trim() !== '');
+  
+  return {
+    Primary_Image_URL: imageUrls.length > 0 ? imageUrls[0] : '',
+    All_Image_URLs: imageUrls,
+    Image_Count: imageUrls.length,
+  };
+}
+
+/**
+ * Build Reference Links section from incoming product URLs
+ */
+function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
+  Ferguson_URL: string;
+  Web_Retailer_URL: string;
+  Manufacturer_URL: string;
+} {
+  return {
+    Ferguson_URL: rawProduct.Ferguson_URL || '',
+    Web_Retailer_URL: rawProduct.Reference_URL || '',
+    Manufacturer_URL: '', // Could be extracted from documents
+  };
+}
+
+/**
+ * Build Documents Section - placeholder until AI evaluation is integrated
+ */
+function buildDocumentsSection(rawProduct: SalesforceIncomingProduct): {
+  total_count: number;
+  recommended_count: number;
+  documents: Array<{
+    url: string;
+    name?: string;
+    type?: string;
+    ai_recommendation: 'use' | 'skip' | 'review';
+    relevance_score: number;
+    reason: string;
+    extracted_info?: string;
+  }>;
+} {
+  const incomingDocs = rawProduct.Documents || [];
+  
+  // Mark all as 'review' until AI evaluation is implemented
+  const documents = incomingDocs.map(doc => ({
+    url: doc.url,
+    name: doc.name,
+    type: doc.type,
+    ai_recommendation: 'review' as const,
+    relevance_score: 0,
+    reason: 'Pending AI evaluation',
+    extracted_info: undefined,
+  }));
+  
+  return {
+    total_count: documents.length,
+    recommended_count: 0,
+    documents,
+  };
+}
+
 function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: string, error: unknown): SalesforceVerificationResponse {
   const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 
@@ -826,6 +903,21 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
       price_difference: 0,
       price_difference_percent: 0,
       price_position: 'at_market'
+    },
+    Media: {
+      Primary_Image_URL: '',
+      All_Image_URLs: [],
+      Image_Count: 0,
+    },
+    Reference_Links: {
+      Ferguson_URL: '',
+      Web_Retailer_URL: '',
+      Manufacturer_URL: '',
+    },
+    Documents: {
+      total_count: 0,
+      recommended_count: 0,
+      documents: [],
     },
     Verification: {
       verification_timestamp: new Date().toISOString(),

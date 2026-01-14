@@ -19,6 +19,10 @@ import {
   RangeTopFilterAttributes,
   RefrigeratorTopFilterAttributes,
   DishwasherTopFilterAttributes,
+  MediaAssets,
+  ReferenceLinks,
+  DocumentsSection,
+  EvaluatedDocument,
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
 import {
@@ -258,13 +262,97 @@ export function buildPriceAnalysis(incoming: SalesforceIncomingProduct): PriceAn
 }
 
 /**
+ * Build Media Assets section from incoming product images
+ */
+export function buildMediaAssets(incoming: SalesforceIncomingProduct): MediaAssets {
+  const stockImages = incoming.Stock_Images || [];
+  const imageUrls = stockImages.map(img => img.url).filter(url => url && url.trim() !== '');
+  
+  // Primary image is first image or empty string
+  const primaryImageUrl = imageUrls.length > 0 ? imageUrls[0] : '';
+  
+  return {
+    Primary_Image_URL: primaryImageUrl,
+    All_Image_URLs: imageUrls,
+    Image_Count: imageUrls.length,
+  };
+}
+
+/**
+ * Build Reference Links section from incoming product URLs
+ */
+export function buildReferenceLinks(incoming: SalesforceIncomingProduct): ReferenceLinks {
+  return {
+    Ferguson_URL: incoming.Ferguson_URL || '',
+    Web_Retailer_URL: incoming.Reference_URL || '',
+    Manufacturer_URL: '', // Could be extracted from documents or future enhancement
+  };
+}
+
+/**
+ * Build Documents Section from incoming documents and AI evaluation
+ * @param incoming - The incoming product data
+ * @param aiDocumentEvaluation - AI's evaluation of document usefulness (optional)
+ */
+export function buildDocumentsSection(
+  incoming: SalesforceIncomingProduct,
+  aiDocumentEvaluation?: Array<{
+    documentIndex: number;
+    recommendation: 'use' | 'skip' | 'review';
+    relevanceScore: number;
+    reason: string;
+    extractedInfo?: string;
+  }>
+): DocumentsSection {
+  const incomingDocs = incoming.Documents || [];
+  
+  // Build evaluated documents list
+  const evaluatedDocuments: EvaluatedDocument[] = incomingDocs.map((doc, index) => {
+    // Find AI evaluation for this document if available
+    const aiEval = aiDocumentEvaluation?.find(e => e.documentIndex === index);
+    
+    return {
+      url: doc.url,
+      name: doc.name,
+      type: doc.type,
+      ai_recommendation: aiEval?.recommendation || 'review',
+      relevance_score: aiEval?.relevanceScore || 0,
+      reason: aiEval?.reason || 'Not evaluated by AI',
+      extracted_info: aiEval?.extractedInfo,
+    };
+  });
+  
+  // Count recommended documents
+  const recommendedCount = evaluatedDocuments.filter(
+    d => d.ai_recommendation === 'use'
+  ).length;
+  
+  return {
+    total_count: evaluatedDocuments.length,
+    recommended_count: recommendedCount,
+    documents: evaluatedDocuments,
+  };
+}
+
+/**
  * Build Complete Verification Response
  */
 export function buildVerificationResponse(
   incoming: SalesforceIncomingProduct,
   sessionId: string,
   corrections: CorrectionRecord[] = [],
-  dataSources: string[] = ['Web_Retailer', 'Ferguson']
+  dataSources: string[] = ['Web_Retailer', 'Ferguson'],
+  aiDocumentEvaluation?: Array<{
+    documentIndex: number;
+    recommendation: 'use' | 'skip' | 'review';
+    relevanceScore: number;
+    reason: string;
+    extractedInfo?: string;
+  }>,
+  aiPrimaryImageRecommendation?: {
+    recommendedIndex: number;
+    reason: string;
+  }
 ): SalesforceVerificationResponse {
   // Determine category
   const category = mapToVerifiedCategory(
@@ -279,6 +367,19 @@ export function buildVerificationResponse(
     incoming, category, primaryAttrs, topFilterAttrs
   );
   const priceAnalysis = buildPriceAnalysis(incoming);
+  
+  // Build new sections for media, links, and documents
+  const mediaAssets = buildMediaAssets(incoming);
+  const referenceLinks = buildReferenceLinks(incoming);
+  const documentsSection = buildDocumentsSection(incoming, aiDocumentEvaluation);
+  
+  // Apply AI primary image recommendation if provided
+  if (aiPrimaryImageRecommendation && mediaAssets.All_Image_URLs.length > 0) {
+    const recIndex = aiPrimaryImageRecommendation.recommendedIndex;
+    if (recIndex >= 0 && recIndex < mediaAssets.All_Image_URLs.length) {
+      mediaAssets.Primary_Image_URL = mediaAssets.All_Image_URLs[recIndex];
+    }
+  }
 
   // Calculate verification score
   const verificationScore = calculateVerificationScore(incoming, primaryAttrs, topFilterAttrs);
@@ -303,6 +404,9 @@ export function buildVerificationResponse(
     Top_Filter_Attributes: topFilterAttrs,
     Additional_Attributes_HTML: additionalHTML,
     Price_Analysis: priceAnalysis,
+    Media: mediaAssets,
+    Reference_Links: referenceLinks,
+    Documents: documentsSection,
     Verification: verification,
     Status: verification.verification_status === 'failed' ? 'failed' : 
             verification.verification_status === 'needs_review' ? 'partial' : 'success',
@@ -895,5 +999,8 @@ export default {
   buildTopFilterAttributes,
   buildAdditionalAttributesHTML,
   buildPriceAnalysis,
+  buildMediaAssets,
+  buildReferenceLinks,
+  buildDocumentsSection,
   buildVerificationResponse,
 };

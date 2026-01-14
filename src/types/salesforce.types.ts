@@ -14,6 +14,16 @@ export interface SalesforceIncomingAttribute {
   value: string;
 }
 
+export interface SalesforceStockImage {
+  url: string;
+}
+
+export interface SalesforceDocument {
+  url: string;
+  name?: string;
+  type?: string;
+}
+
 export interface SalesforceIncomingProduct {
   // Salesforce Record Identifiers
   SF_Catalog_Id: string;
@@ -36,6 +46,11 @@ export interface SalesforceIncomingProduct {
   Web_Retailer_SubCategory: string;
   Specification_Table: string;  // HTML table
   Web_Retailer_Specs: SalesforceIncomingAttribute[];
+
+  // Media and Documents
+  Stock_Images?: SalesforceStockImage[];
+  Documents?: SalesforceDocument[];
+  Reference_URL?: string;  // Third-party retailer URL
 
   // Ferguson Data (Comparison Source)
   Ferguson_Title: string;
@@ -134,6 +149,38 @@ export interface CorrectionRecord {
   reason: string;
 }
 
+// Media Assets (Images for the product)
+export interface MediaAssets {
+  Primary_Image_URL: string;
+  All_Image_URLs: string[];
+  Image_Count: number;
+}
+
+// Reference Links (Product pages and sources)
+export interface ReferenceLinks {
+  Ferguson_URL: string;
+  Web_Retailer_URL: string;
+  Manufacturer_URL?: string;
+}
+
+// Document with AI evaluation
+export interface EvaluatedDocument {
+  url: string;
+  name?: string;
+  type?: string;
+  ai_recommendation: 'use' | 'skip' | 'review';
+  relevance_score: number;  // 0-100
+  reason: string;
+  extracted_info?: string;  // Key info AI found in document
+}
+
+// Documents section for response
+export interface DocumentsSection {
+  total_count: number;
+  recommended_count: number;
+  documents: EvaluatedDocument[];
+}
+
 // Price Analysis
 export interface PriceAnalysis {
   msrp_web_retailer: number;
@@ -159,6 +206,15 @@ export interface SalesforceVerificationResponse {
 
   // Additional Attributes as HTML Table
   Additional_Attributes_HTML: string;
+
+  // Media Assets (Product Images)
+  Media: MediaAssets;
+
+  // Reference Links (Product pages)
+  Reference_Links: ReferenceLinks;
+
+  // Documents with AI evaluation
+  Documents: DocumentsSection;
 
   // Price Analysis
   Price_Analysis: PriceAnalysis;
