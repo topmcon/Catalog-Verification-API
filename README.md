@@ -97,6 +97,9 @@ SALESFORCE_SECURITY_TOKEN=your-token
 # Consensus Settings
 AI_CONSENSUS_THRESHOLD=0.9
 AI_MAX_RETRIES=3
+
+# Debugging & Tracking
+TRACK_RAW_PAYLOADS=true  # Store full request/response payloads in MongoDB
 ```
 
 ### Running the Application
