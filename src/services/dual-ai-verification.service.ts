@@ -489,10 +489,20 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
     }
   }
 
-  const agreementRatio = 1 - (disagreements.filter(d => d.resolution === 'unresolved').length / 
-    Math.max(1, Object.keys(agreedPrimary).length + Object.keys(agreedTop15).length));
+  // Calculate agreement ratio - clamp to 0-1 range to prevent negative scores
+  const totalAgreedFields = Object.keys(agreedPrimary).length + Object.keys(agreedTop15).length + Object.keys(agreedAdditional).length;
+  const unresolvedCount = disagreements.filter(d => d.resolution === 'unresolved').length;
+  const agreementRatio = Math.max(0, Math.min(1, 
+    totalAgreedFields > 0 ? (totalAgreedFields - unresolvedCount) / totalAgreedFields : 0
+  ));
   
-  const overallConfidence = ((openaiResult.confidence + xaiResult.confidence) / 2 * 0.6 + agreementRatio * 0.4);
+  // Calculate overall confidence - ensure AI confidence values are valid (0-1 range)
+  const openaiConf = Math.max(0, Math.min(1, openaiResult.confidence || 0));
+  const xaiConf = Math.max(0, Math.min(1, xaiResult.confidence || 0));
+  const avgAiConfidence = (openaiConf + xaiConf) / 2;
+  
+  // Final score: 60% AI confidence + 40% agreement ratio (both now guaranteed 0-1)
+  const overallConfidence = Math.max(0, Math.min(1, avgAiConfidence * 0.6 + agreementRatio * 0.4));
 
   return {
     agreed: categoriesMatch && disagreements.filter(d => d.resolution === 'unresolved').length === 0,
