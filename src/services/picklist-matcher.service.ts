@@ -60,7 +60,9 @@ class PicklistMatcherService {
 
   private loadPicklists(): void {
     try {
-      const picklistDir = path.join(__dirname, '../config/salesforce-picklists');
+      // Use path relative to project root (works for both src and dist)
+      const projectRoot = path.resolve(__dirname, '../../');
+      const picklistDir = path.join(projectRoot, 'src/config/salesforce-picklists');
       
       this.brands = JSON.parse(fs.readFileSync(path.join(picklistDir, 'brands.json'), 'utf-8'));
       this.categories = JSON.parse(fs.readFileSync(path.join(picklistDir, 'categories.json'), 'utf-8'));
