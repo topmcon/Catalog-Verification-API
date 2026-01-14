@@ -602,9 +602,30 @@ function buildPrimaryAttributes(
   rawProduct: SalesforceIncomingProduct,
   consensusMap: Map<string, FieldConsensus>
 ): PrimaryDisplayAttributes {
+  // Get brand from consensus or raw data
+  const brandValue = getConsensusValue(consensusMap, 'brand') || rawProduct.Ferguson_Brand || rawProduct.Brand_Web_Retailer || '';
+  
+  // Match brand to SF picklist and get ID
+  const { picklistMatcher } = require('./picklist-matcher.service');
+  const brandMatch = picklistMatcher.matchBrand(brandValue);
+  const matchedBrand = brandMatch.matched && brandMatch.matchedValue 
+    ? brandMatch.matchedValue.brand_name 
+    : brandValue;
+  const brandId = brandMatch.matched && brandMatch.matchedValue
+    ? brandMatch.matchedValue.brand_id
+    : null;
+
+  // Match category to SF picklist (text only)
+  const categoryValue = getConsensusValue(consensusMap, 'category') || rawProduct.Ferguson_Business_Category || rawProduct.Web_Retailer_Category || '';
+  const categoryMatch = picklistMatcher.matchCategory(categoryValue);
+  const matchedCategory = categoryMatch.matched && categoryMatch.matchedValue
+    ? categoryMatch.matchedValue.category_name
+    : categoryValue;
+
   return {
-    Brand_Verified: getConsensusValue(consensusMap, 'brand') || rawProduct.Brand_Web_Retailer,
-    Category_Verified: getConsensusValue(consensusMap, 'category') || rawProduct.Web_Retailer_Category,
+    Brand_Verified: matchedBrand,
+    Brand_Id: brandId,
+    Category_Verified: matchedCategory,
     SubCategory_Verified: getConsensusValue(consensusMap, 'subcategory') || rawProduct.Web_Retailer_SubCategory,
     Product_Family_Verified: getConsensusValue(consensusMap, 'product_family') || '',
     Product_Style_Verified: getConsensusValue(consensusMap, 'product_style') || '',

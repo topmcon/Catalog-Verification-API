@@ -89,6 +89,7 @@ export interface SalesforceIncomingProduct {
 // Primary Display Attributes (Global - applies to ALL products)
 export interface PrimaryDisplayAttributes {
   Brand_Verified: string;
+  Brand_Id?: string | null;  // SF picklist ID for brand
   Category_Verified: string;
   SubCategory_Verified: string;
   Product_Family_Verified: string;
