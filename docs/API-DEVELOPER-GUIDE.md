@@ -1,6 +1,6 @@
 # Catalog Verification API - Developer Guide
 
-**Version:** 2.2.0  
+**Version:** 2.3.0  
 **Base URL:** `https://verify.cxc-ai.com`  
 **Last Updated:** January 14, 2026
 
@@ -154,6 +154,13 @@ The primary endpoint for product verification using dual AI consensus (OpenAI + 
       "drain_location": "Left",
       "soaking_depth": "15",
       "gallons_capacity": "55"
+    },
+    "Top_Filter_Attribute_Ids": {
+      "material": "a1aaZ000008mBupQAE",
+      "installation_type": "a1aaZ000008nXyzQAE",
+      "drain_location": "a1aaZ000008nAbcQAE",
+      "soaking_depth": "a1aaZ000008nDefQAE",
+      "gallons_capacity": "a1aaZ000008nGhiQAE"
     },
     "Additional_Attributes_HTML": "<table>...</table>",
     "Media": {

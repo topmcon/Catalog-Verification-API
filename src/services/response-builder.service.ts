@@ -418,6 +418,7 @@ export function buildVerificationResponse(
     SF_Catalog_Name: incoming.SF_Catalog_Name,
     Primary_Attributes: primaryAttrs,
     Top_Filter_Attributes: topFilterAttrs,
+    Top_Filter_Attribute_Ids: {},  // Not populated in legacy response builder
     Additional_Attributes_HTML: additionalHTML,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,

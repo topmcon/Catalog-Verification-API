@@ -6,6 +6,7 @@ export {
   SalesforceIncomingProduct,
   PrimaryDisplayAttributes,
   TopFilterAttributes,
+  TopFilterAttributeIds,
   AdditionalAttributesHTML,
   VerificationMetadata,
   CorrectionRecord,

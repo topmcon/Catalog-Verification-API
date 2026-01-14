@@ -19,6 +19,7 @@ import {
   SalesforceVerificationResponse,
   PrimaryDisplayAttributes,
   TopFilterAttributes,
+  TopFilterAttributeIds,
   VerificationMetadata,
   CorrectionRecord,
   PriceAnalysis,
@@ -1022,10 +1023,17 @@ function buildFinalResponse(
     Total_Model_Variants: cleanEncodingIssues(consensus.agreedPrimaryAttributes.total_model_variants || '')
   };
 
-  // Clean top filter attributes
+  // Clean top filter attributes and build attribute ID lookups
   const topFilterAttributes: TopFilterAttributes = {};
+  const topFilterAttributeIds: TopFilterAttributeIds = {};
   for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
     topFilterAttributes[key] = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+    
+    // Look up the attribute ID for this attribute key name
+    const attrMatch = picklistMatcher.matchAttribute(key);
+    topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
+      ? attrMatch.matchedValue.attribute_id 
+      : null;
   }
   
   const additionalHtml = generateAttributeTable(consensus.agreedAdditionalAttributes);
@@ -1100,6 +1108,7 @@ function buildFinalResponse(
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: primaryAttributes,
     Top_Filter_Attributes: topFilterAttributes,
+    Top_Filter_Attribute_Ids: topFilterAttributeIds,
     Additional_Attributes_HTML: additionalHtml,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
@@ -1383,6 +1392,7 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: {} as PrimaryDisplayAttributes,
     Top_Filter_Attributes: {},
+    Top_Filter_Attribute_Ids: {},
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,

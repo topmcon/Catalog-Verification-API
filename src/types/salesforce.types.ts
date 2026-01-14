@@ -124,6 +124,11 @@ export interface TopFilterAttributes {
   [key: string]: string | number | boolean | null;
 }
 
+// Top Filter Attribute IDs (Salesforce record IDs for each attribute key)
+export interface TopFilterAttributeIds {
+  [key: string]: string | null;  // Maps attribute key to SF attribute_id
+}
+
 // Additional Attributes (Everything else as HTML table)
 export interface AdditionalAttributesHTML {
   html: string;  // Pre-formatted HTML table
@@ -258,6 +263,9 @@ export interface SalesforceVerificationResponse {
 
   // Top Category Filter Attributes (Category-Specific Top 15)
   Top_Filter_Attributes: TopFilterAttributes;
+
+  // Top Filter Attribute IDs (Maps attribute keys to Salesforce IDs)
+  Top_Filter_Attribute_Ids: TopFilterAttributeIds;
 
   // Additional Attributes as HTML Table
   Additional_Attributes_HTML: string;

@@ -583,6 +583,7 @@ function buildVerificationResponse(
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: primaryAttributes,
     Top_Filter_Attributes: topFilterAttributes,
+    Top_Filter_Attribute_Ids: {},  // Not populated in legacy verification service
     Additional_Attributes_HTML: additionalAttributesHtml,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
@@ -906,6 +907,7 @@ function buildErrorResponse(
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: {} as PrimaryDisplayAttributes,
     Top_Filter_Attributes: {},
+    Top_Filter_Attribute_Ids: {},
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,
