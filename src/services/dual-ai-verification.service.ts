@@ -537,9 +537,20 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
     }
   }
 
-  // Calculate scores based on total fields analyzed (agreed + disagreed)
+  // Fields that are generated text - these naturally differ between AIs and shouldn't penalize scoring
+  const generatedTextFields = new Set([
+    'description', 'product_title', 'details', 'features_list', 
+    'category_subcategory', 'material' // Often ambiguous
+  ]);
+  
+  // Filter out generated text field disagreements from scoring (but keep them for tracking)
+  const factualDisagreements = disagreements.filter(d => 
+    !generatedTextFields.has(d.field.toLowerCase())
+  );
+  
+  // Calculate scores based on total fields analyzed (agreed + factual disagreed)
   const totalAgreedFields = Object.keys(agreedPrimary).length + Object.keys(agreedTop15).length + Object.keys(agreedAdditional).length;
-  const unresolvedCount = disagreements.filter(d => d.resolution === 'unresolved').length;
+  const unresolvedCount = factualDisagreements.filter(d => d.resolution === 'unresolved').length;
   const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
   
   // Agreement ratio: agreed fields / total fields (not penalizing disagreements as heavily)
@@ -552,8 +563,9 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   const xaiConf = Math.max(0, Math.min(1, xaiResult.confidence || 0));
   const avgAiConfidence = (openaiConf + xaiConf) / 2;
   
-  // Category match bonus: if both AIs agree on category, add 10% bonus
-  const categoryBonus = categoriesMatch ? 0.1 : 0;
+  // Category match bonus: Apply if FINAL agreed category matches (even after cross-validation)
+  // This rewards agreement on the most important classification decision
+  const categoryBonus = agreedCategory ? 0.1 : 0;
   
   // Final score: 50% AI confidence + 40% agreement ratio + 10% category bonus (capped at 1.0)
   const overallConfidence = Math.min(1, avgAiConfidence * 0.5 + agreementRatio * 0.4 + categoryBonus);
@@ -562,6 +574,7 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   logger.info('Consensus scoring breakdown', {
     totalAgreedFields,
     unresolvedCount,
+    textFieldsExcluded: disagreements.length - factualDisagreements.length,
     totalFieldsAnalyzed,
     agreementRatio: Math.round(agreementRatio * 100),
     avgAiConfidence: Math.round(avgAiConfidence * 100),
@@ -996,12 +1009,24 @@ function buildFinalResponse(
   const fieldAIReviews = buildFieldAIReviews(openaiResult, xaiResult, consensus);
 
   // Calculate score breakdown for transparency
+  // Exclude generated text fields from the disagreement count (they naturally differ)
+  const generatedTextFields = new Set([
+    'description', 'product_title', 'details', 'features_list', 
+    'category_subcategory', 'material'
+  ]);
+  
   const totalAgreedFields = Object.keys(consensus.agreedPrimaryAttributes).length + 
     Object.keys(consensus.agreedTop15Attributes).length + 
     Object.keys(consensus.agreedAdditionalAttributes).length;
-  const unresolvedCount = consensus.disagreements.filter(d => d.resolution === 'unresolved').length;
+  
+  const factualDisagreements = consensus.disagreements.filter(d => 
+    !generatedTextFields.has(d.field.toLowerCase())
+  );
+  const unresolvedCount = factualDisagreements.filter(d => d.resolution === 'unresolved').length;
   const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
-  const categoriesMatch = openaiResult.determinedCategory.toLowerCase() === xaiResult.determinedCategory.toLowerCase();
+  
+  // Category bonus applies if we have a final agreed category (even after cross-validation)
+  const hasFinalCategory = consensus.agreedCategory && consensus.agreedCategory.length > 0;
 
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
@@ -1020,12 +1045,13 @@ function buildFinalResponse(
     score_breakdown: {
       ai_confidence_component: Math.round(((openaiResult.confidence + xaiResult.confidence) / 2) * 50),
       agreement_component: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 40),
-      category_bonus: categoriesMatch ? 10 : 0,
+      category_bonus: hasFinalCategory ? 10 : 0,
       fields_agreed: totalAgreedFields,
       fields_disagreed: unresolvedCount,
       total_fields: totalFieldsAnalyzed,
       agreement_percentage: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 100),
-      disagreement_details: consensus.disagreements.slice(0, 5).map(d => ({
+      text_fields_excluded: consensus.disagreements.length - factualDisagreements.length,
+      disagreement_details: factualDisagreements.slice(0, 5).map(d => ({
         field: d.field,
         openai: String(d.openaiValue).substring(0, 50),
         xai: String(d.xaiValue).substring(0, 50)

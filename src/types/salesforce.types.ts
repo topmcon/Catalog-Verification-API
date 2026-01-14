@@ -139,12 +139,13 @@ export interface VerificationMetadata {
   score_breakdown?: {
     ai_confidence_component: number;  // Max 50 points from AI confidence
     agreement_component: number;       // Max 40 points from field agreement
-    category_bonus: number;            // 10 points if both AIs agree on category
+    category_bonus: number;            // 10 points if both AIs agree on category (after cross-validation)
     fields_agreed: number;
     fields_disagreed: number;
     total_fields: number;
     agreement_percentage: number;      // 0-100
-    disagreement_details: Array<{      // Top 5 disagreements for debugging
+    text_fields_excluded: number;      // Number of generated text fields excluded from scoring
+    disagreement_details: Array<{      // Top 5 factual disagreements for debugging
       field: string;
       openai: string;
       xai: string;
