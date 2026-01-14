@@ -39,6 +39,7 @@ import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
+import alertingService from './alerting.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -205,6 +206,25 @@ export async function verifyProductWithDualAI(
     const processingTime = Date.now() - startTime;
     const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
     
+    // Run alerting checks
+    alertingService.recordResult(response.Status === 'success');
+    alertingService.checkResponseTime(verificationSessionId, rawProduct.SF_Catalog_Id || 'unknown', processingTime);
+    alertingService.checkConfidence(
+      verificationSessionId,
+      rawProduct.SF_Catalog_Id || 'unknown',
+      openaiResult.confidence,
+      xaiResult.confidence,
+      consensus.overallConfidence
+    );
+    alertingService.checkConsensus(
+      verificationSessionId,
+      rawProduct.SF_Catalog_Id || 'unknown',
+      consensus.overallConfidence,
+      Object.keys(consensus.agreedPrimaryAttributes).length + Object.keys(consensus.agreedTop15Attributes).length,
+      consensus.disagreements.length,
+      openaiResult.determinedCategory === xaiResult.determinedCategory || !!consensus.agreedCategory
+    );
+    
     // Store analytics for ML training and trend analysis
     verificationAnalyticsService.storeVerificationResult(
       verificationSessionId,
@@ -224,6 +244,9 @@ export async function verifyProductWithDualAI(
   } catch (error) {
     logger.error('Dual AI verification failed', { sessionId: verificationSessionId, error });
     const errorResponse = buildErrorResponse(rawProduct, verificationSessionId, error);
+    
+    // Record failure for alerting
+    alertingService.recordResult(false);
     
     // Complete tracking with error
     await trackingService.completeTrackingWithError(trackingId, error instanceof Error ? error : new Error(String(error)), 500);

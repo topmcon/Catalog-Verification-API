@@ -183,6 +183,9 @@ VerificationResultSchema.index({ timestamp: -1, product_category: 1 });
 VerificationResultSchema.index({ 'consensus.agreement_percentage': 1 });
 VerificationResultSchema.index({ brand: 1, timestamp: -1 });
 
+// TTL index for automatic cleanup - 90 days retention
+VerificationResultSchema.index({ createdAt: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
+
 export const VerificationResult = mongoose.model<IVerificationResult>('VerificationResult', VerificationResultSchema);
 
 

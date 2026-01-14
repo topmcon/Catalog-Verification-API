@@ -325,7 +325,7 @@ APITrackerSchema.index({ 'issues.severity': 1 });
 APITrackerSchema.index({ verificationScore: 1 });
 APITrackerSchema.index({ totalProcessingTimeMs: 1 });
 
-// TTL index for automatic cleanup (optional - set to 90 days)
-// APITrackerSchema.index({ createdAt: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
+// TTL index for automatic cleanup - 90 days retention
+APITrackerSchema.index({ createdAt: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
 
 export const APITracker = mongoose.model<IAPITracker>('APITracker', APITrackerSchema);

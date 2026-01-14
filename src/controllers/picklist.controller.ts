@@ -111,12 +111,66 @@ export class PicklistController {
 
   /**
    * GET /api/picklists/mismatches
-   * Get logged mismatches for review
+   * Get logged mismatches for review (from MongoDB)
    */
-  async getMismatches(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getMismatches(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const mismatches = picklistMatcher.getMismatches();
+      const { type, resolved, limit } = req.query;
+      
+      const mismatches = await picklistMatcher.getPersistedMismatches({
+        type: type as 'brand' | 'category' | 'style' | 'attribute' | undefined,
+        resolved: resolved === 'true' ? true : resolved === 'false' ? false : undefined,
+        limit: limit ? parseInt(limit as string) : 100
+      });
+      
       res.json({ success: true, count: mismatches.length, data: mismatches });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * GET /api/picklists/mismatches/stats
+   * Get mismatch statistics
+   */
+  async getMismatchStats(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const stats = await picklistMatcher.getMismatchStats();
+      res.json({ success: true, data: stats });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/mismatches/:type/:value/resolve
+   * Resolve a mismatch
+   */
+  async resolveMismatch(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { type, value } = req.params;
+      const { action, resolvedValue, resolvedBy } = req.body;
+      
+      if (!['added_to_picklist', 'mapped_to_existing', 'ignored'].includes(action)) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'action must be one of: added_to_picklist, mapped_to_existing, ignored' 
+        });
+        return;
+      }
+      
+      const result = await picklistMatcher.resolveMismatch(type, decodeURIComponent(value), {
+        action,
+        resolvedValue,
+        resolvedBy: resolvedBy || 'api'
+      });
+      
+      if (!result) {
+        res.status(404).json({ success: false, error: 'Mismatch not found' });
+        return;
+      }
+      
+      res.json({ success: true, data: result });
     } catch (error) {
       next(error);
     }

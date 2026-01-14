@@ -19,8 +19,10 @@ router.get('/attributes', picklistController.getAttributes.bind(picklistControll
 router.post('/match/brand', picklistController.matchBrand.bind(picklistController));
 router.post('/match/category', picklistController.matchCategory.bind(picklistController));
 
-// Mismatch review
+// Mismatch review (persisted in MongoDB)
 router.get('/mismatches', picklistController.getMismatches.bind(picklistController));
+router.get('/mismatches/stats', picklistController.getMismatchStats.bind(picklistController));
+router.post('/mismatches/:type/:value/resolve', picklistController.resolveMismatch.bind(picklistController));
 
 // Admin operations
 router.post('/reload', picklistController.reloadPicklists.bind(picklistController));

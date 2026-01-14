@@ -11,6 +11,9 @@ export {
   IssueFlag 
 } from './api-tracker.model';
 
+// Picklist Mismatch Model
+export { PicklistMismatch, IPicklistMismatch } from './picklist-mismatch.model';
+
 // Verification Analytics Models
 export {
   VerificationResult,

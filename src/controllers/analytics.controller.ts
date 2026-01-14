@@ -504,6 +504,42 @@ export async function exportData(req: Request, res: Response): Promise<void> {
   }
 }
 
+/**
+ * GET /api/analytics/alerts
+ * Get recent alerts from the alerting service
+ */
+export async function getAlerts(req: Request, res: Response): Promise<void> {
+  try {
+    const alertingServiceModule = await import('../services/alerting.service');
+    const { type, severity, limit, since } = req.query;
+    
+    const alerts = alertingServiceModule.getRecentAlerts({
+      type: type as any,
+      severity: severity as any,
+      limit: limit ? parseInt(limit as string) : 100,
+      since: since ? new Date(since as string) : undefined
+    });
+    
+    const stats = alertingServiceModule.getAlertStats(
+      since ? new Date(since as string) : new Date(Date.now() - 24 * 60 * 60 * 1000)
+    );
+    
+    res.json({
+      success: true,
+      data: {
+        alerts,
+        stats
+      }
+    });
+  } catch (error) {
+    logger.error('Failed to get alerts', { error });
+    res.status(500).json({
+      success: false,
+      error: { message: 'Failed to retrieve alerts' },
+    });
+  }
+}
+
 export default {
   getDashboard,
   getPerformance,
@@ -521,4 +557,5 @@ export default {
   getTrackingBySession,
   getTrackingByCatalog,
   exportData,
+  getAlerts,
 };

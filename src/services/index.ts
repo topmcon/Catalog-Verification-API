@@ -12,6 +12,7 @@ export { default as aiPromptBuilderService } from './ai-prompt-builder.service';
 export { default as dualAIVerificationService } from './dual-ai-verification.service';
 export { default as trackingService } from './tracking.service';
 export { default as analyticsService } from './analytics.service';
+export { default as alertingService } from './alerting.service';
 
 // Named exports with explicit naming to avoid conflicts
 export { validateProduct as openaiValidateProduct, validateProducts as openaiValidateProducts, healthCheck as openaiHealthCheck } from './openai.service';
@@ -29,6 +30,9 @@ export { verifyProductWithDualAI, dualAIVerificationService as dualAIService } f
 
 // Verification Analytics Service
 export { verificationAnalyticsService, VerificationAnalyticsService } from './verification-analytics.service';
+
+// Alerting Service
+export * as alertingServiceFull from './alerting.service';
 
 // Tracking and Analytics exports
 export * as trackingServiceFull from './tracking.service';

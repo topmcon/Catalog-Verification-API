@@ -141,4 +141,15 @@ router.get('/catalog/:catalogId', asyncHandler(analyticsController.getTrackingBy
  */
 router.get('/export', asyncHandler(analyticsController.exportData));
 
+/**
+ * @route   GET /api/analytics/alerts
+ * @desc    Get recent alerts from alerting service
+ * @access  Protected
+ * @query   type - Filter by alert type
+ * @query   severity - Filter by severity: info, warning, critical
+ * @query   limit - Max alerts to return (default: 100)
+ * @query   since - Only alerts after this date (ISO string)
+ */
+router.get('/alerts', asyncHandler(analyticsController.getAlerts));
+
 export default router;

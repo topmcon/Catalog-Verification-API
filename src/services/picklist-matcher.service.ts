@@ -6,6 +6,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import logger from '../utils/logger';
+import { PicklistMismatch, IPicklistMismatch } from '../models/picklist-mismatch.model';
 
 // Picklist data types
 interface Brand {
@@ -42,8 +43,13 @@ interface MismatchLog {
   type: 'brand' | 'category' | 'style' | 'attribute';
   originalValue: string;
   timestamp: Date;
-  productContext?: string;
+  productContext?: {
+    sf_catalog_id?: string;
+    sf_catalog_name?: string;
+    session_id?: string;
+  };
   closestMatches: string[];
+  similarity?: number;
 }
 
 class PicklistMatcherService {
@@ -161,8 +167,8 @@ class PicklistMatcherService {
       };
     }
 
-    // Log mismatch for review
-    this.logMismatch('brand', brandName, scored.slice(0, 3).map(s => s.brand.brand_name));
+    // Log mismatch for review (async, don't await)
+    this.logMismatch('brand', brandName, scored.slice(0, 3).map(s => s.brand.brand_name), best?.similarity);
     
     return { 
       matched: false, 
@@ -209,7 +215,7 @@ class PicklistMatcherService {
       };
     }
 
-    this.logMismatch('category', categoryName, scored.slice(0, 3).map(s => s.category.category_name));
+    this.logMismatch('category', categoryName, scored.slice(0, 3).map(s => s.category.category_name), best?.similarity);
     
     return { 
       matched: false, 
@@ -254,7 +260,7 @@ class PicklistMatcherService {
       };
     }
 
-    this.logMismatch('style', styleName, scored.slice(0, 3).map(s => s.style.style_name));
+    this.logMismatch('style', styleName, scored.slice(0, 3).map(s => s.style.style_name), best?.similarity);
     
     return { 
       matched: false, 
@@ -299,7 +305,7 @@ class PicklistMatcherService {
       };
     }
 
-    this.logMismatch('attribute', attributeName, scored.slice(0, 3).map(s => s.attribute.attribute_name));
+    this.logMismatch('attribute', attributeName, scored.slice(0, 3).map(s => s.attribute.attribute_name), best?.similarity);
     
     return { 
       matched: false, 
@@ -311,29 +317,154 @@ class PicklistMatcherService {
   }
 
   /**
-   * Log a mismatch for analytics review
+   * Log a mismatch for analytics review - persists to MongoDB
    */
-  private logMismatch(type: MismatchLog['type'], originalValue: string, closestMatches: string[]): void {
+  private async logMismatch(
+    type: MismatchLog['type'], 
+    originalValue: string, 
+    closestMatches: string[],
+    similarity?: number,
+    productContext?: MismatchLog['productContext']
+  ): Promise<void> {
     const mismatch: MismatchLog = {
       type,
       originalValue,
       timestamp: new Date(),
-      closestMatches
+      closestMatches,
+      similarity,
+      productContext
     };
     this.mismatches.push(mismatch);
     
     logger.warn('Picklist mismatch detected', {
       type,
       originalValue,
-      closestMatches
+      closestMatches,
+      similarity
     });
+
+    // Persist to MongoDB (upsert - increment count if exists)
+    try {
+      await PicklistMismatch.findOneAndUpdate(
+        { type, originalValue: originalValue.trim() },
+        {
+          $set: {
+            closestMatches,
+            similarity: similarity || 0,
+            lastSeen: new Date(),
+            ...(productContext && { productContext })
+          },
+          $inc: { occurrenceCount: 1 },
+          $setOnInsert: {
+            firstSeen: new Date(),
+            resolved: false
+          }
+        },
+        { upsert: true, new: true }
+      );
+    } catch (error) {
+      logger.error('Failed to persist picklist mismatch', { type, originalValue, error });
+    }
   }
 
   /**
-   * Get all logged mismatches
+   * Log mismatch with context (for use during verification)
+   */
+  async logMismatchWithContext(
+    type: MismatchLog['type'],
+    originalValue: string,
+    closestMatches: string[],
+    similarity: number,
+    context: { sf_catalog_id?: string; sf_catalog_name?: string; session_id?: string }
+  ): Promise<void> {
+    await this.logMismatch(type, originalValue, closestMatches, similarity, context);
+  }
+
+  /**
+   * Get all logged mismatches (in-memory)
    */
   getMismatches(): MismatchLog[] {
     return [...this.mismatches];
+  }
+
+  /**
+   * Get persisted mismatches from MongoDB
+   */
+  async getPersistedMismatches(options?: {
+    type?: 'brand' | 'category' | 'style' | 'attribute';
+    resolved?: boolean;
+    limit?: number;
+    sortBy?: 'occurrenceCount' | 'lastSeen' | 'firstSeen';
+  }): Promise<any[]> {
+    const query: any = {};
+    if (options?.type) query.type = options.type;
+    if (typeof options?.resolved === 'boolean') query.resolved = options.resolved;
+
+    const sortField = options?.sortBy || 'occurrenceCount';
+    const sort: any = { [sortField]: -1 };
+
+    return PicklistMismatch.find(query)
+      .sort(sort)
+      .limit(options?.limit || 100)
+      .lean();
+  }
+
+  /**
+   * Resolve a mismatch (mark as handled)
+   */
+  async resolveMismatch(
+    type: string,
+    originalValue: string,
+    resolution: {
+      action: 'added_to_picklist' | 'mapped_to_existing' | 'ignored';
+      resolvedValue?: string;
+      resolvedBy?: string;
+    }
+  ): Promise<IPicklistMismatch | null> {
+    return PicklistMismatch.findOneAndUpdate(
+      { type, originalValue },
+      {
+        $set: {
+          resolved: true,
+          resolution: {
+            ...resolution,
+            resolvedAt: new Date()
+          }
+        }
+      },
+      { new: true }
+    );
+  }
+
+  /**
+   * Get mismatch statistics
+   */
+  async getMismatchStats(): Promise<{
+    total: number;
+    unresolved: number;
+    byType: { type: string; count: number; unresolvedCount: number }[];
+    topUnresolved: any[];
+  }> {
+    const [total, unresolved, byType, topUnresolved] = await Promise.all([
+      PicklistMismatch.countDocuments(),
+      PicklistMismatch.countDocuments({ resolved: false }),
+      PicklistMismatch.aggregate([
+        {
+          $group: {
+            _id: '$type',
+            count: { $sum: 1 },
+            unresolvedCount: { $sum: { $cond: ['$resolved', 0, 1] } }
+          }
+        },
+        { $project: { type: '$_id', count: 1, unresolvedCount: 1, _id: 0 } }
+      ]),
+      PicklistMismatch.find({ resolved: false })
+        .sort({ occurrenceCount: -1 })
+        .limit(10)
+        .lean()
+    ]);
+
+    return { total, unresolved, byType, topUnresolved };
   }
 
   /**
