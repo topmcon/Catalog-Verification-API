@@ -38,6 +38,7 @@ import { cleanCustomerFacingText, cleanEncodingIssues } from '../utils/text-clea
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
+import picklistMatcher from './picklist-matcher.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
 import alertingService from './alerting.service';
 
@@ -983,6 +984,10 @@ function buildFinalResponse(
   
   const primaryAttributes: PrimaryDisplayAttributes = {
     Brand_Verified: cleanedText.brand,
+    Brand_Id: (() => {
+      const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
+      return brandMatch.matched && brandMatch.matchedValue ? brandMatch.matchedValue.brand_id : null;
+    })(),
     Category_Verified: cleanEncodingIssues(consensus.agreedCategory || ''),
     SubCategory_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.subcategory || ''),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
