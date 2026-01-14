@@ -190,6 +190,183 @@ export class PicklistController {
       next(error);
     }
   }
+
+  /**
+   * GET /api/picklists/brands/:id
+   * Get a brand by ID
+   */
+  async getBrandById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const brand = picklistMatcher.getBrandById(id);
+      
+      if (!brand) {
+        res.status(404).json({ success: false, error: 'Brand not found' });
+        return;
+      }
+      
+      res.json({ success: true, data: brand });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * GET /api/picklists/categories/:id
+   * Get a category by ID
+   */
+  async getCategoryById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const category = picklistMatcher.getCategoryById(id);
+      
+      if (!category) {
+        res.status(404).json({ success: false, error: 'Category not found' });
+        return;
+      }
+      
+      res.json({ success: true, data: category });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/brands
+   * Add a new brand to the picklist
+   */
+  async addBrand(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { brand_id, brand_name } = req.body;
+      
+      if (!brand_id || !brand_name) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'brand_id and brand_name are required' 
+        });
+        return;
+      }
+      
+      const result = await picklistMatcher.addBrand({ brand_id, brand_name });
+      
+      if (!result.success) {
+        res.status(409).json({ 
+          success: false, 
+          error: result.message,
+          existing: result.brand
+        });
+        return;
+      }
+      
+      res.status(201).json({ success: true, data: result.brand, message: result.message });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/categories
+   * Add a new category to the picklist
+   */
+  async addCategory(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { category_id, category_name, department, family } = req.body;
+      
+      if (!category_id || !category_name || !department || !family) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'category_id, category_name, department, and family are required' 
+        });
+        return;
+      }
+      
+      const result = await picklistMatcher.addCategory({ 
+        category_id, 
+        category_name, 
+        department, 
+        family 
+      });
+      
+      if (!result.success) {
+        res.status(409).json({ 
+          success: false, 
+          error: result.message,
+          existing: result.category
+        });
+        return;
+      }
+      
+      res.status(201).json({ success: true, data: result.category, message: result.message });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/styles
+   * Add a new style to the picklist
+   */
+  async addStyle(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { style_id, style_name } = req.body;
+      
+      if (!style_id || !style_name) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'style_id and style_name are required' 
+        });
+        return;
+      }
+      
+      const result = await picklistMatcher.addStyle({ style_id, style_name });
+      
+      if (!result.success) {
+        res.status(409).json({ 
+          success: false, 
+          error: result.message,
+          existing: result.style
+        });
+        return;
+      }
+      
+      res.status(201).json({ success: true, data: result.style, message: result.message });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/attributes
+   * Add a new attribute to the picklist
+   */
+  async addAttribute(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { attribute_id, attribute_name } = req.body;
+      
+      if (!attribute_id || !attribute_name) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'attribute_id and attribute_name are required' 
+        });
+        return;
+      }
+      
+      const result = await picklistMatcher.addAttribute({ attribute_id, attribute_name });
+      
+      if (!result.success) {
+        res.status(409).json({ 
+          success: false, 
+          error: result.message,
+          existing: result.attribute
+        });
+        return;
+      }
+      
+      res.status(201).json({ success: true, data: result.attribute, message: result.message });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const picklistController = new PicklistController();

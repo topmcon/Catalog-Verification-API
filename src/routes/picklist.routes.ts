@@ -15,6 +15,16 @@ router.get('/categories', picklistController.getCategories.bind(picklistControll
 router.get('/styles', picklistController.getStyles.bind(picklistController));
 router.get('/attributes', picklistController.getAttributes.bind(picklistController));
 
+// Get by ID endpoints
+router.get('/brands/:id', picklistController.getBrandById.bind(picklistController));
+router.get('/categories/:id', picklistController.getCategoryById.bind(picklistController));
+
+// Add new picklist items
+router.post('/brands', picklistController.addBrand.bind(picklistController));
+router.post('/categories', picklistController.addCategory.bind(picklistController));
+router.post('/styles', picklistController.addStyle.bind(picklistController));
+router.post('/attributes', picklistController.addAttribute.bind(picklistController));
+
 // Matching endpoints (for testing)
 router.post('/match/brand', picklistController.matchBrand.bind(picklistController));
 router.post('/match/category', picklistController.matchCategory.bind(picklistController));

@@ -500,6 +500,161 @@ class PicklistMatcherService {
   getCategories(): Category[] { return [...this.categories]; }
   getStyles(): Style[] { return [...this.styles]; }
   getAttributes(): Attribute[] { return [...this.attributes]; }
+
+  /**
+   * Get brand by ID
+   */
+  getBrandById(brandId: string): Brand | null {
+    return this.brands.find(b => b.brand_id === brandId) || null;
+  }
+
+  /**
+   * Get category by ID
+   */
+  getCategoryById(categoryId: string): Category | null {
+    return this.categories.find(c => c.category_id === categoryId) || null;
+  }
+
+  /**
+   * Add a new brand to the picklist
+   */
+  async addBrand(brand: Brand): Promise<{ success: boolean; brand: Brand; message: string }> {
+    // Check for duplicate ID
+    const existingById = this.brands.find(b => b.brand_id === brand.brand_id);
+    if (existingById) {
+      return { success: false, brand: existingById, message: 'Brand ID already exists' };
+    }
+
+    // Check for duplicate name
+    const existingByName = this.brands.find(b => 
+      b.brand_name.toUpperCase() === brand.brand_name.toUpperCase()
+    );
+    if (existingByName) {
+      return { success: false, brand: existingByName, message: 'Brand name already exists' };
+    }
+
+    // Normalize brand name to uppercase
+    const normalizedBrand: Brand = {
+      brand_id: brand.brand_id,
+      brand_name: brand.brand_name.toUpperCase()
+    };
+
+    // Add to memory
+    this.brands.push(normalizedBrand);
+
+    // Persist to JSON file
+    try {
+      const projectRoot = path.resolve(__dirname, '../../');
+      const filePath = path.join(projectRoot, 'src/config/salesforce-picklists/brands.json');
+      fs.writeFileSync(filePath, JSON.stringify(this.brands, null, 2));
+      logger.info('Brand added successfully', { brand: normalizedBrand });
+      return { success: true, brand: normalizedBrand, message: 'Brand added successfully' };
+    } catch (error) {
+      // Rollback memory change
+      this.brands = this.brands.filter(b => b.brand_id !== normalizedBrand.brand_id);
+      logger.error('Failed to persist brand', { brand: normalizedBrand, error });
+      throw new Error('Failed to save brand to picklist file');
+    }
+  }
+
+  /**
+   * Add a new category to the picklist
+   */
+  async addCategory(category: Category): Promise<{ success: boolean; category: Category; message: string }> {
+    // Check for duplicate ID
+    const existingById = this.categories.find(c => c.category_id === category.category_id);
+    if (existingById) {
+      return { success: false, category: existingById, message: 'Category ID already exists' };
+    }
+
+    // Check for duplicate name within same department
+    const existingByName = this.categories.find(c => 
+      c.category_name.toLowerCase() === category.category_name.toLowerCase() &&
+      c.department === category.department
+    );
+    if (existingByName) {
+      return { success: false, category: existingByName, message: 'Category name already exists in this department' };
+    }
+
+    // Add to memory
+    this.categories.push(category);
+
+    // Persist to JSON file
+    try {
+      const projectRoot = path.resolve(__dirname, '../../');
+      const filePath = path.join(projectRoot, 'src/config/salesforce-picklists/categories.json');
+      fs.writeFileSync(filePath, JSON.stringify(this.categories, null, 2));
+      logger.info('Category added successfully', { category });
+      return { success: true, category, message: 'Category added successfully' };
+    } catch (error) {
+      // Rollback memory change
+      this.categories = this.categories.filter(c => c.category_id !== category.category_id);
+      logger.error('Failed to persist category', { category, error });
+      throw new Error('Failed to save category to picklist file');
+    }
+  }
+
+  /**
+   * Add a new style to the picklist
+   */
+  async addStyle(style: Style): Promise<{ success: boolean; style: Style; message: string }> {
+    const existingById = this.styles.find(s => s.style_id === style.style_id);
+    if (existingById) {
+      return { success: false, style: existingById, message: 'Style ID already exists' };
+    }
+
+    const existingByName = this.styles.find(s => 
+      s.style_name.toLowerCase() === style.style_name.toLowerCase()
+    );
+    if (existingByName) {
+      return { success: false, style: existingByName, message: 'Style name already exists' };
+    }
+
+    this.styles.push(style);
+
+    try {
+      const projectRoot = path.resolve(__dirname, '../../');
+      const filePath = path.join(projectRoot, 'src/config/salesforce-picklists/styles.json');
+      fs.writeFileSync(filePath, JSON.stringify(this.styles, null, 2));
+      logger.info('Style added successfully', { style });
+      return { success: true, style, message: 'Style added successfully' };
+    } catch (error) {
+      this.styles = this.styles.filter(s => s.style_id !== style.style_id);
+      logger.error('Failed to persist style', { style, error });
+      throw new Error('Failed to save style to picklist file');
+    }
+  }
+
+  /**
+   * Add a new attribute to the picklist
+   */
+  async addAttribute(attribute: Attribute): Promise<{ success: boolean; attribute: Attribute; message: string }> {
+    const existingById = this.attributes.find(a => a.attribute_id === attribute.attribute_id);
+    if (existingById) {
+      return { success: false, attribute: existingById, message: 'Attribute ID already exists' };
+    }
+
+    const existingByName = this.attributes.find(a => 
+      a.attribute_name.toLowerCase() === attribute.attribute_name.toLowerCase()
+    );
+    if (existingByName) {
+      return { success: false, attribute: existingByName, message: 'Attribute name already exists' };
+    }
+
+    this.attributes.push(attribute);
+
+    try {
+      const projectRoot = path.resolve(__dirname, '../../');
+      const filePath = path.join(projectRoot, 'src/config/salesforce-picklists/attributes.json');
+      fs.writeFileSync(filePath, JSON.stringify(this.attributes, null, 2));
+      logger.info('Attribute added successfully', { attribute });
+      return { success: true, attribute, message: 'Attribute added successfully' };
+    } catch (error) {
+      this.attributes = this.attributes.filter(a => a.attribute_id !== attribute.attribute_id);
+      logger.error('Failed to persist attribute', { attribute, error });
+      throw new Error('Failed to save attribute to picklist file');
+    }
+  }
 }
 
 // Export singleton instance
