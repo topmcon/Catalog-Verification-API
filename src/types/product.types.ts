@@ -46,6 +46,7 @@ export interface VerifiedProduct {
   Description: string;
   PrimaryCategory: string;
   Brand?: string;
+  BrandId?: string | null;  // SF picklist ID for brand matching
   Quantity?: number;
   Status: string;
   ImageURL?: string;

@@ -1,0 +1,374 @@
+/**
+ * Picklist Matcher Service
+ * Matches AI responses to exact Salesforce picklist values
+ */
+
+import * as fs from 'fs';
+import * as path from 'path';
+import logger from '../utils/logger';
+
+// Picklist data types
+interface Brand {
+  brand_id: string;
+  brand_name: string;
+}
+
+interface Category {
+  category_id: string;
+  category_name: string;
+  department: string;
+  family: string;
+}
+
+interface Style {
+  style_id: string;
+  style_name: string;
+}
+
+interface Attribute {
+  attribute_id: string;
+  attribute_name: string;
+}
+
+interface MatchResult<T> {
+  matched: boolean;
+  original: string;
+  matchedValue: T | null;
+  similarity: number;
+  suggestions?: T[];
+}
+
+interface MismatchLog {
+  type: 'brand' | 'category' | 'style' | 'attribute';
+  originalValue: string;
+  timestamp: Date;
+  productContext?: string;
+  closestMatches: string[];
+}
+
+class PicklistMatcherService {
+  private brands: Brand[] = [];
+  private categories: Category[] = [];
+  private styles: Style[] = [];
+  private attributes: Attribute[] = [];
+  private mismatches: MismatchLog[] = [];
+  private initialized = false;
+
+  constructor() {
+    this.loadPicklists();
+  }
+
+  private loadPicklists(): void {
+    try {
+      const picklistDir = path.join(__dirname, '../config/salesforce-picklists');
+      
+      this.brands = JSON.parse(fs.readFileSync(path.join(picklistDir, 'brands.json'), 'utf-8'));
+      this.categories = JSON.parse(fs.readFileSync(path.join(picklistDir, 'categories.json'), 'utf-8'));
+      this.styles = JSON.parse(fs.readFileSync(path.join(picklistDir, 'styles.json'), 'utf-8'));
+      this.attributes = JSON.parse(fs.readFileSync(path.join(picklistDir, 'attributes.json'), 'utf-8'));
+      
+      this.initialized = true;
+      logger.info('Picklists loaded successfully', {
+        brands: this.brands.length,
+        categories: this.categories.length,
+        styles: this.styles.length,
+        attributes: this.attributes.length
+      });
+    } catch (error) {
+      logger.error('Failed to load picklists', { error });
+      this.initialized = false;
+    }
+  }
+
+  /**
+   * Calculate similarity between two strings (case-insensitive)
+   */
+  private calculateSimilarity(str1: string, str2: string): number {
+    const s1 = str1.toLowerCase().trim();
+    const s2 = str2.toLowerCase().trim();
+    
+    // Exact match
+    if (s1 === s2) return 1.0;
+    
+    // One contains the other
+    if (s1.includes(s2) || s2.includes(s1)) {
+      return 0.9;
+    }
+    
+    // Levenshtein distance-based similarity
+    const maxLen = Math.max(s1.length, s2.length);
+    if (maxLen === 0) return 1.0;
+    
+    const distance = this.levenshteinDistance(s1, s2);
+    return 1 - (distance / maxLen);
+  }
+
+  private levenshteinDistance(str1: string, str2: string): number {
+    const m = str1.length;
+    const n = str2.length;
+    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (str1[i - 1] === str2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1];
+        } else {
+          dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+      }
+    }
+    return dp[m][n];
+  }
+
+  /**
+   * Match a brand name to SF picklist
+   */
+  matchBrand(brandName: string): MatchResult<Brand> {
+    if (!brandName || !this.initialized) {
+      return { matched: false, original: brandName, matchedValue: null, similarity: 0 };
+    }
+
+    const normalized = brandName.toUpperCase().trim();
+    
+    // Try exact match first
+    const exactMatch = this.brands.find(b => 
+      b.brand_name.toUpperCase() === normalized
+    );
+    
+    if (exactMatch) {
+      return { matched: true, original: brandName, matchedValue: exactMatch, similarity: 1.0 };
+    }
+
+    // Find closest matches
+    const scored = this.brands.map(b => ({
+      brand: b,
+      similarity: this.calculateSimilarity(brandName, b.brand_name)
+    })).sort((a, b) => b.similarity - a.similarity);
+
+    const best = scored[0];
+    if (best && best.similarity >= 0.8) {
+      return { 
+        matched: true, 
+        original: brandName, 
+        matchedValue: best.brand, 
+        similarity: best.similarity,
+        suggestions: scored.slice(1, 4).map(s => s.brand)
+      };
+    }
+
+    // Log mismatch for review
+    this.logMismatch('brand', brandName, scored.slice(0, 3).map(s => s.brand.brand_name));
+    
+    return { 
+      matched: false, 
+      original: brandName, 
+      matchedValue: null, 
+      similarity: best?.similarity || 0,
+      suggestions: scored.slice(0, 3).map(s => s.brand)
+    };
+  }
+
+  /**
+   * Match a category name to SF picklist
+   */
+  matchCategory(categoryName: string): MatchResult<Category> {
+    if (!categoryName || !this.initialized) {
+      return { matched: false, original: categoryName, matchedValue: null, similarity: 0 };
+    }
+
+    const normalized = categoryName.toLowerCase().trim();
+    
+    // Try exact match first
+    const exactMatch = this.categories.find(c => 
+      c.category_name.toLowerCase() === normalized
+    );
+    
+    if (exactMatch) {
+      return { matched: true, original: categoryName, matchedValue: exactMatch, similarity: 1.0 };
+    }
+
+    // Find closest matches
+    const scored = this.categories.map(c => ({
+      category: c,
+      similarity: this.calculateSimilarity(categoryName, c.category_name)
+    })).sort((a, b) => b.similarity - a.similarity);
+
+    const best = scored[0];
+    if (best && best.similarity >= 0.75) {
+      return { 
+        matched: true, 
+        original: categoryName, 
+        matchedValue: best.category, 
+        similarity: best.similarity,
+        suggestions: scored.slice(1, 4).map(s => s.category)
+      };
+    }
+
+    this.logMismatch('category', categoryName, scored.slice(0, 3).map(s => s.category.category_name));
+    
+    return { 
+      matched: false, 
+      original: categoryName, 
+      matchedValue: null, 
+      similarity: best?.similarity || 0,
+      suggestions: scored.slice(0, 3).map(s => s.category)
+    };
+  }
+
+  /**
+   * Match a style name to SF picklist
+   */
+  matchStyle(styleName: string): MatchResult<Style> {
+    if (!styleName || !this.initialized) {
+      return { matched: false, original: styleName, matchedValue: null, similarity: 0 };
+    }
+
+    const normalized = styleName.toLowerCase().trim();
+    
+    const exactMatch = this.styles.find(s => 
+      s.style_name.toLowerCase() === normalized
+    );
+    
+    if (exactMatch) {
+      return { matched: true, original: styleName, matchedValue: exactMatch, similarity: 1.0 };
+    }
+
+    const scored = this.styles.map(s => ({
+      style: s,
+      similarity: this.calculateSimilarity(styleName, s.style_name)
+    })).sort((a, b) => b.similarity - a.similarity);
+
+    const best = scored[0];
+    if (best && best.similarity >= 0.75) {
+      return { 
+        matched: true, 
+        original: styleName, 
+        matchedValue: best.style, 
+        similarity: best.similarity,
+        suggestions: scored.slice(1, 4).map(s => s.style)
+      };
+    }
+
+    this.logMismatch('style', styleName, scored.slice(0, 3).map(s => s.style.style_name));
+    
+    return { 
+      matched: false, 
+      original: styleName, 
+      matchedValue: null, 
+      similarity: best?.similarity || 0,
+      suggestions: scored.slice(0, 3).map(s => s.style)
+    };
+  }
+
+  /**
+   * Match an attribute name to SF picklist
+   */
+  matchAttribute(attributeName: string): MatchResult<Attribute> {
+    if (!attributeName || !this.initialized) {
+      return { matched: false, original: attributeName, matchedValue: null, similarity: 0 };
+    }
+
+    const normalized = attributeName.toLowerCase().trim();
+    
+    const exactMatch = this.attributes.find(a => 
+      a.attribute_name.toLowerCase() === normalized
+    );
+    
+    if (exactMatch) {
+      return { matched: true, original: attributeName, matchedValue: exactMatch, similarity: 1.0 };
+    }
+
+    const scored = this.attributes.map(a => ({
+      attribute: a,
+      similarity: this.calculateSimilarity(attributeName, a.attribute_name)
+    })).sort((a, b) => b.similarity - a.similarity);
+
+    const best = scored[0];
+    if (best && best.similarity >= 0.8) {
+      return { 
+        matched: true, 
+        original: attributeName, 
+        matchedValue: best.attribute, 
+        similarity: best.similarity,
+        suggestions: scored.slice(1, 4).map(s => s.attribute)
+      };
+    }
+
+    this.logMismatch('attribute', attributeName, scored.slice(0, 3).map(s => s.attribute.attribute_name));
+    
+    return { 
+      matched: false, 
+      original: attributeName, 
+      matchedValue: null, 
+      similarity: best?.similarity || 0,
+      suggestions: scored.slice(0, 3).map(s => s.attribute)
+    };
+  }
+
+  /**
+   * Log a mismatch for analytics review
+   */
+  private logMismatch(type: MismatchLog['type'], originalValue: string, closestMatches: string[]): void {
+    const mismatch: MismatchLog = {
+      type,
+      originalValue,
+      timestamp: new Date(),
+      closestMatches
+    };
+    this.mismatches.push(mismatch);
+    
+    logger.warn('Picklist mismatch detected', {
+      type,
+      originalValue,
+      closestMatches
+    });
+  }
+
+  /**
+   * Get all logged mismatches
+   */
+  getMismatches(): MismatchLog[] {
+    return [...this.mismatches];
+  }
+
+  /**
+   * Clear mismatches (after saving to DB)
+   */
+  clearMismatches(): void {
+    this.mismatches = [];
+  }
+
+  /**
+   * Get picklist stats
+   */
+  getStats() {
+    return {
+      brands: this.brands.length,
+      categories: this.categories.length,
+      styles: this.styles.length,
+      attributes: this.attributes.length,
+      pendingMismatches: this.mismatches.length,
+      initialized: this.initialized
+    };
+  }
+
+  /**
+   * Reload picklists from disk
+   */
+  reload(): void {
+    this.loadPicklists();
+  }
+
+  // Getters for raw data (for API endpoints)
+  getBrands(): Brand[] { return [...this.brands]; }
+  getCategories(): Category[] { return [...this.categories]; }
+  getStyles(): Style[] { return [...this.styles]; }
+  getAttributes(): Attribute[] { return [...this.attributes]; }
+}
+
+// Export singleton instance
+export const picklistMatcher = new PicklistMatcherService();
+export default picklistMatcher;

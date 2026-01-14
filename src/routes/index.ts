@@ -5,6 +5,7 @@ import healthRoutes from './health.routes';
 import enrichmentRoutes from './enrichment.routes';
 import analyticsRoutes from './analytics.routes';
 import verificationAnalyticsRoutes from './verification-analytics.routes';
+import picklistRoutes from './picklist.routes';
 import { apiKeyAuth } from '../middleware';
 
 const router = Router();
@@ -18,6 +19,7 @@ router.use('/api/enrich', apiKeyAuth, enrichmentRoutes);
 router.use('/api/webhook', webhookRoutes);
 router.use('/api/analytics', apiKeyAuth, analyticsRoutes);
 router.use('/api/verification-analytics', apiKeyAuth, verificationAnalyticsRoutes);
+router.use('/api/picklists', apiKeyAuth, picklistRoutes);
 
 // Root endpoint
 router.get('/', (_req, res) => {

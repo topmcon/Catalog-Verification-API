@@ -11,6 +11,7 @@ import * as openaiService from './openai.service';
 import * as xaiService from './xai.service';
 import { compareAIResults, identifyDiscrepancies, mergeAIResults } from '../utils/similarity';
 import { generateAttributeTable } from '../utils/html-generator';
+import picklistMatcher from './picklist-matcher.service';
 import logger from '../utils/logger';
 
 /**
@@ -182,14 +183,41 @@ function buildVerifiedProduct(
   // Generate HTML table for additional attributes
   const additionalAttributesHtml = generateAttributeTable(product.additionalAttributes);
 
+  // Get brand name from merged result or product
+  const brandName = (mergedResult.Brand as string) || product.Brand || '';
+  
+  // Match brand to SF picklist
+  const brandMatch = picklistMatcher.matchBrand(brandName);
+  const matchedBrand = brandMatch.matched && brandMatch.matchedValue 
+    ? brandMatch.matchedValue.brand_name 
+    : brandName || undefined;
+  const brandId = brandMatch.matched && brandMatch.matchedValue
+    ? brandMatch.matchedValue.brand_id
+    : null;
+
+  // Get category name from merged result or product
+  const categoryName = (mergedResult.PrimaryCategory as string) || product.PrimaryCategory;
+  
+  // Match category to SF picklist (text only, no ID needed)
+  const categoryMatch = picklistMatcher.matchCategory(categoryName);
+  const matchedCategory = categoryMatch.matched && categoryMatch.matchedValue
+    ? categoryMatch.matchedValue.category_name
+    : categoryName;
+
+  logger.debug('Picklist matching results', {
+    brand: { original: brandName, matched: matchedBrand, brandId, similarity: brandMatch.similarity },
+    category: { original: categoryName, matched: matchedCategory, similarity: categoryMatch.similarity }
+  });
+
   return {
     originalId: product.originalId,
     ProductName: (mergedResult.ProductName as string) || product.ProductName,
     SKU: (mergedResult.SKU as string) || product.SKU,
     Price: (mergedResult.Price as number) || product.Price,
     Description: (mergedResult.Description as string) || product.Description,
-    PrimaryCategory: (mergedResult.PrimaryCategory as string) || product.PrimaryCategory,
-    Brand: (mergedResult.Brand as string) || product.Brand,
+    PrimaryCategory: matchedCategory,
+    Brand: matchedBrand,
+    BrandId: brandId,
     Quantity: (mergedResult.Quantity as number) || product.Quantity,
     Status: (mergedResult.Status as string) || product.Status,
     ImageURL: (mergedResult.ImageURL as string) || product.ImageURL,
