@@ -989,9 +989,17 @@ function buildFinalResponse(
       return brandMatch.matched && brandMatch.matchedValue ? brandMatch.matchedValue.brand_id : null;
     })(),
     Category_Verified: cleanEncodingIssues(consensus.agreedCategory || ''),
+    Category_Id: (() => {
+      const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
+      return categoryMatch.matched && categoryMatch.matchedValue ? categoryMatch.matchedValue.category_id : null;
+    })(),
     SubCategory_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.subcategory || ''),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
     Product_Style_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
+    Style_Id: (() => {
+      const styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
+      return styleMatch.matched && styleMatch.matchedValue ? styleMatch.matchedValue.style_id : null;
+    })(),
     Color_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.color || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''),
     Finish_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.finish || rawProduct.Ferguson_Finish || ''),
     Depth_Verified: consensus.agreedPrimaryAttributes.depth_length || rawProduct.Depth_Web_Retailer,
