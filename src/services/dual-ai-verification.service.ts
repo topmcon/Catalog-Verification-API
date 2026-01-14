@@ -489,20 +489,37 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
     }
   }
 
-  // Calculate agreement ratio - clamp to 0-1 range to prevent negative scores
+  // Calculate scores based on total fields analyzed (agreed + disagreed)
   const totalAgreedFields = Object.keys(agreedPrimary).length + Object.keys(agreedTop15).length + Object.keys(agreedAdditional).length;
   const unresolvedCount = disagreements.filter(d => d.resolution === 'unresolved').length;
-  const agreementRatio = Math.max(0, Math.min(1, 
-    totalAgreedFields > 0 ? (totalAgreedFields - unresolvedCount) / totalAgreedFields : 0
-  ));
+  const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
+  
+  // Agreement ratio: agreed fields / total fields (not penalizing disagreements as heavily)
+  const agreementRatio = totalFieldsAnalyzed > 0 
+    ? totalAgreedFields / totalFieldsAnalyzed 
+    : 0;
   
   // Calculate overall confidence - ensure AI confidence values are valid (0-1 range)
   const openaiConf = Math.max(0, Math.min(1, openaiResult.confidence || 0));
   const xaiConf = Math.max(0, Math.min(1, xaiResult.confidence || 0));
   const avgAiConfidence = (openaiConf + xaiConf) / 2;
   
-  // Final score: 60% AI confidence + 40% agreement ratio (both now guaranteed 0-1)
-  const overallConfidence = Math.max(0, Math.min(1, avgAiConfidence * 0.6 + agreementRatio * 0.4));
+  // Category match bonus: if both AIs agree on category, add 10% bonus
+  const categoryBonus = categoriesMatch ? 0.1 : 0;
+  
+  // Final score: 50% AI confidence + 40% agreement ratio + 10% category bonus (capped at 1.0)
+  const overallConfidence = Math.min(1, avgAiConfidence * 0.5 + agreementRatio * 0.4 + categoryBonus);
+  
+  // Log scoring breakdown for debugging
+  logger.info('Consensus scoring breakdown', {
+    totalAgreedFields,
+    unresolvedCount,
+    totalFieldsAnalyzed,
+    agreementRatio: Math.round(agreementRatio * 100),
+    avgAiConfidence: Math.round(avgAiConfidence * 100),
+    categoryBonus: categoryBonus * 100,
+    finalScore: Math.round(overallConfidence * 100)
+  });
 
   return {
     agreed: categoriesMatch && disagreements.filter(d => d.resolution === 'unresolved').length === 0,
@@ -531,6 +548,7 @@ function buildAgreedAttributes(openaiAttrs: Record<string, any>, xaiAttrs: Recor
     } else if (!openaiVal && xaiVal) {
       agreed[key] = xaiVal;
     } else {
+      // Only mark as unresolved if values are meaningfully different
       disagreements.push({ field: key, openaiValue: openaiVal, xaiValue: xaiVal, resolution: 'unresolved' });
     }
   }
@@ -543,14 +561,36 @@ function valuesMatch(a: any, b: any): boolean {
   if (a == null && b == null) return true;
   if (a == null || b == null) return false;
   
-  const strA = String(a).toLowerCase().trim();
-  const strB = String(b).toLowerCase().trim();
+  // Normalize strings: lowercase, trim, remove common filler words
+  const normalize = (s: string): string => {
+    return String(s)
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ' ')                    // Multiple spaces to single
+      .replace(/["']/g, '')                     // Remove quotes
+      .replace(/\s*(inches?|in\.?|")\s*/gi, '') // Remove "inches", "in", etc.
+      .replace(/\s*(lbs?|pounds?)\s*/gi, '')    // Remove weight units
+      .replace(/unavailable|n\/a|not available|unknown/gi, '') // Remove placeholders
+      .trim();
+  };
+  
+  const strA = normalize(a);
+  const strB = normalize(b);
+  
+  // Empty after normalization = both are essentially empty/unavailable
+  if (!strA && !strB) return true;
+  
+  // Exact match after normalization
   if (strA === strB) return true;
   
-  const numA = parseFloat(strA);
-  const numB = parseFloat(strB);
+  // One contains the other (e.g., "60" vs "60 inches" both normalize to "60")
+  if (strA.includes(strB) || strB.includes(strA)) return true;
+  
+  // Numeric comparison with tolerance
+  const numA = parseFloat(strA.replace(/[^\d.-]/g, ''));
+  const numB = parseFloat(strB.replace(/[^\d.-]/g, ''));
   if (!isNaN(numA) && !isNaN(numB)) {
-    return Math.abs(numA - numB) < 0.01;
+    return Math.abs(numA - numB) < 0.1; // 0.1 tolerance for numeric values
   }
   
   return false;
@@ -780,6 +820,14 @@ function buildFinalResponse(
   // Build per-field AI reviews for trend analysis
   const fieldAIReviews = buildFieldAIReviews(openaiResult, xaiResult, consensus);
 
+  // Calculate score breakdown for transparency
+  const totalAgreedFields = Object.keys(consensus.agreedPrimaryAttributes).length + 
+    Object.keys(consensus.agreedTop15Attributes).length + 
+    Object.keys(consensus.agreedAdditionalAttributes).length;
+  const unresolvedCount = consensus.disagreements.filter(d => d.resolution === 'unresolved').length;
+  const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
+  const categoriesMatch = openaiResult.determinedCategory.toLowerCase() === xaiResult.determinedCategory.toLowerCase();
+
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
     verification_session_id: sessionId,
@@ -793,6 +841,20 @@ function buildFinalResponse(
       xai: xaiResult.confidence,
       consensus: consensus.overallConfidence,
       category: Math.max(openaiResult.categoryConfidence, xaiResult.categoryConfidence)
+    },
+    score_breakdown: {
+      ai_confidence_component: Math.round(((openaiResult.confidence + xaiResult.confidence) / 2) * 50),
+      agreement_component: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 40),
+      category_bonus: categoriesMatch ? 10 : 0,
+      fields_agreed: totalAgreedFields,
+      fields_disagreed: unresolvedCount,
+      total_fields: totalFieldsAnalyzed,
+      agreement_percentage: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 100),
+      disagreement_details: consensus.disagreements.slice(0, 5).map(d => ({
+        field: d.field,
+        openai: String(d.openaiValue).substring(0, 50),
+        xai: String(d.xaiValue).substring(0, 50)
+      }))
     }
   };
 

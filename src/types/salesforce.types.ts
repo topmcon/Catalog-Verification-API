@@ -136,6 +136,20 @@ export interface VerificationMetadata {
   corrections_made: CorrectionRecord[];
   missing_fields: string[];
   confidence_scores: Record<string, number>;
+  score_breakdown?: {
+    ai_confidence_component: number;  // Max 50 points from AI confidence
+    agreement_component: number;       // Max 40 points from field agreement
+    category_bonus: number;            // 10 points if both AIs agree on category
+    fields_agreed: number;
+    fields_disagreed: number;
+    total_fields: number;
+    agreement_percentage: number;      // 0-100
+    disagreement_details: Array<{      // Top 5 disagreements for debugging
+      field: string;
+      openai: string;
+      xai: string;
+    }>;
+  };
 }
 
 // AI Review Status for each provider
