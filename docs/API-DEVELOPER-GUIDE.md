@@ -1,6 +1,6 @@
 # Catalog Verification API - Developer Guide
 
-**Version:** 2.1.0  
+**Version:** 2.2.0  
 **Base URL:** `https://verify.cxc-ai.com`  
 **Last Updated:** January 14, 2026
 
@@ -123,9 +123,11 @@ The primary endpoint for product verification using dual AI consensus (OpenAI + 
       "Brand_Verified": "KOHLER",
       "Brand_Id": "a0MaZ000000ErR3UAK",
       "Category_Verified": "Bathtubs",
+      "Category_Id": "a01aZ00000dC5DlQAK",
       "SubCategory_Verified": "Alcove Bathtubs",
       "Product_Family_Verified": "Archer",
       "Product_Style_Verified": "Contemporary",
+      "Style_Id": "a02aZ00000StyleXYZ",
       "Color_Verified": "White",
       "Finish_Verified": "Gloss",
       "Depth_Verified": "20",
