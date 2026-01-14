@@ -1,6 +1,6 @@
 # Catalog Verification API - Developer Guide
 
-**Version:** 2.0.0  
+**Version:** 2.1.0  
 **Base URL:** `https://verify.cxc-ai.com`  
 **Last Updated:** January 14, 2026
 
@@ -13,13 +13,14 @@
 3. [Main Verification Endpoint](#main-verification-endpoint)
 4. [Picklist Management](#picklist-management)
 5. [Analytics & Tracking](#analytics--tracking)
-6. [Session Management](#session-management)
-7. [Enrichment Endpoints](#enrichment-endpoints)
-8. [Health & Status](#health--status)
-9. [Response Structure](#response-structure)
-10. [Error Handling](#error-handling)
-11. [Rate Limits](#rate-limits)
-12. [Examples](#examples)
+6. [Alerting & Monitoring](#alerting--monitoring)
+7. [Session Management](#session-management)
+8. [Enrichment Endpoints](#enrichment-endpoints)
+9. [Health & Status](#health--status)
+10. [Response Structure](#response-structure)
+11. [Error Handling](#error-handling)
+12. [Rate Limits](#rate-limits)
+13. [Examples](#examples)
 
 ---
 
@@ -248,6 +249,28 @@ Batch verify multiple products in a single request.
 
 The API maintains Salesforce picklist values for brands, categories, styles, and attributes. AI responses are matched to these exact values.
 
+### Picklist Endpoints Summary
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/picklists/stats` | GET | Get picklist statistics |
+| `/api/picklists/brands` | GET | List all brands |
+| `/api/picklists/brands/:id` | GET | Get brand by Salesforce ID |
+| `/api/picklists/brands` | POST | Add new brand |
+| `/api/picklists/categories` | GET | List all categories |
+| `/api/picklists/categories/:id` | GET | Get category by Salesforce ID |
+| `/api/picklists/categories` | POST | Add new category |
+| `/api/picklists/styles` | GET | List all styles |
+| `/api/picklists/styles` | POST | Add new style |
+| `/api/picklists/attributes` | GET | List all attributes |
+| `/api/picklists/attributes` | POST | Add new attribute |
+| `/api/picklists/match/brand` | POST | Test brand matching |
+| `/api/picklists/match/category` | POST | Test category matching |
+| `/api/picklists/mismatches` | GET | Get logged mismatches |
+| `/api/picklists/mismatches/stats` | GET | Get mismatch statistics |
+| `/api/picklists/mismatches/:type/:value/resolve` | POST | Resolve a mismatch |
+| `/api/picklists/reload` | POST | Reload picklists from disk |
+
 ### GET `/api/picklists/stats`
 
 Get picklist statistics and initialization status.
@@ -284,6 +307,34 @@ Get all brand picklist entries.
 }
 ```
 
+### GET `/api/picklists/brands/:id`
+
+Get a specific brand by Salesforce ID.
+
+**Request:**
+```bash
+GET /api/picklists/brands/a0MaZ000000ErR3UAK
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "brand_id": "a0MaZ000000ErR3UAK",
+    "brand_name": "KOHLER"
+  }
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "success": false,
+  "error": "Brand not found"
+}
+```
+
 ### GET `/api/picklists/categories`
 
 Get all category picklist entries.
@@ -302,6 +353,28 @@ Get all category picklist entries.
     },
     ...
   ]
+}
+```
+
+### GET `/api/picklists/categories/:id`
+
+Get a specific category by Salesforce ID.
+
+**Request:**
+```bash
+GET /api/picklists/categories/a01aZ00000dC5DlQAK
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "category_id": "a01aZ00000dC5DlQAK",
+    "category_name": "Bathtubs",
+    "department": "Plumbing & Bath",
+    "family": "Bath"
+  }
 }
 ```
 
@@ -369,6 +442,202 @@ Test category matching against the picklist.
 ### GET `/api/picklists/mismatches`
 
 Get logged mismatches for review and analytics.
+
+**Query Parameters:**
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `type` | string | | Filter: `brand`, `category`, `style`, `attribute` |
+| `resolved` | boolean | | Filter by resolution status |
+| `limit` | number | 100 | Max records to return |
+
+**Response:**
+```json
+{
+  "success": true,
+  "count": 15,
+  "data": [
+    {
+      "type": "brand",
+      "originalValue": "AMERICAN STNDARD",
+      "closestMatches": ["AMERICAN STANDARD", "AMERICAN STANDARD?""],
+      "occurrenceCount": 5,
+      "similarity": 0.92,
+      "firstSeen": "2026-01-10T...",
+      "lastSeen": "2026-01-14T...",
+      "resolved": false
+    }
+  ]
+}
+```
+
+### GET `/api/picklists/mismatches/stats`
+
+Get mismatch statistics summary.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "total": 45,
+    "unresolved": 23,
+    "byType": [
+      {"type": "brand", "count": 20, "unresolvedCount": 12},
+      {"type": "category", "count": 15, "unresolvedCount": 8},
+      {"type": "style", "count": 10, "unresolvedCount": 3}
+    ],
+    "topUnresolved": [...]
+  }
+}
+```
+
+### POST `/api/picklists/mismatches/:type/:value/resolve`
+
+Resolve a mismatch (mark as handled).
+
+**Request:**
+```json
+{
+  "action": "mapped_to_existing",
+  "resolvedValue": "AMERICAN STANDARD",
+  "resolvedBy": "admin"
+}
+```
+
+**Action Options:**
+- `added_to_picklist` - Value was added to SF picklist
+- `mapped_to_existing` - Value should map to existing picklist item
+- `ignored` - Value should be ignored (invalid data)
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "type": "brand",
+    "originalValue": "AMERICAN STNDARD",
+    "resolved": true,
+    "resolution": {
+      "action": "mapped_to_existing",
+      "resolvedValue": "AMERICAN STANDARD",
+      "resolvedBy": "admin",
+      "resolvedAt": "2026-01-14T..."
+    }
+  }
+}
+```
+
+### POST `/api/picklists/brands`
+
+Add a new brand to the picklist.
+
+**Request:**
+```json
+{
+  "brand_id": "a0MaZ000000NewID",
+  "brand_name": "NEW BRAND NAME"
+}
+```
+
+**Response (201):**
+```json
+{
+  "success": true,
+  "data": {
+    "brand_id": "a0MaZ000000NewID",
+    "brand_name": "NEW BRAND NAME"
+  },
+  "message": "Brand added successfully"
+}
+```
+
+**Error Response (409 - Duplicate):**
+```json
+{
+  "success": false,
+  "error": "Brand ID already exists",
+  "existing": {
+    "brand_id": "a0MaZ000000NewID",
+    "brand_name": "EXISTING BRAND"
+  }
+}
+```
+
+### POST `/api/picklists/categories`
+
+Add a new category to the picklist.
+
+**Request:**
+```json
+{
+  "category_id": "a01aZ00000NewCatID",
+  "category_name": "New Category",
+  "department": "Plumbing & Bath",
+  "family": "Bath"
+}
+```
+
+**Response (201):**
+```json
+{
+  "success": true,
+  "data": {
+    "category_id": "a01aZ00000NewCatID",
+    "category_name": "New Category",
+    "department": "Plumbing & Bath",
+    "family": "Bath"
+  },
+  "message": "Category added successfully"
+}
+```
+
+### POST `/api/picklists/styles`
+
+Add a new style to the picklist.
+
+**Request:**
+```json
+{
+  "style_id": "a02aZ00000StyleID",
+  "style_name": "Industrial"
+}
+```
+
+**Response (201):**
+```json
+{
+  "success": true,
+  "data": {
+    "style_id": "a02aZ00000StyleID",
+    "style_name": "Industrial"
+  },
+  "message": "Style added successfully"
+}
+```
+
+### POST `/api/picklists/attributes`
+
+Add a new attribute to the picklist.
+
+**Request:**
+```json
+{
+  "attribute_id": "a03aZ00000AttrID",
+  "attribute_name": "Water Efficiency Rating"
+}
+```
+
+**Response (201):**
+```json
+{
+  "success": true,
+  "data": {
+    "attribute_id": "a03aZ00000AttrID",
+    "attribute_name": "Water Efficiency Rating"
+  },
+  "message": "Attribute added successfully"
+}
+```
 
 ### POST `/api/picklists/reload`
 
@@ -534,6 +803,78 @@ Export tracking data.
 |-----------|------|---------|-------------|
 | `format` | string | `json` | Export format: `json`, `csv` |
 | `limit` | number | 1000 | Max records (max: 10000) |
+
+---
+
+## Alerting & Monitoring
+
+Real-time alerting system for monitoring verification quality and performance issues.
+
+### GET `/api/analytics/alerts`
+
+Get current alerts and system health issues.
+
+**Query Parameters:**
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `severity` | string | | Filter: `critical`, `warning`, `info` |
+| `type` | string | | Filter: `low_confidence`, `slow_response`, `consensus_failure`, `high_error_rate` |
+| `acknowledged` | boolean | | Filter by acknowledgment status |
+| `limit` | number | 100 | Max alerts to return |
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "alerts": [
+      {
+        "id": "alert-uuid",
+        "type": "low_confidence",
+        "severity": "warning",
+        "message": "Low confidence verification for catalog TEST-001",
+        "details": {
+          "catalogId": "TEST-001",
+          "confidence": 0.65,
+          "threshold": 0.7
+        },
+        "timestamp": "2026-01-14T16:30:00.000Z",
+        "acknowledged": false
+      },
+      {
+        "id": "alert-uuid-2",
+        "type": "consensus_failure",
+        "severity": "critical",
+        "message": "AI consensus failure - OpenAI and xAI disagreed significantly",
+        "details": {
+          "catalogId": "TEST-002",
+          "agreementPercentage": 45,
+          "threshold": 70
+        },
+        "timestamp": "2026-01-14T16:25:00.000Z",
+        "acknowledged": false
+      }
+    ],
+    "summary": {
+      "total": 15,
+      "critical": 2,
+      "warning": 8,
+      "info": 5,
+      "unacknowledged": 10
+    }
+  }
+}
+```
+
+### Alert Types
+
+| Type | Severity | Trigger Condition |
+|------|----------|-------------------|
+| `low_confidence` | warning | AI confidence < 70% |
+| `slow_response` | warning | Processing time > 30 seconds |
+| `consensus_failure` | critical | AI agreement < 70% |
+| `high_error_rate` | critical | Error rate > 10% in last hour |
+| `picklist_mismatch` | info | New unmatched picklist value detected |
 
 ---
 
@@ -733,6 +1074,36 @@ curl -X POST https://verify.cxc-ai.com/api/picklists/match/brand \
   -d '{"brand": "American Standard"}'
 ```
 
+### cURL - Get Brand by ID
+
+```bash
+curl -X GET https://verify.cxc-ai.com/api/picklists/brands/a0MaZ000000ErR3UAK \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### cURL - Add New Brand
+
+```bash
+curl -X POST https://verify.cxc-ai.com/api/picklists/brands \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"brand_id": "a0MaZ000000NewID", "brand_name": "NEW BRAND"}'
+```
+
+### cURL - Add New Category
+
+```bash
+curl -X POST https://verify.cxc-ai.com/api/picklists/categories \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "category_id": "a01aZ00000NewCatID",
+    "category_name": "Smart Toilets",
+    "department": "Plumbing & Bath",
+    "family": "Toilets"
+  }'
+```
+
 ### cURL - Get Analytics Dashboard
 
 ```bash
@@ -745,6 +1116,29 @@ curl -X GET "https://verify.cxc-ai.com/api/analytics/dashboard?period=7d" \
 ```bash
 curl -X GET "https://verify.cxc-ai.com/api/analytics/search?category=Bathtubs&minScore=80&limit=20" \
   -H "x-api-key: YOUR_API_KEY"
+```
+
+### cURL - Get Alerts
+
+```bash
+curl -X GET "https://verify.cxc-ai.com/api/analytics/alerts?severity=critical" \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### cURL - Get Mismatch Statistics
+
+```bash
+curl -X GET https://verify.cxc-ai.com/api/picklists/mismatches/stats \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### cURL - Resolve a Mismatch
+
+```bash
+curl -X POST "https://verify.cxc-ai.com/api/picklists/mismatches/brand/AMERICAN%20STNDARD/resolve" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"action": "mapped_to_existing", "resolvedValue": "AMERICAN STANDARD"}'
 ```
 
 ### JavaScript/Node.js
