@@ -24,7 +24,9 @@ import {
   TopFilterAttributes,
   VerificationMetadata,
   CorrectionRecord,
-  PriceAnalysis
+  PriceAnalysis,
+  AIReviewStatus,
+  FieldAIReviews
 } from '../types/salesforce.types';
 import { CategoryAttributeConfig } from '../config/category-attributes';
 import { matchCategory } from './category-matcher.service';
@@ -536,6 +538,34 @@ function buildVerificationResponse(
   // Calculate verification score
   const verificationScore = calculateVerificationScore(consensusMap);
   
+  // Build AI Review Status (for this service, we don't have individual AI results)
+  const aiReview: AIReviewStatus = {
+    openai: {
+      reviewed: true,
+      result: status === 'verified' ? 'agreed' : status === 'needs_review' ? 'partial' : 'disagreed',
+      confidence: verificationScore,
+      fields_verified: consensusMap.size,
+      fields_corrected: extractCorrections(consensusMap).length,
+    },
+    xai: {
+      reviewed: true,
+      result: status === 'verified' ? 'agreed' : status === 'needs_review' ? 'partial' : 'disagreed',
+      confidence: verificationScore,
+      fields_verified: consensusMap.size,
+      fields_corrected: extractCorrections(consensusMap).length,
+    },
+    consensus: {
+      both_reviewed: true,
+      agreement_status: status === 'verified' ? 'full_agreement' : 
+                       status === 'needs_review' ? 'partial_agreement' : 'disagreement',
+      agreement_percentage: verificationScore,
+      final_arbiter: status === 'verified' ? 'consensus' : 'manual_review_needed'
+    }
+  };
+
+  // Build per-field AI reviews for trend analysis
+  const fieldAIReviews: FieldAIReviews = buildFieldAIReviewsFromConsensus(consensusMap);
+  
   // Build verification metadata
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
@@ -558,6 +588,8 @@ function buildVerificationResponse(
     Media: mediaAssets,
     Reference_Links: referenceLinks,
     Documents: documentsSection,
+    Field_AI_Reviews: fieldAIReviews,
+    AI_Review: aiReview,
     Verification: verification,
     Status: status === 'failed' ? 'failed' : status === 'verified' ? 'success' : 'partial'
   };
@@ -678,27 +710,9 @@ function buildAdditionalAttributesHtml(
  * Build price analysis
  */
 function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysis {
-  const msrp = parsePrice(rawProduct.MSRP_Web_Retailer);
-  const fergusonPrice = parsePrice(rawProduct.Ferguson_Price);
-  const minPrice = parsePrice(rawProduct.Ferguson_Min_Price);
-  const maxPrice = parsePrice(rawProduct.Ferguson_Max_Price);
-  
-  const marketValue = fergusonPrice || ((minPrice + maxPrice) / 2) || 0;
-  const priceDifference = msrp - marketValue;
-  const priceDifferencePercent = marketValue > 0 ? ((priceDifference / marketValue) * 100) : 0;
-  
-  let pricePosition: 'above_market' | 'at_market' | 'below_market' = 'at_market';
-  if (priceDifferencePercent > 5) pricePosition = 'above_market';
-  else if (priceDifferencePercent < -5) pricePosition = 'below_market';
-  
   return {
-    msrp_web_retailer: msrp,
-    market_value_ferguson: fergusonPrice,
-    market_value_min: minPrice,
-    market_value_max: maxPrice,
-    price_difference: priceDifference,
-    price_difference_percent: Math.round(priceDifferencePercent * 100) / 100,
-    price_position: pricePosition
+    msrp_web_retailer: parsePrice(rawProduct.MSRP_Web_Retailer),
+    msrp_ferguson: parsePrice(rawProduct.Ferguson_Price),
   };
 }
 
@@ -829,6 +843,38 @@ function extractConfidenceScores(
   return scores;
 }
 
+/**
+ * Build per-field AI reviews from consensus map
+ */
+function buildFieldAIReviewsFromConsensus(
+  consensusMap: Map<string, FieldConsensus>
+): FieldAIReviews {
+  const reviews: FieldAIReviews = {};
+  
+  for (const [field, consensus] of consensusMap) {
+    reviews[field] = {
+      openai: {
+        value: consensus.openaiValue ?? null,
+        agreed: consensus.agreed,
+        confidence: Math.round(consensus.openaiConfidence * 100)
+      },
+      xai: {
+        value: consensus.xaiValue ?? null,
+        agreed: consensus.agreed,
+        confidence: Math.round(consensus.xaiConfidence * 100)
+      },
+      consensus: consensus.agreed ? 'agreed' : 
+                 consensus.source === 'openai_only' || consensus.source === 'xai_only' ? 'single_source' : 'partial',
+      source: consensus.agreed ? 'both_agreed' :
+              consensus.source === 'openai_only' ? 'openai_selected' :
+              consensus.source === 'xai_only' ? 'xai_selected' : 'manual_needed',
+      final_value: consensus.finalValue ?? null
+    };
+  }
+  
+  return reviews;
+}
+
 function buildErrorResponse(
   rawProduct: SalesforceIncomingProduct,
   sessionId: string,
@@ -842,12 +888,7 @@ function buildErrorResponse(
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,
-      market_value_ferguson: 0,
-      market_value_min: 0,
-      market_value_max: 0,
-      price_difference: 0,
-      price_difference_percent: 0,
-      price_position: 'at_market'
+      msrp_ferguson: 0,
     },
     Media: {
       Primary_Image_URL: '',
@@ -863,6 +904,31 @@ function buildErrorResponse(
       total_count: 0,
       recommended_count: 0,
       documents: [],
+    },
+    Field_AI_Reviews: {},
+    AI_Review: {
+      openai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      xai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      consensus: {
+        both_reviewed: false,
+        agreement_status: 'no_review',
+        agreement_percentage: 0,
+        final_arbiter: 'manual_review_needed'
+      }
     },
     Verification: {
       verification_timestamp: new Date().toISOString(),

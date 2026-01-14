@@ -27,6 +27,9 @@ export { verifyProduct } from './salesforce-verification.service';
 export { buildVerificationPrompt, buildResearchPrompt } from './ai-prompt-builder.service';
 export { verifyProductWithDualAI, dualAIVerificationService as dualAIService } from './dual-ai-verification.service';
 
+// Verification Analytics Service
+export { verificationAnalyticsService, VerificationAnalyticsService } from './verification-analytics.service';
+
 // Tracking and Analytics exports
 export * as trackingServiceFull from './tracking.service';
 export * as analyticsServiceFull from './analytics.service';

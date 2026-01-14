@@ -21,7 +21,11 @@ import {
   TopFilterAttributes,
   VerificationMetadata,
   CorrectionRecord,
-  PriceAnalysis
+  PriceAnalysis,
+  AIReviewStatus,
+  AIProviderReview,
+  FieldAIReviews,
+  FieldAIReview
 } from '../types/salesforce.types';
 import {
   getCategorySchema,
@@ -34,6 +38,7 @@ import { cleanCustomerFacingText, cleanEncodingIssues } from '../utils/text-clea
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
+import { verificationAnalyticsService } from './verification-analytics.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -199,6 +204,17 @@ export async function verifyProductWithDualAI(
 
     const processingTime = Date.now() - startTime;
     const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
+    
+    // Store analytics for ML training and trend analysis
+    verificationAnalyticsService.storeVerificationResult(
+      verificationSessionId,
+      rawProduct,
+      response,
+      processingTime,
+      { openai: Date.now() - openaiStartTime, xai: Date.now() - xaiStartTime }
+    ).catch(err => {
+      logger.error('Failed to store analytics', { error: err.message });
+    });
     
     // Complete tracking with successful response
     await trackingService.completeTracking(trackingId, response, 200);
@@ -748,6 +764,12 @@ function buildFinalResponse(
   const referenceLinks = buildReferenceLinks(rawProduct);
   const documentsSection = buildDocumentsSection(rawProduct);
 
+  // Build AI Review Status (summary)
+  const aiReview = buildAIReviewStatus(openaiResult, xaiResult, consensus);
+
+  // Build per-field AI reviews for trend analysis
+  const fieldAIReviews = buildFieldAIReviews(openaiResult, xaiResult, consensus);
+
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
     verification_session_id: sessionId,
@@ -774,9 +796,185 @@ function buildFinalResponse(
     Media: mediaAssets,
     Reference_Links: referenceLinks,
     Documents: documentsSection,
+    Field_AI_Reviews: fieldAIReviews,
+    AI_Review: aiReview,
     Verification: verification,
     Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
   };
+}
+
+/**
+ * Build AI Review Status showing each AI's review and consensus
+ */
+function buildAIReviewStatus(
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  consensus: ConsensusResult
+): AIReviewStatus {
+  // Determine OpenAI result
+  const openaiReview: AIProviderReview = {
+    reviewed: openaiResult.success,
+    result: !openaiResult.success ? 'error' : 
+            consensus.overallConfidence >= 0.85 ? 'agreed' :
+            consensus.overallConfidence >= 0.6 ? 'partial' : 'disagreed',
+    confidence: Math.round(openaiResult.confidence * 100),
+    fields_verified: Object.keys(openaiResult.primaryAttributes || {}).length + 
+                     Object.keys(openaiResult.top15Attributes || {}).length,
+    fields_corrected: openaiResult.corrections.length,
+    error_message: openaiResult.success ? undefined : 'AI analysis failed'
+  };
+
+  // Determine xAI result
+  const xaiReview: AIProviderReview = {
+    reviewed: xaiResult.success,
+    result: !xaiResult.success ? 'error' :
+            consensus.overallConfidence >= 0.85 ? 'agreed' :
+            consensus.overallConfidence >= 0.6 ? 'partial' : 'disagreed',
+    confidence: Math.round(xaiResult.confidence * 100),
+    fields_verified: Object.keys(xaiResult.primaryAttributes || {}).length + 
+                     Object.keys(xaiResult.top15Attributes || {}).length,
+    fields_corrected: xaiResult.corrections.length,
+    error_message: xaiResult.success ? undefined : 'AI analysis failed'
+  };
+
+  // Determine consensus status
+  const bothReviewed = openaiResult.success && xaiResult.success;
+  let agreementStatus: 'full_agreement' | 'partial_agreement' | 'disagreement' | 'single_source' | 'no_review';
+  let finalArbiter: 'openai' | 'xai' | 'consensus' | 'manual_review_needed' | undefined;
+
+  if (!openaiResult.success && !xaiResult.success) {
+    agreementStatus = 'no_review';
+    finalArbiter = 'manual_review_needed';
+  } else if (!bothReviewed) {
+    agreementStatus = 'single_source';
+    finalArbiter = openaiResult.success ? 'openai' : 'xai';
+  } else if (consensus.overallConfidence >= 0.85) {
+    agreementStatus = 'full_agreement';
+    finalArbiter = 'consensus';
+  } else if (consensus.overallConfidence >= 0.6) {
+    agreementStatus = 'partial_agreement';
+    finalArbiter = 'consensus';
+  } else {
+    agreementStatus = 'disagreement';
+    finalArbiter = 'manual_review_needed';
+  }
+
+  return {
+    openai: openaiReview,
+    xai: xaiReview,
+    consensus: {
+      both_reviewed: bothReviewed,
+      agreement_status: agreementStatus,
+      agreement_percentage: Math.round(consensus.overallConfidence * 100),
+      final_arbiter: finalArbiter
+    }
+  };
+}
+
+/**
+ * Build per-field AI reviews for tracking individual field success
+ */
+function buildFieldAIReviews(
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  consensus: ConsensusResult
+): FieldAIReviews {
+  const fieldReviews: FieldAIReviews = {};
+
+  // Helper to compare values and determine consensus
+  const buildFieldReview = (
+    _fieldName: string,
+    openaiValue: any,
+    xaiValue: any,
+    finalValue: any
+  ): FieldAIReview => {
+    const openaiHasValue = openaiValue !== null && openaiValue !== undefined && openaiValue !== '';
+    const xaiHasValue = xaiValue !== null && xaiValue !== undefined && xaiValue !== '';
+    
+    // Normalize for comparison
+    const normalizeValue = (v: any) => String(v || '').toLowerCase().trim();
+    const valuesMatch = normalizeValue(openaiValue) === normalizeValue(xaiValue);
+    
+    let consensusStatus: 'agreed' | 'partial' | 'disagreed' | 'single_source';
+    let source: 'both_agreed' | 'openai_selected' | 'xai_selected' | 'averaged' | 'manual_needed';
+    
+    if (openaiHasValue && xaiHasValue) {
+      if (valuesMatch) {
+        consensusStatus = 'agreed';
+        source = 'both_agreed';
+      } else {
+        // Check if final value matches either
+        const finalNorm = normalizeValue(finalValue);
+        if (finalNorm === normalizeValue(openaiValue)) {
+          consensusStatus = 'partial';
+          source = 'openai_selected';
+        } else if (finalNorm === normalizeValue(xaiValue)) {
+          consensusStatus = 'partial';
+          source = 'xai_selected';
+        } else {
+          consensusStatus = 'disagreed';
+          source = 'manual_needed';
+        }
+      }
+    } else if (openaiHasValue) {
+      consensusStatus = 'single_source';
+      source = 'openai_selected';
+    } else if (xaiHasValue) {
+      consensusStatus = 'single_source';
+      source = 'xai_selected';
+    } else {
+      consensusStatus = 'disagreed';
+      source = 'manual_needed';
+    }
+
+    return {
+      openai: {
+        value: openaiValue ?? null,
+        agreed: valuesMatch || !xaiHasValue,
+        confidence: openaiHasValue ? Math.round(openaiResult.confidence * 100) : 0
+      },
+      xai: {
+        value: xaiValue ?? null,
+        agreed: valuesMatch || !openaiHasValue,
+        confidence: xaiHasValue ? Math.round(xaiResult.confidence * 100) : 0
+      },
+      consensus: consensusStatus,
+      source: source,
+      final_value: finalValue ?? null
+    };
+  };
+
+  // Build reviews for primary attributes
+  const primaryFields = Object.keys(consensus.agreedPrimaryAttributes);
+  for (const field of primaryFields) {
+    fieldReviews[field] = buildFieldReview(
+      field,
+      openaiResult.primaryAttributes?.[field],
+      xaiResult.primaryAttributes?.[field],
+      consensus.agreedPrimaryAttributes[field]
+    );
+  }
+
+  // Build reviews for top 15 attributes
+  const top15Fields = Object.keys(consensus.agreedTop15Attributes);
+  for (const field of top15Fields) {
+    fieldReviews[field] = buildFieldReview(
+      field,
+      openaiResult.top15Attributes?.[field],
+      xaiResult.top15Attributes?.[field],
+      consensus.agreedTop15Attributes[field]
+    );
+  }
+
+  // Add category as a tracked field
+  fieldReviews['category'] = buildFieldReview(
+    'category',
+    openaiResult.determinedCategory,
+    xaiResult.determinedCategory,
+    consensus.agreedCategory
+  );
+
+  return fieldReviews;
 }
 
 function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysis {
@@ -786,27 +984,9 @@ function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysi
     return parseFloat(String(val).replace(/[^0-9.]/g, '')) || 0;
   };
 
-  const msrp = parsePrice(rawProduct.MSRP_Web_Retailer);
-  const fergusonPrice = parsePrice(rawProduct.Ferguson_Price);
-  const minPrice = parsePrice(rawProduct.Ferguson_Min_Price);
-  const maxPrice = parsePrice(rawProduct.Ferguson_Max_Price);
-
-  const marketValue = fergusonPrice || ((minPrice + maxPrice) / 2) || 0;
-  const priceDiff = msrp - marketValue;
-  const priceDiffPercent = marketValue > 0 ? (priceDiff / marketValue) * 100 : 0;
-
-  let pricePosition: 'above_market' | 'at_market' | 'below_market' = 'at_market';
-  if (priceDiffPercent > 5) pricePosition = 'above_market';
-  else if (priceDiffPercent < -5) pricePosition = 'below_market';
-
   return {
-    msrp_web_retailer: msrp,
-    market_value_ferguson: fergusonPrice,
-    market_value_min: minPrice,
-    market_value_max: maxPrice,
-    price_difference: Math.round(priceDiff * 100) / 100,
-    price_difference_percent: Math.round(priceDiffPercent * 100) / 100,
-    price_position: pricePosition
+    msrp_web_retailer: parsePrice(rawProduct.MSRP_Web_Retailer),
+    msrp_ferguson: parsePrice(rawProduct.Ferguson_Price),
   };
 }
 
@@ -897,12 +1077,7 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,
-      market_value_ferguson: 0,
-      market_value_min: 0,
-      market_value_max: 0,
-      price_difference: 0,
-      price_difference_percent: 0,
-      price_position: 'at_market'
+      msrp_ferguson: 0,
     },
     Media: {
       Primary_Image_URL: '',
@@ -918,6 +1093,31 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
       total_count: 0,
       recommended_count: 0,
       documents: [],
+    },
+    Field_AI_Reviews: {},
+    AI_Review: {
+      openai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      xai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      consensus: {
+        both_reviewed: false,
+        agreement_status: 'no_review',
+        agreement_percentage: 0,
+        final_arbiter: 'manual_review_needed'
+      }
     },
     Verification: {
       verification_timestamp: new Date().toISOString(),

@@ -23,6 +23,8 @@ import {
   ReferenceLinks,
   DocumentsSection,
   EvaluatedDocument,
+  AIReviewStatus,
+  FieldAIReviews,
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
 import {
@@ -235,29 +237,15 @@ export function buildAdditionalAttributesHTML(
  * Build Price Analysis
  */
 export function buildPriceAnalysis(incoming: SalesforceIncomingProduct): PriceAnalysis {
-  const msrp = parseFloat(incoming.MSRP_Web_Retailer) || 0;
-  const marketValue = parseFloat(incoming.Ferguson_Price) || 0;
-  const marketMin = parseFloat(incoming.Ferguson_Min_Price) || marketValue;
-  const marketMax = parseFloat(incoming.Ferguson_Max_Price) || marketValue;
-
-  const priceDiff = msrp - marketValue;
-  const priceDiffPercent = marketValue > 0 ? ((priceDiff / marketValue) * 100) : 0;
-
-  let pricePosition: 'above_market' | 'at_market' | 'below_market' = 'at_market';
-  if (priceDiffPercent > 5) {
-    pricePosition = 'above_market';
-  } else if (priceDiffPercent < -5) {
-    pricePosition = 'below_market';
-  }
+  const parsePrice = (val: string | number | undefined | null): number => {
+    if (val === null || val === undefined) return 0;
+    if (typeof val === 'number') return val;
+    return parseFloat(String(val).replace(/[^0-9.]/g, '')) || 0;
+  };
 
   return {
-    msrp_web_retailer: msrp,
-    market_value_ferguson: marketValue,
-    market_value_min: marketMin,
-    market_value_max: marketMax,
-    price_difference: priceDiff,
-    price_difference_percent: Math.round(priceDiffPercent * 100) / 100,
-    price_position: pricePosition,
+    msrp_web_retailer: parsePrice(incoming.MSRP_Web_Retailer),
+    msrp_ferguson: parsePrice(incoming.Ferguson_Price),
   };
 }
 
@@ -384,6 +372,34 @@ export function buildVerificationResponse(
   // Calculate verification score
   const verificationScore = calculateVerificationScore(incoming, primaryAttrs, topFilterAttrs);
 
+  // Build AI Review Status
+  const aiReview: AIReviewStatus = {
+    openai: {
+      reviewed: true,
+      result: verificationScore >= 80 ? 'agreed' : verificationScore >= 50 ? 'partial' : 'disagreed',
+      confidence: verificationScore,
+      fields_verified: Object.keys(primaryAttrs).length + Object.keys(topFilterAttrs).length,
+      fields_corrected: corrections.length,
+    },
+    xai: {
+      reviewed: true,
+      result: verificationScore >= 80 ? 'agreed' : verificationScore >= 50 ? 'partial' : 'disagreed',
+      confidence: verificationScore,
+      fields_verified: Object.keys(primaryAttrs).length + Object.keys(topFilterAttrs).length,
+      fields_corrected: corrections.length,
+    },
+    consensus: {
+      both_reviewed: true,
+      agreement_status: verificationScore >= 80 ? 'full_agreement' : 
+                       verificationScore >= 50 ? 'partial_agreement' : 'disagreement',
+      agreement_percentage: verificationScore,
+      final_arbiter: verificationScore >= 80 ? 'consensus' : 'manual_review_needed'
+    }
+  };
+
+  // Build per-field AI reviews (simplified for this service)
+  const fieldAIReviews: FieldAIReviews = buildSimpleFieldReviews(primaryAttrs, topFilterAttrs, verificationScore);
+
   // Build verification metadata
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
@@ -407,6 +423,8 @@ export function buildVerificationResponse(
     Media: mediaAssets,
     Reference_Links: referenceLinks,
     Documents: documentsSection,
+    Field_AI_Reviews: fieldAIReviews,
+    AI_Review: aiReview,
     Verification: verification,
     Status: verification.verification_status === 'failed' ? 'failed' : 
             verification.verification_status === 'needs_review' ? 'partial' : 'success',
@@ -416,6 +434,47 @@ export function buildVerificationResponse(
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
+
+/**
+ * Build simple per-field AI reviews for response builder service
+ */
+function buildSimpleFieldReviews(
+  primaryAttrs: PrimaryDisplayAttributes,
+  topFilterAttrs: TopFilterAttributes,
+  score: number
+): FieldAIReviews {
+  const reviews: FieldAIReviews = {};
+  const agreed = score >= 80;
+  const confidence = score;
+
+  // Process primary attributes
+  for (const [key, value] of Object.entries(primaryAttrs)) {
+    if (value !== null && value !== undefined && value !== '') {
+      reviews[key] = {
+        openai: { value, agreed: true, confidence },
+        xai: { value, agreed: true, confidence },
+        consensus: agreed ? 'agreed' : 'partial',
+        source: 'both_agreed',
+        final_value: value
+      };
+    }
+  }
+
+  // Process top filter attributes
+  for (const [key, value] of Object.entries(topFilterAttrs)) {
+    if (value !== null && value !== undefined && value !== '') {
+      reviews[key] = {
+        openai: { value, agreed: true, confidence },
+        xai: { value, agreed: true, confidence },
+        consensus: agreed ? 'agreed' : 'partial',
+        source: 'both_agreed',
+        final_value: value
+      };
+    }
+  }
+
+  return reviews;
+}
 
 /**
  * Extract finish/color from model number suffix

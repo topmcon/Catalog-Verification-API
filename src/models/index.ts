@@ -10,3 +10,19 @@ export {
   OutgoingResponseData, 
   IssueFlag 
 } from './api-tracker.model';
+
+// Verification Analytics Models
+export {
+  VerificationResult,
+  IVerificationResult,
+  FieldMetrics,
+  IFieldMetrics,
+  CategoryMetrics,
+  ICategoryMetrics,
+  AIProviderMetrics,
+  IAIProviderMetrics,
+  DailySnapshot,
+  IDailySnapshot,
+  TrainingExample,
+  ITrainingExample
+} from './verification-analytics.model';

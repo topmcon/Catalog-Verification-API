@@ -138,6 +138,48 @@ export interface VerificationMetadata {
   confidence_scores: Record<string, number>;
 }
 
+// AI Review Status for each provider
+export interface AIProviderReview {
+  reviewed: boolean;
+  result: 'agreed' | 'disagreed' | 'partial' | 'error' | 'not_reviewed';
+  confidence: number;  // 0-100
+  fields_verified: number;
+  fields_corrected: number;
+  error_message?: string;
+}
+
+// Combined AI Review Status
+export interface AIReviewStatus {
+  openai: AIProviderReview;
+  xai: AIProviderReview;
+  consensus: {
+    both_reviewed: boolean;
+    agreement_status: 'full_agreement' | 'partial_agreement' | 'disagreement' | 'single_source' | 'no_review';
+    agreement_percentage: number;  // 0-100 (% of fields both AIs agreed on)
+    final_arbiter?: 'openai' | 'xai' | 'consensus' | 'manual_review_needed';
+  };
+}
+
+// Per-field AI review for tracking individual field success
+export interface FieldAIReview {
+  openai: {
+    value: string | number | boolean | null;
+    agreed: boolean;
+    confidence: number;
+  };
+  xai: {
+    value: string | number | boolean | null;
+    agreed: boolean;
+    confidence: number;
+  };
+  consensus: 'agreed' | 'partial' | 'disagreed' | 'single_source';
+  source: 'both_agreed' | 'openai_selected' | 'xai_selected' | 'averaged' | 'manual_needed';
+  final_value: string | number | boolean | null;
+}
+
+// Collection of per-field AI reviews
+export type FieldAIReviews = Record<string, FieldAIReview>;
+
 export interface CorrectionRecord {
   field: string;
   original_value?: string | null;
@@ -181,15 +223,10 @@ export interface DocumentsSection {
   documents: EvaluatedDocument[];
 }
 
-// Price Analysis
+// Price Analysis (simplified)
 export interface PriceAnalysis {
   msrp_web_retailer: number;
-  market_value_ferguson: number;
-  market_value_min: number;
-  market_value_max: number;
-  price_difference: number;
-  price_difference_percent: number;
-  price_position: 'above_market' | 'at_market' | 'below_market';
+  msrp_ferguson: number;  // Market Value from Ferguson
 }
 
 // Complete Verification Response (What we return to Salesforce)
@@ -218,6 +255,12 @@ export interface SalesforceVerificationResponse {
 
   // Price Analysis
   Price_Analysis: PriceAnalysis;
+
+  // Per-field AI Review (tracks each field's AI analysis for trend identification)
+  Field_AI_Reviews: FieldAIReviews;
+
+  // AI Review Status (Shows each AI's review and consensus - summary)
+  AI_Review: AIReviewStatus;
 
   // Verification Metadata
   Verification: VerificationMetadata;
