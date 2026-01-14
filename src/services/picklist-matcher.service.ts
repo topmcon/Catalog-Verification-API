@@ -132,6 +132,13 @@ class PicklistMatcherService {
   }
 
   /**
+   * Normalize string by removing accents/diacritics
+   */
+  private normalizeAccents(str: string): string {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  /**
    * Match a brand name to SF picklist
    */
   matchBrand(brandName: string): MatchResult<Brand> {
@@ -139,21 +146,24 @@ class PicklistMatcherService {
       return { matched: false, original: brandName, matchedValue: null, similarity: 0 };
     }
 
-    const normalized = brandName.toUpperCase().trim();
+    const normalized = this.normalizeAccents(brandName.toUpperCase().trim());
     
-    // Try exact match first
+    // Try exact match first (with accent normalization)
     const exactMatch = this.brands.find(b => 
-      b.brand_name.toUpperCase() === normalized
+      this.normalizeAccents(b.brand_name.toUpperCase()) === normalized
     );
     
     if (exactMatch) {
       return { matched: true, original: brandName, matchedValue: exactMatch, similarity: 1.0 };
     }
 
-    // Find closest matches
+    // Find closest matches (with accent normalization in similarity)
     const scored = this.brands.map(b => ({
       brand: b,
-      similarity: this.calculateSimilarity(brandName, b.brand_name)
+      similarity: this.calculateSimilarity(
+        this.normalizeAccents(brandName), 
+        this.normalizeAccents(b.brand_name)
+      )
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
