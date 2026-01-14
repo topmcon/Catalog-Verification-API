@@ -311,6 +311,32 @@ Your task is to:
 5. IDENTIFY any missing required fields
 6. GENERATE high-quality, customer-facing text for title, description, and features
 
+## ⚠️ CRITICAL: DIMENSION HANDLING
+
+Products have different shapes and dimension terminologies. Follow these rules:
+
+**Standard Rectangular Products** (Bathtubs, Sinks, Appliances):
+- depth_length: The front-to-back measurement OR the longest horizontal measurement
+- width: The side-to-side measurement
+- height: The vertical measurement
+
+**Circular/Cylindrical Products** (Jars, Cans, Round Sinks, Pipes):
+- If product has a DIAMETER, use that value for BOTH depth_length AND width
+- Example: 8" diameter jar → depth_length: "8", width: "8"
+- height: The vertical measurement of the cylinder
+
+**Long Products** (Pipes, Hoses, Cables):
+- depth_length: The length of the product
+- width: The diameter or cross-section width
+- height: Leave empty or use diameter if applicable
+
+**Dimension Rules**:
+- Always provide values in INCHES (convert if needed)
+- Use numeric values only (no units in the value): "32" not "32 inches"
+- depth_length is a COMBINED field - use whichever applies: depth OR length
+- For square products: depth_length and width can be the same value
+- Round up to nearest 0.25" for fractional measurements
+
 ## ⚠️ CRITICAL: TEXT QUALITY ENHANCEMENT (Customer-Facing Data)
 
 ALL text output must be CUSTOMER-READY. You MUST fix these issues:
@@ -375,10 +401,10 @@ You must respond with valid JSON in this exact format:
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
     "product_style": "value (category specific)",
-    "depth_length": "value in inches",
-    "width": "value in inches",
-    "height": "value in inches",
-    "weight": "value in lbs",
+    "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
+    "width": "numeric value only (width; for round items use same as depth_length)",
+    "height": "numeric value only",
+    "weight": "numeric value in lbs",
     "msrp": "value",
     "market_value": "value",
     "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
@@ -478,9 +504,31 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
 
   void getCategorySchema(agreedCategory);
   
+  // Build agreed attributes first
   const agreedPrimary = buildAgreedAttributes(openaiResult.primaryAttributes, xaiResult.primaryAttributes, disagreements);
   const agreedTop15 = buildAgreedAttributes(openaiResult.top15Attributes, xaiResult.top15Attributes, disagreements);
   const agreedAdditional = buildAgreedAttributes(openaiResult.additionalAttributes, xaiResult.additionalAttributes, disagreements);
+  
+  // Reconcile dimensions - handle swapped depth/width and circular products
+  const reconciledDims = reconcileDimensions(openaiResult.primaryAttributes, xaiResult.primaryAttributes, agreedCategory);
+  
+  // Apply reconciled dimensions to agreed primary attributes
+  if (reconciledDims.depth_length) {
+    agreedPrimary.depth_length = reconciledDims.depth_length;
+    // Remove dimension disagreements since we've reconciled them
+    const dimFields = ['depth_length', 'depth', 'length', 'width'];
+    for (let i = disagreements.length - 1; i >= 0; i--) {
+      if (dimFields.includes(disagreements[i].field.toLowerCase())) {
+        disagreements.splice(i, 1);
+      }
+    }
+  }
+  if (reconciledDims.width) {
+    agreedPrimary.width = reconciledDims.width;
+  }
+  if (reconciledDims.height) {
+    agreedPrimary.height = reconciledDims.height;
+  }
 
   const allMissing = new Set([...openaiResult.missingFields, ...xaiResult.missingFields]);
   for (const field of allMissing) {
@@ -594,6 +642,133 @@ function valuesMatch(a: any, b: any): boolean {
   }
   
   return false;
+}
+
+/**
+ * Normalize dimension values to pure numeric inches
+ * Handles various formats: "60 inches", "60"", "60 in", "5 ft", etc.
+ */
+function normalizeDimension(value: any): string {
+  if (!value || value === 'Unavailable' || value === 'N/A' || value === '') {
+    return '';
+  }
+  
+  const str = String(value).trim();
+  
+  // Extract numeric value
+  const numMatch = str.match(/[\d.]+/);
+  if (!numMatch) return '';
+  
+  let numValue = parseFloat(numMatch[0]);
+  
+  // Convert feet to inches if specified
+  if (/\bft\b|feet|foot|'/i.test(str)) {
+    numValue *= 12;
+  }
+  // Convert cm to inches
+  else if (/\bcm\b|centimeter/i.test(str)) {
+    numValue /= 2.54;
+  }
+  // Convert mm to inches
+  else if (/\bmm\b|millimeter/i.test(str)) {
+    numValue /= 25.4;
+  }
+  // Convert meters to inches
+  else if (/\bm\b|meter/i.test(str)) {
+    numValue *= 39.37;
+  }
+  
+  // Round to 2 decimal places
+  return numValue.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
+}
+
+/**
+ * Check if dimensions might be swapped between two results
+ * (e.g., one AI reports 60x32, the other reports 32x60)
+ */
+function areDimensionsSwapped(dims1: { depth?: string; width?: string }, dims2: { depth?: string; width?: string }): boolean {
+  const d1 = normalizeDimension(dims1.depth);
+  const w1 = normalizeDimension(dims1.width);
+  const d2 = normalizeDimension(dims2.depth);
+  const w2 = normalizeDimension(dims2.width);
+  
+  // If both have values, check if they're swapped
+  if (d1 && w1 && d2 && w2) {
+    return (d1 === w2 && w1 === d2);
+  }
+  return false;
+}
+
+/**
+ * Reconcile dimensions between two AI results
+ * Handles swapped dimensions and circular products
+ */
+function reconcileDimensions(
+  openaiAttrs: Record<string, any>, 
+  xaiAttrs: Record<string, any>,
+  category: string
+): { depth_length: string; width: string; height: string } {
+  const openaiDims = {
+    depth: openaiAttrs.depth_length || openaiAttrs.depth || openaiAttrs.length,
+    width: openaiAttrs.width,
+    height: openaiAttrs.height
+  };
+  
+  const xaiDims = {
+    depth: xaiAttrs.depth_length || xaiAttrs.depth || xaiAttrs.length,
+    width: xaiAttrs.width,
+    height: xaiAttrs.height
+  };
+  
+  // Normalize all values
+  const normOpenai = {
+    depth: normalizeDimension(openaiDims.depth),
+    width: normalizeDimension(openaiDims.width),
+    height: normalizeDimension(openaiDims.height)
+  };
+  
+  const normXai = {
+    depth: normalizeDimension(xaiDims.depth),
+    width: normalizeDimension(xaiDims.width),
+    height: normalizeDimension(xaiDims.height)
+  };
+  
+  // Check if dimensions are swapped
+  const swapped = areDimensionsSwapped(normOpenai, normXai);
+  
+  // Determine final values - prefer the larger value for depth/length (convention)
+  let finalDepth = normOpenai.depth || normXai.depth;
+  let finalWidth = normOpenai.width || normXai.width;
+  let finalHeight = normOpenai.height || normXai.height;
+  
+  // If swapped, use the convention: larger dimension = length/depth
+  if (swapped && finalDepth && finalWidth) {
+    const d = parseFloat(finalDepth);
+    const w = parseFloat(finalWidth);
+    if (!isNaN(d) && !isNaN(w) && w > d) {
+      // Swap so depth is larger
+      [finalDepth, finalWidth] = [finalWidth, finalDepth];
+    }
+  }
+  
+  // For circular products, if only one dimension is available, use it for both
+  const circularCategories = ['jars', 'cans', 'bottles', 'pipes', 'tubes', 'round sinks', 'round mirrors'];
+  const isCircular = circularCategories.some(c => category.toLowerCase().includes(c));
+  
+  if (isCircular || (finalDepth && !finalWidth && finalDepth === normOpenai.depth && finalDepth === normXai.width)) {
+    // If diameter-based, use same value for both
+    if (finalDepth && !finalWidth) {
+      finalWidth = finalDepth;
+    } else if (finalWidth && !finalDepth) {
+      finalDepth = finalWidth;
+    }
+  }
+  
+  return {
+    depth_length: finalDepth || '',
+    width: finalWidth || '',
+    height: finalHeight || ''
+  };
 }
 
 async function reanalyzeWithContext(rawProduct: SalesforceIncomingProduct, provider: 'openai' | 'xai', otherResult: AIAnalysisResult, sessionId: string): Promise<AIAnalysisResult> {
