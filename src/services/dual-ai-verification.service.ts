@@ -70,6 +70,15 @@ interface AIAnalysisResult {
   confidence: number;
   researchPerformed: boolean;
   researchSources?: string[];
+  documentEvaluations?: Array<{
+    url: string;
+    recommendation: 'use' | 'skip' | 'review';
+    relevanceScore: number;
+    reason: string;
+    extractedInfo?: string[];
+  }>;
+  primaryImageIndex?: number;
+  primaryImageReason?: string;
   error?: string;
   rawResponse?: string;
 }
@@ -205,6 +214,35 @@ export async function verifyProductWithDualAI(
       researchPhaseTriggered,
       disagreementFields: consensus.disagreements.map(d => d.field),
       unresolvedFields: consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field),
+    });
+
+    // Log AI research and document/image usage
+    const openaiResearch = openaiResult.researchPerformed ? 'YES' : 'NO';
+    const xaiResearch = xaiResult.researchPerformed ? 'YES' : 'NO';
+    const openaiDocs = openaiResult.documentEvaluations?.length || 0;
+    const xaiDocs = xaiResult.documentEvaluations?.length || 0;
+    const openaiImages = openaiResult.primaryImageIndex !== undefined ? 'Selected' : 'Not analyzed';
+    const xaiImages = xaiResult.primaryImageIndex !== undefined ? 'Selected' : 'Not analyzed';
+    
+    logger.info('AI Document & Image Analysis Summary', {
+      openai: {
+        researchPerformed: openaiResearch,
+        researchSources: openaiResult.researchSources?.length || 0,
+        documentsEvaluated: openaiDocs,
+        recommendedDocuments: openaiResult.documentEvaluations?.filter(d => d.recommendation === 'use').length || 0,
+        primaryImageAnalysis: openaiImages,
+        primaryImageIndex: openaiResult.primaryImageIndex,
+      },
+      xai: {
+        researchPerformed: xaiResearch,
+        researchSources: xaiResult.researchSources?.length || 0,
+        documentsEvaluated: xaiDocs,
+        recommendedDocuments: xaiResult.documentEvaluations?.filter(d => d.recommendation === 'use').length || 0,
+        primaryImageAnalysis: xaiImages,
+        primaryImageIndex: xaiResult.primaryImageIndex,
+      },
+      documentsProvided: rawProduct.Documents?.length || 0,
+      imagesProvided: rawProduct.Stock_Images?.length || 0,
     });
 
     const processingTime = Date.now() - startTime;
@@ -514,7 +552,11 @@ function parseAIResponse(parsed: any, provider: 'openai' | 'xai'): AIAnalysisRes
       source: provider
     })),
     confidence: parsed.confidence || 0,
-    researchPerformed: false,
+    researchPerformed: (parsed.research_sources && parsed.research_sources.length > 0) || false,
+    researchSources: parsed.research_sources || [],
+    documentEvaluations: parsed.documentEvaluation || [],
+    primaryImageIndex: parsed.primaryImageRecommendation?.recommendedIndex,
+    primaryImageReason: parsed.primaryImageRecommendation?.reason,
     rawResponse: JSON.stringify(parsed)
   };
 }

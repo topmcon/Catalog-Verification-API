@@ -77,12 +77,31 @@ ${determineBrandTier(rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand)
 ### Product Images (Available for visual context):
 ${formatImageList(rawProduct.Stock_Images)}
 
+**IMAGE ANALYSIS INSTRUCTIONS**:
+- You CANNOT view these images directly, but you CAN infer information from image filenames and context
+- Look for clues in filenames: colors, angles, features (e.g., "stainless-steel-front.jpg", "black-finish.png")
+- Recommend which image should be primary based on filename patterns (front view, lifestyle, etc.)
+- If vision capabilities are available, analyze images for: color, finish, visible features, installation type
+
 ### Reference URLs (Product pages for verification):
 - Ferguson Product Page: ${rawProduct.Ferguson_URL || '(not provided)'}
 - Third-Party Retailer URL: ${rawProduct.Reference_URL || '(not provided)'}
 
+**URL RESEARCH INSTRUCTIONS**:
+- Access these URLs to verify specifications and extract missing data
+- Ferguson URL is highly authoritative - prioritize data from this source
+- Use web browsing capability to fetch real-time product information
+
 ### Documents (URLs to specs, manuals, installation guides):
 ${formatDocumentList(rawProduct.Documents)}
+
+**DOCUMENT ANALYSIS INSTRUCTIONS** (CRITICAL):
+- You MUST evaluate each document for relevance and usefulness
+- Access PDFs/documents if you have document reading capability
+- Look for: specification sheets, installation guides, user manuals, dimension diagrams
+- Extract missing data: dimensions, electrical specs, capacity, certifications, warranty details
+- Prioritize manufacturer spec sheets over marketing materials
+- For each document, return evaluation in documentEvaluation response section
 
 ### Web Retailer Specifications (may contain duplicates):
 ${formatAttributeList(rawProduct.Web_Retailer_Specs)}
@@ -147,11 +166,15 @@ ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join(
    - Look for materials in: product titles, descriptions, features, and attribute arrays
 
 8. **Missing Data - MANDATORY EXTERNAL RESEARCH**: If ANY required field (especially Brand, Model Number, Color, Finish, Dimensions, or Top 15 attributes) cannot be found in the provided data:
-   - YOU MUST perform external research using the model number and brand
-   - Search manufacturer websites, spec sheets, retailer pages
-   - Example: For "Wolf SPO3050CMBT", search "Wolf SPO3050CMBT specifications"
+   - YOU MUST perform external research using ALL available sources:
+     a) **Documents**: Access provided PDF URLs (spec sheets, manuals, installation guides)
+     b) **Reference URLs**: Visit Ferguson and Web Retailer product pages
+     c) **Web Search**: Search manufacturer websites using model number + brand
+     d) **Image Analysis**: Infer from image filenames and visual data (if vision capability available)
+   - Example: For "Wolf SPO3050CMBT", search "Wolf SPO3050CMBT specifications PDF"
+   - Example: Access the spec sheet PDF to extract electrical requirements, dimensions, capacity
    - DO NOT leave required fields empty if external data exists
-   - Mark researched fields with source: "researched" and include the source URL in your reasoning
+   - Mark researched fields with source: "researched" and include the source URL/document name in your reasoning
 
 9. **Duplicate Removal**: The raw specs may contain duplicates. Return only unique values.
 
