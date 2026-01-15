@@ -4,7 +4,9 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import picklistMatcher from '../services/picklist-matcher.service';
+import { PicklistSyncLog, IPicklistTypeSummary, IPicklistChange } from '../models/picklist-sync-log.model';
 import logger from '../utils/logger';
 
 export class PicklistController {
@@ -385,9 +387,19 @@ export class PicklistController {
    * Only include the picklist types you want to update.
    */
   async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const startTime = Date.now();
+    const syncId = uuidv4();
+    const { attributes, brands, categories, styles } = req.body;
+    
+    // Capture current state BEFORE sync for comparison
+    const beforeState = {
+      attributes: picklistMatcher.getAttributes(),
+      brands: picklistMatcher.getBrands(),
+      categories: picklistMatcher.getCategories(),
+      styles: picklistMatcher.getStyles()
+    };
+    
     try {
-      const { attributes, brands, categories, styles } = req.body;
-      
       // Validate that at least one picklist type is provided
       if (!attributes && !brands && !categories && !styles) {
         res.status(400).json({ 
@@ -455,10 +467,12 @@ export class PicklistController {
       
       // Log the sync request
       logger.info('Picklist sync request received from Salesforce', {
+        sync_id: syncId,
         attributes_count: attributes?.length || 0,
         brands_count: brands?.length || 0,
         categories_count: categories?.length || 0,
-        styles_count: styles?.length || 0
+        styles_count: styles?.length || 0,
+        source_ip: req.ip
       });
       
       // Perform the sync
@@ -471,25 +485,266 @@ export class PicklistController {
       
       // Get updated stats
       const stats = picklistMatcher.getStats();
+      const processingTime = Date.now() - startTime;
+      
+      // Calculate detailed changes for audit log
+      const summaries: IPicklistTypeSummary[] = [];
+      const detailedChanges: {
+        attributes?: IPicklistChange[];
+        brands?: IPicklistChange[];
+        categories?: IPicklistChange[];
+        styles?: IPicklistChange[];
+      } = {};
+      
+      // Compare attributes
+      if (attributes) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.attributes, 
+          attributes, 
+          'attribute_id', 
+          'attribute_name'
+        );
+        summaries.push({
+          type: 'attributes',
+          previous_count: beforeState.attributes.length,
+          new_count: attributes.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map(a => a.attribute_name),
+          removed_items: removed.map(a => a.attribute_name)
+        });
+        detailedChanges.attributes = [
+          ...added.map(a => ({ type: 'added' as const, item_id: a.attribute_id, item_name: a.attribute_name, new_value: a })),
+          ...removed.map(a => ({ type: 'removed' as const, item_id: a.attribute_id, item_name: a.attribute_name, old_value: a }))
+        ];
+      }
+      
+      // Compare brands
+      if (brands) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.brands, 
+          brands, 
+          'brand_id', 
+          'brand_name'
+        );
+        summaries.push({
+          type: 'brands',
+          previous_count: beforeState.brands.length,
+          new_count: brands.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map(b => b.brand_name),
+          removed_items: removed.map(b => b.brand_name)
+        });
+        detailedChanges.brands = [
+          ...added.map(b => ({ type: 'added' as const, item_id: b.brand_id, item_name: b.brand_name, new_value: b })),
+          ...removed.map(b => ({ type: 'removed' as const, item_id: b.brand_id, item_name: b.brand_name, old_value: b }))
+        ];
+      }
+      
+      // Compare categories
+      if (categories) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.categories, 
+          categories, 
+          'category_id', 
+          'category_name'
+        );
+        summaries.push({
+          type: 'categories',
+          previous_count: beforeState.categories.length,
+          new_count: categories.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map(c => c.category_name),
+          removed_items: removed.map(c => c.category_name)
+        });
+        detailedChanges.categories = [
+          ...added.map(c => ({ type: 'added' as const, item_id: c.category_id, item_name: c.category_name, new_value: c })),
+          ...removed.map(c => ({ type: 'removed' as const, item_id: c.category_id, item_name: c.category_name, old_value: c }))
+        ];
+      }
+      
+      // Compare styles
+      if (styles) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.styles, 
+          styles, 
+          'style_id', 
+          'style_name'
+        );
+        summaries.push({
+          type: 'styles',
+          previous_count: beforeState.styles.length,
+          new_count: styles.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map(s => s.style_name),
+          removed_items: removed.map(s => s.style_name)
+        });
+        detailedChanges.styles = [
+          ...added.map(s => ({ type: 'added' as const, item_id: s.style_id, item_name: s.style_name, new_value: s })),
+          ...removed.map(s => ({ type: 'removed' as const, item_id: s.style_id, item_name: s.style_name, old_value: s }))
+        ];
+      }
+      
+      // Create audit log entry
+      const apiKeyHeader = req.header('x-api-key') || '';
+      const syncLog = new PicklistSyncLog({
+        sync_id: syncId,
+        timestamp: new Date(),
+        source_ip: req.ip || 'unknown',
+        user_agent: req.header('user-agent'),
+        api_key_hint: apiKeyHeader.length > 4 ? `...${apiKeyHeader.slice(-4)}` : '****',
+        request_body_size: JSON.stringify(req.body).length,
+        picklist_types_included: [
+          attributes ? 'attributes' : null,
+          brands ? 'brands' : null,
+          categories ? 'categories' : null,
+          styles ? 'styles' : null
+        ].filter(Boolean) as string[],
+        success: result.success,
+        sync_errors: result.errors,
+        summaries,
+        detailed_changes: detailedChanges,
+        processing_time_ms: processingTime,
+        snapshots: {
+          attributes_before: attributes ? beforeState.attributes : undefined,
+          brands_before: brands ? beforeState.brands : undefined,
+          categories_before: categories ? beforeState.categories : undefined,
+          styles_before: styles ? beforeState.styles : undefined
+        }
+      });
+      
+      // Save audit log (async, don't await)
+      syncLog.save().catch(err => {
+        logger.error('Failed to save picklist sync log', { sync_id: syncId, error: err });
+      });
+      
+      // Log summary to console
+      logger.info('Picklist sync completed', {
+        sync_id: syncId,
+        success: result.success,
+        processing_time_ms: processingTime,
+        changes: summaries.map(s => ({
+          type: s.type,
+          added: s.items_added,
+          removed: s.items_removed
+        }))
+      });
       
       if (result.success) {
         res.json({ 
           success: true, 
           message: 'Picklists synced successfully',
+          sync_id: syncId,
           updated: result.updated,
-          current_stats: stats
+          changes: summaries,
+          current_stats: stats,
+          processing_time_ms: processingTime
         });
       } else {
         res.status(207).json({ 
           success: false, 
           message: 'Some picklists failed to sync',
+          sync_id: syncId,
           updated: result.updated,
           errors: result.errors,
-          current_stats: stats
+          changes: summaries,
+          current_stats: stats,
+          processing_time_ms: processingTime
         });
       }
     } catch (error) {
-      logger.error('Picklist sync failed', { error });
+      const processingTime = Date.now() - startTime;
+      logger.error('Picklist sync failed', { sync_id: syncId, error, processing_time_ms: processingTime });
+      
+      // Log failed sync attempt
+      const syncLog = new PicklistSyncLog({
+        sync_id: syncId,
+        timestamp: new Date(),
+        source_ip: req.ip || 'unknown',
+        user_agent: req.header('user-agent'),
+        request_body_size: JSON.stringify(req.body || {}).length,
+        picklist_types_included: [],
+        success: false,
+        sync_errors: [(error as Error).message],
+        summaries: [],
+        processing_time_ms: processingTime
+      });
+      syncLog.save().catch(() => {});
+      
+      next(error);
+    }
+  }
+  
+  /**
+   * Helper: Compare old vs new picklist data to find added/removed items
+   */
+  private comparePicklists<T extends Record<string, any>>(
+    oldItems: T[],
+    newItems: T[],
+    idField: keyof T,
+    _nameField: keyof T  // Used by caller for display purposes
+  ): { added: T[]; removed: T[] } {
+    const oldIds = new Set(oldItems.map(item => item[idField]));
+    const newIds = new Set(newItems.map(item => item[idField]));
+    
+    const added = newItems.filter(item => !oldIds.has(item[idField]));
+    const removed = oldItems.filter(item => !newIds.has(item[idField]));
+    
+    return { added, removed };
+  }
+  
+  /**
+   * GET /api/picklists/sync/logs
+   * Get sync audit logs
+   */
+  async getSyncLogs(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { limit, success, type } = req.query;
+      
+      const query: any = {};
+      if (success !== undefined) {
+        query.success = success === 'true';
+      }
+      if (type) {
+        query.picklist_types_included = type;
+      }
+      
+      const logs = await PicklistSyncLog.find(query)
+        .sort({ timestamp: -1 })
+        .limit(parseInt(limit as string) || 50)
+        .select('-snapshots -detailed_changes')
+        .lean();
+      
+      res.json({ 
+        success: true, 
+        count: logs.length,
+        data: logs 
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  /**
+   * GET /api/picklists/sync/logs/:syncId
+   * Get detailed sync log by ID (includes snapshots for rollback)
+   */
+  async getSyncLogById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { syncId } = req.params;
+      
+      const log = await PicklistSyncLog.findOne({ sync_id: syncId }).lean();
+      
+      if (!log) {
+        res.status(404).json({ success: false, error: 'Sync log not found' });
+        return;
+      }
+      
+      res.json({ success: true, data: log });
+    } catch (error) {
       next(error);
     }
   }

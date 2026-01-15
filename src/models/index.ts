@@ -35,3 +35,11 @@ export {
   TrainingExample,
   ITrainingExample
 } from './verification-analytics.model';
+
+// Picklist Sync Audit Log
+export { 
+  PicklistSyncLog, 
+  IPicklistSyncLog, 
+  IPicklistChange, 
+  IPicklistTypeSummary 
+} from './picklist-sync-log.model';

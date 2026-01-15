@@ -30,6 +30,10 @@ router.post('/attributes', picklistController.addAttribute.bind(picklistControll
 // Body: { attributes?: [], brands?: [], categories?: [], styles?: [] }
 router.post('/sync', picklistController.syncPicklists.bind(picklistController));
 
+// Sync audit logs - view history of all sync operations
+router.get('/sync/logs', picklistController.getSyncLogs.bind(picklistController));
+router.get('/sync/logs/:syncId', picklistController.getSyncLogById.bind(picklistController));
+
 // Matching endpoints (for testing)
 router.post('/match/brand', picklistController.matchBrand.bind(picklistController));
 router.post('/match/category', picklistController.matchCategory.bind(picklistController));
