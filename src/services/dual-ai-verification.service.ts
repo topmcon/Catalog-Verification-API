@@ -983,17 +983,24 @@ function buildFinalResponse(
     });
   }
   
+  // Match against Salesforce picklists and use EXACT picklist values
+  const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
+  const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
+  const styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
+  
   const primaryAttributes: PrimaryDisplayAttributes = {
-    Brand_Verified: cleanedText.brand,
-    Brand_Id: (() => {
-      const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
-      return brandMatch.matched && brandMatch.matchedValue ? brandMatch.matchedValue.brand_id : null;
-    })(),
-    Category_Verified: cleanEncodingIssues(consensus.agreedCategory || ''),
-    Category_Id: (() => {
-      const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
-      return categoryMatch.matched && categoryMatch.matchedValue ? categoryMatch.matchedValue.category_id : null;
-    })(),
+    Brand_Verified: brandMatch.matched && brandMatch.matchedValue 
+      ? brandMatch.matchedValue.brand_name  // Use EXACT Salesforce brand name
+      : cleanedText.brand,
+    Brand_Id: brandMatch.matched && brandMatch.matchedValue 
+      ? brandMatch.matchedValue.brand_id 
+      : null,
+    Category_Verified: categoryMatch.matched && categoryMatch.matchedValue 
+      ? categoryMatch.matchedValue.category_name  // Use EXACT Salesforce category name
+      : cleanEncodingIssues(consensus.agreedCategory || ''),
+    Category_Id: categoryMatch.matched && categoryMatch.matchedValue 
+      ? categoryMatch.matchedValue.category_id 
+      : null,
     SubCategory_Verified: cleanEncodingIssues(
       consensus.agreedPrimaryAttributes.subcategory || 
       consensus.agreedPrimaryAttributes.category_subcategory || 
@@ -1001,11 +1008,12 @@ function buildFinalResponse(
       ''
     ),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
-    Product_Style_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
-    Style_Id: (() => {
-      const styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
-      return styleMatch.matched && styleMatch.matchedValue ? styleMatch.matchedValue.style_id : null;
-    })(),
+    Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
+      ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name
+      : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
+    Style_Id: styleMatch.matched && styleMatch.matchedValue 
+      ? styleMatch.matchedValue.style_id 
+      : null,
     Color_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.color || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''),
     Finish_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.finish || rawProduct.Ferguson_Finish || ''),
     Depth_Verified: consensus.agreedPrimaryAttributes.depth_length || rawProduct.Depth_Web_Retailer,
