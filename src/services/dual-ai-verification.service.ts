@@ -685,6 +685,62 @@ function valuesMatch(a: any, b: any): boolean {
 }
 
 /**
+ * Find attribute value in raw Web_Retailer_Specs or Ferguson_Attributes arrays
+ * Uses fuzzy matching on attribute names
+ */
+function findAttributeInRawData(
+  rawProduct: SalesforceIncomingProduct, 
+  attributeName: string
+): string | number | boolean | null {
+  // Normalize attribute name for matching (lowercase, remove special chars, collapse spaces)
+  const normalizeAttrName = (name: string): string => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+  
+  const normalizedTarget = normalizeAttrName(attributeName);
+  
+  // Helper to find in attribute array with fuzzy matching
+  const findInArray = (attrs: Array<{ name: string; value: string }> | undefined): string | number | boolean | null => {
+    if (!attrs || !Array.isArray(attrs)) return null;
+    
+    for (const attr of attrs) {
+      const normalizedName = normalizeAttrName(attr.name);
+      
+      // Exact match
+      if (normalizedName === normalizedTarget) {
+        return attr.value;
+      }
+      
+      // Fuzzy match: one contains the other
+      if (normalizedName.includes(normalizedTarget) || normalizedTarget.includes(normalizedName)) {
+        // Ensure it's a meaningful match (not just "a" matching "capacity")
+        const shorterLength = Math.min(normalizedName.length, normalizedTarget.length);
+        const longerLength = Math.max(normalizedName.length, normalizedTarget.length);
+        const matchRatio = shorterLength / longerLength;
+        
+        if (matchRatio > 0.5) { // At least 50% overlap
+          return attr.value;
+        }
+      }
+    }
+    
+    return null;
+  };
+  
+  // Try Ferguson first (more reliable), then Web Retailer
+  let value = findInArray(rawProduct.Ferguson_Attributes);
+  if (value === null || value === '') {
+    value = findInArray(rawProduct.Web_Retailer_Specs);
+  }
+  
+  return value;
+}
+
+/**
  * Normalize dimension values to pure numeric inches
  * Handles various formats: "60 inches", "60"", "60 in", "5 ft", etc.
  */
@@ -1286,7 +1342,32 @@ function buildFinalResponse(
     attributeCount: categorySchema?.top15FilterAttributes?.length || 0
   });
   
-  for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
+  // Build complete Top 15 attribute set - include AI-extracted AND raw data fallback
+  const completeTop15: Record<string, any> = { ...consensus.agreedTop15Attributes };
+  
+  // For attributes AI didn't extract, try to find them in raw data arrays
+  if (categorySchema?.top15FilterAttributes) {
+    for (const attrDef of categorySchema.top15FilterAttributes) {
+      const key = attrDef.fieldKey;
+      const name = attrDef.name;
+      
+      // If AI didn't provide this attribute, search raw data
+      if (completeTop15[key] === undefined || completeTop15[key] === null || completeTop15[key] === '') {
+        const rawValue = findAttributeInRawData(rawProduct, name);
+        if (rawValue) {
+          completeTop15[key] = rawValue;
+          logger.info('Filled missing Top 15 attribute from raw data', {
+            fieldKey: key,
+            attributeName: name,
+            value: rawValue,
+            source: 'raw_data_fallback'
+          });
+        }
+      }
+    }
+  }
+  
+  for (const [key, value] of Object.entries(completeTop15)) {
     let finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
     
     // Find the attribute definition from the schema to validate and standardize the value

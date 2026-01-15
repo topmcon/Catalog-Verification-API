@@ -369,17 +369,43 @@ export function extractFeatures(description: string | undefined | null, existing
   if (existingFeatures) {
     // Ensure we're working with a string
     const featuresStr = typeof existingFeatures === 'string' ? existingFeatures : String(existingFeatures);
-    const existingList = featuresStr
-      .replace(/<[^>]+>/g, '\n')  // Remove HTML tags, replace with newlines
-      .split(/[\n•\-\*]+/)
-      .map(f => f.trim())
-      .filter(f => f.length > 10);
     
-    for (const f of existingList) {
-      const cleaned = cleanEncodingIssues(f);
-      if (!seenFeatures.has(cleaned.toLowerCase())) {
-        features.push(cleaned);
-        seenFeatures.add(cleaned.toLowerCase());
+    // If it's HTML format, extract <li> items properly
+    if (featuresStr.includes('<li>')) {
+      const liRegex = /<li>(.*?)<\/li>/gs;  // 's' flag allows . to match newlines
+      const matches = featuresStr.matchAll(liRegex);
+      
+      for (const match of matches) {
+        const rawFeature = match[1].trim();
+        // Remove any nested HTML tags and collapse whitespace
+        const cleanedFeature = rawFeature
+          .replace(/<[^>]+>/g, ' ')  // Remove any nested tags
+          .replace(/\s+/g, ' ')       // Collapse multiple spaces/newlines to single space
+          .trim();
+        
+        if (cleanedFeature.length > 10) {
+          const cleaned = cleanEncodingIssues(cleanedFeature);
+          if (!seenFeatures.has(cleaned.toLowerCase())) {
+            features.push(cleaned);
+            seenFeatures.add(cleaned.toLowerCase());
+          }
+        }
+      }
+    } else {
+      // Plain text format - split on bullets, newlines, etc.
+      const existingList = featuresStr
+        .replace(/<[^>]+>/g, ' ')  // Remove HTML tags
+        .replace(/\s+/g, ' ')       // Collapse whitespace
+        .split(/[•\-\*]/)           // Split on bullet markers only
+        .map(f => f.trim())
+        .filter(f => f.length > 10);
+      
+      for (const f of existingList) {
+        const cleaned = cleanEncodingIssues(f);
+        if (!seenFeatures.has(cleaned.toLowerCase())) {
+          features.push(cleaned);
+          seenFeatures.add(cleaned.toLowerCase());
+        }
       }
     }
   }
