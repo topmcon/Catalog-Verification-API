@@ -1199,7 +1199,11 @@ function buildFinalResponse(
         xaiResult.primaryAttributes.color,
         openaiResult.confidence,
         xaiResult.confidence,
-        rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''
+        rawProduct.Ferguson_Color || 
+        rawProduct.Color_Finish_Web_Retailer || 
+        findAttributeInRawData(rawProduct, 'Color') ||
+        findAttributeInRawData(rawProduct, 'Finish Color') ||
+        ''
       )
     ),
     Finish_Verified: cleanEncodingIssues(
@@ -1209,7 +1213,10 @@ function buildFinalResponse(
         xaiResult.primaryAttributes.finish,
         openaiResult.confidence,
         xaiResult.confidence,
-        rawProduct.Ferguson_Finish || ''
+        rawProduct.Ferguson_Finish || 
+        findAttributeInRawData(rawProduct, 'Finish') ||
+        findAttributeInRawData(rawProduct, 'Surface Finish') ||
+        ''
       )
     ),
     Depth_Verified: preferAIValue(
@@ -1218,7 +1225,11 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.depth_length,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Depth_Web_Retailer
+      rawProduct.Depth_Web_Retailer || 
+      rawProduct.Ferguson_Depth ||
+      findAttributeInRawData(rawProduct, 'Depth') ||
+      findAttributeInRawData(rawProduct, 'Overall Depth') ||
+      ''
     ),
     Width_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.width,
@@ -1226,7 +1237,11 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.width,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Width_Web_Retailer
+      rawProduct.Width_Web_Retailer || 
+      rawProduct.Ferguson_Width ||
+      findAttributeInRawData(rawProduct, 'Width') ||
+      findAttributeInRawData(rawProduct, 'Overall Width') ||
+      ''
     ),
     Height_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
@@ -1234,7 +1249,11 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.height,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Height_Web_Retailer
+      rawProduct.Height_Web_Retailer || 
+      rawProduct.Ferguson_Height ||
+      findAttributeInRawData(rawProduct, 'Height') ||
+      findAttributeInRawData(rawProduct, 'Overall Height') ||
+      ''
     ),
     Weight_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.weight,
@@ -1242,7 +1261,11 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.weight,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Weight_Web_Retailer
+      rawProduct.Weight_Web_Retailer ||
+      findAttributeInRawData(rawProduct, 'Weight') ||
+      findAttributeInRawData(rawProduct, 'Product Weight') ||
+      findAttributeInRawData(rawProduct, 'Shipping Weight') ||
+      ''
     ),
     MSRP_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.msrp,
@@ -1250,7 +1273,11 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.msrp,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.MSRP_Web_Retailer
+      rawProduct.MSRP_Web_Retailer || 
+      rawProduct.Ferguson_Price ||  // Use Ferguson price as MSRP fallback
+      findAttributeInRawData(rawProduct, 'MSRP') ||
+      findAttributeInRawData(rawProduct, 'List Price') ||
+      ''
     ),
     Market_Value: rawProduct.Ferguson_Price || '',
     Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
