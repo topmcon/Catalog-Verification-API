@@ -154,6 +154,7 @@ function extractFieldsManually(text: string, aiProvider: string): AIAnalysisResu
 
 /**
  * Validate that parsed AI response has required fields
+ * Accepts multiple field name variations (snake_case, camelCase, etc.)
  */
 export function validateAIResponse(response: any, aiProvider: string): boolean {
   if (!response || typeof response !== 'object') {
@@ -161,8 +162,30 @@ export function validateAIResponse(response: any, aiProvider: string): boolean {
     return false;
   }
 
-  const required = ['category', 'primary_attributes', 'top_filter_attributes', 'confidence_score'];
-  const missing = required.filter(field => !(field in response));
+  // Check for category (can be object or string)
+  const hasCategory = response.category !== undefined;
+  
+  // Check for primary_attributes
+  const hasPrimaryAttrs = response.primary_attributes !== undefined;
+  
+  // Check for top filter attributes (accept multiple naming conventions)
+  const hasTopFilterAttrs = 
+    response.top_filter_attributes !== undefined ||
+    response.top15_filter_attributes !== undefined ||
+    response.top15Attributes !== undefined ||
+    response.topFilterAttributes !== undefined;
+  
+  // Check for confidence (accept multiple naming conventions)
+  const hasConfidence = 
+    response.confidence_score !== undefined ||
+    response.confidence !== undefined ||
+    (response.category && typeof response.category === 'object' && response.category.confidence !== undefined);
+
+  const missing: string[] = [];
+  if (!hasCategory) missing.push('category');
+  if (!hasPrimaryAttrs) missing.push('primary_attributes');
+  if (!hasTopFilterAttrs) missing.push('top_filter_attributes');
+  if (!hasConfidence) missing.push('confidence_score');
 
   if (missing.length > 0) {
     logger.warn(`[${aiProvider}] Missing required fields: ${missing.join(', ')}`);
