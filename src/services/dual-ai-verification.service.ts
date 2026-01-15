@@ -1343,7 +1343,33 @@ function buildFinalResponse(
   });
   
   // Build complete Top 15 attribute set - include AI-extracted AND raw data fallback
-  const completeTop15: Record<string, any> = { ...consensus.agreedTop15Attributes };
+  const completeTop15: Record<string, any> = {};
+  
+  // First, normalize AI-extracted attributes to use ONLY field keys (deduplicate)
+  const normalizedAITop15: Record<string, any> = {};
+  if (categorySchema?.top15FilterAttributes) {
+    // Create lookup: attribute name -> field key
+    const nameToFieldKey = new Map<string, string>();
+    for (const attrDef of categorySchema.top15FilterAttributes) {
+      nameToFieldKey.set(attrDef.name.toLowerCase().replace(/[^a-z0-9]/g, ''), attrDef.fieldKey);
+    }
+    
+    // Normalize all AI keys to field keys
+    for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
+      const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const fieldKey = nameToFieldKey.get(normalizedKey) || key;
+      
+      // Only keep first value if duplicate (prefer what's already there)
+      if (!normalizedAITop15[fieldKey]) {
+        normalizedAITop15[fieldKey] = value;
+      }
+    }
+  } else {
+    // No schema available, use AI keys as-is
+    Object.assign(normalizedAITop15, consensus.agreedTop15Attributes);
+  }
+  
+  Object.assign(completeTop15, normalizedAITop15);
   
   // For attributes AI didn't extract, try to find them in raw data arrays
   if (categorySchema?.top15FilterAttributes) {
