@@ -932,8 +932,55 @@ function buildFinalResponse(
   
   // Get raw values for customer-facing text
   const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
-  const rawTitle = consensus.agreedPrimaryAttributes.product_title || rawProduct.Product_Title_Web_Retailer || '';
-  const rawDescription = consensus.agreedPrimaryAttributes.description || rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
+  
+  // For title: Prefer AI-improved version over raw source data
+  let rawTitle = consensus.agreedPrimaryAttributes.product_title;
+  if (!rawTitle) {
+    const openaiTitle = openaiResult.primaryAttributes.product_title;
+    const xaiTitle = xaiResult.primaryAttributes.product_title;
+    
+    if (openaiTitle && xaiTitle) {
+      rawTitle = openaiResult.confidence >= xaiResult.confidence ? openaiTitle : xaiTitle;
+      logger.info('Using AI-improved title', { 
+        selectedProvider: openaiResult.confidence >= xaiResult.confidence ? 'OpenAI' : 'xAI'
+      });
+    } else if (openaiTitle) {
+      rawTitle = openaiTitle;
+    } else if (xaiTitle) {
+      rawTitle = xaiTitle;
+    } else {
+      rawTitle = rawProduct.Product_Title_Web_Retailer || '';
+    }
+  }
+  
+  // For description: Prefer AI-improved version over raw source data
+  // If both AIs provided descriptions (even if they differ), use the higher confidence one
+  let rawDescription = consensus.agreedPrimaryAttributes.description;
+  if (!rawDescription) {
+    // Check if AIs provided improved descriptions
+    const openaiDesc = openaiResult.primaryAttributes.description;
+    const xaiDesc = xaiResult.primaryAttributes.description;
+    
+    if (openaiDesc && xaiDesc) {
+      // Both provided descriptions - use higher confidence version
+      rawDescription = openaiResult.confidence >= xaiResult.confidence ? openaiDesc : xaiDesc;
+      logger.info('Using AI-improved description', { 
+        selectedProvider: openaiResult.confidence >= xaiResult.confidence ? 'OpenAI' : 'xAI',
+        openaiConfidence: openaiResult.confidence,
+        xaiConfidence: xaiResult.confidence
+      });
+    } else if (openaiDesc) {
+      rawDescription = openaiDesc;
+      logger.info('Using OpenAI-improved description');
+    } else if (xaiDesc) {
+      rawDescription = xaiDesc;
+      logger.info('Using xAI-improved description');
+    } else {
+      // Fall back to raw source data only if no AI provided improved version
+      rawDescription = rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
+      logger.info('Using raw source description (no AI improvements)');
+    }
+  }
   
   // Handle features from AI - could be string (HTML), array, or missing
   let rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
