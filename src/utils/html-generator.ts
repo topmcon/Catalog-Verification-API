@@ -38,33 +38,34 @@ export function generateAttributeTable(
   );
 
   if (entries.length === 0) {
-    return `<p class="no-attributes">${opts.emptyMessage}</p>`;
+    return `<p style="color: #666; font-style: italic; padding: 10px;">${opts.emptyMessage}</p>`;
   }
 
   let html = '';
 
-  // Add inline styles if requested
-  if (opts.includeStyles) {
-    html += generateTableStyles(opts);
-  }
+  // Use inline styles instead of <style> tag for better compatibility with Salesforce
+  const tableStyle = 'border-collapse: collapse; width: 100%; margin: 10px 0; font-family: Arial, sans-serif; font-size: 14px;';
+  const headerStyle = 'padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;';
+  const cellStyle = 'padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;';
+  const cellAltStyle = 'padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;';
 
-  html += `<table class="${opts.tableClass}" border="1">\n`;
+  html += `<table style="${tableStyle}" border="1">\n`;
   html += `  <thead>\n`;
   html += `    <tr>\n`;
-  html += `      <th class="${opts.headerClass}">Attribute</th>\n`;
-  html += `      <th class="${opts.headerClass}">Value</th>\n`;
+  html += `      <th style="${headerStyle}">Attribute</th>\n`;
+  html += `      <th style="${headerStyle}">Value</th>\n`;
   html += `    </tr>\n`;
   html += `  </thead>\n`;
   html += `  <tbody>\n`;
 
   entries.forEach(([key, value], index) => {
-    const rowClass = index % 2 === 1 ? opts.alternateRowClass : '';
     const formattedKey = formatAttributeName(key);
     const formattedValue = formatAttributeValue(value);
+    const tdStyle = index % 2 === 1 ? cellAltStyle : cellStyle;
 
-    html += `    <tr class="${rowClass}">\n`;
-    html += `      <td class="${opts.cellClass}">${sanitizeHtml(formattedKey)}</td>\n`;
-    html += `      <td class="${opts.cellClass}">${sanitizeHtml(formattedValue)}</td>\n`;
+    html += `    <tr>\n`;
+    html += `      <td style="${tdStyle}">${sanitizeHtml(formattedKey)}</td>\n`;
+    html += `      <td style="${tdStyle}">${sanitizeHtml(formattedValue)}</td>\n`;
     html += `    </tr>\n`;
   });
 
@@ -88,48 +89,6 @@ export function generateUnmatchedAttributeTable(
   }
 
   return generateAttributeTable(attributeMap, options);
-}
-
-/**
- * Generate inline CSS styles for the table
- */
-function generateTableStyles(opts: HtmlTableOptions): string {
-  return `
-<style>
-  .${opts.tableClass} {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 10px 0;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-  }
-  .${opts.tableClass} th,
-  .${opts.tableClass} td {
-    padding: 10px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  .${opts.headerClass} {
-    background-color: #4a90d9;
-    color: white;
-    font-weight: bold;
-  }
-  .${opts.cellClass} {
-    background-color: #fff;
-  }
-  .${opts.alternateRowClass} td {
-    background-color: #f9f9f9;
-  }
-  .${opts.tableClass} tr:hover td {
-    background-color: #e8f4fc;
-  }
-  .no-attributes {
-    color: #666;
-    font-style: italic;
-    padding: 10px;
-  }
-</style>
-`;
 }
 
 /**
