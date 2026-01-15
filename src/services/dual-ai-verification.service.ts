@@ -34,6 +34,7 @@ import {
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt
 } from '../config/master-category-attributes';
+import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues } from '../utils/text-cleaner';
 import logger from '../utils/logger';
@@ -987,34 +988,33 @@ function buildFinalResponse(
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
   
-  // For Style matching, try multiple approaches:
-  // 1. Try AI's product_style first
-  // 2. Try subcategory (often contains the style, e.g., "ELECTRIC OVEN AND MICROWAVE COMBO" → "Microwave Combo")
-  // 3. Try product family parsing
-  let styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
+  // Match Style using category-aware mapping
+  let styleMatch: { matched: boolean; matchedValue: { style_name: string; style_id: string } | null } = { matched: false, matchedValue: null };
+  const potentialStyle = consensus.agreedPrimaryAttributes.product_style || 
+                        rawProduct.Web_Retailer_SubCategory || 
+                        '';
   
-  // If no match, try matching from SubCategory
-  if (!styleMatch.matched && rawProduct.Web_Retailer_SubCategory) {
-    const subCat = rawProduct.Web_Retailer_SubCategory;
-    // Try to extract style from subcategory like "ELECTRIC OVEN AND MICROWAVE COMBO"
-    if (subCat.includes('MICROWAVE')) {
-      styleMatch = picklistMatcher.matchStyle('Microwave Combo');
+  if (potentialStyle && categoryMatch.matchedValue) {
+    const matchedCategory = categoryMatch.matchedValue.category_name;
+    const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
+    
+    if (mappedStyle) {
+      // Verify the mapped style exists in Salesforce picklist
+      const sfStyleMatch = picklistMatcher.matchStyle(mappedStyle);
+      if (sfStyleMatch.matched) {
+        styleMatch = sfStyleMatch;
+        logger.info(`[Style Matched] Category: "${matchedCategory}" → Style: "${mappedStyle}"`, {
+          originalInput: potentialStyle
+        });
+      }
+    } else {
+      const validStyles = getValidStylesForCategory(matchedCategory);
+      logger.warn(`[Style Validation] No valid style found for category "${matchedCategory}"`, {
+        potentialStyle,
+        validStylesForCategory: validStyles,
+        source: consensus.agreedPrimaryAttributes.product_style ? 'AI' : 'subcategory'
+      });
     }
-  }
-  
-  // Log style matching for debugging
-  if (!styleMatch.matched && (consensus.agreedPrimaryAttributes.product_style || rawProduct.Web_Retailer_SubCategory)) {
-    logger.info('Style matching attempted', {
-      aiProductStyle: consensus.agreedPrimaryAttributes.product_style,
-      subCategory: rawProduct.Web_Retailer_SubCategory,
-      category: consensus.agreedCategory,
-      styleFound: false
-    });
-  } else if (styleMatch.matched) {
-    logger.info('Style matched successfully', {
-      matchedStyle: styleMatch.matchedValue?.style_name,
-      source: consensus.agreedPrimaryAttributes.product_style ? 'AI product_style' : 'SubCategory parsing'
-    });
   }
   
   const primaryAttributes: PrimaryDisplayAttributes = {
