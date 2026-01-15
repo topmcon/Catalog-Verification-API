@@ -921,6 +921,33 @@ function mergeResearchResults(consensus: ConsensusResult, openaiResearch: Record
   return { ...consensus, agreedAdditionalAttributes: mergedAdditional, needsResearch: [] };
 }
 
+/**
+ * Helper to prefer AI consensus value, or select higher confidence AI if they disagree
+ * Falls back to raw source data only if no AI provided value
+ */
+function preferAIValue(
+  consensusValue: any,
+  openaiValue: any,
+  xaiValue: any,
+  openaiConfidence: number,
+  xaiConfidence: number,
+  fallback: any
+): any {
+  if (consensusValue !== undefined && consensusValue !== null && consensusValue !== '') {
+    return consensusValue;
+  }
+  
+  if (openaiValue && xaiValue) {
+    return openaiConfidence >= xaiConfidence ? openaiValue : xaiValue;
+  } else if (openaiValue) {
+    return openaiValue;
+  } else if (xaiValue) {
+    return xaiValue;
+  }
+  
+  return fallback;
+}
+
 function buildFinalResponse(
   rawProduct: SalesforceIncomingProduct,
   consensus: ConsensusResult,
@@ -983,7 +1010,23 @@ function buildFinalResponse(
   }
   
   // Handle features from AI - could be string (HTML), array, or missing
-  let rawFeatures = consensus.agreedPrimaryAttributes.features_list || rawProduct.Features_Web_Retailer || '';
+  // Prefer AI-improved version over raw source data
+  let rawFeatures = consensus.agreedPrimaryAttributes.features_list;
+  if (!rawFeatures) {
+    const openaiFeat = openaiResult.primaryAttributes.features_list;
+    const xaiFeat = xaiResult.primaryAttributes.features_list;
+    
+    if (openaiFeat && xaiFeat) {
+      rawFeatures = openaiResult.confidence >= xaiResult.confidence ? openaiFeat : xaiFeat;
+    } else if (openaiFeat) {
+      rawFeatures = openaiFeat;
+    } else if (xaiFeat) {
+      rawFeatures = xaiFeat;
+    } else {
+      rawFeatures = rawProduct.Features_Web_Retailer || '';
+    }
+  }
+  
   if (Array.isArray(rawFeatures)) {
     // AI returned an array - convert to HTML
     rawFeatures = '<ul>' + rawFeatures.map((f: string) => `<li>${f}</li>`).join('') + '</ul>';
@@ -1093,38 +1136,140 @@ function buildFinalResponse(
     Style_Id: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
-    Color_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.color || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''),
-    Finish_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.finish || rawProduct.Ferguson_Finish || ''),
-    Depth_Verified: consensus.agreedPrimaryAttributes.depth_length || rawProduct.Depth_Web_Retailer,
-    Width_Verified: consensus.agreedPrimaryAttributes.width || rawProduct.Width_Web_Retailer,
-    Height_Verified: consensus.agreedPrimaryAttributes.height || rawProduct.Height_Web_Retailer,
-    Weight_Verified: consensus.agreedPrimaryAttributes.weight || rawProduct.Weight_Web_Retailer,
-    MSRP_Verified: consensus.agreedPrimaryAttributes.msrp || rawProduct.MSRP_Web_Retailer,
+    Color_Verified: cleanEncodingIssues(
+      preferAIValue(
+        consensus.agreedPrimaryAttributes.color,
+        openaiResult.primaryAttributes.color,
+        xaiResult.primaryAttributes.color,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || ''
+      )
+    ),
+    Finish_Verified: cleanEncodingIssues(
+      preferAIValue(
+        consensus.agreedPrimaryAttributes.finish,
+        openaiResult.primaryAttributes.finish,
+        xaiResult.primaryAttributes.finish,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Ferguson_Finish || ''
+      )
+    ),
+    Depth_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.depth_length,
+      openaiResult.primaryAttributes.depth_length,
+      xaiResult.primaryAttributes.depth_length,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Depth_Web_Retailer
+    ),
+    Width_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.width,
+      openaiResult.primaryAttributes.width,
+      xaiResult.primaryAttributes.width,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Width_Web_Retailer
+    ),
+    Height_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.height,
+      openaiResult.primaryAttributes.height,
+      xaiResult.primaryAttributes.height,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Height_Web_Retailer
+    ),
+    Weight_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.weight,
+      openaiResult.primaryAttributes.weight,
+      xaiResult.primaryAttributes.weight,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Weight_Web_Retailer
+    ),
+    MSRP_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.msrp,
+      openaiResult.primaryAttributes.msrp,
+      xaiResult.primaryAttributes.msrp,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.MSRP_Web_Retailer
+    ),
     Market_Value: rawProduct.Ferguson_Price || '',
     Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
     Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
     Description_Verified: cleanedText.description,
     Product_Title_Verified: cleanedText.title,
-    Details_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.details || ''),
+    Details_Verified: cleanEncodingIssues(
+      preferAIValue(
+        consensus.agreedPrimaryAttributes.details,
+        openaiResult.primaryAttributes.details,
+        xaiResult.primaryAttributes.details,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      )
+    ),
     Features_List_HTML: cleanedText.featuresHtml,
-    UPC_GTIN_Verified: consensus.agreedPrimaryAttributes.upc_gtin || '',
+    UPC_GTIN_Verified: preferAIValue(
+      consensus.agreedPrimaryAttributes.upc_gtin,
+      openaiResult.primaryAttributes.upc_gtin,
+      xaiResult.primaryAttributes.upc_gtin,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
     Model_Number_Verified: (() => {
-      // Prioritize: 1) SF_Catalog_Name (authoritative), 2) AI consensus, 3) Ferguson, 4) Web Retailer
+      // Prioritize: 1) SF_Catalog_Name (authoritative), 2) AI consensus or higher confidence, 3) Ferguson, 4) Web Retailer
       const sfModel = rawProduct.SF_Catalog_Name?.trim();
-      const aiModel = consensus.agreedPrimaryAttributes.model_number?.trim();
+      if (sfModel) return sfModel;
+      
+      const aiModel = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_number,
+        openaiResult.primaryAttributes.model_number,
+        xaiResult.primaryAttributes.model_number,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        null
+      )?.trim();
+      
       const fergModel = rawProduct.Ferguson_Model_Number?.trim();
       const wrModel = rawProduct.Model_Number_Web_Retailer?.trim();
       
-      return sfModel || aiModel || fergModel || wrModel || '';
+      return aiModel || fergModel || wrModel || '';
     })(),
     Model_Number_Alias: (() => {
       const primary = rawProduct.SF_Catalog_Name || consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer || '';
       // Remove special characters for alias
       return primary.replace(/[\/\-\s]/g, '');
     })(),
-    Model_Parent: consensus.agreedPrimaryAttributes.model_parent || '',
-    Model_Variant_Number: consensus.agreedPrimaryAttributes.model_variant_number || '',
-    Total_Model_Variants: cleanEncodingIssues(consensus.agreedPrimaryAttributes.total_model_variants || '')
+    Model_Parent: preferAIValue(
+      consensus.agreedPrimaryAttributes.model_parent,
+      openaiResult.primaryAttributes.model_parent,
+      xaiResult.primaryAttributes.model_parent,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    Model_Variant_Number: preferAIValue(
+      consensus.agreedPrimaryAttributes.model_variant_number,
+      openaiResult.primaryAttributes.model_variant_number,
+      xaiResult.primaryAttributes.model_variant_number,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    Total_Model_Variants: cleanEncodingIssues(
+      preferAIValue(
+        consensus.agreedPrimaryAttributes.total_model_variants,
+        openaiResult.primaryAttributes.total_model_variants,
+        xaiResult.primaryAttributes.total_model_variants,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      )
+    )
   };
 
   // Clean top filter attributes and build attribute ID lookups
