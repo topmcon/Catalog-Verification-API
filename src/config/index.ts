@@ -113,8 +113,60 @@ const config: Config = {
 
 export default config;
 
-// Re-export master category attributes
+// ============================================
+// RE-EXPORTS (Original)
+// ============================================
+
+// Re-export master category attributes (original)
 export * from './master-category-attributes';
 
-// Re-export category aliases
+// Re-export category aliases (original)
 export * from './category-aliases';
+
+// ============================================
+// NEW CONSOLIDATED MODULES
+// ============================================
+
+// Export types (no conflicts - these are new)
+export {
+  CategoryAttributeConfig,
+  AICategorySchema,
+  AIFilterAttributeDefinition,
+  TitleComponents,
+  DescriptionContext,
+  isCategoryAttributeConfig,
+  isAICategorySchema,
+} from './types';
+
+// Export constants (avoid duplicates with master-category-attributes)
+export {
+  PREMIUM_BRANDS,
+  MID_TIER_BRANDS,
+  VALUE_BRANDS,
+  PREMIUM_FEATURE_KEYWORDS,
+  CATEGORY_NAME_ALIASES,
+  AI_CATEGORY_ALIASES,
+  DEPARTMENTS,
+  AI_FALLBACK_ATTRIBUTES,
+  isPremiumBrand,
+  isMidTierBrand,
+  getBrandTier,
+  hasPremiumFeatures,
+} from './constants';
+
+// Export lookup functions
+export {
+  getResponseBuilderSchema,
+  getCategoryConfig,
+  getAllResponseBuilderCategories,
+  getUniqueSchemaCount,
+  getAISchema,
+  resolveAICategoryAlias,
+  getCategoryAliases,
+  getTop15Attributes,
+  categoryExists,
+  normalizeCategoryName,
+  findBestCategoryMatch,
+  getSystemCoverage,
+  getCategoryCoverage,
+} from './lookups';

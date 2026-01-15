@@ -393,6 +393,92 @@ export const ICE_MAKER_SCHEMA: CategorySchema = {
 
 /**
  * ============================================
+ * FALLBACK ATTRIBUTE DATA
+ * ============================================
+ * Used when JSON data doesn't have top15_filter_attributes for a category
+ */
+export const FALLBACK_ATTRIBUTES: Record<string, string[]> = {
+  // Appliances
+  'range': ['Fuel Type', 'Width', 'Installation Type', 'Number of Burners', 'Oven Capacity', 'Convection', 'Self-Cleaning', 'BTU Output', 'Control Type', 'Finish', 'Color', 'Griddle', 'Double Oven', 'Continuous Grates', 'Sabbath Mode'],
+  'refrigerator': ['Door Style', 'Width', 'Total Capacity', 'Refrigerator Capacity', 'Freezer Capacity', 'Ice Maker', 'Water Dispenser', 'Counter Depth', 'Finish', 'Color', 'Energy Star', 'Smart Features', 'Temperature Zones', 'Door Alarm', 'Humidity Control'],
+  'dishwasher': ['Installation Type', 'Width', 'Tub Material', 'Noise Level', 'Number of Cycles', 'Place Settings', 'Third Rack', 'Adjustable Racks', 'Hard Food Disposer', 'Drying System', 'Energy Star', 'Finish', 'Control Location', 'WiFi Enabled', 'Soil Sensor'],
+  'oven': ['Oven Configuration', 'Width', 'Total Capacity', 'Fuel Type', 'Convection', 'Self-Cleaning', 'Steam Clean', 'Control Type', 'Finish', 'Sabbath Mode', 'Temperature Probe', 'Delay Start', 'WiFi Enabled', 'Air Fry', 'Warming Drawer'],
+  'cooktop': ['Fuel Type', 'Width', 'Number of Burners', 'BTU Output', 'Control Type', 'Ignition Type', 'Continuous Grates', 'Griddle', 'Downdraft', 'Finish', 'Induction', 'Bridge Element', 'Simmer Burner', 'Power Burner', 'Timer'],
+  'microwave': ['Installation Type', 'Width', 'Capacity', 'Wattage', 'Turntable', 'Sensor Cooking', 'Convection', 'Vent CFM', 'Finish', 'Color', 'Control Type', 'Child Lock', 'Defrost', 'One-Touch Cooking', 'Timer'],
+  'range_hood': ['Installation Type', 'Width', 'CFM', 'Noise Level', 'Number of Speeds', 'Lighting', 'Filter Type', 'Ducted/Ductless', 'Finish', 'Control Type', 'Timer', 'Heat Sensor', 'Baffle Filters', 'Dishwasher Safe Filters', 'LED Lighting'],
+  'washer': ['Type', 'Capacity', 'Number of Cycles', 'Speed', 'Steam', 'Energy Star', 'Smart Features', 'Color', 'Finish', 'Noise Reduction', 'Vibration Reduction', 'Sanitize Cycle', 'Allergen Cycle', 'Delay Start', 'Load Sensing'],
+  'dryer': ['Fuel Type', 'Capacity', 'Number of Cycles', 'Steam', 'Sensor Dry', 'Energy Star', 'Smart Features', 'Color', 'Finish', 'Lint Filter Location', 'Reversible Door', 'Drum Material', 'Wrinkle Prevention', 'Sanitize Cycle', 'Vent Type'],
+  'freezer': ['Type', 'Capacity', 'Width', 'Defrost Type', 'Temperature Alarm', 'Door Lock', 'Interior Lighting', 'Baskets/Bins', 'Finish', 'Color', 'Energy Star', 'Reversible Door', 'External Controls', 'Temperature Display', 'Fast Freeze'],
+  'all_in_one_washer_dryer': ['Capacity', 'Number of Cycles', 'Steam', 'Ventless', 'Energy Star', 'Smart Features', 'Color', 'Finish', 'Noise Level', 'Spin Speed', 'Sanitize', 'Delay Start', 'Child Lock', 'Drum Material', 'Dry Cycles'],
+  'wine_cooler': ['Bottle Capacity', 'Temperature Zones', 'Width', 'Installation Type', 'Compressor Type', 'Shelving Material', 'UV Protection', 'Humidity Control', 'Interior Lighting', 'Door Style', 'Finish', 'Lock', 'Temperature Range', 'Reversible Door', 'Vibration Control'],
+  'ice_maker': ['Ice Production', 'Ice Storage', 'Ice Type', 'Width', 'Installation Type', 'Drain Required', 'Water Line Required', 'Clear Ice', 'Self-Cleaning', 'Finish', 'LED Lighting', 'Filter Indicator', 'Door Alarm', 'ADA Compliant', 'Pump Drain'],
+  'pizza_oven': ['Fuel Type', 'Max Temperature', 'Cooking Surface Size', 'Indoor/Outdoor', 'Installation Type', 'BTU Output', 'Timer', 'Thermometer', 'Pizza Stone Material', 'Finish', 'Portable', 'Dome Material', 'Insulation', 'Preheat Time', 'Pizza Peel Included'],
+  'coffee_maker': ['Type', 'Capacity', 'Brew Strength', 'Programmable', 'Built-In Grinder', 'Milk Frother', 'Single Serve', 'Carafe Type', 'Water Filter', 'Keep Warm', 'Auto Shut Off', 'Control Type', 'Finish', 'Dimensions', 'Warranty'],
+  'beverage_center': ['Capacity', 'Temperature Zones', 'Width', 'Installation Type', 'Shelving', 'Interior Lighting', 'Door Style', 'Finish', 'Lock', 'Temperature Range', 'Compressor Type', 'Reversible Door', 'Digital Controls', 'Can Capacity', 'ADA Compliant'],
+  'warming_drawer': ['Width', 'Capacity', 'Temperature Range', 'Humidity Control', 'Installation Type', 'Control Type', 'Finish', 'Timer', 'Keep Warm', 'Slow Cook', 'Proof Mode', 'Plate Warming', 'Crisp Mode', 'Panel Ready', 'Push to Open'],
+  'compactor': ['Width', 'Compaction Force', 'Bag Capacity', 'Control Type', 'Anti-Jam', 'Odor Control', 'Tilt Bin', 'Sound Insulation', 'Key Lock', 'Finish', 'Door Style', 'Installation Type', 'Toe Kick', 'Energy Star', 'Warranty'],
+  'outdoor_grill': ['Fuel Type', 'Number of Burners', 'BTU Output', 'Cooking Area', 'Side Burner', 'Rotisserie', 'Sear Station', 'Warming Rack', 'Ignition Type', 'Material', 'Built-In/Freestanding', 'Lid', 'Thermometer', 'Wheels', 'Cover Included'],
+  // Plumbing & Bath
+  'bathroom_sinks': ['Style', 'Material', 'Width', 'Depth', 'Shape', 'Faucet Holes', 'Overflow', 'Finish', 'ADA Compliant', 'Drain Included', 'Commercial Grade', 'Console Legs', 'Semi-Recessed', 'Integrated Countertop', 'Weight'],
+  'bathroom_vanities': ['Width', 'Style', 'Configuration', 'Cabinet Material', 'Countertop Material', 'Sink Included', 'Faucet Included', 'Number of Drawers', 'Number of Doors', 'Soft-Close', 'Finish', 'Mirror Included', 'Backsplash', 'Assembly Required', 'Hardware Finish'],
+  'bathtubs': ['Installation Type', 'Material', 'Drain Placement', 'Length', 'Width', 'Depth', 'Soaking Depth', 'Whirlpool', 'Air Bath', 'Heated Surface', 'Finish', 'Overflow', 'ADA Compliant', 'Weight Capacity', 'Lumbar Support'],
+  'showers': ['Type', 'Style', 'Finish', 'Flow Rate', 'Spray Patterns', 'Thermostatic', 'Rain Head Size', 'Hand Shower', 'Body Sprays', 'Valve Included', 'Diverter', 'Slide Bar', 'Pressure Balance', 'WaterSense', 'Installation'],
+  'toilets': ['Bowl Shape', 'Flush Type', 'Gallons per Flush', 'Height', 'Rough-In', 'Seat Included', 'Bidet Features', 'ADA Compliant', 'Material', 'Color', 'Soft-Close Seat', 'Night Light', 'WaterSense', 'One-Piece/Two-Piece', 'Skirted'],
+  'kitchen_sinks': ['Configuration', 'Material', 'Width', 'Depth', 'Bowl Depth', 'Number of Bowls', 'Faucet Holes', 'Drain Position', 'Sound Dampening', 'Grid Included', 'Finish', 'Undermount/Drop-In', 'Strainer Included', 'Commercial Grade', 'Gauge'],
+  'kitchen_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Pull-Down/Pull-Out', 'Spray Functions', 'Flow Rate', 'Touchless', 'Soap Dispenser', 'Deck Plate', 'Voice Activated', 'Filtration', 'Temperature Memory', 'WaterSense'],
+  'bathroom_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Centerset/Widespread', 'Flow Rate', 'Drain Included', 'ADA Compliant', 'Single Hole', 'Wall Mount', 'Touchless', 'WaterSense', 'Temperature Limit', 'Ceramic Disc'],
+  'tub_faucets': ['Style', 'Finish', 'Configuration', 'Spout Type', 'Hand Shower', 'Diverter', 'Flow Rate', 'Mounting Type', 'Number of Handles', 'Valve Included', 'Thermostatic', 'Spout Reach', 'WaterSense', 'Wall Mount', 'Deck Mount'],
+  'bar_prep_sinks': ['Configuration', 'Material', 'Width', 'Depth', 'Bowl Depth', 'Faucet Holes', 'Drain Position', 'Sound Dampening', 'Grid Included', 'Finish', 'Undermount/Drop-In', 'Strainer Included', 'Corner Radius', 'Gauge', 'Single Bowl'],
+  'bidets': ['Type', 'Style', 'Material', 'Heated Seat', 'Water Temperature', 'Spray Adjustability', 'Air Dryer', 'Night Light', 'Remote Control', 'Self-Cleaning', 'Soft Close', 'Width', 'Depth', 'ADA Compliant', 'Deodorizer'],
+  'drains': ['Type', 'Size', 'Material', 'Finish', 'Style', 'Overflow', 'Hair Catcher', 'Flow Rate', 'Installation Type', 'Strainer Type', 'Trap Included', 'Linear Length', 'Grate Pattern', 'ADA Compliant', 'Code Compliant'],
+  'garbage_disposals': ['Horsepower', 'Feed Type', 'Motor Type', 'Grinding System', 'Noise Level', 'Sound Insulation', 'Auto-Reverse', 'Dishwasher Connection', 'Power Cord', 'Mounting Type', 'Warranty', 'Septic Safe', 'Reset Button', 'Splash Guard', 'Batch Feed'],
+  'water_heaters': ['Type', 'Fuel Type', 'Tank Capacity', 'First Hour Rating', 'Energy Factor', 'GPM', 'BTU Input', 'Recovery Rate', 'Dimensions', 'Venting Type', 'WiFi Enabled', 'Warranty', 'Energy Star', 'Installation Type', 'Temperature Control'],
+  'roughin_valves': ['Valve Type', 'Number of Functions', 'Inlet Size', 'Outlet Size', 'Connection Type', 'Integral Stops', 'Check Valves', 'Volume Control', 'Max Flow Rate', 'For Use With', 'PEX Compatible', 'Universal Fit', 'Code Compliant', 'Lead-Free', 'Warranty'],
+  'bathroom_hardware': ['Type', 'Style', 'Finish', 'Material', 'Mounting Type', 'Weight Capacity', 'ADA Compliant', 'Set Contents', 'Width/Length', 'Projection', 'Commercial Grade', 'Corrosion Resistant', 'Concealed Mounting', 'Included Hardware', 'Warranty'],
+  // Lighting
+  'chandeliers': ['Style', 'Width/Diameter', 'Height', 'Adjustable Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Material', 'Dimmable', 'Crystal Type', 'Chain Length', 'Canopy Size', 'UL Listed', 'Energy Star'],
+  'pendants': ['Style', 'Width/Diameter', 'Height', 'Adjustable Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Shade Material', 'Dimmable', 'Mini/Standard', 'Cord/Chain', 'Canopy Size', 'Island/Single', 'UL Listed'],
+  'ceiling_fans': ['Blade Span', 'Number of Blades', 'Motor Type', 'Blade Material', 'CFM', 'Number of Speeds', 'Reversible', 'Remote Included', 'Light Kit', 'Indoor/Outdoor', 'Downrod Length', 'Energy Star', 'Finish', 'Smart Features', 'Noise Level'],
+  'ceiling_lights': ['Style', 'Width/Diameter', 'Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Material', 'Dimmable', 'Integrated LED', 'Color Temperature', 'Lumens', 'Dry/Damp/Wet Rated', 'UL Listed', 'Energy Star'],
+  'wall_sconces': ['Style', 'Width', 'Height', 'Extension', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Shade Material', 'Direction', 'Dimmable', 'Hardwired/Plug-In', 'Dry/Damp/Wet Rated', 'ADA Compliant', 'UL Listed'],
+  'outdoor_lighting': ['Type', 'Style', 'Width', 'Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Material', 'Weather Rating', 'Motion Sensor', 'Dusk to Dawn', 'Solar Powered', 'Dark Sky', 'UL Listed'],
+  'recessed_lighting': ['Type', 'Size', 'Housing Type', 'Trim Style', 'Bulb Type', 'Wattage', 'Finish', 'Dimmable', 'Color Temperature', 'Lumens', 'Beam Angle', 'Airtight', 'Wet/Damp Rated', 'Title 24', 'IC Rated'],
+  'bathroom_lighting': ['Type', 'Style', 'Width', 'Height', 'Extension', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Shade Material', 'Shade Direction', 'Dimmable', 'Damp/Wet Rated', 'ADA Compliant', 'UL Listed'],
+  'kitchen_lighting': ['Type', 'Style', 'Width/Length', 'Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Material', 'Adjustable Height', 'Dimmable', 'Integrated LED', 'Color Temperature', 'Lumens', 'Energy Star'],
+  'lamps': ['Type', 'Style', 'Height', 'Width/Diameter', 'Base Material', 'Shade Material', 'Shade Color', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Switch Type', 'Cord Length', 'USB Port', 'Adjustable', 'Dimmable'],
+  'track_and_rail_lighting': ['Type', 'Track System', 'Track Length', 'Number of Heads', 'Style', 'Bulb Type', 'Max Wattage', 'Finish', 'Adjustable', 'Dimmable', 'Connector Type', 'Ceiling Mount', 'Voltage', 'Flexible/Rigid', 'UL Listed'],
+  'commercial_lighting': ['Type', 'Size', 'Wattage', 'Lumens', 'Color Temperature', 'CRI', 'Voltage', 'Mounting Type', 'Lens Type', 'DLC Listed', 'Dimmable', 'Emergency Backup', 'Motion Sensor', 'Warranty', 'Energy Star'],
+  'vanity_lighting': ['Type', 'Style', 'Width', 'Height', 'Number of Lights', 'Bulb Type', 'Max Wattage', 'Finish', 'Shade Material', 'Shade Direction', 'Dimmable', 'Damp Rated', 'ADA Compliant', 'UL Listed', 'Extension'],
+  'ceiling_fans_with_light': ['Blade Span', 'Number of Blades', 'Motor Type', 'Light Type', 'Number of Lights', 'CFM', 'Speeds', 'Reversible', 'Remote Included', 'Indoor/Outdoor', 'Finish', 'Dimmable', 'Smart Features', 'Energy Star', 'Downrod'],
+  'lighting_accessories': ['Type', 'For Fixture Type', 'Material', 'Size', 'Color/Finish', 'Compatibility', 'Bulb Base', 'Wattage', 'Voltage', 'Dimmable', 'Smart Compatible', 'Chain Length', 'Universal Fit', 'Energy Star', 'Warranty'],
+  'ceiling_fan_accessories': ['Type', 'Compatible Fans', 'Material', 'Finish', 'Size', 'Blade Span', 'Remote Type', 'Control Features', 'Downrod Length', 'Mounting', 'Light Kit', 'Canopy', 'Extension', 'Warranty', 'Universal'],
+  // Home Decor
+  'mirrors': ['Type', 'Shape', 'Style', 'Width', 'Height', 'Frame Material', 'Frame Finish', 'Mirror Type', 'Lighted', 'Magnification', 'Mounting Hardware', 'Orientation', 'Fog-Free', 'Smart Features', 'Beveled'],
+  'bathroom_mirrors': ['Type', 'Shape', 'Style', 'Width', 'Height', 'Frame Material', 'Frame Finish', 'Lighted', 'Color Temperature', 'Dimmable', 'Anti-Fog', 'Magnification', 'Touch Controls', 'Outlet/USB', 'Wall Mount'],
+  'furniture': ['Type', 'Style', 'Room', 'Material', 'Width', 'Height', 'Depth', 'Color/Finish', 'Number of Pieces', 'Assembly Required', 'Weight Capacity', 'Storage', 'Indoor/Outdoor', 'Warranty', 'Upholstery'],
+  'cabinet_hardware': ['Type', 'Style', 'Finish', 'Material', 'Length/Diameter', 'Center-to-Center', 'Projection', 'Width', 'Mounting Hardware', 'For Cabinet Type', 'Set Quantity', 'Soft-Close', 'Weight Capacity', 'ADA Compliant', 'Warranty'],
+  'door_hardware_parts': ['Type', 'Style', 'Finish', 'Material', 'Size', 'Handing', 'Fire Rated', 'For Door Type', 'Door Thickness', 'Security Grade', 'Ball Bearing', 'Self-Closing', 'Quantity', 'Screw Pattern', 'Warranty'],
+  'kitchen_accessories': ['Type', 'Material', 'Finish', 'Color', 'Style', 'Dimensions', 'Capacity', 'Mounting Type', 'Dishwasher Safe', 'BPA Free', 'Matching Set', 'Refillable', 'Rust Resistant', 'Non-Slip', 'Warranty'],
+  'cabinet_organization_and_storage': ['Type', 'Material', 'Width', 'Depth', 'Height', 'Configuration', 'Mounting Type', 'Adjustable', 'Weight Capacity', 'Soft-Close', 'For Cabinet Size', 'Pull-Out', 'Finish', 'Assembly', 'Warranty'],
+  'storage_drawersdoors': ['Type', 'Material', 'Width', 'Height', 'Depth', 'Style', 'Finish', 'Mounting Type', 'Soft-Close', 'Overlay Type', 'Hinge Type', 'Handle Style', 'Weight Capacity', 'Assembly', 'Warranty'],
+  // HVAC
+  'hydronic_expansion_tanks': ['Type', 'Tank Capacity', 'System Type', 'Max Pressure', 'Pre-Charge Pressure', 'Connection Size', 'Connection Type', 'Material', 'Max Temperature', 'Mounting Position', 'Dimensions', 'NSF Certified', 'Lead-Free', 'Warranty', 'Diaphragm/Bladder'],
+  // Outdoor
+  'outdoor_fireplaces': ['Type', 'Fuel Type', 'Style', 'Shape', 'Material', 'Width/Diameter', 'Height', 'BTU Output', 'Ignition Type', 'Includes Cover', 'Glass/Lava Rocks', 'CSA Certified', 'Wind Guard', 'Table Height', 'Portable'],
+  // Additional Plumbing
+  'bar_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Pull-Down/Pull-Out', 'Spray Functions', 'Flow Rate', 'Deck Plate', 'Mounting Holes', 'ADA Compliant', 'WaterSense', 'Valve Type', 'Hot/Cold Indicator', 'Warranty'],
+  'pot_filler_faucets': ['Style', 'Finish', 'Mounting Type', 'Spout Reach', 'Number of Joints', 'Swing Arc', 'Flow Rate', 'Valve Type', 'Handle Style', 'Cold Only', 'Rough-In Valve', 'ADA Compliant', 'Commercial Grade', 'WaterSense', 'Warranty'],
+  'bathtub_waste_overflow': ['Type', 'Finish', 'Material', 'Drain Size', 'Drain Length', 'Overflow Style', 'Adjustable', 'For Tub Type', 'Test Kit', 'Hair Catcher', 'Lead-Free', 'Code Compliant', 'Easy Install', 'Universal', 'Warranty'],
+  'drainage_waste': ['Type', 'Size', 'Material', 'Connection Type', 'Length', 'Wall/Floor', 'Escutcheon', 'Finish', 'For Sink Type', 'Code Compliant', 'Lead-Free', 'Low Profile', 'Easy Install', 'Universal', 'Warranty'],
+  'bathroom_hardware_and_accessories': ['Type', 'Style', 'Finish', 'Material', 'Mounting Type', 'Weight Capacity', 'ADA Compliant', 'Set Contents', 'Width/Length', 'Projection', 'Commercial Grade', 'Corrosion Resistant', 'Concealed Mount', 'Hardware Included', 'Warranty'],
+  'shower_accessories': ['Type', 'Style', 'Finish', 'Material', 'Mounting Type', 'Size', 'Weight Capacity', 'ADA Compliant', 'Rust Resistant', 'Drainage', 'Non-Slip', 'For Shower Type', 'Installation', 'Hardware Included', 'Warranty'],
+  'tub_and_shower_accessories': ['Type', 'Style', 'Finish', 'Material', 'Mounting Type', 'Size', 'Weight Capacity', 'ADA Compliant', 'For Tub/Shower', 'Rust Resistant', 'Drainage', 'Safety Features', 'Installation', 'Hardware Included', 'Warranty'],
+  'steam_showers': ['Type', 'Generator Size', 'Coverage Area', 'Voltage', 'Control Type', 'Steam Head', 'Aromatherapy', 'Music System', 'Chromatherapy', 'Auto Drain', 'Timer', 'Temperature Control', 'Safety Features', 'Installation', 'Warranty'],
+  'toilet_seats': ['Shape', 'Material', 'Color', 'Hinge Type', 'Soft-Close', 'Quick-Release', 'Heated', 'Bidet Features', 'Night Light', 'ADA Height', 'Antimicrobial', 'Weight Capacity', 'Fit Guarantee', 'Hardware Included', 'Warranty'],
+};
+
+/**
+ * ============================================
  * MASTER CATEGORY MAP - POPULATED FROM JSON
  * ============================================
  */
@@ -434,9 +520,14 @@ function buildMasterCategoriesFromJSON(): Record<string, CategorySchema> {
         .replace(/\s+/g, '_') // Replace spaces with underscores
         .trim();
       
-      // Build top15FilterAttributes from the JSON data
-      const top15Attrs = categoryData?.attribute_system?.top15_filter_attributes || [];
+      // Build top15FilterAttributes from the JSON data OR fallback
+      let top15Attrs = categoryData?.attribute_system?.top15_filter_attributes || [];
       const taxonomyTiers = categoryData?.taxonomy_tiers || {};
+      
+      // If JSON doesn't have attributes, use fallback
+      if (top15Attrs.length === 0 && FALLBACK_ATTRIBUTES[categoryId]) {
+        top15Attrs = FALLBACK_ATTRIBUTES[categoryId];
+      }
       
       const top15FilterAttributes: FilterAttributeDefinition[] = top15Attrs.map((attrName: string) => {
         const fieldKey = attrName.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -518,23 +609,122 @@ export function getAllCategoryIds(): string[] {
 }
 
 /**
+ * Known category aliases that map to canonical category IDs
+ * Note: Named AI_SYSTEM_CATEGORY_ALIASES to avoid conflict with category-aliases.ts
+ */
+export const AI_SYSTEM_CATEGORY_ALIASES: Record<string, string> = {
+  'gas range': 'range',
+  'gas ranges': 'range',
+  'electric range': 'range',
+  'electric ranges': 'range',
+  'dual fuel range': 'range',
+  'dual fuel ranges': 'range',
+  'induction range': 'range',
+  'freestanding range': 'range',
+  'slide in range': 'range',
+  'french door refrigerator': 'refrigerator',
+  'side by side refrigerator': 'refrigerator',
+  'bottom freezer refrigerator': 'refrigerator',
+  'top freezer refrigerator': 'refrigerator',
+  'wall oven': 'oven',
+  'double wall oven': 'oven',
+  'single wall oven': 'oven',
+  'gas cooktop': 'cooktop',
+  'electric cooktop': 'cooktop',
+  'induction cooktop': 'cooktop',
+  'over the range microwave': 'microwave',
+  'countertop microwave': 'microwave',
+  'built in microwave': 'microwave',
+  'upright freezer': 'freezer',
+  'chest freezer': 'freezer',
+  'front load washer': 'washer',
+  'top load washer': 'washer',
+  'gas dryer': 'dryer',
+  'electric dryer': 'dryer',
+  'pedestal sink': 'bathroom_sinks',
+  'vessel sink': 'bathroom_sinks',
+  'undermount sink': 'bathroom_sinks',
+  'drop in sink': 'bathroom_sinks',
+  'freestanding bathtub': 'bathtubs',
+  'alcove bathtub': 'bathtubs',
+  'soaking tub': 'bathtubs',
+  'whirlpool tub': 'bathtubs',
+  'pull down faucet': 'kitchen_faucets',
+  'pull out faucet': 'kitchen_faucets',
+  'touchless faucet': 'kitchen_faucets',
+  'single handle faucet': 'bathroom_faucets',
+  'widespread faucet': 'bathroom_faucets',
+  'one piece toilet': 'toilets',
+  'two piece toilet': 'toilets',
+  'comfort height toilet': 'toilets',
+  'bidet toilet': 'toilets',
+};
+
+/**
  * Get category schema by ID or name
+ * Enhanced to handle: # suffix, aliases, case variations, singular/plural
  */
 export function getCategorySchema(categoryIdOrName: string): CategorySchema | null {
-  const normalized = categoryIdOrName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+  if (!categoryIdOrName) return null;
+  
+  // Remove trailing # if present
+  const cleanName = categoryIdOrName.replace(/\s*#\s*$/, '').trim();
+  const normalized = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+  
+  // Check known aliases first
+  const aliasKey = cleanName.toLowerCase();
+  if (AI_SYSTEM_CATEGORY_ALIASES[aliasKey] && MASTER_CATEGORIES[AI_SYSTEM_CATEGORY_ALIASES[aliasKey]]) {
+    return MASTER_CATEGORIES[AI_SYSTEM_CATEGORY_ALIASES[aliasKey]];
+  }
   
   // Direct match by ID
   if (MASTER_CATEGORIES[normalized]) {
     return MASTER_CATEGORIES[normalized];
   }
   
-  // Search by name or alias
+  // Try without trailing 's' (singular form)
+  const singular = normalized.replace(/s$/, '');
+  if (MASTER_CATEGORIES[singular]) {
+    return MASTER_CATEGORIES[singular];
+  }
+  
+  // Search by name (exact and clean)
   for (const schema of Object.values(MASTER_CATEGORIES)) {
-    if (schema.categoryName.toLowerCase() === categoryIdOrName.toLowerCase()) {
+    const schemaNameClean = schema.categoryName.toLowerCase().replace(/\s*#\s*$/, '').trim();
+    if (schemaNameClean === cleanName.toLowerCase()) {
       return schema;
     }
-    // Check aliases
-    if (schema.aliases.some(a => a.toLowerCase() === categoryIdOrName.toLowerCase())) {
+  }
+  
+  // Search by aliases
+  for (const schema of Object.values(MASTER_CATEGORIES)) {
+    if (schema.aliases.some(a => a.toLowerCase().replace(/\s*#\s*$/, '').trim() === cleanName.toLowerCase())) {
+      return schema;
+    }
+  }
+  
+  // Fuzzy match - check for common variations
+  const variations = [
+    cleanName.toLowerCase(),
+    cleanName.toLowerCase().replace(/s$/, ''),  // singular
+    cleanName.toLowerCase() + 's',               // plural
+    cleanName.toLowerCase().replace(/ies$/, 'y'), // categories -> category
+    cleanName.toLowerCase().replace(/y$/, 'ies'), // category -> categories
+  ];
+  
+  for (const variation of variations) {
+    const varNormalized = variation.replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+    if (MASTER_CATEGORIES[varNormalized]) {
+      return MASTER_CATEGORIES[varNormalized];
+    }
+  }
+  
+  // Partial match - category name contains search term or vice versa
+  const searchTerms = cleanName.toLowerCase().split(/\s+/);
+  for (const schema of Object.values(MASTER_CATEGORIES)) {
+    const schemaWords = schema.categoryName.toLowerCase().split(/\s+/);
+    // If all search terms are found in schema name
+    if (searchTerms.every(term => schemaWords.some(word => word.includes(term) || term.includes(word)))) {
       return schema;
     }
   }

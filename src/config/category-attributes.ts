@@ -705,6 +705,8 @@ Object.assign(CATEGORY_SCHEMAS, HOME_DECOR_HVAC_SCHEMAS);
 
 /**
  * Get category schema by name
+ * NOTE: For comprehensive category lookup with all aliases, use 
+ * getSchemaForCategory from master-category-schema-map.ts
  */
 export function getCategorySchema(categoryName: string): CategoryAttributeConfig | null {
   // Direct match

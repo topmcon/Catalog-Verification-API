@@ -12,7 +12,8 @@ import { matchCategory, CategoryMatch } from './category-matcher.service';
 import { generateTitle, TitleInput } from './title-generator.service';
 import { generateDescription, DescriptionInput } from './description-generator.service';
 import { GLOBAL_PRIMARY_ATTRIBUTES } from '../config/category-schema';
-import { getCategorySchema, getRequiredAttributes, CategoryAttributeConfig } from '../config/category-attributes';
+import { getRequiredAttributes, CategoryAttributeConfig } from '../config/category-attributes';
+import { getSchemaForCategory } from '../config/master-category-schema-map';
 import OpenAI from 'openai';
 import config from '../config';
 import logger from '../utils/logger';
@@ -61,8 +62,8 @@ export async function enrichProduct(rawData: RawProductData): Promise<Enrichment
     
     logger.info(`Matched product to category: ${categoryMatch.categoryName} (${categoryMatch.confidence}% confidence)`);
     
-    // Step 1b: Get category-specific schema
-    const categorySchema = getCategorySchema(categoryMatch.categoryName);
+    // Step 1b: Get category-specific schema using master schema map
+    const categorySchema = getSchemaForCategory(categoryMatch.categoryName);
     const requiredAttrs = categorySchema 
       ? getRequiredAttributes(categoryMatch.categoryName)
       : [...GLOBAL_PRIMARY_ATTRIBUTES];

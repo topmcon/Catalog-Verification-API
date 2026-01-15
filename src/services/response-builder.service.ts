@@ -27,47 +27,8 @@ import {
   FieldAIReviews,
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
-import {
-  RANGE_SCHEMA,
-  REFRIGERATOR_SCHEMA,
-  DISHWASHER_SCHEMA,
-  OVEN_SCHEMA,
-  COOKTOP_SCHEMA,
-  MICROWAVE_SCHEMA,
-  RANGE_HOOD_SCHEMA,
-  WASHER_SCHEMA,
-  DRYER_SCHEMA,
-  CategoryAttributeConfig,
-} from '../config/category-attributes';
+import { getSchemaForCategory } from '../config/master-category-schema-map';
 import logger from '../utils/logger';
-
-/**
- * Category Schema Lookup
- */
-const CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig> = {
-  'Range': RANGE_SCHEMA,
-  'GAS RANGES': RANGE_SCHEMA,
-  'ELECTRIC RANGES': RANGE_SCHEMA,
-  'DUAL FUEL RANGES': RANGE_SCHEMA,
-  'SLIDE IN GAS RANGE': RANGE_SCHEMA,
-  'SLIDE IN ELECTRIC RANGE': RANGE_SCHEMA,
-  'Refrigerator': REFRIGERATOR_SCHEMA,
-  'REFRIGERATORS': REFRIGERATOR_SCHEMA,
-  'Dishwasher': DISHWASHER_SCHEMA,
-  'DISHWASHERS': DISHWASHER_SCHEMA,
-  'Oven': OVEN_SCHEMA,
-  'WALL OVENS': OVEN_SCHEMA,
-  'Cooktop': COOKTOP_SCHEMA,
-  'COOKTOPS': COOKTOP_SCHEMA,
-  'Microwave': MICROWAVE_SCHEMA,
-  'MICROWAVES': MICROWAVE_SCHEMA,
-  'Range Hood': RANGE_HOOD_SCHEMA,
-  'RANGE HOODS': RANGE_HOOD_SCHEMA,
-  'Washer': WASHER_SCHEMA,
-  'WASHERS': WASHER_SCHEMA,
-  'Dryer': DRYER_SCHEMA,
-  'DRYERS': DRYER_SCHEMA,
-};
 
 /**
  * Build Primary Display Attributes (Global - applies to ALL products)
@@ -151,17 +112,21 @@ export function buildPrimaryAttributes(
 
 /**
  * Build Top 15 Filter Attributes (Category-Specific)
+ * Uses the MASTER_CATEGORY_SCHEMA_MAP for consistent schema lookup
  */
 export function buildTopFilterAttributes(
   incoming: SalesforceIncomingProduct,
   category: string
 ): TopFilterAttributes {
-  const schema = CATEGORY_SCHEMA_MAP[category] || CATEGORY_SCHEMA_MAP[incoming.Web_Retailer_Category];
+  // Use the master schema lookup function for consistent category matching
+  const schema = getSchemaForCategory(category) || getSchemaForCategory(incoming.Web_Retailer_Category || '');
   
   if (!schema) {
-    logger.warn(`No schema found for category: ${category}`);
+    logger.warn(`No schema found for category: "${category}" (fallback: "${incoming.Web_Retailer_Category}")`);
     return {};
   }
+
+  logger.debug(`Using schema "${schema.categoryName}" for category "${category}"`);
 
   const filterAttrs: TopFilterAttributes = {};
   const allSourceAttrs = mergeAttributes(incoming);
@@ -182,8 +147,9 @@ export function buildTopFilterAttributes(
     }
   }
 
-  // Add category-specific logic
-  switch (schema.categoryName) {
+  // Add category-specific logic for complex categories
+  const schemaCategoryName = schema.categoryName.replace(/ #$/, '');
+  switch (schemaCategoryName) {
     case 'Range':
       return buildRangeFilterAttributes(incoming, filterAttrs);
     case 'Refrigerator':
