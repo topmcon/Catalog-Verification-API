@@ -988,6 +988,27 @@ function buildFinalResponse(
   const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
   const styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
   
+  // Log picklist matching results
+  if (!brandMatch.matched && cleanedText.brand) {
+    logger.warn('Brand not found in Salesforce picklist', {
+      aiValue: cleanedText.brand,
+      suggestions: brandMatch.suggestions?.map(s => s.brand_name)
+    });
+  }
+  if (!categoryMatch.matched && consensus.agreedCategory) {
+    logger.warn('Category not found in Salesforce picklist', {
+      aiValue: consensus.agreedCategory,
+      suggestions: categoryMatch.suggestions?.map(s => s.category_name)
+    });
+  }
+  if (!styleMatch.matched && consensus.agreedPrimaryAttributes.product_style) {
+    logger.warn('Style not found in Salesforce picklist - will be empty', {
+      aiValue: consensus.agreedPrimaryAttributes.product_style,
+      suggestions: styleMatch.suggestions?.map(s => s.style_name),
+      availableStyles: 'French Door, Chest, Microwave Combo, Wine Cooler, Over-the-Range, Top-Freezer, Countertop, etc.'
+    });
+  }
+  
   const primaryAttributes: PrimaryDisplayAttributes = {
     Brand_Verified: brandMatch.matched && brandMatch.matchedValue 
       ? brandMatch.matchedValue.brand_name  // Use EXACT Salesforce brand name
@@ -1010,7 +1031,7 @@ function buildFinalResponse(
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name
-      : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
+      : '',  // Empty if no valid match - don't use AI value
     Style_Id: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
