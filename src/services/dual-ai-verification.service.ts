@@ -1700,44 +1700,24 @@ function buildFinalResponse(
     topFilterAttributes[key] = finalValue;
     
     // Look up the attribute ID using the proper attribute name (not the field key)
+    // NOTE: Top 15 attributes are FIXED in our schema per category - they don't need SF picklist matching
+    // The SF attributes picklist is for HTML table attributes, not Top 15
     if (attributeName) {
       const attrMatch = picklistMatcher.matchAttribute(attributeName);
       topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
         ? attrMatch.matchedValue.attribute_id 
         : null;
         
+      // Top 15 attributes are defined in our category schema - they are FIXED
+      // Do NOT generate Attribute_Requests for them since they're not meant to be in SF attributes picklist
       if (!attrMatch.matched) {
-        // Check if this is a PRIMARY ATTRIBUTE (has dedicated field, not in SF attributes picklist)
-        const isPrimary = (attrMatch as any).isPrimaryAttribute || picklistMatcher.isPrimaryAttribute(attributeName);
-        
-        if (isPrimary) {
-          logger.info('Skipping attribute request - is a PRIMARY ATTRIBUTE with dedicated field', {
-            fieldKey: key,
-            attributeName
-          });
-        }
-        // Check if this looks like a VALUE rather than an attribute NAME
-        else if ((attrMatch as any).isValue || picklistMatcher.isAttributeValue(attributeName)) {
-          logger.info('Skipping attribute request - appears to be a value not an attribute name', {
-            fieldKey: key,
-            attributeName
-          });
-        } else {
-          logger.warn('Attribute ID not found in Salesforce picklist', {
-            fieldKey: key,
-            attributeName,
-            similarity: attrMatch.similarity,
-            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
-          });
-          
-          // Add to attribute requests - this triggers SF to add to picklist
-          attributeRequests.push({
-            attribute_name: attributeName,
-            requested_for_category: consensus.agreedCategory || 'Unknown',
-            source: 'schema_definition',
-            reason: `Attribute "${attributeName}" defined in category schema but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%)`
-          });
-        }
+        // Log that this is a schema-defined Top 15 attribute (no request needed)
+        logger.info('Top 15 attribute not in SF picklist - this is expected (schema-defined)', {
+          fieldKey: key,
+          attributeName,
+          category: consensus.agreedCategory || 'Unknown',
+          note: 'Top 15 attributes are fixed per category, SF attributes picklist is for HTML table only'
+        });
       }
     } else {
       // Fallback: try matching the field key directly (legacy behavior)
@@ -1746,39 +1726,12 @@ function buildFinalResponse(
         ? attrMatch.matchedValue.attribute_id 
         : null;
         
+      // Still don't generate requests - Top 15 are fixed in schema
       if (!attrMatch.matched) {
-        // Format the key to a readable name
-        const formattedName = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        
-        // Check if this is a PRIMARY ATTRIBUTE
-        const isPrimary = (attrMatch as any).isPrimaryAttribute || picklistMatcher.isPrimaryAttribute(formattedName) || picklistMatcher.isPrimaryAttribute(key);
-        
-        if (isPrimary) {
-          logger.info('Skipping attribute request - is a PRIMARY ATTRIBUTE with dedicated field', {
-            fieldKey: key,
-            formattedName
-          });
-        }
-        // Check if this looks like a VALUE rather than an attribute NAME
-        else if ((attrMatch as any).isValue || picklistMatcher.isAttributeValue(formattedName) || picklistMatcher.isAttributeValue(key)) {
-          logger.info('Skipping attribute request - field key appears to be a value', {
-            fieldKey: key,
-            formattedName
-          });
-        } else {
-          logger.warn('Attribute ID not found using field key fallback', {
-            fieldKey: key,
-            similarity: attrMatch.similarity
-          });
-          
-          // Add to attribute requests with formatted name
-          attributeRequests.push({
-            attribute_name: formattedName,
-            requested_for_category: consensus.agreedCategory || 'Unknown',
-            source: 'ai_analysis',
-            reason: `Attribute "${formattedName}" found by AI analysis but not in Salesforce picklist`
-          });
-        }
+        logger.info('Top 15 attribute (by key) not in SF picklist - expected for schema-defined attributes', {
+          fieldKey: key,
+          category: consensus.agreedCategory || 'Unknown'
+        });
       }
     }
   }
