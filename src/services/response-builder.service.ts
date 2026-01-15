@@ -25,7 +25,7 @@ import {
   EvaluatedDocument,
   AIReviewStatus,
   FieldAIReviews,
-  AttributeRequest,
+  // AttributeRequest type used implicitly via SalesforceVerificationResponse
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
 import { getSchemaForCategory } from '../config/master-category-schema-map';
