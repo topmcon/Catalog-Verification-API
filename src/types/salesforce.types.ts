@@ -254,6 +254,14 @@ export interface PriceAnalysis {
   msrp_ferguson: number;  // Market Value from Ferguson
 }
 
+// Attribute Request - for requesting new attributes to be added to Salesforce picklist
+export interface AttributeRequest {
+  attribute_name: string;           // The exact attribute name being requested
+  requested_for_category: string;   // Category this attribute was found for
+  source: 'ai_analysis' | 'schema_definition';  // Where the request originated
+  reason: string;                   // Why this attribute is needed
+}
+
 // Complete Verification Response (What we return to Salesforce)
 export interface SalesforceVerificationResponse {
   // Record Identification
@@ -292,6 +300,9 @@ export interface SalesforceVerificationResponse {
 
   // Verification Metadata
   Verification: VerificationMetadata;
+
+  // Attribute Requests - Attributes not found in Salesforce picklist that need to be added
+  Attribute_Requests: AttributeRequest[];
 
   // Status
   Status: 'success' | 'partial' | 'failed';

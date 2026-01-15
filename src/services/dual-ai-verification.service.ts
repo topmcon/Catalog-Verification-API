@@ -26,7 +26,8 @@ import {
   AIReviewStatus,
   AIProviderReview,
   FieldAIReviews,
-  FieldAIReview
+  FieldAIReview,
+  AttributeRequest
 } from '../types/salesforce.types';
 import {
   getCategorySchema,
@@ -1504,6 +1505,7 @@ function buildFinalResponse(
   // Clean top filter attributes and build attribute ID lookups
   const topFilterAttributes: TopFilterAttributes = {};
   const topFilterAttributeIds: TopFilterAttributeIds = {};
+  const attributeRequests: AttributeRequest[] = [];  // Track attributes not in Salesforce picklist
   
   // Get the category schema to map field keys to attribute names
   const categorySchema = consensus.agreedCategory ? getCategorySchema(consensus.agreedCategory) : null;
@@ -1634,6 +1636,14 @@ function buildFinalResponse(
           similarity: attrMatch.similarity,
           suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
         });
+        
+        // Add to attribute requests - this triggers SF to add to picklist
+        attributeRequests.push({
+          attribute_name: attributeName,
+          requested_for_category: consensus.agreedCategory || 'Unknown',
+          source: 'schema_definition',
+          reason: `Attribute "${attributeName}" defined in category schema but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%)`
+        });
       }
     } else {
       // Fallback: try matching the field key directly (legacy behavior)
@@ -1647,8 +1657,25 @@ function buildFinalResponse(
           fieldKey: key,
           similarity: attrMatch.similarity
         });
+        
+        // Add to attribute requests with formatted name
+        const formattedName = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        attributeRequests.push({
+          attribute_name: formattedName,
+          requested_for_category: consensus.agreedCategory || 'Unknown',
+          source: 'ai_analysis',
+          reason: `Attribute "${formattedName}" found by AI analysis but not in Salesforce picklist`
+        });
       }
     }
+  }
+  
+  // Log attribute requests summary if any
+  if (attributeRequests.length > 0) {
+    logger.info('Attribute requests generated for Salesforce picklist update', {
+      count: attributeRequests.length,
+      attributes: attributeRequests.map(ar => ar.attribute_name)
+    });
   }
   
   const additionalHtml = generateAttributeTable(consensus.agreedAdditionalAttributes);
@@ -1732,6 +1759,7 @@ function buildFinalResponse(
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,
+    Attribute_Requests: attributeRequests,  // Triggers SF to add missing attributes to picklist
     Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
   };
 }

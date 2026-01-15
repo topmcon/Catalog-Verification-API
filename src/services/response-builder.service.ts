@@ -25,6 +25,7 @@ import {
   EvaluatedDocument,
   AIReviewStatus,
   FieldAIReviews,
+  AttributeRequest,
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
 import { getSchemaForCategory } from '../config/master-category-schema-map';
@@ -393,6 +394,7 @@ export function buildVerificationResponse(
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,
+    Attribute_Requests: [],  // Not populated in legacy response builder
     Status: verification.verification_status === 'failed' ? 'failed' : 
             verification.verification_status === 'needs_review' ? 'partial' : 'success',
   };
