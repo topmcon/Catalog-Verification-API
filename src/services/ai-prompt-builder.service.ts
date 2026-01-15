@@ -293,7 +293,14 @@ Return a JSON object with this EXACT structure:
   "primaryImageRecommendation": {
     "recommendedIndex": number (0-based index of best image),
     "reason": "why this image is best for primary display"
-  }
+  },
+
+  "research_sources": [
+    "Document: spec_sheet.pdf - extracted electrical specs",
+    "URL: Ferguson product page - verified dimensions",
+    "Web Search: manufacturer website - found warranty details",
+    "Image: front-view.jpg - identified color as stainless steel"
+  ]
 }
 
 Respond ONLY with the JSON object. No explanations or markdown formatting.`;

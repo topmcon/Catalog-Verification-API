@@ -1581,9 +1581,9 @@ function buildFinalResponse(
   const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];
 
   // Build new sections for media, links, and documents
-  const mediaAssets = buildMediaAssets(rawProduct);
+  const mediaAssets = buildMediaAssets(rawProduct, openaiResult, xaiResult);
   const referenceLinks = buildReferenceLinks(rawProduct);
-  const documentsSection = buildDocumentsSection(rawProduct);
+  const documentsSection = buildDocumentsSection(rawProduct, openaiResult, xaiResult);
 
   // Build AI Review Status (summary)
   const aiReview = buildAIReviewStatus(openaiResult, xaiResult, consensus);
@@ -1856,19 +1856,73 @@ function determineStatus(consensus: ConsensusResult, openaiResult: AIAnalysisRes
 
 /**
  * Build Media Assets section from incoming product images
+ * Uses AI recommendation for primary image if available
  */
-function buildMediaAssets(rawProduct: SalesforceIncomingProduct): {
+function buildMediaAssets(
+  rawProduct: SalesforceIncomingProduct,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): {
   Primary_Image_URL: string;
   All_Image_URLs: string[];
   Image_Count: number;
+  AI_Recommended_Primary?: number;
+  Recommendation_Reason?: string;
 } {
   const stockImages = rawProduct.Stock_Images || [];
   const imageUrls = stockImages.map(img => img.url).filter(url => url && url.trim() !== '');
   
+  // Use AI-recommended primary image if both AIs agree, or use higher confidence recommendation
+  let primaryIndex = 0; // Default to first image
+  let recommendationReason: string | undefined;
+  
+  const openaiIndex = openaiResult.primaryImageIndex;
+  const xaiIndex = xaiResult.primaryImageIndex;
+  
+  if (openaiIndex !== undefined && xaiIndex !== undefined) {
+    if (openaiIndex === xaiIndex) {
+      // Both AIs agree - use their recommendation
+      primaryIndex = openaiIndex;
+      recommendationReason = openaiResult.primaryImageReason || xaiResult.primaryImageReason || 'Both AIs agreed';
+      logger.info('Using AI-recommended primary image (consensus)', { 
+        index: primaryIndex, 
+        reason: recommendationReason 
+      });
+    } else {
+      // AIs disagree - use higher confidence AI's recommendation
+      primaryIndex = openaiResult.confidence >= xaiResult.confidence ? openaiIndex : xaiIndex;
+      recommendationReason = openaiResult.confidence >= xaiResult.confidence 
+        ? openaiResult.primaryImageReason 
+        : xaiResult.primaryImageReason;
+      logger.info('Using AI-recommended primary image (higher confidence)', { 
+        index: primaryIndex, 
+        selectedAI: openaiResult.confidence >= xaiResult.confidence ? 'OpenAI' : 'xAI',
+        reason: recommendationReason 
+      });
+    }
+  } else if (openaiIndex !== undefined) {
+    primaryIndex = openaiIndex;
+    recommendationReason = openaiResult.primaryImageReason;
+  } else if (xaiIndex !== undefined) {
+    primaryIndex = xaiIndex;
+    recommendationReason = xaiResult.primaryImageReason;
+  }
+  
+  // Validate index is within bounds
+  if (primaryIndex < 0 || primaryIndex >= imageUrls.length) {
+    logger.warn('AI-recommended image index out of bounds, using first image', {
+      recommendedIndex: primaryIndex,
+      availableImages: imageUrls.length
+    });
+    primaryIndex = 0;
+  }
+  
   return {
-    Primary_Image_URL: imageUrls.length > 0 ? imageUrls[0] : '',
+    Primary_Image_URL: imageUrls.length > 0 ? imageUrls[primaryIndex] : '',
     All_Image_URLs: imageUrls,
     Image_Count: imageUrls.length,
+    AI_Recommended_Primary: (openaiIndex !== undefined || xaiIndex !== undefined) ? primaryIndex : undefined,
+    Recommendation_Reason: recommendationReason,
   };
 }
 
@@ -1888,9 +1942,14 @@ function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
 }
 
 /**
- * Build Documents Section - placeholder until AI evaluation is integrated
+ * Build Documents Section using AI evaluations from both providers
+ * Merges OpenAI and xAI document evaluations, preferring consensus or higher confidence
  */
-function buildDocumentsSection(rawProduct: SalesforceIncomingProduct): {
+function buildDocumentsSection(
+  rawProduct: SalesforceIncomingProduct,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): {
   total_count: number;
   recommended_count: number;
   documents: Array<{
@@ -1901,24 +1960,102 @@ function buildDocumentsSection(rawProduct: SalesforceIncomingProduct): {
     relevance_score: number;
     reason: string;
     extracted_info?: string;
+    openai_eval?: { recommendation: string; score: number; reason: string };
+    xai_eval?: { recommendation: string; score: number; reason: string };
   }>;
 } {
   const incomingDocs = rawProduct.Documents || [];
+  const openaiEvals = openaiResult.documentEvaluations || [];
+  const xaiEvals = xaiResult.documentEvaluations || [];
   
-  // Mark all as 'review' until AI evaluation is implemented
-  const documents = incomingDocs.map(doc => ({
-    url: doc.url,
-    name: doc.name,
-    type: doc.type,
-    ai_recommendation: 'review' as const,
-    relevance_score: 0,
-    reason: 'Pending AI evaluation',
-    extracted_info: undefined,
-  }));
+  // Build lookup maps by URL
+  const openaiMap = new Map(openaiEvals.map(e => [e.url, e]));
+  const xaiMap = new Map(xaiEvals.map(e => [e.url, e]));
+  
+  const documents = incomingDocs.map(doc => {
+    const openaiEval = openaiMap.get(doc.url);
+    const xaiEval = xaiMap.get(doc.url);
+    
+    // If neither AI evaluated this document, mark as review
+    if (!openaiEval && !xaiEval) {
+      return {
+        url: doc.url,
+        name: doc.name,
+        type: doc.type,
+        ai_recommendation: 'review' as const,
+        relevance_score: 0,
+        reason: 'Not evaluated by AI',
+        extracted_info: undefined,
+      };
+    }
+    
+    // If both AIs evaluated, use consensus or higher confidence
+    let finalRecommendation: 'use' | 'skip' | 'review';
+    let finalScore: number;
+    let finalReason: string;
+    let extractedInfo: string[] = [];
+    
+    if (openaiEval && xaiEval) {
+      // Both evaluated - check for consensus
+      if (openaiEval.recommendation === xaiEval.recommendation) {
+        finalRecommendation = openaiEval.recommendation;
+        finalScore = Math.max(openaiEval.relevanceScore, xaiEval.relevanceScore);
+        finalReason = `Both AIs agree: ${openaiEval.reason}`;
+        extractedInfo = [...(openaiEval.extractedInfo || []), ...(xaiEval.extractedInfo || [])];
+      } else {
+        // Disagreement - use higher scoring evaluation
+        const useOpenAI = openaiEval.relevanceScore >= xaiEval.relevanceScore;
+        finalRecommendation = useOpenAI ? openaiEval.recommendation : xaiEval.recommendation;
+        finalScore = Math.max(openaiEval.relevanceScore, xaiEval.relevanceScore);
+        finalReason = useOpenAI 
+          ? `OpenAI (${openaiEval.relevanceScore}): ${openaiEval.reason}` 
+          : `xAI (${xaiEval.relevanceScore}): ${xaiEval.reason}`;
+        extractedInfo = useOpenAI 
+          ? (openaiEval.extractedInfo || []) 
+          : (xaiEval.extractedInfo || []);
+      }
+    } else {
+      // Only one AI evaluated
+      const singleEval = openaiEval || xaiEval!;
+      finalRecommendation = singleEval.recommendation;
+      finalScore = singleEval.relevanceScore;
+      finalReason = singleEval.reason;
+      extractedInfo = singleEval.extractedInfo || [];
+    }
+    
+    return {
+      url: doc.url,
+      name: doc.name,
+      type: doc.type,
+      ai_recommendation: finalRecommendation,
+      relevance_score: finalScore,
+      reason: finalReason,
+      extracted_info: extractedInfo.length > 0 ? extractedInfo.join('; ') : undefined,
+      openai_eval: openaiEval ? {
+        recommendation: openaiEval.recommendation,
+        score: openaiEval.relevanceScore,
+        reason: openaiEval.reason
+      } : undefined,
+      xai_eval: xaiEval ? {
+        recommendation: xaiEval.recommendation,
+        score: xaiEval.relevanceScore,
+        reason: xaiEval.reason
+      } : undefined,
+    };
+  });
+  
+  const recommendedCount = documents.filter(d => d.ai_recommendation === 'use').length;
+  
+  logger.info('Document evaluation summary', {
+    totalDocuments: documents.length,
+    recommendedCount,
+    skippedCount: documents.filter(d => d.ai_recommendation === 'skip').length,
+    reviewCount: documents.filter(d => d.ai_recommendation === 'review').length,
+  });
   
   return {
     total_count: documents.length,
-    recommended_count: 0,
+    recommended_count: recommendedCount,
     documents,
   };
 }

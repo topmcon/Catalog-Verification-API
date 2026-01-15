@@ -219,6 +219,8 @@ export interface MediaAssets {
   Primary_Image_URL: string;
   All_Image_URLs: string[];
   Image_Count: number;
+  AI_Recommended_Primary?: number;  // Index of AI-recommended primary image
+  Recommendation_Reason?: string;   // Why AI selected this image as primary
 }
 
 // Reference Links (Product pages and sources)
