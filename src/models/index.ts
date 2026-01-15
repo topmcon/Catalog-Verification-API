@@ -14,6 +14,12 @@ export {
 // Picklist Mismatch Model
 export { PicklistMismatch, IPicklistMismatch } from './picklist-mismatch.model';
 
+// Field Analytics Model
+export { FieldAnalytics, IFieldAnalytics } from './field-analytics.model';
+
+// Category Confusion Matrix Model
+export { CategoryConfusion, ICategoryConfusion } from './category-confusion.model';
+
 // Verification Analytics Models
 export {
   VerificationResult,

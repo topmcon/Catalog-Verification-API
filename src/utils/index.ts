@@ -7,3 +7,4 @@ export * from './data-cleaner';
 export * from './html-generator';
 export * from './similarity';
 export * from './text-cleaner';
+export * from './json-parser';

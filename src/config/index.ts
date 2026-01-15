@@ -115,3 +115,6 @@ export default config;
 
 // Re-export master category attributes
 export * from './master-category-attributes';
+
+// Re-export category aliases
+export * from './category-aliases';

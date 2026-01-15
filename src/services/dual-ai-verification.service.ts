@@ -38,12 +38,17 @@ import { matchStyleToCategory, getValidStylesForCategory } from '../config/categ
 import { getFamilyForCategory } from '../config/family-category-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
+import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
+import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
 import picklistMatcher from './picklist-matcher.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
 import alertingService from './alerting.service';
+import { errorMonitor } from './error-monitor.service';
+import { FieldAnalytics } from '../models/field-analytics.model';
+import { CategoryConfusion } from '../models/category-confusion.model';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -248,6 +253,11 @@ export async function verifyProductWithDualAI(
     const processingTime = Date.now() - startTime;
     const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
     
+    // Track field population rates (async, don't await)
+    trackFieldPopulation(response, consensus.agreedCategory || 'unknown', openaiResult, xaiResult).catch(err => {
+      logger.error('Failed to track field population', { error: err.message });
+    });
+    
     // Run alerting checks
     alertingService.recordResult(response.Status === 'success');
     alertingService.checkResponseTime(verificationSessionId, rawProduct.SF_Catalog_Id || 'unknown', processingTime);
@@ -298,49 +308,96 @@ export async function verifyProductWithDualAI(
 }
 
 async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string): Promise<AIAnalysisResult> {
-  try {
-    const response = await openai.chat.completions.create({
-      model: config.openai?.model || 'gpt-4-turbo-preview',
-      messages: [
-        { role: 'system', content: getSystemPrompt() },
-        { role: 'user', content: buildAnalysisPrompt(rawProduct) }
-      ],
-      temperature: 0.1,
-      response_format: { type: 'json_object' }
-    });
+  const maxRetries = 3;
+  let lastError: any;
 
-    const content = response.choices[0]?.message?.content;
-    if (!content) throw new Error('Empty response from OpenAI');
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await openai.chat.completions.create({
+        model: config.openai?.model || 'gpt-4-turbo-preview',
+        messages: [
+          { role: 'system', content: getSystemPrompt() },
+          { role: 'user', content: buildAnalysisPrompt(rawProduct) }
+        ],
+        temperature: 0.1,
+        response_format: { type: 'json_object' }
+      });
 
-    return parseAIResponse(JSON.parse(content), 'openai');
-  } catch (error) {
-    logger.error('OpenAI analysis failed', { sessionId, error });
-    return createErrorResult('openai', error);
+      const content = response.choices[0]?.message?.content;
+      if (!content) throw new Error('Empty response from OpenAI');
+
+      // Use robust JSON parsing
+      const parsed = safeParseAIResponse(content, 'openai');
+      if (!parsed) {
+        throw new Error('Failed to parse OpenAI response');
+      }
+
+      if (!validateAIResponse(parsed, 'openai')) {
+        throw new Error('Invalid OpenAI response structure');
+      }
+
+      errorMonitor.recordSuccess();
+      return parseAIResponse(parsed, 'openai');
+    } catch (error) {
+      lastError = error;
+      logger.error(`OpenAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
+      
+      if (attempt < maxRetries) {
+        // Exponential backoff: 1s, 2s, 4s
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt - 1) * 1000));
+      }
+    }
   }
+
+  // All retries failed
+  await errorMonitor.recordError('openai_analysis', 'high', 'OpenAI analysis failed after retries', { sessionId, error: lastError });
+  return createErrorResult('openai', lastError);
 }
 
 async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string): Promise<AIAnalysisResult> {
-  try {
-    const response = await xai.chat.completions.create({
-      model: config.xai?.model || 'grok-beta',
-      messages: [
-        { role: 'system', content: getSystemPrompt() },
-        { role: 'user', content: buildAnalysisPrompt(rawProduct) }
-      ],
-      temperature: 0.1
-    });
+  const maxRetries = 3;
+  let lastError: any;
 
-    const content = response.choices[0]?.message?.content;
-    if (!content) throw new Error('Empty response from xAI');
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await xai.chat.completions.create({
+        model: config.xai?.model || 'grok-beta',
+        messages: [
+          { role: 'system', content: getSystemPrompt() },
+          { role: 'user', content: buildAnalysisPrompt(rawProduct) }
+        ],
+        temperature: 0.1
+      });
 
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON found in xAI response');
+      const content = response.choices[0]?.message?.content;
+      if (!content) throw new Error('Empty response from xAI');
 
-    return parseAIResponse(JSON.parse(jsonMatch[0]), 'xai');
-  } catch (error) {
-    logger.error('xAI analysis failed', { sessionId, error });
-    return createErrorResult('xai', error);
+      // Use robust JSON parsing
+      const parsed = safeParseAIResponse(content, 'xai');
+      if (!parsed) {
+        throw new Error('Failed to parse xAI response');
+      }
+
+      if (!validateAIResponse(parsed, 'xai')) {
+        throw new Error('Invalid xAI response structure');
+      }
+
+      errorMonitor.recordSuccess();
+      return parseAIResponse(parsed, 'xai');
+    } catch (error) {
+      lastError = error;
+      logger.error(`xAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
+      
+      if (attempt < maxRetries) {
+        // Exponential backoff: 1s, 2s, 4s
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt - 1) * 1000));
+      }
+    }
   }
+
+  // All retries failed
+  await errorMonitor.recordError('xai_analysis', 'high', 'xAI analysis failed after retries', { sessionId, error: lastError });
+  return createErrorResult('xai', lastError);
 }
 
 function createErrorResult(provider: 'openai' | 'xai', error: unknown): AIAnalysisResult {
@@ -565,7 +622,26 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   const disagreements: ConsensusResult['disagreements'] = [];
   const needsResearch: string[] = [];
   
-  const categoriesMatch = openaiResult.determinedCategory.toLowerCase() === xaiResult.determinedCategory.toLowerCase();
+  // Normalize categories before comparison
+  const normalizedOpenAI = normalizeCategoryName(openaiResult.determinedCategory);
+  const normalizedXAI = normalizeCategoryName(xaiResult.determinedCategory);
+  
+  const categoriesMatch = areCategoriesEquivalent(openaiResult.determinedCategory, xaiResult.determinedCategory);
+  
+  // Track category confusion if they disagree
+  if (!categoriesMatch && normalizedOpenAI && normalizedXAI) {
+    CategoryConfusion.updateOne(
+      {
+        openai_category: normalizedOpenAI,
+        xai_category: normalizedXAI
+      },
+      {
+        $inc: { count: 1 },
+        $set: { last_occurred: new Date() }
+      },
+      { upsert: true }
+    ).catch(err => logger.error('Failed to track category confusion', err));
+  }
   
   const agreedCategory = categoriesMatch 
     ? openaiResult.determinedCategory
@@ -2127,6 +2203,62 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
     Status: 'failed',
     Error_Message: errorMessage
   };
+}
+
+/**
+ * Track field population rates for analytics
+ */
+async function trackFieldPopulation(
+  finalResponse: SalesforceVerificationResponse,
+  category: string,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): Promise<void> {
+  try {
+    // Track primary attributes
+    for (const [field, value] of Object.entries(finalResponse.Primary_Attributes)) {
+      const aiProvided = !!(openaiResult.primaryAttributes[field] || xaiResult.primaryAttributes[field]);
+      const populated = !!(value && value !== '' && value !== null);
+      
+      await FieldAnalytics.updateOne(
+        { field_name: field, category, field_type: 'primary' },
+        {
+          $inc: {
+            total_calls: 1,
+            populated_count: populated ? 1 : 0,
+            ai_provided_count: aiProvided ? 1 : 0,
+            fallback_used_count: (populated && !aiProvided) ? 1 : 0,
+            missing_count: populated ? 0 : 1
+          }
+        },
+        { upsert: true }
+      );
+    }
+    
+    // Track top filter attributes
+    for (const [field, value] of Object.entries(finalResponse.Top_Filter_Attributes)) {
+      const aiProvided = !!(openaiResult.top15Attributes[field] || xaiResult.top15Attributes[field]);
+      const populated = !!(value && value !== '' && value !== null);
+      
+      await FieldAnalytics.updateOne(
+        { field_name: field, category, field_type: 'top_filter' },
+        {
+          $inc: {
+            total_calls: 1,
+            populated_count: populated ? 1 : 0,
+            ai_provided_count: aiProvided ? 1 : 0,
+            fallback_used_count: (populated && !aiProvided) ? 1 : 0,
+            missing_count: populated ? 0 : 1
+          }
+        },
+        { upsert: true }
+      );
+    }
+    
+    logger.debug('Field population tracked', { category, fields: Object.keys(finalResponse.Primary_Attributes).length });
+  } catch (error) {
+    logger.error('Failed to track field population', { error });
+  }
 }
 
 export default { verifyProductWithDualAI };

@@ -167,13 +167,29 @@ class PicklistMatcherService {
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    if (best && best.similarity >= 0.8) {
+    // Lowered threshold from 0.8 to 0.7 for more flexible matching
+    if (best && best.similarity >= 0.7) {
       return { 
         matched: true, 
         original: brandName, 
         matchedValue: best.brand, 
         similarity: best.similarity,
         suggestions: scored.slice(1, 4).map(s => s.brand)
+      };
+    }
+    
+    // Additional fallback: partial match (one contains the other)
+    const partialMatch = this.brands.find(b =>
+      b.brand_name.toLowerCase().includes(brandName.toLowerCase()) ||
+      brandName.toLowerCase().includes(b.brand_name.toLowerCase())
+    );
+    if (partialMatch) {
+      return {
+        matched: true,
+        original: brandName,
+        matchedValue: partialMatch,
+        similarity: 0.65,
+        suggestions: scored.slice(0, 3).map(s => s.brand)
       };
     }
 
@@ -215,13 +231,29 @@ class PicklistMatcherService {
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    if (best && best.similarity >= 0.75) {
+    // Lowered threshold from 0.75 to 0.7 for more flexible matching
+    if (best && best.similarity >= 0.7) {
       return { 
         matched: true, 
         original: categoryName, 
         matchedValue: best.category, 
         similarity: best.similarity,
         suggestions: scored.slice(1, 4).map(s => s.category)
+      };
+    }
+    
+    // Additional fallback: partial match
+    const partialMatch = this.categories.find(c =>
+      c.category_name.toLowerCase().includes(categoryName.toLowerCase()) ||
+      categoryName.toLowerCase().includes(c.category_name.toLowerCase())
+    );
+    if (partialMatch) {
+      return {
+        matched: true,
+        original: categoryName,
+        matchedValue: partialMatch,
+        similarity: 0.65,
+        suggestions: scored.slice(0, 3).map(s => s.category)
       };
     }
 
@@ -260,13 +292,29 @@ class PicklistMatcherService {
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    if (best && best.similarity >= 0.75) {
+    // Lowered threshold from 0.8 to 0.7 for more flexible matching
+    if (best && best.similarity >= 0.7) {
       return { 
         matched: true, 
         original: styleName, 
         matchedValue: best.style, 
         similarity: best.similarity,
         suggestions: scored.slice(1, 4).map(s => s.style)
+      };
+    }
+    
+    // Additional fallback: partial match
+    const partialMatch = this.styles.find(s =>
+      s.style_name.toLowerCase().includes(styleName.toLowerCase()) ||
+      styleName.toLowerCase().includes(s.style_name.toLowerCase())
+    );
+    if (partialMatch) {
+      return {
+        matched: true,
+        original: styleName,
+        matchedValue: partialMatch,
+        similarity: 0.65,
+        suggestions: scored.slice(0, 3).map(s => s.style)
       };
     }
 
@@ -305,13 +353,29 @@ class PicklistMatcherService {
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    if (best && best.similarity >= 0.8) {
+    // Lowered threshold from 0.85 to 0.7 for more flexible matching
+    if (best && best.similarity >= 0.7) {
       return { 
         matched: true, 
         original: attributeName, 
         matchedValue: best.attribute, 
         similarity: best.similarity,
         suggestions: scored.slice(1, 4).map(s => s.attribute)
+      };
+    }
+    
+    // Additional fallback: partial match
+    const partialMatch = this.attributes.find(a =>
+      a.attribute_name.toLowerCase().includes(attributeName.toLowerCase()) ||
+      attributeName.toLowerCase().includes(a.attribute_name.toLowerCase())
+    );
+    if (partialMatch) {
+      return {
+        matched: true,
+        original: attributeName,
+        matchedValue: partialMatch,
+        similarity: 0.65,
+        suggestions: scored.slice(0, 3).map(s => s.attribute)
       };
     }
 
