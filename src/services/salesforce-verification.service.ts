@@ -592,6 +592,7 @@ function buildVerificationResponse(
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,
+    Attribute_Requests: [],  // Not populated in legacy verification service
     Status: status === 'failed' ? 'failed' : status === 'verified' ? 'success' : 'partial'
   };
 }
@@ -963,6 +964,7 @@ function buildErrorResponse(
       missing_fields: [],
       confidence_scores: {}
     },
+    Attribute_Requests: [],
     Status: 'failed',
     Error_Message: errorMessage
   };

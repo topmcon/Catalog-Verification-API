@@ -2228,6 +2228,7 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
       missing_fields: [],
       confidence_scores: {}
     },
+    Attribute_Requests: [],
     Status: 'failed',
     Error_Message: errorMessage
   };
