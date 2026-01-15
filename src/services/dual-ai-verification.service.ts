@@ -986,26 +986,34 @@ function buildFinalResponse(
   // Match against Salesforce picklists and use EXACT picklist values
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
-  const styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
   
-  // Log picklist matching results
-  if (!brandMatch.matched && cleanedText.brand) {
-    logger.warn('Brand not found in Salesforce picklist', {
-      aiValue: cleanedText.brand,
-      suggestions: brandMatch.suggestions?.map(s => s.brand_name)
-    });
+  // For Style matching, try multiple approaches:
+  // 1. Try AI's product_style first
+  // 2. Try subcategory (often contains the style, e.g., "ELECTRIC OVEN AND MICROWAVE COMBO" → "Microwave Combo")
+  // 3. Try product family parsing
+  let styleMatch = picklistMatcher.matchStyle(consensus.agreedPrimaryAttributes.product_style || '');
+  
+  // If no match, try matching from SubCategory
+  if (!styleMatch.matched && rawProduct.Web_Retailer_SubCategory) {
+    const subCat = rawProduct.Web_Retailer_SubCategory;
+    // Try to extract style from subcategory like "ELECTRIC OVEN AND MICROWAVE COMBO"
+    if (subCat.includes('MICROWAVE')) {
+      styleMatch = picklistMatcher.matchStyle('Microwave Combo');
+    }
   }
-  if (!categoryMatch.matched && consensus.agreedCategory) {
-    logger.warn('Category not found in Salesforce picklist', {
-      aiValue: consensus.agreedCategory,
-      suggestions: categoryMatch.suggestions?.map(s => s.category_name)
+  
+  // Log style matching for debugging
+  if (!styleMatch.matched && (consensus.agreedPrimaryAttributes.product_style || rawProduct.Web_Retailer_SubCategory)) {
+    logger.info('Style matching attempted', {
+      aiProductStyle: consensus.agreedPrimaryAttributes.product_style,
+      subCategory: rawProduct.Web_Retailer_SubCategory,
+      category: consensus.agreedCategory,
+      styleFound: false
     });
-  }
-  if (!styleMatch.matched && consensus.agreedPrimaryAttributes.product_style) {
-    logger.warn('Style not found in Salesforce picklist - will be empty', {
-      aiValue: consensus.agreedPrimaryAttributes.product_style,
-      suggestions: styleMatch.suggestions?.map(s => s.style_name),
-      availableStyles: 'French Door, Chest, Microwave Combo, Wine Cooler, Over-the-Range, Top-Freezer, Countertop, etc.'
+  } else if (styleMatch.matched) {
+    logger.info('Style matched successfully', {
+      matchedStyle: styleMatch.matchedValue?.style_name,
+      source: consensus.agreedPrimaryAttributes.product_style ? 'AI product_style' : 'SubCategory parsing'
     });
   }
   
@@ -1030,8 +1038,8 @@ function buildFinalResponse(
     ),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
-      ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name
-      : '',  // Empty if no valid match - don't use AI value
+      ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name (e.g., "Microwave Combo")
+      : '',  // Empty if no valid style found - don't use AI value if it doesn't match picklist
     Style_Id: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
