@@ -8,6 +8,59 @@ import * as path from 'path';
 import logger from '../utils/logger';
 import { PicklistMismatch, IPicklistMismatch } from '../models/picklist-mismatch.model';
 
+/**
+ * PRIMARY ATTRIBUTE NAMES AND KEYS
+ * These are STATIC attributes that apply to ALL products and have dedicated fields.
+ * They should NEVER be requested as missing from the SF attributes picklist
+ * because they are handled separately in the primary attributes section.
+ */
+const PRIMARY_ATTRIBUTE_NAMES = new Set([
+  // Exact names from PRIMARY_ATTRIBUTES
+  'brand', 'brand (verified)',
+  'category', 'category / subcategory', 'category / subcategory (verified)',
+  'product family', 'product family (verified)',
+  'product style', 'product style (verified)', 'product style (verified) (category specific)',
+  'depth', 'length', 'depth / length', 'depth / length (verified)',
+  'width', 'width (verified)',
+  'height', 'height (verified)',
+  'weight', 'weight (verified)',
+  'msrp', 'msrp (verified)',
+  'market value',
+  'description',
+  'product title', 'product title (verified)',
+  'details',
+  'features', 'features list',
+  'upc', 'gtin', 'upc / gtin', 'upc / gtin (verified)',
+  'model number', 'model number (verified)',
+  'model number alias', 'model number alias (symbols removed)',
+  'model parent',
+  'model variant', 'model variant number',
+  'total model variants', 'total model variants (list all variant models)',
+]);
+
+const PRIMARY_ATTRIBUTE_FIELD_KEYS = new Set([
+  'brand_verified', 'brand',
+  'category_subcategory_verified', 'category_subcategory', 'category',
+  'product_family_verified', 'product_family',
+  'product_style_verified', 'product_style', 'style',
+  'depth_length_verified', 'depth_length', 'depth', 'length',
+  'width_verified', 'width',
+  'height_verified', 'height',
+  'weight_verified', 'weight',
+  'msrp_verified', 'msrp',
+  'market_value',
+  'description',
+  'product_title_verified', 'product_title', 'title',
+  'details',
+  'features_list', 'features',
+  'upc_gtin_verified', 'upc_gtin', 'upc', 'gtin',
+  'model_number_verified', 'model_number',
+  'model_number_alias',
+  'model_parent',
+  'model_variant_number', 'model_variant',
+  'total_model_variants',
+]);
+
 // Picklist data types
 interface Brand {
   brand_id: string;
@@ -381,6 +434,34 @@ class PicklistMatcherService {
   }
 
   /**
+   * Check if an attribute is a PRIMARY ATTRIBUTE
+   * Primary attributes are static, apply to ALL products, and have dedicated fields.
+   * They should NOT be requested as missing from the SF attributes picklist.
+   */
+  isPrimaryAttribute(str: string): boolean {
+    const normalized = str.toLowerCase().trim();
+    
+    // Direct match against primary attribute names
+    if (PRIMARY_ATTRIBUTE_NAMES.has(normalized)) {
+      return true;
+    }
+    
+    // Check against field keys (snake_case)
+    const snakeCased = normalized.replace(/\s+/g, '_').replace(/[()]/g, '');
+    if (PRIMARY_ATTRIBUTE_FIELD_KEYS.has(snakeCased)) {
+      return true;
+    }
+    
+    // Check for partial matches on core dimension fields
+    const coreTerms = ['width', 'height', 'depth', 'length', 'weight', 'msrp', 'brand', 'category', 'description', 'title', 'model', 'upc', 'gtin', 'features'];
+    if (coreTerms.some(term => normalized === term || snakeCased === term)) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  /**
    * Check if a string looks like an attribute VALUE rather than an attribute NAME
    */
   isAttributeValue(str: string): boolean {
@@ -422,6 +503,12 @@ class PicklistMatcherService {
     }
 
     const normalized = attributeName.toLowerCase().trim();
+    
+    // Check if this is a PRIMARY ATTRIBUTE - these have dedicated fields and don't need picklist matching
+    if (this.isPrimaryAttribute(attributeName)) {
+      logger.debug('Skipping attribute match - is a PRIMARY ATTRIBUTE with dedicated field', { attributeName });
+      return { matched: true, original: attributeName, matchedValue: null, similarity: 1.0, isPrimaryAttribute: true } as any;
+    }
     
     // Check if this looks like a VALUE, not an attribute name
     if (this.isAttributeValue(attributeName)) {

@@ -1707,10 +1707,17 @@ function buildFinalResponse(
         : null;
         
       if (!attrMatch.matched) {
-        // Check if this looks like a VALUE rather than an attribute NAME
-        const isValue = (attrMatch as any).isValue || picklistMatcher.isAttributeValue(attributeName);
+        // Check if this is a PRIMARY ATTRIBUTE (has dedicated field, not in SF attributes picklist)
+        const isPrimary = (attrMatch as any).isPrimaryAttribute || picklistMatcher.isPrimaryAttribute(attributeName);
         
-        if (isValue) {
+        if (isPrimary) {
+          logger.info('Skipping attribute request - is a PRIMARY ATTRIBUTE with dedicated field', {
+            fieldKey: key,
+            attributeName
+          });
+        }
+        // Check if this looks like a VALUE rather than an attribute NAME
+        else if ((attrMatch as any).isValue || picklistMatcher.isAttributeValue(attributeName)) {
           logger.info('Skipping attribute request - appears to be a value not an attribute name', {
             fieldKey: key,
             attributeName
@@ -1743,10 +1750,17 @@ function buildFinalResponse(
         // Format the key to a readable name
         const formattedName = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         
-        // Check if this looks like a VALUE rather than an attribute NAME
-        const isValue = (attrMatch as any).isValue || picklistMatcher.isAttributeValue(formattedName) || picklistMatcher.isAttributeValue(key);
+        // Check if this is a PRIMARY ATTRIBUTE
+        const isPrimary = (attrMatch as any).isPrimaryAttribute || picklistMatcher.isPrimaryAttribute(formattedName) || picklistMatcher.isPrimaryAttribute(key);
         
-        if (isValue) {
+        if (isPrimary) {
+          logger.info('Skipping attribute request - is a PRIMARY ATTRIBUTE with dedicated field', {
+            fieldKey: key,
+            formattedName
+          });
+        }
+        // Check if this looks like a VALUE rather than an attribute NAME
+        else if ((attrMatch as any).isValue || picklistMatcher.isAttributeValue(formattedName) || picklistMatcher.isAttributeValue(key)) {
           logger.info('Skipping attribute request - field key appears to be a value', {
             fieldKey: key,
             formattedName
