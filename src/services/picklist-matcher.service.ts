@@ -52,6 +52,57 @@ interface MismatchLog {
   similarity?: number;
 }
 
+/**
+ * SEMANTIC ATTRIBUTE ALIASES
+ * Maps equivalent attribute names that should be treated as the same
+ * Format: 'ai_term': 'salesforce_term'
+ */
+const ATTRIBUTE_ALIASES: Record<string, string> = {
+  // Position/Placement equivalents
+  'drain position': 'drain placement',
+  'drain location': 'drain placement',
+  // Width/Depth equivalents  
+  'overall width': 'width',
+  'overall depth': 'depth',
+  'nominal width': 'width',
+  'nominal depth': 'depth',
+  'nominal length': 'length',
+  // Mount type equivalents
+  'installation type': 'mount type',
+  'mounting type': 'mount type',
+  // Bowl equivalents
+  'number of basins': 'number of bowls',
+  'basin count': 'number of bowls',
+  // Material equivalents
+  'sink material': 'material',
+  'faucet material': 'material',
+  'construction material': 'material',
+  // Size equivalents
+  'minimum cabinet size': 'cabinet size',
+  'cabinet width': 'cabinet size',
+};
+
+/**
+ * KNOWN ATTRIBUTE VALUES (not attribute names)
+ * These are VALUES that AI might incorrectly return as field keys
+ * If we see these, we should NOT request them as missing attributes
+ */
+const KNOWN_ATTRIBUTE_VALUES = new Set([
+  // Configuration values
+  'single bowl', 'double bowl', 'triple bowl', 'single basin', 'double basin',
+  // Mount type values
+  'undermount', 'drop-in', 'undermount/drop-in', 'farmhouse', 'apron', 'vessel', 'wall mount',
+  // Material values
+  'stainless steel', 'fireclay', 'granite composite', 'cast iron', 'porcelain', 'copper',
+  // Finish values
+  'brushed nickel', 'chrome', 'matte black', 'polished chrome', 'oil rubbed bronze',
+  // Boolean-like values
+  'yes', 'no', 'true', 'false', 'included', 'not included',
+  // Style values for appliances
+  'french door', 'side-by-side', 'top freezer', 'bottom freezer',
+  'front load', 'top load', 'gas', 'electric', 'induction',
+]);
+
 class PicklistMatcherService {
   private brands: Brand[] = [];
   private categories: Category[] = [];
@@ -330,6 +381,39 @@ class PicklistMatcherService {
   }
 
   /**
+   * Check if a string looks like an attribute VALUE rather than an attribute NAME
+   */
+  isAttributeValue(str: string): boolean {
+    const normalized = str.toLowerCase().trim();
+    
+    // Check against known values
+    if (KNOWN_ATTRIBUTE_VALUES.has(normalized)) {
+      return true;
+    }
+    
+    // Looks like a dimension value (number + unit)
+    if (/^\d+(\.\d+)?\s*(inches?|in|ft|cm|mm|lbs?|oz|gallons?|gal|cu\.?\s*ft)?$/i.test(str)) {
+      return true;
+    }
+    
+    // Looks like a boolean
+    if (/^(yes|no|true|false|included|not included|n\/a)$/i.test(normalized)) {
+      return true;
+    }
+    
+    // Contains slash suggesting it's a value option (e.g., "Undermount/Drop-In")
+    if (normalized.includes('/') && !normalized.includes('certified') && !normalized.includes('compliant')) {
+      // Check if both parts look like known values
+      const parts = normalized.split('/');
+      if (parts.every(p => KNOWN_ATTRIBUTE_VALUES.has(p.trim()))) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  /**
    * Match an attribute name to SF picklist
    */
   matchAttribute(attributeName: string): MatchResult<Attribute> {
@@ -339,22 +423,43 @@ class PicklistMatcherService {
 
     const normalized = attributeName.toLowerCase().trim();
     
+    // Check if this looks like a VALUE, not an attribute name
+    if (this.isAttributeValue(attributeName)) {
+      logger.debug('Skipping attribute match - looks like a value not a name', { attributeName });
+      return { matched: false, original: attributeName, matchedValue: null, similarity: 0, isValue: true } as any;
+    }
+    
+    // First, check for semantic alias
+    const aliasTarget = ATTRIBUTE_ALIASES[normalized];
+    const searchTerm = aliasTarget || normalized;
+    
+    if (aliasTarget) {
+      logger.info('Using attribute alias mapping', { original: normalized, mappedTo: aliasTarget });
+    }
+    
+    // Try exact match (with alias)
     const exactMatch = this.attributes.find(a => 
-      a.attribute_name.toLowerCase() === normalized
+      a.attribute_name.toLowerCase() === searchTerm
     );
     
     if (exactMatch) {
       return { matched: true, original: attributeName, matchedValue: exactMatch, similarity: 1.0 };
     }
 
+    // Score all attributes against the search term
     const scored = this.attributes.map(a => ({
       attribute: a,
-      similarity: this.calculateSimilarity(attributeName, a.attribute_name)
+      similarity: this.calculateSimilarity(searchTerm, a.attribute_name)
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    // Lowered threshold from 0.85 to 0.7 for more flexible matching
-    if (best && best.similarity >= 0.7) {
+    // Lowered threshold from 0.7 to 0.6 for more flexible matching
+    if (best && best.similarity >= 0.6) {
+      logger.info('Attribute matched via similarity', { 
+        original: attributeName, 
+        matched: best.attribute.attribute_name,
+        similarity: best.similarity 
+      });
       return { 
         matched: true, 
         original: attributeName, 
@@ -366,15 +471,15 @@ class PicklistMatcherService {
     
     // Additional fallback: partial match
     const partialMatch = this.attributes.find(a =>
-      a.attribute_name.toLowerCase().includes(attributeName.toLowerCase()) ||
-      attributeName.toLowerCase().includes(a.attribute_name.toLowerCase())
+      a.attribute_name.toLowerCase().includes(searchTerm) ||
+      searchTerm.includes(a.attribute_name.toLowerCase())
     );
     if (partialMatch) {
       return {
         matched: true,
         original: attributeName,
         matchedValue: partialMatch,
-        similarity: 0.65,
+        similarity: 0.55,
         suggestions: scored.slice(0, 3).map(s => s.attribute)
       };
     }

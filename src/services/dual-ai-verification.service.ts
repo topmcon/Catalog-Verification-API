@@ -1707,20 +1707,30 @@ function buildFinalResponse(
         : null;
         
       if (!attrMatch.matched) {
-        logger.warn('Attribute ID not found in Salesforce picklist', {
-          fieldKey: key,
-          attributeName,
-          similarity: attrMatch.similarity,
-          suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
-        });
+        // Check if this looks like a VALUE rather than an attribute NAME
+        const isValue = (attrMatch as any).isValue || picklistMatcher.isAttributeValue(attributeName);
         
-        // Add to attribute requests - this triggers SF to add to picklist
-        attributeRequests.push({
-          attribute_name: attributeName,
-          requested_for_category: consensus.agreedCategory || 'Unknown',
-          source: 'schema_definition',
-          reason: `Attribute "${attributeName}" defined in category schema but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%)`
-        });
+        if (isValue) {
+          logger.info('Skipping attribute request - appears to be a value not an attribute name', {
+            fieldKey: key,
+            attributeName
+          });
+        } else {
+          logger.warn('Attribute ID not found in Salesforce picklist', {
+            fieldKey: key,
+            attributeName,
+            similarity: attrMatch.similarity,
+            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+          });
+          
+          // Add to attribute requests - this triggers SF to add to picklist
+          attributeRequests.push({
+            attribute_name: attributeName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'schema_definition',
+            reason: `Attribute "${attributeName}" defined in category schema but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%)`
+          });
+        }
       }
     } else {
       // Fallback: try matching the field key directly (legacy behavior)
@@ -1730,19 +1740,31 @@ function buildFinalResponse(
         : null;
         
       if (!attrMatch.matched) {
-        logger.warn('Attribute ID not found using field key fallback', {
-          fieldKey: key,
-          similarity: attrMatch.similarity
-        });
-        
-        // Add to attribute requests with formatted name
+        // Format the key to a readable name
         const formattedName = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        attributeRequests.push({
-          attribute_name: formattedName,
-          requested_for_category: consensus.agreedCategory || 'Unknown',
-          source: 'ai_analysis',
-          reason: `Attribute "${formattedName}" found by AI analysis but not in Salesforce picklist`
-        });
+        
+        // Check if this looks like a VALUE rather than an attribute NAME
+        const isValue = (attrMatch as any).isValue || picklistMatcher.isAttributeValue(formattedName) || picklistMatcher.isAttributeValue(key);
+        
+        if (isValue) {
+          logger.info('Skipping attribute request - field key appears to be a value', {
+            fieldKey: key,
+            formattedName
+          });
+        } else {
+          logger.warn('Attribute ID not found using field key fallback', {
+            fieldKey: key,
+            similarity: attrMatch.similarity
+          });
+          
+          // Add to attribute requests with formatted name
+          attributeRequests.push({
+            attribute_name: formattedName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'ai_analysis',
+            reason: `Attribute "${formattedName}" found by AI analysis but not in Salesforce picklist`
+          });
+        }
       }
     }
   }
