@@ -994,7 +994,12 @@ function buildFinalResponse(
       const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
       return categoryMatch.matched && categoryMatch.matchedValue ? categoryMatch.matchedValue.category_id : null;
     })(),
-    SubCategory_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.subcategory || ''),
+    SubCategory_Verified: cleanEncodingIssues(
+      consensus.agreedPrimaryAttributes.subcategory || 
+      consensus.agreedPrimaryAttributes.category_subcategory || 
+      rawProduct.Web_Retailer_SubCategory || 
+      ''
+    ),
     Product_Family_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
     Product_Style_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_style || ''),
     Style_Id: (() => {
@@ -1016,8 +1021,20 @@ function buildFinalResponse(
     Details_Verified: cleanEncodingIssues(consensus.agreedPrimaryAttributes.details || ''),
     Features_List_HTML: cleanedText.featuresHtml,
     UPC_GTIN_Verified: consensus.agreedPrimaryAttributes.upc_gtin || '',
-    Model_Number_Verified: consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer,
-    Model_Number_Alias: consensus.agreedPrimaryAttributes.model_number_alias || '',
+    Model_Number_Verified: (() => {
+      // Prioritize: 1) SF_Catalog_Name (authoritative), 2) AI consensus, 3) Ferguson, 4) Web Retailer
+      const sfModel = rawProduct.SF_Catalog_Name?.trim();
+      const aiModel = consensus.agreedPrimaryAttributes.model_number?.trim();
+      const fergModel = rawProduct.Ferguson_Model_Number?.trim();
+      const wrModel = rawProduct.Model_Number_Web_Retailer?.trim();
+      
+      return sfModel || aiModel || fergModel || wrModel || '';
+    })(),
+    Model_Number_Alias: (() => {
+      const primary = rawProduct.SF_Catalog_Name || consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer || '';
+      // Remove special characters for alias
+      return primary.replace(/[\/\-\s]/g, '');
+    })(),
     Model_Parent: consensus.agreedPrimaryAttributes.model_parent || '',
     Model_Variant_Number: consensus.agreedPrimaryAttributes.model_variant_number || '',
     Total_Model_Variants: cleanEncodingIssues(consensus.agreedPrimaryAttributes.total_model_variants || '')
@@ -1026,14 +1043,64 @@ function buildFinalResponse(
   // Clean top filter attributes and build attribute ID lookups
   const topFilterAttributes: TopFilterAttributes = {};
   const topFilterAttributeIds: TopFilterAttributeIds = {};
+  
+  // Get the category schema to map field keys to attribute names
+  const categorySchema = consensus.agreedCategory ? getCategorySchema(consensus.agreedCategory) : null;
+  
+  // Log schema retrieval for debugging
+  logger.info('Category schema lookup for attribute ID mapping', {
+    category: consensus.agreedCategory || 'unknown',
+    schemaFound: !!categorySchema,
+    attributeCount: categorySchema?.top15FilterAttributes?.length || 0
+  });
+  
   for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
     topFilterAttributes[key] = typeof value === 'string' ? cleanEncodingIssues(value) : value;
     
-    // Look up the attribute ID for this attribute key name
-    const attrMatch = picklistMatcher.matchAttribute(key);
-    topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
-      ? attrMatch.matchedValue.attribute_id 
-      : null;
+    // Find the attribute definition from the schema to get the proper name
+    let attributeName: string | null = null;
+    if (categorySchema?.top15FilterAttributes) {
+      const attrDef = categorySchema.top15FilterAttributes.find(attr => attr.fieldKey === key);
+      attributeName = attrDef?.name || null;
+      
+      if (!attributeName) {
+        logger.warn('Attribute definition not found in schema', {
+          fieldKey: key,
+          category: consensus.agreedCategory || 'unknown',
+          availableFieldKeys: categorySchema.top15FilterAttributes.map(a => a.fieldKey)
+        });
+      }
+    }
+    
+    // Look up the attribute ID using the proper attribute name (not the field key)
+    if (attributeName) {
+      const attrMatch = picklistMatcher.matchAttribute(attributeName);
+      topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
+        ? attrMatch.matchedValue.attribute_id 
+        : null;
+        
+      if (!attrMatch.matched) {
+        logger.warn('Attribute ID not found in Salesforce picklist', {
+          fieldKey: key,
+          attributeName,
+          similarity: attrMatch.similarity,
+          suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+        });
+      }
+    } else {
+      // Fallback: try matching the field key directly (legacy behavior)
+      const attrMatch = picklistMatcher.matchAttribute(key);
+      topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
+        ? attrMatch.matchedValue.attribute_id 
+        : null;
+        
+      if (!attrMatch.matched) {
+        logger.warn('Attribute ID not found using field key fallback', {
+          fieldKey: key,
+          similarity: attrMatch.similarity
+        });
+      }
+    }
   }
   
   const additionalHtml = generateAttributeTable(consensus.agreedAdditionalAttributes);
