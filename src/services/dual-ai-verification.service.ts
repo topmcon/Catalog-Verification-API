@@ -27,7 +27,10 @@ import {
   AIProviderReview,
   FieldAIReviews,
   FieldAIReview,
-  AttributeRequest
+  AttributeRequest,
+  BrandRequest,
+  CategoryRequest,
+  StyleRequest
 } from '../types/salesforce.types';
 import {
   getCategorySchema,
@@ -1253,6 +1256,49 @@ function buildFinalResponse(
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
   
+  // Initialize picklist request arrays - track values not in Salesforce picklists
+  const brandRequests: BrandRequest[] = [];
+  const categoryRequests: CategoryRequest[] = [];
+  const styleRequests: StyleRequest[] = [];
+  
+  // Track brand requests if not matched
+  if (!brandMatch.matched && cleanedText.brand && cleanedText.brand.trim() !== '') {
+    brandRequests.push({
+      brand_name: cleanedText.brand,
+      source: 'ai_analysis',
+      product_context: {
+        sf_catalog_id: rawProduct.SF_Catalog_Id,
+        model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+      },
+      reason: `Brand "${cleanedText.brand}" not found in Salesforce picklist (similarity: ${(brandMatch.similarity * 100).toFixed(0)}%). Closest matches: ${brandMatch.suggestions?.map(s => s.brand_name).join(', ') || 'none'}`
+    });
+    logger.info('Brand request generated for Salesforce picklist', {
+      brand: cleanedText.brand,
+      similarity: brandMatch.similarity,
+      suggestions: brandMatch.suggestions?.map(s => s.brand_name)
+    });
+  }
+  
+  // Track category requests if not matched
+  if (!categoryMatch.matched && consensus.agreedCategory && consensus.agreedCategory.trim() !== '') {
+    categoryRequests.push({
+      category_name: consensus.agreedCategory,
+      suggested_department: consensus.agreedPrimaryAttributes.department || '',
+      suggested_family: consensus.agreedPrimaryAttributes.product_family || '',
+      source: 'ai_analysis',
+      product_context: {
+        sf_catalog_id: rawProduct.SF_Catalog_Id,
+        model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+      },
+      reason: `Category "${consensus.agreedCategory}" not found in Salesforce picklist (similarity: ${(categoryMatch.similarity * 100).toFixed(0)}%). Closest matches: ${categoryMatch.suggestions?.map(s => s.category_name).join(', ') || 'none'}`
+    });
+    logger.info('Category request generated for Salesforce picklist', {
+      category: consensus.agreedCategory,
+      similarity: categoryMatch.similarity,
+      suggestions: categoryMatch.suggestions?.map(s => s.category_name)
+    });
+  }
+  
   // Match Style using category-aware mapping
   let styleMatch: { matched: boolean; matchedValue: { style_name: string; style_id: string } | null } = { matched: false, matchedValue: null };
   const potentialStyle = consensus.agreedPrimaryAttributes.product_style || 
@@ -1271,8 +1317,37 @@ function buildFinalResponse(
         logger.info(`[Style Matched] Category: "${matchedCategory}" → Style: "${mappedStyle}"`, {
           originalInput: potentialStyle
         });
+      } else {
+        // Style mapped but not in SF picklist
+        styleRequests.push({
+          style_name: mappedStyle,
+          suggested_for_category: matchedCategory,
+          source: 'ai_analysis',
+          product_context: {
+            sf_catalog_id: rawProduct.SF_Catalog_Id,
+            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+          },
+          reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist`
+        });
+        logger.info('Style request generated for Salesforce picklist', {
+          style: mappedStyle,
+          category: matchedCategory
+        });
       }
     } else {
+      // No style mapping found - request the potential style if valid
+      if (potentialStyle && potentialStyle.trim() !== '') {
+        styleRequests.push({
+          style_name: potentialStyle,
+          suggested_for_category: matchedCategory,
+          source: 'ai_analysis',
+          product_context: {
+            sf_catalog_id: rawProduct.SF_Catalog_Id,
+            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+          },
+          reason: `Style "${potentialStyle}" from AI analysis has no mapping for category "${matchedCategory}"`
+        });
+      }
       const validStyles = getValidStylesForCategory(matchedCategory);
       logger.warn(`[Style Validation] No valid style found for category "${matchedCategory}"`, {
         potentialStyle,
@@ -1747,6 +1822,18 @@ function buildFinalResponse(
     }
   };
 
+  // Log picklist requests summary
+  const totalPicklistRequests = attributeRequests.length + brandRequests.length + categoryRequests.length + styleRequests.length;
+  if (totalPicklistRequests > 0) {
+    logger.info('Picklist requests generated for Salesforce', {
+      total: totalPicklistRequests,
+      attributes: attributeRequests.length,
+      brands: brandRequests.length,
+      categories: categoryRequests.length,
+      styles: styleRequests.length
+    });
+  }
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
@@ -1761,7 +1848,11 @@ function buildFinalResponse(
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,
-    Attribute_Requests: attributeRequests,  // Triggers SF to add missing attributes to picklist
+    // Picklist Requests - SF adds these options then calls /api/picklists/sync to update us
+    Attribute_Requests: attributeRequests,
+    Brand_Requests: brandRequests,
+    Category_Requests: categoryRequests,
+    Style_Requests: styleRequests,
     Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
   };
 }
@@ -2231,6 +2322,9 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
       confidence_scores: {}
     },
     Attribute_Requests: [],
+    Brand_Requests: [],
+    Category_Requests: [],
+    Style_Requests: [],
     Status: 'failed',
     Error_Message: errorMessage
   };

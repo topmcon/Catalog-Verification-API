@@ -593,6 +593,9 @@ function buildVerificationResponse(
     AI_Review: aiReview,
     Verification: verification,
     Attribute_Requests: [],  // Not populated in legacy verification service
+    Brand_Requests: [],      // Not populated in legacy verification service
+    Category_Requests: [],   // Not populated in legacy verification service
+    Style_Requests: [],      // Not populated in legacy verification service
     Status: status === 'failed' ? 'failed' : status === 'verified' ? 'success' : 'partial'
   };
 }
@@ -965,6 +968,9 @@ function buildErrorResponse(
       confidence_scores: {}
     },
     Attribute_Requests: [],
+    Brand_Requests: [],
+    Category_Requests: [],
+    Style_Requests: [],
     Status: 'failed',
     Error_Message: errorMessage
   };

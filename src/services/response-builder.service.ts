@@ -395,6 +395,9 @@ export function buildVerificationResponse(
     AI_Review: aiReview,
     Verification: verification,
     Attribute_Requests: [],  // Not populated in legacy response builder
+    Brand_Requests: [],      // Not populated in legacy response builder
+    Category_Requests: [],   // Not populated in legacy response builder
+    Style_Requests: [],      // Not populated in legacy response builder
     Status: verification.verification_status === 'failed' ? 'failed' : 
             verification.verification_status === 'needs_review' ? 'partial' : 'success',
   };

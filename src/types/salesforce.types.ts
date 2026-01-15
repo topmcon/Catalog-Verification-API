@@ -255,12 +255,64 @@ export interface PriceAnalysis {
   msrp_ferguson: number;  // Market Value from Ferguson
 }
 
+/**
+ * ============================================
+ * PICKLIST REQUEST TYPES
+ * ============================================
+ * When AI suggests a value not in our picklist, we send a request to SF.
+ * SF then adds the option and calls back to update our lists.
+ */
+
 // Attribute Request - for requesting new attributes to be added to Salesforce picklist
 export interface AttributeRequest {
   attribute_name: string;           // The exact attribute name being requested
   requested_for_category: string;   // Category this attribute was found for
   source: 'ai_analysis' | 'schema_definition';  // Where the request originated
   reason: string;                   // Why this attribute is needed
+}
+
+// Brand Request - for requesting new brands to be added to Salesforce picklist
+export interface BrandRequest {
+  brand_name: string;               // The exact brand name being requested
+  source: 'ai_analysis' | 'product_data';  // Where the request originated
+  product_context?: {               // Context for debugging
+    sf_catalog_id?: string;
+    model_number?: string;
+  };
+  reason: string;                   // Why this brand is needed
+}
+
+// Category Request - for requesting new categories to be added to Salesforce picklist
+export interface CategoryRequest {
+  category_name: string;            // The exact category name being requested
+  suggested_department?: string;    // AI's suggested department for this category
+  suggested_family?: string;        // AI's suggested family for this category
+  source: 'ai_analysis' | 'product_data';  // Where the request originated
+  product_context?: {               // Context for debugging
+    sf_catalog_id?: string;
+    model_number?: string;
+  };
+  reason: string;                   // Why this category is needed
+}
+
+// Style Request - for requesting new styles to be added to Salesforce picklist
+export interface StyleRequest {
+  style_name: string;               // The exact style name being requested
+  suggested_for_category?: string;  // Which category this style was found for
+  source: 'ai_analysis' | 'product_data';  // Where the request originated
+  product_context?: {               // Context for debugging
+    sf_catalog_id?: string;
+    model_number?: string;
+  };
+  reason: string;                   // Why this style is needed
+}
+
+// Combined Picklist Requests - all 4 types in one object
+export interface PicklistRequests {
+  Attribute_Requests: AttributeRequest[];
+  Brand_Requests: BrandRequest[];
+  Category_Requests: CategoryRequest[];
+  Style_Requests: StyleRequest[];
 }
 
 // Complete Verification Response (What we return to Salesforce)
@@ -302,8 +354,12 @@ export interface SalesforceVerificationResponse {
   // Verification Metadata
   Verification: VerificationMetadata;
 
-  // Attribute Requests - Attributes not found in Salesforce picklist that need to be added
+  // Picklist Requests - Values not found in Salesforce picklists that need to be added
+  // SF receives these, creates the options, then calls /api/picklists/sync to update our lists
   Attribute_Requests: AttributeRequest[];
+  Brand_Requests: BrandRequest[];
+  Category_Requests: CategoryRequest[];
+  Style_Requests: StyleRequest[];
 
   // Status
   Status: 'success' | 'partial' | 'failed';

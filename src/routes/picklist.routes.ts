@@ -1,6 +1,6 @@
 /**
  * Picklist Routes
- * API endpoints for SF picklist management
+ * API endpoints for SF picklist management and sync
  */
 
 import { Router } from 'express';
@@ -19,11 +19,16 @@ router.get('/attributes', picklistController.getAttributes.bind(picklistControll
 router.get('/brands/:id', picklistController.getBrandById.bind(picklistController));
 router.get('/categories/:id', picklistController.getCategoryById.bind(picklistController));
 
-// Add new picklist items
+// Add new picklist items (single)
 router.post('/brands', picklistController.addBrand.bind(picklistController));
 router.post('/categories', picklistController.addCategory.bind(picklistController));
 router.post('/styles', picklistController.addStyle.bind(picklistController));
 router.post('/attributes', picklistController.addAttribute.bind(picklistController));
+
+// Bulk sync from Salesforce - SF calls this after adding new picklist options
+// POST /api/picklists/sync
+// Body: { attributes?: [], brands?: [], categories?: [], styles?: [] }
+router.post('/sync', picklistController.syncPicklists.bind(picklistController));
 
 // Matching endpoints (for testing)
 router.post('/match/brand', picklistController.matchBrand.bind(picklistController));

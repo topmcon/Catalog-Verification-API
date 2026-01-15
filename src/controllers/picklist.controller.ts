@@ -1,6 +1,6 @@
 /**
  * Picklist Controller
- * Handles SF picklist CRUD operations and mismatch reporting
+ * Handles SF picklist CRUD operations, mismatch reporting, and sync from Salesforce
  */
 
 import { Request, Response, NextFunction } from 'express';
@@ -364,6 +364,132 @@ export class PicklistController {
       
       res.status(201).json({ success: true, data: result.attribute, message: result.message });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/sync
+   * Bulk sync picklists from Salesforce
+   * 
+   * This endpoint allows Salesforce to send updated picklist data after
+   * adding new options (in response to our *_Requests arrays).
+   * 
+   * Request body can include any combination of:
+   * - attributes: Array of { attribute_id, attribute_name }
+   * - brands: Array of { brand_id, brand_name }
+   * - categories: Array of { category_id, category_name, department, family }
+   * - styles: Array of { style_id, style_name }
+   * 
+   * Each array completely replaces the existing data for that type.
+   * Only include the picklist types you want to update.
+   */
+  async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { attributes, brands, categories, styles } = req.body;
+      
+      // Validate that at least one picklist type is provided
+      if (!attributes && !brands && !categories && !styles) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'At least one picklist type (attributes, brands, categories, styles) must be provided',
+          expected_format: {
+            attributes: [{ attribute_id: 'string', attribute_name: 'string' }],
+            brands: [{ brand_id: 'string', brand_name: 'string' }],
+            categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
+            styles: [{ style_id: 'string', style_name: 'string' }]
+          }
+        });
+        return;
+      }
+      
+      // Validate array formats if provided
+      const validationErrors: string[] = [];
+      
+      if (attributes && !Array.isArray(attributes)) {
+        validationErrors.push('attributes must be an array');
+      } else if (attributes) {
+        const invalidAttrs = attributes.filter((a: any) => !a.attribute_id || !a.attribute_name);
+        if (invalidAttrs.length > 0) {
+          validationErrors.push(`${invalidAttrs.length} attributes missing required fields (attribute_id, attribute_name)`);
+        }
+      }
+      
+      if (brands && !Array.isArray(brands)) {
+        validationErrors.push('brands must be an array');
+      } else if (brands) {
+        const invalidBrands = brands.filter((b: any) => !b.brand_id || !b.brand_name);
+        if (invalidBrands.length > 0) {
+          validationErrors.push(`${invalidBrands.length} brands missing required fields (brand_id, brand_name)`);
+        }
+      }
+      
+      if (categories && !Array.isArray(categories)) {
+        validationErrors.push('categories must be an array');
+      } else if (categories) {
+        const invalidCats = categories.filter((c: any) => 
+          !c.category_id || !c.category_name || !c.department || !c.family
+        );
+        if (invalidCats.length > 0) {
+          validationErrors.push(`${invalidCats.length} categories missing required fields (category_id, category_name, department, family)`);
+        }
+      }
+      
+      if (styles && !Array.isArray(styles)) {
+        validationErrors.push('styles must be an array');
+      } else if (styles) {
+        const invalidStyles = styles.filter((s: any) => !s.style_id || !s.style_name);
+        if (invalidStyles.length > 0) {
+          validationErrors.push(`${invalidStyles.length} styles missing required fields (style_id, style_name)`);
+        }
+      }
+      
+      if (validationErrors.length > 0) {
+        res.status(400).json({ 
+          success: false, 
+          error: 'Validation failed',
+          validation_errors: validationErrors
+        });
+        return;
+      }
+      
+      // Log the sync request
+      logger.info('Picklist sync request received from Salesforce', {
+        attributes_count: attributes?.length || 0,
+        brands_count: brands?.length || 0,
+        categories_count: categories?.length || 0,
+        styles_count: styles?.length || 0
+      });
+      
+      // Perform the sync
+      const result = await picklistMatcher.syncPicklists({
+        attributes,
+        brands,
+        categories,
+        styles
+      });
+      
+      // Get updated stats
+      const stats = picklistMatcher.getStats();
+      
+      if (result.success) {
+        res.json({ 
+          success: true, 
+          message: 'Picklists synced successfully',
+          updated: result.updated,
+          current_stats: stats
+        });
+      } else {
+        res.status(207).json({ 
+          success: false, 
+          message: 'Some picklists failed to sync',
+          updated: result.updated,
+          errors: result.errors,
+          current_stats: stats
+        });
+      }
+    } catch (error) {
+      logger.error('Picklist sync failed', { error });
       next(error);
     }
   }

@@ -729,6 +729,125 @@ class PicklistMatcherService {
       throw new Error('Failed to save attribute to picklist file');
     }
   }
+
+  /**
+   * Bulk sync picklists from Salesforce
+   * This completely replaces the existing picklist data with the new data from SF
+   * Use this when SF has added new options and wants to sync back to us
+   */
+  async syncPicklists(data: {
+    attributes?: Attribute[];
+    brands?: Brand[];
+    categories?: Category[];
+    styles?: Style[];
+  }): Promise<{
+    success: boolean;
+    updated: { type: string; previous: number; current: number; added: number }[];
+    errors: string[];
+  }> {
+    const updated: { type: string; previous: number; current: number; added: number }[] = [];
+    const errors: string[] = [];
+    const projectRoot = path.resolve(__dirname, '../../');
+    const picklistDir = path.join(projectRoot, 'src/config/salesforce-picklists');
+
+    // Sync attributes
+    if (data.attributes && Array.isArray(data.attributes)) {
+      try {
+        const prevCount = this.attributes.length;
+        const filePath = path.join(picklistDir, 'attributes.json');
+        fs.writeFileSync(filePath, JSON.stringify(data.attributes, null, 2));
+        this.attributes = data.attributes;
+        updated.push({
+          type: 'attributes',
+          previous: prevCount,
+          current: data.attributes.length,
+          added: data.attributes.length - prevCount
+        });
+        logger.info('Attributes synced successfully', { 
+          previous: prevCount, 
+          current: data.attributes.length 
+        });
+      } catch (error: any) {
+        errors.push(`Failed to sync attributes: ${error.message}`);
+        logger.error('Failed to sync attributes', { error });
+      }
+    }
+
+    // Sync brands
+    if (data.brands && Array.isArray(data.brands)) {
+      try {
+        const prevCount = this.brands.length;
+        const filePath = path.join(picklistDir, 'brands.json');
+        fs.writeFileSync(filePath, JSON.stringify(data.brands, null, 2));
+        this.brands = data.brands;
+        updated.push({
+          type: 'brands',
+          previous: prevCount,
+          current: data.brands.length,
+          added: data.brands.length - prevCount
+        });
+        logger.info('Brands synced successfully', { 
+          previous: prevCount, 
+          current: data.brands.length 
+        });
+      } catch (error: any) {
+        errors.push(`Failed to sync brands: ${error.message}`);
+        logger.error('Failed to sync brands', { error });
+      }
+    }
+
+    // Sync categories
+    if (data.categories && Array.isArray(data.categories)) {
+      try {
+        const prevCount = this.categories.length;
+        const filePath = path.join(picklistDir, 'categories.json');
+        fs.writeFileSync(filePath, JSON.stringify(data.categories, null, 2));
+        this.categories = data.categories;
+        updated.push({
+          type: 'categories',
+          previous: prevCount,
+          current: data.categories.length,
+          added: data.categories.length - prevCount
+        });
+        logger.info('Categories synced successfully', { 
+          previous: prevCount, 
+          current: data.categories.length 
+        });
+      } catch (error: any) {
+        errors.push(`Failed to sync categories: ${error.message}`);
+        logger.error('Failed to sync categories', { error });
+      }
+    }
+
+    // Sync styles
+    if (data.styles && Array.isArray(data.styles)) {
+      try {
+        const prevCount = this.styles.length;
+        const filePath = path.join(picklistDir, 'styles.json');
+        fs.writeFileSync(filePath, JSON.stringify(data.styles, null, 2));
+        this.styles = data.styles;
+        updated.push({
+          type: 'styles',
+          previous: prevCount,
+          current: data.styles.length,
+          added: data.styles.length - prevCount
+        });
+        logger.info('Styles synced successfully', { 
+          previous: prevCount, 
+          current: data.styles.length 
+        });
+      } catch (error: any) {
+        errors.push(`Failed to sync styles: ${error.message}`);
+        logger.error('Failed to sync styles', { error });
+      }
+    }
+
+    return {
+      success: errors.length === 0,
+      updated,
+      errors
+    };
+  }
 }
 
 // Export singleton instance

@@ -16,5 +16,11 @@ export {
   RefrigeratorTopFilterAttributes,
   DishwasherTopFilterAttributes,
   SalesforceVerificationBatchRequest,
-  SalesforceVerificationBatchResponse
+  SalesforceVerificationBatchResponse,
+  // Picklist Request Types (for bidirectional sync with SF)
+  AttributeRequest,
+  BrandRequest,
+  CategoryRequest,
+  StyleRequest,
+  PicklistRequests
 } from './salesforce.types';
