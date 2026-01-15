@@ -94,6 +94,7 @@ export interface PrimaryDisplayAttributes {
   Category_Id?: string | null;  // SF picklist ID for category
   SubCategory_Verified: string;
   Product_Family_Verified: string;
+  Department_Verified?: string;  // From SF category data
   Product_Style_Verified: string;  // Category-specific
   Style_Id?: string | null;  // SF picklist ID for style
   Color_Verified: string;          // Extracted/verified color

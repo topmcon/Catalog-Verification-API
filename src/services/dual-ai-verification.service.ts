@@ -36,7 +36,6 @@ import {
   getAllCategoriesWithTop15ForPrompt
 } from '../config/master-category-attributes';
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
-import { getFamilyForCategory } from '../config/family-category-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -1302,9 +1301,12 @@ function buildFinalResponse(
       rawProduct.Web_Retailer_SubCategory || 
       ''
     ),
-    Product_Family_Verified: categoryMatch.matchedValue 
-      ? getFamilyForCategory(categoryMatch.matchedValue.category_name)
+    Product_Family_Verified: categoryMatch.matched && categoryMatch.matchedValue?.family
+      ? categoryMatch.matchedValue.family  // Use family directly from SF picklist data
       : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
+    Department_Verified: categoryMatch.matched && categoryMatch.matchedValue?.department
+      ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
+      : '',
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name (e.g., "Microwave Combo")
       : '',  // Empty if no valid style found - don't use AI value if it doesn't match picklist
