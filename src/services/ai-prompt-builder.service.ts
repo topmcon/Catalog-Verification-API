@@ -139,19 +139,31 @@ ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join(
 
 6. **Boolean Attributes**: Convert "Yes"/"No" to true/false. Empty = null.
 
-7. **Missing Data**: If a required field cannot be found in the raw data, USE EXTERNAL RESEARCH to find the answer. Search manufacturer websites, product databases, and specifications sheets.
+7. **Material Recognition for Color/Finish**: Materials are BOTH colors AND finishes. Extract them for both fields:
+   - "Stainless Steel" → Color: "Stainless Steel", Finish: "Stainless Steel"
+   - "Black Stainless Steel" → Color: "Black Stainless Steel", Finish: "Stainless Steel"
+   - "White" → Color: "White", Finish: may be different (e.g., "Enamel", "Powder Coat")
+   - "Brushed Nickel" → Color: "Nickel", Finish: "Brushed"
+   - Look for materials in: product titles, descriptions, features, and attribute arrays
 
-8. **Duplicate Removal**: The raw specs may contain duplicates. Return only unique values.
+8. **Missing Data - MANDATORY EXTERNAL RESEARCH**: If ANY required field (especially Brand, Model Number, Color, Finish, Dimensions, or Top 15 attributes) cannot be found in the provided data:
+   - YOU MUST perform external research using the model number and brand
+   - Search manufacturer websites, spec sheets, retailer pages
+   - Example: For "Wolf SPO3050CMBT", search "Wolf SPO3050CMBT specifications"
+   - DO NOT leave required fields empty if external data exists
+   - Mark researched fields with source: "researched" and include the source URL in your reasoning
 
-9. **HTML Cleanup**: Remove all HTML tags from text values. Convert <br> to commas in lists.
+9. **Duplicate Removal**: The raw specs may contain duplicates. Return only unique values.
+
+10. **HTML Cleanup**: Remove all HTML tags from text values. Convert <br> to commas in lists.
 
 ## ⚠️ CRITICAL: TEXT QUALITY ENHANCEMENT (Customer-Facing Data)
 
 ALL text output must be CUSTOMER-READY. Fix these issues:
 
-10. **Run-on Sentences**: Add proper spacing after periods. "word.Another" → "word. Another"
+11. **Run-on Sentences**: Add proper spacing after periods. "word.Another" → "word. Another"
 
-11. **Encoding Issues**: Fix corrupted characters:
+12. **Encoding Issues**: Fix corrupted characters:
     - "Caf(eback)" or "CAF(EBACK)" → "Café"
     - "(TM)" or "(tm)" → "™"
     - "(R)" or "(r)" → "®"
@@ -159,23 +171,23 @@ ALL text output must be CUSTOMER-READY. Fix these issues:
     - "â€™" → "'"
     - Remove random parentheses from brand names
 
-12. **Proper Capitalization**:
+13. **Proper Capitalization**:
     - Brand names: "Café" not "CAFE" or "cafe"
     - Product titles: Title Case for key words
     - Preserve technical terms: "BTU", "WiFi", "SmartHQ"
 
-13. **Grammar & Punctuation**:
+14. **Grammar & Punctuation**:
     - Add spaces after periods, commas, colons
     - Remove duplicate punctuation
     - Fix sentence fragments
 
-14. **Description Enhancement**:
+15. **Description Enhancement**:
     - Maximum 500 characters
     - Complete sentences only
     - Professional tone
     - Include key selling points
 
-15. **Feature Extraction**: Extract 5-10 key features from the description as bullet points:
+16. **Feature Extraction**: Extract 5-10 key features from the description as bullet points:
     - Each feature should be a single selling point
     - Keep features concise (under 100 characters each)
     - Start with action verbs or key specs

@@ -37,7 +37,7 @@ import {
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { getFamilyForCategory } from '../config/family-category-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
-import { cleanCustomerFacingText, cleanEncodingIssues } from '../utils/text-cleaner';
+import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
@@ -1192,33 +1192,61 @@ function buildFinalResponse(
     Style_Id: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
-    Color_Verified: cleanEncodingIssues(
-      preferAIValue(
-        consensus.agreedPrimaryAttributes.color,
-        openaiResult.primaryAttributes.color,
-        xaiResult.primaryAttributes.color,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        rawProduct.Ferguson_Color || 
-        rawProduct.Color_Finish_Web_Retailer || 
-        findAttributeInRawData(rawProduct, 'Color') ||
-        findAttributeInRawData(rawProduct, 'Finish Color') ||
-        ''
-      )
-    ),
-    Finish_Verified: cleanEncodingIssues(
-      preferAIValue(
-        consensus.agreedPrimaryAttributes.finish,
-        openaiResult.primaryAttributes.finish,
-        xaiResult.primaryAttributes.finish,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        rawProduct.Ferguson_Finish || 
-        findAttributeInRawData(rawProduct, 'Finish') ||
-        findAttributeInRawData(rawProduct, 'Surface Finish') ||
-        ''
-      )
-    ),
+    Color_Verified: (() => {
+      let color = cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.color,
+          openaiResult.primaryAttributes.color,
+          xaiResult.primaryAttributes.color,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          rawProduct.Ferguson_Color || 
+          rawProduct.Color_Finish_Web_Retailer || 
+          findAttributeInRawData(rawProduct, 'Color') ||
+          findAttributeInRawData(rawProduct, 'Finish Color') ||
+          ''
+        )
+      );
+      
+      // If still empty, try to extract from title/description
+      if (!color || color.trim() === '') {
+        const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
+        const extracted = extractColorFinish(textToSearch);
+        if (extracted.color) {
+          color = extracted.color;
+          logger.info('Extracted color from text', { color, source: 'material_extraction' });
+        }
+      }
+      
+      return color;
+    })(),
+    Finish_Verified: (() => {
+      let finish = cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.finish,
+          openaiResult.primaryAttributes.finish,
+          xaiResult.primaryAttributes.finish,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          rawProduct.Ferguson_Finish || 
+          findAttributeInRawData(rawProduct, 'Finish') ||
+          findAttributeInRawData(rawProduct, 'Surface Finish') ||
+          ''
+        )
+      );
+      
+      // If still empty, try to extract from title/description
+      if (!finish || finish.trim() === '') {
+        const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
+        const extracted = extractColorFinish(textToSearch);
+        if (extracted.finish) {
+          finish = extracted.finish;
+          logger.info('Extracted finish from text', { finish, source: 'material_extraction' });
+        }
+      }
+      
+      return finish;
+    })(),
     Depth_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.depth_length,
       openaiResult.primaryAttributes.depth_length,

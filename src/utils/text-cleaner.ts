@@ -602,6 +602,37 @@ export function escapeHtml(text: string): string {
 }
 
 /**
+ * Extract color/finish from text (recognizes materials as both color and finish)
+ */
+export function extractColorFinish(text: string | undefined | null): { color: string; finish: string } {
+  if (!text) return { color: '', finish: '' };
+  
+  const lowerText = text.toLowerCase();
+  
+  // Common appliance materials that serve as BOTH color and finish
+  const materials = [
+    { pattern: /black\s+stainless\s*steel/i, color: 'Black Stainless Steel', finish: 'Stainless Steel' },
+    { pattern: /stainless\s*steel/i, color: 'Stainless Steel', finish: 'Stainless Steel' },
+    { pattern: /brushed\s+stainless/i, color: 'Stainless Steel', finish: 'Brushed Stainless' },
+    { pattern: /fingerprint\s+resistant\s+stainless/i, color: 'Stainless Steel', finish: 'Fingerprint Resistant' },
+    { pattern: /white/i, color: 'White', finish: 'White' },
+    { pattern: /black/i, color: 'Black', finish: 'Black' },
+    { pattern: /bisque/i, color: 'Bisque', finish: 'Bisque' },
+    { pattern: /slate/i, color: 'Slate', finish: 'Slate' },
+    { pattern: /panel\s+ready/i, color: 'Panel Ready', finish: 'Panel Ready' },
+    { pattern: /custom\s+panel/i, color: 'Panel Ready', finish: 'Panel Ready' },
+  ];
+  
+  for (const mat of materials) {
+    if (mat.pattern.test(lowerText)) {
+      return { color: mat.color, finish: mat.finish };
+    }
+  }
+  
+  return { color: '', finish: '' };
+}
+
+/**
  * Clean all customer-facing text in a product response
  */
 export interface CustomerFacingText {
@@ -645,5 +676,6 @@ export default {
   formatSentence,
   fixGrammar,
   escapeHtml,
+  extractColorFinish,
   cleanCustomerFacingText,
 };
