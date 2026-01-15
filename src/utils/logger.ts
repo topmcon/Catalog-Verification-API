@@ -9,8 +9,23 @@ if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
 
+// Custom timestamp formatter for EST timezone
+const estTimestamp = winston.format((info) => {
+  const date = new Date();
+  // Convert to EST (UTC-5)
+  const estDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const year = estDate.getFullYear();
+  const month = String(estDate.getMonth() + 1).padStart(2, '0');
+  const day = String(estDate.getDate()).padStart(2, '0');
+  const hours = String(estDate.getHours()).padStart(2, '0');
+  const minutes = String(estDate.getMinutes()).padStart(2, '0');
+  const seconds = String(estDate.getSeconds()).padStart(2, '0');
+  info.timestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} EST`;
+  return info;
+});
+
 const logFormat = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+  estTimestamp(),
   winston.format.errors({ stack: true }),
   winston.format.printf(({ level, message, timestamp, stack, ...meta }) => {
     let log = `${timestamp} [${level.toUpperCase()}]: ${message}`;
