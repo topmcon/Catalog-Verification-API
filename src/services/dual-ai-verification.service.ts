@@ -1063,13 +1063,47 @@ function buildFinalResponse(
   });
   
   for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
-    topFilterAttributes[key] = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+    let finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
     
-    // Find the attribute definition from the schema to get the proper name
+    // Find the attribute definition from the schema to validate and standardize the value
     let attributeName: string | null = null;
+    let attrDef: any = null;
     if (categorySchema?.top15FilterAttributes) {
-      const attrDef = categorySchema.top15FilterAttributes.find(attr => attr.fieldKey === key);
+      attrDef = categorySchema.top15FilterAttributes.find(attr => attr.fieldKey === key);
       attributeName = attrDef?.name || null;
+      
+      // For enum types with allowedValues, validate and match against exact allowed values
+      if (attrDef && attrDef.type === 'enum' && attrDef.allowedValues && finalValue) {
+        const normalizedValue = String(finalValue).toLowerCase().trim();
+        
+        // Try exact match first
+        let matchedValue = attrDef.allowedValues.find((av: string) => 
+          av.toLowerCase() === normalizedValue
+        );
+        
+        // If no exact match, try fuzzy match
+        if (!matchedValue) {
+          matchedValue = attrDef.allowedValues.find((av: string) => 
+            av.toLowerCase().includes(normalizedValue) || normalizedValue.includes(av.toLowerCase())
+          );
+        }
+        
+        // Use exact Salesforce allowed value if matched
+        if (matchedValue) {
+          finalValue = matchedValue;
+          logger.info('Standardized attribute value to exact schema allowed value', {
+            fieldKey: key,
+            originalValue: value,
+            standardizedValue: matchedValue
+          });
+        } else {
+          logger.warn('Attribute value does not match allowed values in schema', {
+            fieldKey: key,
+            value: finalValue,
+            allowedValues: attrDef.allowedValues
+          });
+        }
+      }
       
       if (!attributeName) {
         logger.warn('Attribute definition not found in schema', {
@@ -1079,6 +1113,8 @@ function buildFinalResponse(
         });
       }
     }
+    
+    topFilterAttributes[key] = finalValue;
     
     // Look up the attribute ID using the proper attribute name (not the field key)
     if (attributeName) {
