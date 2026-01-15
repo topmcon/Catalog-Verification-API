@@ -246,7 +246,7 @@ export const AI_FALLBACK_ATTRIBUTES: Record<string, string[]> = {
   'bathtubs': ['Installation Type', 'Material', 'Drain Placement', 'Length', 'Width', 'Depth', 'Soaking Depth', 'Whirlpool', 'Air Bath', 'Heated Surface', 'Finish', 'Overflow', 'ADA Compliant', 'Weight Capacity', 'Lumbar Support'],
   'toilets': ['Bowl Shape', 'Flush Type', 'Gallons per Flush', 'Height', 'Rough-In', 'Seat Included', 'Bidet Features', 'ADA Compliant', 'Material', 'Color', 'Soft-Close Seat', 'Night Light', 'WaterSense', 'One-Piece/Two-Piece', 'Skirted'],
   'kitchen_sinks': ['Configuration', 'Material', 'Width', 'Depth', 'Bowl Depth', 'Number of Bowls', 'Faucet Holes', 'Drain Position', 'Sound Dampening', 'Grid Included', 'Finish', 'Undermount/Drop-In', 'Strainer Included', 'Commercial Grade', 'Gauge'],
-  'kitchen_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Pull-Down/Pull-Out', 'Spray Functions', 'Flow Rate', 'Touchless', 'Soap Dispenser', 'Deck Plate', 'Voice Activated', 'Filtration', 'Temperature Memory', 'WaterSense'],
+  'kitchen_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Pull-Down/Pull-Out', 'Spray Functions', 'Flow Rate', 'Touchless', 'Soap Dispenser Included', 'Deck Plate', 'Voice Activated', 'Filtration', 'Temperature Memory', 'WaterSense Certified', 'Installation Type', 'Material', 'Faucet Holes', 'Valve Type', 'Water Efficient', 'ADA', 'Handle Style', 'Spout Style', 'Mounting Type'],
   'bathroom_faucets': ['Style', 'Finish', 'Number of Handles', 'Spout Height', 'Spout Reach', 'Centerset/Widespread', 'Flow Rate', 'Drain Included', 'ADA Compliant', 'Single Hole', 'Wall Mount', 'Touchless', 'WaterSense', 'Temperature Limit', 'Ceramic Disc'],
   
   // Lighting
