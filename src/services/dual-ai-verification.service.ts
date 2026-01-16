@@ -1303,6 +1303,9 @@ function buildFinalResponse(
   // If AIs disagree on style, use EITHER value (prefer OpenAI) rather than skipping style entirely
   let styleMatch: { matched: boolean; matchedValue: { style_name: string; style_id: string } | null } = { matched: false, matchedValue: null };
   
+  // Track style to use even if not in SF picklist (for populating response while requesting creation)
+  let styleToUse: string = '';
+  
   // Get style from agreed attributes, or fall back to individual AI values if they disagreed
   let potentialStyle = consensus.agreedPrimaryAttributes.product_style || '';
   
@@ -1334,11 +1337,13 @@ function buildFinalResponse(
       const sfStyleMatch = picklistMatcher.matchStyle(mappedStyle);
       if (sfStyleMatch.matched) {
         styleMatch = sfStyleMatch;
+        styleToUse = mappedStyle;
         logger.info(`[Style Matched] Category: "${matchedCategory}" → Style: "${mappedStyle}"`, {
           originalInput: potentialStyle
         });
       } else {
-        // Style mapped but not in SF picklist
+        // Style mapped but not in SF picklist - USE IT AND request creation
+        styleToUse = mappedStyle;
         styleRequests.push({
           style_name: mappedStyle,
           suggested_for_category: matchedCategory,
@@ -1349,14 +1354,16 @@ function buildFinalResponse(
           },
           reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist`
         });
-        logger.info('Style request generated for Salesforce picklist', {
+        logger.info('Style used in response AND request generated for Salesforce picklist creation', {
           style: mappedStyle,
-          category: matchedCategory
+          category: matchedCategory,
+          willPopulateResponse: true
         });
       }
     } else {
-      // No style mapping found - request the potential style if valid
+      // No style mapping found - use potential style from AI and request creation
       if (potentialStyle && potentialStyle.trim() !== '') {
+        styleToUse = potentialStyle;
         styleRequests.push({
           style_name: potentialStyle,
           suggested_for_category: matchedCategory,
@@ -1365,11 +1372,16 @@ function buildFinalResponse(
             sf_catalog_id: rawProduct.SF_Catalog_Id,
             model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
           },
-          reason: `Style "${potentialStyle}" from AI analysis has no mapping for category "${matchedCategory}"`
+          reason: `Style "${potentialStyle}" from AI analysis - requesting creation for category "${matchedCategory}"`
+        });
+        logger.info('Using AI style in response AND requesting Salesforce picklist creation', {
+          style: potentialStyle,
+          category: matchedCategory,
+          willPopulateResponse: true
         });
       }
       const validStyles = getValidStylesForCategory(matchedCategory);
-      logger.warn(`[Style Validation] No valid style found for category "${matchedCategory}"`, {
+      logger.debug(`[Style Validation] Style not in SF picklist for category "${matchedCategory}"`, {
         potentialStyle,
         validStylesForCategory: validStyles,
         source: consensus.agreedPrimaryAttributes.product_style ? 'AI' : 'subcategory'
@@ -1403,8 +1415,8 @@ function buildFinalResponse(
       ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
       : '',
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
-      ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name (e.g., "Microwave Combo")
-      : '',  // Empty if no valid style found - don't use AI value if it doesn't match picklist
+      ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name when matched
+      : styleToUse,  // Use AI-derived style even if not in SF picklist (will be in Style_Requests)
     Style_Id: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
