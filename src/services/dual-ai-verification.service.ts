@@ -53,6 +53,7 @@ import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
+import { performProductResearch, formatResearchForPrompt, ResearchResult } from './research.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -251,12 +252,75 @@ export async function verifyProductWithDualAI(
   });
 
   try {
+    // PHASE 0: External Research - Fetch URLs, PDFs, and analyze images BEFORE AI analysis
+    const researchStartTime = Date.now();
+    let researchResult: ResearchResult | null = null;
+    let researchContext = '';
+    
+    // Only run research if enabled in config
+    const researchEnabled = config.research?.enabled !== false;
+    
+    if (researchEnabled) {
+      try {
+        // Extract URLs from raw product
+        const documentUrls = (rawProduct.Documents || [])
+          .map(d => typeof d === 'string' ? d : d?.url)
+          .filter(Boolean) as string[];
+        
+        const imageUrls = (rawProduct.Stock_Images || [])
+          .map(i => typeof i === 'string' ? i : i?.url)
+          .filter(Boolean) as string[];
+        
+        logger.info('Starting external research phase', {
+          sessionId: verificationSessionId,
+          fergusonUrl: rawProduct.Ferguson_URL || null,
+          referenceUrl: rawProduct.Reference_URL || null,
+          documentCount: documentUrls.length,
+          imageCount: imageUrls.length
+        });
+        
+        researchResult = await performProductResearch(
+          rawProduct.Ferguson_URL || null,
+          rawProduct.Reference_URL || null,
+          documentUrls,
+          imageUrls,
+          { 
+            maxDocuments: config.research?.maxDocuments || 3, 
+            maxImages: config.research?.maxImages || 2, 
+            skipImages: config.research?.enableImageAnalysis === false 
+          }
+        );
+        
+        researchContext = formatResearchForPrompt(researchResult);
+        
+        logger.info('External research completed', {
+          sessionId: verificationSessionId,
+          processingTime: Date.now() - researchStartTime,
+          webPagesSuccess: researchResult.webPages.filter(p => p.success).length,
+          documentsSuccess: researchResult.documents.filter(d => d.success).length,
+          imagesSuccess: researchResult.images.filter(i => i.success).length,
+          totalSpecs: Object.keys(researchResult.combinedSpecifications).length,
+          totalFeatures: researchResult.combinedFeatures.length
+        });
+      } catch (researchError) {
+        logger.warn('External research phase failed, continuing without', {
+          sessionId: verificationSessionId,
+          error: researchError instanceof Error ? researchError.message : 'Unknown error'
+        });
+      }
+    } else {
+      logger.info('External research phase skipped (disabled in config)', {
+        sessionId: verificationSessionId
+      });
+    }
+
+    // PHASE 1: AI Analysis with research context
     const openaiStartTime = Date.now();
     const xaiStartTime = Date.now();
     
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId),
-      analyzeWithXAI(rawProduct, verificationSessionId)
+      analyzeWithOpenAI(rawProduct, verificationSessionId, researchContext),
+      analyzeWithXAI(rawProduct, verificationSessionId, researchContext)
     ]);
 
     // Track OpenAI result
@@ -426,7 +490,7 @@ export async function verifyProductWithDualAI(
   }
 }
 
-async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string): Promise<AIAnalysisResult> {
+async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
 
@@ -436,7 +500,7 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
         model: config.openai?.model || 'gpt-4-turbo-preview',
         messages: [
           { role: 'system', content: getSystemPrompt() },
-          { role: 'user', content: buildAnalysisPrompt(rawProduct) }
+          { role: 'user', content: buildAnalysisPrompt(rawProduct, researchContext) }
         ],
         temperature: 0.1,
         response_format: { type: 'json_object' }
@@ -473,7 +537,7 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
   return createErrorResult('openai', lastError);
 }
 
-async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string): Promise<AIAnalysisResult> {
+async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
 
@@ -483,7 +547,7 @@ async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: 
         model: config.xai?.model || 'grok-beta',
         messages: [
           { role: 'system', content: getSystemPrompt() },
-          { role: 'user', content: buildAnalysisPrompt(rawProduct) }
+          { role: 'user', content: buildAnalysisPrompt(rawProduct, researchContext) }
         ],
         temperature: 0.1
       });
@@ -685,28 +749,47 @@ IMPORTANT:
 - ALWAYS generate a features_list even if no features are in the raw data - extract them from description and specs`;
 }
 
-function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct): string {
-  return `Analyze this product and map it to our category system:
+function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, researchContext?: string): string {
+  let prompt = `Analyze this product and map it to our category system:
 
 RAW PRODUCT DATA:
 ${JSON.stringify(rawProduct, null, 2)}
+`;
+
+  // Add research context if available
+  if (researchContext && researchContext.trim()) {
+    prompt += `
+
+=== EXTERNAL RESEARCH DATA (Retrieved from actual URLs/documents/images) ===
+The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
+This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.
+
+${researchContext}
+=== END EXTERNAL RESEARCH DATA ===
+`;
+  }
+
+  prompt += `
 
 Tasks:
 1. Determine the product category from our master list
 2. Map all available data to the correct attribute fields for that category
-3. **CRITICAL**: Clean and enhance ALL customer-facing text:
+3. ${researchContext ? '**PRIORITIZE** the external research data for filling missing fields' : 'Note any missing data'}
+4. **CRITICAL**: Clean and enhance ALL customer-facing text:
    - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
    - Fix run-on sentences (add spaces after periods)
    - Ensure proper capitalization
    - Professional grammar and punctuation
-4. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
-5. List any missing required fields
-6. Note any corrections you made
+5. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
+6. List any missing required fields
+7. Note any corrections you made and data sources used
 
 The product_title, description, and features_list will be displayed directly to customers.
 They MUST be professional, well-formatted, and error-free.
 
 Return your analysis as JSON.`;
+
+  return prompt;
 }
 
 function parseAIResponse(parsed: any, provider: 'openai' | 'xai'): AIAnalysisResult {

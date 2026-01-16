@@ -16,11 +16,21 @@ export interface Config {
     apiKey: string;
     model: string;
     maxTokens: number;
+    visionModel: string; // For image analysis
   };
   xai: {
     apiKey: string;
     apiUrl: string;
     model: string;
+  };
+  research: {
+    enabled: boolean;
+    enableWebFetch: boolean;
+    enablePdfExtract: boolean;
+    enableImageAnalysis: boolean;
+    maxDocuments: number;
+    maxImages: number;
+    requestTimeout: number;
   };
   salesforce: {
     loginUrl: string;
@@ -67,12 +77,23 @@ const config: Config = {
     apiKey: process.env.OPENAI_API_KEY || '',
     model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
     maxTokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4096', 10),
+    visionModel: process.env.OPENAI_VISION_MODEL || 'gpt-4o',
   },
 
   xai: {
     apiKey: process.env.XAI_API_KEY || '',
     apiUrl: process.env.XAI_API_URL || 'https://api.x.ai/v1',
     model: process.env.XAI_MODEL || 'grok-beta',
+  },
+
+  research: {
+    enabled: process.env.RESEARCH_ENABLED !== 'false', // Enabled by default
+    enableWebFetch: process.env.RESEARCH_WEB_FETCH !== 'false',
+    enablePdfExtract: process.env.RESEARCH_PDF_EXTRACT !== 'false',
+    enableImageAnalysis: process.env.RESEARCH_IMAGE_ANALYSIS !== 'false',
+    maxDocuments: parseInt(process.env.RESEARCH_MAX_DOCUMENTS || '3', 10),
+    maxImages: parseInt(process.env.RESEARCH_MAX_IMAGES || '2', 10),
+    requestTimeout: parseInt(process.env.RESEARCH_TIMEOUT || '15000', 10),
   },
 
   salesforce: {
