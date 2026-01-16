@@ -17,6 +17,16 @@ router.post(
 );
 
 /**
+ * @route   POST /api/webhook/confirm
+ * @desc    Receive confirmation from SF that data was saved
+ * @access  Public (SF calls this after saving)
+ */
+router.post(
+  '/confirm',
+  asyncHandler(webhookController.handleSaveConfirmation)
+);
+
+/**
  * @route   GET /api/webhook/status/:sessionId
  * @desc    Get webhook processing status
  * @access  Protected

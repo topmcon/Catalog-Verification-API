@@ -217,7 +217,106 @@ export async function getWebhookStatus(req: Request, res: Response): Promise<voi
   });
 }
 
+/**
+ * Handle SF confirmation that data was saved successfully
+ * SF calls this after successfully saving the verification response to the record
+ */
+export async function handleSaveConfirmation(req: Request, res: Response): Promise<void> {
+  const {
+    sf_catalog_id,
+    sf_catalog_name,
+    session_id,
+    status,
+    fields_updated,
+    error_message,
+    timestamp
+  } = req.body;
+
+  const confirmationTime = new Date().toISOString();
+
+  if (status === 'saved') {
+    logger.info('✅ SF CONFIRMATION: Data saved successfully', {
+      sf_catalog_id,
+      sf_catalog_name,
+      session_id,
+      fields_updated,
+      sf_timestamp: timestamp,
+      confirmation_time: confirmationTime
+    });
+
+    // Optional: Update analytics or tracking
+    try {
+      await AuditLog.create({
+        sessionId: session_id || 'unknown',
+        action: 'sf_save_confirmed',
+        details: {
+          sf_catalog_id,
+          sf_catalog_name,
+          fields_updated,
+          status: 'success',
+          sf_timestamp: timestamp
+        },
+        timestamp: new Date()
+      });
+    } catch (err) {
+      logger.warn('Failed to log SF confirmation to audit', { error: err });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Confirmation received',
+      received_at: confirmationTime
+    });
+  } else if (status === 'error') {
+    logger.error('❌ SF CONFIRMATION: Save failed', {
+      sf_catalog_id,
+      sf_catalog_name,
+      session_id,
+      error_message,
+      sf_timestamp: timestamp,
+      confirmation_time: confirmationTime
+    });
+
+    // Log the error for tracking
+    try {
+      await AuditLog.create({
+        sessionId: session_id || 'unknown',
+        action: 'sf_save_failed',
+        details: {
+          sf_catalog_id,
+          sf_catalog_name,
+          error_message,
+          status: 'error',
+          sf_timestamp: timestamp
+        },
+        timestamp: new Date()
+      });
+    } catch (err) {
+      logger.warn('Failed to log SF error to audit', { error: err });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Error confirmation received',
+      received_at: confirmationTime
+    });
+  } else {
+    logger.warn('SF CONFIRMATION: Unknown status', {
+      sf_catalog_id,
+      status,
+      body: req.body
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Confirmation received (unknown status)',
+      received_at: confirmationTime
+    });
+  }
+}
+
 export default {
   handleSalesforceWebhook,
   getWebhookStatus,
+  handleSaveConfirmation,
 };
