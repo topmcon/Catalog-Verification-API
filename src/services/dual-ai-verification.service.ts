@@ -108,6 +108,59 @@ interface ConsensusResult {
   overallConfidence: number;
 }
 
+/**
+ * Sanitize attribute values for Salesforce JSON compatibility
+ * Removes N/A values that cause SF Apex JSON deserializer to fail
+ */
+function sanitizeForSalesforce(value: any): string {
+  if (value === null || value === undefined) return '';
+  
+  const strValue = String(value).trim();
+  
+  // Replace N/A variants with empty string - these break SF JSON parser
+  const naPatterns = [
+    /^N\/A$/i,
+    /^N\/A\s*\(/i,  // "N/A (some reason)"
+    /^NA$/i,
+    /^Not Applicable$/i,
+    /^Not Available$/i,
+    /^None$/i,
+    /^Unknown$/i,
+    /^-$/,
+    /^--$/
+  ];
+  
+  for (const pattern of naPatterns) {
+    if (pattern.test(strValue)) {
+      return '';
+    }
+  }
+  
+  // If the value starts with N/A, return empty
+  if (/^N\/A/i.test(strValue)) {
+    return '';
+  }
+  
+  return strValue;
+}
+
+/**
+ * Sanitize an entire object's values for Salesforce
+ */
+function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
+  const sanitized = {} as T;
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
+    } else if (typeof value === 'string') {
+      sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
+    } else {
+      sanitized[key as keyof T] = value;
+    }
+  }
+  return sanitized;
+}
+
 export async function verifyProductWithDualAI(
   rawProduct: SalesforceIncomingProduct,
   sessionId?: string,
@@ -1885,11 +1938,16 @@ function buildFinalResponse(
     logger.error('Failed to record to catalog index', { error: err });
   });
 
+  // Sanitize all attribute objects to prevent SF JSON parsing errors
+  // SF Apex deserializer fails on "N/A (Regulation does not apply)" type values
+  const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
+  const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
-    Primary_Attributes: primaryAttributes,
-    Top_Filter_Attributes: topFilterAttributes,
+    Primary_Attributes: sanitizedPrimaryAttributes,
+    Top_Filter_Attributes: sanitizedTopFilterAttributes,
     Top_Filter_Attribute_Ids: topFilterAttributeIds,
     Additional_Attributes_HTML: additionalHtml,
     Price_Analysis: priceAnalysis,

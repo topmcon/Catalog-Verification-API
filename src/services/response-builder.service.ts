@@ -32,6 +32,59 @@ import { getSchemaForCategory } from '../config/master-category-schema-map';
 import logger from '../utils/logger';
 
 /**
+ * Sanitize attribute values for Salesforce JSON compatibility
+ * Removes N/A values and cleans problematic strings that cause SF JSON parsing errors
+ */
+function sanitizeForSalesforce(value: any): string {
+  if (value === null || value === undefined) return '';
+  
+  const strValue = String(value).trim();
+  
+  // Replace N/A variants with empty string
+  const naPatterns = [
+    /^N\/A$/i,
+    /^N\/A\s*\(/i,  // "N/A (some reason)"
+    /^NA$/i,
+    /^Not Applicable$/i,
+    /^Not Available$/i,
+    /^None$/i,
+    /^Unknown$/i,
+    /^-$/,
+    /^--$/
+  ];
+  
+  for (const pattern of naPatterns) {
+    if (pattern.test(strValue)) {
+      return '';
+    }
+  }
+  
+  // If the value starts with N/A, extract the meaningful part or return empty
+  if (/^N\/A/i.test(strValue)) {
+    return '';
+  }
+  
+  return strValue;
+}
+
+/**
+ * Sanitize an entire object's values for Salesforce
+ */
+function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
+  const sanitized = {} as T;
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
+    } else if (typeof value === 'string') {
+      sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
+    } else {
+      sanitized[key as keyof T] = value;
+    }
+  }
+  return sanitized;
+}
+
+/**
  * Build Primary Display Attributes (Global - applies to ALL products)
  */
 export function buildPrimaryAttributes(
@@ -88,7 +141,7 @@ export function buildPrimaryAttributes(
     .replace(/[^a-zA-Z0-9]/g, '')
     .toUpperCase();
 
-  return {
+  const primaryAttrs = {
     Brand_Verified: getCorrected('brand', incoming.Ferguson_Brand || incoming.Brand_Web_Retailer),
     Category_Verified: verifiedCategory,
     SubCategory_Verified: verifiedSubCategory,
@@ -115,6 +168,9 @@ export function buildPrimaryAttributes(
     Model_Variant_Number: extractModelVariant(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
     Total_Model_Variants: '',  // Would need catalog lookup
   };
+  
+  // Sanitize all values to prevent SF JSON parsing errors (removes N/A, Unknown, etc.)
+  return sanitizeObjectForSalesforce(primaryAttrs);
 }
 
 /**
@@ -156,16 +212,23 @@ export function buildTopFilterAttributes(
 
   // Add category-specific logic for complex categories
   const schemaCategoryName = schema.categoryName.replace(/ #$/, '');
+  let result: TopFilterAttributes;
   switch (schemaCategoryName) {
     case 'Range':
-      return buildRangeFilterAttributes(incoming, filterAttrs);
+      result = buildRangeFilterAttributes(incoming, filterAttrs);
+      break;
     case 'Refrigerator':
-      return buildRefrigeratorFilterAttributes(incoming, filterAttrs);
+      result = buildRefrigeratorFilterAttributes(incoming, filterAttrs);
+      break;
     case 'Dishwasher':
-      return buildDishwasherFilterAttributes(incoming, filterAttrs);
+      result = buildDishwasherFilterAttributes(incoming, filterAttrs);
+      break;
     default:
-      return filterAttrs;
+      result = filterAttrs;
   }
+  
+  // Sanitize all values to prevent SF JSON parsing errors (removes N/A, Unknown, etc.)
+  return sanitizeObjectForSalesforce(result);
 }
 
 /**
