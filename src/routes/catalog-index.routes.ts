@@ -208,4 +208,37 @@ router.post('/backfill', async (req: Request, res: Response) => {
   }
 });
 
+// GET /api/catalog-index/sync-status
+// Get current sync status with Salesforce
+router.get('/sync-status', async (_req: Request, res: Response) => {
+  try {
+    const status = await catalogIndexService.getSyncStatus();
+    res.json({ 
+      success: true, 
+      data: status,
+      message: `${status.styles_pending_sf} styles waiting to be added to Salesforce`
+    });
+  } catch (error) {
+    logger.error('Failed to get sync status', { error });
+    res.status(500).json({ success: false, error: 'Failed to get sync status' });
+  }
+});
+
+// GET /api/catalog-index/styles/pending-sf
+// Get styles that need to be created in Salesforce (detailed view)
+router.get('/styles/pending-sf', async (_req: Request, res: Response) => {
+  try {
+    const pendingStyles = await catalogIndexService.getPendingStylesForSalesforce();
+    res.json({ 
+      success: true, 
+      count: pendingStyles.length,
+      data: pendingStyles,
+      message: 'Styles in our index that are NOT yet in Salesforce picklist'
+    });
+  } catch (error) {
+    logger.error('Failed to get pending SF styles', { error });
+    res.status(500).json({ success: false, error: 'Failed to get pending styles' });
+  }
+});
+
 export default router;

@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import picklistMatcher from '../services/picklist-matcher.service';
 import { PicklistSyncLog, IPicklistTypeSummary, IPicklistChange } from '../models/picklist-sync-log.model';
+import { catalogIndexService } from '../services/catalog-index.service';
 import logger from '../utils/logger';
 
 export class PicklistController {
@@ -621,6 +622,48 @@ export class PicklistController {
         logger.error('Failed to save picklist sync log', { sync_id: syncId, error: err });
       });
       
+      // === UPDATE CATALOG INTELLIGENCE INDEX ===
+      // Mark styles/categories as now existing in SF picklist
+      let catalogIndexUpdate = {
+        styles_synced: 0,
+        styles_newly_in_sf: [] as string[],
+        categories_synced: 0
+      };
+      
+      try {
+        // Sync styles to catalog index
+        if (styles && Array.isArray(styles) && styles.length > 0) {
+          const styleResult = await catalogIndexService.syncSalesforceStyles(styles);
+          catalogIndexUpdate.styles_synced = styleResult.updated;
+          catalogIndexUpdate.styles_newly_in_sf = styleResult.new_in_sf;
+          
+          logger.info('Catalog index updated with SF styles', {
+            sync_id: syncId,
+            styles_synced: styleResult.updated,
+            new_in_sf: styleResult.new_in_sf,
+            already_in_sf: styleResult.already_in_sf.length,
+            not_in_index: styleResult.not_in_index.length
+          });
+        }
+        
+        // Sync categories to catalog index
+        if (categories && Array.isArray(categories) && categories.length > 0) {
+          const catResult = await catalogIndexService.syncSalesforceCategories(categories);
+          catalogIndexUpdate.categories_synced = catResult.updated;
+          
+          logger.info('Catalog index updated with SF categories', {
+            sync_id: syncId,
+            categories_updated: catResult.updated
+          });
+        }
+      } catch (indexError) {
+        logger.error('Failed to update catalog index from SF sync', {
+          sync_id: syncId,
+          error: indexError
+        });
+        // Don't fail the sync if catalog index update fails
+      }
+      
       // Log summary to console
       logger.info('Picklist sync completed', {
         sync_id: syncId,
@@ -630,7 +673,8 @@ export class PicklistController {
           type: s.type,
           added: s.items_added,
           removed: s.items_removed
-        }))
+        })),
+        catalog_index_update: catalogIndexUpdate
       });
       
       if (result.success) {
@@ -640,6 +684,7 @@ export class PicklistController {
           sync_id: syncId,
           updated: result.updated,
           changes: summaries,
+          catalog_index_update: catalogIndexUpdate,
           current_stats: stats,
           processing_time_ms: processingTime
         });
@@ -651,6 +696,7 @@ export class PicklistController {
           updated: result.updated,
           errors: result.errors,
           changes: summaries,
+          catalog_index_update: catalogIndexUpdate,
           current_stats: stats,
           processing_time_ms: processingTime
         });

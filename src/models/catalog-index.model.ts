@@ -19,6 +19,7 @@ export interface ICategoryIndex extends Document {
   category_id: string | null;
   department: string;
   family: string;
+  in_salesforce_picklist: boolean;
   
   // Style associations seen with this category
   styles: {
@@ -68,6 +69,7 @@ const CategoryIndexSchema = new Schema<ICategoryIndex>({
   category_id: { type: String, default: null },
   department: { type: String, default: '', index: true },
   family: { type: String, default: '', index: true },
+  in_salesforce_picklist: { type: Boolean, default: false },
   
   styles: [{
     style_name: { type: String, required: true },

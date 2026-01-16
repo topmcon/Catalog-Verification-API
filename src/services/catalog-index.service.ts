@@ -60,7 +60,8 @@ class CatalogIndexService {
         this.recordHistory(data, now)
       ]);
       
-      logger.debug('Catalog index updated', {
+      logger.info('Catalog index updated for verification', {
+        sf_catalog_id: data.sf_catalog_id,
         category: data.category,
         style: data.style,
         brand: data.brand
@@ -833,6 +834,181 @@ class CatalogIndexService {
       processed,
       errors,
       records: results
+    };
+  }
+
+  /**
+   * SALESFORCE SYNC INTEGRATION
+   * Updates the catalog index when SF syncs new picklist values
+   * This is called from the picklist sync endpoint
+   */
+  
+  /**
+   * Mark styles as existing in Salesforce picklist
+   * Called when SF sends updated style picklists via /api/picklists/sync
+   */
+  async syncSalesforceStyles(styles: Array<{ style_id: string; style_name: string }>): Promise<{
+    updated: number;
+    new_in_sf: string[];
+    already_in_sf: string[];
+    not_in_index: string[];
+  }> {
+    const result = {
+      updated: 0,
+      new_in_sf: [] as string[],
+      already_in_sf: [] as string[],
+      not_in_index: [] as string[]
+    };
+
+    for (const sfStyle of styles) {
+      const styleName = sfStyle.style_name;
+      
+      // Check if this style exists in our index
+      const existingStyle = await StyleIndex.findOne({ style_name: styleName });
+      
+      if (existingStyle) {
+        if (existingStyle.in_salesforce_picklist) {
+          result.already_in_sf.push(styleName);
+        } else {
+          // Update - this style is now in SF!
+          await StyleIndex.updateOne(
+            { style_name: styleName },
+            {
+              $set: {
+                in_salesforce_picklist: true,
+                style_id: sfStyle.style_id,
+                updated_at: new Date()
+              }
+            }
+          );
+          result.new_in_sf.push(styleName);
+          result.updated++;
+          
+          logger.info('Style now in Salesforce picklist', {
+            style_name: styleName,
+            style_id: sfStyle.style_id
+          });
+        }
+      } else {
+        // Style is in SF but not in our index (no products verified with it yet)
+        result.not_in_index.push(styleName);
+      }
+    }
+
+    logger.info('Catalog index updated from SF style sync', {
+      total_sf_styles: styles.length,
+      updated: result.updated,
+      new_in_sf: result.new_in_sf.length,
+      already_in_sf: result.already_in_sf.length,
+      not_in_index: result.not_in_index.length
+    });
+
+    return result;
+  }
+
+  /**
+   * Mark categories as existing in Salesforce picklist
+   */
+  async syncSalesforceCategories(categories: Array<{ 
+    category_id: string; 
+    category_name: string;
+    department: string;
+    family: string;
+  }>): Promise<{
+    updated: number;
+    categories_updated: string[];
+  }> {
+    let updated = 0;
+    const categoriesUpdated: string[] = [];
+
+    for (const sfCat of categories) {
+      const result = await CategoryIndex.updateOne(
+        { category_name: sfCat.category_name },
+        {
+          $set: {
+            category_id: sfCat.category_id,
+            department: sfCat.department,
+            family: sfCat.family,
+            in_salesforce_picklist: true,
+            updated_at: new Date()
+          }
+        }
+      );
+
+      if (result.modifiedCount > 0) {
+        updated++;
+        categoriesUpdated.push(sfCat.category_name);
+      }
+    }
+
+    logger.info('Catalog index updated from SF category sync', {
+      total_sf_categories: categories.length,
+      categories_updated: updated
+    });
+
+    return { updated, categories_updated: categoriesUpdated };
+  }
+
+  /**
+   * Get pending styles that need to be added to SF
+   * Returns styles that exist in our index but are not in SF picklist
+   */
+  async getPendingStylesForSalesforce(): Promise<Array<{
+    style_name: string;
+    occurrence_count: number;
+    categories: string[];
+    first_seen: Date;
+    last_seen: Date;
+  }>> {
+    const pendingStyles = await StyleIndex.find({ 
+      in_salesforce_picklist: { $ne: true }
+    })
+    .sort({ total_occurrences: -1 })
+    .limit(100);
+
+    return pendingStyles.map(s => ({
+      style_name: s.style_name,
+      occurrence_count: s.total_occurrences,
+      categories: s.categories.map(c => c.category_name),
+      first_seen: s.first_seen,
+      last_seen: s.last_seen
+    }));
+  }
+
+  /**
+   * Get sync status - compare our index with SF picklists
+   */
+  async getSyncStatus(): Promise<{
+    styles_in_index: number;
+    styles_in_sf: number;
+    styles_pending_sf: number;
+    categories_in_index: number;
+    recent_sf_syncs: Array<{ style_name: string; synced_at: Date }>;
+  }> {
+    const [totalStyles, stylesInSF, totalCategories] = await Promise.all([
+      StyleIndex.countDocuments(),
+      StyleIndex.countDocuments({ in_salesforce_picklist: true }),
+      CategoryIndex.countDocuments()
+    ]);
+
+    // Get recently synced styles (last 7 days)
+    const recentSyncs = await StyleIndex.find({
+      in_salesforce_picklist: true,
+      updated_at: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
+    })
+    .sort({ updated_at: -1 })
+    .limit(20)
+    .select('style_name updated_at');
+
+    return {
+      styles_in_index: totalStyles,
+      styles_in_sf: stylesInSF,
+      styles_pending_sf: totalStyles - stylesInSF,
+      categories_in_index: totalCategories,
+      recent_sf_syncs: recentSyncs.map(s => ({
+        style_name: s.style_name,
+        synced_at: s.updated_at
+      }))
     };
   }
 }
