@@ -122,7 +122,7 @@ export async function completeAICall(
   if (completeParams.outcome === 'success') {
     responseQuality = 100;
     if (completeParams.fieldsExpected && completeParams.fieldsCaptured) {
-      responseQuality = Math.round((completeParams.fieldsCaptured / completeParams.fieldsExpected) * 100);
+      responseQuality = Math.min(100, Math.round((completeParams.fieldsCaptured / completeParams.fieldsExpected) * 100));
     }
     if (!completeParams.jsonValid) {
       responseQuality = Math.max(0, responseQuality - 30); // Penalize invalid JSON
@@ -130,7 +130,7 @@ export async function completeAICall(
   } else if (completeParams.outcome === 'partial') {
     responseQuality = 50;
     if (completeParams.fieldsExpected && completeParams.fieldsCaptured) {
-      responseQuality = Math.round((completeParams.fieldsCaptured / completeParams.fieldsExpected) * 50);
+      responseQuality = Math.min(100, Math.round((completeParams.fieldsCaptured / completeParams.fieldsExpected) * 50));
     }
   }
   
