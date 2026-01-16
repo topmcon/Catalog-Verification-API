@@ -55,7 +55,13 @@ export function buildPrimaryAttributes(
   };
 
   // Parse dimensions - prefer Ferguson for verified dimensions, fall back to Web Retailer
-  const depth = parseDimension(incoming.Ferguson_Depth) || parseDimension(incoming.Depth_Web_Retailer);
+  // For lighting fixtures, use Extension as depth (how far it projects from wall/ceiling)
+  const extensionValue = getAttributeValue(incoming.Ferguson_Attributes, 'Extension');
+  const isLightingCategory = (incoming.Ferguson_Base_Category || '').toLowerCase().includes('lighting') ||
+    (incoming.Ferguson_Business_Category || '').toLowerCase().includes('light');
+  const depth = isLightingCategory && extensionValue 
+    ? parseDimension(extensionValue)
+    : (parseDimension(incoming.Ferguson_Depth) || parseDimension(incoming.Depth_Web_Retailer));
   const width = parseDimension(incoming.Ferguson_Width) || parseDimension(incoming.Width_Web_Retailer);
   const height = parseDimension(incoming.Ferguson_Height) || parseDimension(incoming.Height_Web_Retailer);
 
@@ -460,30 +466,40 @@ function extractFinishFromModel(modelNumber: string): string {
     // Nickel finishes
     'PN': 'Polished Nickel',
     'BN': 'Brushed Nickel',
+    'BNL': 'Brushed Nickel',  // Kohler Lighting
     'SN': 'Satin Nickel',
     // Chrome finishes
     'PC': 'Polished Chrome',
+    'CPL': 'Polished Chrome',  // Kohler Lighting
     'CH': 'Chrome',
     'CP': 'Chrome Polished',
     // Black finishes
     'MB': 'Matte Black',
     'BLK': 'Black',
     'BL': 'Black',
+    'BLL': 'Matte Black',  // Kohler Lighting
     'FB': 'Flat Black',
+    // Black/Brass combo
+    'BML': 'Black / Brass',  // Kohler Lighting
+    'CBL': 'Polished Chrome / Matte Black',  // Kohler Lighting
     // Brass finishes
     'PB': 'Polished Brass',
     'AB': 'Antique Brass',
     'BB': 'Brushed Brass',
     'SB': 'Satin Brass',
     'ULB': 'Unlacquered Brass',
+    '2GL': 'Brushed Moderne Brass',  // Kohler Lighting
+    'BMB': 'Brushed Moderne Brass',
     // Bronze finishes
     'ORB': 'Oil Rubbed Bronze',
     'RB': 'Rustic Bronze',
     'VB': 'Venetian Bronze',
+    '2BZ': 'Oil Rubbed Bronze',  // Kohler
     // Gold finishes
     'PG': 'Polished Gold',
     'BG': 'Brushed Gold',
     'FG': 'French Gold',
+    'AF': 'Vibrant French Gold',  // Kohler
     // Steel finishes
     'SS': 'Stainless Steel',
     'BSS': 'Brushed Stainless Steel',

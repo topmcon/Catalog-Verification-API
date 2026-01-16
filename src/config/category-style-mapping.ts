@@ -101,6 +101,61 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
   'Washer': [
     'Front Load',
     'Top Load'
+  ],
+  
+  // Lighting categories
+  'Bathroom Lighting': [
+    'Modern',
+    'Contemporary',
+    'Traditional',
+    'Transitional',
+    'Industrial',
+    'Farmhouse',
+    'Art Deco',
+    'Mid-Century Modern'
+  ],
+  
+  'Kitchen Lighting': [
+    'Modern',
+    'Contemporary',
+    'Traditional',
+    'Transitional',
+    'Industrial',
+    'Farmhouse',
+    'Art Deco',
+    'Pendant',
+    'Under Cabinet'
+  ],
+  
+  'Outdoor Lighting': [
+    'Modern',
+    'Contemporary',
+    'Traditional',
+    'Transitional',
+    'Coastal',
+    'Rustic',
+    'Farmhouse'
+  ],
+  
+  'Ceiling Lights': [
+    'Modern',
+    'Contemporary',
+    'Traditional',
+    'Transitional',
+    'Flush Mount',
+    'Semi-Flush',
+    'Industrial'
+  ],
+  
+  'Chandeliers': [
+    'Modern',
+    'Contemporary',
+    'Traditional',
+    'Transitional',
+    'Crystal',
+    'Rustic',
+    'Farmhouse',
+    'Industrial'
   ]
 };
 
