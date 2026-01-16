@@ -1300,10 +1300,30 @@ function buildFinalResponse(
   }
   
   // Match Style using category-aware mapping
+  // If AIs disagree on style, use EITHER value (prefer OpenAI) rather than skipping style entirely
   let styleMatch: { matched: boolean; matchedValue: { style_name: string; style_id: string } | null } = { matched: false, matchedValue: null };
-  const potentialStyle = consensus.agreedPrimaryAttributes.product_style || 
-                        rawProduct.Web_Retailer_SubCategory || 
-                        '';
+  
+  // Get style from agreed attributes, or fall back to individual AI values if they disagreed
+  let potentialStyle = consensus.agreedPrimaryAttributes.product_style || '';
+  
+  // If no agreed style, check if AIs provided different styles (disagreement)
+  if (!potentialStyle) {
+    const styleDisagreement = consensus.disagreements.find(d => d.field === 'product_style');
+    if (styleDisagreement) {
+      // Use OpenAI's style if available, otherwise xAI's - don't lose the AI analysis
+      potentialStyle = String(styleDisagreement.openaiValue || styleDisagreement.xaiValue || '');
+      logger.info('Using disagreed style value from AI', {
+        openaiStyle: styleDisagreement.openaiValue,
+        xaiStyle: styleDisagreement.xaiValue,
+        selectedStyle: potentialStyle
+      });
+    }
+  }
+  
+  // Final fallback to subcategory
+  if (!potentialStyle) {
+    potentialStyle = rawProduct.Web_Retailer_SubCategory || '';
+  }
   
   if (potentialStyle && categoryMatch.matchedValue) {
     const matchedCategory = categoryMatch.matchedValue.category_name;
