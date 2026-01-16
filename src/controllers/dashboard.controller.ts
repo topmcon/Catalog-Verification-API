@@ -242,11 +242,11 @@ export async function getCategoryConfusionMatrix(req: Request, res: Response) {
     res.json({
       total: confusions.length,
       confusions: confusions.map((c: any) => ({
-        openai: c.openaiCategory,
-        xai: c.xaiCategory,
-        occurrences: c.occurrenceCount,
-        confusionScore: c.confusionScore.toFixed(2),
-        lastSeen: c.lastOccurrence
+        openai: c.openaiCategory || c.openai_category,
+        xai: c.xaiCategory || c.xai_category,
+        occurrences: c.occurrenceCount || c.count || 0,
+        confusionScore: c.confusionScore ? c.confusionScore.toFixed(2) : '0.00',
+        lastSeen: c.lastOccurrence || c.last_occurred
       }))
     });
   } catch (error) {
