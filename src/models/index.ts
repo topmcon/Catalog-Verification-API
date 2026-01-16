@@ -43,3 +43,19 @@ export {
   IPicklistChange, 
   IPicklistTypeSummary 
 } from './picklist-sync-log.model';
+
+// Catalog Intelligence Index Models
+export {
+  CategoryIndex,
+  ICategoryIndex,
+  StyleIndex,
+  IStyleIndex,
+  HierarchyIndex,
+  IHierarchyIndex,
+  AttributeIndex,
+  IAttributeIndex,
+  BrandCategoryIndex,
+  IBrandCategoryIndex,
+  VerificationHistory,
+  IVerificationHistory
+} from './catalog-index.model';

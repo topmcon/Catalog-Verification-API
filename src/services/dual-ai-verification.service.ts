@@ -52,6 +52,7 @@ import alertingService from './alerting.service';
 import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
+import { catalogIndexService } from './catalog-index.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -1854,6 +1855,35 @@ function buildFinalResponse(
       styles: styleRequests.length
     });
   }
+
+  // Record to Catalog Intelligence Index (async, don't wait)
+  catalogIndexService.recordVerification({
+    sf_catalog_id: rawProduct.SF_Catalog_Id,
+    model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
+    brand: primaryAttributes.Brand_Verified || '',
+    brand_id: primaryAttributes.Brand_Id || null,
+    category: primaryAttributes.Category_Verified || '',
+    category_id: primaryAttributes.Category_Id || null,
+    department: primaryAttributes.Department_Verified || '',
+    family: primaryAttributes.Product_Family_Verified || '',
+    subcategory: primaryAttributes.SubCategory_Verified || '',
+    style: primaryAttributes.Product_Style_Verified || '',
+    style_id: primaryAttributes.Style_Id || null,
+    attributes: {
+      ...topFilterAttributes,
+      color: primaryAttributes.Color_Verified,
+      width: primaryAttributes.Width_Verified,
+      height: primaryAttributes.Height_Verified,
+      depth: primaryAttributes.Depth_Verified
+    },
+    confidence_score: consensus.overallConfidence,
+    openai_category: openaiResult.primaryAttributes?.category || '',
+    openai_style: openaiResult.primaryAttributes?.product_style || '',
+    xai_category: xaiResult.primaryAttributes?.category || '',
+    xai_style: xaiResult.primaryAttributes?.product_style || ''
+  }).catch(err => {
+    logger.error('Failed to record to catalog index', { error: err });
+  });
 
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
