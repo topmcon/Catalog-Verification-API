@@ -72,13 +72,7 @@ export class VerificationAnalyticsService {
         consensus: consensusSummary,
         field_results: fieldResults,
         
-        documents_analyzed: (response.Documents?.documents || []).map(doc => ({
-          url: doc.url,
-          type: doc.type || 'unknown',
-          ai_recommendation: doc.ai_recommendation || 'skip',
-          relevance_score: doc.relevance_score || 0,
-          contributed_to_verification: doc.ai_recommendation === 'use'
-        })),
+        documents_analyzed: this.parseDocumentsAnalyzed(response),
         
         verification_score: response.Verification?.verification_score || 0,
         verification_status: response.Verification?.verification_status || 'failed',
@@ -507,6 +501,50 @@ export class VerificationAnalyticsService {
       { $sort: { timestamp: -1 } },
       { $limit: limit }
     ]);
+  }
+
+  /**
+   * Safely parse documents_analyzed field to prevent cast errors
+   */
+  private parseDocumentsAnalyzed(response: SalesforceVerificationResponse): Array<{
+    url: string;
+    type: string;
+    ai_recommendation: string;
+    relevance_score: number;
+    contributed_to_verification: boolean;
+  }> {
+    try {
+      // Handle multiple possible formats
+      let docs: any = response.Documents?.documents;
+      
+      // If it's a string, try to parse it
+      if (typeof docs === 'string') {
+        try {
+          docs = JSON.parse(docs);
+        } catch (e) {
+          logger.warn('Failed to parse documents string', { error: e });
+          return [];
+        }
+      }
+      
+      // If not an array, return empty
+      if (!Array.isArray(docs)) {
+        return [];
+      }
+      
+      // Map to proper format with validation
+      return docs.map(doc => ({
+        url: String(doc.url || ''),
+        type: String(doc.type || 'unknown'),
+        ai_recommendation: String(doc.ai_recommendation || 'skip'),
+        relevance_score: Number(doc.relevance_score || 0),
+        contributed_to_verification: doc.ai_recommendation === 'use'
+      })).filter(doc => doc.url); // Only include docs with URLs
+      
+    } catch (error) {
+      logger.error('Error parsing documents_analyzed', { error });
+      return [];
+    }
   }
 }
 

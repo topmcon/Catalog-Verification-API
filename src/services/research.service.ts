@@ -259,15 +259,49 @@ export async function fetchPDF(url: string): Promise<PDFContent> {
 
     logger.info('Fetching PDF document', { url });
 
-    // Download PDF
-    const response = await axios.get(url, {
-      timeout: REQUEST_TIMEOUT * 2, // Longer timeout for PDFs
-      responseType: 'arraybuffer',
-      headers: {
-        'User-Agent': USER_AGENT,
-      },
-      maxRedirects: 5,
-    });
+    // Download PDF with retry logic
+    const maxRetries = 3;
+    let lastError: any = null;
+    let response: any = null;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        response = await axios.get(url, {
+          timeout: REQUEST_TIMEOUT * 3, // Longer timeout for PDFs (30 seconds)
+          responseType: 'arraybuffer',
+          headers: {
+            'User-Agent': USER_AGENT,
+            'Accept': 'application/pdf,*/*',
+          },
+          maxRedirects: 5,
+          validateStatus: (status) => status >= 200 && status < 400,
+        });
+        
+        // Check if we actually got a PDF
+        const contentType = response.headers['content-type'] || '';
+        if (!contentType.includes('pdf') && !url.toLowerCase().endsWith('.pdf')) {
+          throw new Error(`Response is not a PDF (content-type: ${contentType})`);
+        }
+        
+        break; // Success, exit retry loop
+      } catch (error: any) {
+        lastError = error;
+        logger.warn(`PDF fetch attempt ${attempt}/${maxRetries} failed`, { 
+          url, 
+          error: error.message,
+          statusCode: error.response?.status
+        });
+        
+        if (attempt < maxRetries) {
+          // Wait before retry (exponential backoff)
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+        }
+      }
+    }
+
+    if (!response) {
+      throw lastError || new Error('Failed to fetch PDF after retries');
+    }
 
     // Parse PDF
     const pdfData = await pdfParse(Buffer.from(response.data));
@@ -368,6 +402,41 @@ export async function analyzeImage(imageUrl: string, sessionId?: string): Promis
         success: false,
         error: 'Invalid or missing image URL'
       };
+    }
+
+    // Validate image URL is accessible before sending to AI
+    try {
+      const headResponse = await axios.head(imageUrl, {
+        timeout: 5000,
+        headers: { 'User-Agent': USER_AGENT },
+        validateStatus: (status) => status >= 200 && status < 400
+      });
+      
+      const contentType = headResponse.headers['content-type'] || '';
+      if (!contentType.includes('image')) {
+        logger.warn('URL does not appear to be an image', { imageUrl, contentType });
+      }
+    } catch (error: any) {
+      logger.warn('Image URL accessibility check failed', { 
+        imageUrl, 
+        error: error.message,
+        statusCode: error.response?.status
+      });
+      
+      // If image is not accessible, return early
+      if (error.response?.status === 404 || error.response?.status === 403) {
+        return {
+          url: imageUrl,
+          description: '',
+          detectedColor: null,
+          detectedFinish: null,
+          detectedFeatures: [],
+          productType: null,
+          confidence: 0,
+          success: false,
+          error: `Image not accessible (HTTP ${error.response.status})`
+        };
+      }
     }
 
     // Determine which vision model to use (prefer grok-2-vision for speed)
