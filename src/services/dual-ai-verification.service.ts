@@ -145,6 +145,31 @@ function sanitizeForSalesforce(value: any): string {
 }
 
 /**
+ * Check if a value is an N/A variant that should be filtered out
+ * Used for pre-filtering values before they enter data structures
+ */
+function isNAValue(value: any): boolean {
+  if (value === null || value === undefined) return true;
+  
+  const strValue = String(value).trim();
+  if (strValue === '') return true;
+  
+  const naPatterns = [
+    /^N\/A$/i,
+    /^N\/A\s*\(/i,
+    /^NA$/i,
+    /^Not Applicable$/i,
+    /^Not Available$/i,
+    /^None$/i,
+    /^Unknown$/i,
+    /^-$/,
+    /^--$/
+  ];
+  
+  return naPatterns.some(pattern => pattern.test(strValue)) || /^N\/A/i.test(strValue);
+}
+
+/**
  * Sanitize an entire object's values for Salesforce
  */
 function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
@@ -1416,7 +1441,12 @@ function buildFinalResponse(
       }
     } else {
       // No style mapping found - use potential style from AI and request creation
-      if (potentialStyle && potentialStyle.trim() !== '') {
+      // IMPORTANT: Filter out N/A values - these break SF JSON parsing and are not valid styles
+      const isValidStyle = potentialStyle && 
+                           potentialStyle.trim() !== '' && 
+                           !isNAValue(potentialStyle);
+      
+      if (isValidStyle) {
         styleToUse = potentialStyle;
         styleRequests.push({
           style_name: potentialStyle,
@@ -1432,6 +1462,11 @@ function buildFinalResponse(
           style: potentialStyle,
           category: matchedCategory,
           willPopulateResponse: true
+        });
+      } else if (potentialStyle && isNAValue(potentialStyle)) {
+        logger.info('Skipping N/A style value - not adding to Style_Requests', {
+          originalStyle: potentialStyle,
+          category: matchedCategory
         });
       }
       const validStyles = getValidStylesForCategory(matchedCategory);
@@ -1942,6 +1977,11 @@ function buildFinalResponse(
   // SF Apex deserializer fails on "N/A (Regulation does not apply)" type values
   const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
   const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
+  
+  // Filter out any Style_Requests with N/A values (extra safety check)
+  const filteredStyleRequests = styleRequests.filter(req => 
+    req.style_name && !isNAValue(req.style_name)
+  );
 
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
@@ -1961,7 +2001,7 @@ function buildFinalResponse(
     Attribute_Requests: attributeRequests,
     Brand_Requests: brandRequests,
     Category_Requests: categoryRequests,
-    Style_Requests: styleRequests,
+    Style_Requests: filteredStyleRequests,
     Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
   };
 }
