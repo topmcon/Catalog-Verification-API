@@ -19,11 +19,14 @@ import logger from '../utils/logger';
 import aiUsageTracker from './ai-usage-tracking.service';
 
 // PDF parsing - we'll use pdf-parse for extracting text
-let pdfParse: any;
+let pdfParse: ((buffer: Buffer) => Promise<{ text: string; numpages: number }>) | null = null;
 try {
-  pdfParse = require('pdf-parse');
-} catch {
-  logger.warn('pdf-parse not installed - PDF extraction disabled');
+  // pdf-parse exports default function
+  const pdfModule = require('pdf-parse');
+  pdfParse = pdfModule.default || pdfModule;
+  logger.info('PDF parsing enabled');
+} catch (err) {
+  logger.warn('pdf-parse not installed - PDF extraction disabled', { error: err });
 }
 
 // User agent to avoid being blocked
