@@ -509,7 +509,7 @@ export class VerificationAnalyticsService {
   private parseDocumentsAnalyzed(response: SalesforceVerificationResponse): Array<{
     url: string;
     type: string;
-    ai_recommendation: string;
+    ai_recommendation: 'skip' | 'use' | 'review';
     relevance_score: number;
     contributed_to_verification: boolean;
   }> {
@@ -533,13 +533,16 @@ export class VerificationAnalyticsService {
       }
       
       // Map to proper format with validation
-      return docs.map(doc => ({
-        url: String(doc.url || ''),
-        type: String(doc.type || 'unknown'),
-        ai_recommendation: String(doc.ai_recommendation || 'skip'),
-        relevance_score: Number(doc.relevance_score || 0),
-        contributed_to_verification: doc.ai_recommendation === 'use'
-      })).filter(doc => doc.url); // Only include docs with URLs
+      return docs.map(doc => {
+        const recommendation = String(doc.ai_recommendation || 'review');
+        return {
+          url: String(doc.url || ''),
+          type: String(doc.type || 'unknown'),
+          ai_recommendation: (['skip', 'use', 'review'].includes(recommendation) ? recommendation : 'review') as 'skip' | 'use' | 'review',
+          relevance_score: Number(doc.relevance_score || 0),
+          contributed_to_verification: doc.ai_recommendation === 'use'
+        };
+      }).filter(doc => doc.url); // Only include docs with URLs
       
     } catch (error) {
       logger.error('Error parsing documents_analyzed', { error });

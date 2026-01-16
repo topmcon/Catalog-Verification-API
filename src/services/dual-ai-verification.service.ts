@@ -1424,30 +1424,32 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     success: page.success,
     specs_extracted: page.success ? Object.keys(page.specifications || {}).length : 0,
     features_extracted: page.success ? (page.features || []).length : 0,
-    error: page.error,
-    processing_time_ms: 0 // Not tracked in current implementation
+    processing_time_ms: 0, // Not tracked in current implementation
+    error: page.error
   }));
 
   const pdfs = researchResult.documents.map(doc => ({
     url: doc.url || doc.filename,
     filename: doc.filename,
     success: doc.success,
-    pages: doc.success ? (doc.pages || 0) : 0,
+    pages: doc.success ? (doc.textLength || 0) : 0, // Use textLength as proxy for page count
     specs_extracted: doc.success ? Object.keys(doc.specifications || {}).length : 0,
-    error: doc.error,
-    processing_time_ms: 0 // Not tracked in current implementation
+    text_length: doc.success ? (doc.textLength || 0) : 0,
+    processing_time_ms: 0, // Not tracked in current implementation
+    error: doc.error
   }));
 
   const images = researchResult.images.map(img => ({
     url: img.url,
     success: img.success,
-    model_used: img.model,
-    color_detected: img.color || '',
-    finish_detected: img.finish || '',
-    product_type: img.productType || '',
-    confidence: img.confidence,
-    error: img.error,
-    processing_time_ms: 0 // Not tracked in current implementation
+    model_used: img.provider || 'unknown',
+    color_detected: img.color,
+    finish_detected: img.finish,
+    product_type: img.productType,
+    features_detected: 0, // Not currently extracted from image analysis
+    confidence: img.confidence || 0,
+    processing_time_ms: 0, // Not tracked in current implementation
+    error: img.error
   }));
 
   const totalSpecs = Object.keys(researchResult.combinedSpecifications || {}).length;
@@ -1459,16 +1461,15 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     images.filter(i => i.success).length;
 
   return {
+    research_performed: totalResources > 0,
+    total_resources_analyzed: totalResources,
     web_pages: webPages,
     pdfs: pdfs,
     images: images,
     summary: {
-      total_resources_analyzed: totalResources,
-      successful_resources: successfulResources,
-      success_rate: totalResources > 0 ? Math.round((successfulResources / totalResources) * 100) : 0,
       total_specs_extracted: totalSpecs,
       total_features_extracted: totalFeatures,
-      research_summary: researchResult.researchSummary || ''
+      success_rate: totalResources > 0 ? Math.round((successfulResources / totalResources) * 100) : 0
     }
   };
 }
