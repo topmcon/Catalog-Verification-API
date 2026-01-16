@@ -30,7 +30,8 @@ import {
   AttributeRequest,
   BrandRequest,
   CategoryRequest,
-  StyleRequest
+  StyleRequest,
+  ResearchTransparency
 } from '../types/salesforce.types';
 import {
   getCategorySchema,
@@ -436,7 +437,7 @@ export async function verifyProductWithDualAI(
     });
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult);
     
     // Track field population rates (async, don't await)
     trackFieldPopulation(response, consensus.agreedCategory || 'unknown', openaiResult, xaiResult).catch(err => {
@@ -1410,13 +1411,76 @@ function preferAIValue(
   return fallback;
 }
 
+/**
+ * Build Research Transparency section showing exactly what was analyzed from each resource
+ */
+function buildResearchTransparency(researchResult: ResearchResult | null | undefined): ResearchTransparency | undefined {
+  if (!researchResult) {
+    return undefined;
+  }
+
+  const webPages = researchResult.webPages.map(page => ({
+    url: page.url,
+    success: page.success,
+    specs_extracted: page.success ? Object.keys(page.specifications || {}).length : 0,
+    features_extracted: page.success ? (page.features || []).length : 0,
+    error: page.error,
+    processing_time_ms: 0 // Not tracked in current implementation
+  }));
+
+  const pdfs = researchResult.documents.map(doc => ({
+    url: doc.url || doc.filename,
+    filename: doc.filename,
+    success: doc.success,
+    pages: doc.success ? (doc.pages || 0) : 0,
+    specs_extracted: doc.success ? Object.keys(doc.specifications || {}).length : 0,
+    error: doc.error,
+    processing_time_ms: 0 // Not tracked in current implementation
+  }));
+
+  const images = researchResult.images.map(img => ({
+    url: img.url,
+    success: img.success,
+    model_used: img.model,
+    color_detected: img.color || '',
+    finish_detected: img.finish || '',
+    product_type: img.productType || '',
+    confidence: img.confidence,
+    error: img.error,
+    processing_time_ms: 0 // Not tracked in current implementation
+  }));
+
+  const totalSpecs = Object.keys(researchResult.combinedSpecifications || {}).length;
+  const totalFeatures = (researchResult.combinedFeatures || []).length;
+  const totalResources = webPages.length + pdfs.length + images.length;
+  const successfulResources = 
+    webPages.filter(w => w.success).length +
+    pdfs.filter(p => p.success).length +
+    images.filter(i => i.success).length;
+
+  return {
+    web_pages: webPages,
+    pdfs: pdfs,
+    images: images,
+    summary: {
+      total_resources_analyzed: totalResources,
+      successful_resources: successfulResources,
+      success_rate: totalResources > 0 ? Math.round((successfulResources / totalResources) * 100) : 0,
+      total_specs_extracted: totalSpecs,
+      total_features_extracted: totalFeatures,
+      research_summary: researchResult.researchSummary || ''
+    }
+  };
+}
+
 function buildFinalResponse(
   rawProduct: SalesforceIncomingProduct,
   consensus: ConsensusResult,
   sessionId: string,
   _processingTimeMs: number,
   openaiResult: AIAnalysisResult,
-  xaiResult: AIAnalysisResult
+  xaiResult: AIAnalysisResult,
+  researchResult?: ResearchResult | null
 ): SalesforceVerificationResponse {
   
   // Get raw values for customer-facing text
@@ -2189,6 +2253,9 @@ function buildFinalResponse(
     req.style_name && !isNAValue(req.style_name)
   );
 
+  // Build research transparency to show what was analyzed from each resource
+  const researchTransparency = buildResearchTransparency(researchResult);
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
@@ -2200,6 +2267,7 @@ function buildFinalResponse(
     Media: mediaAssets,
     Reference_Links: referenceLinks,
     Documents: documentsSection,
+    Research_Analysis: researchTransparency,
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,

@@ -249,6 +249,47 @@ export interface DocumentsSection {
   documents: EvaluatedDocument[];
 }
 
+// Research Transparency - Shows what was actually analyzed
+export interface ResearchTransparency {
+  research_performed: boolean;
+  total_resources_analyzed: number;
+  web_pages: Array<{
+    url: string;
+    success: boolean;
+    specs_extracted: number;
+    features_extracted: number;
+    processing_time_ms: number;
+    error?: string;
+  }>;
+  pdfs: Array<{
+    url: string;
+    filename: string;
+    success: boolean;
+    pages: number;
+    specs_extracted: number;
+    text_length: number;
+    processing_time_ms: number;
+    error?: string;
+  }>;
+  images: Array<{
+    url: string;
+    success: boolean;
+    model_used: string;
+    color_detected?: string;
+    finish_detected?: string;
+    product_type?: string;
+    features_detected: number;
+    confidence: number;
+    processing_time_ms: number;
+    error?: string;
+  }>;
+  summary: {
+    total_specs_extracted: number;
+    total_features_extracted: number;
+    success_rate: number;
+  };
+}
+
 // Price Analysis (simplified)
 export interface PriceAnalysis {
   msrp_web_retailer: number;
@@ -353,6 +394,9 @@ export interface SalesforceVerificationResponse {
 
   // Verification Metadata
   Verification: VerificationMetadata;
+
+  // Research Transparency - Shows what external resources were analyzed
+  Research_Analysis?: ResearchTransparency;
 
   // Picklist Requests - Values not found in Salesforce picklists that need to be added
   // SF receives these, creates the options, then calls /api/picklists/sync to update our lists

@@ -21,10 +21,23 @@ import aiUsageTracker from './ai-usage-tracking.service';
 // PDF parsing - we'll use pdf-parse for extracting text
 let pdfParse: ((buffer: Buffer) => Promise<{ text: string; numpages: number }>) | null = null;
 try {
-  // pdf-parse exports default function
+  // pdf-parse exports default function - try multiple import patterns
   const pdfModule = require('pdf-parse');
-  pdfParse = pdfModule.default || pdfModule;
-  logger.info('PDF parsing enabled');
+  
+  // Handle different export patterns
+  if (typeof pdfModule === 'function') {
+    pdfParse = pdfModule;
+  } else if (typeof pdfModule.default === 'function') {
+    pdfParse = pdfModule.default;
+  } else if (typeof pdfModule.pdf === 'function') {
+    pdfParse = pdfModule.pdf;
+  }
+  
+  if (pdfParse) {
+    logger.info('PDF parsing enabled');
+  } else {
+    logger.warn('PDF parse function not found in module', { moduleKeys: Object.keys(pdfModule) });
+  }
 } catch (err) {
   logger.warn('pdf-parse not installed - PDF extraction disabled', { error: err });
 }
