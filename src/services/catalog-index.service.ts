@@ -752,6 +752,89 @@ class CatalogIndexService {
       last_updated: new Date()
     };
   }
+  
+  /**
+   * Backfill index from existing API tracker records
+   * Useful for populating the index with historical data
+   */
+  async backfillFromApiTrackers(limit: number = 10): Promise<any> {
+    const { APITracker } = await import('../models/api-tracker.model');
+    
+    // Get recent successful verifications
+    const trackers = await APITracker.find({
+      'response.success': true
+    })
+    .sort({ requestTimestamp: -1 })
+    .limit(limit);
+    
+    let processed = 0;
+    let errors = 0;
+    const results: any[] = [];
+    
+    for (const tracker of trackers) {
+      try {
+        const request = tracker.request || {} as any;
+        const response = tracker.response || {} as any;
+        const responsePayload = response.responsePayload || {} as any;
+        const primary = responsePayload.Primary_Attributes || {};
+        const top15 = responsePayload.Top_Filter_Attributes || {};
+        const verification = responsePayload.Verification || {};
+        
+        // Skip if no category (incomplete data)
+        if (!primary.Category_Verified && !response.Category_Verified) {
+          continue;
+        }
+        
+        await this.recordVerification({
+          sf_catalog_id: request.SF_Catalog_Id || '',
+          model_number: request.Model_Number_Web_Retailer || request.SF_Catalog_Name || '',
+          brand: primary.Brand_Verified || response.Brand_Verified || '',
+          brand_id: primary.Brand_Id || null,
+          category: primary.Category_Verified || response.Category_Verified || '',
+          category_id: primary.Category_Id || null,
+          department: primary.Department_Verified || '',
+          family: primary.Product_Family_Verified || '',
+          subcategory: primary.SubCategory_Verified || response.SubCategory_Verified || '',
+          style: primary.Product_Style_Verified || '',
+          style_id: primary.Style_Id || null,
+          attributes: {
+            ...top15,
+            color: primary.Color_Verified,
+            width: primary.Width_Verified,
+            height: primary.Height_Verified,
+            depth: primary.Depth_Verified
+          },
+          confidence_score: verification.confidence_scores?.consensus || 0.8,
+          openai_category: tracker.openaiResult?.determinedCategory || '',
+          openai_style: '',
+          xai_category: tracker.xaiResult?.determinedCategory || '',
+          xai_style: ''
+        });
+        
+        processed++;
+        results.push({
+          sf_catalog_id: request.SF_Catalog_Id,
+          brand: primary.Brand_Verified || response.Brand_Verified,
+          category: primary.Category_Verified || response.Category_Verified,
+          style: primary.Product_Style_Verified || '',
+          timestamp: tracker.requestTimestamp
+        });
+      } catch (err) {
+        errors++;
+        logger.error('Failed to backfill record', { 
+          error: err, 
+          trackingId: tracker.trackingId 
+        });
+      }
+    }
+    
+    return {
+      total_found: trackers.length,
+      processed,
+      errors,
+      records: results
+    };
+  }
 }
 
 export const catalogIndexService = new CatalogIndexService();

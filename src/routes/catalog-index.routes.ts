@@ -195,4 +195,17 @@ router.get('/family/:department/:family', async (req: Request, res: Response) =>
   }
 });
 
+// POST /api/catalog-index/backfill
+// Backfill index from recent API tracker records
+router.post('/backfill', async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 10;
+    const result = await catalogIndexService.backfillFromApiTrackers(limit);
+    res.json({ success: true, data: result });
+  } catch (error) {
+    logger.error('Failed to backfill catalog index', { error });
+    res.status(500).json({ success: false, error: 'Failed to backfill' });
+  }
+});
+
 export default router;
