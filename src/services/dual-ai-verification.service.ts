@@ -1432,9 +1432,9 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     url: doc.url || doc.filename,
     filename: doc.filename,
     success: doc.success,
-    pages: doc.success ? (doc.textLength || 0) : 0, // Use textLength as proxy for page count
+    pages: doc.success ? (doc.pageCount || 0) : 0,
     specs_extracted: doc.success ? Object.keys(doc.specifications || {}).length : 0,
-    text_length: doc.success ? (doc.textLength || 0) : 0,
+    text_length: doc.success ? (doc.text?.length || 0) : 0,
     processing_time_ms: 0, // Not tracked in current implementation
     error: doc.error
   }));
@@ -1442,11 +1442,11 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
   const images = researchResult.images.map(img => ({
     url: img.url,
     success: img.success,
-    model_used: img.provider || 'unknown',
-    color_detected: img.color,
-    finish_detected: img.finish,
-    product_type: img.productType,
-    features_detected: 0, // Not currently extracted from image analysis
+    model_used: 'grok-2-vision-1212', // Current model used
+    color_detected: img.detectedColor || undefined,
+    finish_detected: img.detectedFinish || undefined,
+    product_type: img.productType || undefined,
+    features_detected: (img.detectedFeatures || []).length,
     confidence: img.confidence || 0,
     processing_time_ms: 0, // Not tracked in current implementation
     error: img.error
