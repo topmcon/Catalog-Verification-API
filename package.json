@@ -14,7 +14,8 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "db:seed": "tsx scripts/seed-database.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync-picklists": "tsx src/scripts/sync-picklists.ts"
   },
   "keywords": [
     "catalog",

@@ -43,6 +43,7 @@ import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
+// import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
