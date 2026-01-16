@@ -170,6 +170,40 @@ function isNAValue(value: any): boolean {
 }
 
 /**
+ * Fields that should be numeric in Salesforce (Decimal type in Apex)
+ * These must be null or a valid number - empty strings will break SF deserializer
+ */
+const NUMERIC_FIELDS = new Set([
+  'Market_Value',
+  'Market_Value_Min', 
+  'Market_Value_Max'
+]);
+
+/**
+ * Sanitize a value that should be numeric in Salesforce
+ * Returns number if valid, null otherwise (NOT empty string which breaks SF Decimal deserialize)
+ */
+function sanitizeNumericForSalesforce(value: any): number | null {
+  if (value === null || value === undefined) return null;
+  
+  const strValue = String(value).trim();
+  
+  // Check for N/A variants - return null for numeric fields
+  if (isNAValue(strValue)) {
+    return null;
+  }
+  
+  // Remove currency symbols and commas, then parse
+  const cleaned = strValue.replace(/[$,€£¥]/g, '').trim();
+  const num = parseFloat(cleaned);
+  
+  // Return null if not a valid number
+  if (isNaN(num)) return null;
+  
+  return num;
+}
+
+/**
  * Sanitize an entire object's values for Salesforce
  */
 function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
@@ -177,6 +211,9 @@ function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
+    } else if (NUMERIC_FIELDS.has(key)) {
+      // Handle numeric fields specially - SF Apex expects Decimal, not String
+      sanitized[key as keyof T] = sanitizeNumericForSalesforce(value) as T[keyof T];
     } else if (typeof value === 'string') {
       sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
     } else {
