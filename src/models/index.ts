@@ -59,3 +59,14 @@ export {
   VerificationHistory,
   IVerificationHistory
 } from './catalog-index.model';
+
+// AI Usage Tracking Model
+export {
+  AIUsage,
+  IAIUsage,
+  AIProvider,
+  TaskType,
+  TaskOutcome,
+  MODEL_PRICING,
+  calculateCost
+} from './ai-usage.model';

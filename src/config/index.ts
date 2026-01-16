@@ -17,11 +17,13 @@ export interface Config {
     model: string;
     maxTokens: number;
     visionModel: string; // For image analysis
+    searchModel: string; // For web search with gpt-4o-search-preview
   };
   xai: {
     apiKey: string;
     apiUrl: string;
     model: string;
+    visionModel: string; // For vision with grok-2-vision
   };
   research: {
     enabled: boolean;
@@ -75,15 +77,17 @@ const config: Config = {
 
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
-    model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
+    model: process.env.OPENAI_MODEL || 'gpt-4o', // Upgraded from gpt-4-turbo-preview (2x faster, cheaper)
     maxTokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4096', 10),
     visionModel: process.env.OPENAI_VISION_MODEL || 'gpt-4o',
+    searchModel: process.env.OPENAI_SEARCH_MODEL || 'gpt-4o-mini-search-preview', // For real web search
   },
 
   xai: {
     apiKey: process.env.XAI_API_KEY || '',
     apiUrl: process.env.XAI_API_URL || 'https://api.x.ai/v1',
-    model: process.env.XAI_MODEL || 'grok-beta',
+    model: process.env.XAI_MODEL || 'grok-3', // Upgraded from grok-beta (faster, better)
+    visionModel: process.env.XAI_VISION_MODEL || 'grok-2-vision-1212', // Fastest vision model
   },
 
   research: {

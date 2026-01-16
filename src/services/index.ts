@@ -13,6 +13,7 @@ export { default as dualAIVerificationService } from './dual-ai-verification.ser
 export { default as trackingService } from './tracking.service';
 export { default as analyticsService } from './analytics.service';
 export { default as alertingService } from './alerting.service';
+export { default as aiUsageTracker } from './ai-usage-tracking.service';
 export { errorMonitor } from './error-monitor.service';
 
 // Named exports with explicit naming to avoid conflicts
@@ -38,3 +39,4 @@ export * as alertingServiceFull from './alerting.service';
 // Tracking and Analytics exports
 export * as trackingServiceFull from './tracking.service';
 export * as analyticsServiceFull from './analytics.service';
+export * as aiUsageTrackerFull from './ai-usage-tracking.service';

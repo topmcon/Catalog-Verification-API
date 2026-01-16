@@ -7,6 +7,7 @@ import analyticsRoutes from './analytics.routes';
 import verificationAnalyticsRoutes from './verification-analytics.routes';
 import picklistRoutes from './picklist.routes';
 import catalogIndexRoutes from './catalog-index.routes';
+import aiAnalyticsRoutes from './ai-analytics.routes';
 import { apiKeyAuth } from '../middleware';
 
 const router = Router();
@@ -22,6 +23,7 @@ router.use('/api/analytics', apiKeyAuth, analyticsRoutes);
 router.use('/api/verification-analytics', apiKeyAuth, verificationAnalyticsRoutes);
 router.use('/api/picklists', apiKeyAuth, picklistRoutes);
 router.use('/api/catalog-index', apiKeyAuth, catalogIndexRoutes);
+router.use('/api/ai-analytics', apiKeyAuth, aiAnalyticsRoutes);
 
 // Root endpoint
 router.get('/', (_req, res) => {
@@ -35,6 +37,7 @@ router.get('/', (_req, res) => {
       enrich: '/api/enrich',
       enrichSingle: '/api/enrich/single',
       analytics: '/api/analytics',
+      aiAnalytics: '/api/ai-analytics',
       catalogIndex: '/api/catalog-index',
     },
   });

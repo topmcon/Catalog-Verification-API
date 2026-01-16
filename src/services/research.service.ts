@@ -4,7 +4,8 @@
  * Provides real capabilities for:
  * - Fetching and parsing web pages (product pages, manufacturer sites)
  * - Downloading and extracting text from PDF documents
- * - Analyzing images using vision AI
+ * - Analyzing images using vision AI (grok-2-vision or gpt-4o)
+ * - Web search using search-enabled models
  * 
  * This enables the AI to work with ACTUAL data from external sources,
  * not just the text we pass in the prompt.
@@ -15,6 +16,7 @@ import * as cheerio from 'cheerio';
 import OpenAI from 'openai';
 import config from '../config';
 import logger from '../utils/logger';
+import aiUsageTracker from './ai-usage-tracking.service';
 
 // PDF parsing - we'll use pdf-parse for extracting text
 let pdfParse: any;
@@ -344,9 +346,10 @@ export async function fetchPDF(url: string): Promise<PDFContent> {
 }
 
 /**
- * Analyze an image using GPT-4 Vision
+ * Analyze an image using Vision AI
+ * Prefers xAI's grok-2-vision (fastest: ~870ms) over GPT-4o (~2.5s)
  */
-export async function analyzeImage(imageUrl: string): Promise<ImageAnalysis> {
+export async function analyzeImage(imageUrl: string, sessionId?: string): Promise<ImageAnalysis> {
   const startTime = Date.now();
   
   try {
@@ -364,7 +367,14 @@ export async function analyzeImage(imageUrl: string): Promise<ImageAnalysis> {
       };
     }
 
-    if (!config.openai?.apiKey) {
+    // Determine which vision model to use (prefer grok-2-vision for speed)
+    const useGrokVision = config.xai?.apiKey && config.xai?.visionModel;
+    const provider = useGrokVision ? 'xai' : 'openai';
+    const model = useGrokVision 
+      ? (config.xai?.visionModel || 'grok-2-vision-1212')
+      : (config.openai?.visionModel || 'gpt-4o');
+
+    if (!useGrokVision && !config.openai?.apiKey) {
       return {
         url: imageUrl,
         description: '',
@@ -374,20 +384,17 @@ export async function analyzeImage(imageUrl: string): Promise<ImageAnalysis> {
         productType: null,
         confidence: 0,
         success: false,
-        error: 'OpenAI API key not configured'
+        error: 'No vision API key configured'
       };
     }
 
-    logger.info('Analyzing image with vision AI', { imageUrl });
+    logger.info('Analyzing image with vision AI', { imageUrl, provider, model });
 
-    const openai = new OpenAI({ apiKey: config.openai.apiKey });
+    const client = useGrokVision
+      ? new OpenAI({ apiKey: config.xai!.apiKey, baseURL: 'https://api.x.ai/v1' })
+      : new OpenAI({ apiKey: config.openai!.apiKey });
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o', // Vision-capable model
-      messages: [
-        {
-          role: 'system',
-          content: `You are a product image analyst. Analyze the product image and extract:
+    const prompt = `You are a product image analyst. Analyze the product image and extract:
 1. Product type/category
 2. Color (exact shade: "Stainless Steel", "Matte Black", "White", etc.)
 3. Finish (e.g., "Brushed", "Polished", "Matte", "Glossy")
@@ -402,8 +409,22 @@ Respond in JSON format:
   "finish": "Detected finish",
   "features": ["feature1", "feature2"],
   "confidence": 0.0-1.0
-}`
-        },
+}`;
+
+    // Start AI usage tracking
+    const usageId = aiUsageTracker.startAICall({
+      sessionId: sessionId || 'research',
+      provider: provider as 'openai' | 'xai',
+      model,
+      taskType: 'image-analysis',
+      prompt,
+      imageUrls: [imageUrl],
+    });
+
+    const response = await client.chat.completions.create({
+      model,
+      messages: [
+        { role: 'system', content: prompt },
         {
           role: 'user',
           content: [
@@ -428,20 +449,34 @@ Respond in JSON format:
     const content = response.choices[0]?.message?.content || '{}';
     
     let parsed: any;
+    let jsonValid = false;
     try {
       // Try to extract JSON from response
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       parsed = JSON.parse(jsonMatch ? jsonMatch[0] : content);
+      jsonValid = true;
     } catch {
       parsed = { description: content, confidence: 0.5 };
     }
+
+    // Complete AI usage tracking
+    await aiUsageTracker.completeAICall(usageId, {
+      response: content,
+      promptTokens: response.usage?.prompt_tokens || 0,
+      completionTokens: response.usage?.completion_tokens || 0,
+      outcome: 'success',
+      jsonValid,
+      confidenceScore: (parsed.confidence || 0.7) * 100,
+    });
 
     const processingTime = Date.now() - startTime;
     logger.info('Image analysis completed', { 
       imageUrl, 
       productType: parsed.productType,
       color: parsed.color,
-      processingTime 
+      processingTime,
+      provider,
+      model
     });
 
     return {
@@ -605,6 +640,142 @@ export async function performProductResearch(
     combinedFeatures: uniqueFeatures,
     researchSummary
   };
+}
+
+/**
+ * Web Search Result interface
+ */
+export interface WebSearchResult {
+  query: string;
+  results: string;
+  specifications: Record<string, string>;
+  success: boolean;
+  error?: string;
+}
+
+/**
+ * Perform a real web search using GPT-4o-search-preview
+ * This model can actually search the internet and return real results
+ */
+export async function performWebSearch(
+  brand: string,
+  modelNumber: string,
+  productName?: string,
+  sessionId?: string
+): Promise<WebSearchResult> {
+  const startTime = Date.now();
+  
+  try {
+    if (!config.openai?.apiKey) {
+      return {
+        query: '',
+        results: '',
+        specifications: {},
+        success: false,
+        error: 'OpenAI API key not configured'
+      };
+    }
+
+    // Build search query
+    const searchQuery = [brand, modelNumber, productName, 'specifications']
+      .filter(Boolean)
+      .join(' ');
+
+    logger.info('Performing web search', { searchQuery });
+
+    const openai = new OpenAI({ apiKey: config.openai.apiKey });
+    const model = config.openai.searchModel || 'gpt-4o-mini-search-preview';
+
+    // Start AI usage tracking
+    const usageId = aiUsageTracker.startAICall({
+      sessionId: sessionId || 'research',
+      provider: 'openai',
+      model,
+      taskType: 'research',
+      prompt: searchQuery,
+      searchQuery,
+    });
+
+    const response = await openai.chat.completions.create({
+      model,
+      messages: [
+        {
+          role: 'system',
+          content: `You are a product researcher. Search the web for detailed product specifications.
+Return the results in JSON format:
+{
+  "brand": "Brand name",
+  "modelNumber": "Model number",
+  "productType": "Product category",
+  "specifications": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "features": ["feature1", "feature2"],
+  "dimensions": {
+    "width": "value",
+    "height": "value",
+    "depth": "value"
+  },
+  "sources": ["url1", "url2"]
+}`
+        },
+        {
+          role: 'user',
+          content: `Search for specifications and details for: ${searchQuery}`
+        }
+      ],
+      temperature: 0.1,
+    });
+
+    const content = response.choices[0]?.message?.content || '{}';
+    
+    let parsed: any = {};
+    let jsonValid = false;
+    try {
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(jsonMatch ? jsonMatch[0] : '{}');
+      jsonValid = true;
+    } catch {
+      // Not JSON, use raw content
+      parsed = { rawResults: content };
+    }
+
+    // Complete AI usage tracking
+    await aiUsageTracker.completeAICall(usageId, {
+      response: content,
+      promptTokens: response.usage?.prompt_tokens || 0,
+      completionTokens: response.usage?.completion_tokens || 0,
+      outcome: 'success',
+      jsonValid,
+    });
+
+    const processingTime = Date.now() - startTime;
+    logger.info('Web search completed', { 
+      searchQuery, 
+      processingTime,
+      specsFound: Object.keys(parsed.specifications || {}).length
+    });
+
+    return {
+      query: searchQuery,
+      results: content,
+      specifications: parsed.specifications || {},
+      success: true,
+    };
+
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Web search failed', { error: errorMessage });
+    
+    return {
+      query: '',
+      results: '',
+      specifications: {},
+      success: false,
+      error: errorMessage
+    };
+  }
 }
 
 /**

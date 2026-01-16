@@ -46,6 +46,7 @@ import { normalizeCategoryName, areCategoriesEquivalent } from '../config/catego
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
+import aiUsageTracker from './ai-usage-tracking.service';
 import picklistMatcher from './picklist-matcher.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
 import alertingService from './alerting.service';
@@ -319,8 +320,8 @@ export async function verifyProductWithDualAI(
     const xaiStartTime = Date.now();
     
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId, researchContext),
-      analyzeWithXAI(rawProduct, verificationSessionId, researchContext)
+      analyzeWithOpenAI(rawProduct, verificationSessionId, researchContext, trackingId),
+      analyzeWithXAI(rawProduct, verificationSessionId, researchContext, trackingId)
     ]);
 
     // Track OpenAI result
@@ -490,17 +491,32 @@ export async function verifyProductWithDualAI(
   }
 }
 
-async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string): Promise<AIAnalysisResult> {
+async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string, trackingId?: string): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
+  const model = config.openai?.model || 'gpt-4o';
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    // Start AI usage tracking
+    const prompt = buildAnalysisPrompt(rawProduct, researchContext);
+    const usageId = aiUsageTracker.startAICall({
+      sessionId,
+      trackingId,
+      productId: rawProduct.SF_Catalog_Id,
+      provider: 'openai',
+      model,
+      taskType: 'verification',
+      prompt,
+      retryAttempt: attempt - 1,
+      tags: researchContext ? ['with-research'] : [],
+    });
+
     try {
       const response = await openai.chat.completions.create({
-        model: config.openai?.model || 'gpt-4-turbo-preview',
+        model,
         messages: [
           { role: 'system', content: getSystemPrompt() },
-          { role: 'user', content: buildAnalysisPrompt(rawProduct, researchContext) }
+          { role: 'user', content: prompt }
         ],
         temperature: 0.1,
         response_format: { type: 'json_object' }
@@ -519,10 +535,37 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
         throw new Error('Invalid OpenAI response structure');
       }
 
+      const result = parseAIResponse(parsed, 'openai');
+
+      // Complete AI usage tracking with success
+      await aiUsageTracker.completeAICall(usageId, {
+        response: content,
+        promptTokens: response.usage?.prompt_tokens || 0,
+        completionTokens: response.usage?.completion_tokens || 0,
+        outcome: 'success',
+        jsonValid: true,
+        confidenceScore: result.confidence,
+        categoryDetermined: result.determinedCategory,
+        categoryConfidence: result.categoryConfidence,
+        fieldsCaptured: Object.keys(result.primaryAttributes).length + Object.keys(result.top15Attributes).length,
+        fieldsExpected: 20, // Approximate expected field count
+      });
+
       errorMonitor.recordSuccess();
-      return parseAIResponse(parsed, 'openai');
+      return result;
     } catch (error) {
       lastError = error;
+      
+      // Record failed attempt
+      await aiUsageTracker.completeAICall(usageId, {
+        response: '',
+        promptTokens: 0,
+        completionTokens: 0,
+        outcome: attempt < maxRetries ? 'failed' : 'api-error',
+        jsonValid: false,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+      });
+
       logger.error(`OpenAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
       
       if (attempt < maxRetries) {
@@ -537,17 +580,32 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
   return createErrorResult('openai', lastError);
 }
 
-async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string): Promise<AIAnalysisResult> {
+async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string, trackingId?: string): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
+  const model = config.xai?.model || 'grok-3';
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    // Start AI usage tracking
+    const prompt = buildAnalysisPrompt(rawProduct, researchContext);
+    const usageId = aiUsageTracker.startAICall({
+      sessionId,
+      trackingId,
+      productId: rawProduct.SF_Catalog_Id,
+      provider: 'xai',
+      model,
+      taskType: 'verification',
+      prompt,
+      retryAttempt: attempt - 1,
+      tags: researchContext ? ['with-research'] : [],
+    });
+
     try {
       const response = await xai.chat.completions.create({
-        model: config.xai?.model || 'grok-beta',
+        model,
         messages: [
           { role: 'system', content: getSystemPrompt() },
-          { role: 'user', content: buildAnalysisPrompt(rawProduct, researchContext) }
+          { role: 'user', content: prompt }
         ],
         temperature: 0.1
       });
@@ -565,10 +623,37 @@ async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: 
         throw new Error('Invalid xAI response structure');
       }
 
+      const result = parseAIResponse(parsed, 'xai');
+
+      // Complete AI usage tracking with success
+      await aiUsageTracker.completeAICall(usageId, {
+        response: content,
+        promptTokens: response.usage?.prompt_tokens || 0,
+        completionTokens: response.usage?.completion_tokens || 0,
+        outcome: 'success',
+        jsonValid: true,
+        confidenceScore: result.confidence,
+        categoryDetermined: result.determinedCategory,
+        categoryConfidence: result.categoryConfidence,
+        fieldsCaptured: Object.keys(result.primaryAttributes).length + Object.keys(result.top15Attributes).length,
+        fieldsExpected: 20,
+      });
+
       errorMonitor.recordSuccess();
-      return parseAIResponse(parsed, 'xai');
+      return result;
     } catch (error) {
       lastError = error;
+
+      // Record failed attempt
+      await aiUsageTracker.completeAICall(usageId, {
+        response: '',
+        promptTokens: 0,
+        completionTokens: 0,
+        outcome: attempt < maxRetries ? 'failed' : 'api-error',
+        jsonValid: false,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+      });
+
       logger.error(`xAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
       
       if (attempt < maxRetries) {
