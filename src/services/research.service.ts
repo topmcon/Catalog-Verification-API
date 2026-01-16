@@ -134,51 +134,19 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
 
     const $ = cheerio.load(response.data);
 
-    // Extract title
+    // Remove noise that doesn't help with product analysis
+    $('script, style, nav, header, footer, [class*="cookie"], [class*="popup"], [class*="advertisement"]').remove();
+
+    // Extract basic metadata
     const title = $('title').text().trim() || 
                   $('h1').first().text().trim() || 
                   $('meta[property="og:title"]').attr('content') || '';
 
-    // Extract description
     const description = $('meta[name="description"]').attr('content') ||
-                        $('meta[property="og:description"]').attr('content') ||
-                        $('[class*="description"]').first().text().trim().slice(0, 1000) || '';
+                        $('meta[property="og:description"]').attr('content') || '';
 
-    // Extract specifications from common patterns
+    // Only extract JSON-LD structured data (most reliable)
     const specifications: Record<string, string> = {};
-    
-    // Pattern 1: Table rows with th/td or label/value
-    $('table tr').each((_, row) => {
-      const $row = $(row);
-      const label = $row.find('th, td:first-child, .spec-label, .label').first().text().trim();
-      const value = $row.find('td:last-child, .spec-value, .value').last().text().trim();
-      if (label && value && label !== value) {
-        specifications[label] = value;
-      }
-    });
-
-    // Pattern 2: Definition lists
-    $('dl').each((_, dl) => {
-      $(dl).find('dt').each((_, dt) => {
-        const label = $(dt).text().trim();
-        const value = $(dt).next('dd').text().trim();
-        if (label && value) {
-          specifications[label] = value;
-        }
-      });
-    });
-
-    // Pattern 3: Div pairs with class patterns
-    $('[class*="spec"], [class*="attribute"], [class*="detail"]').each((_, el) => {
-      const $el = $(el);
-      const label = $el.find('[class*="label"], [class*="name"], [class*="key"]').first().text().trim();
-      const value = $el.find('[class*="value"], [class*="data"]').first().text().trim();
-      if (label && value && label !== value) {
-        specifications[label] = value;
-      }
-    });
-
-    // Pattern 4: JSON-LD structured data
     $('script[type="application/ld+json"]').each((_, script) => {
       try {
         const jsonLd = JSON.parse($(script).html() || '{}');
@@ -190,34 +158,40 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
           if (jsonLd.mpn) specifications['Model Number'] = jsonLd.mpn;
           if (jsonLd.color) specifications['Color'] = jsonLd.color;
           if (jsonLd.material) specifications['Material'] = jsonLd.material;
-          if (jsonLd.weight?.value) specifications['Weight'] = `${jsonLd.weight.value} ${jsonLd.weight.unitCode || ''}`;
-          if (jsonLd.offers?.price) specifications['Price'] = `$${jsonLd.offers.price}`;
-          if (jsonLd.description) specifications['Description'] = jsonLd.description.slice(0, 500);
         }
       } catch {
         // Ignore JSON parse errors
       }
     });
 
-    // Extract features from lists
+    // Capture EVERYTHING from main content - let AI analyze
+    // Try to focus on main product content areas
+    const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
+      .first()
+      .text();
+
+    // Fallback to body if no main content found
+    const fullContent = mainContent || $('body').text();
+
+    // Clean and provide comprehensive text to AI
+    const rawText = fullContent
+      .replace(/\s+/g, ' ')           // Normalize whitespace
+      .trim()
+      .slice(0, 50000);               // Large limit - comprehensive context for AI
+
+    // Capture all list items (features/specs often in lists)
     const features: string[] = [];
-    $('ul li, [class*="feature"]').each((_, el) => {
-      const text = $(el).text().trim();
-      if (text.length > 10 && text.length < 200 && !text.includes('\n')) {
+    $('li').each((_, li) => {
+      const text = $(li).text().trim();
+      if (text.length > 5 && text.length < 1000) {
         features.push(text);
       }
     });
 
-    // Get raw text for AI context (limited)
-    const rawText = $('body').text()
-      .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 5000);
-
     const processingTime = Date.now() - startTime;
     logger.info('Web page fetched successfully', { 
       url, 
-      specsFound: Object.keys(specifications).length,
+      contentLength: rawText.length,
       featuresFound: features.length,
       processingTime 
     });
@@ -227,7 +201,7 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
       title,
       description,
       specifications,
-      features: features.slice(0, 20), // Limit to 20 features
+      features,  // Return ALL features - let AI filter
       rawText,
       success: true
     };
