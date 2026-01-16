@@ -1327,132 +1327,53 @@ function buildFinalResponse(
   
   if (potentialStyle && categoryMatch.matchedValue) {
     const matchedCategory = categoryMatch.matchedValue.category_name;
+    const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
     
-    // STEP 1: Try to match AI's style directly against SF styles picklist FIRST
-    // This catches cases where AI returns a valid SF style that just isn't in our category mapping
-    const directSfMatch = picklistMatcher.matchStyle(potentialStyle);
-    if (directSfMatch.matched) {
-      styleMatch = directSfMatch;
-      logger.info(`[Style Matched] Direct SF picklist match for "${potentialStyle}"`, {
-        matchedStyle: directSfMatch.matchedValue?.style_name,
-        similarity: directSfMatch.similarity,
-        category: matchedCategory
-      });
-    } else {
-      // STEP 2: Try category-specific style mapping
-      const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
-      
-      if (mappedStyle) {
-        // Verify the mapped style exists in Salesforce picklist
-        const sfStyleMatch = picklistMatcher.matchStyle(mappedStyle);
-        if (sfStyleMatch.matched) {
-          styleMatch = sfStyleMatch;
-          logger.info(`[Style Matched] Category mapping: "${matchedCategory}" → Style: "${mappedStyle}"`, {
-            originalInput: potentialStyle
-          });
-        } else {
-          // STEP 3: Style mapped but not in SF picklist - try both AI styles if they disagreed
-          // before generating a request
-          const styleDisagreement = consensus.disagreements.find(d => d.field === 'product_style');
-          let alternateStyleMatched = false;
-          
-          if (styleDisagreement) {
-            // Try the other AI's style
-            const alternateStyle = potentialStyle === String(styleDisagreement.openaiValue) 
-              ? String(styleDisagreement.xaiValue || '')
-              : String(styleDisagreement.openaiValue || '');
-            
-            if (alternateStyle && alternateStyle !== potentialStyle) {
-              const alternateSfMatch = picklistMatcher.matchStyle(alternateStyle);
-              if (alternateSfMatch.matched) {
-                styleMatch = alternateSfMatch;
-                alternateStyleMatched = true;
-                logger.info(`[Style Matched] Alternate AI style matched: "${alternateStyle}"`, {
-                  originalStyle: potentialStyle,
-                  matchedStyle: alternateSfMatch.matchedValue?.style_name
-                });
-              }
-            }
-          }
-          
-          // Only generate request if neither AI's style matched
-          if (!alternateStyleMatched) {
-            styleRequests.push({
-              style_name: mappedStyle,
-              suggested_for_category: matchedCategory,
-              source: 'ai_analysis',
-              product_context: {
-                sf_catalog_id: rawProduct.SF_Catalog_Id,
-                model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
-              },
-              reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist. Closest matches: ${directSfMatch.suggestions?.map(s => s.style_name).join(', ') || 'none'}`
-            });
-            logger.info('Style request generated for Salesforce picklist', {
-              style: mappedStyle,
-              category: matchedCategory,
-              closestMatches: directSfMatch.suggestions?.map(s => s.style_name)
-            });
-          }
-        }
+    if (mappedStyle) {
+      // Verify the mapped style exists in Salesforce picklist
+      const sfStyleMatch = picklistMatcher.matchStyle(mappedStyle);
+      if (sfStyleMatch.matched) {
+        styleMatch = sfStyleMatch;
+        logger.info(`[Style Matched] Category: "${matchedCategory}" → Style: "${mappedStyle}"`, {
+          originalInput: potentialStyle
+        });
       } else {
-        // No category mapping - try the other AI's style if they disagreed before giving up
-        const styleDisagreement = consensus.disagreements.find(d => d.field === 'product_style');
-        let alternateStyleMatched = false;
-        
-        if (styleDisagreement) {
-          const alternateStyle = potentialStyle === String(styleDisagreement.openaiValue) 
-            ? String(styleDisagreement.xaiValue || '')
-            : String(styleDisagreement.openaiValue || '');
-          
-          if (alternateStyle && alternateStyle !== potentialStyle) {
-            // Try direct SF match with alternate style
-            const alternateSfMatch = picklistMatcher.matchStyle(alternateStyle);
-            if (alternateSfMatch.matched) {
-              styleMatch = alternateSfMatch;
-              alternateStyleMatched = true;
-              logger.info(`[Style Matched] Alternate AI style matched: "${alternateStyle}"`, {
-                originalStyle: potentialStyle,
-                matchedStyle: alternateSfMatch.matchedValue?.style_name
-              });
-            } else {
-              // Try category mapping with alternate style
-              const alternateMapped = matchStyleToCategory(matchedCategory, alternateStyle);
-              if (alternateMapped) {
-                const alternateMappedMatch = picklistMatcher.matchStyle(alternateMapped);
-                if (alternateMappedMatch.matched) {
-                  styleMatch = alternateMappedMatch;
-                  alternateStyleMatched = true;
-                  logger.info(`[Style Matched] Alternate style via category mapping: "${alternateStyle}" → "${alternateMapped}"`, {
-                    originalStyle: potentialStyle
-                  });
-                }
-              }
-            }
-          }
-        }
-        
-        // Only generate request if no style matched after all attempts
-        if (!alternateStyleMatched && potentialStyle && potentialStyle.trim() !== '') {
-          styleRequests.push({
-            style_name: potentialStyle,
-            suggested_for_category: matchedCategory,
-            source: 'ai_analysis',
-            product_context: {
-              sf_catalog_id: rawProduct.SF_Catalog_Id,
-              model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
-            },
-            reason: `Style "${potentialStyle}" from AI analysis has no mapping for category "${matchedCategory}" and no SF picklist match. Closest: ${directSfMatch.suggestions?.map(s => s.style_name).join(', ') || 'none'}`
-          });
-        }
-        
-        const validStyles = getValidStylesForCategory(matchedCategory);
-        logger.warn(`[Style Validation] No valid style found for category "${matchedCategory}"`, {
-          potentialStyle,
-          validStylesForCategory: validStyles,
-          sfClosestMatches: directSfMatch.suggestions?.map(s => s.style_name),
-          source: consensus.agreedPrimaryAttributes.product_style ? 'AI' : 'subcategory'
+        // Style mapped but not in SF picklist
+        styleRequests.push({
+          style_name: mappedStyle,
+          suggested_for_category: matchedCategory,
+          source: 'ai_analysis',
+          product_context: {
+            sf_catalog_id: rawProduct.SF_Catalog_Id,
+            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+          },
+          reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist`
+        });
+        logger.info('Style request generated for Salesforce picklist', {
+          style: mappedStyle,
+          category: matchedCategory
         });
       }
+    } else {
+      // No style mapping found - request the potential style if valid
+      if (potentialStyle && potentialStyle.trim() !== '') {
+        styleRequests.push({
+          style_name: potentialStyle,
+          suggested_for_category: matchedCategory,
+          source: 'ai_analysis',
+          product_context: {
+            sf_catalog_id: rawProduct.SF_Catalog_Id,
+            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+          },
+          reason: `Style "${potentialStyle}" from AI analysis has no mapping for category "${matchedCategory}"`
+        });
+      }
+      const validStyles = getValidStylesForCategory(matchedCategory);
+      logger.warn(`[Style Validation] No valid style found for category "${matchedCategory}"`, {
+        potentialStyle,
+        validStylesForCategory: validStyles,
+        source: consensus.agreedPrimaryAttributes.product_style ? 'AI' : 'subcategory'
+      });
     }
   }
   

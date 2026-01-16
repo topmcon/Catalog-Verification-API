@@ -2,12 +2,55 @@
  * CATEGORY-STYLE MAPPING
  * ======================
  * Defines valid Style values for each Category
- * Based on actual product data from Salesforce
  * 
- * Use this to validate that a Style is appropriate for a given Category
+ * STYLE TYPES:
+ * 1. DESIGN STYLES - Aesthetic/visual style (Modern, Contemporary, Traditional, Transitional, etc.)
+ * 2. FUNCTIONAL STYLES - How the product is installed/used (Alcove, Freestanding, Wall-Mounted, etc.)
+ * 
+ * HOW IT WORKS:
+ * - When AI returns a style, we check if it's valid for the category
+ * - If valid AND in SF picklist → use it
+ * - If valid but NOT in SF picklist → add to Style_Requests (SF creates it)
+ * - If not valid for category → log warning, don't use
+ * 
+ * TO ADD NEW STYLES:
+ * 1. Add the style to the appropriate category array below
+ * 2. Deploy to production
+ * 3. Next API call with that style will include it in Style_Requests
+ * 4. SF adds it to their picklist and syncs back
+ * 
+ * Updated: 2026-01-16
  */
 
+// ============================================
+// UNIVERSAL DESIGN STYLES
+// These aesthetic styles apply to most non-appliance categories
+// ============================================
+const UNIVERSAL_DESIGN_STYLES = [
+  'Modern',
+  'Contemporary', 
+  'Traditional',
+  'Transitional',
+  'Industrial',
+  'Farmhouse',
+  'Rustic',
+  'Coastal',
+  'Mid-Century Modern',
+  'Art Deco',
+  'Minimalist',
+  'Vintage',
+  'Classic'
+];
+
+// ============================================
+// CATEGORY-SPECIFIC STYLE MAPPINGS
+// ============================================
+
 export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
+  
+  // ==========================================
+  // APPLIANCES (Functional Styles)
+  // ==========================================
   'All in One Washer / Dryer': [
     'Unitized',
     'Front Load'
@@ -16,18 +59,30 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
   'Barbeques': [
     'Accessory',
     'Electric',
-    'Gas'
+    'Gas',
+    'Charcoal',
+    'Pellet',
+    'Built-In',
+    'Freestanding',
+    'Portable'
   ],
   
   'Cooktop': [
     'Gas',
     'Induction',
-    'Electric'
+    'Electric',
+    'Downdraft'
   ],
   
   'Dishwasher': [
     'Undercounter',
-    'Accessory'
+    'Accessory',
+    'Built-In',
+    'Drawer',
+    'Portable',
+    'Top Control',
+    'Front Control',
+    'Built-In Top Control'
   ],
   
   'Drawer': [
@@ -35,7 +90,9 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
   ],
   
   'Dryer': [
-    'Front Load'
+    'Front Load',
+    'Gas',
+    'Electric'
   ],
   
   'Freezer': [
@@ -43,32 +100,44 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
     'Column',
     'Chest',
     'Upright',
-    'Bottom-Freezer'
+    'Bottom-Freezer',
+    'Built-In'
   ],
   
   'Icemaker': [
-    'Undercounter'
+    'Undercounter',
+    'Built-In',
+    'Freestanding',
+    'Portable'
   ],
   
   'Microwave': [
     'Over-the-Range',
     'Countertop',
     'Accessory',
-    'Single'
+    'Single',
+    'Built-In',
+    'Drawer'
   ],
   
   'Oven': [
     'Single',
     'Double Wall',
     'Accessory',
-    'Microwave Combo'
+    'Microwave Combo',
+    'Convection',
+    'Steam',
+    'Speed'
   ],
   
   'Range': [
     'Electric',
     'Accessory',
     'Gas',
-    'Induction'
+    'Induction',
+    'Dual Fuel',
+    'Slide-In',
+    'Freestanding'
   ],
   
   'Range Hood': [
@@ -76,7 +145,9 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
     'Wall-Mounted',
     'Insert',
     'Under Cabinet',
-    'Island Mount'
+    'Island Mount',
+    'Downdraft',
+    'Chimney'
   ],
   
   'Refrigerator': [
@@ -91,7 +162,9 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
     'Accessory',
     'Kegerator',
     'Upright',
-    'Undercounter'
+    'Undercounter',
+    'Built-In',
+    'Counter-Depth'
   ],
   
   'Standalone Pedestal': [
@@ -103,59 +176,301 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
     'Top Load'
   ],
   
-  // Lighting categories
+  // ==========================================
+  // LIGHTING (Design + Functional Styles)
+  // ==========================================
   'Bathroom Lighting': [
-    'Modern',
-    'Contemporary',
-    'Traditional',
-    'Transitional',
-    'Industrial',
-    'Farmhouse',
-    'Art Deco',
-    'Mid-Century Modern'
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Vanity',
+    'Bath Bar',
+    'Sconce',
+    'Flush Mount',
+    'Semi-Flush'
   ],
   
   'Kitchen Lighting': [
-    'Modern',
-    'Contemporary',
-    'Traditional',
-    'Transitional',
-    'Industrial',
-    'Farmhouse',
-    'Art Deco',
+    ...UNIVERSAL_DESIGN_STYLES,
     'Pendant',
-    'Under Cabinet'
+    'Under Cabinet',
+    'Island',
+    'Track',
+    'Recessed',
+    'Flush Mount',
+    'Linear'
   ],
   
   'Outdoor Lighting': [
-    'Modern',
-    'Contemporary',
-    'Traditional',
-    'Transitional',
-    'Coastal',
-    'Rustic',
-    'Farmhouse'
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Wall Lantern',
+    'Post Light',
+    'Path Light',
+    'Flood Light',
+    'Landscape',
+    'Security',
+    'Deck'
   ],
   
   'Ceiling Lights': [
-    'Modern',
-    'Contemporary',
-    'Traditional',
-    'Transitional',
+    ...UNIVERSAL_DESIGN_STYLES,
     'Flush Mount',
     'Semi-Flush',
-    'Industrial'
+    'Recessed',
+    'Track',
+    'Linear'
+  ],
+  
+  'Wall Sconces': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Up Light',
+    'Down Light',
+    'Swing Arm',
+    'Picture Light',
+    'Torch'
   ],
   
   'Chandeliers': [
-    'Modern',
-    'Contemporary',
-    'Traditional',
-    'Transitional',
+    ...UNIVERSAL_DESIGN_STYLES,
     'Crystal',
-    'Rustic',
+    'Candle',
+    'Drum',
+    'Globe',
+    'Sputnik',
+    'Tiered',
+    'Linear'
+  ],
+  
+  'Pendants': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Mini',
+    'Multi-Light',
+    'Drum',
+    'Globe',
+    'Cone',
+    'Linear',
+    'Cluster'
+  ],
+  
+  // ==========================================
+  // BATHROOM FIXTURES (Functional + Design)
+  // ==========================================
+  'Bathroom Faucets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Single Hole',
+    'Widespread',
+    'Centerset',
+    'Wall Mounted',
+    'Vessel',
+    'Waterfall'
+  ],
+  
+  'Kitchen Faucets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Single Handle',
+    'Two Handle',
+    'Pull-Down',
+    'Pull-Out',
+    'Bridge',
+    'Pot Filler',
+    'Commercial',
+    'Touchless'
+  ],
+  
+  'Tub Faucets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Wall Mounted',
+    'Deck Mounted',
+    'Freestanding',
+    'Roman Tub',
+    'Waterfall'
+  ],
+  
+  'Shower Faucets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Rain',
+    'Handheld',
+    'Dual',
+    'Thermostatic',
+    'Pressure Balance'
+  ],
+  
+  'Bathtubs': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Alcove',
+    'Freestanding',
+    'Drop-In',
+    'Undermount',
+    'Corner',
+    'Walk-In',
+    'Clawfoot',
+    'Soaking',
+    'Whirlpool',
+    'Air Bath'
+  ],
+  
+  'Showers': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Alcove',
+    'Corner',
+    'Walk-In',
+    'Steam',
+    'Neo-Angle',
+    'Doorless',
+    'Barrier-Free'
+  ],
+  
+  'Shower Accessories': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Rain Head',
+    'Handheld',
+    'Body Spray',
+    'Shower System',
+    'Shelf',
+    'Seat'
+  ],
+  
+  'Bathroom Sinks': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Undermount',
+    'Drop-In',
+    'Vessel',
+    'Pedestal',
+    'Wall Mounted',
+    'Console',
+    'Semi-Recessed'
+  ],
+  
+  'Bathroom Vanities': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Single Sink',
+    'Double Sink',
+    'Floating',
+    'Freestanding',
+    'Wall Mounted',
+    'Corner'
+  ],
+  
+  'Bathroom Mirrors': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Framed',
+    'Frameless',
+    'Lighted',
+    'Medicine Cabinet',
+    'Pivot',
+    'Magnifying'
+  ],
+  
+  'Bathroom Hardware and Accessories': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Towel Bar',
+    'Towel Ring',
+    'Robe Hook',
+    'Toilet Paper Holder',
+    'Shelf',
+    'Set'
+  ],
+  
+  // ==========================================
+  // PLUMBING (Functional Styles)
+  // ==========================================
+  'Rough-In Valves': [
+    'Thermostatic',
+    'Pressure Balance',
+    'Diverter',
+    'Volume Control',
+    'Transfer'
+  ],
+  
+  'Toilets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'One-Piece',
+    'Two-Piece',
+    'Wall Mounted',
+    'Smart',
+    'Bidet',
+    'Elongated',
+    'Round',
+    'ADA Compliant'
+  ],
+  
+  'Bidets': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Standalone',
+    'Bidet Seat',
+    'Integrated'
+  ],
+  
+  // ==========================================
+  // KITCHEN (Functional + Design)
+  // ==========================================
+  'Kitchen Sinks': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Undermount',
+    'Drop-In',
     'Farmhouse',
-    'Industrial'
+    'Apron Front',
+    'Bar/Prep',
+    'Single Bowl',
+    'Double Bowl',
+    'Workstation'
+  ],
+  
+  // ==========================================
+  // OUTDOOR / BBQ (Functional Styles)
+  // ==========================================
+  'Storage Drawers/Doors': [
+    'Outdoor Kitchen Components',
+    'Outdoor Kitchen Storage',
+    'BBQ Accessories',
+    'Built-In',
+    'Stainless Steel'
+  ],
+  
+  'Outdoor Kitchen': [
+    'Built-In',
+    'Modular',
+    'Island',
+    'Cart'
+  ],
+  
+  // ==========================================
+  // DOOR HARDWARE (Design + Functional)
+  // ==========================================
+  'Door Hardware': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Keyed Entry',
+    'Privacy',
+    'Passage',
+    'Dummy',
+    'Deadbolt'
+  ],
+  
+  'Door Hardware Parts': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Lever',
+    'Knob',
+    'Handle Set',
+    'Hinge',
+    'Strike Plate'
+  ],
+  
+  // ==========================================
+  // FURNITURE (Design Styles)
+  // ==========================================
+  'Furniture': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Accent',
+    'Storage',
+    'Seating',
+    'Table',
+    'Decorative'
+  ],
+  
+  'Bath Furniture': [
+    ...UNIVERSAL_DESIGN_STYLES,
+    'Linen Cabinet',
+    'Storage Tower',
+    'Bench',
+    'Hamper'
   ]
 };
 
@@ -176,7 +491,9 @@ export function getValidStylesForCategory(category: string): string[] {
     }
   }
   
-  return [];
+  // For unknown categories, return universal design styles as fallback
+  // This ensures we can still suggest common styles
+  return UNIVERSAL_DESIGN_STYLES;
 }
 
 /**
@@ -228,6 +545,7 @@ export function matchStyleToCategory(category: string, potentialStyle: string): 
 
 export default {
   CATEGORY_STYLE_MAPPING,
+  UNIVERSAL_DESIGN_STYLES,
   getValidStylesForCategory,
   isValidStyleForCategory,
   matchStyleToCategory
