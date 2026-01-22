@@ -1474,6 +1474,144 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
   };
 }
 
+/**
+ * Build Received Attributes Confirmation - Track incoming attributes from Salesforce
+ * Shows Salesforce which attributes we received, processed, and where they ended up
+ */
+function buildReceivedAttributesConfirmation(
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes,
+  additionalAttributes: Record<string, any>
+): any {
+  const confirmation = {
+    web_retailer_specs_processed: [] as any[],
+    ferguson_attributes_processed: [] as any[],
+    summary: {
+      total_received_from_web_retailer: 0,
+      total_received_from_ferguson: 0,
+      total_included_in_response: 0,
+      total_in_additional_attributes: 0,
+      total_not_used: 0
+    }
+  };
+
+  // Helper to find attribute in Top Filter Attributes
+  const findInTopFilters = (attrName: string): string | null => {
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    for (const [key, value] of Object.entries(topFilterAttributes)) {
+      if (value && value !== '') {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+          const matchRatio = Math.min(normalizedKey.length, normalizedSearch.length) / Math.max(normalizedKey.length, normalizedSearch.length);
+          if (matchRatio > 0.5) {
+            return key;
+          }
+        }
+      }
+    }
+    return null;
+  };
+
+  // Helper to find attribute in Additional Attributes
+  const findInAdditionalAttrs = (attrName: string): boolean => {
+    if (!additionalAttributes) return false;
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    for (const key of Object.keys(additionalAttributes)) {
+      const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+      if (normalizedKey === normalizedSearch || normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // Process Web Retailer Specs
+  if (rawProduct.Web_Retailer_Specs && Array.isArray(rawProduct.Web_Retailer_Specs)) {
+    confirmation.summary.total_received_from_web_retailer = rawProduct.Web_Retailer_Specs.length;
+    
+    for (const spec of rawProduct.Web_Retailer_Specs) {
+      const topFilterMatch = findInTopFilters(spec.name);
+      const inAdditional = findInAdditionalAttrs(spec.name);
+      
+      let status: 'included_in_response' | 'included_in_additional' | 'not_used' | 'invalid' = 'not_used';
+      let matchedField: string | undefined = undefined;
+      let reason: string | undefined = undefined;
+      
+      if (topFilterMatch) {
+        status = 'included_in_response';
+        matchedField = `Top_Filter_Attributes.${topFilterMatch}`;
+        confirmation.summary.total_included_in_response++;
+      } else if (inAdditional) {
+        status = 'included_in_additional';
+        confirmation.summary.total_in_additional_attributes++;
+      } else if (!spec.value || spec.value.trim() === '') {
+        status = 'invalid';
+        reason = 'Empty or missing value';
+        confirmation.summary.total_not_used++;
+      } else {
+        confirmation.summary.total_not_used++;
+        reason = 'Not matched to any attribute in this category';
+      }
+      
+      confirmation.web_retailer_specs_processed.push({
+        name: spec.name,
+        value: spec.value,
+        matched_to_field: matchedField,
+        status,
+        reason
+      });
+    }
+  }
+
+  // Process Ferguson Attributes
+  if (rawProduct.Ferguson_Attributes && Array.isArray(rawProduct.Ferguson_Attributes)) {
+    confirmation.summary.total_received_from_ferguson = rawProduct.Ferguson_Attributes.length;
+    
+    for (const attr of rawProduct.Ferguson_Attributes) {
+      const topFilterMatch = findInTopFilters(attr.name);
+      const inAdditional = findInAdditionalAttrs(attr.name);
+      
+      let status: 'included_in_response' | 'included_in_additional' | 'not_used' | 'invalid' = 'not_used';
+      let matchedField: string | undefined = undefined;
+      let reason: string | undefined = undefined;
+      
+      if (topFilterMatch) {
+        status = 'included_in_response';
+        matchedField = `Top_Filter_Attributes.${topFilterMatch}`;
+        confirmation.summary.total_included_in_response++;
+      } else if (inAdditional) {
+        status = 'included_in_additional';
+        confirmation.summary.total_in_additional_attributes++;
+      } else if (!attr.value || attr.value.trim() === '') {
+        status = 'invalid';
+        reason = 'Empty or missing value';
+        confirmation.summary.total_not_used++;
+      } else {
+        confirmation.summary.total_not_used++;
+        reason = 'Not matched to any attribute in this category';
+      }
+      
+      confirmation.ferguson_attributes_processed.push({
+        name: attr.name,
+        value: attr.value,
+        matched_to_field: matchedField,
+        status,
+        reason
+      });
+    }
+  }
+
+  logger.info('Received attributes confirmation built', {
+    web_retailer_total: confirmation.summary.total_received_from_web_retailer,
+    ferguson_total: confirmation.summary.total_received_from_ferguson,
+    included_in_response: confirmation.summary.total_included_in_response,
+    in_additional: confirmation.summary.total_in_additional_attributes,
+    not_used: confirmation.summary.total_not_used
+  });
+
+  return confirmation;
+}
+
 function buildFinalResponse(
   rawProduct: SalesforceIncomingProduct,
   consensus: ConsensusResult,
@@ -2322,6 +2460,14 @@ function buildFinalResponse(
   // Build research transparency to show what was analyzed from each resource
   const researchTransparency = buildResearchTransparency(researchResult);
 
+  // Build Received Attributes Confirmation - Track all incoming attributes from Salesforce
+  // This shows SF which attributes we received, processed, and where they ended up in the response
+  const receivedAttributesConfirmation = buildReceivedAttributesConfirmation(
+    rawProduct,
+    topFilterAttributes,
+    consensus.agreedAdditionalAttributes
+  );
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
@@ -2334,6 +2480,7 @@ function buildFinalResponse(
     Reference_Links: referenceLinks,
     Documents: documentsSection,
     Research_Analysis: researchTransparency,
+    Received_Attributes_Confirmation: receivedAttributesConfirmation,
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
     Verification: verification,

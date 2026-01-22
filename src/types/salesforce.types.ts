@@ -398,6 +398,34 @@ export interface SalesforceVerificationResponse {
   // Research Transparency - Shows what external resources were analyzed
   Research_Analysis?: ResearchTransparency;
 
+  // Received Attributes Confirmation - Tracks all incoming attributes from Salesforce
+  // Shows which attributes were received, processed, and where they appear in the response
+  Received_Attributes_Confirmation?: {
+    // Attributes from Web_Retailer_Specs array
+    web_retailer_specs_processed?: Array<{
+      name: string;
+      value: string;
+      matched_to_field?: string;  // Where it was placed (e.g., "Top_Filter_Attributes.number_of_bulbs", "Additional_Attributes")
+      status: 'included_in_response' | 'included_in_additional' | 'not_used' | 'invalid';
+      reason?: string;
+    }>;
+    // Attributes from Ferguson_Attributes array
+    ferguson_attributes_processed?: Array<{
+      name: string;
+      value: string;
+      matched_to_field?: string;
+      status: 'included_in_response' | 'included_in_additional' | 'not_used' | 'invalid';
+      reason?: string;
+    }>;
+    summary?: {
+      total_received_from_web_retailer: number;
+      total_received_from_ferguson: number;
+      total_included_in_response: number;
+      total_in_additional_attributes: number;
+      total_not_used: number;
+    };
+  };
+
   // Picklist Requests - Values not found in Salesforce picklists that need to be added
   // SF receives these, creates the options, then calls /api/picklists/sync to update our lists
   Attribute_Requests: AttributeRequest[];
