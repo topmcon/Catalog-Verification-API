@@ -517,23 +517,63 @@ export class VerificationAnalyticsService {
       // Handle multiple possible formats
       let docs: any = response.Documents?.documents;
       
+      // If docs is undefined/null, return empty array
+      if (!docs) {
+        return [];
+      }
+      
       // If it's a string, try to parse it
       if (typeof docs === 'string') {
+        // Remove console.log formatting artifacts (newlines, extra spaces, etc.)
+        const cleanedString = docs.trim();
+        
         try {
-          docs = JSON.parse(docs);
+          // Try parsing as JSON first
+          docs = JSON.parse(cleanedString);
         } catch (e) {
-          logger.warn('Failed to parse documents string', { error: e });
-          return [];
+          // If that fails, it might be a malformed string representation
+          // Try to extract array from string like "[{...}, {...}]"
+          const arrayMatch = cleanedString.match(/\[[\s\S]*\]/);
+          if (arrayMatch) {
+            try {
+              docs = JSON.parse(arrayMatch[0]);
+            } catch (e2) {
+              logger.warn('Failed to parse documents string even after cleanup', { 
+                error: e2, 
+                stringPreview: cleanedString.substring(0, 200) 
+              });
+              return [];
+            }
+          } else {
+            logger.warn('Documents field is a string but not parseable', { 
+              error: e,
+              stringPreview: cleanedString.substring(0, 200)
+            });
+            return [];
+          }
         }
       }
       
-      // If not an array, return empty
+      // If not an array after parsing attempts, return empty
       if (!Array.isArray(docs)) {
+        logger.warn('Documents field is not an array after parsing attempts', { 
+          type: typeof docs,
+          value: docs 
+        });
         return [];
       }
       
       // Map to proper format with validation
       return docs.map(doc => {
+        // Handle case where doc might be a string or object
+        if (typeof doc === 'string') {
+          try {
+            doc = JSON.parse(doc);
+          } catch (e) {
+            return null; // Will be filtered out
+          }
+        }
+        
         const recommendation = String(doc.ai_recommendation || 'review');
         return {
           url: String(doc.url || ''),
@@ -542,10 +582,18 @@ export class VerificationAnalyticsService {
           relevance_score: Number(doc.relevance_score || 0),
           contributed_to_verification: doc.ai_recommendation === 'use'
         };
-      }).filter(doc => doc.url); // Only include docs with URLs
+      })
+      .filter(doc => doc && doc.url) // Only include valid docs with URLs
+      .map(doc => doc!); // Type assertion after null filter
       
     } catch (error) {
-      logger.error('Error parsing documents_analyzed', { error });
+      logger.error('Error parsing documents_analyzed', { 
+        error,
+        documentsType: typeof response.Documents?.documents,
+        documentsPreview: typeof response.Documents?.documents === 'string' 
+          ? (response.Documents?.documents as string).substring(0, 200)
+          : 'Not a string'
+      });
       return [];
     }
   }
