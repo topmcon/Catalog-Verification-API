@@ -1986,6 +1986,9 @@ function buildFinalResponse(
     attributeCount: categorySchema?.top15FilterAttributes?.length || 0
   });
   
+  // Map to track which attributes we've already processed as requests (avoid duplicates)
+  const requestedAttributeNames = new Set<string>();
+  
   // Build complete Top 15 attribute set - include AI-extracted AND raw data fallback
   const completeTop15: Record<string, any> = {};
   
@@ -2124,6 +2127,68 @@ function buildFinalResponse(
           fieldKey: key,
           category: consensus.agreedCategory || 'Unknown'
         });
+      }
+    }
+  }
+  
+  // Process HTML Table Attributes (Additional Attributes)
+  // These are attributes beyond the Top 15 that AI extracted
+  // Match them against SF picklist and generate requests for unmatched ones
+  if (consensus.agreedAdditionalAttributes && Object.keys(consensus.agreedAdditionalAttributes).length > 0) {
+    logger.info('Processing HTML table attributes for SF picklist matching', {
+      count: Object.keys(consensus.agreedAdditionalAttributes).length,
+      attributes: Object.keys(consensus.agreedAdditionalAttributes)
+    });
+    
+    for (const [attrName, attrValue] of Object.entries(consensus.agreedAdditionalAttributes)) {
+      if (!attrValue || attrValue === '' || isNAValue(attrValue)) {
+        // Skip empty or N/A values
+        continue;
+      }
+      
+      // Skip if this attribute name looks like a value, not an attribute name
+      if (picklistMatcher.isAttributeValue(attrName)) {
+        logger.info('Skipping attribute - appears to be a value not a name', { attrName });
+        continue;
+      }
+      
+      // Skip if this is a primary attribute (already handled separately)
+      if (picklistMatcher.isPrimaryAttribute(attrName)) {
+        logger.info('Skipping attribute - is a primary attribute (handled separately)', { attrName });
+        continue;
+      }
+      
+      // Try to match against SF picklist
+      const attrMatch = picklistMatcher.matchAttribute(attrName);
+      
+      if (attrMatch.matched && attrMatch.matchedValue) {
+        // Attribute exists in SF - log for tracking
+        logger.info('HTML table attribute matched to SF picklist', {
+          attrName,
+          attribute_id: attrMatch.matchedValue.attribute_id,
+          similarity: attrMatch.similarity
+        });
+      } else {
+        // Attribute NOT in SF picklist - generate request for creation
+        // Check if we've already created a request for this exact attribute name (avoid duplicates)
+        if (!requestedAttributeNames.has(attrName.toLowerCase())) {
+          attributeRequests.push({
+            attribute_name: attrName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'ai_analysis',
+            reason: `Attribute "${attrName}" detected in AI analysis with value "${attrValue}" but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%). Please create this attribute so future products can map values to it.`
+          });
+          
+          requestedAttributeNames.add(attrName.toLowerCase());
+          
+          logger.info('Attribute request generated for Salesforce creation', {
+            attrName,
+            value: attrValue,
+            category: consensus.agreedCategory,
+            similarity: attrMatch.similarity,
+            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+          });
+        }
       }
     }
   }
