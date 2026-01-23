@@ -255,75 +255,17 @@ export async function verifyProductWithDualAI(
   });
 
   try {
-    // PHASE 0: External Research - Fetch URLs, PDFs, and analyze images BEFORE AI analysis
-    const researchStartTime = Date.now();
-    let researchResult: ResearchResult | null = null;
-    let researchContext = '';
+    // PHASE 1: AI Analysis WITHOUT research (received data ONLY)
+    logger.info('PHASE 1: Dual AI Analysis (received data only)', {
+      sessionId: verificationSessionId
+    });
     
-    // Only run research if enabled in config
-    const researchEnabled = config.research?.enabled !== false;
-    
-    if (researchEnabled) {
-      try {
-        // Extract URLs from raw product
-        const documentUrls = (rawProduct.Documents || [])
-          .map(d => typeof d === 'string' ? d : d?.url)
-          .filter(Boolean) as string[];
-        
-        const imageUrls = (rawProduct.Stock_Images || [])
-          .map(i => typeof i === 'string' ? i : i?.url)
-          .filter(Boolean) as string[];
-        
-        logger.info('Starting external research phase', {
-          sessionId: verificationSessionId,
-          fergusonUrl: rawProduct.Ferguson_URL || null,
-          referenceUrl: rawProduct.Reference_URL || null,
-          documentCount: documentUrls.length,
-          imageCount: imageUrls.length
-        });
-        
-        researchResult = await performProductResearch(
-          rawProduct.Ferguson_URL || null,
-          rawProduct.Reference_URL || null,
-          documentUrls,
-          imageUrls,
-          { 
-            maxDocuments: config.research?.maxDocuments || 3, 
-            maxImages: config.research?.maxImages || 2, 
-            skipImages: config.research?.enableImageAnalysis === false 
-          }
-        );
-        
-        researchContext = formatResearchForPrompt(researchResult);
-        
-        logger.info('External research completed', {
-          sessionId: verificationSessionId,
-          processingTime: Date.now() - researchStartTime,
-          webPagesSuccess: researchResult.webPages.filter(p => p.success).length,
-          documentsSuccess: researchResult.documents.filter(d => d.success).length,
-          imagesSuccess: researchResult.images.filter(i => i.success).length,
-          totalSpecs: Object.keys(researchResult.combinedSpecifications).length,
-          totalFeatures: researchResult.combinedFeatures.length
-        });
-      } catch (researchError) {
-        logger.warn('External research phase failed, continuing without', {
-          sessionId: verificationSessionId,
-          error: researchError instanceof Error ? researchError.message : 'Unknown error'
-        });
-      }
-    } else {
-      logger.info('External research phase skipped (disabled in config)', {
-        sessionId: verificationSessionId
-      });
-    }
-
-    // PHASE 1: AI Analysis with research context
     const openaiStartTime = Date.now();
     const xaiStartTime = Date.now();
     
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId, researchContext, trackingId),
-      analyzeWithXAI(rawProduct, verificationSessionId, researchContext, trackingId)
+      analyzeWithOpenAI(rawProduct, verificationSessionId, undefined, trackingId),
+      analyzeWithXAI(rawProduct, verificationSessionId, undefined, trackingId)
     ]);
 
     // Track OpenAI result
@@ -354,19 +296,25 @@ export async function verifyProductWithDualAI(
       errorMessage: xaiResult.error,
     });
 
-    logger.info('Initial AI analysis complete', {
+    logger.info('PHASE 1 complete - Initial AI analysis', {
       sessionId: verificationSessionId,
       openaiCategory: openaiResult.determinedCategory,
       xaiCategory: xaiResult.determinedCategory
     });
 
+    // PHASE 2: Build initial consensus
+    logger.info('PHASE 2: Building consensus', {
+      sessionId: verificationSessionId
+    });
+    
     let consensus = buildConsensus(openaiResult, xaiResult);
     let crossValidationPerformed = false;
     let researchPhaseTriggered = false;
     let retryCount = 0;
     
+    // PHASE 3: Handle disagreements with cross-validation
     if (!consensus.agreed && openaiResult.determinedCategory !== xaiResult.determinedCategory) {
-      logger.info('Category disagreement - initiating cross-validation', { sessionId: verificationSessionId });
+      logger.info('PHASE 3: Category disagreement - initiating cross-validation', { sessionId: verificationSessionId });
       crossValidationPerformed = true;
       retryCount++;
       
@@ -378,16 +326,87 @@ export async function verifyProductWithDualAI(
       consensus = buildConsensus(openaiRevised, xaiRevised);
     }
 
+    // PHASE 0: CONDITIONAL External Research (ONLY for missing required fields)
     if (consensus.needsResearch.length > 0 && consensus.agreedCategory) {
-      logger.info('Missing data - initiating research phase', { sessionId: verificationSessionId });
-      researchPhaseTriggered = true;
+      const researchEnabled = config.research?.enabled !== false;
       
-      const [openaiResearch, xaiResearch] = await Promise.all([
-        researchMissingData(rawProduct, consensus.needsResearch, 'openai', consensus.agreedCategory, verificationSessionId),
-        researchMissingData(rawProduct, consensus.needsResearch, 'xai', consensus.agreedCategory, verificationSessionId)
-      ]);
-      
-      consensus = mergeResearchResults(consensus, openaiResearch, xaiResearch);
+      if (researchEnabled) {
+        logger.info('PHASE 0: External Research (CONDITIONAL - missing required fields detected)', { 
+          sessionId: verificationSessionId,
+          missingFields: consensus.needsResearch,
+          reason: 'Required fields missing after AI consensus'
+        });
+        researchPhaseTriggered = true;
+        
+        const researchStartTime = Date.now();
+        let researchResult: ResearchResult | null = null;
+        
+        try {
+          // Extract URLs from raw product
+          const documentUrls = (rawProduct.Documents || [])
+            .map(d => typeof d === 'string' ? d : d?.url)
+            .filter(Boolean) as string[];
+          
+          const imageUrls = (rawProduct.Stock_Images || [])
+            .map(i => typeof i === 'string' ? i : i?.url)
+            .filter(Boolean) as string[];
+          
+          logger.info('Fetching external research for missing fields', {
+            sessionId: verificationSessionId,
+            fergusonUrl: rawProduct.Ferguson_URL || null,
+            referenceUrl: rawProduct.Reference_URL || null,
+            documentCount: documentUrls.length,
+            imageCount: imageUrls.length
+          });
+          
+          researchResult = await performProductResearch(
+            rawProduct.Ferguson_URL || null,
+            rawProduct.Reference_URL || null,
+            documentUrls,
+            imageUrls,
+            { 
+              maxDocuments: config.research?.maxDocuments || 3, 
+              maxImages: config.research?.maxImages || 2, 
+              skipImages: config.research?.enableImageAnalysis === false 
+            }
+          );
+          
+          const researchContext = formatResearchForPrompt(researchResult);
+          
+          logger.info('External research completed for missing fields', {
+            sessionId: verificationSessionId,
+            processingTime: Date.now() - researchStartTime,
+            webPagesSuccess: researchResult.webPages.filter(p => p.success).length,
+            documentsSuccess: researchResult.documents.filter(d => d.success).length,
+            imagesSuccess: researchResult.images.filter(i => i.success).length,
+            totalSpecs: Object.keys(researchResult.combinedSpecifications).length,
+            totalFeatures: researchResult.combinedFeatures.length
+          });
+          
+          // Re-run AI analysis with research context for missing fields ONLY
+          const [openaiResearch, xaiResearch] = await Promise.all([
+            researchMissingData(rawProduct, consensus.needsResearch, 'openai', consensus.agreedCategory, verificationSessionId, researchContext),
+            researchMissingData(rawProduct, consensus.needsResearch, 'xai', consensus.agreedCategory, verificationSessionId, researchContext)
+          ]);
+          
+          consensus = mergeResearchResults(consensus, openaiResearch, xaiResearch);
+          
+        } catch (researchError) {
+          logger.warn('External research for missing fields failed, continuing without', {
+            sessionId: verificationSessionId,
+            error: researchError instanceof Error ? researchError.message : 'Unknown error'
+          });
+        }
+      } else {
+        logger.info('PHASE 0: External research skipped (disabled in config)', {
+          sessionId: verificationSessionId,
+          missingFieldsCount: consensus.needsResearch.length
+        });
+      }
+    } else {
+      logger.info('PHASE 0: External research not needed (all required fields present)', {
+        sessionId: verificationSessionId
+      });
     }
 
     // Track consensus result
@@ -1313,14 +1332,14 @@ Return your revised analysis as JSON with the same format as before.`;
   }
 }
 
-async function researchMissingData(rawProduct: SalesforceIncomingProduct, missingFields: string[], provider: 'openai' | 'xai', category: string, sessionId: string): Promise<Record<string, any>> {
+async function researchMissingData(rawProduct: SalesforceIncomingProduct, missingFields: string[], provider: 'openai' | 'xai', category: string, sessionId: string, researchContext?: string): Promise<Record<string, any>> {
   const client = provider === 'openai' ? openai : xai;
   const model = provider === 'openai' ? (config.openai?.model || 'gpt-4-turbo-preview') : (config.xai?.model || 'grok-beta');
 
   const brand = rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || 'Unknown';
   const modelNum = rawProduct.Model_Number_Web_Retailer || rawProduct.Ferguson_Model_Number || 'Unknown';
 
-  const prompt = `You need to research and find the following missing product specifications:
+  let prompt = `You need to research and find the following missing product specifications:
 
 PRODUCT INFO:
 - Brand: ${brand}
@@ -1328,9 +1347,24 @@ PRODUCT INFO:
 - Category: ${category}
 
 MISSING FIELDS TO RESEARCH:
-${missingFields.map(f => `- ${f}`).join('\n')}
+${missingFields.map(f => `- ${f}`).join('\n')}`;
 
-Use your knowledge to find accurate values for these specifications. If you find the information, provide it. If you cannot determine a value with confidence, mark it as "unknown".
+  // Add research context if provided
+  if (researchContext && researchContext.trim()) {
+    prompt += `
+
+=== EXTERNAL RESEARCH DATA ===
+${researchContext}
+=== END EXTERNAL RESEARCH DATA ===
+
+Use this external research data to fill in the missing fields above.`;
+  } else {
+    prompt += `
+
+Use your knowledge to find accurate values for these specifications. If you find the information, provide it. If you cannot determine a value with confidence, mark it as "unknown".`;
+  }
+
+  prompt += `
 
 Return JSON:
 {
