@@ -379,33 +379,75 @@ export async function getSessionLogs(req: Request, res: Response): Promise<void>
  * 3. AIs compare results to reach consensus
  * 4. If missing data, AIs research independently
  * 5. Return final agreed-upon verified data
+ * 
+ * Supports two modes:
+ * - SYNC (default): Wait for verification and return results (may timeout for complex products)
+ * - ASYNC: Immediately return acknowledgment, process in background, callback to SF when done
+ * 
+ * To use ASYNC mode, include in request body:
+ *   { "async": true, "callback_url": "https://..." } (callback_url is optional, uses default SF endpoint)
  */
 export async function verifySalesforceProduct(req: Request, res: Response): Promise<void> {
   const startTime = Date.now();
-  const { dualAIVerificationService } = await import('../services/dual-ai-verification.service');
-  
   const sfProduct = req.body;
   
   if (!sfProduct || !sfProduct.SF_Catalog_Id) {
     throw new ApiError(400, 'INVALID_REQUEST', 'SF_Catalog_Id is required');
   }
 
+  const sessionId = uuidv4();
+  const isAsync = sfProduct.async === true || req.query.async === 'true';
+  const callbackUrl = sfProduct.callback_url || req.query.callback_url as string | undefined;
+
+  // Build request context for tracking
+  const requestContext = {
+    endpoint: req.originalUrl || '/api/verify/salesforce',
+    method: req.method,
+    ipAddress: req.ip || req.socket?.remoteAddress || 'unknown',
+    userAgent: req.get('User-Agent') || 'unknown',
+    apiKey: req.get('X-API-KEY'),
+    isAsync,
+    callbackUrl
+  };
+
   logger.info('Starting Dual AI Salesforce verification', {
     catalogId: sfProduct.SF_Catalog_Id,
-    modelNumber: sfProduct.Model_Number_Web_Retailer
+    modelNumber: sfProduct.Model_Number_Web_Retailer,
+    mode: isAsync ? 'ASYNC' : 'SYNC',
+    sessionId,
+    callbackUrl: callbackUrl || '(default SF endpoint)'
   });
 
-  try {
-    const sessionId = uuidv4();
+  // ASYNC MODE: Return immediately, process in background
+  if (isAsync) {
+    const { processVerificationAsync } = await import('../services/salesforce-callback.service');
     
-    // Build request context for tracking
-    const requestContext = {
-      endpoint: req.originalUrl || '/api/verify/salesforce',
-      method: req.method,
-      ipAddress: req.ip || req.socket?.remoteAddress || 'unknown',
-      userAgent: req.get('User-Agent') || 'unknown',
-      apiKey: req.get('X-API-KEY'),
-    };
+    // Start processing in background (don't await)
+    processVerificationAsync(sfProduct, sessionId, requestContext, callbackUrl)
+      .catch(err => {
+        logger.error('Background verification failed', {
+          catalogId: sfProduct.SF_Catalog_Id,
+          sessionId,
+          error: err instanceof Error ? err.message : 'Unknown error'
+        });
+      });
+
+    // Immediately return acknowledgment
+    res.status(202).json({
+      success: true,
+      status: 'processing',
+      message: 'Verification started. Results will be sent via callback.',
+      sessionId,
+      catalogId: sfProduct.SF_Catalog_Id,
+      estimatedTimeMs: 120000, // ~2 minutes estimate
+      callbackUrl: callbackUrl || '(configured default)'
+    });
+    return;
+  }
+
+  // SYNC MODE: Wait for verification to complete
+  try {
+    const { dualAIVerificationService } = await import('../services/dual-ai-verification.service');
     
     const result = await dualAIVerificationService.verifyProductWithDualAI(sfProduct, sessionId, requestContext);
     
