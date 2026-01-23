@@ -167,6 +167,7 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     
     // Try to find Chrome/Chromium executable
     const executablePaths = [
+      '/snap/bin/chromium',           // Ubuntu snap installation
       '/usr/bin/chromium-browser',
       '/usr/bin/chromium',
       '/usr/bin/google-chrome',
