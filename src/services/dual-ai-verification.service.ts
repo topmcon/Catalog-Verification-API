@@ -58,6 +58,7 @@ import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
 import { performProductResearch, formatResearchForPrompt, ResearchResult } from './research.service';
 import { failedMatchLogger } from './failed-match-logger.service';
+import { inferMissingFields, FIELD_ALIASES } from './smart-field-inference.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -1990,6 +1991,11 @@ function findAttributeInRawData(
   
   const normalizedTarget = normalizeAttrName(attributeName);
   
+  // Get all possible aliases for this attribute from smart inference
+  const fieldKey = attributeName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+  const aliases = FIELD_ALIASES[fieldKey] || [];
+  const normalizedAliases = aliases.map(a => normalizeAttrName(a));
+  
   // Helper to find in attribute array with fuzzy matching
   const findInArray = (attrs: Array<{ name: string; value: string }> | undefined): string | number | boolean | null => {
     if (!attrs || !Array.isArray(attrs)) return null;
@@ -2000,6 +2006,19 @@ function findAttributeInRawData(
       // Exact match
       if (normalizedName === normalizedTarget) {
         return attr.value;
+      }
+      
+      // Check against known aliases
+      for (const alias of normalizedAliases) {
+        if (normalizedName === alias || 
+            normalizedName.includes(alias) || 
+            alias.includes(normalizedName)) {
+          const shorterLen = Math.min(normalizedName.length, alias.length);
+          const longerLen = Math.max(normalizedName.length, alias.length);
+          if (shorterLen / longerLen > 0.5) {
+            return attr.value;
+          }
+        }
       }
       
       // Fuzzy match: one contains the other
@@ -3231,6 +3250,61 @@ function buildFinalResponse(
             attributeName: name,
             value: rawValue,
             source: 'raw_data_fallback'
+          });
+        }
+      }
+    }
+  }
+  
+  // =========================================
+  // SMART FIELD INFERENCE - Fill remaining gaps using common sense
+  // =========================================
+  if (categorySchema?.top15FilterAttributes) {
+    // Get list of still-missing field keys
+    const missingFieldKeys = categorySchema.top15FilterAttributes
+      .map(attr => attr.fieldKey)
+      .filter(key => completeTop15[key] === undefined || completeTop15[key] === null || completeTop15[key] === '');
+    
+    if (missingFieldKeys.length > 0) {
+      logger.info('Running smart field inference for missing attributes', {
+        missingCount: missingFieldKeys.length,
+        missingFields: missingFieldKeys,
+        category: consensus.agreedCategory
+      });
+      
+      // Combine all raw specs for inference
+      const allSpecs = [
+        ...(rawProduct.Ferguson_Attributes || []),
+        ...(rawProduct.Web_Retailer_Specs || [])
+      ];
+      
+      // Get features text from cleaned output
+      const featuresText = cleanedText.featuresHtml || '';
+      
+      // Combine descriptions
+      const descriptionText = [
+        rawProduct.Product_Description_Web_Retailer,
+        rawProduct.Ferguson_Description
+      ].filter(Boolean).join(' ');
+      
+      // Run smart inference
+      const inferredValues = inferMissingFields(
+        allSpecs,
+        featuresText,
+        descriptionText,
+        missingFieldKeys,
+        consensus.agreedCategory || undefined
+      );
+      
+      // Apply inferred values to completeTop15
+      for (const [fieldKey, extracted] of Object.entries(inferredValues)) {
+        if (completeTop15[fieldKey] === undefined || completeTop15[fieldKey] === null || completeTop15[fieldKey] === '') {
+          completeTop15[fieldKey] = extracted.value;
+          logger.info('Filled attribute from smart inference', {
+            fieldKey,
+            value: extracted.value,
+            confidence: extracted.confidence,
+            source: extracted.source
           });
         }
       }

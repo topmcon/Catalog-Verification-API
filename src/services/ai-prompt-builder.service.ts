@@ -123,8 +123,17 @@ ${categorySchema.top15FilterAttributes.map((attr, i) => `${i + 1}. ${attr}`).joi
 **IMPORTANT**: These Top 15 attributes are PRIORITY. Look for them in:
 1. The Web_Retailer_Specs array above (match attribute names)
 2. The Ferguson_Attributes array above (match attribute names)
-3. The descriptions and specifications text
-4. External research if not found in provided data
+3. The Specification_Table HTML (parsed values above)
+4. The descriptions and specifications text
+5. External research if not found in provided data
+
+**USE COMMON SENSE MAPPING**: If an attribute in the data is LOGICALLY EQUIVALENT, use it:
+- "Capacity (Gallons)" or "Water Capacity" or "38-gallon capacity" → maps to capacity_gallons
+- "Product Weight" or "Shipping Weight" or "146 lbs" → maps to weight
+- "Soaking Depth" or "Water Depth" or "Fill Depth" → maps to water_depth
+- "Tub Length" or "Overall Length" or "60 inches long" → maps to nominal_length
+- "Number of Jets" or "Whirlpool Jets" or "12 jets" → maps to number_of_jets
+- "Drain Location" or "Drain Position" → maps to drain_placement
 
 ### Additional Attributes for HTML Table:
 ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join('\n')}
@@ -133,22 +142,25 @@ ${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join(
 
 1. **Data Source Priority**: Ferguson data is generally more reliable for specifications. Web Retailer data is the source of record for pricing.
 
-2. **Attribute Extraction from Arrays**: The Web_Retailer_Specs and Ferguson_Attributes arrays contain KEY DATA. For each Top 15 attribute:
+2. **Attribute Extraction from Arrays - USE SMART MATCHING**: The Web_Retailer_Specs and Ferguson_Attributes arrays contain KEY DATA. For each Top 15 attribute:
    - Search the arrays for matching attribute names (case-insensitive, fuzzy match)
-   - Example: For "capacity_cu_ft" attribute:
-     * Match: {"name": "Capacity", "value": "1.6"} → extract "1.6"
-     * Match: {"name": "Oven Capacity", "value": "1.6"} → extract "1.6"
-     * Match: {"name": "Total Capacity", "value": "1.6"} → extract "1.6"
-   - Example: For "convection" attribute:
-     * Match: {"name": "Convection", "value": "Yes"} → extract "Yes"
-     * Match: {"name": "True Convection", "value": "Yes"} → extract "Yes"
-   - Example: For "electrical_supply" attribute:
-     * Match: {"name": "Electrical Supply", "value": "grounded, 240/208 VAC, 60Hz"} → extract "grounded, 240/208 VAC, 60Hz"
+   - **USE COMMON SENSE**: If a spec is CLEARLY the same data, extract it even if the name differs
+   - Example: For "capacity_gallons" attribute:
+     * Match: {"name": "Capacity (Gallons)", "value": "38"} → extract "38"
+     * Match: {"name": "Water Capacity", "value": "38 gal"} → extract "38"
+     * Match: {"name": "Tub Capacity", "value": "38"} → extract "38"
+   - Example: For "weight" attribute:
+     * Match: {"name": "Weight", "value": "146"} → extract "146"
+     * Match: {"name": "Product Weight", "value": "146 lb"} → extract "146"
+     * Match: {"name": "Shipping Weight", "value": "150"} → use if no product weight
+   - Example: For "number_of_jets" attribute:
+     * Match: {"name": "Jets", "value": "12"} → extract "12"
+     * Match: {"name": "Whirlpool Jets", "value": "12"} → extract "12"
+     * Match: {"name": "Air Jets", "value": "12"} → extract "12"
    - Extract the "value" field from ALL matching attributes
    - If multiple matches, prefer Ferguson data over Web Retailer data
-   - Verify the value is correct and properly formatted
+   - Also extract values mentioned in features text (e.g., "38-gallon capacity" → capacity_gallons: 38)
 
-3. **Brand Verification**: Must match exactly (case-insensitive). Common variations:
 3. **Brand Verification**: Must match exactly (case-insensitive). Common variations:
    - "GE APPLIANCES" = "GE" 
    - "Cafe" = "Café" = "CAFE" = "Caf(eback)" = "CAF(EBACK)"
