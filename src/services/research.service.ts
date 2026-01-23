@@ -741,11 +741,20 @@ function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, st
   }
 
   // Capture EVERYTHING from main content - let AI analyze
-  const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
-    .first()
-    .text();
-
-  const fullContent = mainContent || $('body').text();
+  // Be aggressive - capture full body text first, then try selectors
+  let fullContent = $('body').text() || '';
+  
+  // If we got minimal content from selectors, use the FULL body text 
+  if (fullContent.length < 1000) {
+    // Try more inclusive selectors
+    const mainContent = $('main, [role="main"], article, #root, #app, [class*="product"], [id*="product"], [class*="content"], .container, .page')
+      .map((_, el) => $(el).text())
+      .get()
+      .join(' ');
+    if (mainContent.length > fullContent.length) {
+      fullContent = mainContent;
+    }
+  }
 
   const rawText = fullContent
     .replace(/\s+/g, ' ')
@@ -769,14 +778,15 @@ function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, st
   }
 
   // Debug logging for troubleshooting - show sample of body text if no specs found
-  if (Object.keys(specifications).length === 0 && rawText.length > 100) {
+  if (Object.keys(specifications).length === 0) {
     const sampleText = rawText.slice(0, 2000).replace(/\n/g, ' ').replace(/\s+/g, ' ');
-    logger.info('DEBUG: No specs extracted, sample of page content', {
+    logger.info('DEBUG: No specs extracted from parsed content', {
       url,
       rawTextLength: rawText.length,
-      sampleText: sampleText.slice(0, 500),
+      sampleTextStart: sampleText.slice(0, 300),
+      sampleTextMiddle: sampleText.slice(Math.floor(sampleText.length / 2), Math.floor(sampleText.length / 2) + 300),
       hasColons: (rawText.match(/:/g) || []).length,
-      possibleKeyValuePairs: (rawText.match(/[A-Za-z]+:\s*\d/g) || []).slice(0, 10)
+      possibleKeyValuePairs: (rawText.match(/[A-Za-z]+:\s*[\d.]+/g) || []).slice(0, 15)
     });
   }
   
