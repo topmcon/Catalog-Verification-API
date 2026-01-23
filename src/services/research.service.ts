@@ -798,17 +798,13 @@ function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, st
     trackScrapeFailure(url, 'MINIMAL_CONTENT', rawText.length).catch(() => {});
   }
 
-  // Debug logging for troubleshooting - show sample of body text if few specs found
-  if (Object.keys(specifications).length < 5) {
-    const sampleText = rawText.slice(0, 3000).replace(/\n/g, ' ').replace(/\s+/g, ' ');
-    logger.info('DEBUG: Few specs extracted from parsed content', {
+  // Debug logging for troubleshooting - log when minimal specs found from JS-rendered sites
+  if (Object.keys(specifications).length < 3 && rawText.length < 1000) {
+    logger.warn('Minimal content extracted from page', {
       url,
       rawTextLength: rawText.length,
       specsFound: Object.keys(specifications).length,
-      sampleTextStart: sampleText.slice(0, 400),
-      sampleTextMiddle: sampleText.slice(Math.max(0, sampleText.length / 2 - 200), Math.min(sampleText.length, sampleText.length / 2 + 200)),
-      hasColons: (rawText.match(/:/g) || []).length,
-      possibleKeyValuePairs: (rawText.match(/[A-Za-z][A-Za-z\s]{2,30}:\s*[\d.]+/g) || []).slice(0, 20)
+      hasColons: (rawText.match(/:/g) || []).length
     });
   }
   
