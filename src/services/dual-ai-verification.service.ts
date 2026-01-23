@@ -382,6 +382,267 @@ export function markEmptyField(
 }
 
 /**
+ * Smart Disagreement Resolution
+ * Intelligently resolves AI disagreements based on field type and context
+ * Returns the resolved value and which AI was chosen (or 'combined' for merged values)
+ */
+interface DisagreementResolution {
+  resolvedValue: any;
+  winner: 'openai' | 'xai' | 'combined' | 'not_found';
+  reason: string;
+}
+
+/**
+ * Fields that can be combined rather than choosing one
+ */
+const COMBINABLE_FIELDS = new Set(['features_list', 'features']);
+
+/**
+ * Text fields that don't need exact consensus - accept the higher-quality one
+ */
+const TEXT_FIELDS = new Set(['description', 'product_title', 'details', 'features_list', 'features']);
+
+/**
+ * Fields that should ONLY use Ferguson data (too error-prone from AI inference)
+ */
+const FERGUSON_ONLY_FIELDS = new Set(['model_variant_number', 'total_model_variants']);
+
+/**
+ * Resolve a disagreement between AI responses intelligently
+ */
+function resolveDisagreementSmart(
+  fieldName: string,
+  openaiValue: any,
+  xaiValue: any,
+  _category: string,
+  hasFergusonData: boolean,
+  researchContext?: ResearchResult
+): DisagreementResolution {
+  const normalizedField = fieldName.toLowerCase().replace(/[_\s]/g, '_');
+  
+  // 1. FERGUSON-ONLY FIELDS: Model variants should only come from Ferguson data
+  if (FERGUSON_ONLY_FIELDS.has(normalizedField)) {
+    if (!hasFergusonData) {
+      return {
+        resolvedValue: FIELD_NOT_FOUND,
+        winner: 'not_found',
+        reason: `${fieldName} should only come from Ferguson data which is not available`
+      };
+    }
+    // If we have Ferguson data, one AI might have extracted it correctly
+    const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND && openaiValue !== 'Not Found';
+    const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND && xaiValue !== 'Not Found';
+    if (validOpenai && !validXai) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI extracted from Ferguson data' };
+    }
+    if (validXai && !validOpenai) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI extracted from Ferguson data' };
+    }
+    return {
+      resolvedValue: FIELD_NOT_FOUND,
+      winner: 'not_found',
+      reason: `${fieldName} could not be reliably determined from Ferguson data`
+    };
+  }
+
+  // 2. TEXT FIELDS: Accept OpenAI's version by default (usually more detailed)
+  //    Unless one references a wrong model number
+  if (TEXT_FIELDS.has(normalizedField)) {
+    // Check if either contains a different model number (wrong reference)
+    // Note: Could add sophisticated model number validation here in the future
+    
+    // For now, prefer OpenAI for text generation (tends to be more detailed)
+    // But could add more sophisticated checks here
+    const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND;
+    const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND;
+    
+    if (validOpenai && validXai) {
+      // Both have values - for features_list, combine them
+      if (COMBINABLE_FIELDS.has(normalizedField)) {
+        const combined = combineFeatureLists(openaiValue, xaiValue);
+        return { resolvedValue: combined, winner: 'combined', reason: 'Combined features from both AIs' };
+      }
+      // For other text fields, prefer OpenAI
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI text accepted (text fields allow variation)' };
+    }
+    if (validOpenai) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'Only OpenAI provided text' };
+    }
+    if (validXai) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: 'Only xAI provided text' };
+    }
+    return { resolvedValue: FIELD_NOT_FOUND, winner: 'not_found', reason: 'Neither AI provided text' };
+  }
+
+  // 3. STYLE/PRODUCT_STYLE: Match against picklist, prefer the one that matches
+  if (normalizedField === 'style' || normalizedField === 'product_style') {
+    const openaiMatch = picklistMatcher.matchStyle(String(openaiValue || ''));
+    const xaiMatch = picklistMatcher.matchStyle(String(xaiValue || ''));
+    
+    // If one matches the picklist better, use it
+    if (openaiMatch.matched && !xaiMatch.matched) {
+      return { resolvedValue: openaiMatch.matchedValue?.style_name || openaiValue, winner: 'openai', reason: 'OpenAI style matches picklist' };
+    }
+    if (xaiMatch.matched && !openaiMatch.matched) {
+      return { resolvedValue: xaiMatch.matchedValue?.style_name || xaiValue, winner: 'xai', reason: 'xAI style matches picklist' };
+    }
+    if (openaiMatch.similarity > xaiMatch.similarity) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: `OpenAI style closer to picklist (${(openaiMatch.similarity * 100).toFixed(0)}% vs ${(xaiMatch.similarity * 100).toFixed(0)}%)` };
+    }
+    if (xaiMatch.similarity > openaiMatch.similarity) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: `xAI style closer to picklist (${(xaiMatch.similarity * 100).toFixed(0)}% vs ${(openaiMatch.similarity * 100).toFixed(0)}%)` };
+    }
+    // Neither matches well - use OpenAI's value
+    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Neither style matches picklist, using OpenAI' };
+  }
+
+  // 4. TYPE FIELD: One might be semantic (product type) vs structural (single/double)
+  //    Prefer the semantic product type description
+  if (normalizedField === 'type') {
+    const quantityTerms = ['single', 'double', 'triple', 'quad', 'dual', 'multi'];
+    const openaiIsQuantity = quantityTerms.some(t => String(openaiValue || '').toLowerCase().includes(t));
+    const xaiIsQuantity = quantityTerms.some(t => String(xaiValue || '').toLowerCase().includes(t));
+    
+    // If one is a quantity term and other is semantic, prefer semantic
+    if (xaiIsQuantity && !openaiIsQuantity && openaiValue) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI provides semantic type, xAI provided quantity' };
+    }
+    if (openaiIsQuantity && !xaiIsQuantity && xaiValue) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI provides semantic type, OpenAI provided quantity' };
+    }
+    // Both are semantic or both are quantity - use OpenAI
+    return { resolvedValue: openaiValue || xaiValue, winner: openaiValue ? 'openai' : 'xai', reason: 'Type field - using available value' };
+  }
+
+  // 5. ONE AI HAS VALUE, OTHER DOESN'T: Use the one that has a value
+  const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND && openaiValue !== 'Not Found' && openaiValue !== '';
+  const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND && xaiValue !== 'Not Found' && xaiValue !== '';
+  
+  if (validOpenai && !validXai) {
+    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Only OpenAI found a value' };
+  }
+  if (validXai && !validOpenai) {
+    return { resolvedValue: xaiValue, winner: 'xai', reason: 'Only xAI found a value' };
+  }
+  if (!validOpenai && !validXai) {
+    return { resolvedValue: FIELD_NOT_FOUND, winner: 'not_found', reason: 'Neither AI found a value' };
+  }
+
+  // 6. NUMERIC FIELDS: Prefer the one that looks more valid
+  const numOpenai = parseFloat(String(openaiValue).replace(/[^\d.-]/g, ''));
+  const numXai = parseFloat(String(xaiValue).replace(/[^\d.-]/g, ''));
+  
+  if (!isNaN(numOpenai) && !isNaN(numXai)) {
+    // Both are numeric - prefer the one that seems more reasonable
+    // For now, just use OpenAI's
+    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Numeric disagreement - using OpenAI' };
+  }
+
+  // 7. DEFAULT: Check if we can find this in research context
+  if (researchContext) {
+    const researchValue = findValueInResearch(fieldName, researchContext);
+    if (researchValue) {
+      // Determine which AI value matches research
+      const matchesOpenai = valuesMatchLoose(researchValue, openaiValue);
+      const matchesXai = valuesMatchLoose(researchValue, xaiValue);
+      
+      if (matchesOpenai && !matchesXai) {
+        return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI matches research data' };
+      }
+      if (matchesXai && !matchesOpenai) {
+        return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI matches research data' };
+      }
+    }
+  }
+
+  // 8. FINAL FALLBACK: Use OpenAI's value (it's generally more conservative)
+  return { resolvedValue: openaiValue, winner: 'openai', reason: 'Default - using OpenAI value' };
+}
+
+/**
+ * Combine feature lists from two sources, removing duplicates
+ */
+function combineFeatureLists(openaiFeatures: string, xaiFeatures: string): string {
+  // Extract <li> items from both
+  const extractItems = (html: string): string[] => {
+    const matches = html.match(/<li>(.*?)<\/li>/gi) || [];
+    return matches.map(m => m.replace(/<\/?li>/gi, '').trim().toLowerCase());
+  };
+  
+  const openaiItems = extractItems(openaiFeatures);
+  const xaiItems = extractItems(xaiFeatures);
+  
+  // Combine unique items (use Set for deduplication based on similarity)
+  const allItems: string[] = [];
+  const seen = new Set<string>();
+  
+  for (const item of [...openaiItems, ...xaiItems]) {
+    const normalized = item.toLowerCase().replace(/[^a-z0-9]/g, '');
+    // Check if similar item already exists
+    let isDuplicate = false;
+    for (const seenItem of seen) {
+      if (normalized.includes(seenItem) || seenItem.includes(normalized)) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    if (!isDuplicate && normalized.length > 5) {
+      seen.add(normalized);
+      allItems.push(item);
+    }
+  }
+  
+  // Rebuild HTML list - capitalize first letter of each item
+  const formattedItems = allItems.map(item => 
+    item.charAt(0).toUpperCase() + item.slice(1)
+  );
+  
+  return `<ul>${formattedItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
+}
+
+/**
+ * Try to find a value in research results
+ */
+function findValueInResearch(fieldName: string, research: ResearchResult): string | null {
+  const normalizedField = fieldName.toLowerCase().replace(/[_\s]/g, '');
+  
+  // Check combined specifications
+  const specs = research.combinedSpecifications || {};
+  for (const [specName, specValue] of Object.entries(specs)) {
+    const normalizedSpecName = specName.toLowerCase().replace(/[_\s]/g, '');
+    if (normalizedSpecName.includes(normalizedField) || normalizedField.includes(normalizedSpecName)) {
+      return specValue;
+    }
+  }
+  
+  // Check image analysis for color/finish
+  if (normalizedField.includes('color') || normalizedField.includes('finish')) {
+    for (const img of research.images || []) {
+      if (img.detectedColor) return img.detectedColor;
+    }
+  }
+  
+  // Check image analysis for product type
+  if (normalizedField === 'type' || normalizedField === 'producttype') {
+    for (const img of research.images || []) {
+      if (img.productType) return img.productType;
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Loose value matching for comparison
+ */
+function valuesMatchLoose(a: any, b: any): boolean {
+  if (!a || !b) return false;
+  const strA = String(a).toLowerCase().trim();
+  const strB = String(b).toLowerCase().trim();
+  return strA === strB || strA.includes(strB) || strB.includes(strA);
+}
+
+/**
  * Sanitize an entire object's values for Salesforce
  */
 function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
@@ -647,23 +908,39 @@ export async function verifyProductWithDualAI(
           retryCount++;
         }
         
-        // Mark remaining unresolved fields as "Not Found" after MAX_CONSENSUS_RETRIES attempts
+        // Apply SMART resolution for remaining unresolved fields instead of just marking "Not Found"
         if (retryCount >= MAX_CONSENSUS_RETRIES) {
           for (const disagreement of consensus.disagreements.filter(d => d.resolution === 'unresolved')) {
-            logger.info(`Field "${disagreement.field}" marked as Not Found after ${MAX_CONSENSUS_RETRIES} attempts`, {
+            // Use smart resolution to pick the best value
+            const resolution = resolveDisagreementSmart(
+              disagreement.field,
+              disagreement.openaiValue,
+              disagreement.xaiValue,
+              consensus.agreedCategory || 'Unknown',
+              dataSourceAnalysis.hasFergusonData,
+              researchResult || undefined
+            );
+            
+            logger.info(`Smart resolution for field "${disagreement.field}"`, {
               sessionId: verificationSessionId,
               field: disagreement.field,
               openaiValue: disagreement.openaiValue,
-              xaiValue: disagreement.xaiValue
+              xaiValue: disagreement.xaiValue,
+              resolvedValue: resolution.resolvedValue,
+              winner: resolution.winner,
+              reason: resolution.reason
             });
-            // Mark the field as "Not Found" in the agreed attributes
+            
+            // Apply the resolved value to the appropriate attribute set
             if (disagreement.field in consensus.agreedPrimaryAttributes || 
                 ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent'].includes(disagreement.field.toLowerCase())) {
-              consensus.agreedPrimaryAttributes[disagreement.field] = FIELD_NOT_FOUND;
+              consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
             } else {
-              consensus.agreedTop15Attributes[disagreement.field] = FIELD_NOT_FOUND;
+              consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
             }
-            disagreement.resolution = 'openai'; // Mark as resolved even if "Not Found"
+            
+            // Mark as resolved with the winning AI
+            disagreement.resolution = resolution.winner === 'xai' ? 'xai' : 'openai';
           }
         }
       }
@@ -721,6 +998,43 @@ export async function verifyProductWithDualAI(
       urlsScraped: dataSourceAnalysis.availableUrls.length,
       preResearchPerformed: !!preResearchResult,
     });
+
+    // FINAL PASS: Apply smart resolution to any remaining unresolved disagreements
+    // This handles cases where research was skipped/disabled but we still have disagreements
+    const stillUnresolved = consensus.disagreements.filter(d => d.resolution === 'unresolved');
+    if (stillUnresolved.length > 0) {
+      logger.info('FINAL PASS: Applying smart resolution to remaining unresolved fields', {
+        sessionId: verificationSessionId,
+        count: stillUnresolved.length,
+        fields: stillUnresolved.map(d => d.field)
+      });
+      
+      for (const disagreement of stillUnresolved) {
+        const resolution = resolveDisagreementSmart(
+          disagreement.field,
+          disagreement.openaiValue,
+          disagreement.xaiValue,
+          consensus.agreedCategory || 'Unknown',
+          dataSourceAnalysis.hasFergusonData,
+          researchResult || undefined
+        );
+        
+        logger.info(`Final smart resolution for "${disagreement.field}": ${resolution.winner} - ${resolution.reason}`, {
+          sessionId: verificationSessionId,
+          resolvedValue: resolution.resolvedValue
+        });
+        
+        // Apply to appropriate attribute set
+        if (disagreement.field in consensus.agreedPrimaryAttributes || 
+            ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
+          consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
+        } else {
+          consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
+        }
+        
+        disagreement.resolution = resolution.winner === 'xai' ? 'xai' : 'openai';
+      }
+    }
 
     const processingTime = Date.now() - startTime;
     const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount);
