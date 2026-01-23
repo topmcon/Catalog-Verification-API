@@ -1,0 +1,5863 @@
+{
+  "version": "2.0",
+  "date": "2026-01-23",
+  "total_categories": 61,
+  "categories": {
+    "Range": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EnIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Burners",
+          "sf_id": "a1aaZ000008mBvbQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Oven Capacity",
+          "sf_id": "a1aaZ000008mBw7QAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Convection",
+          "sf_id": "a1aaZ000008mBopQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Self Cleaning",
+          "sf_id": "a1aaZ000008mBxAQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Double Oven",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Air Fry",
+          "sf_id": "a1aaZ000008lz3fQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Induction",
+          "sf_id": "a1aaZ000008mBu3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Continuous Grates",
+          "sf_id": "a1aaZ000008mBolQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Griddle",
+          "sf_id": "a1aaZ000008mBswQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Sabbath Mode",
+          "sf_id": "a1aaZ000008mBx1QAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Refrigerator": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EpIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Total Capacity",
+          "sf_id": "a1aaZ000008mByiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Counter Depth",
+          "sf_id": "a1aaZ000008mBoyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Ice Maker",
+          "sf_id": "a1aaZ000008mBtmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Fingerprint Resistant",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Number Of Doors",
+          "sf_id": "a1aaZ000008mBvdQAE",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Refrigerator Capacity",
+          "sf_id": "a1aaZ000008mBwjQAE",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Freezer Capacity",
+          "sf_id": "a1aaZ000008mBscQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Dispenser Features",
+          "sf_id": "a1aaZ000008mBrKQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Internal Ice Maker",
+          "sf_id": "a1aaZ000008mBuGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Number of Zones",
+          "sf_id": "a1aaZ000008mBw0QAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Glass Doors",
+          "sf_id": "a1aaZ000008mBsuQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Dishwasher": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EiIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Place Setting Capacity",
+          "sf_id": "a1aaZ000008mBwNQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Stainless Steel Interior",
+          "sf_id": "a1aaZ000008mByKQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Number of Wash Cycles",
+          "sf_id": "a1aaZ000008mBvzQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Drying System",
+          "sf_id": "a1aaZ000008mBrjQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Fingerprint Resistant",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Panel Ready",
+          "sf_id": "a1aaZ000008mBwFQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Number Of Racks",
+          "sf_id": "a1aaZ000008mBvrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Cutlery Tray",
+          "sf_id": "a1aaZ000008mBp7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Dishwasher Type",
+          "sf_id": "a1aaZ000008mBrHQAU",
+          "type": "enum"
+        }
+      ]
+    },
+    "Wall Oven": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EmIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Oven Capacity",
+          "sf_id": "a1aaZ000008mBw7QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Convection",
+          "sf_id": "a1aaZ000008mBopQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Self Cleaning",
+          "sf_id": "a1aaZ000008mBxAQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Air Fry",
+          "sf_id": "a1aaZ000008lz3fQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Steam Cooking",
+          "sf_id": "a1aaZ000008mByLQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Combination Oven",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Door Type",
+          "sf_id": "a1aaZ000008mBrTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Meat Thermometer",
+          "sf_id": "a1aaZ000008mBuyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Sabbath Mode",
+          "sf_id": "a1aaZ000008mBx1QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Number Of Racks",
+          "sf_id": "a1aaZ000008mBvrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Microwave Capacity",
+          "sf_id": "a1aaZ000008mBv0QAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        }
+      ]
+    },
+    "Cooktop": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EhIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Burners",
+          "sf_id": "a1aaZ000008mBvbQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Induction",
+          "sf_id": "a1aaZ000008mBu3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Continuous Grates",
+          "sf_id": "a1aaZ000008mBolQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Griddle",
+          "sf_id": "a1aaZ000008mBswQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Downdraft Ventilated",
+          "sf_id": "a1aaZ000008mBrVQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Bridge Element",
+          "sf_id": "a1aaZ000008mBnmQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Hot Surface Indicator Lights",
+          "sf_id": "a1aaZ000008mBtcQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Power Burner",
+          "sf_id": "a1aaZ000008mBwRQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Ignition Type",
+          "sf_id": "a1aaZ000008mBtnQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "LP Conversion",
+          "sf_id": "a1aaZ000008mBuhQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Range Hood": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EoIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "CFM",
+          "sf_id": "a1aaZ000008mBoNQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Sones",
+          "sf_id": "a1aaZ000008mBy6QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Ductless",
+          "sf_id": "a1aaZ000008mBrmQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Fan Speeds",
+          "sf_id": "a1aaZ000008mBs8QAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Filter Type",
+          "sf_id": "a1aaZ000008mBsKQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Light Included",
+          "sf_id": "a1aaZ000008mBuZQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Convertible to Ductless",
+          "sf_id": "a1aaZ000008mBoqQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Blower",
+          "sf_id": "a1aaZ000008lz4sQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Includes Remote",
+          "sf_id": "a1aaZ000008mBtwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Duct Size",
+          "sf_id": "a1aaZ000008mBrlQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "CFM (High)",
+          "sf_id": "a1aaZ000008mBoOQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Washer": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EsIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Top Loading",
+          "sf_id": "a1aaZ000008mBygQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 2,
+          "name": "Front Loading",
+          "sf_id": "a1aaZ000008mBsgQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 3,
+          "name": "Washer Capacity",
+          "sf_id": "a1aaZ000008mBzWQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Steam Technology",
+          "sf_id": "a1aaZ000008mByMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Agitator",
+          "sf_id": "a1aaZ000008lz3bQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Stackable",
+          "sf_id": "a1aaZ000008mByIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Pedestal Included",
+          "sf_id": "a1aaZ000008mBwIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Number of Wash Cycles",
+          "sf_id": "a1aaZ000008mBvzQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Washer RPM",
+          "sf_id": "a1aaZ000008mBzXQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Sanitary Rinse",
+          "sf_id": "a1aaZ000008mBx4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Drive Type",
+          "sf_id": "a1aaZ000008mBrfQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Detergent Dispenser",
+          "sf_id": "a1aaZ000008mBrDQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Dryer": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EjIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Vent Type",
+          "sf_id": "a1aaZ000008mBzMQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Dryer Capacity",
+          "sf_id": "a1aaZ000008mBriQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Steam Technology",
+          "sf_id": "a1aaZ000008mByMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Sensor Dry",
+          "sf_id": "a1aaZ000008mBxEQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Stackable",
+          "sf_id": "a1aaZ000008mByIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Pedestal Included",
+          "sf_id": "a1aaZ000008mBwIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Number of Dry Cycles",
+          "sf_id": "a1aaZ000008mBvgQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Drum Material",
+          "sf_id": "a1aaZ000008mBrhQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Sanitary Rinse",
+          "sf_id": "a1aaZ000008mBx4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Door Swing",
+          "sf_id": "a1aaZ000008mBrRQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Interior Light",
+          "sf_id": "a1aaZ000008mBuDQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Freezer": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EkIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Freezer Capacity",
+          "sf_id": "a1aaZ000008mBscQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Defrost Type",
+          "sf_id": "a1aaZ000008mBpNQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Lockable",
+          "sf_id": "a1aaZ000008mBudQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Interior Light",
+          "sf_id": "a1aaZ000008mBuDQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Adjustable Shelves",
+          "sf_id": "a1aaZ000008lz3ZQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Temperature Display",
+          "sf_id": "a1aaZ000008mByZQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Outdoor Approved",
+          "sf_id": "a1aaZ000008mBw4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Number Of Drawers",
+          "sf_id": "a1aaZ000008mBvfQAE",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Door Type",
+          "sf_id": "a1aaZ000008mBrTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Frost Free",
+          "sf_id": "a1aaZ000008mBslQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Adjustable Thermostat",
+          "sf_id": "a1aaZ000008lz3aQAA",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Wine Cooler": {
+      "department": "APPLIANCES",
+      "category_id": "a01aZ00000MlHtiQAF",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Wine Bottle Capacity",
+          "sf_id": "a1aaZ000008mBzrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Number of Zones",
+          "sf_id": "a1aaZ000008mBw0QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Cooling Type",
+          "sf_id": "a1aaZ000008mBotQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Can Capacity",
+          "sf_id": "a1aaZ000008mBo9QAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Shelf Material",
+          "sf_id": "a1aaZ000008mBxVQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Interior Light",
+          "sf_id": "a1aaZ000008mBuDQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Lockable",
+          "sf_id": "a1aaZ000008mBudQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Glass Doors",
+          "sf_id": "a1aaZ000008mBsuQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Temperature Display",
+          "sf_id": "a1aaZ000008mByZQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Temperature (Min)",
+          "sf_id": "a1aaZ000008mByYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Temperature (Max)",
+          "sf_id": "a1aaZ000008mByXQAU",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Door Swing",
+          "sf_id": "a1aaZ000008mBrRQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Microwave": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5ElIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Microwave Capacity",
+          "sf_id": "a1aaZ000008mBv0QAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "CFM",
+          "sf_id": "a1aaZ000008mBoNQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Convection",
+          "sf_id": "a1aaZ000008mBopQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Sensor Cooking",
+          "sf_id": "a1aaZ000008mBxDQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Turntable",
+          "sf_id": "a1aaZ000008mByyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Steam Cooking",
+          "sf_id": "a1aaZ000008mByLQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Air Fry",
+          "sf_id": "a1aaZ000008lz3fQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Fingerprint Resistant",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Auto Shut Off",
+          "sf_id": "a1aaZ000008lz3yQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Automatic Defrost",
+          "sf_id": "a1aaZ000008lz41QAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Turntable Diameter",
+          "sf_id": "a1aaZ000008mByzQAE",
+          "type": "number"
+        }
+      ]
+    },
+    "Toilets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DyQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Bowl Shape",
+          "sf_id": "a1aaZ000008lz50QAA",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Flush Type",
+          "sf_id": "a1aaZ000008mBsVQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Gallons Per Flush",
+          "sf_id": "a1aaZ000008mBspQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Bowl Height",
+          "sf_id": "a1aaZ000008lz4zQAA",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Rough In",
+          "sf_id": "a1aaZ000008mBwwQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Seat Included",
+          "sf_id": "a1aaZ000008mBx9QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "WaterSense Certified",
+          "sf_id": "a1aaZ000008mBziQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Trapway",
+          "sf_id": "a1aaZ000008mByoQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Bidet Seat Included",
+          "sf_id": "a1aaZ000008lz4kQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Flush Technology",
+          "sf_id": "a1aaZ000008mBsUQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Night Light",
+          "sf_id": "a1aaZ000008mBvMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Toilet Seats": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DxQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Bowl Shape",
+          "sf_id": "a1aaZ000008lz50QAA",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Bidet Seat Included",
+          "sf_id": "a1aaZ000008lz4kQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Heater Included",
+          "sf_id": "a1aaZ000008mBtMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Night Light",
+          "sf_id": "a1aaZ000008mBvMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Quick Release",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Antimicrobial",
+          "sf_id": "a1aaZ000008lz3mQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Seat Front",
+          "sf_id": "a1aaZ000008mBx8QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Remote Control",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Kitchen Faucets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5E9QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Faucet Type",
+          "sf_id": "a1aaZ000008mBsGQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Handles",
+          "sf_id": "a1aaZ000008mBviQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Spout Height",
+          "sf_id": "a1aaZ000008mBy9QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Spout Reach",
+          "sf_id": "a1aaZ000008mByAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Touchless Faucet",
+          "sf_id": "a1aaZ000008mBylQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Voice Activated",
+          "sf_id": "a1aaZ000008mBzPQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Spray Settings",
+          "sf_id": "a1aaZ000008mByHQAU",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "WaterSense Certified",
+          "sf_id": "a1aaZ000008mBziQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Soap Dispenser Included",
+          "sf_id": "a1aaZ000008mBy1QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Magnetic Docking",
+          "sf_id": "a1aaZ000008mBumQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Pre Rinse",
+          "sf_id": "a1aaZ000008mBwUQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Spout Style",
+          "sf_id": "a1aaZ000008mByBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Handle Style",
+          "sf_id": "a1aaZ000008mBtBQAU",
+          "type": "enum"
+        }
+      ]
+    },
+    "Bathroom Faucets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DeQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Faucet Mounting Type",
+          "sf_id": "a1aaZ000008mBsFQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Handles",
+          "sf_id": "a1aaZ000008mBviQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Spout Height",
+          "sf_id": "a1aaZ000008mBy9QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Spout Reach",
+          "sf_id": "a1aaZ000008mByAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "WaterSense Certified",
+          "sf_id": "a1aaZ000008mBziQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Touchless Faucet",
+          "sf_id": "a1aaZ000008mBylQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Handle Style",
+          "sf_id": "a1aaZ000008mBtBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Spout Style",
+          "sf_id": "a1aaZ000008mByBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Vessel Faucet",
+          "sf_id": "a1aaZ000008mBzNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Bar Faucets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5E3QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Faucet Type",
+          "sf_id": "a1aaZ000008mBsGQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Handles",
+          "sf_id": "a1aaZ000008mBviQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Spout Height",
+          "sf_id": "a1aaZ000008mBy9QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Spout Reach",
+          "sf_id": "a1aaZ000008mByAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Touchless Faucet",
+          "sf_id": "a1aaZ000008mBylQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Handle Style",
+          "sf_id": "a1aaZ000008mBtBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Spout Style",
+          "sf_id": "a1aaZ000008mByBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Spout Swivel",
+          "sf_id": "a1aaZ000008mByCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "WaterSense Certified",
+          "sf_id": "a1aaZ000008mBziQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Deck Plate Included",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Pot Filler Faucets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5EHQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Spout Reach",
+          "sf_id": "a1aaZ000008mByAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Handles",
+          "sf_id": "a1aaZ000008mBviQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Spout Swivel",
+          "sf_id": "a1aaZ000008mByCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Handle Style",
+          "sf_id": "a1aaZ000008mBtBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Valve Included",
+          "sf_id": "a1aaZ000008mBz7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "NSF Certified",
+          "sf_id": "a1aaZ000008mBuRQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Low Lead Compliant",
+          "sf_id": "a1aaZ000008mBugQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Country Of Origin",
+          "sf_id": "a1aaZ000008mBp0QAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Bathtubs": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DlQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Drain Placement",
+          "sf_id": "a1aaZ000008mBraQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Nominal Length",
+          "sf_id": "a1aaZ000008mBvSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Nominal Width",
+          "sf_id": "a1aaZ000008mBvUQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Number Of Bathers",
+          "sf_id": "a1aaZ000008mBvXQAU",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Tub Shape",
+          "sf_id": "a1aaZ000008mByvQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Capacity (Gallons)",
+          "sf_id": "a1aaZ000008mBoDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Overflow",
+          "sf_id": "a1aaZ000008mBwCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Water Depth",
+          "sf_id": "a1aaZ000008mBzcQAE",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Accepts Deck Mount Faucet",
+          "sf_id": "a1aaZ000008lz3UQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Soaking",
+          "sf_id": "a1aaZ000008mBy0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Number of Jets",
+          "sf_id": "a1aaZ000008mBvkQAE",
+          "type": "number"
+        }
+      ]
+    },
+    "Tub Faucets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DzQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Handles",
+          "sf_id": "a1aaZ000008mBviQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Handshower Included",
+          "sf_id": "a1aaZ000008mBtIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Diverter Included",
+          "sf_id": "a1aaZ000008mBrNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Spout Reach",
+          "sf_id": "a1aaZ000008mByAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Valve Included",
+          "sf_id": "a1aaZ000008mBz7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Handle Style",
+          "sf_id": "a1aaZ000008mBtBQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Tub Spout Included",
+          "sf_id": "a1aaZ000008mBywQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Clawfoot Tub Filler",
+          "sf_id": "a1aaZ000008mBoUQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Low Lead Compliant",
+          "sf_id": "a1aaZ000008mBugQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        }
+      ]
+    },
+    "Showers": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DuQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Shower Head Included",
+          "sf_id": "a1aaZ000008mBxaQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 2,
+          "name": "Handshower Included",
+          "sf_id": "a1aaZ000008mBtIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Functions",
+          "sf_id": "a1aaZ000008mBvhQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Valve Included",
+          "sf_id": "a1aaZ000008mBz7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Showerhead Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBxcQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Spray Pattern",
+          "sf_id": "a1aaZ000008mByGQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Bodysprays Included",
+          "sf_id": "a1aaZ000008lz4vQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Number Of Bodysprays",
+          "sf_id": "a1aaZ000008mBvZQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Slide Bar Included",
+          "sf_id": "a1aaZ000008mBxvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Showerhead Shape",
+          "sf_id": "a1aaZ000008mBxfQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Volume Control",
+          "sf_id": "a1aaZ000008mBzSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "H2Okinetic",
+          "sf_id": "a1aaZ000008mBt3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "WaterSense Certified",
+          "sf_id": "a1aaZ000008mBziQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Shower Accessories": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DsQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Accessory Type",
+          "sf_id": "a1aaZ000008lz3VQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Installation Hardware Included",
+          "sf_id": "a1aaZ000008mBu6QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Concealed Screws",
+          "sf_id": "a1aaZ000008mBogQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Slip Resistant",
+          "sf_id": "a1aaZ000008mBxwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 13,
+          "name": "Vandal Resistant",
+          "sf_id": "a1aaZ000008mBzEQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Projection",
+          "sf_id": "a1aaZ000008mBwYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Marine Grade",
+          "sf_id": "a1aaZ000008mBuoQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Bathroom Hardware": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DfQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Accessory Type",
+          "sf_id": "a1aaZ000008lz3VQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Installation Hardware Included",
+          "sf_id": "a1aaZ000008mBu6QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Concealed Screws",
+          "sf_id": "a1aaZ000008mBogQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Projection",
+          "sf_id": "a1aaZ000008mBwYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 10,
+          "name": "Comes in Set",
+          "sf_id": "a1aaZ000008mBodQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Number of Bars",
+          "sf_id": "a1aaZ000008mBvVQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Number of Rolls",
+          "sf_id": "a1aaZ000008mBvsQAE",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Vandal Resistant",
+          "sf_id": "a1aaZ000008mBzEQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Marine Grade",
+          "sf_id": "a1aaZ000008mBuoQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Bathroom Mirrors": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DhQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Mirror Type",
+          "sf_id": "a1aaZ000008mBvEQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Mirror Shape",
+          "sf_id": "a1aaZ000008mBvDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Frame Material",
+          "sf_id": "a1aaZ000008mBsZQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Medicine Cabinet Included",
+          "sf_id": "a1aaZ000008mBuzQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Mirror Features",
+          "sf_id": "a1aaZ000008mBvAQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Adjustable Color Temperature",
+          "sf_id": "a1aaZ000008lz3YQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Touch Control",
+          "sf_id": "a1aaZ000008mBykQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "USB Port",
+          "sf_id": "a1aaZ000008mBz5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Electrical Outlet",
+          "sf_id": "a1aaZ000008mBrpQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Orientation",
+          "sf_id": "a1aaZ000008mBw3QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Beveled",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Bathroom Vanities": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DjQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Vanity Top Included",
+          "sf_id": "a1aaZ000008mBzHQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 3,
+          "name": "Vanity Top Material",
+          "sf_id": "a1aaZ000008mBzIQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Sink Included",
+          "sf_id": "a1aaZ000008mBxoQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Cabinet Material",
+          "sf_id": "a1aaZ000008mBo7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Number Of Drawers",
+          "sf_id": "a1aaZ000008mBvfQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Number Of Doors",
+          "sf_id": "a1aaZ000008mBvdQAE",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Faucet Included",
+          "sf_id": "a1aaZ000008mBsEQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Mirror Included",
+          "sf_id": "a1aaZ000008mBvCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Soft Close Slides",
+          "sf_id": "a1aaZ000008mBy3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Bathroom Sinks": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DiQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Sink Shape",
+          "sf_id": "a1aaZ000008mBxrQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Sink Material",
+          "sf_id": "a1aaZ000008mBxqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Number Of Basins",
+          "sf_id": "a1aaZ000008mBvWQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Overflow",
+          "sf_id": "a1aaZ000008mBwCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Basin Depth",
+          "sf_id": "a1aaZ000008lz4PQAQ",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Faucet Centers",
+          "sf_id": "a1aaZ000008mBsBQAU",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Sound Dampening",
+          "sf_id": "a1aaZ000008mBy7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Pop-Up Included",
+          "sf_id": "a1aaZ000008mBwPQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Certifications",
+          "sf_id": "a1aaZ000008mBoMQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Bar & Prep Sinks": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5E2QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Sink Material",
+          "sf_id": "a1aaZ000008mBxqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Sink Shape",
+          "sf_id": "a1aaZ000008mBxrQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Number Of Basins",
+          "sf_id": "a1aaZ000008mBvWQAU",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Basin Depth",
+          "sf_id": "a1aaZ000008lz4PQAQ",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Gauge",
+          "sf_id": "a1aaZ000008mBstQAE",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Sound Dampening",
+          "sf_id": "a1aaZ000008mBy7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Basin Rack Included",
+          "sf_id": "a1aaZ000008lz4XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Corner Sink",
+          "sf_id": "a1aaZ000008mBoxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Drainboard",
+          "sf_id": "a1aaZ000008mBrdQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Stainless Steel Grade",
+          "sf_id": "a1aaZ000008mByJQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Workstation Sink",
+          "sf_id": "a1aaZ000008mBzxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Kitchen Sinks": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5EDQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Sink Material",
+          "sf_id": "a1aaZ000008mBxqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Basin Depth",
+          "sf_id": "a1aaZ000008lz4PQAQ",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Number Of Basins",
+          "sf_id": "a1aaZ000008mBvWQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Gauge",
+          "sf_id": "a1aaZ000008mBstQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Sound Dampening",
+          "sf_id": "a1aaZ000008mBy7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Farmhouse",
+          "sf_id": "a1aaZ000008mBsAQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Basin Rack Included",
+          "sf_id": "a1aaZ000008lz4XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Workstation Sink",
+          "sf_id": "a1aaZ000008mBzxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Cutting Board Included",
+          "sf_id": "a1aaZ000008mBpCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Colander Included",
+          "sf_id": "a1aaZ000008mBoYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Stainless Steel Grade",
+          "sf_id": "a1aaZ000008mByJQAU",
+          "type": "enum"
+        }
+      ]
+    },
+    "Garbage Disposals": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5E6QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Horsepower",
+          "sf_id": "a1aaZ000008mBtZQAU",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Feed Type",
+          "sf_id": "a1aaZ000008mBsIQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Motor Type",
+          "sf_id": "a1aaZ000008mBvJQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Sound Dampening",
+          "sf_id": "a1aaZ000008mBy7QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Auto Shut Off",
+          "sf_id": "a1aaZ000008lz3yQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Stainless Steel Interior",
+          "sf_id": "a1aaZ000008mByKQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Power Source",
+          "sf_id": "a1aaZ000008mBwTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Amperage",
+          "sf_id": "a1aaZ000008lz3iQAA",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "RPM",
+          "sf_id": "a1aaZ000008mBwxQAE",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        },
+        {
+          "rank": 14,
+          "name": "Septic Safe",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Drains": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000LZgWFQA1",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Drain Type",
+          "sf_id": "a1aaZ000008mBrcQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Drain Connection",
+          "sf_id": "a1aaZ000008mBrZQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Overflow",
+          "sf_id": "a1aaZ000008mBwCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Application",
+          "sf_id": "a1aaZ000008lz3pQAA",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Low Lead Compliant",
+          "sf_id": "a1aaZ000008mBugQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Installation Hardware Included",
+          "sf_id": "a1aaZ000008mBu6QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Certifications",
+          "sf_id": "a1aaZ000008mBoMQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Rough-In Valves": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DrQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Valve Type",
+          "sf_id": "a1aaZ000008mBzDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Functions",
+          "sf_id": "a1aaZ000008mBvhQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Integrated Volume Control",
+          "sf_id": "a1aaZ000008mBu9QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Integrated Diverter",
+          "sf_id": "a1aaZ000008mBu8QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Inlet Area",
+          "sf_id": "a1aaZ000008mBu4QAE",
+          "type": "string"
+        },
+        {
+          "rank": 6,
+          "name": "Service Stops Included",
+          "sf_id": "a1aaZ000008mBxGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Valve Trim Included",
+          "sf_id": "a1aaZ000008mBzAQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "ASSE Code",
+          "sf_id": "a1aaZ000008lz3vQAA",
+          "type": "string"
+        },
+        {
+          "rank": 10,
+          "name": "For Use With",
+          "sf_id": null,
+          "type": "string"
+        },
+        {
+          "rank": 11,
+          "name": "Scald Guard",
+          "sf_id": "a1aaZ000008mBx5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Low Lead Compliant",
+          "sf_id": "a1aaZ000008mBugQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Valve Technology",
+          "sf_id": "a1aaZ000008mBz8QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Bidets": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DoQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Faucet Holes",
+          "sf_id": "a1aaZ000008mBsDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Spray Adjustability",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Heater Included",
+          "sf_id": "a1aaZ000008mBtMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Drain Assembly Included",
+          "sf_id": "a1aaZ000008mBrYQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Overflow",
+          "sf_id": "a1aaZ000008mBwCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Rough In",
+          "sf_id": "a1aaZ000008mBwwQAE",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 11,
+          "name": "Night Light",
+          "sf_id": "a1aaZ000008mBvMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Remote Control",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Air Dryer",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Deodorizer",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Certifications",
+          "sf_id": "a1aaZ000008mBoMQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Steam Showers": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dC5DvQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Kilowatts",
+          "sf_id": "a1aaZ000008mBuKQAU",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Max Room Volume",
+          "sf_id": "a1aaZ000008mBusQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Control Type",
+          "sf_id": "a1aaZ000008mBonQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Chromatherapy",
+          "sf_id": "a1aaZ000008mBoTQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Built-In Speakers",
+          "sf_id": "a1aaZ000008mBntQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Aromatherapy",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Auto Drain",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "App Compatibility",
+          "sf_id": "a1aaZ000008lz3oQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Includes Timer",
+          "sf_id": "a1aaZ000008mBu0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Temperature Display",
+          "sf_id": "a1aaZ000008mByZQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Settings",
+          "sf_id": "a1aaZ000008mBxHQAU",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        },
+        {
+          "rank": 14,
+          "name": "Electrical Phases",
+          "sf_id": "a1aaZ000008mBrqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Water Heaters": {
+      "department": "PLUMBING",
+      "category_id": "a01aZ00000dCekHQAS",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Total Capacity",
+          "sf_id": "a1aaZ000008mByiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Flow Rate (GPM)",
+          "sf_id": "a1aaZ000008mBsSQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Energy Efficient",
+          "sf_id": "a1aaZ000008mBruQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Vent Type",
+          "sf_id": "a1aaZ000008mBzMQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Temperature Display",
+          "sf_id": "a1aaZ000008mByZQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        },
+        {
+          "rank": 14,
+          "name": "AHRI Production",
+          "sf_id": "a1aaZ000008lz3cQAA",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Outdoor Approved",
+          "sf_id": "a1aaZ000008mBw4QAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Chandeliers": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5ELQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Chandelier Type",
+          "sf_id": "a1aaZ000008mBoRQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Maximum Adjustable Height",
+          "sf_id": "a1aaZ000008mBuvQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Sloped Ceiling Compatible",
+          "sf_id": "a1aaZ000008mBxxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Crystal Type",
+          "sf_id": "a1aaZ000008mBp3QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Chain Length",
+          "sf_id": "a1aaZ000008mBoQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Number of Tiers",
+          "sf_id": "a1aaZ000008mBvxQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Ceiling Fans": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EjQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Blade Span",
+          "sf_id": "a1aaZ000008lz4pQAA",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Number of Blades",
+          "sf_id": "a1aaZ000008mBvYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Light Kit Included",
+          "sf_id": "a1aaZ000008mBubQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Motor Type",
+          "sf_id": "a1aaZ000008mBvJQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Fan Speeds",
+          "sf_id": "a1aaZ000008mBs8QAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Includes Remote",
+          "sf_id": "a1aaZ000008mBtwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Reversible Motor",
+          "sf_id": "a1aaZ000008mBwrQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "CFM",
+          "sf_id": "a1aaZ000008mBoNQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Fan Blade Material",
+          "sf_id": "a1aaZ000008mBs7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Downrod Included",
+          "sf_id": "a1aaZ000008mBrXQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Light Kit Compatible",
+          "sf_id": "a1aaZ000008mBuaQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Low Ceiling Adaptable",
+          "sf_id": "a1aaZ000008mBufQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Pendant Lights": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EXQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Pendant Type",
+          "sf_id": "a1aaZ000008mBwKQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Maximum Adjustable Height",
+          "sf_id": "a1aaZ000008mBuvQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Sloped Ceiling Compatible",
+          "sf_id": "a1aaZ000008mBxxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Cord Length",
+          "sf_id": "a1aaZ000008mBowQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Shade Diameter",
+          "sf_id": "a1aaZ000008mBxMQAU",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Pendant Size",
+          "sf_id": "a1aaZ000008mBwJQAU",
+          "type": "enum"
+        }
+      ]
+    },
+    "Ceiling Lights": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EKQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Fixture Type",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Lumens",
+          "sf_id": "a1aaZ000008mBuiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Color Temperature",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Sloped Ceiling Compatible",
+          "sf_id": "a1aaZ000008mBxxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 15,
+          "name": "Canopy Size",
+          "sf_id": "a1aaZ000008mBoHQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Bathroom Vanity Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EdQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Light Direction",
+          "sf_id": "a1aaZ000008mBuZQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Backplate Shape",
+          "sf_id": "a1aaZ000008lz4NQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Shade Shape",
+          "sf_id": "a1aaZ000008mBxPQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Color Temperature",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "number"
+        }
+      ]
+    },
+    "Wall Sconces": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EeQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Light Direction",
+          "sf_id": "a1aaZ000008mBuZQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Backplate Shape",
+          "sf_id": "a1aaZ000008lz4NQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Projection",
+          "sf_id": "a1aaZ000008mBwYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Hardwired",
+          "sf_id": "a1aaZ000008mBt5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Switch On Fixture",
+          "sf_id": "a1aaZ000008mByPQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Recessed Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EZQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Housing Type",
+          "sf_id": "a1aaZ000008mBtdQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Aperture Size",
+          "sf_id": "a1aaZ000008lz3nQAA",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Trim Type",
+          "sf_id": "a1aaZ000008mByuQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Lumens",
+          "sf_id": "a1aaZ000008mBuiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Color Temperature",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Adjustable Color Temperature",
+          "sf_id": "a1aaZ000008lz3YQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Air Tight",
+          "sf_id": "a1aaZ000008lz3kQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Fire Rated",
+          "sf_id": "a1aaZ000008mBsLQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "CRI",
+          "sf_id": "a1aaZ000008mBoBQAU",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Track Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EbQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Track Type",
+          "sf_id": "a1aaZ000008mByqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Track Length",
+          "sf_id": "a1aaZ000008mByrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Fixture Type",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Sloped Ceiling Compatible",
+          "sf_id": "a1aaZ000008mBxxQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Outdoor Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dCejvQAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Light Type",
+          "sf_id": "a1aaZ000008mBuYQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Motion Sensor",
+          "sf_id": "a1aaZ000008mBvHQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Dusk to Dawn",
+          "sf_id": "a1aaZ000008mBriQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Solar",
+          "sf_id": "a1aaZ000008mBy4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Lumens",
+          "sf_id": "a1aaZ000008mBuiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Dark Sky Compliant",
+          "sf_id": "a1aaZ000008mBp9QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Post Size",
+          "sf_id": "a1aaZ000008mBwXQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Lamps": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dCekOQAS",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Lamp Type",
+          "sf_id": "a1aaZ000008mBuQQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Switch Type",
+          "sf_id": "a1aaZ000008mByMQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "USB Port",
+          "sf_id": "a1aaZ000008mBz5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Electrical Outlet",
+          "sf_id": "a1aaZ000008mBrpQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Shade Shape",
+          "sf_id": "a1aaZ000008mBxPQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Commercial Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EMQA0",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fixture Type",
+          "sf_id": "a1aaZ000008mBsNQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Lumens",
+          "sf_id": "a1aaZ000008mBuiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Color Temperature",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "DLC",
+          "sf_id": "a1aaZ000008mBpIQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "CRI",
+          "sf_id": "a1aaZ000008mBoBQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Location Rating",
+          "sf_id": "a1aaZ000008mBucQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Grid Size",
+          "sf_id": "a1aaZ000008mBsxQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Emergency Battery",
+          "sf_id": "a1aaZ000008mBrnQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Vandal Resistant",
+          "sf_id": "a1aaZ000008mBzEQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Sensor Compatible",
+          "sf_id": "a1aaZ000008mBx6QAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Under Cabinet Lighting": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EcQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 2,
+          "name": "Fixture Length",
+          "sf_id": "a1aaZ000008mBsPQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Color Temperature",
+          "sf_id": "a1aaZ000008mBocQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Lumens",
+          "sf_id": "a1aaZ000008mBuiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Linkable",
+          "sf_id": "a1aaZ000008mBueQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Plug In",
+          "sf_id": "a1aaZ000008mBwSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Hardwired",
+          "sf_id": "a1aaZ000008mBt5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Light Type",
+          "sf_id": "a1aaZ000008mBuYQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 10,
+          "name": "Adjustable Color Temperature",
+          "sf_id": "a1aaZ000008lz3YQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Motion Sensor",
+          "sf_id": "a1aaZ000008mBvHQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Switch On Fixture",
+          "sf_id": "a1aaZ000008mByPQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "CRI",
+          "sf_id": "a1aaZ000008mBoBQAU",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Wattage",
+          "sf_id": "a1aaZ000008mBzkQAE",
+          "type": "number"
+        }
+      ]
+    },
+    "Ceiling Fan Accessories": {
+      "department": "LIGHTING",
+      "category_id": "a01aZ00000dC5EiQAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Accessory Type",
+          "sf_id": "a1aaZ000008lz3VQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Blade Span",
+          "sf_id": "a1aaZ000008lz4pQAA",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Number of Blades",
+          "sf_id": "a1aaZ000008mBvYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Fan Blade Material",
+          "sf_id": "a1aaZ000008mBs7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Number Of Lights",
+          "sf_id": "a1aaZ000008mBvoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Bulb Type",
+          "sf_id": "a1aaZ000008mBnyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Bulb Included",
+          "sf_id": "a1aaZ000008mBnwQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "For Outdoor Use",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Shade Material",
+          "sf_id": "a1aaZ000008mBxOQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Reversible",
+          "sf_id": "a1aaZ000008mBwrQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Universal Fit",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "Downrod Length",
+          "sf_id": "a1aaZ000008mBrWQAU",
+          "type": "number"
+        }
+      ]
+    },
+    "Cabinet Hardware": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dC5F2QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Hardware Type",
+          "sf_id": "a1aaZ000008mBt7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Center To Center",
+          "sf_id": "a1aaZ000008mBoLQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Projection",
+          "sf_id": "a1aaZ000008mBwYQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Installation Hardware Included",
+          "sf_id": "a1aaZ000008mBu6QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Overall Length",
+          "sf_id": "a1aaZ000008mBw7QAE",
+          "type": "number"
+        },
+        {
+          "rank": 8,
+          "name": "Antimicrobial",
+          "sf_id": "a1aaZ000008lz3mQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Backplate Included",
+          "sf_id": "a1aaZ000008lz4OQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        },
+        {
+          "rank": 14,
+          "name": "Comes in Set",
+          "sf_id": "a1aaZ000008mBodQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Country Of Origin",
+          "sf_id": "a1aaZ000008mBp0QAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Cabinet Organization": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dCejbQAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Organizer Type",
+          "sf_id": null,
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Soft Close Slides",
+          "sf_id": "a1aaZ000008mBy3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Full Extension",
+          "sf_id": "a1aaZ000008mBssQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Installation Hardware Included",
+          "sf_id": "a1aaZ000008mBu6QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Pull Out",
+          "sf_id": "a1aaZ000008mBwbQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Lazy Susan",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Load Capacity",
+          "sf_id": null,
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Dividers Included",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Door Hardware": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dC5F9QAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Door Hardware Type",
+          "sf_id": "a1aaZ000008mBrbQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Function",
+          "sf_id": "a1aaZ000008mBsWQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Smart Lock",
+          "sf_id": "a1aaZ000008mBxzQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Keyless Entry",
+          "sf_id": "a1aaZ000008mBuLQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "ANSI Grade",
+          "sf_id": "a1aaZ000008lz3lQAA",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Handedness",
+          "sf_id": "a1aaZ000008mBt4QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "App Compatibility",
+          "sf_id": "a1aaZ000008lz3oQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Keyed Alike",
+          "sf_id": "a1aaZ000008mBuJQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Fire Rated",
+          "sf_id": "a1aaZ000008mBsLQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Backset",
+          "sf_id": "a1aaZ000008lz4QQAQ",
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Door Thickness",
+          "sf_id": "a1aaZ000008mBrhQAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Mirrors": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dCekJQAS",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Mirror Type",
+          "sf_id": "a1aaZ000008mBvEQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Mirror Shape",
+          "sf_id": "a1aaZ000008mBvDQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Frame Material",
+          "sf_id": "a1aaZ000008mBsZQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Orientation",
+          "sf_id": "a1aaZ000008mBw3QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Dimmable",
+          "sf_id": "a1aaZ000008mBrGQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Beveled",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Full Length",
+          "sf_id": "a1aaZ000008mBsvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Magnification",
+          "sf_id": "a1aaZ000008mBujQAE",
+          "type": "number"
+        },
+        {
+          "rank": 11,
+          "name": "Adjustable Color Temperature",
+          "sf_id": "a1aaZ000008lz3YQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Touch Control",
+          "sf_id": "a1aaZ000008mBykQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "USB Port",
+          "sf_id": "a1aaZ000008mBz5QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Electrical Outlet",
+          "sf_id": "a1aaZ000008mBrpQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Furniture": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dCekIQAS",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Furniture Type",
+          "sf_id": "a1aaZ000008mBszQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "For Indoor or Outdoor Use",
+          "sf_id": "a1aaZ000008mBsKQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Number Of Drawers",
+          "sf_id": "a1aaZ000008mBvfQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Upholstery Material",
+          "sf_id": "a1aaZ000008mBz3QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Seating Capacity",
+          "sf_id": "a1aaZ000008mBx7QAE",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Storage Included",
+          "sf_id": "a1aaZ000008mByMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Stain Resistant",
+          "sf_id": "a1aaZ000008mByMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "UV Resistant",
+          "sf_id": "a1aaZ000008mBz4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Outdoor Fireplaces & Fire Pits": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dCek7QAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Fireplace Type",
+          "sf_id": "a1aaZ000008mBsQQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 4,
+          "name": "Shape",
+          "sf_id": "a1aaZ000008mBxTQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Ignition Type",
+          "sf_id": "a1aaZ000008mBtqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Fire Glass Included",
+          "sf_id": "a1aaZ000008mBsJQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Cover Included",
+          "sf_id": "a1aaZ000008mBp1QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Tank Enclosure",
+          "sf_id": "a1aaZ000008mByaQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Spark Screen Included",
+          "sf_id": "a1aaZ000008mByFQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Portable",
+          "sf_id": "a1aaZ000008mBwVQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "CSA Certified",
+          "sf_id": "a1aaZ000008mBp4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Storage & Closet Systems": {
+      "department": "HOME_DECOR",
+      "category_id": "a01aZ00000dCejPQAS",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Storage Type",
+          "sf_id": null,
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Number Of Shelves",
+          "sf_id": "a1aaZ000008mBvtQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Adjustable",
+          "sf_id": "a1aaZ000008lz3XQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Modular",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Number Of Drawers",
+          "sf_id": "a1aaZ000008mBvfQAE",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Number Of Doors",
+          "sf_id": "a1aaZ000008mBvdQAE",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Soft Close Hinges",
+          "sf_id": "a1aaZ000008mBy2QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Soft Close Slides",
+          "sf_id": "a1aaZ000008mBy3QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Lockable",
+          "sf_id": "a1aaZ000008mBuqQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Rust Resistant",
+          "sf_id": "a1aaZ000008mBx0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Load Capacity",
+          "sf_id": null,
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Air Conditioners": {
+      "department": "HVAC",
+      "category_id": "a01aZ00000dCek0QAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "AC Type",
+          "sf_id": "a1aaZ000008lz3TQAQ",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "BTU Capacity",
+          "sf_id": "a1aaZ000008mBnsQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Coverage Area",
+          "sf_id": "a1aaZ000008mBp2QAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "SEER Rating",
+          "sf_id": "a1aaZ000008mBxDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Inverter Technology",
+          "sf_id": "a1aaZ000008mBuCQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 10,
+          "name": "Heater Included",
+          "sf_id": "a1aaZ000008mBtMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Dehumidifier",
+          "sf_id": "a1aaZ000008mBrFQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Remote Control",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Includes Timer",
+          "sf_id": "a1aaZ000008mBu0QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Fan Speeds",
+          "sf_id": "a1aaZ000008mBs8QAE",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Filter Type",
+          "sf_id": "a1aaZ000008mBsOQAU",
+          "type": "enum"
+        }
+      ]
+    },
+    "Furnaces & Heaters": {
+      "department": "HVAC",
+      "category_id": "a01aZ00000dCek9QAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "AFUE Rating",
+          "sf_id": null,
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Coverage Area",
+          "sf_id": "a1aaZ000008mBp2QAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Configuration",
+          "sf_id": "a1aaZ000008mBojQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Multi-Stage",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 9,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "ECM Motor",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Vent Type",
+          "sf_id": "a1aaZ000008mBzMQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        },
+        {
+          "rank": 15,
+          "name": "CSA Certified",
+          "sf_id": "a1aaZ000008mBp4QAE",
+          "type": "boolean"
+        }
+      ]
+    },
+    "Hydronic Expansion Tanks": {
+      "department": "HVAC",
+      "category_id": "a01aZ00000dFPfcQAG",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Total Capacity",
+          "sf_id": "a1aaZ000008mByiQAE",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Application",
+          "sf_id": "a1aaZ000008lz3pQAA",
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Maximum Working Pressure",
+          "sf_id": "a1aaZ000008mBuxQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Connection Size",
+          "sf_id": "a1aaZ000008mBokQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Pre-Charge Pressure",
+          "sf_id": null,
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Mounting Type",
+          "sf_id": "a1aaZ000008mBvLQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "NSF Certified",
+          "sf_id": "a1aaZ000008mBuRQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Certifications",
+          "sf_id": "a1aaZ000008mBoMQAU",
+          "type": "string"
+        },
+        {
+          "rank": 10,
+          "name": "Orientation",
+          "sf_id": "a1aaZ000008mBw3QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 11,
+          "name": "Replaceable Bladder",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Temperature Range",
+          "sf_id": null,
+          "type": "number"
+        },
+        {
+          "rank": 13,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        },
+        {
+          "rank": 14,
+          "name": "Commercial Use",
+          "sf_id": "a1aaZ000008lz3qQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Country Of Origin",
+          "sf_id": "a1aaZ000008mBp0QAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Ventilation": {
+      "department": "HVAC",
+      "category_id": "a01aZ00000dCek6QAC",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "CFM",
+          "sf_id": "a1aaZ000008mBoNQAU",
+          "type": "number"
+        },
+        {
+          "rank": 2,
+          "name": "Ventilation Type",
+          "sf_id": null,
+          "type": "enum"
+        },
+        {
+          "rank": 3,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Duct Size",
+          "sf_id": "a1aaZ000008mBrjQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Light Kit Included",
+          "sf_id": "a1aaZ000008mBubQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "LED",
+          "sf_id": "a1aaZ000008mBuSQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Heater Included",
+          "sf_id": "a1aaZ000008mBtMQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Humidity Sensor",
+          "sf_id": "a1aaZ000008mBtiQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Motion Sensor",
+          "sf_id": "a1aaZ000008mBvHQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 12,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Coverage Area",
+          "sf_id": "a1aaZ000008mBp2QAE",
+          "type": "number"
+        },
+        {
+          "rank": 14,
+          "name": "Voltage",
+          "sf_id": "a1aaZ000008mBzQQAU",
+          "type": "number"
+        },
+        {
+          "rank": 15,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Coffee Makers": {
+      "department": "OTHER",
+      "category_id": "a01Hu000011kmDGIAY",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Coffee Maker Type",
+          "sf_id": "a1aaZ000008mBoXQAU",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Capacity (Cups)",
+          "sf_id": "a1aaZ000008mBoDQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Built-In Grinder",
+          "sf_id": "a1aaZ000008mBnuQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 4,
+          "name": "Single Serve",
+          "sf_id": "a1aaZ000008mBxsQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 5,
+          "name": "Programmable",
+          "sf_id": "a1aaZ000008mBwgQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Water Reservoir Size",
+          "sf_id": "a1aaZ000008mBzeQAE",
+          "type": "number"
+        },
+        {
+          "rank": 7,
+          "name": "Thermal Carafe",
+          "sf_id": "a1aaZ000008mBybQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Milk Frother Included",
+          "sf_id": "a1aaZ000008mBvBQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Auto Shut Off",
+          "sf_id": "a1aaZ000008lz3yQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Adjustable Brew Strength",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Keep Warm",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Removable Water Reservoir",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Pause and Pour",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Collection",
+          "sf_id": "a1aaZ000008mBoZQAU",
+          "type": "string"
+        }
+      ]
+    },
+    "Ice Makers": {
+      "department": "OTHER",
+      "category_id": "a01Hu000011kFRfIAM",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Ice Maker Type",
+          "sf_id": "a1aaZ000008mBtnQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Daily Ice Production",
+          "sf_id": "a1aaZ000008mBpAQAU",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "Ice Storage Capacity",
+          "sf_id": "a1aaZ000008mBtoQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Ice Type",
+          "sf_id": "a1aaZ000008mBtpQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 5,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 6,
+          "name": "Water Connection Required",
+          "sf_id": "a1aaZ000008mBzaQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Self Cleaning",
+          "sf_id": "a1aaZ000008mBxAQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Drain Required",
+          "sf_id": "a1aaZ000008mBrgQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Energy Star",
+          "sf_id": "a1aaZ000008mBrvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Reversible Door",
+          "sf_id": "a1aaZ000008mBwtQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Noise Level",
+          "sf_id": "a1aaZ000008mBvOQAU",
+          "type": "number"
+        },
+        {
+          "rank": 12,
+          "name": "Indicator Light",
+          "sf_id": null,
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "ADA",
+          "sf_id": "a1aaZ000008lz3WQAQ",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Filter Included",
+          "sf_id": "a1aaZ000008mBsRQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Pizza Ovens": {
+      "department": "OTHER",
+      "category_id": "a01aZ00000KJFrCQAX",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Oven Capacity",
+          "sf_id": "a1aaZ000008mBw2QAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Max Temperature",
+          "sf_id": "a1aaZ000008mBuyQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Portable",
+          "sf_id": "a1aaZ000008mBwVQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 6,
+          "name": "Installation Type",
+          "sf_id": "a1aaZ000008mBu7QAE",
+          "type": "enum"
+        },
+        {
+          "rank": 7,
+          "name": "Material",
+          "sf_id": "a1aaZ000008mBupQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 8,
+          "name": "Ignition Type",
+          "sf_id": "a1aaZ000008mBtqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 9,
+          "name": "Pizza Stone Included",
+          "sf_id": "a1aaZ000008mBwNQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Cover Included",
+          "sf_id": "a1aaZ000008mBp1QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Thermometer Included",
+          "sf_id": "a1aaZ000008mByeQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Wheels Included",
+          "sf_id": "a1aaZ000008mBzmQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 13,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        },
+        {
+          "rank": 14,
+          "name": "Outdoor Approved",
+          "sf_id": "a1aaZ000008mBw4QAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Manufacturer Warranty",
+          "sf_id": "a1aaZ000008mBunQAE",
+          "type": "string"
+        }
+      ]
+    },
+    "Barbeques & Grills": {
+      "department": "OTHER",
+      "category_id": "a01Hu000011kgEqIAI",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Grill Type",
+          "sf_id": "a1aaZ000008mBsyQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 2,
+          "name": "Number Of Burners",
+          "sf_id": "a1aaZ000008mBvcQAE",
+          "type": "number"
+        },
+        {
+          "rank": 3,
+          "name": "BTU Output",
+          "sf_id": "a1aaZ000008mBnrQAE",
+          "type": "number"
+        },
+        {
+          "rank": 4,
+          "name": "Total Cooking Area",
+          "sf_id": "a1aaZ000008mByjQAE",
+          "type": "number"
+        },
+        {
+          "rank": 5,
+          "name": "Primary Cooking Area",
+          "sf_id": "a1aaZ000008mBwRQAU",
+          "type": "number"
+        },
+        {
+          "rank": 6,
+          "name": "Side Burner",
+          "sf_id": "a1aaZ000008mBxuQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 7,
+          "name": "Sear Burner",
+          "sf_id": "a1aaZ000008mBxBQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 8,
+          "name": "Rotisserie Included",
+          "sf_id": "a1aaZ000008mBwyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 9,
+          "name": "Built-In",
+          "sf_id": "a1aaZ000008mBnvQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 10,
+          "name": "Portable",
+          "sf_id": "a1aaZ000008mBwVQAU",
+          "type": "boolean"
+        },
+        {
+          "rank": 11,
+          "name": "Smart Home",
+          "sf_id": "a1aaZ000008mBxyQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 12,
+          "name": "Ignition Type",
+          "sf_id": "a1aaZ000008mBtqQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 13,
+          "name": "Grate Material",
+          "sf_id": "a1aaZ000008mBswQAE",
+          "type": "enum"
+        },
+        {
+          "rank": 14,
+          "name": "Griddle",
+          "sf_id": "a1aaZ000008mBszQAE",
+          "type": "boolean"
+        },
+        {
+          "rank": 15,
+          "name": "Assembly Required",
+          "sf_id": "a1aaZ000008lz3wQAA",
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}

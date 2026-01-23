@@ -505,6 +505,7 @@ export class VerificationAnalyticsService {
 
   /**
    * Safely parse documents_analyzed field to prevent cast errors
+   * Handles multiple formats: array of objects, JSON string, util.inspect output
    */
   private parseDocumentsAnalyzed(response: SalesforceVerificationResponse): Array<{
     url: string;
@@ -522,32 +523,44 @@ export class VerificationAnalyticsService {
         return [];
       }
       
+      // If it's already a proper array of objects, process it directly
+      if (Array.isArray(docs) && docs.length > 0 && typeof docs[0] === 'object') {
+        return this.mapDocumentsToSchema(docs);
+      }
+      
       // If it's a string, try to parse it
       if (typeof docs === 'string') {
-        // Remove console.log formatting artifacts (newlines, extra spaces, etc.)
         const cleanedString = docs.trim();
+        
+        // Skip if it looks like a util.inspect or malformed string representation
+        // These contain patterns like "'[\\n' +" or "url:" instead of "\"url\":"
+        if (cleanedString.includes("'[\\n'") || 
+            cleanedString.includes('\\n') ||
+            (cleanedString.includes("url:") && !cleanedString.includes('"url"'))) {
+          logger.warn('Documents field appears to be malformed util.inspect output, skipping', {
+            stringPreview: cleanedString.substring(0, 100)
+          });
+          return [];
+        }
         
         try {
           // Try parsing as JSON first
           docs = JSON.parse(cleanedString);
         } catch (e) {
-          // If that fails, it might be a malformed string representation
-          // Try to extract array from string like "[{...}, {...}]"
+          // If that fails, try to extract array from string like "[{...}, {...}]"
           const arrayMatch = cleanedString.match(/\[[\s\S]*\]/);
           if (arrayMatch) {
             try {
               docs = JSON.parse(arrayMatch[0]);
             } catch (e2) {
               logger.warn('Failed to parse documents string even after cleanup', { 
-                error: e2, 
-                stringPreview: cleanedString.substring(0, 200) 
+                stringPreview: cleanedString.substring(0, 100) 
               });
               return [];
             }
           } else {
             logger.warn('Documents field is a string but not parseable', { 
-              error: e,
-              stringPreview: cleanedString.substring(0, 200)
+              stringPreview: cleanedString.substring(0, 100)
             });
             return [];
           }
@@ -557,45 +570,55 @@ export class VerificationAnalyticsService {
       // If not an array after parsing attempts, return empty
       if (!Array.isArray(docs)) {
         logger.warn('Documents field is not an array after parsing attempts', { 
-          type: typeof docs,
-          value: docs 
+          type: typeof docs
         });
         return [];
       }
       
-      // Map to proper format with validation
-      return docs.map(doc => {
-        // Handle case where doc might be a string or object
-        if (typeof doc === 'string') {
-          try {
-            doc = JSON.parse(doc);
-          } catch (e) {
-            return null; // Will be filtered out
-          }
-        }
-        
-        const recommendation = String(doc.ai_recommendation || 'review');
-        return {
-          url: String(doc.url || ''),
-          type: String(doc.type || 'unknown'),
-          ai_recommendation: (['skip', 'use', 'review'].includes(recommendation) ? recommendation : 'review') as 'skip' | 'use' | 'review',
-          relevance_score: Number(doc.relevance_score || 0),
-          contributed_to_verification: doc.ai_recommendation === 'use'
-        };
-      })
-      .filter(doc => doc && doc.url) // Only include valid docs with URLs
-      .map(doc => doc!); // Type assertion after null filter
+      return this.mapDocumentsToSchema(docs);
       
     } catch (error) {
       logger.error('Error parsing documents_analyzed', { 
-        error,
-        documentsType: typeof response.Documents?.documents,
-        documentsPreview: typeof response.Documents?.documents === 'string' 
-          ? (response.Documents?.documents as string).substring(0, 200)
-          : 'Not a string'
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
       return [];
     }
+  }
+
+  /**
+   * Map document array to schema format with validation
+   */
+  private mapDocumentsToSchema(docs: any[]): Array<{
+    url: string;
+    type: string;
+    ai_recommendation: 'skip' | 'use' | 'review';
+    relevance_score: number;
+    contributed_to_verification: boolean;
+  }> {
+    return docs.map(doc => {
+      // Handle case where doc might be a string or object
+      if (typeof doc === 'string') {
+        try {
+          doc = JSON.parse(doc);
+        } catch (e) {
+          return null; // Will be filtered out
+        }
+      }
+      
+      if (!doc || typeof doc !== 'object') {
+        return null;
+      }
+      
+      const recommendation = String(doc.ai_recommendation || 'review');
+      return {
+        url: String(doc.url || ''),
+        type: String(doc.type || 'unknown'),
+        ai_recommendation: (['skip', 'use', 'review'].includes(recommendation) ? recommendation : 'review') as 'skip' | 'use' | 'review',
+        relevance_score: Number(doc.relevance_score || 0),
+        contributed_to_verification: doc.ai_recommendation === 'use'
+      };
+    })
+    .filter((doc): doc is NonNullable<typeof doc> => doc !== null && !!doc.url);
   }
 }
 
