@@ -217,6 +217,15 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
       timeout: 30000  // 30 second timeout
     });
     
+    // Wait for page to stabilize
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Check if page was redirected or blocked
+    const currentUrl = page.url();
+    if (!currentUrl.includes('signaturehardware.com') && url.includes('signaturehardware.com')) {
+      logger.warn('Page redirected, may be blocked', { originalUrl: url, redirectedTo: currentUrl });
+    }
+    
     // Wait a bit for any final JS to execute
     await new Promise(resolve => setTimeout(resolve, 2000));
     
@@ -225,8 +234,12 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     // =========================================
     logger.info('Expanding collapsible sections', { url });
     
+    let expandedCount = 0;
+    let secondRoundClicks = 0;
+    
+    try {
     // Use string-based evaluate to avoid TypeScript DOM type issues
-    const expandedCount = await page.evaluate(`
+    expandedCount = await page.evaluate(`
       (function() {
         let clicked = 0;
         
@@ -313,7 +326,7 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
         
         return clicked;
       })()
-    `);
+    `) as number;
     
     logger.info('Expandable sections clicked', { url, expandedCount });
     
@@ -329,7 +342,7 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     await new Promise(resolve => setTimeout(resolve, 500));
     
     // Second round of clicking (some accordions reveal more accordions)
-    const secondRoundClicks = await page.evaluate(`
+    secondRoundClicks = await page.evaluate(`
       (function() {
         let clicked = 0;
         const expandable = document.querySelectorAll('[aria-expanded="false"], .collapsed, [class*="collapsed"]');
@@ -341,11 +354,19 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
         });
         return clicked;
       })()
-    `);
+    `) as number;
     
-    if ((secondRoundClicks as number) > 0) {
+    if (secondRoundClicks > 0) {
       logger.info('Second round expandable sections clicked', { url, secondRoundClicks });
       await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+    
+    } catch (expandError) {
+      // Expansion failed but we can still try to get the HTML
+      logger.warn('Accordion expansion failed, continuing with current content', { 
+        url, 
+        error: expandError instanceof Error ? expandError.message : 'Unknown error' 
+      });
     }
     
     // Get the fully rendered HTML
@@ -354,7 +375,7 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     logger.info('Headless browser fetch complete', { 
       url, 
       contentLength: html.length,
-      expandedSections: (expandedCount as number) + (secondRoundClicks as number)
+      expandedSections: expandedCount + secondRoundClicks
     });
     
     return { html, success: true };
