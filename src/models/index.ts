@@ -70,3 +70,11 @@ export {
   MODEL_PRICING,
   calculateCost
 } from './ai-usage.model';
+
+// Failed Match Log Model (for auditing failed attribute matches)
+export {
+  FailedMatchLog,
+  IFailedMatchLog,
+  MatchType,
+  MatchSource
+} from './failed-match-log.model';

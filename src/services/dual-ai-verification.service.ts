@@ -57,6 +57,7 @@ import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
 import { performProductResearch, formatResearchForPrompt, ResearchResult } from './research.service';
+import { failedMatchLogger } from './failed-match-logger.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -2680,6 +2681,43 @@ function buildFinalResponse(
       similarity: brandMatch.similarity,
       suggestions: brandMatch.suggestions?.map(s => s.brand_name)
     });
+    
+    // Log failed brand match for auditing
+    failedMatchLogger.logFailedMatch({
+      matchType: 'brand',
+      attemptedValue: cleanedText.brand,
+      similarity: brandMatch.similarity,
+      closestMatches: brandMatch.suggestions?.slice(0, 5).map(s => ({
+        value: s.brand_name,
+        id: s.brand_id,
+        similarity: brandMatch.similarity
+      })) || [],
+      matchThreshold: 0.6,
+      source: 'ai_analysis',
+      productContext: {
+        sf_catalog_id: rawProduct.SF_Catalog_Id,
+        sf_catalog_name: rawProduct.SF_Catalog_Name,
+        model_number: rawProduct.Model_Number_Web_Retailer || "",
+        brand: cleanedText.brand,
+        category: consensus.agreedCategory,
+        session_id: sessionId,
+      },
+      aiContext: {
+        openai_value: openaiResult.primaryAttributes.brand,
+        xai_value: xaiResult.primaryAttributes.brand,
+        consensus_value: cleanedText.brand,
+      },
+      rawDataContext: {
+        web_retailer_value: rawProduct.Brand_Web_Retailer,
+        ferguson_value: rawProduct.Ferguson_Brand,
+      },
+      requestGenerated: true,
+      requestDetails: {
+        attribute_name: cleanedText.brand,
+        requested_for_category: 'Brand',
+        reason: `Brand "${cleanedText.brand}" not found in Salesforce picklist`,
+      },
+    });
   }
   
   // Track category requests if not matched
@@ -2699,6 +2737,44 @@ function buildFinalResponse(
       category: consensus.agreedCategory,
       similarity: categoryMatch.similarity,
       suggestions: categoryMatch.suggestions?.map(s => s.category_name)
+    });
+    
+    // Log failed category match for auditing
+    failedMatchLogger.logFailedMatch({
+      matchType: 'category',
+      attemptedValue: consensus.agreedCategory,
+      similarity: categoryMatch.similarity,
+      closestMatches: categoryMatch.suggestions?.slice(0, 5).map(s => ({
+        value: s.category_name,
+        id: s.category_id,
+        similarity: categoryMatch.similarity
+      })) || [],
+      matchThreshold: 0.6,
+      source: 'ai_analysis',
+      productContext: {
+        sf_catalog_id: rawProduct.SF_Catalog_Id,
+        sf_catalog_name: rawProduct.SF_Catalog_Name,
+        model_number: rawProduct.Model_Number_Web_Retailer || "",
+        brand: cleanedText.brand,
+        category: consensus.agreedCategory,
+        session_id: sessionId,
+      },
+      aiContext: {
+        openai_value: openaiResult.determinedCategory,
+        xai_value: xaiResult.determinedCategory,
+        consensus_value: consensus.agreedCategory,
+        confidence: (openaiResult.categoryConfidence + xaiResult.categoryConfidence) / 2,
+      },
+      rawDataContext: {
+        web_retailer_value: rawProduct.Web_Retailer_Category,
+        original_attribute_name: rawProduct.Web_Retailer_SubCategory,
+      },
+      requestGenerated: true,
+      requestDetails: {
+        attribute_name: consensus.agreedCategory,
+        requested_for_category: consensus.agreedPrimaryAttributes.department || 'Unknown',
+        reason: `Category "${consensus.agreedCategory}" not found in Salesforce picklist`,
+      },
     });
   }
   
@@ -2761,6 +2837,43 @@ function buildFinalResponse(
           style: mappedStyle,
           category: matchedCategory,
           willPopulateResponse: true
+        });
+        
+        // Log failed style match for auditing
+        failedMatchLogger.logFailedMatch({
+          matchType: 'style',
+          attemptedValue: mappedStyle,
+          similarity: sfStyleMatch.similarity,
+          closestMatches: sfStyleMatch.suggestions?.slice(0, 5).map(s => ({
+            value: s.style_name,
+            id: s.style_id,
+            similarity: sfStyleMatch.similarity
+          })) || [],
+          matchThreshold: 0.6,
+          source: 'ai_analysis',
+          productContext: {
+            sf_catalog_id: rawProduct.SF_Catalog_Id,
+            sf_catalog_name: rawProduct.SF_Catalog_Name,
+            model_number: rawProduct.Model_Number_Web_Retailer || "",
+            brand: cleanedText.brand,
+            category: matchedCategory,
+            session_id: sessionId,
+          },
+          aiContext: {
+            openai_value: openaiResult.primaryAttributes.product_style,
+            xai_value: xaiResult.primaryAttributes.product_style,
+            consensus_value: potentialStyle,
+          },
+          rawDataContext: {
+            web_retailer_value: rawProduct.Web_Retailer_SubCategory,
+            original_attribute_name: potentialStyle,
+          },
+          requestGenerated: true,
+          requestDetails: {
+            attribute_name: mappedStyle,
+            requested_for_category: matchedCategory,
+            reason: `Style "${mappedStyle}" mapped from AI but not found in Salesforce picklist`,
+          },
         });
       }
     } else {
@@ -3217,6 +3330,43 @@ function buildFinalResponse(
             similarity: attrMatch.similarity,
             suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
           });
+          
+          // Log failed Top 15 attribute match for auditing
+          failedMatchLogger.logFailedMatch({
+            matchType: 'attribute',
+            attemptedValue: attributeName,
+            similarity: attrMatch.similarity,
+            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+              value: s.attribute_name,
+              id: s.attribute_id,
+              similarity: attrMatch.similarity
+            })) || [],
+            matchThreshold: 0.6,
+            source: 'top_15_filter',
+            fieldKey: key,
+            productContext: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              sf_catalog_name: rawProduct.SF_Catalog_Name,
+              model_number: rawProduct.Model_Number_Web_Retailer || "",
+              brand: cleanedText.brand,
+              category: consensus.agreedCategory,
+              session_id: sessionId,
+            },
+            aiContext: {
+              openai_value: String(openaiResult.top15Attributes[key] || ''),
+              xai_value: String(xaiResult.top15Attributes[key] || ''),
+              consensus_value: String(finalValue || ''),
+            },
+            rawDataContext: {
+              original_attribute_name: attributeName,
+            },
+            requestGenerated: true,
+            requestDetails: {
+              attribute_name: attributeName,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              reason: `Top 15 attribute "${attributeName}" not found in SF picklist`,
+            },
+          });
         }
       }
     } else {
@@ -3253,6 +3403,43 @@ function buildFinalResponse(
             value: finalValue,
             category: consensus.agreedCategory || 'Unknown',
             similarity: attrMatch.similarity
+          });
+          
+          // Log failed Top 15 attribute match (by key) for auditing
+          failedMatchLogger.logFailedMatch({
+            matchType: 'attribute',
+            attemptedValue: key,
+            similarity: attrMatch.similarity,
+            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+              value: s.attribute_name,
+              id: s.attribute_id,
+              similarity: attrMatch.similarity
+            })) || [],
+            matchThreshold: 0.6,
+            source: 'top_15_filter',
+            fieldKey: key,
+            productContext: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              sf_catalog_name: rawProduct.SF_Catalog_Name,
+              model_number: rawProduct.Model_Number_Web_Retailer || "",
+              brand: cleanedText.brand,
+              category: consensus.agreedCategory,
+              session_id: sessionId,
+            },
+            aiContext: {
+              openai_value: String(openaiResult.top15Attributes[key] || ''),
+              xai_value: String(xaiResult.top15Attributes[key] || ''),
+              consensus_value: String(finalValue || ''),
+            },
+            rawDataContext: {
+              original_attribute_name: readableName,
+            },
+            requestGenerated: true,
+            requestDetails: {
+              attribute_name: readableName,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              reason: `Top 15 attribute (by key) "${key}" not found in SF picklist`,
+            },
           });
         }
       }
@@ -3315,6 +3502,42 @@ function buildFinalResponse(
             category: consensus.agreedCategory,
             similarity: attrMatch.similarity,
             suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+          });
+          
+          // Log failed additional/HTML table attribute match for auditing
+          failedMatchLogger.logFailedMatch({
+            matchType: 'attribute',
+            attemptedValue: attrName,
+            similarity: attrMatch.similarity,
+            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+              value: s.attribute_name,
+              id: s.attribute_id,
+              similarity: attrMatch.similarity
+            })) || [],
+            matchThreshold: 0.6,
+            source: 'html_table',
+            productContext: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              sf_catalog_name: rawProduct.SF_Catalog_Name,
+              model_number: rawProduct.Model_Number_Web_Retailer || "",
+              brand: cleanedText.brand,
+              category: consensus.agreedCategory,
+              session_id: sessionId,
+            },
+            aiContext: {
+              openai_value: String(openaiResult.additionalAttributes[attrName] || ''),
+              xai_value: String(xaiResult.additionalAttributes[attrName] || ''),
+              consensus_value: String(attrValue || ''),
+            },
+            rawDataContext: {
+              original_attribute_name: attrName,
+            },
+            requestGenerated: true,
+            requestDetails: {
+              attribute_name: attrName,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              reason: `Additional attribute "${attrName}" with value "${attrValue}" not found in SF picklist`,
+            },
           });
         }
       }

@@ -5,11 +5,111 @@
  * Single source of truth for all category-related lookups.
  */
 
+import * as fs from 'fs';
+import * as path from 'path';
 import { CategoryAttributeConfig } from './types';
 import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from './category-attributes';
 import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from './master-category-schema-map';
 import { getCategorySchema as getAICategorySchema, CategorySchema } from './master-category-attributes';
 import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from './constants';
+
+// ============================================
+// OPTIMIZED FILTER ATTRIBUTES (from JSON)
+// ============================================
+
+interface OptimizedFilterAttribute {
+  rank: number;
+  name: string;
+  salesforce_id: string | null;
+  filter_type: string;
+  rationale: string;
+}
+
+interface OptimizedCategoryConfig {
+  department: string;
+  attributes: OptimizedFilterAttribute[];
+}
+
+// Load optimized filter attributes from JSON
+let OPTIMIZED_FILTER_ATTRIBUTES: Record<string, OptimizedCategoryConfig> | null = null;
+
+function loadOptimizedFilterAttributes(): Record<string, OptimizedCategoryConfig> {
+  if (OPTIMIZED_FILTER_ATTRIBUTES) {
+    return OPTIMIZED_FILTER_ATTRIBUTES;
+  }
+  
+  try {
+    const jsonPath = path.join(__dirname, 'salesforce-picklists', 'category-filter-attributes.json');
+    const data = fs.readFileSync(jsonPath, 'utf-8');
+    OPTIMIZED_FILTER_ATTRIBUTES = JSON.parse(data);
+    return OPTIMIZED_FILTER_ATTRIBUTES!;
+  } catch (error) {
+    console.warn('Could not load optimized filter attributes:', error);
+    return {};
+  }
+}
+
+/**
+ * Get optimized top 15 filter attributes for a category
+ * Returns full attribute objects with SF IDs
+ */
+export function getOptimizedFilterAttributes(categoryName: string): OptimizedFilterAttribute[] {
+  const data = loadOptimizedFilterAttributes();
+  
+  // Try exact match first
+  if (data[categoryName]) {
+    return data[categoryName].attributes;
+  }
+  
+  // Try normalized name (remove emoji, extra spaces)
+  const normalized = categoryName.trim();
+  if (data[normalized]) {
+    return data[normalized].attributes;
+  }
+  
+  // Try case-insensitive match
+  const lowerName = categoryName.toLowerCase();
+  for (const [key, value] of Object.entries(data)) {
+    if (key.toLowerCase() === lowerName) {
+      return value.attributes;
+    }
+  }
+  
+  return [];
+}
+
+/**
+ * Get optimized filter attribute Salesforce IDs for a category
+ * Useful for API filtering - returns only valid SF IDs
+ */
+export function getOptimizedFilterAttributeIds(categoryName: string): string[] {
+  const attrs = getOptimizedFilterAttributes(categoryName);
+  return attrs
+    .filter(a => a.salesforce_id !== null)
+    .map(a => a.salesforce_id as string);
+}
+
+/**
+ * Get department for a category from optimized config
+ */
+export function getCategoryDepartment(categoryName: string): string | null {
+  const data = loadOptimizedFilterAttributes();
+  
+  // Try exact match
+  if (data[categoryName]) {
+    return data[categoryName].department;
+  }
+  
+  // Try case-insensitive
+  const lowerName = categoryName.toLowerCase();
+  for (const [key, value] of Object.entries(data)) {
+    if (key.toLowerCase() === lowerName) {
+      return value.department;
+    }
+  }
+  
+  return null;
+}
 
 // ============================================
 // RESPONSE BUILDER LOOKUPS
@@ -79,22 +179,28 @@ export function getCategoryAliases(categoryName: string): string[] {
 
 /**
  * Get top 15 filter attributes for a category
- * Works with both systems
+ * Priority: 1) Optimized JSON, 2) Response Builder, 3) Category Config, 4) AI System
  */
 export function getTop15Attributes(categoryName: string): string[] {
-  // Try Response Builder first (returns CategoryAttributeConfig)
+  // Priority 1: Try optimized filter attributes (new JSON file)
+  const optimized = getOptimizedFilterAttributes(categoryName);
+  if (optimized.length > 0) {
+    return optimized.map(a => a.name);
+  }
+  
+  // Priority 2: Try Response Builder (returns CategoryAttributeConfig)
   const rbSchema = getResponseBuilderSchema(categoryName);
   if (rbSchema && rbSchema.top15FilterAttributes) {
     return rbSchema.top15FilterAttributes.slice(0, 15);
   }
   
-  // Try category config
+  // Priority 3: Try category config
   const config = getCategoryConfig(categoryName);
   if (config && config.top15FilterAttributes) {
     return config.top15FilterAttributes.slice(0, 15);
   }
   
-  // Try AI system
+  // Priority 4: Try AI system
   const aiSchema = getAISchema(categoryName);
   if (aiSchema && aiSchema.top15FilterAttributes) {
     return aiSchema.top15FilterAttributes.slice(0, 15).map(a => a.name);
