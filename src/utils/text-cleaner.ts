@@ -4,89 +4,6 @@
  */
 
 /**
- * Salesforce Field Length Limits
- * These match the Salesforce field configurations to prevent STRING_TOO_LONG errors
- */
-export const SF_FIELD_LIMITS = {
-  PRODUCT_TITLE: 255,        // Text field
-  DESCRIPTION: 4000,         // Long Text Area (some orgs use 32,768)
-  DETAILS: 4000,             // Long Text Area  
-  FEATURES_HTML: 32000,      // Rich Text Area (32,768 max, leave buffer)
-  STYLE: 255,                // Picklist text
-  BRAND: 255,                // Text field
-  CATEGORY: 255,             // Text field
-  SUBCATEGORY: 255,          // Text field
-  COLOR: 255,                // Text field
-  FINISH: 255,               // Text field
-  MODEL_NUMBER: 255,         // Text field
-  ATTRIBUTE_VALUE: 255,      // Attribute value fields
-} as const;
-
-/**
- * Truncate text to a maximum length, adding ellipsis if truncated
- * Ensures we don't cut in the middle of a word or HTML tag
- */
-export function truncateText(text: string | undefined | null, maxLength: number, addEllipsis: boolean = true): string {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  
-  // Leave room for ellipsis
-  const targetLength = addEllipsis ? maxLength - 3 : maxLength;
-  
-  // Find a good break point (space, period, or end of sentence)
-  let breakPoint = targetLength;
-  const lastSpace = text.lastIndexOf(' ', targetLength);
-  const lastPeriod = text.lastIndexOf('. ', targetLength);
-  
-  // Prefer ending at a sentence if close enough
-  if (lastPeriod > targetLength * 0.7) {
-    breakPoint = lastPeriod + 1; // Include the period
-  } else if (lastSpace > targetLength * 0.7) {
-    breakPoint = lastSpace;
-  }
-  
-  const truncated = text.substring(0, breakPoint).trim();
-  return addEllipsis ? truncated + '...' : truncated;
-}
-
-/**
- * Truncate HTML content safely (won't break tags)
- * Returns truncated HTML that closes all open tags properly
- */
-export function truncateHtml(html: string | undefined | null, maxLength: number): string {
-  if (!html) return '';
-  if (html.length <= maxLength) return html;
-  
-  // For HTML, we need to be more careful - truncate the inner text content
-  // Simple approach: if it's a list, limit the number of items
-  if (html.includes('<li>')) {
-    const items = html.match(/<li>[\s\S]*?<\/li>/g) || [];
-    let result = '<ul>\n';
-    let currentLength = result.length + 6; // Account for closing </ul>
-    
-    for (const item of items) {
-      if (currentLength + item.length + 1 > maxLength - 100) {
-        // Stop adding items, but ensure we have at least one
-        if (result === '<ul>\n') {
-          // Truncate the first item if even that's too long
-          const truncatedItem = truncateText(item, maxLength - 20, true);
-          result += truncatedItem + '\n';
-        }
-        break;
-      }
-      result += item + '\n';
-      currentLength += item.length + 1;
-    }
-    
-    result += '</ul>';
-    return result;
-  }
-  
-  // For non-list HTML, use simple text truncation
-  return truncateText(html, maxLength, true);
-}
-
-/**
  * Known brand name mappings to proper format
  */
 const BRAND_CORRECTIONS: Record<string, string> = {
@@ -361,9 +278,6 @@ export function formatTitle(title: string | undefined | null, brand?: string, _c
   // Remove common filler words at end
   formatted = formatted.replace(/\s+(range|oven|unit|appliance)\s*$/i, (match) => match);
   
-  // Truncate to Salesforce field limit
-  formatted = truncateText(formatted, SF_FIELD_LIMITS.PRODUCT_TITLE, true);
-  
   return formatted.trim();
 }
 
@@ -435,9 +349,6 @@ export function formatDescription(description: string | undefined | null): strin
   
   // Fix common grammar issues
   formatted = fixGrammar(formatted);
-  
-  // Truncate to Salesforce field limit to prevent STRING_TOO_LONG errors
-  formatted = truncateText(formatted, SF_FIELD_LIMITS.DESCRIPTION, true);
   
   return formatted.trim();
 }
@@ -589,27 +500,17 @@ export function extractFeatures(description: string | undefined | null, existing
 
 /**
  * Generate HTML feature list from features array
- * Ensures output doesn't exceed Salesforce Rich Text field limits
  */
 export function generateFeaturesHtml(features: string[]): string {
   if (!features || features.length === 0) {
     return '<ul></ul>';
   }
   
-  // Build HTML incrementally, checking length as we go
   let html = '<ul>\n';
-  const maxLength = SF_FIELD_LIMITS.FEATURES_HTML;
   
   for (const feature of features) {
     const escapedFeature = escapeHtml(feature);
-    const listItem = `  <li>${escapedFeature}</li>\n`;
-    
-    // Check if adding this item would exceed the limit (leave room for closing tag)
-    if (html.length + listItem.length + 6 > maxLength) {
-      break;
-    }
-    
-    html += listItem;
+    html += `  <li>${escapedFeature}</li>\n`;
   }
   
   html += '</ul>';
@@ -776,7 +677,4 @@ export default {
   escapeHtml,
   extractColorFinish,
   cleanCustomerFacingText,
-  truncateText,
-  truncateHtml,
-  SF_FIELD_LIMITS,
 };

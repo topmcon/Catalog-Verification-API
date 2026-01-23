@@ -41,7 +41,7 @@ import {
 } from '../config/master-category-attributes';
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
-import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish, truncateText, SF_FIELD_LIMITS } from '../utils/text-cleaner';
+import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
@@ -2975,18 +2975,15 @@ function buildFinalResponse(
     Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
     Description_Verified: cleanedText.description,
     Product_Title_Verified: cleanedText.title,
-    Details_Verified: truncateText(
-      cleanEncodingIssues(
-        preferAIValue(
-          consensus.agreedPrimaryAttributes.details,
-          openaiResult.primaryAttributes.details,
-          xaiResult.primaryAttributes.details,
-          openaiResult.confidence,
-          xaiResult.confidence,
-          ''
-        )
-      ),
-      SF_FIELD_LIMITS.DETAILS
+    Details_Verified: cleanEncodingIssues(
+      preferAIValue(
+        consensus.agreedPrimaryAttributes.details,
+        openaiResult.primaryAttributes.details,
+        xaiResult.primaryAttributes.details,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      )
     ),
     Features_List_HTML: cleanedText.featuresHtml,
     UPC_GTIN_Verified: preferAIValue(
