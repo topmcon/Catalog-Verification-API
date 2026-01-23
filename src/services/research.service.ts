@@ -662,6 +662,84 @@ function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, st
     }
   });
 
+  // Pattern 6: Generic text-based extraction for React components and any HTML
+  // Look for adjacent elements where one has label-like text and next has value
+  $('div, span, p, li, td').each((_, el) => {
+    const $el = $(el);
+    const text = $el.clone().children().remove().end().text().trim(); // Get direct text only
+    
+    // Look for "Label: Value" or "Label Value" patterns in compact elements
+    if (text.length > 3 && text.length < 300) {
+      // Pattern: "Water Capacity (Gallons): 64.72" or "Weight: 141 lbs"
+      const colonMatch = text.match(/^([A-Za-z][A-Za-z0-9\s()\/\-]{2,40}):\s*(.{1,100})$/);
+      if (colonMatch) {
+        const key = colonMatch[1].trim();
+        const value = colonMatch[2].trim();
+        if (!specifications[key] && value.length > 0 && value.length < 100) {
+          specifications[key] = value;
+        }
+      }
+    }
+  });
+
+  // Pattern 7: Extract from structured row/cell patterns (React tables, divs acting as tables)
+  $('[class*="row"], [class*="Row"], [role="row"]').each((_, row) => {
+    const cells = $(row).find('[class*="cell"], [class*="Cell"], [role="cell"], > div, > span');
+    if (cells.length >= 2) {
+      const key = $(cells[0]).text().replace(/:/g, '').trim();
+      const value = $(cells[1]).text().trim();
+      if (key && value && key.length < 50 && value.length < 300 && key !== value) {
+        if (!specifications[key]) {
+          specifications[key] = value;
+        }
+      }
+    }
+  });
+
+  // Pattern 8: Look for sibling elements with label/value classes
+  $('[class*="label"], [class*="Label"], [class*="name"], [class*="Name"]').each((_, labelEl) => {
+    const $label = $(labelEl);
+    const key = $label.text().replace(/:/g, '').trim();
+    
+    // Check next sibling
+    const $value = $label.next();
+    if ($value.length && key.length > 2 && key.length < 50) {
+      const value = $value.text().trim();
+      if (value && value.length > 0 && value.length < 300 && key !== value) {
+        if (!specifications[key]) {
+          specifications[key] = value;
+        }
+      }
+    }
+  });
+
+  // Pattern 9: AGGRESSIVE - Extract ALL "Key: Value" patterns from entire body text
+  // This catches anything the DOM patterns miss
+  const bodyText = $('body').text();
+  const specPatterns = [
+    // "Water Capacity (Gallons): 64.72" style
+    /([A-Za-z][A-Za-z0-9\s()\/\-]{2,40}):\s*([\d,.]+(?:\s*(?:lbs?|kg|gallons?|gal|inches?|in|"|cm|mm|watts?|W|volts?|V|amps?|A))?)/gi,
+    // "Dimensions: 70" x 32" x 24"" style  
+    /([A-Za-z][A-Za-z\s]{2,25}):\s*([\d.,"\'\s×xX\-\/]+(?:\s*(?:inches?|in|cm|mm))?)/gi,
+    // "Number of Jets: 12" style
+    /(Number of [A-Za-z]+):\s*(\d+)/gi,
+    // "Tub Style: Double Slipper" style
+    /([A-Za-z\s]{3,25}Style):\s*([A-Za-z\s]{3,50})/gi,
+    // "Material: Acrylic" style
+    /(Material|Finish|Color):\s*([A-Za-z\s\-]{2,50})/gi,
+  ];
+
+  for (const pattern of specPatterns) {
+    let match;
+    while ((match = pattern.exec(bodyText)) !== null) {
+      const key = match[1].trim();
+      const value = match[2].trim();
+      if (!specifications[key] && key.length > 2 && value.length > 0 && value.length < 100) {
+        specifications[key] = value;
+      }
+    }
+  }
+
   // Capture EVERYTHING from main content - let AI analyze
   const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
     .first()
@@ -688,6 +766,18 @@ function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, st
   // Track if we got minimal content (potential future learning) - async, don't block
   if (rawText.length < 1000 && Object.keys(specifications).length === 0) {
     trackScrapeFailure(url, 'MINIMAL_CONTENT', rawText.length).catch(() => {});
+  }
+
+  // Debug logging for troubleshooting - show sample of body text if no specs found
+  if (Object.keys(specifications).length === 0 && rawText.length > 100) {
+    const sampleText = rawText.slice(0, 2000).replace(/\n/g, ' ').replace(/\s+/g, ' ');
+    logger.info('DEBUG: No specs extracted, sample of page content', {
+      url,
+      rawTextLength: rawText.length,
+      sampleText: sampleText.slice(0, 500),
+      hasColons: (rawText.match(/:/g) || []).length,
+      possibleKeyValuePairs: (rawText.match(/[A-Za-z]+:\s*\d/g) || []).slice(0, 10)
+    });
   }
   
   logger.info('Web page parsed successfully', { 
