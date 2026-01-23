@@ -3181,35 +3181,80 @@ function buildFinalResponse(
     // Look up the attribute ID using the proper attribute name (not the field key)
     // Use forceIdLookup=true to get attribute_id even for "primary" attrs like Style, Height
     // because Top_Filter_Attribute_Ids needs the picklist attribute_id for ALL attributes
+    // RULE: Every attribute MUST have an ID, or generate a request for a new attribute
     if (attributeName) {
       const attrMatch = picklistMatcher.matchAttribute(attributeName, { forceIdLookup: true });
-      topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
-        ? attrMatch.matchedValue.attribute_id 
-        : null;
-        
-      // Log if we couldn't find an attribute_id (may indicate missing picklist entry)
-      if (!attrMatch.matched || !attrMatch.matchedValue) {
-        logger.info('Top 15 attribute ID not found in SF attributes picklist', {
+      
+      if (attrMatch.matched && attrMatch.matchedValue) {
+        // Found a match - use the attribute_id
+        topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+        logger.debug('Top 15 attribute matched to SF picklist', {
           fieldKey: key,
           attributeName,
-          category: consensus.agreedCategory || 'Unknown',
-          matched: attrMatch.matched,
-          hasMatchedValue: !!attrMatch.matchedValue
+          matchedTo: attrMatch.matchedValue.attribute_name,
+          attribute_id: attrMatch.matchedValue.attribute_id,
+          similarity: attrMatch.similarity
         });
+      } else {
+        // No match found - set ID to null AND generate an Attribute_Request
+        topFilterAttributeIds[key] = null;
+        
+        // Only generate request if we haven't already requested this attribute
+        if (!requestedAttributeNames.has(attributeName.toLowerCase())) {
+          attributeRequests.push({
+            attribute_name: attributeName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'top_15_filter',
+            reason: `Top 15 Filter Attribute "${attributeName}" (key: ${key}) not found in Salesforce attributes picklist. Value: "${finalValue}". Closest matches: ${attrMatch.suggestions?.slice(0, 3).map(s => s.attribute_name).join(', ') || 'none'}. Please create this attribute in Salesforce.`
+          });
+          requestedAttributeNames.add(attributeName.toLowerCase());
+          
+          logger.info('Attribute Request generated for unmatched Top 15 attribute', {
+            fieldKey: key,
+            attributeName,
+            value: finalValue,
+            category: consensus.agreedCategory || 'Unknown',
+            similarity: attrMatch.similarity,
+            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+          });
+        }
       }
     } else {
       // Fallback: try matching the field key directly (legacy behavior)
       const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
-      topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
-        ? attrMatch.matchedValue.attribute_id 
-        : null;
-        
-      // Log if we couldn't find an attribute_id
-      if (!attrMatch.matched || !attrMatch.matchedValue) {
-        logger.info('Top 15 attribute ID (by key) not found in SF attributes picklist', {
+      
+      if (attrMatch.matched && attrMatch.matchedValue) {
+        topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+        logger.debug('Top 15 attribute (by key) matched to SF picklist', {
           fieldKey: key,
-          category: consensus.agreedCategory || 'Unknown'
+          matchedTo: attrMatch.matchedValue.attribute_name,
+          attribute_id: attrMatch.matchedValue.attribute_id,
+          similarity: attrMatch.similarity
         });
+      } else {
+        // No match - set null AND generate request
+        topFilterAttributeIds[key] = null;
+        
+        // Convert field_key to human-readable name for the request
+        const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        
+        if (!requestedAttributeNames.has(key.toLowerCase())) {
+          attributeRequests.push({
+            attribute_name: readableName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'top_15_filter',
+            reason: `Top 15 Filter Attribute "${readableName}" (key: ${key}) not found in Salesforce attributes picklist. Value: "${finalValue}". Please create this attribute in Salesforce.`
+          });
+          requestedAttributeNames.add(key.toLowerCase());
+          
+          logger.info('Attribute Request generated for unmatched Top 15 attribute (by key)', {
+            fieldKey: key,
+            readableName,
+            value: finalValue,
+            category: consensus.agreedCategory || 'Unknown',
+            similarity: attrMatch.similarity
+          });
+        }
       }
     }
   }

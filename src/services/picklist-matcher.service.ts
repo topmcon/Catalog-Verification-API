@@ -120,9 +120,18 @@ const ATTRIBUTE_ALIASES: Record<string, string> = {
   'nominal width': 'width',
   'nominal depth': 'depth',
   'nominal length': 'length',
+  'width / diameter': 'width',
+  'width/diameter': 'width',
+  // Height equivalents
+  'overall height': 'height',
+  'fixture height': 'height',
+  'height (fixture)': 'height',
+  'total height': 'height',
+  'hanging height': 'height',
   // Mount type equivalents
   'installation type': 'mount type',
   'mounting type': 'mount type',
+  'mount style': 'mount type',
   // Bowl equivalents
   'number of basins': 'number of bowls',
   'basin count': 'number of bowls',
@@ -130,9 +139,65 @@ const ATTRIBUTE_ALIASES: Record<string, string> = {
   'sink material': 'material',
   'faucet material': 'material',
   'construction material': 'material',
+  'body material': 'material',
+  'frame material': 'material',
   // Size equivalents
   'minimum cabinet size': 'cabinet size',
   'cabinet width': 'cabinet size',
+  // Lighting-specific equivalents
+  'light count': 'number of lights',
+  'lights': 'number of lights',
+  'bulb count': 'number of lights',
+  'number of bulbs': 'number of lights',
+  'lamp type': 'bulb type',
+  'light type': 'bulb type',
+  'bulb base': 'bulb type',
+  'base type': 'bulb type',
+  'color temperature': 'adjustable color temperature',
+  'max wattage': 'maximum wattage',
+  'wattage': 'maximum wattage',
+  'total wattage': 'maximum wattage',
+  'chain length': 'cord/chain length',
+  'cord length': 'cord/chain length',
+  'cable length': 'cord/chain length',
+  'wire length': 'cord/chain length',
+  'adjustable': 'adjustable height',
+  'height adjustable': 'adjustable height',
+  'adjustable hanging': 'adjustable height',
+  'sloped ceiling': 'sloped ceiling compatible',
+  'angled ceiling': 'sloped ceiling compatible',
+  'vaulted ceiling': 'sloped ceiling compatible',
+  'bulbs included': 'bulb(s) included',
+  'lamp included': 'bulb(s) included',
+  'dry rated': 'dry/damp rated',
+  'damp rated': 'dry/damp rated',
+  'wet rated': 'dry/damp rated',
+  'location rating': 'dry/damp rated',
+  'ul listed': 'etl/ul listed',
+  'etl listed': 'etl/ul listed',
+  'certifications': 'etl/ul listed',
+  'certification': 'etl/ul listed',
+  'safety listing': 'etl/ul listed',
+  // Finish equivalents
+  'color': 'finish',
+  'finish color': 'finish',
+  'finish/color': 'finish',
+  // Shade equivalents
+  'shade': 'shade material',
+  'glass type': 'shade material',
+  'diffuser material': 'shade material',
+  'shade type': 'shade material',
+  'globe material': 'shade material',
+  // Crystal equivalents
+  'crystal style': 'crystal type',
+  'crystal cut': 'crystal type',
+  // Canopy equivalents
+  'canopy diameter': 'canopy size',
+  'canopy dimensions': 'canopy size',
+  'ceiling plate': 'canopy size',
+  // Warranty equivalents
+  'warranty': 'manufacturer warranty',
+  'warranty period': 'warranty',
 };
 
 /**
@@ -549,7 +614,7 @@ class PicklistMatcherService {
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
-    // Lowered threshold from 0.7 to 0.6 for more flexible matching
+    // Threshold of 0.6 (60%) for flexible matching
     if (best && best.similarity >= 0.6) {
       logger.info('Attribute matched via similarity', { 
         original: attributeName, 
@@ -565,7 +630,7 @@ class PicklistMatcherService {
       };
     }
     
-    // Additional fallback: partial match
+    // Additional fallback: partial match (one contains the other)
     const partialMatch = this.attributes.find(a =>
       a.attribute_name.toLowerCase().includes(searchTerm) ||
       searchTerm.includes(a.attribute_name.toLowerCase())
@@ -578,6 +643,31 @@ class PicklistMatcherService {
         similarity: 0.55,
         suggestions: scored.slice(0, 3).map(s => s.attribute)
       };
+    }
+    
+    // Word-based fallback: match if all significant words match
+    const searchWords = searchTerm.split(/[\s\-_\/]+/).filter(w => w.length > 2);
+    if (searchWords.length > 0) {
+      const wordMatch = this.attributes.find(a => {
+        const attrWords = a.attribute_name.toLowerCase().split(/[\s\-_\/]+/).filter(w => w.length > 2);
+        // Check if search term's words are a subset of attribute words or vice versa
+        const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw) || sw.includes(aw)));
+        const attrInSearch = attrWords.every(aw => searchWords.some(sw => sw.includes(aw) || aw.includes(sw)));
+        return searchInAttr || attrInSearch;
+      });
+      if (wordMatch) {
+        logger.info('Attribute matched via word-based fallback', {
+          original: attributeName,
+          matched: wordMatch.attribute_name
+        });
+        return {
+          matched: true,
+          original: attributeName,
+          matchedValue: wordMatch,
+          similarity: 0.5,
+          suggestions: scored.slice(0, 3).map(s => s.attribute)
+        };
+      }
     }
 
     this.logMismatch('attribute', attributeName, scored.slice(0, 3).map(s => s.attribute.attribute_name), best?.similarity);
