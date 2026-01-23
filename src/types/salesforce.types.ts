@@ -166,15 +166,6 @@ export interface VerificationMetadata {
     urls_scraped?: number;
     documents_analyzed?: number;
     images_analyzed?: number;
-    // Model match validation - CRITICAL for data quality
-    external_data_trusted?: boolean;  // False if model mismatch detected
-    model_mismatch_warning?: {
-      warning: string;  // 'MODEL_NUMBER_MISMATCH'
-      requested_model?: string;  // Model requested from SF_Catalog_Name
-      found_model?: string | null;  // Model found in external data
-      reason?: string;  // Why it doesn't match
-      impact: string;  // Description of potential data quality issues
-    };
   };
 }
 
