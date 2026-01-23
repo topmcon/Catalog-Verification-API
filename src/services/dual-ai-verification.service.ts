@@ -41,7 +41,7 @@ import {
 } from '../config/master-category-attributes';
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
-import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
+import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish, truncateText, SF_FIELD_LIMITS } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
@@ -188,6 +188,161 @@ const NUMERIC_FIELDS = new Set([
  * Returns number if valid, null otherwise (NOT empty string which breaks SF Decimal deserialize)
  */
 /**
+ * Model Number Match Validation
+ * =============================
+ * CRITICAL: External data must match the requested model number EXACTLY.
+ * If external data is for a different model/variant, it MUST NOT be used
+ * as it could provide wrong attributes (e.g., wrong color for a different variant).
+ */
+
+interface ModelMatchResult {
+  isExactMatch: boolean;
+  requestedModel: string;
+  foundModel: string | null;
+  mismatchReason?: string;
+  normalizedRequested: string;
+  normalizedFound: string | null;
+}
+
+/**
+ * Normalize a model number for comparison
+ * Removes common prefixes, suffixes, hyphens, and converts to uppercase
+ */
+function normalizeModelNumber(model: string | null | undefined): string {
+  if (!model) return '';
+  
+  // Convert to uppercase and trim
+  let normalized = model.toUpperCase().trim();
+  
+  // Remove common brand prefixes (K- for Kohler, etc.)
+  normalized = normalized.replace(/^[A-Z]-/, '');
+  
+  // Remove all hyphens, underscores, and spaces for comparison
+  normalized = normalized.replace(/[-_\s]/g, '');
+  
+  return normalized;
+}
+
+/**
+ * Check if two model numbers are an exact match
+ * Takes into account common formatting variations
+ */
+function isModelNumberMatch(requestedModel: string, foundModel: string): boolean {
+  const normalizedRequested = normalizeModelNumber(requestedModel);
+  const normalizedFound = normalizeModelNumber(foundModel);
+  
+  if (!normalizedRequested || !normalizedFound) return false;
+  
+  // Exact match after normalization
+  if (normalizedRequested === normalizedFound) return true;
+  
+  // Check if one contains the other (for variant suffixes like -BL, -CP)
+  // But require at least 80% match to avoid false positives
+  const minLength = Math.min(normalizedRequested.length, normalizedFound.length);
+  const maxLength = Math.max(normalizedRequested.length, normalizedFound.length);
+  
+  if (minLength / maxLength < 0.8) return false;
+  
+  // Check if the base part matches (without variant suffix)
+  const requestedBase = normalizedRequested.replace(/[A-Z]{1,3}$/, ''); // Remove 1-3 letter suffix
+  const foundBase = normalizedFound.replace(/[A-Z]{1,3}$/, '');
+  
+  // Base must match exactly, and the suffix difference must be meaningful
+  if (requestedBase === foundBase && requestedBase.length > 3) {
+    // Same base model - this is actually a MISMATCH (different variants)
+    // The suffix indicates different variants (e.g., -BL vs -CP = Black vs Chrome Polished)
+    return false;
+  }
+  
+  return false;
+}
+
+/**
+ * Validate if external data matches the requested model number
+ * Returns detailed match information for logging and decision making
+ */
+function validateExternalDataModel(
+  requestedModel: string,
+  externalModelNumber: string | null | undefined,
+  rawData?: any
+): ModelMatchResult {
+  const normalizedRequested = normalizeModelNumber(requestedModel);
+  const normalizedFound = normalizeModelNumber(externalModelNumber || '');
+  
+  // If no external model found, can't validate
+  if (!externalModelNumber || !normalizedFound) {
+    return {
+      isExactMatch: false,
+      requestedModel,
+      foundModel: externalModelNumber || null,
+      mismatchReason: 'No external model number found',
+      normalizedRequested,
+      normalizedFound: null
+    };
+  }
+  
+  // Check for Ferguson_Raw_Data failure indicators
+  if (rawData) {
+    const fergusonRaw = rawData.Ferguson_Raw_Data;
+    if (fergusonRaw && typeof fergusonRaw === 'object') {
+      // Check if Ferguson lookup explicitly failed
+      if (fergusonRaw.success === false) {
+        return {
+          isExactMatch: false,
+          requestedModel,
+          foundModel: externalModelNumber,
+          mismatchReason: fergusonRaw.error || 'Ferguson lookup failed - external data may be from wrong model',
+          normalizedRequested,
+          normalizedFound
+        };
+      }
+      // Check if requested_model doesn't match
+      if (fergusonRaw.requested_model && normalizeModelNumber(fergusonRaw.requested_model) !== normalizedRequested) {
+        return {
+          isExactMatch: false,
+          requestedModel,
+          foundModel: externalModelNumber,
+          mismatchReason: `Ferguson searched for ${fergusonRaw.requested_model} but requested model is ${requestedModel}`,
+          normalizedRequested,
+          normalizedFound
+        };
+      }
+    }
+  }
+  
+  // Direct comparison
+  if (isModelNumberMatch(requestedModel, externalModelNumber)) {
+    return {
+      isExactMatch: true,
+      requestedModel,
+      foundModel: externalModelNumber,
+      normalizedRequested,
+      normalizedFound
+    };
+  }
+  
+  // Determine why it doesn't match
+  const requestedBase = normalizedRequested.replace(/[A-Z]{1,3}$/, '');
+  const foundBase = normalizedFound.replace(/[A-Z]{1,3}$/, '');
+  
+  let mismatchReason = 'Model numbers do not match';
+  if (requestedBase === foundBase) {
+    const requestedSuffix = normalizedRequested.replace(requestedBase, '');
+    const foundSuffix = normalizedFound.replace(foundBase, '');
+    mismatchReason = `Different variant: requested suffix "${requestedSuffix || 'none'}" vs found suffix "${foundSuffix || 'none'}" - likely different color/finish`;
+  }
+  
+  return {
+    isExactMatch: false,
+    requestedModel,
+    foundModel: externalModelNumber,
+    mismatchReason,
+    normalizedRequested,
+    normalizedFound
+  };
+}
+
+/**
  * Data source scenario detection
  * Determines what data sources are available and what research strategy to use
  */
@@ -198,6 +353,9 @@ interface DataSourceAnalysis {
   requiresExternalResearch: boolean;
   requiresConfirmationResearch: boolean;
   availableUrls: string[];
+  // Model validation
+  modelValidation?: ModelMatchResult;
+  externalDataTrusted: boolean;  // False if model mismatch detected
   availableDocuments: string[];
   availableImages: string[];
   webRetailerFieldCount: number;
@@ -221,7 +379,7 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
     rawProduct.Width_Web_Retailer,
     rawProduct.Height_Web_Retailer,
   ];
-  const webRetailerFieldCount = webRetailerFields.filter(f => f && f.trim() !== '').length;
+  const webRetailerFieldCount = webRetailerFields.filter(f => f && typeof f === 'string' && f.trim() !== '').length;
   const webRetailerSpecsCount = (rawProduct.Web_Retailer_Specs || []).length;
   const hasWebRetailerData = webRetailerFieldCount >= 2 || webRetailerSpecsCount > 0;
 
@@ -237,7 +395,7 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
     rawProduct.Ferguson_Height,
     rawProduct.Ferguson_Depth,
   ];
-  const fergusonFieldCount = fergusonFields.filter(f => f && f.trim() !== '').length;
+  const fergusonFieldCount = fergusonFields.filter(f => f && typeof f === 'string' && f.trim() !== '').length;
   const fergusonAttributesCount = (rawProduct.Ferguson_Attributes || []).length;
   const hasFergusonData = fergusonFieldCount >= 2 || fergusonAttributesCount > 0;
 
@@ -283,6 +441,33 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
     requiresConfirmationResearch = false; // Nothing to confirm
   }
 
+  // CRITICAL: Validate external data model number matches requested model
+  // If there's a mismatch, external data MUST NOT be trusted for variant-specific attributes
+  const requestedModel = rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer || '';
+  const externalModel = rawProduct.Ferguson_Model_Number || null;
+  
+  // Also check for Ferguson_Raw_Data which may contain error information
+  const modelValidation = validateExternalDataModel(
+    requestedModel,
+    externalModel,
+    rawProduct as any  // May contain Ferguson_Raw_Data
+  );
+  
+  // External data is trusted only if model numbers match exactly
+  const externalDataTrusted = modelValidation.isExactMatch;
+  
+  // If model mismatch detected and we have Ferguson data, mark it as untrusted
+  if (!externalDataTrusted && hasFergusonData) {
+    logger.warn('MODEL MISMATCH DETECTED - External data NOT trusted', {
+      requestedModel,
+      foundModel: modelValidation.foundModel,
+      mismatchReason: modelValidation.mismatchReason,
+      normalizedRequested: modelValidation.normalizedRequested,
+      normalizedFound: modelValidation.normalizedFound,
+      impact: 'External data will NOT be used for color, finish, or variant-specific attributes'
+    });
+  }
+
   return {
     hasWebRetailerData,
     hasFergusonData,
@@ -293,7 +478,9 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
     availableDocuments,
     availableImages,
     webRetailerFieldCount,
-    fergusonFieldCount
+    fergusonFieldCount,
+    modelValidation,
+    externalDataTrusted
   };
 }
 
@@ -756,16 +943,25 @@ export async function verifyProductWithDualAI(
     logger.info('PHASE 1: Dual AI Analysis', {
       sessionId: verificationSessionId,
       hasPreResearchContext: !!preResearchContext,
-      dataScenario: dataSourceAnalysis.scenario
+      dataScenario: dataSourceAnalysis.scenario,
+      externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
+      modelMismatch: dataSourceAnalysis.modelValidation?.mismatchReason || null
     });
     
     const openaiStartTime = Date.now();
     const xaiStartTime = Date.now();
     
-    // Pass research context to AIs if we have it
+    // Build prompt options with model validation info
+    const promptOptions: PromptOptions = {
+      researchContext: preResearchContext,
+      externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
+      modelMismatchWarning: dataSourceAnalysis.modelValidation?.mismatchReason
+    };
+    
+    // Pass research context and model validation to AIs
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId, preResearchContext, trackingId),
-      analyzeWithXAI(rawProduct, verificationSessionId, preResearchContext, trackingId)
+      analyzeWithOpenAI(rawProduct, verificationSessionId, promptOptions, trackingId),
+      analyzeWithXAI(rawProduct, verificationSessionId, promptOptions, trackingId)
     ]);
 
     // Track OpenAI result
@@ -1093,14 +1289,19 @@ export async function verifyProductWithDualAI(
   }
 }
 
-async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string, trackingId?: string): Promise<AIAnalysisResult> {
+async function analyzeWithOpenAI(
+  rawProduct: SalesforceIncomingProduct, 
+  sessionId: string, 
+  promptOptions?: PromptOptions, 
+  trackingId?: string
+): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
   const model = config.openai?.model || 'gpt-4o';
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
-    const prompt = buildAnalysisPrompt(rawProduct, researchContext);
+    const prompt = buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -1110,7 +1311,7 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
       taskType: 'verification',
       prompt,
       retryAttempt: attempt - 1,
-      tags: researchContext ? ['with-research'] : [],
+      tags: promptOptions?.researchContext ? ['with-research'] : [],
     });
 
     try {
@@ -1182,14 +1383,19 @@ async function analyzeWithOpenAI(rawProduct: SalesforceIncomingProduct, sessionI
   return createErrorResult('openai', lastError);
 }
 
-async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: string, researchContext?: string, trackingId?: string): Promise<AIAnalysisResult> {
+async function analyzeWithXAI(
+  rawProduct: SalesforceIncomingProduct, 
+  sessionId: string, 
+  promptOptions?: PromptOptions, 
+  trackingId?: string
+): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
   const model = config.xai?.model || 'grok-3';
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
-    const prompt = buildAnalysisPrompt(rawProduct, researchContext);
+    const prompt = buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -1199,7 +1405,7 @@ async function analyzeWithXAI(rawProduct: SalesforceIncomingProduct, sessionId: 
       taskType: 'verification',
       prompt,
       retryAttempt: attempt - 1,
-      tags: researchContext ? ['with-research'] : [],
+      tags: promptOptions?.researchContext ? ['with-research'] : [],
     });
 
     try {
@@ -1462,20 +1668,58 @@ When analyzing data:
 5. Cross-reference multiple sources when available`;
 }
 
-function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, researchContext?: string): string {
+interface PromptOptions {
+  researchContext?: string;
+  modelMismatchWarning?: string;
+  externalDataTrusted?: boolean;
+}
+
+function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: PromptOptions | string): string {
+  // Support legacy signature: buildAnalysisPrompt(rawProduct, researchContext)
+  const opts: PromptOptions = typeof options === 'string' 
+    ? { researchContext: options }
+    : (options || {});
+    
+  const { researchContext, modelMismatchWarning, externalDataTrusted = true } = opts;
+  
   let prompt = `Analyze this product and map it to our category system:
 
 RAW PRODUCT DATA:
 ${JSON.stringify(rawProduct, null, 2)}
 `;
 
+  // Add CRITICAL model mismatch warning if detected
+  if (modelMismatchWarning || !externalDataTrusted) {
+    prompt += `
+
+=== ⛔ CRITICAL MODEL NUMBER MISMATCH WARNING ⛔ ===
+${modelMismatchWarning || 'External data may be from a DIFFERENT model variant.'}
+
+**DO NOT USE** external data for the following variant-specific attributes:
+- color (different variants have different colors, e.g., -BL = Black, -CP = Chrome)
+- finish (different variants have different finishes)
+- model_number (use the REQUESTED model number from SF_Catalog_Name)
+- Any attributes that would differ between product variants
+
+**ONLY USE external data for:**
+- Brand name (same across variants)
+- Product category/type
+- Base dimensions (if same across variants)
+- General product features (if not variant-specific)
+
+For color/finish: ONLY use if the data source explicitly matches the requested model number.
+If unsure, use "Not Found" rather than guessing from mismatched data.
+=== END MODEL MISMATCH WARNING ===
+`;
+  }
+
   // Add research context if available
   if (researchContext && researchContext.trim()) {
     prompt += `
 
 === EXTERNAL RESEARCH DATA (Retrieved from actual URLs/documents/images) ===
-The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
-This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.
+${!externalDataTrusted ? '⚠️ WARNING: This data may be from a DIFFERENT MODEL VARIANT. Apply model mismatch rules above.\n\n' : ''}The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
+${externalDataTrusted ? 'This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.' : 'Use this data CAUTIOUSLY - verify model numbers match before using variant-specific attributes.'}
 
 ${researchContext}
 === END EXTERNAL RESEARCH DATA ===
@@ -1487,12 +1731,13 @@ ${researchContext}
 Tasks:
 1. Determine the product category from our master list
 2. Map all available data to the correct attribute fields for that category
-3. ${researchContext ? '**PRIORITIZE** the external research data for filling missing fields' : 'Note any missing data'}
+3. ${researchContext ? (externalDataTrusted ? '**PRIORITIZE** the external research data for filling missing fields' : '**CAREFULLY VALIDATE** external data against the requested model before using') : 'Note any missing data'}
 4. **CRITICAL**: Analyze ALL provided data sources:
    - Parse the Specification_Table HTML to extract ALL specifications
    - Use image analysis results to determine color, finish, product type
    - Extract details from Ferguson data if available
    - Extract details from Web Retailer data if available
+${!externalDataTrusted ? '   - ⚠️ VERIFY model numbers match before using color/finish data' : ''}
 5. **CRITICAL**: Clean and enhance ALL customer-facing text:
    - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
    - Fix run-on sentences (add spaces after periods)
@@ -1501,7 +1746,7 @@ Tasks:
 6. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
 7. **NEVER LEAVE FIELDS BLANK**: 
    - Use actual value if found
-   - Use "Not Found" if searched but couldn't find
+   - Use "Not Found" if searched but couldn't find${!externalDataTrusted ? ' (especially for color/finish if model mismatch)' : ''}
    - Use "N/A" if field doesn't apply to this product type
 8. List corrections and data sources used
 
@@ -1943,7 +2188,8 @@ Return your revised analysis as JSON with the same format as before.`;
     return parseAIResponse(JSON.parse(jsonMatch[0]), provider);
   } catch (error) {
     logger.error(`${provider} reanalysis failed`, { sessionId, error: error instanceof Error ? error.message : 'Unknown' });
-    return provider === 'openai' ? await analyzeWithOpenAI(rawProduct, sessionId) : await analyzeWithXAI(rawProduct, sessionId);
+    // Fallback to regular analysis - no prompt options in fallback scenario
+    return provider === 'openai' ? await analyzeWithOpenAI(rawProduct, sessionId, undefined) : await analyzeWithXAI(rawProduct, sessionId, undefined);
   }
 }
 
@@ -2729,15 +2975,18 @@ function buildFinalResponse(
     Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
     Description_Verified: cleanedText.description,
     Product_Title_Verified: cleanedText.title,
-    Details_Verified: cleanEncodingIssues(
-      preferAIValue(
-        consensus.agreedPrimaryAttributes.details,
-        openaiResult.primaryAttributes.details,
-        xaiResult.primaryAttributes.details,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        ''
-      )
+    Details_Verified: truncateText(
+      cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.details,
+          openaiResult.primaryAttributes.details,
+          xaiResult.primaryAttributes.details,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          ''
+        )
+      ),
+      SF_FIELD_LIMITS.DETAILS
     ),
     Features_List_HTML: cleanedText.featuresHtml,
     UPC_GTIN_Verified: preferAIValue(
@@ -3081,6 +3330,16 @@ function buildFinalResponse(
   if (dataSourceAnalysis?.hasFergusonData) dataSources.push('Ferguson');
   if (didResearch) dataSources.push('External_Research');
 
+  // Check if model mismatch was detected - this is a critical data quality indicator
+  const modelMismatchDetected = dataSourceAnalysis?.modelValidation && !dataSourceAnalysis.modelValidation.isExactMatch;
+  const modelMismatchWarning = modelMismatchDetected ? {
+    warning: 'MODEL_NUMBER_MISMATCH',
+    requested_model: dataSourceAnalysis.modelValidation?.requestedModel,
+    found_model: dataSourceAnalysis.modelValidation?.foundModel,
+    reason: dataSourceAnalysis.modelValidation?.mismatchReason,
+    impact: 'External data may be from a different product variant. Color, finish, and variant-specific attributes may be inaccurate.'
+  } : undefined;
+
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
     verification_session_id: sessionId,
@@ -3117,9 +3376,21 @@ function buildFinalResponse(
       research_attempts: researchAttempts || 0,
       urls_scraped: dataSourceAnalysis?.availableUrls.length || 0,
       documents_analyzed: dataSourceAnalysis?.availableDocuments.length || 0,
-      images_analyzed: dataSourceAnalysis?.availableImages.length || 0
+      images_analyzed: dataSourceAnalysis?.availableImages.length || 0,
+      // Model match validation
+      external_data_trusted: dataSourceAnalysis?.externalDataTrusted ?? true,
+      model_mismatch_warning: modelMismatchWarning
     }
   };
+
+  // Log model mismatch warning if detected
+  if (modelMismatchDetected) {
+    logger.warn('RESPONSE INCLUDES MODEL MISMATCH WARNING', {
+      sessionId,
+      ...modelMismatchWarning,
+      sf_catalog_id: rawProduct.SF_Catalog_Id
+    });
+  }
 
   // Log picklist requests summary
   const totalPicklistRequests = attributeRequests.length + brandRequests.length + categoryRequests.length + styleRequests.length;
