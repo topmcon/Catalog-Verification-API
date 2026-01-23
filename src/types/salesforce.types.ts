@@ -51,6 +51,7 @@ export interface SalesforceIncomingProduct {
   Stock_Images?: SalesforceStockImage[];
   Documents?: SalesforceDocument[];
   Reference_URL?: string;  // Third-party retailer URL
+  Manufacturer_URL?: string;  // Manufacturer product page URL (alias for Reference_URL)
 
   // Ferguson Data (Comparison Source)
   Ferguson_Title: string;

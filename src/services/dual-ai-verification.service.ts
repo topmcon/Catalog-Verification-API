@@ -401,13 +401,14 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
   const fergusonAttributesCount = (rawProduct.Ferguson_Attributes || []).length;
   const hasFergusonData = fergusonFieldCount >= 2 || fergusonAttributesCount > 0;
 
-  // Collect available URLs for research
+  // Collect available URLs for research (support both Reference_URL and Manufacturer_URL)
+  const referenceUrlLocal = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
   const availableUrls: string[] = [];
   if (rawProduct.Ferguson_URL && rawProduct.Ferguson_URL.startsWith('http')) {
     availableUrls.push(rawProduct.Ferguson_URL);
   }
-  if (rawProduct.Reference_URL && rawProduct.Reference_URL.startsWith('http')) {
-    availableUrls.push(rawProduct.Reference_URL);
+  if (referenceUrlLocal && referenceUrlLocal.startsWith('http')) {
+    availableUrls.push(referenceUrlLocal);
   }
 
   // Collect documents
@@ -874,6 +875,9 @@ export async function verifyProductWithDualAI(
   // PHASE 0: Analyze data sources to determine research strategy
   const dataSourceAnalysis = analyzeDataSources(rawProduct);
   
+  // Normalize Reference_URL - support both Reference_URL and Manufacturer_URL as input
+  const referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
+  
   logger.info('Starting dual AI verification', {
     sessionId: verificationSessionId,
     trackingId,
@@ -913,7 +917,7 @@ export async function verifyProductWithDualAI(
       try {
         preResearchResult = await performProductResearch(
           rawProduct.Ferguson_URL || null,
-          rawProduct.Reference_URL || null,
+          referenceUrl,
           dataSourceAnalysis.availableDocuments,
           dataSourceAnalysis.availableImages,
           { 
@@ -1050,7 +1054,7 @@ export async function verifyProductWithDualAI(
         try {
           researchResult = await performProductResearch(
             rawProduct.Ferguson_URL || null,
-            rawProduct.Reference_URL || null,
+            referenceUrl,
             dataSourceAnalysis.availableDocuments,
             dataSourceAnalysis.availableImages,
             { 
