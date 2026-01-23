@@ -497,21 +497,30 @@ class PicklistMatcherService {
   /**
    * Match an attribute name to SF picklist
    */
-  matchAttribute(attributeName: string): MatchResult<Attribute> {
+  /**
+   * Match an attribute name to SF picklist
+   * @param attributeName - The attribute name to match
+   * @param options - Optional settings
+   * @param options.forceIdLookup - When true, bypasses isPrimaryAttribute check to always look up attribute_id
+   *                                Use this for Top_Filter_Attribute_Ids where we need the ID even for primary attrs
+   */
+  matchAttribute(attributeName: string, options?: { forceIdLookup?: boolean }): MatchResult<Attribute> {
     if (!attributeName || !this.initialized) {
       return { matched: false, original: attributeName, matchedValue: null, similarity: 0 };
     }
 
     const normalized = attributeName.toLowerCase().trim();
+    const forceIdLookup = options?.forceIdLookup ?? false;
     
     // Check if this is a PRIMARY ATTRIBUTE - these have dedicated fields and don't need picklist matching
-    if (this.isPrimaryAttribute(attributeName)) {
+    // UNLESS forceIdLookup is true (for Top_Filter_Attribute_Ids we still want the attribute_id)
+    if (!forceIdLookup && this.isPrimaryAttribute(attributeName)) {
       logger.debug('Skipping attribute match - is a PRIMARY ATTRIBUTE with dedicated field', { attributeName });
       return { matched: true, original: attributeName, matchedValue: null, similarity: 1.0, isPrimaryAttribute: true } as any;
     }
     
-    // Check if this looks like a VALUE, not an attribute name
-    if (this.isAttributeValue(attributeName)) {
+    // Check if this looks like a VALUE, not an attribute name (skip this check when forcing ID lookup)
+    if (!forceIdLookup && this.isAttributeValue(attributeName)) {
       logger.debug('Skipping attribute match - looks like a value not a name', { attributeName });
       return { matched: false, original: attributeName, matchedValue: null, similarity: 0, isValue: true } as any;
     }

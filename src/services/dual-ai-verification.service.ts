@@ -3179,35 +3179,34 @@ function buildFinalResponse(
     topFilterAttributes[key] = finalValue;
     
     // Look up the attribute ID using the proper attribute name (not the field key)
-    // NOTE: Top 15 attributes are FIXED in our schema per category - they don't need SF picklist matching
-    // The SF attributes picklist is for HTML table attributes, not Top 15
+    // Use forceIdLookup=true to get attribute_id even for "primary" attrs like Style, Height
+    // because Top_Filter_Attribute_Ids needs the picklist attribute_id for ALL attributes
     if (attributeName) {
-      const attrMatch = picklistMatcher.matchAttribute(attributeName);
+      const attrMatch = picklistMatcher.matchAttribute(attributeName, { forceIdLookup: true });
       topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
         ? attrMatch.matchedValue.attribute_id 
         : null;
         
-      // Top 15 attributes are defined in our category schema - they are FIXED
-      // Do NOT generate Attribute_Requests for them since they're not meant to be in SF attributes picklist
-      if (!attrMatch.matched) {
-        // Log that this is a schema-defined Top 15 attribute (no request needed)
-        logger.info('Top 15 attribute not in SF picklist - this is expected (schema-defined)', {
+      // Log if we couldn't find an attribute_id (may indicate missing picklist entry)
+      if (!attrMatch.matched || !attrMatch.matchedValue) {
+        logger.info('Top 15 attribute ID not found in SF attributes picklist', {
           fieldKey: key,
           attributeName,
           category: consensus.agreedCategory || 'Unknown',
-          note: 'Top 15 attributes are fixed per category, SF attributes picklist is for HTML table only'
+          matched: attrMatch.matched,
+          hasMatchedValue: !!attrMatch.matchedValue
         });
       }
     } else {
       // Fallback: try matching the field key directly (legacy behavior)
-      const attrMatch = picklistMatcher.matchAttribute(key);
+      const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
       topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue 
         ? attrMatch.matchedValue.attribute_id 
         : null;
         
-      // Still don't generate requests - Top 15 are fixed in schema
-      if (!attrMatch.matched) {
-        logger.info('Top 15 attribute (by key) not in SF picklist - expected for schema-defined attributes', {
+      // Log if we couldn't find an attribute_id
+      if (!attrMatch.matched || !attrMatch.matchedValue) {
+        logger.info('Top 15 attribute ID (by key) not found in SF attributes picklist', {
           fieldKey: key,
           category: consensus.agreedCategory || 'Unknown'
         });
