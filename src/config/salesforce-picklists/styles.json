@@ -1,33 +1,250 @@
 [
-  {"style_id": "a1IaZ000000YiMnUAK", "style_name": "French Door"},
-  {"style_id": "a1IaZ000000YiTKUA0", "style_name": "Chest"},
-  {"style_id": "a1IaZ000000YiTLUA0", "style_name": "Microwave Combo"},
-  {"style_id": "a1IaZ000000YiTNUA0", "style_name": "Wine Cooler"},
-  {"style_id": "a1IaZ000000YiTOUA0", "style_name": "Over-the-Range"},
-  {"style_id": "a1IaZ000000YiTPUA0", "style_name": "Top-Freezer"},
-  {"style_id": "a1IaZ000000YiTSUA0", "style_name": "Countertop"},
-  {"style_id": "a1IaZ000000YiTXUA0", "style_name": "Beverage Center"},
-  {"style_id": "a1IaZ000000YiTZUA0", "style_name": "Top Load"},
-  {"style_id": "a1IaZ000000YiTaUAK", "style_name": "Gas"},
-  {"style_id": "a1IaZ000000YiTeUAK", "style_name": "Bottom-Freezer"},
-  {"style_id": "a1IaZ000000ZVH3UAO", "style_name": "Front Load"},
-  {"style_id": "a1IaZ000000ZVovUAG", "style_name": "Upright"},
-  {"style_id": "a1IaZ000000a1FJUAY", "style_name": "Column"},
-  {"style_id": "a1IaZ000000nyELUAY", "style_name": "Wall-Mounted"},
-  {"style_id": "a1IaZ0000018i89UAA", "style_name": "Kegerator"},
-  {"style_id": "a1IaZ0000018i9lUAA", "style_name": "Drawer"},
-  {"style_id": "a1IaZ0000018tA1UAI", "style_name": "Single"},
-  {"style_id": "a1IaZ0000019m85UAA", "style_name": "Unitized"},
-  {"style_id": "a1IaZ0000019mODUAY", "style_name": "Side-by-Side"},
-  {"style_id": "a1IaZ0000019mb7UAA", "style_name": "Induction"},
-  {"style_id": "a1IaZ0000019ynZUAQ", "style_name": "Standalone"},
-  {"style_id": "a1IaZ0000019z3hUAA", "style_name": "Insert"},
-  {"style_id": "a1IaZ0000019z6vUAA", "style_name": "Island Mount"},
-  {"style_id": "a1IaZ0000019z8XUAQ", "style_name": "Under Cabinet"},
-  {"style_id": "a1IaZ0000019zbZUAQ", "style_name": "Accessory"},
-  {"style_id": "a1IaZ0000019zenUAA", "style_name": "Double Wall"},
-  {"style_id": "a1IaZ0000019zrhUAA", "style_name": "Undercounter"},
-  {"style_id": "a1IaZ0000019ztJUAQ", "style_name": "Electric"},
-  {"style_id": "a1IaZ000001A01NUAS", "style_name": "Warming"},
-  {"style_id": "a1IaZ000001LNgzUAG", "style_name": "Freestanding"}
+  {
+    "style_id": "a1IaZ000000YiMnUAK",
+    "style_name": "French Door"
+  },
+  {
+    "style_id": "a1IaZ000000YiTKUA0",
+    "style_name": "Chest"
+  },
+  {
+    "style_id": "a1IaZ000000YiTLUA0",
+    "style_name": "Microwave Combo"
+  },
+  {
+    "style_id": "a1IaZ000000YiTNUA0",
+    "style_name": "Wine Cooler"
+  },
+  {
+    "style_id": "a1IaZ000000YiTOUA0",
+    "style_name": "Over-the-Range"
+  },
+  {
+    "style_id": "a1IaZ000000YiTPUA0",
+    "style_name": "Top-Freezer"
+  },
+  {
+    "style_id": "a1IaZ000000YiTSUA0",
+    "style_name": "Countertop"
+  },
+  {
+    "style_id": "a1IaZ000000YiTXUA0",
+    "style_name": "Beverage Center"
+  },
+  {
+    "style_id": "a1IaZ000000YiTZUA0",
+    "style_name": "Top Load"
+  },
+  {
+    "style_id": "a1IaZ000000YiTaUAK",
+    "style_name": "Gas"
+  },
+  {
+    "style_id": "a1IaZ000000YiTeUAK",
+    "style_name": "Bottom-Freezer"
+  },
+  {
+    "style_id": "a1IaZ000000ZVH3UAO",
+    "style_name": "Front Load"
+  },
+  {
+    "style_id": "a1IaZ000000ZVovUAG",
+    "style_name": "Upright"
+  },
+  {
+    "style_id": "a1IaZ000000a1FJUAY",
+    "style_name": "Column"
+  },
+  {
+    "style_id": "a1IaZ000000nyELUAY",
+    "style_name": "Wall-Mounted"
+  },
+  {
+    "style_id": "a1IaZ0000018i89UAA",
+    "style_name": "Kegerator"
+  },
+  {
+    "style_id": "a1IaZ0000018i9lUAA",
+    "style_name": "Drawer"
+  },
+  {
+    "style_id": "a1IaZ0000018tA1UAI",
+    "style_name": "Single"
+  },
+  {
+    "style_id": "a1IaZ0000019m85UAA",
+    "style_name": "Unitized"
+  },
+  {
+    "style_id": "a1IaZ0000019mODUAY",
+    "style_name": "Side-by-Side"
+  },
+  {
+    "style_id": "a1IaZ0000019mb7UAA",
+    "style_name": "Induction"
+  },
+  {
+    "style_id": "a1IaZ0000019ynZUAQ",
+    "style_name": "Standalone"
+  },
+  {
+    "style_id": "a1IaZ0000019z3hUAA",
+    "style_name": "Insert"
+  },
+  {
+    "style_id": "a1IaZ0000019z6vUAA",
+    "style_name": "Island Mount"
+  },
+  {
+    "style_id": "a1IaZ0000019z8XUAQ",
+    "style_name": "Under Cabinet"
+  },
+  {
+    "style_id": "a1IaZ0000019zbZUAQ",
+    "style_name": "Accessory"
+  },
+  {
+    "style_id": "a1IaZ0000019zenUAA",
+    "style_name": "Double Wall"
+  },
+  {
+    "style_id": "a1IaZ0000019zrhUAA",
+    "style_name": "Undercounter"
+  },
+  {
+    "style_id": "a1IaZ0000019ztJUAQ",
+    "style_name": "Electric"
+  },
+  {
+    "style_id": "a1IaZ000001A01NUAS",
+    "style_name": "Warming"
+  },
+  {
+    "style_id": "a1IaZ000001LNgzUAG",
+    "style_name": "Freestanding"
+  },
+  {
+    "style_id": "a1IaZ000001PjPZUA0",
+    "style_name": "Sconce"
+  },
+  {
+    "style_id": "a1IaZ000001PjSnUAK",
+    "style_name": "Outdoor Wall Lighting Accessories"
+  },
+  {
+    "style_id": "a1IaZ000001PjW1UAK",
+    "style_name": "Mid-Century Modern"
+  },
+  {
+    "style_id": "a1IaZ000001PjcTUAS",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001PjfhUAC",
+    "style_name": "Transitional"
+  },
+  {
+    "style_id": "a1IaZ000001PjhJUAS",
+    "style_name": "Roof Mounted Powered Attic Fan"
+  },
+  {
+    "style_id": "a1IaZ000001PjkXUAS",
+    "style_name": "Contemporary"
+  },
+  {
+    "style_id": "a1IaZ000001Pjm9UAC",
+    "style_name": "Sputnik"
+  },
+  {
+    "style_id": "a1IaZ000001Pk3tUAC",
+    "style_name": "Compact Refrigerator Freezer Combo"
+  },
+  {
+    "style_id": "a1IaZ000001PkByUAK",
+    "style_name": "Canless Downlight"
+  },
+  {
+    "style_id": "a1IaZ000001PkK1UAK",
+    "style_name": "Motion Sensor"
+  },
+  {
+    "style_id": "a1IaZ000001PkThUAK",
+    "style_name": "Casual"
+  },
+  {
+    "style_id": "a1IaZ000001PkVJUA0",
+    "style_name": "Candle"
+  },
+  {
+    "style_id": "a1IaZ000001PkYXUA0",
+    "style_name": "Traditional"
+  },
+  {
+    "style_id": "a1IaZ000001PkgbUAC",
+    "style_name": "Serving Bin with Bowls"
+  },
+  {
+    "style_id": "a1IaZ000001Pkn3UAC",
+    "style_name": "Farmhouse"
+  },
+  {
+    "style_id": "a1IaZ000001PkqHUAS",
+    "style_name": "Ceiling Fan Light Kit"
+  },
+  {
+    "style_id": "a1IaZ000001QZeHUAW",
+    "style_name": "Deck Mounted 2-Hole Lavatory Set"
+  },
+  {
+    "style_id": "a1IaZ000001QZsnUAG",
+    "style_name": "Deck Mounted 2 Hole Lavatory Set"
+  },
+  {
+    "style_id": "a1IaZ000001R93RUAS",
+    "style_name": "Built-In"
+  },
+  {
+    "style_id": "a1IaZ000001RIhpUAG",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RIptUAG",
+    "style_name": "Area Rug"
+  },
+  {
+    "style_id": "a1IaZ000001RIrVUAW",
+    "style_name": "Minimalist"
+  },
+  {
+    "style_id": "a1IaZ000001RJ4PUAW",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RJArUAO",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RJM9UAO",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RPWPUA4",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RPhhUAG",
+    "style_name": "Contemporary"
+  },
+  {
+    "style_id": "a1IaZ000001RU4fUAG",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RU6HUAW",
+    "style_name": "Modern"
+  },
+  {
+    "style_id": "a1IaZ000001RU7tUAG",
+    "style_name": "Wine Cooler"
+  }
 ]

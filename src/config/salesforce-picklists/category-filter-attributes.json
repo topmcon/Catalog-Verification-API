@@ -1067,14 +1067,14 @@
         "name": "Temperature (Min)",
         "salesforce_id": "a1aaZ000008mByYQAU",
         "filter_type": "number",
-        "rationale": "Minimum temperature \u00b0F"
+        "rationale": "Minimum temperature °F"
       },
       {
         "rank": 12,
         "name": "Temperature (Max)",
         "salesforce_id": "a1aaZ000008mByXQAU",
         "filter_type": "number",
-        "rationale": "Maximum temperature \u00b0F"
+        "rationale": "Maximum temperature °F"
       },
       {
         "rank": 13,
@@ -1720,7 +1720,7 @@
         "name": "Spout Swivel",
         "salesforce_id": "a1aaZ000008mByCQAU",
         "filter_type": "boolean",
-        "rationale": "360\u00b0 swivel"
+        "rationale": "360° swivel"
       },
       {
         "rank": 11,
@@ -4236,7 +4236,7 @@
         "name": "ADA",
         "salesforce_id": "a1aaZ000008lz3WQAQ",
         "filter_type": "boolean",
-        "rationale": "ADA compliant (depth \u22644\")"
+        "rationale": "ADA compliant (depth ≤4\")"
       },
       {
         "rank": 9,
@@ -6518,7 +6518,7 @@
         "name": "Max Temperature",
         "salesforce_id": "a1aaZ000008mBuyQAE",
         "filter_type": "number",
-        "rationale": "Max temp (\u00b0F)"
+        "rationale": "Max temp (°F)"
       },
       {
         "rank": 5,
@@ -6706,6 +6706,3314 @@
         "salesforce_id": "a1aaZ000008lz3wQAA",
         "filter_type": "boolean",
         "rationale": "Assembly needed"
+      }
+    ]
+  },
+  "Kitchen Appliances": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Laundry Appliances": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Oven": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Configuration",
+        "salesforce_id": "a1aaZ000008mBojQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Fuel Type",
+        "salesforce_id": "a1aaZ000008mBsmQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Oven Capacity",
+        "salesforce_id": "a1aaZ000008mBw7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Convection",
+        "salesforce_id": "a1aaZ000008mBopQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Self Cleaning",
+        "salesforce_id": "a1aaZ000008mBxAQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Smart Home",
+        "salesforce_id": "a1aaZ000008mBxyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Air Fry",
+        "salesforce_id": "a1aaZ000008lz3fQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Steam Cooking",
+        "salesforce_id": "a1aaZ000008mByLQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Combination Oven",
+        "salesforce_id": "a1aaZ000008mBocQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Door Type",
+        "salesforce_id": "a1aaZ000008mBrTQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Meat Thermometer",
+        "salesforce_id": "a1aaZ000008mBuyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Sabbath Mode",
+        "salesforce_id": "a1aaZ000008mBx1QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Number of Racks",
+        "salesforce_id": "a1aaZ000008mBvrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Microwave Capacity",
+        "salesforce_id": "a1aaZ000008mBv0QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Control Type",
+        "salesforce_id": "a1aaZ000008mBonQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "All in One Washer / Dryer": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Standalone Pedestal": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Icemaker": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Ignition Type",
+        "salesforce_id": "a1aaZ000008mBtnQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Cutout Size",
+        "salesforce_id": "a1aaZ000008mBpAQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Illumatherapy",
+        "salesforce_id": "a1aaZ000008mBtoQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Impeller",
+        "salesforce_id": "a1aaZ000008mBtpQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Installation Type",
+        "salesforce_id": "a1aaZ000008mBu7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Water Connection Type",
+        "salesforce_id": "a1aaZ000008mBzaQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Self Cleaning",
+        "salesforce_id": "a1aaZ000008mBxAQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Drop Ell Included",
+        "salesforce_id": "a1aaZ000008mBrgQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "RGB",
+        "salesforce_id": "a1aaZ000008mBwtQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Noise Level",
+        "salesforce_id": "a1aaZ000008mBvOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "ADA",
+        "salesforce_id": "a1aaZ000008lz3WQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Flow Rate",
+        "salesforce_id": "a1aaZ000008mBsRQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Manufacturer Warranty",
+        "salesforce_id": "a1aaZ000008mBunQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Barbeques": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Grill",
+        "salesforce_id": "a1aaZ000008mBsyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Number of Circuits",
+        "salesforce_id": "a1aaZ000008mBvcQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "BTU Output",
+        "salesforce_id": "a1aaZ000008mBnrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Total Cooking Area",
+        "salesforce_id": "a1aaZ000008mByjQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Power Burner",
+        "salesforce_id": "a1aaZ000008mBwRQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Slide Bar Height",
+        "salesforce_id": "a1aaZ000008mBxuQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Self Leveling Base",
+        "salesforce_id": "a1aaZ000008mBxBQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "RPM (High)",
+        "salesforce_id": "a1aaZ000008mBwyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Bulb Color",
+        "salesforce_id": "a1aaZ000008mBnvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Product Variation",
+        "salesforce_id": "a1aaZ000008mBwVQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Smart Home",
+        "salesforce_id": "a1aaZ000008mBxyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Includes Drip Pan",
+        "salesforce_id": "a1aaZ000008mBtqQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Griddle",
+        "salesforce_id": "a1aaZ000008mBswQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Grille Finish",
+        "salesforce_id": "a1aaZ000008mBszQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Assembly Required",
+        "salesforce_id": "a1aaZ000008lz3wQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Coffee Maker": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "CO2 Tank Included",
+        "salesforce_id": "a1aaZ000008mBoXQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Capacity (Gallons)",
+        "salesforce_id": "a1aaZ000008mBoDQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Bulb Base",
+        "salesforce_id": "a1aaZ000008mBnuQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Sink Width",
+        "salesforce_id": "a1aaZ000008mBxsQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Quick Ship",
+        "salesforce_id": "a1aaZ000008mBwgQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Water Filtration",
+        "salesforce_id": "a1aaZ000008mBzeQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Theme",
+        "salesforce_id": "a1aaZ000008mBybQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Mirror Front",
+        "salesforce_id": "a1aaZ000008mBvBQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Auto Shut Off",
+        "salesforce_id": "a1aaZ000008lz3yQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Smart Home",
+        "salesforce_id": "a1aaZ000008mBxyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Drawer": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cooking": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Pizza Oven": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Fuel Type",
+        "salesforce_id": "a1aaZ000008mBsmQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Optional Trim Kit",
+        "salesforce_id": "a1aaZ000008mBw2QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "BTU Output",
+        "salesforce_id": "a1aaZ000008mBnrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Meat Thermometer",
+        "salesforce_id": "a1aaZ000008mBuyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Product Variation",
+        "salesforce_id": "a1aaZ000008mBwVQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Installation Type",
+        "salesforce_id": "a1aaZ000008mBu7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Includes Drip Pan",
+        "salesforce_id": "a1aaZ000008mBtqQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Place Setting Capacity",
+        "salesforce_id": "a1aaZ000008mBwNQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Cross Bore",
+        "salesforce_id": "a1aaZ000008mBp1QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Title 24",
+        "salesforce_id": "a1aaZ000008mByeQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Width",
+        "salesforce_id": "a1aaZ000008mBzmQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Assembly Required",
+        "salesforce_id": "a1aaZ000008lz3wQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Outdoor Approved",
+        "salesforce_id": "a1aaZ000008mBw4QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Manufacturer Warranty",
+        "salesforce_id": "a1aaZ000008mBunQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Refrigeration": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Wine Bottle Capacity (750 ml)",
+        "salesforce_id": "a1aaZ000008mBzrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Installation Type",
+        "salesforce_id": "a1aaZ000008mBu7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Number of Zones",
+        "salesforce_id": "a1aaZ000008mBw0QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Cooling Type",
+        "salesforce_id": "a1aaZ000008mBotQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Can Capacity (12 oz.)",
+        "salesforce_id": "a1aaZ000008mBo9QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Shelf Material",
+        "salesforce_id": "a1aaZ000008mBxVQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Interior Light",
+        "salesforce_id": "a1aaZ000008mBuDQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Lockable",
+        "salesforce_id": "a1aaZ000008mBudQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Glass Doors",
+        "salesforce_id": "a1aaZ000008mBsuQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Temperature Display",
+        "salesforce_id": "a1aaZ000008mByZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Temperature (Min)",
+        "salesforce_id": "a1aaZ000008mByYQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Temperature (Max)",
+        "salesforce_id": "a1aaZ000008mByXQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Door Swing",
+        "salesforce_id": "a1aaZ000008mBrRQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Number Of Shelves",
+        "salesforce_id": "a1aaZ000008mBvtQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Appliances": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Do Not List (On Hold)": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Chairs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Home Electronics": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Water Fountain": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bath Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bathroom Cabinet Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bathroom Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bathtub Waste & Overflow": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Commercial Restroom": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Medicine Cabinets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Shower Faucets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Tankless Water Heaters": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Urinals": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Backsplash Kitchen Tile": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Food Service Faucets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Hot & Cold Water Dispensers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Furniture and Decor": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Sink Combos": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Storage & Organization": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Kitchen Tile": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Luxury Kitchen": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Water Filtration": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Ceiling Lights": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Number Of Lights",
+        "salesforce_id": "a1aaZ000008mBvoQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Fingerprint Resistant",
+        "salesforce_id": "a1aaZ000008mBsNQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Shape",
+        "salesforce_id": "a1aaZ000008mBxTQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Shade Material",
+        "salesforce_id": "a1aaZ000008mBxOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Bulb Type",
+        "salesforce_id": "a1aaZ000008mBnyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Dimmable",
+        "salesforce_id": "a1aaZ000008mBrGQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Bulb Included",
+        "salesforce_id": "a1aaZ000008mBnwQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Location Rating",
+        "salesforce_id": "a1aaZ000008mBucQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Lumens",
+        "salesforce_id": "a1aaZ000008mBuiQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Combination Oven",
+        "salesforce_id": "a1aaZ000008mBocQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Sloped Ceiling Compatible",
+        "salesforce_id": "a1aaZ000008mBxxQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "CEER Rating",
+        "salesforce_id": "a1aaZ000008mBoHQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Flush and Semi-Flush": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Island Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Landscape Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "LED Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Light Bulbs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Light Switches & Dimmers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Lighted Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Lighting Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Pendants": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Number Of Lights",
+        "salesforce_id": "a1aaZ000008mBvoQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Pendant Type",
+        "salesforce_id": "a1aaZ000008mBwKQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Shade Material",
+        "salesforce_id": "a1aaZ000008mBxOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Bulb Type",
+        "salesforce_id": "a1aaZ000008mBnyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Dimmable",
+        "salesforce_id": "a1aaZ000008mBrGQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Maximum Adjustable Height",
+        "salesforce_id": "a1aaZ000008mBuvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Bulb Included",
+        "salesforce_id": "a1aaZ000008mBnwQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Location Rating",
+        "salesforce_id": "a1aaZ000008mBucQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Sloped Ceiling Compatible",
+        "salesforce_id": "a1aaZ000008mBxxQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Cord Length",
+        "salesforce_id": "a1aaZ000008mBowQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Shape",
+        "salesforce_id": "a1aaZ000008mBxTQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Wattage",
+        "salesforce_id": "a1aaZ000008mBzkQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Shade Diameter",
+        "salesforce_id": "a1aaZ000008mBxMQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Pendant Size",
+        "salesforce_id": "a1aaZ000008mBwJQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Post Lights": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Step Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Track and Rail Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Number Of Lights",
+        "salesforce_id": "a1aaZ000008mBvoQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Trim Height",
+        "salesforce_id": "a1aaZ000008mByqQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Trim Size",
+        "salesforce_id": "a1aaZ000008mByrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Fingerprint Resistant",
+        "salesforce_id": "a1aaZ000008mBsNQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Dimmable",
+        "salesforce_id": "a1aaZ000008mBrGQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Bulb Type",
+        "salesforce_id": "a1aaZ000008mBnyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Bulb Included",
+        "salesforce_id": "a1aaZ000008mBnwQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Adjustable",
+        "salesforce_id": "a1aaZ000008lz3XQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Shape",
+        "salesforce_id": "a1aaZ000008mBxTQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Sloped Ceiling Compatible",
+        "salesforce_id": "a1aaZ000008mBxxQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Voltage",
+        "salesforce_id": "a1aaZ000008mBzQQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Wattage",
+        "salesforce_id": "a1aaZ000008mBzkQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Under Cabinet Lights": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Fire Rated",
+        "salesforce_id": "a1aaZ000008mBsPQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Dimmable",
+        "salesforce_id": "a1aaZ000008mBrGQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Combination Oven",
+        "salesforce_id": "a1aaZ000008mBocQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Lumens",
+        "salesforce_id": "a1aaZ000008mBuiQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Locking Mechanism",
+        "salesforce_id": "a1aaZ000008mBueQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Power Feed Type",
+        "salesforce_id": "a1aaZ000008mBwSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Handing",
+        "salesforce_id": "a1aaZ000008mBt5QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Light Direction",
+        "salesforce_id": "a1aaZ000008mBuYQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Adjustable Color Temperature",
+        "salesforce_id": "a1aaZ000008lz3YQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Motor",
+        "salesforce_id": "a1aaZ000008mBvHQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Sustainability",
+        "salesforce_id": "a1aaZ000008mByPQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Canopy Height",
+        "salesforce_id": "a1aaZ000008mBoBQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Wattage",
+        "salesforce_id": "a1aaZ000008mBzkQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Vanity Lighting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Number Of Lights",
+        "salesforce_id": "a1aaZ000008mBvoQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Light Included",
+        "salesforce_id": "a1aaZ000008mBuZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Mounting Type",
+        "salesforce_id": "a1aaZ000008mBvLQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Shade Material",
+        "salesforce_id": "a1aaZ000008mBxOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Dimmable",
+        "salesforce_id": "a1aaZ000008mBrGQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Bulb Type",
+        "salesforce_id": "a1aaZ000008mBnyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Location Rating",
+        "salesforce_id": "a1aaZ000008mBucQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Bulb Included",
+        "salesforce_id": "a1aaZ000008mBnwQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "ADA",
+        "salesforce_id": "a1aaZ000008lz3WQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Base Style",
+        "salesforce_id": "a1aaZ000008lz4NQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Shade Shape",
+        "salesforce_id": "a1aaZ000008mBxPQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Wattage",
+        "salesforce_id": "a1aaZ000008mBzkQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Combination Oven",
+        "salesforce_id": "a1aaZ000008mBocQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Air Circulators": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Attic Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Ceiling Fans with Light": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Ceiling Fans with Remotes": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Ceiling Fans without Light": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "DC Motor Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Designer Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Dual Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Fandelier Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Hugger Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Indoor Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Large Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "LED Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Small Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Smart Home Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Trending Ceiling Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Utility Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Wall Mounted Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Barn Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Closet and Pocket Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Commercial Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Deadbolts": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Designer Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Entry Sets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Hardware Parts": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Hardware: Knobs and Levers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Drain Required",
+        "salesforce_id": "a1aaZ000008mBrbQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Flushometer Included",
+        "salesforce_id": "a1aaZ000008mBsWQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "SmartKey",
+        "salesforce_id": "a1aaZ000008mBxzQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Knob Shape",
+        "salesforce_id": "a1aaZ000008mBuLQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "ANSI Certification",
+        "salesforce_id": "a1aaZ000008lz3lQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Handcrafted",
+        "salesforce_id": "a1aaZ000008mBt4QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "ADA",
+        "salesforce_id": "a1aaZ000008lz3WQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "App Compatibility",
+        "salesforce_id": "a1aaZ000008lz3oQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Keyway",
+        "salesforce_id": "a1aaZ000008mBuJQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Filtered",
+        "salesforce_id": "a1aaZ000008mBsLQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Basin Depth (Center)",
+        "salesforce_id": "a1aaZ000008lz4QQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Drum Material",
+        "salesforce_id": "a1aaZ000008mBrhQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Approved for Commercial Use",
+        "salesforce_id": "a1aaZ000008lz3qQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Hinges": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Knobs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Door Levers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Doors": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Handlesets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Home Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Keyed Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Keyless Entry": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Lock Combo Packs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Mortise Locks": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Multi Point Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Safes, Locks and Lock Boxes": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Safety & Security": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Screen and Storm Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Storage and Organization": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 2,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Number Of Shelves",
+        "salesforce_id": "a1aaZ000008mBvtQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Adjustable",
+        "salesforce_id": "a1aaZ000008lz3XQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Assembly Required",
+        "salesforce_id": "a1aaZ000008lz3wQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Mounting Type",
+        "salesforce_id": "a1aaZ000008mBvLQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Number Of Drawers",
+        "salesforce_id": "a1aaZ000008mBvfQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Number Of Doors",
+        "salesforce_id": "a1aaZ000008mBvdQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Soft Close Hinges",
+        "salesforce_id": "a1aaZ000008mBy2QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Soft Close Slides",
+        "salesforce_id": "a1aaZ000008mBy3QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Max Capacity (Pounds)",
+        "salesforce_id": "a1aaZ000008mBuqQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Rust Resistant",
+        "salesforce_id": "a1aaZ000008mBx0QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Affordable Cabinet Knobs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Affordable Cabinet Pulls": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Appliance Pulls": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Backplates": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Catches and Latches": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Finishing": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Hardware Bulk Packs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Hardware Mounting Templates": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Hinges": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Knobs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Locks": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Organization and Storage": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 2,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Number Of Shelves",
+        "salesforce_id": "a1aaZ000008mBvtQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Adjustable",
+        "salesforce_id": "a1aaZ000008lz3XQAQ",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Soft Close Hinges",
+        "salesforce_id": "a1aaZ000008mBy2QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Soft Close Slides",
+        "salesforce_id": "a1aaZ000008mBy3QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Gas Type",
+        "salesforce_id": "a1aaZ000008mBssQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Installation Hardware Included",
+        "salesforce_id": "a1aaZ000008mBu6QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Assembly Required",
+        "salesforce_id": "a1aaZ000008lz3wQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Pullout Spray",
+        "salesforce_id": "a1aaZ000008mBwbQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Rust Resistant",
+        "salesforce_id": "a1aaZ000008mBx0QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Cabinet Pulls": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Designer Cabinet Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Luxury Cabinet Knobs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Luxury Cabinet Pulls": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Vanity Cabinet Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Entry Sets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Exterior Doors": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Fire Pit Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Fire Pits": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Fuel Type",
+        "salesforce_id": "a1aaZ000008mBsmQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "Fixture Shape",
+        "salesforce_id": "a1aaZ000008mBsQQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Material",
+        "salesforce_id": "a1aaZ000008mBupQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Shape",
+        "salesforce_id": "a1aaZ000008mBxTQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "BTU Output",
+        "salesforce_id": "a1aaZ000008mBnrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Includes Drip Pan",
+        "salesforce_id": "a1aaZ000008mBtqQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Field Cuttable",
+        "salesforce_id": "a1aaZ000008mBsJQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Cross Bore",
+        "salesforce_id": "a1aaZ000008mBp1QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Temperature Settings",
+        "salesforce_id": "a1aaZ000008mByaQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Spray Nozzles",
+        "salesforce_id": "a1aaZ000008mByFQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Assembly Required",
+        "salesforce_id": "a1aaZ000008lz3wQAA",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Product Variation",
+        "salesforce_id": "a1aaZ000008mBwVQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Rust Resistant",
+        "salesforce_id": "a1aaZ000008mBx0QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "CSA Code",
+        "salesforce_id": "a1aaZ000008mBp4QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Collection",
+        "salesforce_id": "a1aaZ000008mBoZQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 16,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 17,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Garden Decor": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Generators": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Hardscaping": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Mail Boxes": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor Fireplaces": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor Heating": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor Kitchens": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor Shower Faucets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Patio Heaters": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Rugs": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Air Filters": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Commercial HVAC": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Ducting": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Evaporative Coolers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Exhaust Fans": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "CFM",
+        "salesforce_id": "a1aaZ000008mBoNQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 3,
+        "name": "Noise Level",
+        "salesforce_id": "a1aaZ000008mBvOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Drying System",
+        "salesforce_id": "a1aaZ000008mBrjQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Light Kit Included",
+        "salesforce_id": "a1aaZ000008mBubQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "LED",
+        "salesforce_id": "a1aaZ000008mBuSQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 7,
+        "name": "Heater Included",
+        "salesforce_id": "a1aaZ000008mBtMQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Humidity Control",
+        "salesforce_id": "a1aaZ000008mBtiQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Motor",
+        "salesforce_id": "a1aaZ000008mBvHQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 10,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Installation Type",
+        "salesforce_id": "a1aaZ000008mBu7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Smart Home",
+        "salesforce_id": "a1aaZ000008mBxyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Crystal Color",
+        "salesforce_id": "a1aaZ000008mBp2QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Voltage",
+        "salesforce_id": "a1aaZ000008mBzQQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "Manufacturer Warranty",
+        "salesforce_id": "a1aaZ000008mBunQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Heating": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "name": "Fuel Type",
+        "salesforce_id": "a1aaZ000008mBsmQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 2,
+        "name": "BTU Output",
+        "salesforce_id": "a1aaZ000008mBnrQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 4,
+        "name": "Crystal Color",
+        "salesforce_id": "a1aaZ000008mBp2QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 5,
+        "name": "Configuration",
+        "salesforce_id": "a1aaZ000008mBojQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 6,
+        "name": "Energy Star",
+        "salesforce_id": "a1aaZ000008mBrvQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 8,
+        "name": "Voltage",
+        "salesforce_id": "a1aaZ000008mBzQQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 9,
+        "name": "Smart Home",
+        "salesforce_id": "a1aaZ000008mBxyQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 11,
+        "name": "Vent Type",
+        "salesforce_id": "a1aaZ000008mBzMQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 12,
+        "name": "Installation Type",
+        "salesforce_id": "a1aaZ000008mBu7QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "name": "Noise Level",
+        "salesforce_id": "a1aaZ000008mBvOQAU",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 14,
+        "name": "Manufacturer Warranty",
+        "salesforce_id": "a1aaZ000008mBunQAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 15,
+        "name": "CSA Code",
+        "salesforce_id": "a1aaZ000008mBp4QAE",
+        "filter_type": "enum",
+        "rationale": ""
+      },
+      {
+        "rank": 13,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Indoor Heating": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Mini Split Air Conditioners": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Skylights": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Stove and Chimney Pipe": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Stoves and Fireplaces": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Thermostats": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Wall Decor": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Home Organization": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Home Accents": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Outdoor and Patio Furniture": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Tile": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Luxury Vinyl Flooring": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Hardwood Flooring": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Laminate Flooring": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Carpet Tile": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Waterproof Flooring": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Industrial Strainers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Tub and Shower Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Storage Drawers/Doors": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Chemicals & Compounds": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Drainage & Waste": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Room Heater": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Pipe Fittings": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "HVAC Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bidet Faucets": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Bidet Seats": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Sliding Door Hardware": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Drawer Slides and Accessories": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
+      }
+    ]
+  },
+  "Dehumidifiers": {
+    "department": "APPLIANCES",
+    "attributes": [
+      {
+        "rank": 1,
+        "filter_type": "enum",
+        "rationale": ""
       }
     ]
   }
