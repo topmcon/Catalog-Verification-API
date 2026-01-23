@@ -73,17 +73,20 @@ ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "<command>"
 - **Workflow**: `.github/workflows/ci-cd.yml`
 - **Actions**: Lint → Test → Deploy to production
 
-### Manual Sync (if CI/CD fails)
+### Manual Deployment (ALWAYS use this method)
 ```bash
-# On production server
+# From local workspace - run the deployment script
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "/opt/catalog-verification-api/deploy.sh"
+
+# OR manually on production server
 cd /opt/catalog-verification-api
-git stash
-git checkout .
-git clean -fd
 git pull origin main
 npm install
+npm run build          # ⚠️ CRITICAL: Must compile TypeScript → JavaScript
 systemctl restart catalog-verification
 ```
+
+**⚠️ CRITICAL:** Always run `npm run build` after pulling code! Production runs compiled JavaScript from `dist/` folder, not TypeScript source.
 
 ---
 
