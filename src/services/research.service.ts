@@ -9,6 +9,8 @@
  * 
  * This enables the AI to work with ACTUAL data from external sources,
  * not just the text we pass in the prompt.
+ * 
+ * LEARNING SYSTEM: Failures are tracked in MongoDB for continuous improvement.
  */
 
 import axios from 'axios';
@@ -17,6 +19,7 @@ import OpenAI from 'openai';
 import config from '../config';
 import logger from '../utils/logger';
 import aiUsageTracker from './ai-usage-tracking.service';
+import { ScrapeFailure } from '../models/scrape-failure.model';
 
 // PDF parsing - we'll use pdf-parse for extracting text
 let pdfParse: ((buffer: Buffer) => Promise<{ text: string; numpages: number }>) | null = null;
@@ -90,11 +93,93 @@ export interface ResearchResult {
 // Timeout for requests
 const REQUEST_TIMEOUT = config.research?.requestTimeout || 15000;
 
+// List of known anti-bot domains that require special handling
+const ANTI_BOT_DOMAINS = [
+  'signaturehardware.com',
+  'build.com',
+  'wayfair.com',
+  'homedepot.com',
+  'lowes.com'
+];
+
+// Alternative user agents to try on retry
+const USER_AGENTS = [
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+];
+
+/**
+ * Check if URL is from an anti-bot protected domain
+ */
+function isAntiBotDomain(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return ANTI_BOT_DOMAINS.some(domain => hostname.includes(domain));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Track web scraping failures for learning/improvement
+ * Stores in MongoDB for pattern analysis and continuous improvement
+ */
+async function trackScrapeFailure(url: string, error: string, contentLength: number, context?: {
+  sf_catalog_id?: string;
+  model_number?: string;
+  brand?: string;
+  session_id?: string;
+}): Promise<void> {
+  try {
+    const hostname = new URL(url).hostname;
+    const isAntiBot = isAntiBotDomain(url);
+    
+    // Categorize error type
+    let errorType: 'ACCESS_DENIED' | 'TIMEOUT' | 'NETWORK_ERROR' | 'MINIMAL_CONTENT' | 'PARSE_ERROR' | 'UNKNOWN';
+    if (error.includes('ACCESS_DENIED') || error.includes('denied') || error.includes('blocked')) {
+      errorType = 'ACCESS_DENIED';
+    } else if (error.includes('timeout') || error.includes('ETIMEDOUT')) {
+      errorType = 'TIMEOUT';
+    } else if (error.includes('ECONNRESET') || error.includes('ENOTFOUND') || error.includes('network')) {
+      errorType = 'NETWORK_ERROR';
+    } else if (error.includes('MINIMAL_CONTENT') || contentLength < 500) {
+      errorType = 'MINIMAL_CONTENT';
+    } else if (error.includes('parse') || error.includes('Parse')) {
+      errorType = 'PARSE_ERROR';
+    } else {
+      errorType = 'UNKNOWN';
+    }
+
+    // Log for immediate visibility
+    logger.warn('SCRAPE_FAILURE_TRACKED', {
+      url,
+      hostname,
+      errorType,
+      error,
+      contentLength,
+      isAntiBotDomain: isAntiBot,
+      timestamp: new Date().toISOString()
+    });
+
+    // Store in MongoDB for long-term learning (don't await to avoid blocking)
+    ScrapeFailure.logFailure(url, errorType, error, contentLength, isAntiBot, context)
+      .catch((dbErr: Error) => logger.debug('Failed to persist scrape failure to DB', { dbErr: dbErr.message }));
+
+  } catch (err) {
+    // Ignore tracking errors - should never block main flow
+    logger.debug('Error in trackScrapeFailure', { err });
+  }
+}
+
 /**
  * Fetch and parse a web page to extract product information
+ * Now with retry logic and improved spec extraction
  */
-export async function fetchWebPage(url: string): Promise<WebPageContent> {
+export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPageContent> {
   const startTime = Date.now();
+  const MAX_RETRIES = 2;
   
   try {
     if (!url || url === '(not provided)' || !url.startsWith('http')) {
@@ -110,12 +195,15 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
       };
     }
 
-    logger.info('Fetching web page', { url });
+    logger.info('Fetching web page', { url, attempt: retryCount + 1 });
+
+    // Use different user agent on retry
+    const userAgent = USER_AGENTS[retryCount % USER_AGENTS.length];
 
     const response = await axios.get(url, {
       timeout: REQUEST_TIMEOUT,
       headers: {
-        'User-Agent': USER_AGENT,
+        'User-Agent': userAgent,
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -126,13 +214,41 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
         'Sec-Fetch-Site': 'none',
         'Sec-Fetch-User': '?1',
         'Cache-Control': 'max-age=0',
-        'DNT': '1'
+        'DNT': '1',
+        'Referer': 'https://www.google.com/'  // Some sites check referer
       },
       maxRedirects: 5,
       validateStatus: (status) => status < 500 // Accept redirects and client errors to handle them ourselves
     });
 
     const $ = cheerio.load(response.data);
+    const bodyText = $('body').text();
+
+    // Check for blocked/access denied pages
+    const isBlocked = bodyText.toLowerCase().includes('access denied') ||
+                      bodyText.toLowerCase().includes('permission to access') ||
+                      bodyText.toLowerCase().includes('blocked') ||
+                      bodyText.length < 500;
+
+    if (isBlocked && retryCount < MAX_RETRIES) {
+      logger.warn('Page appears blocked, retrying with different user agent', { url, attempt: retryCount + 1 });
+      await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+      return fetchWebPage(url, retryCount + 1);
+    }
+
+    if (isBlocked) {
+      await trackScrapeFailure(url, 'ACCESS_DENIED', bodyText.length);
+      return {
+        url,
+        title: '',
+        description: '',
+        specifications: {},
+        features: [],
+        rawText: '',
+        success: false,
+        error: `Page blocked or access denied (content length: ${bodyText.length})`
+      };
+    }
 
     // Remove noise that doesn't help with product analysis
     $('script, style, nav, header, footer, [class*="cookie"], [class*="popup"], [class*="advertisement"]').remove();
@@ -145,8 +261,10 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
     const description = $('meta[name="description"]').attr('content') ||
                         $('meta[property="og:description"]').attr('content') || '';
 
-    // Only extract JSON-LD structured data (most reliable)
+    // Extract specifications from multiple patterns
     const specifications: Record<string, string> = {};
+    
+    // Pattern 1: JSON-LD structured data (most reliable)
     $('script[type="application/ld+json"]').each((_, script) => {
       try {
         const jsonLd = JSON.parse($(script).html() || '{}');
@@ -158,26 +276,74 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
           if (jsonLd.mpn) specifications['Model Number'] = jsonLd.mpn;
           if (jsonLd.color) specifications['Color'] = jsonLd.color;
           if (jsonLd.material) specifications['Material'] = jsonLd.material;
+          if (jsonLd.weight) specifications['Weight'] = typeof jsonLd.weight === 'object' ? jsonLd.weight.value : jsonLd.weight;
+          // Extract additional properties if present
+          if (jsonLd.additionalProperty) {
+            for (const prop of jsonLd.additionalProperty) {
+              if (prop.name && prop.value) {
+                specifications[prop.name] = String(prop.value);
+              }
+            }
+          }
         }
       } catch {
         // Ignore JSON parse errors
       }
     });
 
+    // Pattern 2: <dt>/<dd> definition lists (common spec format)
+    $('dl').each((_, dl) => {
+      $(dl).find('dt').each((_, dt) => {
+        const key = $(dt).text().replace(/:/g, '').trim();
+        const dd = $(dt).next('dd');
+        if (dd.length > 0) {
+          const value = dd.text().trim();
+          if (key && value && key.length < 50 && value.length < 500) {
+            specifications[key] = value;
+          }
+        }
+      });
+    });
+
+    // Pattern 3: Spec tables with th/td or label/value patterns
+    $('table').each((_, table) => {
+      $(table).find('tr').each((_, row) => {
+        const cells = $(row).find('th, td');
+        if (cells.length >= 2) {
+          const key = $(cells[0]).text().replace(/:/g, '').trim();
+          const value = $(cells[1]).text().trim();
+          if (key && value && key.length < 50 && value.length < 500) {
+            specifications[key] = value;
+          }
+        }
+      });
+    });
+
+    // Pattern 4: Common spec list patterns (li with key: value or key - value)
+    $('li, div.spec, div.specification, [class*="spec-item"], [class*="product-spec"]').each((_, el) => {
+      const text = $(el).text().trim();
+      // Match patterns like "Weight: 150 lbs" or "Capacity - 38 gallons"
+      const match = text.match(/^([A-Za-z][A-Za-z\s]{2,30})[:–-]\s*(.{1,200})$/);
+      if (match) {
+        const key = match[1].trim();
+        const value = match[2].trim();
+        if (!specifications[key]) {
+          specifications[key] = value;
+        }
+      }
+    });
+
     // Capture EVERYTHING from main content - let AI analyze
-    // Try to focus on main product content areas
     const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
       .first()
       .text();
 
-    // Fallback to body if no main content found
     const fullContent = mainContent || $('body').text();
 
-    // Clean and provide comprehensive text to AI
     const rawText = fullContent
-      .replace(/\s+/g, ' ')           // Normalize whitespace
+      .replace(/\s+/g, ' ')
       .trim()
-      .slice(0, 50000);               // Large limit - comprehensive context for AI
+      .slice(0, 50000);
 
     // Capture all list items (features/specs often in lists)
     const features: string[] = [];
@@ -189,9 +355,16 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
     });
 
     const processingTime = Date.now() - startTime;
+    
+    // Track if we got minimal content (potential future learning)
+    if (rawText.length < 1000 && Object.keys(specifications).length === 0) {
+      await trackScrapeFailure(url, 'MINIMAL_CONTENT', rawText.length);
+    }
+    
     logger.info('Web page fetched successfully', { 
       url, 
       contentLength: rawText.length,
+      specsFound: Object.keys(specifications).length,
       featuresFound: features.length,
       processingTime 
     });
@@ -201,13 +374,22 @@ export async function fetchWebPage(url: string): Promise<WebPageContent> {
       title,
       description,
       specifications,
-      features,  // Return ALL features - let AI filter
+      features,
       rawText,
       success: true
     };
 
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    
+    // Retry on network errors
+    if (retryCount < MAX_RETRIES && (errorMessage.includes('timeout') || errorMessage.includes('ECONNRESET'))) {
+      logger.warn('Network error, retrying', { url, error: errorMessage, attempt: retryCount + 1 });
+      await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+      return fetchWebPage(url, retryCount + 1);
+    }
+    
+    await trackScrapeFailure(url, errorMessage, 0);
     logger.error('Failed to fetch web page', { url, error: errorMessage });
     
     return {

@@ -78,3 +78,8 @@ export {
   MatchType,
   MatchSource
 } from './failed-match-log.model';
+// Scrape Failure Model (for learning from web scraping issues)
+export {
+  ScrapeFailure,
+  IScrapeFailure
+} from './scrape-failure.model';

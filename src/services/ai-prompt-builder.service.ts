@@ -109,6 +109,9 @@ ${formatAttributeList(rawProduct.Web_Retailer_Specs)}
 ### Ferguson Attributes:
 ${formatAttributeList(rawProduct.Ferguson_Attributes)}
 
+### Specification Table (HTML - Contains detailed product specifications):
+${formatSpecificationTable(rawProduct.Specification_Table)}
+
 ## REQUIRED FIELDS TO VERIFY (${categorySchema.categoryName} Category)
 
 ### Primary Attributes (Required for ALL products):
@@ -427,6 +430,72 @@ function truncateText(text: string | undefined, maxLength: number): string {
   
   if (cleaned.length <= maxLength) return cleaned;
   return cleaned.substring(0, maxLength) + '...';
+}
+
+/**
+ * Parse and format Specification_Table HTML into readable key-value pairs
+ * This extracts specs from the HTML table that Salesforce provides
+ */
+function formatSpecificationTable(htmlTable: string | undefined): string {
+  if (!htmlTable || htmlTable.trim() === '') {
+    return '(not provided)';
+  }
+
+  try {
+    const specs: Array<{ key: string; value: string }> = [];
+    
+    // Pattern 1: <dt><strong>Label:</strong> Value</dt>
+    const dtPattern = /<dt>\s*<strong>([^<]+):<\/strong>\s*([^<]*)<\/dt>/gi;
+    let match;
+    while ((match = dtPattern.exec(htmlTable)) !== null) {
+      const key = match[1].trim();
+      const value = match[2].trim();
+      if (key && value) {
+        specs.push({ key, value });
+      }
+    }
+    
+    // Pattern 2: <tr><td>Label</td><td>Value</td></tr>
+    const trPattern = /<tr[^>]*>\s*<td[^>]*>([^<]+)<\/td>\s*<td[^>]*>([^<]+)<\/td>\s*<\/tr>/gi;
+    while ((match = trPattern.exec(htmlTable)) !== null) {
+      const key = match[1].replace(/<[^>]+>/g, '').trim();
+      const value = match[2].replace(/<[^>]+>/g, '').trim();
+      if (key && value && !specs.find(s => s.key.toLowerCase() === key.toLowerCase())) {
+        specs.push({ key, value });
+      }
+    }
+    
+    // Pattern 3: Label: Value (plain text with colon separator, outside tags)
+    const plainPattern = /(?:^|>)([A-Z][^:<>\n]{2,30}):\s*([^<>\n]{1,100})(?:<|$)/gim;
+    while ((match = plainPattern.exec(htmlTable)) !== null) {
+      const key = match[1].trim();
+      const value = match[2].trim();
+      if (key && value && !specs.find(s => s.key.toLowerCase() === key.toLowerCase())) {
+        specs.push({ key, value });
+      }
+    }
+
+    if (specs.length === 0) {
+      // Fallback: just clean the HTML and return as text
+      const cleanText = htmlTable
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      return cleanText.length > 0 ? `Raw text: ${cleanText.slice(0, 2000)}` : '(could not parse)';
+    }
+
+    // Format as readable list - this is CRITICAL data for the AI
+    return `**IMPORTANT: These specifications are from the manufacturer. Use these values!**
+${specs.map(s => `- ${s.key}: ${s.value}`).join('\n')}`;
+
+  } catch (error) {
+    // If parsing fails, return raw text cleaned of HTML
+    const cleanText = htmlTable
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return cleanText.length > 0 ? `Raw text: ${cleanText.slice(0, 2000)}` : '(parsing error)';
+  }
 }
 
 /**
