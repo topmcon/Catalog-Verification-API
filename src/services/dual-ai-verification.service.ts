@@ -313,7 +313,9 @@ export async function verifyProductWithDualAI(
     let retryCount = 0;
     
     // PHASE 3: Handle disagreements with cross-validation
-    if (!consensus.agreed && openaiResult.determinedCategory !== xaiResult.determinedCategory) {
+    // Use category equivalence check instead of strict string comparison
+    const categoriesEquivalent = areCategoriesEquivalent(openaiResult.determinedCategory, xaiResult.determinedCategory);
+    if (!consensus.agreed && !categoriesEquivalent) {
       logger.info('PHASE 3: Category disagreement - initiating cross-validation', { sessionId: verificationSessionId });
       crossValidationPerformed = true;
       retryCount++;
