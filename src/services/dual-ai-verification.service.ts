@@ -329,6 +329,8 @@ export async function verifyProductWithDualAI(
     }
 
     // PHASE 0: CONDITIONAL External Research (ONLY for missing required fields)
+    let researchResult: ResearchResult | null = null;
+    
     if (consensus.needsResearch.length > 0 && consensus.agreedCategory) {
       const researchEnabled = config.research?.enabled !== false;
       
@@ -341,7 +343,6 @@ export async function verifyProductWithDualAI(
         researchPhaseTriggered = true;
         
         const researchStartTime = Date.now();
-        let researchResult: ResearchResult | null = null;
         
         try {
           // Extract URLs from raw product
