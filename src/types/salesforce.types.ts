@@ -324,7 +324,7 @@ export interface PriceAnalysis {
 export interface AttributeRequest {
   attribute_name: string;           // The exact attribute name being requested
   requested_for_category: string;   // Category this attribute was found for
-  source: 'ai_analysis' | 'schema_definition';  // Where the request originated
+  source: 'ai_analysis' | 'schema_definition' | 'top_15_filter';  // Where the request originated
   reason: string;                   // Why this attribute is needed
 }
 
