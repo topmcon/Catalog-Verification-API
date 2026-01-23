@@ -187,6 +187,122 @@ const NUMERIC_FIELDS = new Set([
  * Sanitize a value that should be numeric in Salesforce
  * Returns number if valid, null otherwise (NOT empty string which breaks SF Decimal deserialize)
  */
+/**
+ * Data source scenario detection
+ * Determines what data sources are available and what research strategy to use
+ */
+interface DataSourceAnalysis {
+  hasWebRetailerData: boolean;
+  hasFergusonData: boolean;
+  scenario: 'both_sources' | 'web_retailer_only' | 'ferguson_only' | 'no_sources';
+  requiresExternalResearch: boolean;
+  requiresConfirmationResearch: boolean;
+  availableUrls: string[];
+  availableDocuments: string[];
+  availableImages: string[];
+  webRetailerFieldCount: number;
+  fergusonFieldCount: number;
+}
+
+/**
+ * Analyze incoming data to determine available sources and research strategy
+ */
+function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAnalysis {
+  // Count meaningful Web Retailer fields (not null/empty)
+  const webRetailerFields = [
+    rawProduct.Brand_Web_Retailer,
+    rawProduct.Model_Number_Web_Retailer,
+    rawProduct.MSRP_Web_Retailer,
+    rawProduct.Product_Title_Web_Retailer,
+    rawProduct.Product_Description_Web_Retailer,
+    rawProduct.Web_Retailer_Category,
+    rawProduct.Web_Retailer_SubCategory,
+    rawProduct.Depth_Web_Retailer,
+    rawProduct.Width_Web_Retailer,
+    rawProduct.Height_Web_Retailer,
+  ];
+  const webRetailerFieldCount = webRetailerFields.filter(f => f && f.trim() !== '').length;
+  const webRetailerSpecsCount = (rawProduct.Web_Retailer_Specs || []).length;
+  const hasWebRetailerData = webRetailerFieldCount >= 2 || webRetailerSpecsCount > 0;
+
+  // Count meaningful Ferguson fields (not null/empty)
+  const fergusonFields = [
+    rawProduct.Ferguson_Brand,
+    rawProduct.Ferguson_Model_Number,
+    rawProduct.Ferguson_Price,
+    rawProduct.Ferguson_Title,
+    rawProduct.Ferguson_Description,
+    rawProduct.Ferguson_Product_Type,
+    rawProduct.Ferguson_Width,
+    rawProduct.Ferguson_Height,
+    rawProduct.Ferguson_Depth,
+  ];
+  const fergusonFieldCount = fergusonFields.filter(f => f && f.trim() !== '').length;
+  const fergusonAttributesCount = (rawProduct.Ferguson_Attributes || []).length;
+  const hasFergusonData = fergusonFieldCount >= 2 || fergusonAttributesCount > 0;
+
+  // Collect available URLs for research
+  const availableUrls: string[] = [];
+  if (rawProduct.Ferguson_URL && rawProduct.Ferguson_URL.startsWith('http')) {
+    availableUrls.push(rawProduct.Ferguson_URL);
+  }
+  if (rawProduct.Reference_URL && rawProduct.Reference_URL.startsWith('http')) {
+    availableUrls.push(rawProduct.Reference_URL);
+  }
+
+  // Collect documents
+  const availableDocuments = (rawProduct.Documents || [])
+    .map(d => typeof d === 'string' ? d : d?.url)
+    .filter((url): url is string => !!url && url.startsWith('http'));
+
+  // Collect images
+  const availableImages = (rawProduct.Stock_Images || [])
+    .map(i => typeof i === 'string' ? i : i?.url)
+    .filter((url): url is string => !!url && url.startsWith('http'));
+
+  // Determine scenario and research requirements
+  let scenario: DataSourceAnalysis['scenario'];
+  let requiresExternalResearch: boolean;
+  let requiresConfirmationResearch: boolean;
+
+  if (hasWebRetailerData && hasFergusonData) {
+    scenario = 'both_sources';
+    requiresExternalResearch = false; // Data can be cross-validated
+    requiresConfirmationResearch = false; // Both sources present = validation possible
+  } else if (hasWebRetailerData && !hasFergusonData) {
+    scenario = 'web_retailer_only';
+    requiresExternalResearch = false; // Have data to use
+    requiresConfirmationResearch = true; // Need to confirm single source
+  } else if (!hasWebRetailerData && hasFergusonData) {
+    scenario = 'ferguson_only';
+    requiresExternalResearch = false; // Have data to use
+    requiresConfirmationResearch = true; // Need to confirm single source
+  } else {
+    scenario = 'no_sources';
+    requiresExternalResearch = true; // MUST search externally
+    requiresConfirmationResearch = false; // Nothing to confirm
+  }
+
+  return {
+    hasWebRetailerData,
+    hasFergusonData,
+    scenario,
+    requiresExternalResearch,
+    requiresConfirmationResearch,
+    availableUrls,
+    availableDocuments,
+    availableImages,
+    webRetailerFieldCount,
+    fergusonFieldCount
+  };
+}
+
+/**
+ * Standard field value markers for different scenarios
+ */
+const FIELD_NOT_FOUND = 'Not Found'; // AI attempted to find but couldn't
+const FIELD_NOT_APPLICABLE = 'N/A'; // Field doesn't apply to this product type
+
 function sanitizeNumericForSalesforce(value: any): number | null {
   if (value === null || value === undefined) return null;
   
@@ -194,6 +310,11 @@ function sanitizeNumericForSalesforce(value: any): number | null {
   
   // Check for N/A variants - return null for numeric fields
   if (isNAValue(strValue)) {
+    return null;
+  }
+  
+  // Check for "Not Found" marker - return null for numeric fields
+  if (strValue === FIELD_NOT_FOUND) {
     return null;
   }
   
@@ -205,6 +326,59 @@ function sanitizeNumericForSalesforce(value: any): number | null {
   if (isNaN(num)) return null;
   
   return num;
+}
+
+/**
+ * Mark an empty field value with the appropriate marker
+ * @param value - The field value to check
+ * @param fieldName - The name of the field (for determining if N/A is appropriate)
+ * @param productCategory - The product category (for determining if field is applicable)
+ * @param attemptedResearch - Whether research was attempted for this field
+ */
+export function markEmptyField(
+  value: string | number | null | undefined,
+  fieldName: string,
+  productCategory?: string,
+  attemptedResearch: boolean = false
+): string {
+  // If we have a valid value, return it
+  if (value !== null && value !== undefined && String(value).trim() !== '') {
+    const strValue = String(value).trim();
+    // Don't modify existing markers
+    if (strValue === FIELD_NOT_FOUND || strValue === FIELD_NOT_APPLICABLE) {
+      return strValue;
+    }
+    return strValue;
+  }
+  
+  // Fields that are typically not applicable to certain categories
+  const categoryFieldApplicability: Record<string, string[]> = {
+    // Bathroom products typically don't have these
+    'Bathroom Hardware and Accessories': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type', 'ice_maker'],
+    'Toilets': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type'],
+    'Sinks': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type'],
+    // Kitchen appliances
+    'Ranges': ['gpm', 'flush_type', 'bowl_shape'],
+    'Refrigerators': ['number_of_burners', 'gpm', 'flush_type', 'oven_capacity'],
+    'Dishwashers': ['number_of_burners', 'gpm', 'flush_type', 'cooling_capacity_btu'],
+  };
+  
+  // Check if field is not applicable to this category
+  if (productCategory) {
+    const notApplicableFields = categoryFieldApplicability[productCategory] || [];
+    const normalizedFieldName = fieldName.toLowerCase().replace(/[_\s]/g, '_');
+    if (notApplicableFields.some(f => normalizedFieldName.includes(f.toLowerCase()))) {
+      return FIELD_NOT_APPLICABLE;
+    }
+  }
+  
+  // If research was attempted but field is still empty, mark as "Not Found"
+  if (attemptedResearch) {
+    return FIELD_NOT_FOUND;
+  }
+  
+  // Default: return empty string (legacy behavior for fields that haven't been researched)
+  return '';
 }
 
 /**
@@ -247,25 +421,90 @@ export async function verifyProductWithDualAI(
     rawProduct as unknown as Record<string, unknown>
   );
   
+  // PHASE 0: Analyze data sources to determine research strategy
+  const dataSourceAnalysis = analyzeDataSources(rawProduct);
+  
   logger.info('Starting dual AI verification', {
     sessionId: verificationSessionId,
     trackingId,
     productId: rawProduct.SF_Catalog_Id,
-    modelNumber: rawProduct.Model_Number_Web_Retailer
+    modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
+    dataSourceScenario: dataSourceAnalysis.scenario,
+    hasWebRetailerData: dataSourceAnalysis.hasWebRetailerData,
+    hasFergusonData: dataSourceAnalysis.hasFergusonData,
+    requiresExternalResearch: dataSourceAnalysis.requiresExternalResearch,
+    requiresConfirmationResearch: dataSourceAnalysis.requiresConfirmationResearch,
+    availableUrls: dataSourceAnalysis.availableUrls.length,
+    availableDocuments: dataSourceAnalysis.availableDocuments.length,
+    availableImages: dataSourceAnalysis.availableImages.length
   });
 
   try {
-    // PHASE 1: AI Analysis WITHOUT research (received data ONLY)
-    logger.info('PHASE 1: Dual AI Analysis (received data only)', {
-      sessionId: verificationSessionId
+    // PHASE 0.5: Pre-fetch research data if needed BEFORE AI analysis
+    // This ensures AIs have external data when no/limited sources are available
+    let preResearchResult: ResearchResult | null = null;
+    let preResearchContext: string | undefined;
+    
+    const shouldPreResearch = dataSourceAnalysis.requiresExternalResearch || 
+                              dataSourceAnalysis.requiresConfirmationResearch ||
+                              dataSourceAnalysis.availableUrls.length > 0; // Always scrape available URLs
+    
+    if (shouldPreResearch && (config.research?.enabled !== false)) {
+      logger.info('PHASE 0.5: Pre-fetching external research data', {
+        sessionId: verificationSessionId,
+        reason: dataSourceAnalysis.requiresExternalResearch 
+          ? 'No source data - external research required'
+          : dataSourceAnalysis.requiresConfirmationResearch
+            ? 'Single source data - confirmation research required'
+            : 'URLs available for additional validation',
+        scenario: dataSourceAnalysis.scenario
+      });
+      
+      try {
+        preResearchResult = await performProductResearch(
+          rawProduct.Ferguson_URL || null,
+          rawProduct.Reference_URL || null,
+          dataSourceAnalysis.availableDocuments,
+          dataSourceAnalysis.availableImages,
+          { 
+            maxDocuments: config.research?.maxDocuments || 5,
+            maxImages: config.research?.maxImages || 3,
+            skipImages: config.research?.enableImageAnalysis === false 
+          }
+        );
+        
+        preResearchContext = formatResearchForPrompt(preResearchResult);
+        
+        logger.info('Pre-research completed', {
+          sessionId: verificationSessionId,
+          webPagesSuccess: preResearchResult.webPages.filter(p => p.success).length,
+          documentsSuccess: preResearchResult.documents.filter(d => d.success).length,
+          imagesSuccess: preResearchResult.images.filter(i => i.success).length,
+          totalSpecs: Object.keys(preResearchResult.combinedSpecifications).length,
+          totalFeatures: preResearchResult.combinedFeatures.length
+        });
+      } catch (preResearchError) {
+        logger.warn('Pre-research failed, continuing with available data', {
+          sessionId: verificationSessionId,
+          error: preResearchError instanceof Error ? preResearchError.message : 'Unknown error'
+        });
+      }
+    }
+    
+    // PHASE 1: AI Analysis (with pre-research context if available)
+    logger.info('PHASE 1: Dual AI Analysis', {
+      sessionId: verificationSessionId,
+      hasPreResearchContext: !!preResearchContext,
+      dataScenario: dataSourceAnalysis.scenario
     });
     
     const openaiStartTime = Date.now();
     const xaiStartTime = Date.now();
     
+    // Pass research context to AIs if we have it
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId, undefined, trackingId),
-      analyzeWithXAI(rawProduct, verificationSessionId, undefined, trackingId)
+      analyzeWithOpenAI(rawProduct, verificationSessionId, preResearchContext, trackingId),
+      analyzeWithXAI(rawProduct, verificationSessionId, preResearchContext, trackingId)
     ]);
 
     // Track OpenAI result
@@ -309,10 +548,11 @@ export async function verifyProductWithDualAI(
     
     let consensus = buildConsensus(openaiResult, xaiResult);
     let crossValidationPerformed = false;
-    let researchPhaseTriggered = false;
+    let researchPhaseTriggered = !!preResearchResult; // Already triggered if pre-research was done
     let retryCount = 0;
+    const MAX_CONSENSUS_RETRIES = 3;
     
-    // PHASE 3: Handle disagreements with cross-validation
+    // PHASE 3: Handle disagreements with cross-validation (up to MAX_CONSENSUS_RETRIES attempts)
     // Use category equivalence check instead of strict string comparison
     const categoriesEquivalent = areCategoriesEquivalent(openaiResult.determinedCategory, xaiResult.determinedCategory);
     if (!consensus.agreed && !categoriesEquivalent) {
@@ -328,86 +568,107 @@ export async function verifyProductWithDualAI(
       consensus = buildConsensus(openaiRevised, xaiRevised);
     }
 
-    // PHASE 0: CONDITIONAL External Research (ONLY for missing required fields)
-    let researchResult: ResearchResult | null = null;
+    // PHASE 4: Additional research for missing/unresolved fields
+    // Use pre-research result if available, or perform targeted research
+    let researchResult: ResearchResult | null = preResearchResult;
     
-    if (consensus.needsResearch.length > 0 && consensus.agreedCategory) {
-      const researchEnabled = config.research?.enabled !== false;
+    // Determine if additional research is needed
+    const needsMoreResearch = consensus.needsResearch.length > 0 || 
+                              consensus.disagreements.filter(d => d.resolution === 'unresolved').length > 0;
+    
+    if (needsMoreResearch && consensus.agreedCategory && (config.research?.enabled !== false)) {
+      logger.info('PHASE 4: Additional Research for missing/unresolved fields', { 
+        sessionId: verificationSessionId,
+        missingFields: consensus.needsResearch,
+        unresolvedDisagreements: consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field),
+        hasPreResearch: !!preResearchResult,
+        dataScenario: dataSourceAnalysis.scenario
+      });
+      researchPhaseTriggered = true;
       
-      if (researchEnabled) {
-        logger.info('PHASE 0: External Research (CONDITIONAL - missing required fields detected)', { 
-          sessionId: verificationSessionId,
-          missingFields: consensus.needsResearch,
-          reason: 'Required fields missing after AI consensus'
-        });
-        researchPhaseTriggered = true;
-        
-        const researchStartTime = Date.now();
-        
+      // If we already have pre-research, use it; otherwise fetch now
+      if (!researchResult) {
         try {
-          // Extract URLs from raw product
-          const documentUrls = (rawProduct.Documents || [])
-            .map(d => typeof d === 'string' ? d : d?.url)
-            .filter(Boolean) as string[];
-          
-          const imageUrls = (rawProduct.Stock_Images || [])
-            .map(i => typeof i === 'string' ? i : i?.url)
-            .filter(Boolean) as string[];
-          
-          logger.info('Fetching external research for missing fields', {
-            sessionId: verificationSessionId,
-            fergusonUrl: rawProduct.Ferguson_URL || null,
-            referenceUrl: rawProduct.Reference_URL || null,
-            documentCount: documentUrls.length,
-            imageCount: imageUrls.length
-          });
-          
           researchResult = await performProductResearch(
             rawProduct.Ferguson_URL || null,
             rawProduct.Reference_URL || null,
-            documentUrls,
-            imageUrls,
+            dataSourceAnalysis.availableDocuments,
+            dataSourceAnalysis.availableImages,
             { 
-              maxDocuments: config.research?.maxDocuments || 3, 
-              maxImages: config.research?.maxImages || 2, 
+              maxDocuments: config.research?.maxDocuments || 5, 
+              maxImages: config.research?.maxImages || 3, 
               skipImages: config.research?.enableImageAnalysis === false 
             }
           );
-          
-          const researchContext = formatResearchForPrompt(researchResult);
-          
-          logger.info('External research completed for missing fields', {
-            sessionId: verificationSessionId,
-            processingTime: Date.now() - researchStartTime,
-            webPagesSuccess: researchResult.webPages.filter(p => p.success).length,
-            documentsSuccess: researchResult.documents.filter(d => d.success).length,
-            imagesSuccess: researchResult.images.filter(i => i.success).length,
-            totalSpecs: Object.keys(researchResult.combinedSpecifications).length,
-            totalFeatures: researchResult.combinedFeatures.length
-          });
-          
-          // Re-run AI analysis with research context for missing fields ONLY
-          const [openaiResearch, xaiResearch] = await Promise.all([
-            researchMissingData(rawProduct, consensus.needsResearch, 'openai', consensus.agreedCategory, verificationSessionId, researchContext),
-            researchMissingData(rawProduct, consensus.needsResearch, 'xai', consensus.agreedCategory, verificationSessionId, researchContext)
-          ]);
-          
-          consensus = mergeResearchResults(consensus, openaiResearch, xaiResearch);
-          
         } catch (researchError) {
-          logger.warn('External research for missing fields failed, continuing without', {
+          logger.warn('Research fetch failed', {
             sessionId: verificationSessionId,
             error: researchError instanceof Error ? researchError.message : 'Unknown error'
           });
         }
-      } else {
-        logger.info('PHASE 0: External research skipped (disabled in config)', {
-          sessionId: verificationSessionId,
-          missingFieldsCount: consensus.needsResearch.length
-        });
       }
-    } else {
-      logger.info('PHASE 0: External research not needed (all required fields present)', {
+      
+      if (researchResult) {
+        const researchContext = formatResearchForPrompt(researchResult);
+        
+        logger.info('Research data available for field resolution', {
+          sessionId: verificationSessionId,
+          webPagesSuccess: researchResult.webPages.filter(p => p.success).length,
+          documentsSuccess: researchResult.documents.filter(d => d.success).length,
+          imagesSuccess: researchResult.images.filter(i => i.success).length,
+          totalSpecs: Object.keys(researchResult.combinedSpecifications).length,
+          totalFeatures: researchResult.combinedFeatures.length
+        });
+        
+        // Re-run AI analysis with research context for missing fields
+        // Each AI does independent research-based analysis
+        const [openaiResearch, xaiResearch] = await Promise.all([
+          researchMissingData(rawProduct, consensus.needsResearch, 'openai', consensus.agreedCategory, verificationSessionId, researchContext),
+          researchMissingData(rawProduct, consensus.needsResearch, 'xai', consensus.agreedCategory, verificationSessionId, researchContext)
+        ]);
+        
+        consensus = mergeResearchResults(consensus, openaiResearch, xaiResearch);
+        retryCount++;
+        
+        // PHASE 5: Final retry if still unresolved (up to MAX_CONSENSUS_RETRIES)
+        while (retryCount < MAX_CONSENSUS_RETRIES && 
+               consensus.disagreements.filter(d => d.resolution === 'unresolved').length > 0) {
+          logger.info(`PHASE 5: Retry attempt ${retryCount + 1}/${MAX_CONSENSUS_RETRIES} for unresolved fields`, {
+            sessionId: verificationSessionId,
+            unresolvedFields: consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field)
+          });
+          
+          const [openaiRetry, xaiRetry] = await Promise.all([
+            researchMissingData(rawProduct, consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field), 'openai', consensus.agreedCategory!, verificationSessionId, researchContext),
+            researchMissingData(rawProduct, consensus.disagreements.filter(d => d.resolution === 'unresolved').map(d => d.field), 'xai', consensus.agreedCategory!, verificationSessionId, researchContext)
+          ]);
+          
+          consensus = mergeResearchResults(consensus, openaiRetry, xaiRetry);
+          retryCount++;
+        }
+        
+        // Mark remaining unresolved fields as "Not Found" after MAX_CONSENSUS_RETRIES attempts
+        if (retryCount >= MAX_CONSENSUS_RETRIES) {
+          for (const disagreement of consensus.disagreements.filter(d => d.resolution === 'unresolved')) {
+            logger.info(`Field "${disagreement.field}" marked as Not Found after ${MAX_CONSENSUS_RETRIES} attempts`, {
+              sessionId: verificationSessionId,
+              field: disagreement.field,
+              openaiValue: disagreement.openaiValue,
+              xaiValue: disagreement.xaiValue
+            });
+            // Mark the field as "Not Found" in the agreed attributes
+            if (disagreement.field in consensus.agreedPrimaryAttributes || 
+                ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent'].includes(disagreement.field.toLowerCase())) {
+              consensus.agreedPrimaryAttributes[disagreement.field] = FIELD_NOT_FOUND;
+            } else {
+              consensus.agreedTop15Attributes[disagreement.field] = FIELD_NOT_FOUND;
+            }
+            disagreement.resolution = 'openai'; // Mark as resolved even if "Not Found"
+          }
+        }
+      }
+    } else if (!needsMoreResearch) {
+      logger.info('PHASE 4: Additional research not needed (all fields resolved)', {
         sessionId: verificationSessionId
       });
     }
@@ -438,6 +699,7 @@ export async function verifyProductWithDualAI(
     const xaiImages = xaiResult.primaryImageIndex !== undefined ? 'Selected' : 'Not analyzed';
     
     logger.info('AI Document & Image Analysis Summary', {
+      dataSourceScenario: dataSourceAnalysis.scenario,
       openai: {
         researchPerformed: openaiResearch,
         researchSources: openaiResult.researchSources?.length || 0,
@@ -456,10 +718,12 @@ export async function verifyProductWithDualAI(
       },
       documentsProvided: rawProduct.Documents?.length || 0,
       imagesProvided: rawProduct.Stock_Images?.length || 0,
+      urlsScraped: dataSourceAnalysis.availableUrls.length,
+      preResearchPerformed: !!preResearchResult,
     });
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount);
     
     // Track field population rates (async, don't await)
     trackFieldPopulation(response, consensus.agreedCategory || 'unknown', openaiResult, xaiResult).catch(err => {
@@ -855,7 +1119,33 @@ IMPORTANT:
 - Clean up formatting (proper capitalization, remove extra spaces)
 - Flag fields you cannot determine with confidence
 - For TOP 15 attributes, use only the attributes defined for the determined category
-- ALWAYS generate a features_list even if no features are in the raw data - extract them from description and specs`;
+- ALWAYS generate a features_list even if no features are in the raw data - extract them from description and specs
+
+## ⚠️ CRITICAL: FIELD VALUE RULES - NEVER LEAVE FIELDS BLANK
+
+For EVERY field, you MUST provide a value. Use these markers when appropriate:
+
+**"Not Found"** - Use when:
+- You searched for the data but could not find it in any source
+- The information simply isn't available anywhere
+- Example: Brand not mentioned in any source → brand: "Not Found"
+
+**"N/A"** (Not Applicable) - Use when:
+- The field doesn't apply to this product type
+- Example: "number_of_burners" for a refrigerator → "N/A"
+- Example: "cooling_capacity_btu" for a gas range → "N/A"
+
+**NEVER leave a field empty or null** - Always use one of:
+- The actual value (if found)
+- "Not Found" (if searched but not found)
+- "N/A" (if field doesn't apply to this product)
+
+When analyzing data:
+1. ALWAYS examine all provided URLs, documents, images, and spec tables
+2. Extract every possible detail from images (color, finish, style, features)
+3. Parse HTML spec tables for ALL available specifications
+4. Use image-detected product type to help determine subcategory
+5. Cross-reference multiple sources when available`;
 }
 
 function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, researchContext?: string): string {
@@ -884,14 +1174,22 @@ Tasks:
 1. Determine the product category from our master list
 2. Map all available data to the correct attribute fields for that category
 3. ${researchContext ? '**PRIORITIZE** the external research data for filling missing fields' : 'Note any missing data'}
-4. **CRITICAL**: Clean and enhance ALL customer-facing text:
+4. **CRITICAL**: Analyze ALL provided data sources:
+   - Parse the Specification_Table HTML to extract ALL specifications
+   - Use image analysis results to determine color, finish, product type
+   - Extract details from Ferguson data if available
+   - Extract details from Web Retailer data if available
+5. **CRITICAL**: Clean and enhance ALL customer-facing text:
    - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
    - Fix run-on sentences (add spaces after periods)
    - Ensure proper capitalization
    - Professional grammar and punctuation
-5. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
-6. List any missing required fields
-7. Note any corrections you made and data sources used
+6. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
+7. **NEVER LEAVE FIELDS BLANK**: 
+   - Use actual value if found
+   - Use "Not Found" if searched but couldn't find
+   - Use "N/A" if field doesn't apply to this product type
+8. List corrections and data sources used
 
 The product_title, description, and features_list will be displayed directly to customers.
 They MUST be professional, well-formatted, and error-free.
@@ -1656,8 +1954,14 @@ function buildFinalResponse(
   _processingTimeMs: number,
   openaiResult: AIAnalysisResult,
   xaiResult: AIAnalysisResult,
-  researchResult?: ResearchResult | null
+  researchResult?: ResearchResult | null,
+  dataSourceAnalysis?: DataSourceAnalysis,
+  researchPerformed?: boolean,
+  researchAttempts?: number
 ): SalesforceVerificationResponse {
+  
+  // Track if research was performed for field marking
+  const didResearch = researchPerformed || !!researchResult;
   
   // Get raw values for customer-facing text
   const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
@@ -2412,14 +2716,22 @@ function buildFinalResponse(
   // Category bonus applies if we have a final agreed category (even after cross-validation)
   const hasFinalCategory = consensus.agreedCategory && consensus.agreedCategory.length > 0;
 
+  // Build data sources list based on what was actually used
+  const dataSources: string[] = ['OpenAI', 'xAI'];
+  if (dataSourceAnalysis?.hasWebRetailerData) dataSources.push('Web_Retailer');
+  if (dataSourceAnalysis?.hasFergusonData) dataSources.push('Ferguson');
+  if (didResearch) dataSources.push('External_Research');
+
   const verification: VerificationMetadata = {
     verification_timestamp: new Date().toISOString(),
     verification_session_id: sessionId,
     verification_score: Math.round(consensus.overallConfidence * 100),
     verification_status: status,
-    data_sources_used: ['OpenAI', 'xAI', 'Web_Retailer', 'Ferguson'],
+    data_sources_used: dataSources,
     corrections_made: corrections,
-    missing_fields: consensus.needsResearch,
+    missing_fields: consensus.needsResearch.map(field => 
+      didResearch ? `${field} (researched - ${FIELD_NOT_FOUND})` : field
+    ),
     confidence_scores: {
       openai: openaiResult.confidence,
       xai: xaiResult.confidence,
@@ -2439,7 +2751,14 @@ function buildFinalResponse(
         field: d.field,
         openai: String(d.openaiValue).substring(0, 50),
         xai: String(d.xaiValue).substring(0, 50)
-      }))
+      })),
+      // New: Data source analysis info
+      data_source_scenario: dataSourceAnalysis?.scenario || 'unknown',
+      research_performed: didResearch,
+      research_attempts: researchAttempts || 0,
+      urls_scraped: dataSourceAnalysis?.availableUrls.length || 0,
+      documents_analyzed: dataSourceAnalysis?.availableDocuments.length || 0,
+      images_analyzed: dataSourceAnalysis?.availableImages.length || 0
     }
   };
 

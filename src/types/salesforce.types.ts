@@ -141,7 +141,7 @@ export interface VerificationMetadata {
   verification_session_id: string;
   verification_score: number;  // 0-100
   verification_status: 'verified' | 'needs_review' | 'enriched' | 'failed';
-  data_sources_used: string[];  // ['Web_Retailer', 'Ferguson', 'AI_OpenAI', 'AI_xAI']
+  data_sources_used: string[];  // ['Web_Retailer', 'Ferguson', 'AI_OpenAI', 'AI_xAI', 'External_Research']
   corrections_made: CorrectionRecord[];
   missing_fields: string[];
   confidence_scores: Record<string, number>;
@@ -159,6 +159,13 @@ export interface VerificationMetadata {
       openai: string;
       xai: string;
     }>;
+    // Data source analysis
+    data_source_scenario?: 'both_sources' | 'web_retailer_only' | 'ferguson_only' | 'no_sources' | 'unknown';
+    research_performed?: boolean;
+    research_attempts?: number;
+    urls_scraped?: number;
+    documents_analyzed?: number;
+    images_analyzed?: number;
   };
 }
 
