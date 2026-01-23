@@ -155,6 +155,7 @@ function requiresJsRendering(url: string): boolean {
 /**
  * Fetch page content using headless browser (for JavaScript-rendered sites)
  * This is slower but can capture dynamically loaded content
+ * Includes logic to expand accordions/collapsible sections before scraping
  */
 async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; success: boolean; error?: string }> {
   if (!puppeteer) {
@@ -219,12 +220,141 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     // Wait a bit for any final JS to execute
     await new Promise(resolve => setTimeout(resolve, 2000));
     
+    // =========================================
+    // EXPAND ALL COLLAPSIBLE SECTIONS
+    // =========================================
+    logger.info('Expanding collapsible sections', { url });
+    
+    // Use string-based evaluate to avoid TypeScript DOM type issues
+    const expandedCount = await page.evaluate(`
+      (function() {
+        let clicked = 0;
+        
+        // Common selectors for expandable elements
+        const expandSelectors = [
+          '[data-toggle="collapse"]',
+          '[aria-expanded="false"]',
+          '.accordion-button.collapsed',
+          '.accordion-header',
+          '.accordion-trigger',
+          '.collapse-toggle',
+          '.expandable-header',
+          'button[class*="expand"]',
+          'button[class*="show"]',
+          'button[class*="more"]',
+          'button[class*="details"]',
+          'button[class*="specs"]',
+          'button[class*="feature"]',
+          'a[class*="expand"]',
+          'a[class*="show-more"]',
+          '.product-specs-toggle',
+          '.product-details-toggle',
+          '.specifications-header',
+          '.features-header',
+          '.details-header'
+        ];
+        
+        // Text patterns that indicate expandable sections
+        const expandTextPatterns = [
+          /^features$/i,
+          /^specifications$/i,
+          /^specs$/i,
+          /^dimensions$/i,
+          /^details$/i,
+          /^resources$/i,
+          /^show more$/i,
+          /^view more$/i,
+          /^expand$/i,
+          /^see more$/i,
+          /^all features$/i,
+          /^all specifications$/i,
+          /^show all$/i
+        ];
+        
+        // First pass: Click elements matching selectors
+        for (const selector of expandSelectors) {
+          try {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(function(el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.width > 0 && rect.height > 0) {
+                const ariaExpanded = el.getAttribute('aria-expanded');
+                if (ariaExpanded === 'false' || !ariaExpanded) {
+                  try { el.click(); clicked++; } catch (e) {}
+                }
+              }
+            });
+          } catch (e) {}
+        }
+        
+        // Second pass: Find elements by text content
+        const allClickable = document.querySelectorAll('button, a, [role="button"], [onclick], [class*="toggle"], [class*="accordion"]');
+        allClickable.forEach(function(el) {
+          const text = (el.textContent || '').trim();
+          const ariaLabel = el.getAttribute('aria-label') || '';
+          const checkText = text + ' ' + ariaLabel;
+          
+          for (const pattern of expandTextPatterns) {
+            if (pattern.test(checkText)) {
+              const rect = el.getBoundingClientRect();
+              if (rect.width > 0 && rect.height > 0) {
+                const ariaExpanded = el.getAttribute('aria-expanded');
+                if (ariaExpanded !== 'true') {
+                  try { el.click(); clicked++; } catch (e) {}
+                }
+              }
+              break;
+            }
+          }
+        });
+        
+        // Scroll to load lazy content
+        window.scrollTo(0, document.body.scrollHeight / 2);
+        
+        return clicked;
+      })()
+    `);
+    
+    logger.info('Expandable sections clicked', { url, expandedCount });
+    
+    // Wait for expanded content to load
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Scroll down to trigger any lazy-loaded content
+    await page.evaluate(`window.scrollTo(0, document.body.scrollHeight)`);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Scroll back up
+    await page.evaluate(`window.scrollTo(0, 0)`);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Second round of clicking (some accordions reveal more accordions)
+    const secondRoundClicks = await page.evaluate(`
+      (function() {
+        let clicked = 0;
+        const expandable = document.querySelectorAll('[aria-expanded="false"], .collapsed, [class*="collapsed"]');
+        expandable.forEach(function(el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            try { el.click(); clicked++; } catch (e) {}
+          }
+        });
+        return clicked;
+      })()
+    `);
+    
+    if ((secondRoundClicks as number) > 0) {
+      logger.info('Second round expandable sections clicked', { url, secondRoundClicks });
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+    
     // Get the fully rendered HTML
     const html = await page.content();
     
     logger.info('Headless browser fetch complete', { 
       url, 
-      contentLength: html.length 
+      contentLength: html.length,
+      expandedSections: (expandedCount as number) + (secondRoundClicks as number)
     });
     
     return { html, success: true };
