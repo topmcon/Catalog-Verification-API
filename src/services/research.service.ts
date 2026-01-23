@@ -11,6 +11,9 @@
  * not just the text we pass in the prompt.
  * 
  * LEARNING SYSTEM: Failures are tracked in MongoDB for continuous improvement.
+ * 
+ * HEADLESS BROWSER: For JavaScript-rendered sites (Signature Hardware, etc.)
+ * we use Puppeteer to get the fully rendered page content.
  */
 
 import axios from 'axios';
@@ -20,6 +23,15 @@ import config from '../config';
 import logger from '../utils/logger';
 import aiUsageTracker from './ai-usage-tracking.service';
 import { ScrapeFailure } from '../models/scrape-failure.model';
+
+// Puppeteer for JavaScript-rendered sites
+let puppeteer: typeof import('puppeteer-core') | null = null;
+try {
+  puppeteer = require('puppeteer-core');
+  logger.info('Puppeteer headless browser enabled');
+} catch (err) {
+  logger.warn('puppeteer-core not installed - JS rendering disabled', { error: err });
+}
 
 // PDF parsing - we'll use pdf-parse for extracting text
 let pdfParse: ((buffer: Buffer) => Promise<{ text: string; numpages: number }>) | null = null;
@@ -93,13 +105,19 @@ export interface ResearchResult {
 // Timeout for requests
 const REQUEST_TIMEOUT = config.research?.requestTimeout || 15000;
 
-// List of known anti-bot domains that require special handling
+// List of known anti-bot domains that require special handling or JS rendering
 const ANTI_BOT_DOMAINS = [
   'signaturehardware.com',
   'build.com',
   'wayfair.com',
   'homedepot.com',
   'lowes.com'
+];
+
+// Domains that REQUIRE JavaScript rendering to get specs
+const JS_REQUIRED_DOMAINS = [
+  'signaturehardware.com',
+  'build.com'
 ];
 
 // Alternative user agents to try on retry
@@ -119,6 +137,105 @@ function isAntiBotDomain(url: string): boolean {
     return ANTI_BOT_DOMAINS.some(domain => hostname.includes(domain));
   } catch {
     return false;
+  }
+}
+
+/**
+ * Check if URL requires JavaScript rendering
+ */
+function requiresJsRendering(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return JS_REQUIRED_DOMAINS.some(domain => hostname.includes(domain));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Fetch page content using headless browser (for JavaScript-rendered sites)
+ * This is slower but can capture dynamically loaded content
+ */
+async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; success: boolean; error?: string }> {
+  if (!puppeteer) {
+    return { html: '', success: false, error: 'Puppeteer not available' };
+  }
+
+  let browser = null;
+  try {
+    logger.info('Using headless browser for JS-rendered site', { url });
+    
+    // Try to find Chrome/Chromium executable
+    const executablePaths = [
+      '/usr/bin/chromium-browser',
+      '/usr/bin/chromium',
+      '/usr/bin/google-chrome',
+      '/usr/bin/google-chrome-stable',
+      process.env.CHROME_PATH
+    ].filter(Boolean) as string[];
+    
+    let executablePath: string | undefined;
+    const fs = require('fs');
+    for (const path of executablePaths) {
+      if (fs.existsSync(path)) {
+        executablePath = path;
+        break;
+      }
+    }
+    
+    if (!executablePath) {
+      logger.warn('No Chrome/Chromium executable found for headless browsing');
+      return { html: '', success: false, error: 'No browser executable found' };
+    }
+
+    browser = await puppeteer.launch({
+      executablePath,
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+        '--window-size=1920,1080'
+      ]
+    });
+
+    const page = await browser.newPage();
+    
+    // Set a realistic user agent
+    await page.setUserAgent(USER_AGENTS[0]);
+    
+    // Set viewport
+    await page.setViewport({ width: 1920, height: 1080 });
+    
+    // Navigate with wait for network idle
+    await page.goto(url, { 
+      waitUntil: 'networkidle2',
+      timeout: 30000  // 30 second timeout
+    });
+    
+    // Wait a bit for any final JS to execute
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Get the fully rendered HTML
+    const html = await page.content();
+    
+    logger.info('Headless browser fetch complete', { 
+      url, 
+      contentLength: html.length 
+    });
+    
+    return { html, success: true };
+    
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Headless browser fetch failed', { url, error: errorMessage });
+    return { html: '', success: false, error: errorMessage };
+  } finally {
+    if (browser) {
+      await browser.close().catch(() => {});
+    }
   }
 }
 
@@ -175,9 +292,9 @@ async function trackScrapeFailure(url: string, error: string, contentLength: num
 
 /**
  * Fetch and parse a web page to extract product information
- * Now with retry logic and improved spec extraction
+ * Now with retry logic, headless browser support, and improved spec extraction
  */
-export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPageContent> {
+export async function fetchWebPage(url: string, retryCount = 0, useHeadless = false): Promise<WebPageContent> {
   const startTime = Date.now();
   const MAX_RETRIES = 2;
   
@@ -193,6 +310,34 @@ export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPage
         success: false,
         error: 'Invalid or missing URL'
       };
+    }
+
+    // Check if this site requires JavaScript rendering
+    const needsJsRendering = requiresJsRendering(url);
+    
+    // Use headless browser for JS-rendered sites or if explicitly requested
+    if ((needsJsRendering || useHeadless) && puppeteer && retryCount === 0) {
+      logger.info('Site requires JavaScript rendering, using headless browser', { url });
+      
+      const headlessResult = await fetchWithHeadlessBrowser(url);
+      
+      if (headlessResult.success && headlessResult.html.length > 1000) {
+        // Parse the rendered HTML
+        const $ = cheerio.load(headlessResult.html);
+        
+        // Remove noise
+        $('script, style, nav, header, footer, [class*="cookie"], [class*="popup"]').remove();
+        
+        // Extract specs and content
+        return parseWebPageContent($, url, startTime);
+      } else {
+        logger.warn('Headless browser fetch failed or returned minimal content, falling back to axios', { 
+          url, 
+          contentLength: headlessResult.html?.length || 0,
+          error: headlessResult.error 
+        });
+        // Fall through to regular fetch
+      }
     }
 
     logger.info('Fetching web page', { url, attempt: retryCount + 1 });
@@ -233,7 +378,13 @@ export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPage
     if (isBlocked && retryCount < MAX_RETRIES) {
       logger.warn('Page appears blocked, retrying with different user agent', { url, attempt: retryCount + 1 });
       await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
-      return fetchWebPage(url, retryCount + 1);
+      return fetchWebPage(url, retryCount + 1, useHeadless);
+    }
+
+    // If blocked and it's a JS-required site, try headless as last resort
+    if (isBlocked && needsJsRendering && puppeteer && !useHeadless) {
+      logger.warn('Regular fetch blocked, attempting headless browser as fallback', { url });
+      return fetchWebPage(url, 0, true);
     }
 
     if (isBlocked) {
@@ -252,132 +403,9 @@ export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPage
 
     // Remove noise that doesn't help with product analysis
     $('script, style, nav, header, footer, [class*="cookie"], [class*="popup"], [class*="advertisement"]').remove();
-
-    // Extract basic metadata
-    const title = $('title').text().trim() || 
-                  $('h1').first().text().trim() || 
-                  $('meta[property="og:title"]').attr('content') || '';
-
-    const description = $('meta[name="description"]').attr('content') ||
-                        $('meta[property="og:description"]').attr('content') || '';
-
-    // Extract specifications from multiple patterns
-    const specifications: Record<string, string> = {};
     
-    // Pattern 1: JSON-LD structured data (most reliable)
-    $('script[type="application/ld+json"]').each((_, script) => {
-      try {
-        const jsonLd = JSON.parse($(script).html() || '{}');
-        if (jsonLd['@type'] === 'Product') {
-          if (jsonLd.name) specifications['Product Name'] = jsonLd.name;
-          if (jsonLd.brand?.name) specifications['Brand'] = jsonLd.brand.name;
-          if (jsonLd.sku) specifications['SKU'] = jsonLd.sku;
-          if (jsonLd.gtin) specifications['GTIN'] = jsonLd.gtin;
-          if (jsonLd.mpn) specifications['Model Number'] = jsonLd.mpn;
-          if (jsonLd.color) specifications['Color'] = jsonLd.color;
-          if (jsonLd.material) specifications['Material'] = jsonLd.material;
-          if (jsonLd.weight) specifications['Weight'] = typeof jsonLd.weight === 'object' ? jsonLd.weight.value : jsonLd.weight;
-          // Extract additional properties if present
-          if (jsonLd.additionalProperty) {
-            for (const prop of jsonLd.additionalProperty) {
-              if (prop.name && prop.value) {
-                specifications[prop.name] = String(prop.value);
-              }
-            }
-          }
-        }
-      } catch {
-        // Ignore JSON parse errors
-      }
-    });
-
-    // Pattern 2: <dt>/<dd> definition lists (common spec format)
-    $('dl').each((_, dl) => {
-      $(dl).find('dt').each((_, dt) => {
-        const key = $(dt).text().replace(/:/g, '').trim();
-        const dd = $(dt).next('dd');
-        if (dd.length > 0) {
-          const value = dd.text().trim();
-          if (key && value && key.length < 50 && value.length < 500) {
-            specifications[key] = value;
-          }
-        }
-      });
-    });
-
-    // Pattern 3: Spec tables with th/td or label/value patterns
-    $('table').each((_, table) => {
-      $(table).find('tr').each((_, row) => {
-        const cells = $(row).find('th, td');
-        if (cells.length >= 2) {
-          const key = $(cells[0]).text().replace(/:/g, '').trim();
-          const value = $(cells[1]).text().trim();
-          if (key && value && key.length < 50 && value.length < 500) {
-            specifications[key] = value;
-          }
-        }
-      });
-    });
-
-    // Pattern 4: Common spec list patterns (li with key: value or key - value)
-    $('li, div.spec, div.specification, [class*="spec-item"], [class*="product-spec"]').each((_, el) => {
-      const text = $(el).text().trim();
-      // Match patterns like "Weight: 150 lbs" or "Capacity - 38 gallons"
-      const match = text.match(/^([A-Za-z][A-Za-z\s]{2,30})[:–-]\s*(.{1,200})$/);
-      if (match) {
-        const key = match[1].trim();
-        const value = match[2].trim();
-        if (!specifications[key]) {
-          specifications[key] = value;
-        }
-      }
-    });
-
-    // Capture EVERYTHING from main content - let AI analyze
-    const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
-      .first()
-      .text();
-
-    const fullContent = mainContent || $('body').text();
-
-    const rawText = fullContent
-      .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 50000);
-
-    // Capture all list items (features/specs often in lists)
-    const features: string[] = [];
-    $('li').each((_, li) => {
-      const text = $(li).text().trim();
-      if (text.length > 5 && text.length < 1000) {
-        features.push(text);
-      }
-    });
-
-    const processingTime = Date.now() - startTime;
-    
-    // Track if we got minimal content (potential future learning)
-    if (rawText.length < 1000 && Object.keys(specifications).length === 0) {
-      await trackScrapeFailure(url, 'MINIMAL_CONTENT', rawText.length);
-    }
-    
-    logger.info('Web page fetched successfully', { 
-      url, 
-      contentLength: rawText.length,
-      specsFound: Object.keys(specifications).length,
-      featuresFound: features.length,
-      processingTime 
-    });
-
-    return {
-      url,
-      title,
-      description,
-      specifications,
-      features,
-      rawText,
-      success: true
-    };
+    // Use shared parsing function
+    return parseWebPageContent($, url, startTime);
 
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -386,7 +414,7 @@ export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPage
     if (retryCount < MAX_RETRIES && (errorMessage.includes('timeout') || errorMessage.includes('ECONNRESET'))) {
       logger.warn('Network error, retrying', { url, error: errorMessage, attempt: retryCount + 1 });
       await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
-      return fetchWebPage(url, retryCount + 1);
+      return fetchWebPage(url, retryCount + 1, useHeadless);
     }
     
     await trackScrapeFailure(url, errorMessage, 0);
@@ -403,6 +431,151 @@ export async function fetchWebPage(url: string, retryCount = 0): Promise<WebPage
       error: errorMessage
     };
   }
+}
+
+/**
+ * Parse web page content using cheerio
+ * Extracted to a shared function for both axios and headless browser results
+ */
+function parseWebPageContent($: ReturnType<typeof cheerio.load>, url: string, startTime: number): WebPageContent {
+  // Extract basic metadata
+  const title = $('title').text().trim() || 
+                $('h1').first().text().trim() || 
+                $('meta[property="og:title"]').attr('content') || '';
+
+  const description = $('meta[name="description"]').attr('content') ||
+                      $('meta[property="og:description"]').attr('content') || '';
+
+  // Extract specifications from multiple patterns
+  const specifications: Record<string, string> = {};
+  
+  // Pattern 1: JSON-LD structured data (most reliable)
+  $('script[type="application/ld+json"]').each((_, script) => {
+    try {
+      const jsonLd = JSON.parse($(script).html() || '{}');
+      if (jsonLd['@type'] === 'Product') {
+        if (jsonLd.name) specifications['Product Name'] = jsonLd.name;
+        if (jsonLd.brand?.name) specifications['Brand'] = jsonLd.brand.name;
+        if (jsonLd.sku) specifications['SKU'] = jsonLd.sku;
+        if (jsonLd.gtin) specifications['GTIN'] = jsonLd.gtin;
+        if (jsonLd.mpn) specifications['Model Number'] = jsonLd.mpn;
+        if (jsonLd.color) specifications['Color'] = jsonLd.color;
+        if (jsonLd.material) specifications['Material'] = jsonLd.material;
+        if (jsonLd.weight) specifications['Weight'] = typeof jsonLd.weight === 'object' ? jsonLd.weight.value : jsonLd.weight;
+        // Extract additional properties if present
+        if (jsonLd.additionalProperty) {
+          for (const prop of jsonLd.additionalProperty) {
+            if (prop.name && prop.value) {
+              specifications[prop.name] = String(prop.value);
+            }
+          }
+        }
+      }
+    } catch {
+      // Ignore JSON parse errors
+    }
+  });
+
+  // Pattern 2: <dt>/<dd> definition lists (common spec format)
+  $('dl').each((_, dl) => {
+    $(dl).find('dt').each((_, dt) => {
+      const key = $(dt).text().replace(/:/g, '').trim();
+      const dd = $(dt).next('dd');
+      if (dd.length > 0) {
+        const value = dd.text().trim();
+        if (key && value && key.length < 50 && value.length < 500) {
+          specifications[key] = value;
+        }
+      }
+    });
+  });
+
+  // Pattern 3: Spec tables with th/td or label/value patterns
+  $('table').each((_, table) => {
+    $(table).find('tr').each((_, row) => {
+      const cells = $(row).find('th, td');
+      if (cells.length >= 2) {
+        const key = $(cells[0]).text().replace(/:/g, '').trim();
+        const value = $(cells[1]).text().trim();
+        if (key && value && key.length < 50 && value.length < 500) {
+          specifications[key] = value;
+        }
+      }
+    });
+  });
+
+  // Pattern 4: Common spec list patterns (li with key: value or key - value)
+  $('li, div.spec, div.specification, [class*="spec-item"], [class*="product-spec"]').each((_, el) => {
+    const text = $(el).text().trim();
+    // Match patterns like "Weight: 150 lbs" or "Capacity - 38 gallons"
+    const match = text.match(/^([A-Za-z][A-Za-z\s]{2,30})[:–-]\s*(.{1,200})$/);
+    if (match) {
+      const key = match[1].trim();
+      const value = match[2].trim();
+      if (!specifications[key]) {
+        specifications[key] = value;
+      }
+    }
+  });
+  
+  // Pattern 5: Signature Hardware specific - features section with key/value pairs
+  $('[class*="feature"], [class*="spec"], [data-testid*="spec"]').each((_, el) => {
+    const labelEl = $(el).find('[class*="label"], [class*="name"], strong, b').first();
+    const valueEl = $(el).find('[class*="value"], span:last-child').first();
+    if (labelEl.length && valueEl.length) {
+      const key = labelEl.text().replace(/:/g, '').trim();
+      const value = valueEl.text().trim();
+      if (key && value && key !== value && key.length < 50 && value.length < 200) {
+        specifications[key] = value;
+      }
+    }
+  });
+
+  // Capture EVERYTHING from main content - let AI analyze
+  const mainContent = $('main, [role="main"], article, [class*="product"], [id*="product"], [class*="content"]')
+    .first()
+    .text();
+
+  const fullContent = mainContent || $('body').text();
+
+  const rawText = fullContent
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 50000);
+
+  // Capture all list items (features/specs often in lists)
+  const features: string[] = [];
+  $('li').each((_, li) => {
+    const text = $(li).text().trim();
+    if (text.length > 5 && text.length < 1000) {
+      features.push(text);
+    }
+  });
+
+  const processingTime = Date.now() - startTime;
+  
+  // Track if we got minimal content (potential future learning) - async, don't block
+  if (rawText.length < 1000 && Object.keys(specifications).length === 0) {
+    trackScrapeFailure(url, 'MINIMAL_CONTENT', rawText.length).catch(() => {});
+  }
+  
+  logger.info('Web page parsed successfully', { 
+    url, 
+    contentLength: rawText.length,
+    specsFound: Object.keys(specifications).length,
+    featuresFound: features.length,
+    processingTime 
+  });
+
+  return {
+    url,
+    title,
+    description,
+    specifications,
+    features,
+    rawText,
+    success: true
+  };
 }
 
 /**
