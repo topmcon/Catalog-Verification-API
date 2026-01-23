@@ -2332,9 +2332,23 @@ function buildFinalResponse(
   // Handle features from AI - could be string (HTML), array, or missing
   // Prefer AI-improved version over raw source data
   let rawFeatures = consensus.agreedPrimaryAttributes.features_list;
+  
+  logger.info('Features resolution check', {
+    sessionId,
+    consensusFeatures: typeof rawFeatures === 'string' ? rawFeatures?.substring(0, 200) : 'array/missing',
+    consensusFeaturesType: typeof rawFeatures,
+    hasConsensusFeatures: !!rawFeatures
+  });
+  
   if (!rawFeatures) {
     const openaiFeat = openaiResult.primaryAttributes.features_list;
     const xaiFeat = xaiResult.primaryAttributes.features_list;
+    
+    logger.info('Features fallback triggered', {
+      sessionId,
+      openaiFeatures: typeof openaiFeat === 'string' ? openaiFeat?.substring(0, 100) : 'array/missing',
+      xaiFeatures: typeof xaiFeat === 'string' ? xaiFeat?.substring(0, 100) : 'array/missing'
+    });
     
     if (openaiFeat && xaiFeat) {
       rawFeatures = openaiResult.confidence >= xaiResult.confidence ? openaiFeat : xaiFeat;
@@ -2589,6 +2603,17 @@ function buildFinalResponse(
         )
       );
       
+      // If still empty, check image analysis from research
+      if ((!color || color.trim() === '') && researchResult) {
+        for (const img of researchResult.images || []) {
+          if (img.detectedColor) {
+            color = img.detectedColor;
+            logger.info('Extracted color from image analysis', { color, source: 'image_vision_analysis', sessionId });
+            break;
+          }
+        }
+      }
+      
       // If still empty, try to extract from title/description
       if (!color || color.trim() === '') {
         const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
@@ -2615,6 +2640,17 @@ function buildFinalResponse(
           ''
         )
       );
+      
+      // If still empty, check image analysis from research
+      if ((!finish || finish.trim() === '') && researchResult) {
+        for (const img of researchResult.images || []) {
+          if (img.detectedFinish) {
+            finish = img.detectedFinish;
+            logger.info('Extracted finish from image analysis', { finish, source: 'image_vision_analysis', sessionId });
+            break;
+          }
+        }
+      }
       
       // If still empty, try to extract from title/description
       if (!finish || finish.trim() === '') {
@@ -2713,10 +2749,8 @@ function buildFinalResponse(
       ''
     ),
     Model_Number_Verified: (() => {
-      // Prioritize: 1) SF_Catalog_Name (authoritative), 2) AI consensus or higher confidence, 3) Ferguson, 4) Web Retailer
-      const sfModel = rawProduct.SF_Catalog_Name?.trim();
-      if (sfModel) return sfModel;
-      
+      // NEW PRIORITY: 1) AI consensus/smart resolution (researched & validated), 2) Ferguson, 3) Web Retailer, 4) SF_Catalog_Name (fallback only)
+      // AI often finds the complete model number (e.g., "K-26568-CP") while SF may have partial (e.g., "26568-BL")
       const aiModel = preferAIValue(
         consensus.agreedPrimaryAttributes.model_number,
         openaiResult.primaryAttributes.model_number,
@@ -2726,10 +2760,21 @@ function buildFinalResponse(
         null
       )?.trim();
       
-      const fergModel = rawProduct.Ferguson_Model_Number?.trim();
-      const wrModel = rawProduct.Model_Number_Web_Retailer?.trim();
+      // Only use AI model if it's a real value (not "Not Found" markers)
+      if (aiModel && !aiModel.includes('Not Found') && !aiModel.includes('FIELD_NOT_FOUND')) {
+        logger.info('Model number from AI consensus', { aiModel, sessionId });
+        return aiModel;
+      }
       
-      return aiModel || fergModel || wrModel || '';
+      const fergModel = rawProduct.Ferguson_Model_Number?.trim();
+      if (fergModel) return fergModel;
+      
+      const wrModel = rawProduct.Model_Number_Web_Retailer?.trim();
+      if (wrModel) return wrModel;
+      
+      // SF_Catalog_Name as last resort fallback
+      const sfModel = rawProduct.SF_Catalog_Name?.trim();
+      return sfModel || '';
     })(),
     Model_Number_Alias: (() => {
       const primary = rawProduct.SF_Catalog_Name || consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer || '';
