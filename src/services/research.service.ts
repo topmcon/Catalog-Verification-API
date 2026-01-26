@@ -214,20 +214,17 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     // Navigate with wait for network idle
     await page.goto(url, { 
       waitUntil: 'networkidle2',
-      timeout: 30000  // 30 second timeout
+      timeout: 20000  // 20 second timeout (reduced from 30s)
     });
     
     // Wait for page to stabilize
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Reduced from 2000ms
     
     // Check if page was redirected or blocked
     const currentUrl = page.url();
     if (!currentUrl.includes('signaturehardware.com') && url.includes('signaturehardware.com')) {
       logger.warn('Page redirected, may be blocked', { originalUrl: url, redirectedTo: currentUrl });
     }
-    
-    // Wait a bit for any final JS to execute
-    await new Promise(resolve => setTimeout(resolve, 2000));
     
     // =========================================
     // EXPAND ALL COLLAPSIBLE SECTIONS
@@ -330,16 +327,16 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     
     logger.info('Expandable sections clicked', { url, expandedCount });
     
-    // Wait for expanded content to load
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Wait for expanded content to load (reduced from 2000ms)
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Scroll down to trigger any lazy-loaded content
     await page.evaluate(`window.scrollTo(0, document.body.scrollHeight)`);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 500)); // Reduced from 1000ms
     
     // Scroll back up
     await page.evaluate(`window.scrollTo(0, 0)`);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 250)); // Reduced from 500ms
     
     // Second round of clicking (some accordions reveal more accordions)
     secondRoundClicks = await page.evaluate(`
@@ -358,7 +355,7 @@ async function fetchWithHeadlessBrowser(url: string): Promise<{ html: string; su
     
     if (secondRoundClicks > 0) {
       logger.info('Second round expandable sections clicked', { url, secondRoundClicks });
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 800)); // Reduced from 1500ms
     }
     
     } catch (expandError) {

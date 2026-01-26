@@ -83,7 +83,27 @@ export class VerificationAnalyticsService {
         brand: response.Primary_Attributes?.Brand_Verified || inputPayload.Brand_Web_Retailer || 'Unknown'
       };
       
-      await VerificationResult.create(result);
+      // Create with explicit error handling and validation
+      try {
+        await VerificationResult.create(result);
+      } catch (createError: any) {
+        // If there's a validation error, log details and try to save without problematic fields
+        if (createError.name === 'ValidationError') {
+          logger.error('Validation error saving verification result', {
+            error: createError.message,
+            errors: createError.errors,
+            session_id: sessionId
+          });
+          
+          // Try saving without documents_analyzed if that's the problem
+          const fallbackResult = { ...result };
+          delete fallbackResult.documents_analyzed;
+          await VerificationResult.create(fallbackResult);
+          logger.warn('Saved verification result without documents_analyzed field', { session_id: sessionId });
+        } else {
+          throw createError;
+        }
+      }
       
       // Update aggregated metrics asynchronously
       this.updateAggregatedMetrics(result as IVerificationResult).catch(err => {
@@ -523,9 +543,14 @@ export class VerificationAnalyticsService {
         return [];
       }
       
-      // If it's already a proper array of objects, process it directly
-      if (Array.isArray(docs) && docs.length > 0 && typeof docs[0] === 'object') {
+      // If it's already a proper array of objects with url property, process it directly
+      if (Array.isArray(docs) && docs.length > 0 && typeof docs[0] === 'object' && docs[0] !== null && !Array.isArray(docs[0])) {
         return this.mapDocumentsToSchema(docs);
+      }
+      
+      // If it's an empty array, return it
+      if (Array.isArray(docs) && docs.length === 0) {
+        return [];
       }
       
       // If it's a string, try to parse it
@@ -535,9 +560,10 @@ export class VerificationAnalyticsService {
         // Skip if it looks like a util.inspect or malformed string representation
         // These contain patterns like "'[\\n' +" or "url:" instead of "\"url\":"
         if (cleanedString.includes("'[\\n'") || 
-            cleanedString.includes('\\n') ||
-            (cleanedString.includes("url:") && !cleanedString.includes('"url"'))) {
-          logger.warn('Documents field appears to be malformed util.inspect output, skipping', {
+            cleanedString.includes("' +\\n") ||
+            cleanedString.includes('\\n  ') ||
+            (cleanedString.includes("url:") && !cleanedString.includes('"url"') && !cleanedString.includes("'url'"))) {
+          logger.warn('Documents field appears to be malformed util.inspect output, returning empty array', {
             stringPreview: cleanedString.substring(0, 100)
           });
           return [];
@@ -553,13 +579,13 @@ export class VerificationAnalyticsService {
             try {
               docs = JSON.parse(arrayMatch[0]);
             } catch (e2) {
-              logger.warn('Failed to parse documents string even after cleanup', { 
+              logger.warn('Failed to parse documents string even after cleanup, returning empty array', { 
                 stringPreview: cleanedString.substring(0, 100) 
               });
               return [];
             }
           } else {
-            logger.warn('Documents field is a string but not parseable', { 
+            logger.warn('Documents field is a string but not parseable, returning empty array', { 
               stringPreview: cleanedString.substring(0, 100)
             });
             return [];
@@ -569,8 +595,9 @@ export class VerificationAnalyticsService {
       
       // If not an array after parsing attempts, return empty
       if (!Array.isArray(docs)) {
-        logger.warn('Documents field is not an array after parsing attempts', { 
-          type: typeof docs
+        logger.warn('Documents field is not an array after parsing attempts, returning empty array', { 
+          type: typeof docs,
+          value: typeof docs === 'object' ? JSON.stringify(docs).substring(0, 100) : String(docs).substring(0, 100)
         });
         return [];
       }
@@ -578,8 +605,9 @@ export class VerificationAnalyticsService {
       return this.mapDocumentsToSchema(docs);
       
     } catch (error) {
-      logger.error('Error parsing documents_analyzed', { 
-        error: error instanceof Error ? error.message : 'Unknown error'
+      logger.error('Error parsing documents_analyzed, returning empty array', { 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
       });
       return [];
     }

@@ -95,9 +95,9 @@ const config: Config = {
     enableWebFetch: process.env.RESEARCH_WEB_FETCH !== 'false',
     enablePdfExtract: process.env.RESEARCH_PDF_EXTRACT !== 'false',
     enableImageAnalysis: process.env.RESEARCH_IMAGE_ANALYSIS !== 'false',
-    maxDocuments: parseInt(process.env.RESEARCH_MAX_DOCUMENTS || '3', 10),
-    maxImages: parseInt(process.env.RESEARCH_MAX_IMAGES || '2', 10),
-    requestTimeout: parseInt(process.env.RESEARCH_TIMEOUT || '15000', 10),
+    maxDocuments: parseInt(process.env.RESEARCH_MAX_DOCUMENTS || '2', 10), // Reduced from 3
+    maxImages: parseInt(process.env.RESEARCH_MAX_IMAGES || '1', 10), // Reduced from 2
+    requestTimeout: parseInt(process.env.RESEARCH_TIMEOUT || '10000', 10), // Reduced from 15000
   },
 
   salesforce: {
