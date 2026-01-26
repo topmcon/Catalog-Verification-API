@@ -41,6 +41,7 @@ export interface Config {
     username: string;
     password: string;
     securityToken: string;
+    webhookUrl: string; // Default webhook URL for Salesforce callbacks
   };
   aiConsensus: {
     threshold: number;
@@ -107,6 +108,7 @@ const config: Config = {
     username: process.env.SALESFORCE_USERNAME || '',
     password: process.env.SALESFORCE_PASSWORD || '',
     securityToken: process.env.SALESFORCE_SECURITY_TOKEN || '',
+    webhookUrl: process.env.SALESFORCE_WEBHOOK_URL || 'https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification',
   },
 
   aiConsensus: {

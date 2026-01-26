@@ -10,6 +10,7 @@ import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
 import asyncVerificationProcessor from '../services/async-verification-processor.service';
 import { ApiError } from '../middleware/error.middleware';
+import config from '../config';
 
 /**
  * Salesforce verification endpoint - Immediate acknowledgment
@@ -36,12 +37,16 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       throw new ApiError(400, 'MISSING_FIELD', 'Missing required field: SF_Catalog_Name (model number)');
     }
 
+    // Use provided webhook URL or fall back to default Salesforce webhook
+    const finalWebhookUrl = webhookUrl || config.salesforce.webhookUrl;
+
     logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', { service: 'catalog-verification' });
     logger.info('STEP 1: Received Salesforce verification request', {
       jobId,
       sfCatalogId: SF_Catalog_Id,
       sfCatalogName: SF_Catalog_Name,
-      webhookUrl: webhookUrl || 'none',
+      webhookUrl: finalWebhookUrl,
+      webhookSource: webhookUrl ? 'provided' : 'default',
       payloadSize: JSON.stringify(req.body).length + ' bytes'
     });
 
@@ -52,7 +57,7 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       sfCatalogName: SF_Catalog_Name,
       status: 'pending',
       rawPayload: req.body, // Store complete payload
-      webhookUrl: webhookUrl,
+      webhookUrl: finalWebhookUrl,
       webhookAttempts: 0
     });
 
@@ -82,7 +87,8 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       SF_Catalog_Name,
       status: 'queued',
       estimatedProcessingTime: '30-120 seconds',
-      webhookConfigured: !!webhookUrl,
+      webhookConfigured: true,
+      webhookUrl: finalWebhookUrl,
       receivedAt: new Date().toISOString()
     });
 
