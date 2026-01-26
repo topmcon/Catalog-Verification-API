@@ -1027,29 +1027,11 @@ class PicklistMatcherService {
    */
   private validatePicklistData(
     type: 'attributes' | 'brands' | 'categories' | 'styles',
-    newData: any[],
-    currentCount: number
+    newData: any[]
   ): string[] {
     const errors: string[] = [];
 
-    // Rule 1: Reject empty lists if we already have data (prevents accidental wipes)
-    if (newData.length === 0 && currentCount > 0) {
-      errors.push(`Rejecting empty ${type} list - would delete ${currentCount} existing items`);
-      return errors;
-    }
-
-    // Rule 2: Reject if count drops by more than 70% (likely bad data)
-    if (currentCount > 0) {
-      const dropPercentage = ((currentCount - newData.length) / currentCount) * 100;
-      if (dropPercentage > 70) {
-        errors.push(
-          `Rejecting ${type} sync - count drop of ${dropPercentage.toFixed(1)}% (${currentCount} → ${newData.length}) exceeds 70% threshold`
-        );
-        return errors;
-      }
-    }
-
-    // Rule 3: Check for corruption patterns (field names embedded in values)
+    // Rule 1: Check for corruption patterns (field names embedded in values)
     const corruptionPatterns = ['brand_id', 'attribute_id', 'category_id', 'style_id', 'brand_name'];
     
     for (const item of newData) {
@@ -1073,7 +1055,26 @@ class PicklistMatcherService {
           }
         }
       }
-      // Similar checks for other types...
+      if (type === 'categories' && item.category_name) {
+        for (const pattern of corruptionPatterns) {
+          if (item.category_name.includes(pattern)) {
+            errors.push(
+              `Detected corruption in ${type}: "${item.category_name}" contains "${pattern}" - data appears corrupted`
+            );
+            break;
+          }
+        }
+      }
+      if (type === 'styles' && item.style_name) {
+        for (const pattern of corruptionPatterns) {
+          if (item.style_name.includes(pattern)) {
+            errors.push(
+              `Detected corruption in ${type}: "${item.style_name}" contains "${pattern}" - data appears corrupted`
+            );
+            break;
+          }
+        }
+      }
       if (errors.length >= 3) break; // Only report first 3 corruption examples
     }
 
@@ -1081,9 +1082,9 @@ class PicklistMatcherService {
   }
 
   /**
-   * Bulk sync picklists from Salesforce
-   * This completely replaces the existing picklist data with the new data from SF
-   * Use this when SF has added new options and wants to sync back to us
+   * Bulk sync picklists from Salesforce - INCREMENTAL ADD/UPDATE STRATEGY
+   * This ADDS new items or UPDATES existing items, but NEVER deletes
+   * SF sends only the items they want to add/update, not the full list
    */
   async syncPicklists(data: {
     attributes?: Attribute[];
@@ -1093,40 +1094,70 @@ class PicklistMatcherService {
     category_filter_attributes?: any; // JSON object mapping categories to filter attributes
   }): Promise<{
     success: boolean;
-    updated: { type: string; previous: number; current: number; added: number }[];
+    updated: { type: string; previous: number; current: number; added: number; updated: number }[];
     errors: string[];
   }> {
-    const updated: { type: string; previous: number; current: number; added: number }[] = [];
+    const updated: { type: string; previous: number; current: number; added: number; updated: number }[] = [];
     const errors: string[] = [];
     const projectRoot = path.resolve(__dirname, '../../');
     const picklistDir = path.join(projectRoot, 'src/config/salesforce-picklists');
 
-    // Sync attributes
+    // Sync attributes - INCREMENTAL ADD/UPDATE
     if (data.attributes && Array.isArray(data.attributes)) {
       try {
         const prevCount = this.attributes.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('attributes', data.attributes!, prevCount);
+        const validationErrors = this.validatePicklistData('attributes', data.attributes!);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Attribute sync validation failed', { error: err, previous: prevCount, incoming: data.attributes!.length });
+            logger.error('Attribute sync validation failed', { error: err, incoming: data.attributes!.length });
           });
-          logger.warn('Keeping existing attributes due to validation failure', { count: prevCount });
+          logger.warn('Skipping corrupted attributes', { count: data.attributes!.length });
         } else {
+          // Create a map of existing attributes by ID
+          const existingMap = new Map(this.attributes.map(attr => [attr.attribute_id, attr]));
+          let addedCount = 0;
+          let updatedCount = 0;
+
+          // Add or update each incoming attribute
+          for (const incomingAttr of data.attributes) {
+            if (existingMap.has(incomingAttr.attribute_id)) {
+              // Update existing
+              const existing = existingMap.get(incomingAttr.attribute_id);
+              if (JSON.stringify(existing) !== JSON.stringify(incomingAttr)) {
+                existingMap.set(incomingAttr.attribute_id, incomingAttr);
+                updatedCount++;
+              }
+            } else {
+              // Add new
+              existingMap.set(incomingAttr.attribute_id, incomingAttr);
+              addedCount++;
+            }
+          }
+
+          // Convert map back to array
+          const mergedAttributes = Array.from(existingMap.values());
+          
+          // Save to file and update cache
           const filePath = path.join(picklistDir, 'attributes.json');
-          fs.writeFileSync(filePath, JSON.stringify(data.attributes, null, 2));
-          this.attributes = data.attributes;
+          fs.writeFileSync(filePath, JSON.stringify(mergedAttributes, null, 2));
+          this.attributes = mergedAttributes;
+          
           updated.push({
             type: 'attributes',
             previous: prevCount,
-            current: data.attributes.length,
-            added: data.attributes.length - prevCount
+            current: mergedAttributes.length,
+            added: addedCount,
+            updated: updatedCount
           });
-          logger.info('Attributes synced successfully', { 
+          
+          logger.info('Attributes synced successfully (incremental)', { 
             previous: prevCount, 
-            current: data.attributes.length 
+            current: mergedAttributes.length,
+            added: addedCount,
+            updated: updatedCount
           });
         }
       } catch (error: any) {
@@ -1135,32 +1166,62 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync brands
+    // Sync brands - INCREMENTAL ADD/UPDATE
     if (data.brands && Array.isArray(data.brands)) {
       try {
         const prevCount = this.brands.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('brands', data.brands!, prevCount);
+        const validationErrors = this.validatePicklistData('brands', data.brands!);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Brand sync validation failed', { error: err, previous: prevCount, incoming: data.brands!.length });
+            logger.error('Brand sync validation failed', { error: err, incoming: data.brands!.length });
           });
-          logger.warn('Keeping existing brands due to validation failure', { count: prevCount });
+          logger.warn('Skipping corrupted brands', { count: data.brands!.length });
         } else {
+          // Create a map of existing brands by ID
+          const existingMap = new Map(this.brands.map(brand => [brand.brand_id, brand]));
+          let addedCount = 0;
+          let updatedCount = 0;
+
+          // Add or update each incoming brand
+          for (const incomingBrand of data.brands) {
+            if (existingMap.has(incomingBrand.brand_id)) {
+              // Update existing
+              const existing = existingMap.get(incomingBrand.brand_id);
+              if (JSON.stringify(existing) !== JSON.stringify(incomingBrand)) {
+                existingMap.set(incomingBrand.brand_id, incomingBrand);
+                updatedCount++;
+              }
+            } else {
+              // Add new
+              existingMap.set(incomingBrand.brand_id, incomingBrand);
+              addedCount++;
+            }
+          }
+
+          // Convert map back to array
+          const mergedBrands = Array.from(existingMap.values());
+          
+          // Save to file and update cache
           const filePath = path.join(picklistDir, 'brands.json');
-          fs.writeFileSync(filePath, JSON.stringify(data.brands, null, 2));
-          this.brands = data.brands;
+          fs.writeFileSync(filePath, JSON.stringify(mergedBrands, null, 2));
+          this.brands = mergedBrands;
+          
           updated.push({
             type: 'brands',
             previous: prevCount,
-            current: data.brands.length,
-            added: data.brands.length - prevCount
+            current: mergedBrands.length,
+            added: addedCount,
+            updated: updatedCount
           });
-          logger.info('Brands synced successfully', { 
+          
+          logger.info('Brands synced successfully (incremental)', { 
             previous: prevCount, 
-            current: data.brands.length 
+            current: mergedBrands.length,
+            added: addedCount,
+            updated: updatedCount
           });
         }
       } catch (error: any) {
@@ -1169,32 +1230,62 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync categories
+    // Sync categories - INCREMENTAL ADD/UPDATE
     if (data.categories && Array.isArray(data.categories)) {
       try {
         const prevCount = this.categories.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('categories', data.categories!, prevCount);
+        const validationErrors = this.validatePicklistData('categories', data.categories!);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Category sync validation failed', { error: err, previous: prevCount, incoming: data.categories!.length });
+            logger.error('Category sync validation failed', { error: err, incoming: data.categories!.length });
           });
-          logger.warn('Keeping existing categories due to validation failure', { count: prevCount });
+          logger.warn('Skipping corrupted categories', { count: data.categories!.length });
         } else {
+          // Create a map of existing categories by ID
+          const existingMap = new Map(this.categories.map(cat => [cat.category_id, cat]));
+          let addedCount = 0;
+          let updatedCount = 0;
+
+          // Add or update each incoming category
+          for (const incomingCat of data.categories) {
+            if (existingMap.has(incomingCat.category_id)) {
+              // Update existing
+              const existing = existingMap.get(incomingCat.category_id);
+              if (JSON.stringify(existing) !== JSON.stringify(incomingCat)) {
+                existingMap.set(incomingCat.category_id, incomingCat);
+                updatedCount++;
+              }
+            } else {
+              // Add new
+              existingMap.set(incomingCat.category_id, incomingCat);
+              addedCount++;
+            }
+          }
+
+          // Convert map back to array
+          const mergedCategories = Array.from(existingMap.values());
+          
+          // Save to file and update cache
           const filePath = path.join(picklistDir, 'categories.json');
-          fs.writeFileSync(filePath, JSON.stringify(data.categories, null, 2));
-          this.categories = data.categories;
+          fs.writeFileSync(filePath, JSON.stringify(mergedCategories, null, 2));
+          this.categories = mergedCategories;
+          
           updated.push({
             type: 'categories',
             previous: prevCount,
-            current: data.categories.length,
-            added: data.categories.length - prevCount
+            current: mergedCategories.length,
+            added: addedCount,
+            updated: updatedCount
           });
-          logger.info('Categories synced successfully', { 
+          
+          logger.info('Categories synced successfully (incremental)', { 
             previous: prevCount, 
-            current: data.categories.length 
+            current: mergedCategories.length,
+            added: addedCount,
+            updated: updatedCount
           });
         }
       } catch (error: any) {
@@ -1203,32 +1294,62 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync styles
+    // Sync styles - INCREMENTAL ADD/UPDATE
     if (data.styles && Array.isArray(data.styles)) {
       try {
         const prevCount = this.styles.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('styles', data.styles!, prevCount);
+        const validationErrors = this.validatePicklistData('styles', data.styles!);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Style sync validation failed', { error: err, previous: prevCount, incoming: data.styles!.length });
+            logger.error('Style sync validation failed', { error: err, incoming: data.styles!.length });
           });
-          logger.warn('Keeping existing styles due to validation failure', { count: prevCount });
+          logger.warn('Skipping corrupted styles', { count: data.styles!.length });
         } else {
+          // Create a map of existing styles by ID
+          const existingMap = new Map(this.styles.map(style => [style.style_id, style]));
+          let addedCount = 0;
+          let updatedCount = 0;
+
+          // Add or update each incoming style
+          for (const incomingStyle of data.styles) {
+            if (existingMap.has(incomingStyle.style_id)) {
+              // Update existing
+              const existing = existingMap.get(incomingStyle.style_id);
+              if (JSON.stringify(existing) !== JSON.stringify(incomingStyle)) {
+                existingMap.set(incomingStyle.style_id, incomingStyle);
+                updatedCount++;
+              }
+            } else {
+              // Add new
+              existingMap.set(incomingStyle.style_id, incomingStyle);
+              addedCount++;
+            }
+          }
+
+          // Convert map back to array
+          const mergedStyles = Array.from(existingMap.values());
+          
+          // Save to file and update cache
           const filePath = path.join(picklistDir, 'styles.json');
-          fs.writeFileSync(filePath, JSON.stringify(data.styles, null, 2));
-          this.styles = data.styles;
+          fs.writeFileSync(filePath, JSON.stringify(mergedStyles, null, 2));
+          this.styles = mergedStyles;
+          
           updated.push({
             type: 'styles',
             previous: prevCount,
-            current: data.styles.length,
-            added: data.styles.length - prevCount
+            current: mergedStyles.length,
+            added: addedCount,
+            updated: updatedCount
           });
-          logger.info('Styles synced successfully', { 
+          
+          logger.info('Styles synced successfully (incremental)', { 
             previous: prevCount, 
-            current: data.styles.length 
+            current: mergedStyles.length,
+            added: addedCount,
+            updated: updatedCount
           });
         }
       } catch (error: any) {
@@ -1237,34 +1358,42 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync category filter attributes
+    // Sync category filter attributes - INCREMENTAL ADD/UPDATE
     if (data.category_filter_attributes && typeof data.category_filter_attributes === 'object') {
       try {
         const filePath = path.join(picklistDir, 'category-filter-attributes.json');
         
-        // Count previous categories
+        // Load existing data
+        let existingData: any = {};
         let prevCount = 0;
         try {
-          const prevData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-          prevCount = Object.keys(prevData).length;
+          existingData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+          prevCount = Object.keys(existingData).length;
         } catch {
           prevCount = 0;
         }
         
-        // Write new data
-        fs.writeFileSync(filePath, JSON.stringify(data.category_filter_attributes, null, 2));
-        const newCount = Object.keys(data.category_filter_attributes).length;
+        // Merge incoming data with existing (adds new categories or updates existing)
+        const mergedData = { ...existingData, ...data.category_filter_attributes };
+        const newCount = Object.keys(mergedData).length;
+        const addedCount = newCount - prevCount;
+        
+        // Write merged data
+        fs.writeFileSync(filePath, JSON.stringify(mergedData, null, 2));
         
         updated.push({
           type: 'category_filter_attributes',
           previous: prevCount,
           current: newCount,
-          added: newCount - prevCount
+          added: addedCount,
+          updated: Object.keys(data.category_filter_attributes).length - addedCount
         });
         
-        logger.info('Category filter attributes synced successfully', { 
+        logger.info('Category filter attributes synced successfully (incremental)', { 
           previous: prevCount, 
-          current: newCount 
+          current: newCount,
+          added: addedCount,
+          updated: Object.keys(data.category_filter_attributes).length - addedCount
         });
       } catch (error: any) {
         errors.push(`Failed to sync category filter attributes: ${error.message}`);
