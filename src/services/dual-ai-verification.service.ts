@@ -3007,6 +3007,28 @@ function buildFinalResponse(
         }
       }
       
+      // Format color as "hexcode (ColorName)" if we have both hex and finish name
+      // Get the finish name first
+      let finishName = cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.finish,
+          openaiResult.primaryAttributes.finish,
+          xaiResult.primaryAttributes.finish,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          rawProduct.Ferguson_Finish || 
+          findAttributeInRawData(rawProduct, 'Finish') ||
+          findAttributeInRawData(rawProduct, 'Surface Finish') ||
+          ''
+        )
+      );
+      
+      // If color is a hex code (6 chars, all hex) and we have a finish name, format as "hexcode (Name)"
+      if (color && /^[0-9a-fA-F]{6}$/.test(color.trim()) && finishName && finishName.trim()) {
+        color = `${color} (${finishName})`;
+        logger.info('Formatted color with finish name', { color, sessionId });
+      }
+      
       return color;
     })(),
     Finish_Verified: (() => {
