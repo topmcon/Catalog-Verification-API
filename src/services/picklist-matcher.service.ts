@@ -1022,6 +1022,65 @@ class PicklistMatcherService {
   }
 
   /**
+   * Validate picklist data quality before sync
+   * Returns validation errors if data is suspicious/corrupted
+   */
+  private validatePicklistData(
+    type: 'attributes' | 'brands' | 'categories' | 'styles',
+    newData: any[],
+    currentCount: number
+  ): string[] {
+    const errors: string[] = [];
+
+    // Rule 1: Reject empty lists if we already have data (prevents accidental wipes)
+    if (newData.length === 0 && currentCount > 0) {
+      errors.push(`Rejecting empty ${type} list - would delete ${currentCount} existing items`);
+      return errors;
+    }
+
+    // Rule 2: Reject if count drops by more than 70% (likely bad data)
+    if (currentCount > 0) {
+      const dropPercentage = ((currentCount - newData.length) / currentCount) * 100;
+      if (dropPercentage > 70) {
+        errors.push(
+          `Rejecting ${type} sync - count drop of ${dropPercentage.toFixed(1)}% (${currentCount} → ${newData.length}) exceeds 70% threshold`
+        );
+        return errors;
+      }
+    }
+
+    // Rule 3: Check for corruption patterns (field names embedded in values)
+    const corruptionPatterns = ['brand_id', 'attribute_id', 'category_id', 'style_id', 'brand_name'];
+    
+    for (const item of newData) {
+      if (type === 'brands' && item.brand_name) {
+        for (const pattern of corruptionPatterns) {
+          if (item.brand_name.includes(pattern)) {
+            errors.push(
+              `Detected corruption in ${type}: "${item.brand_name}" contains "${pattern}" - data appears corrupted`
+            );
+            break;
+          }
+        }
+      }
+      if (type === 'attributes' && item.attribute_name) {
+        for (const pattern of corruptionPatterns) {
+          if (item.attribute_name.includes(pattern)) {
+            errors.push(
+              `Detected corruption in ${type}: "${item.attribute_name}" contains "${pattern}" - data appears corrupted`
+            );
+            break;
+          }
+        }
+      }
+      // Similar checks for other types...
+      if (errors.length >= 3) break; // Only report first 3 corruption examples
+    }
+
+    return errors;
+  }
+
+  /**
    * Bulk sync picklists from Salesforce
    * This completely replaces the existing picklist data with the new data from SF
    * Use this when SF has added new options and wants to sync back to us
@@ -1046,19 +1105,30 @@ class PicklistMatcherService {
     if (data.attributes && Array.isArray(data.attributes)) {
       try {
         const prevCount = this.attributes.length;
-        const filePath = path.join(picklistDir, 'attributes.json');
-        fs.writeFileSync(filePath, JSON.stringify(data.attributes, null, 2));
-        this.attributes = data.attributes;
-        updated.push({
-          type: 'attributes',
-          previous: prevCount,
-          current: data.attributes.length,
-          added: data.attributes.length - prevCount
-        });
-        logger.info('Attributes synced successfully', { 
-          previous: prevCount, 
-          current: data.attributes.length 
-        });
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('attributes', data.attributes, prevCount);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Attribute sync validation failed', { error: err, previous: prevCount, incoming: data.attributes.length });
+          });
+          logger.warn('Keeping existing attributes due to validation failure', { count: prevCount });
+        } else {
+          const filePath = path.join(picklistDir, 'attributes.json');
+          fs.writeFileSync(filePath, JSON.stringify(data.attributes, null, 2));
+          this.attributes = data.attributes;
+          updated.push({
+            type: 'attributes',
+            previous: prevCount,
+            current: data.attributes.length,
+            added: data.attributes.length - prevCount
+          });
+          logger.info('Attributes synced successfully', { 
+            previous: prevCount, 
+            current: data.attributes.length 
+          });
+        }
       } catch (error: any) {
         errors.push(`Failed to sync attributes: ${error.message}`);
         logger.error('Failed to sync attributes', { error });
@@ -1069,19 +1139,30 @@ class PicklistMatcherService {
     if (data.brands && Array.isArray(data.brands)) {
       try {
         const prevCount = this.brands.length;
-        const filePath = path.join(picklistDir, 'brands.json');
-        fs.writeFileSync(filePath, JSON.stringify(data.brands, null, 2));
-        this.brands = data.brands;
-        updated.push({
-          type: 'brands',
-          previous: prevCount,
-          current: data.brands.length,
-          added: data.brands.length - prevCount
-        });
-        logger.info('Brands synced successfully', { 
-          previous: prevCount, 
-          current: data.brands.length 
-        });
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('brands', data.brands, prevCount);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Brand sync validation failed', { error: err, previous: prevCount, incoming: data.brands.length });
+          });
+          logger.warn('Keeping existing brands due to validation failure', { count: prevCount });
+        } else {
+          const filePath = path.join(picklistDir, 'brands.json');
+          fs.writeFileSync(filePath, JSON.stringify(data.brands, null, 2));
+          this.brands = data.brands;
+          updated.push({
+            type: 'brands',
+            previous: prevCount,
+            current: data.brands.length,
+            added: data.brands.length - prevCount
+          });
+          logger.info('Brands synced successfully', { 
+            previous: prevCount, 
+            current: data.brands.length 
+          });
+        }
       } catch (error: any) {
         errors.push(`Failed to sync brands: ${error.message}`);
         logger.error('Failed to sync brands', { error });
@@ -1092,19 +1173,30 @@ class PicklistMatcherService {
     if (data.categories && Array.isArray(data.categories)) {
       try {
         const prevCount = this.categories.length;
-        const filePath = path.join(picklistDir, 'categories.json');
-        fs.writeFileSync(filePath, JSON.stringify(data.categories, null, 2));
-        this.categories = data.categories;
-        updated.push({
-          type: 'categories',
-          previous: prevCount,
-          current: data.categories.length,
-          added: data.categories.length - prevCount
-        });
-        logger.info('Categories synced successfully', { 
-          previous: prevCount, 
-          current: data.categories.length 
-        });
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('categories', data.categories, prevCount);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Category sync validation failed', { error: err, previous: prevCount, incoming: data.categories.length });
+          });
+          logger.warn('Keeping existing categories due to validation failure', { count: prevCount });
+        } else {
+          const filePath = path.join(picklistDir, 'categories.json');
+          fs.writeFileSync(filePath, JSON.stringify(data.categories, null, 2));
+          this.categories = data.categories;
+          updated.push({
+            type: 'categories',
+            previous: prevCount,
+            current: data.categories.length,
+            added: data.categories.length - prevCount
+          });
+          logger.info('Categories synced successfully', { 
+            previous: prevCount, 
+            current: data.categories.length 
+          });
+        }
       } catch (error: any) {
         errors.push(`Failed to sync categories: ${error.message}`);
         logger.error('Failed to sync categories', { error });
@@ -1115,19 +1207,30 @@ class PicklistMatcherService {
     if (data.styles && Array.isArray(data.styles)) {
       try {
         const prevCount = this.styles.length;
-        const filePath = path.join(picklistDir, 'styles.json');
-        fs.writeFileSync(filePath, JSON.stringify(data.styles, null, 2));
-        this.styles = data.styles;
-        updated.push({
-          type: 'styles',
-          previous: prevCount,
-          current: data.styles.length,
-          added: data.styles.length - prevCount
-        });
-        logger.info('Styles synced successfully', { 
-          previous: prevCount, 
-          current: data.styles.length 
-        });
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('styles', data.styles, prevCount);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Style sync validation failed', { error: err, previous: prevCount, incoming: data.styles.length });
+          });
+          logger.warn('Keeping existing styles due to validation failure', { count: prevCount });
+        } else {
+          const filePath = path.join(picklistDir, 'styles.json');
+          fs.writeFileSync(filePath, JSON.stringify(data.styles, null, 2));
+          this.styles = data.styles;
+          updated.push({
+            type: 'styles',
+            previous: prevCount,
+            current: data.styles.length,
+            added: data.styles.length - prevCount
+          });
+          logger.info('Styles synced successfully', { 
+            previous: prevCount, 
+            current: data.styles.length 
+          });
+        }
       } catch (error: any) {
         errors.push(`Failed to sync styles: ${error.message}`);
         logger.error('Failed to sync styles', { error });
