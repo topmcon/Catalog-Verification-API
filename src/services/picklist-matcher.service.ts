@@ -1107,11 +1107,11 @@ class PicklistMatcherService {
         const prevCount = this.attributes.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('attributes', data.attributes, prevCount);
+        const validationErrors = this.validatePicklistData('attributes', data.attributes!, prevCount);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Attribute sync validation failed', { error: err, previous: prevCount, incoming: data.attributes.length });
+            logger.error('Attribute sync validation failed', { error: err, previous: prevCount, incoming: data.attributes!.length });
           });
           logger.warn('Keeping existing attributes due to validation failure', { count: prevCount });
         } else {
@@ -1141,11 +1141,11 @@ class PicklistMatcherService {
         const prevCount = this.brands.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('brands', data.brands, prevCount);
+        const validationErrors = this.validatePicklistData('brands', data.brands!, prevCount);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Brand sync validation failed', { error: err, previous: prevCount, incoming: data.brands.length });
+            logger.error('Brand sync validation failed', { error: err, previous: prevCount, incoming: data.brands!.length });
           });
           logger.warn('Keeping existing brands due to validation failure', { count: prevCount });
         } else {
@@ -1175,11 +1175,11 @@ class PicklistMatcherService {
         const prevCount = this.categories.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('categories', data.categories, prevCount);
+        const validationErrors = this.validatePicklistData('categories', data.categories!, prevCount);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Category sync validation failed', { error: err, previous: prevCount, incoming: data.categories.length });
+            logger.error('Category sync validation failed', { error: err, previous: prevCount, incoming: data.categories!.length });
           });
           logger.warn('Keeping existing categories due to validation failure', { count: prevCount });
         } else {
@@ -1209,11 +1209,11 @@ class PicklistMatcherService {
         const prevCount = this.styles.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('styles', data.styles, prevCount);
+        const validationErrors = this.validatePicklistData('styles', data.styles!, prevCount);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
-            logger.error('Style sync validation failed', { error: err, previous: prevCount, incoming: data.styles.length });
+            logger.error('Style sync validation failed', { error: err, previous: prevCount, incoming: data.styles!.length });
           });
           logger.warn('Keeping existing styles due to validation failure', { count: prevCount });
         } else {
