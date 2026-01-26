@@ -8,13 +8,10 @@ import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
 
 interface WebhookPayload {
-  jobId: string;
-  SF_Catalog_Id: string;
-  SF_Catalog_Name: string;
-  status: 'success' | 'error';
-  data?: any;
-  error?: string;
-  processingTimeMs?: number;
+  success: boolean;
+  data: any;
+  sessionId: string;
+  processingTimeMs: number;
 }
 
 class WebhookService {
@@ -39,13 +36,14 @@ class WebhookService {
       }
 
       const payload: WebhookPayload = {
-        jobId: job.jobId,
-        SF_Catalog_Id: job.sfCatalogId,
-        SF_Catalog_Name: job.sfCatalogName,
-        status: job.status === 'completed' ? 'success' : 'error',
-        data: job.result,
-        error: job.error,
-        processingTimeMs: job.processingTimeMs
+        success: job.status === 'completed',
+        data: {
+          SF_Catalog_Id: job.sfCatalogId,
+          SF_Catalog_Name: job.sfCatalogName,
+          ...job.result
+        },
+        sessionId: job.jobId,
+        processingTimeMs: job.processingTimeMs || 0
       };
 
       logger.info('STEP 7: Sending results back to Salesforce via webhook', {
