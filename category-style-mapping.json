@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "title": "Category-Style Mapping for Salesforce",
+    "description": "Defines valid Style values for each Product Category with Salesforce Category IDs",
+    "version": "1.1",
+    "updated": "2026-01-26",
+    "source": "Catalog Verification API - category-style-mapping.ts"
+  },
+  "universal_design_styles": [
+    "Modern",
+    "Contemporary",
+    "Traditional",
+    "Transitional",
+    "Industrial",
+    "Farmhouse",
+    "Rustic",
+    "Coastal",
+    "Mid-Century Modern",
+    "Art Deco",
+    "Minimalist",
+    "Vintage",
+    "Classic"
+  ],
+  "category_style_mapping": {
+    "All in One Washer / Dryer": {
+      "salesforce_id": "a01Hu000010Q5FeIAK",
+      "styles": [
+        "Unitized",
+        "Front Load"
+      ]
+    },
+    "Barbeques": {
+      "salesforce_id": "a01Hu000010Q5FXIA0",
+      "styles": [
+        "Accessory",
+        "Electric",
+        "Gas",
+        "Charcoal",
+        "Pellet",
+        "Built-In",
+        "Freestanding",
+        "Portable"
+      ]
+    },
+    "Cooktop": {
+      "salesforce_id": "a01Hu000010Q5EhIAK",
+      "styles": [
+        "Gas",
+        "Induction",
+        "Electric",
+        "Downdraft"
+      ]
+    },
+    "Dishwasher": {
+      "salesforce_id": "a01Hu000010Q5EiIAK",
+      "styles": [
+        "Undercounter",
+        "Accessory",
+        "Built-In",
+        "Drawer",
+        "Portable",
+        "Top Control",
+        "Front Control",
+        "Built-In Top Control"
+      ]
+    },
+    "Drawer": {
+      "salesforce_id": null,
+      "styles": [
+        "Warming"
+      ]
+    },
+    "Dryer": {
+      "salesforce_id": "a01Hu000010Q5EjIAK",
+      "styles": [
+        "Front Load",
+        "Gas",
+        "Electric"
+      ]
+    },
+    "Freezer": {
+      "salesforce_id": "a01Hu000010Q5EkIAK",
+      "styles": [
+        "Undercounter",
+        "Column",
+        "Chest",
+        "Upright",
+        "Bottom-Freezer",
+        "Built-In"
+      ]
+    },
+    "Icemaker": {
+      "salesforce_id": "a01Hu000010Q5FVIA0",
+      "styles": [
+        "Undercounter",
+        "Built-In",
+        "Freestanding",
+        "Portable"
+      ]
+    },
+    "Microwave": {
+      "salesforce_id": "a01Hu000010Q5ElIAK",
+      "styles": [
+        "Over-the-Range",
+        "Countertop",
+        "Accessory",
+        "Single",
+        "Built-In",
+        "Drawer"
+      ]
+    },
+    "Oven": {
+      "salesforce_id": "a01Hu000010Q5EmIAK",
+      "styles": [
+        "Single",
+        "Double Wall",
+        "Accessory",
+        "Microwave Combo",
+        "Convection",
+        "Steam",
+        "Speed"
+      ]
+    },
+    "Range": {
+      "salesforce_id": "a01Hu000010Q5EnIAK",
+      "styles": [
+        "Electric",
+        "Accessory",
+        "Gas",
+        "Induction",
+        "Dual Fuel",
+        "Slide-In",
+        "Freestanding"
+      ]
+    },
+    "Range Hood": {
+      "salesforce_id": "a01Hu000010Q5EoIAK",
+      "styles": [
+        "Accessory",
+        "Wall-Mounted",
+        "Insert",
+        "Under Cabinet",
+        "Island Mount",
+        "Downdraft",
+        "Chimney"
+      ]
+    },
+    "Refrigerator": {
+      "salesforce_id": "a01Hu000010Q5EpIAK",
+      "styles": [
+        "Beverage Center",
+        "Column",
+        "Wine Cooler",
+        "Drawer",
+        "French Door",
+        "Side-by-Side",
+        "Bottom-Freezer",
+        "Top-Freezer",
+        "Accessory",
+        "Kegerator",
+        "Upright",
+        "Undercounter",
+        "Built-In",
+        "Counter-Depth"
+      ]
+    },
+    "Standalone Pedestal": {
+      "salesforce_id": null,
+      "styles": [
+        "Standalone"
+      ]
+    },
+    "Washer": {
+      "salesforce_id": "a01Hu000010Q5EsIAK",
+      "styles": [
+        "Front Load",
+        "Top Load"
+      ]
+    },
+    "Bathroom Lighting": {
+      "salesforce_id": "a01Hu000010Q5FHIA0",
+      "styles": [
+        "Vanity",
+        "Bath Bar",
+        "Sconce",
+        "Flush Mount",
+        "Semi-Flush"
+      ]
+    },
+    "Kitchen Lighting": {
+      "salesforce_id": "a01Hu000010Q5FDIA0",
+      "styles": [
+        "Pendant",
+        "Under Cabinet",
+        "Island",
+        "Track",
+        "Recessed",
+        "Flush Mount",
+        "Linear"
+      ]
+    },
+    "Outdoor Lighting": {
+      "salesforce_id": "a01Hu000010Q5FFIA0",
+      "styles": [
+        "Wall Lantern",
+        "Post Light",
+        "Path Light",
+        "Flood Light",
+        "Landscape",
+        "Security",
+        "Deck"
+      ]
+    },
+    "Ceiling Lights": {
+      "salesforce_id": "a01Hu000010Q5FEIA0",
+      "styles": [
+        "Flush Mount",
+        "Semi-Flush",
+        "Recessed",
+        "Track",
+        "Linear"
+      ]
+    },
+    "Wall Sconces": {
+      "salesforce_id": "a01Hu000010Q5FGIA0",
+      "styles": [
+        "Up Light",
+        "Down Light",
+        "Swing Arm",
+        "Picture Light",
+        "Torch"
+      ]
+    },
+    "Chandeliers": {
+      "salesforce_id": "a01Hu000010Q5F0IAK",
+      "styles": [
+        "Crystal",
+        "Candle",
+        "Drum",
+        "Globe",
+        "Sputnik",
+        "Tiered",
+        "Linear"
+      ]
+    },
+    "Pendants": {
+      "salesforce_id": "a01Hu000010Q5FDIA0",
+      "styles": [
+        "Mini",
+        "Multi-Light",
+        "Drum",
+        "Globe",
+        "Cone",
+        "Linear",
+        "Cluster"
+      ]
+    },
+    "Bathroom Faucets": {
+      "salesforce_id": "a01Hu000010Q5F3IAK",
+      "styles": [
+        "Single Hole",
+        "Widespread",
+        "Centerset",
+        "Wall Mounted",
+        "Vessel",
+        "Waterfall"
+      ]
+    },
+    "Kitchen Faucets": {
+      "salesforce_id": "a01Hu000010Q5F6IAK",
+      "styles": [
+        "Single Handle",
+        "Two Handle",
+        "Pull-Down",
+        "Pull-Out",
+        "Bridge",
+        "Pot Filler",
+        "Commercial",
+        "Touchless"
+      ]
+    },
+    "Tub Faucets": {
+      "salesforce_id": "a01Hu000010Q5FCIA0",
+      "styles": [
+        "Wall Mounted",
+        "Deck Mounted",
+        "Freestanding",
+        "Roman Tub",
+        "Waterfall"
+      ]
+    },
+    "Shower Faucets": {
+      "salesforce_id": "a01Hu000010Q5FAIA0",
+      "styles": [
+        "Rain",
+        "Handheld",
+        "Dual",
+        "Thermostatic",
+        "Pressure Balance"
+      ]
+    },
+    "Bathtubs": {
+      "salesforce_id": "a01Hu000010Q5ExIAK",
+      "styles": [
+        "Alcove",
+        "Freestanding",
+        "Drop-In",
+        "Undermount",
+        "Corner",
+        "Walk-In",
+        "Clawfoot",
+        "Soaking",
+        "Whirlpool",
+        "Air Bath"
+      ]
+    },
+    "Showers": {
+      "salesforce_id": "a01Hu000010Q5FBIA0",
+      "styles": [
+        "Alcove",
+        "Corner",
+        "Walk-In",
+        "Steam",
+        "Neo-Angle",
+        "Doorless",
+        "Barrier-Free"
+      ]
+    },
+    "Shower Accessories": {
+      "salesforce_id": "a01Hu000010Q5FAIA0",
+      "styles": [
+        "Rain Head",
+        "Handheld",
+        "Body Spray",
+        "Shower System",
+        "Shelf",
+        "Seat"
+      ]
+    },
+    "Bathroom Sinks": {
+      "salesforce_id": "a01Hu000010Q5EwIAK",
+      "styles": [
+        "Undermount",
+        "Drop-In",
+        "Vessel",
+        "Pedestal",
+        "Wall Mounted",
+        "Console",
+        "Semi-Recessed"
+      ]
+    },
+    "Bathroom Vanities": {
+      "salesforce_id": "a01Hu000010Q5EzIAK",
+      "styles": [
+        "Single Sink",
+        "Double Sink",
+        "Floating",
+        "Freestanding",
+        "Wall Mounted",
+        "Corner"
+      ]
+    },
+    "Bathroom Mirrors": {
+      "salesforce_id": "a01Hu000010Q5FOIA0",
+      "styles": [
+        "Framed",
+        "Frameless",
+        "Lighted",
+        "Medicine Cabinet",
+        "Pivot",
+        "Magnifying"
+      ]
+    },
+    "Bathroom Hardware and Accessories": {
+      "salesforce_id": "a01aZ00000MlHtiQAE",
+      "styles": [
+        "Towel Bar",
+        "Towel Ring",
+        "Robe Hook",
+        "Toilet Paper Holder",
+        "Shelf",
+        "Set"
+      ]
+    },
+    "Rough-In Valves": {
+      "salesforce_id": null,
+      "styles": [
+        "Thermostatic",
+        "Pressure Balance",
+        "Diverter",
+        "Volume Control",
+        "Transfer"
+      ]
+    },
+    "Toilets": {
+      "salesforce_id": "a01Hu000010Q5EtIAK",
+      "styles": [
+        "One-Piece",
+        "Two-Piece",
+        "Wall Mounted",
+        "Smart",
+        "Bidet",
+        "Elongated",
+        "Round",
+        "ADA Compliant"
+      ]
+    },
+    "Bidets": {
+      "salesforce_id": "a01Hu000010Q5EvIAK",
+      "styles": [
+        "Standalone",
+        "Bidet Seat",
+        "Integrated"
+      ]
+    },
+    "Kitchen Sinks": {
+      "salesforce_id": "a01Hu000010Q5EyIAK",
+      "styles": [
+        "Undermount",
+        "Drop-In",
+        "Farmhouse",
+        "Apron Front",
+        "Bar/Prep",
+        "Single Bowl",
+        "Double Bowl",
+        "Workstation"
+      ]
+    },
+    "Storage Drawers/Doors": {
+      "salesforce_id": null,
+      "styles": [
+        "Outdoor Kitchen Components",
+        "Outdoor Kitchen Storage",
+        "BBQ Accessories",
+        "Built-In",
+        "Stainless Steel"
+      ]
+    },
+    "Outdoor Kitchen": {
+      "salesforce_id": null,
+      "styles": [
+        "Built-In",
+        "Modular",
+        "Island",
+        "Cart"
+      ]
+    },
+    "Door Hardware": {
+      "salesforce_id": "a01Hu000010Q5FNIA0",
+      "styles": [
+        "Keyed Entry",
+        "Privacy",
+        "Passage",
+        "Dummy",
+        "Deadbolt"
+      ]
+    },
+    "Door Hardware Parts": {
+      "salesforce_id": "a01Hu000010Q5FNIA0",
+      "styles": [
+        "Lever",
+        "Knob",
+        "Handle Set",
+        "Hinge",
+        "Strike Plate"
+      ]
+    },
+    "Furniture": {
+      "salesforce_id": null,
+      "styles": [
+        "Accent",
+        "Storage",
+        "Seating",
+        "Table",
+        "Decorative"
+      ]
+    },
+    "Bath Furniture": {
+      "salesforce_id": null,
+      "styles": [
+        "Linen Cabinet",
+        "Storage Tower",
+        "Bench",
+        "Hamper"
+      ]
+    }
+  },
+  "usage_notes": {
+    "style_types": {
+      "design_styles": "Aesthetic/visual styles like Modern, Contemporary, Traditional (apply to most non-appliance categories)",
+      "functional_styles": "Installation/usage styles like Alcove, Freestanding, Wall-Mounted (apply to appliances and fixtures)"
+    },
+    "validation_logic": {
+      "step_1": "When AI returns a style, check if it's in the valid list for that category",
+      "step_2": "If valid AND in Salesforce picklist \u2192 use it directly",
+      "step_3": "If valid but NOT in Salesforce picklist \u2192 add to Style_Requests for Salesforce to create",
+      "step_4": "If not valid for category \u2192 log warning, don't use"
+    },
+    "salesforce_id_usage": "Use salesforce_id to match this category to the Category object in Salesforce. null indicates no direct SF category match exists.",
+    "unknown_categories": "For categories not in this mapping, universal_design_styles are used as fallback",
+    "case_sensitivity": "All comparisons are case-insensitive"
+  },
+  "import_instructions": {
+    "salesforce_setup": [
+      "1. Import category_style_mapping into a Custom Metadata Type or Custom Setting",
+      "2. Use salesforce_id to create lookup relationships to Category__c object",
+      "3. Create a validation rule to ensure Style picklist values match this mapping",
+      "4. Use this data to populate dependent picklists (Category \u2192 Style)",
+      "5. For new styles returned by API, create picklist values and sync back to API"
+    ],
+    "data_loader": [
+      "1. Transform this JSON into CSV format with columns: Category__c (salesforce_id), Category_Name__c, Valid_Styles__c (comma-separated)",
+      "2. Load into Category_Style_Mapping__mdt custom metadata type",
+      "3. Or create a custom object Category_Style_Rule__c for more flexibility"
+    ],
+    "apex_usage": [
+      "1. Load this JSON into a Static Resource named 'CategoryStyleMapping'",
+      "2. Parse with JSON.deserializeUntyped() in Apex",
+      "3. Use salesforce_id to query Category__c records",
+      "4. Use to validate Style values before saving Catalog_Product__c records",
+      "5. Populate dependent picklists dynamically based on selected Category"
+    ]
+  }
+}
