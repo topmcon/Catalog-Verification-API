@@ -44,13 +44,13 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       webhookUrl: webhookUrl || 'none'
     });
 
-    // Create verification job
+    // Create verification job (store entire request body as rawPayload)
     await VerificationJob.create({
       jobId,
       sfCatalogId: SF_Catalog_Id,
       sfCatalogName: SF_Catalog_Name,
       status: 'pending',
-      rawPayload: productData,
+      rawPayload: req.body, // Store complete payload
       webhookUrl: webhookUrl,
       webhookAttempts: 0
     });
