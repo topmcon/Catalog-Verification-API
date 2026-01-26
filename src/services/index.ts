@@ -16,6 +16,10 @@ export { default as alertingService } from './alerting.service';
 export { default as aiUsageTracker } from './ai-usage-tracking.service';
 export { errorMonitor } from './error-monitor.service';
 
+// Async Verification Services
+export { default as webhookService } from './webhook.service';
+export { default as asyncVerificationProcessor } from './async-verification-processor.service';
+
 // Named exports with explicit naming to avoid conflicts
 export { validateProduct as openaiValidateProduct, validateProducts as openaiValidateProducts, healthCheck as openaiHealthCheck } from './openai.service';
 export { validateProduct as xaiValidateProduct, validateProducts as xaiValidateProducts, healthCheck as xaiHealthCheck } from './xai.service';

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import verificationRoutes from './verification.routes';
+import salesforceAsyncRoutes from './salesforce-async-verification.routes';
 import webhookRoutes from './webhook.routes';
 import healthRoutes from './health.routes';
 import enrichmentRoutes from './enrichment.routes';
@@ -17,8 +18,11 @@ const router = Router();
 // Health routes (public)
 router.use('/health', healthRoutes);
 
+// Salesforce async verification routes (protected)
+router.use('/api/verify', salesforceAsyncRoutes);
+
 // API routes (protected)
-router.use('/api/verify', apiKeyAuth, verificationRoutes);
+router.use('/api/verify-legacy', apiKeyAuth, verificationRoutes);
 router.use('/api/enrich', apiKeyAuth, enrichmentRoutes);
 router.use('/api/webhook', webhookRoutes);
 router.use('/api/analytics', apiKeyAuth, analyticsRoutes);

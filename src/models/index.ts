@@ -1,6 +1,7 @@
 export { Product, IProduct } from './product.model';
 export { VerificationSession, IVerificationSession } from './session.model';
 export { AuditLog, IAuditLog, AuditAction } from './audit-log.model';
+export { VerificationJob, IVerificationJob } from './verification-job.model';
 export { 
   APITracker, 
   IAPITracker, 

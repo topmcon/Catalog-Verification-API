@@ -1,6 +1,7 @@
 import { createApp } from './app';
 import config from './config';
 import { databaseService } from './services';
+import asyncVerificationProcessor from './services/async-verification-processor.service';
 import logger from './utils/logger';
 
 /**
@@ -55,6 +56,10 @@ async function main(): Promise<void> {
     await databaseService.connect();
     dbConnected = true;
 
+    // Start async verification processor
+    logger.info('Starting async verification processor...');
+    asyncVerificationProcessor.start(5000); // Process queue every 5 seconds
+
     const server = app.listen(config.port, () => {
       logger.info(`Server started on port ${config.port}`, {
         environment: config.env,
@@ -66,6 +71,9 @@ async function main(): Promise<void> {
     // Graceful shutdown handling
     const shutdown = async (signal: string): Promise<void> => {
       logger.info(`${signal} received, shutting down gracefully...`);
+
+      // Stop async processor
+      asyncVerificationProcessor.stop();
 
       server.close(async () => {
         logger.info('HTTP server closed');
