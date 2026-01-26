@@ -37,7 +37,8 @@ import {
   getCategorySchema,
   getCategoryListForPrompt,
   getPrimaryAttributesForPrompt,
-  getAllCategoriesWithTop15ForPrompt
+  getAllCategoriesWithTop15ForPrompt,
+  PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/master-category-attributes';
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
@@ -3199,6 +3200,11 @@ function buildFinalResponse(
   // Get the category schema to map field keys to attribute names
   const categorySchema = consensus.agreedCategory ? getCategorySchema(consensus.agreedCategory) : null;
   
+  // Create set of PRIMARY field keys (normalized) to filter out from Top 15
+  const primaryFieldKeysSet = new Set(
+    PRIMARY_ATTRIBUTE_FIELD_KEYS.map(key => key.toLowerCase().replace(/[^a-z0-9]/g, ''))
+  );
+  
   // Log schema retrieval for debugging
   logger.info('Category schema lookup for attribute ID mapping', {
     category: consensus.agreedCategory || 'unknown',
@@ -3316,6 +3322,20 @@ function buildFinalResponse(
   }
   
   for (const [key, value] of Object.entries(completeTop15)) {
+    if (value === null || value === undefined || value === '') continue;
+    
+    // ⚠️ CRITICAL FILTER: Exclude PRIMARY_ATTRIBUTE field keys from Top_Filter_Attributes
+    // Primary attributes (brand, description, product_style, etc.) should NEVER appear in Top 15
+    const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (primaryFieldKeysSet.has(normalizedKey)) {
+      logger.warn('Filtered PRIMARY attribute from Top_Filter_Attributes', {
+        fieldKey: key,
+        value: value,
+        reason: 'PRIMARY attributes should only appear in Primary_Attributes section'
+      });
+      continue;  // Skip this attribute - it belongs in Primary_Attributes only
+    }
+    
     let finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
     
     // Find the attribute definition from the schema to validate and standardize the value

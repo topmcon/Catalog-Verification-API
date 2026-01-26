@@ -42,6 +42,38 @@ export const PRIMARY_ATTRIBUTES = [
 export type PrimaryAttributeName = typeof PRIMARY_ATTRIBUTES[number];
 
 /**
+ * PRIMARY ATTRIBUTE FIELD KEYS
+ * ============================================
+ * These field keys correspond to PRIMARY_ATTRIBUTES.
+ * ANY of these keys should NEVER appear in Top_Filter_Attributes.
+ * Use this to filter out primary attributes from category-specific Top 15.
+ */
+export const PRIMARY_ATTRIBUTE_FIELD_KEYS = [
+  'brand',
+  'category_subcategory',
+  'product_family',
+  'product_style',
+  'depth_length',
+  'width',
+  'height',
+  'weight',
+  'msrp',
+  'market_value',
+  'description',
+  'product_title',
+  'details',
+  'features_list',
+  'upc_gtin',
+  'model_number',
+  'model_number_alias',
+  'model_parent',
+  'model_variant_number',
+  'total_model_variants'
+] as const;
+
+export type PrimaryAttributeFieldKey = typeof PRIMARY_ATTRIBUTE_FIELD_KEYS[number];
+
+/**
  * Primary attribute field definitions with types and descriptions
  */
 export interface PrimaryAttributeDefinition {
