@@ -61,9 +61,11 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       queueTime: Date.now() - startTime
     });
 
-    // Trigger async processing (non-blocking)
-    asyncVerificationProcessor.triggerProcessing().catch(err => {
-      logger.error('Error triggering async processor', {
+    // Job will be picked up by async processor (polls every 5 seconds)
+    // Optionally trigger immediate processing for faster response
+    asyncVerificationProcessor.processNextJob().catch(err => {
+      // Non-critical - job will be picked up by next poll cycle
+      logger.debug('Immediate processing trigger failed (job will be processed in next poll)', {
         jobId,
         error: err instanceof Error ? err.message : String(err)
       });
@@ -135,12 +137,23 @@ export async function getVerificationStatus(req: Request, res: Response): Promis
       response.completedAt = job.completedAt;
       response.processingTimeMs = job.processingTimeMs;
       response.result = job.result;
-      response.webhookSuccess = job.webhookSuccess;
+      response.webhookDelivery = {
+        success: job.webhookSuccess,
+        attempts: job.webhookAttempts,
+        lastAttempt: job.webhookLastAttempt,
+        configured: !!job.webhookUrl
+      };
     }
 
     if (job.status === 'failed') {
       response.error = job.error;
       response.completedAt = job.completedAt;
+      response.webhookDelivery = {
+        success: job.webhookSuccess,
+        attempts: job.webhookAttempts,
+        lastAttempt: job.webhookLastAttempt,
+        configured: !!job.webhookUrl
+      };
     }
 
     res.json(response);
@@ -215,6 +228,68 @@ export async function checkModelNumber(req: Request, res: Response): Promise<voi
 
   } catch (error) {
     logger.error('Error checking model number', {
+      error: error instanceof Error ? error.message : String(error)
+    });
+
+    if (error instanceof ApiError) {
+      res.status(error.statusCode).json({
+        success: false,
+        error: error.message
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: 'Internal server error'
+      });
+    }
+  }
+}
+
+/**
+ * Salesforce acknowledgment endpoint - confirms they received webhook data
+ * POST /api/verify/salesforce/acknowledge/:jobId
+ */
+export async function acknowledgeReceipt(req: Request, res: Response): Promise<void> {
+  try {
+    const { jobId } = req.params;
+    const { 
+      received = true, 
+      processed = false,
+      error = null,
+      salesforce_record_updated = false 
+    } = req.body;
+
+    const job = await VerificationJob.findOne({ jobId });
+
+    if (!job) {
+      throw new ApiError(404, 'JOB_NOT_FOUND', 'Job not found');
+    }
+
+    logger.info('Salesforce acknowledged webhook receipt', {
+      jobId,
+      sfCatalogId: job.sfCatalogId,
+      received,
+      processed,
+      salesforce_record_updated,
+      error
+    });
+
+    // Update job with Salesforce confirmation
+    job.salesforceAcknowledged = received;
+    job.salesforceProcessed = processed;
+    job.salesforceError = error;
+    job.salesforceAcknowledgedAt = new Date();
+    await job.save();
+
+    res.json({
+      success: true,
+      message: 'Acknowledgment received',
+      jobId,
+      SF_Catalog_Id: job.sfCatalogId
+    });
+
+  } catch (error) {
+    logger.error('Error processing Salesforce acknowledgment', {
       error: error instanceof Error ? error.message : String(error)
     });
 

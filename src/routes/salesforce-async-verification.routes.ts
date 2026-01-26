@@ -7,7 +7,8 @@ import {
   verifySalesforceAsync,
   getVerificationStatus,
   getQueueStats,
-  checkModelNumber
+  checkModelNumber,
+  acknowledgeReceipt
 } from '../controllers/salesforce-async-verification.controller';
 import { apiKeyAuth } from '../middleware/auth.middleware';
 
@@ -39,5 +40,11 @@ router.get('/salesforce/queue/stats', getQueueStats);
  * Check if model number exists in catalog
  */
 router.post('/salesforce/model-check', checkModelNumber);
+
+/**
+ * POST /api/verify/salesforce/acknowledge/:jobId
+ * Salesforce confirms they received and processed webhook data
+ */
+router.post('/salesforce/acknowledge/:jobId', acknowledgeReceipt);
 
 export default router;

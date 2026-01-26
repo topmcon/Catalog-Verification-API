@@ -98,7 +98,9 @@ class WebhookService {
           logger.info('Webhook: Successfully delivered', {
             jobId: payload.jobId,
             attempt: attempt + 1,
-            statusCode: response.status
+            statusCode: response.status,
+            salesforceResponse: response.data, // Log Salesforce's response
+            responseTime: response.headers['x-response-time'] || 'N/A'
           });
           return true;
         }
@@ -106,7 +108,8 @@ class WebhookService {
         logger.warn('Webhook: Non-success status code', {
           jobId: payload.jobId,
           attempt: attempt + 1,
-          statusCode: response.status
+          statusCode: response.status,
+          salesforceResponse: response.data // Log why it failed
         });
       } catch (error) {
         logger.error('Webhook: Delivery attempt failed', {

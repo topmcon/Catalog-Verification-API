@@ -12,6 +12,11 @@ export interface IVerificationJob extends Document {
   webhookAttempts: number;
   webhookLastAttempt?: Date;
   webhookSuccess?: boolean;
+  // Salesforce confirmation fields
+  salesforceAcknowledged?: boolean; // Did SF confirm they received webhook?
+  salesforceProcessed?: boolean; // Did SF successfully process the data?
+  salesforceError?: string; // Any error SF reported when processing
+  salesforceAcknowledgedAt?: Date; // When SF confirmed receipt
   createdAt: Date;
   updatedAt: Date;
   startedAt?: Date;
@@ -37,6 +42,10 @@ const VerificationJobSchema = new Schema<IVerificationJob>(
     webhookAttempts: { type: Number, default: 0 },
     webhookLastAttempt: { type: Date },
     webhookSuccess: { type: Boolean },
+    salesforceAcknowledged: { type: Boolean },
+    salesforceProcessed: { type: Boolean },
+    salesforceError: { type: String },
+    salesforceAcknowledgedAt: { type: Date },
     startedAt: { type: Date },
     completedAt: { type: Date },
     processingTimeMs: { type: Number }

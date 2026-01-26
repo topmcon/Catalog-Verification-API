@@ -45,9 +45,9 @@ class AsyncVerificationProcessor {
   }
 
   /**
-   * Process the next pending job
+   * Process the next pending job (can be called manually to trigger immediate processing)
    */
-  private async processNextJob(): Promise<void> {
+  public async processNextJob(): Promise<void> {
     if (this.isProcessing) {
       return; // Already processing a job
     }
