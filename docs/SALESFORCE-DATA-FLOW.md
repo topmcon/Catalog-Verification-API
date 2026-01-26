@@ -70,7 +70,7 @@
 {
   SF_Catalog_Id: string;        // Salesforce record ID (e.g., "a03aZ00000dmEDWQA2")
   SF_Catalog_Name: string;      // Model number (e.g., "KOES730SPS")
-  webhookUrl?: string;          // Optional callback URL
+  webhookUrl?: string;          // Optional - defaults to https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification
   
   // Web Retailer Data (Your catalog)
   Brand_Web_Retailer: string;

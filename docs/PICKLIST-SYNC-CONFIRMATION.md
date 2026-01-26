@@ -86,7 +86,22 @@ After creating/updating picklist items, Salesforce makes a POST request to our A
       "style_name": "Modern"
     },
     // ... all styles
-  ]
+  ],
+  "category_filter_attributes": {
+    "Range": {
+      "department": "APPLIANCES",
+      "category_id": "a01Hu000010Q5EnIAK",
+      "attributes": [
+        {
+          "rank": 1,
+          "name": "Fuel Type",
+          "sf_id": "a1aaZ000008mBsmQAE",
+          "type": "enum"
+        }
+      ]
+    }
+    // ... all categories with their top 15 filter attributes
+  }
 }
 ```
 
@@ -470,6 +485,23 @@ curl https://verify.cxc-ai.com/api/picklists/stats
 ✅ **Error handling robust:** Validation, rollback protection, partial success support  
 ✅ **Route registered:** Available at `/api/picklists/sync`  
 
+**Supported Picklist Types (5 total):**
+1. `attributes` - Product attributes/features (2,062 items)
+2. `brands` - Product brands (332 items)
+3. `categories` - Product categories with department/family (211 items)
+4. `styles` - Product styles (201 items)
+5. `category_filter_attributes` - Category-specific top 15 filter attribute rankings (JSON object)
+
 **The bidirectional picklist sync mechanism is FULLY OPERATIONAL.**
 
-When Salesforce creates new attributes/brands/categories/styles based on our requests, they can immediately sync those changes back to us, and our subsequent verifications will include the SF-assigned IDs.
+When Salesforce creates new attributes/brands/categories/styles based on our requests, or updates category filter attributes, they can immediately sync those changes back to us, and our subsequent verifications will include the SF-assigned IDs.
+
+---
+
+## Recent Updates
+
+**January 26, 2026:**
+- ✅ Added `category_filter_attributes` as 5th picklist type
+- ✅ Added default webhook URL fallback: `https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification`
+- ✅ Webhook URL now optional in verification requests (uses default if not provided)
+- ✅ All 5 picklist types use same sync API endpoint
