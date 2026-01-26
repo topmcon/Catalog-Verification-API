@@ -51,7 +51,7 @@ class WebhookService {
         sfCatalogId: job.sfCatalogId,
         webhookUrl: job.webhookUrl,
         attempt: job.webhookAttempts + 1,
-        resultStatus: payload.status
+        resultStatus: payload.success ? 'success' : 'error'
       });
 
       const success = await this.sendWithRetry(job.webhookUrl, payload, job);
@@ -99,14 +99,14 @@ class WebhookService {
           headers: {
             'Content-Type': 'application/json',
             'x-webhook-source': 'catalog-verification-api',
-            'x-job-id': payload.jobId
+            'x-job-id': payload.sessionId
           },
           timeout: 30000 // 30 second timeout
         });
 
         if (response.status >= 200 && response.status < 300) {
           logger.info('STEP 8: ✅ Webhook delivered to Salesforce successfully', {
-            jobId: payload.jobId,
+            jobId: payload.sessionId,
             attempt: attempt + 1,
             responseStatus: response.status,
             statusCode: response.status,
@@ -117,14 +117,14 @@ class WebhookService {
         }
 
         logger.warn('Webhook: Non-success status code', {
-          jobId: payload.jobId,
+          jobId: payload.sessionId,
           attempt: attempt + 1,
           statusCode: response.status,
           salesforceResponse: response.data // Log why it failed
         });
       } catch (error) {
         logger.error('Webhook: Delivery attempt failed', {
-          jobId: payload.jobId,
+          jobId: payload.sessionId,
           attempt: attempt + 1,
           error: error instanceof Error ? error.message : String(error)
         });
@@ -136,7 +136,7 @@ class WebhookService {
     }
 
     logger.error('Webhook: All delivery attempts failed', {
-      jobId: payload.jobId,
+      jobId: payload.sessionId,
       maxRetries: this.MAX_RETRIES
     });
     return false;
