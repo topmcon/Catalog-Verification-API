@@ -48,11 +48,12 @@ class WebhookService {
         processingTimeMs: job.processingTimeMs
       };
 
-      logger.info('Webhook: Sending results to Salesforce', {
+      logger.info('STEP 7: Sending results back to Salesforce via webhook', {
         jobId,
         sfCatalogId: job.sfCatalogId,
         webhookUrl: job.webhookUrl,
-        attempt: job.webhookAttempts + 1
+        attempt: job.webhookAttempts + 1,
+        resultStatus: payload.status
       });
 
       const success = await this.sendWithRetry(job.webhookUrl, payload, job);
@@ -61,6 +62,17 @@ class WebhookService {
       job.webhookSuccess = success;
       job.webhookLastAttempt = new Date();
       await job.save();
+
+      if (success) {
+        logger.info('═════════════════════════════════════════════════════════', { service: 'catalog-verification' });
+        logger.info('✅ VERIFICATION COMPLETE - End-to-End Success', {
+          jobId,
+          sfCatalogId: job.sfCatalogId,
+          totalTimeMs: Date.now() - job.createdAt.getTime() + 'ms',
+          webhookDelivered: true
+        });
+        logger.info('═════════════════════════════════════════════════════════', { service: 'catalog-verification' });
+      }
 
       return success;
     } catch (error) {
@@ -95,9 +107,10 @@ class WebhookService {
         });
 
         if (response.status >= 200 && response.status < 300) {
-          logger.info('Webhook: Successfully delivered', {
+          logger.info('STEP 8: ✅ Webhook delivered to Salesforce successfully', {
             jobId: payload.jobId,
             attempt: attempt + 1,
+            responseStatus: response.status,
             statusCode: response.status,
             salesforceResponse: response.data, // Log Salesforce's response
             responseTime: response.headers['x-response-time'] || 'N/A'

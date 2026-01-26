@@ -36,11 +36,13 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       throw new ApiError(400, 'MISSING_FIELD', 'Missing required field: SF_Catalog_Name (model number)');
     }
 
-    logger.info('Received Salesforce verification request', {
+    logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', { service: 'catalog-verification' });
+    logger.info('STEP 1: Received Salesforce verification request', {
       jobId,
       sfCatalogId: SF_Catalog_Id,
       sfCatalogName: SF_Catalog_Name,
-      webhookUrl: webhookUrl || 'none'
+      webhookUrl: webhookUrl || 'none',
+      payloadSize: JSON.stringify(req.body).length + ' bytes'
     });
 
     // Create verification job (store entire request body as rawPayload)
@@ -54,10 +56,11 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
       webhookAttempts: 0
     });
 
-    logger.info('Verification job queued', {
+    logger.info('STEP 2: Verification job saved to database', {
       jobId,
       sfCatalogId: SF_Catalog_Id,
-      queueTime: Date.now() - startTime
+      status: 'pending',
+      queueTime: Date.now() - startTime + 'ms'
     });
 
     // Job will be picked up by async processor (polls every 5 seconds)

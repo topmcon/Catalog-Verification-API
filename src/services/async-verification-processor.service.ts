@@ -65,16 +65,23 @@ class AsyncVerificationProcessor {
         return;
       }
 
-      logger.info('Processing verification job', {
+      logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', { service: 'catalog-verification' });
+      logger.info('STEP 3: Background processor picked up job from queue', {
         jobId: job.jobId,
         sfCatalogId: job.sfCatalogId,
-        sfCatalogName: job.sfCatalogName
+        sfCatalogName: job.sfCatalogName,
+        waitTime: Date.now() - job.createdAt.getTime() + 'ms'
       });
 
       // Mark as processing
       job.status = 'processing';
       job.startedAt = new Date();
       await job.save();
+      
+      logger.info('STEP 4: Job status updated to PROCESSING', {
+        jobId: job.jobId,
+        status: 'processing'
+      });
 
       // Execute verification
       const startTime = Date.now();
@@ -102,9 +109,11 @@ class AsyncVerificationProcessor {
         job.processingTimeMs = Date.now() - startTime;
         await job.save();
 
-        logger.info('Verification job completed', {
+        logger.info('STEP 6: AI verification completed successfully', {
           jobId: job.jobId,
-          processingTimeMs: job.processingTimeMs
+          processingTimeMs: job.processingTimeMs + 'ms',
+          status: 'completed',
+          modelMatch: modelMatch ? 'VERIFIED ✓' : 'MISMATCH ⚠️'
         });
 
         // Send webhook callback
@@ -144,9 +153,10 @@ class AsyncVerificationProcessor {
     // Convert raw payload to expected format
     const product: SalesforceIncomingProduct = rawPayload;
 
-    logger.info('Executing dual-AI verification', {
+    logger.info('STEP 5: Starting AI verification engines (OpenAI + Anthropic)', {
       sessionId,
-      modelNumber: product.Model_Number_Web_Retailer || product.SF_Catalog_Name
+      modelNumber: product.Model_Number_Web_Retailer || product.SF_Catalog_Name,
+      category: product.Category_1_Structured || 'unknown'
     });
 
     // Use existing dual-AI verification service
