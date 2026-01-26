@@ -24,8 +24,7 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
     const {
       SF_Catalog_Id,
       SF_Catalog_Name,
-      webhookUrl,
-      ...productData
+      webhookUrl
     } = req.body;
 
     // Validate required fields
