@@ -502,10 +502,10 @@ export class PicklistController {
       // Get updated stats AND current state AFTER sync
       const stats = picklistMatcher.getStats();
       const afterState = {
-        attributes: picklistMatcher.getAllAttributes(),
-        brands: picklistMatcher.getAllBrands(),
-        categories: picklistMatcher.getAllCategories(),
-        styles: picklistMatcher.getAllStyles()
+        attributes: picklistMatcher.getAttributes(),
+        brands: picklistMatcher.getBrands(),
+        categories: picklistMatcher.getCategories(),
+        styles: picklistMatcher.getStyles()
       };
       const processingTime = Date.now() - startTime;
       
