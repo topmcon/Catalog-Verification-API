@@ -98,6 +98,7 @@ class WebhookService {
         const response = await axios.post(url, payload, {
           headers: {
             'Content-Type': 'application/json',
+            'x-api-key': '873648276-550e8400',
             'x-webhook-source': 'catalog-verification-api',
             'x-job-id': payload.sessionId
           },
