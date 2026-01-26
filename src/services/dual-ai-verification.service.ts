@@ -3343,7 +3343,15 @@ function buildFinalResponse(
     }
   }
   
-  for (const [key, value] of Object.entries(completeTop15)) {
+  // ⚠️ CRITICAL: Only iterate through SCHEMA-DEFINED Top 15 attributes for this category
+  // Do NOT send all attributes AI found - only send the ranked Top 15 from category schema
+  const schemaDefinedTop15 = categorySchema?.top15FilterAttributes || [];
+  
+  for (const attrDef of schemaDefinedTop15) {
+    const key = attrDef.fieldKey;
+    const value = completeTop15[key];
+    
+    // Skip if no value found for this schema-defined attribute
     if (value === null || value === undefined || value === '') continue;
     
     // ⚠️ CRITICAL FILTER: Exclude PRIMARY_ATTRIBUTE field keys from Top_Filter_Attributes
@@ -3360,51 +3368,38 @@ function buildFinalResponse(
     
     let finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
     
-    // Find the attribute definition from the schema to validate and standardize the value
-    let attributeName: string | null = null;
-    let attrDef: any = null;
-    if (categorySchema?.top15FilterAttributes) {
-      attrDef = categorySchema.top15FilterAttributes.find(attr => attr.fieldKey === key);
-      attributeName = attrDef?.name || null;
+    // We already have attrDef from the loop - use it directly
+    const attributeName = attrDef.name;
       
-      // For enum types with allowedValues, validate and match against exact allowed values
-      if (attrDef && attrDef.type === 'enum' && attrDef.allowedValues && finalValue) {
-        const normalizedValue = String(finalValue).toLowerCase().trim();
-        
-        // Try exact match first
-        let matchedValue = attrDef.allowedValues.find((av: string) => 
-          av.toLowerCase() === normalizedValue
+    // For enum types with allowedValues, validate and match against exact allowed values
+    if (attrDef.type === 'enum' && attrDef.allowedValues && finalValue) {
+      const normalizedValue = String(finalValue).toLowerCase().trim();
+      
+      // Try exact match first
+      let matchedValue = attrDef.allowedValues.find((av: string) => 
+        av.toLowerCase() === normalizedValue
+      );
+      
+      // If no exact match, try fuzzy match
+      if (!matchedValue) {
+        matchedValue = attrDef.allowedValues.find((av: string) => 
+          av.toLowerCase().includes(normalizedValue) || normalizedValue.includes(av.toLowerCase())
         );
-        
-        // If no exact match, try fuzzy match
-        if (!matchedValue) {
-          matchedValue = attrDef.allowedValues.find((av: string) => 
-            av.toLowerCase().includes(normalizedValue) || normalizedValue.includes(av.toLowerCase())
-          );
-        }
-        
-        // Use exact Salesforce allowed value if matched
-        if (matchedValue) {
-          finalValue = matchedValue;
-          logger.info('Standardized attribute value to exact schema allowed value', {
-            fieldKey: key,
-            originalValue: value,
-            standardizedValue: matchedValue
-          });
-        } else {
-          logger.warn('Attribute value does not match allowed values in schema', {
-            fieldKey: key,
-            value: finalValue,
-            allowedValues: attrDef.allowedValues
-          });
-        }
       }
       
-      if (!attributeName) {
-        logger.warn('Attribute definition not found in schema', {
+      // Use exact Salesforce allowed value if matched
+      if (matchedValue) {
+        finalValue = matchedValue;
+        logger.info('Standardized attribute value to exact schema allowed value', {
           fieldKey: key,
-          category: consensus.agreedCategory || 'unknown',
-          availableFieldKeys: categorySchema.top15FilterAttributes.map(a => a.fieldKey)
+          originalValue: value,
+          standardizedValue: matchedValue
+        });
+      } else {
+        logger.warn('Attribute value does not match allowed values in schema', {
+          fieldKey: key,
+          value: finalValue,
+          allowedValues: attrDef.allowedValues
         });
       }
     }
