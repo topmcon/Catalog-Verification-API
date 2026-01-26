@@ -1031,6 +1031,7 @@ class PicklistMatcherService {
     brands?: Brand[];
     categories?: Category[];
     styles?: Style[];
+    category_filter_attributes?: any; // JSON object mapping categories to filter attributes
   }): Promise<{
     success: boolean;
     updated: { type: string; previous: number; current: number; added: number }[];
@@ -1130,6 +1131,41 @@ class PicklistMatcherService {
       } catch (error: any) {
         errors.push(`Failed to sync styles: ${error.message}`);
         logger.error('Failed to sync styles', { error });
+      }
+    }
+
+    // Sync category filter attributes
+    if (data.category_filter_attributes && typeof data.category_filter_attributes === 'object') {
+      try {
+        const filePath = path.join(picklistDir, 'category-filter-attributes.json');
+        
+        // Count previous categories
+        let prevCount = 0;
+        try {
+          const prevData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+          prevCount = Object.keys(prevData).length;
+        } catch {
+          prevCount = 0;
+        }
+        
+        // Write new data
+        fs.writeFileSync(filePath, JSON.stringify(data.category_filter_attributes, null, 2));
+        const newCount = Object.keys(data.category_filter_attributes).length;
+        
+        updated.push({
+          type: 'category_filter_attributes',
+          previous: prevCount,
+          current: newCount,
+          added: newCount - prevCount
+        });
+        
+        logger.info('Category filter attributes synced successfully', { 
+          previous: prevCount, 
+          current: newCount 
+        });
+      } catch (error: any) {
+        errors.push(`Failed to sync category filter attributes: ${error.message}`);
+        logger.error('Failed to sync category filter attributes', { error });
       }
     }
 

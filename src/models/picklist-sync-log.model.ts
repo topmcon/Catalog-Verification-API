@@ -17,7 +17,7 @@ export interface IPicklistChange {
 
 // Summary of changes for one picklist type
 export interface IPicklistTypeSummary {
-  type: 'attributes' | 'brands' | 'categories' | 'styles';
+  type: 'attributes' | 'brands' | 'categories' | 'styles' | 'category_filter_attributes';
   previous_count: number;
   new_count: number;
   items_added: number;
@@ -74,7 +74,7 @@ const PicklistChangeSchema = new Schema<IPicklistChange>({
 }, { _id: false });
 
 const PicklistTypeSummarySchema = new Schema<IPicklistTypeSummary>({
-  type: { type: String, enum: ['attributes', 'brands', 'categories', 'styles'], required: true },
+  type: { type: String, enum: ['attributes', 'brands', 'categories', 'styles', 'category_filter_attributes'], required: true },
   previous_count: { type: Number, required: true },
   new_count: { type: Number, required: true },
   items_added: { type: Number, required: true },

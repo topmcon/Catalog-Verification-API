@@ -390,7 +390,7 @@ export class PicklistController {
   async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
     const startTime = Date.now();
     const syncId = uuidv4();
-    const { attributes, brands, categories, styles } = req.body;
+    const { attributes, brands, categories, styles, category_filter_attributes } = req.body;
     
     // Capture current state BEFORE sync for comparison
     const beforeState = {
@@ -402,15 +402,16 @@ export class PicklistController {
     
     try {
       // Validate that at least one picklist type is provided
-      if (!attributes && !brands && !categories && !styles) {
+      if (!attributes && !brands && !categories && !styles && !category_filter_attributes) {
         res.status(400).json({ 
           success: false, 
-          error: 'At least one picklist type (attributes, brands, categories, styles) must be provided',
+          error: 'At least one picklist type (attributes, brands, categories, styles, category_filter_attributes) must be provided',
           expected_format: {
             attributes: [{ attribute_id: 'string', attribute_name: 'string' }],
             brands: [{ brand_id: 'string', brand_name: 'string' }],
             categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
-            styles: [{ style_id: 'string', style_name: 'string' }]
+            styles: [{ style_id: 'string', style_name: 'string' }],
+            category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } }
           }
         });
         return;
@@ -457,6 +458,18 @@ export class PicklistController {
         }
       }
       
+      if (category_filter_attributes && typeof category_filter_attributes !== 'object') {
+        validationErrors.push('category_filter_attributes must be an object');
+      } else if (category_filter_attributes && !Array.isArray(category_filter_attributes)) {
+        // Validate structure: each category should have department, category_id, and attributes array
+        for (const [categoryName, config] of Object.entries(category_filter_attributes)) {
+          const catConfig = config as any;
+          if (!catConfig.department || !catConfig.category_id || !Array.isArray(catConfig.attributes)) {
+            validationErrors.push(`Category "${categoryName}" missing required fields (department, category_id, attributes)`);
+          }
+        }
+      }
+      
       if (validationErrors.length > 0) {
         res.status(400).json({ 
           success: false, 
@@ -473,6 +486,7 @@ export class PicklistController {
         brands_count: brands?.length || 0,
         categories_count: categories?.length || 0,
         styles_count: styles?.length || 0,
+        category_filter_attributes_count: category_filter_attributes ? Object.keys(category_filter_attributes).length : 0,
         source_ip: req.ip
       });
       
@@ -481,7 +495,8 @@ export class PicklistController {
         attributes,
         brands,
         categories,
-        styles
+        styles,
+        category_filter_attributes
       });
       
       // Get updated stats
@@ -602,7 +617,8 @@ export class PicklistController {
           attributes ? 'attributes' : null,
           brands ? 'brands' : null,
           categories ? 'categories' : null,
-          styles ? 'styles' : null
+          styles ? 'styles' : null,
+          category_filter_attributes ? 'category_filter_attributes' : null
         ].filter(Boolean) as string[],
         success: result.success,
         sync_errors: result.errors,
