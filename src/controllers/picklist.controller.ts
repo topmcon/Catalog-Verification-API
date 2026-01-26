@@ -499,11 +499,17 @@ export class PicklistController {
         category_filter_attributes
       });
       
-      // Get updated stats
+      // Get updated stats AND current state AFTER sync
       const stats = picklistMatcher.getStats();
+      const afterState = {
+        attributes: picklistMatcher.getAllAttributes(),
+        brands: picklistMatcher.getAllBrands(),
+        categories: picklistMatcher.getAllCategories(),
+        styles: picklistMatcher.getAllStyles()
+      };
       const processingTime = Date.now() - startTime;
       
-      // Calculate detailed changes for audit log
+      // Calculate detailed changes for audit log (compare BEFORE to AFTER state, not before to incoming)
       const summaries: IPicklistTypeSummary[] = [];
       const detailedChanges: {
         attributes?: IPicklistChange[];
@@ -512,18 +518,18 @@ export class PicklistController {
         styles?: IPicklistChange[];
       } = {};
       
-      // Compare attributes
+      // Compare attributes - BEFORE vs AFTER (not before vs incoming)
       if (attributes) {
         const { added, removed } = this.comparePicklists(
           beforeState.attributes, 
-          attributes, 
+          afterState.attributes, 
           'attribute_id', 
           'attribute_name'
         );
         summaries.push({
           type: 'attributes',
           previous_count: beforeState.attributes.length,
-          new_count: attributes.length,
+          new_count: afterState.attributes.length,
           items_added: added.length,
           items_removed: removed.length,
           added_items: added.map(a => a.attribute_name),
@@ -535,18 +541,18 @@ export class PicklistController {
         ];
       }
       
-      // Compare brands
+      // Compare brands - BEFORE vs AFTER
       if (brands) {
         const { added, removed } = this.comparePicklists(
           beforeState.brands, 
-          brands, 
+          afterState.brands, 
           'brand_id', 
           'brand_name'
         );
         summaries.push({
           type: 'brands',
           previous_count: beforeState.brands.length,
-          new_count: brands.length,
+          new_count: afterState.brands.length,
           items_added: added.length,
           items_removed: removed.length,
           added_items: added.map(b => b.brand_name),
@@ -558,18 +564,18 @@ export class PicklistController {
         ];
       }
       
-      // Compare categories
+      // Compare categories - BEFORE vs AFTER
       if (categories) {
         const { added, removed } = this.comparePicklists(
           beforeState.categories, 
-          categories, 
+          afterState.categories, 
           'category_id', 
           'category_name'
         );
         summaries.push({
           type: 'categories',
           previous_count: beforeState.categories.length,
-          new_count: categories.length,
+          new_count: afterState.categories.length,
           items_added: added.length,
           items_removed: removed.length,
           added_items: added.map(c => c.category_name),
@@ -581,18 +587,18 @@ export class PicklistController {
         ];
       }
       
-      // Compare styles
+      // Compare styles - BEFORE vs AFTER
       if (styles) {
         const { added, removed } = this.comparePicklists(
           beforeState.styles, 
-          styles, 
+          afterState.styles, 
           'style_id', 
           'style_name'
         );
         summaries.push({
           type: 'styles',
           previous_count: beforeState.styles.length,
-          new_count: styles.length,
+          new_count: afterState.styles.length,
           items_added: added.length,
           items_removed: removed.length,
           added_items: added.map(s => s.style_name),
