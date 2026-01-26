@@ -155,8 +155,7 @@ class AsyncVerificationProcessor {
 
     logger.info('STEP 5: Starting AI verification engines (OpenAI + Anthropic)', {
       sessionId,
-      modelNumber: product.Model_Number_Web_Retailer || product.SF_Catalog_Name,
-      category: product.Category_1_Structured || 'unknown'
+      modelNumber: product.Model_Number_Web_Retailer || product.SF_Catalog_Name
     });
 
     // Use existing dual-AI verification service
