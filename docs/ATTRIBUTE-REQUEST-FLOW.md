@@ -229,6 +229,7 @@ Complete response includes:
 ### Request Body
 ```json
 {
+  "replace_mode": false,
   "attributes": [
     {
       "attribute_id": "NEW_ID_789",
@@ -241,10 +242,24 @@ Complete response includes:
 }
 ```
 
+### Sync Modes
+
+**INCREMENTAL MODE (default)** - `replace_mode: false`
+- Adds new picklist items
+- Updates existing items
+- **Never removes** items
+- Safe for partial updates
+
+**FULL REPLACEMENT MODE** - `replace_mode: true`
+- **Completely replaces** picklist with incoming data
+- Removes items not in the incoming list
+- Use when sending the complete authoritative list from Salesforce
+- Ensures exact match with Salesforce
+
 ### Processing
 1. **Validation**: Ensures all required fields present
 2. **Comparison**: Before/after state for change tracking
-3. **Update**: `picklistMatcher.syncPicklists()`
+3. **Update**: `picklistMatcher.syncPicklists()` with chosen mode
 4. **Audit**: Logs to `PicklistSyncLog` model
 5. **Catalog Index**: Updates styles/categories
 6. **Response**: Returns change summary

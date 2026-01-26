@@ -1477,11 +1477,11 @@
   },
   {
     "attribute_id": "a1aaZ000008mBtiQAE",
-    "attribute_name": "HuMidity Control"
+    "attribute_name": "Humidity Control"
   },
   {
     "attribute_id": "a1aaZ000008mBtjQAE",
-    "attribute_name": "HuMidity Sensing"
+    "attribute_name": "Humidity Sensing"
   },
   {
     "attribute_id": "a1aaZ000008mBtkQAE",
@@ -3149,7 +3149,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X2NgQAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X2NhQAK",
@@ -3233,7 +3233,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X3pyQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X3pzQAC",
@@ -3321,7 +3321,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X3uvQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X3uwQAC",
@@ -3377,7 +3377,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X3y3QAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X3y4QAC",
@@ -3441,7 +3441,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X3zeQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X3zfQAC",
@@ -3585,7 +3585,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X41WQAS",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X41XQAS",
@@ -3641,7 +3641,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X42tQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X42uQAC",
@@ -3761,7 +3761,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X47rQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X47sQAC",
@@ -3869,7 +3869,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X48IQAS",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X48JQAS",
@@ -3937,7 +3937,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4B5QAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4B6QAK",
@@ -4029,7 +4029,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4HZQA0",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4HaQAK",
@@ -4045,7 +4045,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4HdQAK",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4HeQAK",
@@ -4077,7 +4077,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4PTQA0",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4PUQA0",
@@ -4185,7 +4185,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4RAQA0",
-    "attribute_name": "canopy_Width"
+    "attribute_name": "canopy_width"
   },
   {
     "attribute_id": "a1aaZ000009X4RBQA0",
@@ -4217,7 +4217,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4RIQA0",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4RJQA0",
@@ -4273,7 +4273,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4SnQAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4SoQAK",
@@ -4373,7 +4373,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4W8QAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4W9QAK",
@@ -4453,7 +4453,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4ZNQA0",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4ZOQA0",
@@ -4661,7 +4661,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4eDQAS",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4eEQAS",
@@ -4761,7 +4761,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4hQQAS",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4hRQAS",
@@ -4793,7 +4793,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4ipQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4iqQAC",
@@ -4845,7 +4845,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4j2QAC",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4j3QAC",
@@ -4869,7 +4869,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4m2QAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4m3QAC",
@@ -4949,7 +4949,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4ndQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4neQAC",
@@ -4961,7 +4961,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4ngQAC",
-    "attribute_name": "huMidity_control"
+    "attribute_name": "humidity_control"
   },
   {
     "attribute_id": "a1aaZ000009X4nhQAC",
@@ -4981,7 +4981,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4pGQAS",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X4pHQAS",
@@ -5169,7 +5169,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4uHQAS",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4uIQAS",
@@ -5301,7 +5301,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4vxQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4vyQAC",
@@ -5465,7 +5465,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4xTQAS",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X4xUQAS",
@@ -5477,7 +5477,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X4xWQAS",
-    "attribute_name": "backplate_Width"
+    "attribute_name": "backplate_width"
   },
   {
     "attribute_id": "a1aaZ000009X4xXQAS",
@@ -5545,7 +5545,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X53vQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X53wQAC",
@@ -5609,7 +5609,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X55RQAS",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X55SQAS",
@@ -5921,7 +5921,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5C6QAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5C7QAK",
@@ -6013,7 +6013,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5NAQA0",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5NBQA0",
@@ -6093,7 +6093,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5QMQA0",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5QNQA0",
@@ -6213,7 +6213,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5TjQAK",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5TkQAK",
@@ -6233,7 +6233,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5ToQAK",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X5TpQAK",
@@ -6333,7 +6333,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5UDQA0",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5UEQA0",
@@ -6425,7 +6425,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5VMQA0",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X5VNQA0",
@@ -6533,7 +6533,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5X2QAK",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X5X3QAK",
@@ -6553,7 +6553,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5a3QAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5a4QAC",
@@ -6685,7 +6685,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5aaQAC",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X5abQAC",
@@ -6757,7 +6757,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5dPQAS",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5dQQAS",
@@ -6821,7 +6821,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5esQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5etQAC",
@@ -6885,7 +6885,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5jjQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5jkQAC",
@@ -7041,7 +7041,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5rnQAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5roQAC",
@@ -7141,7 +7141,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X5v5QAC",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009X5v6QAC",
@@ -7341,7 +7341,7 @@
   },
   {
     "attribute_id": "a1aaZ000009X61gQAC",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009X61hQAC",
@@ -7457,7 +7457,7 @@
   },
   {
     "attribute_id": "a1aaZ000009etDWQAY",
-    "attribute_name": "Width_diameter"
+    "attribute_name": "width_diameter"
   },
   {
     "attribute_id": "a1aaZ000009etDXQAY",
@@ -7513,7 +7513,7 @@
   },
   {
     "attribute_id": "a1aaZ000009eu6OQAQ",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009eu6PQAQ",
@@ -7601,7 +7601,7 @@
   },
   {
     "attribute_id": "a1aaZ000009euJQQAY",
-    "attribute_name": "Width_length"
+    "attribute_name": "width_length"
   },
   {
     "attribute_id": "a1aaZ000009euJRQAY",
@@ -7689,7 +7689,7 @@
   },
   {
     "attribute_id": "a1aaZ000009ew9nQAA",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009ew9oQAA",
@@ -7713,7 +7713,7 @@
   },
   {
     "attribute_id": "a1aaZ000009ew9tQAA",
-    "attribute_name": "Grid_included"
+    "attribute_name": "grid_included"
   },
   {
     "attribute_id": "a1aaZ000009ew9uQAA",
@@ -7881,7 +7881,7 @@
   },
   {
     "attribute_id": "a1aaZ000009fztiQAA",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009fztjQAA",
@@ -7897,7 +7897,7 @@
   },
   {
     "attribute_id": "a1aaZ000009fztmQAA",
-    "attribute_name": "nominal_Width"
+    "attribute_name": "nominal_width"
   },
   {
     "attribute_id": "a1aaZ000009fztnQAA",
@@ -7965,7 +7965,7 @@
   },
   {
     "attribute_id": "a1aaZ000009g0PpQAI",
-    "attribute_name": "Width"
+    "attribute_name": "width"
   },
   {
     "attribute_id": "a1aaZ000009g0PqQAI",
@@ -8009,7 +8009,7 @@
   },
   {
     "attribute_id": "a1aaZ000009g0Q0QAI",
-    "attribute_name": "huMidity_control"
+    "attribute_name": "humidity_control"
   },
   {
     "attribute_id": "a1aaZ000009g0Q1QAI",
@@ -8073,7 +8073,7 @@
   },
   {
     "attribute_id": "a1aaZ000009gLanQAE",
-    "attribute_name": "nominal_Width"
+    "attribute_name": "nominal_width"
   },
   {
     "attribute_id": "a1aaZ000009gLaoQAE",
@@ -8149,7 +8149,7 @@
   },
   {
     "attribute_id": "a1aaZ000009gMbhQAE",
-    "attribute_name": "nominal_Width"
+    "attribute_name": "nominal_width"
   },
   {
     "attribute_id": "a1aaZ000009gMbiQAE",
@@ -8210,5 +8210,41 @@
   {
     "attribute_id": "a1aaZ000009gYCzQAM",
     "attribute_name": "model_number_alias"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK5QAM",
+    "attribute_name": "width"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK6QAM",
+    "attribute_name": "water_dispenser"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK7QAM",
+    "attribute_name": "door_alarm"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK8QAM",
+    "attribute_name": "humidity_control"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK9QAM",
+    "attribute_name": "Width"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPKAQA2",
+    "attribute_name": "Water Dispenser"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPKBQA2",
+    "attribute_name": "Door Alarm"
+  },
+  {
+    "attribute_id": "a1aaZ000009iWOnQAM",
+    "attribute_name": "Delay Start"
+  },
+  {
+    "attribute_id": "a1aaZ000009iWOoQAM",
+    "attribute_name": "Warming Drawer"
   }
 ]

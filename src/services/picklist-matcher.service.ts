@@ -1082,9 +1082,10 @@ class PicklistMatcherService {
   }
 
   /**
-   * Bulk sync picklists from Salesforce - INCREMENTAL ADD/UPDATE STRATEGY
-   * This ADDS new items or UPDATES existing items, but NEVER deletes
-   * SF sends only the items they want to add/update, not the full list
+   * Bulk sync picklists from Salesforce
+   * Supports two modes:
+   * - INCREMENTAL (default): Adds new items or updates existing items, but never deletes
+   * - FULL REPLACEMENT (replace_mode: true): Completely replaces picklist with incoming data
    */
   async syncPicklists(data: {
     attributes?: Attribute[];
@@ -1092,17 +1093,19 @@ class PicklistMatcherService {
     categories?: Category[];
     styles?: Style[];
     category_filter_attributes?: any; // JSON object mapping categories to filter attributes
+    replace_mode?: boolean; // If true, completely replaces picklist data instead of merging
   }): Promise<{
     success: boolean;
-    updated: { type: string; previous: number; current: number; added: number; updated: number }[];
+    updated: { type: string; previous: number; current: number; added: number; updated: number; removed?: number; mode?: string }[];
     errors: string[];
   }> {
-    const updated: { type: string; previous: number; current: number; added: number; updated: number }[] = [];
+    const updated: { type: string; previous: number; current: number; added: number; updated: number; removed?: number; mode?: string }[] = [];
     const errors: string[] = [];
     const projectRoot = path.resolve(__dirname, '../../');
     const picklistDir = path.join(projectRoot, 'src/config/salesforce-picklists');
+    const replaceMode = data.replace_mode || false;
 
-    // Sync attributes - INCREMENTAL ADD/UPDATE
+    // Sync attributes - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
     if (data.attributes && Array.isArray(data.attributes)) {
       try {
         const prevCount = this.attributes.length;
@@ -1116,29 +1119,51 @@ class PicklistMatcherService {
           });
           logger.warn('Skipping corrupted attributes', { count: data.attributes!.length });
         } else {
-          // Create a map of existing attributes by ID
-          const existingMap = new Map(this.attributes.map(attr => [attr.attribute_id, attr]));
+          let mergedAttributes: Attribute[];
           let addedCount = 0;
           let updatedCount = 0;
+          let removedCount = 0;
 
-          // Add or update each incoming attribute
-          for (const incomingAttr of data.attributes) {
-            if (existingMap.has(incomingAttr.attribute_id)) {
-              // Update existing
-              const existing = existingMap.get(incomingAttr.attribute_id);
-              if (JSON.stringify(existing) !== JSON.stringify(incomingAttr)) {
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedAttributes = [...data.attributes];
+            addedCount = data.attributes.length;
+            removedCount = prevCount;
+            logger.info('Attributes sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.attributes.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.attributes.map(attr => [attr.attribute_id, attr]));
+
+            // Add or update each incoming attribute
+            for (const incomingAttr of data.attributes) {
+              if (existingMap.has(incomingAttr.attribute_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingAttr.attribute_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingAttr)) {
+                  existingMap.set(incomingAttr.attribute_id, incomingAttr);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
                 existingMap.set(incomingAttr.attribute_id, incomingAttr);
-                updatedCount++;
+                addedCount++;
               }
-            } else {
-              // Add new
-              existingMap.set(incomingAttr.attribute_id, incomingAttr);
-              addedCount++;
             }
-          }
 
-          // Convert map back to array
-          const mergedAttributes = Array.from(existingMap.values());
+            // Convert map back to array
+            mergedAttributes = Array.from(existingMap.values());
+            
+            logger.info('Attributes synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedAttributes.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
           
           // Save to file and update cache
           const filePath = path.join(picklistDir, 'attributes.json');
@@ -1150,14 +1175,9 @@ class PicklistMatcherService {
             previous: prevCount,
             current: mergedAttributes.length,
             added: addedCount,
-            updated: updatedCount
-          });
-          
-          logger.info('Attributes synced successfully (incremental)', { 
-            previous: prevCount, 
-            current: mergedAttributes.length,
-            added: addedCount,
-            updated: updatedCount
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
           });
         }
       } catch (error: any) {
@@ -1166,7 +1186,7 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync brands - INCREMENTAL ADD/UPDATE
+    // Sync brands - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
     if (data.brands && Array.isArray(data.brands)) {
       try {
         const prevCount = this.brands.length;
@@ -1180,29 +1200,51 @@ class PicklistMatcherService {
           });
           logger.warn('Skipping corrupted brands', { count: data.brands!.length });
         } else {
-          // Create a map of existing brands by ID
-          const existingMap = new Map(this.brands.map(brand => [brand.brand_id, brand]));
+          let mergedBrands: Brand[];
           let addedCount = 0;
           let updatedCount = 0;
+          let removedCount = 0;
 
-          // Add or update each incoming brand
-          for (const incomingBrand of data.brands) {
-            if (existingMap.has(incomingBrand.brand_id)) {
-              // Update existing
-              const existing = existingMap.get(incomingBrand.brand_id);
-              if (JSON.stringify(existing) !== JSON.stringify(incomingBrand)) {
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedBrands = [...data.brands];
+            addedCount = data.brands.length;
+            removedCount = prevCount;
+            logger.info('Brands sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.brands.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.brands.map(brand => [brand.brand_id, brand]));
+
+            // Add or update each incoming brand
+            for (const incomingBrand of data.brands) {
+              if (existingMap.has(incomingBrand.brand_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingBrand.brand_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingBrand)) {
+                  existingMap.set(incomingBrand.brand_id, incomingBrand);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
                 existingMap.set(incomingBrand.brand_id, incomingBrand);
-                updatedCount++;
+                addedCount++;
               }
-            } else {
-              // Add new
-              existingMap.set(incomingBrand.brand_id, incomingBrand);
-              addedCount++;
             }
-          }
 
-          // Convert map back to array
-          const mergedBrands = Array.from(existingMap.values());
+            // Convert map back to array
+            mergedBrands = Array.from(existingMap.values());
+            
+            logger.info('Brands synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedBrands.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
           
           // Save to file and update cache
           const filePath = path.join(picklistDir, 'brands.json');
@@ -1214,14 +1256,9 @@ class PicklistMatcherService {
             previous: prevCount,
             current: mergedBrands.length,
             added: addedCount,
-            updated: updatedCount
-          });
-          
-          logger.info('Brands synced successfully (incremental)', { 
-            previous: prevCount, 
-            current: mergedBrands.length,
-            added: addedCount,
-            updated: updatedCount
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
           });
         }
       } catch (error: any) {
@@ -1230,7 +1267,7 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync categories - INCREMENTAL ADD/UPDATE
+    // Sync categories - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
     if (data.categories && Array.isArray(data.categories)) {
       try {
         const prevCount = this.categories.length;
@@ -1244,29 +1281,51 @@ class PicklistMatcherService {
           });
           logger.warn('Skipping corrupted categories', { count: data.categories!.length });
         } else {
-          // Create a map of existing categories by ID
-          const existingMap = new Map(this.categories.map(cat => [cat.category_id, cat]));
+          let mergedCategories: Category[];
           let addedCount = 0;
           let updatedCount = 0;
+          let removedCount = 0;
 
-          // Add or update each incoming category
-          for (const incomingCat of data.categories) {
-            if (existingMap.has(incomingCat.category_id)) {
-              // Update existing
-              const existing = existingMap.get(incomingCat.category_id);
-              if (JSON.stringify(existing) !== JSON.stringify(incomingCat)) {
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedCategories = [...data.categories];
+            addedCount = data.categories.length;
+            removedCount = prevCount;
+            logger.info('Categories sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.categories.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.categories.map(cat => [cat.category_id, cat]));
+
+            // Add or update each incoming category
+            for (const incomingCat of data.categories) {
+              if (existingMap.has(incomingCat.category_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingCat.category_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingCat)) {
+                  existingMap.set(incomingCat.category_id, incomingCat);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
                 existingMap.set(incomingCat.category_id, incomingCat);
-                updatedCount++;
+                addedCount++;
               }
-            } else {
-              // Add new
-              existingMap.set(incomingCat.category_id, incomingCat);
-              addedCount++;
             }
-          }
 
-          // Convert map back to array
-          const mergedCategories = Array.from(existingMap.values());
+            // Convert map back to array
+            mergedCategories = Array.from(existingMap.values());
+            
+            logger.info('Categories synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedCategories.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
           
           // Save to file and update cache
           const filePath = path.join(picklistDir, 'categories.json');
@@ -1278,14 +1337,9 @@ class PicklistMatcherService {
             previous: prevCount,
             current: mergedCategories.length,
             added: addedCount,
-            updated: updatedCount
-          });
-          
-          logger.info('Categories synced successfully (incremental)', { 
-            previous: prevCount, 
-            current: mergedCategories.length,
-            added: addedCount,
-            updated: updatedCount
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
           });
         }
       } catch (error: any) {
@@ -1294,7 +1348,7 @@ class PicklistMatcherService {
       }
     }
 
-    // Sync styles - INCREMENTAL ADD/UPDATE
+    // Sync styles - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
     if (data.styles && Array.isArray(data.styles)) {
       try {
         const prevCount = this.styles.length;
@@ -1308,29 +1362,51 @@ class PicklistMatcherService {
           });
           logger.warn('Skipping corrupted styles', { count: data.styles!.length });
         } else {
-          // Create a map of existing styles by ID
-          const existingMap = new Map(this.styles.map(style => [style.style_id, style]));
+          let mergedStyles: Style[];
           let addedCount = 0;
           let updatedCount = 0;
+          let removedCount = 0;
 
-          // Add or update each incoming style
-          for (const incomingStyle of data.styles) {
-            if (existingMap.has(incomingStyle.style_id)) {
-              // Update existing
-              const existing = existingMap.get(incomingStyle.style_id);
-              if (JSON.stringify(existing) !== JSON.stringify(incomingStyle)) {
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedStyles = [...data.styles];
+            addedCount = data.styles.length;
+            removedCount = prevCount;
+            logger.info('Styles sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.styles.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.styles.map(style => [style.style_id, style]));
+
+            // Add or update each incoming style
+            for (const incomingStyle of data.styles) {
+              if (existingMap.has(incomingStyle.style_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingStyle.style_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingStyle)) {
+                  existingMap.set(incomingStyle.style_id, incomingStyle);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
                 existingMap.set(incomingStyle.style_id, incomingStyle);
-                updatedCount++;
+                addedCount++;
               }
-            } else {
-              // Add new
-              existingMap.set(incomingStyle.style_id, incomingStyle);
-              addedCount++;
             }
-          }
 
-          // Convert map back to array
-          const mergedStyles = Array.from(existingMap.values());
+            // Convert map back to array
+            mergedStyles = Array.from(existingMap.values());
+            
+            logger.info('Styles synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedStyles.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
           
           // Save to file and update cache
           const filePath = path.join(picklistDir, 'styles.json');
@@ -1342,14 +1418,9 @@ class PicklistMatcherService {
             previous: prevCount,
             current: mergedStyles.length,
             added: addedCount,
-            updated: updatedCount
-          });
-          
-          logger.info('Styles synced successfully (incremental)', { 
-            previous: prevCount, 
-            current: mergedStyles.length,
-            added: addedCount,
-            updated: updatedCount
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
           });
         }
       } catch (error: any) {

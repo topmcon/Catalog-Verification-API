@@ -390,7 +390,7 @@ export class PicklistController {
   async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
     const startTime = Date.now();
     const syncId = uuidv4();
-    const { attributes, brands, categories, styles, category_filter_attributes } = req.body;
+    const { attributes, brands, categories, styles, category_filter_attributes, replace_mode = false } = req.body;
     
     // Capture current state BEFORE sync for comparison
     const beforeState = {
@@ -411,7 +411,8 @@ export class PicklistController {
             brands: [{ brand_id: 'string', brand_name: 'string' }],
             categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
             styles: [{ style_id: 'string', style_name: 'string' }],
-            category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } }
+            category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } },
+            replace_mode: 'boolean (optional, default: false) - if true, completely replaces picklist data instead of merging'
           }
         });
         return;
@@ -482,6 +483,7 @@ export class PicklistController {
       // Log the sync request
       logger.info('Picklist sync request received from Salesforce', {
         sync_id: syncId,
+        replace_mode,
         attributes_count: attributes?.length || 0,
         brands_count: brands?.length || 0,
         categories_count: categories?.length || 0,
@@ -496,7 +498,8 @@ export class PicklistController {
         brands,
         categories,
         styles,
-        category_filter_attributes
+        category_filter_attributes,
+        replace_mode
       });
       
       // Get updated stats AND current state AFTER sync
