@@ -77,10 +77,13 @@ export const FIELD_ALIASES: Record<string, string[]> = {
     'cubic feet per minute'
   ],
   
-  // Bathtub specific
+  // Installation type - covers bathtubs, dishwashers, and other appliances
   'installation_type': [
     'tub type', 'mounting type', 'installation', 'install type',
-    'freestanding', 'alcove', 'drop-in', 'undermount'
+    'freestanding', 'alcove', 'drop-in', 'undermount',
+    'installation type', 'built-in', 'built in', 'portable', 'countertop',
+    'drawer', 'how installed', 'installation method', 'mounting style',
+    'type of installation', 'install method'
   ],
   'drain_placement': [
     'drain location', 'drain position', 'drain side', 'outlet position',
@@ -117,7 +120,9 @@ export const FIELD_ALIASES: Record<string, string[]> = {
   ],
   'ada': [
     'ada compliant', 'ada approved', 'accessible', 'handicap accessible',
-    'wheelchair accessible'
+    'wheelchair accessible', 'ada', 'accessibility', 'ada height',
+    'ada certified', 'ada compliance', 'americans with disabilities',
+    'disability compliant', 'accessibility compliant'
   ],
   'soaking': [
     'soaking tub', 'deep soak', 'soaker', 'soaking bath'
@@ -147,21 +152,663 @@ export const FIELD_ALIASES: Record<string, string[]> = {
   ],
   'smart_home': [
     'wifi', 'smart', 'connected', 'app control', 'voice control',
-    'alexa', 'google home'
+    'alexa', 'google home', 'home connect', 'smart features', 'wifi enabled',
+    'smart home', 'app compatibility', 'connected appliances'
   ],
   'energy_star': [
-    'energy star certified', 'energy efficient', 'energy rating'
+    'energy star certified', 'energy efficient', 'energy rating',
+    'energy star', 'energystar'
+  ],
+  
+  // =============================================
+  // DISHWASHER SPECIFIC ATTRIBUTES - Comprehensive aliases
+  // =============================================
+  
+  // Noise Level - CRITICAL: Maps dB Rating, Decibel, Noise to single field
+  'noise_level': [
+    'db rating', 'db', 'decibel', 'decibel level', 'decibel rating',
+    'decibel sound rating', 'noise level db', 'sound level', 'sound rating',
+    'operating noise', 'noise dba', 'dba rating', 'silence level',
+    'noise level dba re 1pw', 'quietness'
+  ],
+  
+  // Place Settings / Capacity
+  'place_setting_capacity': [
+    'place settings', 'place setting capacity', 'number of place settings',
+    'settings', 'capacity place settings', 'dish capacity', 'load capacity',
+    'maximum number of place settings'
+  ],
+  
+  // Tub/Interior Material
+  'stainless_steel_interior': [
+    'tub material', 'interior material', 'tub', 'interior', 'inner tub',
+    'wash tub material', 'basin material', 'stainless steel tub',
+    'stainless interior', 'interior construction'
+  ],
+  
+  // Number of Wash Cycles
+  'number_of_wash_cycles': [
+    'wash cycles', 'cycles', 'number of cycles', 'cycle count',
+    'wash programs', 'programs', 'number of programs', 'cleaning cycles',
+    'wash options', 'number of wash programs'
+  ],
+  
+  // Drying System
+  'drying_system': [
+    'dry system', 'drying type', 'dry type', 'drying method',
+    'heated dry', 'air dry', 'condensation dry', 'puredry', 'autodry',
+    'dry technology', 'drying feature'
+  ],
+  
+  // Control Type / Location
+  'control_type': [
+    'control location', 'controls', 'control panel', 'control style',
+    'type of control', 'control panel location', 'button type',
+    'front control', 'top control', 'hidden control', 'touch control',
+    'location of control panel'
+  ],
+  
+  // Third Rack / Cutlery Tray (same concept in different names)
+  'cutlery_tray': [
+    'third rack', '3rd rack', 'cutlery basket', 'utensil rack',
+    'flatware tray', 'silverware rack', 'third level rack',
+    'standard 3rd rack', 'cutlery drawer', 'number of racks',
+    'third rack included', 'has third rack', 'flexible third rack'
+  ],
+  
+  // Number of Racks
+  'number_of_racks': [
+    'racks', 'rack count', 'total racks', 'loading racks',
+    'dish racks', 'number racks'
+  ],
+  
+  // Panel Ready
+  'panel_ready': [
+    'custom panel', 'panel ready', 'accepts custom panel',
+    'integrated', 'fully integrated', 'panel front', 'overlay'
+  ],
+  
+  // Fingerprint Resistant
+  'fingerprint_resistant': [
+    'smudge proof', 'fingerprint free', 'anti fingerprint',
+    'smudge resistant', 'fingerprint resistance', 'easy clean finish'
+  ],
+  
+  // Dishwasher Type
+  'dishwasher_type': [
+    'type', 'dishwasher style', 'style', 'form factor',
+    'built in', 'portable', 'drawer', 'countertop', 'top controls',
+    'front controls'
+  ],
+  
+  // Hard Food Disposer
+  'hard_food_disposer': [
+    'food disposer', 'built in food disposer', 'garbage disposer',
+    'food grinder', 'hard food grinder', 'disposer', 'built-in food disposer'
+  ],
+  
+  // Adjustable Racks
+  'adjustable_racks': [
+    'adjustable rack', 'rackmatic', 'flexible racks', 'movable racks',
+    'adjustable upper rack', 'rack adjustment', 'adjustable feet'
+  ],
+  
+  // Soil Sensor
+  'soil_sensor': [
+    'auto sensor', 'automatic sensor', 'dirt sensor', 'load sensor',
+    'precision wash', 'smart sensor', 'auto wash'
   ],
   
   // Electrical
   'voltage': [
-    'volts', 'electrical', 'power requirements', 'v', 'vac'
+    'volts', 'electrical', 'power requirements', 'v', 'vac',
+    'voltage v'
   ],
   'amperage': [
-    'amps', 'amp rating', 'current', 'ampere'
+    'amps', 'amp rating', 'current', 'ampere', 'fuse protection'
   ],
   'wattage': [
-    'watts', 'power consumption', 'w', 'watt'
+    'watts', 'power consumption', 'w', 'watt', 'connection rating'
+  ],
+
+  // =============================================
+  // REFRIGERATOR SPECIFIC ATTRIBUTES
+  // =============================================
+  'total_capacity': [
+    'total cu ft', 'total cubic feet', 'overall capacity', 'combined capacity',
+    'total volume', 'capacity cu ft', 'total capacity cu ft'
+  ],
+  'refrigerator_capacity': [
+    'fridge capacity', 'fresh food capacity', 'refrigerator cu ft',
+    'fridge cu ft', 'refrigerator volume', 'fresh food compartment'
+  ],
+  'freezer_capacity': [
+    'freezer cu ft', 'freezer volume', 'frozen food capacity',
+    'freezer compartment', 'freezer size'
+  ],
+  'counter_depth': [
+    'counter-depth', 'counterdepth', 'built-in depth', 'flush mount',
+    'cabinet depth', 'standard depth', 'full depth'
+  ],
+  'ice_maker': [
+    'ice maker included', 'built-in ice maker', 'automatic ice maker',
+    'ice machine', 'makes ice', 'ice production'
+  ],
+  'internal_ice_maker': [
+    'interior ice maker', 'inside ice maker', 'internal ice',
+    'built in ice', 'integrated ice maker'
+  ],
+  'number_of_doors': [
+    'door count', 'doors', 'door style', 'door configuration',
+    'french door', 'side by side', 'top freezer', 'bottom freezer'
+  ],
+  'dispenser_features': [
+    'water dispenser', 'ice dispenser', 'water and ice', 'dispenser type',
+    'through-the-door', 'external dispenser', 'in-door dispenser'
+  ],
+  'glass_doors': [
+    'see-through doors', 'transparent doors', 'glass front',
+    'window doors', 'display doors'
+  ],
+  'number_of_zones': [
+    'temperature zones', 'cooling zones', 'climate zones',
+    'multi-zone', 'dual zone'
+  ],
+
+  // =============================================
+  // RANGE / OVEN SPECIFIC ATTRIBUTES
+  // =============================================
+  'oven_capacity': [
+    'oven cu ft', 'oven volume', 'oven size', 'cooking capacity',
+    'cavity size', 'interior volume', 'oven interior'
+  ],
+  'double_oven': [
+    'dual oven', 'twin oven', 'two ovens', 'double cavity',
+    'dual cavity', 'upper and lower oven'
+  ],
+  'air_fry': [
+    'air fryer', 'air frying', 'air crisp', 'air fry mode',
+    'built-in air fryer', 'airfry'
+  ],
+  'induction': [
+    'induction cooking', 'induction cooktop', 'induction burners',
+    'magnetic induction', 'induction elements'
+  ],
+  'continuous_grates': [
+    'continuous cast iron', 'seamless grates', 'connected grates',
+    'edge-to-edge grates', 'full-width grates'
+  ],
+  'griddle': [
+    'built-in griddle', 'integrated griddle', 'flat top',
+    'griddle burner', 'pancake griddle'
+  ],
+  'sabbath_mode': [
+    'sabbath', 'shabbat mode', 'star-k certified', 'kosher mode',
+    'holiday mode'
+  ],
+  'steam_cooking': [
+    'steam oven', 'steam cook', 'steam assist', 'steam bake',
+    'combi steam', 'steam function'
+  ],
+  'combination_oven': [
+    'combi oven', 'combo oven', 'microwave combo', 'convection combo',
+    'multi-function oven'
+  ],
+  'door_type': [
+    'oven door', 'door style', 'french door oven', 'side swing',
+    'drop down door', 'side opening'
+  ],
+  'meat_thermometer': [
+    'temperature probe', 'meat probe', 'food probe', 'cooking probe',
+    'internal thermometer', 'probe included'
+  ],
+
+  // =============================================
+  // COOKTOP SPECIFIC ATTRIBUTES
+  // =============================================
+  'downdraft_ventilated': [
+    'downdraft', 'built-in ventilation', 'integrated ventilation',
+    'downdraft vent', 'pop-up ventilation'
+  ],
+  'bridge_element': [
+    'bridge burner', 'bridge zone', 'flexible cooking zone',
+    'extended burner', 'dual element'
+  ],
+  'hot_surface_indicator': [
+    'hot surface light', 'residual heat indicator', 'hot indicator',
+    'surface hot warning', 'hot surface indicator lights'
+  ],
+  'power_burner': [
+    'high power burner', 'power boil', 'rapid burner', 'super burner',
+    'high output burner', 'power element'
+  ],
+  'ignition_type': [
+    'ignition', 'spark ignition', 'automatic ignition', 'electronic ignition',
+    'standing pilot', 'hot surface ignition'
+  ],
+  'lp_conversion': [
+    'propane conversion', 'lp kit', 'propane ready', 'lp gas',
+    'liquid propane', 'propane compatible'
+  ],
+
+  // =============================================
+  // WASHER SPECIFIC ATTRIBUTES
+  // =============================================
+  'washer_capacity': [
+    'wash capacity', 'drum capacity', 'load capacity', 'tub capacity',
+    'washer cu ft', 'laundry capacity'
+  ],
+  'top_loading': [
+    'top load', 'top loader', 'top-load', 'vertical load'
+  ],
+  'front_loading': [
+    'front load', 'front loader', 'front-load', 'horizontal axis'
+  ],
+  'steam_technology': [
+    'steam wash', 'steam clean', 'steam cycle', 'steam feature',
+    'steam option', 'true steam'
+  ],
+  'agitator': [
+    'agitator type', 'has agitator', 'pole agitator', 'impeller',
+    'dual action agitator'
+  ],
+  'stackable': [
+    'stackable unit', 'can be stacked', 'stack kit compatible',
+    'stackable washer', 'stacking capable'
+  ],
+  'pedestal_included': [
+    'pedestal', 'riser', 'laundry pedestal', 'storage pedestal',
+    'washer pedestal', 'drawer pedestal'
+  ],
+  'washer_rpm': [
+    'spin speed', 'rpm', 'spin rpm', 'max spin speed',
+    'spin cycle speed', 'centrifuge speed'
+  ],
+  'sanitary_rinse': [
+    'sanitize cycle', 'sanitary cycle', 'allergen cycle', 'steam sanitize',
+    'antibacterial', 'hygiene cycle'
+  ],
+  'drive_type': [
+    'motor drive', 'direct drive', 'belt drive', 'motor type',
+    'inverter drive'
+  ],
+  'detergent_dispenser': [
+    'soap dispenser', 'auto dispenser', 'detergent drawer',
+    'dispenser type', 'auto dose'
+  ],
+
+  // =============================================
+  // DRYER SPECIFIC ATTRIBUTES
+  // =============================================
+  'dryer_capacity': [
+    'drying capacity', 'drum capacity', 'dryer cu ft', 'load capacity',
+    'tumble capacity'
+  ],
+  'vent_type': [
+    'venting', 'ventless', 'vented', 'vent required', 'exhaust type',
+    'heat pump', 'condenser'
+  ],
+  'sensor_dry': [
+    'moisture sensor', 'auto dry', 'sensor drying', 'smart dry',
+    'moisture sensing', 'auto sensor dry'
+  ],
+  'number_of_dry_cycles': [
+    'dry cycles', 'drying programs', 'cycle count', 'dry options',
+    'drying cycles'
+  ],
+  'drum_material': [
+    'drum type', 'drum interior', 'stainless drum', 'porcelain drum',
+    'drum construction'
+  ],
+  'door_swing': [
+    'door direction', 'reversible door', 'door hinge', 'left swing',
+    'right swing', 'door opening'
+  ],
+  'interior_light': [
+    'drum light', 'inside light', 'interior lighting', 'drum illumination'
+  ],
+
+  // =============================================
+  // RANGE HOOD SPECIFIC ATTRIBUTES
+  // =============================================
+  'sones': [
+    'sound level', 'noise rating', 'sone rating', 'sone level',
+    'noise sones', 'sound rating'
+  ],
+  'ductless': [
+    'recirculating', 'non-ducted', 'filterless', 'no duct required',
+    'ductless option'
+  ],
+  'fan_speeds': [
+    'speed settings', 'blower speeds', 'number of speeds', 'speed levels',
+    'fan settings'
+  ],
+  'filter_type': [
+    'filter', 'baffle filter', 'mesh filter', 'charcoal filter',
+    'aluminum filter', 'grease filter'
+  ],
+  'light_included': [
+    'has light', 'lighting', 'includes light', 'built-in light',
+    'hood lighting'
+  ],
+  'led': [
+    'led lighting', 'led lights', 'led bulbs', 'energy efficient lighting'
+  ],
+  'convertible_to_ductless': [
+    'convertible', 'duct or ductless', 'dual mode', 'can be ductless',
+    'recirculation kit'
+  ],
+  'blower': [
+    'blower type', 'fan type', 'exhaust blower', 'internal blower',
+    'external blower', 'inline blower'
+  ],
+  'includes_remote': [
+    'remote control', 'remote included', 'wireless remote', 'has remote',
+    'remote operated'
+  ],
+  'duct_size': [
+    'duct diameter', 'duct connection', 'exhaust size', 'vent size',
+    'duct opening'
+  ],
+  'cfm_high': [
+    'max cfm', 'high speed cfm', 'maximum airflow', 'peak cfm',
+    'boost cfm'
+  ],
+
+  // =============================================
+  // MICROWAVE SPECIFIC ATTRIBUTES
+  // =============================================
+  'microwave_capacity': [
+    'microwave cu ft', 'cavity size', 'interior capacity', 'microwave size',
+    'cooking capacity'
+  ],
+  'sensor_cooking': [
+    'auto cook', 'sensor cook', 'automatic cooking', 'smart cook',
+    'sensor reheat'
+  ],
+  'turntable': [
+    'rotating plate', 'carousel', 'turntable included', 'glass tray',
+    'rotating tray'
+  ],
+  'turntable_diameter': [
+    'turntable size', 'plate diameter', 'tray size', 'carousel size'
+  ],
+  'auto_shut_off': [
+    'automatic shutoff', 'auto off', 'safety shutoff', 'auto power off'
+  ],
+  'automatic_defrost': [
+    'auto defrost', 'defrost function', 'quick defrost', 'smart defrost'
+  ],
+
+  // =============================================
+  // FAUCET SPECIFIC ATTRIBUTES
+  // =============================================
+  'faucet_type': [
+    'faucet style', 'type of faucet', 'faucet category', 'fixture type'
+  ],
+  'faucet_mounting_type': [
+    'mount type', 'mounting style', 'deck mount', 'wall mount',
+    'centerset', 'widespread', 'single hole'
+  ],
+  'number_of_handles': [
+    'handle count', 'handles', 'single handle', 'double handle',
+    'two handle', 'one handle'
+  ],
+  'spout_height': [
+    'faucet height', 'spout reach height', 'arc height', 'overall height'
+  ],
+  'spout_reach': [
+    'reach', 'projection', 'spout projection', 'faucet reach'
+  ],
+  'touchless_faucet': [
+    'touchless', 'motion sensor', 'hands free', 'no touch',
+    'sensor activated', 'motion activated'
+  ],
+  'voice_activated': [
+    'voice control', 'alexa compatible', 'google assistant', 'smart faucet',
+    'voice command'
+  ],
+  'spray_settings': [
+    'spray modes', 'spray options', 'spray patterns', 'stream settings',
+    'spray types'
+  ],
+  'faucet_holes': [
+    'hole configuration', 'mounting holes', 'number of holes', 'hole spacing',
+    'hole count'
+  ],
+  'flow_rate_gpm': [
+    'gpm', 'gallons per minute', 'flow rate', 'water flow', 'max flow'
+  ],
+  'watersense_certified': [
+    'watersense', 'water efficient', 'water saving', 'epa watersense',
+    'low flow'
+  ],
+  'soap_dispenser_included': [
+    'soap dispenser', 'includes dispenser', 'dispenser included',
+    'has soap dispenser'
+  ],
+  'magnetic_docking': [
+    'magnet dock', 'magnetic spray head', 'docking system', 'secure dock',
+    'reflex'
+  ],
+  'pre_rinse': [
+    'pre-rinse', 'commercial style', 'restaurant style', 'spring spout',
+    'coil faucet'
+  ],
+  'spout_style': [
+    'spout type', 'spout design', 'gooseneck', 'high arc', 'low arc',
+    'pull down', 'pull out'
+  ],
+  'handle_style': [
+    'handle type', 'handle design', 'lever handle', 'cross handle',
+    'knob handle'
+  ],
+  'vessel_faucet': [
+    'vessel sink faucet', 'tall faucet', 'above counter faucet',
+    'raised faucet'
+  ],
+  'valve_type': [
+    'cartridge type', 'valve cartridge', 'ceramic disc', 'ball valve',
+    'compression valve'
+  ],
+
+  // =============================================
+  // TOILET SPECIFIC ATTRIBUTES
+  // =============================================
+  'bowl_shape': [
+    'bowl type', 'toilet bowl', 'elongated', 'round', 'compact elongated'
+  ],
+  'flush_type': [
+    'flush mechanism', 'flushing system', 'gravity flush', 'pressure assist',
+    'dual flush', 'single flush'
+  ],
+  'gallons_per_flush': [
+    'gpf', 'flush volume', 'water per flush', 'flush rate', 'water usage'
+  ],
+  'bowl_height': [
+    'seat height', 'rim height', 'toilet height', 'comfort height',
+    'chair height', 'standard height'
+  ],
+  'rough_in': [
+    'rough-in', 'drain offset', 'outlet offset', 'waste outlet',
+    '10 inch rough', '12 inch rough', '14 inch rough'
+  ],
+  'seat_included': [
+    'includes seat', 'seat and lid', 'comes with seat', 'seat provided'
+  ],
+  'trapway': [
+    'trap', 'trapway size', 'fully glazed trapway', 'concealed trapway',
+    'skirted trapway'
+  ],
+  'bidet_seat_included': [
+    'bidet function', 'integrated bidet', 'bidet toilet', 'washlet',
+    'bidet seat'
+  ],
+  'flush_technology': [
+    'flush system', 'flushing technology', 'power flush', 'tornado flush',
+    'aquapiston'
+  ],
+  'night_light': [
+    'toilet light', 'bowl light', 'led night light', 'illuminated'
+  ],
+  'mounting_type': [
+    'floor mount', 'wall mount', 'wall hung', 'floor standing'
+  ],
+  'soft_close_hinges': [
+    'soft close', 'slow close', 'quiet close', 'gentle close'
+  ],
+
+  // =============================================
+  // BATHTUB SPECIFIC ATTRIBUTES
+  // =============================================
+  'accepts_deck_mount': [
+    'deck mount compatible', 'faucet holes', 'rim mount', 'deck faucet',
+    'accepts deck mount faucet'
+  ],
+
+  // =============================================
+  // LIGHTING SPECIFIC ATTRIBUTES
+  // =============================================
+  'number_of_lights': [
+    'light count', 'bulb count', 'number of bulbs', 'lamp count',
+    'how many lights'
+  ],
+  'chandelier_type': [
+    'chandelier style', 'fixture type', 'light style', 'design type'
+  ],
+  'bulb_type': [
+    'lamp type', 'light source', 'bulb style', 'incandescent', 'led bulb',
+    'halogen', 'cfl'
+  ],
+  'dimmable': [
+    'dimmer compatible', 'can dim', 'dimming', 'dimmable fixture',
+    'works with dimmer'
+  ],
+  'maximum_adjustable_height': [
+    'max height', 'adjustable height', 'hanging height', 'drop length',
+    'overall height range'
+  ],
+  'bulb_included': [
+    'bulbs included', 'includes bulbs', 'lamps included', 'comes with bulbs'
+  ],
+  'location_rating': [
+    'wet rated', 'damp rated', 'dry rated', 'outdoor rated', 'ul listing',
+    'indoor outdoor'
+  ],
+  'sloped_ceiling_compatible': [
+    'sloped ceiling', 'vaulted ceiling', 'angled ceiling', 'cathedral ceiling'
+  ],
+  'crystal_type': [
+    'crystal', 'crystal material', 'crystal style', 'swarovski', 'k9 crystal'
+  ],
+  'chain_length': [
+    'chain', 'hanging chain', 'chain included', 'suspension length'
+  ],
+  'shade_material': [
+    'shade', 'shade type', 'glass shade', 'fabric shade', 'metal shade'
+  ],
+  'number_of_tiers': [
+    'tiers', 'tier count', 'levels', 'multi-tier', 'single tier'
+  ],
+  'shape': [
+    'fixture shape', 'light shape', 'round', 'rectangular', 'linear', 'drum'
+  ],
+
+  // =============================================
+  // CEILING FAN SPECIFIC ATTRIBUTES
+  // =============================================
+  'blade_span': [
+    'fan size', 'blade size', 'sweep', 'diameter', 'blade diameter',
+    'fan diameter', 'blade sweep'
+  ],
+  'number_of_blades': [
+    'blade count', 'blades', 'how many blades', 'fan blades'
+  ],
+  'light_kit_included': [
+    'has light', 'light included', 'includes light kit', 'with light',
+    'integrated light'
+  ],
+  'motor_type': [
+    'motor', 'dc motor', 'ac motor', 'reversible motor', 'motor style'
+  ],
+  'reversible_motor': [
+    'reversible', 'reverse function', 'winter mode', 'summer winter',
+    'direction change'
+  ],
+  'fan_blade_material': [
+    'blade material', 'blade construction', 'wood blades', 'plastic blades',
+    'metal blades'
+  ],
+  'downrod_included': [
+    'downrod', 'mounting rod', 'extension rod', 'rod included',
+    'downrod length'
+  ],
+  'light_kit_compatible': [
+    'accepts light kit', 'light adaptable', 'can add light',
+    'light kit ready'
+  ],
+  'low_ceiling_adaptable': [
+    'hugger', 'flush mount fan', 'low profile', 'close to ceiling',
+    'low ceiling'
+  ],
+
+  // =============================================
+  // SINK SPECIFIC ATTRIBUTES
+  // =============================================
+  'sink_type': [
+    'sink style', 'basin type', 'sink configuration', 'mount type'
+  ],
+  'number_of_basins': [
+    'basins', 'bowls', 'single bowl', 'double bowl', 'basin count',
+    'compartments'
+  ],
+  'sink_depth': [
+    'bowl depth', 'basin depth', 'sink bowl depth', 'depth'
+  ],
+  'sink_material': [
+    'basin material', 'sink construction', 'stainless steel', 'cast iron',
+    'fireclay', 'composite', 'porcelain'
+  ],
+  'undermount': [
+    'undermount sink', 'under mount', 'below counter', 'undermounted'
+  ],
+  'drop_in': [
+    'drop-in', 'top mount', 'self-rimming', 'above counter'
+  ],
+  'farmhouse': [
+    'farmhouse sink', 'apron front', 'apron sink', 'farm sink',
+    'apron-front'
+  ],
+  'sound_dampening': [
+    'sound absorbing', 'noise reduction', 'quiet sink', 'sound deadening',
+    'soundproofing'
+  ],
+
+  // =============================================
+  // COMMON DIMENSION ATTRIBUTES
+  // =============================================
+  'overall_dimensions': [
+    'dimensions', 'size', 'product dimensions', 'total dimensions'
+  ],
+  'cutout_dimensions': [
+    'cut out size', 'installation cutout', 'rough opening', 'cutout size'
+  ],
+
+  // =============================================
+  // COLLECTION / STYLE ATTRIBUTES
+  // =============================================
+  'collection': [
+    'product line', 'series', 'family', 'product family', 'model line'
+  ],
+  'style': [
+    'design style', 'aesthetic', 'look', 'modern', 'traditional',
+    'contemporary', 'transitional'
+  ],
+  'color': [
+    'finish color', 'color finish', 'hue', 'shade', 'tone'
+  ],
+  'color_family': [
+    'color group', 'color category', 'color type'
   ]
 };
 
@@ -511,11 +1158,279 @@ export function getCategoryFieldKey(category: string, genericFieldKey: string): 
   return genericFieldKey;
 }
 
+/**
+ * FINAL SWEEP FOR MISSING VALUES
+ * ==============================
+ * Performs an exhaustive search across ALL data sources to find values
+ * for fields that were marked as "Not Found" by AI.
+ * 
+ * This function is called AFTER AI processing to catch anything the AI missed
+ * that exists in the raw data.
+ * 
+ * @param fieldKey - The field key to search for (e.g., 'ada', 'cutlery_tray')
+ * @param rawProduct - The raw product data from Salesforce
+ * @param category - Optional category for context-aware searching
+ * @returns The found value or null if truly not found
+ */
+export function finalSweepForValue(
+  fieldKey: string,
+  rawProduct: any,
+  _category?: string  // Reserved for future category-specific logic
+): string | null {
+  const normalizeKey = (key: string): string => 
+    key.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+  
+  const normalizeName = (name: string): string =>
+    name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+  
+  const normalizedFieldKey = normalizeKey(fieldKey);
+  
+  // Get all possible aliases for this field
+  const aliases = FIELD_ALIASES[fieldKey] || FIELD_ALIASES[normalizedFieldKey] || [];
+  const searchTerms = [
+    fieldKey,
+    fieldKey.replace(/_/g, ' '),
+    ...aliases
+  ].map(s => normalizeName(s));
+  
+  // Add the readable field name (e.g., "ada" -> "ADA Compliant")
+  const readableName = fieldKey.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  searchTerms.push(normalizeName(readableName));
+  
+  // Helper to search an array of attributes
+  const searchInArray = (attrs: Array<{ name: string; value: string }> | undefined): string | null => {
+    if (!attrs || !Array.isArray(attrs)) return null;
+    
+    for (const attr of attrs) {
+      if (!attr.name || attr.value === undefined || attr.value === null) continue;
+      
+      const normalizedAttrName = normalizeName(attr.name);
+      
+      // Check each search term
+      for (const term of searchTerms) {
+        if (
+          normalizedAttrName === term ||
+          normalizedAttrName.includes(term) ||
+          term.includes(normalizedAttrName)
+        ) {
+          // Verify it's a meaningful match (not just "a" matching "capacity")
+          const matchRatio = Math.min(normalizedAttrName.length, term.length) / 
+                            Math.max(normalizedAttrName.length, term.length);
+          if (matchRatio > 0.4) {
+            // Found a match - clean and return the value
+            const value = String(attr.value).trim();
+            if (value && value !== '' && value.toLowerCase() !== 'n/a') {
+              logger.info('Final sweep found value', {
+                fieldKey,
+                matchedAttr: attr.name,
+                matchedTerm: term,
+                value,
+                source: 'attribute_array'
+              });
+              return value;
+            }
+          }
+        }
+      }
+    }
+    return null;
+  };
+  
+  // Helper to search in specifications object
+  const searchInSpecs = (specs: Record<string, any> | undefined): string | null => {
+    if (!specs || typeof specs !== 'object') return null;
+    
+    for (const [key, spec] of Object.entries(specs)) {
+      if (!spec) continue;
+      
+      const normalizedSpecKey = normalizeName(key);
+      const specValue = typeof spec === 'object' ? spec.value : spec;
+      
+      if (!specValue) continue;
+      
+      for (const term of searchTerms) {
+        if (
+          normalizedSpecKey === term ||
+          normalizedSpecKey.includes(term) ||
+          term.includes(normalizedSpecKey)
+        ) {
+          const matchRatio = Math.min(normalizedSpecKey.length, term.length) / 
+                            Math.max(normalizedSpecKey.length, term.length);
+          if (matchRatio > 0.4) {
+            const value = String(specValue).trim();
+            if (value && value !== '' && value.toLowerCase() !== 'n/a') {
+              logger.info('Final sweep found value in specs', {
+                fieldKey,
+                matchedSpec: key,
+                matchedTerm: term,
+                value,
+                source: 'specifications'
+              });
+              return value;
+            }
+          }
+        }
+      }
+    }
+    return null;
+  };
+  
+  // Search order (most reliable first):
+  // 1. Ferguson Attributes
+  let found = searchInArray(rawProduct.Ferguson_Attributes);
+  if (found) return found;
+  
+  // 2. Web Retailer Specs
+  found = searchInArray(rawProduct.Web_Retailer_Specs);
+  if (found) return found;
+  
+  // 3. Ferguson Raw Data specifications
+  if (rawProduct.Ferguson_Raw_Data?.product?.specifications) {
+    found = searchInSpecs(rawProduct.Ferguson_Raw_Data.product.specifications);
+    if (found) return found;
+  }
+  
+  // 4. Ferguson Raw Data feature_groups
+  if (rawProduct.Ferguson_Raw_Data?.product?.feature_groups) {
+    for (const group of rawProduct.Ferguson_Raw_Data.product.feature_groups) {
+      if (group.features && Array.isArray(group.features)) {
+        const converted = group.features.map((f: any) => ({ name: f.name, value: f.value }));
+        found = searchInArray(converted);
+        if (found) return found;
+      }
+    }
+  }
+  
+  // 5. Search in description for boolean fields
+  const booleanFields = ['ada', 'energy_star', 'panel_ready', 'smart_home', 'fingerprint_resistant'];
+  if (booleanFields.includes(normalizedFieldKey)) {
+    const descriptions = [
+      rawProduct.Product_Description_Web_Retailer,
+      rawProduct.Ferguson_Description,
+      rawProduct.Ferguson_Raw_Data?.product?.description
+    ].filter(Boolean).join(' ').toLowerCase();
+    
+    // Check for explicit mentions
+    for (const term of searchTerms) {
+      if (descriptions.includes(term)) {
+        // Check context for Yes/No
+        if (descriptions.includes(`${term}: no`) || 
+            descriptions.includes(`${term} no`) ||
+            descriptions.includes(`not ${term}`)) {
+          logger.info('Final sweep found boolean No in description', {
+            fieldKey,
+            term,
+            source: 'description'
+          });
+          return 'No';
+        }
+        if (descriptions.includes(`${term}: yes`) || 
+            descriptions.includes(`${term} yes`) ||
+            descriptions.includes(`is ${term}`)) {
+          logger.info('Final sweep found boolean Yes in description', {
+            fieldKey,
+            term,
+            source: 'description'
+          });
+          return 'Yes';
+        }
+      }
+    }
+  }
+  
+  // Special handling for specific fields
+  // ADA - check for "Ada Compliant" in Web_Retailer_Specs specifically
+  if (normalizedFieldKey === 'ada' || fieldKey === 'ada') {
+    const adaAttr = rawProduct.Web_Retailer_Specs?.find((s: any) => 
+      s.name?.toLowerCase().includes('ada')
+    );
+    if (adaAttr?.value) {
+      logger.info('Final sweep found ADA via special check', {
+        fieldKey,
+        value: adaAttr.value,
+        source: 'ada_special_check'
+      });
+      return adaAttr.value;
+    }
+  }
+  
+  // Cutlery Tray / 3rd Rack - derive from number_of_racks
+  if (normalizedFieldKey === 'cutlerytray' || fieldKey === 'cutlery_tray') {
+    const racksAttr = rawProduct.Ferguson_Attributes?.find((a: any) =>
+      a.name?.toLowerCase().includes('rack') && a.name?.toLowerCase().includes('number')
+    );
+    if (racksAttr?.value) {
+      const numRacks = parseInt(racksAttr.value, 10);
+      if (numRacks >= 3) {
+        logger.info('Final sweep inferred cutlery tray from number of racks', {
+          fieldKey,
+          numRacks,
+          source: 'derived_from_racks'
+        });
+        return 'Yes';
+      }
+    }
+    
+    // Also check for "3rd rack" or "third rack" mentions
+    const descriptions = [
+      rawProduct.Product_Description_Web_Retailer,
+      rawProduct.Ferguson_Description,
+      rawProduct.Ferguson_Raw_Data?.product?.description
+    ].filter(Boolean).join(' ').toLowerCase();
+    
+    if (descriptions.includes('3rd rack') || descriptions.includes('third rack') ||
+        descriptions.includes('standard 3rd rack') || descriptions.includes('cutlery tray')) {
+      logger.info('Final sweep found 3rd rack mention in description', {
+        fieldKey,
+        source: 'description_mention'
+      });
+      return 'Yes';
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Perform final sweep on ALL "Not Found" values in Top Filter Attributes
+ * This ensures we extract everything possible from the raw data
+ */
+export function finalSweepTopFilterAttributes(
+  topFilterAttrs: Record<string, any>,
+  rawProduct: any,
+  category?: string
+): Record<string, any> {
+  const updated = { ...topFilterAttrs };
+  const notFoundMarkers = ['not found', 'n/a', 'unavailable', '', null, undefined];
+  
+  for (const [key, value] of Object.entries(updated)) {
+    const isNotFound = value === null || 
+                       value === undefined || 
+                       notFoundMarkers.includes(String(value).toLowerCase().trim());
+    
+    if (isNotFound) {
+      const foundValue = finalSweepForValue(key, rawProduct, category);
+      if (foundValue) {
+        updated[key] = foundValue;
+        logger.info('Final sweep replaced Not Found', {
+          fieldKey: key,
+          oldValue: value,
+          newValue: foundValue
+        });
+      }
+    }
+  }
+  
+  return updated;
+}
+
 export default {
   FIELD_ALIASES,
   findFieldMatch,
   inferFieldsFromText,
   inferMissingFields,
   getCategoryFieldKey,
+  finalSweepForValue,
+  finalSweepTopFilterAttributes,
   CATEGORY_FIELD_OVERRIDES
 };

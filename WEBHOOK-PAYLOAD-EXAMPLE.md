@@ -54,9 +54,9 @@ When verification processing completes, our API will POST the results to the `we
       "UPC_GTIN_Verified": "Not Found",
       "Model_Number_Verified": "KOES730SPS",
       "Model_Number_Alias": "KOES730SPS",
-      "Model_Parent": "Not Found",
-      "Model_Variant_Number": "Not Found",
-      "Total_Model_Variants": "Not Found"
+      "Model_Parent": "None Identified",
+      "Model_Variant_Number": "None Identified",
+      "Total_Model_Variants": "None Identified"
     },
     "Top_Filter_Attributes": {
       "fuel_type": "Electric",
@@ -190,9 +190,9 @@ Core product information verified through dual-AI analysis:
 | `UPC_GTIN_Verified` | String | `"Not Found"` | UPC/GTIN code |
 | `Model_Number_Verified` | String | `"KOES730SPS"` | Verified model number |
 | `Model_Number_Alias` | String | `"KOES730SPS"` | Alternate model designation |
-| `Model_Parent` | String | `"Not Found"` | Parent model (if variant) |
-| `Model_Variant_Number` | String | `"Not Found"` | Variant identifier |
-| `Total_Model_Variants` | String | `"Not Found"` | Total number of variants |
+| `Model_Parent` | String | `"None Identified"` | Parent model (if variant) |
+| `Model_Variant_Number` | String | `"None Identified"` | Variant identifier |
+| `Total_Model_Variants` | String | `"None Identified"` | Total number of variants |
 
 #### `Top_Filter_Attributes`
 Key filterable attributes (values only):

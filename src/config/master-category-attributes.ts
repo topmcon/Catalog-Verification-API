@@ -189,21 +189,22 @@ export const DISHWASHER_SCHEMA: CategorySchema = {
   department: 'Appliances',
   aliases: ['Dish Washer', 'Built-In Dishwasher', 'Portable Dishwasher', 'Drawer Dishwasher'],
   top15FilterAttributes: [
+    // Aligned with Salesforce category-filter-attributes.json for Dishwasher
+    { name: 'Noise Level', fieldKey: 'noise_level', type: 'number', unit: 'dB', description: 'Operating noise level in decibels' },
     { name: 'Installation Type', fieldKey: 'installation_type', type: 'enum', allowedValues: ['Built-In', 'Portable', 'Drawer', 'Countertop'], description: 'How dishwasher is installed' },
-    { name: 'Tub Material', fieldKey: 'tub_material', type: 'enum', allowedValues: ['Stainless Steel', 'Plastic', 'Hybrid'], description: 'Interior tub material' },
-    { name: 'Noise Level (dB)', fieldKey: 'noise_level_db', type: 'number', unit: 'dB', description: 'Operating noise level' },
-    { name: 'Place Settings', fieldKey: 'place_settings', type: 'number', description: 'Capacity in place settings' },
-    { name: 'Third Rack', fieldKey: 'third_rack', type: 'boolean', description: 'Has third rack' },
-    { name: 'Number of Wash Cycles', fieldKey: 'wash_cycles', type: 'number', description: 'Total wash cycle options' },
-    { name: 'Drying System', fieldKey: 'drying_system', type: 'enum', allowedValues: ['Heated Dry', 'Fan Dry', 'Condensation', 'AutoAir'], description: 'Drying method' },
-    { name: 'Soil Sensor', fieldKey: 'soil_sensor', type: 'boolean', description: 'Has automatic soil sensing' },
-    { name: 'Hard Food Disposer', fieldKey: 'hard_food_disposer', type: 'boolean', description: 'Has built-in disposer' },
-    { name: 'Adjustable Racks', fieldKey: 'adjustable_racks', type: 'boolean', description: 'Has adjustable rack positions' },
-    { name: 'Bottle Jets', fieldKey: 'bottle_jets', type: 'boolean', description: 'Has dedicated bottle washing' },
-    { name: 'Steam PreWash', fieldKey: 'steam_prewash', type: 'boolean', description: 'Has steam cleaning' },
-    { name: 'Smart/WiFi Connected', fieldKey: 'smart_wifi', type: 'boolean', description: 'WiFi or smart home connectivity' },
-    { name: 'ENERGY STAR', fieldKey: 'energy_star', type: 'boolean', description: 'ENERGY STAR certified' },
-    { name: 'Color/Finish', fieldKey: 'color_finish', type: 'string', description: 'Exterior color or finish' }
+    { name: 'Place Setting Capacity', fieldKey: 'place_setting_capacity', type: 'number', description: 'Capacity in place settings' },
+    { name: 'Stainless Steel Interior', fieldKey: 'stainless_steel_interior', type: 'boolean', description: 'Has stainless steel tub interior' },
+    { name: 'Number of Wash Cycles', fieldKey: 'number_of_wash_cycles', type: 'number', description: 'Total wash cycle options' },
+    { name: 'Drying System', fieldKey: 'drying_system', type: 'enum', allowedValues: ['Heated Dry', 'Fan Dry', 'Condensation', 'AutoAir', 'PureDry', 'Inherent heat'], description: 'Drying method' },
+    { name: 'Control Type', fieldKey: 'control_type', type: 'enum', allowedValues: ['Touch', 'Electronic', 'Knob', 'Push Button'], description: 'Control interface type' },
+    { name: 'Energy Star', fieldKey: 'energy_star', type: 'boolean', description: 'ENERGY STAR certified' },
+    { name: 'Smart Home', fieldKey: 'smart_home', type: 'boolean', description: 'WiFi or smart home connectivity' },
+    { name: 'ADA', fieldKey: 'ada', type: 'boolean', description: 'ADA compliant' },
+    { name: 'Fingerprint Resistant', fieldKey: 'fingerprint_resistant', type: 'boolean', description: 'Has fingerprint resistant finish' },
+    { name: 'Panel Ready', fieldKey: 'panel_ready', type: 'boolean', description: 'Accepts custom panel' },
+    { name: 'Number Of Racks', fieldKey: 'number_of_racks', type: 'number', description: 'Total number of dish racks' },
+    { name: 'Cutlery Tray', fieldKey: 'cutlery_tray', type: 'boolean', description: 'Has third rack or cutlery tray' },
+    { name: 'Dishwasher Type', fieldKey: 'dishwasher_type', type: 'enum', allowedValues: ['Top Controls', 'Front Controls', 'Drawer', 'Portable'], description: 'Dishwasher control location type' }
   ]
 };
 
@@ -433,7 +434,7 @@ export const FALLBACK_ATTRIBUTES: Record<string, string[]> = {
   // Appliances
   'range': ['Fuel Type', 'Width', 'Installation Type', 'Number of Burners', 'Oven Capacity', 'Convection', 'Self-Cleaning', 'BTU Output', 'Control Type', 'Finish', 'Color', 'Griddle', 'Double Oven', 'Continuous Grates', 'Sabbath Mode'],
   'refrigerator': ['Door Style', 'Width', 'Total Capacity', 'Refrigerator Capacity', 'Freezer Capacity', 'Ice Maker', 'Water Dispenser', 'Counter Depth', 'Finish', 'Color', 'Energy Star', 'Smart Features', 'Temperature Zones', 'Door Alarm', 'Humidity Control'],
-  'dishwasher': ['Installation Type', 'Width', 'Tub Material', 'Noise Level', 'Number of Cycles', 'Place Settings', 'Third Rack', 'Adjustable Racks', 'Hard Food Disposer', 'Drying System', 'Energy Star', 'Finish', 'Control Location', 'WiFi Enabled', 'Soil Sensor'],
+  'dishwasher': ['Noise Level', 'Installation Type', 'Place Setting Capacity', 'Stainless Steel Interior', 'Number of Wash Cycles', 'Drying System', 'Control Type', 'Energy Star', 'Smart Home', 'ADA', 'Fingerprint Resistant', 'Panel Ready', 'Number Of Racks', 'Cutlery Tray', 'Dishwasher Type'],
   'oven': ['Oven Configuration', 'Width', 'Total Capacity', 'Fuel Type', 'Convection', 'Self-Cleaning', 'Steam Clean', 'Control Type', 'Finish', 'Sabbath Mode', 'Temperature Probe', 'Delay Start', 'WiFi Enabled', 'Air Fry', 'Warming Drawer'],
   'cooktop': ['Fuel Type', 'Width', 'Number of Burners', 'BTU Output', 'Control Type', 'Ignition Type', 'Continuous Grates', 'Griddle', 'Downdraft', 'Finish', 'Induction', 'Bridge Element', 'Simmer Burner', 'Power Burner', 'Timer'],
   'microwave': ['Installation Type', 'Width', 'Capacity', 'Wattage', 'Turntable', 'Sensor Cooking', 'Convection', 'Vent CFM', 'Finish', 'Color', 'Control Type', 'Child Lock', 'Defrost', 'One-Touch Cooking', 'Timer'],
@@ -694,13 +695,14 @@ export const AI_SYSTEM_CATEGORY_ALIASES: Record<string, string> = {
 
 /**
  * Get category schema by ID or name
- * Enhanced to handle: # suffix, aliases, case variations, singular/plural
+ * Enhanced to handle: # suffix, aliases, case variations, singular/plural, parenthetical context
  */
 export function getCategorySchema(categoryIdOrName: string): CategorySchema | null {
   if (!categoryIdOrName) return null;
   
-  // Remove trailing # if present
-  const cleanName = categoryIdOrName.replace(/\s*#\s*$/, '').trim();
+  // Remove trailing # if present AND strip parenthetical context like "(Appliances)"
+  // AI sometimes returns "Dishwasher (Appliances)" instead of just "Dishwasher"
+  let cleanName = categoryIdOrName.replace(/\s*#\s*$/, '').replace(/\s*\([^)]+\)\s*$/, '').trim();
   const normalized = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
   
   // Check known aliases first

@@ -14,37 +14,73 @@ import { getCategorySchema as getAICategorySchema, CategorySchema } from './mast
 import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from './constants';
 
 // ============================================
-// OPTIMIZED FILTER ATTRIBUTES (from JSON)
+// OPTIMIZED FILTER ATTRIBUTES (from JSON v2.0)
 // ============================================
 
+/**
+ * Filter attribute from Salesforce - matches v2.0 JSON structure
+ */
 interface OptimizedFilterAttribute {
   rank: number;
   name: string;
-  salesforce_id: string | null;
-  filter_type: string;
-  rationale: string;
+  sf_id: string | null;      // Salesforce field ID
+  type: string;              // enum, boolean, number, string
 }
 
+/**
+ * Category config from v2.0 JSON structure
+ */
 interface OptimizedCategoryConfig {
   department: string;
+  category_id: string;       // Salesforce category ID
   attributes: OptimizedFilterAttribute[];
 }
 
-// Load optimized filter attributes from JSON
-let OPTIMIZED_FILTER_ATTRIBUTES: Record<string, OptimizedCategoryConfig> | null = null;
+/**
+ * Full v2.0 JSON structure
+ */
+interface CategoryFilterAttributesV2 {
+  version: string;
+  date: string;
+  total_categories: number;
+  categories: Record<string, OptimizedCategoryConfig>;
+}
 
+// Cached data from JSON file
+let CATEGORY_FILTER_DATA: CategoryFilterAttributesV2 | null = null;
+
+/**
+ * Load category filter attributes from JSON (v2.0 format)
+ * Supports both nested v2.0 format and legacy flat format
+ */
 function loadOptimizedFilterAttributes(): Record<string, OptimizedCategoryConfig> {
-  if (OPTIMIZED_FILTER_ATTRIBUTES) {
-    return OPTIMIZED_FILTER_ATTRIBUTES;
+  if (CATEGORY_FILTER_DATA) {
+    return CATEGORY_FILTER_DATA.categories;
   }
   
   try {
     const jsonPath = path.join(__dirname, 'salesforce-picklists', 'category-filter-attributes.json');
-    const data = fs.readFileSync(jsonPath, 'utf-8');
-    OPTIMIZED_FILTER_ATTRIBUTES = JSON.parse(data);
-    return OPTIMIZED_FILTER_ATTRIBUTES!;
+    const rawData = fs.readFileSync(jsonPath, 'utf-8');
+    const parsed = JSON.parse(rawData);
+    
+    // Check if this is v2.0 format (has "categories" nested object)
+    if (parsed.version && parsed.categories) {
+      CATEGORY_FILTER_DATA = parsed as CategoryFilterAttributesV2;
+      console.log(`[lookups] Loaded category-filter-attributes.json v${parsed.version} with ${parsed.total_categories} categories`);
+      return CATEGORY_FILTER_DATA.categories;
+    }
+    
+    // Legacy format fallback - wrap in categories structure
+    console.warn('[lookups] Loading legacy format category-filter-attributes.json');
+    CATEGORY_FILTER_DATA = {
+      version: '1.0',
+      date: 'unknown',
+      total_categories: Object.keys(parsed).length,
+      categories: parsed
+    };
+    return CATEGORY_FILTER_DATA.categories;
   } catch (error) {
-    console.warn('Could not load optimized filter attributes:', error);
+    console.warn('[lookups] Could not load category-filter-attributes.json:', error);
     return {};
   }
 }
@@ -85,8 +121,8 @@ export function getOptimizedFilterAttributes(categoryName: string): OptimizedFil
 export function getOptimizedFilterAttributeIds(categoryName: string): string[] {
   const attrs = getOptimizedFilterAttributes(categoryName);
   return attrs
-    .filter(a => a.salesforce_id !== null)
-    .map(a => a.salesforce_id as string);
+    .filter(a => a.sf_id !== null)
+    .map(a => a.sf_id as string);
 }
 
 /**
@@ -109,6 +145,57 @@ export function getCategoryDepartment(categoryName: string): string | null {
   }
   
   return null;
+}
+
+/**
+ * Get Salesforce category ID for a category
+ */
+export function getSalesforceCategoryId(categoryName: string): string | null {
+  const data = loadOptimizedFilterAttributes();
+  
+  // Try exact match
+  if (data[categoryName]) {
+    return data[categoryName].category_id;
+  }
+  
+  // Try case-insensitive
+  const lowerName = categoryName.toLowerCase();
+  for (const [key, value] of Object.entries(data)) {
+    if (key.toLowerCase() === lowerName) {
+      return value.category_id;
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Get attribute name to Salesforce ID mapping for a category
+ * Returns a map of { attributeName: sf_id }
+ */
+export function getAttributeNameToSfIdMap(categoryName: string): Record<string, string | null> {
+  const attrs = getOptimizedFilterAttributes(categoryName);
+  const map: Record<string, string | null> = {};
+  
+  for (const attr of attrs) {
+    map[attr.name] = attr.sf_id;
+    // Also add lowercase version for easier matching
+    map[attr.name.toLowerCase()] = attr.sf_id;
+    // Add snake_case version
+    map[attr.name.toLowerCase().replace(/\s+/g, '_')] = attr.sf_id;
+  }
+  
+  return map;
+}
+
+/**
+ * Get the top 15 filter attribute names for a category (in rank order)
+ */
+export function getTop15AttributeNames(categoryName: string): string[] {
+  const attrs = getOptimizedFilterAttributes(categoryName);
+  return attrs
+    .sort((a, b) => a.rank - b.rank)
+    .map(a => a.name);
 }
 
 // ============================================

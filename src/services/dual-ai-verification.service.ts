@@ -59,7 +59,7 @@ import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
 import { performProductResearch, formatResearchForPrompt, ResearchResult } from './research.service';
 import { failedMatchLogger } from './failed-match-logger.service';
-import { inferMissingFields, FIELD_ALIASES } from './smart-field-inference.service';
+import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -1242,6 +1242,28 @@ export async function verifyProductWithDualAI(
     const processingTime = Date.now() - startTime;
     const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount);
     
+    // ========================================================================
+    // FINAL SWEEP: Check all "Not Found" values against raw data
+    // This catches anything the AI missed that exists in Ferguson/Web data
+    // ========================================================================
+    if (response.Top_Filter_Attributes) {
+      const category = response.Primary_Attributes?.Category_Verified || consensus.agreedCategory || undefined;
+      const sweptAttributes = finalSweepTopFilterAttributes(
+        response.Top_Filter_Attributes,
+        rawProduct,
+        category
+      );
+      
+      // Update the response with swept values
+      response.Top_Filter_Attributes = sweptAttributes;
+      
+      logger.info('Final sweep completed for Top_Filter_Attributes', {
+        sessionId: verificationSessionId,
+        category,
+        attributeCount: Object.keys(sweptAttributes).length
+      });
+    }
+    
     // Track field population rates (async, don't await)
     trackFieldPopulation(response, consensus.agreedCategory || 'unknown', openaiResult, xaiResult).catch(err => {
       logger.error('Failed to track field population', { error: err.message });
@@ -2416,16 +2438,43 @@ function buildReceivedAttributesConfirmation(
   };
 
   // Helper to find attribute in Top Filter Attributes
+  // Uses FIELD_ALIASES for semantic matching (e.g., "Installation Type" -> "type")
   const findInTopFilters = (attrName: string): string | null => {
     const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    const normalizedSearchKey = attrName.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+    
     for (const [key, value] of Object.entries(topFilterAttributes)) {
       if (value && value !== '') {
         const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        
+        // Direct name matching
         if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
           const matchRatio = Math.min(normalizedKey.length, normalizedSearch.length) / Math.max(normalizedKey.length, normalizedSearch.length);
           if (matchRatio > 0.5) {
             return key;
           }
+        }
+        
+        // Check FIELD_ALIASES - does any alias for this key match the search term?
+        const aliases = FIELD_ALIASES[key] || FIELD_ALIASES[normalizedKey.replace(/\s/g, '_')] || [];
+        for (const alias of aliases) {
+          const normalizedAlias = alias.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+          if (normalizedAlias.includes(normalizedSearch) || 
+              normalizedSearch.includes(normalizedAlias) ||
+              normalizedAlias === normalizedSearchKey ||
+              normalizedAlias.replace(/\s/g, '') === normalizedSearchKey) {
+            return key;
+          }
+        }
+        
+        // Check if the search term is an alias for this field key
+        // e.g., attrName="Installation Type" should match key="type" because "installation type" is in type's aliases
+        const searchAliases = FIELD_ALIASES[normalizedSearchKey] || [];
+        if (searchAliases.some(alias => {
+          const normalizedAlias = alias.toLowerCase().replace(/[^a-z0-9]/g, '');
+          return normalizedAlias === normalizedKey.replace(/\s/g, '') || normalizedKey.includes(normalizedAlias);
+        })) {
+          return key;
         }
       }
     }
@@ -3186,32 +3235,44 @@ function buildFinalResponse(
       // Remove special characters for alias
       return primary.replace(/[\/\-\s]/g, '');
     })(),
-    Model_Parent: preferAIValue(
-      consensus.agreedPrimaryAttributes.model_parent,
-      openaiResult.primaryAttributes.model_parent,
-      xaiResult.primaryAttributes.model_parent,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      ''
-    ),
-    Model_Variant_Number: preferAIValue(
-      consensus.agreedPrimaryAttributes.model_variant_number,
-      openaiResult.primaryAttributes.model_variant_number,
-      xaiResult.primaryAttributes.model_variant_number,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      ''
-    ),
-    Total_Model_Variants: cleanEncodingIssues(
-      preferAIValue(
-        consensus.agreedPrimaryAttributes.total_model_variants,
-        openaiResult.primaryAttributes.total_model_variants,
-        xaiResult.primaryAttributes.total_model_variants,
+    Model_Parent: (() => {
+      const value = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_parent,
+        openaiResult.primaryAttributes.model_parent,
+        xaiResult.primaryAttributes.model_parent,
         openaiResult.confidence,
         xaiResult.confidence,
         ''
-      )
-    )
+      );
+      // Use "None Identified" instead of "Not Found" for model variant fields
+      return (!value || value === 'Not Found') ? 'None Identified' : value;
+    })(),
+    Model_Variant_Number: (() => {
+      const value = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_variant_number,
+        openaiResult.primaryAttributes.model_variant_number,
+        xaiResult.primaryAttributes.model_variant_number,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      // Use "None Identified" instead of "Not Found" for model variant fields
+      return (!value || value === 'Not Found') ? 'None Identified' : value;
+    })(),
+    Total_Model_Variants: (() => {
+      const value = cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.total_model_variants,
+          openaiResult.primaryAttributes.total_model_variants,
+          xaiResult.primaryAttributes.total_model_variants,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          ''
+        )
+      );
+      // Use "None Identified" instead of "Not Found" for model variant fields
+      return (!value || value === 'Not Found') ? 'None Identified' : value;
+    })()
   };
 
   // Clean top filter attributes and build attribute ID lookups
