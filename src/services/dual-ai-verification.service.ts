@@ -2000,8 +2000,150 @@ function valuesMatch(a: any, b: any): boolean {
 }
 
 /**
+ * ==========================================
+ * CATEGORY-AWARE TOP 15 ATTRIBUTE FINDER
+ * ==========================================
+ * 
+ * This function is CRITICAL for proper attribute mapping.
+ * It searches raw data for values that match a specific Top 15 category attribute.
+ * 
+ * PRIORITY ORDER:
+ * 1. Exact match on the Top 15 attribute name
+ * 2. Exact match on the Top 15 field key
+ * 3. Match using FIELD_ALIASES for this specific field key
+ * 4. Fuzzy match with high confidence threshold
+ * 
+ * This ensures that "Installation Type" for Dishwasher maps to the Dishwasher's
+ * installation_type field (not to "Mount Type" or other similar attributes).
+ */
+function findTop15AttributeValue(
+  rawProduct: SalesforceIncomingProduct,
+  fieldKey: string,
+  attributeName: string
+): { value: string | number | boolean | null; matchedFrom: string | null } {
+  // Normalize function for consistent matching
+  const normalizeAttrName = (name: string): string => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+  
+  const normalizedAttrName = normalizeAttrName(attributeName);
+  const normalizedFieldKey = fieldKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const normalizedFieldKeySpaced = fieldKey.toLowerCase().replace(/_/g, ' ').trim();
+  
+  // Get all known aliases for this field key from FIELD_ALIASES
+  const aliases = FIELD_ALIASES[fieldKey] || FIELD_ALIASES[normalizedFieldKey] || [];
+  const normalizedAliases = aliases.map(a => normalizeAttrName(a));
+  
+  // Build complete search terms list (prioritized)
+  const searchTerms = [
+    normalizedAttrName,           // e.g., "installation type"
+    normalizedFieldKey,           // e.g., "installationtype"
+    normalizedFieldKeySpaced,     // e.g., "installation type"
+    ...normalizedAliases          // all aliases from FIELD_ALIASES
+  ];
+  
+  // Remove duplicates while preserving order
+  const uniqueSearchTerms = [...new Set(searchTerms)];
+  
+  // Helper to find value in attribute array with prioritized matching
+  const findInArray = (
+    attrs: Array<{ name: string; value: string }> | undefined, 
+    sourceName: string
+  ): { value: string | number | boolean | null; matchedFrom: string | null } => {
+    if (!attrs || !Array.isArray(attrs)) return { value: null, matchedFrom: null };
+    
+    // PASS 1: Exact matches (highest priority)
+    for (const attr of attrs) {
+      if (!attr.value || String(attr.value).trim() === '') continue;
+      
+      const normalizedName = normalizeAttrName(attr.name);
+      
+      // Exact match on attribute name or field key
+      if (normalizedName === normalizedAttrName || 
+          normalizedName === normalizedFieldKey ||
+          normalizedName === normalizedFieldKeySpaced) {
+        logger.debug('Top15 exact match found', {
+          fieldKey,
+          attrName: attr.name,
+          value: attr.value,
+          source: sourceName
+        });
+        return { value: attr.value, matchedFrom: `${sourceName}:exact:${attr.name}` };
+      }
+    }
+    
+    // PASS 2: Alias matches (second priority)
+    for (const attr of attrs) {
+      if (!attr.value || String(attr.value).trim() === '') continue;
+      
+      const normalizedName = normalizeAttrName(attr.name);
+      
+      for (const alias of normalizedAliases) {
+        if (normalizedName === alias) {
+          logger.debug('Top15 alias match found', {
+            fieldKey,
+            attrName: attr.name,
+            alias,
+            value: attr.value,
+            source: sourceName
+          });
+          return { value: attr.value, matchedFrom: `${sourceName}:alias:${alias}` };
+        }
+      }
+    }
+    
+    // PASS 3: Contains match with high threshold (must be >70% overlap)
+    for (const attr of attrs) {
+      if (!attr.value || String(attr.value).trim() === '') continue;
+      
+      const normalizedName = normalizeAttrName(attr.name);
+      
+      // Check if attribute name contains our search term or vice versa
+      for (const searchTerm of uniqueSearchTerms) {
+        if (searchTerm.length < 3) continue; // Skip very short terms
+        
+        if (normalizedName.includes(searchTerm) || searchTerm.includes(normalizedName)) {
+          const shorter = Math.min(normalizedName.length, searchTerm.length);
+          const longer = Math.max(normalizedName.length, searchTerm.length);
+          const ratio = shorter / longer;
+          
+          // Require 70% overlap for contains match
+          if (ratio >= 0.7) {
+            logger.debug('Top15 contains match found', {
+              fieldKey,
+              attrName: attr.name,
+              searchTerm,
+              ratio,
+              value: attr.value,
+              source: sourceName
+            });
+            return { value: attr.value, matchedFrom: `${sourceName}:contains:${searchTerm}` };
+          }
+        }
+      }
+    }
+    
+    return { value: null, matchedFrom: null };
+  };
+  
+  // Search Ferguson first (generally more reliable), then Web Retailer
+  let result = findInArray(rawProduct.Ferguson_Attributes, 'Ferguson');
+  if (result.value === null) {
+    result = findInArray(rawProduct.Web_Retailer_Specs, 'WebRetailer');
+  }
+  
+  return result;
+}
+
+/**
  * Find attribute value in raw Web_Retailer_Specs or Ferguson_Attributes arrays
  * Uses fuzzy matching on attribute names
+ * 
+ * @deprecated Use findTop15AttributeValue for Top 15 attributes - it's category-aware
  */
 function findAttributeInRawData(
   rawProduct: SalesforceIncomingProduct, 
@@ -3328,20 +3470,22 @@ function buildFinalResponse(
   Object.assign(completeTop15, normalizedAITop15);
   
   // For attributes AI didn't extract, try to find them in raw data arrays
+  // Use the category-aware findTop15AttributeValue function
   if (categorySchema?.top15FilterAttributes) {
     for (const attrDef of categorySchema.top15FilterAttributes) {
       const key = attrDef.fieldKey;
       const name = attrDef.name;
       
-      // If AI didn't provide this attribute, search raw data
+      // If AI didn't provide this attribute, search raw data using category-aware matching
       if (completeTop15[key] === undefined || completeTop15[key] === null || completeTop15[key] === '') {
-        const rawValue = findAttributeInRawData(rawProduct, name);
-        if (rawValue) {
-          completeTop15[key] = rawValue;
-          logger.info('Filled missing Top 15 attribute from raw data', {
+        const result = findTop15AttributeValue(rawProduct, key, name);
+        if (result.value) {
+          completeTop15[key] = result.value;
+          logger.info('Filled missing Top 15 attribute from raw data (category-aware)', {
             fieldKey: key,
             attributeName: name,
-            value: rawValue,
+            value: result.value,
+            matchedFrom: result.matchedFrom,
             source: 'raw_data_fallback'
           });
         }
