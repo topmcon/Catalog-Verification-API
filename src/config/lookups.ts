@@ -10,7 +10,7 @@ import * as path from 'path';
 import { CategoryAttributeConfig } from './types';
 import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from './category-attributes';
 import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from './master-category-schema-map';
-import { getCategorySchema as getAICategorySchema, CategorySchema } from './master-category-attributes';
+import { getCategorySchema as getAICategorySchema, CategorySchema } from './category-config';
 import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from './constants';
 
 // ============================================
@@ -239,7 +239,7 @@ export function getUniqueSchemaCount(): number {
 
 /**
  * Get schema for AI Verification system
- * Uses master-category-attributes with fallbacks and aliases
+ * Uses category-config with fallbacks and aliases
  */
 export function getAISchema(categoryName: string): CategorySchema | null {
   return getAICategorySchema(categoryName);
@@ -385,7 +385,7 @@ export function getSystemCoverage(): {
 } {
   return {
     responseBuilder: Object.keys(MASTER_CATEGORY_SCHEMA_MAP).length,
-    aiSystem: 62, // From master-category-attributes
+    aiSystem: 61, // From category-config (category-filter-attributes.json)
     categoryConfig: Object.keys(CATEGORY_SCHEMAS).length,
   };
 }

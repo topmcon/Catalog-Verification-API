@@ -146,8 +146,8 @@ export default config;
 // RE-EXPORTS (Original)
 // ============================================
 
-// Re-export master category attributes (original)
-export * from './master-category-attributes';
+// Re-export category configuration (NEW - replaces master-category-attributes)
+export * from './category-config';
 
 // Re-export category aliases (original)
 export * from './category-aliases';
@@ -167,7 +167,7 @@ export {
   isAICategorySchema,
 } from './types';
 
-// Export constants (avoid duplicates with master-category-attributes)
+// Export constants from category configuration
 export {
   PREMIUM_BRANDS,
   MID_TIER_BRANDS,

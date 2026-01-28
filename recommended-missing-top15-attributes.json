@@ -1,0 +1,77 @@
+{
+  "version": "1.0-RECOMMENDED",
+  "date": "2026-01-28",
+  "note": "These are AI-recommended Top 15 filter attributes for the 203 missing categories. Review and validate each category before adding to Salesforce.",
+  "total_categories_recommended": 203,
+  "methodology": "Attributes selected based on industry standards, similar existing categories, and common product filtering needs",
+  "categories_to_add": {
+    
+    "Affordable Cabinet Knobs": {
+      "department": "HOME_DECOR",
+      "category_id": null,
+      "attributes": [
+        {"rank": 1, "name": "Material", "sf_id": "TBD", "type": "enum"},
+        {"rank": 2, "name": "Finish", "sf_id": "TBD", "type": "enum"},
+        {"rank": 3, "name": "Center to Center", "sf_id": "a1aaZ000008lz42QAA", "type": "number"},
+        {"rank": 4, "name": "Diameter", "sf_id": "TBD", "type": "number"},
+        {"rank": 5, "name": "Style", "sf_id": "TBD", "type": "enum"},
+        {"rank": 6, "name": "Color", "sf_id": "TBD", "type": "enum"},
+        {"rank": 7, "name": "Shape", "sf_id": "TBD", "type": "enum"},
+        {"rank": 8, "name": "Collection", "sf_id": "a1aaZ000008mBoZQAU", "type": "string"},
+        {"rank": 9, "name": "Installation Type", "sf_id": "TBD", "type": "enum"},
+        {"rank": 10, "name": "Screw Size", "sf_id": "TBD", "type": "string"},
+        {"rank": 11, "name": "Backplate Included", "sf_id": "a1aaZ000008mBnEQAU", "type": "boolean"},
+        {"rank": 12, "name": "Set Quantity", "sf_id": "TBD", "type": "number"},
+        {"rank": 13, "name": "Commercial Grade", "sf_id": "TBD", "type": "boolean"},
+        {"rank": 14, "name": "Antimicrobial", "sf_id": "a1aaZ000008lz3lQAA", "type": "boolean"},
+        {"rank": 15, "name": "Warranty", "sf_id": "TBD", "type": "string"}
+      ]
+    },
+
+    "Affordable Cabinet Pulls": {
+      "department": "HOME_DECOR",
+      "category_id": null,
+      "attributes": [
+        {"rank": 1, "name": "Material", "sf_id": "TBD", "type": "enum"},
+        {"rank": 2, "name": "Finish", "sf_id": "TBD", "type": "enum"},
+        {"rank": 3, "name": "Center to Center", "sf_id": "a1aaZ000008lz42QAA", "type": "number"},
+        {"rank": 4, "name": "Length", "sf_id": "TBD", "type": "number"},
+        {"rank": 5, "name": "Width", "sf_id": "TBD", "type": "number"},
+        {"rank": 6, "name": "Style", "sf_id": "TBD", "type": "enum"},
+        {"rank": 7, "name": "Color", "sf_id": "TBD", "type": "enum"},
+        {"rank": 8, "name": "Collection", "sf_id": "a1aaZ000008mBoZQAU", "type": "string"},
+        {"rank": 9, "name": "Installation Type", "sf_id": "TBD", "type": "enum"},
+        {"rank": 10, "name": "Screw Size", "sf_id": "TBD", "type": "string"},
+        {"rank": 11, "name": "Backplate Included", "sf_id": "a1aaZ000008mBnEQAU", "type": "boolean"},
+        {"rank": 12, "name": "Set Quantity", "sf_id": "TBD", "type": "number"},
+        {"rank": 13, "name": "Commercial Grade", "sf_id": "TBD", "type": "boolean"},
+        {"rank": 14, "name": "Antimicrobial", "sf_id": "a1aaZ000008lz3lQAA", "type": "boolean"},
+        {"rank": 15, "name": "Warranty", "sf_id": "TBD", "type": "string"}
+      ]
+    },
+
+    "NOTE": "This is a SAMPLE showing the structure. Due to the 203 missing categories, I recommend:",
+    "RECOMMENDATION_1": "Focus on the most critical product categories first (appliances, plumbing, lighting)",
+    "RECOMMENDATION_2": "Many of the 203 categories appear to be sub-categories or variants that may not need separate Top 15 lists",
+    "RECOMMENDATION_3": "Consider consolidating similar categories (e.g., all Cabinet Hardware types could share attributes)",
+    "RECOMMENDATION_4": "Prioritize categories that actually have products in your catalog"
+  },
+  
+  "analysis": {
+    "total_categories_in_salesforce": 213,
+    "categories_with_top15_configured": 61,
+    "categories_missing_top15": 203,
+    "breakdown_by_family": {
+      "Appliances": 1,
+      "Bath": 27,
+      "Furniture": 2,
+      "General": 55,
+      "HVAC": 19,
+      "Home Improvement": 50,
+      "Kitchen": 19,
+      "Laundry": 2,
+      "Outdoor": 16,
+      "Other": 12
+    }
+  }
+}

@@ -39,7 +39,7 @@ import {
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
-} from '../config/master-category-attributes';
+} from '../config/category-config';
 import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
@@ -4800,7 +4800,7 @@ function buildFinalResponse(
         topFilterAttributeIds[key] = null;
         
         // Convert field_key to human-readable name for the request
-        const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
         
         if (!requestedAttributeNames.has(key.toLowerCase())) {
           attributeRequests.push({
