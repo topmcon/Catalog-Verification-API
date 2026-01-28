@@ -58,6 +58,7 @@ import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
 import { performProductResearch, formatResearchForPrompt, ResearchResult, performFinalVerificationSearch, FinalVerificationSearchResult } from './research.service';
+import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
 
@@ -4071,6 +4072,141 @@ function buildFinalResponse(
     }
   }
   
+  // ============================================
+  // GENERATE SEO-OPTIMIZED TITLE
+  // ============================================
+  // Build title input from all available product data
+  const seoTitleInput: SEOTitleInput = {
+    brand: brandMatch.matched && brandMatch.matchedValue 
+      ? brandMatch.matchedValue.brand_name 
+      : cleanedText.brand,
+    modelNumber: preferAIValue(
+      consensus.agreedPrimaryAttributes.model_number,
+      openaiResult.primaryAttributes.model_number,
+      xaiResult.primaryAttributes.model_number,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Ferguson_Model_Number || rawProduct.Model_Number_Web_Retailer || ''
+    ) || '',
+    category: categoryMatch.matched && categoryMatch.matchedValue
+      ? categoryMatch.matchedValue.category_name
+      : consensus.agreedCategory || '',
+    subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
+    
+    // Dimensions
+    width: preferAIValue(
+      consensus.agreedPrimaryAttributes.width,
+      openaiResult.primaryAttributes.width,
+      xaiResult.primaryAttributes.width,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
+    ),
+    height: preferAIValue(
+      consensus.agreedPrimaryAttributes.height,
+      openaiResult.primaryAttributes.height,
+      xaiResult.primaryAttributes.height,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Height_Web_Retailer || rawProduct.Ferguson_Height || ''
+    ),
+    depth: preferAIValue(
+      consensus.agreedPrimaryAttributes.depth,
+      openaiResult.primaryAttributes.depth,
+      xaiResult.primaryAttributes.depth,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Depth_Web_Retailer || rawProduct.Ferguson_Depth || ''
+    ),
+    
+    // Style/Type
+    style: styleToUse || '',
+    configuration: preferAIValue(
+      consensus.agreedPrimaryAttributes.configuration,
+      openaiResult.primaryAttributes.configuration,
+      xaiResult.primaryAttributes.configuration,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    
+    // Appearance
+    finish: preferAIValue(
+      consensus.agreedPrimaryAttributes.finish,
+      openaiResult.primaryAttributes.finish,
+      xaiResult.primaryAttributes.finish,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Ferguson_Finish || ''
+    ),
+    color: preferAIValue(
+      consensus.agreedPrimaryAttributes.color,
+      openaiResult.primaryAttributes.color,
+      xaiResult.primaryAttributes.color,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Ferguson_Color || ''
+    ),
+    material: preferAIValue(
+      consensus.agreedPrimaryAttributes.material,
+      openaiResult.primaryAttributes.material,
+      xaiResult.primaryAttributes.material,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    
+    // Category-specific attributes
+    fuelType: preferAIValue(
+      consensus.agreedPrimaryAttributes.fuel_type,
+      openaiResult.primaryAttributes.fuel_type,
+      xaiResult.primaryAttributes.fuel_type,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    totalCapacity: preferAIValue(
+      consensus.agreedPrimaryAttributes.total_capacity,
+      openaiResult.primaryAttributes.total_capacity,
+      xaiResult.primaryAttributes.total_capacity,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.Capacity_Web_Retailer || ''
+    ),
+    numberOfLights: preferAIValue(
+      consensus.agreedPrimaryAttributes.number_of_lights,
+      openaiResult.primaryAttributes.number_of_lights,
+      xaiResult.primaryAttributes.number_of_lights,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    numberOfBurners: preferAIValue(
+      consensus.agreedPrimaryAttributes.number_of_burners,
+      openaiResult.primaryAttributes.number_of_burners,
+      xaiResult.primaryAttributes.number_of_burners,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
+    
+    // Features for possible keyword injection
+    features: cleanedText.features,
+    
+    // Raw title as fallback
+    rawTitle: cleanedText.title
+  };
+  
+  // Generate SEO-optimized title
+  const seoTitle = generateSEOTitle(seoTitleInput);
+  logger.info('SEO title generated', {
+    sessionId,
+    seoTitle: seoTitle.substring(0, 80),
+    originalTitle: cleanedText.title?.substring(0, 80),
+    category: seoTitleInput.category,
+    brand: seoTitleInput.brand
+  });
+  
   const primaryAttributes: PrimaryDisplayAttributes = {
     Brand_Verified: brandMatch.matched && brandMatch.matchedValue 
       ? brandMatch.matchedValue.brand_name  // Use EXACT Salesforce brand name
@@ -4265,7 +4401,7 @@ function buildFinalResponse(
     Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
     Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
     Description_Verified: cleanedText.description,
-    Product_Title_Verified: cleanedText.title,
+    Product_Title_Verified: seoTitle,  // Use SEO-optimized title
     Details_Verified: cleanEncodingIssues(
       preferAIValue(
         consensus.agreedPrimaryAttributes.details,
