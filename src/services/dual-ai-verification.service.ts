@@ -1428,7 +1428,20 @@ export async function verifyProductWithDualAI(
   }
   
   // Normalize Reference_URL - support both Reference_URL and Manufacturer_URL as input
-  const referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
+  let referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
+  
+  // CRITICAL: If URL brand mismatch detected, DO NOT use the Reference_URL for research
+  // This prevents AI from getting polluted with wrong product data
+  const hasUrlBrandMismatch = coherenceResult.conflicts.some(c => c.type === 'url_brand_mismatch');
+  if (hasUrlBrandMismatch && referenceUrl) {
+    logger.warn('SKIPPING Reference_URL due to brand mismatch - URL points to different product', {
+      sessionId: verificationSessionId,
+      skippedUrl: referenceUrl,
+      inputBrand: rawProduct.Ferguson_Brand || rawProduct.Brand_Web_Retailer,
+      reason: 'URL brand mismatch detected in coherence check'
+    });
+    referenceUrl = null; // Don't use this URL for research
+  }
   
   logger.info('Starting dual AI verification', {
     sessionId: verificationSessionId,
