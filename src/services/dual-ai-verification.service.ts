@@ -208,7 +208,7 @@ interface DataCoherenceResult {
 }
 
 interface DataConflict {
-  type: 'category_domain' | 'brand_mismatch' | 'product_type' | 'dimension_mismatch' | 'price_mismatch';
+  type: 'category_domain' | 'brand_mismatch' | 'product_type' | 'dimension_mismatch' | 'price_mismatch' | 'url_brand_mismatch';
   severity: 'critical' | 'warning' | 'info';
   source1: string;
   source2: string;
@@ -346,6 +346,71 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
           description: `Reference URL points to a ${urlPattern.domain} product, but Ferguson data is for ${fergusonDomain}`
         });
         confidenceScore -= 40;
+      }
+    }
+  }
+
+  // ========================================================================
+  // CHECK 3.5: Reference URL Domain vs Brand Mismatch (CRITICAL)
+  // ========================================================================
+  // Detect when Reference_URL domain contains a different brand name than Ferguson_Brand
+  if (referenceUrl && ferguson.brand) {
+    // Extract domain from URL
+    let urlDomain = '';
+    try {
+      const url = new URL(referenceUrl);
+      urlDomain = url.hostname.replace('www.', '').toLowerCase();
+    } catch {
+      // If URL parsing fails, try regex extraction
+      const domainMatch = referenceUrl.match(/(?:https?:\/\/)?(?:www\.)?([^\/]+)/i);
+      urlDomain = domainMatch?.[1]?.toLowerCase() || '';
+    }
+    
+    // Normalize brand for comparison
+    const normalizedBrand = ferguson.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const urlDomainNormalized = urlDomain.replace(/[^a-z0-9]/g, '');
+    
+    // Check if URL domain contains a DIFFERENT well-known brand
+    const knownBrandPatterns = [
+      { brand: 'weld-on', patterns: ['weldon', 'weld-on', 'weld_on'], domain: 'PLUMBING' },
+      { brand: 'melissa-doug', patterns: ['melissa', 'doug'], domain: 'TOYS' },
+      { brand: 'kitchenaid', patterns: ['kitchenaid'], domain: 'APPLIANCES' },
+    ];
+    
+    for (const brandPattern of knownBrandPatterns) {
+      const urlHasBrand = brandPattern.patterns.some(p => urlDomainNormalized.includes(p) || referenceUrl.toLowerCase().includes(p));
+      const inputBrandMatches = brandPattern.patterns.some(p => normalizedBrand.includes(p));
+      
+      // If URL contains a known brand that doesn't match Ferguson brand
+      if (urlHasBrand && !inputBrandMatches) {
+        conflicts.push({
+          type: 'url_brand_mismatch',
+          severity: 'critical',
+          source1: 'Reference_URL',
+          source2: 'Ferguson_Brand',
+          value1: `URL contains "${brandPattern.brand}" brand`,
+          value2: ferguson.brand,
+          description: `Reference URL is for "${brandPattern.brand}" but Ferguson data is for "${ferguson.brand}" - likely wrong URL provided`
+        });
+        confidenceScore -= 50; // Heavy penalty - this is a data input error
+        break;
+      }
+    }
+    
+    // Generic check: URL path contains a brand/product identifier that doesn't match
+    const urlPathBrandIndicators = referenceUrl.match(/\/([a-z0-9-]+)\/|\/product\/([a-z0-9-]+)/gi);
+    if (urlPathBrandIndicators) {
+      for (const indicator of urlPathBrandIndicators) {
+        const cleanIndicator = indicator.replace(/[\/]/g, '').toLowerCase();
+        // If URL path segment looks like a brand name (>4 chars) and doesn't match input brand
+        if (cleanIndicator.length > 4 && !normalizedBrand.includes(cleanIndicator.substring(0, 4)) && !cleanIndicator.includes(normalizedBrand.substring(0, 4))) {
+          // Check if it's a known competing brand
+          const competingBrands = ['weldon', 'weld-on', 'moen', 'kohler', 'delta', 'melissa', 'doug'];
+          if (competingBrands.some(cb => cleanIndicator.includes(cb))) {
+            warnings.push(`Reference URL path "${indicator}" may indicate a different product than ${ferguson.brand}`);
+            confidenceScore -= 15;
+          }
+        }
       }
     }
   }
@@ -3209,6 +3274,78 @@ function buildReceivedAttributesConfirmation(
   return confirmation;
 }
 
+/**
+ * Get Ferguson attributes that are NOT used in Top 15 Filter Attributes
+ * These should be included in Additional_Attributes_HTML
+ * 
+ * Includes: Collection, Theme, Country Of Origin, Location Rating, Manufacturer Warranty, etc.
+ */
+function getUnusedFergusonAttributes(
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes
+): Record<string, string> {
+  const unusedAttrs: Record<string, string> = {};
+  
+  if (!rawProduct.Ferguson_Attributes || !Array.isArray(rawProduct.Ferguson_Attributes)) {
+    return unusedAttrs;
+  }
+
+  // Helper to check if attribute is used in Top Filter Attributes
+  const isUsedInTopFilters = (attrName: string): boolean => {
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    
+    for (const [key, value] of Object.entries(topFilterAttributes)) {
+      if (value && value !== '' && value !== 'Not Found') {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        
+        // Direct name matching
+        if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  // Attributes we specifically want to include in HTML (valuable metadata)
+  const valuableAttributes = new Set([
+    'collection', 'theme', 'country of origin', 'made in america', 'location rating',
+    'manufacturer warranty', 'commercial warranty', 'certifications', 'ul', 'etl', 
+    'energy star', 'ada compliant', 'bulb base', 'bulb type', 'light direction',
+    'reversible mounting', 'approved for commercial use', 'watts per bulb',
+    'fixture shape', 'glass features', 'shade color', 'shade shape', 'power source',
+    'cutout depth', 'cutout height', 'cutout width', 'installation type'
+  ]);
+
+  for (const attr of rawProduct.Ferguson_Attributes) {
+    // Skip empty values
+    if (!attr.value || attr.value.trim() === '') continue;
+    
+    // Skip if already used in Top Filter
+    if (isUsedInTopFilters(attr.name)) continue;
+    
+    // Skip dimensions we already capture in Primary Attributes (Height, Width, Depth, Weight)
+    const skipPrimary = ['height', 'width', 'depth', 'product weight', 'nominal width', 'nominal height'];
+    if (skipPrimary.some(s => attr.name.toLowerCase().includes(s))) continue;
+    
+    // Include if it's a valuable attribute OR if we want to capture all unused
+    const normalizedName = attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    if (valuableAttributes.has(normalizedName) || 
+        attr.name.toLowerCase().includes('warranty') ||
+        attr.name.toLowerCase().includes('collection') ||
+        attr.name.toLowerCase().includes('country') ||
+        attr.name.toLowerCase().includes('location') ||
+        attr.name.toLowerCase().includes('made in') ||
+        attr.name.toLowerCase().includes('certified') ||
+        attr.name.toLowerCase().includes('rating') ||
+        attr.name.toLowerCase().includes('theme')) {
+      unusedAttrs[attr.name] = attr.value;
+    }
+  }
+
+  return unusedAttrs;
+}
+
 function buildFinalResponse(
   rawProduct: SalesforceIncomingProduct,
   consensus: ConsensusResult,
@@ -4391,7 +4528,27 @@ function buildFinalResponse(
     });
   }
   
-  const additionalHtml = generateAttributeTable(consensus.agreedAdditionalAttributes);
+  // Get unused Ferguson attributes that should be included in Additional HTML
+  // These include: Collection, Theme, Country, Location Rating, Warranties, etc.
+  const unusedFergusonAttrs = getUnusedFergusonAttributes(rawProduct, topFilterAttributes);
+  
+  // Merge AI's additional attributes with unused Ferguson attributes
+  // Ferguson attributes take precedence as they are authoritative data
+  const mergedAdditionalAttributes = {
+    ...consensus.agreedAdditionalAttributes,
+    ...unusedFergusonAttrs  // Ferguson data comes last to override AI if both exist
+  };
+  
+  const additionalHtml = generateAttributeTable(mergedAdditionalAttributes);
+  
+  // Log what Ferguson attributes were added to HTML
+  if (Object.keys(unusedFergusonAttrs).length > 0) {
+    logger.info('Ferguson attributes added to Additional_Attributes_HTML', {
+      count: Object.keys(unusedFergusonAttrs).length,
+      attributes: Object.keys(unusedFergusonAttrs)
+    });
+  }
+  
   const priceAnalysis = buildPriceAnalysis(rawProduct);
   const status = determineStatus(consensus, openaiResult, xaiResult);
   const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];

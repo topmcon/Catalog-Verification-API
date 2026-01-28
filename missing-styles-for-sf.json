@@ -1,0 +1,1134 @@
+{
+  "generated_at": "2026-01-28T03:32:12.604Z",
+  "total_missing": 188,
+  "style_requests": [
+    {
+      "style_name": "ADA Compliant",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"ADA Compliant\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Accent",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Accent\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Accessory",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Accessory\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Air Bath",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Air Bath\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Alcove",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Alcove\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Apron Front",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Apron Front\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Art Deco",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Art Deco\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "BBQ Accessories",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"BBQ Accessories\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bar/Prep",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bar/Prep\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Barrier-Free",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Barrier-Free\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bath Bar",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bath Bar\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bench",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bench\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Beverage Center",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Beverage Center\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bidet",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bidet\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bidet Seat",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bidet Seat\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Body Spray",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Body Spray\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bottom-Freezer",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bottom-Freezer\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Bridge",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Bridge\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Built-In",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Built-In\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Built-In Top Control",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Built-In Top Control\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Candle",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Candle\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Cart",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Cart\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Centerset",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Centerset\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Charcoal",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Charcoal\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Chest",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Chest\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Chimney",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Chimney\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Classic",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Classic\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Clawfoot",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Clawfoot\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Cluster",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Cluster\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Coastal",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Coastal\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Column",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Column\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Commercial",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Commercial\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Cone",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Cone\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Console",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Console\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Contemporary",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Contemporary\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Convection",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Convection\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Corner",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Corner\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Counter-Depth",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Counter-Depth\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Countertop",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Countertop\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Crystal",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Crystal\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Deadbolt",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Deadbolt\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Deck",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Deck\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Deck Mounted",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Deck Mounted\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Decorative",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Decorative\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Diverter",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Diverter\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Doorless",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Doorless\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Double Bowl",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Double Bowl\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Double Sink",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Double Sink\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Double Wall",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Double Wall\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Down Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Down Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Downdraft",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Downdraft\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Drawer",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Drawer\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Drop-In",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Drop-In\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Drum",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Drum\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Dual",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Dual\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Dual Fuel",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Dual Fuel\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Dummy",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Dummy\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Electric",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Electric\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Elongated",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Elongated\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Farmhouse",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Farmhouse\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Floating",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Floating\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Flood Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Flood Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Flush Mount",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Flush Mount\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Framed",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Framed\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Frameless",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Frameless\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Freestanding",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Freestanding\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "French Door",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"French Door\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Front Control",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Front Control\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Front Load",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Front Load\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Gas",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Gas\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Globe",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Globe\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Hamper",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Hamper\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Handheld",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Handheld\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Handle Set",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Handle Set\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Hinge",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Hinge\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Induction",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Induction\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Industrial",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Industrial\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Insert",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Insert\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Integrated",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Integrated\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Island",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Island\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Island Mount",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Island Mount\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Kegerator",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Kegerator\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Keyed Entry",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Keyed Entry\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Knob",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Knob\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Landscape",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Landscape\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Lever",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Lever\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Lighted",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Lighted\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Linear",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Linear\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Linen Cabinet",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Linen Cabinet\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Magnifying",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Magnifying\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Medicine Cabinet",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Medicine Cabinet\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Microwave Combo",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Microwave Combo\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Mid-Century Modern",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Mid-Century Modern\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Mini",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Mini\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Minimalist",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Minimalist\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Modern",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Modern\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Modular",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Modular\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Multi-Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Multi-Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Neo-Angle",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Neo-Angle\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "One-Piece",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"One-Piece\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Outdoor Kitchen Components",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Outdoor Kitchen Components\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Outdoor Kitchen Storage",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Outdoor Kitchen Storage\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Over-the-Range",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Over-the-Range\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Passage",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Passage\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Path Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Path Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pedestal",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pedestal\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pellet",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pellet\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pendant",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pendant\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Picture Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Picture Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pivot",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pivot\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Portable",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Portable\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Post Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Post Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pot Filler",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pot Filler\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pressure Balance",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pressure Balance\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Privacy",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Privacy\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pull-Down",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pull-Down\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Pull-Out",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Pull-Out\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Rain",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Rain\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Rain Head",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Rain Head\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Recessed",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Recessed\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Robe Hook",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Robe Hook\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Roman Tub",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Roman Tub\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Round",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Round\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Rustic",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Rustic\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Sconce",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Sconce\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Seat",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Seat\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Seating",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Seating\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Security",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Security\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Semi-Flush",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Semi-Flush\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Semi-Recessed",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Semi-Recessed\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Set",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Set\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Shelf",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Shelf\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Shower System",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Shower System\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Side-by-Side",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Side-by-Side\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Single",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Single\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Single Bowl",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Single Bowl\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Single Handle",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Single Handle\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Single Hole",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Single Hole\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Single Sink",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Single Sink\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Slide-In",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Slide-In\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Smart",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Smart\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Soaking",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Soaking\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Speed",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Speed\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Sputnik",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Sputnik\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Stainless Steel",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Stainless Steel\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Standalone",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Standalone\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Steam",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Steam\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Storage",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Storage\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Storage Tower",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Storage Tower\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Strike Plate",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Strike Plate\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Swing Arm",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Swing Arm\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Table",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Table\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Thermostatic",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Thermostatic\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Tiered",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Tiered\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Toilet Paper Holder",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Toilet Paper Holder\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Top Control",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Top Control\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Top Load",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Top Load\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Top-Freezer",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Top-Freezer\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Torch",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Torch\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Touchless",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Touchless\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Towel Bar",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Towel Bar\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Towel Ring",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Towel Ring\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Track",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Track\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Traditional",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Traditional\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Transfer",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Transfer\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Transitional",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Transitional\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Two Handle",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Two Handle\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Two-Piece",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Two-Piece\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Under Cabinet",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Under Cabinet\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Undercounter",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Undercounter\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Undermount",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Undermount\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Unitized",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Unitized\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Up Light",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Up Light\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Upright",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Upright\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Vanity",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Vanity\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Vessel",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Vessel\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Vintage",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Vintage\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Volume Control",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Volume Control\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Walk-In",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Walk-In\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Wall Lantern",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Wall Lantern\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Wall Mounted",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Wall Mounted\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Wall-Mounted",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Wall-Mounted\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Warming",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Warming\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Waterfall",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Waterfall\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Whirlpool",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Whirlpool\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Widespread",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Widespread\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Wine Cooler",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Wine Cooler\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    },
+    {
+      "style_name": "Workstation",
+      "suggested_for_category": "Multiple Categories",
+      "source": "internal_mapping_cleanup",
+      "reason": "Style \"Workstation\" is used in internal category-style-mapping but does not exist in Salesforce picklist. Requesting creation."
+    }
+  ]
+}

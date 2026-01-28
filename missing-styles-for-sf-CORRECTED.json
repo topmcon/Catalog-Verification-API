@@ -1,0 +1,302 @@
+{
+  "generated_at": "2026-01-28",
+  "total_missing": 59,
+  "note": "CORRECTED - Original script had bug using wrong field name (.Name vs .style_name)",
+  "style_requests": [
+    {
+      "style_name": "All in One Washer / Dryer",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Art Deco",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Barbeques",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Bath Furniture",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Bathtubs",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Bidets",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Built-In Top Control",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Ceiling Lights",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Chandeliers",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Charcoal",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Chimney",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Classic",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Coastal",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Contemporary",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Convection",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Cooktop",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Counter-Depth",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Dishwasher",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Downdraft",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Dryer",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Dual Fuel",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Freezer",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Front Control",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Furniture",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Icemaker",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Industrial",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Microwave",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Mid-Century Modern",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Minimalist",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Modern",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Oven",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Pellet",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Pendants",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Portable",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Range",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Range Hood",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Refrigerator",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Rough-In Valves",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Rustic",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Shower Accessories",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Shower Faucets",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Showers",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Slide-In",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Speed",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Standalone Pedestal",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Storage Drawers/Doors",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Toilets",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Top Control",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Traditional",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Transitional",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Tub Faucets",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Vintage",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Wall Sconces",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "Washer",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "double",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "dual",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "microwave",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "oven",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    },
+    {
+      "style_name": "single",
+      "source": "internal_mapping_cleanup",
+      "in_salesforce": false
+    }
+  ]
+}
