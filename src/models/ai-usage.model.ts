@@ -50,6 +50,7 @@ export type TaskType =
   | 'verification'      // Main product verification
   | 'cross-validation'  // Second pass after disagreement
   | 'research'          // Web search with search models
+  | 'final-verification-search' // Final targeted web search after AI analysis
   | 'image-analysis'    // Vision model analysis
   | 'consensus-resolution'  // Resolving AI disagreements
   | 'enrichment'        // Product enrichment

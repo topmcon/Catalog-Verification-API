@@ -315,6 +315,22 @@ export interface ResearchTransparency {
     processing_time_ms: number;
     error?: string;
   }>;
+  // Final Web Search - Performed AFTER AI analysis with verified data
+  final_web_search?: {
+    performed: boolean;
+    query: string;
+    verified_data_used: {
+      brand: string;
+      model: string;
+      category: string;
+    };
+    missing_fields_searched: string[];
+    specs_found: number;
+    features_found: number;
+    sources: string[];
+    success: boolean;
+    error?: string;
+  };
   summary: {
     total_specs_extracted: number;
     total_features_extracted: number;

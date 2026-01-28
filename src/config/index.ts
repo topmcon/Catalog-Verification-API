@@ -30,6 +30,7 @@ export interface Config {
     enableWebFetch: boolean;
     enablePdfExtract: boolean;
     enableImageAnalysis: boolean;
+    enableFinalWebSearch: boolean;
     maxDocuments: number;
     maxImages: number;
     requestTimeout: number;
@@ -96,6 +97,7 @@ const config: Config = {
     enableWebFetch: process.env.RESEARCH_WEB_FETCH !== 'false',
     enablePdfExtract: process.env.RESEARCH_PDF_EXTRACT !== 'false',
     enableImageAnalysis: process.env.RESEARCH_IMAGE_ANALYSIS !== 'false',
+    enableFinalWebSearch: process.env.RESEARCH_FINAL_WEB_SEARCH !== 'false', // Final targeted web search after AI analysis
     maxDocuments: parseInt(process.env.RESEARCH_MAX_DOCUMENTS || '2', 10), // Reduced from 3
     maxImages: parseInt(process.env.RESEARCH_MAX_IMAGES || '1', 10), // Reduced from 2
     requestTimeout: parseInt(process.env.RESEARCH_TIMEOUT || '10000', 10), // Reduced from 15000

@@ -1449,6 +1449,272 @@ Return the results in JSON format:
 }
 
 /**
+ * Final Verification Search Result
+ * Used for targeted web search AFTER AI analysis is complete
+ */
+export interface FinalVerificationSearchResult {
+  query: string;
+  verifiedData: {
+    brand: string;
+    modelNumber: string;
+    category: string;
+    productTitle: string;
+  };
+  missingFieldsSearched: string[];
+  foundSpecifications: Record<string, string>;
+  foundFeatures: string[];
+  sources: string[];
+  searchSummary: string;
+  success: boolean;
+  error?: string;
+}
+
+/**
+ * FINAL VERIFICATION WEB SEARCH
+ * ==============================
+ * This is called AFTER AI analysis and consensus building, when we have:
+ * - Verified category
+ * - Verified brand name
+ * - Verified model number
+ * - List of fields still missing or unresolved
+ * 
+ * This allows for a much more targeted and effective web search.
+ */
+export async function performFinalVerificationSearch(
+  verifiedBrand: string,
+  verifiedModelNumber: string,
+  verifiedCategory: string,
+  verifiedProductTitle: string,
+  missingFields: string[],
+  unresolvedFields: string[],
+  sessionId?: string
+): Promise<FinalVerificationSearchResult> {
+  const startTime = Date.now();
+  
+  // Combine missing and unresolved fields
+  const fieldsToSearch = [...new Set([...missingFields, ...unresolvedFields])];
+  
+  // Skip if no fields need searching or if key data is missing
+  if (fieldsToSearch.length === 0) {
+    logger.info('Final verification search skipped - no missing fields', { sessionId });
+    return {
+      query: '',
+      verifiedData: { brand: verifiedBrand, modelNumber: verifiedModelNumber, category: verifiedCategory, productTitle: verifiedProductTitle },
+      missingFieldsSearched: [],
+      foundSpecifications: {},
+      foundFeatures: [],
+      sources: [],
+      searchSummary: 'No missing fields to search for',
+      success: true
+    };
+  }
+  
+  if (!verifiedBrand && !verifiedModelNumber) {
+    logger.warn('Final verification search skipped - no brand or model number', { sessionId });
+    return {
+      query: '',
+      verifiedData: { brand: verifiedBrand, modelNumber: verifiedModelNumber, category: verifiedCategory, productTitle: verifiedProductTitle },
+      missingFieldsSearched: fieldsToSearch,
+      foundSpecifications: {},
+      foundFeatures: [],
+      sources: [],
+      searchSummary: 'Cannot search without brand or model number',
+      success: false,
+      error: 'Insufficient verified data for web search'
+    };
+  }
+
+  try {
+    if (!config.openai?.apiKey) {
+      return {
+        query: '',
+        verifiedData: { brand: verifiedBrand, modelNumber: verifiedModelNumber, category: verifiedCategory, productTitle: verifiedProductTitle },
+        missingFieldsSearched: fieldsToSearch,
+        foundSpecifications: {},
+        foundFeatures: [],
+        sources: [],
+        searchSummary: 'OpenAI API key not configured',
+        success: false,
+        error: 'OpenAI API key not configured for web search'
+      };
+    }
+
+    // Build a highly targeted search query using verified data
+    const searchQuery = [
+      verifiedBrand,
+      verifiedModelNumber,
+      verifiedCategory !== 'Unknown' ? verifiedCategory : '',
+      'specifications',
+      'spec sheet'
+    ].filter(Boolean).join(' ');
+
+    logger.info('FINAL PHASE: Performing targeted web search with verified data', {
+      sessionId,
+      searchQuery,
+      verifiedBrand,
+      verifiedModelNumber,
+      verifiedCategory,
+      missingFieldsCount: fieldsToSearch.length,
+      missingFields: fieldsToSearch.slice(0, 10) // Log first 10
+    });
+
+    const openaiClient = new OpenAI({ apiKey: config.openai.apiKey });
+    const model = config.openai.searchModel || 'gpt-4o-search-preview';
+
+    // Start AI usage tracking
+    const usageId = aiUsageTracker.startAICall({
+      sessionId: sessionId || 'final-research',
+      provider: 'openai',
+      model,
+      taskType: 'final-verification-search',
+      prompt: searchQuery,
+      searchQuery,
+    });
+
+    // Build a detailed prompt that focuses on the specific missing fields
+    const fieldDescriptions = fieldsToSearch.map(f => `- ${f}`).join('\n');
+    
+    const systemPrompt = `You are a product specification researcher. Your task is to find SPECIFIC missing product data.
+
+VERIFIED PRODUCT INFORMATION:
+- Brand: ${verifiedBrand || 'Unknown'}
+- Model Number: ${verifiedModelNumber || 'Unknown'}
+- Category: ${verifiedCategory || 'Unknown'}
+- Product: ${verifiedProductTitle || 'Unknown'}
+
+FIELDS WE NEED TO FIND:
+${fieldDescriptions}
+
+INSTRUCTIONS:
+1. Search manufacturer websites, retailer sites, and spec sheets for this EXACT product
+2. Only return data that specifically matches this brand and model number
+3. Do NOT guess or estimate - only return values you find in authoritative sources
+4. Include the source URL for each piece of information found
+
+Return JSON format:
+{
+  "specifications": {
+    "field_name": "value found",
+    ...
+  },
+  "features": ["feature1", "feature2"],
+  "dimensions": {
+    "width": "value with unit",
+    "height": "value with unit", 
+    "depth": "value with unit",
+    "weight": "value with unit"
+  },
+  "sources": ["url1", "url2"],
+  "confidence": 0.0-1.0,
+  "notes": "Any important notes about the data found"
+}`;
+
+    const response = await openaiClient.chat.completions.create({
+      model,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: `Search for: ${searchQuery}\n\nFind these specific fields: ${fieldsToSearch.join(', ')}` }
+      ],
+      temperature: 0.1,
+      max_tokens: 2000,
+    });
+
+    const content = response.choices[0]?.message?.content || '{}';
+    
+    let parsed: any = {};
+    let jsonValid = false;
+    try {
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(jsonMatch ? jsonMatch[0] : '{}');
+      jsonValid = true;
+    } catch {
+      parsed = { rawResults: content, specifications: {} };
+    }
+
+    // Complete AI usage tracking
+    await aiUsageTracker.completeAICall(usageId, {
+      response: content,
+      promptTokens: response.usage?.prompt_tokens || 0,
+      completionTokens: response.usage?.completion_tokens || 0,
+      outcome: jsonValid ? 'success' : 'partial',
+      jsonValid,
+      confidenceScore: (parsed.confidence || 0.5) * 100,
+    });
+
+    // Extract specifications from parsed response
+    const foundSpecs: Record<string, string> = {};
+    
+    // Add direct specifications
+    if (parsed.specifications && typeof parsed.specifications === 'object') {
+      for (const [key, value] of Object.entries(parsed.specifications)) {
+        if (value && typeof value === 'string' && value.trim()) {
+          foundSpecs[key] = value.trim();
+        }
+      }
+    }
+    
+    // Add dimensions if found
+    if (parsed.dimensions && typeof parsed.dimensions === 'object') {
+      for (const [key, value] of Object.entries(parsed.dimensions)) {
+        if (value && typeof value === 'string' && value.trim()) {
+          foundSpecs[`Dimension_${key}`] = value.trim();
+        }
+      }
+    }
+
+    const foundFeatures = Array.isArray(parsed.features) ? parsed.features : [];
+    const sources = Array.isArray(parsed.sources) ? parsed.sources : [];
+
+    const processingTime = Date.now() - startTime;
+    const specsFoundCount = Object.keys(foundSpecs).length;
+    
+    logger.info('Final verification web search completed', {
+      sessionId,
+      searchQuery,
+      processingTime: `${processingTime}ms`,
+      specsFound: specsFoundCount,
+      featuresFound: foundFeatures.length,
+      sourcesFound: sources.length,
+      confidence: parsed.confidence || 'N/A'
+    });
+
+    return {
+      query: searchQuery,
+      verifiedData: { brand: verifiedBrand, modelNumber: verifiedModelNumber, category: verifiedCategory, productTitle: verifiedProductTitle },
+      missingFieldsSearched: fieldsToSearch,
+      foundSpecifications: foundSpecs,
+      foundFeatures,
+      sources,
+      searchSummary: specsFoundCount > 0 
+        ? `Found ${specsFoundCount} specifications and ${foundFeatures.length} features from ${sources.length} sources`
+        : 'No additional specifications found in web search',
+      success: true
+    };
+
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Final verification web search failed', { 
+      sessionId,
+      error: errorMessage,
+      verifiedBrand,
+      verifiedModelNumber
+    });
+    
+    return {
+      query: '',
+      verifiedData: { brand: verifiedBrand, modelNumber: verifiedModelNumber, category: verifiedCategory, productTitle: verifiedProductTitle },
+      missingFieldsSearched: fieldsToSearch,
+      foundSpecifications: {},
+      foundFeatures: [],
+      sources: [],
+      searchSummary: `Web search failed: ${errorMessage}`,
+      success: false,
+      error: errorMessage
+    };
+  }
+}
+
+/**
  * Format research results as context for AI prompt
  */
 export function formatResearchForPrompt(research: ResearchResult): string {
@@ -1530,5 +1796,7 @@ export default {
   fetchPDF,
   analyzeImage,
   performProductResearch,
+  performFinalVerificationSearch,
+  performWebSearch,
   formatResearchForPrompt
 };

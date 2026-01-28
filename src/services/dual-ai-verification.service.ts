@@ -57,7 +57,7 @@ import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
-import { performProductResearch, formatResearchForPrompt, ResearchResult } from './research.service';
+import { performProductResearch, formatResearchForPrompt, ResearchResult, performFinalVerificationSearch, FinalVerificationSearchResult } from './research.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
 
@@ -1789,6 +1789,128 @@ export async function verifyProductWithDualAI(
       preResearchPerformed: !!preResearchResult,
     });
 
+    // ========================================================================
+    // PHASE 6: FINAL WEB SEARCH (Using verified data for targeted search)
+    // ========================================================================
+    // Now that we have verified category, brand, and model number from AI consensus,
+    // we can perform a much more targeted web search to fill in missing fields.
+    // This is more effective than searching at the beginning with unverified data.
+    // ========================================================================
+    let finalSearchResult: FinalVerificationSearchResult | null = null;
+    const missingFieldsList = consensus.needsResearch || [];
+    const unresolvedFieldsList = consensus.disagreements
+      .filter(d => d.resolution === 'unresolved')
+      .map(d => d.field);
+    
+    const shouldDoFinalSearch = (missingFieldsList.length > 0 || unresolvedFieldsList.length > 0) && 
+                                 config.research?.enableFinalWebSearch !== false;
+    
+    if (shouldDoFinalSearch) {
+      logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', { service: 'catalog-verification' });
+      logger.info('PHASE 6: FINAL WEB SEARCH - Using verified data for targeted search', {
+        sessionId: verificationSessionId,
+        verifiedBrand: consensus.agreedPrimaryAttributes?.brand || consensus.agreedPrimaryAttributes?.Brand || '',
+        verifiedModel: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer || '',
+        verifiedCategory: consensus.agreedCategory || 'Unknown',
+        missingFields: missingFieldsList.length,
+        unresolvedFields: unresolvedFieldsList.length,
+        reason: 'Performing targeted search now that we have AI-verified product data'
+      });
+      
+      try {
+        // Extract verified data from consensus
+        const verifiedBrand = consensus.agreedPrimaryAttributes?.brand || 
+                              consensus.agreedPrimaryAttributes?.Brand || 
+                              rawProduct.Ferguson_Brand || 
+                              rawProduct.Brand_Web_Retailer || '';
+        const verifiedModel = rawProduct.SF_Catalog_Name || 
+                              rawProduct.Model_Number_Web_Retailer || 
+                              rawProduct.Ferguson_Model_Number || '';
+        const verifiedCategory = consensus.agreedCategory || 'Unknown';
+        const verifiedTitle = consensus.agreedPrimaryAttributes?.product_title || 
+                              consensus.agreedPrimaryAttributes?.Product_Title ||
+                              rawProduct.Ferguson_Title ||
+                              rawProduct.Product_Title_Web_Retailer || '';
+        
+        finalSearchResult = await performFinalVerificationSearch(
+          verifiedBrand,
+          verifiedModel,
+          verifiedCategory,
+          verifiedTitle,
+          missingFieldsList,
+          unresolvedFieldsList,
+          verificationSessionId
+        );
+        
+        if (finalSearchResult.success && Object.keys(finalSearchResult.foundSpecifications).length > 0) {
+          logger.info('PHASE 6: Final web search found additional data', {
+            sessionId: verificationSessionId,
+            specsFound: Object.keys(finalSearchResult.foundSpecifications).length,
+            featuresFound: finalSearchResult.foundFeatures.length,
+            sources: finalSearchResult.sources.length
+          });
+          
+          // Merge found specifications into consensus
+          for (const [field, value] of Object.entries(finalSearchResult.foundSpecifications)) {
+            const normalizedField = field.toLowerCase().replace(/[_\s]+/g, '_');
+            
+            // Check if this field was missing or unresolved
+            const isMissing = missingFieldsList.some(f => 
+              f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField ||
+              normalizedField.includes(f.toLowerCase().replace(/[_\s]+/g, '_'))
+            );
+            const isUnresolved = unresolvedFieldsList.some(f => 
+              f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField ||
+              normalizedField.includes(f.toLowerCase().replace(/[_\s]+/g, '_'))
+            );
+            
+            if (isMissing || isUnresolved) {
+              // Determine if it's a primary attribute or top15
+              const isPrimaryField = ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 
+                'product_style', 'product_title', 'description', 'features_list',
+                'width', 'height', 'depth', 'color', 'finish'].includes(normalizedField);
+              
+              if (isPrimaryField) {
+                consensus.agreedPrimaryAttributes[field] = value;
+              } else {
+                consensus.agreedTop15Attributes[field] = value;
+              }
+              
+              logger.info(`Final search filled field: ${field} = ${value}`, { sessionId: verificationSessionId });
+            }
+          }
+          
+          // Also update missing fields list (remove ones we found)
+          if (consensus.needsResearch) {
+            consensus.needsResearch = consensus.needsResearch.filter(field => {
+              const normalizedField = field.toLowerCase().replace(/[_\s]+/g, '_');
+              return !Object.keys(finalSearchResult!.foundSpecifications).some(f => 
+                f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField
+              );
+            });
+          }
+        } else {
+          logger.info('PHASE 6: Final web search did not find additional data', {
+            sessionId: verificationSessionId,
+            reason: finalSearchResult.searchSummary
+          });
+        }
+      } catch (searchError) {
+        logger.warn('PHASE 6: Final web search failed (non-critical)', {
+          sessionId: verificationSessionId,
+          error: searchError instanceof Error ? searchError.message : 'Unknown error'
+        });
+        // Non-critical - continue without final search data
+      }
+    } else {
+      logger.info('PHASE 6: Final web search skipped', {
+        sessionId: verificationSessionId,
+        reason: missingFieldsList.length === 0 && unresolvedFieldsList.length === 0 
+          ? 'No missing or unresolved fields'
+          : 'Final web search disabled in config'
+      });
+    }
+
     // FINAL PASS: Apply smart resolution to any remaining unresolved disagreements
     // This handles cases where research was skipped/disabled but we still have disagreements
     const stillUnresolved = consensus.disagreements.filter(d => d.resolution === 'unresolved');
@@ -1827,7 +1949,7 @@ export async function verifyProductWithDualAI(
     }
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
     
     // ========================================================================
     // FINAL SWEEP: Check all "Not Found" values against raw data
@@ -3164,21 +3286,25 @@ function preferAIValue(
 /**
  * Build Research Transparency section showing exactly what was analyzed from each resource
  */
-function buildResearchTransparency(researchResult: ResearchResult | null | undefined): ResearchTransparency | undefined {
-  if (!researchResult) {
+function buildResearchTransparency(
+  researchResult: ResearchResult | null | undefined,
+  finalSearchResult?: FinalVerificationSearchResult | null
+): ResearchTransparency | undefined {
+  // Return undefined only if BOTH research sources are empty
+  if (!researchResult && !finalSearchResult) {
     return undefined;
   }
 
-  const webPages = researchResult.webPages.map(page => ({
+  const webPages = researchResult?.webPages.map(page => ({
     url: page.url,
     success: page.success,
     specs_extracted: page.success ? Object.keys(page.specifications || {}).length : 0,
     features_extracted: page.success ? (page.features || []).length : 0,
     processing_time_ms: 0, // Not tracked in current implementation
     error: page.error
-  }));
+  })) || [];
 
-  const pdfs = researchResult.documents.map(doc => ({
+  const pdfs = researchResult?.documents.map(doc => ({
     url: doc.url || doc.filename,
     filename: doc.filename,
     success: doc.success,
@@ -3187,9 +3313,9 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     text_length: doc.success ? (doc.text?.length || 0) : 0,
     processing_time_ms: 0, // Not tracked in current implementation
     error: doc.error
-  }));
+  })) || [];
 
-  const images = researchResult.images.map(img => ({
+  const images = researchResult?.images.map(img => ({
     url: img.url,
     success: img.success,
     model_used: 'grok-2-vision-1212', // Current model used
@@ -3200,15 +3326,57 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     confidence: img.confidence || 0,
     processing_time_ms: 0, // Not tracked in current implementation
     error: img.error
-  }));
+  })) || [];
 
-  const totalSpecs = Object.keys(researchResult.combinedSpecifications || {}).length;
-  const totalFeatures = (researchResult.combinedFeatures || []).length;
-  const totalResources = webPages.length + pdfs.length + images.length;
+  // Calculate totals from pre-research
+  let totalSpecs = Object.keys(researchResult?.combinedSpecifications || {}).length;
+  let totalFeatures = (researchResult?.combinedFeatures || []).length;
+  
+  // Add final search results if available
+  let finalWebSearch: {
+    performed: boolean;
+    query: string;
+    verified_data_used: {
+      brand: string;
+      model: string;
+      category: string;
+    };
+    missing_fields_searched: string[];
+    specs_found: number;
+    features_found: number;
+    sources: string[];
+    success: boolean;
+    error?: string;
+  } | undefined = undefined;
+  
+  if (finalSearchResult) {
+    finalWebSearch = {
+      performed: true,
+      query: finalSearchResult.query,
+      verified_data_used: {
+        brand: finalSearchResult.verifiedData.brand,
+        model: finalSearchResult.verifiedData.modelNumber,
+        category: finalSearchResult.verifiedData.category
+      },
+      missing_fields_searched: finalSearchResult.missingFieldsSearched,
+      specs_found: Object.keys(finalSearchResult.foundSpecifications).length,
+      features_found: finalSearchResult.foundFeatures.length,
+      sources: finalSearchResult.sources,
+      success: finalSearchResult.success,
+      error: finalSearchResult.error
+    };
+    
+    // Add final search specs to total
+    totalSpecs += Object.keys(finalSearchResult.foundSpecifications).length;
+    totalFeatures += finalSearchResult.foundFeatures.length;
+  }
+
+  const totalResources = webPages.length + pdfs.length + images.length + (finalSearchResult ? 1 : 0);
   const successfulResources = 
     webPages.filter(w => w.success).length +
     pdfs.filter(p => p.success).length +
-    images.filter(i => i.success).length;
+    images.filter(i => i.success).length +
+    (finalSearchResult?.success ? 1 : 0);
 
   return {
     research_performed: totalResources > 0,
@@ -3216,6 +3384,7 @@ function buildResearchTransparency(researchResult: ResearchResult | null | undef
     web_pages: webPages,
     pdfs: pdfs,
     images: images,
+    final_web_search: finalWebSearch,
     summary: {
       total_specs_extracted: totalSpecs,
       total_features_extracted: totalFeatures,
@@ -3471,11 +3640,12 @@ function buildFinalResponse(
   researchResult?: ResearchResult | null,
   dataSourceAnalysis?: DataSourceAnalysis,
   researchPerformed?: boolean,
-  researchAttempts?: number
+  researchAttempts?: number,
+  finalSearchResult?: FinalVerificationSearchResult | null
 ): SalesforceVerificationResponse {
   
   // Track if research was performed for field marking
-  const didResearch = researchPerformed || !!researchResult;
+  const didResearch = researchPerformed || !!researchResult || !!finalSearchResult;
   
   // Get raw values for customer-facing text
   const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
@@ -4832,7 +5002,8 @@ function buildFinalResponse(
   });
 
   // Build research transparency to show what was analyzed from each resource
-  const researchTransparency = buildResearchTransparency(researchResult);
+  // Now includes the final web search results as well
+  const researchTransparency = buildResearchTransparency(researchResult, finalSearchResult);
 
   // Build Received Attributes Confirmation - Track all incoming attributes from Salesforce
   // This shows SF which attributes we received, processed, and where they ended up in the response
