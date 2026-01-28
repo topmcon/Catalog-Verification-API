@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 import { Product, VerificationSession, AuditLog } from '../models';
 import { consensusService, salesforceService } from '../services';
 import { cleanProducts } from '../utils/data-cleaner';
@@ -8,6 +10,50 @@ import { VerificationResponse, VerificationResultItem } from '../types/api.types
 import config from '../config';
 import logger from '../utils/logger';
 import { ApiError } from '../middleware/error.middleware';
+
+// Comparison logging for before/after analysis
+const COMPARISON_DIR = path.join(process.cwd(), 'logs', 'comparison');
+if (!fs.existsSync(COMPARISON_DIR)) {
+  fs.mkdirSync(COMPARISON_DIR, { recursive: true });
+}
+
+function logComparison(sessionId: string, rawInput: any, finalResponse: any, processingTimeMs: number): void {
+  try {
+    const timestamp = new Date().toISOString();
+    const sfCatalogId = rawInput?.SF_Catalog_Id || 'unknown';
+    const modelNumber = rawInput?.Model_Number_Web_Retailer || rawInput?.SF_Catalog_Name || 'unknown';
+    
+    const entry = {
+      timestamp,
+      sessionId,
+      sfCatalogId,
+      modelNumber,
+      processingTimeMs,
+      rawInput,
+      finalResponse,
+      keyFields: {
+        Product_Title_Verified: finalResponse?.data?.Primary_Display_Attributes?.Product_Title_Verified || '',
+        Brand_Verified: finalResponse?.data?.Primary_Display_Attributes?.Brand_Verified || '',
+        Category_Verified: finalResponse?.data?.Primary_Display_Attributes?.Category_Verified || '',
+        Model_Number_Verified: finalResponse?.data?.Primary_Display_Attributes?.Model_Number_Verified || '',
+        UPC_GTIN_Verified: finalResponse?.data?.Primary_Display_Attributes?.UPC_GTIN_Verified || '',
+        Finish_Verified: finalResponse?.data?.Primary_Display_Attributes?.Finish_Verified || '',
+        Color_Verified: finalResponse?.data?.Primary_Display_Attributes?.Color_Verified || '',
+        Width_Verified: finalResponse?.data?.Primary_Display_Attributes?.Width_Verified || '',
+        Height_Verified: finalResponse?.data?.Primary_Display_Attributes?.Height_Verified || '',
+        MSRP_Verified: finalResponse?.data?.Primary_Display_Attributes?.MSRP_Verified || ''
+      }
+    };
+    
+    const filename = `${timestamp.replace(/[:.]/g, '-')}_${sfCatalogId}.json`;
+    const filepath = path.join(COMPARISON_DIR, filename);
+    fs.writeFileSync(filepath, JSON.stringify(entry, null, 2));
+    
+    logger.info(`📝 Comparison logged: ${filename}`, { sfCatalogId, modelNumber });
+  } catch (err) {
+    logger.warn('Failed to log comparison', { error: err instanceof Error ? err.message : 'unknown' });
+  }
+}
 
 /**
  * Verification Controller
@@ -459,12 +505,17 @@ export async function verifySalesforceProduct(req: Request, res: Response): Prom
       processingTimeMs: processingTime
     });
 
-    res.status(200).json({
+    const responsePayload = {
       success: true,
       data: result,
       sessionId,
       processingTimeMs: processingTime
-    });
+    };
+    
+    // Log comparison for before/after analysis
+    logComparison(sessionId, sfProduct, responsePayload, processingTime);
+
+    res.status(200).json(responsePayload);
   } catch (error) {
     logger.error('Dual AI verification failed', {
       catalogId: sfProduct.SF_Catalog_Id,
