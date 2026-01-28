@@ -1428,19 +1428,17 @@ export async function verifyProductWithDualAI(
   }
   
   // Normalize Reference_URL - support both Reference_URL and Manufacturer_URL as input
-  let referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
+  const referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
   
-  // CRITICAL: If URL brand mismatch detected, DO NOT use the Reference_URL for research
-  // This prevents AI from getting polluted with wrong product data
+  // Check if URL brand mismatch detected (used to warn AI, but NOT to skip URLs)
   const hasUrlBrandMismatch = coherenceResult.conflicts.some(c => c.type === 'url_brand_mismatch');
-  if (hasUrlBrandMismatch && referenceUrl) {
-    logger.warn('SKIPPING Reference_URL due to brand mismatch - URL points to different product', {
+  if (hasUrlBrandMismatch) {
+    logger.info('URL brand mismatch detected - AI will analyze all data to determine correctness', {
       sessionId: verificationSessionId,
-      skippedUrl: referenceUrl,
+      referenceUrl,
       inputBrand: rawProduct.Ferguson_Brand || rawProduct.Brand_Web_Retailer,
-      reason: 'URL brand mismatch detected in coherence check'
+      reason: 'Passing all data to AI for intelligent analysis'
     });
-    referenceUrl = null; // Don't use this URL for research
   }
   
   logger.info('Starting dual AI verification', {
@@ -1468,20 +1466,28 @@ export async function verifyProductWithDualAI(
                               dataSourceAnalysis.requiresConfirmationResearch ||
                               dataSourceAnalysis.availableUrls.length > 0; // Always scrape available URLs
     
+    // Use all URLs - let the AI reason about which data is correct
+    // DO NOT skip URLs - the AI needs all data to make intelligent decisions
+    const fergusonUrlToUse = rawProduct.Ferguson_URL || null;
+    
     if (shouldPreResearch && (config.research?.enabled !== false)) {
-      logger.info('PHASE 0.5: Pre-fetching external research data', {
+      logger.info('PHASE 0.5: Pre-fetching external research data (ALL sources)', {
         sessionId: verificationSessionId,
+        fergusonUrl: fergusonUrlToUse,
+        referenceUrl,
+        hasUrlBrandMismatch,
         reason: dataSourceAnalysis.requiresExternalResearch 
           ? 'No source data - external research required'
           : dataSourceAnalysis.requiresConfirmationResearch
             ? 'Single source data - confirmation research required'
             : 'URLs available for additional validation',
-        scenario: dataSourceAnalysis.scenario
+        scenario: dataSourceAnalysis.scenario,
+        note: hasUrlBrandMismatch ? 'AI will analyze conflicting data to determine correctness' : undefined
       });
       
       try {
         preResearchResult = await performProductResearch(
-          rawProduct.Ferguson_URL || null,
+          fergusonUrlToUse,
           referenceUrl,
           dataSourceAnalysis.availableDocuments,
           dataSourceAnalysis.availableImages,
@@ -1516,17 +1522,34 @@ export async function verifyProductWithDualAI(
       hasPreResearchContext: !!preResearchContext,
       dataScenario: dataSourceAnalysis.scenario,
       externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
-      modelMismatch: dataSourceAnalysis.modelValidation?.mismatchReason || null
+      modelMismatch: dataSourceAnalysis.modelValidation?.mismatchReason || null,
+      coherenceConflicts: coherenceResult.conflicts.length,
+      hasUrlBrandMismatch
     });
     
     const openaiStartTime = Date.now();
     const xaiStartTime = Date.now();
     
-    // Build prompt options with model validation info
+    // Build prompt options with model validation info AND coherence warnings
+    // Pass coherence warnings so AI can reason about conflicting data
     const promptOptions: PromptOptions = {
       researchContext: preResearchContext,
       externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
-      modelMismatchWarning: dataSourceAnalysis.modelValidation?.mismatchReason
+      modelMismatchWarning: dataSourceAnalysis.modelValidation?.mismatchReason,
+      // Pass coherence warnings to help AI identify bad data sources
+      dataCoherenceWarnings: (coherenceResult.conflicts.length > 0 || coherenceResult.warnings.length > 0) ? {
+        conflicts: coherenceResult.conflicts.map(c => ({
+          type: c.type,
+          severity: c.severity,
+          description: c.description,
+          source1: c.source1,
+          source2: c.source2,
+          value1: c.value1,
+          value2: c.value2
+        })),
+        warnings: coherenceResult.warnings,
+        recommendation: coherenceResult.recommendation
+      } : undefined
     };
     
     // Pass research context and model validation to AIs
@@ -2265,6 +2288,19 @@ interface PromptOptions {
   researchContext?: string;
   modelMismatchWarning?: string;
   externalDataTrusted?: boolean;
+  dataCoherenceWarnings?: {
+    conflicts: Array<{
+      type: string;
+      severity: string;
+      description: string;
+      source1: string;
+      source2: string;
+      value1: string;
+      value2: string;
+    }>;
+    warnings: string[];
+    recommendation: string;
+  };
 }
 
 function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: PromptOptions | string): string {
@@ -2273,13 +2309,47 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
     ? { researchContext: options }
     : (options || {});
     
-  const { researchContext, modelMismatchWarning, externalDataTrusted = true } = opts;
+  const { researchContext, modelMismatchWarning, externalDataTrusted = true, dataCoherenceWarnings } = opts;
   
   let prompt = `Analyze this product and map it to our category system:
 
 RAW PRODUCT DATA:
 ${JSON.stringify(rawProduct, null, 2)}
 `;
+
+  // Add DATA COHERENCE WARNING if conflicts detected
+  // This helps the AI reason about which data sources are correct vs wrong
+  if (dataCoherenceWarnings && (dataCoherenceWarnings.conflicts.length > 0 || dataCoherenceWarnings.warnings.length > 0)) {
+    prompt += `
+
+=== ⚠️ DATA CONFLICT ALERT - USE REASONING TO DETERMINE CORRECT DATA ⚠️ ===
+Our system detected potential conflicts in the provided data sources. 
+**YOUR TASK**: Analyze ALL data, use your reasoning to determine which sources are CORRECT vs WRONG.
+
+**DETECTED CONFLICTS:**
+${dataCoherenceWarnings.conflicts.map(c => `
+- [${c.severity.toUpperCase()}] ${c.type}:
+  ${c.description}
+  Source 1 (${c.source1}): "${c.value1}"
+  Source 2 (${c.source2}): "${c.value2}"
+`).join('\n')}
+
+${dataCoherenceWarnings.warnings.length > 0 ? `**WARNINGS:**\n${dataCoherenceWarnings.warnings.map(w => `- ${w}`).join('\n')}\n` : ''}
+
+**REASONING REQUIRED**:
+When you see conflicting data (e.g., URLs pointing to different products than the structured data):
+1. Look at the MAJORITY of evidence - does most data point to Product A or Product B?
+2. Check consistency - do Title, Brand, Description all align with the same product?
+3. URLs/scraped content that describe a completely DIFFERENT product category are likely BAD DATA
+   - Example: If Ferguson_Brand="Meyda Tiffany" and Ferguson_Title="Lily Lamp" but 
+     the URL scraped data shows "PVC Cleaner" - the URL is clearly wrong
+4. Trust structured fields (Brand, Title, Description) over scraped URL content when they conflict
+5. Document which data sources you are IGNORING and why in your corrections
+
+**MAKE YOUR DETERMINATION**: Decide which product this ACTUALLY is based on preponderance of evidence.
+=== END DATA CONFLICT ALERT ===
+`;
+  }
 
   // Add CRITICAL model mismatch warning if detected
   if (modelMismatchWarning || !externalDataTrusted) {
@@ -2311,8 +2381,8 @@ If unsure, use "Not Found" rather than guessing from mismatched data.
     prompt += `
 
 === EXTERNAL RESEARCH DATA (Retrieved from actual URLs/documents/images) ===
-${!externalDataTrusted ? '⚠️ WARNING: This data may be from a DIFFERENT MODEL VARIANT. Apply model mismatch rules above.\n\n' : ''}The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
-${externalDataTrusted ? 'This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.' : 'Use this data CAUTIOUSLY - verify model numbers match before using variant-specific attributes.'}
+${!externalDataTrusted ? '⚠️ WARNING: This data may be from a DIFFERENT MODEL VARIANT. Apply model mismatch rules above.\n\n' : ''}${dataCoherenceWarnings?.conflicts.length ? '⚠️ NOTE: Some of this data may be from a WRONG PRODUCT (see Data Conflict Alert above). Use reasoning to filter out bad data.\n\n' : ''}The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
+${externalDataTrusted && !dataCoherenceWarnings?.conflicts.length ? 'This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.' : 'Use this data CAUTIOUSLY - verify it matches the product described in the structured fields before using.'}
 
 ${researchContext}
 === END EXTERNAL RESEARCH DATA ===
@@ -2324,12 +2394,13 @@ ${researchContext}
 Tasks:
 1. Determine the product category from our master list
 2. Map all available data to the correct attribute fields for that category
-3. ${researchContext ? (externalDataTrusted ? '**PRIORITIZE** the external research data for filling missing fields' : '**CAREFULLY VALIDATE** external data against the requested model before using') : 'Note any missing data'}
+3. ${researchContext ? (externalDataTrusted && !dataCoherenceWarnings?.conflicts.length ? '**PRIORITIZE** the external research data for filling missing fields' : '**CAREFULLY VALIDATE** external data - discard any that describes a different product') : 'Note any missing data'}
 4. **CRITICAL**: Analyze ALL provided data sources:
    - Parse the Specification_Table HTML to extract ALL specifications
    - Use image analysis results to determine color, finish, product type
    - Extract details from Ferguson data if available
    - Extract details from Web Retailer data if available
+${dataCoherenceWarnings?.conflicts.length ? '   - ⚠️ DISCARD data from sources that clearly describe a different product' : ''}
 ${!externalDataTrusted ? '   - ⚠️ VERIFY model numbers match before using color/finish data' : ''}
 5. **CRITICAL**: Clean and enhance ALL customer-facing text:
    - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
@@ -2341,7 +2412,7 @@ ${!externalDataTrusted ? '   - ⚠️ VERIFY model numbers match before using co
    - Use actual value if found
    - Use "Not Found" if searched but couldn't find${!externalDataTrusted ? ' (especially for color/finish if model mismatch)' : ''}
    - Use "N/A" if field doesn't apply to this product type
-8. List corrections and data sources used
+8. List corrections and data sources used${dataCoherenceWarnings?.conflicts.length ? '\n9. **DOCUMENT BAD DATA**: In corrections, note any URLs/sources you ignored because they described a different product' : ''}
 
 The product_title, description, and features_list will be displayed directly to customers.
 They MUST be professional, well-formatted, and error-free.
