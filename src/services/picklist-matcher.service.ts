@@ -499,6 +499,26 @@ class PicklistMatcherService {
   }
 
   /**
+   * Check if a style name already exists in the picklist (exact match, case-insensitive)
+   * Use this to prevent requesting styles that already exist with different IDs
+   */
+  styleExistsByName(styleName: string): boolean {
+    if (!styleName || !this.initialized) return false;
+    const normalized = styleName.toLowerCase().trim();
+    return this.styles.some(s => s.style_name.toLowerCase() === normalized);
+  }
+
+  /**
+   * Get existing style by name (exact match, case-insensitive)
+   * Returns the first matching style or null if not found
+   */
+  getStyleByName(styleName: string): Style | null {
+    if (!styleName || !this.initialized) return null;
+    const normalized = styleName.toLowerCase().trim();
+    return this.styles.find(s => s.style_name.toLowerCase() === normalized) || null;
+  }
+
+  /**
    * Check if an attribute is a PRIMARY ATTRIBUTE
    * Primary attributes are static, apply to ALL products, and have dedicated fields.
    * They should NOT be requested as missing from the SF attributes picklist.

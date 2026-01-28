@@ -3522,23 +3522,39 @@ function buildFinalResponse(
           originalInput: potentialStyle
         });
       } else {
-        // Style mapped but not in SF picklist - USE IT AND request creation
-        styleToUse = mappedStyle;
-        styleRequests.push({
-          style_name: mappedStyle,
-          suggested_for_category: matchedCategory,
-          source: 'ai_analysis',
-          product_context: {
-            sf_catalog_id: rawProduct.SF_Catalog_Id,
-            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
-          },
-          reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist`
-        });
-        logger.info('Style used in response AND request generated for Salesforce picklist creation', {
-          style: mappedStyle,
-          category: matchedCategory,
-          willPopulateResponse: true
-        });
+        // Style mapped but not matched - check if it already exists by name (prevents duplicate requests)
+        const existingStyle = picklistMatcher.getStyleByName(mappedStyle);
+        if (existingStyle) {
+          // Style already exists in SF - use the existing one, don't request again
+          styleMatch = { 
+            matched: true, 
+            matchedValue: existingStyle
+          };
+          styleToUse = existingStyle.style_name;
+          logger.info('Style already exists in picklist - using existing instead of requesting new', {
+            style: mappedStyle,
+            existingStyleId: existingStyle.style_id,
+            category: matchedCategory
+          });
+        } else {
+          // Style truly doesn't exist - USE IT AND request creation
+          styleToUse = mappedStyle;
+          styleRequests.push({
+            style_name: mappedStyle,
+            suggested_for_category: matchedCategory,
+            source: 'ai_analysis',
+            product_context: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+            },
+            reason: `Style "${mappedStyle}" mapped from AI analysis but not found in Salesforce picklist`
+          });
+          logger.info('Style used in response AND request generated for Salesforce picklist creation', {
+            style: mappedStyle,
+            category: matchedCategory,
+            willPopulateResponse: true
+          });
+        }
         
         // Log failed style match for auditing
         failedMatchLogger.logFailedMatch({
@@ -3585,22 +3601,39 @@ function buildFinalResponse(
                            !isNAValue(potentialStyle);
       
       if (isValidStyle) {
-        styleToUse = potentialStyle;
-        styleRequests.push({
-          style_name: potentialStyle,
-          suggested_for_category: matchedCategory,
-          source: 'ai_analysis',
-          product_context: {
-            sf_catalog_id: rawProduct.SF_Catalog_Id,
-            model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
-          },
-          reason: `Style "${potentialStyle}" from AI analysis - requesting creation for category "${matchedCategory}"`
-        });
-        logger.info('Using AI style in response AND requesting Salesforce picklist creation', {
-          style: potentialStyle,
-          category: matchedCategory,
-          willPopulateResponse: true
-        });
+        // Check if style already exists by name before requesting (prevents duplicates)
+        const existingStyle = picklistMatcher.getStyleByName(potentialStyle);
+        if (existingStyle) {
+          // Style already exists - use existing instead of requesting new
+          styleMatch = { 
+            matched: true, 
+            matchedValue: existingStyle
+          };
+          styleToUse = existingStyle.style_name;
+          logger.info('Style already exists in picklist - using existing instead of requesting new', {
+            style: potentialStyle,
+            existingStyleId: existingStyle.style_id,
+            category: matchedCategory
+          });
+        } else {
+          // Style truly doesn't exist - request creation
+          styleToUse = potentialStyle;
+          styleRequests.push({
+            style_name: potentialStyle,
+            suggested_for_category: matchedCategory,
+            source: 'ai_analysis',
+            product_context: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+            },
+            reason: `Style "${potentialStyle}" from AI analysis - requesting creation for category "${matchedCategory}"`
+          });
+          logger.info('Using AI style in response AND requesting Salesforce picklist creation', {
+            style: potentialStyle,
+            category: matchedCategory,
+            willPopulateResponse: true
+          });
+        }
       } else if (potentialStyle && isNAValue(potentialStyle)) {
         logger.info('Skipping N/A style value - not adding to Style_Requests', {
           originalStyle: potentialStyle,
@@ -4508,10 +4541,23 @@ function buildFinalResponse(
   const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
   const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
   
-  // Filter out any Style_Requests with N/A values (extra safety check)
-  const filteredStyleRequests = styleRequests.filter(req => 
-    req.style_name && !isNAValue(req.style_name)
-  );
+  // Filter out any Style_Requests with N/A values AND styles that already exist in picklist
+  // This prevents duplicate style creation in Salesforce
+  const filteredStyleRequests = styleRequests.filter(req => {
+    // Skip N/A values
+    if (!req.style_name || isNAValue(req.style_name)) {
+      return false;
+    }
+    // Skip if style already exists in picklist (final safety check)
+    if (picklistMatcher.styleExistsByName(req.style_name)) {
+      logger.info('Filtering out style request - style already exists in picklist', {
+        style: req.style_name,
+        category: req.suggested_for_category
+      });
+      return false;
+    }
+    return true;
+  });
 
   // Build research transparency to show what was analyzed from each resource
   const researchTransparency = buildResearchTransparency(researchResult);
