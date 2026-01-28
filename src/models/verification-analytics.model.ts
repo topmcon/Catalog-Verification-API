@@ -87,7 +87,7 @@ export interface IVerificationResult extends Document {
   
   // Final Output
   verification_score: number;
-  verification_status: 'verified' | 'enriched' | 'needs_review' | 'failed';
+  verification_status: 'verified' | 'enriched' | 'needs_review' | 'failed' | 'data_conflict';
   status: 'success' | 'partial' | 'error';
   
   // Category for analysis

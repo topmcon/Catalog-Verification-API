@@ -141,7 +141,7 @@ export interface VerificationMetadata {
   verification_timestamp: string;  // ISO 8601
   verification_session_id: string;
   verification_score: number;  // 0-100
-  verification_status: 'verified' | 'needs_review' | 'enriched' | 'failed';
+  verification_status: 'verified' | 'needs_review' | 'enriched' | 'failed' | 'data_conflict';
   data_sources_used: string[];  // ['Web_Retailer', 'Ferguson', 'AI_OpenAI', 'AI_xAI', 'External_Research']
   corrections_made: CorrectionRecord[];
   missing_fields: string[];
@@ -154,14 +154,14 @@ export interface VerificationMetadata {
     fields_disagreed: number;
     total_fields: number;
     agreement_percentage: number;      // 0-100
-    text_fields_excluded: number;      // Number of generated text fields excluded from scoring
-    disagreement_details: Array<{      // Top 5 factual disagreements for debugging
+    text_fields_excluded?: number;      // Number of generated text fields excluded from scoring
+    disagreement_details?: Array<{      // Top 5 factual disagreements for debugging
       field: string;
       openai: string;
       xai: string;
     }>;
     // Data source analysis
-    data_source_scenario?: 'both_sources' | 'web_retailer_only' | 'ferguson_only' | 'no_sources' | 'unknown';
+    data_source_scenario?: 'both_sources' | 'web_retailer_only' | 'ferguson_only' | 'no_sources' | 'unknown' | 'data_conflict';
     research_performed?: boolean;
     research_attempts?: number;
     urls_scraped?: number;
@@ -175,6 +175,21 @@ export interface VerificationMetadata {
       found_model?: string | null;  // Model found in external data
       reason?: string;  // Why it doesn't match
       impact: string;  // Description of potential data quality issues
+    };
+    // Data coherence validation - catches when sources describe different products
+    data_coherence_failure?: {
+      reason: string;
+      conflicts: Array<{
+        type: string;
+        severity: string;
+        source1: string;
+        source2: string;
+        value1: string;
+        value2: string;
+        description: string;
+      }>;
+      warnings: string[];
+      recommendation: string;
     };
   };
 }
@@ -451,7 +466,7 @@ export interface SalesforceVerificationResponse {
   Style_Requests: StyleRequest[];
 
   // Status
-  Status: 'success' | 'partial' | 'failed';
+  Status: 'success' | 'partial' | 'failed' | 'data_conflict';
   Error_Message?: string;
 }
 

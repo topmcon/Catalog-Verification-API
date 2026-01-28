@@ -191,6 +191,443 @@ const NUMERIC_FIELDS = new Set([
  * Returns number if valid, null otherwise (NOT empty string which breaks SF Decimal deserialize)
  */
 /**
+ * DATA COHERENCE VALIDATION
+ * =========================
+ * Validates that input data sources describe the SAME product before processing.
+ * Catches cases where Web_Retailer data, Ferguson data, and images are from
+ * completely different products (e.g., a pillow vs a light fixture).
+ */
+
+interface DataCoherenceResult {
+  isCoherent: boolean;
+  confidenceScore: number;  // 0-100, how confident we are data is coherent
+  conflicts: DataConflict[];
+  warnings: string[];
+  recommendation: 'proceed' | 'proceed_with_warnings' | 'reject';
+  primaryDataSource: 'ferguson' | 'web_retailer' | 'none';
+}
+
+interface DataConflict {
+  type: 'category_domain' | 'brand_mismatch' | 'product_type' | 'dimension_mismatch' | 'price_mismatch';
+  severity: 'critical' | 'warning' | 'info';
+  source1: string;
+  source2: string;
+  value1: string;
+  value2: string;
+  description: string;
+}
+
+// Category domain mapping - groups similar categories together
+const CATEGORY_DOMAINS: Record<string, string[]> = {
+  'LIGHTING': ['lighting', 'chandelier', 'pendant', 'sconce', 'wall sconce', 'ceiling', 'lamp', 'lantern', 'flush mount', 'vanity light', 'outdoor lighting', 'wall lights'],
+  'PLUMBING': ['plumbing', 'faucet', 'toilet', 'sink', 'shower', 'bathtub', 'drain', 'valve'],
+  'APPLIANCES': ['appliance', 'refrigerator', 'dishwasher', 'range', 'oven', 'microwave', 'washer', 'dryer', 'freezer'],
+  'FURNITURE': ['furniture', 'chair', 'table', 'sofa', 'bed', 'desk', 'cabinet', 'dresser', 'mirror', 'pillow', 'rug', 'dining room'],
+  'HVAC': ['hvac', 'air conditioner', 'heater', 'thermostat', 'fan', 'ventilation'],
+  'HARDWARE': ['hardware', 'door', 'knob', 'handle', 'hinge', 'lock', 'cabinet hardware'],
+  'TOYS': ['toy', 'toys', 'play set', 'baking play set', 'kids', 'children'],
+};
+
+/**
+ * Determine which category domain a category/product type belongs to
+ */
+function getCategoryDomain(category: string | null | undefined): string | null {
+  if (!category) return null;
+  
+  const normalizedCategory = category.toLowerCase().trim();
+  
+  for (const [domain, keywords] of Object.entries(CATEGORY_DOMAINS)) {
+    if (keywords.some(keyword => normalizedCategory.includes(keyword))) {
+      return domain;
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Validate that input data sources are coherent (describe the same product)
+ * Run this BEFORE expensive AI processing to catch garbage-in scenarios
+ */
+function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoherenceResult {
+  const conflicts: DataConflict[] = [];
+  const warnings: string[] = [];
+  let confidenceScore = 100;
+
+  // Extract key fields from each source
+  const webRetailer = {
+    brand: rawProduct.Brand_Web_Retailer?.trim() || null,
+    category: rawProduct.Web_Retailer_Category?.trim() || null,
+    subCategory: rawProduct.Web_Retailer_SubCategory?.trim() || null,
+    title: rawProduct.Product_Title_Web_Retailer?.trim() || null,
+    model: rawProduct.Model_Number_Web_Retailer?.trim() || null,
+    price: rawProduct.MSRP_Web_Retailer,
+  };
+
+  const ferguson = {
+    brand: rawProduct.Ferguson_Brand?.trim() || null,
+    category: rawProduct.Ferguson_Base_Category?.trim() || null,
+    productType: rawProduct.Ferguson_Product_Type?.trim() || null,
+    businessCategory: rawProduct.Ferguson_Business_Category?.trim() || null,
+    title: rawProduct.Ferguson_Title?.trim() || null,
+    model: rawProduct.Ferguson_Model_Number?.trim() || null,
+    price: rawProduct.Ferguson_Price,
+  };
+
+  const referenceUrl = rawProduct.Reference_URL?.toLowerCase() || '';
+
+  // ========================================================================
+  // CHECK 1: Category Domain Mismatch (CRITICAL)
+  // ========================================================================
+  const webRetailerDomain = getCategoryDomain(webRetailer.category) || getCategoryDomain(webRetailer.subCategory);
+  const fergusonDomain = getCategoryDomain(ferguson.category) || getCategoryDomain(ferguson.productType) || getCategoryDomain(ferguson.businessCategory);
+
+  if (webRetailerDomain && fergusonDomain && webRetailerDomain !== fergusonDomain) {
+    conflicts.push({
+      type: 'category_domain',
+      severity: 'critical',
+      source1: 'Web_Retailer',
+      source2: 'Ferguson',
+      value1: `${webRetailer.category || webRetailer.subCategory} (${webRetailerDomain})`,
+      value2: `${ferguson.category || ferguson.productType} (${fergusonDomain})`,
+      description: `Web Retailer describes a ${webRetailerDomain} product, but Ferguson describes a ${fergusonDomain} product`
+    });
+    confidenceScore -= 50; // Major penalty
+  }
+
+  // ========================================================================
+  // CHECK 2: Brand Mismatch (CRITICAL when different domains)
+  // ========================================================================
+  if (webRetailer.brand && ferguson.brand) {
+    const normalizedWebBrand = webRetailer.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const normalizedFergusonBrand = ferguson.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    
+    if (normalizedWebBrand !== normalizedFergusonBrand && normalizedWebBrand.length > 2 && normalizedFergusonBrand.length > 2) {
+      // Check if brands are completely different (not just formatting)
+      const brandSimilarity = calculateStringSimilarity(normalizedWebBrand, normalizedFergusonBrand);
+      
+      if (brandSimilarity < 0.5) {
+        const severity = webRetailerDomain !== fergusonDomain ? 'critical' : 'warning';
+        conflicts.push({
+          type: 'brand_mismatch',
+          severity,
+          source1: 'Web_Retailer',
+          source2: 'Ferguson',
+          value1: webRetailer.brand,
+          value2: ferguson.brand,
+          description: `Completely different brands: "${webRetailer.brand}" vs "${ferguson.brand}"`
+        });
+        confidenceScore -= severity === 'critical' ? 40 : 15;
+      }
+    }
+  }
+
+  // ========================================================================
+  // CHECK 3: Reference URL Domain Check (CRITICAL)
+  // ========================================================================
+  // Detect when Reference_URL is for a completely irrelevant site
+  const irrelevantUrlPatterns = [
+    { pattern: /melissa.*doug|let.*play/i, domain: 'TOYS', description: "Children's toy website" },
+    { pattern: /bestbuy\.com.*baking|toy/i, domain: 'TOYS', description: "Toy product on BestBuy" },
+    { pattern: /wayfair\.com.*pillow|bedding|rug/i, domain: 'FURNITURE', description: "Home textile product" },
+    { pattern: /amazon\.com.*toy|game|baby/i, domain: 'TOYS', description: "Toy product on Amazon" },
+  ];
+
+  for (const urlPattern of irrelevantUrlPatterns) {
+    if (urlPattern.pattern.test(referenceUrl)) {
+      if (fergusonDomain && fergusonDomain !== urlPattern.domain) {
+        conflicts.push({
+          type: 'product_type',
+          severity: 'critical',
+          source1: 'Reference_URL',
+          source2: 'Ferguson',
+          value1: `${urlPattern.description} (${urlPattern.domain})`,
+          value2: `${ferguson.productType || ferguson.category} (${fergusonDomain})`,
+          description: `Reference URL points to a ${urlPattern.domain} product, but Ferguson data is for ${fergusonDomain}`
+        });
+        confidenceScore -= 40;
+      }
+    }
+  }
+
+  // ========================================================================
+  // CHECK 4: Product Title Content Analysis (WARNING)
+  // ========================================================================
+  if (webRetailer.title && ferguson.title) {
+    // Check if titles describe fundamentally different products
+    const webTitleLower = webRetailer.title.toLowerCase();
+    const fergusonTitleLower = ferguson.title.toLowerCase();
+    
+    // Product type keywords that should match
+    const productKeywords = [
+      ['sconce', 'wall light', 'lantern', 'wall mount'],
+      ['chandelier', 'pendant', 'hanging'],
+      ['faucet', 'tap'],
+      ['pillow', 'cushion'],
+      ['mirror'],
+      ['refrigerator', 'fridge'],
+      ['dishwasher'],
+    ];
+    
+    for (const keywordGroup of productKeywords) {
+      const webHas = keywordGroup.some(kw => webTitleLower.includes(kw));
+      const fergusonHas = keywordGroup.some(kw => fergusonTitleLower.includes(kw));
+      
+      // If one has a specific product type keyword and the other doesn't have ANY from that group
+      if ((webHas && !fergusonHas) || (!webHas && fergusonHas)) {
+        // Check if titles share ANY meaningful words
+        const webWords = webTitleLower.split(/\s+/).filter(w => w.length > 3);
+        const fergusonWords = fergusonTitleLower.split(/\s+/).filter(w => w.length > 3);
+        const commonWords = webWords.filter(w => fergusonWords.includes(w));
+        
+        if (commonWords.length < 2) {
+          warnings.push(`Product titles have no common keywords: "${webRetailer.title}" vs "${ferguson.title}"`);
+          confidenceScore -= 10;
+        }
+      }
+    }
+  }
+
+  // ========================================================================
+  // CHECK 5: Extreme Price Mismatch (WARNING)
+  // ========================================================================
+  if (webRetailer.price && ferguson.price) {
+    const priceDiff = Math.abs(Number(webRetailer.price) - Number(ferguson.price));
+    const avgPrice = (Number(webRetailer.price) + Number(ferguson.price)) / 2;
+    const priceVariance = avgPrice > 0 ? (priceDiff / avgPrice) * 100 : 0;
+    
+    if (priceVariance > 200) { // More than 200% difference
+      conflicts.push({
+        type: 'price_mismatch',
+        severity: 'warning',
+        source1: 'Web_Retailer',
+        source2: 'Ferguson',
+        value1: String(webRetailer.price),
+        value2: String(ferguson.price),
+        description: `Extreme price difference: $${webRetailer.price} vs $${ferguson.price} (${priceVariance.toFixed(0)}% variance)`
+      });
+      confidenceScore -= 10;
+    }
+  }
+
+  // ========================================================================
+  // DETERMINE RECOMMENDATION
+  // ========================================================================
+  const criticalConflicts = conflicts.filter(c => c.severity === 'critical');
+  const warningConflicts = conflicts.filter(c => c.severity === 'warning');
+
+  let recommendation: DataCoherenceResult['recommendation'];
+  let primaryDataSource: DataCoherenceResult['primaryDataSource'];
+
+  if (criticalConflicts.length >= 2) {
+    // Multiple critical conflicts = data is unusable
+    recommendation = 'reject';
+    primaryDataSource = 'none';
+  } else if (criticalConflicts.length === 1) {
+    // Single critical conflict = proceed with warnings, trust Ferguson over Web Retailer
+    recommendation = 'proceed_with_warnings';
+    primaryDataSource = ferguson.brand ? 'ferguson' : 'web_retailer';
+    warnings.push(`CRITICAL: ${criticalConflicts[0].description}. Proceeding with ${primaryDataSource} data only.`);
+  } else if (warningConflicts.length > 0) {
+    // Only warnings = proceed but log concerns
+    recommendation = 'proceed_with_warnings';
+    primaryDataSource = ferguson.brand ? 'ferguson' : 'web_retailer';
+  } else {
+    // No conflicts
+    recommendation = 'proceed';
+    primaryDataSource = ferguson.brand ? 'ferguson' : webRetailer.brand ? 'web_retailer' : 'none';
+  }
+
+  // Floor the confidence score at 0
+  confidenceScore = Math.max(0, confidenceScore);
+
+  return {
+    isCoherent: conflicts.filter(c => c.severity === 'critical').length === 0,
+    confidenceScore,
+    conflicts,
+    warnings,
+    recommendation,
+    primaryDataSource
+  };
+}
+
+/**
+ * Calculate similarity between two strings (0-1 scale)
+ * Uses Levenshtein distance normalized by max length
+ */
+function calculateStringSimilarity(str1: string, str2: string): number {
+  if (str1 === str2) return 1;
+  if (!str1 || !str2) return 0;
+  
+  const longer = str1.length > str2.length ? str1 : str2;
+  const shorter = str1.length > str2.length ? str2 : str1;
+  
+  if (longer.length === 0) return 1;
+  
+  // Simple containment check
+  if (longer.includes(shorter)) {
+    return shorter.length / longer.length;
+  }
+  
+  // Count common characters
+  let matches = 0;
+  const longerChars = longer.split('');
+  for (const char of shorter) {
+    const idx = longerChars.indexOf(char);
+    if (idx !== -1) {
+      matches++;
+      longerChars.splice(idx, 1);
+    }
+  }
+  
+  return matches / longer.length;
+}
+
+/**
+ * Build error response for rejected data coherence
+ */
+function buildDataCoherenceErrorResponse(
+  rawProduct: SalesforceIncomingProduct,
+  coherenceResult: DataCoherenceResult,
+  sessionId: string,
+  _processingTime: number
+): SalesforceVerificationResponse {
+  const conflictDescriptions = coherenceResult.conflicts
+    .map(c => `[${c.severity.toUpperCase()}] ${c.description}`)
+    .join('; ');
+
+  return {
+    SF_Catalog_Id: rawProduct.SF_Catalog_Id || '',
+    SF_Catalog_Name: rawProduct.SF_Catalog_Name || '',
+    Primary_Attributes: {
+      Brand_Verified: '',
+      Brand_Id: '',
+      Category_Verified: '',
+      Category_Id: '',
+      SubCategory_Verified: '',
+      Product_Family_Verified: '',
+      Department_Verified: '',
+      Product_Style_Verified: '',
+      Style_Id: null,
+      Color_Verified: '',
+      Finish_Verified: '',
+      Depth_Verified: '',
+      Width_Verified: '',
+      Height_Verified: '',
+      Weight_Verified: '',
+      MSRP_Verified: '',
+      Market_Value: '',
+      Market_Value_Min: '',
+      Market_Value_Max: '',
+      Description_Verified: '',
+      Product_Title_Verified: '',
+      Details_Verified: '',
+      Features_List_HTML: '',
+      UPC_GTIN_Verified: '',
+      Model_Number_Verified: '',
+      Model_Number_Alias: '',
+      Model_Parent: '',
+      Model_Variant_Number: '',
+      Total_Model_Variants: '',
+    },
+    Top_Filter_Attributes: {},
+    Top_Filter_Attribute_Ids: {},
+    Additional_Attributes_HTML: '',
+    Price_Analysis: {
+      msrp_web_retailer: 0,
+      msrp_ferguson: 0
+    },
+    Media: {
+      Primary_Image_URL: '',
+      All_Image_URLs: [],
+      Image_Count: 0
+    },
+    Reference_Links: {
+      Ferguson_URL: rawProduct.Ferguson_URL || '',
+      Web_Retailer_URL: rawProduct.Reference_URL || '',
+      Manufacturer_URL: ''
+    },
+    Documents: {
+      total_count: 0,
+      recommended_count: 0,
+      documents: []
+    },
+    Research_Analysis: {
+      research_performed: false,
+      total_resources_analyzed: 0,
+      web_pages: [],
+      pdfs: [],
+      images: [],
+      summary: {
+        total_specs_extracted: 0,
+        total_features_extracted: 0,
+        success_rate: 0
+      }
+    },
+    Received_Attributes_Confirmation: {
+      web_retailer_specs_processed: [],
+      ferguson_attributes_processed: [],
+      summary: {
+        total_received_from_web_retailer: 0,
+        total_received_from_ferguson: 0,
+        total_included_in_response: 0,
+        total_in_additional_attributes: 0,
+        total_not_used: 0
+      }
+    },
+    Field_AI_Reviews: {},
+    AI_Review: {
+      openai: { reviewed: false, result: 'not_reviewed', confidence: 0, fields_verified: 0, fields_corrected: 0 },
+      xai: { reviewed: false, result: 'not_reviewed', confidence: 0, fields_verified: 0, fields_corrected: 0 },
+      consensus: {
+        both_reviewed: false,
+        agreement_status: 'no_review',
+        agreement_percentage: 0,
+        final_arbiter: undefined
+      }
+    },
+    Verification: {
+      verification_timestamp: new Date().toISOString(),
+      verification_session_id: sessionId,
+      verification_score: coherenceResult.confidenceScore,
+      verification_status: 'data_conflict',
+      data_sources_used: [],
+      corrections_made: [],
+      missing_fields: ['All fields - data coherence validation failed'],
+      confidence_scores: {
+        openai: 0,
+        xai: 0,
+        consensus: 0,
+        category: 0
+      },
+      score_breakdown: {
+        ai_confidence_component: 0,
+        agreement_component: 0,
+        category_bonus: 0,
+        fields_agreed: 0,
+        fields_disagreed: coherenceResult.conflicts.length,
+        total_fields: 0,
+        agreement_percentage: 0,
+        data_source_scenario: 'data_conflict',
+        research_performed: false,
+        data_coherence_failure: {
+          reason: 'Input data sources describe different products',
+          conflicts: coherenceResult.conflicts,
+          warnings: coherenceResult.warnings,
+          recommendation: coherenceResult.recommendation
+        }
+      }
+    },
+    Attribute_Requests: [],
+    Brand_Requests: [],
+    Category_Requests: [],
+    Style_Requests: [],
+    Status: 'data_conflict',
+    Error_Message: `DATA COHERENCE FAILURE: ${conflictDescriptions}`
+  };
+}
+
+/**
  * Model Number Match Validation
  * =============================
  * CRITICAL: External data must match the requested model number EXACTLY.
@@ -875,6 +1312,55 @@ export async function verifyProductWithDualAI(
   
   // PHASE 0: Analyze data sources to determine research strategy
   const dataSourceAnalysis = analyzeDataSources(rawProduct);
+  
+  // PHASE 0.1: Validate data coherence - ensure input sources describe the SAME product
+  const coherenceResult = validateDataCoherence(rawProduct);
+  
+  if (coherenceResult.recommendation === 'reject') {
+    // Data sources are irreconcilable - return error response
+    logger.error('DATA COHERENCE FAILURE - Rejecting verification request', {
+      sessionId: verificationSessionId,
+      trackingId,
+      productId: rawProduct.SF_Catalog_Id,
+      modelNumber: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer,
+      coherenceScore: coherenceResult.confidenceScore,
+      conflicts: coherenceResult.conflicts.map(c => ({
+        type: c.type,
+        severity: c.severity,
+        description: c.description
+      })),
+      recommendation: coherenceResult.recommendation
+    });
+    
+    const errorResponse = buildDataCoherenceErrorResponse(
+      rawProduct,
+      coherenceResult,
+      verificationSessionId,
+      Date.now() - startTime
+    );
+    
+    // Track the failure
+    await trackingService.completeTrackingWithError(
+      trackingId, 
+      new Error(`Data coherence failure: ${coherenceResult.conflicts.map(c => c.description).join('; ')}`),
+      400
+    );
+    
+    return errorResponse;
+  }
+  
+  // Log coherence warnings if any
+  if (coherenceResult.warnings.length > 0 || coherenceResult.conflicts.length > 0) {
+    logger.warn('Data coherence warnings detected', {
+      sessionId: verificationSessionId,
+      productId: rawProduct.SF_Catalog_Id,
+      coherenceScore: coherenceResult.confidenceScore,
+      recommendation: coherenceResult.recommendation,
+      primaryDataSource: coherenceResult.primaryDataSource,
+      conflicts: coherenceResult.conflicts.length,
+      warnings: coherenceResult.warnings
+    });
+  }
   
   // Normalize Reference_URL - support both Reference_URL and Manufacturer_URL as input
   const referenceUrl = rawProduct.Reference_URL || rawProduct.Manufacturer_URL || null;
