@@ -2311,9 +2311,17 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
     
   const { researchContext, modelMismatchWarning, externalDataTrusted = true, dataCoherenceWarnings } = opts;
   
-  let prompt = `Analyze this product and map it to our category system:
+  let prompt = `You are a product data VERIFICATION specialist. Your job is to INDEPENDENTLY VERIFY product information, not blindly trust it.
 
-RAW PRODUCT DATA:
+## YOUR ROLE: VERIFY, DON'T TRUST
+The data below is UNVERIFIED input that may contain errors, wrong products, or incomplete information.
+- Treat ALL input data as "claims to investigate" NOT "facts to accept"
+- Use web search, URLs, and documents to INDEPENDENTLY CONFIRM each data point
+- If your research contradicts the input data, TRUST YOUR RESEARCH
+- EXCLUDE any input data you determine to be incorrect
+- ADD any additional data you discover through research
+
+## RAW PRODUCT DATA (UNVERIFIED - REQUIRES CONFIRMATION):
 ${JSON.stringify(rawProduct, null, 2)}
 `;
 
@@ -2380,39 +2388,62 @@ If unsure, use "Not Found" rather than guessing from mismatched data.
   if (researchContext && researchContext.trim()) {
     prompt += `
 
-=== EXTERNAL RESEARCH DATA (Retrieved from actual URLs/documents/images) ===
-${!externalDataTrusted ? '⚠️ WARNING: This data may be from a DIFFERENT MODEL VARIANT. Apply model mismatch rules above.\n\n' : ''}${dataCoherenceWarnings?.conflicts.length ? '⚠️ NOTE: Some of this data may be from a WRONG PRODUCT (see Data Conflict Alert above). Use reasoning to filter out bad data.\n\n' : ''}The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
-${externalDataTrusted && !dataCoherenceWarnings?.conflicts.length ? 'This data is AUTHORITATIVE - use it to fill in missing information and verify raw data accuracy.' : 'Use this data CAUTIOUSLY - verify it matches the product described in the structured fields before using.'}
-
+=== RESEARCH DATA (Retrieved from URLs/documents/images) ===
+The following data was retrieved by fetching actual web pages, downloading PDFs, and analyzing product images.
+**USE THIS DATA TO VERIFY** the raw input data above. If this research data contradicts the input, TRUST THE RESEARCH.
+${!externalDataTrusted ? '\n⚠️ WARNING: Some research data may be from a different model variant. Verify model numbers match.\n' : ''}${dataCoherenceWarnings?.conflicts.length ? '\n⚠️ NOTE: Conflicts detected between sources. Use your judgment to determine what is correct.\n' : ''}
 ${researchContext}
-=== END EXTERNAL RESEARCH DATA ===
+=== END RESEARCH DATA ===
 `;
   }
 
   prompt += `
 
-Tasks:
-1. Determine the product category from our master list
-2. Map all available data to the correct attribute fields for that category
-3. ${researchContext ? (externalDataTrusted && !dataCoherenceWarnings?.conflicts.length ? '**PRIORITIZE** the external research data for filling missing fields' : '**CAREFULLY VALIDATE** external data - discard any that describes a different product') : 'Note any missing data'}
-4. **CRITICAL**: Analyze ALL provided data sources:
-   - Parse the Specification_Table HTML to extract ALL specifications
-   - Use image analysis results to determine color, finish, product type
-   - Extract details from Ferguson data if available
-   - Extract details from Web Retailer data if available
-${dataCoherenceWarnings?.conflicts.length ? '   - ⚠️ DISCARD data from sources that clearly describe a different product' : ''}
-${!externalDataTrusted ? '   - ⚠️ VERIFY model numbers match before using color/finish data' : ''}
-5. **CRITICAL**: Clean and enhance ALL customer-facing text:
-   - Fix brand encoding issues (e.g., "Caf(eback)" → "Café", "(TM)" → "™")
-   - Fix run-on sentences (add spaces after periods)
-   - Ensure proper capitalization
-   - Professional grammar and punctuation
-6. **REQUIRED**: Generate a features_list with 5-10 key features extracted from the description/specs
-7. **NEVER LEAVE FIELDS BLANK**: 
-   - Use actual value if found
-   - Use "Not Found" if searched but couldn't find${!externalDataTrusted ? ' (especially for color/finish if model mismatch)' : ''}
-   - Use "N/A" if field doesn't apply to this product type
-8. List corrections and data sources used${dataCoherenceWarnings?.conflicts.length ? '\n9. **DOCUMENT BAD DATA**: In corrections, note any URLs/sources you ignored because they described a different product' : ''}
+## VERIFICATION TASKS (In Order of Priority):
+
+### 1. INDEPENDENT VERIFICATION (CRITICAL)
+- **Search the web** for the model number and/or product name
+- **Access ALL provided URLs** (Ferguson_URL, Reference_URL) to see actual product pages
+- **Read documents/PDFs** for specifications
+- **Cross-reference multiple sources** to confirm what product this actually is
+
+### 2. DETERMINE THE TRUTH
+- Compare input data against your research findings
+- If input says "Brand A" but URLs/web show "Brand B" → Use Brand B
+- If input says "Lamp" but research shows "PVC Cleaner" → Use PVC Cleaner
+- Trust the PREPONDERANCE OF EVIDENCE from your research
+
+### 3. EXCLUDE INCORRECT DATA
+- Document any input fields that are WRONG based on your research
+- In corrections, list: field name, wrong value received, correct value from research, source
+
+### 4. ENRICH WITH DISCOVERED DATA
+- Add specifications, features, dimensions found in your research that weren't in input
+- Fill in missing fields using your research
+- Provide complete, accurate product data
+
+### 5. CATEGORY MAPPING
+- Based on your VERIFIED product identity, determine the correct category
+- Map all VERIFIED data to the correct attribute fields
+
+### 6. DATA QUALITY
+${dataCoherenceWarnings?.conflicts.length ? '- ⚠️ DISCARD any input data that conflicts with your research findings' : ''}
+${!externalDataTrusted ? '- ⚠️ VERIFY model numbers match before using variant-specific data' : ''}
+- Clean and enhance ALL customer-facing text
+- Fix brand encoding issues (e.g., "Caf(eback)" → "Café")
+- Ensure professional grammar and formatting
+- Generate features_list with 5-10 key features
+
+### 7. FIELD COMPLETION
+- Use verified value if confirmed by research
+- Use "Not Found" if you searched but couldn't verify
+- Use "N/A" if field doesn't apply to this product type
+- NEVER leave fields blank
+
+### 8. DOCUMENT YOUR WORK
+- List all corrections (input value vs verified value)
+- List data sources used for verification
+- Note any input data you excluded as incorrect and why
 
 The product_title, description, and features_list will be displayed directly to customers.
 They MUST be professional, well-formatted, and error-free.
