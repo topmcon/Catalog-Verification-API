@@ -178,7 +178,10 @@ export function getAllCategoriesWithTop15ForPrompt(): string {
     .map(([categoryName, config]) => {
       const attrs = config.attributes
         .filter(attr => attr.sf_id !== null) // Only include attributes with valid Salesforce IDs
-        .map((attr) => `   ${attr.rank}. ${attr.name}`)
+        .map((attr) => {
+          const fieldKey = nameToFieldKey(attr.name);
+          return `   ${attr.rank}. "${attr.name}" (use key: "${fieldKey}")`;
+        })
         .join('\n');
       return `\n${categoryName}:\n${attrs}`;
     })

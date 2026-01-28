@@ -2321,6 +2321,7 @@ ATTRIBUTE STRUCTURE:
 ${primaryAttrs}
 
 == TOP 15 FILTER ATTRIBUTES (Category-specific) ==
+⚠️ CRITICAL: When populating top15_filter_attributes in your JSON response, you MUST use the field_key shown in parentheses (e.g., "horsepower", "feed_type"), NOT the full attribute name.
 ${categoryTop15}
 
 == ADDITIONAL ATTRIBUTES ==
@@ -2356,7 +2357,7 @@ You must respond with valid JSON in this exact format:
     "total_model_variants": "comma-separated list of all variants"
   },
   "top15_filter_attributes": {
-    "attribute_name": "value"
+    "field_key": "value (CRITICAL: Use the field_key shown in parentheses above, NOT the attribute name. Example: 'horsepower': '1/3 HP', NOT 'Horsepower': '1/3 HP')"
   },
   "additional_attributes": {
     "attribute_name": "value"
