@@ -4277,14 +4277,31 @@ function buildFinalResponse(
       )
     ),
     Features_List_HTML: cleanedText.featuresHtml,
-    UPC_GTIN_Verified: preferAIValue(
-      consensus.agreedPrimaryAttributes.upc_gtin,
-      openaiResult.primaryAttributes.upc_gtin,
-      xaiResult.primaryAttributes.upc_gtin,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      ''
-    ),
+    UPC_GTIN_Verified: (() => {
+      // Try AI-determined UPC first
+      const aiUPC = preferAIValue(
+        consensus.agreedPrimaryAttributes.upc_gtin,
+        openaiResult.primaryAttributes.upc_gtin,
+        xaiResult.primaryAttributes.upc_gtin,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      
+      // If UPC found and valid, use it
+      if (aiUPC && aiUPC.trim() && aiUPC.toLowerCase() !== 'not found' && aiUPC.length >= 8) {
+        return aiUPC;
+      }
+      
+      // DEFAULT UPC when not found via any method
+      // This placeholder indicates "UPC lookup required" for downstream systems
+      logger.info('UPC not found - using default placeholder', {
+        sessionId,
+        modelNumber: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer,
+        aiUPC
+      });
+      return '741360976603'; // Default UPC placeholder
+    })(),
     Model_Number_Verified: (() => {
       // NEW PRIORITY: 1) AI consensus/smart resolution (researched & validated), 2) Ferguson, 3) Web Retailer, 4) SF_Catalog_Name (fallback only)
       // AI often finds the complete model number (e.g., "K-26568-CP") while SF may have partial (e.g., "26568-BL")

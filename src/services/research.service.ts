@@ -1464,6 +1464,16 @@ export interface FinalVerificationSearchResult {
   foundSpecifications: Record<string, string>;
   foundFeatures: string[];
   sources: string[];
+  // NEW: Discovered resources that weren't in original payload
+  discoveredResources: {
+    webPages: Array<{ url: string; title: string; type: 'manufacturer' | 'retailer' | 'spec_sheet' | 'review' | 'other' }>;
+    documents: Array<{ url: string; filename: string; type: 'pdf' | 'spec_sheet' | 'manual' | 'other' }>;
+    images: Array<{ url: string; description: string; type: 'product' | 'spec' | 'dimension' | 'other' }>;
+  };
+  variantData?: {
+    hasVariants: boolean;
+    variants: Array<{ name: string; modelNumber: string; url?: string }>;
+  };
   searchSummary: string;
   success: boolean;
   error?: string;
@@ -1478,7 +1488,13 @@ export interface FinalVerificationSearchResult {
  * - Verified model number
  * - List of fields still missing or unresolved
  * 
- * This allows for a much more targeted and effective web search.
+ * IMPORTANT: This is an INDEPENDENT web search to find NEW sources NOT in the original payload.
+ * The goal is to:
+ * 1. Discover manufacturer spec sheets, PDFs, and documentation
+ * 2. Find additional retailer pages for cross-verification
+ * 3. Locate product images not in the payload
+ * 4. Identify product variants and related models
+ * 5. Save ALL discovered URLs, documents, and images for the response
  */
 export async function performFinalVerificationSearch(
   verifiedBrand: string,
@@ -1487,7 +1503,8 @@ export async function performFinalVerificationSearch(
   verifiedProductTitle: string,
   missingFields: string[],
   unresolvedFields: string[],
-  sessionId?: string
+  sessionId?: string,
+  excludeUrls?: string[]  // URLs already in payload - don't re-fetch these
 ): Promise<FinalVerificationSearchResult> {
   const startTime = Date.now();
   
@@ -1504,6 +1521,8 @@ export async function performFinalVerificationSearch(
       foundSpecifications: {},
       foundFeatures: [],
       sources: [],
+      discoveredResources: { webPages: [], documents: [], images: [] },
+      variantData: undefined,
       searchSummary: 'No missing fields to search for',
       success: true
     };
@@ -1518,6 +1537,8 @@ export async function performFinalVerificationSearch(
       foundSpecifications: {},
       foundFeatures: [],
       sources: [],
+      discoveredResources: { webPages: [], documents: [], images: [] },
+      variantData: undefined,
       searchSummary: 'Cannot search without brand or model number',
       success: false,
       error: 'Insufficient verified data for web search'
@@ -1533,6 +1554,8 @@ export async function performFinalVerificationSearch(
         foundSpecifications: {},
         foundFeatures: [],
         sources: [],
+        discoveredResources: { webPages: [], documents: [], images: [] },
+        variantData: undefined,
         searchSummary: 'OpenAI API key not configured',
         success: false,
         error: 'OpenAI API key not configured for web search'
@@ -1555,7 +1578,8 @@ export async function performFinalVerificationSearch(
       verifiedModelNumber,
       verifiedCategory,
       missingFieldsCount: fieldsToSearch.length,
-      missingFields: fieldsToSearch.slice(0, 10) // Log first 10
+      missingFields: fieldsToSearch.slice(0, 10), // Log first 10
+      excludeUrls: excludeUrls?.length || 0
     });
 
     const openaiClient = new OpenAI({ apiKey: config.openai.apiKey });
@@ -1573,8 +1597,11 @@ export async function performFinalVerificationSearch(
 
     // Build a detailed prompt that focuses on the specific missing fields
     const fieldDescriptions = fieldsToSearch.map(f => `- ${f}`).join('\n');
+    const excludeNote = excludeUrls && excludeUrls.length > 0 
+      ? `\n\nNOTE: We already have data from these URLs, find DIFFERENT sources:\n${excludeUrls.map(u => `- ${u}`).join('\n')}`
+      : '';
     
-    const systemPrompt = `You are a product specification researcher. Your task is to find SPECIFIC missing product data.
+    const systemPrompt = `You are a product specification researcher conducting an INDEPENDENT web search to find NEW sources of information.
 
 VERIFIED PRODUCT INFORMATION:
 - Brand: ${verifiedBrand || 'Unknown'}
@@ -1584,17 +1611,28 @@ VERIFIED PRODUCT INFORMATION:
 
 FIELDS WE NEED TO FIND:
 ${fieldDescriptions}
+${excludeNote}
 
-INSTRUCTIONS:
-1. Search manufacturer websites, retailer sites, and spec sheets for this EXACT product
-2. Only return data that specifically matches this brand and model number
-3. Do NOT guess or estimate - only return values you find in authoritative sources
-4. Include the source URL for each piece of information found
+YOUR MISSION:
+1. Search for this EXACT product (brand + model number) across the web
+2. Find NEW sources not already provided - manufacturer sites, retailers, spec databases
+3. Look for PDF spec sheets, installation guides, product manuals
+4. Find high-quality product images showing different angles, dimensions, features
+5. Identify if this product has VARIANTS (sizes, colors, configurations) and list them with model numbers
+6. Extract all specifications you find with their source URLs
+7. Prioritize authoritative sources: manufacturer > major retailers > other
+
+IMPORTANT:
+- Only return data that EXACTLY matches this brand and model number
+- Do NOT guess or estimate - only return verified information
+- Include the FULL URL for every piece of information found
+- Note any product variants or related models you discover
 
 Return JSON format:
 {
   "specifications": {
     "field_name": "value found",
+    "upc": "UPC/GTIN if found",
     ...
   },
   "features": ["feature1", "feature2"],
@@ -1604,19 +1642,33 @@ Return JSON format:
     "depth": "value with unit",
     "weight": "value with unit"
   },
+  "discovered_resources": {
+    "web_pages": [
+      {"url": "full URL", "title": "Page title", "type": "manufacturer|retailer|spec_sheet|review|other"}
+    ],
+    "documents": [
+      {"url": "full URL to PDF", "filename": "document name", "type": "pdf|spec_sheet|manual|other"}
+    ],
+    "images": [
+      {"url": "full image URL", "description": "what image shows", "type": "product|spec|dimension|other"}
+    ]
+  },
+  "variants": [
+    {"name": "variant name (e.g. Gallon)", "model_number": "variant model #", "url": "product URL if found"}
+  ],
   "sources": ["url1", "url2"],
   "confidence": 0.0-1.0,
-  "notes": "Any important notes about the data found"
+  "notes": "Important findings, variant info, or data quality notes"
 }`;
 
     const response = await openaiClient.chat.completions.create({
       model,
       messages: [
         { role: 'system', content: systemPrompt },
-        { role: 'user', content: `Search for: ${searchQuery}\n\nFind these specific fields: ${fieldsToSearch.join(', ')}` }
+        { role: 'user', content: `Search the web for: ${searchQuery}\n\nFind these specific fields: ${fieldsToSearch.join(', ')}\n\nAlso discover any related documents, images, and product variants.` }
       ],
       temperature: 0.1,
-      max_tokens: 2000,
+      max_tokens: 3000,
     });
 
     const content = response.choices[0]?.message?.content || '{}';
@@ -1664,9 +1716,75 @@ Return JSON format:
 
     const foundFeatures = Array.isArray(parsed.features) ? parsed.features : [];
     const sources = Array.isArray(parsed.sources) ? parsed.sources : [];
+    
+    // Extract discovered resources (NEW - these are resources not in original payload)
+    const discoveredResources: FinalVerificationSearchResult['discoveredResources'] = {
+      webPages: [],
+      documents: [],
+      images: []
+    };
+    
+    if (parsed.discovered_resources) {
+      // Web pages
+      if (Array.isArray(parsed.discovered_resources.web_pages)) {
+        discoveredResources.webPages = parsed.discovered_resources.web_pages
+          .filter((p: any) => p.url && typeof p.url === 'string')
+          .map((p: any) => ({
+            url: p.url,
+            title: p.title || 'Unknown',
+            type: p.type || 'other'
+          }));
+      }
+      
+      // Documents (PDFs, spec sheets, etc.)
+      if (Array.isArray(parsed.discovered_resources.documents)) {
+        discoveredResources.documents = parsed.discovered_resources.documents
+          .filter((d: any) => d.url && typeof d.url === 'string')
+          .map((d: any) => ({
+            url: d.url,
+            filename: d.filename || d.url.split('/').pop() || 'document',
+            type: d.type || 'other'
+          }));
+      }
+      
+      // Images
+      if (Array.isArray(parsed.discovered_resources.images)) {
+        discoveredResources.images = parsed.discovered_resources.images
+          .filter((i: any) => i.url && typeof i.url === 'string')
+          .map((i: any) => ({
+            url: i.url,
+            description: i.description || 'Product image',
+            type: i.type || 'other'
+          }));
+      }
+    }
+    
+    // Extract variant data (important for products with size/color options)
+    let variantData: FinalVerificationSearchResult['variantData'] = undefined;
+    if (Array.isArray(parsed.variants) && parsed.variants.length > 0) {
+      variantData = {
+        hasVariants: true,
+        variants: parsed.variants
+          .filter((v: any) => v.model_number || v.name)
+          .map((v: any) => ({
+            name: v.name || 'Variant',
+            modelNumber: v.model_number || '',
+            url: v.url
+          }))
+      };
+      
+      logger.info('Product variants discovered', {
+        sessionId,
+        variantCount: variantData.variants.length,
+        variants: variantData.variants.map(v => v.modelNumber)
+      });
+    }
 
     const processingTime = Date.now() - startTime;
     const specsFoundCount = Object.keys(foundSpecs).length;
+    const totalDiscovered = discoveredResources.webPages.length + 
+                           discoveredResources.documents.length + 
+                           discoveredResources.images.length;
     
     logger.info('Final verification web search completed', {
       sessionId,
@@ -1675,6 +1793,10 @@ Return JSON format:
       specsFound: specsFoundCount,
       featuresFound: foundFeatures.length,
       sourcesFound: sources.length,
+      discoveredWebPages: discoveredResources.webPages.length,
+      discoveredDocuments: discoveredResources.documents.length,
+      discoveredImages: discoveredResources.images.length,
+      variantsFound: variantData?.variants?.length || 0,
       confidence: parsed.confidence || 'N/A'
     });
 
@@ -1685,8 +1807,10 @@ Return JSON format:
       foundSpecifications: foundSpecs,
       foundFeatures,
       sources,
-      searchSummary: specsFoundCount > 0 
-        ? `Found ${specsFoundCount} specifications and ${foundFeatures.length} features from ${sources.length} sources`
+      discoveredResources,
+      variantData,
+      searchSummary: specsFoundCount > 0 || totalDiscovered > 0
+        ? `Found ${specsFoundCount} specs, ${foundFeatures.length} features. Discovered ${totalDiscovered} new resources from ${sources.length} sources.`
         : 'No additional specifications found in web search',
       success: true
     };
@@ -1707,6 +1831,8 @@ Return JSON format:
       foundSpecifications: {},
       foundFeatures: [],
       sources: [],
+      discoveredResources: { webPages: [], documents: [], images: [] },
+      variantData: undefined,
       searchSummary: `Web search failed: ${errorMessage}`,
       success: false,
       error: errorMessage
