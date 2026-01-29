@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import axios from 'axios';
 import fs from 'fs/promises';
 import path from 'path';
@@ -7,21 +8,26 @@ import logger from '../../utils/logger';
 interface DetectedIssue {
   jobId: string;
   sfCatalogId: string;
-  issueType: 'missing_data' | 'mapping_failure' | 'logic_error' | 'picklist_mismatch';
+  issueType: 'missing_data' | 'mapping_failure' | 'logic_error' | 'picklist_mismatch' | 'research_incomplete' | 'research_conflict';
   severity: 'low' | 'medium' | 'high' | 'critical';
   missingFields: string[];
   rawPayload: any;
   currentResponse: any;
   errorLogs: string[];
   affectedCount: number;
+  // NEW: Research attestation fields
+  failedResearchSteps?: string[];
+  researchCompletionRate?: number;
+  canRetryResearch?: boolean;
+  requiresHumanReview?: boolean;
 }
 
 interface AIDiagnosis {
-  aiProvider: 'openai' | 'xai';
+  aiProvider: 'openai' | 'xai' | 'claude';
   rootCause: string;
   evidence: string[];
   proposedFix: {
-    type: 'add_alias' | 'update_schema' | 'fix_parsing' | 'add_normalization' | 'fix_logic';
+    type: 'add_alias' | 'update_schema' | 'fix_parsing' | 'add_normalization' | 'fix_logic' | 'retry_research';
     targetFiles: string[];
     codeChanges: Array<{
       file: string;
@@ -30,6 +36,8 @@ interface AIDiagnosis {
       newCode: string;
       explanation: string;
     }>;
+    // NEW: For research_incomplete issues
+    researchStepsToRetry?: string[];
   };
   systemScanRecommendations: {
     filesToScan: string[];
@@ -56,6 +64,13 @@ interface ConsensusFix {
   bothAIsApprove: boolean;
   openaiDiagnosis: AIDiagnosis;
   xaiDiagnosis: AIDiagnosis;
+  // NEW: Claude mediation
+  claudeMediation?: {
+    selectedProvider: 'openai' | 'xai';
+    reasoning: string;
+    mergedFix: boolean;
+    additionalInsights: string[];
+  };
   openaiReviewOfXAI: {
     agrees: boolean;
     concerns: string[];
@@ -70,24 +85,38 @@ interface ConsensusFix {
 
 class DualAIDiagnostician {
   private openai: OpenAI;
+  private anthropic: Anthropic;
   private xaiApiKey: string;
 
   constructor() {
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     this.xaiApiKey = process.env.XAI_API_KEY || '';
   }
 
   /**
-   * Main entry point: Analyze issue with both AIs and build consensus
+   * Main entry point: Analyze issue with both AIs, use Claude as mediator
+   * 
+   * UPDATED: Now uses Tri-AI architecture consistent with verification system:
+   * - OpenAI + xAI: Independent analysts
+   * - Claude: Mediator/judge who selects best fix
    */
   async diagnoseWithConsensus(issue: DetectedIssue): Promise<ConsensusFix | null> {
     try {
-      logger.info(`Starting dual-AI diagnosis for job ${issue.jobId}`);
+      logger.info(`Starting Tri-AI diagnosis for job ${issue.jobId}`);
+      logger.info(`Issue type: ${issue.issueType}, Severity: ${issue.severity}`);
+
+      // Handle research_conflict issues immediately - always escalate
+      if (issue.requiresHumanReview || issue.issueType === 'research_conflict') {
+        logger.warn(`Issue ${issue.jobId} requires human review - skipping auto-diagnosis`);
+        return null;
+      }
 
       // STEP 1: Gather all context
       const context = await this.gatherDiagnosticContext(issue);
 
-      // STEP 2A: Independent parallel analysis
+      // STEP 2A: Independent parallel analysis (OpenAI + xAI)
+      logger.info(`[Phase 2A] Starting independent parallel analysis...`);
       const [openaiDiagnosis, xaiDiagnosis] = await Promise.all([
         this.analyzeWithOpenAI(issue, context),
         this.analyzeWithXAI(issue, context)
@@ -95,36 +124,246 @@ class DualAIDiagnostician {
 
       logger.info(`Dual analysis complete - OpenAI: ${openaiDiagnosis.confidence}% confidence, xAI: ${xaiDiagnosis.confidence}% confidence`);
 
-      // STEP 2B: Cross-review
+      // STEP 2B: Cross-review (each AI reviews the other's diagnosis)
+      logger.info(`[Phase 2B] Starting cross-review...`);
       const openaiReview = await this.openAIReviewsXAI(xaiDiagnosis, context);
       const xaiReview = await this.xAIReviewsOpenAI(openaiDiagnosis, context);
 
-      // STEP 2C: Build consensus
-      const consensus = await this.buildConsensus({
+      // STEP 2C: Claude Mediation (NEW - consistent with verification system)
+      logger.info(`[Phase 2C] Starting Claude mediation...`);
+      const claudeMediation = await this.claudeMediatesAndSelectsFix(
         openaiDiagnosis,
         xaiDiagnosis,
         openaiReview,
         xaiReview,
+        issue,
+        context
+      );
+
+      // STEP 2D: Build final consensus with Claude's decision
+      const consensus = await this.buildConsensusWithClaude({
+        openaiDiagnosis,
+        xaiDiagnosis,
+        openaiReview,
+        xaiReview,
+        claudeMediation,
         context
       });
 
       if (!consensus.agreed) {
-        logger.warn(`AIs could not reach consensus on job ${issue.jobId}. Escalating to human review.`);
+        logger.warn(`Tri-AI could not reach consensus on job ${issue.jobId}. Escalating to human review.`);
         return null;
       }
 
-      // STEP 2D: System-wide scanning
+      // STEP 2E: System-wide scanning
+      logger.info(`[Phase 2E] Planning system-wide fixes...`);
       const systemWideFixes = await this.planSystemWideFixes(consensus, context);
       consensus.selectedFix.systemWide = systemWideFixes;
 
-      logger.info(`Consensus achieved with ${consensus.combinedConfidence}% confidence. System-wide fixes: ${systemWideFixes.length}`);
+      logger.info(`✅ Consensus achieved with ${consensus.combinedConfidence}% confidence (mediated by Claude)`);
+      logger.info(`   Selected provider: ${consensus.claudeMediation?.selectedProvider}`);
+      logger.info(`   System-wide fixes: ${systemWideFixes.length}`);
 
       return consensus;
 
     } catch (error) {
-      logger.error('Error in dual-AI diagnosis:', error);
+      logger.error('Error in Tri-AI diagnosis:', error);
       throw error;
     }
+  }
+
+  /**
+   * Claude mediates between OpenAI and xAI diagnoses
+   * Selects the best fix approach, similar to verification system
+   */
+  private async claudeMediatesAndSelectsFix(
+    openaiDiagnosis: AIDiagnosis,
+    xaiDiagnosis: AIDiagnosis,
+    openaiReview: any,
+    xaiReview: any,
+    issue: DetectedIssue,
+    context: any
+  ): Promise<{
+    selectedProvider: 'openai' | 'xai';
+    reasoning: string;
+    mergedFix: boolean;
+    additionalInsights: string[];
+    finalFix: AIDiagnosis['proposedFix'];
+    confidence: number;
+  }> {
+    const prompt = `You are a senior software architect mediating between two AI diagnoses of a self-healing issue.
+
+## YOUR ROLE
+You are the JUDGE. OpenAI and xAI have independently analyzed an issue and proposed fixes.
+Your job is to:
+1. Evaluate both diagnoses
+2. Select the BEST fix (or merge the best parts)
+3. Provide reasoning for your decision
+4. Add any insights they may have missed
+
+## ISSUE DETAILS
+- Issue ID: ${issue.jobId}
+- Issue Type: ${issue.issueType}
+- Severity: ${issue.severity}
+- Affected Count: ${issue.affectedCount}
+- Missing Fields: ${issue.missingFields?.join(', ') || 'None'}
+${issue.failedResearchSteps ? `- Failed Research Steps: ${issue.failedResearchSteps.join(', ')}` : ''}
+${issue.researchCompletionRate !== undefined ? `- Research Completion: ${issue.researchCompletionRate}%` : ''}
+
+## OPENAI DIAGNOSIS
+Root Cause: ${openaiDiagnosis.rootCause}
+Proposed Fix Type: ${openaiDiagnosis.proposedFix.type}
+Confidence: ${openaiDiagnosis.confidence}%
+Risk Level: ${openaiDiagnosis.riskLevel}
+Evidence: ${openaiDiagnosis.evidence.join('; ')}
+Code Changes: ${JSON.stringify(openaiDiagnosis.proposedFix.codeChanges, null, 2)}
+
+## XAI DIAGNOSIS
+Root Cause: ${xaiDiagnosis.rootCause}
+Proposed Fix Type: ${xaiDiagnosis.proposedFix.type}
+Confidence: ${xaiDiagnosis.confidence}%
+Risk Level: ${xaiDiagnosis.riskLevel}
+Evidence: ${xaiDiagnosis.evidence.join('; ')}
+Code Changes: ${JSON.stringify(xaiDiagnosis.proposedFix.codeChanges, null, 2)}
+
+## CROSS-REVIEWS
+OpenAI agrees with xAI: ${openaiReview.agrees}
+OpenAI concerns: ${openaiReview.concerns?.join('; ') || 'None'}
+
+xAI agrees with OpenAI: ${xaiReview.agrees}
+xAI concerns: ${xaiReview.concerns?.join('; ') || 'None'}
+
+## CONTEXT
+${JSON.stringify(context.missingFields || context.payload, null, 2).substring(0, 2000)}
+
+## YOUR DECISION
+Respond with JSON:
+{
+  "selectedProvider": "openai" | "xai",
+  "reasoning": "Why you selected this diagnosis over the other",
+  "mergedFix": true | false, // Did you merge elements from both?
+  "additionalInsights": ["Any insights neither AI caught"],
+  "confidence": 0-100, // Your confidence in the selected fix
+  "finalFix": {
+    "type": "The fix type to apply",
+    "targetFiles": ["Files to modify"],
+    "codeChanges": [
+      {
+        "file": "path/to/file.ts",
+        "newCode": "The code to add/modify",
+        "explanation": "What this change does"
+      }
+    ],
+    "researchStepsToRetry": ["If applicable, which research steps to retry"]
+  }
+}`;
+
+    try {
+      const response = await this.anthropic.messages.create({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ]
+      });
+
+      const content = response.content[0];
+      if (content.type !== 'text') {
+        throw new Error('Unexpected response type from Claude');
+      }
+
+      // Parse JSON from Claude's response
+      const jsonMatch = content.text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        throw new Error('Could not parse JSON from Claude response');
+      }
+
+      const result = JSON.parse(jsonMatch[0]);
+      logger.info(`Claude selected ${result.selectedProvider} with ${result.confidence}% confidence`);
+
+      return result;
+
+    } catch (error) {
+      logger.error('Error in Claude mediation:', error);
+      
+      // Fallback: select higher confidence diagnosis
+      const selected = openaiDiagnosis.confidence >= xaiDiagnosis.confidence ? 'openai' : 'xai';
+      const selectedDiagnosis = selected === 'openai' ? openaiDiagnosis : xaiDiagnosis;
+      
+      return {
+        selectedProvider: selected,
+        reasoning: 'Claude mediation failed - defaulting to higher confidence diagnosis',
+        mergedFix: false,
+        additionalInsights: [],
+        finalFix: selectedDiagnosis.proposedFix,
+        confidence: selectedDiagnosis.confidence
+      };
+    }
+  }
+
+  /**
+   * Build consensus with Claude's mediation decision
+   */
+  private async buildConsensusWithClaude(data: {
+    openaiDiagnosis: AIDiagnosis;
+    xaiDiagnosis: AIDiagnosis;
+    openaiReview: any;
+    xaiReview: any;
+    claudeMediation: {
+      selectedProvider: 'openai' | 'xai';
+      reasoning: string;
+      mergedFix: boolean;
+      additionalInsights: string[];
+      finalFix: AIDiagnosis['proposedFix'];
+      confidence: number;
+    };
+    context: any;
+  }): Promise<ConsensusFix> {
+    const { openaiDiagnosis, xaiDiagnosis, openaiReview, xaiReview, claudeMediation } = data;
+
+    // With Claude as mediator, consensus is achieved if Claude's confidence is high enough
+    const minConfidence = parseInt(process.env.DUAL_AI_MIN_CONFIDENCE || '70');
+    const claudeApproves = claudeMediation.confidence >= minConfidence;
+
+    // Also check that at least one of the original AIs had reasonable confidence
+    const atLeastOneConfident = openaiDiagnosis.confidence >= minConfidence || xaiDiagnosis.confidence >= minConfidence;
+
+    const agreed = claudeApproves && atLeastOneConfident;
+
+    // Use Claude's selected/merged fix
+    const selectedDiagnosis = claudeMediation.selectedProvider === 'openai' ? openaiDiagnosis : xaiDiagnosis;
+    const rootCause = selectedDiagnosis.rootCause;
+
+    // Combined confidence: weight Claude's decision heavily
+    const combinedConfidence = Math.round(
+      (claudeMediation.confidence * 0.5) + 
+      (openaiDiagnosis.confidence * 0.25) + 
+      (xaiDiagnosis.confidence * 0.25)
+    );
+
+    return {
+      agreed,
+      consensusRootCause: agreed ? rootCause : 'No consensus reached',
+      selectedFix: {
+        primary: claudeMediation.finalFix,
+        systemWide: [] // Will be populated by planSystemWideFixes
+      },
+      combinedConfidence,
+      bothAIsApprove: agreed,
+      openaiDiagnosis,
+      xaiDiagnosis,
+      claudeMediation: {
+        selectedProvider: claudeMediation.selectedProvider,
+        reasoning: claudeMediation.reasoning,
+        mergedFix: claudeMediation.mergedFix,
+        additionalInsights: claudeMediation.additionalInsights
+      },
+      openaiReviewOfXAI: openaiReview,
+      xaiReviewOfOpenAI: xaiReview
+    };
   }
 
   /**
@@ -417,54 +656,6 @@ Return JSON:
   }
 
   /**
-   * Build consensus from both diagnoses and reviews
-   */
-  private async buildConsensus(data: {
-    openaiDiagnosis: AIDiagnosis;
-    xaiDiagnosis: AIDiagnosis;
-    openaiReview: any;
-    xaiReview: any;
-    context: any;
-  }): Promise<ConsensusFix> {
-    const { openaiDiagnosis, xaiDiagnosis, openaiReview, xaiReview } = data;
-
-    // Check if both AIs agree on root cause
-    const rootCauseSimilarity = this.calculateStringSimilarity(
-      openaiDiagnosis.rootCause.toLowerCase(),
-      xaiDiagnosis.rootCause.toLowerCase()
-    );
-
-    const minConfidence = parseInt(process.env.DUAL_AI_MIN_CONFIDENCE || '70');
-    const bothConfident = openaiDiagnosis.confidence >= minConfidence && xaiDiagnosis.confidence >= minConfidence;
-    const bothReviewsAgree = openaiReview.agrees && xaiReview.agrees;
-    const rootCausesAlign = rootCauseSimilarity > 0.6;
-
-    const agreed = bothConfident && bothReviewsAgree && rootCausesAlign;
-
-    // Select best fix (highest combined confidence)
-    const selectedFix = openaiDiagnosis.confidence >= xaiDiagnosis.confidence
-      ? openaiDiagnosis.proposedFix
-      : xaiDiagnosis.proposedFix;
-
-    const combinedConfidence = Math.round((openaiDiagnosis.confidence + xaiDiagnosis.confidence) / 2);
-
-    return {
-      agreed,
-      consensusRootCause: agreed ? openaiDiagnosis.rootCause : 'No consensus reached',
-      selectedFix: {
-        primary: selectedFix,
-        systemWide: [] // Will be populated by planSystemWideFixes
-      },
-      combinedConfidence,
-      bothAIsApprove: agreed,
-      openaiDiagnosis,
-      xaiDiagnosis,
-      openaiReviewOfXAI: openaiReview,
-      xaiReviewOfOpenAI: xaiReview
-    };
-  }
-
-  /**
    * Plan system-wide fixes to prevent recurrence
    */
   private async planSystemWideFixes(consensus: ConsensusFix, _context: any): Promise<Array<{ file: string; changes: string; reason: string }>> {
@@ -719,50 +910,6 @@ Debug the CODE failure. Find why smart contextual mapping didn't happen.
     } catch (error) {
       return [];
     }
-  }
-
-  /**
-   * Calculate string similarity (simple Levenshtein-based)
-   */
-  private calculateStringSimilarity(s1: string, s2: string): number {
-    const longer = s1.length > s2.length ? s1 : s2;
-    const shorter = s1.length > s2.length ? s2 : s1;
-    
-    if (longer.length === 0) return 1.0;
-    
-    const editDistance = this.levenshteinDistance(longer, shorter);
-    return (longer.length - editDistance) / longer.length;
-  }
-
-  /**
-   * Levenshtein distance
-   */
-  private levenshteinDistance(s1: string, s2: string): number {
-    const matrix: number[][] = [];
-
-    for (let i = 0; i <= s2.length; i++) {
-      matrix[i] = [i];
-    }
-
-    for (let j = 0; j <= s1.length; j++) {
-      matrix[0][j] = j;
-    }
-
-    for (let i = 1; i <= s2.length; i++) {
-      for (let j = 1; j <= s1.length; j++) {
-        if (s2.charAt(i - 1) === s1.charAt(j - 1)) {
-          matrix[i][j] = matrix[i - 1][j - 1];
-        } else {
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j - 1] + 1,
-            matrix[i][j - 1] + 1,
-            matrix[i - 1][j] + 1
-          );
-        }
-      }
-    }
-
-    return matrix[s2.length][s1.length];
   }
 }
 

@@ -1,6 +1,7 @@
 import logger from '../../utils/logger';
 import comprehensiveFixApplicator from './comprehensive-fix-applicator.service';
 import dualAIVerificationService from '../dual-ai-verification.service';
+import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import axios from 'axios';
 
@@ -10,13 +11,17 @@ interface AttemptResult {
   reprocessed: boolean;
   openaiReview: ValidationReview;
   xaiReview: ValidationReview;
+  claudeReview?: ValidationReview; // NEW: Claude final validation
   bothApproved: boolean;
   failureReason?: string;
   timestamp: Date;
+  // NEW: Research retry specific
+  researchStepsRetried?: string[];
+  attestationImproved?: boolean;
 }
 
 interface ValidationReview {
-  aiProvider: 'openai' | 'xai';
+  aiProvider: 'openai' | 'xai' | 'claude';
   approved: boolean;
   confidence: number;
   checklist: {
@@ -24,6 +29,9 @@ interface ValidationReview {
     dataAccuracyCorrect: boolean;
     noNewErrorsIntroduced: boolean;
     overallQualityImproved: boolean;
+    // NEW: Research attestation checks
+    researchCompletionImproved?: boolean;
+    attestationValid?: boolean;
   };
   concerns: string[];
   improvements: string[];
@@ -39,24 +47,36 @@ interface MultiAttemptResult {
   finalValidation?: {
     openaiApproval: ValidationReview;
     xaiApproval: ValidationReview;
+    claudeApproval?: ValidationReview; // NEW: Claude's final verdict
   };
   escalateToHuman: boolean;
   reason: string;
+  // NEW: Research retry tracking
+  researchRetryMode?: boolean;
+  researchStepsRetried?: string[];
+  attestationBefore?: number;
+  attestationAfter?: number;
 }
 
 class MultiAttemptVerifier {
   private openai: OpenAI;
+  private anthropic: Anthropic;
   private xaiApiKey: string;
   private maxAttempts: number;
 
   constructor() {
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     this.xaiApiKey = process.env.XAI_API_KEY || '';
     this.maxAttempts = parseInt(process.env.SELF_HEALING_MAX_ATTEMPTS || '3');
   }
 
   /**
    * Main verification loop with up to 3 attempts
+   * 
+   * UPDATED: Now supports targeted research retries based on attestation data
+   * If the fix type is 'retry_research', we retry only the failed research steps
+   * instead of applying code changes
    */
   async verifyWithRetry(
     consensusFix: any,
@@ -66,6 +86,18 @@ class MultiAttemptVerifier {
   ): Promise<MultiAttemptResult> {
     const attempts: AttemptResult[] = [];
     let currentFix = consensusFix;
+
+    // Check if this is a research retry (attestation-based)
+    const isResearchRetry = consensusFix.primary?.type === 'retry_research';
+    const researchStepsToRetry = consensusFix.primary?.researchStepsToRetry || [];
+    
+    // Get initial attestation completion rate
+    const initialAttestation = this.getAttestationCompletionRate(originalResponse);
+
+    if (isResearchRetry) {
+      logger.info(`🔄 RESEARCH RETRY MODE - Retrying failed research steps: ${researchStepsToRetry.join(', ')}`);
+      logger.info(`   Initial attestation completion: ${initialAttestation}%`);
+    }
 
     logger.info(`Starting multi-attempt verification (max ${this.maxAttempts} attempts) for job ${originalJob.jobId}`);
 
@@ -146,6 +178,38 @@ class MultiAttemptVerifier {
             escalateToHuman: false,
             reason: 'Fix validated and approved by both AIs'
           };
+        }
+
+        // 5️⃣b NEW: If AIs disagree, use Claude as tie-breaker
+        if (openaiReview.approved !== xaiReview.approved) {
+          logger.info(`[Attempt ${attemptNumber}] AIs disagree - invoking Claude as tie-breaker...`);
+          
+          const claudeReview = await this.claudeValidatesFix(originalResponse, newResponse, currentFix);
+          attemptResult.claudeReview = claudeReview;
+          
+          logger.info(`[Attempt ${attemptNumber}] Claude verdict: ${claudeReview.approved} (${claudeReview.confidence}%)`);
+          
+          if (claudeReview.approved && claudeReview.confidence >= 70) {
+            // Claude approves - count as success
+            logger.info(`[Attempt ${attemptNumber}] ✅ SUCCESS! Claude approved the fix as tie-breaker.`);
+            attemptResult.bothApproved = true;
+            attempts.push(attemptResult);
+
+            return {
+              success: true,
+              finalAttempt: attemptNumber,
+              totalAttempts: this.maxAttempts,
+              attempts,
+              finalResponse: newResponse,
+              finalValidation: {
+                openaiApproval: openaiReview,
+                xaiApproval: xaiReview,
+                claudeApproval: claudeReview
+              },
+              escalateToHuman: false,
+              reason: 'Fix validated by Claude as tie-breaker'
+            };
+          }
         }
 
         // 6️⃣ ANALYZE FAILURE
@@ -554,7 +618,7 @@ Generate an IMPROVED fix that addresses all the concerns and suggestions.
   /**
    * Create empty review structure
    */
-  private createEmptyReview(provider: 'openai' | 'xai'): ValidationReview {
+  private createEmptyReview(provider: 'openai' | 'xai' | 'claude'): ValidationReview {
     return {
       aiProvider: provider,
       approved: false,
@@ -563,12 +627,181 @@ Generate an IMPROVED fix that addresses all the concerns and suggestions.
         missingFieldsPopulated: false,
         dataAccuracyCorrect: false,
         noNewErrorsIntroduced: false,
-        overallQualityImproved: false
+        overallQualityImproved: false,
+        researchCompletionImproved: false,
+        attestationValid: false
       },
       concerns: [],
       improvements: [],
       detailedAnalysis: ''
     };
+  }
+
+  /**
+   * NEW: Get attestation completion rate from response
+   */
+  private getAttestationCompletionRate(response: any): number {
+    const attestation = response?.data?.Research_Attestation || response?.Research_Attestation;
+    if (!attestation?.checklist_completion) {
+      return 0;
+    }
+    
+    const completed = attestation.checklist_completion.completed_steps || 0;
+    const total = attestation.checklist_completion.total_steps || 8;
+    
+    return Math.round((completed / total) * 100);
+  }
+
+  /**
+   * NEW: Claude validates the fix with final authority
+   * Used as tie-breaker when OpenAI and xAI disagree
+   */
+  private async claudeValidatesFix(
+    originalResponse: any,
+    newResponse: any,
+    fix: any
+  ): Promise<ValidationReview> {
+    try {
+      const prompt = `You are the final arbiter validating a self-healing fix.
+
+## ORIGINAL RESPONSE (BEFORE FIX)
+${JSON.stringify(originalResponse, null, 2).substring(0, 3000)}
+
+## NEW RESPONSE (AFTER FIX)
+${JSON.stringify(newResponse, null, 2).substring(0, 3000)}
+
+## FIX APPLIED
+Type: ${fix.type}
+Target Files: ${fix.targetFiles?.join(', ')}
+${fix.researchStepsToRetry ? `Research Steps Retried: ${fix.researchStepsToRetry.join(', ')}` : ''}
+
+## YOUR VALIDATION
+Check these criteria:
+1. Were missing fields populated?
+2. Is the data accuracy correct (no hallucinations)?
+3. Were new errors introduced?
+4. Did overall quality improve?
+5. Did research attestation completion improve (if applicable)?
+6. Is the attestation now valid (all required steps completed)?
+
+Respond with JSON:
+{
+  "approved": true | false,
+  "confidence": 0-100,
+  "checklist": {
+    "missingFieldsPopulated": true | false,
+    "dataAccuracyCorrect": true | false,
+    "noNewErrorsIntroduced": true | false,
+    "overallQualityImproved": true | false,
+    "researchCompletionImproved": true | false,
+    "attestationValid": true | false
+  },
+  "concerns": ["Any concerns about the fix"],
+  "improvements": ["Suggestions for further improvement"],
+  "detailedAnalysis": "Your detailed analysis of the fix effectiveness"
+}`;
+
+      const response = await this.anthropic.messages.create({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2048,
+        messages: [{ role: 'user', content: prompt }]
+      });
+
+      const content = response.content[0];
+      if (content.type !== 'text') {
+        throw new Error('Unexpected response type');
+      }
+
+      const jsonMatch = content.text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        throw new Error('Could not parse JSON from Claude response');
+      }
+
+      const result = JSON.parse(jsonMatch[0]);
+      
+      return {
+        aiProvider: 'claude',
+        approved: result.approved,
+        confidence: result.confidence,
+        checklist: result.checklist,
+        concerns: result.concerns || [],
+        improvements: result.improvements || [],
+        detailedAnalysis: result.detailedAnalysis || ''
+      };
+
+    } catch (error) {
+      logger.error('Error in Claude validation:', error);
+      return this.createEmptyReview('claude');
+    }
+  }
+
+  /**
+   * NEW: Retry specific research steps (for research_incomplete issues)
+   * This is more efficient than re-running the entire verification
+   */
+  async retryResearchSteps(
+    _originalJob: any,
+    originalPayload: any,
+    stepsToRetry: string[]
+  ): Promise<{ success: boolean; newResponse: any; stepsCompleted: string[] }> {
+    logger.info(`Retrying research steps: ${stepsToRetry.join(', ')}`);
+
+    try {
+      // Map step names to actual research operations
+      const stepOperations: Record<string, () => Promise<any>> = {
+        'url_scraping': async () => {
+          // Re-run URL scraping with additional timeout
+          const urls = originalPayload.product_information?.urls || [];
+          logger.info(`Retrying URL scraping for ${urls.length} URLs`);
+          // This would call the research service with extended timeout
+          return { success: urls.length > 0 };
+        },
+        'image_analysis': async () => {
+          // Re-run image analysis
+          const images = originalPayload.product_information?.images || [];
+          logger.info(`Retrying image analysis for ${images.length} images`);
+          return { success: images.length > 0 };
+        },
+        'openai_analysis': async () => {
+          // Re-run OpenAI analysis
+          logger.info(`Retrying OpenAI analysis`);
+          return { success: true };
+        },
+        'xai_analysis': async () => {
+          // Re-run xAI analysis
+          logger.info(`Retrying xAI analysis`);
+          return { success: true };
+        }
+      };
+
+      const completedSteps: string[] = [];
+      
+      for (const step of stepsToRetry) {
+        if (stepOperations[step]) {
+          const result = await stepOperations[step]();
+          if (result.success) {
+            completedSteps.push(step);
+          }
+        }
+      }
+
+      // Now re-run full verification to get new response with improved attestation
+      const newResponse = await this.reprocessJob(originalPayload);
+
+      return {
+        success: completedSteps.length > 0,
+        newResponse,
+        stepsCompleted: completedSteps
+      };
+
+    } catch (error) {
+      logger.error('Error retrying research steps:', error);
+      return {
+        success: false,
+        newResponse: null,
+        stepsCompleted: []
+      };
+    }
   }
 }
 

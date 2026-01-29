@@ -4,11 +4,34 @@
  * 
  * This service runs asynchronously after verification jobs complete,
  * scanning for issues that can be auto-corrected.
+ * 
+ * UPDATED: Now integrates with Research Attestation System
+ * - Recognizes new status codes: "Procurement No Results", "Research Incomplete", "Research Error"
+ * - Does NOT trigger self-healing for "Procurement No Results" (research was thorough)
+ * - DOES trigger for "Research Incomplete" (can retry failed steps)
+ * - ESCALATES "Research Error" (conflicts need human review)
  */
 
 import { VerificationJob } from '../../models/verification-job.model';
 import { APITracker } from '../../models/api-tracker.model';
+import { FIELD_STATUS_CODES } from '../../types/research-attestation.types';
 import logger from '../../utils/logger';
+
+/**
+ * Valid status codes that indicate research was completed
+ * These are NOT errors - do not trigger self-healing for "Procurement No Results"
+ */
+const VALID_RESEARCH_COMPLETE_CODES = [
+  FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS, // "Procurement No Results" - genuinely not found after thorough research
+];
+
+/**
+ * Status codes that indicate research issues requiring self-healing
+ */
+const RESEARCH_ISSUE_CODES = [
+  FIELD_STATUS_CODES.RESEARCH_INCOMPLETE, // "Research Incomplete - Pending" - can retry
+  FIELD_STATUS_CODES.RESEARCH_ERROR,      // "Research Error - Manual Review Required" - escalate
+];
 
 export interface DetectedIssue {
   // Identity
@@ -20,8 +43,16 @@ export interface DetectedIssue {
   sfCatalogIds: string[];
   sampleJobId: string; // One example for analysis
   
-  // Classification
-  issueType: 'missing_data' | 'wrong_data' | 'mapping_failure' | 'logic_error' | 'code_bug' | 'picklist_mismatch';
+  // Classification - UPDATED with new issue types
+  issueType: 
+    | 'missing_data'       // Field empty when data exists in payload
+    | 'wrong_data'         // Incorrect value extracted
+    | 'mapping_failure'    // Field name not recognized
+    | 'logic_error'        // Category/processing logic bug
+    | 'code_bug'           // Code-level error
+    | 'picklist_mismatch'  // Value not in SF picklist
+    | 'research_incomplete' // NEW: Research steps failed/skipped - can retry
+    | 'research_conflict';  // NEW: AI disagreement requiring human review
   severity: 'low' | 'medium' | 'high' | 'critical';
   category: string; // Product category affected
   
@@ -48,6 +79,12 @@ export interface DetectedIssue {
   // Status
   status: 'detected' | 'diagnosing' | 'fixing' | 'testing' | 'resolved' | 'failed';
   priority: number; // 1-10, higher = more urgent
+  
+  // NEW: Research Attestation fields
+  failedResearchSteps?: string[];  // Which of the 8 steps failed
+  researchCompletionRate?: number; // Percentage of steps completed (0-100)
+  canRetryResearch?: boolean;      // Whether failed steps can be auto-retried
+  requiresHumanReview?: boolean;   // Research conflicts need human attention
 }
 
 class SelfHealingErrorDetector {
@@ -102,7 +139,7 @@ class SelfHealingErrorDetector {
       // Look back 24 hours for patterns
       const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-      // 1. Scan for missing data issues
+      // 1. Scan for missing data issues (excludes "Procurement No Results")
       const missingDataIssues = await this.detectMissingDataIssues(cutoff);
       issues.push(...missingDataIssues);
 
@@ -118,12 +155,22 @@ class SelfHealingErrorDetector {
       const picklistIssues = await this.detectPicklistMismatches(cutoff);
       issues.push(...picklistIssues);
 
+      // 5. NEW: Scan for incomplete research (can auto-retry)
+      const researchIncompleteIssues = await this.detectResearchIncompleteIssues(cutoff);
+      issues.push(...researchIncompleteIssues);
+
+      // 6. NEW: Scan for research conflicts (need human review)
+      const researchConflictIssues = await this.detectResearchConflictIssues(cutoff);
+      issues.push(...researchConflictIssues);
+
       logger.info('[Self-Healing] Scan complete', {
         totalIssues: issues.length,
         missingData: missingDataIssues.length,
         mappingFailures: mappingIssues.length,
         categoryIssues: categoryIssues.length,
-        picklistMismatches: picklistIssues.length
+        picklistMismatches: picklistIssues.length,
+        researchIncomplete: researchIncompleteIssues.length,
+        researchConflicts: researchConflictIssues.length
       });
 
       // Prioritize issues
@@ -154,6 +201,9 @@ class SelfHealingErrorDetector {
   /**
    * Detect missing data issues
    * Pattern: Field exists in request but null/empty in response
+   * 
+   * IMPORTANT: Does NOT flag "Procurement No Results" as missing - that means
+   * research was thorough and data genuinely doesn't exist.
    */
   private async detectMissingDataIssues(since: Date): Promise<DetectedIssue[]> {
     const issues: DetectedIssue[] = [];
@@ -185,7 +235,23 @@ class SelfHealingErrorDetector {
       ];
 
       for (const field of keyFields) {
-        if (!attrs[field] || attrs[field] === '' || attrs[field] === 'Unknown') {
+        const fieldValue = attrs[field];
+        
+        // Skip if field has a valid research status code - these are NOT missing data issues
+        if (VALID_RESEARCH_COMPLETE_CODES.includes(fieldValue)) {
+          // "Procurement No Results" = research was thorough, data genuinely not found
+          // This is NOT an error - do not trigger self-healing
+          continue;
+        }
+        
+        // Skip fields with research issue codes - handled by separate detection methods
+        if (RESEARCH_ISSUE_CODES.includes(fieldValue)) {
+          // "Research Incomplete" and "Research Error" handled separately
+          continue;
+        }
+        
+        // Check if field is truly missing (empty, null, Unknown)
+        if (!fieldValue || fieldValue === '' || fieldValue === 'Unknown') {
           // Check if data exists in raw payload
           const hasDataInPayload = this.checkFieldExistsInPayload(field, job.rawPayload);
           if (hasDataInPayload) {
@@ -404,6 +470,208 @@ class SelfHealingErrorDetector {
    */
   async triggerScan(): Promise<DetectedIssue[]> {
     return this.scanForIssues();
+  }
+
+  /**
+   * NEW: Detect research incomplete issues
+   * Pattern: Fields have "Research Incomplete - Pending" status
+   * These can be auto-retried by re-running failed research steps
+   */
+  private async detectResearchIncompleteIssues(since: Date): Promise<DetectedIssue[]> {
+    const issues: DetectedIssue[] = [];
+
+    // Find completed jobs with incomplete research
+    const jobs = await VerificationJob.find({
+      status: 'completed',
+      createdAt: { $gte: since }
+    }).limit(500).lean();
+
+    // Group by failed step patterns
+    const incompletePatterns: Map<string, Array<{ jobId: string; failedSteps: string[]; completionRate: number }>> = new Map();
+
+    for (const job of jobs) {
+      const attestation = job.result?.data?.Research_Attestation;
+      if (!attestation) continue;
+
+      // Check if research was incomplete
+      const steps = attestation.checklist_completion?.steps;
+      if (!steps) continue;
+
+      const failedSteps: string[] = [];
+      for (const [stepName, completed] of Object.entries(steps)) {
+        if (!completed) {
+          failedSteps.push(stepName);
+        }
+      }
+
+      // Also check for "Research Incomplete" status in field values
+      const attrs = job.result?.data?.Primary_Display_Attributes || {};
+      const topAttrs = job.result?.data?.Top_Filter_Attributes || {};
+      const allAttrs = { ...attrs, ...topAttrs };
+      
+      const incompleteFields: string[] = [];
+      for (const [fieldName, value] of Object.entries(allAttrs)) {
+        if (value === FIELD_STATUS_CODES.RESEARCH_INCOMPLETE) {
+          incompleteFields.push(fieldName);
+        }
+      }
+
+      if (failedSteps.length > 0 || incompleteFields.length > 0) {
+        const completionRate = attestation.checklist_completion?.completed_steps 
+          ? Math.round((attestation.checklist_completion.completed_steps / 8) * 100) 
+          : 0;
+        
+        const pattern = failedSteps.sort().join(',') || 'fields_incomplete';
+        
+        if (!incompletePatterns.has(pattern)) {
+          incompletePatterns.set(pattern, []);
+        }
+        incompletePatterns.get(pattern)!.push({
+          jobId: job.jobId,
+          failedSteps,
+          completionRate
+        });
+      }
+    }
+
+    // Convert patterns to issues
+    for (const [pattern, jobData] of incompletePatterns) {
+      if (jobData.length < 1) continue; // Include even single occurrences - research incomplete is important
+
+      const sampleJob = jobs.find(j => j.jobId === jobData[0].jobId);
+      if (!sampleJob) continue;
+
+      const avgCompletionRate = Math.round(
+        jobData.reduce((sum, j) => sum + j.completionRate, 0) / jobData.length
+      );
+
+      // Determine which steps can be retried
+      const retryableSteps = ['url_scraping', 'image_analysis', 'openai_analysis', 'xai_analysis'];
+      const failedSteps = jobData[0].failedSteps;
+      const canRetry = failedSteps.some(step => retryableSteps.includes(step));
+
+      issues.push({
+        issueId: `research_incomplete_${pattern}_${Date.now()}`,
+        detectedAt: new Date(),
+        jobIds: jobData.map(j => j.jobId),
+        sfCatalogIds: [sampleJob.sfCatalogId],
+        sampleJobId: sampleJob.jobId,
+        issueType: 'research_incomplete',
+        severity: avgCompletionRate < 50 ? 'high' : 'medium',
+        category: sampleJob.result?.data?.Primary_Display_Attributes?.Category_Verified || 'Unknown',
+        description: `Research incomplete (${avgCompletionRate}% complete). Failed steps: ${pattern || 'unknown'}`,
+        missingFields: [],
+        wrongFields: [],
+        rawPayload: sampleJob.rawPayload,
+        currentResponse: sampleJob.result,
+        errorLogs: [],
+        affectedCount: jobData.length,
+        firstSeenAt: new Date(),
+        lastSeenAt: new Date(),
+        frequency: jobData.length / 24,
+        status: 'detected',
+        priority: this.calculateResearchPriority(avgCompletionRate, jobData.length),
+        // NEW: Research attestation fields
+        failedResearchSteps: failedSteps,
+        researchCompletionRate: avgCompletionRate,
+        canRetryResearch: canRetry,
+        requiresHumanReview: false
+      });
+    }
+
+    return issues;
+  }
+
+  /**
+   * NEW: Detect research conflict issues
+   * Pattern: Fields have "Research Error - Manual Review Required" status
+   * These MUST be escalated to human review - do not auto-fix
+   */
+  private async detectResearchConflictIssues(since: Date): Promise<DetectedIssue[]> {
+    const issues: DetectedIssue[] = [];
+
+    // Find completed jobs with research errors
+    const jobs = await VerificationJob.find({
+      status: 'completed',
+      createdAt: { $gte: since }
+    }).limit(500).lean();
+
+    // Group by conflict patterns
+    const conflictPatterns: Map<string, string[]> = new Map();
+
+    for (const job of jobs) {
+      const attrs = job.result?.data?.Primary_Display_Attributes || {};
+      const topAttrs = job.result?.data?.Top_Filter_Attributes || {};
+      const allAttrs = { ...attrs, ...topAttrs };
+      
+      const conflictFields: string[] = [];
+      for (const [fieldName, value] of Object.entries(allAttrs)) {
+        if (value === FIELD_STATUS_CODES.RESEARCH_ERROR) {
+          conflictFields.push(fieldName);
+        }
+      }
+
+      if (conflictFields.length > 0) {
+        const pattern = conflictFields.sort().join(',');
+        if (!conflictPatterns.has(pattern)) {
+          conflictPatterns.set(pattern, []);
+        }
+        conflictPatterns.get(pattern)!.push(job.jobId);
+      }
+    }
+
+    // Convert patterns to issues (always escalate these)
+    for (const [pattern, jobIds] of conflictPatterns) {
+      const sampleJob = jobs.find(j => j.jobId === jobIds[0]);
+      if (!sampleJob) continue;
+
+      issues.push({
+        issueId: `research_conflict_${pattern}_${Date.now()}`,
+        detectedAt: new Date(),
+        jobIds,
+        sfCatalogIds: [sampleJob.sfCatalogId],
+        sampleJobId: sampleJob.jobId,
+        issueType: 'research_conflict',
+        severity: 'critical', // Always critical - needs human review
+        category: sampleJob.result?.data?.Primary_Display_Attributes?.Category_Verified || 'Unknown',
+        description: `Research conflicts requiring human review. Fields: ${pattern}`,
+        missingFields: [],
+        wrongFields: [],
+        rawPayload: sampleJob.rawPayload,
+        currentResponse: sampleJob.result,
+        errorLogs: [],
+        affectedCount: jobIds.length,
+        firstSeenAt: new Date(),
+        lastSeenAt: new Date(),
+        frequency: jobIds.length / 24,
+        status: 'detected',
+        priority: 10, // Always highest priority - human review needed
+        // NEW: Research attestation fields
+        failedResearchSteps: pattern.split(','),
+        researchCompletionRate: undefined,
+        canRetryResearch: false, // Cannot auto-retry conflicts
+        requiresHumanReview: true
+      });
+    }
+
+    return issues;
+  }
+
+  /**
+   * Calculate priority for research incomplete issues
+   */
+  private calculateResearchPriority(completionRate: number, affectedCount: number): number {
+    let priority = 5; // Base priority
+    
+    // Lower completion = higher priority
+    if (completionRate < 25) priority += 3;
+    else if (completionRate < 50) priority += 2;
+    else if (completionRate < 75) priority += 1;
+    
+    // More affected jobs = higher priority
+    priority += Math.min(affectedCount / 3, 2);
+    
+    return Math.min(Math.round(priority), 10);
   }
 }
 
