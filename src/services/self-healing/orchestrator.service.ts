@@ -194,11 +194,22 @@ class SelfHealingOrchestrator {
    * Detect issue from job and tracker data
    */
   private async detectIssue(job: any, tracker: any): Promise<any | null> {
-    if (!tracker) return null;
+    if (!tracker) {
+      logger.info('[detectIssue] No tracker provided');
+      return null;
+    }
+
+    logger.info(`[detectIssue] Tracker found, has issues: ${!!tracker.issues}, count: ${tracker.issues?.length || 0}`);
+    
+    if (tracker.issues && tracker.issues.length > 0) {
+      logger.info(`[detectIssue] First issue type: ${tracker.issues[0].type}`);
+    }
 
     const missingFields = tracker.issues
       ?.filter((issue: any) => issue.type === 'missing_top15_field')
       ?.map((issue: any) => issue.field) || [];
+
+    logger.info(`[detectIssue] Filtered missing fields: ${missingFields.length}`);
 
     if (missingFields.length === 0) {
       return null;
