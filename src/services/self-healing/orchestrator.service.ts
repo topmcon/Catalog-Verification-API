@@ -63,7 +63,19 @@ class SelfHealingOrchestrator {
       // PHASE 0: Load original job data
       result.phase = 'loading_data';
       const originalJob = await VerificationJob.findOne({ jobId });
-      const apiTracker = await APITracker.findOne({ sessionId: jobId });
+      let apiTracker = await APITracker.findOne({ sessionId: jobId });
+      
+      // Fallback: Try raw query if model query fails
+      if (!apiTracker) {
+        const db = (APITracker as any).db || (APITracker as any).collection?.conn?.db;
+        if (db) {
+          const rawTracker = await db.collection('api_trackers').findOne({ sessionId: jobId });
+          if (rawTracker) {
+            apiTracker = rawTracker as any;
+            logger.info('[Phase 0] Used raw query to find tracker');
+          }
+        }
+      }
 
       if (!originalJob) {
         return { ...result, reason: 'Job not found in database' };
