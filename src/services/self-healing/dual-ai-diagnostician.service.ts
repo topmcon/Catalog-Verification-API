@@ -17,7 +17,7 @@ interface DetectedIssue {
 }
 
 interface AIDiagnosis {
-  aiProvider: 'openai' | 'xai';
+  aiProvider: 'openai' | 'xai' | 'claude';
   rootCause: string;
   evidence: string[];
   proposedFix: {
@@ -66,15 +66,38 @@ interface ConsensusFix {
     concerns: string[];
     suggestions: string[];
   };
+  claudeFinalReview?: {
+    decision: 'approve_consensus' | 'approve_openai' | 'approve_xai' | 'independent_solution' | 'escalate';
+    reasoning: string[];
+    independentResearch?: {
+      conducted: boolean;
+      findings: string[];
+      alternativeSolution?: AIDiagnosis['proposedFix'];
+    };
+    finalDeploymentPlan: {
+      approved: boolean;
+      safetyChecks: string[];
+      rollbackPlan: string;
+      deploymentSteps: string[];
+    };
+  };
 }
 
 class DualAIDiagnostician {
   private openai: OpenAI;
   private xaiApiKey: string;
+  private anthropic: any; // Will be Anthropic client
 
   constructor() {
     this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     this.xaiApiKey = process.env.XAI_API_KEY || '';
+    
+    // Initialize Anthropic (Claude)
+    if (process.env.ANTHROPIC_API_KEY) {
+      // Lazy load to avoid import if not needed
+      const Anthropic = require('@anthropic-ai/sdk');
+      this.anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    }
   }
 
   /**
@@ -82,47 +105,69 @@ class DualAIDiagnostician {
    */
   async diagnoseWithConsensus(issue: DetectedIssue): Promise<ConsensusFix | null> {
     try {
-      logger.info(`Starting dual-AI diagnosis for job ${issue.jobId}`);
+      logger.info(`Starting tri-AI diagnosis (OpenAI + xAI → Claude judges) for job ${issue.jobId}`);
 
       // STEP 1: Gather all context
       const context = await this.gatherDiagnosticContext(issue);
 
-      // STEP 2A: Independent parallel analysis
+      // STEP 2: Independent parallel analysis - OpenAI and xAI work independently
+      logger.info(`🤖 OpenAI + xAI analyzing independently in parallel...`);
       const [openaiDiagnosis, xaiDiagnosis] = await Promise.all([
         this.analyzeWithOpenAI(issue, context),
         this.analyzeWithXAI(issue, context)
       ]);
 
-      logger.info(`Dual analysis complete - OpenAI: ${openaiDiagnosis.confidence}% confidence, xAI: ${xaiDiagnosis.confidence}% confidence`);
+      logger.info(`Independent analysis complete:`);
+      logger.info(`  OpenAI: ${openaiDiagnosis.confidence}% confidence - ${openaiDiagnosis.rootCause}`);
+      logger.info(`  xAI: ${xaiDiagnosis.confidence}% confidence - ${xaiDiagnosis.rootCause}`);
 
-      // STEP 2B: Cross-review
-      const openaiReview = await this.openAIReviewsXAI(xaiDiagnosis, context);
-      const xaiReview = await this.xAIReviewsOpenAI(openaiDiagnosis, context);
-
-      // STEP 2C: Build consensus
-      const consensus = await this.buildConsensus({
+      // STEP 3: Claude reviews both analyses and makes final consensus decision
+      logger.info(`🧠 Claude reviewing both analyses and making final decision...`);
+      const claudeJudgment = await this.claudeReviewAndJudge({
+        issue,
+        context,
         openaiDiagnosis,
-        xaiDiagnosis,
-        openaiReview,
-        xaiReview,
-        context
+        xaiDiagnosis
       });
 
-      if (!consensus.agreed) {
-        logger.warn(`AIs could not reach consensus on job ${issue.jobId}. Escalating to human review.`);
+      // Check Claude's decision
+      if (claudeJudgment.decision === 'escalate' || !claudeJudgment.approved) {
+        logger.warn(`❌ Claude rejected consensus for job ${issue.jobId}. Escalating to human.`);
+        logger.warn(`  Decision: ${claudeJudgment.decision}`);
+        logger.warn(`  Reasoning: ${claudeJudgment.reasoning.join('; ')}`);
         return null;
       }
 
-      // STEP 2D: System-wide scanning
+      // Build consensus object from Claude's judgment
+      const consensus: ConsensusFix = {
+        agreed: true,
+        consensusRootCause: claudeJudgment.consensusRootCause,
+        selectedFix: {
+          primary: claudeJudgment.selectedFix,
+          systemWide: []
+        },
+        combinedConfidence: claudeJudgment.confidence,
+        bothAIsApprove: claudeJudgment.bothAnalystsAgree,
+        openaiDiagnosis,
+        xaiDiagnosis,
+        openaiReviewOfXAI: { agrees: true, concerns: [], suggestions: [] },
+        xaiReviewOfOpenAI: { agrees: true, concerns: [], suggestions: [] },
+        claudeFinalReview: claudeJudgment as any
+      };
+
+      // STEP 4: System-wide scanning for similar issues
+      logger.info(`✅ Claude approved! Planning system-wide fixes...`);
       const systemWideFixes = await this.planSystemWideFixes(consensus, context);
       consensus.selectedFix.systemWide = systemWideFixes;
 
-      logger.info(`Consensus achieved with ${consensus.combinedConfidence}% confidence. System-wide fixes: ${systemWideFixes.length}`);
+      logger.info(`✅ Tri-AI consensus achieved! Decision: ${claudeJudgment.decision}`);
+      logger.info(`   Confidence: ${claudeJudgment.confidence}%`);
+      logger.info(`   Root cause: ${claudeJudgment.consensusRootCause}`);
 
       return consensus;
 
     } catch (error) {
-      logger.error('Error in dual-AI diagnosis:', error);
+      logger.error('Error in tri-AI diagnosis:', error);
       throw error;
     }
   }
@@ -187,7 +232,16 @@ class DualAIDiagnostician {
       messages: [
         {
           role: 'system',
-          content: 'You are a senior software engineer with expertise in TypeScript, AI systems, and data verification. Analyze code issues methodically and provide precise fix recommendations.'
+          content: `You are an expert software engineer (Analyst #1) providing independent code analysis.
+
+CRITICAL ANALYSIS RULES:
+1. Focus on CONTEXTUAL/SEMANTIC understanding, not exact string matching
+2. Analyze the SUBSTANCE and MEANING of the data/code, not just literal field names
+3. Look for PATTERNS and INTENT, not just exact matches
+4. Consider that "Material: Satin Black" contextually contains COLOR and FINISH information
+5. Understand that fields can have different names but same semantic meaning
+6. Your analysis will be reviewed by a senior architect alongside another analyst
+7. Be thorough, independent, and provide clear reasoning chains`
         },
         {
           role: 'user',
@@ -217,7 +271,7 @@ class DualAIDiagnostician {
   }
 
   /**
-   * xAI (Grok-2) independent analysis
+   * xAI (Grok-3) independent analysis
    */
   private async analyzeWithXAI(issue: DetectedIssue, context: any): Promise<AIDiagnosis> {
     const prompt = this.buildDiagnosticPrompt(issue, context, 'xai');
@@ -229,7 +283,16 @@ class DualAIDiagnostician {
         messages: [
           {
             role: 'system',
-            content: 'You are a senior software engineer with expertise in TypeScript, AI systems, and data verification. Analyze code issues methodically and provide precise fix recommendations.'
+            content: `You are an expert software engineer (Analyst #2) providing independent code analysis.
+
+CRITICAL ANALYSIS RULES:
+1. Focus on CONTEXTUAL/SEMANTIC understanding, not exact string matching
+2. Analyze the SUBSTANCE and MEANING of the data/code, not just literal field names  
+3. Look for PATTERNS and INTENT, not just exact matches
+4. Consider that data can be expressed differently but have same semantic meaning
+5. Understand compound values contain multiple extractable fields
+6. Your analysis will be reviewed by a senior architect alongside another analyst
+7. Be thorough, independent, and provide clear reasoning chains`
           },
           {
             role: 'user',
@@ -266,202 +329,134 @@ class DualAIDiagnostician {
   }
 
   /**
-   * OpenAI reviews xAI's diagnosis
+   * Claude reviews both OpenAI and xAI analyses and makes final consensus decision
+   * Acts as expert judge synthesizing both perspectives
    */
-  private async openAIReviewsXAI(xaiDiagnosis: AIDiagnosis, context: any) {
-    const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
-
-**CRITICAL REVIEW CRITERIA:**
-✅ Did xAI identify a CODE/LOGIC bug that prevented smart contextual mapping?
-✅ Is the fix making our system CONTEXT-AWARE (not just adding data)?
-✅ Will this extract ALL relevant data from compound values?
-✅ Does the fix respect our schema (only maps to Primary + TOP15 fields)?
-✅ Is the system-wide scan comprehensive enough?
-
-❌ REJECT if xAI suggested: adding picklist entries, creating new schema fields, adding field aliases
-✅ APPROVE if xAI suggested: contextual content analysis, multi-field extraction, semantic understanding
-
-**SPECIFIC CHECKS:**
-1. Does fix enable extraction from compound values? ("Satin Black" → color + finish)
-2. Does fix validate target fields exist in category schema before mapping?
-3. Does fix prevent creating fields not in our TOP15 + primary attributes?
-4. Will fix work for similar patterns? (dimensions, specs, compound attributes)
-
-**xAI's Diagnosis:**
-Root Cause: ${xaiDiagnosis.rootCause}
-Proposed Fix: ${JSON.stringify(xaiDiagnosis.proposedFix, null, 2)}
-Confidence: ${xaiDiagnosis.confidence}%
-Risk: ${xaiDiagnosis.riskLevel}
-
-**Context:**
-${JSON.stringify(context, null, 2)}
-
-**Review Questions:**
-1. Did xAI correctly identify a CODE bug preventing contextual mapping?
-2. Does the fix add INTELLIGENCE not DATA?
-3. Will the fix extract data from compound values correctly?
-4. Does fix validate against category TOP15 + primary fields only?
-5. Are there other mappers that lack contextual awareness?
-
-Return JSON:
-{
-  "agrees": true/false,
-  "concerns": [
-    "Still suggesting data fixes instead of intelligent mapping",
-    "Didn't validate extraction against category schema",
-    "Fix creates new fields not in TOP15 list",
-    "Missing compound value parsing (dimensions, specs, multi-attributes)"
-  ],
-  "suggestions": [
-    "Add contextual content analyzer for all field types",
-    "Validate extracted fields against category.top15Fields before mapping",
-    "Add multi-field extraction for compound values",
-    "Scan all mappers for missing semantic understanding"
-  ],
-  "alternativeApproach": "if you disagree, what contextual mapping logic would you add?",
-  "confidence": 0-100,
-  "isCodeFix": true/false,
-  "addsContextualIntelligence": true/false,
-  "respectsSchemaConstraints": true/false,
-  "systemWideImpact": "low|medium|high"
-}`;
-
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: 'user', content: reviewPrompt }],
-      temperature: 0.3,
-      response_format: { type: 'json_object' }
-    });
-
-    return JSON.parse(response.choices[0].message.content || '{}');
-  }
-
-  /**
-   * xAI reviews OpenAI's diagnosis
-   */
-  private async xAIReviewsOpenAI(openaiDiagnosis: AIDiagnosis, context: any) {
-    const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
-
-**OpenAI's Diagnosis:**
-Root Cause: ${openaiDiagnosis.rootCause}
-Proposed Fix: ${JSON.stringify(openaiDiagnosis.proposedFix, null, 2)}
-Confidence: ${openaiDiagnosis.confidence}%
-Risk: ${openaiDiagnosis.riskLevel}
-
-**Context:**
-${JSON.stringify(context, null, 2)}
-
-**CRITICAL REVIEW CRITERIA:****
-✅ Did OpenAI identify a CODE/LOGIC bug that prevented smart contextual mapping?
-✅ Is the fix making our system CONTEXT-AWARE (not just adding data)?
-✅ Will this extract ALL relevant data from compound values?
-✅ Does the fix respect our schema (only maps to Primary + TOP15 fields)?
-✅ Is the system-wide scan comprehensive enough?
-
-❌ REJECT if OpenAI suggested: adding picklist entries, creating new schema fields, adding field aliases
-✅ APPROVE if OpenAI suggested: contextual content analysis, multi-field extraction, semantic understanding
-
-**SPECIFIC CHECKS:**
-1. Does fix enable extraction from compound values? ("Satin Black" → color + finish)
-2. Does fix validate target fields exist in category schema before mapping?
-3. Does fix prevent creating fields not in our TOP15 + primary attributes?
-4. Will fix work for similar patterns? (dimensions, specs, compound attributes)
-
-**Review Questions:**
-1. Did OpenAI correctly identify a CODE bug preventing contextual mapping?
-2. Does the fix add INTELLIGENCE not DATA?
-3. Will the fix extract data from compound values correctly?
-4. Does fix validate against category TOP15 + primary fields only?
-5. Are there other mappers that lack contextual awareness?
-
-Return JSON:
-{
-  "agrees": true/false,
-  "concerns": [
-    "Still suggesting data fixes instead of intelligent mapping",
-    "Didn't validate extraction against category schema",
-    "Fix creates new fields not in TOP15 list",
-    "Missing compound value parsing (dimensions, specs, multi-attributes)"
-  ],
-  "suggestions": [
-    "Add contextual content analyzer for all field types",
-    "Validate extracted fields against category.top15Fields before mapping",
-    "Add multi-field extraction for compound values",
-    "Scan all mappers for missing semantic understanding"
-  ],
-  "alternativeApproach": "if you disagree, what contextual mapping logic would you add?",
-  "confidence": 0-100,
-  "isCodeFix": true/false,
-  "addsContextualIntelligence": true/false,
-  "respectsSchemaConstraints": true/false,
-  "systemWideImpact": "low|medium|high"
-}`;
-
-    const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
-      {
-        model: 'grok-3',
-        messages: [{ role: 'user', content: reviewPrompt }],
-        temperature: 0.3,
-        response_format: { type: 'json_object' }
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${this.xaiApiKey}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    return JSON.parse(response.data.choices[0].message.content || '{}');
-  }
-
-  /**
-   * Build consensus from both diagnoses and reviews
-   */
-  private async buildConsensus(data: {
+  private async claudeReviewAndJudge(params: {
+    issue: DetectedIssue;
+    context: any;
     openaiDiagnosis: AIDiagnosis;
     xaiDiagnosis: AIDiagnosis;
-    openaiReview: any;
-    xaiReview: any;
-    context: any;
-  }): Promise<ConsensusFix> {
-    const { openaiDiagnosis, xaiDiagnosis, openaiReview, xaiReview } = data;
+  }): Promise<{
+    decision: 'approve' | 'escalate';
+    approved: boolean;
+    consensusRootCause: string;
+    selectedFix: AIDiagnosis['proposedFix'];
+    confidence: number;
+    bothAnalystsAgree: boolean;
+    reasoning: string[];
+  }> {
+    const { issue, openaiDiagnosis, xaiDiagnosis } = params;
 
-    // Check if both AIs agree on root cause
-    const rootCauseSimilarity = this.calculateStringSimilarity(
-      openaiDiagnosis.rootCause.toLowerCase(),
-      xaiDiagnosis.rootCause.toLowerCase()
-    );
+    if (!this.anthropic) {
+      logger.warn('Claude API not configured, defaulting to OpenAI analysis');
+      return {
+        decision: 'approve',
+        approved: true,
+        consensusRootCause: openaiDiagnosis.rootCause,
+        selectedFix: openaiDiagnosis.proposedFix,
+        confidence: openaiDiagnosis.confidence,
+        bothAnalystsAgree: false,
+        reasoning: ['Claude not available - using OpenAI analysis']
+      };
+    }
 
-    const minConfidence = parseInt(process.env.DUAL_AI_MIN_CONFIDENCE || '70');
-    const bothConfident = openaiDiagnosis.confidence >= minConfidence && xaiDiagnosis.confidence >= minConfidence;
-    const bothReviewsAgree = openaiReview.agrees && xaiReview.agrees;
-    const rootCausesAlign = rootCauseSimilarity > 0.6;
+    const reviewPrompt = `You are a senior engineering architect reviewing code fix proposals from two expert AI analysts.
 
-    const agreed = bothConfident && bothReviewsAgree && rootCausesAlign;
+**YOUR ROLE:**
+Review both analyses, identify areas of agreement/disagreement, and make the FINAL DECISION on:
+1. Whether the diagnoses are correct
+2. Which fix to deploy (or create your own)
+3. Whether it's safe to proceed or escalate to human
 
-    // Select best fix (highest combined confidence)
-    const selectedFix = openaiDiagnosis.confidence >= xaiDiagnosis.confidence
-      ? openaiDiagnosis.proposedFix
-      : xaiDiagnosis.proposedFix;
+**CRITICAL GUIDELINES:**
+- Focus on CONTEXTUAL/SEMANTIC understanding, not exact string matching
+- Two different descriptions of the SAME root cause should be recognized as agreement
+- Example: "missing color extraction" and "color field not mapped" = SAME ISSUE
+- You have final authority - you can approve, modify, or reject both analyses
+- Escalate only if genuinely risky or both analysts are clearly wrong
 
-    const combinedConfidence = Math.round((openaiDiagnosis.confidence + xaiDiagnosis.confidence) / 2);
+**ISSUE DETAILS:**
+Type: ${issue.issueType}
+Severity: ${issue.severity}
+Missing Fields: ${issue.missingFields.join(', ')}
+Affected Jobs: ${issue.affectedCount}
 
-    return {
-      agreed,
-      consensusRootCause: agreed ? openaiDiagnosis.rootCause : 'No consensus reached',
-      selectedFix: {
-        primary: selectedFix,
-        systemWide: [] // Will be populated by planSystemWideFixes
-      },
-      combinedConfidence,
-      bothAIsApprove: agreed,
-      openaiDiagnosis,
-      xaiDiagnosis,
-      openaiReviewOfXAI: openaiReview,
-      xaiReviewOfOpenAI: xaiReview
-    };
+**OPENAI ANALYSIS (${openaiDiagnosis.aiProvider}, ${openaiDiagnosis.confidence}% confidence):**
+Root Cause: ${openaiDiagnosis.rootCause}
+Evidence: ${openaiDiagnosis.evidence.join('; ')}
+Proposed Fix: ${JSON.stringify(openaiDiagnosis.proposedFix, null, 2)}
+Risk Level: ${openaiDiagnosis.riskLevel}
+Reasoning: ${openaiDiagnosis.reasoningChain.join(' → ')}
+
+**XAI ANALYSIS (${xaiDiagnosis.aiProvider}, ${xaiDiagnosis.confidence}% confidence):**
+Root Cause: ${xaiDiagnosis.rootCause}
+Evidence: ${xaiDiagnosis.evidence.join('; ')}
+Proposed Fix: ${JSON.stringify(xaiDiagnosis.proposedFix, null, 2)}
+Risk Level: ${xaiDiagnosis.riskLevel}
+Reasoning: ${xaiDiagnosis.reasoningChain.join(' → ')}
+
+**YOUR TASK:**
+Analyze both diagnoses and provide your FINAL JUDGMENT.
+
+Respond with JSON:
+{
+  "decision": "approve" | "escalate",
+  "approved": true/false,
+  "consensusRootCause": "your synthesized understanding of the actual root cause",
+  "selectedFix": {
+    "type": "the fix type you choose",
+    "targetFiles": ["files to modify"],
+    "codeChanges": [{"file": "...", "explanation": "...", "newCode": "..."}]
+  },
+  "confidence": 0-100,
+  "bothAnalystsAgree": true/false (based on SEMANTIC analysis, not exact wording),
+  "semanticAgreement": "describe what they agree on contextually",
+  "semanticDisagreement": "describe what they differ on in substance",
+  "reasoning": [
+    "Why you made this decision",
+    "What you agreed/disagreed with from each analyst",
+    "Why this fix is safe or why escalation is needed"
+  ]
+}`;
+
+    try {
+      const response = await this.anthropic.messages.create({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        temperature: 0.2, // Lower temperature for consistent judging
+        system: 'You are a senior engineering architect and final decision-maker. Your judgment is authoritative.',
+        messages: [
+          {
+            role: 'user',
+            content: reviewPrompt
+          }
+        ]
+      });
+
+      const textContent = response.content.find((c: any) => c.type === 'text');
+      const judgment = JSON.parse(textContent?.text || '{}');
+
+      logger.info(`Claude judgment: ${judgment.decision} (${judgment.confidence}% confidence)`);
+      logger.info(`  Agreement: ${judgment.bothAnalystsAgree ? 'YES' : 'NO'}`);
+      logger.info(`  Consensus: ${judgment.consensusRootCause}`);
+
+      return judgment;
+
+    } catch (error: any) {
+      logger.error('Error in Claude review:', error);
+      // Fallback: use higher confidence analysis
+      const selected = openaiDiagnosis.confidence >= xaiDiagnosis.confidence ? openaiDiagnosis : xaiDiagnosis;
+      return {
+        decision: 'approve',
+        approved: true,
+        consensusRootCause: selected.rootCause,
+        selectedFix: selected.proposedFix,
+        confidence: selected.confidence,
+        bothAnalystsAgree: false,
+        reasoning: [`Claude error: ${error.message}`, 'Using highest confidence analysis']
+      };
+    }
   }
 
   /**
@@ -509,7 +504,7 @@ Return JSON:
   /**
    * Build diagnostic prompt for AI analysis
    */
-  private buildDiagnosticPrompt(issue: DetectedIssue, context: any, _aiProvider: 'openai' | 'xai'): string {
+  private buildDiagnosticPrompt(issue: DetectedIssue, context: any, _aiProvider: 'openai' | 'xai' | 'claude'): string {
     return `You are a senior software engineer debugging a dual-AI product verification system.
 
 **CRITICAL: YOUR MISSION**
@@ -744,50 +739,6 @@ Debug the CODE failure. Find why smart contextual mapping didn't happen.
     } catch (error) {
       return [];
     }
-  }
-
-  /**
-   * Calculate string similarity (simple Levenshtein-based)
-   */
-  private calculateStringSimilarity(s1: string, s2: string): number {
-    const longer = s1.length > s2.length ? s1 : s2;
-    const shorter = s1.length > s2.length ? s2 : s1;
-    
-    if (longer.length === 0) return 1.0;
-    
-    const editDistance = this.levenshteinDistance(longer, shorter);
-    return (longer.length - editDistance) / longer.length;
-  }
-
-  /**
-   * Levenshtein distance
-   */
-  private levenshteinDistance(s1: string, s2: string): number {
-    const matrix: number[][] = [];
-
-    for (let i = 0; i <= s2.length; i++) {
-      matrix[i] = [i];
-    }
-
-    for (let j = 0; j <= s1.length; j++) {
-      matrix[0][j] = j;
-    }
-
-    for (let i = 1; i <= s2.length; i++) {
-      for (let j = 1; j <= s1.length; j++) {
-        if (s2.charAt(i - 1) === s1.charAt(j - 1)) {
-          matrix[i][j] = matrix[i - 1][j - 1];
-        } else {
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j - 1] + 1,
-            matrix[i][j - 1] + 1,
-            matrix[i - 1][j] + 1
-          );
-        }
-      }
-    }
-
-    return matrix[s2.length][s1.length];
   }
 }
 

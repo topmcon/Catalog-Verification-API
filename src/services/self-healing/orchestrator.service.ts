@@ -99,7 +99,7 @@ class SelfHealingOrchestrator {
       result.phase = 'dual_ai_diagnosis';
       result.diagnosisTimestamp = new Date();
       
-      logger.info(`\n[Phase 2] Starting dual-AI diagnosis...`);
+      logger.info(`\n[Phase 2] Starting tri-AI diagnosis (OpenAI + xAI → Claude)...`);
       
       const consensus = await dualAIDiagnostician.diagnoseWithConsensus(issue);
 
@@ -109,6 +109,27 @@ class SelfHealingOrchestrator {
         result.escalatedToHuman = true;
         await this.escalateToHuman(jobId, 'No AI consensus', { consensus });
         return { ...result, reason: 'No AI consensus' };
+      }
+
+      // Log Claude's final decision
+      if (consensus.claudeFinalReview) {
+        const claudeDecision = consensus.claudeFinalReview.decision;
+        logger.info(`[Phase 2] 🎯 Claude Final Decision: ${claudeDecision}`);
+        
+        if (consensus.claudeFinalReview.independentResearch?.conducted) {
+          logger.info(`[Phase 2] 🔬 Claude conducted independent research`);
+          logger.info(`[Phase 2] 📊 Findings: ${consensus.claudeFinalReview.independentResearch.findings.length} key insights`);
+        }
+        
+        if (!consensus.claudeFinalReview.finalDeploymentPlan.approved) {
+          logger.warn(`[Phase 2] ❌ Claude rejected deployment`);
+          result.escalatedToHuman = true;
+          await this.escalateToHuman(jobId, 'Claude rejected deployment', { 
+            claudeReasoning: consensus.claudeFinalReview.reasoning,
+            consensus 
+          });
+          return { ...result, reason: 'Claude rejected deployment' };
+        }
       }
 
       result.consensusAchieved = true;
