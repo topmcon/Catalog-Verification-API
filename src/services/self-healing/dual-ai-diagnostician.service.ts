@@ -269,7 +269,16 @@ class DualAIDiagnostician {
    * OpenAI reviews xAI's diagnosis
    */
   private async openAIReviewsXAI(xaiDiagnosis: AIDiagnosis, context: any) {
-    const reviewPrompt = `You are reviewing another AI's diagnosis of a code issue.
+    const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
+
+**CRITICAL REVIEW CRITERIA:**
+✅ Did xAI identify a CODE/LOGIC bug (not missing data)?
+✅ Is the fix changing CODE behavior (not adding data)?
+✅ Will this prevent recurrence (not just fix one instance)?
+✅ Is the system-wide scan comprehensive enough?
+
+❌ REJECT if xAI suggested: adding picklist entries, adding schema fields, adding aliases (data fixes)
+✅ APPROVE if xAI suggested: fixing threshold logic, fixing regex, fixing mapping logic, fixing conditions
 
 **xAI's Diagnosis:**
 Root Cause: ${xaiDiagnosis.rootCause}
@@ -280,19 +289,30 @@ Risk: ${xaiDiagnosis.riskLevel}
 **Context:**
 ${JSON.stringify(context, null, 2)}
 
-Analyze xAI's diagnosis critically:
-1. Do you agree with the root cause analysis?
-2. Is the proposed fix correct and complete?
-3. Are there any concerns or edge cases missed?
-4. Any suggestions for improvement?
+**Review Questions:**
+1. Did xAI correctly identify a CODE bug vs data gap?
+2. Does the fix change LOGIC not DATA?
+3. Is the root cause analysis deep enough (not surface-level)?
+4. Will this fix prevent the issue from happening again?
+5. Are there other code locations with the same pattern?
 
 Return JSON:
 {
   "agrees": true/false,
-  "concerns": ["concern 1", "concern 2"],
-  "suggestions": ["suggestion 1", "suggestion 2"],
-  "alternativeApproach": "if you disagree, what would you do instead?",
-  "confidence": 0-100
+  "concerns": [
+    "Still suggesting data fixes instead of code fixes",
+    "Didn't scan widely enough for same pattern",
+    "Fix is too narrow, won't prevent recurrence"
+  ],
+  "suggestions": [
+    "Also check matcher-service.ts for same threshold issue",
+    "Fix should update ALL matchers, not just brands",
+    "Consider if this pattern exists in normalization logic too"
+  ],
+  "alternativeApproach": "if you disagree, what code would you fix instead?",
+  "confidence": 0-100,
+  "isCodeFix": true/false,
+  "systemWideImpact": "low|medium|high"
 }`;
 
     const response = await this.openai.chat.completions.create({
@@ -309,7 +329,16 @@ Return JSON:
    * xAI reviews OpenAI's diagnosis
    */
   private async xAIReviewsOpenAI(openaiDiagnosis: AIDiagnosis, context: any) {
-    const reviewPrompt = `You are reviewing another AI's diagnosis of a code issue.
+    const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
+
+**CRITICAL REVIEW CRITERIA:**
+✅ Did OpenAI identify a CODE/LOGIC bug (not missing data)?
+✅ Is the fix changing CODE behavior (not adding data)?
+✅ Will this prevent recurrence (not just fix one instance)?
+✅ Is the system-wide scan comprehensive enough?
+
+❌ REJECT if OpenAI suggested: adding picklist entries, adding schema fields, adding aliases (data fixes)
+✅ APPROVE if OpenAI suggested: fixing threshold logic, fixing regex, fixing mapping logic, fixing conditions
 
 **OpenAI's Diagnosis:**
 Root Cause: ${openaiDiagnosis.rootCause}
@@ -320,19 +349,30 @@ Risk: ${openaiDiagnosis.riskLevel}
 **Context:**
 ${JSON.stringify(context, null, 2)}
 
-Analyze OpenAI's diagnosis critically:
-1. Do you agree with the root cause analysis?
-2. Is the proposed fix correct and complete?
-3. Are there any concerns or edge cases missed?
-4. Any suggestions for improvement?
+**Review Questions:**
+1. Did OpenAI correctly identify a CODE bug vs data gap?
+2. Does the fix change LOGIC not DATA?
+3. Is the root cause analysis deep enough (not surface-level)?
+4. Will this fix prevent the issue from happening again?
+5. Are there other code locations with the same pattern?
 
 Return JSON:
 {
   "agrees": true/false,
-  "concerns": ["concern 1", "concern 2"],
-  "suggestions": ["suggestion 1", "suggestion 2"],
-  "alternativeApproach": "if you disagree, what would you do instead?",
-  "confidence": 0-100
+  "concerns": [
+    "Still suggesting data fixes instead of code fixes",
+    "Didn't scan widely enough for same pattern",
+    "Fix is too narrow, won't prevent recurrence"
+  ],
+  "suggestions": [
+    "Also check matcher-service.ts for same threshold issue",
+    "Fix should update ALL matchers, not just brands",
+    "Consider if this pattern exists in normalization logic too"
+  ],
+  "alternativeApproach": "if you disagree, what code would you fix instead?",
+  "confidence": 0-100,
+  "isCodeFix": true/false,
+  "systemWideImpact": "low|medium|high"
 }`;
 
     const response = await axios.post(
@@ -450,6 +490,28 @@ Return JSON:
   private buildDiagnosticPrompt(issue: DetectedIssue, context: any, _aiProvider: 'openai' | 'xai'): string {
     return `You are a senior software engineer debugging a dual-AI product verification system.
 
+**CRITICAL: YOUR MISSION**
+You are NOT fixing data - you are DEBUGGING CODE that failed to process valid input.
+DO NOT suggest adding data to picklists or schemas.
+DO suggest fixing the logic/code that failed to match, parse, or process existing valid data.
+
+**DEBUGGING MINDSET:**
+1. Why did our code FAIL to yield a result from valid input?
+2. What logic error, bad mapping, or overlooked process caused this?
+3. Is this a systemic pattern that affects other code?
+4. How do we fix the CODE so this never happens again?
+
+**EXAMPLES OF GOOD DIAGNOSES:**
+✅ "Picklist matcher uses exact match (threshold 1.0) - should use fuzzy match (0.8)"
+✅ "Field inference skips values with spaces - regex needs update"
+✅ "Category schema mapper hardcoded to 10 categories - should be dynamic"
+✅ "Normalization strips valid suffixes - logic is too aggressive"
+
+**EXAMPLES OF BAD DIAGNOSES:**
+❌ "Add 'GE Appliances' to brands.json" (data fix, not code fix)
+❌ "Missing in schema" (doesn't explain WHY code didn't handle it)
+❌ "Add more aliases" (band-aid, doesn't fix root cause)
+
 **SYSTEM OVERVIEW:**
 - Stack: Node.js/TypeScript, Express, MongoDB
 - Purpose: Verify product catalogs with OpenAI GPT-4o + xAI Grok-2
@@ -461,17 +523,17 @@ Severity: ${issue.severity}
 Affected Jobs: ${issue.affectedCount}
 Missing Fields: ${issue.missingFields.join(', ')}
 
-**ORIGINAL REQUEST PAYLOAD:**
+**ORIGINAL REQUEST PAYLOAD (Valid Input That We Failed To Process):**
 \`\`\`json
 ${JSON.stringify(issue.rawPayload, null, 2)}
 \`\`\`
 
-**CURRENT RESPONSE (INCOMPLETE):**
+**CURRENT RESPONSE (Our Code Failed To Populate These Fields):**
 \`\`\`json
 ${JSON.stringify(issue.currentResponse, null, 2)}
 \`\`\`
 
-**RELEVANT CODE:**
+**RELEVANT CODE (Find The Bug Here):**
 \`\`\`typescript
 // Field Inference Service
 ${context.relevantCode.fieldInference || 'Not loaded'}
@@ -489,33 +551,52 @@ ${JSON.stringify(context.schemas.category, null, 2)}
 ${issue.errorLogs.join('\n')}
 
 **YOUR TASK:**
-Analyze this failure and provide a comprehensive diagnosis.
+Debug the CODE failure. Find the logic error, bad mapping, or process gap.
 
 **RESPOND WITH JSON:**
 {
-  "rootCause": "Clear explanation of why this failure occurred",
-  "evidence": ["evidence point 1", "evidence point 2", "evidence point 3"],
+  "rootCause": "SPECIFIC code/logic error that caused the failure (not 'missing data')",
+  "evidence": [
+    "Line 145: if-statement excludes valid values",
+    "Threshold too strict at 1.0",
+    "Regex only matches uppercase, fails on mixed case"
+  ],
   "proposedFix": {
-    "type": "add_alias" | "update_schema" | "fix_parsing" | "add_normalization" | "fix_logic",
-    "targetFiles": ["file1.ts", "file2.ts"],
+    "type": "fix_logic" | "fix_parsing" | "fix_threshold" | "fix_mapping" | "fix_schema_loader",
+    "targetFiles": ["service-with-bug.ts", "config-with-bad-logic.ts"],
     "codeChanges": [
       {
-        "file": "filename.ts",
-        "lineNumbers": "123-145",
-        "oldCode": "existing code snippet",
-        "newCode": "corrected code snippet",
-        "explanation": "why this change fixes the issue"
+        "file": "picklist-matcher.service.ts",
+        "lineNumbers": "145-150",
+        "oldCode": "if (similarity === 1.0) { return match; }",
+        "newCode": "if (similarity >= 0.8) { return match; }",
+        "explanation": "Threshold was too strict - fuzzy match allows valid variations"
       }
     ]
   },
   "systemScanRecommendations": {
-    "filesToScan": ["files that may have similar issues"],
-    "patternsToLookFor": ["code patterns to search for"],
-    "expectedAdditionalFixes": 3
+    "filesToScan": [
+      "All other matcher services",
+      "All services using similarity thresholds",
+      "All regex validators"
+    ],
+    "patternsToLookFor": [
+      "similarity === 1.0",
+      "threshold: 1.0",
+      "exact match only"
+    ],
+    "expectedAdditionalFixes": 5
   },
   "confidence": 85,
   "riskLevel": "low" | "medium" | "high",
-  "reasoningChain": ["step 1 of analysis", "step 2", "step 3", "conclusion"]
+  "reasoningChain": [
+    "Input 'GE Appliances' is valid, present in source data",
+    "Matcher calculated similarity as 0.95 (close match)",
+    "Code rejected it because threshold hardcoded to 1.0",
+    "This is a logic error, not missing data",
+    "Fix: Lower threshold to 0.8 to accept fuzzy matches",
+    "Scan: All matchers may have same overly-strict logic"
+  ]
 }`;
   }
 

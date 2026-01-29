@@ -210,43 +210,65 @@ class MultiAttemptVerifier {
     newResponse: any,
     expectedFix: any
   ): Promise<ValidationReview> {
-    const validationPrompt = `You are validating whether a code fix successfully resolved a data verification issue.
+    const validationPrompt = `You are validating whether a CODE FIX successfully resolved a processing failure.
 
-**ORIGINAL RESPONSE (BEFORE FIX):**
+**CRITICAL: What You're Validating**
+Did the CODE CHANGE make our system process valid input correctly?
+NOT: Did we add missing data?
+YES: Did we fix the logic that was failing to process data?
+
+**ORIGINAL RESPONSE (BEFORE CODE FIX):**
 \`\`\`json
 ${JSON.stringify(originalResponse, null, 2)}
 \`\`\`
 
-**NEW RESPONSE (AFTER FIX):**
+**NEW RESPONSE (AFTER CODE FIX):**
 \`\`\`json
 ${JSON.stringify(newResponse, null, 2)}
 \`\`\`
 
-**EXPECTED FIX:**
+**CODE FIX APPLIED:**
 ${JSON.stringify(expectedFix, null, 2)}
 
 **VALIDATION CHECKLIST:**
-1. ✓ Missing fields now populated?
-2. ✓ Data accuracy correct?
-3. ✓ No new errors introduced?
-4. ✓ Overall quality improved?
+1. ✓ Did the code fix enable processing of previously-failed input?
+2. ✓ Are results now populated because LOGIC improved (not data added)?
+3. ✓ Will this code fix prevent future failures of similar patterns?
+4. ✓ No regression - existing working cases still work?
+5. ✓ Fix is sustainable (not a band-aid)?
 
-**YOUR TASK:**
-Review the before/after responses and determine if the fix was successful.
+**REJECTION CRITERIA:**
+❌ REJECT if: Results only improved because we added data (picklist entry, schema field)
+❌ REJECT if: Fix won't prevent similar failures in the future
+❌ REJECT if: Code fix broke other functionality
+
+**APPROVAL CRITERIA:**
+✅ APPROVE if: Code now processes valid input that it previously failed on
+✅ APPROVE if: Logic improvement is systemic and prevents recurrence
+✅ APPROVE if: No regressions detected
 
 **RESPOND WITH JSON:**
 {
   "approved": true/false,
   "confidence": 0-100,
   "checklist": {
-    "missingFieldsPopulated": true/false,
-    "dataAccuracyCorrect": true/false,
-    "noNewErrorsIntroduced": true/false,
-    "overallQualityImproved": true/false
+    "codeFix EnabledProcessing": true/false,
+    "logicImprovedNotDataAdded": true/false,
+    "preventsFutureFailures": true/false,
+    "noRegressions": true/false,
+    "fixIsSustainable": true/false
   },
-  "concerns": ["any concerns or issues found"],
-  "improvements": ["suggestions for next attempt if this failed"],
-  "detailedAnalysis": "comprehensive analysis of the results"
+  "concerns": [
+    "Fix only worked because we added data, not fixed code",
+    "Threshold still too strict, will fail on other variations",
+    "Didn't fix root cause, just this one symptom"
+  ],
+  "improvements": [
+    "Next attempt: Fix the underlying matcher logic, not just this field",
+    "Scan all services for same threshold pattern",
+    "Make the fix more comprehensive"
+  ],
+  "detailedAnalysis": "Analysis of whether code fix solved the underlying logic problem"
 }`;
 
     const response = await this.openai.chat.completions.create({
@@ -277,43 +299,65 @@ Review the before/after responses and determine if the fix was successful.
     newResponse: any,
     expectedFix: any
   ): Promise<ValidationReview> {
-    const validationPrompt = `You are validating whether a code fix successfully resolved a data verification issue.
+    const validationPrompt = `You are validating whether a CODE FIX successfully resolved a processing failure.
 
-**ORIGINAL RESPONSE (BEFORE FIX):**
+**CRITICAL: What You're Validating**
+Did the CODE CHANGE make our system process valid input correctly?
+NOT: Did we add missing data?
+YES: Did we fix the logic that was failing to process data?
+
+**ORIGINAL RESPONSE (BEFORE CODE FIX):**
 \`\`\`json
 ${JSON.stringify(originalResponse, null, 2)}
 \`\`\`
 
-**NEW RESPONSE (AFTER FIX):**
+**NEW RESPONSE (AFTER CODE FIX):**
 \`\`\`json
 ${JSON.stringify(newResponse, null, 2)}
 \`\`\`
 
-**EXPECTED FIX:**
+**CODE FIX APPLIED:**
 ${JSON.stringify(expectedFix, null, 2)}
 
 **VALIDATION CHECKLIST:**
-1. ✓ Missing fields now populated?
-2. ✓ Data accuracy correct?
-3. ✓ No new errors introduced?
-4. ✓ Overall quality improved?
+1. ✓ Did the code fix enable processing of previously-failed input?
+2. ✓ Are results now populated because LOGIC improved (not data added)?
+3. ✓ Will this code fix prevent future failures of similar patterns?
+4. ✓ No regression - existing working cases still work?
+5. ✓ Fix is sustainable (not a band-aid)?
 
-**YOUR TASK:**
-Review the before/after responses and determine if the fix was successful.
+**REJECTION CRITERIA:**
+❌ REJECT if: Results only improved because we added data (picklist entry, schema field)
+❌ REJECT if: Fix won't prevent similar failures in the future
+❌ REJECT if: Code fix broke other functionality
+
+**APPROVAL CRITERIA:**
+✅ APPROVE if: Code now processes valid input that it previously failed on
+✅ APPROVE if: Logic improvement is systemic and prevents recurrence
+✅ APPROVE if: No regressions detected
 
 **RESPOND WITH JSON:**
 {
   "approved": true/false,
   "confidence": 0-100,
   "checklist": {
-    "missingFieldsPopulated": true/false,
-    "dataAccuracyCorrect": true/false,
-    "noNewErrorsIntroduced": true/false,
-    "overallQualityImproved": true/false
+    "codeFixEnabledProcessing": true/false,
+    "logicImprovedNotDataAdded": true/false,
+    "preventsFutureFailures": true/false,
+    "noRegressions": true/false,
+    "fixIsSustainable": true/false
   },
-  "concerns": ["any concerns or issues found"],
-  "improvements": ["suggestions for next attempt if this failed"],
-  "detailedAnalysis": "comprehensive analysis of the results"
+  "concerns": [
+    "Fix only worked because we added data, not fixed code",
+    "Threshold still too strict, will fail on other variations",
+    "Didn't fix root cause, just this one symptom"
+  ],
+  "improvements": [
+    "Next attempt: Fix the underlying matcher logic, not just this field",
+    "Scan all services for same threshold pattern",
+    "Make the fix more comprehensive"
+  ],
+  "detailedAnalysis": "Analysis of whether code fix solved the underlying logic problem"
 }`;
 
     const response = await axios.post(
