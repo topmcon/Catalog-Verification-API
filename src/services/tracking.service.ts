@@ -390,41 +390,109 @@ export async function completeTracking(
     responsePayload: process.env.TRACK_RAW_PAYLOADS === 'true' ? response as any : undefined,
   };
 
-  // Detect missing TOP15 fields and log as issues for self-healing
-  if (response.Top_Filter_Attributes) {
-    const top15Fields = Object.keys(response.Top_Filter_Attributes);
-    const missingFields: string[] = [];
-    
-    top15Fields.forEach(fieldKey => {
-      const value = response.Top_Filter_Attributes?.[fieldKey as keyof typeof response.Top_Filter_Attributes];
+  // ========================================================================
+  // COMPREHENSIVE FAILURE DETECTION - Check ALL fields in response
+  // ========================================================================
+  // Goal: Identify every null/empty field to determine if it's a code bug
+  // or legitimately not found after exhaustive search
+  
+  const allMissingFields: Array<{
+    field: string;
+    section: 'Primary' | 'TopFilter' | 'Additional';
+    value: any;
+  }> = [];
+
+  // Check Primary Attributes (Brand, Model, Category, etc.)
+  if (response.Primary_Attributes) {
+    Object.entries(response.Primary_Attributes).forEach(([fieldKey, value]) => {
       if (!value || value === '' || value === null || value === undefined) {
-        missingFields.push(fieldKey);
+        allMissingFields.push({
+          field: fieldKey,
+          section: 'Primary',
+          value
+        });
       }
     });
+  }
 
-    // Log issue for each missing TOP15 field
-    if (missingFields.length > 0) {
-      missingFields.forEach(field => {
-        addIssue(trackingId, {
-          type: 'missing_top15_field',
-          severity: 'medium',
-          description: `Missing TOP15 field: ${field}`,
-          suggestedAction: `Review code logic for extracting ${field} from product data`,
-          metadata: {
-            field,
-            category: response.Primary_Attributes?.Category_Verified,
-            subfolder: response.Primary_Attributes?.SubCategory_Verified
-          }
+  // Check Top Filter Attributes (category-specific TOP15)
+  if (response.Top_Filter_Attributes) {
+    Object.entries(response.Top_Filter_Attributes).forEach(([fieldKey, value]) => {
+      if (!value || value === '' || value === null || value === undefined) {
+        allMissingFields.push({
+          field: fieldKey,
+          section: 'TopFilter',
+          value
         });
-      });
+      }
+    });
+  }
 
-      logger.info('Detected missing TOP15 fields for self-healing', {
-        trackingId,
-        sessionId: tracking.sessionId,
-        missingFieldCount: missingFields.length,
-        missingFields: missingFields.join(', ')
+  // Check if Additional Attributes HTML is missing (should have enrichment data)
+  if (!response.Additional_Attributes_HTML || response.Additional_Attributes_HTML.trim() === '') {
+    allMissingFields.push({
+      field: 'Additional_Attributes_HTML',
+      section: 'Additional',
+      value: response.Additional_Attributes_HTML
+    });
+  }
+
+  // Log detailed issues for EVERY missing field for AI diagnosis
+  if (allMissingFields.length > 0) {
+    allMissingFields.forEach(({ field, section, value }) => {
+      // Determine severity based on field importance
+      let severity: 'low' | 'medium' | 'high' | 'critical' = 'medium';
+      if (section === 'Primary' && ['Brand_Verified', 'Model_Number_Verified', 'Category_Verified'].includes(field)) {
+        severity = 'critical'; // Core identification fields
+      } else if (section === 'TopFilter') {
+        severity = 'high'; // Category-specific attributes
+      } else if (section === 'Additional') {
+        severity = 'low'; // Enrichment data
+      }
+
+      addIssue(trackingId, {
+        type: 'missing_top15_field', // Will be used for all missing fields
+        severity,
+        field,
+        description: `Missing field in ${section} section: ${field}`,
+        suggestedAction: `AI must determine: (1) Is this a CODE BUG (extraction/mapping/logic failure)? OR (2) Legitimately not found after exhaustive search of raw data, documents, URLs, images, and web research? If code bug: identify root cause, propose fix, verify fix works, apply to all similar cases.`,
+        metadata: {
+          field,
+          section,
+          currentValue: value,
+          category: response.Primary_Attributes?.Category_Verified,
+          subfolder: response.Primary_Attributes?.SubCategory_Verified,
+          // Include context for AI diagnosis
+          availableRawData: {
+            hasWebRetailerData: !!tracking.request?.Brand_Web_Retailer,
+            hasFergusonData: !!tracking.request?.Ferguson_Brand,
+            hasSpecTable: !!tracking.request?.Web_Retailer_Specs,
+            hasFergusonAttributes: !!tracking.request?.Ferguson_Attributes,
+            hasProductDescription: !!tracking.request?.Product_Description_Web_Retailer,
+            hasProductTitle: !!tracking.request?.Product_Title_Web_Retailer
+          },
+          researchCapabilities: [
+            'Parse raw Salesforce payload',
+            'Extract from specification tables',
+            'Analyze product descriptions/titles',
+            'Process document URLs (PDFs, manuals)',
+            'Analyze image URLs',
+            'Perform independent web searches',
+            'Cross-reference brand/model databases'
+          ]
+        }
       });
-    }
+    });
+
+    logger.warn('🔍 COMPREHENSIVE FAILURE DETECTION: Missing fields detected', {
+      trackingId,
+      sessionId: tracking.sessionId,
+      totalMissingFields: allMissingFields.length,
+      criticalMissing: allMissingFields.filter(f => f.section === 'Primary').length,
+      topFilterMissing: allMissingFields.filter(f => f.section === 'TopFilter').length,
+      additionalMissing: allMissingFields.filter(f => f.section === 'Additional').length,
+      fields: allMissingFields.map(f => `${f.section}.${f.field}`).join(', ')
+    });
   }
 
   // Add tags based on results
