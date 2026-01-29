@@ -253,15 +253,15 @@ class SelfHealingOrchestrator {
 
     try {
       // Safely stringify, handling circular references
-      const safeContext = JSON.stringify(context, (key, value) => {
+      const safeContext = JSON.stringify(context, (_key, value) => {
         if (value && typeof value === 'object' && value.constructor?.name === 'model') {
           return '[Mongoose Model]';
         }
         return value;
       }, 2);
       logger.warn(`   Context:`, safeContext);
-    } catch (e) {
-      logger.warn(`   Context: [Unable to stringify - ${e.message}]`);
+    } catch (e: any) {
+      logger.warn(`   Context: [Unable to stringify - ${e?.message || 'unknown error'}]`);
     }
 
     // Save escalation to database
