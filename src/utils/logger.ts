@@ -32,7 +32,7 @@ const logFormat = winston.format.combine(
     if (Object.keys(meta).length > 0) {
       try {
         // Safe stringify with circular reference handling
-        const safeMeta = JSON.stringify(meta, (key, value) => {
+        const safeMeta = JSON.stringify(meta, (_key, value) => {
           // Skip circular references
           if (value && typeof value === 'object') {
             if (value.constructor?.name === 'ClientRequest' || 
