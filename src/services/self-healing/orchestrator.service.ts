@@ -206,7 +206,7 @@ class SelfHealingOrchestrator {
 
     return {
       jobId: job.jobId,
-      sfCatalogId: tracker.sfCatalogId,
+      sfCatalogId: tracker.request?.SF_Catalog_Id || tracker.sfCatalogId,
       issueType: 'missing_data',
       severity: missingFields.length > 5 ? 'high' : 'medium',
       missingFields,
