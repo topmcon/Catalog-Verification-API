@@ -112,7 +112,7 @@ export interface OutgoingResponseData {
 
 // Issue tracking
 export interface IssueFlag {
-  type: 'missing_data' | 'category_mismatch' | 'low_confidence' | 'ai_error' | 'consensus_failure' | 'validation_error' | 'timeout' | 'research_failed' | 'missing_top15_field';
+  type: 'missing_data' | 'category_mismatch' | 'low_confidence' | 'ai_error' | 'consensus_failure' | 'validation_error' | 'timeout' | 'research_failed' | 'missing_top15_field' | 'research_incomplete' | 'research_conflict';
   severity: 'low' | 'medium' | 'high' | 'critical';
   field?: string;
   description: string;
@@ -253,7 +253,7 @@ const OutgoingResponseDataSchema = new Schema({
 const IssueFlagSchema = new Schema({
   type: { 
     type: String, 
-    enum: ['missing_data', 'category_mismatch', 'low_confidence', 'ai_error', 'consensus_failure', 'validation_error', 'timeout', 'research_failed'],
+    enum: ['missing_data', 'category_mismatch', 'low_confidence', 'ai_error', 'consensus_failure', 'validation_error', 'timeout', 'research_failed', 'missing_top15_field', 'research_incomplete', 'research_conflict'],
     required: true 
   },
   severity: { 
