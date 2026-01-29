@@ -63,19 +63,7 @@ class SelfHealingOrchestrator {
       // PHASE 0: Load original job data
       result.phase = 'loading_data';
       const originalJob = await VerificationJob.findOne({ jobId });
-      let apiTracker = await APITracker.findOne({ sessionId: jobId });
-      
-      // Fallback: Try raw query if model query fails
-      if (!apiTracker) {
-        const db = (APITracker as any).db || (APITracker as any).collection?.conn?.db;
-        if (db) {
-          const rawTracker = await db.collection('api_trackers').findOne({ sessionId: jobId });
-          if (rawTracker) {
-            apiTracker = rawTracker as any;
-            logger.info('[Phase 0] Used raw query to find tracker');
-          }
-        }
-      }
+      const apiTracker = await APITracker.findOne({ jobId });
 
       if (!originalJob) {
         return { ...result, reason: 'Job not found in database' };
@@ -99,7 +87,7 @@ class SelfHealingOrchestrator {
       result.phase = 'dual_ai_diagnosis';
       result.diagnosisTimestamp = new Date();
       
-      logger.info(`\n[Phase 2] Starting tri-AI diagnosis (OpenAI + xAI → Claude)...`);
+      logger.info(`\n[Phase 2] Starting dual-AI diagnosis...`);
       
       const consensus = await dualAIDiagnostician.diagnoseWithConsensus(issue);
 
@@ -109,27 +97,6 @@ class SelfHealingOrchestrator {
         result.escalatedToHuman = true;
         await this.escalateToHuman(jobId, 'No AI consensus', { consensus });
         return { ...result, reason: 'No AI consensus' };
-      }
-
-      // Log Claude's final decision
-      if (consensus.claudeFinalReview) {
-        const claudeDecision = consensus.claudeFinalReview.decision;
-        logger.info(`[Phase 2] 🎯 Claude Final Decision: ${claudeDecision}`);
-        
-        if (consensus.claudeFinalReview.independentResearch?.conducted) {
-          logger.info(`[Phase 2] 🔬 Claude conducted independent research`);
-          logger.info(`[Phase 2] 📊 Findings: ${consensus.claudeFinalReview.independentResearch.findings.length} key insights`);
-        }
-        
-        if (!consensus.claudeFinalReview.finalDeploymentPlan.approved) {
-          logger.warn(`[Phase 2] ❌ Claude rejected deployment`);
-          result.escalatedToHuman = true;
-          await this.escalateToHuman(jobId, 'Claude rejected deployment', { 
-            claudeReasoning: consensus.claudeFinalReview.reasoning,
-            consensus 
-          });
-          return { ...result, reason: 'Claude rejected deployment' };
-        }
       }
 
       result.consensusAchieved = true;
@@ -227,22 +194,11 @@ class SelfHealingOrchestrator {
    * Detect issue from job and tracker data
    */
   private async detectIssue(job: any, tracker: any): Promise<any | null> {
-    if (!tracker) {
-      logger.info('[detectIssue] No tracker provided');
-      return null;
-    }
-
-    logger.info(`[detectIssue] Tracker found, has issues: ${!!tracker.issues}, count: ${tracker.issues?.length || 0}`);
-    
-    if (tracker.issues && tracker.issues.length > 0) {
-      logger.info(`[detectIssue] First issue type: ${tracker.issues[0].type}`);
-    }
+    if (!tracker) return null;
 
     const missingFields = tracker.issues
       ?.filter((issue: any) => issue.type === 'missing_top15_field')
       ?.map((issue: any) => issue.field) || [];
-
-    logger.info(`[detectIssue] Filtered missing fields: ${missingFields.length}`);
 
     if (missingFields.length === 0) {
       return null;
@@ -250,7 +206,7 @@ class SelfHealingOrchestrator {
 
     return {
       jobId: job.jobId,
-      sfCatalogId: tracker.request?.SF_Catalog_Id || tracker.sfCatalogId,
+      sfCatalogId: tracker.sfCatalogId,
       issueType: 'missing_data',
       severity: missingFields.length > 5 ? 'high' : 'medium',
       missingFields,
@@ -272,18 +228,7 @@ class SelfHealingOrchestrator {
     // TODO: Send to Slack, email, dashboard, etc.
     // For now, just log extensively
 
-    try {
-      // Safely stringify, handling circular references
-      const safeContext = JSON.stringify(context, (_key, value) => {
-        if (value && typeof value === 'object' && value.constructor?.name === 'model') {
-          return '[Mongoose Model]';
-        }
-        return value;
-      }, 2);
-      logger.warn(`   Context:`, safeContext);
-    } catch (e: any) {
-      logger.warn(`   Context: [Unable to stringify - ${e?.message || 'unknown error'}]`);
-    }
+    logger.warn(`   Context:`, JSON.stringify(context, null, 2));
 
     // Save escalation to database
     try {

@@ -213,61 +213,31 @@ class MultiAttemptVerifier {
     const validationPrompt = `You are validating whether a CODE FIX successfully resolved a processing failure.
 
 **CRITICAL: What You're Validating**
-1. Did the CODE CHANGE enable INTELLIGENT, EXHAUSTIVE field extraction?
-2. Did we fix the logic to use ALL available resources (payload, specs, docs, URLs, web search)?
-3. Was the SAME job that failed now successfully processed with the fix?
+Did the CODE CHANGE enable INTELLIGENT, CONTEXT-AWARE field mapping?
+NOT: Did we add missing data?
+YES: Did we fix the logic to extract ALL relevant data using semantic understanding?
 
-**COMPREHENSIVE EXTRACTION VALIDATION:**
-1. ✓ Does code now check ALL available resources before declaring "not found"?
-   - Raw Salesforce payload
-   - Specification tables
-   - Product descriptions/titles
-   - Document URLs (PDFs, manuals)
-   - Image URLs (for visual inspection)
-   - Web searches (manufacturer sites, retailers)
-2. ✓ Does code extract from compound values? ("Satin Black" → color + finish)
-3. ✓ Does code validate fields against category TOP15 + primary attributes?
-4. ✓ Does code analyze CONTENT not just field names?
-5. ✓ Can code map one source field to multiple target fields when appropriate?
-6. ✓ Does code respect schema constraints (no new field creation)?
-7. ✓ Did THE SAME JOB that previously failed now succeed?
-
-**RESOURCE UTILIZATION CHECK:**
-- If field missing from payload → Did we check spec table?
-- If missing from specs → Did we check product description?
-- If missing from description → Did we check document URLs?
-- If missing from documents → Did we try web search?
-- Only declare "not found" after EXHAUSTIVE search of ALL resources
+**CONTEXT-AWARE MAPPING VALIDATION:**
+1. ✓ Does code now extract from compound values? ("Satin Black" → color + finish)
+2. ✓ Does code validate fields against category TOP15 + primary attributes?
+3. ✓ Does code analyze CONTENT not just field names?
+4. ✓ Can code map one source field to multiple target fields when appropriate?
+5. ✓ Does code respect schema constraints (no new field creation)?
 
 **EXAMPLE GOOD FIX:**
-Before: Color field null (didn't check "Material: Satin Black" in description)
-After: Color: "Black", Finish: "Satin" (added semantic analysis of description field)
-Verification: Re-ran SAME job → Fields now populated ✓
-
-**EXAMPLE EXCELLENT FIX:**
-Before: Dimensions null (didn't check spec table)
-After: Width/Depth/Height populated (added spec table parser + pattern recognition)
-Verification: Re-ran SAME job → All dimension fields populated ✓
-Impact: Will work for ALL future jobs with spec tables
+Before: "Material: Satin Black" → SKIPPED (field name doesn't match)
+After: "Material: Satin Black" → color: "Black", finish: "Satin" (context extracted)
 
 **EXAMPLE BAD FIX:**
-Before: Field null
-After: Added field to picklist (WRONG - data fix, not code fix)
-Verification: Only works for THIS specific value, doesn't fix extraction logic
-
-**SAME-JOB VERIFICATION:**
-**CRITICAL:** The fix MUST work on the SAME job that originally failed.
-- Original job ID should process successfully with new code
-- Missing fields should now be populated
-- No new errors should be introduced
-- This proves the code fix actually resolves the issue
+Before: "Material: Satin Black" → null
+After: Added "Material" field to schema (WRONG - creates new field, violates constraints)
 
 **ORIGINAL RESPONSE (BEFORE CODE FIX):**
 \`\`\`json
 ${JSON.stringify(originalResponse, null, 2)}
 \`\`\`
 
-**NEW RESPONSE (AFTER CODE FIX - SAME JOB RE-PROCESSED):**
+**NEW RESPONSE (AFTER CODE FIX):**
 \`\`\`json
 ${JSON.stringify(newResponse, null, 2)}
 \`\`\`
@@ -278,9 +248,6 @@ ${JSON.stringify(expectedFix, null, 2)}
 **VALIDATION CHECKLIST:**
 1. ✓ Did the code fix enable processing of previously-failed input?
 2. ✓ Are results now populated because LOGIC improved (not data added)?
-3. ✓ Did we add resource checks (specs, docs, web search)?
-4. ✓ Was the SAME job re-processed successfully?
-5. ✓ Do previously-null fields now have values?
 3. ✓ Will this code fix prevent future failures of similar patterns?
 4. ✓ No regression - existing working cases still work?
 5. ✓ Fix is sustainable (not a band-aid)?
@@ -426,7 +393,7 @@ ${JSON.stringify(expectedFix, null, 2)}
     const response = await axios.post(
       'https://api.x.ai/v1/chat/completions',
       {
-        model: 'grok-3',
+        model: 'grok-2-latest',
         messages: [{ role: 'user', content: validationPrompt }],
         temperature: 0.2,
         response_format: { type: 'json_object' }
