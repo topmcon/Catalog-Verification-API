@@ -30,7 +30,23 @@ const logFormat = winston.format.combine(
   winston.format.printf(({ level, message, timestamp, stack, ...meta }) => {
     let log = `${timestamp} [${level.toUpperCase()}]: ${message}`;
     if (Object.keys(meta).length > 0) {
-      log += ` ${JSON.stringify(meta)}`;
+      try {
+        // Safe stringify with circular reference handling
+        const safeMeta = JSON.stringify(meta, (key, value) => {
+          // Skip circular references
+          if (value && typeof value === 'object') {
+            if (value.constructor?.name === 'ClientRequest' || 
+                value.constructor?.name === 'IncomingMessage' ||
+                value.constructor?.name === 'Socket') {
+              return '[HTTP Object]';
+            }
+          }
+          return value;
+        });
+        log += ` ${safeMeta}`;
+      } catch (e) {
+        log += ` [meta: unable to stringify]`;
+      }
     }
     if (stack) {
       log += `\n${stack}`;
