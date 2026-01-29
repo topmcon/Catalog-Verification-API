@@ -440,15 +440,8 @@ export async function completeTracking(
   // Log detailed issues for EVERY missing field for AI diagnosis
   if (allMissingFields.length > 0) {
     allMissingFields.forEach(({ field, section, value }) => {
-      // Determine severity based on field importance
-      let severity: 'low' | 'medium' | 'high' | 'critical' = 'medium';
-      if (section === 'Primary' && ['Brand_Verified', 'Model_Number_Verified', 'Category_Verified'].includes(field)) {
-        severity = 'critical'; // Core identification fields
-      } else if (section === 'TopFilter') {
-        severity = 'high'; // Category-specific attributes
-      } else if (section === 'Additional') {
-        severity = 'low'; // Enrichment data
-      }
+      // ALL missing fields are HIGH severity - every field matters for complete product data
+      const severity: 'high' = 'high';
 
       addIssue(trackingId, {
         type: 'missing_top15_field', // Will be used for all missing fields
