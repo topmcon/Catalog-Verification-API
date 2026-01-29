@@ -120,6 +120,10 @@ class ComprehensiveSFCorrectionSender {
 
       logger.info(`✅ Comprehensive correction sent to Salesforce successfully!`);
 
+      // STEP 6E: BACKFILL - Reprocess other jobs with same issue using new logic
+      logger.info('Starting backfill for other affected jobs...');
+      await this.backfillAffectedJobs(originalJob, primaryFix, systemWideFixes);
+
       return { success: true };
 
     } catch (error: any) {
@@ -426,6 +430,221 @@ Give your FINAL approval or rejection.
     // Add category-specific Top 15 fields
     // You'd load this from actual schemas
     return baseFields;
+  }
+
+  /**
+   * Backfill affected jobs: Re-run verification with new logic for prior failures
+   */
+  private async backfillAffectedJobs(
+    originalJob: any,
+    primaryFix: any,
+    _systemWideFixes: any[]
+  ): Promise<void> {
+    try {
+      logger.info('🔄 BACKFILL: Finding jobs affected by same issue...');
+
+      // Import here to avoid circular dependency
+      const { VerificationJob } = await import('../../models/verification-job.model');
+      const { APITracker } = await import('../../models/api-tracker.model');
+
+      // Find jobs with similar failures in last 30 days
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+      const affectedJobs = await VerificationJob.find({
+        createdAt: { $gte: thirtyDaysAgo },
+        status: 'completed', // Only backfill completed jobs
+        jobId: { $ne: originalJob.jobId } // Exclude current job
+      }).limit(100); // Safety limit
+
+      logger.info(`Found ${affectedJobs.length} potential jobs for backfill`);
+
+      let backfillCount = 0;
+      const backfillResults: any[] = [];
+
+      for (const job of affectedJobs) {
+        // Check if this job had the same type of issue
+        const tracker = await APITracker.findOne({ jobId: job.jobId });
+        
+        if (!tracker || !tracker.issues || tracker.issues.length === 0) {
+          continue; // No issues logged, skip
+        }
+
+        // Check if any issues match what we just fixed
+        const hasSimilarIssue = tracker.issues.some((issue: any) => 
+          issue.type === 'missing_top15_field' && 
+          this.isIssueRelatedToFix(issue, primaryFix)
+        );
+
+        if (!hasSimilarIssue) {
+          continue;
+        }
+
+        logger.info(`Backfilling job ${job.jobId}...`);
+
+        // Re-run verification with new logic
+        const backfillResult = await this.reprocessJobWithNewLogic(job);
+
+        if (backfillResult.success) {
+          backfillCount++;
+          backfillResults.push({
+            jobId: job.jobId,
+            sfCatalogId: job.rawPayload?.sf_catalog_id || 'unknown',
+            fieldsFixed: backfillResult.fieldsFixed,
+            correctionSent: backfillResult.correctionSent
+          });
+
+          logger.info(`✅ Backfilled ${job.jobId} - Fixed: ${backfillResult.fieldsFixed.join(', ')}`);
+        } else {
+          logger.warn(`⚠️ Backfill failed for ${job.jobId}: ${backfillResult.reason}`);
+        }
+
+        // Rate limiting - don't overwhelm SF
+        await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay between backfills
+      }
+
+      logger.info(`\n🔄 BACKFILL COMPLETE:`);
+      logger.info(`   Total jobs scanned: ${affectedJobs.length}`);
+      logger.info(`   Jobs backfilled: ${backfillCount}`);
+      logger.info(`   Fields recovered: ${backfillResults.reduce((sum, r) => sum + r.fieldsFixed.length, 0)}`);
+
+      // Log backfill summary
+      if (backfillResults.length > 0) {
+        logger.info(`\nBackfill details:`, JSON.stringify(backfillResults, null, 2));
+      }
+
+    } catch (error: any) {
+      logger.error('Error during backfill:', error);
+      // Don't fail the main process if backfill fails
+    }
+  }
+
+  /**
+   * Check if an issue is related to the fix we just applied
+   */
+  private isIssueRelatedToFix(issue: any, primaryFix: any): boolean {
+    // Check if the issue involves fields that the fix addresses
+    
+    if (primaryFix.type === 'add_contextual_mapping') {
+      // If we fixed contextual mapping, any missing field could be related
+      return true;
+    }
+
+    if (primaryFix.type === 'add_multi_field_extraction') {
+      // If we fixed multi-field extraction (e.g., dimensions), check for those fields
+      const dimensionFields = ['width', 'height', 'depth', 'length'];
+      return dimensionFields.includes(issue.field);
+    }
+
+    if (primaryFix.type === 'fix_logic') {
+      // Check if the primary fix targets affected specific fields
+      const targetedFields = primaryFix.codeChanges
+        ?.map((c: any) => this.extractFieldsFromCodeChange(c))
+        .flat() || [];
+      
+      return targetedFields.includes(issue.field);
+    }
+
+    return false;
+  }
+
+  /**
+   * Extract field names from code change description
+   */
+  private extractFieldsFromCodeChange(codeChange: any): string[] {
+    const explanation = codeChange.explanation?.toLowerCase() || '';
+    const fields: string[] = [];
+
+    // Common field patterns
+    const fieldPatterns = [
+      'brand', 'color', 'finish', 'material', 'style', 
+      'width', 'height', 'depth', 'weight',
+      'voltage', 'wattage', 'capacity'
+    ];
+
+    for (const field of fieldPatterns) {
+      if (explanation.includes(field)) {
+        fields.push(field);
+      }
+    }
+
+    return fields;
+  }
+
+  /**
+   * Re-run verification for a job using the new/fixed logic
+   */
+  private async reprocessJobWithNewLogic(job: any): Promise<{
+    success: boolean;
+    fieldsFixed: string[];
+    correctionSent: boolean;
+    reason?: string;
+  }> {
+    try {
+      // Import verification service
+      const verificationService = await import('../dual-ai-verification.service');
+
+      // Re-run verification with the job's original payload
+      const newResult = await verificationService.default.verifyProductWithDualAI(job.rawPayload);
+      const newResultAny = newResult as any; // Type assertion for dynamic field access
+
+      // Compare with original response to see what improved
+      const originalResponse = job.response || {};
+      const fieldsFixed: string[] = [];
+
+      // Check which fields were previously null but are now populated
+      for (const key in newResultAny) {
+        if (
+          (originalResponse[key] === null || originalResponse[key] === undefined) &&
+          newResultAny[key] !== null &&
+          newResultAny[key] !== undefined
+        ) {
+          fieldsFixed.push(key);
+        }
+      }
+
+      if (fieldsFixed.length === 0) {
+        return {
+          success: false,
+          fieldsFixed: [],
+          correctionSent: false,
+          reason: 'No improvements detected'
+        };
+      }
+
+      // Build correction payload for Salesforce
+      const correctionPayload = {
+        correctionType: 'backfill-after-self-healing' as const,
+        originalJobId: job.jobId,
+        sfCatalogId: job.sfCatalogId,
+        corrections: fieldsFixed.reduce((acc, field) => ({
+          ...acc,
+          [field]: {
+            old: originalResponse[field],
+            new: newResultAny[field],
+            reason: 'Backfilled using improved contextual mapping logic'
+          }
+        }), {}),
+        timestamp: new Date().toISOString()
+      };
+
+      // Send to Salesforce
+      const sfResult = await this.sendToSalesforce(correctionPayload as any);
+
+      return {
+        success: true,
+        fieldsFixed,
+        correctionSent: sfResult.success
+      };
+
+    } catch (error: any) {
+      return {
+        success: false,
+        fieldsFixed: [],
+        correctionSent: false,
+        reason: error.message
+      };
+    }
   }
 
   /**

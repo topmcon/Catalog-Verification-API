@@ -213,9 +213,24 @@ class MultiAttemptVerifier {
     const validationPrompt = `You are validating whether a CODE FIX successfully resolved a processing failure.
 
 **CRITICAL: What You're Validating**
-Did the CODE CHANGE make our system process valid input correctly?
+Did the CODE CHANGE enable INTELLIGENT, CONTEXT-AWARE field mapping?
 NOT: Did we add missing data?
-YES: Did we fix the logic that was failing to process data?
+YES: Did we fix the logic to extract ALL relevant data using semantic understanding?
+
+**CONTEXT-AWARE MAPPING VALIDATION:**
+1. ✓ Does code now extract from compound values? ("Satin Black" → color + finish)
+2. ✓ Does code validate fields against category TOP15 + primary attributes?
+3. ✓ Does code analyze CONTENT not just field names?
+4. ✓ Can code map one source field to multiple target fields when appropriate?
+5. ✓ Does code respect schema constraints (no new field creation)?
+
+**EXAMPLE GOOD FIX:**
+Before: "Material: Satin Black" → SKIPPED (field name doesn't match)
+After: "Material: Satin Black" → color: "Black", finish: "Satin" (context extracted)
+
+**EXAMPLE BAD FIX:**
+Before: "Material: Satin Black" → null
+After: Added "Material" field to schema (WRONG - creates new field, violates constraints)
 
 **ORIGINAL RESPONSE (BEFORE CODE FIX):**
 \`\`\`json
@@ -302,9 +317,24 @@ ${JSON.stringify(expectedFix, null, 2)}
     const validationPrompt = `You are validating whether a CODE FIX successfully resolved a processing failure.
 
 **CRITICAL: What You're Validating**
-Did the CODE CHANGE make our system process valid input correctly?
+Did the CODE CHANGE enable INTELLIGENT, CONTEXT-AWARE field mapping?
 NOT: Did we add missing data?
-YES: Did we fix the logic that was failing to process data?
+YES: Did we fix the logic to extract ALL relevant data using semantic understanding?
+
+**CONTEXT-AWARE MAPPING VALIDATION:**
+1. ✓ Does code now extract from compound values? ("Satin Black" → color + finish)
+2. ✓ Does code validate fields against category TOP15 + primary attributes?
+3. ✓ Does code analyze CONTENT not just field names?
+4. ✓ Can code map one source field to multiple target fields when appropriate?
+5. ✓ Does code respect schema constraints (no new field creation)?
+
+**EXAMPLE GOOD FIX:**
+Before: "Material: Satin Black" → SKIPPED (field name doesn't match)
+After: "Material: Satin Black" → color: "Black", finish: "Satin" (context extracted)
+
+**EXAMPLE BAD FIX:**
+Before: "Material: Satin Black" → null
+After: Added "Material" field to schema (WRONG - creates new field, violates constraints)
 
 **ORIGINAL RESPONSE (BEFORE CODE FIX):**
 \`\`\`json

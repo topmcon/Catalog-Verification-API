@@ -272,13 +272,20 @@ class DualAIDiagnostician {
     const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
 
 **CRITICAL REVIEW CRITERIA:**
-✅ Did xAI identify a CODE/LOGIC bug (not missing data)?
-✅ Is the fix changing CODE behavior (not adding data)?
-✅ Will this prevent recurrence (not just fix one instance)?
+✅ Did xAI identify a CODE/LOGIC bug that prevented smart contextual mapping?
+✅ Is the fix making our system CONTEXT-AWARE (not just adding data)?
+✅ Will this extract ALL relevant data from compound values?
+✅ Does the fix respect our schema (only maps to Primary + TOP15 fields)?
 ✅ Is the system-wide scan comprehensive enough?
 
-❌ REJECT if xAI suggested: adding picklist entries, adding schema fields, adding aliases (data fixes)
-✅ APPROVE if xAI suggested: fixing threshold logic, fixing regex, fixing mapping logic, fixing conditions
+❌ REJECT if xAI suggested: adding picklist entries, creating new schema fields, adding field aliases
+✅ APPROVE if xAI suggested: contextual content analysis, multi-field extraction, semantic understanding
+
+**SPECIFIC CHECKS:**
+1. Does fix enable extraction from compound values? ("Satin Black" → color + finish)
+2. Does fix validate target fields exist in category schema before mapping?
+3. Does fix prevent creating fields not in our TOP15 + primary attributes?
+4. Will fix work for similar patterns? (dimensions, specs, compound attributes)
 
 **xAI's Diagnosis:**
 Root Cause: ${xaiDiagnosis.rootCause}
@@ -290,28 +297,32 @@ Risk: ${xaiDiagnosis.riskLevel}
 ${JSON.stringify(context, null, 2)}
 
 **Review Questions:**
-1. Did xAI correctly identify a CODE bug vs data gap?
-2. Does the fix change LOGIC not DATA?
-3. Is the root cause analysis deep enough (not surface-level)?
-4. Will this fix prevent the issue from happening again?
-5. Are there other code locations with the same pattern?
+1. Did xAI correctly identify a CODE bug preventing contextual mapping?
+2. Does the fix add INTELLIGENCE not DATA?
+3. Will the fix extract data from compound values correctly?
+4. Does fix validate against category TOP15 + primary fields only?
+5. Are there other mappers that lack contextual awareness?
 
 Return JSON:
 {
   "agrees": true/false,
   "concerns": [
-    "Still suggesting data fixes instead of code fixes",
-    "Didn't scan widely enough for same pattern",
-    "Fix is too narrow, won't prevent recurrence"
+    "Still suggesting data fixes instead of intelligent mapping",
+    "Didn't validate extraction against category schema",
+    "Fix creates new fields not in TOP15 list",
+    "Missing compound value parsing (dimensions, specs, multi-attributes)"
   ],
   "suggestions": [
-    "Also check matcher-service.ts for same threshold issue",
-    "Fix should update ALL matchers, not just brands",
-    "Consider if this pattern exists in normalization logic too"
+    "Add contextual content analyzer for all field types",
+    "Validate extracted fields against category.top15Fields before mapping",
+    "Add multi-field extraction for compound values",
+    "Scan all mappers for missing semantic understanding"
   ],
-  "alternativeApproach": "if you disagree, what code would you fix instead?",
+  "alternativeApproach": "if you disagree, what contextual mapping logic would you add?",
   "confidence": 0-100,
   "isCodeFix": true/false,
+  "addsContextualIntelligence": true/false,
+  "respectsSchemaConstraints": true/false,
   "systemWideImpact": "low|medium|high"
 }`;
 
@@ -331,15 +342,6 @@ Return JSON:
   private async xAIReviewsOpenAI(openaiDiagnosis: AIDiagnosis, context: any) {
     const reviewPrompt = `You are reviewing another AI's CODE DEBUGGING diagnosis.
 
-**CRITICAL REVIEW CRITERIA:**
-✅ Did OpenAI identify a CODE/LOGIC bug (not missing data)?
-✅ Is the fix changing CODE behavior (not adding data)?
-✅ Will this prevent recurrence (not just fix one instance)?
-✅ Is the system-wide scan comprehensive enough?
-
-❌ REJECT if OpenAI suggested: adding picklist entries, adding schema fields, adding aliases (data fixes)
-✅ APPROVE if OpenAI suggested: fixing threshold logic, fixing regex, fixing mapping logic, fixing conditions
-
 **OpenAI's Diagnosis:**
 Root Cause: ${openaiDiagnosis.rootCause}
 Proposed Fix: ${JSON.stringify(openaiDiagnosis.proposedFix, null, 2)}
@@ -349,29 +351,49 @@ Risk: ${openaiDiagnosis.riskLevel}
 **Context:**
 ${JSON.stringify(context, null, 2)}
 
+**CRITICAL REVIEW CRITERIA:****
+✅ Did OpenAI identify a CODE/LOGIC bug that prevented smart contextual mapping?
+✅ Is the fix making our system CONTEXT-AWARE (not just adding data)?
+✅ Will this extract ALL relevant data from compound values?
+✅ Does the fix respect our schema (only maps to Primary + TOP15 fields)?
+✅ Is the system-wide scan comprehensive enough?
+
+❌ REJECT if OpenAI suggested: adding picklist entries, creating new schema fields, adding field aliases
+✅ APPROVE if OpenAI suggested: contextual content analysis, multi-field extraction, semantic understanding
+
+**SPECIFIC CHECKS:**
+1. Does fix enable extraction from compound values? ("Satin Black" → color + finish)
+2. Does fix validate target fields exist in category schema before mapping?
+3. Does fix prevent creating fields not in our TOP15 + primary attributes?
+4. Will fix work for similar patterns? (dimensions, specs, compound attributes)
+
 **Review Questions:**
-1. Did OpenAI correctly identify a CODE bug vs data gap?
-2. Does the fix change LOGIC not DATA?
-3. Is the root cause analysis deep enough (not surface-level)?
-4. Will this fix prevent the issue from happening again?
-5. Are there other code locations with the same pattern?
+1. Did OpenAI correctly identify a CODE bug preventing contextual mapping?
+2. Does the fix add INTELLIGENCE not DATA?
+3. Will the fix extract data from compound values correctly?
+4. Does fix validate against category TOP15 + primary fields only?
+5. Are there other mappers that lack contextual awareness?
 
 Return JSON:
 {
   "agrees": true/false,
   "concerns": [
-    "Still suggesting data fixes instead of code fixes",
-    "Didn't scan widely enough for same pattern",
-    "Fix is too narrow, won't prevent recurrence"
+    "Still suggesting data fixes instead of intelligent mapping",
+    "Didn't validate extraction against category schema",
+    "Fix creates new fields not in TOP15 list",
+    "Missing compound value parsing (dimensions, specs, multi-attributes)"
   ],
   "suggestions": [
-    "Also check matcher-service.ts for same threshold issue",
-    "Fix should update ALL matchers, not just brands",
-    "Consider if this pattern exists in normalization logic too"
+    "Add contextual content analyzer for all field types",
+    "Validate extracted fields against category.top15Fields before mapping",
+    "Add multi-field extraction for compound values",
+    "Scan all mappers for missing semantic understanding"
   ],
-  "alternativeApproach": "if you disagree, what code would you fix instead?",
+  "alternativeApproach": "if you disagree, what contextual mapping logic would you add?",
   "confidence": 0-100,
   "isCodeFix": true/false,
+  "addsContextualIntelligence": true/false,
+  "respectsSchemaConstraints": true/false,
   "systemWideImpact": "low|medium|high"
 }`;
 
@@ -491,26 +513,34 @@ Return JSON:
     return `You are a senior software engineer debugging a dual-AI product verification system.
 
 **CRITICAL: YOUR MISSION**
-You are NOT fixing data - you are DEBUGGING CODE that failed to process valid input.
-DO NOT suggest adding data to picklists or schemas.
-DO suggest fixing the logic/code that failed to match, parse, or process existing valid data.
+You are debugging CODE that failed to intelligently map valid input to our schema fields.
+DO NOT suggest adding data to picklists or creating new schema fields.
+DO suggest fixing the logic/code that failed to understand CONTEXT and map data intelligently.
+
+**CORE PRINCIPLES:**
+1. We ONLY map to: Primary attributes + Category TOP15 attributes (never create new fields)
+2. Context matters MORE than exact field name matching
+3. One source field can map to MULTIPLE target fields if context indicates it
+4. Smart inference: "Material: Satin Black" → Color: Black + Finish: Satin
 
 **DEBUGGING MINDSET:**
-1. Why did our code FAIL to yield a result from valid input?
-2. What logic error, bad mapping, or overlooked process caused this?
-3. Is this a systemic pattern that affects other code?
-4. How do we fix the CODE so this never happens again?
+1. Why did our code FAIL to understand the CONTEXT of valid input?
+2. Did we miss a multi-field mapping opportunity? (e.g., "30x20x15" → width, depth, height)
+3. Is field inference too literal? (matching "Material" field name vs understanding content)
+4. How do we fix the CODE to be context-aware and extract ALL relevant data?
 
 **EXAMPLES OF GOOD DIAGNOSES:**
-✅ "Picklist matcher uses exact match (threshold 1.0) - should use fuzzy match (0.8)"
-✅ "Field inference skips values with spaces - regex needs update"
-✅ "Category schema mapper hardcoded to 10 categories - should be dynamic"
-✅ "Normalization strips valid suffixes - logic is too aggressive"
+✅ "Field inference only maps 1:1 field names - should analyze CONTENT contextually"
+✅ "Missed 'Material: Satin Black' = color + finish - need multi-field extraction logic"
+✅ "Dimensions '30x20x15' not parsed - should extract width/depth/height from pattern"
+✅ "Only checking field name match, ignoring semantic content analysis"
+✅ "No logic to split compound values into multiple target fields"
 
 **EXAMPLES OF BAD DIAGNOSES:**
-❌ "Add 'GE Appliances' to brands.json" (data fix, not code fix)
-❌ "Missing in schema" (doesn't explain WHY code didn't handle it)
-❌ "Add more aliases" (band-aid, doesn't fix root cause)
+❌ "Add 'Material' field to schema" (we don't create new fields)
+❌ "Missing data in picklist" (data fix, not code fix)
+❌ "Schema doesn't have field" (missing the context mapping issue)
+❌ "Add more aliases" (band-aid, doesn't fix smart inference)
 
 **SYSTEM OVERVIEW:**
 - Stack: Node.js/TypeScript, Express, MongoDB
@@ -551,51 +581,66 @@ ${JSON.stringify(context.schemas.category, null, 2)}
 ${issue.errorLogs.join('\n')}
 
 **YOUR TASK:**
-Debug the CODE failure. Find the logic error, bad mapping, or process gap.
+Debug the CODE failure. Find why smart contextual mapping didn't happen.
+
+**CRITICAL VALIDATION RULES:**
+1. ✅ We ONLY map to existing schema fields (Primary + Category TOP15 attributes)
+2. ✅ NEVER create new fields or suggest adding fields to schema
+3. ✅ Context-aware mapping: "Material: Satin Black" → extract Color + Finish
+4. ✅ Multi-field extraction: "30x20x15 inches" → Width + Depth + Height
+5. ✅ Semantic understanding over literal field name matching
+6. ✅ If source has relevant data for our fields, we MUST extract it
 
 **RESPOND WITH JSON:**
 {
-  "rootCause": "SPECIFIC code/logic error that caused the failure (not 'missing data')",
+  "rootCause": "SPECIFIC code/logic error that prevented contextual mapping (not 'missing data')",
   "evidence": [
-    "Line 145: if-statement excludes valid values",
-    "Threshold too strict at 1.0",
-    "Regex only matches uppercase, fails on mixed case"
+    "Line 145: Field inference only does 1:1 field name matching",
+    "No logic to analyze content semantically",
+    "Missed 'Material: Satin Black' contains color AND finish data",
+    "'Dimensions: 30x20x15' not parsed into width/depth/height fields",
+    "Field mapper skips fields when name doesn't exact-match our schema"
   ],
   "proposedFix": {
-    "type": "fix_logic" | "fix_parsing" | "fix_threshold" | "fix_mapping" | "fix_schema_loader",
-    "targetFiles": ["service-with-bug.ts", "config-with-bad-logic.ts"],
+    "type": "fix_logic" | "add_contextual_mapping" | "fix_parsing" | "add_multi_field_extraction",
+    "targetFiles": ["field-inference.service.ts", "attribute-mapper.service.ts"],
     "codeChanges": [
       {
-        "file": "picklist-matcher.service.ts",
-        "lineNumbers": "145-150",
-        "oldCode": "if (similarity === 1.0) { return match; }",
-        "newCode": "if (similarity >= 0.8) { return match; }",
-        "explanation": "Threshold was too strict - fuzzy match allows valid variations"
+        "file": "field-inference.service.ts",
+        "lineNumbers": "145-180",
+        "oldCode": "if (sourceFieldName === targetFieldName) { map(value); }",
+        "newCode": "// Step 1: Try exact field name match\\nif (sourceFieldName === targetFieldName) { map(value); }\\n\\n// Step 2: Contextual content analysis\\nconst extractedFields = analyzeContentContext(fieldName, value);\\nfor (const {targetField, extractedValue} of extractedFields) {\\n  if (isValidTopFieldForCategory(targetField)) {\\n    map(targetField, extractedValue);\\n  }\\n}\\n\\nfunction analyzeContentContext(name, value) {\\n  // Example: 'Material: Satin Black' → [{field:'color',value:'Black'}, {field:'finish',value:'Satin'}]\\n  // Example: 'Dimensions: 30x20x15' → [{field:'width',value:'30'}, {field:'depth',value:'20'}, {field:'height',value:'15'}]\\n  return contextualFieldExtractor.extract(name, value, categoryTop15Fields);\\n}",
+        "explanation": "Add contextual content analysis to extract multiple fields from compound values based on semantic understanding, not just field name matching"
       }
     ]
   },
   "systemScanRecommendations": {
     "filesToScan": [
-      "All other matcher services",
-      "All services using similarity thresholds",
-      "All regex validators"
+      "All field mapping services",
+      "All attribute extraction logic",
+      "All parsers that process raw product data",
+      "Category-specific field inference"
     ],
     "patternsToLookFor": [
-      "similarity === 1.0",
-      "threshold: 1.0",
-      "exact match only"
+      "1:1 field name matching only",
+      "No semantic content analysis",
+      "Skipping fields when name doesn't match",
+      "Missing multi-value extraction (dimensions, specs, compound attributes)"
     ],
-    "expectedAdditionalFixes": 5
+    "expectedAdditionalFixes": 8
   },
-  "confidence": 85,
-  "riskLevel": "low" | "medium" | "high",
+  "confidence": 90,
+  "riskLevel": "medium",
   "reasoningChain": [
-    "Input 'GE Appliances' is valid, present in source data",
-    "Matcher calculated similarity as 0.95 (close match)",
-    "Code rejected it because threshold hardcoded to 1.0",
-    "This is a logic error, not missing data",
-    "Fix: Lower threshold to 0.8 to accept fuzzy matches",
-    "Scan: All matchers may have same overly-strict logic"
+    "1. Input has 'Material: Satin Black' - valid data for our Color + Finish fields",
+    "2. Current code only checks if 'Material' === 'Color' or 'Material' === 'Finish' (both false)",
+    "3. Code skips the field because name doesn't match",
+    "4. This is a LOGIC ERROR - code lacks contextual intelligence",
+    "5. Fix: Add semantic content analyzer that understands 'Satin Black' contextually",
+    "6. Analyzer should extract: color='Black', finish='Satin' from compound value",
+    "7. Validate: Only map to fields that exist in category's TOP15 + primary attributes",
+    "8. Scan: All mappers probably lack this contextual awareness",
+    "9. This fix enables extraction of ALL relevant data, even when field names differ"
   ]
 }`;
   }
