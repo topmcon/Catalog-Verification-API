@@ -6,6 +6,7 @@
 import axios from 'axios';
 import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
+import selfHealingOrchestrator from './self-healing/orchestrator.service';
 
 interface WebhookPayload {
   success: boolean;
@@ -70,6 +71,12 @@ class WebhookService {
           webhookDelivered: true
         });
         logger.info('═════════════════════════════════════════════════════════', { service: 'catalog-verification' });
+
+        // Schedule self-healing scan 60 seconds after webhook sent
+        if (process.env.SELF_HEALING_ENABLED === 'true') {
+          logger.info('[Self-Healing] Scheduling scan for job in 60 seconds', { jobId });
+          await selfHealingOrchestrator.scheduleAfterWebhook(jobId);
+        }
       }
 
       return success;

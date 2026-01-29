@@ -11,6 +11,7 @@ import catalogIndexRoutes from './catalog-index.routes';
 import aiAnalyticsRoutes from './ai-analytics.routes';
 import dashboardRoutes from './dashboard.routes';
 import failedMatchRoutes from './failed-match.routes';
+import selfHealingRoutes from './self-healing.routes';
 import { apiKeyAuth } from '../middleware';
 
 const router = Router();
@@ -32,6 +33,7 @@ router.use('/api/catalog-index', apiKeyAuth, catalogIndexRoutes);
 router.use('/api/ai-analytics', apiKeyAuth, aiAnalyticsRoutes);
 router.use('/api/dashboard', apiKeyAuth, dashboardRoutes);
 router.use('/api/failed-matches', apiKeyAuth, failedMatchRoutes);
+router.use('/api/self-healing', apiKeyAuth, selfHealingRoutes);
 
 // Root endpoint
 router.get('/', (_req, res) => {
