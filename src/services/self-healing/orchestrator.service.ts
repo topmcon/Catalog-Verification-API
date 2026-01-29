@@ -251,7 +251,18 @@ class SelfHealingOrchestrator {
     // TODO: Send to Slack, email, dashboard, etc.
     // For now, just log extensively
 
-    logger.warn(`   Context:`, JSON.stringify(context, null, 2));
+    try {
+      // Safely stringify, handling circular references
+      const safeContext = JSON.stringify(context, (key, value) => {
+        if (value && typeof value === 'object' && value.constructor?.name === 'model') {
+          return '[Mongoose Model]';
+        }
+        return value;
+      }, 2);
+      logger.warn(`   Context:`, safeContext);
+    } catch (e) {
+      logger.warn(`   Context: [Unable to stringify - ${e.message}]`);
+    }
 
     // Save escalation to database
     try {
