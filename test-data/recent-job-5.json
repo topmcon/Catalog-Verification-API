@@ -1,0 +1,3426 @@
+{
+  "_id": "697a71b22cb8192f85590b6e",
+  "jobId": "c5c8d18e-a499-469b-b501-0573e8255016",
+  "sfCatalogId": "a03aZ00000QKdJFQA1",
+  "sfCatalogName": "310452SNB",
+  "status": "completed",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frelrtovfvxe_20251021_174415.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnuslwjlgib_20251021_174416.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkmptgafvoh_20251021_174418.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqumraunxaq_20251021_174410.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frurxfhpzcwx_20251021_174412.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpkcsugamsy_20251021_174412.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frcgmtvevdwv_20251021_174413.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frjxzrnvwfkj_20251021_174414.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fraefhjtnnng_20251021_174414.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frlpxohwdxgf_20251021_174415.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000KthDhQAJ.jpg"
+      }
+    ],
+    "Reference_URL": "https://lightingnewyork.com/product/fans/fans/indoor-ceiling-fans/kichler-lighting-true-indoor-ceiling-fans-310452wh/2647132.html",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-01-28T20:29:38.240873"
+      },
+      "search_meta_data": {
+        "business_category": "Ceiling Fans",
+        "base_category": "Lighting",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "Fdyr3DMkpJ"
+      },
+      "performance": {
+        "total_time": "3.61s",
+        "step3_detail_time": "1.81s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.80s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": false,
+        "shipping_info": "FREE 2-Day Shipping for Select Finishes",
+        "is_quick_ship": true,
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/Kichler/True",
+          "name": "True"
+        },
+        "questions_count": 3,
+        "total_reviews": 36,
+        "review_count": 36,
+        "total_ratings": 36,
+        "rating": 4.8,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/kichler-new-products/c126939",
+            "name": "New Products",
+            "id": 126939
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-interior-lighting/c119068",
+            "name": "Indoor Lighting",
+            "id": 119068
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-vanity-lights/c109552",
+            "name": "Vanity Lights",
+            "id": 109552
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-chandelier-lighting/c109553",
+            "name": "Chandelier Lighting",
+            "id": 109553
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-pendant-lighting/c109555",
+            "name": "Pendant Lighting",
+            "id": 109555
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-ceiling-lighting/c109554",
+            "name": "Ceiling Lighting",
+            "id": 109554
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-wall-sconces/c109556",
+            "name": "Wall Sconces",
+            "id": 109556
+          }
+        ],
+        "business_category": "Ceiling Fans",
+        "base_category": "Lighting",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler/c109318",
+            "name": "Kichler"
+          },
+          {
+            "url": "https://www.fergusonhome.com/kichler-fans/c109561",
+            "name": "Fans"
+          }
+        ],
+        "resources": [
+          {
+            "id": "kichler-310452-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/kichler/1967781/kichler-310452-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "kichler-310452-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/kichler/1967781/kichler-310452-energy-guide.pdf",
+            "name": "Energy Guide"
+          }
+        ],
+        "manufacturer_warranty": "Limited Lifetime",
+        "warranty": "<p><a name=\"warranty\"></a></p>\n<table style=\"border-style: hidden; float: left; width: 100%;\"\nborder=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n<tbody>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"text-align: center; background-color: rgb(0, 164, 153); color: white;\"><strong>Indoor\nLighting Fixtures</strong></p>\n<ul>\n<li>One (1) year from the date of purchase.</li>\n</ul>\n<p><strong>LED Light Engine and Electrical Components</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the lighting\nfixture containing the LED light engine and electrical components is\ninstalled in a single family residence by the original consumer\npurchaser. For commercial purchasers, the warranty period is three (3)\nyears from the date of purchase.</li>\n</ul>\n<p><strong>Indoor Lighting Fixtures with Energy Star® Label</strong></p>\n<ul>\n<li>Three (3) years from the date of purchase.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"text-align: center; color: white; background-color: rgb(0, 164, 153);\"><strong>Outdoor\nLighting Fixtures</strong></p>\n<ul>\n<li>One (1) year from the date of purchase.</li>\n</ul>\n<p><strong>LED Light Engine and Electrical Components</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the lighting\nfixture containing the LED light engine and electrical components is\ninstalled in a single family residence by the original consumer\npurchaser. For commercial purchasers, the warranty period is three (3)\nyears from the date of purchase.</li>\n</ul>\n<p><strong>Exterior Finishes</strong></p>\n<ul>\n<li>LifeBrite® Outdoor Lantern Exterior Finish: As long as the\noriginal consumer purchaser or commercial purchaser owns the lantern.\nThis warranty does not cover damage caused by chemicals and harsh\ncleaners.</li>\n<li>Climates® Outdoor Lantern Finish: Six (6) years from the\ndate of purchase. This warranty does not cover damage caused by\nchemicals and harsh cleaners.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"background-color: rgb(0, 164, 153); color: white; text-align: center;\"><strong>Fans\nLifetime Warranty</strong></p>\n<p>Kichler Lighting LLC (“Kichler Lighting”) warrants the\nfollowing catalogued ceiling and wall fan products and component parts\nto the original consumer purchaser or commercial purchaser, as\napplicable, to be free from defects in material and workmanship for the\napplicable period specified below.</p>\n<p><strong>Ceiling and Wall Fan Motor or Motor-Related Parts</strong></p>\n<ul>\n<li>For as long as the original consumer purchaser or\ncommercial purchaser owns the ceiling or wall fan.</li>\n</ul>\n<p><strong>LED Light Engines and Electrical Components</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the ceiling\nor wall fan containing the LED light engine and electrical components\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, the warranty period is three (3)\nyears from the date of purchase.</li>\n</ul>\n<p><strong>Other Parts</strong></p>\n<ul>\n<li>One (1) year from the date of purchase of the ceiling or\nwall fan. Covered parts include, but are not limited to, blades, light\nkits, down rods, switches, housing or finish.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"text-align: center; background-color: rgb(0, 164, 153); color: white;\"><strong>Under\nCabinet Lighting</strong></p>\n<p><strong>LED Light Engine and Electrical Components of 8U\nSeries LED Under Cabinet Lighting Products</strong></p>\n<ul>\n<li>Seven (7) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, five (5) years from the date of\npurchase.</li>\n</ul>\n<p><strong>LED Light Engine and Electrical Components of Design\nPro LED Lighting Products and 6U Series LED Under Cabinet Lighting\nProducts</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, three (3) years from the date of\npurchase.</li>\n</ul>\n<p><strong>LED Light Engine and Electrical Components of 4U\nSeries LED Under Cabinet Products</strong></p>\n<ul>\n<li>Three (3) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, one (1) year from the date of\npurchase.</li>\n</ul>\n<p><strong>Xenon and Fluorescent Under Cabinet Products</strong></p>\n<ul>\n<li>Three (3) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, one (1) year from the date of\npurchase.</li>\n</ul>\n<p><strong>Kichler® LED Light Bulbs</strong></p>\n<ul>\n<li>Six (6) years or 30,000 hours, whichever comes first, from\nthe date of purchase of the under cabinet lighting product.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"background-color: rgb(0, 164, 153); text-align: center; color: white;\"><strong>Tape\nLighting</strong></p>\n<p><strong>LED Light Engines and Electrical Components of 24\nVolt Tape Lighting and Hard Strip Products</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, three (3) years from the date of\npurchase.</li>\n<li>For 8T 24V tape lighting products, five (5) years from the\ndate of purchase when the product is installed in a single family\nresidence by the original consumer purchaser and for commercial\npurchasers.</li>\n<li>For 6D 24V puck lights, three (3) years from the date of\npurchase when the product is installed in a single family residence by\nthe original consumer purchaser. For commercial purchasers, one (1)\nyear from the date of purchase.</li>\n</ul>\n<p><strong>LED Light Engines and Electrical Components of 12\nVolt Tape Lighting Products</strong></p>\n<ul>\n<li>Three (3) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, one (1) year from the date of\npurchase.</li>\n<li>For 4DD and 6DD 12V tape lighting products, five (5) years\nfrom the date of purchase when the product is installed in a single\nfamily residence by the original consumer purchaser and for commercial\npruchasers.</li>\n</ul>\n<p><strong>24 and 12 Volt Electronic Power Supplies and Magnetic\nTransformers</strong></p>\n<ul>\n<li>Five (5) years from the date of purchase when the product\nis installed in a single family residence by the original consumer\npurchaser. For commercial purchasers, three (3) years from the date of\npurchase.</li>\n</ul>\n<p><strong>Tape Light Accessories</strong></p>\n<ul>\n<li>One (1) year from the date of purchase when the product is\ninstalled in a single family residence by the original consumer\npurchaser. This warranty includes but is not limited to connectors,\ntrack and channel accessories. This warranty does not extend to\ncommercial purchasers.</li>\n</ul>\n</td>\n</tr>\n<tr>\n<td style=\"width: 100%;\">\n<p\nstyle=\"text-align: center; background-color: rgb(0, 164, 153); color: white; font-weight: bold;\">Landscape\nand C-Series Lighting</p>\n<p><strong>Landscape Accessories with a Model Number Beginning\nwith “15” or “16”</strong></p>\n<p>One (1) year from the date of purchase.</p>\n<p><strong>LED Light Engines and Electrical Components 12 Volt\nDesign Pro LED Outdoor Products</strong></p>\n<p>Fifteen (15) years or 40,000 hours, whichever comes first,\nfrom the date of purchase and when installed at a single family\nresidence by the original consumer purchaser.&nbsp; For commercial\npurchasers, ten (10) years or 40,000 hours, whichever comes first, from\nthe date of purchase.</p>\n<p><strong>Low Voltage Landscape Lighting Products</strong></p>\n<ul>\n<li>Brass, Copper and Stainless-Steel Housing and Exterior\nFinishes: Fifteen (15) years from the date of purchase. For fixtures\nwith the Centennial Brass (CBR) finish, the warranty period for the\nhousing and exterior finish is ten (10) years. Brass and copper\nfinishes naturally patina in color, which is not a defect under this\nwarranty.&nbsp;</li>\n<li>Aluminum Housing and Exterior Finishes: Five (5) years from\nthe date of purchase.</li>\n</ul>\n<p><strong>Accent and Flood Lights</strong></p>\n<ul>\n<li>VLO Accent and Flood Lights: Fifteen (15) years from the\ndate of purchase.</li>\n<li>Gen 1.5 Integrated LED Accent Lights: Ten (10) years from\nthe date of purchase.</li>\n<li>120-277 Volt C-Series Accent and Flood Lights: Six (6)\nyears from the date of purchase for the LED light engines and\nelectrical components. Five (5) years from the date of purchase for the\naluminum housings and finish.</li>\n</ul>\n<p><strong>120-277 Volt C-Series Ceiling and Wall Outdoor\nLighting Products</strong></p>\n<p>Five (5) years from the date of purchase for the LED light\nengines and electrical components and aluminum housings and\nfinish.&nbsp;</p>\n<p><strong>Showscape<sup>TM</sup></strong><strong>&nbsp;Landscape\nLighting Products with a Model Number Beginning with “28”</strong></p>\n<p>Seven (7) years from the date of purchase for the light\nfixture. Five (5) years from the date of purchase for the aluminum\nhousing and finish.</p>\n<p><strong>Transformers</strong></p>\n<ul>\n<li>Standard/Economy Series (E): Five (5) years from the date\nof purchase.</li>\n<li>Manual Series (M), Plus Series (PL), Inground (IGT) and\nShowscape: Ten (10) years from the date of purchase.</li>\n<li>Contractor Series (CS) and Pro Series (PR): As long as the\noriginal consumer purchaser or commercial purchaser owns the\ntransformer.</li>\n<li>Integrated timers and photocell sensors: Five (5) years\nfrom the date of purchase.</li>\n<li>Black (BK) and Bronze (AZ) polycarbonate finishes: Five (5)\nyears from the date of purchase.</li>\n<li>Factory painted exterior finish (AZT): Ten (10) years from\nthe date of purchase.</li>\n<li>Warranty coverage for the stainless steel exterior finish\nis the same duration as the warranty coverage for the transformer\nseries, as described above.</li>\n</ul>\n<p><strong>Low Voltage Power Conditioner (LVPC)</strong></p>\n<p>When purchased as an accessory, for three (3) years from the\ndate of purchase.</p>\n<p><strong>Electronic Power Supplies</strong></p>\n<p>Ten (10) years from the date of purchase. Timers and\nphotocells are not covered under this warranty.</p>\n<p><strong>HID Ballasts</strong></p>\n<p>Two (2) years from the date of purchase.</p>\n<p><strong>Kichler® LED Light Bulbs with a Model Number\nBeginning with “18”</strong></p>\n<p>Six (6) years or 30,000 hours, whichever comes first, from the\ndate of purchase.&nbsp;&nbsp;</p>\n<p><strong>Showscape LED Light Bulbs with a Model Number\nBeginning with “12”</strong></p>\n<p>Five (5) years or 25,000 hours, whichever comes first, from\nthe date of purchase.</p>\n<p><strong>&nbsp;</strong></p>\n</td>\n</tr>\n</tbody>\n</table>",
+        "country_of_origin": "China",
+        "certifications": [
+          "ETL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "148",
+            "name": "Blade Length"
+          },
+          {
+            "value": "150",
+            "name": "Blade Pitch"
+          },
+          {
+            "value": "151",
+            "name": "Blade Span"
+          },
+          {
+            "value": "2086",
+            "name": "Canopy Depth"
+          },
+          {
+            "value": "251",
+            "name": "Canopy Height"
+          },
+          {
+            "value": "2087",
+            "name": "Canopy Width"
+          },
+          {
+            "value": "5085",
+            "name": "CFM (High)"
+          },
+          {
+            "value": "274",
+            "name": "CFM (Low)"
+          },
+          {
+            "value": "4775",
+            "name": "Downrod Size(s)"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "3603",
+            "name": "Motor Size"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "3965",
+            "name": "Wire Length"
+          },
+          {
+            "value": "6200",
+            "name": "Blades Included"
+          },
+          {
+            "value": "365",
+            "name": "Controller Included"
+          },
+          {
+            "value": "486",
+            "name": "Downrod(s) Included"
+          },
+          {
+            "value": "1009",
+            "name": "Light Kit Included"
+          },
+          {
+            "value": "147",
+            "name": "Blade Finish"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "6390",
+            "name": "Fan Blade Material"
+          },
+          {
+            "value": "629",
+            "name": "Fan Type"
+          },
+          {
+            "value": "1008",
+            "name": "Light Kit Compatible"
+          },
+          {
+            "value": "6513",
+            "name": "Low Ceiling Adaptable"
+          },
+          {
+            "value": "1048",
+            "name": "Material"
+          },
+          {
+            "value": "1128",
+            "name": "Motor"
+          },
+          {
+            "value": "1191",
+            "name": "Number of Blades"
+          },
+          {
+            "value": "6271",
+            "name": "Reversible Blades"
+          },
+          {
+            "value": "6272",
+            "name": "Reversible Motor"
+          },
+          {
+            "value": "6553",
+            "name": "Sloped Ceiling Compatible"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "2839",
+            "name": "Power Source"
+          },
+          {
+            "value": "1451",
+            "name": "RPM (High)"
+          },
+          {
+            "value": "1452",
+            "name": "RPM (Low)"
+          },
+          {
+            "value": "1571",
+            "name": "Speeds"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "3875",
+            "name": "Wattage"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "335",
+            "name": "Collection"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "6512",
+            "name": "Location Rating"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          }
+        ],
+        "dimensions": {
+          "width": "52 in.",
+          "height": "13.5 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The end to end measurement of the longest side of the blade, measured in inches.",
+                "units": "in.",
+                "value": "24.75",
+                "name": "Blade Length"
+              },
+              {
+                "featured": false,
+                "description": "The angle of degree at which the blades are set relative to the ground. A steeper blade pitch will require a more powerful motor.",
+                "units": "Degrees",
+                "value": "20",
+                "name": "Blade Pitch"
+              },
+              {
+                "featured": true,
+                "description": "The straight line distance through the middle of the fan spanning from the tip of one fan blade to the tip of the blade directly opposite its location, measured in inches.",
+                "units": "in.",
+                "value": "52",
+                "name": "Blade Span"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the front of the canopy to the back of the canopy, measured in inches.",
+                "units": "in.",
+                "value": "5.25",
+                "name": "Canopy Depth"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the mounting point of the canopy to the lowest point on the canopy, measured in inches.",
+                "units": "in.",
+                "value": "2.25",
+                "name": "Canopy Height"
+              },
+              {
+                "featured": false,
+                "description": "The distance of the shortest side from edge to edge of the canopy, measured in inches.",
+                "units": "in.",
+                "value": "5.25",
+                "name": "Canopy Width"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of the velocity at which air flows into or out of a space while on a high setting, measured in cubic feet per minute.",
+                "units": null,
+                "value": "4940",
+                "name": "CFM (High)"
+              },
+              {
+                "featured": false,
+                "description": "The amount of air moved by the product while on a low setting, measured in cubic feet per minute.",
+                "units": null,
+                "value": "2560",
+                "name": "CFM (Low)"
+              },
+              {
+                "featured": false,
+                "description": "The end to end length(s) of the included downrod(s), measured in inches.",
+                "units": "in.",
+                "value": "4.5",
+                "name": "Downrod Size(s)"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "13.5",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The size of the motor, measured in millimeters. ",
+                "units": "mm",
+                "value": "90",
+                "name": "Motor Size"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "11.66",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "52",
+                "name": "Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from end to end of the wire, measured in inches.",
+                "units": "in.",
+                "value": "78",
+                "name": "Wire Length"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether blades are included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Blades Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the wall control or remote control is included with this product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Controller Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether one or more downrods are included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Downrod(s) Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product comes with a light kit.",
+                "units": null,
+                "value": "No",
+                "name": "Light Kit Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The finish color of the fan blades.",
+                "units": null,
+                "value": "Black, Bronze, Silver, White",
+                "name": "Blade Finish"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Remote",
+                "name": "Control Type"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the construction of the fan blade.",
+                "units": null,
+                "value": "ABS",
+                "name": "Fan Blade Material"
+              },
+              {
+                "featured": false,
+                "description": "The type of fan this product is or includes.",
+                "units": null,
+                "value": "Hanging",
+                "name": "Fan Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product is compatible with either manufacturer accessory or third party light kits.",
+                "units": null,
+                "value": "Yes",
+                "name": "Light Kit Compatible"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be installed in a location with low ceilings.",
+                "units": null,
+                "value": "No",
+                "name": "Low Ceiling Adaptable"
+              },
+              {
+                "featured": false,
+                "description": "The material(s) used in the construction of the product.",
+                "units": null,
+                "value": "Steel",
+                "name": "Material"
+              },
+              {
+                "featured": true,
+                "description": "The type of motor included with or used by the product.",
+                "units": null,
+                "value": "DC Motor",
+                "name": "Motor"
+              },
+              {
+                "featured": false,
+                "description": "The total number of fan blades included.",
+                "units": null,
+                "value": "3",
+                "name": "Number of Blades"
+              },
+              {
+                "featured": false,
+                "description": "Whether the fan blades can be installed with either side of the blade facing downward or upward.",
+                "units": null,
+                "value": "No",
+                "name": "Reversible Blades"
+              },
+              {
+                "featured": false,
+                "description": "Whether the fan motor is reversible, allowing for forward and reverse control of the fan blades.",
+                "units": null,
+                "value": "Yes",
+                "name": "Reversible Motor"
+              },
+              {
+                "featured": false,
+                "description": "Whether the fixture is able to be mounted on a sloped ceiling.",
+                "units": null,
+                "value": "No",
+                "name": "Sloped Ceiling Compatible"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Contemporary",
+                "name": "Theme"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "0.49",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The type of power source the product uses for electricity.",
+                "units": null,
+                "value": "Hardwired",
+                "name": "Power Source"
+              },
+              {
+                "featured": false,
+                "description": "Indicates the rotational speed frequency capable by this product when on a high setting, measured in revolutions per minute.",
+                "units": null,
+                "value": "138",
+                "name": "RPM (High)"
+              },
+              {
+                "featured": false,
+                "description": "Indicates the rotational speed frequency capable by this product when on a low setting, measured in revolutions per minute.",
+                "units": null,
+                "value": "69",
+                "name": "RPM (Low)"
+              },
+              {
+                "featured": true,
+                "description": "The number of included speeds capable by the product.",
+                "units": null,
+                "value": "6",
+                "name": "Speeds"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+                "units": null,
+                "value": "38",
+                "name": "Wattage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "ETL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+                "units": null,
+                "value": "True",
+                "name": "Collection"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "China",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": false,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "No",
+                "name": "Energy Star"
+              },
+              {
+                "featured": true,
+                "description": "The environmental conditions that the product is rated to operate or be in. Can be rated for dry, damp, or wet locations.",
+                "units": null,
+                "value": "Damp Location",
+                "name": "Location Rating"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "Limited Lifetime",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Outdoor Approved"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "Limited Lifetime"
+          },
+          "location_rating": {
+            "description": "The environmental conditions that the product is rated to operate or be in. Can be rated for dry, damp, or wet locations.",
+            "units": null,
+            "value": "Damp Location"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "No"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "China"
+          },
+          "collection": {
+            "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+            "units": null,
+            "value": "True"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "ETL"
+          },
+          "wattage": {
+            "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+            "units": null,
+            "value": "38"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "speeds": {
+            "description": "The number of included speeds capable by the product.",
+            "units": null,
+            "value": "6"
+          },
+          "rpm_(low)": {
+            "description": "Indicates the rotational speed frequency capable by this product when on a low setting, measured in revolutions per minute.",
+            "units": null,
+            "value": "69"
+          },
+          "rpm_(high)": {
+            "description": "Indicates the rotational speed frequency capable by this product when on a high setting, measured in revolutions per minute.",
+            "units": null,
+            "value": "138"
+          },
+          "power_source": {
+            "description": "The type of power source the product uses for electricity.",
+            "units": null,
+            "value": "Hardwired"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "0.49"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Contemporary"
+          },
+          "sloped_ceiling_compatible": {
+            "description": "Whether the fixture is able to be mounted on a sloped ceiling.",
+            "units": null,
+            "value": "No"
+          },
+          "reversible_motor": {
+            "description": "Whether the fan motor is reversible, allowing for forward and reverse control of the fan blades.",
+            "units": null,
+            "value": "Yes"
+          },
+          "reversible_blades": {
+            "description": "Whether the fan blades can be installed with either side of the blade facing downward or upward.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_blades": {
+            "description": "The total number of fan blades included.",
+            "units": null,
+            "value": "3"
+          },
+          "motor": {
+            "description": "The type of motor included with or used by the product.",
+            "units": null,
+            "value": "DC Motor"
+          },
+          "material": {
+            "description": "The material(s) used in the construction of the product.",
+            "units": null,
+            "value": "Steel"
+          },
+          "low_ceiling_adaptable": {
+            "description": "Whether the product can be installed in a location with low ceilings.",
+            "units": null,
+            "value": "No"
+          },
+          "light_kit_compatible": {
+            "description": "Whether the product is compatible with either manufacturer accessory or third party light kits.",
+            "units": null,
+            "value": "Yes"
+          },
+          "fan_type": {
+            "description": "The type of fan this product is or includes.",
+            "units": null,
+            "value": "Hanging"
+          },
+          "fan_blade_material": {
+            "description": "The material used in the construction of the fan blade.",
+            "units": null,
+            "value": "ABS"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Remote"
+          },
+          "blade_finish": {
+            "description": "The finish color of the fan blades.",
+            "units": null,
+            "value": "Black, Bronze, Silver, White"
+          },
+          "light_kit_included": {
+            "description": "Whether the product comes with a light kit.",
+            "units": null,
+            "value": "No"
+          },
+          "downrod(s)_included": {
+            "description": "Whether one or more downrods are included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "controller_included": {
+            "description": "Whether the wall control or remote control is included with this product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "blades_included": {
+            "description": "Whether blades are included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "wire_length": {
+            "description": "The distance from end to end of the wire, measured in inches.",
+            "units": "in.",
+            "value": "78"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "52"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "11.66"
+          },
+          "motor_size": {
+            "description": "The size of the motor, measured in millimeters. ",
+            "units": "mm",
+            "value": "90"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "13.5"
+          },
+          "downrod_size(s)": {
+            "description": "The end to end length(s) of the included downrod(s), measured in inches.",
+            "units": "in.",
+            "value": "4.5"
+          },
+          "cfm_(low)": {
+            "description": "The amount of air moved by the product while on a low setting, measured in cubic feet per minute.",
+            "units": null,
+            "value": "2560"
+          },
+          "cfm_(high)": {
+            "description": "The measurement of the velocity at which air flows into or out of a space while on a high setting, measured in cubic feet per minute.",
+            "units": null,
+            "value": "4940"
+          },
+          "canopy_width": {
+            "description": "The distance of the shortest side from edge to edge of the canopy, measured in inches.",
+            "units": "in.",
+            "value": "5.25"
+          },
+          "canopy_height": {
+            "description": "The distance from the mounting point of the canopy to the lowest point on the canopy, measured in inches.",
+            "units": "in.",
+            "value": "2.25"
+          },
+          "canopy_depth": {
+            "description": "The distance from the front of the canopy to the back of the canopy, measured in inches.",
+            "units": "in.",
+            "value": "5.25"
+          },
+          "blade_span": {
+            "description": "The straight line distance through the middle of the fan spanning from the tip of one fan blade to the tip of the blade directly opposite its location, measured in inches.",
+            "units": "in.",
+            "value": "52"
+          },
+          "blade_pitch": {
+            "description": "The angle of degree at which the blades are set relative to the ground. A steeper blade pitch will require a more powerful motor.",
+            "units": "Degrees",
+            "value": "20"
+          },
+          "blade_length": {
+            "description": "The end to end measurement of the longest side of the blade, measured in inches.",
+            "units": "in.",
+            "value": "24.75"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>Aligning with the smooth, soft edges of current furniture and decor trends, the True 52-Inch Ceiling Fan brings a clean, sophisticated look to your space. Its soft corners and minimalistic detailing pair well with modern, minimal-style environments. True's convenient, easy-to-use remote control allows you to choose from 6 speeds, reverse, and motor-off all at the push of a button. Complete the look by adding a light source with the Kichler Universal LED Light Kit (not included).</p>\n\n<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>Finish and Blade Variations\n\t<ul>\n\t\t<li>Brushed Stainless Steel finish includes Silver fan blades</li>\n\t\t<li>Satin Black finish includes Satin Black fan blades</li>\n\t\t<li>Satin Natural Bronze finish includes Satin Natural Bronze fan blades</li>\n\t\t<li>White finish includes White fan blades</li>\n\t</ul>\n\t</li>\n\t<li>Constructed from steel</li>\n\t<li>Fan is controllable by a remote (included)</li>\n\t<li>Includes (1) 4.5\" downrod</li>\n\t<li>ETL listed for damp locations</li>\n\t<li>Covered by Kichler's limited lifetime manufacturer warranty</li>\n</ul>\n\n<p><strong>Dimensions:</strong></p>\n\n<ul>\n\t<li>Height: 13-1/2\"</li>\n\t<li>Width: 52\"</li>\n\t<li>Product Weight: 11.66 lbs</li>\n\t<li>Wire Length: 78\"</li>\n\t<li>Canopy Height: 2-1/4\"</li>\n\t<li>Canopy Width: 5-1/4\"</li>\n\t<li>Canopy Depth: 5-1/4\"</li>\n</ul>\n\n<p><strong>Blade Specifications:</strong></p>\n\n<ul>\n\t<li>Number of Blades: 3</li>\n\t<li>Blade Span: 52\"</li>\n\t<li>Blades Included: Yes</li>\n\t<li>Blade Pitch: 20°</li>\n\t<li>Reversible Blades: No</li>\n\t<li>Fan Blade Material: ABS</li>\n\t<li>Blade Length: 24-3/4\"</li>\n</ul>\n\n<p><strong>Motor Specifications:</strong></p>\n\n<ul>\n\t<li>Speeds: 6</li>\n</ul>\n\n<p><strong>Electrical Specifications:</strong></p>\n\n<ul>\n\t<li>Light Kit Included: No</li>\n\t<li>Max Wattage: 38 watts</li>\n\t<li>Voltage: 120 volts</li>\n\t<li>Amperage: 0.49</li>\n</ul>\n",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452snb-4720989.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-61.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-62.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-63.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-64.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-65.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-66.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-67.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-68.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-69.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-70.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-71.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-72.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-73.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-74.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-75.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-76.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-77.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-78.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-79.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452-alternate-image-80.jpg"
+        ],
+        "configuration_type": "NO_CONFIGURATION",
+        "is_square_footage_based": false,
+        "is_configurable": false,
+        "in_stock_variant_count": 4,
+        "total_inventory_quantity": 973,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": false,
+        "variant_count": 4,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Kichler True 52\" 3 Blade Indoor / Outdoor Ceiling Fan Brushed Stainless Steel",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452bss-4720989.jpg"
+            },
+            "currency": "USD",
+            "price": 419.97,
+            "swatch_gradient": "",
+            "title": "Brushed Stainless Steel",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse Tomorrow, January 29th",
+              "Leaves the Warehouse Tomorrow, January 29th"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse Tomorrow, January 29th",
+            "shipping_lead_time": "Leaves the Warehouse Tomorrow, January 29th",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": true,
+            "color": "CFD4D9",
+            "inventory_quantity": 82,
+            "url": "https://www.fergusonhome.com/kichler-310452/s1967781?uid=4665872",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452bss-4720989.jpg"
+            ],
+            "model_number": "310452BSS",
+            "name": "Brushed Stainless Steel",
+            "id": 4665872
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Kichler True 52\" 3 Blade Indoor / Outdoor Ceiling Fan Satin Black",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452sbk-4720989.jpg"
+            },
+            "currency": "USD",
+            "price": 419.97,
+            "swatch_gradient": "",
+            "title": "Satin Black",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse Tomorrow, January 29th",
+              "Leaves the Warehouse Tomorrow, January 29th"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse Tomorrow, January 29th",
+            "shipping_lead_time": "Leaves the Warehouse Tomorrow, January 29th",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": true,
+            "color": "000000",
+            "inventory_quantity": 531,
+            "url": "https://www.fergusonhome.com/kichler-310452/s1967781?uid=4665873",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452sbk-4720989.jpg"
+            ],
+            "model_number": "310452SBK",
+            "name": "Satin Black",
+            "id": 4665873
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Kichler True 52\" 3 Blade Indoor / Outdoor Ceiling Fan Satin Natural Bronze",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452snb-4720989.jpg"
+            },
+            "currency": "USD",
+            "price": 419.97,
+            "swatch_gradient": "",
+            "title": "Satin Natural Bronze",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse Tomorrow, January 29th",
+              "Leaves the Warehouse Tomorrow, January 29th"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse Tomorrow, January 29th",
+            "shipping_lead_time": "Leaves the Warehouse Tomorrow, January 29th",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": true,
+            "color": "766440",
+            "inventory_quantity": 66,
+            "url": "https://www.fergusonhome.com/kichler-310452/s1967781?uid=4665874",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452snb-4720989.jpg"
+            ],
+            "model_number": "310452SNB",
+            "name": "Satin Natural Bronze",
+            "id": 4665874
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Kichler True 52\" 3 Blade Indoor / Outdoor Ceiling Fan White",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452wh-4720989.jpg"
+            },
+            "currency": "USD",
+            "price": 419.97,
+            "swatch_gradient": "",
+            "title": "White",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 1 to 3 business days",
+              "Leaves the Warehouse in 1 to 3 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 1 to 3 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 1 to 3 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": true,
+            "color": "ffffff",
+            "inventory_quantity": 294,
+            "url": "https://www.fergusonhome.com/kichler-310452/s1967781?uid=4665875",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/kichler/kichler-310452wh-4720989.jpg"
+            ],
+            "model_number": "310452WH",
+            "name": "White",
+            "id": 4665875
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 0,
+        "base_type": "Fans",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 419.97,
+          "min": 419.97
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 419.97,
+        "price_min": 419.97,
+        "price": 419.97,
+        "application": "Ceiling Fans",
+        "product_type": "Fans",
+        "url": "https://www.fergusonhome.com/kichler-310452/s1967781",
+        "parent_model_number": "310452",
+        "model_number": "310452SNB",
+        "brand_logo": {
+          "description": "Kichler",
+          "url": "https://www.fergusonhome.com/v4/mediabase/Manufacturers/kichler/Logo/kichler.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/kichler/c109318",
+        "brand": "Kichler",
+        "name": "True 52\" 3 Blade Indoor / Outdoor Ceiling Fan",
+        "family_id": 1967781,
+        "id": 1967781
+      },
+      "variant_url": "https://www.fergusonhome.com/kichler-310452/s1967781?uid=4665874",
+      "match_type": "exact",
+      "matched_model": "310452SNB",
+      "model_number": "310452SNB",
+      "success": true
+    },
+    "Ferguson_Attributes": [
+      {
+        "value": "24.75",
+        "name": "Blade Length"
+      },
+      {
+        "value": "20",
+        "name": "Blade Pitch"
+      },
+      {
+        "value": "52",
+        "name": "Blade Span"
+      },
+      {
+        "value": "5.25",
+        "name": "Canopy Depth"
+      },
+      {
+        "value": "2.25",
+        "name": "Canopy Height"
+      },
+      {
+        "value": "5.25",
+        "name": "Canopy Width"
+      },
+      {
+        "value": "4940",
+        "name": "CFM (High)"
+      },
+      {
+        "value": "2560",
+        "name": "CFM (Low)"
+      },
+      {
+        "value": "4.5",
+        "name": "Downrod Size(s)"
+      },
+      {
+        "value": "13.5",
+        "name": "Height"
+      },
+      {
+        "value": "90",
+        "name": "Motor Size"
+      },
+      {
+        "value": "11.66",
+        "name": "Product Weight"
+      },
+      {
+        "value": "52",
+        "name": "Width"
+      },
+      {
+        "value": "78",
+        "name": "Wire Length"
+      },
+      {
+        "value": "Yes",
+        "name": "Blades Included"
+      },
+      {
+        "value": "Yes",
+        "name": "Controller Included"
+      },
+      {
+        "value": "Yes",
+        "name": "Downrod(s) Included"
+      },
+      {
+        "value": "No",
+        "name": "Light Kit Included"
+      },
+      {
+        "value": "Black, Bronze, Silver, White",
+        "name": "Blade Finish"
+      },
+      {
+        "value": "Remote",
+        "name": "Control Type"
+      },
+      {
+        "value": "ABS",
+        "name": "Fan Blade Material"
+      },
+      {
+        "value": "Hanging",
+        "name": "Fan Type"
+      },
+      {
+        "value": "Yes",
+        "name": "Light Kit Compatible"
+      },
+      {
+        "value": "No",
+        "name": "Low Ceiling Adaptable"
+      },
+      {
+        "value": "Steel",
+        "name": "Material"
+      },
+      {
+        "value": "DC Motor",
+        "name": "Motor"
+      },
+      {
+        "value": "3",
+        "name": "Number of Blades"
+      },
+      {
+        "value": "No",
+        "name": "Reversible Blades"
+      },
+      {
+        "value": "Yes",
+        "name": "Reversible Motor"
+      },
+      {
+        "value": "No",
+        "name": "Sloped Ceiling Compatible"
+      },
+      {
+        "value": "Contemporary",
+        "name": "Theme"
+      },
+      {
+        "value": "0.49",
+        "name": "Amperage"
+      },
+      {
+        "value": "Hardwired",
+        "name": "Power Source"
+      },
+      {
+        "value": "138",
+        "name": "RPM (High)"
+      },
+      {
+        "value": "69",
+        "name": "RPM (Low)"
+      },
+      {
+        "value": "6",
+        "name": "Speeds"
+      },
+      {
+        "value": "120",
+        "name": "Voltage"
+      },
+      {
+        "value": "38",
+        "name": "Wattage"
+      },
+      {
+        "value": "ETL",
+        "name": "Certifications"
+      },
+      {
+        "value": "True",
+        "name": "Collection"
+      },
+      {
+        "value": "China",
+        "name": "Country Of Origin"
+      },
+      {
+        "value": "No",
+        "name": "Energy Star"
+      },
+      {
+        "value": "Damp Location",
+        "name": "Location Rating"
+      },
+      {
+        "value": "Limited Lifetime",
+        "name": "Manufacturer Warranty"
+      },
+      {
+        "value": "Yes",
+        "name": "Outdoor Approved"
+      }
+    ],
+    "Ferguson_Description": "<p>Aligning with the smooth, soft edges of current furniture and decor trends, the True 52-Inch Ceiling Fan brings a clean, sophisticated look to your space. Its soft corners and minimalistic detailing pair well with modern, minimal-style environments. True&#39;s convenient, easy-to-use remote control allows you to choose from 6 speeds, reverse, and motor-off all at the push of a button. Complete the look by adding a light source with the Kichler Universal LED Light Kit (not included).</p>\n\n<p><strong>Features:</strong></p>\n\n<ul><li>Finish and Blade Variations\n\t<ul><li>Brushed Stainless Steel finish includes Silver fan blades</li><li>Satin Black finish includes Satin Black fan blades</li><li>Satin Natural Bronze finish includes Satin Natural Bronze fan blades</li><li>White finish includes White fan blades</li></ul>\n\t</li><li>Constructed from steel</li><li>Fan is controllable by a remote (included)</li><li>Includes (1) 4.5&quot; downrod</li><li>ETL listed for damp locations</li><li>Covered by Kichler&#39;s limited lifetime manufacturer warranty</li></ul>\n\n<p><strong>Dimensions:</strong></p>\n\n<ul><li>Height: 13-1/2&quot;</li><li>Width: 52&quot;</li><li>Product Weight: 11.66 lbs</li><li>Wire Length: 78&quot;</li><li>Canopy Height: 2-1/4&quot;</li><li>Canopy Width: 5-1/4&quot;</li><li>Canopy Depth: 5-1/4&quot;</li></ul>\n\n<p><strong>Blade Specifications:</strong></p>\n\n<ul><li>Number of Blades: 3</li><li>Blade Span: 52&quot;</li><li>Blades Included: Yes</li><li>Blade Pitch: 20°</li><li>Reversible Blades: No</li><li>Fan Blade Material: ABS</li><li>Blade Length: 24-3/4&quot;</li></ul>\n\n<p><strong>Motor Specifications:</strong></p>\n\n<ul><li>Speeds: 6</li></ul>\n\n<p><strong>Electrical Specifications:</strong></p>\n\n<ul><li>Light Kit Included: No</li><li>Max Wattage: 38 watts</li><li>Voltage: 120 volts</li><li>Amperage: 0.49</li></ul>",
+    "Ferguson_Certifications": null,
+    "Ferguson_Collection": "True",
+    "Ferguson_Manufacturer_Warranty": "Limited Lifetime",
+    "Ferguson_Recommanded_Options": null,
+    "Ferguson_Diameter": null,
+    "Ferguson_Related_Categories": "New Products\r\nIndoor Lighting\r\nVanity Lights\r\nChandelier Lighting\r\nPendant Lighting\r\nCeiling Lighting\r\nWall Sconces",
+    "Ferguson_Categories": "Brands\r\nKichler\r\nFans",
+    "Ferguson_Depth": null,
+    "Ferguson_Length": null,
+    "Ferguson_Height": "13.5 in.",
+    "Ferguson_Width": "52 in.",
+    "Ferguson_Max_Price": 399.97,
+    "Ferguson_Min_Price": 399.97,
+    "Ferguson_Business_Category": "Ceiling Fans",
+    "Ferguson_Base_Category": "Lighting",
+    "Ferguson_Product_Type": "Fans",
+    "Ferguson_Base_Type": "Fans",
+    "Ferguson_Price": 399.97,
+    "Ferguson_Model_Number": "310452SNB",
+    "Ferguson_Brand": "Kichler",
+    "Ferguson_Color": "766440",
+    "Ferguson_Finish": "Satin Natural Bronze",
+    "Ferguson_URL": "https://www.fergusonhome.com/kichler-310452/s1967781",
+    "Ferguson_Title": "True 52\" 3 Blade Indoor / Outdoor Ceiling Fan - Satin Natural Bronze",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Performance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>CFM (High)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4940</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>RPM (High)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">138</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Watts (High)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">38</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Airflow Efficiency CFM/W (High)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">130</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Motor Specifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Amps (High)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">0.49</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Motor Size</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">90 x 16</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Motor Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">DC Brushless</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Primary Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Steel</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Blade Finish &amp; Specs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Blade Finish 1</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Satin Natural Bronze</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Blade Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Acrylonitrile Butadiene Styrene</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Blade Pitch</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">20</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Blades Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Blades</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Included Control</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Remote Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b># of speeds</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">6</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Mounting/Installation</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior/Exterior</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">EXTERIOR</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Lead Wire Length</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">78</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Location Rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Damp</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Low Ceiling Adaptable</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Max Stem Tilt</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18.0 Degrees</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Mounting Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Downrod</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Downrod 1</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1.00 x 4.50</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Base Backplate</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5.25&quot; DIA</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">11.66</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Blade Sweep</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">52</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">13.50</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Overall Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">13.50</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">52.00&quot;</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Light Source</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Downlight Option</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Lamp Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Not Included</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Product/Ordering Information</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>SKU</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">310452SNB</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Satin Natural Bronze</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>UPC</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">783927044370</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Electrical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Input Voltage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">120.00V</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Housing</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fan Primary Control System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">6 Speed DC CoolTouch-Full</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Certifications/Qualifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Title 20 Compliant</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr></table>",
+    "Web_Retailer_Specs": [
+      {
+        "value": "4940",
+        "name": "CFM (High)"
+      },
+      {
+        "value": "138",
+        "name": "RPM (High)"
+      },
+      {
+        "value": "38",
+        "name": "Watts (High)"
+      },
+      {
+        "value": "130",
+        "name": "Airflow Efficiency CFM/W (High)"
+      },
+      {
+        "value": "0.49",
+        "name": "Amps (High)"
+      },
+      {
+        "value": "90 x 16",
+        "name": "Motor Size"
+      },
+      {
+        "value": "DC Brushless",
+        "name": "Motor Type"
+      },
+      {
+        "value": "Steel",
+        "name": "Primary Material"
+      },
+      {
+        "value": "Satin Natural Bronze",
+        "name": "Blade Finish 1"
+      },
+      {
+        "value": "Acrylonitrile Butadiene Styrene",
+        "name": "Blade Material"
+      },
+      {
+        "value": "20",
+        "name": "Blade Pitch"
+      },
+      {
+        "value": "Yes",
+        "name": "Blades Included"
+      },
+      {
+        "value": "3",
+        "name": "Number of Blades"
+      },
+      {
+        "value": "Yes",
+        "name": "Remote Included"
+      },
+      {
+        "value": "6",
+        "name": "# of speeds"
+      },
+      {
+        "value": "EXTERIOR",
+        "name": "Interior/Exterior"
+      },
+      {
+        "value": "78",
+        "name": "Lead Wire Length"
+      },
+      {
+        "value": "Damp",
+        "name": "Location Rating"
+      },
+      {
+        "value": "No",
+        "name": "Low Ceiling Adaptable"
+      },
+      {
+        "value": "18.0 Degrees",
+        "name": "Max Stem Tilt"
+      },
+      {
+        "value": "Downrod",
+        "name": "Mounting Style"
+      },
+      {
+        "value": "1.00 x 4.50",
+        "name": "Downrod 1"
+      },
+      {
+        "value": "5.25\" DIA",
+        "name": "Base Backplate"
+      },
+      {
+        "value": "11.66",
+        "name": "Weight"
+      },
+      {
+        "value": "52",
+        "name": "Blade Sweep"
+      },
+      {
+        "value": "13.50",
+        "name": "Height"
+      },
+      {
+        "value": "13.50",
+        "name": "Overall Height"
+      },
+      {
+        "value": "52.00\"",
+        "name": "Width"
+      },
+      {
+        "value": "Optional",
+        "name": "Downlight Option"
+      },
+      {
+        "value": "Not Included",
+        "name": "Lamp Included"
+      },
+      {
+        "value": "310452SNB",
+        "name": "SKU"
+      },
+      {
+        "value": "Satin Natural Bronze",
+        "name": "Finish"
+      },
+      {
+        "value": "783927044370",
+        "name": "UPC"
+      },
+      {
+        "value": "120.00V",
+        "name": "Input Voltage"
+      },
+      {
+        "value": "6 Speed DC CoolTouch-Full",
+        "name": "Fan Primary Control System"
+      },
+      {
+        "value": "Yes",
+        "name": "Title 20 Compliant"
+      },
+      {
+        "value": "4940",
+        "name": "CFM (High)"
+      },
+      {
+        "value": "138",
+        "name": "RPM (High)"
+      },
+      {
+        "value": "38",
+        "name": "Watts (High)"
+      },
+      {
+        "value": "130",
+        "name": "Airflow Efficiency CFM/W (High)"
+      },
+      {
+        "value": "0.49",
+        "name": "Amps (High)"
+      },
+      {
+        "value": "90 x 16",
+        "name": "Motor Size"
+      },
+      {
+        "value": "DC Brushless",
+        "name": "Motor Type"
+      },
+      {
+        "value": "Steel",
+        "name": "Primary Material"
+      },
+      {
+        "value": "Satin Natural Bronze",
+        "name": "Blade Finish 1"
+      },
+      {
+        "value": "Acrylonitrile Butadiene Styrene",
+        "name": "Blade Material"
+      },
+      {
+        "value": "20",
+        "name": "Blade Pitch"
+      },
+      {
+        "value": "Yes",
+        "name": "Blades Included"
+      },
+      {
+        "value": "3",
+        "name": "Number of Blades"
+      },
+      {
+        "value": "Yes",
+        "name": "Remote Included"
+      },
+      {
+        "value": "6",
+        "name": "# of speeds"
+      },
+      {
+        "value": "EXTERIOR",
+        "name": "Interior/Exterior"
+      },
+      {
+        "value": "78",
+        "name": "Lead Wire Length"
+      },
+      {
+        "value": "Damp",
+        "name": "Location Rating"
+      },
+      {
+        "value": "No",
+        "name": "Low Ceiling Adaptable"
+      },
+      {
+        "value": "18.0 Degrees",
+        "name": "Max Stem Tilt"
+      },
+      {
+        "value": "Downrod",
+        "name": "Mounting Style"
+      },
+      {
+        "value": "1.00 x 4.50",
+        "name": "Downrod 1"
+      },
+      {
+        "value": "5.25\" DIA",
+        "name": "Base Backplate"
+      },
+      {
+        "value": "11.66",
+        "name": "Weight"
+      },
+      {
+        "value": "52",
+        "name": "Blade Sweep"
+      },
+      {
+        "value": "13.50",
+        "name": "Height"
+      },
+      {
+        "value": "13.50",
+        "name": "Overall Height"
+      },
+      {
+        "value": "52.00\"",
+        "name": "Width"
+      },
+      {
+        "value": "Optional",
+        "name": "Downlight Option"
+      },
+      {
+        "value": "Not Included",
+        "name": "Lamp Included"
+      },
+      {
+        "value": "310452SNB",
+        "name": "SKU"
+      },
+      {
+        "value": "Satin Natural Bronze",
+        "name": "Finish"
+      },
+      {
+        "value": "783927044370",
+        "name": "UPC"
+      },
+      {
+        "value": "120.00V",
+        "name": "Input Voltage"
+      },
+      {
+        "value": "6 Speed DC CoolTouch-Full",
+        "name": "Fan Primary Control System"
+      },
+      {
+        "value": "Yes",
+        "name": "Title 20 Compliant"
+      }
+    ],
+    "Web_Retailer_SubCategory": "CEILING FANS",
+    "Web_Retailer_Category": "MISC",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": null,
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": null,
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": null,
+    "Brand_Web_Retailer": null,
+    "SF_Catalog_Name": "310452SNB",
+    "SF_Catalog_Id": "a03aZ00000QKdJFQA1"
+  },
+  "webhookUrl": "https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification",
+  "webhookAttempts": 1,
+  "createdAt": "2026-01-28T20:29:38.737Z",
+  "updatedAt": "2026-01-28T20:31:21.419Z",
+  "__v": 0,
+  "startedAt": "2026-01-28T20:29:38.750Z",
+  "completedAt": "2026-01-28T20:31:18.252Z",
+  "processingTimeMs": 99498,
+  "result": {
+    "SF_Catalog_Id": "a03aZ00000QKdJFQA1",
+    "SF_Catalog_Name": "310452SNB",
+    "Primary_Attributes": {
+      "Brand_Verified": "KICHLER",
+      "Brand_Id": "a0MaZ000002bJHqUAM",
+      "Category_Verified": "Lighted Ceiling Fans #",
+      "Category_Id": "a01aZ00000dC5EUQA0",
+      "SubCategory_Verified": "CEILING FANS",
+      "Product_Family_Verified": "General",
+      "Department_Verified": "Lighting & Electrical",
+      "Product_Style_Verified": "Contemporary",
+      "Style_Id": "a1IaZ000001SjZVUA0",
+      "Color_Verified": "766440 (Satin Natural Bronze)",
+      "Finish_Verified": "Satin Natural Bronze",
+      "Depth_Verified": "52",
+      "Width_Verified": "52",
+      "Height_Verified": "13.5",
+      "Weight_Verified": "11.66",
+      "MSRP_Verified": "419.97",
+      "Market_Value": 399.97,
+      "Market_Value_Min": 399.97,
+      "Market_Value_Max": 399.97,
+      "Description_Verified": "The Kichler True 52\" Ceiling Fan combines modern aesthetics with high functionality. Featuring a sleek design with three blades, this fan is perfect for contemporary spaces. The fan is equipped with a DC motor, offering six speeds for optimal airflow, and is controllable via an included remote. Its damp location rating makes it suitable for indoor and covered outdoor use.",
+      "Product_Title_Verified": "KICHLER Contemporary 52-Inch Lighted Ceiling Fans Satin Natural Bronze - 310452SNB",
+      "Details_Verified": "This ceiling fan is part of Kichler's True collection and is designed for both indoor and outdoor use. It features a satin natural bronze finish with three blades and a remote control for easy operation.",
+      "Features_List_HTML": "<ul>\n  <li>52&quot; blade span for optimal airflow</li>\n  <li>20-degree blade pitch for efficient operation</li>\n  <li>Includes a 4.5&quot; downrod for easy installation</li>\n  <li>Remote control included for convenient operation</li>\n  <li>Damp location rated, suitable for indoor and covered outdoor use</li>\n  <li>DC motor offers six speeds for customizable comfort</li>\n  <li>Constructed from durable steel and ABS materials</li>\n  <li>Limited Lifetime Manufacturer Warranty</li>\n</ul>",
+      "UPC_GTIN_Verified": "783927044257",
+      "Model_Number_Verified": "310452SNB",
+      "Model_Number_Alias": "310452SNB",
+      "Model_Parent": "310452",
+      "Model_Variant_Number": "SNB",
+      "Total_Model_Variants": "310452BSS, 310452SBK, 310452SNB, 310452WH"
+    },
+    "Top_Filter_Attributes": {
+      "blade_span": "52",
+      "number_of_blades": "3",
+      "motor_type": "DC Motor",
+      "blade_material": "ABS",
+      "cfm": "4940",
+      "number_of_speeds": "6",
+      "reversible": "Yes",
+      "remote_included": "Yes",
+      "light_kit": "No",
+      "indoor_outdoor": "Indoor/Outdoor",
+      "downrod_length": "4.5",
+      "energy_star": "No",
+      "finish": "Satin Natural Bronze",
+      "smart_features": "",
+      "noise_level": "Not Found"
+    },
+    "Top_Filter_Attribute_Ids": {
+      "blade_span": "a1aaZ000008lz4pQAA",
+      "number_of_blades": "a1aaZ000008mBvYQAU",
+      "motor_type": "a1aaZ000008mBvJQAU",
+      "blade_material": "a1aaZ000009X1zkQAC",
+      "cfm": "a1aaZ000008mBoNQAU",
+      "number_of_speeds": "a1aaZ000008mBy8QAE",
+      "reversible": "a1aaZ000009X1zmQAC",
+      "remote_included": "a1aaZ000009X1znQAC",
+      "light_kit": "a1aaZ000009X688QAC",
+      "indoor_outdoor": "a1aaZ000009X1zpQAC",
+      "downrod_length": "a1aaZ000009X5yPQAS",
+      "energy_star": "a1aaZ000008mBrvQAE",
+      "finish": "a1aaZ000009X1zrQAC",
+      "smart_features": "a1aaZ000009X1zsQAC",
+      "noise_level": "a1aaZ000008mBvOQAU"
+    },
+    "Additional_Attributes_HTML": "<table style=\"border-collapse: collapse; width: 100%; margin: 10px 0; font-family: Arial, sans-serif; font-size: 14px;\" border=\"1\">\n  <thead>\n    <tr>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Attribute</th>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Value</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Control Type</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Remote</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Fan Type</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Hanging</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Light Kit Included</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">No</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Material</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Steel</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Amperage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">0.49</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Certifications</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">ETL</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Country Of Origin</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">China</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Energy Star</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">No</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Location Rating</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Damp Location</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Manufacturer Warranty</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Limited Lifetime</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Outdoor Approved</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Theme</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Contemporary</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Amperage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">0.49</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Voltage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">120</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Wattage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">38</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Certifications</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">ETL</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Country Of Origin</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">China</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Manufacturer Warranty</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Limited Lifetime</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Outdoor Approved</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Blade Pitch</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">20</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Canopy Width</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">5.25</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Canopy Height</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">2.25</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Wire Length</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">78</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Theme</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Contemporary</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Power Source</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Hardwired</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Collection</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">True</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Energy Star</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">No</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Location Rating</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Damp Location</td>\n    </tr>\n  </tbody>\n</table>",
+    "Price_Analysis": {
+      "msrp_web_retailer": 0,
+      "msrp_ferguson": 399.97
+    },
+    "Media": {
+      "Primary_Image_URL": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqumraunxaq_20251021_174410.jpg",
+      "All_Image_URLs": [
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqumraunxaq_20251021_174410.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frurxfhpzcwx_20251021_174412.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpkcsugamsy_20251021_174412.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frcgmtvevdwv_20251021_174413.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frjxzrnvwfkj_20251021_174414.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fraefhjtnnng_20251021_174414.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frlpxohwdxgf_20251021_174415.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000KthDhQAJ.jpg"
+      ],
+      "Image_Count": 8
+    },
+    "Reference_Links": {
+      "Ferguson_URL": "https://www.fergusonhome.com/kichler-310452/s1967781",
+      "Web_Retailer_URL": "https://lightingnewyork.com/product/fans/fans/indoor-ceiling-fans/kichler-lighting-true-indoor-ceiling-fans-310452wh/2647132.html",
+      "Manufacturer_URL": ""
+    },
+    "Documents": {
+      "total_count": 3,
+      "recommended_count": 0,
+      "documents": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frelrtovfvxe_20251021_174415.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnuslwjlgib_20251021_174416.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkmptgafvoh_20251021_174418.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        }
+      ]
+    },
+    "Research_Analysis": {
+      "research_performed": true,
+      "total_resources_analyzed": 5,
+      "web_pages": [
+        {
+          "url": "https://lightingnewyork.com/product/fans/fans/indoor-ceiling-fans/kichler-lighting-true-indoor-ceiling-fans-310452wh/2647132.html",
+          "success": true,
+          "specs_extracted": 77,
+          "features_extracted": 37,
+          "processing_time_ms": 0
+        },
+        {
+          "url": "https://www.fergusonhome.com/kichler-310452/s1967781",
+          "success": true,
+          "specs_extracted": 56,
+          "features_extracted": 40,
+          "processing_time_ms": 0
+        }
+      ],
+      "pdfs": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frelrtovfvxe_20251021_174415.pdf",
+          "filename": "frelrtovfvxe_20251021_174415.pdf",
+          "success": false,
+          "pages": 0,
+          "specs_extracted": 0,
+          "text_length": 0,
+          "processing_time_ms": 0,
+          "error": "PDF parsing library not available"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnuslwjlgib_20251021_174416.pdf",
+          "filename": "frnuslwjlgib_20251021_174416.pdf",
+          "success": false,
+          "pages": 0,
+          "specs_extracted": 0,
+          "text_length": 0,
+          "processing_time_ms": 0,
+          "error": "PDF parsing library not available"
+        }
+      ],
+      "images": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqumraunxaq_20251021_174410.jpg",
+          "success": true,
+          "model_used": "grok-2-vision-1212",
+          "color_detected": "Matte Black",
+          "finish_detected": "Matte",
+          "product_type": "Ceiling Fan",
+          "features_detected": 3,
+          "confidence": 0.95,
+          "processing_time_ms": 0
+        }
+      ],
+      "summary": {
+        "total_specs_extracted": 126,
+        "total_features_extracted": 30,
+        "success_rate": 60
+      }
+    },
+    "Received_Attributes_Confirmation": {
+      "web_retailer_specs_processed": [
+        {
+          "name": "CFM (High)",
+          "value": "4940",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "RPM (High)",
+          "value": "138",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Watts (High)",
+          "value": "38",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Airflow Efficiency CFM/W (High)",
+          "value": "130",
+          "matched_to_field": "Top_Filter_Attributes.cfm",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Amps (High)",
+          "value": "0.49",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Motor Size",
+          "value": "90 x 16",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Motor Type",
+          "value": "DC Brushless",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Primary Material",
+          "value": "Steel",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blade Finish 1",
+          "value": "Satin Natural Bronze",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Material",
+          "value": "Acrylonitrile Butadiene Styrene",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blade Pitch",
+          "value": "20",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blades Included",
+          "value": "Yes",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Number of Blades",
+          "value": "3",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Remote Included",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "# of speeds",
+          "value": "6",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Interior/Exterior",
+          "value": "EXTERIOR",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Lead Wire Length",
+          "value": "78",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Location Rating",
+          "value": "Damp",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Low Ceiling Adaptable",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Max Stem Tilt",
+          "value": "18.0 Degrees",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Mounting Style",
+          "value": "Downrod",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Downrod 1",
+          "value": "1.00 x 4.50",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Base Backplate",
+          "value": "5.25\" DIA",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Weight",
+          "value": "11.66",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Sweep",
+          "value": "52",
+          "matched_to_field": "Top_Filter_Attributes.blade_span",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Height",
+          "value": "13.50",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Overall Height",
+          "value": "13.50",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Width",
+          "value": "52.00\"",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Downlight Option",
+          "value": "Optional",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Lamp Included",
+          "value": "Not Included",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "SKU",
+          "value": "310452SNB",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Finish",
+          "value": "Satin Natural Bronze",
+          "matched_to_field": "Top_Filter_Attributes.finish",
+          "status": "included_in_response"
+        },
+        {
+          "name": "UPC",
+          "value": "783927044370",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Input Voltage",
+          "value": "120.00V",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Fan Primary Control System",
+          "value": "6 Speed DC CoolTouch-Full",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Title 20 Compliant",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "CFM (High)",
+          "value": "4940",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "RPM (High)",
+          "value": "138",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Watts (High)",
+          "value": "38",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Airflow Efficiency CFM/W (High)",
+          "value": "130",
+          "matched_to_field": "Top_Filter_Attributes.cfm",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Amps (High)",
+          "value": "0.49",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Motor Size",
+          "value": "90 x 16",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Motor Type",
+          "value": "DC Brushless",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Primary Material",
+          "value": "Steel",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blade Finish 1",
+          "value": "Satin Natural Bronze",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Material",
+          "value": "Acrylonitrile Butadiene Styrene",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blade Pitch",
+          "value": "20",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blades Included",
+          "value": "Yes",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Number of Blades",
+          "value": "3",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Remote Included",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "# of speeds",
+          "value": "6",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Interior/Exterior",
+          "value": "EXTERIOR",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Lead Wire Length",
+          "value": "78",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Location Rating",
+          "value": "Damp",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Low Ceiling Adaptable",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Max Stem Tilt",
+          "value": "18.0 Degrees",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Mounting Style",
+          "value": "Downrod",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Downrod 1",
+          "value": "1.00 x 4.50",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Base Backplate",
+          "value": "5.25\" DIA",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Weight",
+          "value": "11.66",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Sweep",
+          "value": "52",
+          "matched_to_field": "Top_Filter_Attributes.blade_span",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Height",
+          "value": "13.50",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Overall Height",
+          "value": "13.50",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Width",
+          "value": "52.00\"",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Downlight Option",
+          "value": "Optional",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Lamp Included",
+          "value": "Not Included",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "SKU",
+          "value": "310452SNB",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Finish",
+          "value": "Satin Natural Bronze",
+          "matched_to_field": "Top_Filter_Attributes.finish",
+          "status": "included_in_response"
+        },
+        {
+          "name": "UPC",
+          "value": "783927044370",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Input Voltage",
+          "value": "120.00V",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Fan Primary Control System",
+          "value": "6 Speed DC CoolTouch-Full",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Title 20 Compliant",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        }
+      ],
+      "ferguson_attributes_processed": [
+        {
+          "name": "Blade Length",
+          "value": "24.75",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Pitch",
+          "value": "20",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blade Span",
+          "value": "52",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Canopy Depth",
+          "value": "5.25",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Canopy Height",
+          "value": "2.25",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Canopy Width",
+          "value": "5.25",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "CFM (High)",
+          "value": "4940",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "CFM (Low)",
+          "value": "2560",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Downrod Size(s)",
+          "value": "4.5",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Height",
+          "value": "13.5",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Motor Size",
+          "value": "90",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Product Weight",
+          "value": "11.66",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Width",
+          "value": "52",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Wire Length",
+          "value": "78",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Blades Included",
+          "value": "Yes",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Controller Included",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Downrod(s) Included",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Light Kit Included",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Blade Finish",
+          "value": "Black, Bronze, Silver, White",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Control Type",
+          "value": "Remote",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Fan Blade Material",
+          "value": "ABS",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Fan Type",
+          "value": "Hanging",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Light Kit Compatible",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Low Ceiling Adaptable",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Material",
+          "value": "Steel",
+          "matched_to_field": "Top_Filter_Attributes.blade_material",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Motor",
+          "value": "DC Motor",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Number of Blades",
+          "value": "3",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Reversible Blades",
+          "value": "No",
+          "matched_to_field": "Top_Filter_Attributes.number_of_blades",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Reversible Motor",
+          "value": "Yes",
+          "matched_to_field": "Top_Filter_Attributes.motor_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Sloped Ceiling Compatible",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Theme",
+          "value": "Contemporary",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Amperage",
+          "value": "0.49",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Power Source",
+          "value": "Hardwired",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "RPM (High)",
+          "value": "138",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "RPM (Low)",
+          "value": "69",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Speeds",
+          "value": "6",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Voltage",
+          "value": "120",
+          "matched_to_field": "Top_Filter_Attributes.reversible",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Wattage",
+          "value": "38",
+          "matched_to_field": "Top_Filter_Attributes.downrod_length",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Certifications",
+          "value": "ETL",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Collection",
+          "value": "True",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Country Of Origin",
+          "value": "China",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Energy Star",
+          "value": "No",
+          "matched_to_field": "Top_Filter_Attributes.energy_star",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Location Rating",
+          "value": "Damp Location",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Manufacturer Warranty",
+          "value": "Limited Lifetime",
+          "status": "included_in_additional"
+        },
+        {
+          "name": "Outdoor Approved",
+          "value": "Yes",
+          "status": "included_in_additional"
+        }
+      ],
+      "summary": {
+        "total_received_from_web_retailer": 72,
+        "total_received_from_ferguson": 45,
+        "total_included_in_response": 24,
+        "total_in_additional_attributes": 27,
+        "total_not_used": 66
+      }
+    },
+    "Field_AI_Reviews": {
+      "brand": {
+        "openai": {
+          "value": "Kichler",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Kichler",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Kichler"
+      },
+      "product_family": {
+        "openai": {
+          "value": "True",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "True",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "True"
+      },
+      "product_style": {
+        "openai": {
+          "value": "Contemporary",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Contemporary",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Contemporary"
+      },
+      "depth_length": {
+        "openai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "52"
+      },
+      "width": {
+        "openai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "52"
+      },
+      "height": {
+        "openai": {
+          "value": "13.5",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "13.5",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "13.5"
+      },
+      "weight": {
+        "openai": {
+          "value": "11.66",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "11.66",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "11.66"
+      },
+      "msrp": {
+        "openai": {
+          "value": "419.97",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "419.97",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "419.97"
+      },
+      "description": {
+        "openai": {
+          "value": "The Kichler True 52\" Ceiling Fan combines modern aesthetics with high functionality. Featuring a sleek design with three blades, this fan is perfect for contemporary spaces. The fan is equipped with a DC motor, offering six speeds for optimal airflow, and is controllable via an included remote. Its damp location rating makes it suitable for indoor and covered outdoor use.",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "The Kichler True 52-inch ceiling fan offers a sleek, modern design with three reversible blades, ideal for medium-sized rooms. Featuring a DC motor for efficient airflow up to 4940 CFM, six speed settings, and remote control, it's perfect for indoor or outdoor use in damp locations. Compatible with optional light kits for added versatility.",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "The Kichler True 52\" Ceiling Fan combines modern aesthetics with high functionality. Featuring a sleek design with three blades, this fan is perfect for contemporary spaces. The fan is equipped with a DC motor, offering six speeds for optimal airflow, and is controllable via an included remote. Its damp location rating makes it suitable for indoor and covered outdoor use."
+      },
+      "model_number": {
+        "openai": {
+          "value": "310452SNB",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "310452SNB",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "310452SNB"
+      },
+      "model_number_alias": {
+        "openai": {
+          "value": "310452SNB",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "310452SNB",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "310452SNB"
+      },
+      "model_parent": {
+        "openai": {
+          "value": "310452",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "310452",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "310452"
+      },
+      "model_variant_number": {
+        "openai": {
+          "value": "SNB",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "SNB",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "SNB"
+      },
+      "total_model_variants": {
+        "openai": {
+          "value": "310452BSS, 310452SBK, 310452SNB, 310452WH",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "310452BSS,310452SBK,310452SNB,310452WH",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "310452BSS, 310452SBK, 310452SNB, 310452WH"
+      },
+      "upc_gtin": {
+        "openai": {
+          "value": "783927044257",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "783927044370",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "783927044257"
+      },
+      "blade_length": {
+        "openai": {
+          "value": "24.75",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "24.75"
+      },
+      "blade_pitch": {
+        "openai": {
+          "value": "20",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "20"
+      },
+      "blade_span": {
+        "openai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "52"
+      },
+      "canopy_depth": {
+        "openai": {
+          "value": "5.25",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "5.25"
+      },
+      "canopy_height": {
+        "openai": {
+          "value": "2.25",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "2.25"
+      },
+      "canopy_width": {
+        "openai": {
+          "value": "5.25",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "5.25"
+      },
+      "cfm_high": {
+        "openai": {
+          "value": "4940",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "4940"
+      },
+      "cfm_low": {
+        "openai": {
+          "value": "2560",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "2560"
+      },
+      "downrod_size": {
+        "openai": {
+          "value": "4.5",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "4.5"
+      },
+      "motor_size": {
+        "openai": {
+          "value": "90 x 16",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "90 x 16"
+      },
+      "number_of_blades": {
+        "openai": {
+          "value": "3",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "3"
+      },
+      "reversible_motor": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Yes"
+      },
+      "speeds": {
+        "openai": {
+          "value": "6",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "6"
+      },
+      "voltage": {
+        "openai": {
+          "value": "120",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "120"
+      },
+      "wattage": {
+        "openai": {
+          "value": "38",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "38"
+      },
+      "Blade Span": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "52",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "52"
+      },
+      "Number of Blades": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "3",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "3"
+      },
+      "Motor Type": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "DC Motor",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "DC Motor"
+      },
+      "Blade Material": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "ABS",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "ABS"
+      },
+      "CFM": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "4940",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "4940"
+      },
+      "Number of Speeds": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "6",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "6"
+      },
+      "Reversible": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Yes"
+      },
+      "Remote Included": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Yes"
+      },
+      "Light Kit": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "No",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "No"
+      },
+      "Indoor/Outdoor": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Indoor/Outdoor",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Indoor/Outdoor"
+      },
+      "Downrod Length": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "4.5",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "4.5"
+      },
+      "Energy Star": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "No",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "No"
+      },
+      "Finish": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Satin Natural Bronze",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Satin Natural Bronze"
+      },
+      "Smart Features": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "N/A",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "N/A"
+      },
+      "Noise Level": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Found"
+      },
+      "category_subcategory": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Lighting / Ceiling Fans"
+      },
+      "market_value": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "399.97"
+      },
+      "product_title": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Kichler True 52\" 3 Blade Indoor / Outdoor Ceiling Fan - Satin Natural Bronze"
+      },
+      "details": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "This ceiling fan is part of Kichler's True collection and is designed for both indoor and outdoor use. It features a satin natural bronze finish with three blades and a remote control for easy operation."
+      },
+      "features_list": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "<ul><li>52\" blade span for optimal airflow</li><li>20-degree blade pitch for efficient operation</li><li>Includes a 4.5\" downrod for easy installation</li><li>Remote control included for convenient operation</li><li>Damp location rated, suitable for indoor and covered outdoor use</li><li>Dc motor offers six speeds for customizable comfort</li><li>Constructed from durable steel and abs materials</li><li>Limited lifetime manufacturer warranty</li><li>Powerful dc motor with six speed settings for customizable airflow</li><li>Reversible motor for year-round comfort, cooling in summer and circulating warmth in winter</li><li>Includes remote control for easy operation without leaving your seat</li><li>Compatible with optional light kits to enhance room lighting</li><li>Etl rated for damp locations, suitable for covered outdoor spaces</li><li>Energy-efficient design with 4940 cfm on high speed</li><li>Sleek contemporary style with reversible blades for flexible decor</li><li>Quick installation with included downrod and hardware</li><li>Low noise operation for peaceful environments</li><li>Backed by a limited lifetime warranty for reliable performance</li></ul>"
+      },
+      "category": {
+        "openai": {
+          "value": "Ceiling Fans",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Ceiling Fans",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Ceiling Fans"
+      }
+    },
+    "AI_Review": {
+      "openai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 95,
+        "fields_verified": 35,
+        "fields_corrected": 5
+      },
+      "xai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 85,
+        "fields_verified": 35,
+        "fields_corrected": 4
+      },
+      "consensus": {
+        "both_reviewed": true,
+        "agreement_status": "full_agreement",
+        "agreement_percentage": 94,
+        "final_arbiter": "consensus"
+      }
+    },
+    "Verification": {
+      "verification_timestamp": "2026-01-28T20:31:18.152Z",
+      "verification_session_id": "ea560f75-359f-4d34-bf81-3a0020aa9954",
+      "verification_score": 94,
+      "verification_status": "verified",
+      "data_sources_used": [
+        "OpenAI",
+        "xAI",
+        "Web_Retailer",
+        "Ferguson",
+        "External_Research"
+      ],
+      "corrections_made": [
+        {
+          "field": "msrp",
+          "originalValue": "null",
+          "correctedValue": "419.97",
+          "reason": "Verified from Ferguson and Lighting New York URLs",
+          "source": "openai"
+        },
+        {
+          "field": "market_value",
+          "originalValue": "399.97",
+          "correctedValue": "419.97",
+          "reason": "Adjusted to match the MSRP as no specific market value found; assumed typo",
+          "source": "openai"
+        },
+        {
+          "field": "upc_gtin",
+          "originalValue": "null",
+          "correctedValue": "783927044257",
+          "reason": "Found on Lighting New York product page",
+          "source": "openai"
+        },
+        {
+          "field": "color",
+          "originalValue": "766440",
+          "correctedValue": "Satin Natural Bronze",
+          "reason": "Color code replaced with descriptive color name for customer clarity",
+          "source": "openai"
+        },
+        {
+          "field": "finish",
+          "originalValue": "Satin Natural Bronze",
+          "correctedValue": "N/A",
+          "reason": "Finish attribute not required for ceiling fans category; merged into description",
+          "source": "openai"
+        },
+        {
+          "field": "UPC",
+          "originalValue": "null",
+          "correctedValue": "783927044370",
+          "reason": "Research from Ferguson and Lighting New York confirmed the UPC as 783927044370, correcting the input's null value.",
+          "source": "xai"
+        },
+        {
+          "field": "Height",
+          "originalValue": "13.5 in.",
+          "correctedValue": "13.5",
+          "reason": "Standardized to numeric value only as per rules, removing units.",
+          "source": "xai"
+        },
+        {
+          "field": "Width",
+          "originalValue": "52 in.",
+          "correctedValue": "52",
+          "reason": "Standardized to numeric value only, as dimensions must be in inches without units in the value.",
+          "source": "xai"
+        },
+        {
+          "field": "Product Description",
+          "originalValue": "Various descriptions with potential formatting issues",
+          "correctedValue": "Enhanced and cleaned for customer-ready text",
+          "reason": "Original descriptions had run-on sentences and inconsistent formatting; research data was used to create professional, complete sentences.",
+          "source": "xai"
+        }
+      ],
+      "missing_fields": [],
+      "confidence_scores": {
+        "openai": 0.95,
+        "xai": 0.85,
+        "consensus": 0.9384057971014492,
+        "category": 0.95
+      },
+      "score_breakdown": {
+        "ai_confidence_component": 45,
+        "agreement_component": 40,
+        "category_bonus": 10,
+        "fields_agreed": 73,
+        "fields_disagreed": 0,
+        "total_fields": 73,
+        "agreement_percentage": 100,
+        "text_fields_excluded": 4,
+        "disagreement_details": [
+          {
+            "field": "market_value",
+            "openai": "399.97",
+            "xai": "419.97"
+          },
+          {
+            "field": "upc_gtin",
+            "openai": "783927044257",
+            "xai": "783927044370"
+          }
+        ],
+        "data_source_scenario": "both_sources",
+        "research_performed": true,
+        "research_attempts": 3,
+        "urls_scraped": 2,
+        "documents_analyzed": 3,
+        "images_analyzed": 8,
+        "external_data_trusted": true
+      }
+    },
+    "Attribute_Requests": [],
+    "Brand_Requests": [],
+    "Category_Requests": [],
+    "Style_Requests": [],
+    "Status": "success"
+  },
+  "webhookLastAttempt": "2026-01-28T20:31:21.418Z",
+  "webhookSuccess": true
+}

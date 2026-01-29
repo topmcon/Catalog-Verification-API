@@ -390,6 +390,43 @@ export async function completeTracking(
     responsePayload: process.env.TRACK_RAW_PAYLOADS === 'true' ? response as any : undefined,
   };
 
+  // Detect missing TOP15 fields and log as issues for self-healing
+  if (response.Top_Filter_Attributes) {
+    const top15Fields = Object.keys(response.Top_Filter_Attributes);
+    const missingFields: string[] = [];
+    
+    top15Fields.forEach(fieldKey => {
+      const value = response.Top_Filter_Attributes?.[fieldKey as keyof typeof response.Top_Filter_Attributes];
+      if (!value || value === '' || value === null || value === undefined) {
+        missingFields.push(fieldKey);
+      }
+    });
+
+    // Log issue for each missing TOP15 field
+    if (missingFields.length > 0) {
+      missingFields.forEach(field => {
+        addIssue(trackingId, {
+          type: 'missing_top15_field',
+          severity: 'medium',
+          description: `Missing TOP15 field: ${field}`,
+          suggestedAction: `Review code logic for extracting ${field} from product data`,
+          metadata: {
+            field,
+            category: response.Primary_Attributes?.Category_Verified,
+            subfolder: response.Primary_Attributes?.SubCategory_Verified
+          }
+        });
+      });
+
+      logger.info('Detected missing TOP15 fields for self-healing', {
+        trackingId,
+        sessionId: tracking.sessionId,
+        missingFieldCount: missingFields.length,
+        missingFields: missingFields.join(', ')
+      });
+    }
+  }
+
   // Add tags based on results
   if (overallStatus === 'failed') addTag(trackingId, 'failed');
   if (verificationScore < 50) addTag(trackingId, 'low-score');

@@ -1,0 +1,879 @@
+{
+  "_id": "697a7d8c2cb8192f85591881",
+  "jobId": "4c9ce914-38e7-4612-a884-d082c82f455a",
+  "sfCatalogId": "a03aZ00000AsOWPQA3",
+  "sfCatalogName": "IE101WC",
+  "status": "completed",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4476d4d7ab4b1a05cd6102640e9f1c06.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000TYTBqQAP.jpeg"
+      }
+    ],
+    "Reference_URL": "https://www.walmart.com/ip/In-Sink-Erator-Evergrind-Disposer-w-C-1-3-Hp-E101W-C/170438870",
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_SubCategory": "GARBAGE DISPOSALS",
+    "Web_Retailer_Category": "DISPOSALS AND DISPENSERS",
+    "Product_Description_Web_Retailer": "Food waste is something you encounter with every meal, but you probably haven't spent too much time thinking about it. You hear about the landfill crisis and a lot of scientific terms but it all seems very complicated. Most of us don't understand how our actions can have an impact - positive or negative. At InSinkErator, we've spent the last 80 years understanding the impact of food waste. We are committed to the responsible, efficient management of food waste and believe that small changes in our day-to-day behavior can create a positive impact in your world.",
+    "Features_Web_Retailer": "<ul><li>Quick Lock(R) mounting for fast, easy installation</li><li>Galvanized steel grinding elements with two stainless steel 360 degree swivel lugs</li><li>Stainless steel sink flange with positive seal plastic stopper</li><li>Overload protector manual reset</li><li>Permanently lubricated upper and lower bearings</li><li>Cushioned anti-splash baffle</li><li>Dishwasher drain connection</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": "Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+    "Color_Finish_Web_Retailer": "Gray",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "IE101WC",
+    "Brand_Web_Retailer": "INSINKERATOR",
+    "SF_Catalog_Name": "IE101WC",
+    "SF_Catalog_Id": "a03aZ00000AsOWPQA3"
+  },
+  "webhookUrl": "https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification",
+  "webhookAttempts": 1,
+  "createdAt": "2026-01-28T21:20:12.232Z",
+  "updatedAt": "2026-01-28T21:21:21.161Z",
+  "__v": 0,
+  "startedAt": "2026-01-28T21:20:12.243Z",
+  "completedAt": "2026-01-28T21:21:17.476Z",
+  "processingTimeMs": 65229,
+  "result": {
+    "SF_Catalog_Id": "a03aZ00000AsOWPQA3",
+    "SF_Catalog_Name": "IE101WC",
+    "Primary_Attributes": {
+      "Brand_Verified": "INSINKERATOR",
+      "Brand_Id": "a0MaZ000000ErHOUA0",
+      "Category_Verified": "Garbage Disposals #",
+      "Category_Id": "a01aZ00000dC5E6QAK",
+      "SubCategory_Verified": "Plumbing & Bath / Garbage Disposals",
+      "Product_Family_Verified": "Kitchen",
+      "Department_Verified": "Plumbing & Bath",
+      "Product_Style_Verified": "",
+      "Style_Id": null,
+      "Color_Verified": "Gray",
+      "Finish_Verified": "Matte",
+      "Depth_Verified": "Not Found",
+      "Width_Verified": "Not Found",
+      "Height_Verified": "Not Found",
+      "Weight_Verified": "Not Found",
+      "MSRP_Verified": "Not Found",
+      "Market_Value": null,
+      "Market_Value_Min": null,
+      "Market_Value_Max": null,
+      "Description_Verified": "The In. Sink. Erator Evergrind E101 Garbage Disposal is designed for efficient and responsible food waste management. Featuring a 1/3 HP motor, Quick Lock mounting for easy installation, and durable components like galvanized steel grinding elements, it's an essential kitchen appliance for modern homes.",
+      "Product_Title_Verified": "INSINKERATOR Garbage Disposals - IE101WC",
+      "Details_Verified": "Not Found",
+      "Features_List_HTML": "<ul>\n  <li>Quick Lock mounting for fast, easy installation</li>\n  <li>Galvanized steel grinding elements</li>\n  <li>Stainless steel sink flange with positive seal plastic stopper</li>\n  <li>Overload protector with manual reset</li>\n  <li>Permanently lubricated bearings</li>\n  <li>Cushioned anti-splash baffle</li>\n  <li>Dishwasher drain connection</li>\n  <li>1/3 Horsepower motor</li>\n  <li>1 Year Warranty</li>\n</ul>",
+      "UPC_GTIN_Verified": "741360976603",
+      "Model_Number_Verified": "IE101WC",
+      "Model_Number_Alias": "IE101WC",
+      "Model_Parent": "None Identified",
+      "Model_Variant_Number": "None Identified",
+      "Total_Model_Variants": "None Identified"
+    },
+    "Top_Filter_Attributes": {
+      "horsepower": "1/3 HP",
+      "feed_type": "Continuous",
+      "motor_type": "Not Found",
+      "grinding_system": "Galvanized steel",
+      "noise_level": "Not Found",
+      "sound_insulation": "Cushioned anti-splash baffle",
+      "auto_reverse": "Not Found",
+      "dishwasher_connection": "Yes",
+      "power_cord": "Included",
+      "mounting_type": "Quick Lock®",
+      "warranty": "Not Found",
+      "septic_safe": "Not Found",
+      "reset_button": "Manual reset overload protector",
+      "splash_guard": "Not Found",
+      "batch_feed": "Not Found"
+    },
+    "Top_Filter_Attribute_Ids": {
+      "horsepower": "a1aaZ000008mBtZQAU",
+      "feed_type": "a1aaZ000008mBsIQAU",
+      "motor_type": "a1aaZ000008mBvJQAU",
+      "grinding_system": "a1aaZ000008mBrjQAE",
+      "noise_level": "a1aaZ000008mBvOQAU",
+      "sound_insulation": "a1aaZ000008mBs2QAE",
+      "auto_reverse": null,
+      "dishwasher_connection": "a1aaZ000008mBzZQAU",
+      "power_cord": "a1aaZ000008mBwTQAU",
+      "mounting_type": "a1aaZ000008mBvKQAU",
+      "warranty": "a1aaZ000008mBunQAE",
+      "septic_safe": null,
+      "reset_button": null,
+      "splash_guard": "a1aaZ000008mBx5QAE",
+      "batch_feed": null
+    },
+    "Additional_Attributes_HTML": "<table style=\"border-collapse: collapse; width: 100%; margin: 10px 0; font-family: Arial, sans-serif; font-size: 14px;\" border=\"1\">\n  <thead>\n    <tr>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Attribute</th>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Value</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Color Finish</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Gray</td>\n    </tr>\n  </tbody>\n</table>",
+    "Price_Analysis": {
+      "msrp_web_retailer": 0,
+      "msrp_ferguson": 0
+    },
+    "Media": {
+      "Primary_Image_URL": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4476d4d7ab4b1a05cd6102640e9f1c06.png",
+      "All_Image_URLs": [
+        "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4476d4d7ab4b1a05cd6102640e9f1c06.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000TYTBqQAP.jpeg"
+      ],
+      "Image_Count": 2
+    },
+    "Reference_Links": {
+      "Ferguson_URL": "",
+      "Web_Retailer_URL": "https://www.walmart.com/ip/In-Sink-Erator-Evergrind-Disposer-w-C-1-3-Hp-E101W-C/170438870",
+      "Manufacturer_URL": ""
+    },
+    "Documents": {
+      "total_count": 0,
+      "recommended_count": 0,
+      "documents": []
+    },
+    "Research_Analysis": {
+      "research_performed": true,
+      "total_resources_analyzed": 2,
+      "web_pages": [
+        {
+          "url": "https://www.walmart.com/ip/In-Sink-Erator-Evergrind-Disposer-w-C-1-3-Hp-E101W-C/170438870",
+          "success": true,
+          "specs_extracted": 3,
+          "features_extracted": 0,
+          "processing_time_ms": 0
+        }
+      ],
+      "pdfs": [],
+      "images": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4476d4d7ab4b1a05cd6102640e9f1c06.png",
+          "success": true,
+          "model_used": "grok-2-vision-1212",
+          "color_detected": "Gray",
+          "finish_detected": "Matte",
+          "product_type": "Garbage Disposal",
+          "features_detected": 3,
+          "confidence": 0.95,
+          "processing_time_ms": 0
+        }
+      ],
+      "summary": {
+        "total_specs_extracted": 6,
+        "total_features_extracted": 3,
+        "success_rate": 100
+      }
+    },
+    "Received_Attributes_Confirmation": {
+      "web_retailer_specs_processed": [],
+      "ferguson_attributes_processed": [],
+      "summary": {
+        "total_received_from_web_retailer": 0,
+        "total_received_from_ferguson": 0,
+        "total_included_in_response": 0,
+        "total_in_additional_attributes": 0,
+        "total_not_used": 0
+      }
+    },
+    "Field_AI_Reviews": {
+      "brand": {
+        "openai": {
+          "value": "InSinkErator",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "InSinkErator",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "InSinkErator"
+      },
+      "category_subcategory": {
+        "openai": {
+          "value": "Appliances / Disposals and Dispensers",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Garbage Disposals / Plumbing & Bath",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Plumbing & Bath / Garbage Disposals"
+      },
+      "product_family": {
+        "openai": {
+          "value": "Evergrind",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Evergrind",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Evergrind"
+      },
+      "product_style": {
+        "openai": {
+          "value": "Garbage Disposal",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "N/A"
+      },
+      "depth_length": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "width": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "height": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "weight": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "msrp": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "market_value": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "product_title": {
+        "openai": {
+          "value": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 HP"
+      },
+      "upc_gtin": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "model_number": {
+        "openai": {
+          "value": "IE101WC",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "IE101WC",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "IE101WC"
+      },
+      "model_number_alias": {
+        "openai": {
+          "value": "IE101WC",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "IE101WC",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "IE101WC"
+      },
+      "model_parent": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "model_variant_number": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "total_model_variants": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "horsepower": {
+        "openai": {
+          "value": "1/3 HP",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "1/3",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "1/3 HP"
+      },
+      "motor_type": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "grinding_system": {
+        "openai": {
+          "value": "Galvanized steel",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Galvanized steel with two stainless steel 360-degree swivel lugs",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "Galvanized steel"
+      },
+      "noise_level": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "auto_reverse": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "dishwasher_connection": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Yes"
+      },
+      "power_cord": {
+        "openai": {
+          "value": "Included",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Included",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Included"
+      },
+      "mounting_type": {
+        "openai": {
+          "value": "Quick Lock",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Quick Lock",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Quick Lock(R)"
+      },
+      "warranty": {
+        "openai": {
+          "value": "1 Year",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "1 Year",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "septic_safe": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "splash_guard": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Cushioned anti-splash baffle",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "Not Found"
+      },
+      "batch_feed": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Not Found"
+      },
+      "description": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "The InSinkErator Evergrind E101 Garbage Disposal is designed for efficient, responsible management of food waste. Featuring Quick Lock(R) mounting for easy installation, galvanized steel grinding elements, and a dishwasher drain connection, this disposal makes kitchen cleanup effortless while contributing to a positive environmental impact."
+      },
+      "details": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Gray finish. Includes Quick Lock(R) mounting, galvanized steel grinding elements, and dishwasher drain connection."
+      },
+      "features_list": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "<ul><li>Quick lock(r) mounting for fast, easy installation</li><li>Galvanized steel grinding elements</li><li>Stainless steel sink flange with positive seal plastic stopper</li><li>Overload protector with manual reset</li><li>Permanently lubricated bearings</li><li>Cushioned anti-splash baffle</li><li>Dishwasher drain connection</li><li>Quick lock mounting for fast and easy installation</li><li>Stainless steel sink flange with a positive seal plastic stopper to prevent leaks</li><li>Manual reset overload protector to safeguard the motor</li></ul>"
+      },
+      "feed_type": {
+        "openai": {
+          "value": "Continuous",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "Continuous"
+      },
+      "sound_insulation": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 85
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Cushioned anti-splash baffle"
+      },
+      "reset_button": {
+        "openai": {
+          "value": "Not Found",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Manual reset overload protector",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "xai_selected",
+        "final_value": "Manual reset overload protector"
+      },
+      "category": {
+        "openai": {
+          "value": "Garbage Disposals",
+          "agreed": false,
+          "confidence": 85
+        },
+        "xai": {
+          "value": "Garbage Disposals (Plumbing & Bath)",
+          "agreed": false,
+          "confidence": 85
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "Garbage Disposals"
+      }
+    },
+    "AI_Review": {
+      "openai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 85,
+        "fields_verified": 35,
+        "fields_corrected": 2
+      },
+      "xai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 85,
+        "fields_verified": 35,
+        "fields_corrected": 2
+      },
+      "consensus": {
+        "both_reviewed": true,
+        "agreement_status": "full_agreement",
+        "agreement_percentage": 94,
+        "final_arbiter": "consensus"
+      }
+    },
+    "Verification": {
+      "verification_timestamp": "2026-01-28T21:21:17.433Z",
+      "verification_session_id": "40303e4c-f1bc-4ba1-94a6-d9614679b388",
+      "verification_score": 94,
+      "verification_status": "verified",
+      "data_sources_used": [
+        "OpenAI",
+        "xAI",
+        "Web_Retailer",
+        "External_Research"
+      ],
+      "corrections_made": [
+        {
+          "field": "brand",
+          "originalValue": "INSINKERATOR",
+          "correctedValue": "InSinkErator",
+          "reason": "Standardized brand name capitalization",
+          "source": "openai"
+        },
+        {
+          "field": "color_finish_web_retailer",
+          "originalValue": "Gray",
+          "correctedValue": "Gray (Matte finish from image analysis)",
+          "reason": "Confirmed finish type from image analysis",
+          "source": "openai"
+        },
+        {
+          "field": "brand",
+          "originalValue": "INSINKERATOR",
+          "correctedValue": "InSinkErator",
+          "reason": "Input used all uppercase, which is inconsistent with standard branding; research and image analysis confirm proper capitalization as 'InSinkErator'.",
+          "source": "xai"
+        },
+        {
+          "field": "product_title",
+          "originalValue": "Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+          "correctedValue": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+          "reason": "Input omitted the brand name; added for completeness based on research from the Reference_URL and image analysis.",
+          "source": "xai"
+        },
+        {
+          "field": "product_title",
+          "originalValue": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 HP",
+          "correctedValue": "InSinkErator Evergrind E101 Garbage Disposal with Cord, 1/3 Hp",
+          "reason": "Cleaned and formatted title for customer display",
+          "source": "text_cleaner"
+        },
+        {
+          "field": "description",
+          "originalValue": "The InSinkErator Evergrind E101 Garbage Disposal is designed for efficient and responsible food wast...",
+          "correctedValue": "The In. Sink. Erator Evergrind E101 Garbage Disposal is designed for efficient and responsible food ...",
+          "reason": "Cleaned grammar, spelling, and formatting for customer display",
+          "source": "text_cleaner"
+        }
+      ],
+      "missing_fields": [],
+      "confidence_scores": {
+        "openai": 0.85,
+        "xai": 0.85,
+        "consensus": 0.9386363636363636,
+        "category": 0.95
+      },
+      "score_breakdown": {
+        "ai_confidence_component": 43,
+        "agreement_component": 40,
+        "category_bonus": 10,
+        "fields_agreed": 36,
+        "fields_disagreed": 0,
+        "total_fields": 36,
+        "agreement_percentage": 100,
+        "text_fields_excluded": 3,
+        "disagreement_details": [
+          {
+            "field": "feed_type",
+            "openai": "Continuous",
+            "xai": "Not Found"
+          },
+          {
+            "field": "sound_insulation",
+            "openai": "Not Found",
+            "xai": "Cushioned anti-splash baffle"
+          },
+          {
+            "field": "reset_button",
+            "openai": "Not Found",
+            "xai": "Manual reset overload protector"
+          }
+        ],
+        "data_source_scenario": "web_retailer_only",
+        "research_performed": true,
+        "research_attempts": 3,
+        "urls_scraped": 1,
+        "documents_analyzed": 0,
+        "images_analyzed": 2,
+        "external_data_trusted": false,
+        "model_mismatch_warning": {
+          "warning": "MODEL_NUMBER_MISMATCH",
+          "requested_model": "IE101WC",
+          "found_model": null,
+          "reason": "No external model number found",
+          "impact": "External data may be from a different product variant. Color, finish, and variant-specific attributes may be inaccurate."
+        }
+      }
+    },
+    "Attribute_Requests": [
+      {
+        "attribute_name": "Auto-Reverse",
+        "requested_for_category": "Garbage Disposals",
+        "source": "top_15_filter",
+        "reason": "Top 15 Filter Attribute \"Auto-Reverse\" (key: auto_reverse) not found in Salesforce attributes picklist. Value: \"Not Found\". Closest matches: watersense, watersense, Automatic Defrost. Please create this attribute in Salesforce."
+      },
+      {
+        "attribute_name": "Septic Safe",
+        "requested_for_category": "Garbage Disposals",
+        "source": "top_15_filter",
+        "reason": "Top 15 Filter Attribute \"Septic Safe\" (key: septic_safe) not found in Salesforce attributes picklist. Value: \"Not Found\". Closest matches: Attic Size, Rosette Shape, Settings. Please create this attribute in Salesforce."
+      },
+      {
+        "attribute_name": "Reset Button",
+        "requested_for_category": "Garbage Disposals",
+        "source": "top_15_filter",
+        "reason": "Top 15 Filter Attribute \"Reset Button\" (key: reset_button) not found in Salesforce attributes picklist. Value: \"Manual reset overload protector\". Closest matches: description, description, description. Please create this attribute in Salesforce."
+      },
+      {
+        "attribute_name": "Batch Feed",
+        "requested_for_category": "Garbage Disposals",
+        "source": "top_15_filter",
+        "reason": "Top 15 Filter Attribute \"Batch Feed\" (key: batch_feed) not found in Salesforce attributes picklist. Value: \"Not Found\". Closest matches: Rebate Offered, Latch Faceplate, Breaker Needs. Please create this attribute in Salesforce."
+      }
+    ],
+    "Brand_Requests": [],
+    "Category_Requests": [],
+    "Style_Requests": [],
+    "Status": "success"
+  },
+  "webhookLastAttempt": "2026-01-28T21:21:21.161Z",
+  "webhookSuccess": true
+}
