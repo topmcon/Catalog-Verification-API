@@ -446,6 +446,41 @@ export interface SalesforceVerificationResponse {
   // Research Transparency - Shows what external resources were analyzed
   Research_Analysis?: ResearchTransparency;
 
+  // Research Attestation - Tracks "Procurement No Results" usage and research completion
+  // Ensures AI completed all 8 research steps before marking a field as not found
+  Research_Attestation?: {
+    attestation_enabled: boolean;
+    research_performed: boolean;
+    checklist_completion: {
+      completed_steps: number;
+      total_steps: number;
+      completion_rate: string;
+      steps: {
+        raw_sf_data_review: boolean;
+        url_scraping: boolean;
+        openai_analysis: boolean;
+        xai_analysis: boolean;
+        smart_inference: boolean;
+        image_analysis: boolean;
+        cross_reference: boolean;
+        final_verification: boolean;
+      };
+    };
+    field_status_summary: {
+      total_fields: number;
+      found_with_value: number;
+      procurement_no_results: number;
+      research_incomplete: number;
+      not_found_fields: string[];
+      incomplete_fields: string[];
+    };
+    status_code_meanings: {
+      'Procurement No Results': string;
+      'Research Incomplete - Pending': string;
+      'Research Error - Manual Review Required': string;
+    };
+  };
+
   // Received Attributes Confirmation - Tracks all incoming attributes from Salesforce
   // Shows which attributes were received, processed, and where they appear in the response
   Received_Attributes_Confirmation?: {

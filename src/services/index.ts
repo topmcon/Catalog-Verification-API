@@ -16,6 +16,9 @@ export { default as alertingService } from './alerting.service';
 export { default as aiUsageTracker } from './ai-usage-tracking.service';
 export { errorMonitor } from './error-monitor.service';
 
+// Research Attestation Service
+export { researchAttestationService, ResearchAttestationService } from './research-attestation.service';
+
 // Async Verification Services
 export { default as webhookService } from './webhook.service';
 export { default as asyncVerificationProcessor } from './async-verification-processor.service';
@@ -32,7 +35,7 @@ export { generateTitle } from './title-generator.service';
 export { generateDescription, enhanceDescription } from './description-generator.service';
 export { verifyProduct } from './salesforce-verification.service';
 export { buildVerificationPrompt, buildResearchPrompt } from './ai-prompt-builder.service';
-export { verifyProductWithDualAI, dualAIVerificationService as dualAIService } from './dual-ai-verification.service';
+export { verifyProductWithDualAI, dualAIVerificationService as dualAIService, researchAttestationService as attestationService } from './dual-ai-verification.service';
 
 // Verification Analytics Service
 export { verificationAnalyticsService, VerificationAnalyticsService } from './verification-analytics.service';

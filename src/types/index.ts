@@ -1,6 +1,7 @@
 export * from './product.types';
 export * from './ai.types';
 export * from './api.types';
+export * from './research-attestation.types';
 export {
   SalesforceIncomingAttribute,
   SalesforceIncomingProduct,

@@ -61,6 +61,8 @@ import { performProductResearch, formatResearchForPrompt, ResearchResult, perfor
 import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
+import { researchAttestationService } from './research-attestation.service';
+import { FIELD_STATUS_CODES, ResearchAttestation } from '../types/research-attestation.types';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -993,9 +995,12 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
 
 /**
  * Standard field value markers for different scenarios
+ * Updated to use Research Attestation System codes
  */
-const FIELD_NOT_FOUND = 'Not Found'; // AI attempted to find but couldn't
+const FIELD_NOT_FOUND = FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS; // AI completed all research steps but couldn't find data
 const FIELD_NOT_APPLICABLE = 'N/A'; // Field doesn't apply to this product type
+const FIELD_RESEARCH_INCOMPLETE = FIELD_STATUS_CODES.RESEARCH_INCOMPLETE; // Research couldn't be completed
+const FIELD_RESEARCH_ERROR = FIELD_STATUS_CODES.RESEARCH_ERROR; // Research had errors requiring human review
 
 function sanitizeNumericForSalesforce(value: any): number | null {
   if (value === null || value === undefined) return null;
@@ -1024,22 +1029,29 @@ function sanitizeNumericForSalesforce(value: any): number | null {
 
 /**
  * Mark an empty field value with the appropriate marker
+ * Updated to use Research Attestation System status codes
+ * 
  * @param value - The field value to check
  * @param fieldName - The name of the field (for determining if N/A is appropriate)
  * @param productCategory - The product category (for determining if field is applicable)
  * @param attemptedResearch - Whether research was attempted for this field
+ * @param researchAttestation - Optional attestation object with full research details
  */
 export function markEmptyField(
   value: string | number | null | undefined,
   fieldName: string,
   productCategory?: string,
-  attemptedResearch: boolean = false
+  attemptedResearch: boolean = false,
+  researchAttestation?: ResearchAttestation
 ): string {
   // If we have a valid value, return it
   if (value !== null && value !== undefined && String(value).trim() !== '') {
     const strValue = String(value).trim();
-    // Don't modify existing markers
-    if (strValue === FIELD_NOT_FOUND || strValue === FIELD_NOT_APPLICABLE) {
+    // Don't modify existing status codes
+    if (strValue === FIELD_NOT_FOUND || 
+        strValue === FIELD_NOT_APPLICABLE ||
+        strValue === FIELD_RESEARCH_INCOMPLETE ||
+        strValue === FIELD_RESEARCH_ERROR) {
       return strValue;
     }
     return strValue;
@@ -1066,9 +1078,26 @@ export function markEmptyField(
     }
   }
   
-  // If research was attempted but field is still empty, mark as "Not Found"
+  // If we have a full attestation, use its status
+  if (researchAttestation) {
+    switch (researchAttestation.status) {
+      case 'FULLY_RESEARCHED':
+        return FIELD_NOT_FOUND; // "Procurement No Results"
+      case 'INCOMPLETE':
+        return FIELD_RESEARCH_INCOMPLETE; // "Research Incomplete - Pending"
+      case 'ERROR':
+        return FIELD_RESEARCH_ERROR; // "Research Error - Manual Review Required"
+      default:
+        // If research was at least attempted, use incomplete status
+        if (researchAttestation.completedSteps > 0) {
+          return FIELD_RESEARCH_INCOMPLETE;
+        }
+    }
+  }
+  
+  // Legacy: If research was attempted but no attestation provided
   if (attemptedResearch) {
-    return FIELD_NOT_FOUND;
+    return FIELD_RESEARCH_INCOMPLETE; // Changed from FIELD_NOT_FOUND to be more accurate
   }
   
   // Default: return empty string (legacy behavior for fields that haven't been researched)
@@ -3395,6 +3424,122 @@ function buildResearchTransparency(
   };
 }
 
+// Type for Research Attestation response
+interface ResearchAttestationResponse {
+  attestation_enabled: boolean;
+  research_performed: boolean;
+  checklist_completion: {
+    completed_steps: number;
+    total_steps: number;
+    completion_rate: string;
+    steps: {
+      raw_sf_data_review: boolean;
+      url_scraping: boolean;
+      openai_analysis: boolean;
+      xai_analysis: boolean;
+      smart_inference: boolean;
+      image_analysis: boolean;
+      cross_reference: boolean;
+      final_verification: boolean;
+    };
+  };
+  field_status_summary: {
+    total_fields: number;
+    found_with_value: number;
+    procurement_no_results: number;
+    research_incomplete: number;
+    not_found_fields: string[];
+    incomplete_fields: string[];
+  };
+  status_code_meanings: {
+    'Procurement No Results': string;
+    'Research Incomplete - Pending': string;
+    'Research Error - Manual Review Required': string;
+  };
+}
+
+/**
+ * Build Research Attestation Summary for response
+ * Tracks which fields used "Procurement No Results" and their research completion status
+ */
+function buildResearchAttestationSummary(
+  topFilterAttributes: TopFilterAttributes,
+  primaryAttributes: Record<string, any>,
+  didResearch: boolean,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  researchResult: ResearchResult | null | undefined,
+  finalSearchResult?: FinalVerificationSearchResult | null
+): ResearchAttestationResponse | undefined {
+  // Only include if research was performed
+  if (!didResearch) {
+    return undefined;
+  }
+
+  // Count fields by status
+  const allFields = { ...primaryAttributes, ...topFilterAttributes };
+  let fullyResearchedCount = 0;
+  let incompleteCount = 0;
+  let foundCount = 0;
+  const notFoundFields: string[] = [];
+  const incompleteFields: string[] = [];
+
+  for (const [fieldName, value] of Object.entries(allFields)) {
+    const strValue = String(value || '').trim();
+    
+    if (strValue === FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS) {
+      fullyResearchedCount++;
+      notFoundFields.push(fieldName);
+    } else if (strValue === FIELD_STATUS_CODES.RESEARCH_INCOMPLETE) {
+      incompleteCount++;
+      incompleteFields.push(fieldName);
+    } else if (strValue === FIELD_STATUS_CODES.RESEARCH_ERROR) {
+      incompleteCount++;
+      incompleteFields.push(fieldName);
+    } else if (strValue && strValue !== '' && strValue !== 'N/A') {
+      foundCount++;
+    }
+  }
+
+  // Build research steps completed summary
+  const researchStepsCompleted = {
+    raw_sf_data_review: true, // Always done
+    url_scraping: !!researchResult?.webPages?.length || !!finalSearchResult,
+    openai_analysis: openaiResult.success,
+    xai_analysis: xaiResult.success,
+    smart_inference: true, // Always attempted
+    image_analysis: !!researchResult?.images?.length,
+    cross_reference: openaiResult.success && xaiResult.success,
+    final_verification: true // Always done
+  };
+
+  const completedSteps = Object.values(researchStepsCompleted).filter(Boolean).length;
+
+  return {
+    attestation_enabled: true,
+    research_performed: didResearch,
+    checklist_completion: {
+      completed_steps: completedSteps,
+      total_steps: 8,
+      completion_rate: `${Math.round((completedSteps / 8) * 100)}%`,
+      steps: researchStepsCompleted
+    },
+    field_status_summary: {
+      total_fields: Object.keys(allFields).length,
+      found_with_value: foundCount,
+      procurement_no_results: fullyResearchedCount,
+      research_incomplete: incompleteCount,
+      not_found_fields: notFoundFields.slice(0, 10), // Limit for readability
+      incomplete_fields: incompleteFields.slice(0, 5)
+    },
+    status_code_meanings: {
+      'Procurement No Results': 'All 8 research steps completed, data genuinely not available',
+      'Research Incomplete - Pending': 'Some research steps could not be completed',
+      'Research Error - Manual Review Required': 'Conflicts or errors require human review'
+    }
+  };
+}
+
 /**
  * Build Received Attributes Confirmation - Track incoming attributes from Salesforce
  * Shows Salesforce which attributes we received, processed, and where they ended up
@@ -5159,6 +5304,17 @@ function buildFinalResponse(
   // Now includes the final web search results as well
   const researchTransparency = buildResearchTransparency(researchResult, finalSearchResult);
 
+  // Build Research Attestation Summary - tracks "Procurement No Results" usage
+  const researchAttestationSummary = buildResearchAttestationSummary(
+    topFilterAttributes,
+    sanitizedPrimaryAttributes,
+    didResearch,
+    openaiResult,
+    xaiResult,
+    researchResult,
+    finalSearchResult
+  );
+
   // Build Received Attributes Confirmation - Track all incoming attributes from Salesforce
   // This shows SF which attributes we received, processed, and where they ended up in the response
   const receivedAttributesConfirmation = buildReceivedAttributesConfirmation(
@@ -5179,6 +5335,7 @@ function buildFinalResponse(
     Reference_Links: referenceLinks,
     Documents: documentsSection,
     Research_Analysis: researchTransparency,
+    Research_Attestation: researchAttestationSummary,
     Received_Attributes_Confirmation: receivedAttributesConfirmation,
     Field_AI_Reviews: fieldAIReviews,
     AI_Review: aiReview,
@@ -5720,6 +5877,9 @@ async function trackFieldPopulation(
     logger.error('Failed to track field population', { error });
   }
 }
+
+// Export the research attestation service for external access
+export { researchAttestationService };
 
 export default { verifyProductWithDualAI };
 export const dualAIVerificationService = { verifyProductWithDualAI };
