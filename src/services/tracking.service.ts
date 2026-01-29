@@ -465,11 +465,11 @@ export async function completeTracking(
           // Include context for AI diagnosis
           availableRawData: {
             hasWebRetailerData: !!tracking.request?.Brand_Web_Retailer,
-            hasFergusonData: !!tracking.request?.Ferguson_Brand,
-            hasSpecTable: !!tracking.request?.Web_Retailer_Specs,
-            hasFergusonAttributes: !!tracking.request?.Ferguson_Attributes,
-            hasProductDescription: !!tracking.request?.Product_Description_Web_Retailer,
-            hasProductTitle: !!tracking.request?.Product_Title_Web_Retailer
+            hasFergusonData: tracking.request && tracking.request.fergusonFieldCount > 0,
+            hasSpecTable: tracking.request && tracking.request.webRetailerSpecCount > 0,
+            hasFergusonAttributes: tracking.request && tracking.request.fergusonAttributeCount > 0,
+            hasProductDescription: tracking.request?.rawPayload && 'Product_Description_Web_Retailer' in tracking.request.rawPayload,
+            hasProductTitle: tracking.request?.rawPayload && 'Product_Title_Web_Retailer' in tracking.request.rawPayload
           },
           researchCapabilities: [
             'Parse raw Salesforce payload',
