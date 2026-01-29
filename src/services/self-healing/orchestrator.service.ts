@@ -63,7 +63,7 @@ class SelfHealingOrchestrator {
       // PHASE 0: Load original job data
       result.phase = 'loading_data';
       const originalJob = await VerificationJob.findOne({ jobId });
-      const apiTracker = await APITracker.findOne({ jobId });
+      const apiTracker = await APITracker.findOne({ sessionId: jobId });
 
       if (!originalJob) {
         return { ...result, reason: 'Job not found in database' };
