@@ -15,6 +15,27 @@ interface WebhookPayload {
   processingTimeMs: number;
 }
 
+/**
+ * Recursively convert all null values to empty strings
+ * Salesforce Apex JSON parser cannot handle null values
+ */
+function sanitizeForSalesforce(obj: any): any {
+  if (obj === null || obj === undefined) {
+    return '';
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(item => sanitizeForSalesforce(item));
+  }
+  if (typeof obj === 'object') {
+    const sanitized: any = {};
+    for (const key of Object.keys(obj)) {
+      sanitized[key] = sanitizeForSalesforce(obj[key]);
+    }
+    return sanitized;
+  }
+  return obj;
+}
+
 class WebhookService {
   private readonly MAX_RETRIES = 3;
   private readonly RETRY_DELAY_MS = 5000;
@@ -36,7 +57,8 @@ class WebhookService {
         return false;
       }
 
-      const payload: WebhookPayload = {
+      // Build and sanitize payload - convert null to empty strings for Salesforce
+      const rawPayload: WebhookPayload = {
         success: job.status === 'completed',
         data: {
           SF_Catalog_Id: job.sfCatalogId,
@@ -46,6 +68,9 @@ class WebhookService {
         sessionId: job.jobId,
         processingTimeMs: job.processingTimeMs || 0
       };
+      
+      // Sanitize: Salesforce Apex JSON parser cannot handle null values
+      const payload = sanitizeForSalesforce(rawPayload) as WebhookPayload;
 
       logger.info('STEP 7: Sending results back to Salesforce via webhook', {
         jobId,

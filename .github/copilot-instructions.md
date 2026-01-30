@@ -16,9 +16,14 @@ When the user says **"Establish Connection"** or **"Connect to production"**, ex
 1. Verify SSH connectivity to production server
 2. Compare local, GitHub, and production commits
 3. Check production service health
-4. Report sync status
-5. **Find and display the most recent session summary** from `session-notes/` folder
-6. Ask user if they want to continue from where we left off
+4. **Verify all required ports and processes are running:**
+   - Port 3001: Node.js API (catalog-verification service)
+   - Port 27017: MongoDB (Docker container)
+   - Port 443: HTTPS (nginx)
+   - Port 80: HTTP redirect (nginx)
+5. Report sync status and system health
+6. **Find and display the most recent session summary** from `session-notes/` folder
+7. Ask user if they want to continue from where we left off
 
 When the user says **"Save everything"** or **"Save all"**, execute these steps:
 1. Check for any uncommitted changes (`git status`)
@@ -30,6 +35,24 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 7. Confirm production service is healthy
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
+
+---
+
+## Required Ports & Processes
+
+### Production Server (verify.cxc-ai.com)
+
+| Port | Service | Process | Check Command |
+|------|---------|---------|---------------|
+| 3001 | Node.js API | catalog-verification | `systemctl is-active catalog-verification` |
+| 27017 | MongoDB | Docker container | `docker ps \| grep mongodb` |
+| 443 | HTTPS | nginx | `systemctl is-active nginx` |
+| 80 | HTTP redirect | nginx | `systemctl is-active nginx` |
+
+### Quick Health Check Command
+```bash
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "ss -tlnp | grep -E '(3001|27017|443|80)'"
+```
 
 ---
 

@@ -481,29 +481,26 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
   // ========================================================================
   // DETERMINE RECOMMENDATION
   // ========================================================================
+  // ALWAYS trust Ferguson data first - Web Retailer data may be miscategorized
+  // Never reject - always proceed with Ferguson as primary source
   const criticalConflicts = conflicts.filter(c => c.severity === 'critical');
   const warningConflicts = conflicts.filter(c => c.severity === 'warning');
 
   let recommendation: DataCoherenceResult['recommendation'];
   let primaryDataSource: DataCoherenceResult['primaryDataSource'];
 
-  if (criticalConflicts.length >= 2) {
-    // Multiple critical conflicts = data is unusable
-    recommendation = 'reject';
-    primaryDataSource = 'none';
-  } else if (criticalConflicts.length === 1) {
-    // Single critical conflict = proceed with warnings, trust Ferguson over Web Retailer
+  // Always use Ferguson as primary data source when available
+  primaryDataSource = ferguson.brand ? 'ferguson' : webRetailer.brand ? 'web_retailer' : 'none';
+
+  if (criticalConflicts.length > 0 || warningConflicts.length > 0) {
+    // Conflicts detected - proceed with warnings but ALWAYS use Ferguson data
     recommendation = 'proceed_with_warnings';
-    primaryDataSource = ferguson.brand ? 'ferguson' : 'web_retailer';
-    warnings.push(`CRITICAL: ${criticalConflicts[0].description}. Proceeding with ${primaryDataSource} data only.`);
-  } else if (warningConflicts.length > 0) {
-    // Only warnings = proceed but log concerns
-    recommendation = 'proceed_with_warnings';
-    primaryDataSource = ferguson.brand ? 'ferguson' : 'web_retailer';
+    for (const conflict of criticalConflicts) {
+      warnings.push(`Data mismatch (ignored - using Ferguson): ${conflict.description}`);
+    }
   } else {
     // No conflicts
     recommendation = 'proceed';
-    primaryDataSource = ferguson.brand ? 'ferguson' : webRetailer.brand ? 'web_retailer' : 'none';
   }
 
   // Floor the confidence score at 0
@@ -4069,6 +4066,29 @@ function buildFinalResponse(
         xaiStyle: styleDisagreement.xaiValue,
         selectedStyle: potentialStyle
       });
+    }
+  }
+  
+  // Check Ferguson data for style information (Theme for design styles, Installation Type for functional styles)
+  if (!potentialStyle) {
+    // First check Ferguson Theme (design aesthetic: Contemporary, Modern, etc.)
+    const fergusonTheme = rawProduct.Ferguson_Attributes?.find(
+      (attr: { name: string; value: string }) => attr.name?.toLowerCase() === 'theme'
+    )?.value;
+    if (fergusonTheme) {
+      potentialStyle = fergusonTheme;
+      logger.info('Using Ferguson Theme as style', { theme: fergusonTheme });
+    }
+  }
+  
+  if (!potentialStyle) {
+    // Then check Ferguson Installation Type (functional style: Wall Mounted, Undermount, etc.)
+    const fergusonInstallType = rawProduct.Ferguson_Attributes?.find(
+      (attr: { name: string; value: string }) => attr.name?.toLowerCase() === 'installation type'
+    )?.value;
+    if (fergusonInstallType) {
+      potentialStyle = fergusonInstallType;
+      logger.info('Using Ferguson Installation Type as style', { installationType: fergusonInstallType });
     }
   }
   
