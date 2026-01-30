@@ -8246,5 +8246,25 @@
   {
     "attribute_id": "a1aaZ000009iWOoQAM",
     "attribute_name": "Warming Drawer"
+  },
+  {
+    "attribute_name": "bore_hole",
+    "attribute_id": "a1aaZ000009prhqQAA"
+  },
+  {
+    "attribute_name": "ASTM",
+    "attribute_id": "a1aaZ000009q3W6QAI"
+  },
+  {
+    "attribute_name": "Schedule Class",
+    "attribute_id": "a1aaZ000009q3W7QAI"
+  },
+  {
+    "attribute_name": "end_connection_1",
+    "attribute_id": "a1aaZ000009q3flQAA"
+  },
+  {
+    "attribute_name": "end_connection_2",
+    "attribute_id": "a1aaZ000009q3fmQAA"
   }
 ]

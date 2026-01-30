@@ -802,5 +802,41 @@
   {
     "style_id": "a1IaZ000001S93WUAS",
     "style_name": "Workstation"
+  },
+  {
+    "style_name": "Transitional",
+    "style_id": "a1IaZ000001TVXhUAO"
+  },
+  {
+    "style_name": "Contemporary",
+    "style_id": "a1IaZ000001TVZJUA4"
+  },
+  {
+    "style_name": "Rustic",
+    "style_id": "a1IaZ000001TVcXUAW"
+  },
+  {
+    "style_name": "Knurled",
+    "style_id": "a1IaZ000001TVpRUAW"
+  },
+  {
+    "style_name": "Victorian",
+    "style_id": "a1IaZ000001TVuHUAW"
+  },
+  {
+    "style_name": "Vintage",
+    "style_id": "a1IaZ000001TW2LUAW"
+  },
+  {
+    "style_name": "Nipple",
+    "style_id": "a1IaZ000001TW3xUAG"
+  },
+  {
+    "style_name": "Modern",
+    "style_id": "a1IaZ000001TWAPUA4"
+  },
+  {
+    "style_id": "a1IaZ000001She9UAC",
+    "style_name": "Outdoor Lighting"
   }
 ]
