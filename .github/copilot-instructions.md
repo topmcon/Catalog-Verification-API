@@ -17,6 +17,8 @@ When the user says **"Establish Connection"** or **"Connect to production"**, ex
 2. Compare local, GitHub, and production commits
 3. Check production service health
 4. Report sync status
+5. **Find and display the most recent session summary** from `session-notes/` folder
+6. Ask user if they want to continue from where we left off
 
 When the user says **"Save everything"** or **"Save all"**, execute these steps:
 1. Check for any uncommitted changes (`git status`)
