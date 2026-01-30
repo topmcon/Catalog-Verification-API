@@ -633,20 +633,22 @@ class SelfHealingOrchestrator {
       blankTop15: top15Blanks.slice(0, 5).join(', ') + (top15Blanks.length > 5 ? '...' : '') || 'none'
     });
     
-    // TRIGGER SELF-HEALING if ANY extraction failures OR any critical blank fields
-    // Critical fields that should always have a value: Brand, Category, Title, Model
+    // TRIGGER SELF-HEALING if ANY extraction failures OR any blank fields in response
+    // This ensures we review EVERY job where data might be missing
     const criticalBlankFields = blankResponseFields.filter(f => 
       ['Brand_Verified', 'Category_Verified', 'Product_Title_Verified', 'Model_Number_Verified'].includes(f)
     );
     
-    const shouldTriggerHealing = failureCount > 0 || criticalBlankFields.length > 0;
+    // Trigger healing if:
+    // 1. AI failed to extract data that was available in payload, OR
+    // 2. ANY primary response field is blank (need to verify it's truly not available)
+    const shouldTriggerHealing = failureCount > 0 || blankResponseFields.length > 0;
     
     if (!shouldTriggerHealing) {
-      logger.info('[Self-Healing] ✅ AI extraction audit passed - all critical fields populated', {
+      logger.info('[Self-Healing] ✅ AI extraction audit passed - ALL fields populated', {
         jobId: job.jobId,
         product: job.sfCatalogName,
-        blankNonCriticalFields: blankResponseFields.length,
-        blankTop15: top15Blanks.length
+        allFieldsPopulated: true
       });
       return null;
     }
