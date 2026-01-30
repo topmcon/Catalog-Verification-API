@@ -4653,7 +4653,58 @@ function buildFinalResponse(
         )
       );
       // Use "None Identified" instead of "Not Found" for model variant fields
-      return (!value || value === 'Not Found') ? 'None Identified' : value;
+      if (!value || value === 'Not Found') return 'None Identified';
+      
+      // Extract only variant suffixes to save space (SF field limit: 255 chars)
+      // Get the model parent to strip from each variant
+      const modelParent = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_parent,
+        openaiResult.primaryAttributes.model_parent,
+        xaiResult.primaryAttributes.model_parent,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      
+      if (modelParent && modelParent !== 'Not Found' && modelParent !== 'None Identified') {
+        // Split variants and extract only the suffix portion
+        // E.g., "2400-4273-034, 2400-4273/65" with parent "2400-4273" → "034, 65"
+        const variants = value.split(/,\s*/);
+        const suffixes = variants.map(variant => {
+          const trimmed = variant.trim();
+          // Simple approach: if variant starts with parent, extract suffix
+          if (trimmed.startsWith(modelParent)) {
+            let suffix = trimmed.substring(modelParent.length);
+            // Remove leading separator (- or /)
+            if (suffix.startsWith('-') || suffix.startsWith('/')) {
+              suffix = suffix.substring(1);
+            }
+            return suffix || trimmed;
+          }
+          return trimmed;
+        });
+        
+        const result = suffixes.join(', ');
+        logger.info('Total_Model_Variants extracted suffixes only', {
+          originalLength: value.length,
+          resultLength: result.length,
+          modelParent,
+          sampleSuffixes: suffixes.slice(0, 5).join(', ')
+        });
+        
+        // If still too long, truncate with indicator
+        if (result.length > 250) {
+          const truncated = result.substring(0, 245) + '...';
+          return truncated;
+        }
+        return result;
+      }
+      
+      // No parent to strip, just truncate if needed
+      if (value.length > 250) {
+        return value.substring(0, 245) + '...';
+      }
+      return value;
     })()
   };
 
