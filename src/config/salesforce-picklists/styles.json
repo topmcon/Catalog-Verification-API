@@ -1,19 +1,7 @@
 [
   {
-    "style_name": "ADA Compliant",
-    "style_id": "a1IaZ000001S93LUAS"
-  },
-  {
     "style_name": "Accent",
     "style_id": "a1IaZ000001S90QUAS"
-  },
-  {
-    "style_name": "Accessory",
-    "style_id": "a1IaZ0000019zbZUAQ"
-  },
-  {
-    "style_name": "Air Bath",
-    "style_id": "a1IaZ000001S92bUAC"
   },
   {
     "style_name": "Alcove",
@@ -164,18 +152,6 @@
     "style_id": "a1IaZ000001S90EUAS"
   },
   {
-    "style_name": "Doorless",
-    "style_id": "a1IaZ000001S92hUAC"
-  },
-  {
-    "style_name": "Double Bowl",
-    "style_id": "a1IaZ000001S93VUAS"
-  },
-  {
-    "style_name": "Double Sink",
-    "style_id": "a1IaZ000001S92xUAC"
-  },
-  {
     "style_name": "Double Wall",
     "style_id": "a1IaZ0000019zenUAA"
   },
@@ -214,14 +190,6 @@
   {
     "style_name": "Dummy",
     "style_id": "a1IaZ000001S93aUAC"
-  },
-  {
-    "style_name": "Electric",
-    "style_id": "a1IaZ0000019ztJUAQ"
-  },
-  {
-    "style_name": "Elongated",
-    "style_id": "a1IaZ000001S93JUAS"
   },
   {
     "style_name": "Farmhouse",
@@ -280,10 +248,6 @@
     "style_id": "a1IaZ000000ZVH3UAO"
   },
   {
-    "style_name": "Gas",
-    "style_id": "a1IaZ000000YiTaUAK"
-  },
-  {
     "style_name": "Globe",
     "style_id": "a1IaZ000001S91tUAC"
   },
@@ -302,18 +266,6 @@
   {
     "style_name": "Handheld",
     "style_id": "a1IaZ000001S92kUAC"
-  },
-  {
-    "style_name": "Handle Set",
-    "style_id": "a1IaZ000001S93eUAC"
-  },
-  {
-    "style_name": "Hinge",
-    "style_id": "a1IaZ000001S93fUAC"
-  },
-  {
-    "style_name": "Induction",
-    "style_id": "a1IaZ0000019mb7UAA"
   },
   {
     "style_name": "Insert",
@@ -344,16 +296,8 @@
     "style_id": "a1IaZ000001S93XUAS"
   },
   {
-    "style_name": "Knob",
-    "style_id": "a1IaZ000001S93dUAC"
-  },
-  {
     "style_name": "Landscape",
     "style_id": "a1IaZ000001S91dUAC"
-  },
-  {
-    "style_name": "Lever",
-    "style_id": "a1IaZ000001S93cUAC"
   },
   {
     "style_name": "Lighted",
@@ -500,10 +444,6 @@
     "style_id": "a1IaZ000001S92LUAS"
   },
   {
-    "style_name": "Round",
-    "style_id": "a1IaZ000001S93KUAS"
-  },
-  {
     "style_name": "Sconce",
     "style_id": "a1IaZ000001S91PUAS"
   },
@@ -556,36 +496,16 @@
     "style_id": "a1IaZ0000018tA1UAI"
   },
   {
-    "style_name": "Single Bowl",
-    "style_id": "a1IaZ000001S93UUAS"
-  },
-  {
-    "style_name": "Single Handle",
-    "style_id": "a1IaZ000001S92AUAS"
-  },
-  {
     "style_name": "Single Hole",
     "style_id": "a1IaZ000001S924UAC"
-  },
-  {
-    "style_name": "Single Sink",
-    "style_id": "a1IaZ000001S92wUAC"
   },
   {
     "style_name": "Smart",
     "style_id": "a1IaZ000001S93HUAS"
   },
   {
-    "style_name": "Soaking",
-    "style_id": "a1IaZ000001S92ZUAS"
-  },
-  {
     "style_name": "Sputnik",
     "style_id": "a1IaZ000001S91uUAC"
-  },
-  {
-    "style_name": "Stainless Steel",
-    "style_id": "a1IaZ000001S90LUAS"
   },
   {
     "style_name": "Standalone",
@@ -610,10 +530,6 @@
   {
     "style_name": "Storage Tower",
     "style_id": "a1IaZ000001S90WUAS"
-  },
-  {
-    "style_name": "Strike Plate",
-    "style_id": "a1IaZ000001S93gUAC"
   },
   {
     "style_name": "Swing Arm",
@@ -652,10 +568,6 @@
     "style_id": "a1IaZ000001S91pUAC"
   },
   {
-    "style_name": "Touchless",
-    "style_id": "a1IaZ000001S92HUAS"
-  },
-  {
     "style_name": "Towel Bar",
     "style_id": "a1IaZ000001S938UAC"
   },
@@ -674,10 +586,6 @@
   {
     "style_name": "Transfer",
     "style_id": "a1IaZ000001S90GUAS"
-  },
-  {
-    "style_name": "Two Handle",
-    "style_id": "a1IaZ000001S92BUAS"
   },
   {
     "style_name": "Two-Piece",
@@ -770,26 +678,6 @@
   {
     "style_name": "Wall-Mounted",
     "style_id": "a1IaZ000000nyELUAY"
-  },
-  {
-    "style_name": "Warming",
-    "style_id": "a1IaZ000001A01NUAS"
-  },
-  {
-    "style_name": "Warming",
-    "style_id": "a1IaZ000001S90AUAS"
-  },
-  {
-    "style_name": "Waterfall",
-    "style_id": "a1IaZ000001S929UAC"
-  },
-  {
-    "style_name": "Waterfall",
-    "style_id": "a1IaZ000001S92MUAS"
-  },
-  {
-    "style_name": "Whirlpool",
-    "style_id": "a1IaZ000001S92aUAC"
   },
   {
     "style_name": "Widespread",
