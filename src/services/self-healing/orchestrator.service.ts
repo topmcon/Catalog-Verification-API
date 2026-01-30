@@ -192,19 +192,20 @@ class SelfHealingOrchestrator {
 
   /**
    * Detect issue from job and tracker data
-   * ENHANCED: Now analyzes EVERY completed job's verification results for missing/blank data
+   * COMPREHENSIVE AI EXTRACTION AUDIT
    * 
-   * Checks (in priority order):
-   * 1. Salesforce rejection errors (STRING_TOO_LONG, REQUIRED_FIELD_MISSING, etc.)
-   * 2. Missing/blank PRIMARY fields in verification results
-   * 3. Missing/blank TOP15 filter fields in verification results
-   * 4. Tracker-logged issues (missing_top15_field)
+   * For EVERY completed job, audits the AI's decision-making process:
+   * 1. Extracts ALL available data from the raw payload (Ferguson, manufacturer specs, etc.)
+   * 2. Compares against what the AI actually returned
+   * 3. Flags discrepancies where data WAS available but AI failed to extract it
+   * 4. Distinguishes between "no data available" vs "AI extraction failure"
+   * 
+   * This catches logic bugs, AI failures, and mapping issues - not just blank fields.
    */
   private async detectIssue(job: any, tracker: any): Promise<any | null> {
-    const missingFields: string[] = [];
-    const blankFields: string[] = [];
-    const analysisDetails: string[] = [];
-
+    const extractionFailures: Array<{field: string; availableInPayload: string; aiReturned: string; reason: string}> = [];
+    const auditFindings: string[] = [];
+    
     // Check for Salesforce-level errors first (highest priority)
     if (job.salesforceError) {
       logger.info('[Self-Healing] Detected Salesforce error', {
@@ -212,32 +213,20 @@ class SelfHealingOrchestrator {
         salesforceError: job.salesforceError
       });
       
-      // Parse the Salesforce error to determine issue type
       const errorMessage = job.salesforceError;
       let issueType = 'salesforce_rejection';
-      let severity: 'low' | 'medium' | 'high' = 'high';
+      const severity: 'low' | 'medium' | 'high' = 'high';
       const affectedFields: string[] = [];
       
-      // Detect STRING_TOO_LONG errors
       if (errorMessage.includes('STRING_TOO_LONG')) {
         issueType = 'field_too_long';
-        // Extract field name from error: "AI Total Model Variants: data value too large"
         const fieldMatch = errorMessage.match(/STRING_TOO_LONG,\s*([^:]+):/);
-        if (fieldMatch) {
-          affectedFields.push(fieldMatch[1].trim());
-        }
-      }
-      // Detect REQUIRED_FIELD_MISSING errors
-      else if (errorMessage.includes('REQUIRED_FIELD_MISSING')) {
+        if (fieldMatch) affectedFields.push(fieldMatch[1].trim());
+      } else if (errorMessage.includes('REQUIRED_FIELD_MISSING')) {
         issueType = 'required_field_missing';
-        // Extract field names: "Required fields are missing: [Name__c, Type__c]"
         const fieldsMatch = errorMessage.match(/missing:\s*\[([^\]]+)\]/);
-        if (fieldsMatch) {
-          affectedFields.push(...fieldsMatch[1].split(',').map((f: string) => f.trim()));
-        }
-      }
-      // Detect other common Salesforce errors
-      else if (errorMessage.includes('DUPLICATE_VALUE')) {
+        if (fieldsMatch) affectedFields.push(...fieldsMatch[1].split(',').map((f: string) => f.trim()));
+      } else if (errorMessage.includes('DUPLICATE_VALUE')) {
         issueType = 'duplicate_record';
       } else if (errorMessage.includes('FIELD_CUSTOM_VALIDATION_EXCEPTION')) {
         issueType = 'validation_failed';
@@ -258,171 +247,385 @@ class SelfHealingOrchestrator {
       };
     }
     
-    // =====================================================
-    // ENHANCED: Analyze verification results for blank data
-    // =====================================================
+    // ================================================================
+    // COMPREHENSIVE AI EXTRACTION AUDIT
+    // Compare raw payload data against AI verification results
+    // ================================================================
     const result = job.result?.data || job.result;
     const primaryAttrs = result?.Primary_Display_Attributes || result?.Primary_Attributes || {};
     const topFilterAttrs = result?.Top_Filter_Attributes || {};
     const rawPayload = job.rawPayload || {};
     
-    // Critical primary fields that should never be blank
-    const criticalPrimaryFields = [
-      'Brand_Verified',
-      'Category_Verified', 
-      'Product_Title_Verified',
-      'Model_Number_Verified'
-    ];
+    // Extract ALL available data from the raw payload
+    const payloadData = this.extractAllPayloadData(rawPayload);
     
-    // Important primary fields
-    const importantPrimaryFields = [
-      'MSRP_Verified',
-      'UPC_GTIN_Verified',
-      'Finish_Verified',
-      'Color_Verified',
-      'Width_Verified',
-      'Height_Verified',
-      'Depth_Verified'
-    ];
+    logger.info('[Self-Healing] 🔍 STARTING AI EXTRACTION AUDIT', {
+      jobId: job.jobId,
+      product: job.sfCatalogName,
+      payloadDataFound: Object.keys(payloadData).length,
+      hasResult: !!result
+    });
     
-    // Check critical primary fields for blanks
-    for (const field of criticalPrimaryFields) {
-      const value = primaryAttrs[field];
-      if (this.isBlankValue(value)) {
-        blankFields.push(field);
-        analysisDetails.push(`CRITICAL: ${field} is blank`);
-        
-        // Check if raw payload might have data for this field
-        const payloadHint = this.findPayloadHintForField(field, rawPayload);
-        if (payloadHint) {
-          analysisDetails.push(`  → Payload may have data: "${payloadHint.substring(0, 50)}..."`);
-        }
+    // ===== AUDIT CRITICAL FIELDS =====
+    
+    // 1. BRAND AUDIT
+    if (payloadData.brand) {
+      const aiReturned = primaryAttrs.Brand_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Brand_Verified',
+          availableInPayload: payloadData.brand,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract brand that exists in payload'
+        });
+        auditFindings.push(`❌ BRAND: Payload has "${payloadData.brand}" but AI returned "${aiReturned || 'empty'}"`);
+      } else {
+        auditFindings.push(`✓ BRAND: AI extracted "${aiReturned}" (payload: "${payloadData.brand}")`);
+      }
+    } else {
+      auditFindings.push(`○ BRAND: No data in payload - AI correctly has no source`);
+    }
+    
+    // 2. MODEL NUMBER AUDIT
+    if (payloadData.modelNumber) {
+      const aiReturned = primaryAttrs.Model_Number_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Model_Number_Verified',
+          availableInPayload: payloadData.modelNumber,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract model number that exists in payload'
+        });
+        auditFindings.push(`❌ MODEL: Payload has "${payloadData.modelNumber}" but AI returned "${aiReturned || 'empty'}"`);
+      } else {
+        auditFindings.push(`✓ MODEL: AI extracted "${aiReturned}" (payload: "${payloadData.modelNumber}")`);
       }
     }
     
-    // Check important primary fields
-    for (const field of importantPrimaryFields) {
-      const value = primaryAttrs[field];
-      if (this.isBlankValue(value)) {
-        blankFields.push(field);
-        analysisDetails.push(`IMPORTANT: ${field} is blank`);
+    // 3. CATEGORY AUDIT
+    if (payloadData.category) {
+      const aiReturned = primaryAttrs.Category_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Category_Verified',
+          availableInPayload: payloadData.category,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to determine category despite payload data'
+        });
+        auditFindings.push(`❌ CATEGORY: Payload suggests "${payloadData.category}" but AI returned "${aiReturned || 'empty'}"`);
+      } else {
+        auditFindings.push(`✓ CATEGORY: AI determined "${aiReturned}" (payload hint: "${payloadData.category}")`);
       }
     }
     
-    // Check TOP15 filter attributes
-    const top15FieldNames = Object.keys(topFilterAttrs);
-    for (const field of top15FieldNames) {
-      const value = topFilterAttrs[field];
-      if (this.isBlankValue(value)) {
-        blankFields.push(`Top15.${field}`);
-        analysisDetails.push(`TOP15: ${field} is blank`);
+    // 4. TITLE AUDIT
+    if (payloadData.title) {
+      const aiReturned = primaryAttrs.Product_Title_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Product_Title_Verified',
+          availableInPayload: payloadData.title.substring(0, 100),
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract title that exists in payload'
+        });
+        auditFindings.push(`❌ TITLE: Payload has title but AI returned empty`);
+      } else {
+        auditFindings.push(`✓ TITLE: AI extracted title (${aiReturned.length} chars)`);
       }
     }
     
-    // Also check tracker-logged issues
-    const trackerMissingFields = tracker?.issues
-      ?.filter((issue: any) => issue.type === 'missing_top15_field')
-      ?.map((issue: any) => issue.field) || [];
-    
-    for (const field of trackerMissingFields) {
-      if (!blankFields.includes(field) && !blankFields.includes(`Top15.${field}`)) {
-        missingFields.push(field);
-        analysisDetails.push(`TRACKER: ${field} was logged as missing`);
+    // 5. PRICE/MSRP AUDIT
+    if (payloadData.price) {
+      const aiReturned = primaryAttrs.MSRP_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'MSRP_Verified',
+          availableInPayload: payloadData.price,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract price that exists in payload'
+        });
+        auditFindings.push(`❌ PRICE: Payload has "${payloadData.price}" but AI returned "${aiReturned || 'empty'}"`);
+      } else {
+        auditFindings.push(`✓ PRICE: AI extracted "${aiReturned}" (payload: "${payloadData.price}")`);
       }
     }
     
-    // Combine all missing/blank fields
-    const allIssueFields = [...blankFields, ...missingFields];
+    // 6. DIMENSIONS AUDIT
+    if (payloadData.width) {
+      const aiReturned = primaryAttrs.Width_Verified || topFilterAttrs.Width_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Width_Verified',
+          availableInPayload: payloadData.width,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract width from payload'
+        });
+        auditFindings.push(`❌ WIDTH: Payload has "${payloadData.width}" but AI missed it`);
+      }
+    }
     
-    if (allIssueFields.length === 0) {
+    if (payloadData.height) {
+      const aiReturned = primaryAttrs.Height_Verified || topFilterAttrs.Height_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Height_Verified',
+          availableInPayload: payloadData.height,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract height from payload'
+        });
+        auditFindings.push(`❌ HEIGHT: Payload has "${payloadData.height}" but AI missed it`);
+      }
+    }
+    
+    // 7. UPC/GTIN AUDIT
+    if (payloadData.upc) {
+      const aiReturned = primaryAttrs.UPC_GTIN_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'UPC_GTIN_Verified',
+          availableInPayload: payloadData.upc,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract UPC/GTIN from payload'
+        });
+        auditFindings.push(`❌ UPC: Payload has "${payloadData.upc}" but AI missed it`);
+      }
+    }
+    
+    // 8. COLOR/FINISH AUDIT
+    if (payloadData.color) {
+      const aiReturned = primaryAttrs.Color_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Color_Verified',
+          availableInPayload: payloadData.color,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract color from payload'
+        });
+        auditFindings.push(`❌ COLOR: Payload has "${payloadData.color}" but AI missed it`);
+      }
+    }
+    
+    if (payloadData.finish) {
+      const aiReturned = primaryAttrs.Finish_Verified || '';
+      if (this.isBlankOrUnknown(aiReturned)) {
+        extractionFailures.push({
+          field: 'Finish_Verified',
+          availableInPayload: payloadData.finish,
+          aiReturned: aiReturned || '(empty)',
+          reason: 'AI failed to extract finish from payload'
+        });
+        auditFindings.push(`❌ FINISH: Payload has "${payloadData.finish}" but AI missed it`);
+      }
+    }
+    
+    // ===== LOG COMPREHENSIVE AUDIT RESULTS =====
+    const failureCount = extractionFailures.length;
+    
+    logger.info('[Self-Healing] 📊 AI EXTRACTION AUDIT COMPLETE', {
+      jobId: job.jobId,
+      product: job.sfCatalogName,
+      extractionFailures: failureCount,
+      payloadFieldsFound: Object.keys(payloadData).filter(k => payloadData[k]).length,
+      auditSummary: failureCount === 0 ? 'ALL_EXTRACTIONS_VALID' : 'EXTRACTION_FAILURES_DETECTED'
+    });
+    
+    // Log detailed findings
+    auditFindings.forEach(finding => {
+      if (finding.startsWith('❌')) {
+        logger.warn(`[Self-Healing] ${finding}`, { jobId: job.jobId });
+      } else {
+        logger.debug(`[Self-Healing] ${finding}`, { jobId: job.jobId });
+      }
+    });
+    
+    // If no extraction failures, the AI did its job correctly
+    if (failureCount === 0) {
+      logger.info('[Self-Healing] ✅ AI extraction audit passed - no issues found', {
+        jobId: job.jobId,
+        product: job.sfCatalogName
+      });
       return null;
     }
     
-    // Calculate severity based on what's missing
-    const criticalBlanks = blankFields.filter(f => criticalPrimaryFields.includes(f));
+    // Calculate severity based on what failed
+    const criticalFailures = extractionFailures.filter(f => 
+      ['Brand_Verified', 'Category_Verified', 'Product_Title_Verified', 'Model_Number_Verified'].includes(f.field)
+    );
+    
     let severity: 'low' | 'medium' | 'high' = 'low';
-    if (criticalBlanks.length >= 2) {
+    if (criticalFailures.length >= 2) {
       severity = 'high';
-    } else if (criticalBlanks.length === 1 || blankFields.length > 5) {
+    } else if (criticalFailures.length === 1 || failureCount > 3) {
       severity = 'medium';
     }
     
-    logger.info('[Self-Healing] 📊 ANALYZED VERIFICATION RESULTS', {
+    logger.warn('[Self-Healing] 🚨 AI EXTRACTION FAILURES DETECTED', {
       jobId: job.jobId,
-      sfCatalogId: job.sfCatalogId,
-      totalBlankFields: blankFields.length,
-      criticalBlanks: criticalBlanks.length,
+      product: job.sfCatalogName,
       severity,
-      blankFields: blankFields.join(', '),
-      analysisDetails
+      totalFailures: failureCount,
+      criticalFailures: criticalFailures.length,
+      failedFields: extractionFailures.map(f => f.field).join(', ')
     });
 
     return {
       jobId: job.jobId,
       sfCatalogId: job.sfCatalogId,
-      issueType: 'missing_data',
+      issueType: 'ai_extraction_failure',
       severity,
-      missingFields: allIssueFields,
-      blankFields,
+      missingFields: extractionFailures.map(f => f.field),
+      extractionFailures,
+      auditFindings,
       wrongFields: [],
       affectedCount: 1,
       rawPayload: job.rawPayload,
       currentResponse: tracker?.response || job.result,
-      errorLogs: job.error ? [job.error] : [],
-      analysisDetails
+      errorLogs: job.error ? [job.error] : []
     };
   }
 
   /**
-   * Check if a value is blank/empty/unknown
+   * Extract ALL available data from the raw payload
+   * Scans Ferguson data, manufacturer specs, and any other sources
    */
-  private isBlankValue(value: any): boolean {
+  private extractAllPayloadData(rawPayload: any): Record<string, string> {
+    const data: Record<string, string> = {};
+    
+    if (!rawPayload) return data;
+    
+    // === FERGUSON DATA ===
+    const ferguson = rawPayload.Ferguson_Raw_Data || rawPayload.ferguson_raw_data || rawPayload;
+    const product = ferguson?.product || ferguson;
+    
+    // Brand - multiple possible locations
+    data.brand = 
+      product?.brand?.name ||
+      product?.brand ||
+      product?.manufacturer?.name ||
+      product?.manufacturer ||
+      ferguson?.brand ||
+      this.searchPayload(rawPayload, ['brand', 'manufacturer', 'mfr', 'vendor']);
+    
+    // Model Number
+    data.modelNumber = 
+      product?.model_number ||
+      product?.modelNumber ||
+      product?.mpn ||
+      product?.mfr_number ||
+      product?.item?.modelNumber ||
+      this.searchPayload(rawPayload, ['model_number', 'modelNumber', 'mpn', 'mfr_number', 'sku']);
+    
+    // Category from Ferguson
+    data.category = 
+      product?.business_category ||
+      product?.base_category ||
+      ferguson?.search_meta_data?.business_category ||
+      ferguson?.search_meta_data?.base_category ||
+      product?.categories?.[0]?.name ||
+      this.searchPayload(rawPayload, ['category', 'business_category', 'base_category']);
+    
+    // Title/Name
+    data.title = 
+      product?.title ||
+      product?.name ||
+      product?.product_name ||
+      product?.description ||
+      this.searchPayload(rawPayload, ['title', 'name', 'product_name', 'productName']);
+    
+    // Price/MSRP
+    const priceValue = 
+      product?.price?.current ||
+      product?.price?.list ||
+      product?.price?.msrp ||
+      product?.currentPrice ||
+      product?.listPrice ||
+      product?.msrp ||
+      this.searchPayload(rawPayload, ['price', 'msrp', 'listPrice', 'currentPrice']);
+    if (priceValue) {
+      data.price = typeof priceValue === 'number' ? priceValue.toString() : priceValue;
+    }
+    
+    // Dimensions - check specs array and direct properties
+    const specs = product?.specifications || product?.specs || [];
+    for (const spec of specs) {
+      const specName = (spec?.name || spec?.label || '').toLowerCase();
+      const specValue = spec?.value || spec?.values?.[0] || '';
+      
+      if (specName.includes('width') && !data.width) data.width = specValue;
+      if (specName.includes('height') && !data.height) data.height = specValue;
+      if (specName.includes('depth') && !data.depth) data.depth = specValue;
+      if (specName.includes('upc') || specName.includes('gtin')) data.upc = specValue;
+      if (specName.includes('color') && !data.color) data.color = specValue;
+      if (specName.includes('finish') && !data.finish) data.finish = specValue;
+    }
+    
+    // Direct dimension properties
+    if (!data.width) data.width = product?.width || product?.dimensions?.width || this.searchPayload(rawPayload, ['width']);
+    if (!data.height) data.height = product?.height || product?.dimensions?.height || this.searchPayload(rawPayload, ['height']);
+    if (!data.depth) data.depth = product?.depth || product?.dimensions?.depth || this.searchPayload(rawPayload, ['depth', 'length']);
+    
+    // UPC/GTIN
+    if (!data.upc) {
+      data.upc = product?.upc || product?.gtin || product?.ean || this.searchPayload(rawPayload, ['upc', 'gtin', 'ean', 'barcode']);
+    }
+    
+    // Color/Finish
+    if (!data.color) data.color = product?.color || product?.colorFinish?.color || this.searchPayload(rawPayload, ['color', 'colour']);
+    if (!data.finish) data.finish = product?.finish || product?.colorFinish?.finish || this.searchPayload(rawPayload, ['finish', 'surface']);
+    
+    // Clean up - remove empty/undefined values
+    for (const key of Object.keys(data)) {
+      if (!data[key] || data[key] === 'undefined' || data[key] === 'null') {
+        delete data[key];
+      }
+    }
+    
+    return data;
+  }
+
+  /**
+   * Deep search payload for a field value
+   */
+  private searchPayload(payload: any, fieldNames: string[]): string | undefined {
+    if (!payload) return undefined;
+    
+    const payloadStr = JSON.stringify(payload);
+    
+    for (const fieldName of fieldNames) {
+      // Try exact match first
+      const exactRegex = new RegExp(`"${fieldName}"\\s*:\\s*"([^"]+)"`, 'i');
+      const exactMatch = payloadStr.match(exactRegex);
+      if (exactMatch && exactMatch[1] && exactMatch[1].trim() !== '') {
+        return exactMatch[1];
+      }
+      
+      // Try number value
+      const numRegex = new RegExp(`"${fieldName}"\\s*:\\s*(\\d+\\.?\\d*)`, 'i');
+      const numMatch = payloadStr.match(numRegex);
+      if (numMatch && numMatch[1]) {
+        return numMatch[1];
+      }
+    }
+    
+    return undefined;
+  }
+
+  /**
+   * Check if a value is blank, empty, unknown, or indicates no data
+   */
+  private isBlankOrUnknown(value: any): boolean {
     if (value === null || value === undefined) return true;
     if (typeof value === 'string') {
       const trimmed = value.trim().toLowerCase();
-      if (trimmed === '' || trimmed === 'unknown' || trimmed === 'n/a' || trimmed === 'null') {
+      if (trimmed === '' || trimmed === 'unknown' || trimmed === 'n/a' || trimmed === 'null' || trimmed === 'undefined') {
         return true;
       }
-      // Check for "Procurement No Results" - this is intentionally blank
-      if (trimmed.includes('procurement no results') || trimmed.includes('research incomplete')) {
-        return false; // Don't flag as blank - it's a valid status
+      // These are VALID status codes - not failures
+      if (trimmed.includes('procurement no results')) {
+        return false; // Research was done, data doesn't exist
       }
     }
     return false;
-  }
-
-  /**
-   * Look in raw payload for potential data that could fill a blank field
-   */
-  private findPayloadHintForField(field: string, rawPayload: any): string | null {
-    // Map verified field names to common payload field names
-    const fieldMappings: Record<string, string[]> = {
-      'Brand_Verified': ['brand', 'Brand', 'manufacturer', 'Manufacturer', 'vendor', 'mfr'],
-      'Category_Verified': ['category', 'Category', 'productCategory', 'type', 'classification'],
-      'Product_Title_Verified': ['title', 'Title', 'name', 'Name', 'productName', 'description', 'productTitle'],
-      'Model_Number_Verified': ['model', 'Model', 'modelNumber', 'Model_Number', 'sku', 'SKU', 'partNumber'],
-      'MSRP_Verified': ['price', 'Price', 'msrp', 'MSRP', 'listPrice', 'retailPrice'],
-      'UPC_GTIN_Verified': ['upc', 'UPC', 'gtin', 'GTIN', 'barcode', 'ean'],
-      'Finish_Verified': ['finish', 'Finish', 'surface', 'coating'],
-      'Color_Verified': ['color', 'Color', 'colour'],
-      'Width_Verified': ['width', 'Width', 'w', 'W'],
-      'Height_Verified': ['height', 'Height', 'h', 'H'],
-      'Depth_Verified': ['depth', 'Depth', 'd', 'D', 'length', 'Length']
-    };
-    
-    const searchKeys = fieldMappings[field] || [];
-    const payloadStr = JSON.stringify(rawPayload);
-    
-    for (const key of searchKeys) {
-      // Look for the key in the payload
-      const regex = new RegExp(`"${key}"\\s*:\\s*"([^"]+)"`, 'i');
-      const match = payloadStr.match(regex);
-      if (match && match[1] && match[1].trim() !== '') {
-        return match[1];
-      }
-    }
-    
-    return null;
   }
 
   /**
