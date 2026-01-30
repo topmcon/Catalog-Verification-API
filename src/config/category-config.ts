@@ -21,12 +21,12 @@ interface CategoryFilterConfig {
 
 interface CategoryFilterAttributes {
   version: string;
-  date: string;
-  total_categories: number;
+  date?: string;
+  total_categories?: number;
   categories: Record<string, CategoryFilterConfig>;
 }
 
-const categoryFilterAttributes = categoryFilterAttributesData as CategoryFilterAttributes;
+const categoryFilterAttributes = categoryFilterAttributesData as unknown as CategoryFilterAttributes;
 
 /**
  * PRIMARY ATTRIBUTES (UNIVERSAL - ALL PRODUCTS)
