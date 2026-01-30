@@ -35,6 +35,7 @@ import {
 } from '../types/salesforce.types';
 import {
   getCategorySchema,
+  getCategorySchemaWithContext,
   getCategoryListForPrompt,
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt,
@@ -4734,7 +4735,20 @@ function buildFinalResponse(
   const attributeRequests: AttributeRequest[] = [];  // Track attributes not in Salesforce picklist
   
   // Get the category schema to map field keys to attribute names
-  const categorySchema = consensus.agreedCategory ? getCategorySchema(consensus.agreedCategory) : null;
+  // Use context-aware lookup to refine generic categories (e.g., "Decorative Lighting #" -> "Pendants #")
+  const productContext = {
+    title: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '',
+    description: rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '',
+    attributes: [
+      ...(rawProduct.Ferguson_Attributes || []),
+      ...(rawProduct.Web_Retailer_Specs || [])
+    ],
+    productType: rawProduct.Ferguson_Product_Type || ''
+  };
+  
+  const categorySchema = consensus.agreedCategory 
+    ? getCategorySchemaWithContext(consensus.agreedCategory, productContext) 
+    : null;
   
   // Create set of PRIMARY field keys (normalized) to filter out from Top 15
   const primaryFieldKeysSet = new Set(
@@ -4743,9 +4757,11 @@ function buildFinalResponse(
   
   // Log schema retrieval for debugging
   logger.info('Category schema lookup for attribute ID mapping', {
-    category: consensus.agreedCategory || 'unknown',
+    originalCategory: consensus.agreedCategory || 'unknown',
+    resolvedCategory: categorySchema?.categoryName || 'unknown',
     schemaFound: !!categorySchema,
-    attributeCount: categorySchema?.top15FilterAttributes?.length || 0
+    attributeCount: categorySchema?.top15FilterAttributes?.length || 0,
+    wasRefined: categorySchema?.categoryName !== consensus.agreedCategory
   });
   
   // Map to track which attributes we've already processed as requests (avoid duplicates)
