@@ -1,7 +1,7 @@
 {
   "version": "5.0",
   "date": "2026-01-30",
-  "total_categories": 88,
+  "total_categories": 87,
   "categories": {
     "Air Conditioners #": {
       "department": "HVAC",
@@ -6911,102 +6911,6 @@
           "rank": 15,
           "name": "Water Connection Type",
           "sf_id": "a1aaZ000008mBzaQAE",
-          "type": "enum"
-        }
-      ]
-    },
-    "Shower Faucets #": {
-      "department": "PLUMBING",
-      "category_id": "a01aZ00000dC5DtQAK",
-      "attributes": [
-        {
-          "rank": 1,
-          "name": "Handles Included",
-          "sf_id": "a1aaZ000008mBtDQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 2,
-          "name": "Faucet Type",
-          "sf_id": "a1aaZ000008mBsGQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 3,
-          "name": "Handshower Included",
-          "sf_id": "a1aaZ000008mBtIQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 4,
-          "name": "Handle Material",
-          "sf_id": "a1aaZ000008mBt9QAE",
-          "type": "enum"
-        },
-        {
-          "rank": 5,
-          "name": "Flow Rate (GPM)",
-          "sf_id": "a1aaZ000008mBsSQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 6,
-          "name": "Showerhead",
-          "sf_id": "a1aaZ000008mBxbQAE",
-          "type": "enum"
-        },
-        {
-          "rank": 7,
-          "name": "Number Of Handles",
-          "sf_id": "a1aaZ000008mBviQAE",
-          "type": "enum"
-        },
-        {
-          "rank": 8,
-          "name": "Valve Included",
-          "sf_id": "a1aaZ000008mBz7QAE",
-          "type": "enum"
-        },
-        {
-          "rank": 9,
-          "name": "material",
-          "sf_id": "a1aaZ000009gMbeQAE",
-          "type": "enum"
-        },
-        {
-          "rank": 10,
-          "name": "ASME Code",
-          "sf_id": "a1aaZ000008lz3uQAA",
-          "type": "enum"
-        },
-        {
-          "rank": 11,
-          "name": "Diverter Included",
-          "sf_id": "a1aaZ000008mBrNQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 12,
-          "name": "Diverter Location",
-          "sf_id": "a1aaZ000008mBrOQAU",
-          "type": "enum"
-        },
-        {
-          "rank": 13,
-          "name": "Bodysprays Included",
-          "sf_id": "a1aaZ000008lz4vQAA",
-          "type": "enum"
-        },
-        {
-          "rank": 14,
-          "name": "CSA Code",
-          "sf_id": "a1aaZ000008mBp4QAE",
-          "type": "enum"
-        },
-        {
-          "rank": 15,
-          "name": "Hose Included",
-          "sf_id": "a1aaZ000008mBtaQAE",
           "type": "enum"
         }
       ]
