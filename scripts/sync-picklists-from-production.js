@@ -14,6 +14,7 @@ const SSH_KEY = '~/.ssh/cxc_ai_deploy';
 const SSH_HOST = 'root@verify.cxc-ai.com';
 const PROD_PATH = '/opt/catalog-verification-api/src/config/salesforce-picklists';
 const LOCAL_PATH = path.join(__dirname, '../src/config/salesforce-picklists');
+const BACKUP_PATH = path.join(LOCAL_PATH, 'backups');
 
 const PICKLIST_FILES = [
   'attributes.json',
@@ -140,9 +141,13 @@ function syncFile(filename) {
   }
   
   // Create backup before overwriting
-  const backupPath = `${localPath}.backup.${new Date().toISOString().split('T')[0].replace(/-/g, '')}`;
+  if (!fs.existsSync(BACKUP_PATH)) {
+    fs.mkdirSync(BACKUP_PATH, { recursive: true });
+  }
+  const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  const backupPath = path.join(BACKUP_PATH, `${filename}.backup.${timestamp}`);
   fs.copyFileSync(localPath, backupPath);
-  console.log(`  💾 Backup created: ${path.basename(backupPath)}`);
+  console.log(`  💾 Backup created: backups/${path.basename(backupPath)}`);
   
   // Copy production version to local
   fs.copyFileSync(prodPath, localPath);
