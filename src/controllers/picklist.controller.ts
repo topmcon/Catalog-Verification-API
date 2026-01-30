@@ -702,6 +702,18 @@ export class PicklistController {
         catalog_index_update: catalogIndexUpdate
       });
       
+      // Auto-commit picklist changes to GitHub (async, don't wait)
+      if (result.success && summaries.some(s => s.items_added > 0 || s.items_removed > 0)) {
+        const { exec } = require('child_process');
+        exec('/opt/catalog-verification-api/scripts/auto-commit-picklists-to-github.sh', (error: any, stdout: any, stderr: any) => {
+          if (error) {
+            logger.error('Auto-commit to GitHub failed', { error: error.message, stderr });
+          } else {
+            logger.info('Auto-committed picklist changes to GitHub', { stdout });
+          }
+        });
+      }
+      
       if (result.success) {
         res.json({ 
           success: true, 
