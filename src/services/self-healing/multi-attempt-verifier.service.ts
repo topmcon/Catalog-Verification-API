@@ -455,9 +455,9 @@ ${JSON.stringify(expectedFix, null, 2)}
 }`;
 
     const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
+      config.xai.apiUrl + '/chat/completions',
       {
-        model: 'grok-2-latest',
+        model: config.xai.model,
         messages: [{ role: 'user', content: validationPrompt }],
         temperature: 0.2,
         response_format: { type: 'json_object' }

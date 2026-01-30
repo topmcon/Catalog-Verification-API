@@ -311,9 +311,9 @@ Give your FINAL approval or rejection.
 }`;
 
     const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
+      config.xai.apiUrl + '/chat/completions',
       {
-        model: 'grok-2-latest',
+        model: config.xai.model,
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.1,
         response_format: { type: 'json_object' }

@@ -471,9 +471,9 @@ Respond with JSON:
     const prompt = this.buildDiagnosticPrompt(issue, context, 'xai');
 
     const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
+      config.xai.apiUrl + '/chat/completions',
       {
-        model: 'grok-2-latest',
+        model: config.xai.model,
         messages: [
           {
             role: 'system',
@@ -646,9 +646,9 @@ Return JSON:
 }`;
 
     const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
+      config.xai.apiUrl + '/chat/completions',
       {
-        model: 'grok-2-latest',
+        model: config.xai.model,
         messages: [{ role: 'user', content: reviewPrompt }],
         temperature: 0.3,
         response_format: { type: 'json_object' }
