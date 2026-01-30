@@ -192,11 +192,19 @@ class SelfHealingOrchestrator {
 
   /**
    * Detect issue from job and tracker data
-   * Checks for:
-   * 1. Missing Top 15 fields
-   * 2. Salesforce rejection errors (STRING_TOO_LONG, REQUIRED_FIELD_MISSING, etc.)
+   * ENHANCED: Now analyzes EVERY completed job's verification results for missing/blank data
+   * 
+   * Checks (in priority order):
+   * 1. Salesforce rejection errors (STRING_TOO_LONG, REQUIRED_FIELD_MISSING, etc.)
+   * 2. Missing/blank PRIMARY fields in verification results
+   * 3. Missing/blank TOP15 filter fields in verification results
+   * 4. Tracker-logged issues (missing_top15_field)
    */
   private async detectIssue(job: any, tracker: any): Promise<any | null> {
+    const missingFields: string[] = [];
+    const blankFields: string[] = [];
+    const analysisDetails: string[] = [];
+
     // Check for Salesforce-level errors first (highest priority)
     if (job.salesforceError) {
       logger.info('[Self-Healing] Detected Salesforce error', {
@@ -250,29 +258,171 @@ class SelfHealingOrchestrator {
       };
     }
     
-    // Check for missing Top 15 fields (existing logic)
-    if (!tracker) return null;
-
-    const missingFields = tracker.issues
+    // =====================================================
+    // ENHANCED: Analyze verification results for blank data
+    // =====================================================
+    const result = job.result?.data || job.result;
+    const primaryAttrs = result?.Primary_Display_Attributes || result?.Primary_Attributes || {};
+    const topFilterAttrs = result?.Top_Filter_Attributes || {};
+    const rawPayload = job.rawPayload || {};
+    
+    // Critical primary fields that should never be blank
+    const criticalPrimaryFields = [
+      'Brand_Verified',
+      'Category_Verified', 
+      'Product_Title_Verified',
+      'Model_Number_Verified'
+    ];
+    
+    // Important primary fields
+    const importantPrimaryFields = [
+      'MSRP_Verified',
+      'UPC_GTIN_Verified',
+      'Finish_Verified',
+      'Color_Verified',
+      'Width_Verified',
+      'Height_Verified',
+      'Depth_Verified'
+    ];
+    
+    // Check critical primary fields for blanks
+    for (const field of criticalPrimaryFields) {
+      const value = primaryAttrs[field];
+      if (this.isBlankValue(value)) {
+        blankFields.push(field);
+        analysisDetails.push(`CRITICAL: ${field} is blank`);
+        
+        // Check if raw payload might have data for this field
+        const payloadHint = this.findPayloadHintForField(field, rawPayload);
+        if (payloadHint) {
+          analysisDetails.push(`  → Payload may have data: "${payloadHint.substring(0, 50)}..."`);
+        }
+      }
+    }
+    
+    // Check important primary fields
+    for (const field of importantPrimaryFields) {
+      const value = primaryAttrs[field];
+      if (this.isBlankValue(value)) {
+        blankFields.push(field);
+        analysisDetails.push(`IMPORTANT: ${field} is blank`);
+      }
+    }
+    
+    // Check TOP15 filter attributes
+    const top15FieldNames = Object.keys(topFilterAttrs);
+    for (const field of top15FieldNames) {
+      const value = topFilterAttrs[field];
+      if (this.isBlankValue(value)) {
+        blankFields.push(`Top15.${field}`);
+        analysisDetails.push(`TOP15: ${field} is blank`);
+      }
+    }
+    
+    // Also check tracker-logged issues
+    const trackerMissingFields = tracker?.issues
       ?.filter((issue: any) => issue.type === 'missing_top15_field')
       ?.map((issue: any) => issue.field) || [];
-
-    if (missingFields.length === 0) {
+    
+    for (const field of trackerMissingFields) {
+      if (!blankFields.includes(field) && !blankFields.includes(`Top15.${field}`)) {
+        missingFields.push(field);
+        analysisDetails.push(`TRACKER: ${field} was logged as missing`);
+      }
+    }
+    
+    // Combine all missing/blank fields
+    const allIssueFields = [...blankFields, ...missingFields];
+    
+    if (allIssueFields.length === 0) {
       return null;
     }
+    
+    // Calculate severity based on what's missing
+    const criticalBlanks = blankFields.filter(f => criticalPrimaryFields.includes(f));
+    let severity: 'low' | 'medium' | 'high' = 'low';
+    if (criticalBlanks.length >= 2) {
+      severity = 'high';
+    } else if (criticalBlanks.length === 1 || blankFields.length > 5) {
+      severity = 'medium';
+    }
+    
+    logger.info('[Self-Healing] 📊 ANALYZED VERIFICATION RESULTS', {
+      jobId: job.jobId,
+      sfCatalogId: job.sfCatalogId,
+      totalBlankFields: blankFields.length,
+      criticalBlanks: criticalBlanks.length,
+      severity,
+      blankFields: blankFields.join(', '),
+      analysisDetails
+    });
 
     return {
       jobId: job.jobId,
-      sfCatalogId: tracker.sfCatalogId,
+      sfCatalogId: job.sfCatalogId,
       issueType: 'missing_data',
-      severity: missingFields.length > 5 ? 'high' : 'medium',
-      missingFields,
+      severity,
+      missingFields: allIssueFields,
+      blankFields,
       wrongFields: [],
       affectedCount: 1,
       rawPayload: job.rawPayload,
-      currentResponse: tracker.response,
-      errorLogs: job.error ? [job.error] : []
+      currentResponse: tracker?.response || job.result,
+      errorLogs: job.error ? [job.error] : [],
+      analysisDetails
     };
+  }
+
+  /**
+   * Check if a value is blank/empty/unknown
+   */
+  private isBlankValue(value: any): boolean {
+    if (value === null || value === undefined) return true;
+    if (typeof value === 'string') {
+      const trimmed = value.trim().toLowerCase();
+      if (trimmed === '' || trimmed === 'unknown' || trimmed === 'n/a' || trimmed === 'null') {
+        return true;
+      }
+      // Check for "Procurement No Results" - this is intentionally blank
+      if (trimmed.includes('procurement no results') || trimmed.includes('research incomplete')) {
+        return false; // Don't flag as blank - it's a valid status
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Look in raw payload for potential data that could fill a blank field
+   */
+  private findPayloadHintForField(field: string, rawPayload: any): string | null {
+    // Map verified field names to common payload field names
+    const fieldMappings: Record<string, string[]> = {
+      'Brand_Verified': ['brand', 'Brand', 'manufacturer', 'Manufacturer', 'vendor', 'mfr'],
+      'Category_Verified': ['category', 'Category', 'productCategory', 'type', 'classification'],
+      'Product_Title_Verified': ['title', 'Title', 'name', 'Name', 'productName', 'description', 'productTitle'],
+      'Model_Number_Verified': ['model', 'Model', 'modelNumber', 'Model_Number', 'sku', 'SKU', 'partNumber'],
+      'MSRP_Verified': ['price', 'Price', 'msrp', 'MSRP', 'listPrice', 'retailPrice'],
+      'UPC_GTIN_Verified': ['upc', 'UPC', 'gtin', 'GTIN', 'barcode', 'ean'],
+      'Finish_Verified': ['finish', 'Finish', 'surface', 'coating'],
+      'Color_Verified': ['color', 'Color', 'colour'],
+      'Width_Verified': ['width', 'Width', 'w', 'W'],
+      'Height_Verified': ['height', 'Height', 'h', 'H'],
+      'Depth_Verified': ['depth', 'Depth', 'd', 'D', 'length', 'Length']
+    };
+    
+    const searchKeys = fieldMappings[field] || [];
+    const payloadStr = JSON.stringify(rawPayload);
+    
+    for (const key of searchKeys) {
+      // Look for the key in the payload
+      const regex = new RegExp(`"${key}"\\s*:\\s*"([^"]+)"`, 'i');
+      const match = payloadStr.match(regex);
+      if (match && match[1] && match[1].trim() !== '') {
+        return match[1];
+      }
+    }
+    
+    return null;
   }
 
   /**
