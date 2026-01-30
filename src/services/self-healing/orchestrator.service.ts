@@ -263,8 +263,22 @@ class SelfHealingOrchestrator {
       jobId: job.jobId,
       product: job.sfCatalogName,
       payloadDataFound: Object.keys(payloadData).length,
-      hasResult: !!result
+      payloadFields: Object.keys(payloadData).join(', '),
+      hasResult: !!result,
+      hasPrimaryAttrs: Object.keys(primaryAttrs).length > 0
     });
+    
+    // Log what we found in the payload
+    if (Object.keys(payloadData).length > 0) {
+      logger.debug('[Self-Healing] Payload data extracted', {
+        jobId: job.jobId,
+        brand: payloadData.brand,
+        modelNumber: payloadData.modelNumber,
+        category: payloadData.category,
+        title: payloadData.title?.substring(0, 50),
+        price: payloadData.price
+      });
+    }
     
     // ===== AUDIT CRITICAL FIELDS =====
     
@@ -493,60 +507,45 @@ class SelfHealingOrchestrator {
     
     if (!rawPayload) return data;
     
-    // === FERGUSON DATA ===
-    const ferguson = rawPayload.Ferguson_Raw_Data || rawPayload.ferguson_raw_data || rawPayload;
-    const product = ferguson?.product || ferguson;
+    // === FLAT PAYLOAD FIELDS (primary source) ===
+    // These are the actual field names in the Salesforce payload
+    data.brand = rawPayload.Ferguson_Brand || rawPayload.Brand_Web_Retailer;
+    data.modelNumber = rawPayload.Ferguson_Model_Number || rawPayload.Model_Number_Web_Retailer;
+    data.title = rawPayload.Ferguson_Title || rawPayload.Product_Title_Web_Retailer;
+    data.category = rawPayload.Ferguson_Business_Category || rawPayload.Ferguson_Base_Category || 
+                    rawPayload.Web_Retailer_Category;
+    data.price = rawPayload.Ferguson_Price || rawPayload.MSRP_Web_Retailer;
+    data.color = rawPayload.Ferguson_Color || rawPayload.Color_Finish_Web_Retailer;
+    data.finish = rawPayload.Ferguson_Finish;
+    data.width = rawPayload.Ferguson_Width || rawPayload.Width_Web_Retailer;
+    data.height = rawPayload.Ferguson_Height || rawPayload.Height_Web_Retailer;
+    data.depth = rawPayload.Ferguson_Depth || rawPayload.Depth_Web_Retailer;
     
-    // Brand - multiple possible locations
-    data.brand = 
-      product?.brand?.name ||
-      product?.brand ||
-      product?.manufacturer?.name ||
-      product?.manufacturer ||
-      ferguson?.brand ||
-      this.searchPayload(rawPayload, ['brand', 'manufacturer', 'mfr', 'vendor']);
+    // === FERGUSON_RAW_DATA (nested structure) ===
+    const ferguson = rawPayload.Ferguson_Raw_Data || {};
+    const product = ferguson.product || {};
     
-    // Model Number
-    data.modelNumber = 
-      product?.model_number ||
-      product?.modelNumber ||
-      product?.mpn ||
-      product?.mfr_number ||
-      product?.item?.modelNumber ||
-      this.searchPayload(rawPayload, ['model_number', 'modelNumber', 'mpn', 'mfr_number', 'sku']);
-    
-    // Category from Ferguson
-    data.category = 
-      product?.business_category ||
-      product?.base_category ||
-      ferguson?.search_meta_data?.business_category ||
-      ferguson?.search_meta_data?.base_category ||
-      product?.categories?.[0]?.name ||
-      this.searchPayload(rawPayload, ['category', 'business_category', 'base_category']);
-    
-    // Title/Name
-    data.title = 
-      product?.title ||
-      product?.name ||
-      product?.product_name ||
-      product?.description ||
-      this.searchPayload(rawPayload, ['title', 'name', 'product_name', 'productName']);
-    
-    // Price/MSRP
-    const priceValue = 
-      product?.price?.current ||
-      product?.price?.list ||
-      product?.price?.msrp ||
-      product?.currentPrice ||
-      product?.listPrice ||
-      product?.msrp ||
-      this.searchPayload(rawPayload, ['price', 'msrp', 'listPrice', 'currentPrice']);
-    if (priceValue) {
-      data.price = typeof priceValue === 'number' ? priceValue.toString() : priceValue;
+    // Fill in from nested data if flat fields are missing
+    if (!data.brand) {
+      data.brand = product.brand?.name || product.brand || product.manufacturer?.name;
+    }
+    if (!data.modelNumber) {
+      data.modelNumber = product.model_number || product.mpn || product.mfr_number;
+    }
+    if (!data.category) {
+      data.category = product.business_category || product.base_category ||
+                      ferguson.search_meta_data?.business_category;
+    }
+    if (!data.title) {
+      data.title = product.title || product.name || product.product_name;
+    }
+    if (!data.price) {
+      const priceObj = product.price || {};
+      data.price = priceObj.current || priceObj.list || priceObj.msrp || product.currentPrice;
     }
     
-    // Dimensions - check specs array and direct properties
-    const specs = product?.specifications || product?.specs || [];
+    // Dimensions from nested specs
+    const specs = product.specifications || [];
     for (const spec of specs) {
       const specName = (spec?.name || spec?.label || '').toLowerCase();
       const specValue = spec?.value || spec?.values?.[0] || '';
@@ -559,55 +558,39 @@ class SelfHealingOrchestrator {
       if (specName.includes('finish') && !data.finish) data.finish = specValue;
     }
     
-    // Direct dimension properties
-    if (!data.width) data.width = product?.width || product?.dimensions?.width || this.searchPayload(rawPayload, ['width']);
-    if (!data.height) data.height = product?.height || product?.dimensions?.height || this.searchPayload(rawPayload, ['height']);
-    if (!data.depth) data.depth = product?.depth || product?.dimensions?.depth || this.searchPayload(rawPayload, ['depth', 'length']);
-    
-    // UPC/GTIN
-    if (!data.upc) {
-      data.upc = product?.upc || product?.gtin || product?.ean || this.searchPayload(rawPayload, ['upc', 'gtin', 'ean', 'barcode']);
+    // === WEB_RETAILER_SPECS (additional data source) ===
+    if (rawPayload.Web_Retailer_Specs && typeof rawPayload.Web_Retailer_Specs === 'object') {
+      const webSpecs = rawPayload.Web_Retailer_Specs;
+      if (!data.upc) data.upc = webSpecs.UPC || webSpecs.GTIN || webSpecs.EAN;
+      if (!data.color) data.color = webSpecs.Color || webSpecs.Colour;
+      if (!data.finish) data.finish = webSpecs.Finish || webSpecs.Surface;
     }
     
-    // Color/Finish
-    if (!data.color) data.color = product?.color || product?.colorFinish?.color || this.searchPayload(rawPayload, ['color', 'colour']);
-    if (!data.finish) data.finish = product?.finish || product?.colorFinish?.finish || this.searchPayload(rawPayload, ['finish', 'surface']);
+    // === SPECIFICATION_TABLE (additional fallback) ===
+    if (rawPayload.Specification_Table && typeof rawPayload.Specification_Table === 'object') {
+      const specTable = rawPayload.Specification_Table;
+      if (!data.upc) data.upc = specTable.UPC || specTable.GTIN;
+      if (!data.width) data.width = specTable.Width;
+      if (!data.height) data.height = specTable.Height;
+      if (!data.depth) data.depth = specTable.Depth;
+    }
+    
+    // Convert any numeric values to strings
+    for (const key of Object.keys(data)) {
+      const val = data[key];
+      if (typeof val === 'number') {
+        data[key] = String(val);
+      }
+    }
     
     // Clean up - remove empty/undefined values
     for (const key of Object.keys(data)) {
-      if (!data[key] || data[key] === 'undefined' || data[key] === 'null') {
+      if (!data[key] || data[key] === 'undefined' || data[key] === 'null' || data[key] === '') {
         delete data[key];
       }
     }
     
     return data;
-  }
-
-  /**
-   * Deep search payload for a field value
-   */
-  private searchPayload(payload: any, fieldNames: string[]): string | undefined {
-    if (!payload) return undefined;
-    
-    const payloadStr = JSON.stringify(payload);
-    
-    for (const fieldName of fieldNames) {
-      // Try exact match first
-      const exactRegex = new RegExp(`"${fieldName}"\\s*:\\s*"([^"]+)"`, 'i');
-      const exactMatch = payloadStr.match(exactRegex);
-      if (exactMatch && exactMatch[1] && exactMatch[1].trim() !== '') {
-        return exactMatch[1];
-      }
-      
-      // Try number value
-      const numRegex = new RegExp(`"${fieldName}"\\s*:\\s*(\\d+\\.?\\d*)`, 'i');
-      const numMatch = payloadStr.match(numRegex);
-      if (numMatch && numMatch[1]) {
-        return numMatch[1];
-      }
-    }
-    
-    return undefined;
   }
 
   /**
