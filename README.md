@@ -40,7 +40,33 @@ This tool addresses key challenges in catalog management:
                     └─────────────────────┘
 ```
 
-## 🚀 Quick Start
+## � Repository Structure
+
+```
+/
+├── docs/                  # Documentation (organized by type)
+│   ├── guides/           # User guides & quick-starts
+│   ├── api/              # API reference documentation
+│   ├── architecture/     # System design & architecture
+│   ├── salesforce/       # Salesforce integration docs
+│   └── analysis/         # Data analysis & reports
+├── src/                  # Source code
+│   ├── controllers/      # API route controllers
+│   ├── services/         # Business logic services
+│   ├── models/           # MongoDB models
+│   └── types/            # TypeScript type definitions
+├── scripts/              # Utility scripts
+├── test-data/            # Test fixtures
+├── session-notes/        # Development session logs
+├── examples/             # Integration examples
+├── postman/              # Postman collections
+├── audit-results/        # Audit & analysis JSON files
+└── logs/                 # Application logs
+```
+
+See [docs/README.md](docs/README.md) for complete documentation index.
+
+## �🚀 Quick Start
 
 ### Prerequisites
 

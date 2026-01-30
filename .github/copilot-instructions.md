@@ -1,5 +1,15 @@
 # Copilot Instructions - Catalog Verification API
 
+## Repository Structure
+
+**IMPORTANT**: This repository follows a strict folder structure. Always place files in the correct location:
+- Documentation → `docs/` (organized by type: guides, api, architecture, salesforce, analysis)
+- Session notes → `session-notes/`
+- Code examples → `examples/`
+- Postman collections → `postman/`
+- Audit results/JSON → `audit-results/`
+- See [CONTRIBUTING.md](../CONTRIBUTING.md) for complete guidelines
+
 ## Quick Reference
 
 When the user says **"Establish Connection"** or **"Connect to production"**, execute these steps:
@@ -16,6 +26,8 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 5. Wait for CI/CD or manually deploy to production
 6. Verify all three environments are synced
 7. Confirm production service is healthy
+
+When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
 ---
 
