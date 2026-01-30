@@ -582,11 +582,71 @@ class SelfHealingOrchestrator {
       }
     });
     
-    // If no extraction failures, the AI did its job correctly
-    if (failureCount === 0) {
-      logger.info('[Self-Healing] ✅ AI extraction audit passed - no issues found', {
+    // ================================================================
+    // NEW: Check ALL response fields for blanks - trigger review if ANY missing
+    // Even if payload doesn't have the data, we want to audit WHY it's missing
+    // ================================================================
+    const blankResponseFields: string[] = [];
+    const allResponseFields = [
+      { name: 'Brand_Verified', value: primaryAttrs.Brand_Verified },
+      { name: 'Category_Verified', value: primaryAttrs.Category_Verified },
+      { name: 'Product_Title_Verified', value: primaryAttrs.Product_Title_Verified },
+      { name: 'Model_Number_Verified', value: primaryAttrs.Model_Number_Verified },
+      { name: 'MSRP_Verified', value: primaryAttrs.MSRP_Verified },
+      { name: 'UPC_GTIN_Verified', value: primaryAttrs.UPC_GTIN_Verified },
+      { name: 'Color_Verified', value: primaryAttrs.Color_Verified },
+      { name: 'Finish_Verified', value: primaryAttrs.Finish_Verified },
+      { name: 'Width_Verified', value: primaryAttrs.Width_Verified || topFilterAttrs.width_verified },
+      { name: 'Height_Verified', value: primaryAttrs.Height_Verified || topFilterAttrs.height_verified },
+      { name: 'Depth_Verified', value: primaryAttrs.Depth_Verified || topFilterAttrs.depth_verified },
+      { name: 'Description', value: primaryAttrs.Description || result?.Description },
+      { name: 'Features_List', value: primaryAttrs.Features_List || result?.Features_List }
+    ];
+    
+    // Check every response field
+    for (const field of allResponseFields) {
+      if (this.isBlankOrUnknown(field.value)) {
+        blankResponseFields.push(field.name);
+      }
+    }
+    
+    // Also check Top_Filter_Attributes
+    const top15Blanks: string[] = [];
+    if (topFilterAttrs && typeof topFilterAttrs === 'object') {
+      for (const [key, value] of Object.entries(topFilterAttrs)) {
+        if (this.isBlankOrUnknown(value)) {
+          top15Blanks.push(key);
+        }
+      }
+    }
+    
+    const totalBlankFields = blankResponseFields.length + top15Blanks.length;
+    
+    // Log blank fields audit
+    logger.info('[Self-Healing] 📋 BLANK FIELDS AUDIT', {
+      jobId: job.jobId,
+      product: job.sfCatalogName,
+      totalBlankFields,
+      blankPrimaryFields: blankResponseFields.length,
+      blankTop15Fields: top15Blanks.length,
+      blankPrimary: blankResponseFields.join(', ') || 'none',
+      blankTop15: top15Blanks.slice(0, 5).join(', ') + (top15Blanks.length > 5 ? '...' : '') || 'none'
+    });
+    
+    // TRIGGER SELF-HEALING if ANY extraction failures OR any critical blank fields
+    // Critical fields that should always have a value: Brand, Category, Title, Model
+    const criticalBlankFields = blankResponseFields.filter(f => 
+      ['Brand_Verified', 'Category_Verified', 'Product_Title_Verified', 'Model_Number_Verified'].includes(f)
+    );
+    
+    const shouldTriggerHealing = failureCount > 0 || criticalBlankFields.length > 0;
+    
+    if (!shouldTriggerHealing) {
+      logger.info('[Self-Healing] ✅ AI extraction audit passed - all critical fields populated', {
         jobId: job.jobId,
-        product: job.sfCatalogName
+        product: job.sfCatalogName,
+        blankNonCriticalFields: blankResponseFields.length,
+        blankTop15: top15Blanks.length
       });
       return null;
     }
@@ -597,27 +657,37 @@ class SelfHealingOrchestrator {
     );
     
     let severity: 'low' | 'medium' | 'high' = 'low';
-    if (criticalFailures.length >= 2) {
+    if (criticalFailures.length >= 2 || criticalBlankFields.length >= 2) {
       severity = 'high';
-    } else if (criticalFailures.length === 1 || failureCount > 3) {
+    } else if (criticalFailures.length >= 1 || criticalBlankFields.length >= 1 || failureCount > 3) {
       severity = 'medium';
     }
     
-    logger.warn('[Self-Healing] 🚨 AI EXTRACTION FAILURES DETECTED', {
+    // Determine issue type based on what was found
+    const issueType = failureCount > 0 
+      ? 'ai_extraction_failure'  // Data was available but AI didn't extract it
+      : 'critical_fields_blank'; // Critical fields blank - needs investigation
+    
+    logger.warn('[Self-Healing] 🚨 ISSUES DETECTED - TRIGGERING HEALING', {
       jobId: job.jobId,
       product: job.sfCatalogName,
+      issueType,
       severity,
-      totalFailures: failureCount,
-      criticalFailures: criticalFailures.length,
-      failedFields: extractionFailures.map(f => f.field).join(', ')
+      extractionFailures: failureCount,
+      criticalBlankFields: criticalBlankFields.length,
+      blankCritical: criticalBlankFields.join(', '),
+      totalBlankPrimary: blankResponseFields.length,
+      totalBlankTop15: top15Blanks.length
     });
 
     return {
       jobId: job.jobId,
       sfCatalogId: job.sfCatalogId,
-      issueType: 'ai_extraction_failure',
+      issueType,
       severity,
-      missingFields: extractionFailures.map(f => f.field),
+      missingFields: [...new Set([...extractionFailures.map(f => f.field), ...criticalBlankFields])],
+      blankResponseFields,
+      blankTop15Fields: top15Blanks,
       extractionFailures,
       auditFindings,
       wrongFields: [],
