@@ -544,11 +544,13 @@ class SelfHealingOrchestrator {
       data.price = priceObj.current || priceObj.list || priceObj.msrp || product.currentPrice;
     }
     
-    // Dimensions from nested specs
-    const specs = product.specifications || [];
+    // Dimensions from nested specs - handle both array and object formats
+    const specsRaw = product.specifications;
+    const specs = Array.isArray(specsRaw) ? specsRaw : [];
     for (const spec of specs) {
-      const specName = (spec?.name || spec?.label || '').toLowerCase();
-      const specValue = spec?.value || spec?.values?.[0] || '';
+      if (!spec) continue;
+      const specName = (spec.name || spec.label || '').toLowerCase();
+      const specValue = spec.value || spec.values?.[0] || '';
       
       if (specName.includes('width') && !data.width) data.width = specValue;
       if (specName.includes('height') && !data.height) data.height = specValue;
