@@ -1,13 +1,20 @@
 /**
  * SELF-HEALING ORCHESTRATOR
  * 
- * Coordinates all phases of the self-healing system:
- * 1. Waits 60 seconds after SF webhook
- * 2. Detects issues
- * 3. Gets dual-AI consensus diagnosis
- * 4. Applies comprehensive fixes with multi-attempt retry
- * 5. Validates with both AIs
- * 6. Sends corrections to Salesforce
+ * Queue-based self-healing system that processes jobs one at a time.
+ * 
+ * Flow:
+ * 1. Job completes verification → added to self-heal queue
+ * 2. If queue processor is idle, it starts processing
+ * 3. Processor works through queue one job at a time
+ * 4. When queue is empty, processor goes to standby
+ * 
+ * Phases per job:
+ * 1. Detect issues (AI extraction audit)
+ * 2. Gets dual-AI consensus diagnosis
+ * 3. Applies comprehensive fixes with multi-attempt retry
+ * 4. Validates with both AIs
+ * 5. Sends corrections to Salesforce
  */
 
 import dualAIDiagnostician from './dual-ai-diagnostician.service';
@@ -31,18 +38,141 @@ interface SelfHealingResult {
   escalatedToHuman?: boolean;
 }
 
+interface QueuedJob {
+  jobId: string;
+  queuedAt: Date;
+  scheduledFor: Date;  // When it should be processed (after delay)
+}
+
 class SelfHealingOrchestrator {
+  // Queue state
+  private queue: QueuedJob[] = [];
+  private isProcessing: boolean = false;
+  private currentJobId: string | null = null;
+  private processedCount: number = 0;
+  private failedCount: number = 0;
+
   /**
-   * Main entry point: Schedule self-healing 60 seconds after webhook sent
+   * Main entry point: Add job to self-healing queue
+   * Job will be processed after the configured delay (default 60s)
    */
   async scheduleAfterWebhook(jobId: string): Promise<void> {
     const delayMs = parseInt(process.env.SELF_HEALING_DELAY_AFTER_WEBHOOK || '60000');
+    const scheduledFor = new Date(Date.now() + delayMs);
 
-    logger.info(`[Self-Healing] Scheduled for job ${jobId} in ${delayMs/1000} seconds`);
+    const queuedJob: QueuedJob = {
+      jobId,
+      queuedAt: new Date(),
+      scheduledFor
+    };
 
-    setTimeout(async () => {
-      await this.runCompleteSelfHealing(jobId);
-    }, delayMs);
+    this.queue.push(queuedJob);
+
+    logger.info(`[Self-Healing Queue] ➕ Added job ${jobId} to queue`, {
+      queuePosition: this.queue.length,
+      scheduledFor: scheduledFor.toISOString(),
+      delaySeconds: delayMs / 1000,
+      isProcessing: this.isProcessing,
+      currentJob: this.currentJobId
+    });
+
+    // Start processor if not running
+    if (!this.isProcessing) {
+      this.startQueueProcessor();
+    }
+  }
+
+  /**
+   * Get current queue status
+   */
+  getQueueStatus(): object {
+    return {
+      queueLength: this.queue.length,
+      isProcessing: this.isProcessing,
+      currentJobId: this.currentJobId,
+      processedCount: this.processedCount,
+      failedCount: this.failedCount,
+      queuedJobs: this.queue.map(j => ({
+        jobId: j.jobId,
+        queuedAt: j.queuedAt,
+        scheduledFor: j.scheduledFor,
+        readyIn: Math.max(0, j.scheduledFor.getTime() - Date.now()) / 1000 + 's'
+      }))
+    };
+  }
+
+  /**
+   * Start the queue processor
+   */
+  private async startQueueProcessor(): Promise<void> {
+    if (this.isProcessing) {
+      logger.debug('[Self-Healing Queue] Processor already running');
+      return;
+    }
+
+    this.isProcessing = true;
+    logger.info('[Self-Healing Queue] 🚀 Queue processor STARTED');
+
+    try {
+      while (this.queue.length > 0) {
+        // Get next job
+        const nextJob = this.queue[0];
+        
+        // Wait until job is ready (past its scheduled time)
+        const waitTime = nextJob.scheduledFor.getTime() - Date.now();
+        if (waitTime > 0) {
+          logger.info(`[Self-Healing Queue] ⏳ Waiting ${Math.ceil(waitTime/1000)}s for job ${nextJob.jobId}`);
+          await this.sleep(waitTime);
+        }
+
+        // Remove from queue and process
+        this.queue.shift();
+        this.currentJobId = nextJob.jobId;
+
+        logger.info(`[Self-Healing Queue] 📋 Processing job ${nextJob.jobId}`, {
+          remainingInQueue: this.queue.length
+        });
+
+        try {
+          const result = await this.runCompleteSelfHealing(nextJob.jobId);
+          
+          if (result.success) {
+            this.processedCount++;
+          } else {
+            this.failedCount++;
+          }
+
+          logger.info(`[Self-Healing Queue] ✅ Completed job ${nextJob.jobId}`, {
+            success: result.success,
+            reason: result.reason,
+            remainingInQueue: this.queue.length
+          });
+
+        } catch (error) {
+          this.failedCount++;
+          logger.error(`[Self-Healing Queue] ❌ Failed job ${nextJob.jobId}`, {
+            error: error instanceof Error ? error.message : String(error),
+            remainingInQueue: this.queue.length
+          });
+        }
+
+        this.currentJobId = null;
+      }
+
+    } finally {
+      this.isProcessing = false;
+      logger.info('[Self-Healing Queue] 💤 Queue processor IDLE - waiting for new jobs', {
+        totalProcessed: this.processedCount,
+        totalFailed: this.failedCount
+      });
+    }
+  }
+
+  /**
+   * Sleep helper
+   */
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**
