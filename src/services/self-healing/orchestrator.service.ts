@@ -192,8 +192,65 @@ class SelfHealingOrchestrator {
 
   /**
    * Detect issue from job and tracker data
+   * Checks for:
+   * 1. Missing Top 15 fields
+   * 2. Salesforce rejection errors (STRING_TOO_LONG, REQUIRED_FIELD_MISSING, etc.)
    */
   private async detectIssue(job: any, tracker: any): Promise<any | null> {
+    // Check for Salesforce-level errors first (highest priority)
+    if (job.salesforceError) {
+      logger.info('[Self-Healing] Detected Salesforce error', {
+        jobId: job.jobId,
+        salesforceError: job.salesforceError
+      });
+      
+      // Parse the Salesforce error to determine issue type
+      const errorMessage = job.salesforceError;
+      let issueType = 'salesforce_rejection';
+      let severity: 'low' | 'medium' | 'high' = 'high';
+      const affectedFields: string[] = [];
+      
+      // Detect STRING_TOO_LONG errors
+      if (errorMessage.includes('STRING_TOO_LONG')) {
+        issueType = 'field_too_long';
+        // Extract field name from error: "AI Total Model Variants: data value too large"
+        const fieldMatch = errorMessage.match(/STRING_TOO_LONG,\s*([^:]+):/);
+        if (fieldMatch) {
+          affectedFields.push(fieldMatch[1].trim());
+        }
+      }
+      // Detect REQUIRED_FIELD_MISSING errors
+      else if (errorMessage.includes('REQUIRED_FIELD_MISSING')) {
+        issueType = 'required_field_missing';
+        // Extract field names: "Required fields are missing: [Name__c, Type__c]"
+        const fieldsMatch = errorMessage.match(/missing:\s*\[([^\]]+)\]/);
+        if (fieldsMatch) {
+          affectedFields.push(...fieldsMatch[1].split(',').map((f: string) => f.trim()));
+        }
+      }
+      // Detect other common Salesforce errors
+      else if (errorMessage.includes('DUPLICATE_VALUE')) {
+        issueType = 'duplicate_record';
+      } else if (errorMessage.includes('FIELD_CUSTOM_VALIDATION_EXCEPTION')) {
+        issueType = 'validation_failed';
+      }
+      
+      return {
+        jobId: job.jobId,
+        sfCatalogId: job.sfCatalogId,
+        issueType,
+        severity,
+        missingFields: [],
+        wrongFields: affectedFields,
+        affectedCount: 1,
+        rawPayload: job.rawPayload,
+        currentResponse: tracker?.response || job.result,
+        errorLogs: [errorMessage],
+        salesforceError: errorMessage
+      };
+    }
+    
+    // Check for missing Top 15 fields (existing logic)
     if (!tracker) return null;
 
     const missingFields = tracker.issues

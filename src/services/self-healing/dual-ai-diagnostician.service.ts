@@ -8,14 +8,17 @@ import logger from '../../utils/logger';
 interface DetectedIssue {
   jobId: string;
   sfCatalogId: string;
-  issueType: 'missing_data' | 'mapping_failure' | 'logic_error' | 'picklist_mismatch' | 'research_incomplete' | 'research_conflict';
+  issueType: 'missing_data' | 'mapping_failure' | 'logic_error' | 'picklist_mismatch' | 'research_incomplete' | 'research_conflict' | 'salesforce_rejection' | 'field_too_long' | 'required_field_missing' | 'duplicate_record' | 'validation_failed';
   severity: 'low' | 'medium' | 'high' | 'critical';
   missingFields: string[];
+  wrongFields?: string[];  // Fields that caused errors (too long, wrong format, etc.)
   rawPayload: any;
   currentResponse: any;
   errorLogs: string[];
   affectedCount: number;
-  // NEW: Research attestation fields
+  // Salesforce error fields
+  salesforceError?: string;
+  // Research attestation fields
   failedResearchSteps?: string[];
   researchCompletionRate?: number;
   canRetryResearch?: boolean;
@@ -27,7 +30,7 @@ interface AIDiagnosis {
   rootCause: string;
   evidence: string[];
   proposedFix: {
-    type: 'add_alias' | 'update_schema' | 'fix_parsing' | 'add_normalization' | 'fix_logic' | 'retry_research';
+    type: 'add_alias' | 'update_schema' | 'fix_parsing' | 'add_normalization' | 'fix_logic' | 'retry_research' | 'truncate_field' | 'fix_payload' | 'retry_webhook';
     targetFiles: string[];
     codeChanges: Array<{
       file: string;
@@ -36,7 +39,13 @@ interface AIDiagnosis {
       newCode: string;
       explanation: string;
     }>;
-    // NEW: For research_incomplete issues
+    // For field_too_long issues - specify how to truncate
+    fieldTruncation?: {
+      fieldName: string;
+      maxLength: number;
+      truncationStrategy: 'simple' | 'smart' | 'extract_suffix';
+    };
+    // For research_incomplete issues
     researchStepsToRetry?: string[];
   };
   systemScanRecommendations: {

@@ -113,6 +113,25 @@ class WebhookService {
         });
 
         if (response.status >= 200 && response.status < 300) {
+          // Check if Salesforce actually processed successfully (check response body)
+          const sfResponse = response.data;
+          const sfSuccess = sfResponse?.success !== false; // Default to true if not specified
+          
+          // Save Salesforce response status to job
+          job.salesforceAcknowledged = true;
+          job.salesforceAcknowledgedAt = new Date();
+          job.salesforceProcessed = sfSuccess;
+          if (!sfSuccess && sfResponse?.message) {
+            job.salesforceError = sfResponse.message;
+            logger.warn('STEP 8: ⚠️ Webhook delivered but Salesforce rejected update', {
+              jobId: payload.sessionId,
+              attempt: attempt + 1,
+              salesforceSuccess: false,
+              salesforceError: sfResponse.message
+            });
+          }
+          await job.save();
+          
           logger.info('STEP 8: ✅ Webhook delivered to Salesforce successfully', {
             jobId: payload.sessionId,
             attempt: attempt + 1,
