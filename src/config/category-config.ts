@@ -9,8 +9,8 @@ import categoryFilterAttributesData from './salesforce-picklists/category-filter
 
 // Type-safe interface for category filter attributes
 interface CategoryFilterConfig {
-  department: string;
-  category_id: string;
+  department?: string;  // Optional - not present in all category versions
+  category_id?: string; // Optional - not present in all category versions
   attributes: Array<{
     rank: number;
     name: string;

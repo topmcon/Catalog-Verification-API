@@ -1,5 +1,6 @@
 import axios from 'axios';
 import logger from '../../utils/logger';
+import config from '../../config';
 import OpenAI from 'openai';
 
 interface SFCorrectionPayload {

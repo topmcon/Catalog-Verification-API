@@ -4,6 +4,7 @@ import axios from 'axios';
 import fs from 'fs/promises';
 import path from 'path';
 import logger from '../../utils/logger';
+import config from '../../config';
 
 interface DetectedIssue {
   jobId: string;
