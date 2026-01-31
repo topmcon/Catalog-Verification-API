@@ -1,10 +1,10 @@
 {
-  "version": "5.0",
-  "date": "2026-01-30",
+  "version": "6.0",
+  "date": "2026-01-31",
   "total_categories": 87,
   "categories": {
-    "Air Conditioners #": {
-      "department": "HVAC",
+    "Air Conditioners": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000dCek0QAC",
       "attributes": [
         {
@@ -100,8 +100,8 @@
       ]
     },
     "All in One Washer / Dryer": {
-      "department": "APPLIANCES",
-      "category_id": "a01Hu000010Q5EsIAK",
+      "department": "Appliances",
+      "category_id": "a01Hu000010Q5EqIAK",
       "attributes": [
         {
           "rank": 1,
@@ -195,8 +195,8 @@
         }
       ]
     },
-    "Bar & Prep Sinks #": {
-      "department": "PLUMBING",
+    "Bar & Prep Sinks": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5E2QAK",
       "attributes": [
         {
@@ -291,8 +291,8 @@
         }
       ]
     },
-    "Bar Faucets #": {
-      "department": "PLUMBING",
+    "Bar Faucets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5E3QAK",
       "attributes": [
         {
@@ -388,7 +388,7 @@
       ]
     },
     "Barbeques": {
-      "department": "OTHER",
+      "department": "Appliances",
       "category_id": "a01Hu000011kgEqIAI",
       "attributes": [
         {
@@ -483,8 +483,8 @@
         }
       ]
     },
-    "Bath Fans #": {
-      "department": "HVAC",
+    "Bath Fans": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DcQAK",
       "attributes": [
         {
@@ -579,8 +579,8 @@
         }
       ]
     },
-    "Bathroom Faucets #": {
-      "department": "PLUMBING",
+    "Bathroom Faucets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DeQAK",
       "attributes": [
         {
@@ -675,8 +675,8 @@
         }
       ]
     },
-    "Bathroom Hardware and Accessories #": {
-      "department": "PLUMBING",
+    "Bathroom Hardware and Accessories": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DfQAK",
       "attributes": [
         {
@@ -771,8 +771,8 @@
         }
       ]
     },
-    "Bathroom Lighting #": {
-      "department": "LIGHTING",
+    "Bathroom Lighting": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DgQAK",
       "attributes": [
         {
@@ -867,8 +867,8 @@
         }
       ]
     },
-    "Bathroom Mirrors #": {
-      "department": "PLUMBING",
+    "Bathroom Mirrors": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DhQAK",
       "attributes": [
         {
@@ -963,8 +963,8 @@
         }
       ]
     },
-    "Bathroom Sinks #": {
-      "department": "PLUMBING",
+    "Bathroom Sinks": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DiQAK",
       "attributes": [
         {
@@ -1059,8 +1059,8 @@
         }
       ]
     },
-    "Bathroom Vanities #": {
-      "department": "PLUMBING",
+    "Bathroom Vanities": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DjQAK",
       "attributes": [
         {
@@ -1155,8 +1155,8 @@
         }
       ]
     },
-    "Bathtub Waste & Overflow #": {
-      "department": "PLUMBING",
+    "Bathtub Waste & Overflow": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DkQAK",
       "attributes": [
         {
@@ -1251,8 +1251,8 @@
         }
       ]
     },
-    "Bathtubs #": {
-      "department": "PLUMBING",
+    "Bathtubs": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DlQAK",
       "attributes": [
         {
@@ -1347,8 +1347,8 @@
         }
       ]
     },
-    "Bidets #": {
-      "department": "PLUMBING",
+    "Bidets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DoQAK",
       "attributes": [
         {
@@ -1443,8 +1443,8 @@
         }
       ]
     },
-    "Cabinet Hardware #": {
-      "department": "HOME_DECOR",
+    "Cabinet Hardware": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dC5F2QAK",
       "attributes": [
         {
@@ -1539,8 +1539,8 @@
         }
       ]
     },
-    "Cabinet Organization and Storage #": {
-      "department": "HOME_DECOR",
+    "Cabinet Organization and Storage": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dCejbQAC",
       "attributes": [
         {
@@ -1635,8 +1635,8 @@
         }
       ]
     },
-    "Ceiling Fan Accessories #": {
-      "department": "LIGHTING",
+    "Ceiling Fan Accessories": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EiQAK",
       "attributes": [
         {
@@ -1731,8 +1731,8 @@
         }
       ]
     },
-    "Ceiling Fans #": {
-      "department": "LIGHTING",
+    "Ceiling Fans": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EjQAK",
       "attributes": [
         {
@@ -1827,9 +1827,9 @@
         }
       ]
     },
-    "Ceiling Fans with Light #": {
-      "department": "LIGHTING",
-      "category_id": "a01aZ00000dC5EjQAK",
+    "Ceiling Fans with Light": {
+      "department": "Lighting & Electrical",
+      "category_id": "a01aZ00000dC5EkQAK",
       "attributes": [
         {
           "rank": 1,
@@ -1923,9 +1923,9 @@
         }
       ]
     },
-    "Ceiling Fans with Remotes #": {
-      "department": "LIGHTING",
-      "category_id": "a01aZ00000dC5EjQAK",
+    "Ceiling Fans with Remotes": {
+      "department": "Lighting & Electrical",
+      "category_id": "a01aZ00000dC5ElQAK",
       "attributes": [
         {
           "rank": 1,
@@ -2019,8 +2019,8 @@
         }
       ]
     },
-    "Ceiling Lights #": {
-      "department": "LIGHTING",
+    "Ceiling Lights": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EKQA0",
       "attributes": [
         {
@@ -2115,8 +2115,8 @@
         }
       ]
     },
-    "Chandeliers #": {
-      "department": "LIGHTING",
+    "Chandeliers": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5ELQA0",
       "attributes": [
         {
@@ -2211,8 +2211,8 @@
         }
       ]
     },
-    "Chemicals & Compounds #": {
-      "department": "OTHER",
+    "Chemicals & Compounds": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dF7KTQA0",
       "attributes": [
         {
@@ -2308,7 +2308,7 @@
       ]
     },
     "Coffee Maker": {
-      "department": "OTHER",
+      "department": "Appliances",
       "category_id": "a01Hu000011kmDGIAY",
       "attributes": [
         {
@@ -2403,8 +2403,8 @@
         }
       ]
     },
-    "Commercial Lighting #": {
-      "department": "LIGHTING",
+    "Commercial Lighting": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dC5EMQA0",
       "attributes": [
         {
@@ -2499,8 +2499,8 @@
         }
       ]
     },
-    "Commercial Restroom #": {
-      "department": "OTHER",
+    "Commercial Restroom": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dC5DpQAK",
       "attributes": [
         {
@@ -2596,7 +2596,7 @@
       ]
     },
     "Cooktop": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EhIAK",
       "attributes": [
         {
@@ -2692,7 +2692,7 @@
       ]
     },
     "Dishwasher": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EiIAK",
       "attributes": [
         {
@@ -2787,8 +2787,8 @@
         }
       ]
     },
-    "Door Hardware: Knobs and Levers #": {
-      "department": "HOME_DECOR",
+    "Door Hardware: Knobs and Levers": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dC5F9QAK",
       "attributes": [
         {
@@ -2883,8 +2883,8 @@
         }
       ]
     },
-    "Door Levers #": {
-      "department": "HARDWARE",
+    "Door Levers": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dCejCQAS",
       "attributes": [
         {
@@ -2979,8 +2979,8 @@
         }
       ]
     },
-    "Drainage & Waste #": {
-      "department": "PLUMBING",
+    "Drainage & Waste": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dhf6HQAQ",
       "attributes": [
         {
@@ -3076,7 +3076,7 @@
       ]
     },
     "Drawer": {
-      "department": "FURNITURE & STORAGE",
+      "department": "Appliances",
       "category_id": "a01Hu000011kpC2IAI",
       "attributes": [
         {
@@ -3172,7 +3172,7 @@
       ]
     },
     "Dryer": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EjIAK",
       "attributes": [
         {
@@ -3267,8 +3267,8 @@
         }
       ]
     },
-    "Ducting #": {
-      "department": "HVAC",
+    "Ducting": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000dCek4QAC",
       "attributes": [
         {
@@ -3363,8 +3363,8 @@
         }
       ]
     },
-    "Exhaust Fans #": {
-      "department": "HVAC",
+    "Exhaust Fans": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000dCek6QAC",
       "attributes": [
         {
@@ -3459,8 +3459,8 @@
         }
       ]
     },
-    "Fire Pits #": {
-      "department": "HOME_DECOR",
+    "Fire Pits": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000dCek7QAC",
       "attributes": [
         {
@@ -3555,8 +3555,8 @@
         }
       ]
     },
-    "Flush and Semi-Flush #": {
-      "department": "OTHER",
+    "Flush and Semi-Flush": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5ENQA0",
       "attributes": [
         {
@@ -3652,7 +3652,7 @@
       ]
     },
     "Freezer": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EkIAK",
       "attributes": [
         {
@@ -3747,8 +3747,8 @@
         }
       ]
     },
-    "Furniture #": {
-      "department": "HOME_DECOR",
+    "Furniture": {
+      "department": "Home Décor & Furniture",
       "category_id": "a01aZ00000dCekIQAS",
       "attributes": [
         {
@@ -3843,8 +3843,8 @@
         }
       ]
     },
-    "Garbage Disposals #": {
-      "department": "PLUMBING",
+    "Garbage Disposals": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5E6QAK",
       "attributes": [
         {
@@ -3939,8 +3939,8 @@
         }
       ]
     },
-    "HVAC Accessories #": {
-      "department": "HVAC",
+    "HVAC Accessories": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000fKN2RQAW",
       "attributes": [
         {
@@ -4035,8 +4035,8 @@
         }
       ]
     },
-    "Handlesets #": {
-      "department": "HARDWARE",
+    "Handlesets": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dCejEQAS",
       "attributes": [
         {
@@ -4131,8 +4131,8 @@
         }
       ]
     },
-    "Heating #": {
-      "department": "HVAC",
+    "Heating": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000dCek9QAC",
       "attributes": [
         {
@@ -4227,8 +4227,8 @@
         }
       ]
     },
-    "Home Electronics #": {
-      "department": "OTHER",
+    "Home Electronics": {
+      "department": "Electronics",
       "category_id": "a01aZ00000XaZKQQA3",
       "attributes": [
         {
@@ -4323,8 +4323,8 @@
         }
       ]
     },
-    "Hydronic Expansion Tanks #": {
-      "department": "HVAC",
+    "Hydronic Expansion Tanks": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dFPfcQAG",
       "attributes": [
         {
@@ -4420,7 +4420,7 @@
       ]
     },
     "Icemaker": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000011kFRfIAM",
       "attributes": [
         {
@@ -4515,8 +4515,8 @@
         }
       ]
     },
-    "Keyed Hardware #": {
-      "department": "HARDWARE",
+    "Keyed Hardware": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dCejGQAS",
       "attributes": [
         {
@@ -4611,8 +4611,8 @@
         }
       ]
     },
-    "Kitchen Accessories #": {
-      "department": "OTHER",
+    "Kitchen Accessories": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5E8QAK",
       "attributes": [
         {
@@ -4707,8 +4707,8 @@
         }
       ]
     },
-    "Kitchen Faucets #": {
-      "department": "PLUMBING",
+    "Kitchen Faucets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5E9QAK",
       "attributes": [
         {
@@ -4803,8 +4803,8 @@
         }
       ]
     },
-    "Kitchen Sinks #": {
-      "department": "PLUMBING",
+    "Kitchen Sinks": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5EDQA0",
       "attributes": [
         {
@@ -4899,8 +4899,8 @@
         }
       ]
     },
-    "Kitchen Storage & Organization #": {
-      "department": "FURNITURE & STORAGE",
+    "Kitchen Storage & Organization": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5EEQA0",
       "attributes": [
         {
@@ -4995,8 +4995,8 @@
         }
       ]
     },
-    "Lamps #": {
-      "department": "LIGHTING",
+    "Lamps": {
+      "department": "Home Décor & Furniture",
       "category_id": "a01aZ00000dCekOQAS",
       "attributes": [
         {
@@ -5091,8 +5091,8 @@
         }
       ]
     },
-    "Light Bulbs #": {
-      "department": "LIGHTING",
+    "Light Bulbs": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5ESQA0",
       "attributes": [
         {
@@ -5187,8 +5187,8 @@
         }
       ]
     },
-    "Lighting Accessories #": {
-      "department": "LIGHTING",
+    "Lighting Accessories": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EVQA0",
       "attributes": [
         {
@@ -5284,7 +5284,7 @@
       ]
     },
     "Microwave": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5ElIAK",
       "attributes": [
         {
@@ -5379,8 +5379,8 @@
         }
       ]
     },
-    "Mirrors #": {
-      "department": "HOME_DECOR",
+    "Mirrors": {
+      "department": "Home Décor & Furniture",
       "category_id": "a01aZ00000dCekJQAS",
       "attributes": [
         {
@@ -5475,8 +5475,8 @@
         }
       ]
     },
-    "Outdoor Kitchens #": {
-      "department": "OUTDOOR",
+    "Outdoor Kitchens": {
+      "department": "Outdoor",
       "category_id": "a01aZ00000dCejuQAC",
       "attributes": [
         {
@@ -5571,8 +5571,8 @@
         }
       ]
     },
-    "Outdoor Lighting #": {
-      "department": "LIGHTING",
+    "Outdoor Lighting": {
+      "department": "Outdoor",
       "category_id": "a01aZ00000dCejvQAC",
       "attributes": [
         {
@@ -5668,7 +5668,7 @@
       ]
     },
     "Oven": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EmIAK",
       "attributes": [
         {
@@ -5763,8 +5763,8 @@
         }
       ]
     },
-    "Pendants #": {
-      "department": "LIGHTING",
+    "Pendants": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EXQA0",
       "attributes": [
         {
@@ -5859,8 +5859,8 @@
         }
       ]
     },
-    "Pipe Fittings #": {
-      "department": "OTHER",
+    "Pipe Fittings": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000eF8O3QAK",
       "attributes": [
         {
@@ -5956,7 +5956,7 @@
       ]
     },
     "Pizza Oven": {
-      "department": "OTHER",
+      "department": "Appliances",
       "category_id": "a01aZ00000KJFrCQAX",
       "attributes": [
         {
@@ -6051,8 +6051,8 @@
         }
       ]
     },
-    "Pot Filler Faucets #": {
-      "department": "PLUMBING",
+    "Pot Filler Faucets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5EHQA0",
       "attributes": [
         {
@@ -6148,7 +6148,7 @@
       ]
     },
     "Range": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EnIAK",
       "attributes": [
         {
@@ -6244,7 +6244,7 @@
       ]
     },
     "Range Hood": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EoIAK",
       "attributes": [
         {
@@ -6339,8 +6339,8 @@
         }
       ]
     },
-    "Recessed Lighting #": {
-      "department": "LIGHTING",
+    "Recessed Lighting": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EZQA0",
       "attributes": [
         {
@@ -6436,7 +6436,7 @@
       ]
     },
     "Refrigeration": {
-      "department": "OTHER",
+      "department": "Appliances",
       "category_id": "a01aZ00000MlHtiQAF",
       "attributes": [
         {
@@ -6532,7 +6532,7 @@
       ]
     },
     "Refrigerator": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EpIAK",
       "attributes": [
         {
@@ -6627,8 +6627,8 @@
         }
       ]
     },
-    "Room Heater #": {
-      "department": "HVAC",
+    "Room Heater": {
+      "department": "Heating & Cooling",
       "category_id": "a01aZ00000eEFl0QAG",
       "attributes": [
         {
@@ -6723,8 +6723,8 @@
         }
       ]
     },
-    "Rough-In Valves #": {
-      "department": "PLUMBING",
+    "Rough-In Valves": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DrQAK",
       "attributes": [
         {
@@ -6819,8 +6819,8 @@
         }
       ]
     },
-    "Shower Accessories #": {
-      "department": "PLUMBING",
+    "Shower Accessories": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DsQAK",
       "attributes": [
         {
@@ -6915,8 +6915,8 @@
         }
       ]
     },
-    "Showers #": {
-      "department": "PLUMBING",
+    "Showers": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DuQAK",
       "attributes": [
         {
@@ -7012,7 +7012,7 @@
       ]
     },
     "Standalone Pedestal": {
-      "department": "FURNITURE & STORAGE",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5ErIAK",
       "attributes": [
         {
@@ -7107,8 +7107,8 @@
         }
       ]
     },
-    "Steam Showers #": {
-      "department": "PLUMBING",
+    "Steam Showers": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DvQAK",
       "attributes": [
         {
@@ -7203,8 +7203,8 @@
         }
       ]
     },
-    "Storage Drawers/Doors #": {
-      "department": "FURNITURE & STORAGE",
+    "Storage Drawers/Doors": {
+      "department": "Outdoor",
       "category_id": "a01aZ00000dEXvOQAW",
       "attributes": [
         {
@@ -7299,8 +7299,8 @@
         }
       ]
     },
-    "Storage and Organization #": {
-      "department": "FURNITURE & STORAGE",
+    "Storage and Organization": {
+      "department": "Hardware",
       "category_id": "a01aZ00000dCejPQAS",
       "attributes": [
         {
@@ -7395,8 +7395,8 @@
         }
       ]
     },
-    "Toilet Seats #": {
-      "department": "PLUMBING",
+    "Toilet Seats": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DxQAK",
       "attributes": [
         {
@@ -7491,8 +7491,8 @@
         }
       ]
     },
-    "Toilets #": {
-      "department": "PLUMBING",
+    "Toilets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DyQAK",
       "attributes": [
         {
@@ -7587,8 +7587,8 @@
         }
       ]
     },
-    "Track and Rail Lighting #": {
-      "department": "LIGHTING",
+    "Track and Rail Lighting": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EbQAK",
       "attributes": [
         {
@@ -7683,8 +7683,8 @@
         }
       ]
     },
-    "Tub Faucets #": {
-      "department": "PLUMBING",
+    "Tub Faucets": {
+      "department": "Plumbing & Bath",
       "category_id": "a01aZ00000dC5DzQAK",
       "attributes": [
         {
@@ -7779,9 +7779,9 @@
         }
       ]
     },
-    "Tub and Shower Accessories #": {
-      "department": "PLUMBING",
-      "category_id": "a01aZ00000dC5DsQAK",
+    "Tub and Shower Accessories": {
+      "department": "Plumbing & Bath",
+      "category_id": "a01aZ00000dDnKlQAK",
       "attributes": [
         {
           "rank": 1,
@@ -7875,8 +7875,8 @@
         }
       ]
     },
-    "Under Cabinet Lights #": {
-      "department": "LIGHTING",
+    "Under Cabinet Lights": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EcQAK",
       "attributes": [
         {
@@ -7971,8 +7971,8 @@
         }
       ]
     },
-    "Vanity Lighting #": {
-      "department": "LIGHTING",
+    "Vanity Lighting": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EdQAK",
       "attributes": [
         {
@@ -8067,8 +8067,8 @@
         }
       ]
     },
-    "Wall Sconces #": {
-      "department": "LIGHTING",
+    "Wall Sconces": {
+      "department": "Lighting & Electrical",
       "category_id": "a01aZ00000dC5EeQAK",
       "attributes": [
         {
@@ -8164,7 +8164,7 @@
       ]
     },
     "Washer": {
-      "department": "APPLIANCES",
+      "department": "Appliances",
       "category_id": "a01Hu000010Q5EsIAK",
       "attributes": [
         {
@@ -8259,8 +8259,8 @@
         }
       ]
     },
-    "Water Fountain #": {
-      "department": "OTHER",
+    "Water Fountain": {
+      "department": "Industrial & Commercial",
       "category_id": "a01aZ00000dBtNpQAK",
       "attributes": [
         {
