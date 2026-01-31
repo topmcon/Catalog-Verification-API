@@ -1492,11 +1492,45 @@ class PicklistMatcherService {
       }
     }
 
+    // If any updates were made, trigger auto-sync to GitHub (production only)
+    if (updated.length > 0 && process.env.NODE_ENV === 'production') {
+      this.triggerGitSync(updated);
+    }
+
     return {
       success: errors.length === 0,
       updated,
       errors
     };
+  }
+
+  /**
+   * Trigger automatic git sync to push picklist changes back to GitHub
+   * This runs asynchronously and doesn't block the API response
+   */
+  private triggerGitSync(updated: any[]): void {
+    const { exec } = require('child_process');
+    const scriptPath = '/opt/catalog-verification-api/scripts/auto-sync-picklists.sh';
+    
+    // Run async - don't wait for completion
+    exec(`bash ${scriptPath}`, (error: any, stdout: string, stderr: string) => {
+      if (error) {
+        logger.error('Auto-sync to GitHub failed', { 
+          error: error.message, 
+          stderr,
+          updatedTypes: updated.map(u => u.type)
+        });
+      } else {
+        logger.info('Auto-sync to GitHub completed', { 
+          stdout: stdout.trim(),
+          updatedTypes: updated.map(u => u.type)
+        });
+      }
+    });
+    
+    logger.info('Triggered auto-sync to GitHub', { 
+      updatedTypes: updated.map(u => u.type) 
+    });
   }
 }
 
