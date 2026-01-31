@@ -3562,12 +3562,14 @@ function buildReceivedAttributesConfirmation(
   // Helper to find attribute in Top Filter Attributes
   // Uses FIELD_ALIASES for semantic matching (e.g., "Installation Type" -> "type")
   const findInTopFilters = (attrName: string): string | null => {
-    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    // Normalize search term: lowercase, replace underscores with spaces, remove other special chars
+    const normalizedSearch = attrName.toLowerCase().replace(/_/g, ' ').replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
     const normalizedSearchKey = attrName.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
     
     for (const [key, value] of Object.entries(topFilterAttributes)) {
       if (value && value !== '') {
-        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        // Normalize key: replace underscores with spaces for comparison
+        const normalizedKey = key.toLowerCase().replace(/_/g, ' ').replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
         
         // Direct name matching
         if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
@@ -3580,7 +3582,7 @@ function buildReceivedAttributesConfirmation(
         // Check FIELD_ALIASES - does any alias for this key match the search term?
         const aliases = FIELD_ALIASES[key] || FIELD_ALIASES[normalizedKey.replace(/\s/g, '_')] || [];
         for (const alias of aliases) {
-          const normalizedAlias = alias.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+          const normalizedAlias = alias.toLowerCase().replace(/_/g, ' ').replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
           if (normalizedAlias.includes(normalizedSearch) || 
               normalizedSearch.includes(normalizedAlias) ||
               normalizedAlias === normalizedSearchKey ||
