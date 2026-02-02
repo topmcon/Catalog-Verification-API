@@ -4886,9 +4886,6 @@ function buildFinalResponse(
     const key = attrDef.fieldKey;
     const value = completeTop15[key];
     
-    // Skip if no value found for this schema-defined attribute
-    if (value === null || value === undefined || value === '') continue;
-    
     // ⚠️ CRITICAL FILTER: Exclude PRIMARY_ATTRIBUTE field keys from Top_Filter_Attributes
     // Primary attributes (brand, description, product_style, etc.) should NEVER appear in Top 15
     const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -4901,7 +4898,20 @@ function buildFinalResponse(
       continue;  // Skip this attribute - it belongs in Primary_Attributes only
     }
     
-    let finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+    // ⚠️ CRITICAL: ALWAYS include ALL Top 15 attributes, even if not found
+    // If no value found, mark with "Procurement No Results" to indicate research was completed
+    let finalValue: any;
+    if (value === null || value === undefined || value === '') {
+      finalValue = FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS;
+      logger.info('Top 15 attribute not found - marking as Procurement No Results', {
+        fieldKey: key,
+        attributeName: attrDef.name,
+        rank: attrDef.rank,
+        category: consensus.agreedCategory
+      });
+    } else {
+      finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+    }
     
     // We already have attrDef from the loop - use it directly
     const attributeName = attrDef.name;
