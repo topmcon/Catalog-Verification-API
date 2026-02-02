@@ -1328,14 +1328,6 @@
     "brand_name": "A and E Bath and Shower"
   },
   {
-    "brand_name": "Meyda Tiffany",
-    "brand_id": "a0MaZ000006iowvUAA"
-  },
-  {
-    "brand_name": "First Supply",
-    "brand_id": "a0MaZ000006j8M9UAI"
-  },
-  {
     "brand_id": "a0MaZ000006XClJUAW",
     "brand_name": "ICO Bath"
   },
@@ -1356,14 +1348,6 @@
     "brand_name": "Meyda Tiffany"
   },
   {
-    "brand_name": "Meyda Tiffany",
-    "brand_id": "a0MaZ000006bqYrUAI"
-  },
-  {
-    "brand_name": "Meyda Tiffany",
-    "brand_id": "a0MaZ000006bqaTUAQ"
-  },
-  {
     "brand_id": "a0MaZ000006cHdtUAE",
     "brand_name": "First Watch"
   },
@@ -1372,16 +1356,8 @@
     "brand_name": "First Supply"
   },
   {
-    "brand_name": "Meyda Tiffany",
-    "brand_id": "a0MaZ000006iBNhUAM"
-  },
-  {
     "brand_id": "a0MaZ000006ibMzUAI",
     "brand_name": "MOOG"
-  },
-  {
-    "brand_id": "a0MaZ000006m0iDUAQ",
-    "brand_name": "Meridian"
   },
   {
     "brand_id": "a0MaZ000006l6xlUAA",
@@ -1390,5 +1366,9 @@
   {
     "brand_id": "a0MaZ000006lz2zUAA",
     "brand_name": "DCS Appliances"
+  },
+  {
+    "brand_id": "a0MaZ000006m0iDUAQ",
+    "brand_name": "Meridian"
   }
 ]

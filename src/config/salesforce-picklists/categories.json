@@ -126,12 +126,6 @@
     "family": "Kitchen"
   },
   {
-    "category_id": "a01aZ00000P18BfQAJ",
-    "category_name": "Appliances",
-    "department": "Appliances",
-    "family": ""
-  },
-  {
     "category_id": "a01aZ00000XYWwyQAH",
     "category_name": "Chairs",
     "department": "Home Décor & Furniture",
@@ -142,12 +136,6 @@
     "category_name": "Home Electronics",
     "department": "Electronics",
     "family": "General"
-  },
-  {
-    "category_id": "a01aZ00000Xav82QAB",
-    "category_name": "Do Not List (On Hold)",
-    "department": "Not Applicable Department",
-    "family": ""
   },
   {
     "category_id": "a01aZ00000bI2srQAC",

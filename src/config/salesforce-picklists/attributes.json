@@ -20,10 +20,6 @@
     "attribute_name": "ADA"
   },
   {
-    "attribute_name": "Adjustable",
-    "attribute_id": "a1aaZ000008lz3XQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000008lz3YQAQ",
     "attribute_name": "Adjustable Color Temperature"
   },
@@ -56,16 +52,8 @@
     "attribute_name": "Air Fry"
   },
   {
-    "attribute_name": "Airtight",
-    "attribute_id": "a1aaZ000008lz3gQAA"
-  },
-  {
     "attribute_id": "a1aaZ000008lz3hQAA",
     "attribute_name": "All Hardware and Components Included"
-  },
-  {
-    "attribute_name": "Amperage",
-    "attribute_id": "a1aaZ000008lz3iQAA"
   },
   {
     "attribute_id": "a1aaZ000008lz3jQAA",
@@ -94,10 +82,6 @@
   {
     "attribute_id": "a1aaZ000008lz3pQAA",
     "attribute_name": "Application"
-  },
-  {
-    "attribute_name": "Approved for Commercial Use",
-    "attribute_id": "a1aaZ000008lz3qQAA"
   },
   {
     "attribute_id": "a1aaZ000008lz3rQAA",
@@ -432,10 +416,6 @@
     "attribute_name": "Built-In Speakers"
   },
   {
-    "attribute_name": "Bulb Base",
-    "attribute_id": "a1aaZ000008mBnuQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBnvQAE",
     "attribute_name": "Bulb Color"
   },
@@ -446,10 +426,6 @@
   {
     "attribute_id": "a1aaZ000008mBnxQAE",
     "attribute_name": "Bulb Shape"
-  },
-  {
-    "attribute_name": "Bulb Type",
-    "attribute_id": "a1aaZ000008mBnyQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBnzQAE",
@@ -544,14 +520,6 @@
     "attribute_name": "Center to Center mm"
   },
   {
-    "attribute_name": "Certifications",
-    "attribute_id": "a1aaZ000008mBoMQAU"
-  },
-  {
-    "attribute_name": "CFM",
-    "attribute_id": "a1aaZ000008mBoNQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBoOQAU",
     "attribute_name": "CFM (High)"
   },
@@ -596,10 +564,6 @@
     "attribute_name": "Colander Included"
   },
   {
-    "attribute_name": "Collection",
-    "attribute_id": "a1aaZ000008mBoZQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBoaQAE",
     "attribute_name": "Color Rendering Index (CRI)"
   },
@@ -634,10 +598,6 @@
   {
     "attribute_id": "a1aaZ000008mBoiQAE",
     "attribute_name": "Condenser Type"
-  },
-  {
-    "attribute_name": "Configuration",
-    "attribute_id": "a1aaZ000008mBojQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBokQAE",
@@ -704,10 +664,6 @@
     "attribute_name": "Countertop Height"
   },
   {
-    "attribute_name": "Country Of Origin",
-    "attribute_id": "a1aaZ000008mBp0QAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBp1QAE",
     "attribute_name": "Cross Bore"
   },
@@ -772,10 +728,6 @@
     "attribute_name": "Daily Ice Production"
   },
   {
-    "attribute_name": "Dark Sky",
-    "attribute_id": "a1aaZ000008mBpHQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBpIQAU",
     "attribute_name": "dB Rating"
   },
@@ -810,10 +762,6 @@
   {
     "attribute_id": "a1aaZ000008mBr1QAE",
     "attribute_name": "Delta Smart Solutions"
-  },
-  {
-    "attribute_name": "Depth",
-    "attribute_id": "a1aaZ000008mBr2QAE"
   },
   {
     "attribute_id": "a1aaZ000008mBr3QAE",
@@ -852,10 +800,6 @@
     "attribute_name": "Design Features"
   },
   {
-    "attribute_name": "Designer",
-    "attribute_id": "a1aaZ000008mBrCQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBrDQAU",
     "attribute_name": "Detergent and Rinse-Aid Dispenser"
   },
@@ -866,10 +810,6 @@
   {
     "attribute_id": "a1aaZ000008mBrFQAU",
     "attribute_name": "Diameter"
-  },
-  {
-    "attribute_name": "Dimmable",
-    "attribute_id": "a1aaZ000008mBrGQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBrHQAU",
@@ -902,10 +842,6 @@
   {
     "attribute_id": "a1aaZ000008mBrOQAU",
     "attribute_name": "Diverter Location"
-  },
-  {
-    "attribute_name": "Dome Material",
-    "attribute_id": "a1aaZ000008mBrPQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBrQQAU",
@@ -1032,10 +968,6 @@
     "attribute_name": "Energy Efficient"
   },
   {
-    "attribute_name": "Energy Star",
-    "attribute_id": "a1aaZ000008mBrvQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBrwQAE",
     "attribute_name": "Escutcheon Height"
   },
@@ -1064,10 +996,6 @@
     "attribute_name": "Exposed Installation"
   },
   {
-    "attribute_name": "Extension",
-    "attribute_id": "a1aaZ000008mBs3QAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBs4QAE",
     "attribute_name": "Exterior Height"
   },
@@ -1086,10 +1014,6 @@
   {
     "attribute_id": "a1aaZ000008mBs8QAE",
     "attribute_name": "Fan Speeds"
-  },
-  {
-    "attribute_name": "Fan Type",
-    "attribute_id": "a1aaZ000008mBs9QAE"
   },
   {
     "attribute_id": "a1aaZ000008mBsAQAU",
@@ -1272,10 +1196,6 @@
     "attribute_name": "Gas Type"
   },
   {
-    "attribute_name": "Gauge",
-    "attribute_id": "a1aaZ000008mBstQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBsuQAE",
     "attribute_name": "Glass Doors"
   },
@@ -1390,10 +1310,6 @@
   {
     "attribute_id": "a1aaZ000008mBtMQAU",
     "attribute_name": "Heater Included"
-  },
-  {
-    "attribute_name": "Height",
-    "attribute_id": "a1aaZ000008mBtNQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBtOQAU",
@@ -1544,10 +1460,6 @@
     "attribute_name": "Includes Supply Lines"
   },
   {
-    "attribute_name": "Includes Thermostat",
-    "attribute_id": "a1aaZ000008mBtzQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBu0QAE",
     "attribute_name": "Includes Timer"
   },
@@ -1574,10 +1486,6 @@
   {
     "attribute_id": "a1aaZ000008mBu6QAE",
     "attribute_name": "Installation Hardware Included"
-  },
-  {
-    "attribute_name": "Installation Type",
-    "attribute_id": "a1aaZ000008mBu7QAE"
   },
   {
     "attribute_id": "a1aaZ000008mBu8QAE",
@@ -1660,14 +1568,6 @@
     "attribute_name": "Lead Leaching Certified NSF/ANSI 61"
   },
   {
-    "attribute_name": "LED",
-    "attribute_id": "a1aaZ000008mBuSQAU"
-  },
-  {
-    "attribute_name": "Length",
-    "attribute_id": "a1aaZ000008mBuTQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBuUQAU",
     "attribute_name": "Length (Inside)"
   },
@@ -1724,16 +1624,8 @@
     "attribute_name": "LP Conversion"
   },
   {
-    "attribute_name": "Lumens",
-    "attribute_id": "a1aaZ000008mBuiQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBujQAE",
     "attribute_name": "Luxury Whirlpool"
-  },
-  {
-    "attribute_name": "Made in America",
-    "attribute_id": "a1aaZ000008mBukQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBulQAE",
@@ -1750,10 +1642,6 @@
   {
     "attribute_id": "a1aaZ000008mBuoQAE",
     "attribute_name": "Marine Grade"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000008mBupQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBuqQAE",
@@ -1778,10 +1666,6 @@
   {
     "attribute_id": "a1aaZ000008mBuvQAE",
     "attribute_name": "Maximum Adjustable Height"
-  },
-  {
-    "attribute_name": "Maximum Height",
-    "attribute_id": "a1aaZ000008mBuwQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBuxQAE",
@@ -1860,14 +1744,6 @@
     "attribute_name": "Moen Technologies"
   },
   {
-    "attribute_name": "Motion Sensor",
-    "attribute_id": "a1aaZ000008mBvGQAU"
-  },
-  {
-    "attribute_name": "Motor",
-    "attribute_id": "a1aaZ000008mBvHQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBvIQAU",
     "attribute_name": "Motor Size"
   },
@@ -1880,20 +1756,12 @@
     "attribute_name": "Mount Type"
   },
   {
-    "attribute_name": "Mounting Type",
-    "attribute_id": "a1aaZ000008mBvLQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBvMQAU",
     "attribute_name": "Night Light"
   },
   {
     "attribute_id": "a1aaZ000008mBvNQAU",
     "attribute_name": "No Load RPM"
-  },
-  {
-    "attribute_name": "Noise Level",
-    "attribute_id": "a1aaZ000008mBvOQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBvPQAU",
@@ -1938,10 +1806,6 @@
   {
     "attribute_id": "a1aaZ000008mBvZQAU",
     "attribute_name": "Number Of Bodysprays"
-  },
-  {
-    "attribute_name": "Number of Bulbs",
-    "attribute_id": "a1aaZ000008mBvaQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBvbQAE",
@@ -2092,10 +1956,6 @@
     "attribute_name": "Overall Width"
   },
   {
-    "attribute_name": "Overflow",
-    "attribute_id": "a1aaZ000008mBwCQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBwDQAU",
     "attribute_name": "Overflow Detector"
   },
@@ -2130,10 +1990,6 @@
   {
     "attribute_id": "a1aaZ000008mBwLQAU",
     "attribute_name": "Pet Friendly"
-  },
-  {
-    "attribute_name": "Photocell",
-    "attribute_id": "a1aaZ000008mBwMQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBwNQAU",
@@ -2178,10 +2034,6 @@
   {
     "attribute_id": "a1aaZ000008mBwXQAU",
     "attribute_name": "Programmable"
-  },
-  {
-    "attribute_name": "Projection",
-    "attribute_id": "a1aaZ000008mBwYQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBwZQAU",
@@ -2292,10 +2144,6 @@
     "attribute_name": "RPM (Low)"
   },
   {
-    "attribute_name": "Rust Resistant",
-    "attribute_id": "a1aaZ000008mBx0QAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBx1QAE",
     "attribute_name": "Sabbath Mode"
   },
@@ -2352,10 +2200,6 @@
     "attribute_name": "Sensor Dry"
   },
   {
-    "attribute_name": "Series",
-    "attribute_id": "a1aaZ000008mBxFQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBxGQAU",
     "attribute_name": "Service Stops Included"
   },
@@ -2372,10 +2216,6 @@
     "attribute_name": "Shade Bottom Width"
   },
   {
-    "attribute_name": "Shade Color",
-    "attribute_id": "a1aaZ000008mBxKQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBxLQAU",
     "attribute_name": "Shade Depth"
   },
@@ -2388,14 +2228,6 @@
     "attribute_name": "Shade Height"
   },
   {
-    "attribute_name": "Shade Material",
-    "attribute_id": "a1aaZ000008mBxOQAU"
-  },
-  {
-    "attribute_name": "Shade Shape",
-    "attribute_id": "a1aaZ000008mBxPQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBxQQAU",
     "attribute_name": "Shade Top Width"
   },
@@ -2406,10 +2238,6 @@
   {
     "attribute_id": "a1aaZ000008mBxSQAU",
     "attribute_name": "Shallow Ceiling Compatible"
-  },
-  {
-    "attribute_name": "Shape",
-    "attribute_id": "a1aaZ000008mBxTQAU"
   },
   {
     "attribute_id": "a1aaZ000008mBxUQAU",
@@ -2528,10 +2356,6 @@
     "attribute_name": "Slip Resistant"
   },
   {
-    "attribute_name": "Sloped Ceiling Compatible",
-    "attribute_id": "a1aaZ000008mBxxQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBxyQAE",
     "attribute_name": "Smart Home"
   },
@@ -2554,10 +2378,6 @@
   {
     "attribute_id": "a1aaZ000008mBy3QAE",
     "attribute_name": "Soft Close Slides"
-  },
-  {
-    "attribute_name": "Solar",
-    "attribute_id": "a1aaZ000008mBy4QAE"
   },
   {
     "attribute_id": "a1aaZ000008mBy5QAE",
@@ -2636,10 +2456,6 @@
     "attribute_name": "Storage Features"
   },
   {
-    "attribute_name": "Style",
-    "attribute_id": "a1aaZ000008mByOQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mByPQAU",
     "attribute_name": "Sustainability"
   },
@@ -2686,10 +2502,6 @@
   {
     "attribute_id": "a1aaZ000008mByaQAE",
     "attribute_name": "Temperature Settings"
-  },
-  {
-    "attribute_name": "Theme",
-    "attribute_id": "a1aaZ000008mBybQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBycQAE",
@@ -2800,10 +2612,6 @@
     "attribute_name": "TX Drought Compliant"
   },
   {
-    "attribute_name": "Type",
-    "attribute_id": "a1aaZ000008mBz3QAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBz4QAE",
     "attribute_name": "Undercoating"
   },
@@ -2892,10 +2700,6 @@
     "attribute_name": "Voice Activated"
   },
   {
-    "attribute_name": "Voltage",
-    "attribute_id": "a1aaZ000008mBzQQAU"
-  },
-  {
     "attribute_id": "a1aaZ000008mBzRQAU",
     "attribute_name": "Voltage Type"
   },
@@ -2972,16 +2776,8 @@
     "attribute_name": "Watt Replacement"
   },
   {
-    "attribute_name": "Wattage",
-    "attribute_id": "a1aaZ000008mBzkQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBzlQAE",
     "attribute_name": "Watts Per Bulb"
-  },
-  {
-    "attribute_name": "Width",
-    "attribute_id": "a1aaZ000008mBzmQAE"
   },
   {
     "attribute_id": "a1aaZ000008mBznQAE",
@@ -3004,10 +2800,6 @@
     "attribute_name": "Wine Bottle Capacity (750 ml)"
   },
   {
-    "attribute_name": "Wire Length",
-    "attribute_id": "a1aaZ000008mBzsQAE"
-  },
-  {
     "attribute_id": "a1aaZ000008mBztQAE",
     "attribute_name": "Wireless Communication"
   },
@@ -3028,14 +2820,6 @@
     "attribute_name": "Workstation Sink"
   },
   {
-    "attribute_name": "Installation Type",
-    "attribute_id": "a1aaZ000009X1zSQAS"
-  },
-  {
-    "attribute_name": "CFM",
-    "attribute_id": "a1aaZ000009X1zTQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X1zUQAS",
     "attribute_name": "Noise Level"
   },
@@ -3048,10 +2832,6 @@
     "attribute_name": "Fan Type"
   },
   {
-    "attribute_name": "Voltage",
-    "attribute_id": "a1aaZ000009X1zXQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X1zYQAS",
     "attribute_name": "Amperage"
   },
@@ -3062,14 +2842,6 @@
   {
     "attribute_id": "a1aaZ000009X1zaQAC",
     "attribute_name": "Housing Dimensions"
-  },
-  {
-    "attribute_name": "Motor",
-    "attribute_id": "a1aaZ000009X1zbQAC"
-  },
-  {
-    "attribute_name": "Certifications",
-    "attribute_id": "a1aaZ000009X1zcQAC"
   },
   {
     "attribute_id": "a1aaZ000009X1zdQAC",
@@ -3088,880 +2860,24 @@
     "attribute_name": "Includes Thermostat"
   },
   {
-    "attribute_name": "blade_span",
-    "attribute_id": "a1aaZ000009X1zhQAC"
-  },
-  {
-    "attribute_name": "number_of_blades",
-    "attribute_id": "a1aaZ000009X1ziQAC"
-  },
-  {
-    "attribute_name": "motor_type",
-    "attribute_id": "a1aaZ000009X1zjQAC"
-  },
-  {
-    "attribute_name": "blade_material",
-    "attribute_id": "a1aaZ000009X1zkQAC"
-  },
-  {
-    "attribute_name": "cfm",
-    "attribute_id": "a1aaZ000009X1zlQAC"
-  },
-  {
-    "attribute_name": "reversible",
-    "attribute_id": "a1aaZ000009X1zmQAC"
-  },
-  {
-    "attribute_name": "remote_included",
-    "attribute_id": "a1aaZ000009X1znQAC"
-  },
-  {
-    "attribute_name": "light_kit",
-    "attribute_id": "a1aaZ000009X1zoQAC"
-  },
-  {
-    "attribute_name": "indoor_outdoor",
-    "attribute_id": "a1aaZ000009X1zpQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X1zqQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X1zrQAC"
-  },
-  {
-    "attribute_name": "smart_features",
-    "attribute_id": "a1aaZ000009X1zsQAC"
-  },
-  {
-    "attribute_name": "noise_level",
-    "attribute_id": "a1aaZ000009X1ztQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X2NeQAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X2NfQAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X2NgQAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X2NhQAK"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X2NiQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X2NjQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X2NkQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X2NlQAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X2NmQAK"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X2NnQAK"
-  },
-  {
-    "attribute_name": "dimming",
-    "attribute_id": "a1aaZ000009X2NoQAK"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X2NpQAK"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X2NqQAK"
-  },
-  {
-    "attribute_name": "hardwired_plug_in",
-    "attribute_id": "a1aaZ000009X2NrQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X2NsQAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X2NtQAK"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X2NuQAK"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X2NvQAK"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X2NwQAK"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X2NxQAK"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X2NyQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X2NzQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X3pxQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X3pyQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X3pzQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X3q0QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X3q1QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X3q2QAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X3q3QAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X3q4QAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X3q5QAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X3q6QAC"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X3q7QAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X3q8QAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X3q9QAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X3qAQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X3qBQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X3unQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X3uoQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X3upQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X3uqQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X3urQAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X3usQAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X3utQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X3uuQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X3uvQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X3uwQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X3uxQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X3uyQAC"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X3uzQAC"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X3v0QAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X3v1QAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X3v2QAC"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X3v3QAC"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X3v4QAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X3v5QAC"
-  },
-  {
-    "attribute_name": "direction",
-    "attribute_id": "a1aaZ000009X3v6QAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X3y1QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X3y2QAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X3y3QAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X3y4QAC"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X3y5QAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X3y6QAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X3y7QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X3y8QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X3y9QAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X3yAQAS"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X3yBQAS"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X3yCQAS"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X3yDQAS"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X3yEQAS"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X3yFQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X3yGQAS"
-  },
-  {
-    "attribute_name": "color_finish",
-    "attribute_id": "a1aaZ000009X3yHQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X3zdQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X3zeQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X3zfQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X3zgQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X3zhQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X3ziQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X3zjQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X3zkQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X3zlQAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X3zmQAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X3znQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X3zoQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X3zpQAC",
     "attribute_name": "dry_wet_damp"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X3zqQAC"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X3zrQAC"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X3zsQAC"
-  },
-  {
-    "attribute_name": "hardwired_plug_in",
-    "attribute_id": "a1aaZ000009X3ztQAC"
-  },
-  {
-    "attribute_name": "dry_damp_wet_rated",
-    "attribute_id": "a1aaZ000009X3zuQAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X3zvQAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X3zwQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X41FQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X41GQAS"
-  },
-  {
-    "attribute_name": "number_of_handles",
-    "attribute_id": "a1aaZ000009X41HQAS"
-  },
-  {
-    "attribute_name": "spout_height",
-    "attribute_id": "a1aaZ000009X41IQAS"
-  },
-  {
-    "attribute_name": "spout_reach",
-    "attribute_id": "a1aaZ000009X41JQAS"
-  },
-  {
-    "attribute_name": "pull_down_pull_out",
-    "attribute_id": "a1aaZ000009X41KQAS"
-  },
-  {
-    "attribute_name": "spray_functions",
-    "attribute_id": "a1aaZ000009X41LQAS"
-  },
-  {
-    "attribute_name": "flow_rate",
-    "attribute_id": "a1aaZ000009X41MQAS"
-  },
-  {
-    "attribute_name": "deck_plate",
-    "attribute_id": "a1aaZ000009X41NQAS"
-  },
-  {
-    "attribute_name": "mounting_holes",
-    "attribute_id": "a1aaZ000009X41OQAS"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X41PQAS"
-  },
-  {
-    "attribute_name": "watersense",
-    "attribute_id": "a1aaZ000009X41QQAS"
-  },
-  {
-    "attribute_name": "valve_type",
-    "attribute_id": "a1aaZ000009X41RQAS"
-  },
-  {
-    "attribute_name": "hot_cold_indicator",
-    "attribute_id": "a1aaZ000009X41SQAS"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X41TQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X41UQAS"
-  },
-  {
-    "attribute_name": "shape",
-    "attribute_id": "a1aaZ000009X41VQAS"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X41WQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X41XQAS"
-  },
-  {
-    "attribute_name": "frame_material",
-    "attribute_id": "a1aaZ000009X41YQAS"
-  },
-  {
-    "attribute_name": "frame_finish",
-    "attribute_id": "a1aaZ000009X41ZQAS"
-  },
-  {
-    "attribute_name": "lighted",
-    "attribute_id": "a1aaZ000009X41aQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X41bQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X41cQAC"
-  },
-  {
-    "attribute_name": "anti_fog",
-    "attribute_id": "a1aaZ000009X41dQAC"
-  },
-  {
-    "attribute_name": "magnification",
-    "attribute_id": "a1aaZ000009X41eQAC"
-  },
-  {
-    "attribute_name": "touch_controls",
-    "attribute_id": "a1aaZ000009X41fQAC"
-  },
-  {
-    "attribute_name": "outlet_usb",
-    "attribute_id": "a1aaZ000009X41gQAC"
-  },
-  {
-    "attribute_name": "wall_mount",
-    "attribute_id": "a1aaZ000009X41hQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X42rQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X42sQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X42tQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X42uQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X42vQAC"
   },
   {
     "attribute_id": "a1aaZ000009X42wQAC",
     "attribute_name": "mirror_type"
   },
   {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X42xQAC"
-  },
-  {
-    "attribute_name": "number_of_doors",
-    "attribute_id": "a1aaZ000009X42yQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X42zQAC",
     "attribute_name": "number_of_shelves"
-  },
-  {
-    "attribute_name": "assembly_required",
-    "attribute_id": "a1aaZ000009X430QAC"
-  },
-  {
-    "attribute_name": "country_of_origin",
-    "attribute_id": "a1aaZ000009X431QAC"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X432QAC"
   },
   {
     "attribute_id": "a1aaZ000009X433QAC",
     "attribute_name": "mirror_hanging_orientation"
   },
   {
-    "attribute_name": "frame_material",
-    "attribute_id": "a1aaZ000009X434QAC"
-  },
-  {
-    "attribute_name": "frame_finish",
-    "attribute_id": "a1aaZ000009X435QAC"
-  },
-  {
-    "attribute_name": "lighted",
-    "attribute_id": "a1aaZ000009X436QAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X437QAC"
-  },
-  {
-    "attribute_name": "anti_fog",
-    "attribute_id": "a1aaZ000009X438QAC"
-  },
-  {
-    "attribute_name": "magnification",
-    "attribute_id": "a1aaZ000009X439QAC"
-  },
-  {
-    "attribute_name": "touch_controls",
-    "attribute_id": "a1aaZ000009X43AQAS"
-  },
-  {
-    "attribute_name": "outlet_usb",
-    "attribute_id": "a1aaZ000009X43BQAS"
-  },
-  {
-    "attribute_name": "wall_mount",
-    "attribute_id": "a1aaZ000009X43CQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X47hQAC"
-  },
-  {
-    "attribute_name": "number_of_doors",
-    "attribute_id": "a1aaZ000009X47iQAC"
-  },
-  {
-    "attribute_name": "assembly_required",
-    "attribute_id": "a1aaZ000009X47jQAC"
-  },
-  {
-    "attribute_name": "country_of_origin",
-    "attribute_id": "a1aaZ000009X47kQAC"
-  },
-  {
-    "attribute_name": "made_in_america",
-    "attribute_id": "a1aaZ000009X47lQAC"
-  },
-  {
-    "attribute_name": "manufacturer_warranty",
-    "attribute_id": "a1aaZ000009X47mQAC"
-  },
-  {
-    "attribute_name": "outdoor_approved",
-    "attribute_id": "a1aaZ000009X47nQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X47oQAC"
-  },
-  {
-    "attribute_name": "color",
-    "attribute_id": "a1aaZ000009X47pQAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X47qQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X47rQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X47sQAC"
-  },
-  {
-    "attribute_name": "depth",
-    "attribute_id": "a1aaZ000009X47tQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X47uQAC"
-  },
-  {
-    "attribute_name": "mounting_type",
-    "attribute_id": "a1aaZ000009X47vQAC"
-  },
-  {
-    "attribute_name": "soft_close",
-    "attribute_id": "a1aaZ000009X47wQAC"
-  },
-  {
-    "attribute_name": "overlay_type",
-    "attribute_id": "a1aaZ000009X47xQAC"
-  },
-  {
-    "attribute_name": "hinge_type",
-    "attribute_id": "a1aaZ000009X47yQAC"
-  },
-  {
-    "attribute_name": "handle_style",
-    "attribute_id": "a1aaZ000009X47zQAC"
-  },
-  {
-    "attribute_name": "weight_capacity",
-    "attribute_id": "a1aaZ000009X480QAC"
-  },
-  {
-    "attribute_name": "assembly",
-    "attribute_id": "a1aaZ000009X481QAC"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X482QAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X483QAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X484QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X485QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X486QAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X487QAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X488QAC"
-  },
-  {
-    "attribute_name": "dimming",
-    "attribute_id": "a1aaZ000009X489QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X48AQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X48BQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X48CQAS"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X48DQAS"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X48EQAS"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X48FQAS"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X48GQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X48HQAS"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X48IQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X48JQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X48KQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X48LQAS"
-  },
-  {
-    "attribute_name": "integrated_led",
-    "attribute_id": "a1aaZ000009X48MQAS"
-  },
-  {
-    "attribute_name": "dry_damp_wet_rated",
-    "attribute_id": "a1aaZ000009X48NQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X48OQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4AvQAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X4AwQAK",
     "attribute_name": "number_of_doors"
-  },
-  {
-    "attribute_name": "assembly_required",
-    "attribute_id": "a1aaZ000009X4AxQAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4AyQAK"
-  },
-  {
-    "attribute_name": "color",
-    "attribute_id": "a1aaZ000009X4AzQAK"
-  },
-  {
-    "attribute_name": "country_of_origin",
-    "attribute_id": "a1aaZ000009X4B0QAK"
-  },
-  {
-    "attribute_name": "made_in_america",
-    "attribute_id": "a1aaZ000009X4B1QAK"
-  },
-  {
-    "attribute_name": "manufacturer_warranty",
-    "attribute_id": "a1aaZ000009X4B2QAK"
-  },
-  {
-    "attribute_name": "outdoor_approved",
-    "attribute_id": "a1aaZ000009X4B3QAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4B4QAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4B5QAK"
-  },
-  {
-    "attribute_name": "depth",
-    "attribute_id": "a1aaZ000009X4B6QAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4B7QAK"
-  },
-  {
-    "attribute_name": "configuration",
-    "attribute_id": "a1aaZ000009X4B8QAK"
-  },
-  {
-    "attribute_name": "mounting_type",
-    "attribute_id": "a1aaZ000009X4B9QAK"
-  },
-  {
-    "attribute_name": "adjustable",
-    "attribute_id": "a1aaZ000009X4BAQA0"
-  },
-  {
-    "attribute_name": "soft_close",
-    "attribute_id": "a1aaZ000009X4BBQA0"
   },
   {
     "attribute_id": "a1aaZ000009X4BCQA0",
@@ -3972,204 +2888,8 @@
     "attribute_name": "pull_out"
   },
   {
-    "attribute_name": "assembly",
-    "attribute_id": "a1aaZ000009X4BEQA0"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X4BFQA0"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4HNQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4HOQA0"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4HPQA0"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4HQQA0"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X4HRQA0"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4HSQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4HTQA0"
-  },
-  {
-    "attribute_name": "shape",
-    "attribute_id": "a1aaZ000009X4HUQA0"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4HVQA0"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4HWQA0"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X4HXQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4HYQA0"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4HZQA0"
-  },
-  {
-    "attribute_name": "depth",
-    "attribute_id": "a1aaZ000009X4HaQAK"
-  },
-  {
-    "attribute_name": "weight",
-    "attribute_id": "a1aaZ000009X4HbQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4HcQAK"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4HdQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4HeQAK"
-  },
-  {
-    "attribute_name": "integrated_led",
-    "attribute_id": "a1aaZ000009X4HfQAK"
-  },
-  {
-    "attribute_name": "dry_damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4HgQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4HhQAK"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4HiQAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4PRQA0"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4PSQA0"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4PTQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4PUQA0"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X4PVQA0"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4PWQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4PXQA0"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4PYQA0"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4PZQA0"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X4PaQAK"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4PbQAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X4PcQAK",
     "attribute_name": "dimming"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4PdQAK"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X4PeQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4PfQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4PgQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4PhQAK"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4PiQAK"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X4PjQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4PkQAK"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4PlQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4PmQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4R3QAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4R4QAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4R5QAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4R6QAK"
   },
   {
     "attribute_id": "a1aaZ000009X4R7QAK",
@@ -4180,300 +2900,16 @@
     "attribute_name": "total_wattage"
   },
   {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X4R9QAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X4RAQA0",
     "attribute_name": "canopy_width"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4RBQA0"
-  },
-  {
-    "attribute_name": "designer",
-    "attribute_id": "a1aaZ000009X4RCQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4RDQA0"
-  },
-  {
-    "attribute_name": "shape",
-    "attribute_id": "a1aaZ000009X4REQA0"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4RFQA0"
-  },
-  {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X4RGQA0"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4RHQA0"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4RIQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4RJQA0"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X4RKQA0"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4RLQA0"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X4RMQA0"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4RNQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4SfQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4SgQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4ShQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4SiQAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4SjQAK"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4SkQAK"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4SlQAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4SmQAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4SnQAK"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X4SoQAK"
   },
   {
     "attribute_id": "a1aaZ000009X4SpQAK",
     "attribute_name": "backplate_dimensions"
   },
   {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4SqQAK"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4SrQAK"
-  },
-  {
-    "attribute_name": "designer",
-    "attribute_id": "a1aaZ000009X4SsQAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4StQAK"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4SuQAK"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4SvQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4SwQAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4VtQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4VuQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4VvQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4VwQAK"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4VxQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4VyQAK"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4VzQAK"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4W0QAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4W1QAK"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4W2QAK"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4W3QAK"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4W4QAK"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X4W5QAK"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4W6QAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4W7QAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4W8QAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4W9QAK"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X4WAQA0"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4WBQA0"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4Z7QAK"
-  },
-  {
-    "attribute_name": "number_of_bulbs",
-    "attribute_id": "a1aaZ000009X4Z8QAK"
-  },
-  {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X4Z9QAK"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4ZAQA0"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4ZBQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4ZCQA0"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4ZDQA0"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X4ZEQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4ZFQA0"
-  },
-  {
-    "attribute_name": "sloped_ceiling_compatible",
-    "attribute_id": "a1aaZ000009X4ZGQA0"
-  },
-  {
-    "attribute_name": "hanging_options",
-    "attribute_id": "a1aaZ000009X4ZHQA0"
-  },
-  {
     "attribute_id": "a1aaZ000009X4ZIQA0",
     "attribute_name": "fixture_shape"
-  },
-  {
-    "attribute_name": "light_direction",
-    "attribute_id": "a1aaZ000009X4ZJQA0"
-  },
-  {
-    "attribute_name": "power_source",
-    "attribute_id": "a1aaZ000009X4ZKQA0"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4ZLQA0"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4ZMQA0"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4ZNQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4ZOQA0"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X4ZPQA0"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4ZQQA0"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4ZRQA0"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4ZSQA0"
   },
   {
     "attribute_id": "a1aaZ000009X4ZTQA0",
@@ -4488,14 +2924,6 @@
     "attribute_name": "island_single"
   },
   {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4ZWQA0"
-  },
-  {
-    "attribute_name": "blade_span",
-    "attribute_id": "a1aaZ000009X4cLQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4cMQAS",
     "attribute_name": "cfm_high"
   },
@@ -4504,24 +2932,12 @@
     "attribute_name": "cfm_low"
   },
   {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4cOQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4cPQAS",
     "attribute_name": "blades_included"
   },
   {
-    "attribute_name": "bulb_included",
-    "attribute_id": "a1aaZ000009X4cQQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4cRQAS",
     "attribute_name": "control_type"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4cSQAS"
   },
   {
     "attribute_id": "a1aaZ000009X4cTQAS",
@@ -4532,120 +2948,20 @@
     "attribute_name": "fan_type"
   },
   {
-    "attribute_name": "led",
-    "attribute_id": "a1aaZ000009X4cVQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4cWQAS",
     "attribute_name": "motor"
-  },
-  {
-    "attribute_name": "number_of_blades",
-    "attribute_id": "a1aaZ000009X4cXQAS"
   },
   {
     "attribute_id": "a1aaZ000009X4cYQAS",
     "attribute_name": "reversible_motor"
   },
   {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4cZQAS"
-  },
-  {
-    "attribute_name": "motor_type",
-    "attribute_id": "a1aaZ000009X4caQAC"
-  },
-  {
-    "attribute_name": "blade_material",
-    "attribute_id": "a1aaZ000009X4cbQAC"
-  },
-  {
-    "attribute_name": "cfm",
-    "attribute_id": "a1aaZ000009X4ccQAC"
-  },
-  {
-    "attribute_name": "number_of_speeds",
-    "attribute_id": "a1aaZ000009X4cdQAC"
-  },
-  {
-    "attribute_name": "reversible",
-    "attribute_id": "a1aaZ000009X4ceQAC"
-  },
-  {
-    "attribute_name": "remote_included",
-    "attribute_id": "a1aaZ000009X4cfQAC"
-  },
-  {
-    "attribute_name": "light_kit",
-    "attribute_id": "a1aaZ000009X4cgQAC"
-  },
-  {
-    "attribute_name": "indoor_outdoor",
-    "attribute_id": "a1aaZ000009X4chQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4ciQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4cjQAC"
-  },
-  {
-    "attribute_name": "smart_features",
-    "attribute_id": "a1aaZ000009X4ckQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4dxQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4dyQAC"
-  },
-  {
-    "attribute_name": "Width",
-    "attribute_id": "a1aaZ000009X4dzQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4e0QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4e1QAC",
     "attribute_name": "Number of Bulbs"
   },
   {
-    "attribute_name": "Bulb Base",
-    "attribute_id": "a1aaZ000009X4e2QAC"
-  },
-  {
-    "attribute_name": "Wattage",
-    "attribute_id": "a1aaZ000009X4e3QAC"
-  },
-  {
-    "attribute_name": "Voltage",
-    "attribute_id": "a1aaZ000009X4e4QAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4e5QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4e6QAC",
     "attribute_name": "Sloped Ceiling Compatible"
-  },
-  {
-    "attribute_name": "Theme",
-    "attribute_id": "a1aaZ000009X4e7QAC"
-  },
-  {
-    "attribute_name": "Weight",
-    "attribute_id": "a1aaZ000009X4e8QAC"
-  },
-  {
-    "attribute_name": "Depth",
-    "attribute_id": "a1aaZ000009X4e9QAC"
   },
   {
     "attribute_id": "a1aaZ000009X4eAQAS",
@@ -4656,480 +2972,20 @@
     "attribute_name": "Wire Length"
   },
   {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4eCQAS"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4eDQAS"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X4eEQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4eFQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4eGQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4eHQAS"
-  },
-  {
-    "attribute_name": "crystal_type",
-    "attribute_id": "a1aaZ000009X4eIQAS"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X4eJQAS"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X4eKQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4eLQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4eMQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4hBQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4hCQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4hDQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4hEQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4hFQAS"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4hGQAS"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4hHQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4hIQAS"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X4hJQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4hKQAS"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4hLQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4hMQAS"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X4hNQAS"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4hOQAS"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X4hPQAS"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4hQQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4hRQAS"
-  },
-  {
-    "attribute_name": "crystal_type",
-    "attribute_id": "a1aaZ000009X4hSQAS"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X4hTQAS"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X4hUQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4hVQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4inQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4ioQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4ipQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4iqQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4irQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4isQAC"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4itQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4iuQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4ivQAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4iwQAC"
-  },
-  {
-    "attribute_name": "color_rendering_index_cri",
-    "attribute_id": "a1aaZ000009X4ixQAC"
-  },
-  {
-    "attribute_name": "average_hours",
-    "attribute_id": "a1aaZ000009X4iyQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4izQAC"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4j0QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4j1QAC"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4j2QAC"
-  },
-  {
-    "attribute_name": "integrated_led",
-    "attribute_id": "a1aaZ000009X4j3QAC"
-  },
-  {
-    "attribute_name": "dry_damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4j4QAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4j5QAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4j6QAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4m1QAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4m2QAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4m3QAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X4m4QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4m5QAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4m6QAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4m7QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4m8QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4m9QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4mAQAS",
     "attribute_name": "max_wattage_per_bulb"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4mBQAS"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4mCQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4mDQAS"
-  },
-  {
-    "attribute_name": "collection",
-    "attribute_id": "a1aaZ000009X4mEQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4mFQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4mGQAS"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X4mHQAS"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4mIQAS"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4mJQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4mKQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4mLQAS"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4ndQAC"
-  },
-  {
-    "attribute_name": "water_dispenser",
-    "attribute_id": "a1aaZ000009X4neQAC"
-  },
-  {
-    "attribute_name": "door_alarm",
-    "attribute_id": "a1aaZ000009X4nfQAC"
-  },
-  {
-    "attribute_name": "humidity_control",
-    "attribute_id": "a1aaZ000009X4ngQAC"
-  },
-  {
-    "attribute_name": "Width",
-    "attribute_id": "a1aaZ000009X4nhQAC"
-  },
-  {
-    "attribute_name": "Water Dispenser",
-    "attribute_id": "a1aaZ000009X4niQAC"
-  },
-  {
-    "attribute_name": "Door Alarm",
-    "attribute_id": "a1aaZ000009X4njQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4pFQAS"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X4pGQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4pHQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4pIQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4pJQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4pKQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4pLQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4pMQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4pNQAS"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4pOQAS"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4pPQAS"
-  },
-  {
-    "attribute_name": "color_rendering_index_cri",
-    "attribute_id": "a1aaZ000009X4pQQAS"
-  },
-  {
-    "attribute_name": "average_hours",
-    "attribute_id": "a1aaZ000009X4pRQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4pSQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4pTQAS"
-  },
-  {
-    "attribute_name": "integrated_led",
-    "attribute_id": "a1aaZ000009X4pUQAS"
-  },
-  {
-    "attribute_name": "dry_damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4pVQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4pWQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4pXQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4sTQAS"
-  },
-  {
-    "attribute_name": "number_of_circuits",
-    "attribute_id": "a1aaZ000009X4sUQAS"
-  },
-  {
-    "attribute_name": "system_type",
-    "attribute_id": "a1aaZ000009X4sVQAS"
   },
   {
     "attribute_id": "a1aaZ000009X4sWQAS",
     "attribute_name": "power_feed_type"
   },
   {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4sXQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4sYQAS",
     "attribute_name": "voltage_type"
   },
   {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X4sZQAS"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4saQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4sbQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4scQAC",
     "attribute_name": "accessory_type"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4sdQAC"
-  },
-  {
-    "attribute_name": "track_system",
-    "attribute_id": "a1aaZ000009X4seQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4sfQAC"
-  },
-  {
-    "attribute_name": "connector_type",
-    "attribute_id": "a1aaZ000009X4sgQAC"
-  },
-  {
-    "attribute_name": "ceiling_mount",
-    "attribute_id": "a1aaZ000009X4shQAC"
-  },
-  {
-    "attribute_name": "flexible_rigid",
-    "attribute_id": "a1aaZ000009X4siQAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4sjQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4u5QAC"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4u6QAC"
-  },
-  {
-    "attribute_name": "system_type",
-    "attribute_id": "a1aaZ000009X4u7QAC"
   },
   {
     "attribute_id": "a1aaZ000009X4u8QAC",
@@ -5140,48 +2996,12 @@
     "attribute_name": "track_accessory_type"
   },
   {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X4uAQAS"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4uBQAS"
-  },
-  {
-    "attribute_name": "manufacturer_warranty",
-    "attribute_id": "a1aaZ000009X4uCQAS"
-  },
-  {
-    "attribute_name": "country_of_origin",
-    "attribute_id": "a1aaZ000009X4uDQAS"
-  },
-  {
-    "attribute_name": "theme",
-    "attribute_id": "a1aaZ000009X4uEQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4uFQAS",
     "attribute_name": "field_cuttable"
   },
   {
     "attribute_id": "a1aaZ000009X4uGQAS",
     "attribute_name": "length"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4uHQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4uIQAS"
-  },
-  {
-    "attribute_name": "weight",
-    "attribute_id": "a1aaZ000009X4uJQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4uKQAS"
   },
   {
     "attribute_id": "a1aaZ000009X4uLQAS",
@@ -5196,30 +3016,6 @@
     "attribute_name": "number_of_heads"
   },
   {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4uOQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4uPQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4uQQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4uRQAS"
-  },
-  {
-    "attribute_name": "adjustable",
-    "attribute_id": "a1aaZ000009X4uSQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4uTQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4uUQAS",
     "attribute_name": "connector_type"
   },
@@ -5232,98 +3028,6 @@
     "attribute_name": "flexible_rigid"
   },
   {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4uXQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4vhQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4viQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4vjQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4vkQAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4vlQAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4vmQAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4vnQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4voQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4vpQAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4vqQAC"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X4vrQAC"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X4vsQAC"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X4vtQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4vuQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4vvQAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4vwQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4vxQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4vyQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4vzQAC"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X4w0QAC"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X4w1QAC"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X4w2QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4w3QAC",
     "attribute_name": "aperture_size"
   },
@@ -5332,144 +3036,12 @@
     "attribute_name": "cutout_size"
   },
   {
-    "attribute_name": "bulb_included",
-    "attribute_id": "a1aaZ000009X4w5QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4w6QAC",
     "attribute_name": "adjustable_color_temperature"
   },
   {
-    "attribute_name": "airtight",
-    "attribute_id": "a1aaZ000009X4w7QAC"
-  },
-  {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X4w8QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4w9QAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X4wAQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4wBQAS"
-  },
-  {
-    "attribute_name": "housing_type",
-    "attribute_id": "a1aaZ000009X4wCQAS"
-  },
-  {
-    "attribute_name": "led",
-    "attribute_id": "a1aaZ000009X4wDQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4wEQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4wFQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4wGQAS"
-  },
-  {
-    "attribute_name": "trim_style",
-    "attribute_id": "a1aaZ000009X4wHQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4wIQAS"
-  },
-  {
-    "attribute_name": "size",
-    "attribute_id": "a1aaZ000009X4wJQAS"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X4wKQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4wLQAS"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X4wMQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X4wNQAS",
     "attribute_name": "beam_angle"
-  },
-  {
-    "attribute_name": "ic_rating",
-    "attribute_id": "a1aaZ000009X4wOQAS"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X4wPQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X4wQQAS"
-  },
-  {
-    "attribute_name": "title_24",
-    "attribute_id": "a1aaZ000009X4wRQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X4xJQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X4xKQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X4xLQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X4xMQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X4xNQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X4xOQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X4xPQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X4xQQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X4xRQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X4xSQAS"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X4xTQAS"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X4xUQAS"
   },
   {
     "attribute_id": "a1aaZ000009X4xVQAS",
@@ -5480,160 +3052,16 @@
     "attribute_name": "backplate_width"
   },
   {
-    "attribute_name": "weight",
-    "attribute_id": "a1aaZ000009X4xXQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X4xYQAS"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X4xZQAS"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X4xaQAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X4xbQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X4xcQAC",
     "attribute_name": "Energy Star"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X53lQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X53mQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X53nQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X53oQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X53pQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X53qQAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X53rQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X53sQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X53tQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X53uQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X53vQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X53wQAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X53xQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X53yQAC"
   },
   {
     "attribute_id": "a1aaZ000009X53zQAC",
     "attribute_name": "wet_rated"
   },
   {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X540QAC"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X541QAC"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X542QAC"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X543QAC"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X544QAC"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X545QAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X546QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X55NQAS",
     "attribute_name": "beam_spread"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X55OQAS"
-  },
-  {
-    "attribute_name": "product_weight",
-    "attribute_id": "a1aaZ000009X55PQAS"
-  },
-  {
-    "attribute_name": "trim_size",
-    "attribute_id": "a1aaZ000009X55QQAS"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X55RQAS"
-  },
-  {
-    "attribute_name": "bulb_included",
-    "attribute_id": "a1aaZ000009X55SQAS"
-  },
-  {
-    "attribute_name": "adjustable",
-    "attribute_id": "a1aaZ000009X55TQAS"
-  },
-  {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X55UQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X55VQAS"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X55WQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X55XQAS"
   },
   {
     "attribute_id": "a1aaZ000009X55YQAS",
@@ -5644,64 +3072,12 @@
     "attribute_name": "led"
   },
   {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X55aQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X55bQAC",
     "attribute_name": "watts_per_bulb"
   },
   {
-    "attribute_name": "Style",
-    "attribute_id": "a1aaZ000009X55cQAC"
-  },
-  {
-    "attribute_name": "Width_Diameter",
-    "attribute_id": "a1aaZ000009X55dQAC"
-  },
-  {
-    "attribute_name": "Height",
-    "attribute_id": "a1aaZ000009X55eQAC"
-  },
-  {
-    "attribute_name": "Number_of_Lights",
-    "attribute_id": "a1aaZ000009X55fQAC"
-  },
-  {
-    "attribute_name": "Max_Wattage",
-    "attribute_id": "a1aaZ000009X55gQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X55hQAC"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000009X55iQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X55jQAC",
     "attribute_name": "Integrated_LED"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X55kQAC"
-  },
-  {
-    "attribute_name": "Dry_Damp_Wet_Rated",
-    "attribute_id": "a1aaZ000009X55lQAC"
-  },
-  {
-    "attribute_name": "UL_Listed",
-    "attribute_id": "a1aaZ000009X55mQAC"
-  },
-  {
-    "attribute_name": "Energy_Star",
-    "attribute_id": "a1aaZ000009X55nQAC"
-  },
-  {
-    "attribute_name": "trim_style",
-    "attribute_id": "a1aaZ000009X55oQAC"
   },
   {
     "attribute_id": "a1aaZ000009X55pQAC",
@@ -5716,28 +3092,8 @@
     "attribute_name": "airtight"
   },
   {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X58dQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X58eQAC"
-  },
-  {
-    "attribute_name": "housing_type",
-    "attribute_id": "a1aaZ000009X58fQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X58gQAC",
     "attribute_name": "light_direction"
-  },
-  {
-    "attribute_name": "number_of_light_sources",
-    "attribute_id": "a1aaZ000009X58hQAC"
-  },
-  {
-    "attribute_name": "sloped_ceiling_compatible",
-    "attribute_id": "a1aaZ000009X58iQAC"
   },
   {
     "attribute_id": "a1aaZ000009X58jQAC",
@@ -5748,40 +3104,8 @@
     "attribute_name": "power_source"
   },
   {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X58lQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X58mQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X58nQAC",
     "attribute_name": "ic_rating"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X58oQAC"
-  },
-  {
-    "attribute_name": "theme",
-    "attribute_id": "a1aaZ000009X58pQAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X58qQAC"
-  },
-  {
-    "attribute_name": "size",
-    "attribute_id": "a1aaZ000009X58rQAC"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X58sQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X58tQAC"
   },
   {
     "attribute_id": "a1aaZ000009X58uQAC",
@@ -5790,94 +3114,6 @@
   {
     "attribute_id": "a1aaZ000009X58vQAC",
     "attribute_name": "ic_rated"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5ADQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5AEQA0"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X5AFQA0"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5AGQA0"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5AHQA0"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5AIQA0"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5AJQA0"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5AKQA0"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X5ALQA0"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X5AMQA0"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X5ANQA0"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X5AOQA0"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X5APQA0"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5AQQA0"
-  },
-  {
-    "attribute_name": "color_finish",
-    "attribute_id": "a1aaZ000009X5ARQA0"
-  },
-  {
-    "attribute_name": "bulb_included",
-    "attribute_id": "a1aaZ000009X5BpQAK"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X5BqQAK"
-  },
-  {
-    "attribute_name": "adjustable",
-    "attribute_id": "a1aaZ000009X5BrQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5BsQAK"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5BtQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5BuQAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5BvQAK"
   },
   {
     "attribute_id": "a1aaZ000009X5BwQAK",
@@ -5908,88 +3144,12 @@
     "attribute_name": "average_hours"
   },
   {
-    "attribute_name": "color_rendering_index_cri",
-    "attribute_id": "a1aaZ000009X5C3QAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5C4QAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5C5QAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5C6QAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5C7QAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5C8QAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5C9QAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5CAQA0"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X5CBQA0"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X5CCQA0"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X5CDQA0"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X5CEQA0"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5CFQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5F3QAK"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000009X5F4QAK"
-  },
-  {
-    "attribute_name": "Color",
-    "attribute_id": "a1aaZ000009X5F5QAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5F6QAK"
-  },
-  {
-    "attribute_name": "Adjustable",
-    "attribute_id": "a1aaZ000009X5F7QAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X5F8QAK",
     "attribute_name": "Installation Type"
   },
   {
     "attribute_id": "a1aaZ000009X5F9QAK",
     "attribute_name": "trim_style"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5FAQA0"
   },
   {
     "attribute_id": "a1aaZ000009X5FBQA0",
@@ -6000,220 +3160,8 @@
     "attribute_name": "housing_type"
   },
   {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5N7QAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5N8QAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5N9QAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5NAQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5NBQA0"
-  },
-  {
-    "attribute_name": "shape",
-    "attribute_id": "a1aaZ000009X5NCQA0"
-  },
-  {
-    "attribute_name": "lighted",
-    "attribute_id": "a1aaZ000009X5NDQA0"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5NEQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5NFQA0"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X5NGQA0"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X5NHQA0"
-  },
-  {
-    "attribute_name": "frame_material",
-    "attribute_id": "a1aaZ000009X5NIQA0"
-  },
-  {
     "attribute_id": "a1aaZ000009X5NJQA0",
     "attribute_name": "frame_color"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5NKQA0"
-  },
-  {
-    "attribute_name": "safety_rating",
-    "attribute_id": "a1aaZ000009X5NLQA0"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5NMQA0"
-  },
-  {
-    "attribute_name": "frame_finish",
-    "attribute_id": "a1aaZ000009X5NNQA0"
-  },
-  {
-    "attribute_name": "anti_fog",
-    "attribute_id": "a1aaZ000009X5NOQA0"
-  },
-  {
-    "attribute_name": "magnification",
-    "attribute_id": "a1aaZ000009X5NPQA0"
-  },
-  {
-    "attribute_name": "touch_controls",
-    "attribute_id": "a1aaZ000009X5NQQA0"
-  },
-  {
-    "attribute_name": "outlet_usb",
-    "attribute_id": "a1aaZ000009X5NRQA0"
-  },
-  {
-    "attribute_name": "wall_mount",
-    "attribute_id": "a1aaZ000009X5NSQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5QLQA0"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5QMQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5QNQA0"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5QOQA0"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5QPQA0"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5QQQA0"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5QRQA0"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5QSQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5QTQA0"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5QUQA0"
-  },
-  {
-    "attribute_name": "cri",
-    "attribute_id": "a1aaZ000009X5QVQA0"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X5QWQA0"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X5QXQA0"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X5QYQA0"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X5QZQA0"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5QaQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5QbQAK"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X5QcQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5QdQAK"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X5QeQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5QfQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5TZQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5TaQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5TbQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5TcQAK"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5TdQAK"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5TeQAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5TfQAK"
-  },
-  {
-    "attribute_name": "sloped_ceiling_compatible",
-    "attribute_id": "a1aaZ000009X5TgQAK"
-  },
-  {
-    "attribute_name": "smart_features",
-    "attribute_id": "a1aaZ000009X5ThQAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5TiQAK"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5TjQAK"
   },
   {
     "attribute_id": "a1aaZ000009X5TkQAK",
@@ -6226,50 +3174,6 @@
   {
     "attribute_id": "a1aaZ000009X5TmQAK",
     "attribute_name": "hanging_options"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X5TnQAK"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X5ToQAK"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X5TpQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5TqQAK"
-  },
-  {
-    "attribute_name": "crystal_type",
-    "attribute_id": "a1aaZ000009X5TrQAK"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X5TsQAK"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X5TtQAK"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5TuQAK"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X5TvQAK"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5TwQAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5TxQAK"
   },
   {
     "attribute_id": "a1aaZ000009X5TyQAK",
@@ -6304,10 +3208,6 @@
     "attribute_name": "mounting_holes"
   },
   {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X5U6QAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X5U7QAK",
     "attribute_name": "watersense"
   },
@@ -6320,24 +3220,8 @@
     "attribute_name": "hot_cold_indicator"
   },
   {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X5UAQA0"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5UBQA0"
-  },
-  {
     "attribute_id": "a1aaZ000009X5UCQA0",
     "attribute_name": "shape"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5UDQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5UEQA0"
   },
   {
     "attribute_id": "a1aaZ000009X5UFQA0",
@@ -6350,14 +3234,6 @@
   {
     "attribute_id": "a1aaZ000009X5UHQA0",
     "attribute_name": "lighted"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5UIQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5UJQA0"
   },
   {
     "attribute_id": "a1aaZ000009X5UKQA0",
@@ -6376,42 +3252,6 @@
     "attribute_name": "outlet_usb"
   },
   {
-    "attribute_name": "wall_mount",
-    "attribute_id": "a1aaZ000009X5UOQA0"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5VBQA0"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5VCQA0"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5VDQA0"
-  },
-  {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X5VEQA0"
-  },
-  {
-    "attribute_name": "designer",
-    "attribute_id": "a1aaZ000009X5VFQA0"
-  },
-  {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X5VGQA0"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X5VHQA0"
-  },
-  {
-    "attribute_name": "collection",
-    "attribute_id": "a1aaZ000009X5VIQA0"
-  },
-  {
     "attribute_id": "a1aaZ000009X5VJQA0",
     "attribute_name": "series"
   },
@@ -6424,372 +3264,32 @@
     "attribute_name": "height_max"
   },
   {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X5VMQA0"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5VNQA0"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X5VOQA0"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5VPQA0"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5VQQA0"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5VRQA0"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5VSQA0"
-  },
-  {
-    "attribute_name": "crystal_type",
-    "attribute_id": "a1aaZ000009X5VTQA0"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X5VUQA0"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X5VVQA0"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5VWQA0"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X5VXQA0"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5WnQAK"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5WoQAK"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5WpQAK"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5WqQAK"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5WrQAK"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X5WsQAK"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X5WtQAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X5WuQAK",
     "attribute_name": "canopy_dimensions"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5WvQAK"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5WwQAK"
   },
   {
     "attribute_id": "a1aaZ000009X5WxQAK",
     "attribute_name": "designer"
   },
   {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X5WyQAK"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X5WzQAK"
-  },
-  {
     "attribute_id": "a1aaZ000009X5X0QAK",
     "attribute_name": "title_20_compliant"
-  },
-  {
-    "attribute_name": "weight",
-    "attribute_id": "a1aaZ000009X5X1QAK"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X5X2QAK"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5X3QAK"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X5X4QAK"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5a1QAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5a2QAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5a3QAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5a4QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5a5QAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5a6QAC"
-  },
-  {
-    "attribute_name": "color",
-    "attribute_id": "a1aaZ000009X5a7QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5a8QAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5a9QAC"
   },
   {
     "attribute_id": "a1aaZ000009X5aAQAS",
     "attribute_name": "voltage_rating"
   },
   {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5aBQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X5aCQAS",
     "attribute_name": "glass_type"
-  },
-  {
-    "attribute_name": "mounting_type",
-    "attribute_id": "a1aaZ000009X5aDQAS"
-  },
-  {
-    "attribute_name": "dusk_to_dawn",
-    "attribute_id": "a1aaZ000009X5aEQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X5aFQAS"
-  },
-  {
-    "attribute_name": "weather_rating",
-    "attribute_id": "a1aaZ000009X5aGQAS"
-  },
-  {
-    "attribute_name": "motion_sensor",
-    "attribute_id": "a1aaZ000009X5aHQAS"
-  },
-  {
-    "attribute_name": "solar_powered",
-    "attribute_id": "a1aaZ000009X5aIQAS"
-  },
-  {
-    "attribute_name": "dark_sky",
-    "attribute_id": "a1aaZ000009X5aJQAS"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5aKQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5aLQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5aMQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5aNQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5aOQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5aPQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5aQQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5aRQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5aSQAS"
   },
   {
     "attribute_id": "a1aaZ000009X5aTQAS",
     "attribute_name": "height_adjustable"
   },
   {
-    "attribute_name": "sloped_ceiling_compatible",
-    "attribute_id": "a1aaZ000009X5aUQAS"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5aVQAS"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5aWQAS"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X5aXQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X5aYQAS",
     "attribute_name": "color_rendering_index_cri"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X5aZQAS"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X5aaQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5abQAC"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X5acQAC"
-  },
-  {
-    "attribute_name": "crystal_type",
-    "attribute_id": "a1aaZ000009X5adQAC"
-  },
-  {
-    "attribute_name": "chain_length",
-    "attribute_id": "a1aaZ000009X5aeQAC"
-  },
-  {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X5afQAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5agQAC"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X5ahQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5dFQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5dGQAS"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5dHQAS"
-  },
-  {
-    "attribute_name": "bulb_base",
-    "attribute_id": "a1aaZ000009X5dIQAS"
-  },
-  {
-    "attribute_name": "number_of_bulbs",
-    "attribute_id": "a1aaZ000009X5dJQAS"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X5dKQAS"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X5dLQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5dMQAS"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5dNQAS"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5dOQAS"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5dPQAS"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X5dQQAS"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X5dRQAS"
-  },
-  {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X5dSQAS"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009X5dTQAS"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5dUQAS"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5dVQAS"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5dWQAS"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5dXQAS"
   },
   {
     "attribute_id": "a1aaZ000009X5dYQAS",
@@ -6812,148 +3312,8 @@
     "attribute_name": "dark_sky"
   },
   {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5ddQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5erQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5esQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5etQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X5euQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5evQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5ewQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5exQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5eyQAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5ezQAC"
-  },
-  {
-    "attribute_name": "shade_direction",
-    "attribute_id": "a1aaZ000009X5f0QAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5f1QAC"
-  },
-  {
-    "attribute_name": "damp_wet_rated",
-    "attribute_id": "a1aaZ000009X5f2QAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X5f3QAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5f4QAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5f5QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5jhQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5jiQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5jjQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5jkQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5jlQAC"
-  },
-  {
-    "attribute_name": "wattage",
-    "attribute_id": "a1aaZ000009X5jmQAC"
-  },
-  {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X5jnQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5joQAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X5jpQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X5jqQAC",
     "attribute_name": "cri"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5jrQAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5jsQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5jtQAC"
-  },
-  {
-    "attribute_name": "ada_compliant",
-    "attribute_id": "a1aaZ000009X5juQAC"
-  },
-  {
-    "attribute_name": "certifications",
-    "attribute_id": "a1aaZ000009X5jvQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5jwQAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X5jxQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5jyQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5jzQAC"
-  },
-  {
-    "attribute_name": "direction",
-    "attribute_id": "a1aaZ000009X5k0QAC"
   },
   {
     "attribute_id": "a1aaZ000009X5k1QAC",
@@ -6962,46 +3322,6 @@
   {
     "attribute_id": "a1aaZ000009X5k2QAC",
     "attribute_name": "dry_damp_wet_rated"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5k3QAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5oXQAS"
-  },
-  {
-    "attribute_name": "dimensions",
-    "attribute_id": "a1aaZ000009X5oYQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5oZQAS"
-  },
-  {
-    "attribute_name": "manufacturer_warranty",
-    "attribute_id": "a1aaZ000009X5oaQAC"
-  },
-  {
-    "attribute_name": "Type",
-    "attribute_id": "a1aaZ000009X5obQAC"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000009X5ocQAC"
-  },
-  {
-    "attribute_name": "Finish",
-    "attribute_id": "a1aaZ000009X5odQAC"
-  },
-  {
-    "attribute_name": "Color",
-    "attribute_id": "a1aaZ000009X5oeQAC"
-  },
-  {
-    "attribute_name": "Style",
-    "attribute_id": "a1aaZ000009X5ofQAC"
   },
   {
     "attribute_id": "a1aaZ000009X5ogQAC",
@@ -7028,78 +3348,6 @@
     "attribute_name": "Rust Resistant"
   },
   {
-    "attribute_name": "Warranty",
-    "attribute_id": "a1aaZ000009X5omQAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5rlQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5rmQAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5rnQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5roQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5rpQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5rqQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5rrQAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5rsQAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5rtQAC"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5ruQAC"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5rvQAC"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009X5rwQAC"
-  },
-  {
-    "attribute_name": "location_rating",
-    "attribute_id": "a1aaZ000009X5rxQAC"
-  },
-  {
-    "attribute_name": "color_temperature",
-    "attribute_id": "a1aaZ000009X5ryQAC"
-  },
-  {
-    "attribute_name": "lumens",
-    "attribute_id": "a1aaZ000009X5rzQAC"
-  },
-  {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009X5s0QAC"
-  },
-  {
-    "attribute_name": "extension",
-    "attribute_id": "a1aaZ000009X5s1QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X5s2QAC",
     "attribute_name": "shade_direction"
   },
@@ -7112,52 +3360,8 @@
     "attribute_name": "ada_compliant"
   },
   {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5s5QAC"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X5uzQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5v0QAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X5v1QAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X5v2QAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X5v3QAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X5v4QAC"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009X5v5QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X5v6QAC",
     "attribute_name": "extension"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X5v7QAC"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X5v8QAC"
-  },
-  {
-    "attribute_name": "shade_color",
-    "attribute_id": "a1aaZ000009X5v9QAC"
   },
   {
     "attribute_id": "a1aaZ000009X5vAQAS",
@@ -7168,20 +3372,8 @@
     "attribute_name": "lumens"
   },
   {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X5vCQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X5vDQAS",
     "attribute_name": "safety_rating"
-  },
-  {
-    "attribute_name": "Type",
-    "attribute_id": "a1aaZ000009X5vEQAS"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000009X5vFQAS"
   },
   {
     "attribute_id": "a1aaZ000009X5vGQAS",
@@ -7204,16 +3396,8 @@
     "attribute_name": "Dark Sky"
   },
   {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X5vLQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X5vMQAS",
     "attribute_name": "direction"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X5vNQAS"
   },
   {
     "attribute_id": "a1aaZ000009X5yDQAS",
@@ -7240,22 +3424,6 @@
     "attribute_name": "remote_included"
   },
   {
-    "attribute_name": "indoor_outdoor",
-    "attribute_id": "a1aaZ000009X5yJQAS"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X5yKQAS"
-  },
-  {
-    "attribute_name": "smart_features",
-    "attribute_id": "a1aaZ000009X5yLQAS"
-  },
-  {
-    "attribute_name": "energy_star",
-    "attribute_id": "a1aaZ000009X5yMQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X5yNQAS",
     "attribute_name": "light_kit"
   },
@@ -7280,18 +3448,6 @@
     "attribute_name": "noise_level"
   },
   {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X61RQAS"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009X61SQAS"
-  },
-  {
-    "attribute_name": "shade_material",
-    "attribute_id": "a1aaZ000009X61TQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X61UQAS",
     "attribute_name": "shade_color"
   },
@@ -7308,24 +3464,12 @@
     "attribute_name": "wattage"
   },
   {
-    "attribute_name": "voltage",
-    "attribute_id": "a1aaZ000009X61YQAS"
-  },
-  {
     "attribute_id": "a1aaZ000009X61ZQAS",
     "attribute_name": "location_rating"
   },
   {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009X61aQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X61bQAC",
     "attribute_name": "adjustable"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X61cQAC"
   },
   {
     "attribute_id": "a1aaZ000009X61dQAC",
@@ -7336,34 +3480,6 @@
     "attribute_name": "certifications"
   },
   {
-    "attribute_name": "manufacturer_warranty",
-    "attribute_id": "a1aaZ000009X61fQAC"
-  },
-  {
-    "attribute_name": "width_diameter",
-    "attribute_id": "a1aaZ000009X61gQAC"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009X61hQAC"
-  },
-  {
-    "attribute_name": "adjustable_height",
-    "attribute_id": "a1aaZ000009X61iQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X61jQAC"
-  },
-  {
-    "attribute_name": "bulb_type",
-    "attribute_id": "a1aaZ000009X61kQAC"
-  },
-  {
-    "attribute_name": "max_wattage",
-    "attribute_id": "a1aaZ000009X61lQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X61mQAC",
     "attribute_name": "Crystal_Type"
   },
@@ -7372,40 +3488,12 @@
     "attribute_name": "Chain_Length"
   },
   {
-    "attribute_name": "canopy_size",
-    "attribute_id": "a1aaZ000009X61oQAC"
-  },
-  {
-    "attribute_name": "ul_listed",
-    "attribute_id": "a1aaZ000009X61pQAC"
-  },
-  {
-    "attribute_name": "Energy_Star",
-    "attribute_id": "a1aaZ000009X61qQAC"
-  },
-  {
-    "attribute_name": "number_of_lights",
-    "attribute_id": "a1aaZ000009X67tQAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X67uQAC",
     "attribute_name": "Bulb Type"
   },
   {
     "attribute_id": "a1aaZ000009X67vQAC",
     "attribute_name": "Max Wattage"
-  },
-  {
-    "attribute_name": "dimmable",
-    "attribute_id": "a1aaZ000009X67wQAC"
-  },
-  {
-    "attribute_name": "Material",
-    "attribute_id": "a1aaZ000009X67xQAC"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009X67yQAC"
   },
   {
     "attribute_id": "a1aaZ000009X67zQAC",
@@ -7436,32 +3524,12 @@
     "attribute_name": "Shade Shape"
   },
   {
-    "attribute_name": "Height",
-    "attribute_id": "a1aaZ000009X686QAC"
-  },
-  {
-    "attribute_name": "Width",
-    "attribute_id": "a1aaZ000009X687QAC"
-  },
-  {
     "attribute_id": "a1aaZ000009X688QAC",
     "attribute_name": "Light Kit"
   },
   {
-    "attribute_name": "indoor_outdoor",
-    "attribute_id": "a1aaZ000009X689QAC"
-  },
-  {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009etDVQAY"
-  },
-  {
     "attribute_id": "a1aaZ000009etDWQAY",
     "attribute_name": "width_diameter"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009etDXQAY"
   },
   {
     "attribute_id": "a1aaZ000009etDYQAY",
@@ -7480,10 +3548,6 @@
     "attribute_name": "max_wattage"
   },
   {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009etDcQAI"
-  },
-  {
     "attribute_id": "a1aaZ000009etDdQAI",
     "attribute_name": "dimmable"
   },
@@ -7500,28 +3564,8 @@
     "attribute_name": "shade_material"
   },
   {
-    "attribute_name": "type",
-    "attribute_id": "a1aaZ000009eu6LQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009eu6MQAQ",
     "attribute_name": "room"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009eu6NQAQ"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009eu6OQAQ"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009eu6PQAQ"
-  },
-  {
-    "attribute_name": "depth",
-    "attribute_id": "a1aaZ000009eu6QQAQ"
   },
   {
     "attribute_id": "a1aaZ000009eu6RQAQ",
@@ -7532,14 +3576,6 @@
     "attribute_name": "number_of_pieces"
   },
   {
-    "attribute_name": "assembly_required",
-    "attribute_id": "a1aaZ000009eu6TQAQ"
-  },
-  {
-    "attribute_name": "weight_capacity",
-    "attribute_id": "a1aaZ000009eu6UQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009eu6VQAQ",
     "attribute_name": "storage"
   },
@@ -7548,32 +3584,8 @@
     "attribute_name": "indoor_outdoor"
   },
   {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009eu6XQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009eu6YQAQ",
     "attribute_name": "upholstery"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009euJFQAY"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009euJGQAY"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009euJHQAY"
-  },
-  {
-    "attribute_name": "mounting_type",
-    "attribute_id": "a1aaZ000009euJIQAY"
-  },
-  {
-    "attribute_name": "assembly_required",
-    "attribute_id": "a1aaZ000009euJJQAY"
   },
   {
     "attribute_id": "a1aaZ000009euJKQAY",
@@ -7592,20 +3604,12 @@
     "attribute_name": "package_quantity"
   },
   {
-    "attribute_name": "warranty",
-    "attribute_id": "a1aaZ000009euJOQAY"
-  },
-  {
     "attribute_id": "a1aaZ000009euJPQAY",
     "attribute_name": "projection"
   },
   {
     "attribute_id": "a1aaZ000009euJQQAY",
     "attribute_name": "width_length"
-  },
-  {
-    "attribute_name": "color",
-    "attribute_id": "a1aaZ000009euJRQAY"
   },
   {
     "attribute_id": "a1aaZ000009euJSQAY",
@@ -7616,38 +3620,6 @@
     "attribute_name": "hardware_included"
   },
   {
-    "attribute_name": "set_contents",
-    "attribute_id": "a1aaZ000009eumHQAQ"
-  },
-  {
-    "attribute_name": "product_style",
-    "attribute_id": "a1aaZ000009eumIQAQ"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009eumJQAQ"
-  },
-  {
-    "attribute_name": "product_title",
-    "attribute_id": "a1aaZ000009eumKQAQ"
-  },
-  {
-    "attribute_name": "features_list",
-    "attribute_id": "a1aaZ000009eumLQAQ"
-  },
-  {
-    "attribute_name": "model_variant_number",
-    "attribute_id": "a1aaZ000009eumMQAQ"
-  },
-  {
-    "attribute_name": "total_model_variants",
-    "attribute_id": "a1aaZ000009eumNQAQ"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009eumOQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009eviLQAQ",
     "attribute_name": "mounting_hardware"
   },
@@ -7656,44 +3628,8 @@
     "attribute_name": "set_contents"
   },
   {
-    "attribute_name": "product_style",
-    "attribute_id": "a1aaZ000009eviNQAQ"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009eviOQAQ"
-  },
-  {
-    "attribute_name": "product_title",
-    "attribute_id": "a1aaZ000009eviPQAQ"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009eviQQAQ"
-  },
-  {
-    "attribute_name": "model_variant_number",
-    "attribute_id": "a1aaZ000009eviRQAQ"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009eviSQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009ew9lQAA",
     "attribute_name": "configuration"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009ew9mQAA"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009ew9nQAA"
-  },
-  {
-    "attribute_name": "depth",
-    "attribute_id": "a1aaZ000009ew9oQAA"
   },
   {
     "attribute_id": "a1aaZ000009ew9pQAA",
@@ -7714,10 +3650,6 @@
   {
     "attribute_id": "a1aaZ000009ew9tQAA",
     "attribute_name": "grid_included"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009ew9uQAA"
   },
   {
     "attribute_id": "a1aaZ000009ew9vQAA",
@@ -7748,60 +3680,8 @@
     "attribute_name": "Single Bowl"
   },
   {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009ewA2QAI"
-  },
-  {
-    "attribute_name": "product_style",
-    "attribute_id": "a1aaZ000009ewA3QAI"
-  },
-  {
-    "attribute_name": "product_title",
-    "attribute_id": "a1aaZ000009ewA4QAI"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009ewA5QAI"
-  },
-  {
-    "attribute_name": "style",
-    "attribute_id": "a1aaZ000009f5OLQAY"
-  },
-  {
-    "attribute_name": "height",
-    "attribute_id": "a1aaZ000009f5OMQAY"
-  },
-  {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009f5ONQAY"
-  },
-  {
-    "attribute_name": "product_style",
-    "attribute_id": "a1aaZ000009f5OOQAY"
-  },
-  {
-    "attribute_name": "market_value",
-    "attribute_id": "a1aaZ000009f5OPQAY"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009f5OQQAY"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009f5ORQAY"
-  },
-  {
-    "attribute_name": "features_list",
-    "attribute_id": "a1aaZ000009f5OSQAY"
-  },
-  {
     "attribute_id": "a1aaZ000009f5OTQAY",
     "attribute_name": "model_variant_number"
-  },
-  {
-    "attribute_name": "total_model_variants",
-    "attribute_id": "a1aaZ000009f5OUQAY"
   },
   {
     "attribute_id": "a1aaZ000009f7OXQAY",
@@ -7814,38 +3694,6 @@
   {
     "attribute_id": "a1aaZ000009f7OZQAY",
     "attribute_name": "ceramic_disc"
-  },
-  {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009f7OaQAI"
-  },
-  {
-    "attribute_name": "market_value",
-    "attribute_id": "a1aaZ000009f7ObQAI"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009f7OcQAI"
-  },
-  {
-    "attribute_name": "total_model_variants",
-    "attribute_id": "a1aaZ000009f7OdQAI"
-  },
-  {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009fqbmQAA"
-  },
-  {
-    "attribute_name": "market_value",
-    "attribute_id": "a1aaZ000009fqbnQAA"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009fqboQAA"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009fztZQAQ"
   },
   {
     "attribute_id": "a1aaZ000009fztaQAA",
@@ -7872,32 +3720,12 @@
     "attribute_name": "made_in_america"
   },
   {
-    "attribute_name": "color",
-    "attribute_id": "a1aaZ000009fztgQAA"
-  },
-  {
-    "attribute_name": "collection",
-    "attribute_id": "a1aaZ000009fzthQAA"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009fztiQAA"
-  },
-  {
     "attribute_id": "a1aaZ000009fztjQAA",
     "attribute_name": "height"
   },
   {
     "attribute_id": "a1aaZ000009fztkQAA",
     "attribute_name": "depth"
-  },
-  {
-    "attribute_name": "product_weight",
-    "attribute_id": "a1aaZ000009fztlQAA"
-  },
-  {
-    "attribute_name": "nominal_width",
-    "attribute_id": "a1aaZ000009fztmQAA"
   },
   {
     "attribute_id": "a1aaZ000009fztnQAA",
@@ -7940,32 +3768,8 @@
     "attribute_name": "warranty"
   },
   {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009fztxQAA"
-  },
-  {
     "attribute_id": "a1aaZ000009fztyQAA",
     "attribute_name": "product_style"
-  },
-  {
-    "attribute_name": "market_value",
-    "attribute_id": "a1aaZ000009fztzQAA"
-  },
-  {
-    "attribute_name": "features_list",
-    "attribute_id": "a1aaZ000009fzu0QAA"
-  },
-  {
-    "attribute_name": "total_model_variants",
-    "attribute_id": "a1aaZ000009fzu1QAA"
-  },
-  {
-    "attribute_name": "finish",
-    "attribute_id": "a1aaZ000009fzu2QAA"
-  },
-  {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009g0PpQAI"
   },
   {
     "attribute_id": "a1aaZ000009g0PqQAI",
@@ -7978,10 +3782,6 @@
   {
     "attribute_id": "a1aaZ000009g0PsQAI",
     "attribute_name": "ice_maker"
-  },
-  {
-    "attribute_name": "water_dispenser",
-    "attribute_id": "a1aaZ000009g0PtQAI"
   },
   {
     "attribute_id": "a1aaZ000009g0PuQAI",
@@ -8004,28 +3804,12 @@
     "attribute_name": "temperature_zones"
   },
   {
-    "attribute_name": "door_alarm",
-    "attribute_id": "a1aaZ000009g0PzQAI"
-  },
-  {
-    "attribute_name": "humidity_control",
-    "attribute_id": "a1aaZ000009g0Q0QAI"
-  },
-  {
     "attribute_id": "a1aaZ000009g0Q1QAI",
     "attribute_name": "market_value"
   },
   {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009g0Q2QAI"
-  },
-  {
     "attribute_id": "a1aaZ000009g0Q3QAI",
     "attribute_name": "product_title"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009g0Q4QAI"
   },
   {
     "attribute_id": "a1aaZ000009g0Q5QAI",
@@ -8042,94 +3826,6 @@
   {
     "attribute_id": "a1aaZ000009g0Q8QAI",
     "attribute_name": "smart_features"
-  },
-  {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009gJttQAE"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009gJtuQAE"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009gJtvQAE"
-  },
-  {
-    "attribute_name": "installation_type",
-    "attribute_id": "a1aaZ000009gLajQAE"
-  },
-  {
-    "attribute_name": "material",
-    "attribute_id": "a1aaZ000009gLakQAE"
-  },
-  {
-    "attribute_name": "drain_placement",
-    "attribute_id": "a1aaZ000009gLalQAE"
-  },
-  {
-    "attribute_name": "nominal_length",
-    "attribute_id": "a1aaZ000009gLamQAE"
-  },
-  {
-    "attribute_name": "nominal_width",
-    "attribute_id": "a1aaZ000009gLanQAE"
-  },
-  {
-    "attribute_name": "number_of_bathers",
-    "attribute_id": "a1aaZ000009gLaoQAE"
-  },
-  {
-    "attribute_name": "product_weight",
-    "attribute_id": "a1aaZ000009gLapQAE"
-  },
-  {
-    "attribute_name": "tub_shape",
-    "attribute_id": "a1aaZ000009gLaqQAE"
-  },
-  {
-    "attribute_name": "capacity__gallons_",
-    "attribute_id": "a1aaZ000009gLarQAE"
-  },
-  {
-    "attribute_name": "overflow",
-    "attribute_id": "a1aaZ000009gLasQAE"
-  },
-  {
-    "attribute_name": "drain_assembly_included",
-    "attribute_id": "a1aaZ000009gLatQAE"
-  },
-  {
-    "attribute_name": "overflow_height",
-    "attribute_id": "a1aaZ000009gLauQAE"
-  },
-  {
-    "attribute_name": "water_depth",
-    "attribute_id": "a1aaZ000009gLavQAE"
-  },
-  {
-    "attribute_name": "accepts_deck_mount_faucet",
-    "attribute_id": "a1aaZ000009gLawQAE"
-  },
-  {
-    "attribute_name": "collection",
-    "attribute_id": "a1aaZ000009gLaxQAE"
-  },
-  {
-    "attribute_name": "category_subcategory",
-    "attribute_id": "a1aaZ000009gLayQAE"
-  },
-  {
-    "attribute_name": "description",
-    "attribute_id": "a1aaZ000009gLazQAE"
-  },
-  {
-    "attribute_name": "details",
-    "attribute_id": "a1aaZ000009gLb0QAE"
-  },
-  {
-    "attribute_name": "features_list",
-    "attribute_id": "a1aaZ000009gLb1QAE"
   },
   {
     "attribute_id": "a1aaZ000009gMbdQAE",
@@ -8212,10 +3908,6 @@
     "attribute_name": "model_number_alias"
   },
   {
-    "attribute_name": "width",
-    "attribute_id": "a1aaZ000009iPK5QAM"
-  },
-  {
     "attribute_id": "a1aaZ000009iPK6QAM",
     "attribute_name": "water_dispenser"
   },
@@ -8240,32 +3932,8 @@
     "attribute_name": "Door Alarm"
   },
   {
-    "attribute_name": "Delay Start",
-    "attribute_id": "a1aaZ000009iWOnQAM"
-  },
-  {
     "attribute_id": "a1aaZ000009iWOoQAM",
     "attribute_name": "Warming Drawer"
-  },
-  {
-    "attribute_id": "a1aaZ000009prhqQAA",
-    "attribute_name": "bore_hole"
-  },
-  {
-    "attribute_id": "a1aaZ000009q3W6QAI",
-    "attribute_name": "ASTM"
-  },
-  {
-    "attribute_id": "a1aaZ000009q3W7QAI",
-    "attribute_name": "Schedule Class"
-  },
-  {
-    "attribute_id": "a1aaZ000009q3flQAA",
-    "attribute_name": "end_connection_1"
-  },
-  {
-    "attribute_id": "a1aaZ000009q3fmQAA",
-    "attribute_name": "end_connection_2"
   },
   {
     "attribute_id": "a1aaZ000009iiMlQAI",
@@ -8290,18 +3958,6 @@
   {
     "attribute_id": "a1aaZ000009iiMqQAI",
     "attribute_name": "Volts"
-  },
-  {
-    "attribute_name": "Amps",
-    "attribute_id": "a1aaZ000009iiMrQAI"
-  },
-  {
-    "attribute_name": "endback_rest_angle",
-    "attribute_id": "a1aaZ000009j6k1QAA"
-  },
-  {
-    "attribute_name": "endback_rest_angle",
-    "attribute_id": "a1aaZ000009jTDZQA2"
   },
   {
     "attribute_id": "a1aaZ000009k3CEQAY",
@@ -8340,14 +3996,6 @@
     "attribute_name": "Third Rack"
   },
   {
-    "attribute_name": "SKU",
-    "attribute_id": "a1aaZ000009kUVlQAM"
-  },
-  {
-    "attribute_name": "3rd Rack",
-    "attribute_id": "a1aaZ000009kw3tQAA"
-  },
-  {
     "attribute_id": "a1aaZ000009kw5RQAQ",
     "attribute_name": "amps"
   },
@@ -8368,34 +4016,6 @@
     "attribute_name": "is_discontinued_by_manufacturer"
   },
   {
-    "attribute_name": "Wall/Floor",
-    "attribute_id": "a1aaZ000009lXTCQA2"
-  },
-  {
-    "attribute_name": "Lead-Free",
-    "attribute_id": "a1aaZ000009lXTDQA2"
-  },
-  {
-    "attribute_name": "Easy Install",
-    "attribute_id": "a1aaZ000009lXTEQA2"
-  },
-  {
-    "attribute_name": "Universal",
-    "attribute_id": "a1aaZ000009lXTFQA2"
-  },
-  {
-    "attribute_name": "ASTM",
-    "attribute_id": "a1aaZ000009lXTGQA2"
-  },
-  {
-    "attribute_name": "CARB_OTC_LEED_Compliant",
-    "attribute_id": "a1aaZ000009lXTHQA2"
-  },
-  {
-    "attribute_name": "Emergency Backup",
-    "attribute_id": "a1aaZ000009lYNdQAM"
-  },
-  {
     "attribute_id": "a1aaZ000009lYNeQAM",
     "attribute_name": "waterproof_controls"
   },
@@ -8404,212 +4024,12 @@
     "attribute_name": "suitable_for"
   },
   {
-    "attribute_name": "Refillable",
-    "attribute_id": "a1aaZ000009lYfNQAU"
-  },
-  {
-    "attribute_name": "Non-Slip",
-    "attribute_id": "a1aaZ000009lYfOQAU"
-  },
-  {
-    "attribute_name": "odor_scent",
-    "attribute_id": "a1aaZ000009lYfPQAU"
-  },
-  {
-    "attribute_name": "specific_gravity",
-    "attribute_id": "a1aaZ000009lYfQQAU"
-  },
-  {
-    "attribute_name": "vapor_pressure",
-    "attribute_id": "a1aaZ000009lYfRQAU"
-  },
-  {
-    "attribute_name": "vapor_density",
-    "attribute_id": "a1aaZ000009lYfSQAU"
-  },
-  {
-    "attribute_name": "freezing_point",
-    "attribute_id": "a1aaZ000009lYfTQAU"
-  },
-  {
-    "attribute_name": "flash_point",
-    "attribute_id": "a1aaZ000009lYfUQAU"
-  },
-  {
-    "attribute_name": "solubility",
-    "attribute_id": "a1aaZ000009lYfVQAU"
-  },
-  {
     "attribute_id": "a1aaZ000009lYyjQAE",
     "attribute_name": "medium"
   },
   {
     "attribute_id": "a1aaZ000009lZ3ZQAU",
     "attribute_name": "Refillable"
-  },
-  {
-    "attribute_name": "Non-Slip",
-    "attribute_id": "a1aaZ000009lZ3aQAE"
-  },
-  {
-    "attribute_name": "odor_scent",
-    "attribute_id": "a1aaZ000009lZ3bQAE"
-  },
-  {
-    "attribute_name": "specific_gravity",
-    "attribute_id": "a1aaZ000009lZ3cQAE"
-  },
-  {
-    "attribute_name": "vapor_pressure",
-    "attribute_id": "a1aaZ000009lZ3dQAE"
-  },
-  {
-    "attribute_name": "vapor_density",
-    "attribute_id": "a1aaZ000009lZ3eQAE"
-  },
-  {
-    "attribute_name": "freezing_point",
-    "attribute_id": "a1aaZ000009lZ3fQAE"
-  },
-  {
-    "attribute_name": "flash_point",
-    "attribute_id": "a1aaZ000009lZ3gQAE"
-  },
-  {
-    "attribute_name": "solubility",
-    "attribute_id": "a1aaZ000009lZ3hQAE"
-  },
-  {
-    "attribute_name": "applicable_performance_specification",
-    "attribute_id": "a1aaZ000009lZErQAM"
-  },
-  {
-    "attribute_name": "shelf_life",
-    "attribute_id": "a1aaZ000009lZEsQAM"
-  },
-  {
-    "attribute_name": "odor_scent",
-    "attribute_id": "a1aaZ000009lZgHQAU"
-  },
-  {
-    "attribute_name": "specific_gravity",
-    "attribute_id": "a1aaZ000009lZgIQAU"
-  },
-  {
-    "attribute_name": "vapor_pressure",
-    "attribute_id": "a1aaZ000009lZgJQAU"
-  },
-  {
-    "attribute_name": "vapor_density",
-    "attribute_id": "a1aaZ000009lZgKQAU"
-  },
-  {
-    "attribute_name": "freezing_point",
-    "attribute_id": "a1aaZ000009lZgLQAU"
-  },
-  {
-    "attribute_name": "flash_point",
-    "attribute_id": "a1aaZ000009lZgMQAU"
-  },
-  {
-    "attribute_name": "solubility",
-    "attribute_id": "a1aaZ000009lZgNQAU"
-  },
-  {
-    "attribute_name": "sub_brand",
-    "attribute_id": "a1aaZ000009lZgOQAU"
-  },
-  {
-    "attribute_name": "Emergency Backup",
-    "attribute_id": "a1aaZ000009lZoLQAU"
-  },
-  {
-    "attribute_name": "Wall/Floor",
-    "attribute_id": "a1aaZ000009lZrZQAU"
-  },
-  {
-    "attribute_name": "Lead-Free",
-    "attribute_id": "a1aaZ000009lZraQAE"
-  },
-  {
-    "attribute_name": "Easy Install",
-    "attribute_id": "a1aaZ000009lZrbQAE"
-  },
-  {
-    "attribute_name": "Universal",
-    "attribute_id": "a1aaZ000009lZrcQAE"
-  },
-  {
-    "attribute_name": "ASTM",
-    "attribute_id": "a1aaZ000009lZrdQAE"
-  },
-  {
-    "attribute_name": "CARB_OTC_LEED_Compliant",
-    "attribute_id": "a1aaZ000009lZreQAE"
-  },
-  {
-    "attribute_name": "odor_scent",
-    "attribute_id": "a1aaZ000009lZy1QAE"
-  },
-  {
-    "attribute_name": "specific_gravity",
-    "attribute_id": "a1aaZ000009lZy2QAE"
-  },
-  {
-    "attribute_name": "vapor_pressure",
-    "attribute_id": "a1aaZ000009lZy3QAE"
-  },
-  {
-    "attribute_name": "vapor_density",
-    "attribute_id": "a1aaZ000009lZy4QAE"
-  },
-  {
-    "attribute_name": "freezing_point",
-    "attribute_id": "a1aaZ000009lZy5QAE"
-  },
-  {
-    "attribute_name": "flash_point",
-    "attribute_id": "a1aaZ000009lZy6QAE"
-  },
-  {
-    "attribute_name": "solubility",
-    "attribute_id": "a1aaZ000009lZy7QAE"
-  },
-  {
-    "attribute_name": "sub_brand",
-    "attribute_id": "a1aaZ000009lZy8QAE"
-  },
-  {
-    "attribute_name": "applicable_performance_specification",
-    "attribute_id": "a1aaZ000009la65QAA"
-  },
-  {
-    "attribute_name": "shelf_life",
-    "attribute_id": "a1aaZ000009la66QAA"
-  },
-  {
-    "attribute_name": "ASTM",
-    "attribute_id": "a1aaZ000009ldVOQAY"
-  },
-  {
-    "attribute_name": "CARB_OTC_LEED_Compliant",
-    "attribute_id": "a1aaZ000009ldVPQAY"
-  },
-  {
-    "attribute_name": "Wall/Floor",
-    "attribute_id": "a1aaZ000009ldvBQAQ"
-  },
-  {
-    "attribute_name": "Lead-Free",
-    "attribute_id": "a1aaZ000009ldvCQAQ"
-  },
-  {
-    "attribute_name": "Easy Install",
-    "attribute_id": "a1aaZ000009ldvDQAQ"
-  },
-  {
-    "attribute_name": "Universal",
-    "attribute_id": "a1aaZ000009ldvEQAQ"
   },
   {
     "attribute_id": "a1aaZ000009ldvFQAQ",
@@ -8624,40 +4044,8 @@
     "attribute_name": "carb_otc_leed_compliant"
   },
   {
-    "attribute_name": "astm",
-    "attribute_id": "a1aaZ000009ldvIQAQ"
-  },
-  {
     "attribute_id": "a1aaZ000009ldwnQAA",
     "attribute_name": "UPS_Shippable"
-  },
-  {
-    "attribute_name": "odor_scent",
-    "attribute_id": "a1aaZ000009le4rQAA"
-  },
-  {
-    "attribute_name": "specific_gravity",
-    "attribute_id": "a1aaZ000009le4sQAA"
-  },
-  {
-    "attribute_name": "vapor_pressure",
-    "attribute_id": "a1aaZ000009le4tQAA"
-  },
-  {
-    "attribute_name": "vapor_density",
-    "attribute_id": "a1aaZ000009le4uQAA"
-  },
-  {
-    "attribute_name": "freezing_point",
-    "attribute_id": "a1aaZ000009le4vQAA"
-  },
-  {
-    "attribute_name": "flash_point",
-    "attribute_id": "a1aaZ000009le4wQAA"
-  },
-  {
-    "attribute_name": "solubility",
-    "attribute_id": "a1aaZ000009le4xQAA"
   },
   {
     "attribute_id": "a1aaZ000009le4yQAA",
@@ -8772,6 +4160,10 @@
     "attribute_name": "Batch Feed"
   },
   {
+    "attribute_id": "a1aaZ000009prhqQAA",
+    "attribute_name": "bore_hole"
+  },
+  {
     "attribute_id": "a1aaZ000009puz3QAA",
     "attribute_name": "Switch On Fixture"
   },
@@ -8802,5 +4194,21 @@
   {
     "attribute_id": "a1aaZ000009py09QAA",
     "attribute_name": "Keyless Entry"
+  },
+  {
+    "attribute_id": "a1aaZ000009q3W6QAI",
+    "attribute_name": "ASTM"
+  },
+  {
+    "attribute_id": "a1aaZ000009q3W7QAI",
+    "attribute_name": "Schedule Class"
+  },
+  {
+    "attribute_id": "a1aaZ000009q3flQAA",
+    "attribute_name": "end_connection_1"
+  },
+  {
+    "attribute_id": "a1aaZ000009q3fmQAA",
+    "attribute_name": "end_connection_2"
   }
 ]
