@@ -46,6 +46,7 @@ import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
+import * as lookups from '../config/lookups';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
 import logger from '../utils/logger';
 import config from '../config';
@@ -4940,156 +4941,208 @@ function buildFinalResponse(
     
     topFilterAttributes[key] = finalValue;
     
-    // Look up the attribute ID using the proper attribute name (not the field key)
-    // Use forceIdLookup=true to get attribute_id even for "primary" attrs like Style, Height
-    // because Top_Filter_Attribute_Ids needs the picklist attribute_id for ALL attributes
-    // RULE: Every attribute MUST have an ID, or generate a request for a new attribute
+    // Look up the attribute ID from category-specific filter attributes
+    // This ensures we get the CORRECT ID for the category, not a fuzzy match from all attributes
+    // RULE: Use category-filter-attributes.json as source of truth for Top 15 IDs
     if (attributeName) {
-      const attrMatch = picklistMatcher.matchAttribute(attributeName, { forceIdLookup: true });
+      // First, try category-specific lookup (most accurate)
+      const categoryAttrIdMap = lookups.getAttributeNameToSfIdMap(consensus.agreedCategory || '');
+      let attributeId: string | null = null;
       
-      if (attrMatch.matched && attrMatch.matchedValue) {
-        // Found a match - use the attribute_id
-        topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
-        logger.debug('Top 15 attribute matched to SF picklist', {
+      // Try exact match, case-insensitive, and snake_case variations
+      attributeId = categoryAttrIdMap[attributeName] || 
+                   categoryAttrIdMap[attributeName.toLowerCase()] || 
+                   categoryAttrIdMap[attributeName.toLowerCase().replace(/\s+/g, '_')] ||
+                   null;
+      
+      if (attributeId) {
+        // Found in category-filter-attributes.json - use this ID
+        topFilterAttributeIds[key] = attributeId;
+        logger.debug('Top 15 attribute matched to category-specific SF ID', {
           fieldKey: key,
           attributeName,
-          matchedTo: attrMatch.matchedValue.attribute_name,
-          attribute_id: attrMatch.matchedValue.attribute_id,
-          similarity: attrMatch.similarity
+          category: consensus.agreedCategory,
+          attribute_id: attributeId
         });
       } else {
-        // No match found - set ID to null AND generate an Attribute_Request
-        topFilterAttributeIds[key] = null;
+        // Not in category config - try fuzzy match as fallback (with warning)
+        const attrMatch = picklistMatcher.matchAttribute(attributeName, { forceIdLookup: true });
         
-        // Only generate request if we haven't already requested this attribute
-        if (!requestedAttributeNames.has(attributeName.toLowerCase())) {
-          attributeRequests.push({
-            attribute_name: attributeName,
-            requested_for_category: consensus.agreedCategory || 'Unknown',
-            source: 'top_15_filter',
-            reason: `Top 15 Filter Attribute "${attributeName}" (key: ${key}) not found in Salesforce attributes picklist. Value: "${finalValue}". Closest matches: ${attrMatch.suggestions?.slice(0, 3).map(s => s.attribute_name).join(', ') || 'none'}. Please create this attribute in Salesforce.`
-          });
-          requestedAttributeNames.add(attributeName.toLowerCase());
-          
-          logger.info('Attribute Request generated for unmatched Top 15 attribute', {
+        if (attrMatch.matched && attrMatch.matchedValue) {
+          // Found via fuzzy match - use with caution
+          topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+          logger.warn('Top 15 attribute NOT in category config - used fuzzy match (may be incorrect)', {
             fieldKey: key,
             attributeName,
-            value: finalValue,
-            category: consensus.agreedCategory || 'Unknown',
+            category: consensus.agreedCategory,
+            fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
+            attribute_id: attrMatch.matchedValue.attribute_id,
             similarity: attrMatch.similarity,
-            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+            warning: 'This attribute should be added to category-filter-attributes.json with correct SF ID'
           });
+        } else {
+          // No match found at all - set ID to null AND generate an Attribute_Request
+          topFilterAttributeIds[key] = null;
+        
+          // No match found at all - set ID to null AND generate an Attribute_Request
+          topFilterAttributeIds[key] = null;
           
-          // Log failed Top 15 attribute match for auditing
-          failedMatchLogger.logFailedMatch({
-            matchType: 'attribute',
-            attemptedValue: attributeName,
-            similarity: attrMatch.similarity,
-            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
-              value: s.attribute_name,
-              id: s.attribute_id,
-              similarity: attrMatch.similarity
-            })) || [],
-            matchThreshold: 0.6,
-            source: 'top_15_filter',
-            fieldKey: key,
-            productContext: {
-              sf_catalog_id: rawProduct.SF_Catalog_Id,
-              sf_catalog_name: rawProduct.SF_Catalog_Name,
-              model_number: rawProduct.Model_Number_Web_Retailer || "",
-              brand: cleanedText.brand,
-              category: consensus.agreedCategory,
-              session_id: sessionId,
-            },
-            aiContext: {
-              openai_value: String(openaiResult.top15Attributes[key] || ''),
-              xai_value: String(xaiResult.top15Attributes[key] || ''),
-              consensus_value: String(finalValue || ''),
-            },
-            rawDataContext: {
-              original_attribute_name: attributeName,
-            },
-            requestGenerated: true,
-            requestDetails: {
+          // Only generate request if we haven't already requested this attribute
+          if (!requestedAttributeNames.has(attributeName.toLowerCase())) {
+            attributeRequests.push({
               attribute_name: attributeName,
               requested_for_category: consensus.agreedCategory || 'Unknown',
-              reason: `Top 15 attribute "${attributeName}" not found in SF picklist`,
-            },
-          });
+              source: 'top_15_filter',
+              reason: `Top 15 Filter Attribute "${attributeName}" (key: ${key}) not found in category-filter-attributes.json or SF attributes picklist. Value: "${finalValue}". Closest matches: ${attrMatch.suggestions?.slice(0, 3).map(s => s.attribute_name).join(', ') || 'none'}. Please create this attribute in Salesforce.`
+            });
+            requestedAttributeNames.add(attributeName.toLowerCase());
+            
+            logger.info('Attribute Request generated for unmatched Top 15 attribute', {
+              fieldKey: key,
+              attributeName,
+              value: finalValue,
+              category: consensus.agreedCategory || 'Unknown',
+              similarity: attrMatch.similarity,
+              suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+            });
+            
+            // Log failed Top 15 attribute match for auditing
+            failedMatchLogger.logFailedMatch({
+              matchType: 'attribute',
+              attemptedValue: attributeName,
+              similarity: attrMatch.similarity,
+              closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+                value: s.attribute_name,
+                id: s.attribute_id,
+                similarity: attrMatch.similarity
+              })) || [],
+              matchThreshold: 0.6,
+              source: 'top_15_filter',
+              fieldKey: key,
+              productContext: {
+                sf_catalog_id: rawProduct.SF_Catalog_Id,
+                sf_catalog_name: rawProduct.SF_Catalog_Name,
+                model_number: rawProduct.Model_Number_Web_Retailer || "",
+                brand: cleanedText.brand,
+                category: consensus.agreedCategory,
+                session_id: sessionId,
+              },
+              aiContext: {
+                openai_value: String(openaiResult.top15Attributes[key] || ''),
+                xai_value: String(xaiResult.top15Attributes[key] || ''),
+                consensus_value: String(finalValue || ''),
+              },
+              rawDataContext: {
+                original_attribute_name: attributeName,
+              },
+              requestGenerated: true,
+              requestDetails: {
+                attribute_name: attributeName,
+                requested_for_category: consensus.agreedCategory || 'Unknown',
+                reason: `Top 15 attribute "${attributeName}" not found in SF picklist`,
+              },
+            });
+          }
         }
       }
     } else {
-      // Fallback: try matching the field key directly (legacy behavior)
-      const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
+      // Fallback: No attributeName available - try using field key with category lookup first
+      const categoryAttrIdMap = lookups.getAttributeNameToSfIdMap(consensus.agreedCategory || '');
+      const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
       
-      if (attrMatch.matched && attrMatch.matchedValue) {
-        topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
-        logger.debug('Top 15 attribute (by key) matched to SF picklist', {
+      // Try category-specific lookup with field key variations
+      let attributeId: string | null = categoryAttrIdMap[key] || 
+                                        categoryAttrIdMap[readableName] ||
+                                        categoryAttrIdMap[readableName.toLowerCase()] ||
+                                        null;
+      
+      if (attributeId) {
+        // Found in category config
+        topFilterAttributeIds[key] = attributeId;
+        logger.debug('Top 15 attribute (by key) matched to category-specific SF ID', {
           fieldKey: key,
-          matchedTo: attrMatch.matchedValue.attribute_name,
-          attribute_id: attrMatch.matchedValue.attribute_id,
-          similarity: attrMatch.similarity
+          readableName,
+          category: consensus.agreedCategory,
+          attribute_id: attributeId
         });
       } else {
-        // No match - set null AND generate request
-        topFilterAttributeIds[key] = null;
+        // Not in category config - try fuzzy match as last resort
+        const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
         
-        // Convert field_key to human-readable name for the request
-        const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
-        
-        if (!requestedAttributeNames.has(key.toLowerCase())) {
-          attributeRequests.push({
-            attribute_name: readableName,
-            requested_for_category: consensus.agreedCategory || 'Unknown',
-            source: 'top_15_filter',
-            reason: `Top 15 Filter Attribute "${readableName}" (key: ${key}) not found in Salesforce attributes picklist. Value: "${finalValue}". Please create this attribute in Salesforce.`
-          });
-          requestedAttributeNames.add(key.toLowerCase());
-          
-          logger.info('Attribute Request generated for unmatched Top 15 attribute (by key)', {
+        if (attrMatch.matched && attrMatch.matchedValue) {
+          topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+          logger.warn('Top 15 attribute (by key) NOT in category config - used fuzzy match', {
             fieldKey: key,
             readableName,
-            value: finalValue,
-            category: consensus.agreedCategory || 'Unknown',
-            similarity: attrMatch.similarity
-          });
-          
-          // Log failed Top 15 attribute match (by key) for auditing
-          failedMatchLogger.logFailedMatch({
-            matchType: 'attribute',
-            attemptedValue: key,
+            category: consensus.agreedCategory,
+            fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
+            attribute_id: attrMatch.matchedValue.attribute_id,
             similarity: attrMatch.similarity,
-            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
-              value: s.attribute_name,
-              id: s.attribute_id,
-              similarity: attrMatch.similarity
-            })) || [],
-            matchThreshold: 0.6,
-            source: 'top_15_filter',
-            fieldKey: key,
-            productContext: {
-              sf_catalog_id: rawProduct.SF_Catalog_Id,
-              sf_catalog_name: rawProduct.SF_Catalog_Name,
-              model_number: rawProduct.Model_Number_Web_Retailer || "",
-              brand: cleanedText.brand,
-              category: consensus.agreedCategory,
-              session_id: sessionId,
-            },
-            aiContext: {
-              openai_value: String(openaiResult.top15Attributes[key] || ''),
-              xai_value: String(xaiResult.top15Attributes[key] || ''),
-              consensus_value: String(finalValue || ''),
-            },
-            rawDataContext: {
-              original_attribute_name: readableName,
-            },
-            requestGenerated: true,
-            requestDetails: {
-              attribute_name: readableName,
-              requested_for_category: consensus.agreedCategory || 'Unknown',
-              reason: `Top 15 attribute (by key) "${key}" not found in SF picklist`,
-            },
+            warning: 'This attribute should be added to category-filter-attributes.json'
           });
+        } else {
+          // No match - set null AND generate request
+          topFilterAttributeIds[key] = null;
+          // No match - set null AND generate request
+          topFilterAttributeIds[key] = null;
+          
+          // Convert field_key to human-readable name for the request
+          const readableNameFinal = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+          
+          if (!requestedAttributeNames.has(key.toLowerCase())) {
+            attributeRequests.push({
+              attribute_name: readableNameFinal,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              source: 'top_15_filter',
+              reason: `Top 15 Filter Attribute "${readableNameFinal}" (key: ${key}) not found in category-filter-attributes.json or SF attributes picklist. Value: "${finalValue}". Please create this attribute in Salesforce.`
+            });
+            requestedAttributeNames.add(key.toLowerCase());
+            
+            logger.info('Attribute Request generated for unmatched Top 15 attribute (by key)', {
+              fieldKey: key,
+              readableName: readableNameFinal,
+              value: finalValue,
+              category: consensus.agreedCategory || 'Unknown',
+              similarity: attrMatch.similarity
+            });
+            
+            // Log failed Top 15 attribute match (by key) for auditing
+            failedMatchLogger.logFailedMatch({
+              matchType: 'attribute',
+              attemptedValue: key,
+              similarity: attrMatch.similarity,
+              closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+                value: s.attribute_name,
+                id: s.attribute_id,
+                similarity: attrMatch.similarity
+              })) || [],
+              matchThreshold: 0.6,
+              source: 'top_15_filter',
+              fieldKey: key,
+              productContext: {
+                sf_catalog_id: rawProduct.SF_Catalog_Id,
+                sf_catalog_name: rawProduct.SF_Catalog_Name,
+                model_number: rawProduct.Model_Number_Web_Retailer || "",
+                brand: cleanedText.brand,
+                category: consensus.agreedCategory,
+                session_id: sessionId,
+              },
+              aiContext: {
+                openai_value: String(openaiResult.top15Attributes[key] || ''),
+                xai_value: String(xaiResult.top15Attributes[key] || ''),
+                consensus_value: String(finalValue || ''),
+              },
+              rawDataContext: {
+                original_attribute_name: readableNameFinal,
+              },
+              requestGenerated: true,
+              requestDetails: {
+                attribute_name: readableNameFinal,
+                requested_for_category: consensus.agreedCategory || 'Unknown',
+                reason: `Top 15 attribute (by key) "${key}" not found in SF picklist`,
+              },
+            });
+          }
         }
       }
     }
