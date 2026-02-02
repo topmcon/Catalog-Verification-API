@@ -1104,8 +1104,8 @@ class PicklistMatcherService {
   /**
    * Bulk sync picklists from Salesforce
    * Supports two modes:
-   * - INCREMENTAL (default): Adds new items or updates existing items, but never deletes
-   * - FULL REPLACEMENT (replace_mode: true): Completely replaces picklist with incoming data
+   * - FULL REPLACEMENT (default): Completely replaces picklist with incoming data (SF sends deduplicated lists)
+   * - INCREMENTAL (replace_mode: false): Adds new items or updates existing items, but never deletes
    */
   async syncPicklists(data: {
     attributes?: Attribute[];
@@ -1113,7 +1113,7 @@ class PicklistMatcherService {
     categories?: Category[];
     styles?: Style[];
     category_filter_attributes?: any; // JSON object mapping categories to filter attributes
-    replace_mode?: boolean; // If true, completely replaces picklist data instead of merging
+    replace_mode?: boolean; // If false, uses incremental mode instead of full replacement
   }): Promise<{
     success: boolean;
     updated: { type: string; previous: number; current: number; added: number; updated: number; removed?: number; mode?: string }[];
@@ -1123,7 +1123,7 @@ class PicklistMatcherService {
     const errors: string[] = [];
     const projectRoot = path.resolve(__dirname, '../../');
     const picklistDir = path.join(projectRoot, 'src/config/salesforce-picklists');
-    const replaceMode = data.replace_mode || false;
+    const replaceMode = data.replace_mode !== false; // Default to TRUE (full replacement)
 
     // Sync attributes - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
     if (data.attributes && Array.isArray(data.attributes)) {

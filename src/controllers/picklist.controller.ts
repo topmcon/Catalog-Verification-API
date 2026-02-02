@@ -376,21 +376,22 @@ export class PicklistController {
    * Bulk sync picklists from Salesforce
    * 
    * This endpoint allows Salesforce to send updated picklist data after
-   * adding new options (in response to our *_Requests arrays).
+   * deduplication and cleanup. FULL REPLACEMENT MODE by default.
    * 
    * Request body can include any combination of:
    * - attributes: Array of { attribute_id, attribute_name }
    * - brands: Array of { brand_id, brand_name }
    * - categories: Array of { category_id, category_name, department, family }
    * - styles: Array of { style_id, style_name }
+   * - replace_mode: boolean (default: true) - set to false for incremental mode
    * 
-   * Each array completely replaces the existing data for that type.
+   * Each array COMPLETELY REPLACES the existing data for that type (SF sends deduplicated lists).
    * Only include the picklist types you want to update.
    */
   async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
     const startTime = Date.now();
     const syncId = uuidv4();
-    const { attributes, brands, categories, styles, category_filter_attributes, replace_mode = false } = req.body;
+    const { attributes, brands, categories, styles, category_filter_attributes, replace_mode = true } = req.body;
     
     // Capture current state BEFORE sync for comparison
     const beforeState = {
@@ -412,7 +413,7 @@ export class PicklistController {
             categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
             styles: [{ style_id: 'string', style_name: 'string' }],
             category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } },
-            replace_mode: 'boolean (optional, default: false) - if true, completely replaces picklist data instead of merging'
+            replace_mode: 'boolean (optional, default: true) - set to false for incremental mode instead of full replacement'
           }
         });
         return;
