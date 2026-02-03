@@ -799,6 +799,7 @@ class SelfHealingOrchestrator {
 
   /**
    * Check if a value is blank, empty, unknown, or indicates no data
+   * IMPORTANT: "Not Applicable" and "None Identified" are VALID values, not blanks
    */
   private isBlankOrUnknown(value: any): boolean {
     if (value === null || value === undefined) return true;
@@ -807,7 +808,13 @@ class SelfHealingOrchestrator {
       if (trimmed === '' || trimmed === 'unknown' || trimmed === 'n/a' || trimmed === 'null' || trimmed === 'undefined') {
         return true;
       }
-      // These are VALID status codes - not failures
+      // These are VALID status markers - not failures
+      if (trimmed === 'not applicable' || trimmed.includes('not applicable')) {
+        return false; // Field legitimately doesn't apply to this product
+      }
+      if (trimmed === 'none identified' || trimmed.includes('none identified')) {
+        return false; // Variant fields with no variants found
+      }
       if (trimmed.includes('procurement no results')) {
         return false; // Research was done, data doesn't exist
       }

@@ -33,19 +33,24 @@ import logger from '../utils/logger';
 
 /**
  * Sanitize attribute values for Salesforce JSON compatibility
- * Removes N/A values and cleans problematic strings that cause SF JSON parsing errors
+ * Removes N/A shorthand values and cleans problematic strings that cause SF JSON parsing errors
+ * IMPORTANT: "Not Applicable" is our standard marker and should be KEPT
  */
 function sanitizeForSalesforce(value: any): string {
   if (value === null || value === undefined) return '';
   
   const strValue = String(value).trim();
   
-  // Replace N/A variants with empty string
+  // KEEP "Not Applicable" - this is our standard marker
+  if (strValue === 'Not Applicable') {
+    return strValue;
+  }
+  
+  // Replace N/A shorthand variants with empty string
   const naPatterns = [
     /^N\/A$/i,
     /^N\/A\s*\(/i,  // "N/A (some reason)"
     /^NA$/i,
-    /^Not Applicable$/i,
     /^Not Available$/i,
     /^None$/i,
     /^Unknown$/i,

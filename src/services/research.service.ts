@@ -1797,7 +1797,7 @@ Return JSON format:
       discoveredDocuments: discoveredResources.documents.length,
       discoveredImages: discoveredResources.images.length,
       variantsFound: variantData?.variants?.length || 0,
-      confidence: parsed.confidence || 'N/A'
+      confidence: parsed.confidence || 'Not Available'
     });
 
     return {

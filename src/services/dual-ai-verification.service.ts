@@ -122,19 +122,24 @@ interface ConsensusResult {
 
 /**
  * Sanitize attribute values for Salesforce JSON compatibility
- * Removes N/A values that cause SF Apex JSON deserializer to fail
+ * Removes N/A shorthand values that cause SF Apex JSON deserializer to fail
+ * IMPORTANT: "Not Applicable" is our standard marker and should be KEPT
  */
 function sanitizeForSalesforce(value: any): string {
   if (value === null || value === undefined) return '';
   
   const strValue = String(value).trim();
   
-  // Replace N/A variants with empty string - these break SF JSON parser
+  // KEEP "Not Applicable" - this is our standard marker
+  if (strValue === 'Not Applicable') {
+    return strValue;
+  }
+  
+  // Replace N/A shorthand variants with "Not Applicable" for consistency
   const naPatterns = [
     /^N\/A$/i,
     /^N\/A\s*\(/i,  // "N/A (some reason)"
     /^NA$/i,
-    /^Not Applicable$/i,
     /^Not Available$/i,
     /^None$/i,
     /^Unknown$/i,
@@ -144,7 +149,7 @@ function sanitizeForSalesforce(value: any): string {
   
   for (const pattern of naPatterns) {
     if (pattern.test(strValue)) {
-      return '';
+      return '';  // Return empty for shorthand, let field marking handle it
     }
   }
   
@@ -159,6 +164,7 @@ function sanitizeForSalesforce(value: any): string {
 /**
  * Check if a value is an N/A variant that should be filtered out
  * Used for pre-filtering values before they enter data structures
+ * Note: "Not Applicable" is our standard marker and should NOT be filtered
  */
 function isNAValue(value: any): boolean {
   if (value === null || value === undefined) return true;
@@ -166,11 +172,12 @@ function isNAValue(value: any): boolean {
   const strValue = String(value).trim();
   if (strValue === '') return true;
   
+  // IMPORTANT: "Not Applicable" is a valid value we want to keep!
+  // Only filter out shorthand/legacy variants
   const naPatterns = [
     /^N\/A$/i,
     /^N\/A\s*\(/i,
     /^NA$/i,
-    /^Not Applicable$/i,
     /^Not Available$/i,
     /^None$/i,
     /^Unknown$/i,
@@ -997,7 +1004,7 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
  * Updated to use Research Attestation System codes
  */
 const FIELD_NOT_FOUND = FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS; // AI completed all research steps but couldn't find data
-const FIELD_NOT_APPLICABLE = 'N/A'; // Field doesn't apply to this product type
+const FIELD_NOT_APPLICABLE = 'Not Applicable'; // Field doesn't apply to this product type
 const FIELD_RESEARCH_INCOMPLETE = FIELD_STATUS_CODES.RESEARCH_INCOMPLETE; // Research couldn't be completed
 const FIELD_RESEARCH_ERROR = FIELD_STATUS_CODES.RESEARCH_ERROR; // Research had errors requiring human review
 
@@ -2504,15 +2511,17 @@ For EVERY field, you MUST provide a value. Use these markers when appropriate:
 - The information simply isn't available anywhere
 - Example: Brand not mentioned in any source → brand: "Not Found"
 
-**"N/A"** (Not Applicable) - Use when:
+**"Not Applicable"** - Use when:
 - The field doesn't apply to this product type
-- Example: "number_of_burners" for a refrigerator → "N/A"
-- Example: "cooling_capacity_btu" for a gas range → "N/A"
+- Example: "number_of_burners" for a refrigerator → "Not Applicable"
+- Example: "cooling_capacity_btu" for a gas range → "Not Applicable"
+- Example: "number_of_handles" for a showerhead → "Not Applicable"
+- Example: "valve_type" for a showerhead without valve → "Not Applicable"
 
 **NEVER leave a field empty or null** - Always use one of:
 - The actual value (if found)
 - "Not Found" (if searched but not found)
-- "N/A" (if field doesn't apply to this product)
+- "Not Applicable" (if field doesn't apply to this product)
 
 When analyzing data:
 1. ALWAYS examine all provided URLs, documents, images, and spec tables
@@ -2675,7 +2684,7 @@ ${!externalDataTrusted ? '- ⚠️ VERIFY model numbers match before using varia
 ### 7. FIELD COMPLETION
 - Use verified value if confirmed by research
 - Use "Not Found" if you searched but couldn't verify
-- Use "N/A" if field doesn't apply to this product type
+- Use "Not Applicable" if field doesn't apply to this product type
 - NEVER leave fields blank
 
 ### 8. DOCUMENT YOUR WORK
@@ -4742,7 +4751,8 @@ function buildFinalResponse(
       return primary.replace(/[\/\-\s]/g, '');
     })(),
     Model_Parent: (() => {
-      const value = preferAIValue(
+      // First try AI consensus
+      const aiValue = preferAIValue(
         consensus.agreedPrimaryAttributes.model_parent,
         openaiResult.primaryAttributes.model_parent,
         xaiResult.primaryAttributes.model_parent,
@@ -4750,11 +4760,21 @@ function buildFinalResponse(
         xaiResult.confidence,
         ''
       );
-      // Use "None Identified" instead of "Not Found" for model variant fields
-      return (!value || value === 'Not Found') ? 'None Identified' : value;
+      if (aiValue && aiValue !== 'Not Found' && aiValue !== 'N/A' && aiValue !== '') {
+        return aiValue;
+      }
+      
+      // Fall back to Ferguson parent_model_number
+      const fergusonParent = (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number;
+      if (fergusonParent) {
+        return fergusonParent;
+      }
+      
+      return 'None Identified';
     })(),
     Model_Variant_Number: (() => {
-      const value = preferAIValue(
+      // First try to get from AI
+      const aiValue = preferAIValue(
         consensus.agreedPrimaryAttributes.model_variant_number,
         openaiResult.primaryAttributes.model_variant_number,
         xaiResult.primaryAttributes.model_variant_number,
@@ -4762,11 +4782,27 @@ function buildFinalResponse(
         xaiResult.confidence,
         ''
       );
-      // Use "None Identified" instead of "Not Found" for model variant fields
-      return (!value || value === 'Not Found') ? 'None Identified' : value;
+      if (aiValue && aiValue !== 'Not Found' && aiValue !== 'N/A' && aiValue !== '') {
+        return aiValue;
+      }
+      
+      // Extract from Ferguson variants if available
+      const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
+      const currentModel = rawProduct.Ferguson_Model_Number || rawProduct.SF_Catalog_Name;
+      if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0 && currentModel) {
+        // Find the variant suffix (e.g., "BK" from "356BK")
+        const parentModel = (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number;
+        if (parentModel && currentModel.startsWith(parentModel)) {
+          const suffix = currentModel.substring(parentModel.length);
+          if (suffix) return suffix;
+        }
+      }
+      
+      return 'None Identified';
     })(),
     Total_Model_Variants: (() => {
-      const value = cleanEncodingIssues(
+      // First try to get from AI
+      let value = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.total_model_variants,
           openaiResult.primaryAttributes.total_model_variants,
@@ -4776,8 +4812,29 @@ function buildFinalResponse(
           ''
         )
       );
-      // Use "None Identified" instead of "Not Found" for model variant fields
-      if (!value || value === 'Not Found') return 'None Identified';
+      
+      // If AI didn't find variants, extract from Ferguson_Raw_Data
+      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
+        const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
+        if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0) {
+          // Extract model numbers from Ferguson variants
+          const variantModels = fergusonVariants
+            .map((v: any) => v.model_number || v.modelNumber)
+            .filter((m: string) => m);
+          if (variantModels.length > 0) {
+            value = variantModels.join(', ');
+            logger.info('Extracted variants from Ferguson_Raw_Data', {
+              variantCount: variantModels.length,
+              variants: variantModels.slice(0, 5)
+            });
+          }
+        }
+      }
+      
+      // If still no variants found
+      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
+        return 'None Identified';
+      }
       
       // Extract only variant suffixes to save space (SF field limit: 255 chars)
       // Get the model parent to strip from each variant
@@ -4788,7 +4845,7 @@ function buildFinalResponse(
         openaiResult.confidence,
         xaiResult.confidence,
         ''
-      );
+      ) || (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number || '';
       
       if (modelParent && modelParent !== 'Not Found' && modelParent !== 'None Identified') {
         // Split variants and extract only the suffix portion
