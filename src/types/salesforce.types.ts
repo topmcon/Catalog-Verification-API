@@ -132,9 +132,7 @@ export interface PrimaryDisplayAttributes {
   Height_Verified: string;
   Weight_Verified: string;
   MSRP_Verified: string;
-  Market_Value: string;  // From Ferguson pricing
-  Market_Value_Min: string;
-  Market_Value_Max: string;
+  // Market_Value fields removed - no longer sent to Salesforce
   Description_Verified: string;
   Product_Title_Verified: string;
   Details_Verified: string;
