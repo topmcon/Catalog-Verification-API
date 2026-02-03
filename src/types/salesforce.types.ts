@@ -29,6 +29,29 @@ export interface SalesforceIncomingProduct {
   SF_Catalog_Id: string;
   SF_Catalog_Name: string;  // Model number
 
+  // ============================================
+  // LEGACY DATA (Manual entries - USE WITH CAUTION)
+  // ============================================
+  // These fields contain old manually-entered data that may be incorrect.
+  // DO NOT use as primary source. Only use to:
+  // 1. Confirm we're searching for the right product
+  // 2. Break ties when Ferguson and Web Retailer conflict
+  // 3. Provide directional guidance for product identification
+  Brand_Legacy?: string;
+  Model_Number_Legacy?: string;
+  MSRP_Legacy?: string | number;
+  Color_Finish_Legacy?: string;
+  Product_Title_Legacy?: string;
+  Product_Description_Legacy?: string;
+  Features_Legacy?: string;
+  Category_Legacy?: string;
+  UPC_Legacy?: string;
+  Weight_Legacy?: string | number;
+  Capacity_Legacy?: string | number;
+  Height_Legacy?: string;
+  Width_Legacy?: string;
+  Depth_Legacy?: string;
+
   // Web Retailer Data (Primary Source - your catalog data)
   Brand_Web_Retailer: string;
   Model_Number_Web_Retailer: string;

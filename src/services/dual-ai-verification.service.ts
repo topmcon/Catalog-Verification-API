@@ -260,6 +260,11 @@ function getCategoryDomain(category: string | null | undefined): string | null {
 /**
  * Validate that input data sources are coherent (describe the same product)
  * Run this BEFORE expensive AI processing to catch garbage-in scenarios
+ * 
+ * DATA SOURCE TRUST HIERARCHY:
+ * 1. Ferguson_Raw_Data / Ferguson_* - Primary trusted source
+ * 2. Web_Retailer_* - Secondary, verify against Ferguson
+ * 3. *_Legacy - UNTRUSTED, only use as tie-breaker when Ferguson vs Web_Retailer conflict
  */
 function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoherenceResult {
   const conflicts: DataConflict[] = [];
@@ -286,6 +291,15 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
     price: rawProduct.Ferguson_Price,
   };
 
+  // LEGACY DATA - UNTRUSTED, only use as tie-breaker
+  // These fields contain old manually-entered data that may be incorrect
+  const legacy = {
+    brand: (rawProduct as any).Brand_Legacy?.trim() || null,
+    category: (rawProduct as any).Category_Legacy?.trim() || null,
+    title: (rawProduct as any).Product_Title_Legacy?.trim() || null,
+    model: (rawProduct as any).Model_Number_Legacy?.trim() || null,
+  };
+
   const referenceUrl = rawProduct.Reference_URL?.toLowerCase() || '';
 
   // ========================================================================
@@ -293,8 +307,19 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
   // ========================================================================
   const webRetailerDomain = getCategoryDomain(webRetailer.category) || getCategoryDomain(webRetailer.subCategory);
   const fergusonDomain = getCategoryDomain(ferguson.category) || getCategoryDomain(ferguson.productType) || getCategoryDomain(ferguson.businessCategory);
+  const legacyDomain = legacy.category ? getCategoryDomain(legacy.category) : null;
 
   if (webRetailerDomain && fergusonDomain && webRetailerDomain !== fergusonDomain) {
+    // Use Legacy as tie-breaker to determine which source is correct
+    let tieBreaker = '';
+    if (legacyDomain) {
+      if (legacyDomain === fergusonDomain) {
+        tieBreaker = ` [LEGACY TIE-BREAKER: Aligns with Ferguson (${fergusonDomain}) - Web Retailer data likely contaminated]`;
+      } else if (legacyDomain === webRetailerDomain) {
+        tieBreaker = ` [LEGACY TIE-BREAKER: Aligns with Web Retailer (${webRetailerDomain}) - Ferguson data may be from different product]`;
+      }
+    }
+    
     conflicts.push({
       type: 'category_domain',
       severity: 'critical',
@@ -302,7 +327,7 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
       source2: 'Ferguson',
       value1: `${webRetailer.category || webRetailer.subCategory} (${webRetailerDomain})`,
       value2: `${ferguson.category || ferguson.productType} (${fergusonDomain})`,
-      description: `Web Retailer describes a ${webRetailerDomain} product, but Ferguson describes a ${fergusonDomain} product`
+      description: `Web Retailer describes a ${webRetailerDomain} product, but Ferguson describes a ${fergusonDomain} product${tieBreaker}`
     });
     confidenceScore -= 50; // Major penalty
   }
@@ -313,12 +338,26 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
   if (webRetailer.brand && ferguson.brand) {
     const normalizedWebBrand = webRetailer.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
     const normalizedFergusonBrand = ferguson.brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const normalizedLegacyBrand = legacy.brand?.toLowerCase().replace(/[^a-z0-9]/g, '') || '';
     
     if (normalizedWebBrand !== normalizedFergusonBrand && normalizedWebBrand.length > 2 && normalizedFergusonBrand.length > 2) {
       // Check if brands are completely different (not just formatting)
       const brandSimilarity = calculateStringSimilarity(normalizedWebBrand, normalizedFergusonBrand);
       
       if (brandSimilarity < 0.5) {
+        // Use Legacy as tie-breaker for brand conflicts
+        let brandTieBreaker = '';
+        if (normalizedLegacyBrand) {
+          const legacyMatchesFerguson = calculateStringSimilarity(normalizedLegacyBrand, normalizedFergusonBrand) > 0.7;
+          const legacyMatchesWebRetailer = calculateStringSimilarity(normalizedLegacyBrand, normalizedWebBrand) > 0.7;
+          
+          if (legacyMatchesFerguson && !legacyMatchesWebRetailer) {
+            brandTieBreaker = ` [LEGACY TIE-BREAKER: Aligns with Ferguson brand "${ferguson.brand}" - Web Retailer brand likely wrong]`;
+          } else if (legacyMatchesWebRetailer && !legacyMatchesFerguson) {
+            brandTieBreaker = ` [LEGACY TIE-BREAKER: Aligns with Web Retailer brand "${webRetailer.brand}" - verify Ferguson data]`;
+          }
+        }
+        
         const severity = webRetailerDomain !== fergusonDomain ? 'critical' : 'warning';
         conflicts.push({
           type: 'brand_mismatch',
@@ -327,7 +366,7 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
           source2: 'Ferguson',
           value1: webRetailer.brand,
           value2: ferguson.brand,
-          description: `Completely different brands: "${webRetailer.brand}" vs "${ferguson.brand}"`
+          description: `Completely different brands: "${webRetailer.brand}" vs "${ferguson.brand}"${brandTieBreaker}`
         });
         confidenceScore -= severity === 'critical' ? 40 : 15;
       }
@@ -2567,6 +2606,31 @@ The data below is UNVERIFIED input that may contain errors, wrong products, or i
 - If your research contradicts the input data, TRUST YOUR RESEARCH
 - EXCLUDE any input data you determine to be incorrect
 - ADD any additional data you discover through research
+
+## ⚠️ DATA SOURCE TRUST HIERARCHY (CRITICAL!)
+
+### PRIMARY TRUSTED SOURCES (Use these for verification):
+1. **Ferguson_Raw_Data / Ferguson_* fields** - Fresh API data from Ferguson, generally reliable
+2. **Web_Retailer_* fields** - Web scraped data, verify against Ferguson when possible
+3. **Your web research** - Search results and URL scraping you perform
+
+### UNTRUSTED SOURCE (DO NOT USE AS PRIMARY):
+4. **_Legacy fields** (Brand_Legacy, Category_Legacy, Product_Description_Legacy, etc.)
+   - These contain OLD manually-entered data that is KNOWN TO BE UNRELIABLE
+   - **NEVER use Legacy data as the primary source for any field**
+   - **ONLY use Legacy data for:**
+     a) Confirming you're searching for the CORRECT product (directional guidance)
+     b) Breaking TIES when Ferguson and Web_Retailer conflict with each other
+     c) Example: If Web_Retailer says "fan" and Ferguson says "faucet", check Legacy:
+        - If Legacy says "faucet" → Trust Ferguson, ignore Web_Retailer's fan data
+        - This means the Web_Retailer data is contaminated (wrong product)
+
+### DATA CONFLICT RESOLUTION:
+When Ferguson and Web_Retailer CONTRADICT each other:
+1. First, try to determine which is correct through your own web research
+2. If still unclear, check Legacy data for a "tie-breaker" hint
+3. If Legacy aligns with one source, that source is likely correct
+4. NEVER use the Legacy VALUE directly - only use it to determine DIRECTION
 
 ## RAW PRODUCT DATA (UNVERIFIED - REQUIRES CONFIRMATION):
 ${JSON.stringify(rawProduct, null, 2)}
