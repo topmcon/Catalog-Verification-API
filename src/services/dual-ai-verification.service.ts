@@ -193,9 +193,7 @@ function isNAValue(value: any): boolean {
  * These must be null or a valid number - empty strings will break SF deserializer
  */
 const NUMERIC_FIELDS = new Set([
-  'Market_Value',
-  'Market_Value_Min', 
-  'Market_Value_Max'
+  // Market_Value fields removed - no longer sent to Salesforce
 ]);
 
 /**
@@ -629,9 +627,7 @@ function buildDataCoherenceErrorResponse(
       Height_Verified: '',
       Weight_Verified: '',
       MSRP_Verified: '',
-      Market_Value: '',
-      Market_Value_Min: '',
-      Market_Value_Max: '',
+      // Market_Value fields removed - no longer sent to Salesforce
       Description_Verified: '',
       Product_Title_Verified: '',
       Details_Verified: '',
@@ -2504,7 +2500,6 @@ You must respond with valid JSON in this exact format:
     "height": "numeric value only",
     "weight": "numeric value in lbs",
     "msrp": "value",
-    "market_value": "value",
     "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
     "product_title": "ENHANCED standardized title (proper capitalization, cleaned encoding)",
     "details": "additional details",
@@ -4741,9 +4736,7 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'List Price') ||
       ''
     ),
-    Market_Value: rawProduct.Ferguson_Price || '',
-    Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
-    Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
+    // Market_Value fields removed - no longer sent to Salesforce
     Description_Verified: cleanedText.description,
     Product_Title_Verified: seoTitle,  // Use SEO-optimized title
     Details_Verified: cleanEncodingIssues(

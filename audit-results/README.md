@@ -1,14 +1,44 @@
 # Audit Results
 
-JSON files containing audit results, analysis data, and test snapshots.
+JSON files containing audit results, analysis data, test snapshots, and job analysis.
 
 ## Available Files
 
+### Picklist & Configuration Audits
 - **[picklist-audit-results.json](picklist-audit-results.json)** - Picklist field audit results
 - **[missing-styles-for-sf.json](missing-styles-for-sf.json)** - Original missing styles analysis
 - **[missing-styles-for-sf-CORRECTED.json](missing-styles-for-sf-CORRECTED.json)** - Corrected missing styles
 - **[recommended-missing-top15-attributes.json](recommended-missing-top15-attributes.json)** - Recommended missing attributes
 - **[optimized-top15-filter-attributes.json](optimized-top15-filter-attributes.json)** - Optimized filter attributes
+
+### Job Analysis (Production Verification Reviews)
+- **[job-ff499c69-analysis.md](job-ff499c69-analysis.md)** - RIOBEL 356BK Showerhead verification analysis
+- **[job-ff499c69-complete-analysis.md](job-ff499c69-complete-analysis.md)** - Complete request/response analysis with critical Salesforce error investigation
+- **[job-ff499c69-request.json](job-ff499c69-request.json)** (23KB) - Complete request payload from Salesforce
+- **[job-ff499c69-response.json](job-ff499c69-response.json)** (33KB) - Complete response payload sent to Salesforce
+
+## Job Analysis Files Explained
+
+When investigating production verification jobs, we create comprehensive analysis files that include:
+
+1. **Analysis Markdown** - Human-readable analysis with:
+   - Product information and processing details
+   - Request/response comparison
+   - Field-by-field status assessment
+   - Research quality metrics
+   - Issues identified and recommendations
+
+2. **Complete Analysis** - Deep-dive investigation including:
+   - Character-level error analysis (for Salesforce errors)
+   - Root cause hypothesis
+   - Field naming convention analysis
+   - Complete data file references
+   - Actionable next steps
+
+3. **Request JSON** - Raw payload received from Salesforce
+4. **Response JSON** - Raw payload sent back to Salesforce
+
+These files help diagnose issues, validate research logic, and coordinate fixes with Salesforce team.
 
 ## Note
 

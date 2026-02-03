@@ -71,7 +71,7 @@ export const PRIMARY_ATTRIBUTE_FIELD_KEYS = [
   'height',
   'weight',
   'msrp',
-  'market_value',
+  // 'market_value', // Removed - no longer sent to Salesforce
   'description',
   'product_title',
   'details',

@@ -159,9 +159,7 @@ export function buildPrimaryAttributes(
     Height_Verified: height,
     Weight_Verified: incoming.Weight_Web_Retailer || getAttributeValue(incoming.Ferguson_Attributes, 'Product Weight'),
     MSRP_Verified: incoming.MSRP_Web_Retailer,
-    Market_Value: incoming.Ferguson_Price,
-    Market_Value_Min: incoming.Ferguson_Min_Price,
-    Market_Value_Max: incoming.Ferguson_Max_Price,
+    // Market_Value fields removed - no longer sent to Salesforce
     Description_Verified: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer) || incoming.Ferguson_Description),
     Product_Title_Verified: getCorrected('title', buildVerifiedTitle(incoming)),
     Details_Verified: extractDetails(incoming),
@@ -1100,7 +1098,7 @@ function calculateConfidenceScores(
 
   // Price confidence
   scores['price'] = incoming.MSRP_Web_Retailer ? 100 : 0;
-  scores['market_value'] = incoming.Ferguson_Price ? 100 : 0;
+  // Market_Value scoring removed - field no longer sent to Salesforce
 
   // Model confidence
   scores['model'] = incoming.Ferguson_Model_Number === incoming.Model_Number_Web_Retailer ? 100 : 
