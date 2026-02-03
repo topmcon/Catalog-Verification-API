@@ -269,6 +269,65 @@ ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification
 - Monitoring Salesforce sync activity
 - Verifying picklist updates were received
 
+---
+
+## Session Analytics & Monitoring
+
+### Show Session Analytics Dashboard
+**Script**: `scripts/show-session-analytics.js`  
+**Run from**: Production server (via SSH)  
+**Purpose**: Display comprehensive analytics since the last "Establish Connection"  
+**What it shows**:
+
+1. **Verification Job Statistics**:
+   - Total API calls from Salesforce
+   - Status breakdown (pending, processing, completed, failed)
+   - Average/min/max processing times
+
+2. **Webhook Delivery Metrics**:
+   - Webhooks sent and success rate
+   - Salesforce acknowledgments and processing confirmations
+   - Recent webhook errors (if any)
+
+3. **Self-Healing System Activity**:
+   - Total self-healing attempts
+   - Outcomes breakdown (success, failed, escalated)
+   - Issue types detected
+   - AI consensus achievement rate
+   - Corrections sent to Salesforce
+
+4. **Error Patterns & Trends**:
+   - Jobs with errors categorized by type
+   - Recent error messages for investigation
+
+5. **System Performance Metrics**:
+   - Overall success rate
+   - Webhook delivery rate
+   - Self-healing success rate
+   - System throughput (jobs/hour)
+
+6. **Actionable Recommendations**:
+   - Automatically detects issues and suggests actions
+   - Flags high failure rates, webhook problems, queue backlogs
+   - Performance optimization suggestions
+
+**Usage**:
+```bash
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"
+```
+
+**When to use**:
+- During "Establish Connection" (automatic)
+- Monitoring system health
+- Investigating performance issues
+- Generating reports for stakeholders
+
+**Note**: Script tracks time since last connection and provides delta analytics
+
+---
+
+### Picklist Management Tools
+
 #### 1. Auto-Sync to GitHub (Production Only)
 **Script**: `scripts/auto-sync-picklists.sh`  
 **Location**: Production server  
@@ -380,10 +439,26 @@ node scripts/audit-picklist-fields.js
 When user says "Establish Connection", perform these checks and report:
 
 1. **SSH Connectivity**: `ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "echo connected"`
+
 2. **Commit Sync Check**: Compare commits across local, GitHub, and production
+
 3. **Service Health**: Check `systemctl status catalog-verification`
+
 4. **API Health**: `curl -s https://verify.cxc-ai.com/health`
-5. **Picklist Sync Status**: Run dedicated script to show detailed changes:
+
+5. **Session Analytics**: Run comprehensive analytics dashboard:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"
+   ```
+   This shows:
+   - API calls from Salesforce (total, status breakdown, processing times)
+   - Webhook delivery statistics (success rate, SF acknowledgments)
+   - Self-healing activity (attempts, outcomes, issues detected)
+   - Error patterns and trends (categorized errors, recent messages)
+   - System performance metrics (success rates, throughput)
+   - **Actionable recommendations** based on detected issues
+
+6. **Picklist Sync Status**: Run dedicated script to show detailed changes:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
    ```
@@ -396,17 +471,18 @@ When user says "Establish Connection", perform these checks and report:
      - "Should we investigate why these items were removed/added?"
      - "Do we need to update any automation based on these changes?"
 
-6. **Report Status Table**:
+7. **Report Status Table**:
    - Local commit
    - GitHub commit  
    - Production commit
    - Service status (running/stopped)
    - API health (healthy/unhealthy)
    - Last picklist sync (timestamp, # changes)
+   - Session analytics summary (jobs processed, success rate, issues)
 
-7. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+8. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
 
-8. **Ask**: "Would you like to continue from where we left off?"
+9. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 
