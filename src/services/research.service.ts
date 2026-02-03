@@ -1661,13 +1661,13 @@ Return JSON format:
   "notes": "Important findings, variant info, or data quality notes"
 }`;
 
+    // Note: gpt-4o-search-preview doesn't support temperature parameter
     const response = await openaiClient.chat.completions.create({
       model,
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: `Search the web for: ${searchQuery}\n\nFind these specific fields: ${fieldsToSearch.join(', ')}\n\nAlso discover any related documents, images, and product variants.` }
       ],
-      temperature: 0.1,
       max_tokens: 3000,
     });
 
