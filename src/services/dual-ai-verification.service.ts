@@ -1826,12 +1826,56 @@ export async function verifyProductWithDualAI(
     // This is more effective than searching at the beginning with unverified data.
     // ========================================================================
     let finalSearchResult: FinalVerificationSearchResult | null = null;
-    const missingFieldsList = consensus.needsResearch || [];
+    
+    // FIX: needsResearch is cleared by mergeResearchResults, so we need to identify
+    // fields that STILL have "Not Found", empty, or missing values after all processing
+    const stillMissingFields: string[] = [];
+    const notFoundIndicators = ['not found', 'unknown', 'n/a', 'not available', 'not specified', ''];
+    
+    // Check primary attributes for missing values
+    const criticalPrimaryFields = ['brand', 'msrp', 'weight', 'upc_gtin', 'product_style', 'color', 'finish'];
+    for (const field of criticalPrimaryFields) {
+      const value = consensus.agreedPrimaryAttributes[field];
+      if (!value || notFoundIndicators.includes(String(value).toLowerCase().trim())) {
+        stillMissingFields.push(field);
+      }
+    }
+    
+    // Check Top15 attributes for missing values
+    for (const [field, value] of Object.entries(consensus.agreedTop15Attributes)) {
+      if (!value || notFoundIndicators.includes(String(value).toLowerCase().trim())) {
+        stillMissingFields.push(field);
+      }
+    }
+    
+    // Check disagreements that were "resolved" but with "Not Found" values
+    for (const disagreement of consensus.disagreements) {
+      const resolvedField = disagreement.field;
+      const primaryValue = consensus.agreedPrimaryAttributes[resolvedField];
+      const top15Value = consensus.agreedTop15Attributes[resolvedField];
+      const resolvedValue = primaryValue || top15Value;
+      
+      if (!resolvedValue || notFoundIndicators.includes(String(resolvedValue).toLowerCase().trim())) {
+        if (!stillMissingFields.includes(resolvedField)) {
+          stillMissingFields.push(resolvedField);
+        }
+      }
+    }
+    
+    // Limit to most important fields to avoid excessive API calls (max 10)
+    const prioritizedMissingFields = stillMissingFields
+      .filter(f => criticalPrimaryFields.includes(f.toLowerCase()) || 
+                   ['width', 'height', 'depth', 'material', 'voltage'].includes(f.toLowerCase()))
+      .slice(0, 10);
+    
     const unresolvedFieldsList = consensus.disagreements
       .filter(d => d.resolution === 'unresolved')
       .map(d => d.field);
     
-    const shouldDoFinalSearch = (missingFieldsList.length > 0 || unresolvedFieldsList.length > 0) && 
+    // Use prioritized missing fields OR unresolved fields for final search
+    const fieldsForFinalSearch = prioritizedMissingFields.length > 0 ? prioritizedMissingFields : unresolvedFieldsList;
+    
+    const shouldDoFinalSearch = fieldsForFinalSearch.length > 0 && 
                                  config.research?.enableFinalWebSearch !== false;
     
     if (shouldDoFinalSearch) {
@@ -1841,9 +1885,11 @@ export async function verifyProductWithDualAI(
         verifiedBrand: consensus.agreedPrimaryAttributes?.brand || consensus.agreedPrimaryAttributes?.Brand || '',
         verifiedModel: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer || '',
         verifiedCategory: consensus.agreedCategory || 'Unknown',
-        missingFields: missingFieldsList.length,
+        stillMissingFields: stillMissingFields.length,
+        prioritizedMissingFields: prioritizedMissingFields,
         unresolvedFields: unresolvedFieldsList.length,
-        reason: 'Performing targeted search now that we have AI-verified product data'
+        fieldsToSearch: fieldsForFinalSearch,
+        reason: 'Performing targeted web search for fields still missing after all processing'
       });
       
       try {
@@ -1866,7 +1912,7 @@ export async function verifyProductWithDualAI(
           verifiedModel,
           verifiedCategory,
           verifiedTitle,
-          missingFieldsList,
+          fieldsForFinalSearch,  // Use the prioritized fields we identified
           unresolvedFieldsList,
           verificationSessionId
         );
@@ -1884,11 +1930,11 @@ export async function verifyProductWithDualAI(
             const normalizedField = field.toLowerCase().replace(/[_\s]+/g, '_');
             
             // Check if this field was missing or unresolved
-            const isMissing = missingFieldsList.some(f => 
+            const isMissing = fieldsForFinalSearch.some((f: string) => 
               f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField ||
               normalizedField.includes(f.toLowerCase().replace(/[_\s]+/g, '_'))
             );
-            const isUnresolved = unresolvedFieldsList.some(f => 
+            const isUnresolved = unresolvedFieldsList.some((f: string) => 
               f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField ||
               normalizedField.includes(f.toLowerCase().replace(/[_\s]+/g, '_'))
             );
@@ -1934,9 +1980,11 @@ export async function verifyProductWithDualAI(
     } else {
       logger.info('PHASE 6: Final web search skipped', {
         sessionId: verificationSessionId,
-        reason: missingFieldsList.length === 0 && unresolvedFieldsList.length === 0 
-          ? 'No missing or unresolved fields'
-          : 'Final web search disabled in config'
+        reason: fieldsForFinalSearch.length === 0 
+          ? 'No critical fields missing after processing'
+          : 'Final web search disabled in config',
+        stillMissingCount: stillMissingFields.length,
+        prioritizedCount: prioritizedMissingFields.length
       });
     }
 
