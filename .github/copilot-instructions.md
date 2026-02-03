@@ -226,27 +226,48 @@ docker start mongodb 2>/dev/null || docker run -d --name mongodb -p 27017:27017 
 
 ### Checking for Recent Picklist Updates
 
-When "Establish Connection" is run, check:
+When "Establish Connection" is run, use the dedicated script to check:
 ```bash
-# Check last sync log from MongoDB
-ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node -e \"
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/catalog-verification').then(async () => {
-  const PicklistSyncLog = mongoose.model('PicklistSyncLog', new mongoose.Schema({}, { strict: false, collection: 'picklist_sync_logs' }));
-  const latest = await PicklistSyncLog.findOne().sort({ sync_timestamp: -1 }).lean();
-  console.log(JSON.stringify(latest, null, 2));
-  process.exit(0);
-}).catch(e => { console.error(e); process.exit(1); });
-\""
-
-# Check if picklist files have uncommitted changes
-ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && git status src/config/salesforce-picklists/ --short"
-
-# View recent file modification times
-ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "ls -lt /opt/catalog-verification-api/src/config/salesforce-picklists/ | head -10"
+# Show detailed picklist sync status with before/after changes
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
 ```
 
+This displays:
+- ✅ When the last sync occurred (EST timezone + time ago)
+- ✅ What changed (before/after item counts)
+- ✅ Detailed list of items added/removed (up to 10 shown per type)
+- ✅ Total changes across all picklist types
+- ✅ Sync ID for audit trail lookup
+
+**CRITICAL**: If you see significant changes (many items removed/added), ask the user:
+- "These changes look significant. Do they seem correct?"
+- "Should we investigate why these items were removed/added?"
+- "Do we need to update any automation based on these changes?"
+
 ### Picklist Management Tools
+
+#### 0. Check Picklist Sync Status (Monitoring)
+**Script**: `scripts/check-picklist-sync-status.js`  
+**Run from**: Production server (via SSH)  
+**Purpose**: Display detailed information about the most recent picklist sync from Salesforce  
+**What it does**:
+- Shows when the last sync occurred (EST timezone + time ago)
+- Displays before/after item counts for each picklist type
+- Lists up to 10 added/removed items per type
+- Shows sync ID, processing time, source IP
+- Calculates total changes across all picklist types
+- **Used by "Establish Connection" procedure**
+
+**Usage**:
+```bash
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
+```
+
+**When to use**:
+- During "Establish Connection" (automatic)
+- Investigating recent picklist changes
+- Monitoring Salesforce sync activity
+- Verifying picklist updates were received
 
 #### 1. Auto-Sync to GitHub (Production Only)
 **Script**: `scripts/auto-sync-picklists.sh`  
@@ -362,7 +383,19 @@ When user says "Establish Connection", perform these checks and report:
 2. **Commit Sync Check**: Compare commits across local, GitHub, and production
 3. **Service Health**: Check `systemctl status catalog-verification`
 4. **API Health**: `curl -s https://verify.cxc-ai.com/health`
-5. **Picklist Sync Status**: Check last picklist sync from Salesforce (timestamp, changes)
+5. **Picklist Sync Status**: Run dedicated script to show detailed changes:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
+   ```
+   This shows:
+   - When last sync occurred (EST time + time ago)
+   - What changed (before/after counts)
+   - Items added/removed (detailed list up to 10 per type)
+   - **CRITICAL**: If significant changes detected, ASK USER:
+     - "These changes look significant. Do they seem correct?"
+     - "Should we investigate why these items were removed/added?"
+     - "Do we need to update any automation based on these changes?"
+
 6. **Report Status Table**:
    - Local commit
    - GitHub commit  
@@ -370,6 +403,10 @@ When user says "Establish Connection", perform these checks and report:
    - Service status (running/stopped)
    - API health (healthy/unhealthy)
    - Last picklist sync (timestamp, # changes)
+
+7. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+
+8. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 
