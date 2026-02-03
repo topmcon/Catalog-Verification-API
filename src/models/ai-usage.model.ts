@@ -169,7 +169,8 @@ const AIUsageSchema = new Schema<IAIUsage>(
     taskType: {
       type: String,
       enum: ['verification', 'cross-validation', 'research', 'image-analysis', 
-             'consensus-resolution', 'enrichment', 'categorization', 'attribute-extraction'],
+             'consensus-resolution', 'enrichment', 'categorization', 'attribute-extraction',
+             'final-verification-search', 'dual-web-search-openai', 'dual-web-search-xai'],
       required: true,
       index: true,
     },
