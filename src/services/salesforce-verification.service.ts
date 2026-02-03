@@ -641,9 +641,7 @@ function buildPrimaryAttributes(
     Height_Verified: getConsensusValue(consensusMap, 'height') || rawProduct.Height_Web_Retailer,
     Weight_Verified: getConsensusValue(consensusMap, 'weight') || rawProduct.Weight_Web_Retailer,
     MSRP_Verified: getConsensusValue(consensusMap, 'msrp') || rawProduct.MSRP_Web_Retailer,
-    Market_Value: rawProduct.Ferguson_Price || '',
-    Market_Value_Min: rawProduct.Ferguson_Min_Price || '',
-    Market_Value_Max: rawProduct.Ferguson_Max_Price || '',
+    // Market_Value fields removed - no longer sent to Salesforce
     Description_Verified: getConsensusValue(consensusMap, 'description') || rawProduct.Product_Description_Web_Retailer,
     Product_Title_Verified: getConsensusValue(consensusMap, 'title') || rawProduct.Product_Title_Web_Retailer,
     Details_Verified: getConsensusValue(consensusMap, 'details') || '',
