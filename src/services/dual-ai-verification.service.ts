@@ -1414,9 +1414,6 @@ function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
-    } else if (NUMERIC_FIELDS.size > 0 && NUMERIC_FIELDS.has(key)) {
-      // Handle numeric fields specially - SF Apex expects Decimal, not String
-      sanitized[key as keyof T] = sanitizeNumericForSalesforce(value) as T[keyof T];
     } else if (typeof value === 'string') {
       sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
     } else {
