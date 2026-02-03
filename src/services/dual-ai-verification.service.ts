@@ -291,13 +291,12 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
     price: rawProduct.Ferguson_Price,
   };
 
-  // LEGACY DATA - UNTRUSTED, only use as tie-breaker
-  // These fields contain old manually-entered data that may be incorrect
+  // LEGACY DATA - UNTRUSTED, only for category/brand disambiguation
+  // These fields are NEVER used in verification responses - only to help
+  // determine what the product IS (category/brand) when sources conflict
   const legacy = {
     brand: (rawProduct as any).Brand_Legacy?.trim() || null,
     category: (rawProduct as any).Category_Legacy?.trim() || null,
-    title: (rawProduct as any).Product_Title_Legacy?.trim() || null,
-    model: (rawProduct as any).Model_Number_Legacy?.trim() || null,
   };
 
   const referenceUrl = rawProduct.Reference_URL?.toLowerCase() || '';
@@ -310,7 +309,8 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
   const legacyDomain = legacy.category ? getCategoryDomain(legacy.category) : null;
 
   if (webRetailerDomain && fergusonDomain && webRetailerDomain !== fergusonDomain) {
-    // Use Legacy as tie-breaker to determine which source is correct
+    // Use Legacy Category ONLY to determine which source has the correct PRODUCT TYPE
+    // This is NOT used in the response - only to flag which source is contaminated
     let tieBreaker = '';
     if (legacyDomain) {
       if (legacyDomain === fergusonDomain) {
@@ -345,7 +345,7 @@ function validateDataCoherence(rawProduct: SalesforceIncomingProduct): DataCoher
       const brandSimilarity = calculateStringSimilarity(normalizedWebBrand, normalizedFergusonBrand);
       
       if (brandSimilarity < 0.5) {
-        // Use Legacy as tie-breaker for brand conflicts
+        // Use Legacy Brand ONLY to determine which source is correct (not for response)
         let brandTieBreaker = '';
         if (normalizedLegacyBrand) {
           const legacyMatchesFerguson = calculateStringSimilarity(normalizedLegacyBrand, normalizedFergusonBrand) > 0.7;
@@ -2614,23 +2614,24 @@ The data below is UNVERIFIED input that may contain errors, wrong products, or i
 2. **Web_Retailer_* fields** - Web scraped data, verify against Ferguson when possible
 3. **Your web research** - Search results and URL scraping you perform
 
-### UNTRUSTED SOURCE (DO NOT USE AS PRIMARY):
-4. **_Legacy fields** (Brand_Legacy, Category_Legacy, Product_Description_Legacy, etc.)
-   - These contain OLD manually-entered data that is KNOWN TO BE UNRELIABLE
-   - **NEVER use Legacy data as the primary source for any field**
-   - **ONLY use Legacy data for:**
-     a) Confirming you're searching for the CORRECT product (directional guidance)
-     b) Breaking TIES when Ferguson and Web_Retailer conflict with each other
-     c) Example: If Web_Retailer says "fan" and Ferguson says "faucet", check Legacy:
-        - If Legacy says "faucet" → Trust Ferguson, ignore Web_Retailer's fan data
-        - This means the Web_Retailer data is contaminated (wrong product)
+### UNTRUSTED SOURCE (IGNORE FOR VERIFICATION):
+4. **_Legacy fields** (Brand_Legacy, Category_Legacy, etc.)
+   - These contain OLD manually-entered data that is UNRELIABLE
+   - **NEVER use Legacy data to populate ANY field in your response**
+   - **NEVER reference or include Legacy values in verification results**
+   - **ONLY use Legacy data (internally) for:**
+     a) Confirming the CATEGORY of the product if uncertain (e.g., is this a faucet or a fan?)
+     b) Confirming the BRAND of the product if there's conflicting data
+     c) Example: If Web_Retailer says "Broan fan" and Ferguson says "Riobel showerhead", 
+        check Category_Legacy to determine what the product ACTUALLY is
+   - **THIS IS INTERNAL GUIDANCE ONLY** - do NOT include Legacy data in your response!
 
 ### DATA CONFLICT RESOLUTION:
 When Ferguson and Web_Retailer CONTRADICT each other:
 1. First, try to determine which is correct through your own web research
-2. If still unclear, check Legacy data for a "tie-breaker" hint
-3. If Legacy aligns with one source, that source is likely correct
-4. NEVER use the Legacy VALUE directly - only use it to determine DIRECTION
+2. If still unclear, check Legacy Category/Brand for a directional hint
+3. Use this ONLY to decide which source to TRUST - then verify with that source
+4. **CRITICAL: Your final response should ONLY contain verified data from Ferguson/Web_Retailer/Research - NEVER Legacy values**
 
 ## RAW PRODUCT DATA (UNVERIFIED - REQUIRES CONFIRMATION):
 ${JSON.stringify(rawProduct, null, 2)}

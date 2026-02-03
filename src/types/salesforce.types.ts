@@ -30,13 +30,17 @@ export interface SalesforceIncomingProduct {
   SF_Catalog_Name: string;  // Model number
 
   // ============================================
-  // LEGACY DATA (Manual entries - USE WITH CAUTION)
+  // LEGACY DATA (INTERNAL GUIDANCE ONLY - NEVER USE IN RESPONSE)
   // ============================================
-  // These fields contain old manually-entered data that may be incorrect.
-  // DO NOT use as primary source. Only use to:
-  // 1. Confirm we're searching for the right product
-  // 2. Break ties when Ferguson and Web Retailer conflict
-  // 3. Provide directional guidance for product identification
+  // These fields contain OLD manually-entered data that is UNRELIABLE.
+  // 
+  // ⚠️ CRITICAL: NEVER include Legacy values in verification responses!
+  // 
+  // ONLY use Brand_Legacy and Category_Legacy (internally) to:
+  // 1. Confirm the product CATEGORY when sources conflict (is it a faucet or a fan?)
+  // 2. Confirm the product BRAND when sources conflict
+  // 
+  // This is INTERNAL GUIDANCE ONLY for disambiguation - not a data source!
   Brand_Legacy?: string;
   Model_Number_Legacy?: string;
   MSRP_Legacy?: string | number;
