@@ -2,6 +2,7 @@ import { createApp } from './app';
 import config from './config';
 import { databaseService } from './services';
 import asyncVerificationProcessor from './services/async-verification-processor.service';
+import { selfHealingErrorDetector } from './services/self-healing/error-detector.service';
 import logger from './utils/logger';
 
 /**
@@ -60,6 +61,12 @@ async function main(): Promise<void> {
     logger.info('Starting async verification processor...');
     asyncVerificationProcessor.start(5000); // Process queue every 5 seconds
 
+    // Start self-healing error detector (scans every 5 minutes)
+    if (process.env.SELF_HEALING_ENABLED === 'true') {
+      logger.info('Starting self-healing error detector...');
+      selfHealingErrorDetector.start(5 * 60 * 1000); // Scan every 5 minutes
+    }
+
     const server = app.listen(config.port, () => {
       logger.info(`Server started on port ${config.port}`, {
         environment: config.env,
@@ -74,6 +81,9 @@ async function main(): Promise<void> {
 
       // Stop async processor
       asyncVerificationProcessor.stop();
+
+      // Stop self-healing error detector
+      selfHealingErrorDetector.stop();
 
       server.close(async () => {
         logger.info('HTTP server closed');
