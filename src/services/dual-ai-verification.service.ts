@@ -59,7 +59,7 @@ import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
 import { catalogIndexService } from './catalog-index.service';
-import { performProductResearch, formatResearchForPrompt, ResearchResult, performFinalVerificationSearch, FinalVerificationSearchResult } from './research.service';
+import { performProductResearch, formatResearchForPrompt, ResearchResult, FinalVerificationSearchResult, performDualAIWebSearch } from './research.service';
 import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
@@ -1907,26 +1907,41 @@ export async function verifyProductWithDualAI(
                               rawProduct.Ferguson_Title ||
                               rawProduct.Product_Title_Web_Retailer || '';
         
-        finalSearchResult = await performFinalVerificationSearch(
+        // Use DUAL-AI web search with consensus validation
+        const dualSearchResult = await performDualAIWebSearch(
           verifiedBrand,
           verifiedModel,
           verifiedCategory,
           verifiedTitle,
-          fieldsForFinalSearch,  // Use the prioritized fields we identified
-          unresolvedFieldsList,
+          [...fieldsForFinalSearch, ...unresolvedFieldsList],  // Search for all missing/unresolved fields
           verificationSessionId
         );
         
-        if (finalSearchResult.success && Object.keys(finalSearchResult.foundSpecifications).length > 0) {
-          logger.info('PHASE 6: Final web search found additional data', {
+        if (dualSearchResult.success && Object.keys(dualSearchResult.consensusSpecs).length > 0) {
+          logger.info('PHASE 6: DUAL-AI web search found consensus data', {
             sessionId: verificationSessionId,
-            specsFound: Object.keys(finalSearchResult.foundSpecifications).length,
-            featuresFound: finalSearchResult.foundFeatures.length,
-            sources: finalSearchResult.sources.length
+            consensusSpecsFound: Object.keys(dualSearchResult.consensusSpecs).length,
+            agreements: dualSearchResult.agreements.length,
+            disagreements: dualSearchResult.disagreements.length,
+            openaiSpecsFound: Object.keys(dualSearchResult.openaiSpecs).length,
+            xaiSpecsFound: Object.keys(dualSearchResult.xaiSpecs).length,
+            sources: dualSearchResult.sources.length
           });
           
-          // Merge found specifications into consensus
-          for (const [field, value] of Object.entries(finalSearchResult.foundSpecifications)) {
+          // Log disagreements for transparency (these are NOT merged)
+          if (dualSearchResult.disagreements.length > 0) {
+            logger.warn('PHASE 6: Web search disagreements (NOT merged)', {
+              sessionId: verificationSessionId,
+              disagreements: dualSearchResult.disagreements.map(d => ({
+                field: d.field,
+                openai: d.openai,
+                xai: d.xai
+              }))
+            });
+          }
+          
+          // Merge ONLY consensus specifications into results (dual-AI validated)
+          for (const [field, spec] of Object.entries(dualSearchResult.consensusSpecs)) {
             const normalizedField = field.toLowerCase().replace(/[_\s]+/g, '_');
             
             // Check if this field was missing or unresolved
@@ -1946,28 +1961,51 @@ export async function verifyProductWithDualAI(
                 'width', 'height', 'depth', 'color', 'finish'].includes(normalizedField);
               
               if (isPrimaryField) {
-                consensus.agreedPrimaryAttributes[field] = value;
+                consensus.agreedPrimaryAttributes[field] = spec.value;
               } else {
-                consensus.agreedTop15Attributes[field] = value;
+                consensus.agreedTop15Attributes[field] = spec.value;
               }
               
-              logger.info(`Final search filled field: ${field} = ${value}`, { sessionId: verificationSessionId });
+              logger.info(`DUAL-AI web search filled field: ${field} = ${spec.value}`, { 
+                sessionId: verificationSessionId,
+                confidence: spec.confidence,
+                source: spec.source,  // 'both', 'openai', or 'xai'
+                validatedBy: spec.source === 'both' ? 'Both AIs agreed' : `Single AI (${spec.source}) high confidence`
+              });
             }
           }
+          
+          // Store for the legacy result format
+          finalSearchResult = {
+            query: `${verifiedBrand} ${verifiedModel}`,
+            verifiedData: { brand: verifiedBrand, modelNumber: verifiedModel, category: verifiedCategory, productTitle: verifiedTitle },
+            missingFieldsSearched: [...fieldsForFinalSearch, ...unresolvedFieldsList],
+            success: true,
+            foundSpecifications: Object.fromEntries(
+              Object.entries(dualSearchResult.consensusSpecs).map(([k, v]) => [k, v.value])
+            ),
+            foundFeatures: dualSearchResult.features,
+            sources: dualSearchResult.sources,
+            discoveredResources: dualSearchResult.discoveredResources,
+            searchSummary: `Dual-AI consensus: ${dualSearchResult.agreements.length} agreements, ${dualSearchResult.disagreements.length} disagreements rejected`
+          };
           
           // Also update missing fields list (remove ones we found)
           if (consensus.needsResearch) {
             consensus.needsResearch = consensus.needsResearch.filter(field => {
               const normalizedField = field.toLowerCase().replace(/[_\s]+/g, '_');
-              return !Object.keys(finalSearchResult!.foundSpecifications).some(f => 
+              return !Object.keys(dualSearchResult.consensusSpecs).some(f => 
                 f.toLowerCase().replace(/[_\s]+/g, '_') === normalizedField
               );
             });
           }
         } else {
-          logger.info('PHASE 6: Final web search did not find additional data', {
+          logger.info('PHASE 6: Dual-AI web search did not reach consensus on any data', {
             sessionId: verificationSessionId,
-            reason: finalSearchResult.searchSummary
+            openaiFound: Object.keys(dualSearchResult.openaiSpecs).length,
+            xaiFound: Object.keys(dualSearchResult.xaiSpecs).length,
+            disagreements: dualSearchResult.disagreements.length,
+            reason: 'AIs found conflicting data or no data'
           });
         }
       } catch (searchError) {

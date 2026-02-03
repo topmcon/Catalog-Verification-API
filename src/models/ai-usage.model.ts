@@ -51,6 +51,8 @@ export type TaskType =
   | 'cross-validation'  // Second pass after disagreement
   | 'research'          // Web search with search models
   | 'final-verification-search' // Final targeted web search after AI analysis
+  | 'dual-web-search-openai' // Dual-AI web search (OpenAI)
+  | 'dual-web-search-xai'   // Dual-AI web search (xAI)
   | 'image-analysis'    // Vision model analysis
   | 'consensus-resolution'  // Resolving AI disagreements
   | 'enrichment'        // Product enrichment

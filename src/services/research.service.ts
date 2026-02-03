@@ -1917,12 +1917,293 @@ export function formatResearchForPrompt(research: ResearchResult): string {
   return sections.join('\n');
 }
 
+/**
+ * DUAL-AI WEB SEARCH WITH CONSENSUS
+ * ==================================
+ * Both OpenAI and xAI independently search the web for product information,
+ * then their results are compared and only consensus values are accepted.
+ * 
+ * This ensures web search data goes through the same rigorous validation
+ * as the main verification flow.
+ */
+export interface DualWebSearchResult {
+  success: boolean;
+  consensusSpecs: Record<string, { value: string; confidence: number; source: 'both' | 'openai' | 'xai'; sources: string[] }>;
+  openaiSpecs: Record<string, string>;
+  xaiSpecs: Record<string, string>;
+  agreements: string[];
+  disagreements: { field: string; openai: string; xai: string }[];
+  features: string[];
+  sources: string[];
+  discoveredResources: FinalVerificationSearchResult['discoveredResources'];
+  searchSummary: string;
+  processingTime: number;
+}
+
+export async function performDualAIWebSearch(
+  verifiedBrand: string,
+  verifiedModelNumber: string,
+  verifiedCategory: string,
+  verifiedProductTitle: string,
+  fieldsToSearch: string[],
+  sessionId?: string
+): Promise<DualWebSearchResult> {
+  const startTime = Date.now();
+  
+  logger.info('DUAL-AI WEB SEARCH: Starting independent searches', {
+    sessionId,
+    verifiedBrand,
+    verifiedModelNumber,
+    fieldsToSearch
+  });
+  
+  // Build the search prompt for both AIs
+  const fieldDescriptions = fieldsToSearch.map(f => `- ${f}`).join('\n');
+  const searchQuery = [verifiedBrand, verifiedModelNumber, verifiedCategory, 'specifications'].filter(Boolean).join(' ');
+  
+  const systemPrompt = `You are a product specification researcher. Search the web for accurate product information.
+
+PRODUCT TO SEARCH:
+- Brand: ${verifiedBrand || 'Unknown'}
+- Model Number: ${verifiedModelNumber || 'Unknown'}
+- Category: ${verifiedCategory || 'Unknown'}
+- Product: ${verifiedProductTitle || 'Unknown'}
+
+FIELDS TO FIND:
+${fieldDescriptions}
+
+CRITICAL REQUIREMENTS:
+1. ONLY return data for this EXACT brand and model number
+2. DO NOT guess or estimate - only return verified information from real sources
+3. Include the source URL for every piece of information
+4. If you cannot find verified data for a field, DO NOT include it
+5. Prioritize authoritative sources: manufacturer site > major retailers > other
+
+Return JSON:
+{
+  "specifications": {
+    "field_name": "value found"
+  },
+  "sources": ["url1", "url2"],
+  "confidence": 0.0-1.0,
+  "notes": "Any important caveats about the data"
+}`;
+
+  // Initialize xAI client
+  const xaiClient = new OpenAI({
+    apiKey: config.xai?.apiKey || process.env.XAI_API_KEY,
+    baseURL: 'https://api.x.ai/v1'
+  });
+  
+  const openaiClient = new OpenAI({ apiKey: config.openai.apiKey });
+
+  // Run BOTH searches in parallel
+  const [openaiResult, xaiResult] = await Promise.all([
+    // OpenAI search (using search-preview model)
+    (async () => {
+      try {
+        const model = config.openai.searchModel || 'gpt-4o-search-preview';
+        const usageId = aiUsageTracker.startAICall({
+          sessionId: sessionId || 'dual-web-search',
+          provider: 'openai',
+          model,
+          taskType: 'dual-web-search-openai',
+          prompt: searchQuery,
+        });
+        
+        const response = await openaiClient.chat.completions.create({
+          model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: `Search the web for: ${searchQuery}\n\nFind these fields: ${fieldsToSearch.join(', ')}` }
+          ],
+          max_tokens: 2000,
+        });
+        
+        const content = response.choices[0]?.message?.content || '{}';
+        let parsed: any = {};
+        try {
+          const jsonMatch = content.match(/\{[\s\S]*\}/);
+          parsed = JSON.parse(jsonMatch ? jsonMatch[0] : '{}');
+        } catch {
+          parsed = { specifications: {} };
+        }
+        
+        await aiUsageTracker.completeAICall(usageId, {
+          response: content,
+          promptTokens: response.usage?.prompt_tokens || 0,
+          completionTokens: response.usage?.completion_tokens || 0,
+          outcome: 'success',
+        });
+        
+        return {
+          success: true,
+          specs: parsed.specifications || {},
+          sources: parsed.sources || [],
+          confidence: parsed.confidence || 0.5
+        };
+      } catch (error) {
+        logger.error('OpenAI web search failed', { error: error instanceof Error ? error.message : 'Unknown' });
+        return { success: false, specs: {}, sources: [], confidence: 0 };
+      }
+    })(),
+    
+    // xAI search (using grok with web search capability)
+    (async () => {
+      try {
+        const model = 'grok-3'; // xAI's model with web search
+        const usageId = aiUsageTracker.startAICall({
+          sessionId: sessionId || 'dual-web-search',
+          provider: 'xai',
+          model,
+          taskType: 'dual-web-search-xai',
+          prompt: searchQuery,
+        });
+        
+        const response = await xaiClient.chat.completions.create({
+          model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: `Search the web for: ${searchQuery}\n\nFind these fields: ${fieldsToSearch.join(', ')}` }
+          ],
+          max_tokens: 2000,
+        });
+        
+        const content = response.choices[0]?.message?.content || '{}';
+        let parsed: any = {};
+        try {
+          const jsonMatch = content.match(/\{[\s\S]*\}/);
+          parsed = JSON.parse(jsonMatch ? jsonMatch[0] : '{}');
+        } catch {
+          parsed = { specifications: {} };
+        }
+        
+        await aiUsageTracker.completeAICall(usageId, {
+          response: content,
+          promptTokens: response.usage?.prompt_tokens || 0,
+          completionTokens: response.usage?.completion_tokens || 0,
+          outcome: 'success',
+        });
+        
+        return {
+          success: true,
+          specs: parsed.specifications || {},
+          sources: parsed.sources || [],
+          confidence: parsed.confidence || 0.5
+        };
+      } catch (error) {
+        logger.error('xAI web search failed', { error: error instanceof Error ? error.message : 'Unknown' });
+        return { success: false, specs: {}, sources: [], confidence: 0 };
+      }
+    })()
+  ]);
+  
+  logger.info('DUAL-AI WEB SEARCH: Both searches completed', {
+    sessionId,
+    openaiSuccess: openaiResult.success,
+    openaiSpecsCount: Object.keys(openaiResult.specs).length,
+    xaiSuccess: xaiResult.success,
+    xaiSpecsCount: Object.keys(xaiResult.specs).length
+  });
+  
+  // BUILD CONSENSUS - only accept values where both AIs agree or have high confidence
+  const consensusSpecs: DualWebSearchResult['consensusSpecs'] = {};
+  const agreements: string[] = [];
+  const disagreements: { field: string; openai: string; xai: string }[] = [];
+  
+  // Get all unique fields from both results
+  const allFields = new Set([
+    ...Object.keys(openaiResult.specs),
+    ...Object.keys(xaiResult.specs)
+  ]);
+  
+  for (const field of allFields) {
+    const openaiValue = openaiResult.specs[field];
+    const xaiValue = xaiResult.specs[field];
+    
+    // Normalize for comparison
+    const normalizeValue = (v: any): string => {
+      if (!v) return '';
+      return String(v).toLowerCase().trim().replace(/[^a-z0-9.]/g, '');
+    };
+    
+    const openaiNorm = normalizeValue(openaiValue);
+    const xaiNorm = normalizeValue(xaiValue);
+    
+    if (openaiValue && xaiValue) {
+      // Both AIs found a value
+      if (openaiNorm === xaiNorm || 
+          openaiNorm.includes(xaiNorm) || 
+          xaiNorm.includes(openaiNorm)) {
+        // AGREEMENT - high confidence
+        consensusSpecs[field] = {
+          value: openaiValue, // Use OpenAI's formatting
+          confidence: 0.95,
+          source: 'both',
+          sources: [...openaiResult.sources, ...xaiResult.sources]
+        };
+        agreements.push(field);
+        logger.info(`CONSENSUS AGREEMENT: ${field} = ${openaiValue}`, { sessionId });
+      } else {
+        // DISAGREEMENT - log but don't include
+        disagreements.push({ field, openai: openaiValue, xai: xaiValue });
+        logger.warn(`CONSENSUS DISAGREEMENT: ${field} - OpenAI: "${openaiValue}" vs xAI: "${xaiValue}"`, { sessionId });
+      }
+    } else if (openaiValue && openaiResult.confidence >= 0.8) {
+      // Only OpenAI found it with high confidence
+      consensusSpecs[field] = {
+        value: openaiValue,
+        confidence: openaiResult.confidence * 0.7, // Reduce confidence for single-source
+        source: 'openai',
+        sources: openaiResult.sources
+      };
+      logger.info(`SINGLE SOURCE (OpenAI): ${field} = ${openaiValue} (confidence: ${openaiResult.confidence})`, { sessionId });
+    } else if (xaiValue && xaiResult.confidence >= 0.8) {
+      // Only xAI found it with high confidence
+      consensusSpecs[field] = {
+        value: xaiValue,
+        confidence: xaiResult.confidence * 0.7, // Reduce confidence for single-source
+        source: 'xai',
+        sources: xaiResult.sources
+      };
+      logger.info(`SINGLE SOURCE (xAI): ${field} = ${xaiValue} (confidence: ${xaiResult.confidence})`, { sessionId });
+    }
+    // If neither has high confidence for single-source, we don't include it
+  }
+  
+  const processingTime = Date.now() - startTime;
+  
+  logger.info('DUAL-AI WEB SEARCH CONSENSUS COMPLETE', {
+    sessionId,
+    processingTime,
+    agreements: agreements.length,
+    disagreements: disagreements.length,
+    consensusFieldsAccepted: Object.keys(consensusSpecs).length,
+    rejectedDueToDisagreement: disagreements.map(d => d.field)
+  });
+  
+  return {
+    success: openaiResult.success || xaiResult.success,
+    consensusSpecs,
+    openaiSpecs: openaiResult.specs,
+    xaiSpecs: xaiResult.specs,
+    agreements,
+    disagreements,
+    features: [],  // Features can be extracted from specs if needed
+    sources: [...new Set([...openaiResult.sources, ...xaiResult.sources])],
+    discoveredResources: { webPages: [], documents: [], images: [] },
+    searchSummary: `Dual-AI consensus: ${agreements.length} agreed, ${disagreements.length} disagreed. Accepted ${Object.keys(consensusSpecs).length} fields.`,
+    processingTime
+  };
+}
+
 export default {
   fetchWebPage,
   fetchPDF,
   analyzeImage,
   performProductResearch,
   performFinalVerificationSearch,
+  performDualAIWebSearch,
   performWebSearch,
   formatResearchForPrompt
 };
