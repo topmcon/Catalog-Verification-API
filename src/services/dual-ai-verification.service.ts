@@ -188,18 +188,8 @@ function isNAValue(value: any): boolean {
   return naPatterns.some(pattern => pattern.test(strValue)) || /^N\/A/i.test(strValue);
 }
 
-/**
- * Fields that should be numeric in Salesforce (Decimal type in Apex)
- * These must be null or a valid number - empty strings will break SF deserializer
- */
-const NUMERIC_FIELDS = new Set([
-  // Market_Value fields removed - no longer sent to Salesforce
-]);
+// NUMERIC_FIELDS and sanitizeNumericForSalesforce removed - no longer needed after Market_Value fields removal
 
-/**
- * Sanitize a value that should be numeric in Salesforce
- * Returns number if valid, null otherwise (NOT empty string which breaks SF Decimal deserialize)
- */
 /**
  * DATA COHERENCE VALIDATION
  * =========================
@@ -1043,30 +1033,7 @@ const FIELD_NOT_APPLICABLE = 'Not Applicable'; // Field doesn't apply to this pr
 const FIELD_RESEARCH_INCOMPLETE = FIELD_STATUS_CODES.RESEARCH_INCOMPLETE; // Research couldn't be completed
 const FIELD_RESEARCH_ERROR = FIELD_STATUS_CODES.RESEARCH_ERROR; // Research had errors requiring human review
 
-function sanitizeNumericForSalesforce(value: any): number | null {
-  if (value === null || value === undefined) return null;
-  
-  const strValue = String(value).trim();
-  
-  // Check for N/A variants - return null for numeric fields
-  if (isNAValue(strValue)) {
-    return null;
-  }
-  
-  // Check for "Not Found" marker - return null for numeric fields
-  if (strValue === FIELD_NOT_FOUND) {
-    return null;
-  }
-  
-  // Remove currency symbols and commas, then parse
-  const cleaned = strValue.replace(/[$,€£¥]/g, '').trim();
-  const num = parseFloat(cleaned);
-  
-  // Return null if not a valid number
-  if (isNaN(num)) return null;
-  
-  return num;
-}
+// sanitizeNumericForSalesforce function removed - no longer needed after Market_Value fields removal
 
 /**
  * Mark an empty field value with the appropriate marker
