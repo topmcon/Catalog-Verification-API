@@ -4187,45 +4187,59 @@ function buildFinalResponse(
         });
       }
     } else {
-      // No style mapping found - use potential style from AI and request creation
+      // No style mapping found - try fuzzy matching before requesting creation
       // IMPORTANT: Filter out N/A values - these break SF JSON parsing and are not valid styles
       const isValidStyle = potentialStyle && 
                            potentialStyle.trim() !== '' && 
                            !isNAValue(potentialStyle);
       
       if (isValidStyle) {
-        // Check if style already exists by name before requesting (prevents duplicates)
-        const existingStyle = picklistMatcher.getStyleByName(potentialStyle);
-        if (existingStyle) {
-          // Style already exists - use existing instead of requesting new
-          styleMatch = { 
-            matched: true, 
-            matchedValue: existingStyle
-          };
-          styleToUse = existingStyle.style_name;
-          logger.info('Style already exists in picklist - using existing instead of requesting new', {
-            style: potentialStyle,
-            existingStyleId: existingStyle.style_id,
+        // ENHANCEMENT: Try fuzzy matching first (catches "Storage Drawer" → "Storage Drawers", etc.)
+        const fuzzyStyleMatch = picklistMatcher.matchStyle(potentialStyle);
+        if (fuzzyStyleMatch.matched && fuzzyStyleMatch.matchedValue) {
+          // Fuzzy match found! Use it instead of creating a request
+          styleMatch = fuzzyStyleMatch;
+          styleToUse = fuzzyStyleMatch.matchedValue.style_name;
+          logger.info('Style matched via fuzzy matching (no category-specific mapping)', {
+            originalStyle: potentialStyle,
+            matchedStyle: styleToUse,
+            similarity: fuzzyStyleMatch.similarity,
             category: matchedCategory
           });
         } else {
-          // Style truly doesn't exist - request creation
-          styleToUse = potentialStyle;
-          styleRequests.push({
-            style_name: potentialStyle,
-            suggested_for_category: matchedCategory,
-            source: 'ai_analysis',
-            product_context: {
-              sf_catalog_id: rawProduct.SF_Catalog_Id,
-              model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
-            },
-            reason: `Style "${potentialStyle}" from AI analysis - requesting creation for category "${matchedCategory}"`
-          });
-          logger.info('Using AI style in response AND requesting Salesforce picklist creation', {
-            style: potentialStyle,
-            category: matchedCategory,
-            willPopulateResponse: true
-          });
+          // No fuzzy match - check if style already exists by exact name (prevents duplicates)
+          const existingStyle = picklistMatcher.getStyleByName(potentialStyle);
+          if (existingStyle) {
+            // Style already exists - use existing instead of requesting new
+            styleMatch = { 
+              matched: true, 
+              matchedValue: existingStyle
+            };
+            styleToUse = existingStyle.style_name;
+            logger.info('Style already exists in picklist - using existing instead of requesting new', {
+              style: potentialStyle,
+              existingStyleId: existingStyle.style_id,
+              category: matchedCategory
+            });
+          } else {
+            // Style truly doesn't exist - request creation
+            styleToUse = potentialStyle;
+            styleRequests.push({
+              style_name: potentialStyle,
+              suggested_for_category: matchedCategory,
+              source: 'ai_analysis',
+              product_context: {
+                sf_catalog_id: rawProduct.SF_Catalog_Id,
+                model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+              },
+              reason: `Style "${potentialStyle}" from AI analysis - requesting creation for category "${matchedCategory}"`
+            });
+            logger.info('Using AI style in response AND requesting Salesforce picklist creation', {
+              style: potentialStyle,
+              category: matchedCategory,
+              willPopulateResponse: true
+            });
+          }
         }
       } else if (potentialStyle && isNAValue(potentialStyle)) {
         logger.info('Skipping N/A style value - not adding to Style_Requests', {
