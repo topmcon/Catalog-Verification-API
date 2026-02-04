@@ -88,7 +88,9 @@ async function auditLastJobs() {
     
     jobs.forEach(job => {
       const productName = job.sfCatalogName || job.rawPayload?.Catalog_Name__c || job.productName || 'Unknown';
-      const category = job.rawPayload?.Product_Category__c || job.category || 'Unknown';
+      const category = job.result?.Primary_Attributes?.Category_Verified || 
+                       job.rawPayload?.Product_Category__c || 
+                       job.category || 'Unknown';
       const productStyle = job.result?.Primary_Attributes?.Product_Style_Verified || 'Unknown';
       
       const styleType = categorizeStyle(productStyle);
