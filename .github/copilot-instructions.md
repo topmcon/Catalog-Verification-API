@@ -63,18 +63,32 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
      "cd /opt/catalog-verification-api && \
+      git stash && \
       git pull origin main && \
       npm install && \
       npm run build && \
       systemctl restart catalog-verification"
    ```
-7. Verify all three environments are synced
-8. Confirm production service is healthy
+7. **⚠️ CRITICAL: Verify all three environments are synced** - Run this check:
+   ```bash
+   LOCAL=$(git rev-parse --short HEAD) && \
+   GITHUB=$(git ls-remote origin main | cut -c1-7) && \
+   PROD=$(ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cat /opt/catalog-verification-api/.git/refs/heads/main | cut -c1-7") && \
+   echo "LOCAL: $LOCAL | GITHUB: $GITHUB | PROD: $PROD" && \
+   if [ "$LOCAL" = "$GITHUB" ] && [ "$GITHUB" = "$PROD" ]; then echo "✅ ALL SYNCED"; else echo "⚠️ OUT OF SYNC - PROCEDURE NOT COMPLETE"; fi
+   ```
+   **If OUT OF SYNC: Re-run step 6. Do NOT finish until all 3 match.**
+8. Confirm production service is healthy:
+   ```bash
+   curl -s https://verify.cxc-ai.com/health
+   ```
 9. Report summary:
    - Files changed
-   - Commit hash
+   - Commit hash (must be same across all 3 environments)
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
+
+**⚠️ The "Save everything" procedure is NOT complete until step 7 shows ALL SYNCED.**
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
