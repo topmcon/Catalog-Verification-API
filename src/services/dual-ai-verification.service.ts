@@ -48,6 +48,98 @@ import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 import * as lookups from '../config/lookups';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
+
+// ============================================
+// STYLE VALIDATION HELPERS
+// ============================================
+
+/**
+ * Aesthetic styles that should be avoided in favor of product types
+ */
+const AESTHETIC_STYLES = [
+  'Modern',
+  'Contemporary',
+  'Traditional',
+  'Transitional',
+  'Rustic',
+  'Industrial',
+  'Farmhouse',
+  'Vintage',
+  'Classic',
+  'Minimalist'
+];
+
+/**
+ * Lighting categories where aesthetic styles should be avoided
+ */
+const LIGHTING_CATEGORIES = [
+  'Chandeliers',
+  'Pendants',
+  'Wall Sconces',
+  'Vanity Lighting',
+  'Bathroom Lighting',
+  'Outdoor Lighting',
+  'Flush Mount Lighting',
+  'Semi-Flush Mount Lighting',
+  'Track Lighting',
+  'Ceiling Fans with Lights',
+  'Landscape Lighting',
+  'Under Cabinet Lighting'
+];
+
+/**
+ * Check if a style is aesthetic (design-based) rather than product type
+ */
+function isAestheticStyle(style: string): boolean {
+  if (!style) return false;
+  return AESTHETIC_STYLES.some(aesthetic => 
+    style.toLowerCase().includes(aesthetic.toLowerCase())
+  );
+}
+
+/**
+ * Check if a category is lighting-related
+ */
+function isLightingCategory(category: string): boolean {
+  if (!category) return false;
+  return LIGHTING_CATEGORIES.some(lightingCat => 
+    category.toLowerCase().includes(lightingCat.toLowerCase())
+  );
+}
+
+/**
+ * Validate and correct product style for lighting categories
+ * Returns corrected style or null if validation passes
+ */
+function validateAndCorrectLightingStyle(
+  style: string,
+  category: string,
+  categoryMapping: string[]
+): { needsCorrection: boolean; correctedStyle: string | null; reason: string } {
+  // Only validate lighting categories
+  if (!isLightingCategory(category)) {
+    return { needsCorrection: false, correctedStyle: null, reason: 'Not a lighting category' };
+  }
+  
+  // Check if current style is aesthetic
+  if (!isAestheticStyle(style)) {
+    return { needsCorrection: false, correctedStyle: null, reason: 'Style is product type, not aesthetic' };
+  }
+  
+  // Style is aesthetic in lighting category - needs correction
+  // Use first product type from category mapping as fallback
+  const firstProductType = categoryMapping && categoryMapping.length > 0 
+    ? categoryMapping[0] 
+    : null;
+  
+  const reason = `Lighting category "${category}" should use product type, not aesthetic style "${style}"`;
+  
+  return {
+    needsCorrection: true,
+    correctedStyle: firstProductType,
+    reason
+  };
+}
 import logger from '../utils/logger';
 import config from '../config';
 import trackingService from './tracking.service';
@@ -2458,7 +2550,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_style": "value (CRITICAL PRIORITY ORDER: 1) Product TYPE (fixture/installation type) FIRST - Wall Lantern, Pendant, Sconce, Built-In, Rain Head, etc. 2) Design aesthetic ONLY as LAST RESORT - Modern, Contemporary, Traditional. For LIGHTING: NEVER use aesthetic styles if a fixture type exists (use 'Sconce' not 'Modern', 'Pendant' not 'Contemporary'). For APPLIANCES: use functional type (Gas, French Door, Front Load). AESTHETIC STYLES ARE FALLBACK ONLY.)",
+    "product_style": "value (CRITICAL PRIORITY ORDER: 1) Product TYPE (fixture/installation type) FIRST - Wall Lantern, Pendant, Sconce, Built-In, Rain Head, etc. 2) Design aesthetic ONLY as LAST RESORT - Modern, Contemporary, Traditional. For LIGHTING: NEVER use aesthetic styles if a fixture type exists (use 'Sconce' not 'Modern', 'Pendant' not 'Contemporary'). For APPLIANCES: use functional type (Gas, French Door, Front Load). AESTHETIC STYLES ARE FALLBACK ONLY. EXAMPLES: ❌ WRONG: Wall Sconce product → 'Contemporary' | ✅ CORRECT: Wall Sconce product → 'Wall Sconce' or 'Outdoor Wall Sconce'. ❌ WRONG: Pendant light → 'Modern' | ✅ CORRECT: Pendant light → 'Pendant' or 'Mini-Pendant'. ❌ WRONG: Vanity light → 'Contemporary' | ✅ CORRECT: Vanity light → 'Bath Bar' or 'Vanity Light'. ❌ WRONG: Chandelier → 'Modern' | ✅ CORRECT: Chandelier → 'Drum' or 'Crystal'.)",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
@@ -4177,6 +4269,39 @@ function buildFinalResponse(
   
   // Get style from agreed attributes, or fall back to individual AI values if they disagreed
   let potentialStyle = consensus.agreedPrimaryAttributes.product_style || '';
+  
+  // ============================================
+  // POST-PROCESSING VALIDATION: Lighting Style Correction
+  // ============================================
+  if (potentialStyle && categoryMatch.matchedValue) {
+    const matchedCategory = categoryMatch.matchedValue.category_name;
+    const validStyles = getValidStylesForCategory(matchedCategory);
+    
+    const validation = validateAndCorrectLightingStyle(
+      potentialStyle,
+      matchedCategory,
+      validStyles
+    );
+    
+    if (validation.needsCorrection) {
+      logger.warn('[STYLE VALIDATION] Aesthetic style detected in lighting category - correcting', {
+        category: matchedCategory,
+        originalStyle: potentialStyle,
+        correctedStyle: validation.correctedStyle,
+        reason: validation.reason
+      });
+      
+      // Use corrected style if available, otherwise keep original but flag it
+      if (validation.correctedStyle) {
+        potentialStyle = validation.correctedStyle;
+        logger.info('[STYLE CORRECTED] Using product type instead of aesthetic', {
+          from: consensus.agreedPrimaryAttributes.product_style,
+          to: potentialStyle,
+          category: matchedCategory
+        });
+      }
+    }
+  }
   
   // If no agreed style, check if AIs provided different styles (disagreement)
   if (!potentialStyle) {
