@@ -1047,9 +1047,47 @@ class PicklistMatcherService {
    */
   private validatePicklistData(
     type: 'attributes' | 'brands' | 'categories' | 'styles',
-    newData: any[]
+    newData: any[],
+    existingCount?: number,
+    replaceMode?: boolean
   ): string[] {
     const errors: string[] = [];
+
+    // CRITICAL: Prevent empty sync from wiping existing data
+    // In FULL REPLACEMENT mode, reject syncs that would delete >90% of data
+    if (replaceMode && existingCount && existingCount > 10) {
+      if (newData.length === 0) {
+        errors.push(
+          `REJECTED: Empty ${type} array would wipe ${existingCount} existing items. ` +
+          `Use replace_mode: false for incremental updates, or send data explicitly.`
+        );
+        logger.error(`Picklist sync REJECTED - empty array would wipe data`, {
+          type,
+          existingCount,
+          incomingCount: 0,
+          action: 'REJECTED'
+        });
+        return errors;
+      }
+      
+      // Also reject if incoming is less than 10% of existing (likely truncated/corrupted sync)
+      const threshold = Math.floor(existingCount * 0.1);
+      if (newData.length < threshold) {
+        errors.push(
+          `REJECTED: ${type} sync contains only ${newData.length} items vs ${existingCount} existing. ` +
+          `This looks like truncated/corrupted data (threshold: ${threshold}). ` +
+          `Use replace_mode: false for partial updates.`
+        );
+        logger.error(`Picklist sync REJECTED - data count too low`, {
+          type,
+          existingCount,
+          incomingCount: newData.length,
+          threshold,
+          action: 'REJECTED'
+        });
+        return errors;
+      }
+    }
 
     // Rule 1: Check for corruption patterns (field names embedded in values)
     const corruptionPatterns = ['brand_id', 'attribute_id', 'category_id', 'style_id', 'brand_name'];
@@ -1130,8 +1168,8 @@ class PicklistMatcherService {
       try {
         const prevCount = this.attributes.length;
         
-        // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('attributes', data.attributes!);
+        // Validate data quality before sync (includes empty sync protection)
+        const validationErrors = this.validatePicklistData('attributes', data.attributes!, prevCount, replaceMode);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
@@ -1212,7 +1250,7 @@ class PicklistMatcherService {
         const prevCount = this.brands.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('brands', data.brands!);
+        const validationErrors = this.validatePicklistData('brands', data.brands!, prevCount, replaceMode);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
@@ -1293,7 +1331,7 @@ class PicklistMatcherService {
         const prevCount = this.categories.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('categories', data.categories!);
+        const validationErrors = this.validatePicklistData('categories', data.categories!, prevCount, replaceMode);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
@@ -1374,7 +1412,7 @@ class PicklistMatcherService {
         const prevCount = this.styles.length;
         
         // Validate data quality before sync
-        const validationErrors = this.validatePicklistData('styles', data.styles!);
+        const validationErrors = this.validatePicklistData('styles', data.styles!, prevCount, replaceMode);
         if (validationErrors.length > 0) {
           validationErrors.forEach(err => {
             errors.push(err);
