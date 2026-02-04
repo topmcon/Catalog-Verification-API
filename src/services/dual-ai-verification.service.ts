@@ -1076,7 +1076,10 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
   // CRITICAL: Validate external data model number matches requested model
   // If there's a mismatch, external data MUST NOT be trusted for variant-specific attributes
   const requestedModel = rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer || '';
-  const externalModel = rawProduct.Ferguson_Model_Number || null;
+  // Check multiple possible locations for Ferguson model number
+  const externalModel = rawProduct.Ferguson_Model_Number 
+    || (rawProduct as any).Ferguson_Raw_Data?.product?.model_number 
+    || null;
   
   // Also check for Ferguson_Raw_Data which may contain error information
   const modelValidation = validateExternalDataModel(
