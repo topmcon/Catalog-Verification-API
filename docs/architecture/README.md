@@ -15,6 +15,7 @@ System design, architecture decisions, and implementation details.
 - **[PRODUCT-HIERARCHY.md](PRODUCT-HIERARCHY.md)** - Product hierarchy documentation
 - **[CATEGORY-RESPONSE-STRUCTURE.md](CATEGORY-RESPONSE-STRUCTURE.md)** - Category response structure
 - **[ATTRIBUTE-REQUEST-FLOW.md](ATTRIBUTE-REQUEST-FLOW.md)** - Attribute request flow
+- **[PRODUCT-STYLE-STRATEGY.md](PRODUCT-STYLE-STRATEGY.md)** - Product style classification strategy (hybrid approach)
 
 ## Implementation Details
 

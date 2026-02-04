@@ -2458,7 +2458,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_style": "value (category specific)",
+    "product_style": "value (CRITICAL: For design products like faucets/showers/lighting, prefer PRODUCT TYPE over design aesthetic. Example: 'Rain Head' not 'Modern', 'Single Hole' not 'Contemporary'. For appliances, use functional type like 'Gas', 'French Door', etc.)",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
