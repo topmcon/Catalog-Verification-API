@@ -2458,7 +2458,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_style": "value (CRITICAL: For design products like faucets/showers/lighting, prefer PRODUCT TYPE over design aesthetic. Example: 'Rain Head' not 'Modern', 'Single Hole' not 'Contemporary'. For appliances, use functional type like 'Gas', 'French Door', etc.)",
+    "product_style": "value (CRITICAL PRIORITY ORDER: 1) Product TYPE (fixture/installation type) FIRST - Wall Lantern, Pendant, Sconce, Built-In, Rain Head, etc. 2) Design aesthetic ONLY as LAST RESORT - Modern, Contemporary, Traditional. For LIGHTING: NEVER use aesthetic styles if a fixture type exists (use 'Sconce' not 'Modern', 'Pendant' not 'Contemporary'). For APPLIANCES: use functional type (Gas, French Door, Front Load). AESTHETIC STYLES ARE FALLBACK ONLY.)",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
