@@ -11,19 +11,25 @@ import webhookService from './webhook.service';
 import { SalesforceIncomingProduct } from '../types/salesforce.types';
 
 class AsyncVerificationProcessor {
-  private isProcessing = false;
+  private activeJobs: Set<string> = new Set(); // Track active job IDs
+  private maxConcurrentJobs: number = 5; // Process up to 5 jobs concurrently
   private processingInterval: NodeJS.Timeout | null = null;
 
   /**
    * Start the background job processor
    */
-  start(intervalMs: number = 5000): void {
+  start(intervalMs: number = 5000, maxConcurrent: number = 5): void {
     if (this.processingInterval) {
       logger.warn('Async processor already running');
       return;
     }
 
-    logger.info('Starting async verification processor', { intervalMs });
+    this.maxConcurrentJobs = maxConcurrent;
+
+    logger.info('Starting async verification processor', { 
+      intervalMs, 
+      maxConcurrentJobs: this.maxConcurrentJobs 
+    });
 
     this.processingInterval = setInterval(async () => {
       await this.processNextJob();
@@ -48,29 +54,61 @@ class AsyncVerificationProcessor {
    * Process the next pending job (can be called manually to trigger immediate processing)
    */
   public async processNextJob(): Promise<void> {
-    if (this.isProcessing) {
-      return; // Already processing a job
+    // Check if we've hit the concurrency limit
+    if (this.activeJobs.size >= this.maxConcurrentJobs) {
+      return; // Already at max concurrent jobs
     }
 
     try {
-      this.isProcessing = true;
-
-      // Find oldest pending job
-      const job = await VerificationJob.findOne({ status: 'pending' })
+      // Calculate how many more jobs we can start
+      const availableSlots = this.maxConcurrentJobs - this.activeJobs.size;
+      
+      // Find pending jobs (up to available slots)
+      const jobs = await VerificationJob.find({ status: 'pending' })
         .sort({ createdAt: 1 })
+        .limit(availableSlots)
         .exec();
 
-      if (!job) {
+      if (jobs.length === 0) {
         // No pending jobs
         return;
       }
+
+      // Start processing each job concurrently
+      jobs.forEach(job => {
+        this.processJob(job).catch(error => {
+          logger.error('Error in concurrent job processing', {
+            jobId: job.jobId,
+            error: error instanceof Error ? error.message : String(error)
+          });
+        });
+      });
+
+    } catch (error) {
+      logger.error('Error fetching jobs from queue', {
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
+  }
+
+  /**
+   * Process a single job
+   */
+  private async processJob(job: any): Promise<void> {
+    const jobId = job.jobId;
+    
+    try {
+      // Add to active jobs
+      this.activeJobs.add(jobId);
 
       logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', { service: 'catalog-verification' });
       logger.info('STEP 3: Background processor picked up job from queue', {
         jobId: job.jobId,
         sfCatalogId: job.sfCatalogId,
         sfCatalogName: job.sfCatalogName,
-        waitTime: Date.now() - job.createdAt.getTime() + 'ms'
+        waitTime: Date.now() - job.createdAt.getTime() + 'ms',
+        activeJobs: this.activeJobs.size,
+        maxConcurrent: this.maxConcurrentJobs
       });
 
       // Mark as processing
@@ -137,10 +175,16 @@ class AsyncVerificationProcessor {
 
     } catch (error) {
       logger.error('Error processing verification job', {
+        jobId: jobId,
         error: error instanceof Error ? error.message : String(error)
       });
     } finally {
-      this.isProcessing = false;
+      // Remove from active jobs
+      this.activeJobs.delete(jobId);
+      logger.debug('Job removed from active set', {
+        jobId,
+        activeJobs: this.activeJobs.size
+      });
     }
   }
 
