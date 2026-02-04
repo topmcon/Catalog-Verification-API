@@ -589,6 +589,7 @@ export const CATEGORY_STYLE_MAPPING: Record<string, string[]> = {
     
     // DESIGN STYLES (Fallback)
     ...UNIVERSAL_DESIGN_STYLES
+  ],
   
   'Door Hardware Parts': [
     // PART TYPES (Primary)
