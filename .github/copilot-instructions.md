@@ -49,13 +49,32 @@ When the user says **"Establish Connection"** or **"Connect to production"**, ex
 8. Ask user if they want to continue from where we left off
 
 When the user says **"Save everything"** or **"Save all"**, execute these steps:
-1. Check for any uncommitted changes (`git status`)
-2. Stage all changes (`git add -A`)
-3. Commit with descriptive message (ask user or auto-generate based on changed files)
-4. Push to GitHub (`git push origin main`)
-5. Wait for CI/CD or manually deploy to production
-6. Verify all three environments are synced
-7. Confirm production service is healthy
+1. **Create session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
+   - Document work completed this session
+   - List files modified and commits made
+   - Include current sync status (local, GitHub, production commits)
+   - Note service health and any issues encountered
+   - Outline next steps or work in progress
+2. Check for any uncommitted changes (`git status`)
+3. Stage all changes including session summary (`git add -A`)
+4. Commit with descriptive message (ask user or auto-generate based on changed files)
+5. Push to GitHub (`git push origin main`)
+6. Deploy to production:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
+     "cd /opt/catalog-verification-api && \
+      git pull origin main && \
+      npm install && \
+      npm run build && \
+      systemctl restart catalog-verification"
+   ```
+7. Verify all three environments are synced
+8. Confirm production service is healthy
+9. Report summary:
+   - Files changed
+   - Commit hash
+   - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
+   - Service health
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
@@ -481,6 +500,8 @@ When user says "Establish Connection", perform these checks and report:
    - Session analytics summary (jobs processed, success rate, issues)
 
 8. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+   - Show key highlights: what was completed, current state, next steps
+   - Reference the session summary file by name
 
 9. **Ask**: "Would you like to continue from where we left off?"
 
@@ -490,19 +511,25 @@ When user says "Establish Connection", perform these checks and report:
 
 When user says "Save everything", perform these actions:
 
-1. **Check for changes**: `git status`
-2. **Stage all changes**: `git add -A`
-3. **Commit changes**: 
+1. **Create session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
+   - Document work completed this session
+   - List files modified and commits made
+   - Include current sync status (local, GitHub, production commits)
+   - Note service health and any issues encountered
+   - Outline next steps or work in progress
+2. **Check for changes**: `git status`
+3. **Stage all changes**: `git add -A`
+4. **Commit changes**: 
    - Auto-generate message from changed files, OR
    - Ask user for commit message if changes are significant
-4. **Push to GitHub**: `git push origin main`
-5. **Deploy to production**:
+5. **Push to GitHub**: `git push origin main`
+6. **Deploy to production**:
    ```bash
-   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && git pull origin main && npm install && systemctl restart catalog-verification"
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && git pull origin main && npm install && npm run build && systemctl restart catalog-verification"
    ```
-6. **Verify sync**: Confirm all three environments have same commit
-7. **Health check**: `curl -s https://verify.cxc-ai.com/health`
-8. **Report**:
+7. **Verify sync**: Confirm all three environments have same commit
+8. **Health check**: `curl -s https://verify.cxc-ai.com/health`
+9. **Report**:
    - Files changed
    - Commit hash
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
