@@ -2248,7 +2248,7 @@ async function analyzeWithOpenAI(
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
-  const model = config.openai?.model || 'gpt-4o';
+  const model = config.openai?.model || 'gpt-4o-mini';
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
@@ -3373,7 +3373,7 @@ function reconcileDimensions(
 
 async function reanalyzeWithContext(rawProduct: SalesforceIncomingProduct, provider: 'openai' | 'xai', otherResult: AIAnalysisResult, sessionId: string): Promise<AIAnalysisResult> {
   const client = provider === 'openai' ? openai : xai;
-  const model = provider === 'openai' ? (config.openai?.model || 'gpt-4-turbo-preview') : (config.xai?.model || 'grok-beta');
+  const model = provider === 'openai' ? (config.openai?.model || 'gpt-4o-mini') : (config.xai?.model || 'grok-3-mini');
 
   const prompt = `You previously analyzed a product. Another AI analyst determined it should be categorized as:
 Category: ${otherResult.determinedCategory}
@@ -3413,7 +3413,7 @@ Return your revised analysis as JSON with the same format as before.`;
 
 async function researchMissingData(rawProduct: SalesforceIncomingProduct, missingFields: string[], provider: 'openai' | 'xai', category: string, sessionId: string, researchContext?: string): Promise<Record<string, any>> {
   const client = provider === 'openai' ? openai : xai;
-  const model = provider === 'openai' ? (config.openai?.model || 'gpt-4-turbo-preview') : (config.xai?.model || 'grok-beta');
+  const model = provider === 'openai' ? (config.openai?.model || 'gpt-4o-mini') : (config.xai?.model || 'grok-3-mini');
 
   const brand = rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || 'Unknown';
   const modelNum = rawProduct.Model_Number_Web_Retailer || rawProduct.Ferguson_Model_Number || 'Unknown';

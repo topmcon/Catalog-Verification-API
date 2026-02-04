@@ -228,7 +228,7 @@ Example: {"style": "French Door", "installationType": "Built-In"}`;
   try {
     const openai = new OpenAI({ apiKey: config.openai.apiKey });
     const completion = await openai.chat.completions.create({
-      model: config.openai.model || 'gpt-4-turbo-preview',
+      model: config.openai.model || 'gpt-4o-mini',
       messages: [
         { role: 'system', content: 'You are a product data enrichment assistant. Only return JSON.' },
         { role: 'user', content: prompt },
