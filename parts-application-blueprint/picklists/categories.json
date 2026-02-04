@@ -1,0 +1,2498 @@
+[
+  {
+    "category_id": "PARTS_CAT_001",
+    "category_name": "Compressor - Reciprocating",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_002",
+    "category_name": "Compressor - Rotary",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_003",
+    "category_name": "Compressor - Scroll",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_004",
+    "category_name": "Compressor - Linear",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_005",
+    "category_name": "Condenser Coil Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_006",
+    "category_name": "Evaporator Coil Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_007",
+    "category_name": "Evaporator Fan Motor",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_008",
+    "category_name": "Condenser Fan Motor",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_009",
+    "category_name": "Expansion Valve",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_010",
+    "category_name": "Capillary Tube",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_011",
+    "category_name": "Filter Drier",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_012",
+    "category_name": "Refrigerant Line & Tubing",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_013",
+    "category_name": "Heat Exchanger",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_014",
+    "category_name": "Accumulator",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_015",
+    "category_name": "Thermostat - Refrigerator",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_016",
+    "category_name": "Defrost Thermostat",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_017",
+    "category_name": "Defrost Timer",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_018",
+    "category_name": "Defrost Heater Element",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_019",
+    "category_name": "Adaptive Defrost Control Board",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_020",
+    "category_name": "Damper Control Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_021",
+    "category_name": "Air Flow Sensor",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_022",
+    "category_name": "Start Relay",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_023",
+    "category_name": "Overload Protector",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_024",
+    "category_name": "Run Capacitor",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_025",
+    "category_name": "Ice Maker - Modular",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_026",
+    "category_name": "Ice Maker - In-Door",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_027",
+    "category_name": "Ice Maker - Craft Ice",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_028",
+    "category_name": "Ice Maker - Dual",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_029",
+    "category_name": "Ice Maker Motor & Gearbox",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_030",
+    "category_name": "Ice Maker Thermostat",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_031",
+    "category_name": "Ice Maker Fill Cup",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_032",
+    "category_name": "Water Inlet Valve",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_033",
+    "category_name": "Water Filter & Cartridge",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_034",
+    "category_name": "Water Filter Housing",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_035",
+    "category_name": "Water Dispenser Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_036",
+    "category_name": "Water Reservoir Tank",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_037",
+    "category_name": "Water Line & Tubing",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_038",
+    "category_name": "Door Gasket - Magnetic",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_039",
+    "category_name": "Door Gasket - Push-In",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_040",
+    "category_name": "Door Bin & Shelf",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_041",
+    "category_name": "Door Handle",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_042",
+    "category_name": "Door Hinge",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_043",
+    "category_name": "Door Switch",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_044",
+    "category_name": "Glass Shelf",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_045",
+    "category_name": "Wire Shelf",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_046",
+    "category_name": "Cantilever Shelf",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_047",
+    "category_name": "Shelf Bracket & Support",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_048",
+    "category_name": "Crisper Drawer",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_049",
+    "category_name": "Meat Drawer",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_050",
+    "category_name": "Deli Drawer",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_051",
+    "category_name": "Drawer Slide",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_052",
+    "category_name": "Light Bulb & LED",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_053",
+    "category_name": "Light Socket Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_054",
+    "category_name": "Main Control Board - Refrigerator",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_055",
+    "category_name": "Display Board - Refrigerator",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_056",
+    "category_name": "Touch Panel - Refrigerator",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_057",
+    "category_name": "Wine Cooler Cooling Module",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_058",
+    "category_name": "Wine Cooler Rack",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_059",
+    "category_name": "Freezer Lid Gasket",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_060",
+    "category_name": "Freezer Basket",
+    "department": "Major Appliance Parts",
+    "family": "Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_061",
+    "category_name": "Agitator - Single Action",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_062",
+    "category_name": "Agitator - Dual Action",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_063",
+    "category_name": "Agitator Dogs & Cams",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_064",
+    "category_name": "Wash Basket / Inner Tub",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_065",
+    "category_name": "Outer Tub",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_066",
+    "category_name": "Drum Baffle",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_067",
+    "category_name": "Spider Arm Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_068",
+    "category_name": "Washer Drive Motor",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_069",
+    "category_name": "Drive Belt - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_070",
+    "category_name": "Motor Coupling",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_071",
+    "category_name": "Clutch Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_072",
+    "category_name": "Transmission / Gearcase",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_073",
+    "category_name": "Brake Assembly - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_074",
+    "category_name": "Tub Bearing",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_075",
+    "category_name": "Bearing Seal Kit",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_076",
+    "category_name": "Suspension Spring",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_077",
+    "category_name": "Shock Absorber",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_078",
+    "category_name": "Water Inlet Valve - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_079",
+    "category_name": "Water Level Pressure Switch",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_080",
+    "category_name": "Drain Pump - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_081",
+    "category_name": "Pump Filter & Trap",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_082",
+    "category_name": "Door Boot / Bellows",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_083",
+    "category_name": "Door Latch - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_084",
+    "category_name": "Door Lock - Electric",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_085",
+    "category_name": "Detergent Dispenser",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_086",
+    "category_name": "Softener Dispenser",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_087",
+    "category_name": "Main Control Board - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_088",
+    "category_name": "Motor Control Board / Inverter",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_089",
+    "category_name": "User Interface Board - Washer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_090",
+    "category_name": "Lid Switch",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_091",
+    "category_name": "Heating Element - Electric Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_092",
+    "category_name": "Heating Element Housing",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_093",
+    "category_name": "High Limit Thermostat - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_094",
+    "category_name": "Operating Thermostat - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_095",
+    "category_name": "Thermal Fuse - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_096",
+    "category_name": "Gas Burner Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_097",
+    "category_name": "Gas Valve - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_098",
+    "category_name": "Flame Sensor - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_099",
+    "category_name": "Ignitor - Gas Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_100",
+    "category_name": "Dryer Drum",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_101",
+    "category_name": "Drum Slide & Glide",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_102",
+    "category_name": "Drum Support Roller",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_103",
+    "category_name": "Drum Seal",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_104",
+    "category_name": "Dryer Motor",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_105",
+    "category_name": "Drive Belt - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_106",
+    "category_name": "Belt Idler Pulley",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_107",
+    "category_name": "Blower Wheel",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_108",
+    "category_name": "Blower Housing",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_109",
+    "category_name": "Lint Filter & Screen",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_110",
+    "category_name": "Door Hinge - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_111",
+    "category_name": "Door Switch - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_112",
+    "category_name": "Moisture Sensor Bar",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_113",
+    "category_name": "Main Control Board - Dryer",
+    "department": "Major Appliance Parts",
+    "family": "Laundry"
+  },
+  {
+    "category_id": "PARTS_CAT_114",
+    "category_name": "Bake Element - Electric Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_115",
+    "category_name": "Broil Element",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_116",
+    "category_name": "Convection Element",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_117",
+    "category_name": "Oven Burner Assembly - Gas",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_118",
+    "category_name": "Oven Igniter - Gas",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_119",
+    "category_name": "Oven Safety Valve",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_120",
+    "category_name": "Oven Thermostat",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_121",
+    "category_name": "Temperature Sensor - Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_122",
+    "category_name": "Temperature Probe - Meat",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_123",
+    "category_name": "Surface Burner - Gas",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_124",
+    "category_name": "Burner Head & Cap",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_125",
+    "category_name": "Burner Grate",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_126",
+    "category_name": "Burner Igniter - Spark Electrode",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_127",
+    "category_name": "Spark Module",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_128",
+    "category_name": "Gas Valve - Burner",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_129",
+    "category_name": "Burner Knob",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_130",
+    "category_name": "Surface Element - Electric Coil",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_131",
+    "category_name": "Radiant Element - Smoothtop",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_132",
+    "category_name": "Halogen Element",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_133",
+    "category_name": "Glass Cooktop Panel",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_134",
+    "category_name": "Induction Coil",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_135",
+    "category_name": "Induction Circuit Board",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_136",
+    "category_name": "Oven Rack",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_137",
+    "category_name": "Oven Door Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_138",
+    "category_name": "Door Hinge - Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_139",
+    "category_name": "Door Gasket - Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_140",
+    "category_name": "Door Glass - Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_141",
+    "category_name": "Door Handle - Oven",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_142",
+    "category_name": "Door Lock Assembly - Self-Clean",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_143",
+    "category_name": "Convection Fan Motor",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_144",
+    "category_name": "Convection Fan Blade",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_145",
+    "category_name": "Electronic Control Board - Range",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_146",
+    "category_name": "Clock/Timer Board",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_147",
+    "category_name": "Touchpad - Range",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_148",
+    "category_name": "Magnetron",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_149",
+    "category_name": "High Voltage Capacitor",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_150",
+    "category_name": "High Voltage Diode",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_151",
+    "category_name": "High Voltage Transformer",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_152",
+    "category_name": "Turntable Motor",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_153",
+    "category_name": "Turntable Coupler",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_154",
+    "category_name": "Microwave Door Switch",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_155",
+    "category_name": "Microwave Door Latch",
+    "department": "Major Appliance Parts",
+    "family": "Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_156",
+    "category_name": "Drain Pump - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_157",
+    "category_name": "Wash Motor - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_158",
+    "category_name": "Heating Element - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_159",
+    "category_name": "Door Latch - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_160",
+    "category_name": "Spray Arm - Upper",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_161",
+    "category_name": "Spray Arm - Lower",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_162",
+    "category_name": "Dishwasher Rack - Upper",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_163",
+    "category_name": "Dishwasher Rack - Lower",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_164",
+    "category_name": "Rack Roller & Wheel",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_165",
+    "category_name": "Tine Row - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_166",
+    "category_name": "Chopper Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_167",
+    "category_name": "Detergent Dispenser - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_168",
+    "category_name": "Rinse Aid Dispenser",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_169",
+    "category_name": "Control Board - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_170",
+    "category_name": "User Interface - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_171",
+    "category_name": "Float Switch - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_172",
+    "category_name": "Door Gasket - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_173",
+    "category_name": "Sump Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_174",
+    "category_name": "Filter Assembly - Dishwasher",
+    "department": "Major Appliance Parts",
+    "family": "Dishwasher"
+  },
+  {
+    "category_id": "PARTS_CAT_175",
+    "category_name": "Compactor Ram",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_176",
+    "category_name": "Compactor Drive Chain",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_177",
+    "category_name": "Compactor Motor",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_178",
+    "category_name": "Compactor Bucket",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_179",
+    "category_name": "Compactor Key & Switch",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_180",
+    "category_name": "Compactor Drawer Slides",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_181",
+    "category_name": "Compactor Control Board",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_182",
+    "category_name": "Compactor Foot Pedal",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_183",
+    "category_name": "Compactor Bag Caddy",
+    "department": "Major Appliance Parts",
+    "family": "Trash Compactor"
+  },
+  {
+    "category_id": "PARTS_CAT_184",
+    "category_name": "Disposal Impeller",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_185",
+    "category_name": "Disposal Flywheel",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_186",
+    "category_name": "Disposal Grinding Chamber",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_187",
+    "category_name": "Disposal Shredder Ring",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_188",
+    "category_name": "Disposal Motor",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_189",
+    "category_name": "Disposal Reset Button",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_190",
+    "category_name": "Disposal Mounting Assembly",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_191",
+    "category_name": "Disposal Discharge Elbow",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_192",
+    "category_name": "Disposal Splash Guard",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_193",
+    "category_name": "Disposal Air Switch",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_194",
+    "category_name": "Disposal Stopper & Strainer",
+    "department": "Major Appliance Parts",
+    "family": "Garbage Disposal"
+  },
+  {
+    "category_id": "PARTS_CAT_213",
+    "category_name": "Main Control Board",
+    "department": "Electronics Parts",
+    "family": "Control Boards"
+  },
+  {
+    "category_id": "PARTS_CAT_214",
+    "category_name": "Display Board",
+    "department": "Electronics Parts",
+    "family": "Control Boards"
+  },
+  {
+    "category_id": "PARTS_CAT_215",
+    "category_name": "User Interface Board",
+    "department": "Electronics Parts",
+    "family": "Control Boards"
+  },
+  {
+    "category_id": "PARTS_CAT_216",
+    "category_name": "Power Supply Board",
+    "department": "Electronics Parts",
+    "family": "Control Boards"
+  },
+  {
+    "category_id": "PARTS_CAT_217",
+    "category_name": "Inverter Board",
+    "department": "Electronics Parts",
+    "family": "Control Boards"
+  },
+  {
+    "category_id": "PARTS_CAT_218",
+    "category_name": "Electric Motor",
+    "department": "Electronics Parts",
+    "family": "Motors & Drives"
+  },
+  {
+    "category_id": "PARTS_CAT_219",
+    "category_name": "Variable Frequency Drive",
+    "department": "Electronics Parts",
+    "family": "Motors & Drives"
+  },
+  {
+    "category_id": "PARTS_CAT_220",
+    "category_name": "Stepper Motor",
+    "department": "Electronics Parts",
+    "family": "Motors & Drives"
+  },
+  {
+    "category_id": "PARTS_CAT_221",
+    "category_name": "Temperature Sensor",
+    "department": "Electronics Parts",
+    "family": "Sensors & Switches"
+  },
+  {
+    "category_id": "PARTS_CAT_222",
+    "category_name": "Pressure Sensor",
+    "department": "Electronics Parts",
+    "family": "Sensors & Switches"
+  },
+  {
+    "category_id": "PARTS_CAT_223",
+    "category_name": "Door Switch",
+    "department": "Electronics Parts",
+    "family": "Sensors & Switches"
+  },
+  {
+    "category_id": "PARTS_CAT_224",
+    "category_name": "Limit Switch",
+    "department": "Electronics Parts",
+    "family": "Sensors & Switches"
+  },
+  {
+    "category_id": "PARTS_CAT_225",
+    "category_name": "Wire Harness",
+    "department": "Electronics Parts",
+    "family": "Wiring & Connectors"
+  },
+  {
+    "category_id": "PARTS_CAT_226",
+    "category_name": "Terminal Block",
+    "department": "Electronics Parts",
+    "family": "Wiring & Connectors"
+  },
+  {
+    "category_id": "PARTS_CAT_227",
+    "category_name": "Connector",
+    "department": "Electronics Parts",
+    "family": "Wiring & Connectors"
+  },
+  {
+    "category_id": "PARTS_CAT_228",
+    "category_name": "Fill Valve",
+    "department": "Plumbing Parts",
+    "family": "Water Supply Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_229",
+    "category_name": "Inlet Valve",
+    "department": "Plumbing Parts",
+    "family": "Water Supply Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_230",
+    "category_name": "Outlet Valve",
+    "department": "Plumbing Parts",
+    "family": "Water Supply Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_231",
+    "category_name": "Water Line",
+    "department": "Plumbing Parts",
+    "family": "Water Supply Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_232",
+    "category_name": "Drain Hose",
+    "department": "Plumbing Parts",
+    "family": "Drainage Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_233",
+    "category_name": "Drainage Pump",
+    "department": "Plumbing Parts",
+    "family": "Drainage Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_234",
+    "category_name": "Water Filter",
+    "department": "Plumbing Parts",
+    "family": "Filtration Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_235",
+    "category_name": "Filter Cartridge",
+    "department": "Plumbing Parts",
+    "family": "Filtration Parts"
+  },
+  {
+    "category_id": "PARTS_CAT_236",
+    "category_name": "Power Cord",
+    "department": "Electrical Parts",
+    "family": "Power Components"
+  },
+  {
+    "category_id": "PARTS_CAT_237",
+    "category_name": "Circuit Breaker",
+    "department": "Electrical Parts",
+    "family": "Power Components"
+  },
+  {
+    "category_id": "PARTS_CAT_238",
+    "category_name": "Fuse",
+    "department": "Electrical Parts",
+    "family": "Power Components"
+  },
+  {
+    "category_id": "PARTS_CAT_239",
+    "category_name": "Universal Knob",
+    "department": "Universal Parts",
+    "family": "Generic Components"
+  },
+  {
+    "category_id": "PARTS_CAT_240",
+    "category_name": "Universal Handle",
+    "department": "Universal Parts",
+    "family": "Generic Components"
+  },
+  {
+    "category_id": "PARTS_CAT_241",
+    "category_name": "Universal Belt",
+    "department": "Universal Parts",
+    "family": "Generic Components"
+  },
+  {
+    "category_id": "PARTS_CAT_242",
+    "category_name": "Gas Burner Assembly - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_243",
+    "category_name": "Burner Orifice",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_244",
+    "category_name": "Flame Roll-Out Sensor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_245",
+    "category_name": "Flame Rod Sensor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_246",
+    "category_name": "Hot Surface Igniter - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_247",
+    "category_name": "Pilot Assembly",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_248",
+    "category_name": "Ignition Control Module",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_249",
+    "category_name": "Gas Control Valve - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_250",
+    "category_name": "Gas Valve Actuator",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_251",
+    "category_name": "Primary Heat Exchanger",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_252",
+    "category_name": "Secondary Heat Exchanger",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_253",
+    "category_name": "Draft Inducer Motor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_254",
+    "category_name": "Pressure Switch - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_255",
+    "category_name": "Vent Damper",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_256",
+    "category_name": "Blower Motor - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_257",
+    "category_name": "Blower Wheel - Squirrel Cage",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_258",
+    "category_name": "Blower Housing",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_259",
+    "category_name": "Run Capacitor - HVAC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_260",
+    "category_name": "High Limit Switch",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_261",
+    "category_name": "Rollout Switch",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_262",
+    "category_name": "Fan Limit Control",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_263",
+    "category_name": "Integrated Furnace Control Board",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_264",
+    "category_name": "Furnace Filter - MERV Rated",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_265",
+    "category_name": "Electric Heating Element - Furnace",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_266",
+    "category_name": "Sequencer Relay",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_267",
+    "category_name": "Oil Burner Nozzle",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_268",
+    "category_name": "Oil Pump",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_269",
+    "category_name": "Cad Cell Sensor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_270",
+    "category_name": "Boiler Circulator Pump",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_271",
+    "category_name": "Zone Valve",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_272",
+    "category_name": "Expansion Tank",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_273",
+    "category_name": "Aquastat Control",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_274",
+    "category_name": "Heat Pump Compressor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_275",
+    "category_name": "Reversing Valve",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_276",
+    "category_name": "Defrost Control Board",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_277",
+    "category_name": "Defrost Sensor - Heat Pump",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Heating Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_278",
+    "category_name": "AC Compressor - Central Air",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_279",
+    "category_name": "Condenser Coil - AC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_280",
+    "category_name": "Condenser Fan Motor - AC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_281",
+    "category_name": "Condenser Fan Blade",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_282",
+    "category_name": "AC Contactor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_283",
+    "category_name": "Dual Run Capacitor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_284",
+    "category_name": "Evaporator Coil - A-Coil",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_285",
+    "category_name": "Evaporator Coil - N-Coil",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_286",
+    "category_name": "TXV Expansion Valve",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_287",
+    "category_name": "Filter Drier - AC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_288",
+    "category_name": "Refrigerant Line Set",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_289",
+    "category_name": "ECM Blower Motor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_290",
+    "category_name": "Condensate Drain Pan",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_291",
+    "category_name": "Condensate Pump",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_292",
+    "category_name": "Float Switch - AC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_293",
+    "category_name": "24V Transformer - HVAC",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_294",
+    "category_name": "High Pressure Switch",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_295",
+    "category_name": "Low Pressure Switch",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_296",
+    "category_name": "Window AC Chassis",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_297",
+    "category_name": "Window AC Grille",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Cooling Systems"
+  },
+  {
+    "category_id": "PARTS_CAT_298",
+    "category_name": "Programmable Thermostat",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_299",
+    "category_name": "Smart Wi-Fi Thermostat",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_300",
+    "category_name": "Mechanical Thermostat",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_301",
+    "category_name": "Floor Register",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_302",
+    "category_name": "Wall Register",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_303",
+    "category_name": "Return Air Grille",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_304",
+    "category_name": "Manual Damper",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_305",
+    "category_name": "Motorized Damper",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_306",
+    "category_name": "Bathroom Exhaust Fan",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_307",
+    "category_name": "Inline Duct Fan",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Ventilation & Controls"
+  },
+  {
+    "category_id": "PARTS_CAT_308",
+    "category_name": "RTU Economizer",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Commercial HVAC"
+  },
+  {
+    "category_id": "PARTS_CAT_309",
+    "category_name": "RTU Compressor",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Commercial HVAC"
+  },
+  {
+    "category_id": "PARTS_CAT_310",
+    "category_name": "Chiller Evaporator Bundle",
+    "department": "HVAC & Climate Control Parts",
+    "family": "Commercial HVAC"
+  },
+  {
+    "category_id": "PARTS_CAT_311",
+    "category_name": "Coffee Maker Water Reservoir",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_312",
+    "category_name": "Coffee Maker Heating Element",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_313",
+    "category_name": "Coffee Carafe - Glass",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_314",
+    "category_name": "Coffee Carafe - Thermal",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_315",
+    "category_name": "K-Cup Needle Assembly",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_316",
+    "category_name": "Espresso Pump",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_317",
+    "category_name": "Portafilter & Handle",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_318",
+    "category_name": "Group Head Gasket",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_319",
+    "category_name": "Espresso Boiler",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_320",
+    "category_name": "Burr Grinder Set",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_321",
+    "category_name": "Blender Motor Base",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_322",
+    "category_name": "Blender Jar - Glass",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_323",
+    "category_name": "Blender Jar - Plastic",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_324",
+    "category_name": "Blender Blade Assembly",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_325",
+    "category_name": "Blender Drive Coupling",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_326",
+    "category_name": "Food Processor Motor",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_327",
+    "category_name": "Food Processor Work Bowl",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_328",
+    "category_name": "Food Processor S-Blade",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_329",
+    "category_name": "Slicing Disc",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_330",
+    "category_name": "Shredding Disc",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_331",
+    "category_name": "Stand Mixer Motor",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_332",
+    "category_name": "Stand Mixer Gearbox",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_333",
+    "category_name": "Flat Beater",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_334",
+    "category_name": "Wire Whip",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_335",
+    "category_name": "Dough Hook",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_336",
+    "category_name": "Mixing Bowl - Stainless",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_337",
+    "category_name": "Toaster Heating Element",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_338",
+    "category_name": "Toaster Carriage Assembly",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_339",
+    "category_name": "Toaster Oven Bake Pan",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_340",
+    "category_name": "Air Fryer Heating Element",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_341",
+    "category_name": "Air Fryer Basket",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_342",
+    "category_name": "Pressure Cooker Sealing Ring",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_343",
+    "category_name": "Pressure Regulator Valve",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_344",
+    "category_name": "Slow Cooker Heating Base",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_345",
+    "category_name": "Ceramic Insert - Slow Cooker",
+    "department": "Small Appliance Parts",
+    "family": "Kitchen Appliances"
+  },
+  {
+    "category_id": "PARTS_CAT_346",
+    "category_name": "Vacuum Motor",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_347",
+    "category_name": "HEPA Filter - Vacuum",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_348",
+    "category_name": "Vacuum Dust Bag",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_349",
+    "category_name": "Vacuum Brush Roll",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_350",
+    "category_name": "Vacuum Belt",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_351",
+    "category_name": "Vacuum Hose",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_352",
+    "category_name": "Robot Vacuum Side Brush",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_353",
+    "category_name": "Robot Vacuum Battery",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_354",
+    "category_name": "Carpet Cleaner Solution Tank",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_355",
+    "category_name": "Carpet Cleaner Brush Roll",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_356",
+    "category_name": "Air Purifier HEPA Filter",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_357",
+    "category_name": "Activated Carbon Filter",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_358",
+    "category_name": "Humidifier Wick Filter",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_359",
+    "category_name": "Dehumidifier Compressor",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_360",
+    "category_name": "Dehumidifier Water Bucket",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_361",
+    "category_name": "Space Heater Ceramic Element",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_362",
+    "category_name": "Tip-Over Switch",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_363",
+    "category_name": "Fan Motor - Portable",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_364",
+    "category_name": "Fan Blade",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_365",
+    "category_name": "Ceiling Fan Downrod",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_366",
+    "category_name": "Ceiling Fan Remote Control",
+    "department": "Small Appliance Parts",
+    "family": "Home Environment"
+  },
+  {
+    "category_id": "PARTS_CAT_367",
+    "category_name": "Mower Blade",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_368",
+    "category_name": "Mower Deck",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_369",
+    "category_name": "Small Engine - Briggs & Stratton",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_370",
+    "category_name": "Carburetor - Small Engine",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_371",
+    "category_name": "Air Filter - Small Engine",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_372",
+    "category_name": "Spark Plug - Small Engine",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_373",
+    "category_name": "Recoil Starter",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_374",
+    "category_name": "Blade Spindle",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_375",
+    "category_name": "Drive Belt - Mower",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_376",
+    "category_name": "Grass Bag",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_377",
+    "category_name": "Mulch Plug",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_378",
+    "category_name": "Riding Mower Deck Belt",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_379",
+    "category_name": "Hydrostatic Transmission",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_380",
+    "category_name": "Mower Tire",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_381",
+    "category_name": "Mower Battery",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_382",
+    "category_name": "Steering Wheel - Mower",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_383",
+    "category_name": "PTO Switch",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_384",
+    "category_name": "Zero-Turn Hydraulic Pump",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_385",
+    "category_name": "Zero-Turn Wheel Motor",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Lawn Mowers"
+  },
+  {
+    "category_id": "PARTS_CAT_386",
+    "category_name": "Trimmer Head - Bump Feed",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_387",
+    "category_name": "Trimmer Line",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_388",
+    "category_name": "Trimmer Drive Shaft",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_389",
+    "category_name": "Leaf Blower Tube",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_390",
+    "category_name": "Blower Impeller",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_391",
+    "category_name": "Chainsaw Chain",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_392",
+    "category_name": "Chainsaw Guide Bar",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_393",
+    "category_name": "Chain Brake",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_394",
+    "category_name": "Pressure Washer Pump",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_395",
+    "category_name": "Pressure Washer Spray Wand",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_396",
+    "category_name": "Pressure Washer Nozzle",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_397",
+    "category_name": "Unloader Valve",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_398",
+    "category_name": "Snowblower Auger",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_399",
+    "category_name": "Snowblower Paddle",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_400",
+    "category_name": "Shear Pin",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_401",
+    "category_name": "Discharge Chute",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_402",
+    "category_name": "Friction Wheel",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_403",
+    "category_name": "Skid Shoe",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_404",
+    "category_name": "Tiller Tine",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_405",
+    "category_name": "Hedge Trimmer Blade",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_406",
+    "category_name": "Edger Blade",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_407",
+    "category_name": "Log Splitter Hydraulic Pump",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_408",
+    "category_name": "Splitting Wedge",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_409",
+    "category_name": "Generator AVR",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_410",
+    "category_name": "Generator Control Panel",
+    "department": "Lawn & Garden Equipment Parts",
+    "family": "Outdoor Power Equipment"
+  },
+  {
+    "category_id": "PARTS_CAT_411",
+    "category_name": "Walk-In Cooler Evaporator",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_412",
+    "category_name": "Walk-In Condensing Unit",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_413",
+    "category_name": "Walk-In Door Gasket",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_414",
+    "category_name": "Strip Curtain",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_415",
+    "category_name": "Reach-In Cooler Compressor",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_416",
+    "category_name": "Display Case Fan Motor",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_417",
+    "category_name": "Commercial Ice Machine Compressor",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_418",
+    "category_name": "Ice Machine Evaporator Plate",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_419",
+    "category_name": "Ice Thickness Sensor",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Refrigeration"
+  },
+  {
+    "category_id": "PARTS_CAT_420",
+    "category_name": "Commercial Convection Oven Element",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_421",
+    "category_name": "Deck Oven Thermostat",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_422",
+    "category_name": "Conveyor Belt - Oven",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_423",
+    "category_name": "Commercial Range Burner",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_424",
+    "category_name": "Griddle Plate",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_425",
+    "category_name": "Charbroiler Component",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_426",
+    "category_name": "Commercial Fryer Basket",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_427",
+    "category_name": "Fryer Heating Element",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_428",
+    "category_name": "Fryer Oil Filter",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_429",
+    "category_name": "Steamer Heating Element",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Cooking"
+  },
+  {
+    "category_id": "PARTS_CAT_430",
+    "category_name": "Commercial Dishwasher Spray Arm",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Dishwashing"
+  },
+  {
+    "category_id": "PARTS_CAT_431",
+    "category_name": "Commercial Wash Pump",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Dishwashing"
+  },
+  {
+    "category_id": "PARTS_CAT_432",
+    "category_name": "Booster Heater",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Dishwashing"
+  },
+  {
+    "category_id": "PARTS_CAT_433",
+    "category_name": "Chemical Dispenser - Commercial",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Dishwashing"
+  },
+  {
+    "category_id": "PARTS_CAT_434",
+    "category_name": "Commercial Rack Guide",
+    "department": "Commercial Appliance Parts",
+    "family": "Commercial Dishwashing"
+  }
+]

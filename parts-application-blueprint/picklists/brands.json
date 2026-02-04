@@ -1,0 +1,802 @@
+[
+  {
+    "brand_id": "PARTS_BRAND_001",
+    "brand_name": "WHIRLPOOL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_002",
+    "brand_name": "GE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_003",
+    "brand_name": "SAMSUNG"
+  },
+  {
+    "brand_id": "PARTS_BRAND_004",
+    "brand_name": "LG"
+  },
+  {
+    "brand_id": "PARTS_BRAND_005",
+    "brand_name": "BOSCH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_006",
+    "brand_name": "ELECTROLUX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_007",
+    "brand_name": "FRIGIDAIRE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_008",
+    "brand_name": "KITCHENAID"
+  },
+  {
+    "brand_id": "PARTS_BRAND_009",
+    "brand_name": "MAYTAG"
+  },
+  {
+    "brand_id": "PARTS_BRAND_010",
+    "brand_name": "KENMORE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_011",
+    "brand_name": "SUB-ZERO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_012",
+    "brand_name": "WOLF"
+  },
+  {
+    "brand_id": "PARTS_BRAND_013",
+    "brand_name": "THERMADOR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_014",
+    "brand_name": "VIKING"
+  },
+  {
+    "brand_id": "PARTS_BRAND_015",
+    "brand_name": "MIELE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_016",
+    "brand_name": "SPEED QUEEN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_017",
+    "brand_name": "CARRIER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_018",
+    "brand_name": "TRANE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_019",
+    "brand_name": "LENNOX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_020",
+    "brand_name": "RHEEM"
+  },
+  {
+    "brand_id": "PARTS_BRAND_021",
+    "brand_name": "GOODMAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_022",
+    "brand_name": "YORK"
+  },
+  {
+    "brand_id": "PARTS_BRAND_023",
+    "brand_name": "BRYANT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_024",
+    "brand_name": "AMANA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_025",
+    "brand_name": "HONEYWELL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_026",
+    "brand_name": "DANFOSS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_027",
+    "brand_name": "COPELAND"
+  },
+  {
+    "brand_id": "PARTS_BRAND_028",
+    "brand_name": "EMBRACO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_029",
+    "brand_name": "WHITE-RODGERS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_030",
+    "brand_name": "ROBERTSHAW"
+  },
+  {
+    "brand_id": "PARTS_BRAND_031",
+    "brand_name": "RANCO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_032",
+    "brand_name": "TECUMSEH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_033",
+    "brand_name": "BRISTOL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_034",
+    "brand_name": "SUPCO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_035",
+    "brand_name": "MARS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_036",
+    "brand_name": "GENTEQ"
+  },
+  {
+    "brand_id": "PARTS_BRAND_037",
+    "brand_name": "A.O. SMITH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_038",
+    "brand_name": "EMERSON"
+  },
+  {
+    "brand_id": "PARTS_BRAND_039",
+    "brand_name": "ERP"
+  },
+  {
+    "brand_id": "PARTS_BRAND_040",
+    "brand_name": "PARTSELECT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_041",
+    "brand_name": "REPAIR CLINIC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_042",
+    "brand_name": "APPLIANCEPARTSPROS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_043",
+    "brand_name": "SUPPLYHOUSE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_044",
+    "brand_name": "HAIER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_045",
+    "brand_name": "SHARP"
+  },
+  {
+    "brand_id": "PARTS_BRAND_046",
+    "brand_name": "PANASONIC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_047",
+    "brand_name": "GAGGENAU"
+  },
+  {
+    "brand_id": "PARTS_BRAND_048",
+    "brand_name": "FISHER & PAYKEL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_049",
+    "brand_name": "DACOR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_050",
+    "brand_name": "JENN-AIR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_051",
+    "brand_name": "HOTPOINT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_052",
+    "brand_name": "ADMIRAL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_053",
+    "brand_name": "MAGIC CHEF"
+  },
+  {
+    "brand_id": "PARTS_BRAND_054",
+    "brand_name": "ROPER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_055",
+    "brand_name": "ESTATE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_056",
+    "brand_name": "INGLIS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_057",
+    "brand_name": "CROSLEY"
+  },
+  {
+    "brand_id": "PARTS_BRAND_058",
+    "brand_name": "CALORIC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_059",
+    "brand_name": "MODERN MAID"
+  },
+  {
+    "brand_id": "PARTS_BRAND_060",
+    "brand_name": "TAPPAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_061",
+    "brand_name": "RUUD"
+  },
+  {
+    "brand_id": "PARTS_BRAND_062",
+    "brand_name": "PAYNE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_063",
+    "brand_name": "COLEMAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_064",
+    "brand_name": "HEIL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_065",
+    "brand_name": "TEMPSTAR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_066",
+    "brand_name": "LUXAIRE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_067",
+    "brand_name": "DAY & NIGHT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_068",
+    "brand_name": "ARCOAIRE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_069",
+    "brand_name": "COMFORTMAKER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_070",
+    "brand_name": "KEEPRITE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_071",
+    "brand_name": "BARD"
+  },
+  {
+    "brand_id": "PARTS_BRAND_072",
+    "brand_name": "FRIEDRICH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_073",
+    "brand_name": "FEDDERS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_074",
+    "brand_name": "AIRTEMP"
+  },
+  {
+    "brand_id": "PARTS_BRAND_075",
+    "brand_name": "GREE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_076",
+    "brand_name": "MIDEA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_077",
+    "brand_name": "MITSUBISHI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_078",
+    "brand_name": "DAIKIN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_079",
+    "brand_name": "FUJITSU"
+  },
+  {
+    "brand_id": "PARTS_BRAND_080",
+    "brand_name": "HITACHI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_081",
+    "brand_name": "UNIVERSAL PARTS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_082",
+    "brand_name": "GENUINE PARTS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_083",
+    "brand_name": "OEM PARTS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_084",
+    "brand_name": "AFTERMARKET"
+  },
+  {
+    "brand_id": "PARTS_BRAND_085",
+    "brand_name": "GENERIC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_086",
+    "brand_name": "CUISINART"
+  },
+  {
+    "brand_id": "PARTS_BRAND_087",
+    "brand_name": "KEURIG"
+  },
+  {
+    "brand_id": "PARTS_BRAND_088",
+    "brand_name": "BREVILLE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_089",
+    "brand_name": "DELONGHI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_090",
+    "brand_name": "NINJA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_091",
+    "brand_name": "VITAMIX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_092",
+    "brand_name": "BLENDTEC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_093",
+    "brand_name": "OSTER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_094",
+    "brand_name": "HAMILTON BEACH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_095",
+    "brand_name": "BLACK+DECKER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_096",
+    "brand_name": "SUNBEAM"
+  },
+  {
+    "brand_id": "PARTS_BRAND_097",
+    "brand_name": "PROCTOR SILEX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_098",
+    "brand_name": "CROCK-POT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_099",
+    "brand_name": "INSTANT POT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_100",
+    "brand_name": "PHILIPS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_101",
+    "brand_name": "NESPRESSO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_102",
+    "brand_name": "GAGGIA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_103",
+    "brand_name": "RANCILIO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_104",
+    "brand_name": "LA MARZOCCO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_105",
+    "brand_name": "DYSON"
+  },
+  {
+    "brand_id": "PARTS_BRAND_106",
+    "brand_name": "SHARK"
+  },
+  {
+    "brand_id": "PARTS_BRAND_107",
+    "brand_name": "BISSELL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_108",
+    "brand_name": "HOOVER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_109",
+    "brand_name": "EUREKA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_110",
+    "brand_name": "ORECK"
+  },
+  {
+    "brand_id": "PARTS_BRAND_111",
+    "brand_name": "ROOMBA / IROBOT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_112",
+    "brand_name": "NEATO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_113",
+    "brand_name": "ECOVACS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_114",
+    "brand_name": "HONEYWELL (AIR)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_115",
+    "brand_name": "LEVOIT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_116",
+    "brand_name": "WINIX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_117",
+    "brand_name": "COWAY"
+  },
+  {
+    "brand_id": "PARTS_BRAND_118",
+    "brand_name": "VORNADO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_119",
+    "brand_name": "LASKO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_120",
+    "brand_name": "HOLMES"
+  },
+  {
+    "brand_id": "PARTS_BRAND_121",
+    "brand_name": "HUNTER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_122",
+    "brand_name": "BRIGGS & STRATTON"
+  },
+  {
+    "brand_id": "PARTS_BRAND_123",
+    "brand_name": "HONDA (ENGINES)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_124",
+    "brand_name": "KOHLER (ENGINES)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_125",
+    "brand_name": "KAWASAKI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_126",
+    "brand_name": "TECUMSEH (ENGINES)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_127",
+    "brand_name": "CRAFTSMAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_128",
+    "brand_name": "TROY-BILT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_129",
+    "brand_name": "MTD"
+  },
+  {
+    "brand_id": "PARTS_BRAND_130",
+    "brand_name": "CUB CADET"
+  },
+  {
+    "brand_id": "PARTS_BRAND_131",
+    "brand_name": "JOHN DEERE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_132",
+    "brand_name": "HUSQVARNA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_133",
+    "brand_name": "TORO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_134",
+    "brand_name": "ARIENS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_135",
+    "brand_name": "SNAPPER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_136",
+    "brand_name": "SIMPLICITY"
+  },
+  {
+    "brand_id": "PARTS_BRAND_137",
+    "brand_name": "FERRIS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_138",
+    "brand_name": "SCAG"
+  },
+  {
+    "brand_id": "PARTS_BRAND_139",
+    "brand_name": "EXMARK"
+  },
+  {
+    "brand_id": "PARTS_BRAND_140",
+    "brand_name": "BOBCAT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_141",
+    "brand_name": "STIHL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_142",
+    "brand_name": "ECHO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_143",
+    "brand_name": "REDMAX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_144",
+    "brand_name": "SHINDAIWA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_145",
+    "brand_name": "POULAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_146",
+    "brand_name": "RYOBI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_147",
+    "brand_name": "MAKITA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_148",
+    "brand_name": "DEWALT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_149",
+    "brand_name": "BLACK & DECKER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_150",
+    "brand_name": "WORX"
+  },
+  {
+    "brand_id": "PARTS_BRAND_151",
+    "brand_name": "GREENWORKS"
+  },
+  {
+    "brand_id": "PARTS_BRAND_152",
+    "brand_name": "EGO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_153",
+    "brand_name": "KARCHER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_154",
+    "brand_name": "SUN JOE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_155",
+    "brand_name": "SIMPSON"
+  },
+  {
+    "brand_id": "PARTS_BRAND_156",
+    "brand_name": "GENERAC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_157",
+    "brand_name": "CHAMPION"
+  },
+  {
+    "brand_id": "PARTS_BRAND_158",
+    "brand_name": "WESTINGHOUSE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_159",
+    "brand_name": "HONDA (GENERATORS)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_160",
+    "brand_name": "YAMAHA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_161",
+    "brand_name": "TRUE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_162",
+    "brand_name": "BEVERAGE-AIR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_163",
+    "brand_name": "TURBO AIR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_164",
+    "brand_name": "HOSHIZAKI"
+  },
+  {
+    "brand_id": "PARTS_BRAND_165",
+    "brand_name": "MANITOWOC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_166",
+    "brand_name": "SCOTSMAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_167",
+    "brand_name": "FOLLETT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_168",
+    "brand_name": "ICE-O-MATIC"
+  },
+  {
+    "brand_id": "PARTS_BRAND_169",
+    "brand_name": "VULCAN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_170",
+    "brand_name": "GARLAND"
+  },
+  {
+    "brand_id": "PARTS_BRAND_171",
+    "brand_name": "SOUTHBEND"
+  },
+  {
+    "brand_id": "PARTS_BRAND_172",
+    "brand_name": "BLODGETT"
+  },
+  {
+    "brand_id": "PARTS_BRAND_173",
+    "brand_name": "HOBART"
+  },
+  {
+    "brand_id": "PARTS_BRAND_174",
+    "brand_name": "JACKSON"
+  },
+  {
+    "brand_id": "PARTS_BRAND_175",
+    "brand_name": "CHAMPION (DISH)"
+  },
+  {
+    "brand_id": "PARTS_BRAND_176",
+    "brand_name": "CMA"
+  },
+  {
+    "brand_id": "PARTS_BRAND_177",
+    "brand_name": "PITCO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_178",
+    "brand_name": "FRYMASTER"
+  },
+  {
+    "brand_id": "PARTS_BRAND_179",
+    "brand_name": "IMPERIAL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_180",
+    "brand_name": "US RANGE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_181",
+    "brand_name": "HATCO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_182",
+    "brand_name": "VOLLRATH"
+  },
+  {
+    "brand_id": "PARTS_BRAND_183",
+    "brand_name": "CAMBRO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_184",
+    "brand_name": "ALTO-SHAAM"
+  },
+  {
+    "brand_id": "PARTS_BRAND_185",
+    "brand_name": "DUKE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_186",
+    "brand_name": "METRO"
+  },
+  {
+    "brand_id": "PARTS_BRAND_187",
+    "brand_name": "CARLISLE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_188",
+    "brand_name": "SAN JAMAR"
+  },
+  {
+    "brand_id": "PARTS_BRAND_189",
+    "brand_name": "RUBBERMAID COMMERCIAL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_190",
+    "brand_name": "3M COMMERCIAL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_191",
+    "brand_name": "RATIONAL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_192",
+    "brand_name": "MERRYCHEF"
+  },
+  {
+    "brand_id": "PARTS_BRAND_193",
+    "brand_name": "LINCOLN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_194",
+    "brand_name": "MIDDLEBY MARSHALL"
+  },
+  {
+    "brand_id": "PARTS_BRAND_195",
+    "brand_name": "CONVOTHERM"
+  },
+  {
+    "brand_id": "PARTS_BRAND_196",
+    "brand_name": "CLEVELAND"
+  },
+  {
+    "brand_id": "PARTS_BRAND_197",
+    "brand_name": "MARKET FORGE"
+  },
+  {
+    "brand_id": "PARTS_BRAND_198",
+    "brand_name": "CROWN VERITY"
+  },
+  {
+    "brand_id": "PARTS_BRAND_199",
+    "brand_name": "GROEN"
+  },
+  {
+    "brand_id": "PARTS_BRAND_200",
+    "brand_name": "UNIVERSAL (AFTERMARKET)"
+  }
+]

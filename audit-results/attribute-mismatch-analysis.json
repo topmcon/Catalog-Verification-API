@@ -1,0 +1,720 @@
+{
+  "trueMatches": [
+    {
+      "id": "a1aaZ000008mBvrQAE",
+      "sf_name": "Number Of Racks",
+      "local_name": "Number of Racks",
+      "type": "TRUE_MATCH",
+      "reason": "Exact match (capitalization only)",
+      "confidence": 100
+    },
+    {
+      "id": "a1aaZ000008mBoqQAE",
+      "sf_name": "Convertible to Ductless",
+      "local_name": "Convertible to Ductless / Recirculating",
+      "type": "TRUE_MATCH",
+      "reason": "One name contains the other (added clarification)",
+      "confidence": 95
+    },
+    {
+      "id": "a1aaZ000008mBzrQAE",
+      "sf_name": "Wine Bottle Capacity",
+      "local_name": "Wine Bottle Capacity (750 ml)",
+      "type": "TRUE_MATCH",
+      "reason": "One name contains the other (added clarification)",
+      "confidence": 95
+    },
+    {
+      "id": "a1aaZ000008mBo9QAE",
+      "sf_name": "Can Capacity",
+      "local_name": "Can Capacity (12 oz.)",
+      "type": "TRUE_MATCH",
+      "reason": "One name contains the other (added clarification)",
+      "confidence": 95
+    },
+    {
+      "id": "a1aaZ000008mBvhQAE",
+      "sf_name": "Number Of Functions",
+      "local_name": "Number of Functions",
+      "type": "TRUE_MATCH",
+      "reason": "Exact match (capitalization only)",
+      "confidence": 100
+    },
+    {
+      "id": "a1aaZ000008mBoLQAU",
+      "sf_name": "Center To Center",
+      "local_name": "Center to Center mm",
+      "type": "TRUE_MATCH",
+      "reason": "One name contains the other (added clarification)",
+      "confidence": 95
+    },
+    {
+      "id": "a1aaZ000008mBsyQAE",
+      "sf_name": "Grill Type",
+      "local_name": "Grill",
+      "type": "TRUE_MATCH",
+      "reason": "One name contains the other (added clarification)",
+      "confidence": 95
+    }
+  ],
+  "likelyTrueMatches": [],
+  "reviewNeeded": [
+    {
+      "id": "a1aaZ000008mBrDQAU",
+      "sf_name": "Detergent Dispenser",
+      "local_name": "Detergent and Rinse-Aid Dispenser",
+      "type": "REVIEW_NEEDED",
+      "reason": "50% word overlap - may be related",
+      "confidence": 50
+    },
+    {
+      "id": "a1aaZ000008mBykQAE",
+      "sf_name": "Touch Control",
+      "local_name": "Touch Faucet",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBrXQAU",
+      "sf_name": "Downrod Included",
+      "local_name": "Downrod(s) Included",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBtdQAE",
+      "sf_name": "Housing Type",
+      "local_name": "Housing Depth",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBuYQAU",
+      "sf_name": "Light Type",
+      "local_name": "Light Direction",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBrWQAU",
+      "sf_name": "Downrod Length",
+      "local_name": "Downrod Size(s)",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008lz3lQAA",
+      "sf_name": "ANSI Grade",
+      "local_name": "ANSI Certification",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBp4QAE",
+      "sf_name": "CSA Certified",
+      "local_name": "CSA Code",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBtiQAE",
+      "sf_name": "Humidity Sensor",
+      "local_name": "Humidity Control",
+      "type": "REVIEW_NEEDED",
+      "reason": "33% word overlap - may be related",
+      "confidence": 33
+    },
+    {
+      "id": "a1aaZ000008mBzaQAE",
+      "sf_name": "Water Connection Required",
+      "local_name": "Water Connection Type",
+      "type": "REVIEW_NEEDED",
+      "reason": "50% word overlap - may be related",
+      "confidence": 50
+    }
+  ],
+  "falseMatches": [
+    {
+      "id": "a1aaZ000008mBuRQAU",
+      "sf_name": "NSF Certified",
+      "local_name": "Lead Leaching Certified NSF/ANSI 61",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBoHQAU",
+      "sf_name": "Canopy Size",
+      "local_name": "CEER Rating",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008lz4NQAQ",
+      "sf_name": "Backplate Shape",
+      "local_name": "Base Style",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBt5QAE",
+      "sf_name": "Hardwired",
+      "local_name": "Handing",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByPQAU",
+      "sf_name": "Switch On Fixture",
+      "local_name": "Sustainability",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByuQAE",
+      "sf_name": "Trim Type",
+      "local_name": "Trip Lever Placement",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008lz3kQAA",
+      "sf_name": "Air Tight",
+      "local_name": "Annual Operation Cost",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsLQAU",
+      "sf_name": "Fire Rated",
+      "local_name": "Filtered",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBoBQAU",
+      "sf_name": "CRI",
+      "local_name": "Canopy Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByqQAE",
+      "sf_name": "Track Type",
+      "local_name": "Trim Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByrQAE",
+      "sf_name": "Track Length",
+      "local_name": "Trim Size",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBp9QAE",
+      "sf_name": "Dark Sky Compliant",
+      "local_name": "Cutout Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwXQAU",
+      "sf_name": "Post Size",
+      "local_name": "Programmable",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuQQAU",
+      "sf_name": "Lamp Type",
+      "local_name": "Latch Faceplate",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBpIQAU",
+      "sf_name": "DLC",
+      "local_name": "dB Rating",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsxQAE",
+      "sf_name": "Grid Size",
+      "local_name": "Griddle BTU",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBrnQAE",
+      "sf_name": "Emergency Battery",
+      "local_name": "Eco Friendly",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBx6QAE",
+      "sf_name": "Sensor Compatible",
+      "local_name": "Sconce Type",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsPQAU",
+      "sf_name": "Fixture Length",
+      "local_name": "Fire Rated",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBueQAE",
+      "sf_name": "Linkable",
+      "local_name": "Locking Mechanism",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwSQAU",
+      "sf_name": "Plug In",
+      "local_name": "Power Feed Type",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBt7QAE",
+      "sf_name": "Hardware Type",
+      "local_name": "Handle Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008lz4OQAQ",
+      "sf_name": "Backplate Included",
+      "local_name": "Base Width",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBssQAE",
+      "sf_name": "Full Extension",
+      "local_name": "Gas Type",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwbQAE",
+      "sf_name": "Pull Out",
+      "local_name": "Pullout Spray",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBrbQAE",
+      "sf_name": "Door Hardware Type",
+      "local_name": "Drain Required",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsWQAU",
+      "sf_name": "Function",
+      "local_name": "Flushometer Included",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBxzQAE",
+      "sf_name": "Smart Lock",
+      "local_name": "SmartKey",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuLQAU",
+      "sf_name": "Keyless Entry",
+      "local_name": "Knob Shape",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBt4QAE",
+      "sf_name": "Handedness",
+      "local_name": "Handcrafted",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuJQAU",
+      "sf_name": "Keyed Alike",
+      "local_name": "Keyway",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008lz4QQAQ",
+      "sf_name": "Backset",
+      "local_name": "Basin Depth (Center)",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsvQAE",
+      "sf_name": "Full Length",
+      "local_name": "Glass Features",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBujQAE",
+      "sf_name": "Magnification",
+      "local_name": "Luxury Whirlpool",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBszQAE",
+      "sf_name": "Furniture Type",
+      "local_name": "Grille Finish",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBx7QAE",
+      "sf_name": "Seating Capacity",
+      "local_name": "Screw Size",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBz4QAE",
+      "sf_name": "UV Resistant",
+      "local_name": "Undercoating",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsQQAU",
+      "sf_name": "Fireplace Type",
+      "local_name": "Fixture Shape",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBtqQAE",
+      "sf_name": "Ignition Type",
+      "local_name": "Includes Drip Pan",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsJQAU",
+      "sf_name": "Fire Glass Included",
+      "local_name": "Field Cuttable",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBp1QAE",
+      "sf_name": "Cover Included",
+      "local_name": "Cross Bore",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByaQAE",
+      "sf_name": "Tank Enclosure",
+      "local_name": "Temperature Settings",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByFQAU",
+      "sf_name": "Spark Screen Included",
+      "local_name": "Spray Nozzles",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwVQAU",
+      "sf_name": "Portable",
+      "local_name": "Product Variation",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuqQAE",
+      "sf_name": "Lockable",
+      "local_name": "Max Capacity (Pounds)",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008lz3TQAQ",
+      "sf_name": "AC Type",
+      "local_name": "28 Degree Latch",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBnsQAE",
+      "sf_name": "BTU Capacity",
+      "local_name": "Built-in Food Disposer",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBp2QAE",
+      "sf_name": "Coverage Area",
+      "local_name": "Crystal Color",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuCQAU",
+      "sf_name": "Inverter Technology",
+      "local_name": "Interior Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBrFQAU",
+      "sf_name": "Dehumidifier",
+      "local_name": "Diameter",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsOQAU",
+      "sf_name": "Filter Type",
+      "local_name": "Finished Back",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBuxQAE",
+      "sf_name": "Maximum Working Pressure",
+      "local_name": "Maximum Sones",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBokQAE",
+      "sf_name": "Connection Size",
+      "local_name": "Contains PFAS Chemicals",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBoXQAU",
+      "sf_name": "Coffee Maker Type",
+      "local_name": "CO2 Tank Included",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBxsQAE",
+      "sf_name": "Single Serve",
+      "local_name": "Sink Width",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwgQAE",
+      "sf_name": "Programmable",
+      "local_name": "Quick Ship",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBzeQAE",
+      "sf_name": "Water Reservoir Size",
+      "local_name": "Water Filtration",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBvBQAU",
+      "sf_name": "Milk Frother Included",
+      "local_name": "Mirror Front",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBpAQAU",
+      "sf_name": "Daily Ice Production",
+      "local_name": "Cutout Size",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBtoQAE",
+      "sf_name": "Ice Storage Capacity",
+      "local_name": "Illumatherapy",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBtpQAE",
+      "sf_name": "Ice Type",
+      "local_name": "Impeller",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBrgQAE",
+      "sf_name": "Drain Required",
+      "local_name": "Drop Ell Included",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwtQAE",
+      "sf_name": "Reversible Door",
+      "local_name": "RGB",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBsRQAU",
+      "sf_name": "Filter Included",
+      "local_name": "Flow Rate",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBw2QAE",
+      "sf_name": "Oven Capacity",
+      "local_name": "Optional Trim Kit",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mByeQAE",
+      "sf_name": "Thermometer Included",
+      "local_name": "Title 24",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBvcQAE",
+      "sf_name": "Number Of Burners",
+      "local_name": "Number of Circuits",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBxuQAE",
+      "sf_name": "Side Burner",
+      "local_name": "Slide Bar Height",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBxBQAU",
+      "sf_name": "Sear Burner",
+      "local_name": "Self Leveling Base",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBwyQAE",
+      "sf_name": "Rotisserie Included",
+      "local_name": "RPM (High)",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    },
+    {
+      "id": "a1aaZ000008mBnvQAE",
+      "sf_name": "Built-In",
+      "local_name": "Bulb Color",
+      "type": "FALSE_MATCH",
+      "reason": "Completely different attribute names - no overlap",
+      "confidence": 0
+    }
+  ],
+  "summary": {
+    "total": 88,
+    "true_match": 7,
+    "likely_true_match": 0,
+    "review_needed": 10,
+    "false_match": 71
+  }
+}

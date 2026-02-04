@@ -1,0 +1,12 @@
+[
+  {"style_id": "PARTS_STYLE_001", "style_name": "OEM Part"},
+  {"style_id": "PARTS_STYLE_002", "style_name": "Aftermarket Part"},
+  {"style_id": "PARTS_STYLE_003", "style_name": "Universal Part"},
+  {"style_id": "PARTS_STYLE_004", "style_name": "Genuine Part"},
+  {"style_id": "PARTS_STYLE_005", "style_name": "Compatible Part"},
+  {"style_id": "PARTS_STYLE_006", "style_name": "Refurbished Part"},
+  {"style_id": "PARTS_STYLE_007", "style_name": "New Part"},
+  {"style_id": "PARTS_STYLE_008", "style_name": "Repair Kit"},
+  {"style_id": "PARTS_STYLE_009", "style_name": "Replacement Part"},
+  {"style_id": "PARTS_STYLE_010", "style_name": "Upgrade Part"}
+]

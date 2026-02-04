@@ -1,0 +1,1553 @@
+{
+  "auditDate": "2026-02-04T22:07:23.011Z",
+  "categories": {
+    "trueMatches": [
+      {
+        "id": "a01Hu000010Q5EmIAK",
+        "sf_name": "Wall Oven",
+        "local_name": "Oven",
+        "department": "APPLIANCES",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000dC5DfQAK",
+        "sf_name": "Bathroom Hardware",
+        "local_name": "Bathroom Hardware and Accessories",
+        "department": "PLUMBING",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000dC5EdQAK",
+        "sf_name": "Bathroom Vanity Lighting",
+        "local_name": "Vanity Lighting",
+        "department": "LIGHTING",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000dCejbQAC",
+        "sf_name": "Cabinet Organization",
+        "local_name": "Cabinet Organization and Storage",
+        "department": "HOME_DECOR",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000dC5F9QAK",
+        "sf_name": "Door Hardware",
+        "local_name": "Door Hardware: Knobs and Levers",
+        "department": "HOME_DECOR",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000dCek7QAC",
+        "sf_name": "Outdoor Fireplaces & Fire Pits",
+        "local_name": "Fire Pits",
+        "department": "HOME_DECOR",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01Hu000011kmDGIAY",
+        "sf_name": "Coffee Makers",
+        "local_name": "Coffee Maker",
+        "department": "OTHER",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01aZ00000KJFrCQAX",
+        "sf_name": "Pizza Ovens",
+        "local_name": "Pizza Oven",
+        "department": "OTHER",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      },
+      {
+        "id": "a01Hu000011kgEqIAI",
+        "sf_name": "Barbeques & Grills",
+        "local_name": "Barbeques",
+        "department": "OTHER",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other",
+        "confidence": 95
+      }
+    ],
+    "likelyTrueMatches": [],
+    "reviewNeeded": [
+      {
+        "id": "a01aZ00000dC5EbQAK",
+        "sf_name": "Track Lighting",
+        "local_name": "Track and Rail Lighting",
+        "department": "LIGHTING",
+        "type": "REVIEW_NEEDED",
+        "reason": "50% word overlap",
+        "confidence": 50
+      },
+      {
+        "id": "a01aZ00000dC5EcQAK",
+        "sf_name": "Under Cabinet Lighting",
+        "local_name": "Under Cabinet Lights",
+        "department": "LIGHTING",
+        "type": "REVIEW_NEEDED",
+        "reason": "50% word overlap",
+        "confidence": 50
+      }
+    ],
+    "falseMatches": [
+      {
+        "id": "a01aZ00000MlHtiQAF",
+        "sf_name": "Wine Cooler",
+        "local_name": "Refrigeration",
+        "department": "APPLIANCES",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      },
+      {
+        "id": "a01aZ00000dC5EXQA0",
+        "sf_name": "Pendant Lights",
+        "local_name": "Pendants",
+        "department": "LIGHTING",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      },
+      {
+        "id": "a01aZ00000dCejPQAS",
+        "sf_name": "Storage & Closet Systems",
+        "local_name": "Storage and Organization",
+        "department": "HOME_DECOR",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      },
+      {
+        "id": "a01aZ00000dCek9QAC",
+        "sf_name": "Furnaces & Heaters",
+        "local_name": "Heating",
+        "department": "HVAC",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      },
+      {
+        "id": "a01aZ00000dCek6QAC",
+        "sf_name": "Ventilation",
+        "local_name": "Exhaust Fans",
+        "department": "HVAC",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      },
+      {
+        "id": "a01Hu000011kFRfIAM",
+        "sf_name": "Ice Makers",
+        "local_name": "Icemaker",
+        "department": "OTHER",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different names",
+        "confidence": 0
+      }
+    ],
+    "summary": {
+      "total": 17,
+      "true_match": 9,
+      "likely_true_match": 0,
+      "review_needed": 2,
+      "false_match": 6
+    }
+  },
+  "attributes": {
+    "trueMatches": [
+      {
+        "id": "a1aaZ000008mBvrQAE",
+        "sf_name": "Number Of Racks",
+        "local_name": "Number of Racks",
+        "type": "TRUE_MATCH",
+        "reason": "Exact match (capitalization only)",
+        "confidence": 100
+      },
+      {
+        "id": "a1aaZ000008mBoqQAE",
+        "sf_name": "Convertible to Ductless",
+        "local_name": "Convertible to Ductless / Recirculating",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other (added clarification)",
+        "confidence": 95
+      },
+      {
+        "id": "a1aaZ000008mBzrQAE",
+        "sf_name": "Wine Bottle Capacity",
+        "local_name": "Wine Bottle Capacity (750 ml)",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other (added clarification)",
+        "confidence": 95
+      },
+      {
+        "id": "a1aaZ000008mBo9QAE",
+        "sf_name": "Can Capacity",
+        "local_name": "Can Capacity (12 oz.)",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other (added clarification)",
+        "confidence": 95
+      },
+      {
+        "id": "a1aaZ000008mBvhQAE",
+        "sf_name": "Number Of Functions",
+        "local_name": "Number of Functions",
+        "type": "TRUE_MATCH",
+        "reason": "Exact match (capitalization only)",
+        "confidence": 100
+      },
+      {
+        "id": "a1aaZ000008mBoLQAU",
+        "sf_name": "Center To Center",
+        "local_name": "Center to Center mm",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other (added clarification)",
+        "confidence": 95
+      },
+      {
+        "id": "a1aaZ000008mBsyQAE",
+        "sf_name": "Grill Type",
+        "local_name": "Grill",
+        "type": "TRUE_MATCH",
+        "reason": "One name contains the other (added clarification)",
+        "confidence": 95
+      }
+    ],
+    "likelyTrueMatches": [],
+    "reviewNeeded": [
+      {
+        "id": "a1aaZ000008mBrDQAU",
+        "sf_name": "Detergent Dispenser",
+        "local_name": "Detergent and Rinse-Aid Dispenser",
+        "type": "REVIEW_NEEDED",
+        "reason": "50% word overlap - may be related",
+        "confidence": 50
+      },
+      {
+        "id": "a1aaZ000008mBykQAE",
+        "sf_name": "Touch Control",
+        "local_name": "Touch Faucet",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBrXQAU",
+        "sf_name": "Downrod Included",
+        "local_name": "Downrod(s) Included",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBtdQAE",
+        "sf_name": "Housing Type",
+        "local_name": "Housing Depth",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBuYQAU",
+        "sf_name": "Light Type",
+        "local_name": "Light Direction",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBrWQAU",
+        "sf_name": "Downrod Length",
+        "local_name": "Downrod Size(s)",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008lz3lQAA",
+        "sf_name": "ANSI Grade",
+        "local_name": "ANSI Certification",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBp4QAE",
+        "sf_name": "CSA Certified",
+        "local_name": "CSA Code",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBtiQAE",
+        "sf_name": "Humidity Sensor",
+        "local_name": "Humidity Control",
+        "type": "REVIEW_NEEDED",
+        "reason": "33% word overlap - may be related",
+        "confidence": 33
+      },
+      {
+        "id": "a1aaZ000008mBzaQAE",
+        "sf_name": "Water Connection Required",
+        "local_name": "Water Connection Type",
+        "type": "REVIEW_NEEDED",
+        "reason": "50% word overlap - may be related",
+        "confidence": 50
+      }
+    ],
+    "falseMatches": [
+      {
+        "id": "a1aaZ000008mBuRQAU",
+        "sf_name": "NSF Certified",
+        "local_name": "Lead Leaching Certified NSF/ANSI 61",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBoHQAU",
+        "sf_name": "Canopy Size",
+        "local_name": "CEER Rating",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008lz4NQAQ",
+        "sf_name": "Backplate Shape",
+        "local_name": "Base Style",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBt5QAE",
+        "sf_name": "Hardwired",
+        "local_name": "Handing",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByPQAU",
+        "sf_name": "Switch On Fixture",
+        "local_name": "Sustainability",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByuQAE",
+        "sf_name": "Trim Type",
+        "local_name": "Trip Lever Placement",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008lz3kQAA",
+        "sf_name": "Air Tight",
+        "local_name": "Annual Operation Cost",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsLQAU",
+        "sf_name": "Fire Rated",
+        "local_name": "Filtered",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBoBQAU",
+        "sf_name": "CRI",
+        "local_name": "Canopy Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByqQAE",
+        "sf_name": "Track Type",
+        "local_name": "Trim Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByrQAE",
+        "sf_name": "Track Length",
+        "local_name": "Trim Size",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBp9QAE",
+        "sf_name": "Dark Sky Compliant",
+        "local_name": "Cutout Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwXQAU",
+        "sf_name": "Post Size",
+        "local_name": "Programmable",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuQQAU",
+        "sf_name": "Lamp Type",
+        "local_name": "Latch Faceplate",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBpIQAU",
+        "sf_name": "DLC",
+        "local_name": "dB Rating",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsxQAE",
+        "sf_name": "Grid Size",
+        "local_name": "Griddle BTU",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBrnQAE",
+        "sf_name": "Emergency Battery",
+        "local_name": "Eco Friendly",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBx6QAE",
+        "sf_name": "Sensor Compatible",
+        "local_name": "Sconce Type",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsPQAU",
+        "sf_name": "Fixture Length",
+        "local_name": "Fire Rated",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBueQAE",
+        "sf_name": "Linkable",
+        "local_name": "Locking Mechanism",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwSQAU",
+        "sf_name": "Plug In",
+        "local_name": "Power Feed Type",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBt7QAE",
+        "sf_name": "Hardware Type",
+        "local_name": "Handle Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008lz4OQAQ",
+        "sf_name": "Backplate Included",
+        "local_name": "Base Width",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBssQAE",
+        "sf_name": "Full Extension",
+        "local_name": "Gas Type",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwbQAE",
+        "sf_name": "Pull Out",
+        "local_name": "Pullout Spray",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBrbQAE",
+        "sf_name": "Door Hardware Type",
+        "local_name": "Drain Required",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsWQAU",
+        "sf_name": "Function",
+        "local_name": "Flushometer Included",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBxzQAE",
+        "sf_name": "Smart Lock",
+        "local_name": "SmartKey",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuLQAU",
+        "sf_name": "Keyless Entry",
+        "local_name": "Knob Shape",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBt4QAE",
+        "sf_name": "Handedness",
+        "local_name": "Handcrafted",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuJQAU",
+        "sf_name": "Keyed Alike",
+        "local_name": "Keyway",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008lz4QQAQ",
+        "sf_name": "Backset",
+        "local_name": "Basin Depth (Center)",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsvQAE",
+        "sf_name": "Full Length",
+        "local_name": "Glass Features",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBujQAE",
+        "sf_name": "Magnification",
+        "local_name": "Luxury Whirlpool",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBszQAE",
+        "sf_name": "Furniture Type",
+        "local_name": "Grille Finish",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBx7QAE",
+        "sf_name": "Seating Capacity",
+        "local_name": "Screw Size",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBz4QAE",
+        "sf_name": "UV Resistant",
+        "local_name": "Undercoating",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsQQAU",
+        "sf_name": "Fireplace Type",
+        "local_name": "Fixture Shape",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBtqQAE",
+        "sf_name": "Ignition Type",
+        "local_name": "Includes Drip Pan",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsJQAU",
+        "sf_name": "Fire Glass Included",
+        "local_name": "Field Cuttable",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBp1QAE",
+        "sf_name": "Cover Included",
+        "local_name": "Cross Bore",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByaQAE",
+        "sf_name": "Tank Enclosure",
+        "local_name": "Temperature Settings",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByFQAU",
+        "sf_name": "Spark Screen Included",
+        "local_name": "Spray Nozzles",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwVQAU",
+        "sf_name": "Portable",
+        "local_name": "Product Variation",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuqQAE",
+        "sf_name": "Lockable",
+        "local_name": "Max Capacity (Pounds)",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008lz3TQAQ",
+        "sf_name": "AC Type",
+        "local_name": "28 Degree Latch",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBnsQAE",
+        "sf_name": "BTU Capacity",
+        "local_name": "Built-in Food Disposer",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBp2QAE",
+        "sf_name": "Coverage Area",
+        "local_name": "Crystal Color",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuCQAU",
+        "sf_name": "Inverter Technology",
+        "local_name": "Interior Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBrFQAU",
+        "sf_name": "Dehumidifier",
+        "local_name": "Diameter",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsOQAU",
+        "sf_name": "Filter Type",
+        "local_name": "Finished Back",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBuxQAE",
+        "sf_name": "Maximum Working Pressure",
+        "local_name": "Maximum Sones",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBokQAE",
+        "sf_name": "Connection Size",
+        "local_name": "Contains PFAS Chemicals",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBoXQAU",
+        "sf_name": "Coffee Maker Type",
+        "local_name": "CO2 Tank Included",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBxsQAE",
+        "sf_name": "Single Serve",
+        "local_name": "Sink Width",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwgQAE",
+        "sf_name": "Programmable",
+        "local_name": "Quick Ship",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBzeQAE",
+        "sf_name": "Water Reservoir Size",
+        "local_name": "Water Filtration",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBvBQAU",
+        "sf_name": "Milk Frother Included",
+        "local_name": "Mirror Front",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBpAQAU",
+        "sf_name": "Daily Ice Production",
+        "local_name": "Cutout Size",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBtoQAE",
+        "sf_name": "Ice Storage Capacity",
+        "local_name": "Illumatherapy",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBtpQAE",
+        "sf_name": "Ice Type",
+        "local_name": "Impeller",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBrgQAE",
+        "sf_name": "Drain Required",
+        "local_name": "Drop Ell Included",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwtQAE",
+        "sf_name": "Reversible Door",
+        "local_name": "RGB",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBsRQAU",
+        "sf_name": "Filter Included",
+        "local_name": "Flow Rate",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBw2QAE",
+        "sf_name": "Oven Capacity",
+        "local_name": "Optional Trim Kit",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mByeQAE",
+        "sf_name": "Thermometer Included",
+        "local_name": "Title 24",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBvcQAE",
+        "sf_name": "Number Of Burners",
+        "local_name": "Number of Circuits",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBxuQAE",
+        "sf_name": "Side Burner",
+        "local_name": "Slide Bar Height",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBxBQAU",
+        "sf_name": "Sear Burner",
+        "local_name": "Self Leveling Base",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBwyQAE",
+        "sf_name": "Rotisserie Included",
+        "local_name": "RPM (High)",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      },
+      {
+        "id": "a1aaZ000008mBnvQAE",
+        "sf_name": "Built-In",
+        "local_name": "Bulb Color",
+        "type": "FALSE_MATCH",
+        "reason": "Completely different attribute names - no overlap",
+        "confidence": 0
+      }
+    ],
+    "summary": {
+      "total": 88,
+      "true_match": 7,
+      "likely_true_match": 0,
+      "review_needed": 10,
+      "false_match": 71
+    }
+  },
+  "brands": {
+    "localCount": 343,
+    "sfCount": 0,
+    "note": "SF does not provide brand data"
+  },
+  "styles": {
+    "localCount": 220,
+    "sfCount": 0,
+    "note": "SF does not provide style data"
+  },
+  "categoryFilterAttributes": {
+    "totalMappings": 1277,
+    "totalCategories": 84,
+    "issuesFound": 92,
+    "issues": [
+      {
+        "category": "Dishwasher",
+        "rank": "6",
+        "oldAttributeName": "Number of Racks",
+        "attribute_id": "a1aaZ000008mBvrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Dishwasher",
+        "rank": "8",
+        "oldAttributeName": "dB Rating",
+        "attribute_id": "a1aaZ000008mBpIQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Dryer",
+        "rank": "11",
+        "oldAttributeName": "Temperature Settings",
+        "attribute_id": "a1aaZ000008mByaQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Oven",
+        "rank": "13",
+        "oldAttributeName": "Number of Racks",
+        "attribute_id": "a1aaZ000008mBvrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Range",
+        "rank": "14",
+        "oldAttributeName": "Number of Racks",
+        "attribute_id": "a1aaZ000008mBvrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Range Hood",
+        "rank": "13",
+        "oldAttributeName": "Convertible to Ductless / Recirculating",
+        "attribute_id": "a1aaZ000008mBoqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Standalone Pedestal",
+        "rank": "15",
+        "oldAttributeName": "Temperature Settings",
+        "attribute_id": "a1aaZ000008mByaQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Washer",
+        "rank": "13",
+        "oldAttributeName": "Temperature Settings",
+        "attribute_id": "a1aaZ000008mByaQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Icemaker",
+        "rank": "1",
+        "oldAttributeName": "Max Capacity (Pounds)",
+        "attribute_id": "a1aaZ000008mBuqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Icemaker",
+        "rank": "6",
+        "oldAttributeName": "Drain Required",
+        "attribute_id": "a1aaZ000008mBrbQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Coffee Maker",
+        "rank": "1",
+        "oldAttributeName": "Programmable",
+        "attribute_id": "a1aaZ000008mBwXQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Coffee Maker",
+        "rank": "2",
+        "oldAttributeName": "Water Filtration",
+        "attribute_id": "a1aaZ000008mBzeQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Coffee Maker",
+        "rank": "14",
+        "oldAttributeName": "CO2 Tank Included",
+        "attribute_id": "a1aaZ000008mBoXQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Drawer",
+        "rank": "11",
+        "oldAttributeName": "Number of Racks",
+        "attribute_id": "a1aaZ000008mBvrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Pizza Oven",
+        "rank": "3",
+        "oldAttributeName": "Cross Bore",
+        "attribute_id": "a1aaZ000008mBp1QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Pizza Oven",
+        "rank": "5",
+        "oldAttributeName": "Includes Drip Pan",
+        "attribute_id": "a1aaZ000008mBtqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Pizza Oven",
+        "rank": "9",
+        "oldAttributeName": "Optional Trim Kit",
+        "attribute_id": "a1aaZ000008mBw2QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Refrigeration",
+        "rank": "1",
+        "oldAttributeName": "Can Capacity (12 oz.)",
+        "attribute_id": "a1aaZ000008mBo9QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Refrigeration",
+        "rank": "15",
+        "oldAttributeName": "Wine Bottle Capacity (750 ml)",
+        "attribute_id": "a1aaZ000008mBzrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Water Fountain",
+        "rank": "11",
+        "oldAttributeName": "Filtered",
+        "attribute_id": "a1aaZ000008mBsLQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Bath Fans",
+        "rank": "9",
+        "oldAttributeName": "Fire Rated",
+        "attribute_id": "a1aaZ000008mBsPQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Bathroom Mirrors",
+        "rank": "2",
+        "oldAttributeName": "Mirror Front",
+        "attribute_id": "a1aaZ000008mBvBQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Bidets",
+        "rank": "7",
+        "oldAttributeName": "Eco Friendly",
+        "attribute_id": "a1aaZ000008mBrnQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Rough-In Valves",
+        "rank": "10",
+        "oldAttributeName": "Number of Functions",
+        "attribute_id": "a1aaZ000008mBvhQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Steam Showers",
+        "rank": "8",
+        "oldAttributeName": "Includes Drip Pan",
+        "attribute_id": "a1aaZ000008mBtqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Toilet Seats",
+        "rank": "8",
+        "oldAttributeName": "Trip Lever Placement",
+        "attribute_id": "a1aaZ000008mByuQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Toilet Seats",
+        "rank": "15",
+        "oldAttributeName": "Max Capacity (Pounds)",
+        "attribute_id": "a1aaZ000008mBuqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Toilets",
+        "rank": "8",
+        "oldAttributeName": "Trip Lever Placement",
+        "attribute_id": "a1aaZ000008mByuQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Bar Faucets",
+        "rank": "12",
+        "oldAttributeName": "Pullout Spray",
+        "attribute_id": "a1aaZ000008mBwbQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Kitchen Accessories",
+        "rank": "4",
+        "oldAttributeName": "Max Capacity (Pounds)",
+        "attribute_id": "a1aaZ000008mBuqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Kitchen Accessories",
+        "rank": "6",
+        "oldAttributeName": "Diameter",
+        "attribute_id": "a1aaZ000008mBrFQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Kitchen Faucets",
+        "rank": "14",
+        "oldAttributeName": "Pullout Spray",
+        "attribute_id": "a1aaZ000008mBwbQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ceiling Lights",
+        "rank": "13",
+        "oldAttributeName": "Fixture Shape",
+        "attribute_id": "a1aaZ000008mBsQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Chandeliers",
+        "rank": "9",
+        "oldAttributeName": "Fixture Shape",
+        "attribute_id": "a1aaZ000008mBsQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Commercial Lighting",
+        "rank": "3",
+        "oldAttributeName": "Eco Friendly",
+        "attribute_id": "a1aaZ000008mBrnQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Commercial Lighting",
+        "rank": "5",
+        "oldAttributeName": "Griddle BTU",
+        "attribute_id": "a1aaZ000008mBsxQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Commercial Lighting",
+        "rank": "10",
+        "oldAttributeName": "Sconce Type",
+        "attribute_id": "a1aaZ000008mBx6QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Commercial Lighting",
+        "rank": "14",
+        "oldAttributeName": "dB Rating",
+        "attribute_id": "a1aaZ000008mBpIQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Flush and Semi-Flush",
+        "rank": "14",
+        "oldAttributeName": "Fixture Shape",
+        "attribute_id": "a1aaZ000008mBsQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Lighting Accessories",
+        "rank": "3",
+        "oldAttributeName": "Number of Circuits",
+        "attribute_id": "a1aaZ000008mBvcQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Lighting Accessories",
+        "rank": "7",
+        "oldAttributeName": "Power Feed Type",
+        "attribute_id": "a1aaZ000008mBwSQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Lighting Accessories",
+        "rank": "10",
+        "oldAttributeName": "Field Cuttable",
+        "attribute_id": "a1aaZ000008mBsJQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Pendants",
+        "rank": "10",
+        "oldAttributeName": "Fixture Shape",
+        "attribute_id": "a1aaZ000008mBsQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Recessed Lighting",
+        "rank": "4",
+        "oldAttributeName": "Trim Size",
+        "attribute_id": "a1aaZ000008mByrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Track and Rail Lighting",
+        "rank": "11",
+        "oldAttributeName": "Trim Size",
+        "attribute_id": "a1aaZ000008mByrQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Under Cabinet Lights",
+        "rank": "4",
+        "oldAttributeName": "Fire Rated",
+        "attribute_id": "a1aaZ000008mBsPQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Under Cabinet Lights",
+        "rank": "5",
+        "oldAttributeName": "Handing",
+        "attribute_id": "a1aaZ000008mBt5QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Under Cabinet Lights",
+        "rank": "8",
+        "oldAttributeName": "Locking Mechanism",
+        "attribute_id": "a1aaZ000008mBueQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Under Cabinet Lights",
+        "rank": "11",
+        "oldAttributeName": "Power Feed Type",
+        "attribute_id": "a1aaZ000008mBwSQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Under Cabinet Lights",
+        "rank": "12",
+        "oldAttributeName": "Sustainability",
+        "attribute_id": "a1aaZ000008mByPQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Wall Sconces",
+        "rank": "15",
+        "oldAttributeName": "Sconce Type",
+        "attribute_id": "a1aaZ000008mBx6QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Cabinet Hardware",
+        "rank": "7",
+        "oldAttributeName": "Center to Center mm",
+        "attribute_id": "a1aaZ000008mBoLQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Cabinet Hardware",
+        "rank": "9",
+        "oldAttributeName": "Screw Size",
+        "attribute_id": "a1aaZ000008mBx7QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "2",
+        "oldAttributeName": "Drain Required",
+        "attribute_id": "a1aaZ000008mBrbQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "4",
+        "oldAttributeName": "Filtered",
+        "attribute_id": "a1aaZ000008mBsLQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "5",
+        "oldAttributeName": "Flushometer Included",
+        "attribute_id": "a1aaZ000008mBsWQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "6",
+        "oldAttributeName": "Handcrafted",
+        "attribute_id": "a1aaZ000008mBt4QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "7",
+        "oldAttributeName": "Keyway",
+        "attribute_id": "a1aaZ000008mBuJQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "8",
+        "oldAttributeName": "Knob Shape",
+        "attribute_id": "a1aaZ000008mBuLQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Hardware: Knobs and Levers",
+        "rank": "10",
+        "oldAttributeName": "SmartKey",
+        "attribute_id": "a1aaZ000008mBxzQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Levers",
+        "rank": "5",
+        "oldAttributeName": "Fire Rated",
+        "attribute_id": "a1aaZ000008mBsPQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Levers",
+        "rank": "7",
+        "oldAttributeName": "Handing",
+        "attribute_id": "a1aaZ000008mBt5QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Levers",
+        "rank": "11",
+        "oldAttributeName": "Latch Faceplate",
+        "attribute_id": "a1aaZ000008mBuQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Door Levers",
+        "rank": "15",
+        "oldAttributeName": "Locking Mechanism",
+        "attribute_id": "a1aaZ000008mBueQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Storage and Organization",
+        "rank": "4",
+        "oldAttributeName": "Max Capacity (Pounds)",
+        "attribute_id": "a1aaZ000008mBuqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Cabinet Organization and Storage",
+        "rank": "7",
+        "oldAttributeName": "Gas Type",
+        "attribute_id": "a1aaZ000008mBssQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Cabinet Organization and Storage",
+        "rank": "11",
+        "oldAttributeName": "Mirror Front",
+        "attribute_id": "a1aaZ000008mBvBQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Cabinet Organization and Storage",
+        "rank": "15",
+        "oldAttributeName": "Pullout Spray",
+        "attribute_id": "a1aaZ000008mBwbQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Outdoor Lighting",
+        "rank": "15",
+        "oldAttributeName": "Sconce Type",
+        "attribute_id": "a1aaZ000008mBx6QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Air Conditioners",
+        "rank": "13",
+        "oldAttributeName": "CEER Rating",
+        "attribute_id": "a1aaZ000008mBoHQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "1",
+        "oldAttributeName": "28 Degree Latch",
+        "attribute_id": "a1aaZ000008lz3TQAQ",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "7",
+        "oldAttributeName": "Fire Rated",
+        "attribute_id": "a1aaZ000008mBsPQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "9",
+        "oldAttributeName": "Handing",
+        "attribute_id": "a1aaZ000008mBt5QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "12",
+        "oldAttributeName": "Knob Shape",
+        "attribute_id": "a1aaZ000008mBuLQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "13",
+        "oldAttributeName": "Latch Faceplate",
+        "attribute_id": "a1aaZ000008mBuQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Ducting",
+        "rank": "14",
+        "oldAttributeName": "Locking Mechanism",
+        "attribute_id": "a1aaZ000008mBueQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "4",
+        "oldAttributeName": "Cross Bore",
+        "attribute_id": "a1aaZ000008mBp1QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "5",
+        "oldAttributeName": "Field Cuttable",
+        "attribute_id": "a1aaZ000008mBsJQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "6",
+        "oldAttributeName": "Fixture Shape",
+        "attribute_id": "a1aaZ000008mBsQQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "8",
+        "oldAttributeName": "Includes Drip Pan",
+        "attribute_id": "a1aaZ000008mBtqQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "12",
+        "oldAttributeName": "Spray Nozzles",
+        "attribute_id": "a1aaZ000008mByFQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Fire Pits",
+        "rank": "13",
+        "oldAttributeName": "Temperature Settings",
+        "attribute_id": "a1aaZ000008mByaQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Furniture",
+        "rank": "8",
+        "oldAttributeName": "Screw Size",
+        "attribute_id": "a1aaZ000008mBx7QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Furniture",
+        "rank": "12",
+        "oldAttributeName": "Undercoating",
+        "attribute_id": "a1aaZ000008mBz4QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Mirrors",
+        "rank": "8",
+        "oldAttributeName": "Luxury Whirlpool",
+        "attribute_id": "a1aaZ000008mBujQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Storage Drawers/Doors",
+        "rank": "6",
+        "oldAttributeName": "28 Degree Latch",
+        "attribute_id": "a1aaZ000008lz3TQAQ",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Storage Drawers/Doors",
+        "rank": "7",
+        "oldAttributeName": "Cross Bore",
+        "attribute_id": "a1aaZ000008mBp1QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Hydronic Expansion Tanks",
+        "rank": "2",
+        "oldAttributeName": "Contains PFAS Chemicals",
+        "attribute_id": "a1aaZ000008mBokQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Hydronic Expansion Tanks",
+        "rank": "4",
+        "oldAttributeName": "Maximum Sones",
+        "attribute_id": "a1aaZ000008mBuxQAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Drainage & Waste",
+        "rank": "2",
+        "oldAttributeName": "Diameter",
+        "attribute_id": "a1aaZ000008mBrFQAU",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Drainage & Waste",
+        "rank": "12",
+        "oldAttributeName": "Handing",
+        "attribute_id": "a1aaZ000008mBt5QAE",
+        "issue": "Attribute name will change - may need update"
+      },
+      {
+        "category": "Drainage & Waste",
+        "rank": "13",
+        "oldAttributeName": "Fire Rated",
+        "attribute_id": "a1aaZ000008mBsPQAU",
+        "issue": "Attribute name will change - may need update"
+      }
+    ]
+  }
+}

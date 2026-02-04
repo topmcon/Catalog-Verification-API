@@ -1,0 +1,663 @@
+{
+  "correctMappings": [
+    {
+      "attribute_id": "a1aaZ000008mBx7QAE",
+      "sf_name": "Seating Capacity",
+      "local_name": "Screw Size",
+      "sf_category": "Furniture",
+      "local_category": "Furniture",
+      "sf_rank": 8,
+      "local_rank": "8",
+      "action": "Update attribute_name only"
+    }
+  ],
+  "wrongCategory": [
+    {
+      "attribute_id": "a1aaZ000008mBoHQAU",
+      "sf_name": "Canopy Size",
+      "local_name": "CEER Rating",
+      "sf_category": "Ceiling Lights",
+      "local_category": "Air Conditioners",
+      "sf_rank": 15,
+      "local_rank": "13",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBt5QAE",
+      "sf_name": "Hardwired",
+      "local_name": "Handing",
+      "sf_category": "Under Cabinet Lighting",
+      "local_category": "Drainage & Waste",
+      "sf_rank": 8,
+      "local_rank": "12",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByPQAU",
+      "sf_name": "Switch On Fixture",
+      "local_name": "Sustainability",
+      "sf_category": "Under Cabinet Lighting",
+      "local_category": "Under Cabinet Lights",
+      "sf_rank": 12,
+      "local_rank": "12",
+      "action": "Update category_name AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByuQAE",
+      "sf_name": "Trim Type",
+      "local_name": "Trip Lever Placement",
+      "sf_category": "Recessed Lighting",
+      "local_category": "Toilets",
+      "sf_rank": 3,
+      "local_rank": "8",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsLQAU",
+      "sf_name": "Fire Rated",
+      "local_name": "Filtered",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 11,
+      "local_rank": "4",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByrQAE",
+      "sf_name": "Track Length",
+      "local_name": "Trim Size",
+      "sf_category": "Track Lighting",
+      "local_category": "Track and Rail Lighting",
+      "sf_rank": 3,
+      "local_rank": "11",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwXQAU",
+      "sf_name": "Post Size",
+      "local_name": "Programmable",
+      "sf_category": "Outdoor Lighting",
+      "local_category": "Coffee Maker",
+      "sf_rank": 15,
+      "local_rank": "1",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuQQAU",
+      "sf_name": "Lamp Type",
+      "local_name": "Latch Faceplate",
+      "sf_category": "Lamps",
+      "local_category": "Ducting",
+      "sf_rank": 1,
+      "local_rank": "13",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBx6QAE",
+      "sf_name": "Sensor Compatible",
+      "local_name": "Sconce Type",
+      "sf_category": "Commercial Lighting",
+      "local_category": "Outdoor Lighting",
+      "sf_rank": 15,
+      "local_rank": "15",
+      "action": "Update category_name AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsPQAU",
+      "sf_name": "Fixture Length",
+      "local_name": "Fire Rated",
+      "sf_category": "Under Cabinet Lighting",
+      "local_category": "Drainage & Waste",
+      "sf_rank": 2,
+      "local_rank": "13",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBueQAE",
+      "sf_name": "Linkable",
+      "local_name": "Locking Mechanism",
+      "sf_category": "Under Cabinet Lighting",
+      "local_category": "Ducting",
+      "sf_rank": 6,
+      "local_rank": "14",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwSQAU",
+      "sf_name": "Plug In",
+      "local_name": "Power Feed Type",
+      "sf_category": "Under Cabinet Lighting",
+      "local_category": "Under Cabinet Lights",
+      "sf_rank": 7,
+      "local_rank": "11",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBssQAE",
+      "sf_name": "Full Extension",
+      "local_name": "Gas Type",
+      "sf_category": "Cabinet Organization",
+      "local_category": "Cabinet Organization and Storage",
+      "sf_rank": 7,
+      "local_rank": "7",
+      "action": "Update category_name AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwbQAE",
+      "sf_name": "Pull Out",
+      "local_name": "Pullout Spray",
+      "sf_category": "Cabinet Organization",
+      "local_category": "Cabinet Organization and Storage",
+      "sf_rank": 10,
+      "local_rank": "15",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBrbQAE",
+      "sf_name": "Door Hardware Type",
+      "local_name": "Drain Required",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 1,
+      "local_rank": "2",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsWQAU",
+      "sf_name": "Function",
+      "local_name": "Flushometer Included",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 2,
+      "local_rank": "5",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBxzQAE",
+      "sf_name": "Smart Lock",
+      "local_name": "SmartKey",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 4,
+      "local_rank": "10",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuLQAU",
+      "sf_name": "Keyless Entry",
+      "local_name": "Knob Shape",
+      "sf_category": "Door Hardware",
+      "local_category": "Ducting",
+      "sf_rank": 5,
+      "local_rank": "12",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBt4QAE",
+      "sf_name": "Handedness",
+      "local_name": "Handcrafted",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 7,
+      "local_rank": "6",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuJQAU",
+      "sf_name": "Keyed Alike",
+      "local_name": "Keyway",
+      "sf_category": "Door Hardware",
+      "local_category": "Door Hardware: Knobs and Levers",
+      "sf_rank": 10,
+      "local_rank": "7",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsQQAU",
+      "sf_name": "Fireplace Type",
+      "local_name": "Fixture Shape",
+      "sf_category": "Outdoor Fireplaces & Fire Pits",
+      "local_category": "Fire Pits",
+      "sf_rank": 2,
+      "local_rank": "6",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBtqQAE",
+      "sf_name": "Ignition Type",
+      "local_name": "Includes Drip Pan",
+      "sf_category": "Barbeques & Grills",
+      "local_category": "Fire Pits",
+      "sf_rank": 12,
+      "local_rank": "8",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsJQAU",
+      "sf_name": "Fire Glass Included",
+      "local_name": "Field Cuttable",
+      "sf_category": "Outdoor Fireplaces & Fire Pits",
+      "local_category": "Fire Pits",
+      "sf_rank": 7,
+      "local_rank": "5",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBp1QAE",
+      "sf_name": "Cover Included",
+      "local_name": "Cross Bore",
+      "sf_category": "Pizza Ovens",
+      "local_category": "Storage Drawers/Doors",
+      "sf_rank": 10,
+      "local_rank": "7",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByaQAE",
+      "sf_name": "Tank Enclosure",
+      "local_name": "Temperature Settings",
+      "sf_category": "Outdoor Fireplaces & Fire Pits",
+      "local_category": "Fire Pits",
+      "sf_rank": 9,
+      "local_rank": "13",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByFQAU",
+      "sf_name": "Spark Screen Included",
+      "local_name": "Spray Nozzles",
+      "sf_category": "Outdoor Fireplaces & Fire Pits",
+      "local_category": "Fire Pits",
+      "sf_rank": 10,
+      "local_rank": "12",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuqQAE",
+      "sf_name": "Lockable",
+      "local_name": "Max Capacity (Pounds)",
+      "sf_category": "Storage & Closet Systems",
+      "local_category": "Storage and Organization",
+      "sf_rank": 12,
+      "local_rank": "4",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008lz3TQAQ",
+      "sf_name": "AC Type",
+      "local_name": "28 Degree Latch",
+      "sf_category": "Air Conditioners",
+      "local_category": "Storage Drawers/Doors",
+      "sf_rank": 1,
+      "local_rank": "6",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBrFQAU",
+      "sf_name": "Dehumidifier",
+      "local_name": "Diameter",
+      "sf_category": "Air Conditioners",
+      "local_category": "Drainage & Waste",
+      "sf_rank": 11,
+      "local_rank": "2",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBoXQAU",
+      "sf_name": "Coffee Maker Type",
+      "local_name": "CO2 Tank Included",
+      "sf_category": "Coffee Makers",
+      "local_category": "Coffee Maker",
+      "sf_rank": 1,
+      "local_rank": "14",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBzeQAE",
+      "sf_name": "Water Reservoir Size",
+      "local_name": "Water Filtration",
+      "sf_category": "Coffee Makers",
+      "local_category": "Coffee Maker",
+      "sf_rank": 6,
+      "local_rank": "2",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBvBQAU",
+      "sf_name": "Milk Frother Included",
+      "local_name": "Mirror Front",
+      "sf_category": "Coffee Makers",
+      "local_category": "Cabinet Organization and Storage",
+      "sf_rank": 8,
+      "local_rank": "11",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBw2QAE",
+      "sf_name": "Oven Capacity",
+      "local_name": "Optional Trim Kit",
+      "sf_category": "Pizza Ovens",
+      "local_category": "Pizza Oven",
+      "sf_rank": 2,
+      "local_rank": "9",
+      "action": "Update category_name, rank, AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBvcQAE",
+      "sf_name": "Number Of Burners",
+      "local_name": "Number of Circuits",
+      "sf_category": "Barbeques & Grills",
+      "local_category": "Lighting Accessories",
+      "sf_rank": 2,
+      "local_rank": "3",
+      "action": "Update category_name, rank, AND attribute_name"
+    }
+  ],
+  "wrongRank": [
+    {
+      "attribute_id": "a1aaZ000008mBpIQAU",
+      "sf_name": "DLC",
+      "local_name": "dB Rating",
+      "sf_category": "Commercial Lighting",
+      "local_category": "Commercial Lighting",
+      "sf_rank": 7,
+      "local_rank": "14",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsxQAE",
+      "sf_name": "Grid Size",
+      "local_name": "Griddle BTU",
+      "sf_category": "Commercial Lighting",
+      "local_category": "Commercial Lighting",
+      "sf_rank": 11,
+      "local_rank": "5",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBrnQAE",
+      "sf_name": "Emergency Battery",
+      "local_name": "Eco Friendly",
+      "sf_category": "Commercial Lighting",
+      "local_category": "Commercial Lighting",
+      "sf_rank": 13,
+      "local_rank": "3",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBujQAE",
+      "sf_name": "Magnification",
+      "local_name": "Luxury Whirlpool",
+      "sf_category": "Mirrors",
+      "local_category": "Mirrors",
+      "sf_rank": 10,
+      "local_rank": "8",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBz4QAE",
+      "sf_name": "UV Resistant",
+      "local_name": "Undercoating",
+      "sf_category": "Furniture",
+      "local_category": "Furniture",
+      "sf_rank": 13,
+      "local_rank": "12",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuxQAE",
+      "sf_name": "Maximum Working Pressure",
+      "local_name": "Maximum Sones",
+      "sf_category": "Hydronic Expansion Tanks",
+      "local_category": "Hydronic Expansion Tanks",
+      "sf_rank": 3,
+      "local_rank": "4",
+      "action": "Update rank AND attribute_name"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBokQAE",
+      "sf_name": "Connection Size",
+      "local_name": "Contains PFAS Chemicals",
+      "sf_category": "Hydronic Expansion Tanks",
+      "local_category": "Hydronic Expansion Tanks",
+      "sf_rank": 4,
+      "local_rank": "2",
+      "action": "Update rank AND attribute_name"
+    }
+  ],
+  "notInSF": [],
+  "notInLocal": [
+    {
+      "attribute_id": "a1aaZ000008mBuRQAU",
+      "sf_name": "NSF Certified",
+      "local_name": "Lead Leaching Certified NSF/ANSI 61",
+      "sf_category": "Hydronic Expansion Tanks",
+      "sf_rank": 8,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008lz4NQAQ",
+      "sf_name": "Backplate Shape",
+      "local_name": "Base Style",
+      "sf_category": "Wall Sconces",
+      "sf_rank": 9,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008lz3kQAA",
+      "sf_name": "Air Tight",
+      "local_name": "Annual Operation Cost",
+      "sf_category": "Recessed Lighting",
+      "sf_rank": 11,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBoBQAU",
+      "sf_name": "CRI",
+      "local_name": "Canopy Height",
+      "sf_category": "Under Cabinet Lighting",
+      "sf_rank": 13,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByqQAE",
+      "sf_name": "Track Type",
+      "local_name": "Trim Height",
+      "sf_category": "Track Lighting",
+      "sf_rank": 2,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBp9QAE",
+      "sf_name": "Dark Sky Compliant",
+      "local_name": "Cutout Height",
+      "sf_category": "Outdoor Lighting",
+      "sf_rank": 13,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBt7QAE",
+      "sf_name": "Hardware Type",
+      "local_name": "Handle Height",
+      "sf_category": "Cabinet Hardware",
+      "sf_rank": 1,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008lz4OQAQ",
+      "sf_name": "Backplate Included",
+      "local_name": "Base Width",
+      "sf_category": "Cabinet Hardware",
+      "sf_rank": 10,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008lz4QQAQ",
+      "sf_name": "Backset",
+      "local_name": "Basin Depth (Center)",
+      "sf_category": "Door Hardware",
+      "sf_rank": 12,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsvQAE",
+      "sf_name": "Full Length",
+      "local_name": "Glass Features",
+      "sf_category": "Mirrors",
+      "sf_rank": 9,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBszQAE",
+      "sf_name": "Furniture Type",
+      "local_name": "Grille Finish",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 14,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwVQAU",
+      "sf_name": "Portable",
+      "local_name": "Product Variation",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 10,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBnsQAE",
+      "sf_name": "BTU Capacity",
+      "local_name": "Built-in Food Disposer",
+      "sf_category": "Air Conditioners",
+      "sf_rank": 2,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBp2QAE",
+      "sf_name": "Coverage Area",
+      "local_name": "Crystal Color",
+      "sf_category": "Ventilation",
+      "sf_rank": 13,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBuCQAU",
+      "sf_name": "Inverter Technology",
+      "local_name": "Interior Height",
+      "sf_category": "Air Conditioners",
+      "sf_rank": 8,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsOQAU",
+      "sf_name": "Filter Type",
+      "local_name": "Finished Back",
+      "sf_category": "Air Conditioners",
+      "sf_rank": 15,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBxsQAE",
+      "sf_name": "Single Serve",
+      "local_name": "Sink Width",
+      "sf_category": "Coffee Makers",
+      "sf_rank": 4,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwgQAE",
+      "sf_name": "Programmable",
+      "local_name": "Quick Ship",
+      "sf_category": "Coffee Makers",
+      "sf_rank": 5,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBpAQAU",
+      "sf_name": "Daily Ice Production",
+      "local_name": "Cutout Size",
+      "sf_category": "Ice Makers",
+      "sf_rank": 2,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBtoQAE",
+      "sf_name": "Ice Storage Capacity",
+      "local_name": "Illumatherapy",
+      "sf_category": "Ice Makers",
+      "sf_rank": 3,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBtpQAE",
+      "sf_name": "Ice Type",
+      "local_name": "Impeller",
+      "sf_category": "Ice Makers",
+      "sf_rank": 4,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBrgQAE",
+      "sf_name": "Drain Required",
+      "local_name": "Drop Ell Included",
+      "sf_category": "Ice Makers",
+      "sf_rank": 8,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwtQAE",
+      "sf_name": "Reversible Door",
+      "local_name": "RGB",
+      "sf_category": "Ice Makers",
+      "sf_rank": 10,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBsRQAU",
+      "sf_name": "Filter Included",
+      "local_name": "Flow Rate",
+      "sf_category": "Ice Makers",
+      "sf_rank": 14,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mByeQAE",
+      "sf_name": "Thermometer Included",
+      "local_name": "Title 24",
+      "sf_category": "Pizza Ovens",
+      "sf_rank": 11,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBxuQAE",
+      "sf_name": "Side Burner",
+      "local_name": "Slide Bar Height",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 6,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBxBQAU",
+      "sf_name": "Sear Burner",
+      "local_name": "Self Leveling Base",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 7,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBwyQAE",
+      "sf_name": "Rotisserie Included",
+      "local_name": "RPM (High)",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 8,
+      "note": "Not in our category-filter-attributes.json"
+    },
+    {
+      "attribute_id": "a1aaZ000008mBnvQAE",
+      "sf_name": "Built-In",
+      "local_name": "Bulb Color",
+      "sf_category": "Barbeques & Grills",
+      "sf_rank": 9,
+      "note": "Not in our category-filter-attributes.json"
+    }
+  ]
+}
