@@ -16,7 +16,8 @@
     "db:seed": "tsx scripts/seed-database.ts",
     "typecheck": "tsc --noEmit",
     "sync-picklists": "tsx src/scripts/sync-picklists.ts",
-    "view-response-quality": "tsx scripts/view-response-quality.ts"
+    "view-response-quality": "tsx scripts/view-response-quality.ts",
+    "monitor-response-quality": "tsx scripts/monitor-response-quality.ts"
   },
   "keywords": [
     "catalog",
