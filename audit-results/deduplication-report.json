@@ -1,0 +1,754 @@
+{
+  "timestamp": "2026-02-05T15:55:50.935Z",
+  "summary": {
+    "originalCount": 1167,
+    "duplicatesRemoved": 106,
+    "finalCount": 1061,
+    "uniqueGroups": 1061
+  },
+  "removedAttributes": [
+    {
+      "removed": "accepts_deck_mount_faucet",
+      "removedId": "a1aaZ000009gMbqQAE",
+      "keptVersion": "Accepts Deck Mount Faucet",
+      "keptId": "a1aaZ000008lz3UQAQ",
+      "normalizedName": "accepts deck mount faucet"
+    },
+    {
+      "removed": "accessory_type",
+      "removedId": "a1aaZ000009X4scQAC",
+      "keptVersion": "Accessory Type",
+      "keptId": "a1aaZ000008lz3VQAQ",
+      "normalizedName": "accessory type"
+    },
+    {
+      "removed": "adjustable_color_temperature",
+      "removedId": "a1aaZ000009X4w6QAC",
+      "keptVersion": "Adjustable Color Temperature",
+      "keptId": "a1aaZ000008lz3YQAQ",
+      "normalizedName": "adjustable color temperature"
+    },
+    {
+      "removed": "aperture_size",
+      "removedId": "a1aaZ000009X4w3QAC",
+      "keptVersion": "Aperture Size",
+      "keptId": "a1aaZ000008lz3nQAA",
+      "normalizedName": "aperture size"
+    },
+    {
+      "removed": "assembly_required",
+      "removedId": "a1aaZ000009fztbQAA",
+      "keptVersion": "Assembly Required",
+      "keptId": "a1aaZ000008lz3wQAA",
+      "normalizedName": "assembly required"
+    },
+    {
+      "removed": "average_hours",
+      "removedId": "a1aaZ000009X5C2QAK",
+      "keptVersion": "Average Hours",
+      "keptId": "a1aaZ000008lz44QAA",
+      "normalizedName": "average hours"
+    },
+    {
+      "removed": "backplate_height",
+      "removedId": "a1aaZ000009X4xVQAS",
+      "keptVersion": "Backplate Height",
+      "keptId": "a1aaZ000008lz4DQAQ",
+      "normalizedName": "backplate height"
+    },
+    {
+      "removed": "backplate_width",
+      "removedId": "a1aaZ000009X4xWQAS",
+      "keptVersion": "Backplate Width",
+      "keptId": "a1aaZ000008lz4FQAQ",
+      "normalizedName": "backplate width"
+    },
+    {
+      "removed": "beam_spread",
+      "removedId": "a1aaZ000009X55NQAS",
+      "keptVersion": "Beam Spread",
+      "keptId": "a1aaZ000008lz4iQAA",
+      "normalizedName": "beam spread"
+    },
+    {
+      "removed": "blade_span",
+      "removedId": "a1aaZ000009X5yDQAS",
+      "keptVersion": "Blade Span",
+      "keptId": "a1aaZ000008lz4pQAA",
+      "normalizedName": "blade span"
+    },
+    {
+      "removed": "blades_included",
+      "removedId": "a1aaZ000009X4cPQAS",
+      "keptVersion": "Blades Included",
+      "keptId": "a1aaZ000008lz4qQAA",
+      "normalizedName": "blades included"
+    },
+    {
+      "removed": "bore_hole",
+      "removedId": "a1aaZ000009prhqQAA",
+      "keptVersion": "Bore Hole",
+      "keptId": "a1aaZ000009px2VQAQ",
+      "normalizedName": "bore hole"
+    },
+    {
+      "removed": "bulb_base",
+      "removedId": "a1aaZ000009X61VQAS",
+      "keptVersion": "Bulb Base",
+      "keptId": "a1aaZ000009X680QAC",
+      "normalizedName": "bulb base"
+    },
+    {
+      "removed": "bulb_included",
+      "removedId": "a1aaZ000009X5TlQAK",
+      "keptVersion": "Bulb Included",
+      "keptId": "a1aaZ000008mBnwQAE",
+      "normalizedName": "bulb included"
+    },
+    {
+      "removed": "bulb_type",
+      "removedId": "a1aaZ000009etDaQAI",
+      "keptVersion": "Bulb Type",
+      "keptId": "a1aaZ000009X67uQAC",
+      "normalizedName": "bulb type"
+    },
+    {
+      "removed": "canopy_width",
+      "removedId": "a1aaZ000009X4RAQA0",
+      "keptVersion": "Canopy Width",
+      "keptId": "a1aaZ000008mBoCQAU",
+      "normalizedName": "canopy width"
+    },
+    {
+      "removed": "capacity__gallons_",
+      "removedId": "a1aaZ000009gMblQAE",
+      "keptVersion": "Capacity (Gallons)",
+      "keptId": "a1aaZ000008mBoDQAU",
+      "normalizedName": "capacity gallons"
+    },
+    {
+      "removed": "cfm_high",
+      "removedId": "a1aaZ000009X4cMQAS",
+      "keptVersion": "CFM (High)",
+      "keptId": "a1aaZ000008mBoOQAU",
+      "normalizedName": "cfm high"
+    },
+    {
+      "removed": "cfm_low",
+      "removedId": "a1aaZ000009X4cNQAS",
+      "keptVersion": "CFM (Low)",
+      "keptId": "a1aaZ000008mBoPQAU",
+      "normalizedName": "cfm low"
+    },
+    {
+      "removed": "Chain_Length",
+      "removedId": "a1aaZ000009X61nQAC",
+      "keptVersion": "Chain Length",
+      "keptId": "a1aaZ000008mBoQQAU",
+      "normalizedName": "chain length"
+    },
+    {
+      "removed": "color_rendering_index_cri",
+      "removedId": "a1aaZ000009X5aYQAS",
+      "keptVersion": "Color Rendering Index (CRI)",
+      "keptId": "a1aaZ000008mBoaQAE",
+      "normalizedName": "color rendering index cri"
+    },
+    {
+      "removed": "color_temperature",
+      "removedId": "a1aaZ000009X5vAQAS",
+      "keptVersion": "Color Temperature",
+      "keptId": "a1aaZ000008mBobQAE",
+      "normalizedName": "color temperature"
+    },
+    {
+      "removed": "control_type",
+      "removedId": "a1aaZ000009X4cRQAS",
+      "keptVersion": "Control Type",
+      "keptId": "a1aaZ000008mBonQAE",
+      "normalizedName": "control type"
+    },
+    {
+      "removed": "counter_depth",
+      "removedId": "a1aaZ000009g0PuQAI",
+      "keptVersion": "Counter Depth",
+      "keptId": "a1aaZ000008mBoyQAE",
+      "normalizedName": "counter depth"
+    },
+    {
+      "removed": "country_of_origin",
+      "removedId": "a1aaZ000009fzteQAA",
+      "keptVersion": "Country Of Origin",
+      "keptId": "a1aaZ000009X1zdQAC",
+      "normalizedName": "country of origin"
+    },
+    {
+      "removed": "Crystal_Type",
+      "removedId": "a1aaZ000009X61mQAC",
+      "keptVersion": "Crystal Type",
+      "keptId": "a1aaZ000008mBp3QAE",
+      "normalizedName": "crystal type"
+    },
+    {
+      "removed": "cutout_size",
+      "removedId": "a1aaZ000009X4w4QAC",
+      "keptVersion": "Cutout Size",
+      "keptId": "a1aaZ000008mBpAQAU",
+      "normalizedName": "cutout size"
+    },
+    {
+      "removed": "dark_sky",
+      "removedId": "a1aaZ000009X5dcQAC",
+      "keptVersion": "Dark Sky",
+      "keptId": "a1aaZ000009X5vKQAS",
+      "normalizedName": "dark sky"
+    },
+    {
+      "removed": "door_alarm",
+      "removedId": "a1aaZ000009iPK7QAM",
+      "keptVersion": "Door Alarm",
+      "keptId": "a1aaZ000009iPKBQA2",
+      "normalizedName": "door alarm"
+    },
+    {
+      "removed": "drain_assembly_included",
+      "removedId": "a1aaZ000009gMbnQAE",
+      "keptVersion": "Drain Assembly Included",
+      "keptId": "a1aaZ000008mBrYQAU",
+      "normalizedName": "drain assembly included"
+    },
+    {
+      "removed": "drain_placement",
+      "removedId": "a1aaZ000009gMbfQAE",
+      "keptVersion": "Drain Placement",
+      "keptId": "a1aaZ000008mBraQAE",
+      "normalizedName": "drain placement"
+    },
+    {
+      "removed": "dusk_to_dawn",
+      "removedId": "a1aaZ000009X5daQAC",
+      "keptVersion": "Dusk to Dawn",
+      "keptId": "a1aaZ000009X5vIQAS",
+      "normalizedName": "dusk to dawn"
+    },
+    {
+      "removed": "energy_efficient",
+      "removedId": "a1aaZ000009X55YQAS",
+      "keptVersion": "Energy Efficient",
+      "keptId": "a1aaZ000008mBruQAE",
+      "normalizedName": "energy efficient"
+    },
+    {
+      "removed": "energy_star",
+      "removedId": "a1aaZ000009g0PxQAI",
+      "keptVersion": "Energy Star",
+      "keptId": "a1aaZ000009X4xcQAC",
+      "normalizedName": "energy star"
+    },
+    {
+      "removed": "fan_blade_material",
+      "removedId": "a1aaZ000009X4cTQAS",
+      "keptVersion": "Fan Blade Material",
+      "keptId": "a1aaZ000008mBs7QAE",
+      "normalizedName": "fan blade material"
+    },
+    {
+      "removed": "fan_type",
+      "removedId": "a1aaZ000009X4cUQAS",
+      "keptVersion": "Fan Type",
+      "keptId": "a1aaZ000009X1zWQAS",
+      "normalizedName": "fan type"
+    },
+    {
+      "removed": "faucet_holes",
+      "removedId": "a1aaZ000009ew9qQAA",
+      "keptVersion": "Faucet Holes",
+      "keptId": "a1aaZ000008mBsDQAU",
+      "normalizedName": "faucet holes"
+    },
+    {
+      "removed": "field_cuttable",
+      "removedId": "a1aaZ000009X4uFQAS",
+      "keptVersion": "Field Cuttable",
+      "keptId": "a1aaZ000008mBsJQAU",
+      "normalizedName": "field cuttable"
+    },
+    {
+      "removed": "fixture_shape",
+      "removedId": "a1aaZ000009X4ZIQA0",
+      "keptVersion": "Fixture Shape",
+      "keptId": "a1aaZ000008mBsQQAU",
+      "normalizedName": "fixture shape"
+    },
+    {
+      "removed": "flow_rate",
+      "removedId": "a1aaZ000009X5U3QAK",
+      "keptVersion": "Flow Rate",
+      "keptId": "a1aaZ000008mBsRQAU",
+      "normalizedName": "flow rate"
+    },
+    {
+      "removed": "frame_color",
+      "removedId": "a1aaZ000009X5NJQA0",
+      "keptVersion": "Frame Color",
+      "keptId": "a1aaZ000008mBsYQAU",
+      "normalizedName": "frame color"
+    },
+    {
+      "removed": "frame_material",
+      "removedId": "a1aaZ000009X5UFQA0",
+      "keptVersion": "Frame Material",
+      "keptId": "a1aaZ000008mBsZQAU",
+      "normalizedName": "frame material"
+    },
+    {
+      "removed": "freezer_capacity",
+      "removedId": "a1aaZ000009g0PrQAI",
+      "keptVersion": "Freezer Capacity",
+      "keptId": "a1aaZ000008mBscQAE",
+      "normalizedName": "freezer capacity"
+    },
+    {
+      "removed": "handle_style",
+      "removedId": "a1aaZ000009fzttQAA",
+      "keptVersion": "Handle Style",
+      "keptId": "a1aaZ000008mBtBQAU",
+      "normalizedName": "handle style"
+    },
+    {
+      "removed": "hanging_options",
+      "removedId": "a1aaZ000009X5TmQAK",
+      "keptVersion": "Hanging Options",
+      "keptId": "a1aaZ000008mBtJQAU",
+      "normalizedName": "hanging options"
+    },
+    {
+      "removed": "hinge_type",
+      "removedId": "a1aaZ000009fztsQAA",
+      "keptVersion": "Hinge Type",
+      "keptId": null,
+      "normalizedName": "hinge type"
+    },
+    {
+      "removed": "housing_type",
+      "removedId": "a1aaZ000009X5FCQA0",
+      "keptVersion": "Housing Type",
+      "keptId": "a1aaZ000008mBtgQAE",
+      "normalizedName": "housing type"
+    },
+    {
+      "removed": "humidity_control",
+      "removedId": "a1aaZ000009iPK8QAM",
+      "keptVersion": "Humidity Control",
+      "keptId": "a1aaZ000008mBtiQAE",
+      "normalizedName": "humidity control"
+    },
+    {
+      "removed": "ic_rating",
+      "removedId": "a1aaZ000009X58nQAC",
+      "keptVersion": "IC Rating",
+      "keptId": "a1aaZ000008mBtkQAE",
+      "normalizedName": "ic rating"
+    },
+    {
+      "removed": "ice_maker",
+      "removedId": "a1aaZ000009g0PsQAI",
+      "keptVersion": "Ice Maker",
+      "keptId": "a1aaZ000008mBtmQAE",
+      "normalizedName": "ice maker"
+    },
+    {
+      "removed": "installation_type",
+      "removedId": "a1aaZ000009gMbdQAE",
+      "keptVersion": "Installation Type",
+      "keptId": "a1aaZ000009X5F8QAK",
+      "normalizedName": "installation type"
+    },
+    {
+      "removed": "light_direction",
+      "removedId": "a1aaZ000009X58gQAC",
+      "keptVersion": "Light Direction",
+      "keptId": "a1aaZ000008mBuYQAU",
+      "normalizedName": "light direction"
+    },
+    {
+      "removed": "light_kit",
+      "removedId": "a1aaZ000009X5yNQAS",
+      "keptVersion": "Light Kit",
+      "keptId": "a1aaZ000009X688QAC",
+      "normalizedName": "light kit"
+    },
+    {
+      "removed": "light_type",
+      "removedId": "a1aaZ000009X682QAC",
+      "keptVersion": "Light Type",
+      "keptId": null,
+      "normalizedName": "light type"
+    },
+    {
+      "removed": "location_rating",
+      "removedId": "a1aaZ000009X61ZQAS",
+      "keptVersion": "Location Rating",
+      "keptId": "a1aaZ000008mBucQAE",
+      "normalizedName": "location rating"
+    },
+    {
+      "removed": "made_in_america",
+      "removedId": "a1aaZ000009fztfQAA",
+      "keptVersion": "Made in America",
+      "keptId": "a1aaZ000009X1zeQAC",
+      "normalizedName": "made in america"
+    },
+    {
+      "removed": "manufacturer_warranty",
+      "removedId": "a1aaZ000009fztdQAA",
+      "keptVersion": "Manufacturer Warranty",
+      "keptId": "a1aaZ000008mBunQAE",
+      "normalizedName": "manufacturer warranty"
+    },
+    {
+      "removed": "max_wattage",
+      "removedId": "a1aaZ000009etDbQAI",
+      "keptVersion": "Max Wattage",
+      "keptId": "a1aaZ000009X67vQAC",
+      "normalizedName": "max wattage"
+    },
+    {
+      "removed": "mirror_type",
+      "removedId": "a1aaZ000009X42wQAC",
+      "keptVersion": "Mirror Type",
+      "keptId": "a1aaZ000008mBvEQAU",
+      "normalizedName": "mirror type"
+    },
+    {
+      "removed": "motion_sensor",
+      "removedId": "a1aaZ000009X5dZQAS",
+      "keptVersion": "Motion Sensor",
+      "keptId": "a1aaZ000009X5vHQAS",
+      "normalizedName": "motion sensor"
+    },
+    {
+      "removed": "motor_type",
+      "removedId": "a1aaZ000009X5yFQAS",
+      "keptVersion": "Motor Type",
+      "keptId": "a1aaZ000008mBvJQAU",
+      "normalizedName": "motor type"
+    },
+    {
+      "removed": "mounting_type",
+      "removedId": "a1aaZ000009fztpQAA",
+      "keptVersion": "Mounting Type",
+      "keptId": "a1aaZ000009X5ohQAC",
+      "normalizedName": "mounting type"
+    },
+    {
+      "removed": "noise_level",
+      "removedId": "a1aaZ000009X5ySQAS",
+      "keptVersion": "Noise Level",
+      "keptId": "a1aaZ000009X1zUQAS",
+      "normalizedName": "noise level"
+    },
+    {
+      "removed": "nominal_length",
+      "removedId": "a1aaZ000009gMbgQAE",
+      "keptVersion": "Nominal Length",
+      "keptId": "a1aaZ000008mBvSQAU",
+      "normalizedName": "nominal length"
+    },
+    {
+      "removed": "nominal_width",
+      "removedId": "a1aaZ000009gMbhQAE",
+      "keptVersion": "Nominal Width",
+      "keptId": "a1aaZ000008mBvUQAU",
+      "normalizedName": "nominal width"
+    },
+    {
+      "removed": "number_of_bathers",
+      "removedId": "a1aaZ000009gMbiQAE",
+      "keptVersion": "Number Of Bathers",
+      "keptId": "a1aaZ000008mBvXQAU",
+      "normalizedName": "number of bathers"
+    },
+    {
+      "removed": "number_of_blades",
+      "removedId": "a1aaZ000009X5yEQAS",
+      "keptVersion": "Number of Blades",
+      "keptId": "a1aaZ000008mBvYQAU",
+      "normalizedName": "number of blades"
+    },
+    {
+      "removed": "number_of_bulbs",
+      "removedId": "a1aaZ000009X61WQAS",
+      "keptVersion": "Number of Bulbs",
+      "keptId": "a1aaZ000009X4e1QAC",
+      "normalizedName": "number of bulbs"
+    },
+    {
+      "removed": "number_of_circuits",
+      "removedId": "a1aaZ000009X4u8QAC",
+      "keptVersion": "Number of Circuits",
+      "keptId": "a1aaZ000008mBvcQAE",
+      "normalizedName": "number of circuits"
+    },
+    {
+      "removed": "number_of_doors",
+      "removedId": "a1aaZ000009X4AwQAK",
+      "keptVersion": "Number Of Doors",
+      "keptId": "a1aaZ000008mBvdQAE",
+      "normalizedName": "number of doors"
+    },
+    {
+      "removed": "number_of_drawers",
+      "removedId": "a1aaZ000009fztaQAA",
+      "keptVersion": "Number Of Drawers",
+      "keptId": "a1aaZ000008mBvfQAE",
+      "normalizedName": "number of drawers"
+    },
+    {
+      "removed": "number_of_handles",
+      "removedId": "a1aaZ000009X5TyQAK",
+      "keptVersion": "Number Of Handles",
+      "keptId": "a1aaZ000008mBviQAE",
+      "normalizedName": "number of handles"
+    },
+    {
+      "removed": "number_of_light_sources",
+      "removedId": "a1aaZ000009X5BwQAK",
+      "keptVersion": "Number of Light Source(s)",
+      "keptId": "a1aaZ000008mBvnQAE",
+      "normalizedName": "number of light sources"
+    },
+    {
+      "removed": "number_of_lights",
+      "removedId": "a1aaZ000009etDZQAY",
+      "keptVersion": "Number Of Lights",
+      "keptId": "a1aaZ000008mBvoQAE",
+      "normalizedName": "number of lights"
+    },
+    {
+      "removed": "number_of_shelves",
+      "removedId": "a1aaZ000009X42zQAC",
+      "keptVersion": "Number Of Shelves",
+      "keptId": "a1aaZ000008mBvtQAE",
+      "normalizedName": "number of shelves"
+    },
+    {
+      "removed": "outdoor_approved",
+      "removedId": "a1aaZ000009fztcQAA",
+      "keptVersion": "Outdoor Approved",
+      "keptId": "a1aaZ000008mBw4QAE",
+      "normalizedName": "outdoor approved"
+    },
+    {
+      "removed": "overflow_height",
+      "removedId": "a1aaZ000009gMboQAE",
+      "keptVersion": "Overflow Height",
+      "keptId": "a1aaZ000008mBwEQAU",
+      "normalizedName": "overflow height"
+    },
+    {
+      "removed": "power_feed_type",
+      "removedId": "a1aaZ000009X4sWQAS",
+      "keptVersion": "Power Feed Type",
+      "keptId": "a1aaZ000008mBwSQAU",
+      "normalizedName": "power feed type"
+    },
+    {
+      "removed": "power_source",
+      "removedId": "a1aaZ000009X58kQAC",
+      "keptVersion": "Power Source",
+      "keptId": "a1aaZ000008mBwTQAU",
+      "normalizedName": "power source"
+    },
+    {
+      "removed": "product_weight",
+      "removedId": "a1aaZ000009gMbjQAE",
+      "keptVersion": "Product Weight",
+      "keptId": "a1aaZ000008mBwWQAU",
+      "normalizedName": "product weight"
+    },
+    {
+      "removed": "refrigerator_capacity",
+      "removedId": "a1aaZ000009g0Q7QAI",
+      "keptVersion": "Refrigerator Capacity",
+      "keptId": "a1aaZ000008mBwjQAE",
+      "normalizedName": "refrigerator capacity"
+    },
+    {
+      "removed": "reversible_motor",
+      "removedId": "a1aaZ000009X4cYQAS",
+      "keptVersion": "Reversible Motor",
+      "keptId": "a1aaZ000008mBwrQAE",
+      "normalizedName": "reversible motor"
+    },
+    {
+      "removed": "reversible_mounting",
+      "removedId": "a1aaZ000009X5ByQAK",
+      "keptVersion": "Reversible Mounting",
+      "keptId": "a1aaZ000008mBwsQAE",
+      "normalizedName": "reversible mounting"
+    },
+    {
+      "removed": "safety_rating",
+      "removedId": "a1aaZ000009X5vDQAS",
+      "keptVersion": "Safety Rating",
+      "keptId": "a1aaZ000009X67zQAC",
+      "normalizedName": "safety rating"
+    },
+    {
+      "removed": "shade_color",
+      "removedId": "a1aaZ000009X61UQAS",
+      "keptVersion": "Shade Color",
+      "keptId": "a1aaZ000009X684QAC",
+      "normalizedName": "shade color"
+    },
+    {
+      "removed": "shade_material",
+      "removedId": "a1aaZ000009etDgQAI",
+      "keptVersion": "Shade Material",
+      "keptId": "a1aaZ000009X683QAC",
+      "normalizedName": "shade material"
+    },
+    {
+      "removed": "sloped_ceiling_compatible",
+      "removedId": "a1aaZ000009X61dQAC",
+      "keptVersion": "Sloped Ceiling Compatible",
+      "keptId": "a1aaZ000009X4e6QAC",
+      "normalizedName": "sloped ceiling compatible"
+    },
+    {
+      "removed": "smart_home",
+      "removedId": "a1aaZ000009X5BzQAK",
+      "keptVersion": "Smart Home",
+      "keptId": "a1aaZ000008mBxyQAE",
+      "normalizedName": "smart home"
+    },
+    {
+      "removed": "solar_powered",
+      "removedId": "a1aaZ000009X5dbQAC",
+      "keptVersion": "Solar Powered",
+      "keptId": "a1aaZ000009X5vJQAS",
+      "normalizedName": "solar powered"
+    },
+    {
+      "removed": "sound_dampening",
+      "removedId": "a1aaZ000009ew9sQAA",
+      "keptVersion": "Sound Dampening",
+      "keptId": "a1aaZ000008mBy7QAE",
+      "normalizedName": "sound dampening"
+    },
+    {
+      "removed": "spout_height",
+      "removedId": "a1aaZ000009X5TzQAK",
+      "keptVersion": "Spout Height",
+      "keptId": "a1aaZ000008mBy9QAE",
+      "normalizedName": "spout height"
+    },
+    {
+      "removed": "spout_reach",
+      "removedId": "a1aaZ000009X5U0QAK",
+      "keptVersion": "Spout Reach",
+      "keptId": "a1aaZ000008mByAQAU",
+      "normalizedName": "spout reach"
+    },
+    {
+      "removed": "system_type",
+      "removedId": "a1aaZ000009X58jQAC",
+      "keptVersion": "System Type",
+      "keptId": "a1aaZ000008mByUQAU",
+      "normalizedName": "system type"
+    },
+    {
+      "removed": "title_20_compliant",
+      "removedId": "a1aaZ000009X5X0QAK",
+      "keptVersion": "Title 20 Compliant",
+      "keptId": "a1aaZ000008mBydQAE",
+      "normalizedName": "title 20 compliant"
+    },
+    {
+      "removed": "title_24",
+      "removedId": "a1aaZ000009X55pQAC",
+      "keptVersion": "Title 24",
+      "keptId": "a1aaZ000008mByeQAE",
+      "normalizedName": "title 24"
+    },
+    {
+      "removed": "total_capacity",
+      "removedId": "a1aaZ000009g0PqQAI",
+      "keptVersion": "Total Capacity",
+      "keptId": "a1aaZ000008mByiQAE",
+      "normalizedName": "total capacity"
+    },
+    {
+      "removed": "track_accessory_type",
+      "removedId": "a1aaZ000009X4u9QAC",
+      "keptVersion": "Track Accessory Type",
+      "keptId": "a1aaZ000008mBynQAE",
+      "normalizedName": "track accessory type"
+    },
+    {
+      "removed": "trim_size",
+      "removedId": "a1aaZ000009X58bQAC",
+      "keptVersion": "Trim Size",
+      "keptId": "a1aaZ000008mByrQAE",
+      "normalizedName": "trim size"
+    },
+    {
+      "removed": "trim_style",
+      "removedId": "a1aaZ000009X5F9QAK",
+      "keptVersion": "Trim Style",
+      "keptId": "a1aaZ000008mBysQAE",
+      "normalizedName": "trim style"
+    },
+    {
+      "removed": "tub_shape",
+      "removedId": "a1aaZ000009gMbkQAE",
+      "keptVersion": "Tub Shape",
+      "keptId": "a1aaZ000008mByvQAE",
+      "normalizedName": "tub shape"
+    },
+    {
+      "removed": "valve_type",
+      "removedId": "a1aaZ000009X5U8QAK",
+      "keptVersion": "Valve Type",
+      "keptId": "a1aaZ000008mBzDQAU",
+      "normalizedName": "valve type"
+    },
+    {
+      "removed": "voltage_type",
+      "removedId": "a1aaZ000009X4sYQAS",
+      "keptVersion": "Voltage Type",
+      "keptId": "a1aaZ000008mBzRQAU",
+      "normalizedName": "voltage type"
+    },
+    {
+      "removed": "water_depth",
+      "removedId": "a1aaZ000009gMbpQAE",
+      "keptVersion": "Water Depth",
+      "keptId": "a1aaZ000008mBzcQAE",
+      "normalizedName": "water depth"
+    },
+    {
+      "removed": "water_dispenser",
+      "removedId": "a1aaZ000009iPK6QAM",
+      "keptVersion": "Water Dispenser",
+      "keptId": "a1aaZ000009iPKAQA2",
+      "normalizedName": "water dispenser"
+    },
+    {
+      "removed": "watts_per_bulb",
+      "removedId": "a1aaZ000009X55bQAC",
+      "keptVersion": "Watts Per Bulb",
+      "keptId": "a1aaZ000008mBzlQAE",
+      "normalizedName": "watts per bulb"
+    },
+    {
+      "removed": "weather_rating",
+      "removedId": "a1aaZ000009X5dYQAS",
+      "keptVersion": "Weather Rating",
+      "keptId": "a1aaZ000009X5vGQAS",
+      "normalizedName": "weather rating"
+    }
+  ],
+  "strategy": "Prefer Title Case format over underscore format"
+}

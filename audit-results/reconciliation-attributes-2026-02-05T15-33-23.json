@@ -1,0 +1,492 @@
+{
+  "timestamp": "2026-02-05T15:33:23.986Z",
+  "picklistType": "attributes",
+  "originalCount": 1171,
+  "sfCleanCount": 1053,
+  "reconciledCount": 1167,
+  "duplicatesRemoved": [
+    {
+      "name": "Base Style",
+      "ourId": "a1aaZ000009ya8HQAQ",
+      "sfId": "a1aaZ000008lz4NQAQ"
+    },
+    {
+      "name": "CEER Rating",
+      "ourId": "a1aaZ000009ya6fQAA",
+      "sfId": "a1aaZ000008mBoHQAU"
+    },
+    {
+      "name": "Handing",
+      "ourId": "a1aaZ000009ya9tQAA",
+      "sfId": "a1aaZ000008mBt5QAE"
+    },
+    {
+      "name": "Lead Leaching Certified NSF/ANSI 61",
+      "ourId": "a1aaZ000009yV6zQAE",
+      "sfId": "a1aaZ000008mBuRQAU"
+    }
+  ],
+  "newItemsFromOurList": [
+    {
+      "name": "AC Type",
+      "id": null
+    },
+    {
+      "name": "Accent Type",
+      "id": null
+    },
+    {
+      "name": "Attic Fan Type",
+      "id": null
+    },
+    {
+      "name": "Backplate Shape",
+      "id": null
+    },
+    {
+      "name": "Backsplash Type",
+      "id": null
+    },
+    {
+      "name": "Bar Faucet Type",
+      "id": null
+    },
+    {
+      "name": "Bath Fan Type",
+      "id": null
+    },
+    {
+      "name": "Bathroom Light Type",
+      "id": null
+    },
+    {
+      "name": "Bathtub Type",
+      "id": null
+    },
+    {
+      "name": "Bidet Faucet Type",
+      "id": null
+    },
+    {
+      "name": "Bidet Seat Type",
+      "id": null
+    },
+    {
+      "name": "Bidet Type",
+      "id": null
+    },
+    {
+      "name": "Cabinet Type",
+      "id": null
+    },
+    {
+      "name": "Carpet Tile Type",
+      "id": null
+    },
+    {
+      "name": "Catch Type",
+      "id": null
+    },
+    {
+      "name": "Ceiling Fan Type",
+      "id": null
+    },
+    {
+      "name": "Ceiling Light Type",
+      "id": null
+    },
+    {
+      "name": "Chair Type",
+      "id": null
+    },
+    {
+      "name": "Circulator Type",
+      "id": null
+    },
+    {
+      "name": "Coffee Maker Type",
+      "id": null
+    },
+    {
+      "name": "Combo Type",
+      "id": null
+    },
+    {
+      "name": "Commercial HVAC Type",
+      "id": null
+    },
+    {
+      "name": "Cooktop Type",
+      "id": null
+    },
+    {
+      "name": "Cooler Type",
+      "id": null
+    },
+    {
+      "name": "Deadbolt Type",
+      "id": null
+    },
+    {
+      "name": "Decor Type",
+      "id": null
+    },
+    {
+      "name": "Dehumidifier Type",
+      "id": null
+    },
+    {
+      "name": "Disposal Type",
+      "id": null
+    },
+    {
+      "name": "Drainage Type",
+      "id": null
+    },
+    {
+      "name": "Dryer Type",
+      "id": null
+    },
+    {
+      "name": "Duct Type",
+      "id": null
+    },
+    {
+      "name": "Electronics Type",
+      "id": null
+    },
+    {
+      "name": "Entry Set Type",
+      "id": null
+    },
+    {
+      "name": "Exhaust Fan Type",
+      "id": null
+    },
+    {
+      "name": "Fandelier Type",
+      "id": null
+    },
+    {
+      "name": "Finishing Type",
+      "id": null
+    },
+    {
+      "name": "Fire Pit Type",
+      "id": null
+    },
+    {
+      "name": "Fireplace Type",
+      "id": null
+    },
+    {
+      "name": "Fitting Type",
+      "id": null
+    },
+    {
+      "name": "Fountain Type",
+      "id": null
+    },
+    {
+      "name": "Freezer Type",
+      "id": null
+    },
+    {
+      "name": "Furniture Type",
+      "id": null
+    },
+    {
+      "name": "Generator Type",
+      "id": null
+    },
+    {
+      "name": "Grill Type",
+      "id": null
+    },
+    {
+      "name": "Handleset Type",
+      "id": null
+    },
+    {
+      "name": "Hardscape Type",
+      "id": null
+    },
+    {
+      "name": "Hardware Type",
+      "id": null
+    },
+    {
+      "name": "Hardwood Type",
+      "id": null
+    },
+    {
+      "name": "Heater Type",
+      "id": null
+    },
+    {
+      "name": "Heating Type",
+      "id": null
+    },
+    {
+      "name": "Hinge Type",
+      "id": null
+    },
+    {
+      "name": "Icemaker Type",
+      "id": null
+    },
+    {
+      "name": "Island Light Type",
+      "id": null
+    },
+    {
+      "name": "Keyless Type",
+      "id": null
+    },
+    {
+      "name": "Kitchen Light Type",
+      "id": null
+    },
+    {
+      "name": "Knob Type",
+      "id": null
+    },
+    {
+      "name": "Laminate Type",
+      "id": null
+    },
+    {
+      "name": "Lamp Type",
+      "id": null
+    },
+    {
+      "name": "Landscape Light Type",
+      "id": null
+    },
+    {
+      "name": "LED Light Type",
+      "id": null
+    },
+    {
+      "name": "Light Type",
+      "id": null
+    },
+    {
+      "name": "Lock Type",
+      "id": null
+    },
+    {
+      "name": "LVF Type",
+      "id": null
+    },
+    {
+      "name": "Mailbox Type",
+      "id": null
+    },
+    {
+      "name": "Microwave Type",
+      "id": null
+    },
+    {
+      "name": "Mini Split Type",
+      "id": null
+    },
+    {
+      "name": "Mortise Type",
+      "id": null
+    },
+    {
+      "name": "Organization Type",
+      "id": null
+    },
+    {
+      "name": "Organizer Type",
+      "id": null
+    },
+    {
+      "name": "Outdoor Furniture Type",
+      "id": null
+    },
+    {
+      "name": "Outdoor Kitchen Type",
+      "id": null
+    },
+    {
+      "name": "Outdoor Light Type",
+      "id": null
+    },
+    {
+      "name": "Outdoor Rug Style",
+      "id": null
+    },
+    {
+      "name": "Outdoor Shower Type",
+      "id": null
+    },
+    {
+      "name": "Oven Type",
+      "id": null
+    },
+    {
+      "name": "Part Type",
+      "id": null
+    },
+    {
+      "name": "Patio Heater Type",
+      "id": null
+    },
+    {
+      "name": "Pedestal Type",
+      "id": null
+    },
+    {
+      "name": "Pipe Type",
+      "id": null
+    },
+    {
+      "name": "Pizza Oven Type",
+      "id": null
+    },
+    {
+      "name": "Post Light Type",
+      "id": null
+    },
+    {
+      "name": "Pot Filler Type",
+      "id": null
+    },
+    {
+      "name": "Product Type",
+      "id": null
+    },
+    {
+      "name": "Pull Type",
+      "id": null
+    },
+    {
+      "name": "Range Hood Type",
+      "id": null
+    },
+    {
+      "name": "Range Type",
+      "id": null
+    },
+    {
+      "name": "Recessed Light Type",
+      "id": null
+    },
+    {
+      "name": "Refrigerator Type",
+      "id": null
+    },
+    {
+      "name": "Rug Style",
+      "id": null
+    },
+    {
+      "name": "Seat Type",
+      "id": null
+    },
+    {
+      "name": "Shower Faucet Type",
+      "id": null
+    },
+    {
+      "name": "Shower Type",
+      "id": null
+    },
+    {
+      "name": "Sink Type",
+      "id": null
+    },
+    {
+      "name": "Skylight Type",
+      "id": null
+    },
+    {
+      "name": "Slide Type",
+      "id": null
+    },
+    {
+      "name": "Steam Shower Type",
+      "id": null
+    },
+    {
+      "name": "Step Light Type",
+      "id": null
+    },
+    {
+      "name": "Storage Type",
+      "id": null
+    },
+    {
+      "name": "Strainer Type",
+      "id": null
+    },
+    {
+      "name": "Tank Type",
+      "id": null
+    },
+    {
+      "name": "Tankless Type",
+      "id": null
+    },
+    {
+      "name": "Thermostat Type",
+      "id": null
+    },
+    {
+      "name": "Tile Type",
+      "id": null
+    },
+    {
+      "name": "Toilet Type",
+      "id": null
+    },
+    {
+      "name": "Track Light Type",
+      "id": null
+    },
+    {
+      "name": "Tub Faucet Type",
+      "id": null
+    },
+    {
+      "name": "Under Cabinet Light Type",
+      "id": null
+    },
+    {
+      "name": "Urinal Type",
+      "id": null
+    },
+    {
+      "name": "Vanity Light Type",
+      "id": null
+    },
+    {
+      "name": "Vanity Type",
+      "id": null
+    },
+    {
+      "name": "Wall Decor Type",
+      "id": null
+    },
+    {
+      "name": "Washer Type",
+      "id": null
+    },
+    {
+      "name": "Water Heater Type",
+      "id": null
+    },
+    {
+      "name": "Waterproof Type",
+      "id": null
+    }
+  ],
+  "summary": {
+    "itemsFromSF": 1053,
+    "newItemsAdded": 114,
+    "duplicatesRemoved": 4
+  }
+}

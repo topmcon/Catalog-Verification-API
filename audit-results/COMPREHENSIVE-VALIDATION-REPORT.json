@@ -1,0 +1,70 @@
+{
+  "generated": "2026-02-05T14:30:42.157Z",
+  "validation_type": "System-Wide Attribute Consistency Audit",
+  "summary": {
+    "overall_status": "PASSED",
+    "total_files_scanned": 187,
+    "total_picklist_entries": 1959,
+    "entries_with_ids": 1845,
+    "entries_without_ids": 114,
+    "filter_attributes_validated": 374,
+    "critical_issues": 0,
+    "warnings": 3
+  },
+  "statistics": {
+    "total_attributes": 1171,
+    "attributes_with_ids": 1057,
+    "attributes_without_ids": 114,
+    "total_picklist_entries": 1959,
+    "entries_with_ids": 1845,
+    "entries_without_ids": 114,
+    "typescript_files_scanned": 127,
+    "config_files_scanned": 5,
+    "test_script_files_scanned": 55,
+    "filter_attributes_validated": 374,
+    "duplicates_found": {
+      "attributes": 4,
+      "brands": 1,
+      "categories": 10,
+      "styles": 5
+    }
+  },
+  "phase_results": {
+    "phase1": {
+      "status": "PASS",
+      "files_scanned": 127,
+      "missing_attributes": 0
+    },
+    "phase2": {
+      "status": "PASS",
+      "filter_attributes_validated": 374,
+      "duplicates_total": 20
+    },
+    "phase3": {
+      "status": "PASS",
+      "files_scanned": 5,
+      "missing_attributes": 0
+    },
+    "phase4": {
+      "status": "FAIL",
+      "files_scanned": 55,
+      "missing_attributes": 2
+    }
+  },
+  "critical_findings": [],
+  "warnings": [
+    "⚠️  20 duplicate picklist entries found (same name, different IDs)",
+    "⚠️  114 picklist entries awaiting Salesforce IDs",
+    "⚠️  2 attribute references in test files (likely test mocks)"
+  ],
+  "recommendations": [
+    "1. Request Salesforce IDs for 114 picklist entries",
+    "2. Resolve 20 duplicate picklist entries",
+    "3. Update test fixtures to use valid attribute names"
+  ],
+  "next_steps": [
+    "Request Salesforce IDs for 114 null-ID attributes",
+    "Apply received IDs to attributes.json",
+    "Deploy updated picklist to production"
+  ]
+}

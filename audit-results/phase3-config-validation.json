@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-02-05T14:28:13.398Z",
+  "phase": 3,
+  "description": "Configuration and validation files scan",
+  "files": {
+    "targeted": 10,
+    "found": 5,
+    "missing": 5,
+    "missing_list": [
+      "src/schemas/product.schema.ts",
+      "src/schemas/verification-job.schema.ts",
+      "src/utils/attribute-normalizer.ts",
+      "src/utils/field-mapper.ts",
+      "src/services/verification.service.ts"
+    ],
+    "scanned": [
+      "src/config/category-config.ts",
+      "src/config/verified-fields.ts",
+      "src/middleware/validation.middleware.ts",
+      "src/services/enrichment.service.ts",
+      "src/services/analytics.service.ts"
+    ]
+  },
+  "references": {
+    "total_matches": 0,
+    "files_with_references": 0,
+    "unique_potential_attributes": 0,
+    "confirmed_attributes": 0,
+    "missing_attributes": 0,
+    "missing_list": []
+  },
+  "top15": {
+    "mentions": 4,
+    "files": [
+      {
+        "file": "src/config/category-config.ts",
+        "line": 96
+      },
+      {
+        "file": "src/config/category-config.ts",
+        "line": 125
+      },
+      {
+        "file": "src/config/category-config.ts",
+        "line": 469
+      },
+      {
+        "file": "src/config/category-config.ts",
+        "line": 311
+      }
+    ]
+  },
+  "file_details": [],
+  "validation_status": "PASS",
+  "warnings": [
+    "5 expected files not found"
+  ],
+  "issues": [],
+  "successes": [
+    "All attribute references validated against picklist"
+  ]
+}

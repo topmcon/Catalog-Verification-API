@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-02-05T15:56:46.265Z",
+  "summary": {
+    "totalAttributes": 1060,
+    "ourListCount": 1060,
+    "sfListCount": 0,
+    "exactDuplicateGroups": 0,
+    "fuzzyDuplicateGroups": 0,
+    "strictDuplicateGroups": 0,
+    "totalDuplicateItems": 0
+  },
+  "exactDuplicates": [],
+  "fuzzyDuplicates": [],
+  "strictDuplicates": []
+}

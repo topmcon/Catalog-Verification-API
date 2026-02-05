@@ -24,8 +24,16 @@
     "attribute_name": "Accepts Deck Mount Faucet"
   },
   {
+    "attribute_id": "a1aaZ000009gMbqQAE",
+    "attribute_name": "accepts_deck_mount_faucet"
+  },
+  {
     "attribute_id": "a1aaZ000008lz3VQAQ",
     "attribute_name": "Accessory Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4scQAC",
+    "attribute_name": "accessory_type"
   },
   {
     "attribute_id": "a1aaZ000009k3CGQAY",
@@ -54,6 +62,10 @@
   {
     "attribute_id": "a1aaZ000008lz3aQAA",
     "attribute_name": "Adjustable Thermostat"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4w6QAC",
+    "attribute_name": "adjustable_color_temperature"
   },
   {
     "attribute_id": "a1aaZ000009etDYQAY",
@@ -124,6 +136,10 @@
     "attribute_name": "Aperture Size"
   },
   {
+    "attribute_id": "a1aaZ000009X4w3QAC",
+    "attribute_name": "aperture_size"
+  },
+  {
     "attribute_id": "a1aaZ000008lz3oQAA",
     "attribute_name": "App Compatibility"
   },
@@ -168,6 +184,10 @@
     "attribute_name": "Assembly Required"
   },
   {
+    "attribute_id": "a1aaZ000009fztbQAA",
+    "attribute_name": "assembly_required"
+  },
+  {
     "attribute_id": "a1aaZ000009q3W6QAI",
     "attribute_name": "ASTM"
   },
@@ -210,6 +230,10 @@
   {
     "attribute_id": "a1aaZ000008lz44QAA",
     "attribute_name": "Average Hours"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5C2QAK",
+    "attribute_name": "average_hours"
   },
   {
     "attribute_id": "a1aaZ000008lz45QAA",
@@ -262,6 +286,14 @@
   {
     "attribute_id": "a1aaZ000009X4SpQAK",
     "attribute_name": "backplate_dimensions"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4xVQAS",
+    "attribute_name": "backplate_height"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4xWQAS",
+    "attribute_name": "backplate_width"
   },
   {
     "attribute_id": "a1aaZ000008lz4GQAQ",
@@ -408,6 +440,10 @@
     "attribute_name": "beam_angle"
   },
   {
+    "attribute_id": "a1aaZ000009X55NQAS",
+    "attribute_name": "beam_spread"
+  },
+  {
     "attribute_id": "a1aaZ000008lz4jQAA",
     "attribute_name": "Beer Line Included"
   },
@@ -452,12 +488,20 @@
     "attribute_name": "blade_material"
   },
   {
+    "attribute_id": "a1aaZ000009X5yDQAS",
+    "attribute_name": "blade_span"
+  },
+  {
     "attribute_id": "a1aaZ000008lz4qQAA",
     "attribute_name": "Blades Included"
   },
   {
     "attribute_id": "a1aaZ000008lz4rQAA",
     "attribute_name": "Blades Sold Separately"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4cPQAS",
+    "attribute_name": "blades_included"
   },
   {
     "attribute_id": "a1aaZ000008lz4sQAA",
@@ -478,6 +522,10 @@
   {
     "attribute_id": "a1aaZ000009px2VQAQ",
     "attribute_name": "Bore Hole"
+  },
+  {
+    "attribute_id": "a1aaZ000009prhqQAA",
+    "attribute_name": "bore_hole"
   },
   {
     "attribute_id": "a1aaZ000008lz4wQAA",
@@ -576,6 +624,18 @@
     "attribute_name": "Bulb Visible"
   },
   {
+    "attribute_id": "a1aaZ000009X61VQAS",
+    "attribute_name": "bulb_base"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5TlQAK",
+    "attribute_name": "bulb_included"
+  },
+  {
+    "attribute_id": "a1aaZ000009etDaQAI",
+    "attribute_name": "bulb_type"
+  },
+  {
     "attribute_id": "a1aaZ000008mBo0QAE",
     "attribute_name": "Bulk Pack"
   },
@@ -644,6 +704,10 @@
     "attribute_name": "canopy_size"
   },
   {
+    "attribute_id": "a1aaZ000009X4RAQA0",
+    "attribute_name": "canopy_width"
+  },
+  {
     "attribute_id": "a1aaZ000008mBoDQAU",
     "attribute_name": "Capacity (Gallons)"
   },
@@ -654,6 +718,10 @@
   {
     "attribute_id": "a1aaZ000008mBoFQAU",
     "attribute_name": "Capacity (Quantity)"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMblQAE",
+    "attribute_name": "capacity__gallons_"
   },
   {
     "attribute_id": "a1aaZ000009ldvHQAQ",
@@ -728,8 +796,20 @@
     "attribute_name": "CFM (Low)"
   },
   {
+    "attribute_id": "a1aaZ000009X4cMQAS",
+    "attribute_name": "cfm_high"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4cNQAS",
+    "attribute_name": "cfm_low"
+  },
+  {
     "attribute_id": "a1aaZ000008mBoQQAU",
     "attribute_name": "Chain Length"
+  },
+  {
+    "attribute_id": "a1aaZ000009X61nQAC",
+    "attribute_name": "Chain_Length"
   },
   {
     "attribute_name": "Chair Type",
@@ -796,6 +876,14 @@
     "attribute_name": "color_finish"
   },
   {
+    "attribute_id": "a1aaZ000009X5aYQAS",
+    "attribute_name": "color_rendering_index_cri"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5vAQAS",
+    "attribute_name": "color_temperature"
+  },
+  {
     "attribute_id": "a1aaZ000008mBocQAE",
     "attribute_name": "Combination Oven"
   },
@@ -858,6 +946,10 @@
   {
     "attribute_id": "a1aaZ000008mBonQAE",
     "attribute_name": "Control Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4cRQAS",
+    "attribute_name": "control_type"
   },
   {
     "attribute_id": "a1aaZ000008mBooQAE",
@@ -928,6 +1020,10 @@
     "attribute_name": "Counter Depth"
   },
   {
+    "attribute_id": "a1aaZ000009g0PuQAI",
+    "attribute_name": "counter_depth"
+  },
+  {
     "attribute_id": "a1aaZ000008mBozQAE",
     "attribute_name": "Countertop Height"
   },
@@ -938,6 +1034,10 @@
   {
     "attribute_id": "a1aaZ000009X1zdQAC",
     "attribute_name": "Country Of Origin"
+  },
+  {
+    "attribute_id": "a1aaZ000009fzteQAA",
+    "attribute_name": "country_of_origin"
   },
   {
     "attribute_id": "a1aaZ000009X5jqQAC",
@@ -954,6 +1054,10 @@
   {
     "attribute_id": "a1aaZ000008mBp3QAE",
     "attribute_name": "Crystal Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X61mQAC",
+    "attribute_name": "Crystal_Type"
   },
   {
     "attribute_id": "a1aaZ000008mBp4QAE",
@@ -988,6 +1092,10 @@
     "attribute_name": "Cutout Width"
   },
   {
+    "attribute_id": "a1aaZ000009X4w4QAC",
+    "attribute_name": "cutout_size"
+  },
+  {
     "attribute_id": "a1aaZ000008mBpCQAU",
     "attribute_name": "Cutting Board Included"
   },
@@ -1014,6 +1122,10 @@
   {
     "attribute_id": "a1aaZ000009X5vKQAS",
     "attribute_name": "Dark Sky"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5dcQAC",
+    "attribute_name": "dark_sky"
   },
   {
     "attribute_id": "a1aaZ000008mBpIQAU",
@@ -1224,8 +1336,16 @@
     "attribute_name": "Door Type"
   },
   {
+    "attribute_id": "a1aaZ000009iPK7QAM",
+    "attribute_name": "door_alarm"
+  },
+  {
     "attribute_id": "a1aaZ000009g0Q6QAI",
     "attribute_name": "door_style"
+  },
+  {
+    "attribute_id": "a1aaZ000008mBrUQAU",
+    "attribute_name": "Down Draft Ventilated"
   },
   {
     "attribute_id": "a1aaZ000008mBrVQAU",
@@ -1262,6 +1382,14 @@
   {
     "attribute_id": "a1aaZ000008mBrcQAE",
     "attribute_name": "Drain Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbnQAE",
+    "attribute_name": "drain_assembly_included"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbfQAE",
+    "attribute_name": "drain_placement"
   },
   {
     "attribute_id": "a1aaZ000009ew9rQAA",
@@ -1332,6 +1460,10 @@
     "attribute_name": "Dusk to Dawn"
   },
   {
+    "attribute_id": "a1aaZ000009X5daQAC",
+    "attribute_name": "dusk_to_dawn"
+  },
+  {
     "attribute_id": "a1aaZ000009leBLQAY",
     "attribute_name": "Easy Install"
   },
@@ -1392,12 +1524,20 @@
     "attribute_name": "Energy Star"
   },
   {
+    "attribute_id": "a1aaZ000009X55YQAS",
+    "attribute_name": "energy_efficient"
+  },
+  {
     "attribute_id": "a1aaZ000009k3CKQAY",
     "attribute_name": "energy_gallons_year"
   },
   {
     "attribute_id": "a1aaZ000009k3CEQAY",
     "attribute_name": "energy_guide_label"
+  },
+  {
+    "attribute_id": "a1aaZ000009g0PxQAI",
+    "attribute_name": "energy_star"
   },
   {
     "attribute_name": "Entry Set Type",
@@ -1468,6 +1608,14 @@
     "attribute_name": "Fan Type"
   },
   {
+    "attribute_id": "a1aaZ000009X4cTQAS",
+    "attribute_name": "fan_blade_material"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4cUQAS",
+    "attribute_name": "fan_type"
+  },
+  {
     "attribute_name": "Fandelier Type",
     "attribute_id": null
   },
@@ -1504,6 +1652,10 @@
     "attribute_name": "Faucet Width"
   },
   {
+    "attribute_id": "a1aaZ000009ew9qQAA",
+    "attribute_name": "faucet_holes"
+  },
+  {
     "attribute_id": "a1aaZ000009gMbvQAE",
     "attribute_name": "features_list"
   },
@@ -1514,6 +1666,10 @@
   {
     "attribute_id": "a1aaZ000008mBsJQAU",
     "attribute_name": "Field Cuttable"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4uFQAS",
+    "attribute_name": "field_cuttable"
   },
   {
     "attribute_id": "a1aaZ000008mBsKQAU",
@@ -1564,6 +1720,10 @@
     "attribute_name": "Fixture Shape"
   },
   {
+    "attribute_id": "a1aaZ000009X4ZIQA0",
+    "attribute_name": "fixture_shape"
+  },
+  {
     "attribute_id": "a1aaZ000009leHqQAI",
     "attribute_name": "flash_point"
   },
@@ -1582,6 +1742,10 @@
   {
     "attribute_id": "a1aaZ000008mBsTQAU",
     "attribute_name": "Flow Rate/GPM (at Max PSI)"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5U3QAK",
+    "attribute_name": "flow_rate"
   },
   {
     "attribute_id": "a1aaZ000008mBsUQAU",
@@ -1624,8 +1788,16 @@
     "attribute_name": "Frame Type"
   },
   {
+    "attribute_id": "a1aaZ000009X5NJQA0",
+    "attribute_name": "frame_color"
+  },
+  {
     "attribute_id": "a1aaZ000009X5UGQA0",
     "attribute_name": "frame_finish"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5UFQA0",
+    "attribute_name": "frame_material"
   },
   {
     "attribute_id": "a1aaZ000008mBsbQAE",
@@ -1638,6 +1810,10 @@
   {
     "attribute_name": "Freezer Type",
     "attribute_id": null
+  },
+  {
+    "attribute_id": "a1aaZ000009g0PrQAI",
+    "attribute_name": "freezer_capacity"
   },
   {
     "attribute_id": "a1aaZ000009leHpQAI",
@@ -1808,6 +1984,10 @@
     "attribute_name": "Handle Width"
   },
   {
+    "attribute_id": "a1aaZ000009fzttQAA",
+    "attribute_name": "handle_style"
+  },
+  {
     "attribute_id": "a1aaZ000008mBtDQAU",
     "attribute_name": "Handles Included"
   },
@@ -1838,6 +2018,10 @@
   {
     "attribute_id": "a1aaZ000008mBtJQAU",
     "attribute_name": "Hanging Options"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5TmQAK",
+    "attribute_name": "hanging_options"
   },
   {
     "attribute_id": "a1aaZ000008mBtKQAU",
@@ -1944,6 +2128,10 @@
     "attribute_id": null
   },
   {
+    "attribute_id": "a1aaZ000009fztsQAA",
+    "attribute_name": "hinge_type"
+  },
+  {
     "attribute_id": "a1aaZ000008mBtYQAU",
     "attribute_name": "Hole Size"
   },
@@ -1992,12 +2180,20 @@
     "attribute_name": "Housing Width"
   },
   {
+    "attribute_id": "a1aaZ000009X5FCQA0",
+    "attribute_name": "housing_type"
+  },
+  {
     "attribute_id": "a1aaZ000008mBtiQAE",
     "attribute_name": "Humidity Control"
   },
   {
     "attribute_id": "a1aaZ000008mBtjQAE",
     "attribute_name": "Humidity Sensing"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK8QAM",
+    "attribute_name": "humidity_control"
   },
   {
     "attribute_id": "a1aaZ000009kw5SQAQ",
@@ -2012,12 +2208,20 @@
     "attribute_name": "ic_rated"
   },
   {
+    "attribute_id": "a1aaZ000009X58nQAC",
+    "attribute_name": "ic_rating"
+  },
+  {
     "attribute_id": "a1aaZ000008mBtlQAE",
     "attribute_name": "Ice Bin Included"
   },
   {
     "attribute_id": "a1aaZ000008mBtmQAE",
     "attribute_name": "Ice Maker"
+  },
+  {
+    "attribute_id": "a1aaZ000009g0PsQAI",
+    "attribute_name": "ice_maker"
   },
   {
     "attribute_name": "Icemaker Type",
@@ -2114,6 +2318,10 @@
   {
     "attribute_id": "a1aaZ000009X5F8QAK",
     "attribute_name": "Installation Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbdQAE",
+    "attribute_name": "installation_type"
   },
   {
     "attribute_id": "a1aaZ000008mBu8QAE",
@@ -2304,12 +2512,28 @@
     "attribute_id": null
   },
   {
+    "attribute_id": "a1aaZ000009X58gQAC",
+    "attribute_name": "light_direction"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5yNQAS",
+    "attribute_name": "light_kit"
+  },
+  {
+    "attribute_id": "a1aaZ000009X682QAC",
+    "attribute_name": "light_type"
+  },
+  {
     "attribute_id": "a1aaZ000009X5UHQA0",
     "attribute_name": "lighted"
   },
   {
     "attribute_id": "a1aaZ000008mBucQAE",
     "attribute_name": "Location Rating"
+  },
+  {
+    "attribute_id": "a1aaZ000009X61ZQAS",
+    "attribute_name": "location_rating"
   },
   {
     "attribute_name": "Lock Type",
@@ -2356,6 +2580,10 @@
     "attribute_name": "Made of Solid Wood"
   },
   {
+    "attribute_id": "a1aaZ000009fztfQAA",
+    "attribute_name": "made_in_america"
+  },
+  {
     "attribute_id": "a1aaZ000008mBumQAE",
     "attribute_name": "Magnetic Docking"
   },
@@ -2370,6 +2598,10 @@
   {
     "attribute_id": "a1aaZ000008mBunQAE",
     "attribute_name": "Manufacturer Warranty"
+  },
+  {
+    "attribute_id": "a1aaZ000009fztdQAA",
+    "attribute_name": "manufacturer_warranty"
   },
   {
     "attribute_id": "a1aaZ000008mBuoQAE",
@@ -2410,6 +2642,10 @@
   {
     "attribute_id": "a1aaZ000009X67vQAC",
     "attribute_name": "Max Wattage"
+  },
+  {
+    "attribute_id": "a1aaZ000009etDbQAI",
+    "attribute_name": "max_wattage"
   },
   {
     "attribute_id": "a1aaZ000009X4mAQAS",
@@ -2516,6 +2752,10 @@
     "attribute_name": "mirror_hanging_orientation"
   },
   {
+    "attribute_id": "a1aaZ000009X42wQAC",
+    "attribute_name": "mirror_type"
+  },
+  {
     "attribute_id": "a1aaZ000009gYCzQAM",
     "attribute_name": "model_number_alias"
   },
@@ -2536,6 +2776,10 @@
     "attribute_name": "Motion Sensor"
   },
   {
+    "attribute_id": "a1aaZ000009X5dZQAS",
+    "attribute_name": "motion_sensor"
+  },
+  {
     "attribute_id": "a1aaZ000009X4cWQAS",
     "attribute_name": "motor"
   },
@@ -2546,6 +2790,10 @@
   {
     "attribute_id": "a1aaZ000008mBvJQAU",
     "attribute_name": "Motor Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5yFQAS",
+    "attribute_name": "motor_type"
   },
   {
     "attribute_id": "a1aaZ000008mBvKQAU",
@@ -2568,6 +2816,10 @@
     "attribute_name": "mounting_holes"
   },
   {
+    "attribute_id": "a1aaZ000009fztpQAA",
+    "attribute_name": "mounting_type"
+  },
+  {
     "attribute_id": "a1aaZ000008mBvMQAU",
     "attribute_name": "Night Light"
   },
@@ -2578,6 +2830,10 @@
   {
     "attribute_id": "a1aaZ000009X1zUQAS",
     "attribute_name": "Noise Level"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5ySQAS",
+    "attribute_name": "noise_level"
   },
   {
     "attribute_id": "a1aaZ000008mBvPQAU",
@@ -2602,6 +2858,14 @@
   {
     "attribute_id": "a1aaZ000008mBvUQAU",
     "attribute_name": "Nominal Width"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbgQAE",
+    "attribute_name": "nominal_length"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbhQAE",
+    "attribute_name": "nominal_width"
   },
   {
     "attribute_id": "a1aaZ000009lfgrQAA",
@@ -2736,16 +3000,56 @@
     "attribute_name": "Number of Zones"
   },
   {
+    "attribute_id": "a1aaZ000009gMbiQAE",
+    "attribute_name": "number_of_bathers"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5yEQAS",
+    "attribute_name": "number_of_blades"
+  },
+  {
     "attribute_id": "a1aaZ000009ew9zQAA",
     "attribute_name": "number_of_bowls"
+  },
+  {
+    "attribute_id": "a1aaZ000009X61WQAS",
+    "attribute_name": "number_of_bulbs"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4u8QAC",
+    "attribute_name": "number_of_circuits"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4AwQAK",
+    "attribute_name": "number_of_doors"
+  },
+  {
+    "attribute_id": "a1aaZ000009fztaQAA",
+    "attribute_name": "number_of_drawers"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5TyQAK",
+    "attribute_name": "number_of_handles"
   },
   {
     "attribute_id": "a1aaZ000009X4uNQAS",
     "attribute_name": "number_of_heads"
   },
   {
+    "attribute_id": "a1aaZ000009X5BwQAK",
+    "attribute_name": "number_of_light_sources"
+  },
+  {
+    "attribute_id": "a1aaZ000009etDZQAY",
+    "attribute_name": "number_of_lights"
+  },
+  {
     "attribute_id": "a1aaZ000009eu6SQAQ",
     "attribute_name": "number_of_pieces"
+  },
+  {
+    "attribute_id": "a1aaZ000009X42zQAC",
+    "attribute_name": "number_of_shelves"
   },
   {
     "attribute_id": "a1aaZ000009X5yHQAS",
@@ -2804,6 +3108,10 @@
     "attribute_id": null
   },
   {
+    "attribute_id": "a1aaZ000009fztcQAA",
+    "attribute_name": "outdoor_approved"
+  },
+  {
     "attribute_id": "a1aaZ000008mBw5QAE",
     "attribute_name": "Outlet Diameter"
   },
@@ -2850,6 +3158,10 @@
   {
     "attribute_id": "a1aaZ000008mBwEQAU",
     "attribute_name": "Overflow Height"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMboQAE",
+    "attribute_name": "overflow_height"
   },
   {
     "attribute_id": "a1aaZ000009fztrQAA",
@@ -2948,6 +3260,14 @@
     "attribute_name": "Power Source"
   },
   {
+    "attribute_id": "a1aaZ000009X4sWQAS",
+    "attribute_name": "power_feed_type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X58kQAC",
+    "attribute_name": "power_source"
+  },
+  {
     "attribute_id": "a1aaZ000008mBwUQAU",
     "attribute_name": "Pre Rinse"
   },
@@ -2978,6 +3298,10 @@
   {
     "attribute_id": "a1aaZ000009g0Q3QAI",
     "attribute_name": "product_title"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbjQAE",
+    "attribute_name": "product_weight"
   },
   {
     "attribute_id": "a1aaZ000008mBwXQAU",
@@ -3064,6 +3388,10 @@
     "attribute_id": null
   },
   {
+    "attribute_id": "a1aaZ000009g0Q7QAI",
+    "attribute_name": "refrigerator_capacity"
+  },
+  {
     "attribute_id": "a1aaZ000008mBwkQAE",
     "attribute_name": "Regulator Included"
   },
@@ -3110,6 +3438,14 @@
   {
     "attribute_id": "a1aaZ000008mBwsQAE",
     "attribute_name": "Reversible Mounting"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4cYQAS",
+    "attribute_name": "reversible_motor"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5ByQAK",
+    "attribute_name": "reversible_mounting"
   },
   {
     "attribute_id": "a1aaZ000008mBwtQAE",
@@ -3162,6 +3498,10 @@
   {
     "attribute_id": "a1aaZ000009X67zQAC",
     "attribute_name": "Safety Rating"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5vDQAS",
+    "attribute_name": "safety_rating"
   },
   {
     "attribute_id": "a1aaZ000008mBx3QAE",
@@ -3284,12 +3624,20 @@
     "attribute_name": "Shade Width"
   },
   {
+    "attribute_id": "a1aaZ000009X61UQAS",
+    "attribute_name": "shade_color"
+  },
+  {
     "attribute_id": "a1aaZ000009X5s2QAC",
     "attribute_name": "shade_direction"
   },
   {
     "attribute_id": "a1aaZ000009X5TkQAK",
     "attribute_name": "shade_included"
+  },
+  {
+    "attribute_id": "a1aaZ000009etDgQAI",
+    "attribute_name": "shade_material"
   },
   {
     "attribute_id": "a1aaZ000008mBxSQAU",
@@ -3468,12 +3816,20 @@
     "attribute_name": "Sloped Ceiling Compatible"
   },
   {
+    "attribute_id": "a1aaZ000009X61dQAC",
+    "attribute_name": "sloped_ceiling_compatible"
+  },
+  {
     "attribute_id": "a1aaZ000008mBxyQAE",
     "attribute_name": "Smart Home"
   },
   {
     "attribute_id": "a1aaZ000009g0Q8QAI",
     "attribute_name": "smart_features"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5BzQAK",
+    "attribute_name": "smart_home"
   },
   {
     "attribute_id": "a1aaZ000008mBxzQAE",
@@ -3508,6 +3864,10 @@
     "attribute_name": "Solar Powered"
   },
   {
+    "attribute_id": "a1aaZ000009X5dbQAC",
+    "attribute_name": "solar_powered"
+  },
+  {
     "attribute_id": "a1aaZ000008mBy5QAE",
     "attribute_name": "Solid Construction"
   },
@@ -3522,6 +3882,10 @@
   {
     "attribute_id": "a1aaZ000008mBy7QAE",
     "attribute_name": "Sound Dampening"
+  },
+  {
+    "attribute_id": "a1aaZ000009ew9sQAA",
+    "attribute_name": "sound_dampening"
   },
   {
     "attribute_id": "a1aaZ000009lg0DQAQ",
@@ -3558,6 +3922,14 @@
   {
     "attribute_id": "a1aaZ000008mByDQAU",
     "attribute_name": "Spout Type"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5TzQAK",
+    "attribute_name": "spout_height"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5U0QAK",
+    "attribute_name": "spout_reach"
   },
   {
     "attribute_id": "a1aaZ000008mByEQAU",
@@ -3672,6 +4044,10 @@
     "attribute_name": "System Type"
   },
   {
+    "attribute_id": "a1aaZ000009X58jQAC",
+    "attribute_name": "system_type"
+  },
+  {
     "attribute_name": "Tank Type",
     "attribute_id": null
   },
@@ -3736,6 +4112,14 @@
     "attribute_name": "Title 24"
   },
   {
+    "attribute_id": "a1aaZ000009X5X0QAK",
+    "attribute_name": "title_20_compliant"
+  },
+  {
+    "attribute_id": "a1aaZ000009X55pQAC",
+    "attribute_name": "title_24"
+  },
+  {
     "attribute_id": "a1aaZ000008mByfQAE",
     "attribute_name": "Toilet Seat Lid Included"
   },
@@ -3758,6 +4142,10 @@
   {
     "attribute_id": "a1aaZ000008mByjQAE",
     "attribute_name": "Total Cooking Area"
+  },
+  {
+    "attribute_id": "a1aaZ000009g0PqQAI",
+    "attribute_name": "total_capacity"
   },
   {
     "attribute_id": "a1aaZ000009g0Q5QAI",
@@ -3792,6 +4180,10 @@
     "attribute_id": null
   },
   {
+    "attribute_id": "a1aaZ000009X4u9QAC",
+    "attribute_name": "track_accessory_type"
+  },
+  {
     "attribute_id": "a1aaZ000009X4uMQAS",
     "attribute_name": "track_length"
   },
@@ -3824,6 +4216,14 @@
     "attribute_name": "Trim Width"
   },
   {
+    "attribute_id": "a1aaZ000009X58bQAC",
+    "attribute_name": "trim_size"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5F9QAK",
+    "attribute_name": "trim_style"
+  },
+  {
     "attribute_id": "a1aaZ000008mByuQAE",
     "attribute_name": "Trip Lever Placement"
   },
@@ -3846,6 +4246,10 @@
   {
     "attribute_id": "a1aaZ000009k3CHQAY",
     "attribute_name": "tub_interior"
+  },
+  {
+    "attribute_id": "a1aaZ000009gMbkQAE",
+    "attribute_name": "tub_shape"
   },
   {
     "attribute_id": "a1aaZ000008mByyQAE",
@@ -3952,6 +4356,10 @@
     "attribute_name": "Valve Type"
   },
   {
+    "attribute_id": "a1aaZ000009X5U8QAK",
+    "attribute_name": "valve_type"
+  },
+  {
     "attribute_id": "a1aaZ000008mBzEQAU",
     "attribute_name": "Vandal Resistant"
   },
@@ -4026,6 +4434,10 @@
   {
     "attribute_id": "a1aaZ000009X5aAQAS",
     "attribute_name": "voltage_rating"
+  },
+  {
+    "attribute_id": "a1aaZ000009X4sYQAS",
+    "attribute_name": "voltage_type"
   },
   {
     "attribute_id": "a1aaZ000009iiMqQAI",
@@ -4128,6 +4540,14 @@
     "attribute_name": "Water Pressure (Min)"
   },
   {
+    "attribute_id": "a1aaZ000009gMbpQAE",
+    "attribute_name": "water_depth"
+  },
+  {
+    "attribute_id": "a1aaZ000009iPK6QAM",
+    "attribute_name": "water_dispenser"
+  },
+  {
     "attribute_id": "a1aaZ000008mBzhQAE",
     "attribute_name": "Waterfall Faucet"
   },
@@ -4164,8 +4584,16 @@
     "attribute_name": "Watts Per Bulb"
   },
   {
+    "attribute_id": "a1aaZ000009X55bQAC",
+    "attribute_name": "watts_per_bulb"
+  },
+  {
     "attribute_id": "a1aaZ000009X5vGQAS",
     "attribute_name": "Weather Rating"
+  },
+  {
+    "attribute_id": "a1aaZ000009X5dYQAS",
+    "attribute_name": "weather_rating"
   },
   {
     "attribute_id": "a1aaZ000009X5yQQAS",
