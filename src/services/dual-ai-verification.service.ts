@@ -4489,6 +4489,34 @@ function buildFinalResponse(
     }
   }
   
+  // ============================================
+  // CHECK FERGUSON APPLICATION FIELD (Primary style indicator)
+  // Ferguson's "application" field directly tells us the product type
+  // e.g., "Shower Heads", "Kitchen Faucets", "Wall Sconces"
+  // ============================================
+  if (!potentialStyle) {
+    const fergusonApplication = (rawProduct as any).Ferguson_Raw_Data?.product?.application;
+    if (fergusonApplication) {
+      // Normalize Ferguson application to our style format
+      // "Shower Heads" -> "Showerhead", "Kitchen Faucets" -> "Kitchen Faucet"
+      let normalizedApplication = fergusonApplication;
+      
+      // Handle plural to singular conversions
+      if (fergusonApplication.toLowerCase() === 'shower heads') {
+        normalizedApplication = 'Showerhead';
+      } else if (fergusonApplication.endsWith('s') && !fergusonApplication.endsWith('ss')) {
+        // Simple plural -> singular (e.g., "Faucets" -> "Faucet")
+        normalizedApplication = fergusonApplication.slice(0, -1);
+      }
+      
+      potentialStyle = normalizedApplication;
+      logger.info('[FERGUSON APPLICATION] Using Ferguson application as style', { 
+        original: fergusonApplication,
+        normalized: normalizedApplication 
+      });
+    }
+  }
+  
   // Check Ferguson data for style information (Theme for design styles, Installation Type for functional styles)
   if (!potentialStyle) {
     // First check Ferguson Theme (design aesthetic: Contemporary, Modern, etc.)
