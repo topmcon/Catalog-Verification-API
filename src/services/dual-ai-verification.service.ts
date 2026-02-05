@@ -88,6 +88,29 @@ const LIGHTING_CATEGORIES = [
 ];
 
 /**
+ * Shower/Plumbing categories where product types should be prioritized
+ */
+const SHOWER_PLUMBING_CATEGORIES = [
+  'Showers',
+  'Shower Accessories',
+  'Showerheads',
+  'Shower Faucets',
+  'Shower Systems'
+];
+
+/**
+ * Valid styles for shower products (from SF picklist)
+ */
+const VALID_SHOWER_STYLES = [
+  'Rain',
+  'Rain Head',
+  'Shower System',
+  'Handheld',
+  'Body Spray',
+  'Showerhead'
+];
+
+/**
  * Check if a style is aesthetic (design-based) rather than product type
  */
 function isAestheticStyle(style: string): boolean {
@@ -137,6 +160,73 @@ function validateAndCorrectLightingStyle(
   return {
     needsCorrection: true,
     correctedStyle: firstProductType,
+    reason
+  };
+}
+
+/**
+ * Check if a category is a shower/plumbing category
+ */
+function isShowerCategory(category: string): boolean {
+  if (!category) return false;
+  const lowerCategory = category.toLowerCase();
+  return SHOWER_PLUMBING_CATEGORIES.some(cat => 
+    lowerCategory.includes(cat.toLowerCase()) || cat.toLowerCase().includes(lowerCategory)
+  );
+}
+
+/**
+ * Check if a style is a valid shower style in the Salesforce picklist
+ */
+function isValidShowerStyle(style: string): boolean {
+  if (!style) return false;
+  const lowerStyle = style.toLowerCase();
+  return VALID_SHOWER_STYLES.some(validStyle => 
+    lowerStyle === validStyle.toLowerCase() ||
+    lowerStyle.includes(validStyle.toLowerCase()) ||
+    validStyle.toLowerCase().includes(lowerStyle)
+  );
+}
+
+/**
+ * Validate and correct product style for shower/plumbing categories
+ * Corrects invalid styles like "Shower Faucet" to valid picklist values like "Rain Head"
+ */
+function validateAndCorrectShowerStyle(
+  style: string,
+  category: string,
+  productDescription?: string
+): { needsCorrection: boolean; correctedStyle: string | null; reason: string } {
+  // Only validate shower categories
+  if (!isShowerCategory(category)) {
+    return { needsCorrection: false, correctedStyle: null, reason: 'Not a shower category' };
+  }
+  
+  // Check if current style is already valid
+  if (isValidShowerStyle(style)) {
+    return { needsCorrection: false, correctedStyle: null, reason: 'Style is valid for shower category' };
+  }
+  
+  // Style needs correction - determine best replacement
+  // Analyze product description to pick the most appropriate style
+  const descLower = (productDescription || '').toLowerCase();
+  let correctedStyle = 'Rain Head'; // Default for showerheads
+  
+  if (descLower.includes('handheld') || descLower.includes('hand held') || descLower.includes('hand shower')) {
+    correctedStyle = 'Handheld';
+  } else if (descLower.includes('body spray') || descLower.includes('bodyspray')) {
+    correctedStyle = 'Body Spray';
+  } else if (descLower.includes('shower system') || descLower.includes('complete system')) {
+    correctedStyle = 'Shower System';
+  } else if (descLower.includes('rain') || descLower.includes('rainfall')) {
+    correctedStyle = 'Rain Head';
+  }
+  
+  const reason = `Shower category "${category}" received invalid style "${style}" - correcting to "${correctedStyle}"`;
+  
+  return {
+    needsCorrection: true,
+    correctedStyle,
     reason
   };
 }
@@ -4298,6 +4388,33 @@ function buildFinalResponse(
       if (validation.correctedStyle) {
         potentialStyle = validation.correctedStyle;
         logger.info('[STYLE CORRECTED] Using product type instead of aesthetic', {
+          from: consensus.agreedPrimaryAttributes.product_style,
+          to: potentialStyle,
+          category: matchedCategory
+        });
+      }
+    }
+    
+    // ============================================
+    // POST-PROCESSING VALIDATION: Shower Style Correction
+    // ============================================
+    const showerValidation = validateAndCorrectShowerStyle(
+      potentialStyle,
+      matchedCategory,
+      rawProduct.Ferguson_Description || rawProduct.Ferguson_Title || ''
+    );
+    
+    if (showerValidation.needsCorrection) {
+      logger.warn('[STYLE VALIDATION] Invalid style detected in shower category - correcting', {
+        category: matchedCategory,
+        originalStyle: potentialStyle,
+        correctedStyle: showerValidation.correctedStyle,
+        reason: showerValidation.reason
+      });
+      
+      if (showerValidation.correctedStyle) {
+        potentialStyle = showerValidation.correctedStyle;
+        logger.info('[STYLE CORRECTED] Using valid shower style', {
           from: consensus.agreedPrimaryAttributes.product_style,
           to: potentialStyle,
           category: matchedCategory
