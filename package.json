@@ -15,7 +15,8 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "db:seed": "tsx scripts/seed-database.ts",
     "typecheck": "tsc --noEmit",
-    "sync-picklists": "tsx src/scripts/sync-picklists.ts"
+    "sync-picklists": "tsx src/scripts/sync-picklists.ts",
+    "view-response-quality": "tsx scripts/view-response-quality.ts"
   },
   "keywords": [
     "catalog",

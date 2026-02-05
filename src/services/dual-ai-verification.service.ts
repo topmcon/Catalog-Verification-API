@@ -289,6 +289,7 @@ import aiUsageTracker from './ai-usage-tracking.service';
 import picklistMatcher from './picklist-matcher.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
 import alertingService from './alerting.service';
+import responseQualityService from './response-quality-analytics.service';
 import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
@@ -2334,6 +2335,19 @@ export async function verifyProductWithDualAI(
     // Track field population rates (async, don't await)
     trackFieldPopulation(response, consensus.agreedCategory || 'unknown', openaiResult, xaiResult).catch(err => {
       logger.error('Failed to track field population', { error: err.message });
+    });
+    
+    // Track response quality for analytics (async, don't await)
+    trackResponseQuality(
+      verificationSessionId,
+      rawProduct,
+      consensus.agreedCategory || 'Unknown',
+      openaiResult,
+      xaiResult,
+      consensus,
+      dataSourceAnalysis
+    ).catch(err => {
+      logger.error('Failed to track response quality', { error: err.message });
     });
     
     // Run alerting checks
@@ -6599,6 +6613,102 @@ async function trackFieldPopulation(
     logger.debug('Field population tracked', { category, fields: Object.keys(finalResponse.Primary_Attributes).length });
   } catch (error) {
     logger.error('Failed to track field population', { error });
+  }
+}
+
+/**
+ * Track response quality for all fields to identify inconclusive responses
+ */
+async function trackResponseQuality(
+  sessionId: string,
+  rawProduct: SalesforceIncomingProduct,
+  category: string,
+  openaiResult: any,
+  xaiResult: any,
+  consensus: any,
+  dataSourceAnalysis: any
+): Promise<void> {
+  try {
+    // Determine what data sources were available
+    const dataSourcesAvailable: string[] = [];
+    if (dataSourceAnalysis.hasFergusonData) dataSourcesAvailable.push('ferguson');
+    if (dataSourceAnalysis.hasWebData) dataSourcesAvailable.push('web_retailer');
+    if (dataSourceAnalysis.hasDocuments) dataSourcesAvailable.push('documents');
+    if (dataSourceAnalysis.hasImages) dataSourcesAvailable.push('images');
+    
+    const promptIncludedResearch = dataSourceAnalysis.recommendResearch;
+    
+    // Track primary attributes
+    if (openaiResult.primaryAttributes || xaiResult.primaryAttributes) {
+      const allPrimaryFields = new Set([
+        ...Object.keys(openaiResult.primaryAttributes || {}),
+        ...Object.keys(xaiResult.primaryAttributes || {})
+      ]);
+      
+      for (const fieldName of allPrimaryFields) {
+        const openaiValue = openaiResult.primaryAttributes?.[fieldName];
+        const xaiValue = xaiResult.primaryAttributes?.[fieldName];
+        const consensusValue = consensus.agreedPrimaryAttributes?.[fieldName];
+        
+        await responseQualityService.trackFieldResponse({
+          sessionId,
+          verificationJobId: sessionId,
+          productId: rawProduct.SF_Catalog_Id || 'unknown',
+          sfCatalogId: rawProduct.SF_Catalog_Id,
+          category,
+          productStyle: undefined, // Determined by AI, not in source data
+          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
+          fieldName,
+          fieldType: 'primary',
+          expectedSource: 'free_text',
+          openaiValue: String(openaiValue || ''),
+          xaiValue: String(xaiValue || ''),
+          consensusValue: String(consensusValue || ''),
+          consensusReached: openaiValue === xaiValue,
+          promptIncludedResearch,
+          dataSourcesAvailable
+        });
+      }
+    }
+    
+    // Track top 15 filter attributes
+    if (openaiResult.top15Attributes || xaiResult.top15Attributes) {
+      const allFilterFields = new Set([
+        ...Object.keys(openaiResult.top15Attributes || {}),
+        ...Object.keys(xaiResult.top15Attributes || {})
+      ]);
+      
+      for (const fieldName of allFilterFields) {
+        const openaiValue = openaiResult.top15Attributes?.[fieldName];
+        const xaiValue = xaiResult.top15Attributes?.[fieldName];
+        const consensusValue = consensus.agreedTop15Attributes?.[fieldName];
+        
+        await responseQualityService.trackFieldResponse({
+          sessionId,
+          verificationJobId: sessionId,
+          productId: rawProduct.SF_Catalog_Id || 'unknown',
+          sfCatalogId: rawProduct.SF_Catalog_Id,
+          category,
+          productStyle: undefined, // Determined by AI, not in source data
+          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
+          fieldName,
+          fieldType: 'top_filter',
+          expectedSource: 'picklist',
+          openaiValue: String(openaiValue || ''),
+          xaiValue: String(xaiValue || ''),
+          consensusValue: String(consensusValue || ''),
+          consensusReached: openaiValue === xaiValue,
+          promptIncludedResearch,
+          dataSourcesAvailable
+        });
+      }
+    }
+    
+  } catch (error) {
+    logger.error('[ResponseQuality] Error tracking response quality:', error);
+    // Don't throw - this is non-critical tracking
   }
 }
 
