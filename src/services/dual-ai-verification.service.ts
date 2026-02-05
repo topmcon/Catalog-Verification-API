@@ -225,37 +225,60 @@ function validateAndCorrectShowerStyle(
   style: string,
   category: string,
   productDescription?: string
-): { needsCorrection: boolean; correctedStyle: string | null; reason: string } {
+): { 
+  needsCorrection: boolean; 
+  correctedStyle: string | null; 
+  idealStyle: string | null;  // The style we WANT - may need SF request
+  reason: string 
+} {
   // Only validate shower categories
   if (!isShowerCategory(category)) {
-    return { needsCorrection: false, correctedStyle: null, reason: 'Not a shower category' };
+    return { needsCorrection: false, correctedStyle: null, idealStyle: null, reason: 'Not a shower category' };
   }
   
   // Check if current style is already valid
   if (isValidShowerStyle(style)) {
-    return { needsCorrection: false, correctedStyle: null, reason: 'Style is valid for shower category' };
+    return { needsCorrection: false, correctedStyle: null, idealStyle: null, reason: 'Style is valid for shower category' };
   }
   
   // Style needs correction - determine best replacement
   // Analyze product description to pick the most appropriate style
   const descLower = (productDescription || '').toLowerCase();
-  let correctedStyle = 'Rain Head'; // Default for showerheads
+  
+  // Determine the IDEAL style based on product characteristics
+  let idealStyle = 'Showerhead';  // Default for generic showerheads
+  let correctedStyle = 'Rain Head';  // Fallback that exists in SF
   
   if (descLower.includes('handheld') || descLower.includes('hand held') || descLower.includes('hand shower')) {
+    idealStyle = 'Handheld';
     correctedStyle = 'Handheld';
   } else if (descLower.includes('body spray') || descLower.includes('bodyspray')) {
+    idealStyle = 'Body Spray';
     correctedStyle = 'Body Spray';
   } else if (descLower.includes('shower system') || descLower.includes('complete system')) {
+    idealStyle = 'Shower System';
     correctedStyle = 'Shower System';
+  } else if (descLower.includes('shower panel')) {
+    idealStyle = 'Shower Panel';
+    correctedStyle = 'Shower Panel';
   } else if (descLower.includes('rain') || descLower.includes('rainfall')) {
+    idealStyle = 'Rain Head';
     correctedStyle = 'Rain Head';
+  } else if (descLower.includes('dual')) {
+    idealStyle = 'Dual';
+    correctedStyle = 'Dual';
+  } else {
+    // Generic showerhead - ideal is "Showerhead" but fallback to "Rain Head"
+    idealStyle = 'Showerhead';
+    correctedStyle = 'Rain Head';  // Fallback since "Showerhead" might not exist in SF
   }
   
-  const reason = `Shower category "${category}" received invalid style "${style}" - correcting to "${correctedStyle}"`;
+  const reason = `Shower category "${category}" received invalid style "${style}" - ideal: "${idealStyle}", fallback: "${correctedStyle}"`;
   
   return {
     needsCorrection: true,
     correctedStyle,
+    idealStyle,
     reason
   };
 }
@@ -4512,17 +4535,53 @@ function buildFinalResponse(
       logger.warn('[POST-FALLBACK VALIDATION] Invalid shower style from fallback - correcting', {
         category: matchedCategory,
         originalStyle: potentialStyle,
+        idealStyle: postFallbackShowerValidation.idealStyle,
         correctedStyle: postFallbackShowerValidation.correctedStyle,
         reason: postFallbackShowerValidation.reason
       });
       
-      if (postFallbackShowerValidation.correctedStyle) {
+      // Check if ideal style exists in SF picklist
+      const idealStyle = postFallbackShowerValidation.idealStyle;
+      if (idealStyle) {
+        const idealMatch = picklistMatcher.matchStyle(idealStyle);
+        const idealExists = picklistMatcher.getStyleByName(idealStyle);
+        
+        if (idealMatch.matched || idealExists) {
+          // Ideal style exists in SF - use it!
+          potentialStyle = idealStyle;
+          logger.info('[POST-FALLBACK] Using ideal style - exists in SF picklist', {
+            style: idealStyle,
+            category: matchedCategory
+          });
+        } else {
+          // Ideal style NOT in SF - generate request AND use fallback
+          styleRequests.push({
+            style_name: idealStyle,
+            suggested_for_category: matchedCategory,
+            source: 'ai_analysis',  // Use valid source type
+            product_context: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name
+            },
+            reason: `Ideal style "${idealStyle}" not in SF picklist (shower validation) - requesting creation. Using fallback "${postFallbackShowerValidation.correctedStyle}" for now.`
+          });
+          logger.warn('[STYLE REQUEST GENERATED] Ideal shower style missing from SF picklist', {
+            idealStyle,
+            fallbackUsed: postFallbackShowerValidation.correctedStyle,
+            category: matchedCategory
+          });
+          
+          // Use the fallback style that exists in SF
+          potentialStyle = postFallbackShowerValidation.correctedStyle || potentialStyle;
+        }
+      } else if (postFallbackShowerValidation.correctedStyle) {
         potentialStyle = postFallbackShowerValidation.correctedStyle;
-        logger.info('[POST-FALLBACK CORRECTED] Shower style corrected after fallback chain', {
-          to: potentialStyle,
-          category: matchedCategory
-        });
       }
+      
+      logger.info('[POST-FALLBACK CORRECTED] Shower style corrected after fallback chain', {
+        to: potentialStyle,
+        category: matchedCategory
+      });
     }
   }
   
