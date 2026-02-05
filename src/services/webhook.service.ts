@@ -6,7 +6,7 @@
 import axios from 'axios';
 import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
-import selfHealingOrchestrator from './self-healing/orchestrator.service';
+// Self-healing disabled - removed import
 
 interface WebhookPayload {
   success: boolean;
@@ -97,11 +97,8 @@ class WebhookService {
         });
         logger.info('═════════════════════════════════════════════════════════', { service: 'catalog-verification' });
 
-        // Schedule self-healing scan 60 seconds after webhook sent
-        if (process.env.SELF_HEALING_ENABLED === 'true') {
-          logger.info('[Self-Healing] Scheduling scan for job in 60 seconds', { jobId });
-          await selfHealingOrchestrator.scheduleAfterWebhook(jobId);
-        }
+        // Self-healing removed - causing queue backups and 100% failure rate
+        // System relies on dual-AI verification quality instead
       }
 
       return success;
