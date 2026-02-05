@@ -99,15 +99,17 @@ const SHOWER_PLUMBING_CATEGORIES = [
 ];
 
 /**
- * Valid styles for shower products (from SF picklist)
+ * Valid styles for shower products - synced from category-style-mapping
+ * Includes: Showerhead, Rain Head, Handheld, Shower System, Dual, Body Spray, Shower Panel
  */
 const VALID_SHOWER_STYLES = [
-  'Rain',
+  'Showerhead',
   'Rain Head',
-  'Shower System',
   'Handheld',
+  'Shower System',
+  'Dual',
   'Body Spray',
-  'Showerhead'
+  'Shower Panel'
 ];
 
 /**
@@ -176,16 +178,43 @@ function isShowerCategory(category: string): boolean {
 }
 
 /**
+ * Normalize string for contextual comparison
+ * Removes spaces, hyphens, underscores and converts to lowercase
+ * Examples: "Shower Head" -> "showerhead", "Rain-Head" -> "rainhead"
+ */
+function normalizeForComparison(str: string): string {
+  return str.toLowerCase().trim().replace(/[\s\-_]/g, '');
+}
+
+/**
  * Check if a style is a valid shower style in the Salesforce picklist
+ * Uses two-pass matching: exact first, then normalized/contextual
  */
 function isValidShowerStyle(style: string): boolean {
   if (!style) return false;
-  const lowerStyle = style.toLowerCase();
-  return VALID_SHOWER_STYLES.some(validStyle => 
-    lowerStyle === validStyle.toLowerCase() ||
-    lowerStyle.includes(validStyle.toLowerCase()) ||
-    validStyle.toLowerCase().includes(lowerStyle)
-  );
+  const lowerStyle = style.toLowerCase().trim();
+  const normalizedStyle = normalizeForComparison(style);
+  
+  return VALID_SHOWER_STYLES.some(validStyle => {
+    const lowerValid = validStyle.toLowerCase();
+    const normalizedValid = normalizeForComparison(validStyle);
+    
+    // PASS 1: Exact match
+    if (lowerStyle === lowerValid) return true;
+    
+    // PASS 2: Normalized match ("shower head" === "showerhead")
+    if (normalizedStyle === normalizedValid) return true;
+    
+    // PASS 3: Containment check (both normalized)
+    if (normalizedStyle.includes(normalizedValid) || normalizedValid.includes(normalizedStyle)) {
+      // Ensure meaningful match (not just partial word matching)
+      const shorter = Math.min(normalizedStyle.length, normalizedValid.length);
+      const longer = Math.max(normalizedStyle.length, normalizedValid.length);
+      return shorter / longer >= 0.6; // At least 60% overlap
+    }
+    
+    return false;
+  });
 }
 
 /**

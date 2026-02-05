@@ -1,14 +1,17 @@
 /**
  * Category-Type-Style Mapping
  * 
- * Generated from category-type-style-mapping.json
- * Created: 2026-02-04
- * Total Categories: 181
- * Existing Styles: 344
- * New Styles Needed: 589
+ * AUTO-GENERATED from category-type-style-mapping.json
+ * Generated: 2026-02-05
+ * Total Categories: 186
+ * Existing Styles: undefined
+ * New Styles Needed: undefined
  * 
  * Purpose: Maps each product category to its valid style/type values
  * Approach: One filter per category based on how customers search
+ * 
+ * ⚠️ DO NOT EDIT DIRECTLY - Edit the JSON file and run:
+ *    node scripts/regenerate-category-style-mapping.js
  */
 
 export interface StyleValue {
@@ -1090,7 +1093,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
     ]
   },
   'Outdoor Lighting': {
-    department: 'Lighting & Electrical / Outdoor',
+    department: 'Lighting & Electrical',
     category_name: 'Outdoor Lighting',
     label: 'Outdoor Light Type',
     logic: 'Fixture type/application',
@@ -1183,7 +1186,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
     ]
   },
   'Lamps': {
-    department: 'Lighting & Electrical / Home Décor & Furniture',
+    department: 'Lighting & Electrical',
     category_name: 'Lamps',
     label: 'Lamp Type',
     logic: 'Lamp form',
@@ -1898,7 +1901,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
     ]
   },
   'Fire Pits': {
-    department: 'Heating & Cooling / Outdoor',
+    department: 'Heating & Cooling',
     category_name: 'Fire Pits',
     label: 'Fire Pit Type',
     logic: 'Fuel type',
@@ -1952,7 +1955,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
     ]
   },
   'Generators': {
-    department: 'Heating & Cooling / Outdoor',
+    department: 'Heating & Cooling',
     category_name: 'Generators',
     label: 'Generator Type',
     logic: 'Type or fuel',
@@ -2075,7 +2078,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
     ]
   },
   'Rugs': {
-    department: 'Home Décor & Furniture / Outdoor',
+    department: 'Home Décor & Furniture',
     category_name: 'Rugs',
     label: 'Rug Style',
     logic: 'Design style',
@@ -2086,10 +2089,7 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Farmhouse', style_id: 'a1IaZ000001S93RUAS', status: 'existing' },
       { name: 'Bohemian', style_id: null, status: 'new_needed' },
       { name: 'Coastal', style_id: null, status: 'new_needed' },
-      { name: 'Southwestern', style_id: null, status: 'new_needed' },
-      { name: 'Tropical', style_id: 'a1IaZ000001TekfUAC', status: 'existing' },
-      { name: 'Striped', style_id: null, status: 'new_needed' },
-      { name: 'Geometric', style_id: null, status: 'new_needed' }
+      { name: 'Southwestern', style_id: null, status: 'new_needed' }
     ]
   },
   'Home Organization': {
@@ -2411,108 +2411,82 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
 };
 
 /**
- * Get valid style names for a category
- * @param category - The category name to lookup
- * @returns Array of valid style names, or universal styles if not found
+ * Get valid styles for a category
  */
 export function getValidStylesForCategory(category: string): string[] {
   const mapping = CATEGORY_STYLE_MAP[category];
-  if (mapping) {
-    return mapping.values.map(v => v.name);
-  }
-  
-  // Try case-insensitive match
-  const lowerCategory = category.toLowerCase();
-  for (const [key, value] of Object.entries(CATEGORY_STYLE_MAP)) {
-    if (key.toLowerCase() === lowerCategory) {
-      return value.values.map(v => v.name);
-    }
-  }
-  
-  return UNIVERSAL_DESIGN_STYLES;
+  if (!mapping) return [];
+  return mapping.values.map(v => v.name);
 }
 
 /**
- * Get valid styles with their Salesforce IDs for a category
- * @param category - The category name to lookup
- * @returns Array of style objects with name and style_id
+ * Get valid styles with IDs for a category
  */
 export function getValidStylesWithIdsForCategory(category: string): StyleValue[] {
   const mapping = CATEGORY_STYLE_MAP[category];
-  if (mapping) {
-    return mapping.values;
-  }
-  
-  // Try case-insensitive match
-  const lowerCategory = category.toLowerCase();
-  for (const [key, value] of Object.entries(CATEGORY_STYLE_MAP)) {
-    if (key.toLowerCase() === lowerCategory) {
-      return value.values;
-    }
-  }
-  
-  // Return universal styles without IDs
-  return UNIVERSAL_DESIGN_STYLES.map(name => ({ 
-    name, 
-    style_id: null, 
-    status: 'existing' as const 
-  }));
+  if (!mapping) return [];
+  return mapping.values;
 }
 
 /**
- * Get the Salesforce style_id for a given category and style name
- * @param category - The category name
- * @param styleName - The style name to lookup
- * @returns The style_id if found, null otherwise
+ * Get style ID for a category and style name
  */
 export function getStyleIdForCategory(category: string, styleName: string): string | null {
   const mapping = CATEGORY_STYLE_MAP[category];
   if (!mapping) return null;
   
-  const lowerStyle = styleName.toLowerCase();
-  const match = mapping.values.find(v => 
-    v.name.toLowerCase() === lowerStyle
-  );
+  // Normalize for comparison
+  const normalizeForComparison = (str: string): string => 
+    str.toLowerCase().trim().replace(/[\s\-_]/g, '');
   
-  return match?.style_id || null;
+  const normalizedInput = normalizeForComparison(styleName);
+  
+  // PASS 1: Exact match
+  const exactMatch = mapping.values.find(v => v.name.toLowerCase() === styleName.toLowerCase());
+  if (exactMatch) return exactMatch.style_id;
+  
+  // PASS 2: Normalized match
+  const normalizedMatch = mapping.values.find(v => 
+    normalizeForComparison(v.name) === normalizedInput
+  );
+  if (normalizedMatch) return normalizedMatch.style_id;
+  
+  return null;
 }
 
 /**
- * Check if a style is valid for a given category
- * @param style - The style name to check
- * @param category - The category to check against
- * @returns true if the style is valid for the category
+ * Check if a style is valid for a category
  */
-export function isValidStyleForCategory(style: string, category: string): boolean {
+export function isValidStyleForCategory(category: string, styleName: string): boolean {
   const validStyles = getValidStylesForCategory(category);
-  const lowerStyle = style.toLowerCase();
-  return validStyles.some(v => v.toLowerCase() === lowerStyle);
-}
-
-/**
- * Get all categories in a department
- * @param department - The department name
- * @returns Array of category names
- */
-export function getCategoriesInDepartment(department: string): string[] {
-  return Object.entries(CATEGORY_STYLE_MAP)
-    .filter(([_, mapping]) => mapping.department.includes(department))
-    .map(([name, _]) => name);
-}
-
-/**
- * Get all unique departments
- */
-export function getAllDepartments(): string[] {
-  const depts = new Set<string>();
-  Object.values(CATEGORY_STYLE_MAP).forEach(m => {
-    m.department.split(' / ').forEach(d => depts.add(d.trim()));
+  if (validStyles.length === 0) return false;
+  
+  const normalizeForComparison = (str: string): string => 
+    str.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  
+  const normalizedInput = normalizeForComparison(styleName);
+  
+  return validStyles.some(vs => {
+    // Exact match
+    if (vs.toLowerCase() === styleName.toLowerCase()) return true;
+    // Normalized match
+    if (normalizeForComparison(vs) === normalizedInput) return true;
+    return false;
   });
-  return Array.from(depts).sort();
+}
+
+/**
+ * Normalize string for contextual comparison
+ * Removes spaces, hyphens, underscores and converts to lowercase
+ * Examples: "Shower Head" -> "showerhead", "Rain-Head" -> "rainhead"
+ */
+function normalizeForComparison(str: string): string {
+  return str.toLowerCase().trim().replace(/[\s\-_]/g, '');
 }
 
 /**
  * Match a potential style to a valid style for a category
+ * Uses two-pass matching: exact first, then normalized/contextual
  * @param category - The category name
  * @param potentialStyle - The style to match
  * @returns The matched style name if found, null otherwise
@@ -2525,16 +2499,27 @@ export function matchStyleToCategory(category: string, potentialStyle: string): 
   }
   
   const normalized = potentialStyle.toLowerCase().trim();
+  const contextual = normalizeForComparison(potentialStyle);
   
-  // Exact match
+  // PASS 1: Exact match
   const exactMatch = validStyles.find(s => s.toLowerCase() === normalized);
   if (exactMatch) return exactMatch;
   
-  // Partial match (contains)
+  // PASS 2: Contextual/normalized match (handles "shower head" vs "showerhead")
+  const contextualMatch = validStyles.find(s => normalizeForComparison(s) === contextual);
+  if (contextualMatch) return contextualMatch;
+  
+  // PASS 3: Partial match (contains) - both exact and normalized
   const partialMatch = validStyles.find(s => 
     s.toLowerCase().includes(normalized) || normalized.includes(s.toLowerCase())
   );
   if (partialMatch) return partialMatch;
+  
+  const contextualPartialMatch = validStyles.find(s => {
+    const normS = normalizeForComparison(s);
+    return normS.includes(contextual) || contextual.includes(normS);
+  });
+  if (contextualPartialMatch) return contextualPartialMatch;
   
   // Special case: extract style from subcategory
   if (category.toLowerCase() === 'oven' && normalized.includes('microwave')) {
@@ -2550,6 +2535,26 @@ export function matchStyleToCategory(category: string, potentialStyle: string): 
   }
   
   return null;
+}
+
+/**
+ * Get all categories in a department
+ */
+export function getCategoriesInDepartment(department: string): string[] {
+  return Object.keys(CATEGORY_STYLE_MAP).filter(cat => 
+    CATEGORY_STYLE_MAP[cat].department.toLowerCase() === department.toLowerCase()
+  );
+}
+
+/**
+ * Get all departments
+ */
+export function getAllDepartments(): string[] {
+  const depts = new Set<string>();
+  Object.values(CATEGORY_STYLE_MAP).forEach(cat => {
+    depts.add(cat.department);
+  });
+  return Array.from(depts).sort();
 }
 
 export default {

@@ -258,25 +258,43 @@ class PicklistMatcherService {
   }
 
   /**
+   * Normalize string for contextual comparison
+   * Removes spaces, hyphens, underscores and converts to lowercase
+   * Examples: "Shower Head" -> "showerhead", "Rain-Head" -> "rainhead"
+   */
+  private normalizeForComparison(str: string): string {
+    return str.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  }
+
+  /**
    * Calculate similarity between two strings (case-insensitive)
+   * Uses two-pass matching: exact first, then normalized/contextual
    */
   private calculateSimilarity(str1: string, str2: string): number {
     const s1 = str1.toLowerCase().trim();
     const s2 = str2.toLowerCase().trim();
     
-    // Exact match
+    // PASS 1: Exact match
     if (s1 === s2) return 1.0;
     
-    // One contains the other
+    // PASS 2: Normalized match (spaces/hyphens removed)
+    const n1 = this.normalizeForComparison(str1);
+    const n2 = this.normalizeForComparison(str2);
+    if (n1 === n2) return 0.99; // Near-perfect match (contextual)
+    
+    // PASS 3: One contains the other (both normalized and unnormalized)
     if (s1.includes(s2) || s2.includes(s1)) {
       return 0.9;
     }
+    if (n1.includes(n2) || n2.includes(n1)) {
+      return 0.88; // Slightly lower for normalized containment
+    }
     
-    // Levenshtein distance-based similarity
-    const maxLen = Math.max(s1.length, s2.length);
+    // Levenshtein distance-based similarity (on normalized strings for better matching)
+    const maxLen = Math.max(n1.length, n2.length);
     if (maxLen === 0) return 1.0;
     
-    const distance = this.levenshteinDistance(s1, s2);
+    const distance = this.levenshteinDistance(n1, n2);
     return 1 - (distance / maxLen);
   }
 
