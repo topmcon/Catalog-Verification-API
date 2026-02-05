@@ -882,5 +882,45 @@
   {
     "style_name": "Shower Faucet",
     "style_id": "a1IaZ000001UqLZUA0"
+  },
+  {
+    "style_name": "Showerhead",
+    "style_id": "a1IaZ000001Uw9FUAS"
+  },
+  {
+    "style_name": "Standard",
+    "style_id": "a1IaZ000001UwVpUAK"
+  },
+  {
+    "style_name": "Standard",
+    "style_id": "a1IaZ000001UwZ3UAK"
+  },
+  {
+    "style_name": "Kitchen Faucet",
+    "style_id": "a1IaZ000001UwafUAC"
+  },
+  {
+    "style_name": "Floor Mounted Tub Filler",
+    "style_id": "a1IaZ000001UwcHUAS"
+  },
+  {
+    "style_name": "Floor Mounted Tub Filler",
+    "style_id": "a1IaZ000001UwdtUAC"
+  },
+  {
+    "style_name": "Floor Mounted Tub Filler",
+    "style_id": "a1IaZ000001UwfVUAS"
+  },
+  {
+    "style_name": "Bathroom Sink Faucet",
+    "style_id": "a1IaZ000001UwijUAC"
+  },
+  {
+    "style_name": "Floor Mounted Tub Filler",
+    "style_id": "a1IaZ000001UwlxUAC"
+  },
+  {
+    "style_name": "Floor Mounted Tub Filler",
+    "style_id": "a1IaZ000001UwnZUAS"
   }
 ]
