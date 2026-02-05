@@ -4494,6 +4494,38 @@ function buildFinalResponse(
     potentialStyle = rawProduct.Web_Retailer_SubCategory || '';
   }
   
+  // ============================================
+  // POST-FALLBACK VALIDATION: Validate style after all fallbacks complete
+  // This catches invalid styles that came from disagreements/fallbacks
+  // ============================================
+  if (potentialStyle && categoryMatch.matchedValue) {
+    const matchedCategory = categoryMatch.matchedValue.category_name;
+    
+    // Re-validate shower styles after fallback (may have gotten invalid style from disagreements)
+    const postFallbackShowerValidation = validateAndCorrectShowerStyle(
+      potentialStyle,
+      matchedCategory,
+      rawProduct.Ferguson_Description || rawProduct.Ferguson_Title || ''
+    );
+    
+    if (postFallbackShowerValidation.needsCorrection) {
+      logger.warn('[POST-FALLBACK VALIDATION] Invalid shower style from fallback - correcting', {
+        category: matchedCategory,
+        originalStyle: potentialStyle,
+        correctedStyle: postFallbackShowerValidation.correctedStyle,
+        reason: postFallbackShowerValidation.reason
+      });
+      
+      if (postFallbackShowerValidation.correctedStyle) {
+        potentialStyle = postFallbackShowerValidation.correctedStyle;
+        logger.info('[POST-FALLBACK CORRECTED] Shower style corrected after fallback chain', {
+          to: potentialStyle,
+          category: matchedCategory
+        });
+      }
+    }
+  }
+  
   if (potentialStyle && categoryMatch.matchedValue) {
     const matchedCategory = categoryMatch.matchedValue.category_name;
     const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
