@@ -1,19 +1,25 @@
 /**
  * SEO TITLE GENERATOR SERVICE
  * ============================
- * Generates category-specific SEO-optimized product titles.
+ * Generates SEO-optimized product titles using a UNIFIED FORMULA:
  * 
- * Each category has a specific formula designed for:
- * 1. Search engine optimization (keywords in right order)
- * 2. Human readability
- * 3. Key product differentiators visible upfront
+ * SIZE + BRAND + STYLE + CATEGORY + COLOR + MODEL NUMBER
  * 
- * FORMAT BY CATEGORY:
- * - Appliances: Brand + Size + Style/Config + Category + Color/Finish + Model
- * - Lighting: Brand + Style + Category + Size + Finish + Model  
- * - Plumbing: Brand + Category + Type + Finish + Model
- * - Furniture: Brand + Material + Style + Category + Dimensions
- * - HVAC: Brand + Capacity + Type + Category + Model
+ * Size = Common measurement for that product type:
+ * - Refrigerators, Ranges, Dishwashers: Width
+ * - Bathtubs: Length  
+ * - Showers, Sinks: Width/Diameter
+ * - Chandeliers, Pendants: Width/Diameter
+ * - Sconces, Mirrors: Height
+ * - Faucets: Height (spout height)
+ * - Toilets: Height (bowl height)
+ * - TVs, Monitors: Diagonal (screen size)
+ * 
+ * Example outputs:
+ * - "36" GE French Door Refrigerator Stainless Steel - GFE28GYNFS"
+ * - "60" Kohler Freestanding Bathtub Biscuit - K-1490"
+ * - "24" Minka Lavery Modern Chandelier Brushed Nickel - 4106-84"
+ * - "RIOBEL Rain Head Showers Matte Black - 356BK"
  */
 
 import logger from '../utils/logger';
@@ -146,227 +152,196 @@ function getCategoryGroup(category: string): string {
 }
 
 /**
- * Generate SEO-optimized title based on category
+ * PRIMARY SIZE BY CATEGORY TYPE
+ * Maps category keywords to which dimension is the "common" measurement
+ */
+type SizeType = 'width' | 'height' | 'depth' | 'diameter' | 'length' | 'capacity' | 'none';
+
+const CATEGORY_PRIMARY_SIZE: Record<string, SizeType> = {
+  // Appliances - Width is standard
+  'refrigerator': 'width',
+  'range': 'width',
+  'oven': 'width',
+  'dishwasher': 'width',
+  'microwave': 'width',
+  'washer': 'width',
+  'dryer': 'width',
+  'freezer': 'capacity',
+  'cooktop': 'width',
+  'hood': 'width',
+  
+  // Bathtubs - Length is standard
+  'bathtub': 'length',
+  'tub': 'length',
+  'soaking tub': 'length',
+  'freestanding tub': 'length',
+  
+  // Showers - Diameter/Width for showerheads
+  'shower': 'width',
+  'showerhead': 'diameter',
+  'rain head': 'diameter',
+  'shower system': 'none',
+  
+  // Sinks - Width
+  'sink': 'width',
+  'kitchen sink': 'width',
+  'bathroom sink': 'width',
+  'vessel sink': 'diameter',
+  
+  // Faucets - Height (spout height is key differentiator)
+  'faucet': 'height',
+  'kitchen faucet': 'height',
+  'bathroom faucet': 'height',
+  
+  // Toilets - Height (comfort height vs standard)
+  'toilet': 'height',
+  
+  // Lighting - Width/Diameter
+  'chandelier': 'width',
+  'pendant': 'width',
+  'flush mount': 'width',
+  'ceiling fan': 'width',
+  'sconce': 'height',
+  'wall sconce': 'height',
+  'vanity light': 'width',
+  'mirror': 'width',
+  'lantern': 'height',
+  
+  // HVAC - Capacity
+  'air conditioner': 'capacity',
+  'heater': 'capacity',
+  'water heater': 'capacity',
+  
+  // Furniture
+  'cabinet': 'width',
+  'vanity': 'width',
+};
+
+/**
+ * Get the primary size for a product based on its category
+ * Returns formatted string like '36"' or null if not applicable
+ */
+function getPrimarySize(input: SEOTitleInput): string | null {
+  const categoryLower = (input.category + ' ' + (input.subCategory || '')).toLowerCase();
+  
+  // Find matching category
+  let sizeType: SizeType = 'none';
+  for (const [key, type] of Object.entries(CATEGORY_PRIMARY_SIZE)) {
+    if (categoryLower.includes(key)) {
+      sizeType = type;
+      break;
+    }
+  }
+  
+  if (sizeType === 'none') return null;
+  
+  let value: number | null = null;
+  
+  switch (sizeType) {
+    case 'width':
+    case 'diameter':
+      if (input.width) value = parseFloat(String(input.width));
+      break;
+    case 'height':
+      if (input.height) value = parseFloat(String(input.height));
+      break;
+    case 'depth':
+    case 'length':
+      if (input.depth) value = parseFloat(String(input.depth));
+      // For bathtubs, length is often in width field
+      if (!value && input.width) value = parseFloat(String(input.width));
+      break;
+    case 'capacity':
+      if (input.totalCapacity) {
+        const cap = parseFloat(String(input.totalCapacity));
+        if (!isNaN(cap) && cap > 0) {
+          return `${cap} Cu.Ft.`;
+        }
+      }
+      return null;
+  }
+  
+  if (value && !isNaN(value) && value > 0) {
+    // Format as X" (inches with quote mark)
+    return `${Math.round(value)}"`;
+  }
+  
+  return null;
+}
+
+/**
+ * UNIFIED SEO TITLE FORMULA:
+ * SIZE + BRAND + STYLE + CATEGORY + COLOR + MODEL NUMBER
+ * 
+ * Example: '36" GE French Door Refrigerator Stainless Steel - GFE28GYNFS'
+ * Example: 'RIOBEL Rain Head Showers Matte Black - 356BK'
  */
 export function generateSEOTitle(input: SEOTitleInput): string {
-  const categoryGroup = getCategoryGroup(input.category);
+  const parts: string[] = [];
   
-  let title: string;
+  // 1. SIZE (common measurement for this product type)
+  const size = getPrimarySize(input);
+  if (size) parts.push(size);
   
-  switch (categoryGroup) {
-    case 'appliance':
-      title = generateApplianceTitle(input);
-      break;
-    case 'lighting':
-      title = generateLightingTitle(input);
-      break;
-    case 'plumbing':
-      title = generatePlumbingTitle(input);
-      break;
-    case 'hvac':
-      title = generateHVACTitle(input);
-      break;
-    case 'furniture':
-      title = generateFurnitureTitle(input);
-      break;
-    default:
-      title = generateGeneralTitle(input);
+  // 2. BRAND
+  if (input.brand) parts.push(input.brand);
+  
+  // 3. STYLE (product style/type)
+  if (input.style && input.style.toLowerCase() !== 'not found') {
+    parts.push(input.style);
+  } else if (input.type && input.type.toLowerCase() !== 'not found') {
+    parts.push(input.type);
+  } else if (input.configuration && input.configuration.toLowerCase() !== 'not found') {
+    parts.push(input.configuration);
   }
   
-  // Ensure model number is at the end if not already included
-  if (input.modelNumber && !title.includes(input.modelNumber)) {
-    title = `${title} - ${input.modelNumber}`;
-  }
+  // 4. CATEGORY
+  parts.push(cleanCategory(input.category));
+  
+  // 5. COLOR (or Finish if no color)
+  const colorFinish = getColorOrFinish(input);
+  if (colorFinish) parts.push(colorFinish);
+  
+  // 6. MODEL NUMBER
+  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
+  
+  let title = parts.join(' ');
   
   // Clean up extra spaces and trailing dashes
   title = title.replace(/\s+/g, ' ').replace(/\s*-\s*$/, '').trim();
   
-  logger.debug('Generated SEO title', {
-    categoryGroup,
-    originalCategory: input.category,
-    generatedTitle: title,
-    modelNumber: input.modelNumber
+  logger.debug('Generated SEO title (unified formula)', {
+    formula: 'SIZE + BRAND + STYLE + CATEGORY + COLOR + MODEL',
+    size,
+    brand: input.brand,
+    style: input.style,
+    category: input.category,
+    color: colorFinish,
+    modelNumber: input.modelNumber,
+    generatedTitle: title
   });
   
   return title;
 }
 
 /**
- * APPLIANCE TITLE FORMAT:
- * Brand + Size + Style/Configuration + Category + Color/Finish + Model
- * Example: "GE 36-Inch French Door Refrigerator Stainless Steel - GFE28GYNFS"
+ * Get color or finish for title
  */
-function generateApplianceTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  // 1. Brand (always first)
-  if (input.brand) parts.push(input.brand);
-  
-  // 2. Size (width is primary for appliances)
-  const size = getApplianceSize(input);
-  if (size) parts.push(size);
-  
-  // 3. Configuration/Style (French Door, Gas, etc.)
-  const config = getApplianceConfig(input);
-  if (config) parts.push(config);
-  
-  // 4. Category
-  parts.push(cleanCategory(input.category));
-  
-  // 5. Color/Finish
-  const finish = getFinishColor(input);
-  if (finish) parts.push(finish);
-  
-  // 6. Model Number
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
-}
-
-/**
- * LIGHTING TITLE FORMAT:
- * Brand + Style + Size + Category + Finish + Light Count + Model
- * Example: "Minka Lavery Modern 24-Inch Chandelier Brushed Nickel 6-Light - 4106-84"
- */
-function generateLightingTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  // 1. Brand
-  if (input.brand) parts.push(input.brand);
-  
-  // 2. Style (Modern, Traditional, Industrial, etc.)
-  if (input.style) parts.push(input.style);
-  
-  // 3. Size (diameter/width for chandeliers, height for sconces)
-  const size = getLightingSize(input);
-  if (size) parts.push(size);
-  
-  // 4. Category
-  parts.push(cleanCategory(input.category));
-  
-  // 5. Finish
-  const finish = getFinishColor(input);
-  if (finish) parts.push(finish);
-  
-  // 6. Light count (if applicable)
-  if (input.numberOfLights && Number(input.numberOfLights) > 1) {
-    parts.push(`${input.numberOfLights}-Light`);
+function getColorOrFinish(input: SEOTitleInput): string | null {
+  // Prefer color over finish
+  if (input.color && input.color.toLowerCase() !== 'not found' && input.color.toLowerCase() !== 'n/a') {
+    return input.color;
   }
-  
-  // 7. Model Number
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
-}
-
-/**
- * PLUMBING TITLE FORMAT:
- * Brand + Type + Category + Mount Style + Finish + Handle Type + Model
- * Example: "Kohler Touchless Pull-Down Kitchen Faucet Single Handle Chrome - K-560-CP"
- */
-function generatePlumbingTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  // 1. Brand
-  if (input.brand) parts.push(input.brand);
-  
-  // 2. Type/Feature (Touchless, Dual Flush, etc.)
-  const type = getPlumbingType(input);
-  if (type) parts.push(type);
-  
-  // 3. Sub-type/Mount (Pull-Down, Undermount, etc.)
-  if (input.mountType) parts.push(input.mountType);
-  
-  // 4. Category
-  parts.push(cleanCategory(input.category));
-  
-  // 5. Finish
-  const finish = getFinishColor(input);
-  if (finish) parts.push(finish);
-  
-  // 6. Model Number
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
-}
-
-/**
- * HVAC TITLE FORMAT:
- * Brand + Capacity + Type + Category + Efficiency + Model
- * Example: "Carrier 3-Ton Split System Air Conditioner SEER 16 - 24ACC636A003"
- */
-function generateHVACTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  // 1. Brand
-  if (input.brand) parts.push(input.brand);
-  
-  // 2. Capacity
-  if (input.totalCapacity) parts.push(`${input.totalCapacity}`);
-  
-  // 3. Type
-  if (input.type) parts.push(input.type);
-  
-  // 4. Category
-  parts.push(cleanCategory(input.category));
-  
-  // 5. Model Number
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
-}
-
-/**
- * FURNITURE TITLE FORMAT:
- * Brand + Material + Style + Dimensions + Category + Finish + Model
- * Example: "Kohler Wood Traditional 36x24 Inch Mirror Espresso - K-99011"
- */
-function generateFurnitureTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  // 1. Brand
-  if (input.brand) parts.push(input.brand);
-  
-  // 2. Material
-  if (input.material) parts.push(input.material);
-  
-  // 3. Style
-  if (input.style) parts.push(input.style);
-  
-  // 4. Dimensions
-  const dims = getDimensions(input);
-  if (dims) parts.push(dims);
-  
-  // 5. Category
-  parts.push(cleanCategory(input.category));
-  
-  // 6. Finish
-  const finish = getFinishColor(input);
-  if (finish) parts.push(finish);
-  
-  // 7. Model Number
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
-}
-
-/**
- * GENERAL TITLE FORMAT (fallback):
- * Brand + Style + Category + Size + Finish + Model
- */
-function generateGeneralTitle(input: SEOTitleInput): string {
-  const parts: string[] = [];
-  
-  if (input.brand) parts.push(input.brand);
-  if (input.style) parts.push(input.style);
-  parts.push(cleanCategory(input.category));
-  
-  const finish = getFinishColor(input);
-  if (finish) parts.push(finish);
-  
-  if (input.modelNumber) parts.push(`- ${input.modelNumber}`);
-  
-  return parts.join(' ');
+  if (input.finish && input.finish.toLowerCase() !== 'not found' && input.finish.toLowerCase() !== 'n/a') {
+    return input.finish;
+  }
+  // Some materials can act as finish (Stainless Steel, Chrome, etc.)
+  if (input.material && ['stainless steel', 'chrome', 'brass', 'bronze', 'copper', 'nickel'].some(m => 
+    input.material!.toLowerCase().includes(m)
+  )) {
+    return input.material;
+  }
+  return null;
 }
 
 // === HELPER FUNCTIONS ===
@@ -376,78 +351,6 @@ function cleanCategory(category: string): string {
     .replace(/ #$/, '')           // Remove trailing " #"
     .replace(/\s+/g, ' ')         // Normalize spaces
     .trim();
-}
-
-function getApplianceSize(input: SEOTitleInput): string | null {
-  if (input.width) {
-    const w = parseFloat(String(input.width));
-    if (!isNaN(w) && w > 0) {
-      return `${Math.round(w)}-Inch`;
-    }
-  }
-  if (input.totalCapacity) {
-    return `${input.totalCapacity} Cu. Ft.`;
-  }
-  return null;
-}
-
-function getApplianceConfig(input: SEOTitleInput): string | null {
-  // Priority: configuration > fuelType > installationType > type > style
-  if (input.configuration) return input.configuration;
-  if (input.fuelType) return input.fuelType;
-  if (input.installationType) return input.installationType;
-  if (input.type) return input.type;
-  if (input.style) return input.style;
-  return null;
-}
-
-function getLightingSize(input: SEOTitleInput): string | null {
-  // For lighting, we typically use width/diameter
-  if (input.width) {
-    const w = parseFloat(String(input.width));
-    if (!isNaN(w) && w > 0) {
-      return `${Math.round(w)}-Inch`;
-    }
-  }
-  return null;
-}
-
-function getPlumbingType(input: SEOTitleInput): string | null {
-  // Check for key plumbing features
-  if (input.features) {
-    const priorityFeatures = ['Touchless', 'Dual Flush', 'One Piece', 'Single Handle', 'Pull-Down', 'Pull-Out'];
-    for (const feat of priorityFeatures) {
-      if (input.features.some(f => f.toLowerCase().includes(feat.toLowerCase()))) {
-        return feat;
-      }
-    }
-  }
-  if (input.type) return input.type;
-  return null;
-}
-
-function getFinishColor(input: SEOTitleInput): string | null {
-  if (input.finish && input.finish.toLowerCase() !== 'not found') return input.finish;
-  if (input.color && input.color.toLowerCase() !== 'not found') return input.color;
-  if (input.material && ['Stainless Steel', 'Chrome', 'Brass', 'Bronze'].some(m => 
-    input.material!.toLowerCase().includes(m.toLowerCase())
-  )) {
-    return input.material;
-  }
-  return null;
-}
-
-function getDimensions(input: SEOTitleInput): string | null {
-  const w = input.width ? parseFloat(String(input.width)) : null;
-  const h = input.height ? parseFloat(String(input.height)) : null;
-  
-  if (w && h && !isNaN(w) && !isNaN(h)) {
-    return `${Math.round(w)}x${Math.round(h)} Inch`;
-  }
-  if (w && !isNaN(w)) {
-    return `${Math.round(w)}-Inch`;
-  }
-  return null;
 }
 
 /**
