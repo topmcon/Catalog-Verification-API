@@ -4214,5 +4214,17 @@
   {
     "attribute_name": "Lead Leaching Certified NSF/ANSI 61",
     "attribute_id": "a1aaZ000009yV6zQAE"
+  },
+  {
+    "attribute_name": "CEER Rating",
+    "attribute_id": "a1aaZ000009ya6fQAA"
+  },
+  {
+    "attribute_name": "Base Style",
+    "attribute_id": "a1aaZ000009ya8HQAQ"
+  },
+  {
+    "attribute_name": "Handing",
+    "attribute_id": "a1aaZ000009ya9tQAA"
   }
 ]
