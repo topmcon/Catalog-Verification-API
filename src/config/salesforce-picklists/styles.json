@@ -892,10 +892,6 @@
     "style_id": "a1IaZ000001UwVpUAK"
   },
   {
-    "style_name": "Standard",
-    "style_id": "a1IaZ000001UwZ3UAK"
-  },
-  {
     "style_name": "Kitchen Faucet",
     "style_id": "a1IaZ000001UwafUAC"
   },
@@ -904,23 +900,1735 @@
     "style_id": "a1IaZ000001UwcHUAS"
   },
   {
-    "style_name": "Floor Mounted Tub Filler",
-    "style_id": "a1IaZ000001UwdtUAC"
-  },
-  {
-    "style_name": "Floor Mounted Tub Filler",
-    "style_id": "a1IaZ000001UwfVUAS"
-  },
-  {
     "style_name": "Bathroom Sink Faucet",
     "style_id": "a1IaZ000001UwijUAC"
   },
   {
-    "style_name": "Floor Mounted Tub Filler",
-    "style_id": "a1IaZ000001UwlxUAC"
+    "style_name": "Convection",
+    "style_id": "a1IaZ000001V6MxUAK"
   },
   {
-    "style_name": "Floor Mounted Tub Filler",
-    "style_id": "a1IaZ000001UwnZUAS"
+    "style_name": "LED Retrofit",
+    "style_id": "a1IaZ000001V7uIUAS"
+  },
+  {
+    "style_name": "Padlock",
+    "style_id": "a1IaZ000001V88oUAC"
+  },
+  {
+    "style_name": "Heat Pump",
+    "style_id": "a1IaZ000001V8ASUA0"
+  },
+  {
+    "style_name": "Oscillating",
+    "style_id": "a1IaZ000001V8GsUAK"
+  },
+  {
+    "style_name": "Adapter",
+    "style_id": "a1IaZ000001V8VNUA0"
+  },
+  {
+    "style_name": "Air Gap",
+    "style_id": "a1IaZ000001V8WzUAK"
+  },
+  {
+    "style_name": "Appliance Pull",
+    "style_id": "a1IaZ000001V8YbUAK"
+  },
+  {
+    "style_name": "Arc Lamp",
+    "style_id": "a1IaZ000001V8aDUAS"
+  },
+  {
+    "style_name": "Arch Pull",
+    "style_id": "a1IaZ000001V8bpUAC"
+  },
+  {
+    "style_name": "Art Pull",
+    "style_id": "a1IaZ000001V8dRUAS"
+  },
+  {
+    "style_name": "Ball Bearing",
+    "style_id": "a1IaZ000001V8f3UAC"
+  },
+  {
+    "style_name": "Bakers Rack",
+    "style_id": "a1IaZ000001V8gfUAC"
+  },
+  {
+    "style_name": "Ball Catch",
+    "style_id": "a1IaZ000001V8iHUAS"
+  },
+  {
+    "style_name": "Bar Pull",
+    "style_id": "a1IaZ000001V8jtUAC"
+  },
+  {
+    "style_name": "Under Sink",
+    "style_id": "a1IaZ000001V8juUAC"
+  },
+  {
+    "style_name": "Bar Stool",
+    "style_id": "a1IaZ000001V8lVUAS"
+  },
+  {
+    "style_name": "Barn",
+    "style_id": "a1IaZ000001V8n7UAC"
+  },
+  {
+    "style_name": "Baseboard",
+    "style_id": "a1IaZ000001V8ojUAC"
+  },
+  {
+    "style_name": "Metal",
+    "style_id": "a1IaZ000001V8okUAC"
+  },
+  {
+    "style_name": "Wire Pull",
+    "style_id": "a1IaZ000001V8olUAC"
+  },
+  {
+    "style_name": "Basement",
+    "style_id": "a1IaZ000001V8qLUAS"
+  },
+  {
+    "style_name": "Basket",
+    "style_id": "a1IaZ000001V8rxUAC"
+  },
+  {
+    "style_name": "Basket Strainer",
+    "style_id": "a1IaZ000001V8tZUAS"
+  },
+  {
+    "style_name": "Oval",
+    "style_id": "a1IaZ000001V8taUAC"
+  },
+  {
+    "style_name": "Batch Feed",
+    "style_id": "a1IaZ000001V8vBUAS"
+  },
+  {
+    "style_name": "Bath Mat",
+    "style_id": "a1IaZ000001V8wnUAC"
+  },
+  {
+    "style_name": "Bathroom",
+    "style_id": "a1IaZ000001V8yPUAS"
+  },
+  {
+    "style_name": "Bidet Attachment",
+    "style_id": "a1IaZ000001V901UAC"
+  },
+  {
+    "style_name": "Bi-Fold",
+    "style_id": "a1IaZ000001V91dUAC"
+  },
+  {
+    "style_name": "Bin",
+    "style_id": "a1IaZ000001V93FUAS"
+  },
+  {
+    "style_name": "Downrod",
+    "style_id": "a1IaZ000001V93GUAS"
+  },
+  {
+    "style_name": "Bin Pull",
+    "style_id": "a1IaZ000001V94rUAC"
+  },
+  {
+    "style_name": "Biometric",
+    "style_id": "a1IaZ000001V96TUAS"
+  },
+  {
+    "style_name": "Bird Bath",
+    "style_id": "a1IaZ000001V985UAC"
+  },
+  {
+    "style_name": "Bladder",
+    "style_id": "a1IaZ000001V99hUAC"
+  },
+  {
+    "style_name": "Blade",
+    "style_id": "a1IaZ000001V9BJUA0"
+  },
+  {
+    "style_name": "Bluetooth",
+    "style_id": "a1IaZ000001V9CvUAK"
+  },
+  {
+    "style_name": "Gable Mount",
+    "style_id": "a1IaZ000001V9CwUAK"
+  },
+  {
+    "style_name": "Bohemian",
+    "style_id": "a1IaZ000001V9EXUA0"
+  },
+  {
+    "style_name": "Inverter",
+    "style_id": "a1IaZ000001V9EYUA0"
+  },
+  {
+    "style_name": "Boiler",
+    "style_id": "a1IaZ000001V9G9UAK"
+  },
+  {
+    "style_name": "Bollard",
+    "style_id": "a1IaZ000001V9HlUAK"
+  },
+  {
+    "style_name": "Bottle Filler",
+    "style_id": "a1IaZ000001V9JNUA0"
+  },
+  {
+    "style_name": "Bowl",
+    "style_id": "a1IaZ000001V9KzUAK"
+  },
+  {
+    "style_name": "Brick",
+    "style_id": "a1IaZ000001V9MbUAK"
+  },
+  {
+    "style_name": "Statue",
+    "style_id": "a1IaZ000001V9McUAK"
+  },
+  {
+    "style_name": "Buffet",
+    "style_id": "a1IaZ000001V9ODUA0"
+  },
+  {
+    "style_name": "Buffet Lamp",
+    "style_id": "a1IaZ000001V9PpUAK"
+  },
+  {
+    "style_name": "Butt Hinge",
+    "style_id": "a1IaZ000001V9RRUA0"
+  },
+  {
+    "style_name": "Cabinet",
+    "style_id": "a1IaZ000001V9T3UAK"
+  },
+  {
+    "style_name": "Tapestry",
+    "style_id": "a1IaZ000001V9T4UAK"
+  },
+  {
+    "style_name": "Cable Operated",
+    "style_id": "a1IaZ000001V9UfUAK"
+  },
+  {
+    "style_name": "Cam Lock",
+    "style_id": "a1IaZ000001V9WHUA0"
+  },
+  {
+    "style_name": "Insulated",
+    "style_id": "a1IaZ000001V9WIUA0"
+  },
+  {
+    "style_name": "Candle Holder",
+    "style_id": "a1IaZ000001V9XtUAK"
+  },
+  {
+    "style_name": "Ceramic",
+    "style_id": "a1IaZ000001V9XuUAK"
+  },
+  {
+    "style_name": "Canless",
+    "style_id": "a1IaZ000001V9ZVUA0"
+  },
+  {
+    "style_name": "Canopy",
+    "style_id": "a1IaZ000001V9b7UAC"
+  },
+  {
+    "style_name": "Cap",
+    "style_id": "a1IaZ000001V9cjUAC"
+  },
+  {
+    "style_name": "Floor Mirror",
+    "style_id": "a1IaZ000001V9ckUAC"
+  },
+  {
+    "style_name": "Carbon",
+    "style_id": "a1IaZ000001V9eLUAS"
+  },
+  {
+    "style_name": "Cash Box",
+    "style_id": "a1IaZ000001V9fxUAC"
+  },
+  {
+    "style_name": "Catch",
+    "style_id": "a1IaZ000001V9hZUAS"
+  },
+  {
+    "style_name": "Ceiling Mount",
+    "style_id": "a1IaZ000001V9jBUAS"
+  },
+  {
+    "style_name": "Cement",
+    "style_id": "a1IaZ000001V9knUAC"
+  },
+  {
+    "style_name": "Center Mount",
+    "style_id": "a1IaZ000001V9mPUAS"
+  },
+  {
+    "style_name": "Central",
+    "style_id": "a1IaZ000001V9o1UAC"
+  },
+  {
+    "style_name": "CFL",
+    "style_id": "a1IaZ000001V9pdUAC"
+  },
+  {
+    "style_name": "Chain",
+    "style_id": "a1IaZ000001V9rFUAS"
+  },
+  {
+    "style_name": "Chandelier",
+    "style_id": "a1IaZ000001V9srUAC"
+  },
+  {
+    "style_name": "Kick Plate",
+    "style_id": "a1IaZ000001V9ssUAC"
+  },
+  {
+    "style_name": "Charcoal",
+    "style_id": "a1IaZ000001V9uTUAS"
+  },
+  {
+    "style_name": "Storage Drawer",
+    "style_id": "a1IaZ000001V9uUUAS"
+  },
+  {
+    "style_name": "Chiller",
+    "style_id": "a1IaZ000001V9w5UAC"
+  },
+  {
+    "style_name": "Chimney Pipe",
+    "style_id": "a1IaZ000001V9xhUAC"
+  },
+  {
+    "style_name": "Classroom",
+    "style_id": "a1IaZ000001V9zJUAS"
+  },
+  {
+    "style_name": "Cleanout",
+    "style_id": "a1IaZ000001VA0vUAG"
+  },
+  {
+    "style_name": "Kitchen Island",
+    "style_id": "a1IaZ000001VA0wUAG"
+  },
+  {
+    "style_name": "Click Lock",
+    "style_id": "a1IaZ000001VA2XUAW"
+  },
+  {
+    "style_name": "Clock",
+    "style_id": "a1IaZ000001VA49UAG"
+  },
+  {
+    "style_name": "Closer",
+    "style_id": "a1IaZ000001VA5lUAG"
+  },
+  {
+    "style_name": "Closet Rod",
+    "style_id": "a1IaZ000001VA7NUAW"
+  },
+  {
+    "style_name": "Hammock",
+    "style_id": "a1IaZ000001VA7OUAW"
+  },
+  {
+    "style_name": "Closet System",
+    "style_id": "a1IaZ000001VA8zUAG"
+  },
+  {
+    "style_name": "Coastal",
+    "style_id": "a1IaZ000001VAAbUAO"
+  },
+  {
+    "style_name": "Colander",
+    "style_id": "a1IaZ000001VACDUA4"
+  },
+  {
+    "style_name": "Cold Brew",
+    "style_id": "a1IaZ000001VADpUAO"
+  },
+  {
+    "style_name": "Column Mount",
+    "style_id": "a1IaZ000001VAFRUA4"
+  },
+  {
+    "style_name": "Combo",
+    "style_id": "a1IaZ000001VAH3UAO"
+  },
+  {
+    "style_name": "Compact",
+    "style_id": "a1IaZ000001VAIfUAO"
+  },
+  {
+    "style_name": "Gear",
+    "style_id": "a1IaZ000001VAIgUAO"
+  },
+  {
+    "style_name": "Complete System",
+    "style_id": "a1IaZ000001VAKHUA4"
+  },
+  {
+    "style_name": "Concealed",
+    "style_id": "a1IaZ000001VALtUAO"
+  },
+  {
+    "style_name": "Fan Forced",
+    "style_id": "a1IaZ000001VALuUAO"
+  },
+  {
+    "style_name": "Condensing",
+    "style_id": "a1IaZ000001VANVUA4"
+  },
+  {
+    "style_name": "Connector",
+    "style_id": "a1IaZ000001VAP7UAO"
+  },
+  {
+    "style_name": "Control Panel",
+    "style_id": "a1IaZ000001VAQjUAO"
+  },
+  {
+    "style_name": "Cooling Only",
+    "style_id": "a1IaZ000001VASLUA4"
+  },
+  {
+    "style_name": "Coupling",
+    "style_id": "a1IaZ000001VATxUAO"
+  },
+  {
+    "style_name": "Cover",
+    "style_id": "a1IaZ000001VAVZUA4"
+  },
+  {
+    "style_name": "Crawl Space",
+    "style_id": "a1IaZ000001VAXBUA4"
+  },
+  {
+    "style_name": "Crown Molding",
+    "style_id": "a1IaZ000001VAYnUAO"
+  },
+  {
+    "style_name": "Crystal Pull",
+    "style_id": "a1IaZ000001VAaPUAW"
+  },
+  {
+    "style_name": "Cup Pull",
+    "style_id": "a1IaZ000001VAc1UAG"
+  },
+  {
+    "style_name": "Curb Mount",
+    "style_id": "a1IaZ000001VAddUAG"
+  },
+  {
+    "style_name": "Cutting Board",
+    "style_id": "a1IaZ000001VAfFUAW"
+  },
+  {
+    "style_name": "Cylinder",
+    "style_id": "a1IaZ000001VAgrUAG"
+  },
+  {
+    "style_name": "Professional Pull",
+    "style_id": "a1IaZ000001VAgsUAG"
+  },
+  {
+    "style_name": "Damp Rated",
+    "style_id": "a1IaZ000001VAiTUAW"
+  },
+  {
+    "style_name": "Grab Bar",
+    "style_id": "a1IaZ000001VAiUUAW"
+  },
+  {
+    "style_name": "Damper",
+    "style_id": "a1IaZ000001VAk5UAG"
+  },
+  {
+    "style_name": "Deck Mount",
+    "style_id": "a1IaZ000001VAlhUAG"
+  },
+  {
+    "style_name": "Designer Handle",
+    "style_id": "a1IaZ000001VAnJUAW"
+  },
+  {
+    "style_name": "Safe",
+    "style_id": "a1IaZ000001VAnKUAW"
+  },
+  {
+    "style_name": "Designer Knob",
+    "style_id": "a1IaZ000001VAovUAG"
+  },
+  {
+    "style_name": "Designer Pull",
+    "style_id": "a1IaZ000001VAqXUAW"
+  },
+  {
+    "style_name": "WiFi",
+    "style_id": "a1IaZ000001VAqYUAW"
+  },
+  {
+    "style_name": "Desk Lamp",
+    "style_id": "a1IaZ000001VAs9UAG"
+  },
+  {
+    "style_name": "Diaphragm",
+    "style_id": "a1IaZ000001VAtlUAG"
+  },
+  {
+    "style_name": "Dimmer",
+    "style_id": "a1IaZ000001VAvNUAW"
+  },
+  {
+    "style_name": "Portable",
+    "style_id": "a1IaZ000001VAvOUAW"
+  },
+  {
+    "style_name": "Dining",
+    "style_id": "a1IaZ000001VAwzUAG"
+  },
+  {
+    "style_name": "Timer",
+    "style_id": "a1IaZ000001VAx0UAG"
+  },
+  {
+    "style_name": "Dishwasher Pull",
+    "style_id": "a1IaZ000001VAybUAG"
+  },
+  {
+    "style_name": "Dispenser",
+    "style_id": "a1IaZ000001VB0DUAW"
+  },
+  {
+    "style_name": "Door Closer",
+    "style_id": "a1IaZ000001VB1pUAG"
+  },
+  {
+    "style_name": "Door Organizer",
+    "style_id": "a1IaZ000001VB3RUAW"
+  },
+  {
+    "style_name": "Double Cylinder",
+    "style_id": "a1IaZ000001VB53UAG"
+  },
+  {
+    "style_name": "Down Draft",
+    "style_id": "a1IaZ000001VB6fUAG"
+  },
+  {
+    "style_name": "Downdraft",
+    "style_id": "a1IaZ000001VB8HUAW"
+  },
+  {
+    "style_name": "Wall Heater",
+    "style_id": "a1IaZ000001VB8IUAW"
+  },
+  {
+    "style_name": "Drain Cover",
+    "style_id": "a1IaZ000001VB9tUAG"
+  },
+  {
+    "style_name": "Drawer Insert",
+    "style_id": "a1IaZ000001VBBVUA4"
+  },
+  {
+    "style_name": "Drawer Lock",
+    "style_id": "a1IaZ000001VBD7UAO"
+  },
+  {
+    "style_name": "Drawer Organizer",
+    "style_id": "a1IaZ000001VBEjUAO"
+  },
+  {
+    "style_name": "Drip",
+    "style_id": "a1IaZ000001VBGLUA4"
+  },
+  {
+    "style_name": "Dual Fuel",
+    "style_id": "a1IaZ000001VBHxUAO"
+  },
+  {
+    "style_name": "Ductless",
+    "style_id": "a1IaZ000001VBJZUA4"
+  },
+  {
+    "style_name": "Duplex Strainer",
+    "style_id": "a1IaZ000001VBLBUA4"
+  },
+  {
+    "style_name": "Edge Banding",
+    "style_id": "a1IaZ000001VBMnUAO"
+  },
+  {
+    "style_name": "Elbow",
+    "style_id": "a1IaZ000001VBOPUA4"
+  },
+  {
+    "style_name": "Slide-In",
+    "style_id": "a1IaZ000001VBOQUA4"
+  },
+  {
+    "style_name": "Electronic",
+    "style_id": "a1IaZ000001VBQ1UAO"
+  },
+  {
+    "style_name": "Electrostatic",
+    "style_id": "a1IaZ000001VBRdUAO"
+  },
+  {
+    "style_name": "Empire",
+    "style_id": "a1IaZ000001VBTFUA4"
+  },
+  {
+    "style_name": "End Panel",
+    "style_id": "a1IaZ000001VBUrUAO"
+  },
+  {
+    "style_name": "Engineered",
+    "style_id": "a1IaZ000001VBWTUA4"
+  },
+  {
+    "style_name": "Entry",
+    "style_id": "a1IaZ000001VBY5UAO"
+  },
+  {
+    "style_name": "Espresso",
+    "style_id": "a1IaZ000001VBZhUAO"
+  },
+  {
+    "style_name": "Ethanol",
+    "style_id": "a1IaZ000001VBbJUAW"
+  },
+  {
+    "style_name": "Exit Device",
+    "style_id": "a1IaZ000001VBcvUAG"
+  },
+  {
+    "style_name": "Exit Sign",
+    "style_id": "a1IaZ000001VBeXUAW"
+  },
+  {
+    "style_name": "Exposed",
+    "style_id": "a1IaZ000001VBg9UAG"
+  },
+  {
+    "style_name": "Rigid",
+    "style_id": "a1IaZ000001VBgAUAW"
+  },
+  {
+    "style_name": "Exterior",
+    "style_id": "a1IaZ000001VBhlUAG"
+  },
+  {
+    "style_name": "Fan Control",
+    "style_id": "a1IaZ000001VBjNUAW"
+  },
+  {
+    "style_name": "Faucet Mount",
+    "style_id": "a1IaZ000001VBkzUAG"
+  },
+  {
+    "style_name": "Fiberglass",
+    "style_id": "a1IaZ000001VBmbUAG"
+  },
+  {
+    "style_name": "Figurine",
+    "style_id": "a1IaZ000001VBoDUAW"
+  },
+  {
+    "style_name": "Filtered",
+    "style_id": "a1IaZ000001VBppUAG"
+  },
+  {
+    "style_name": "Finger Pull",
+    "style_id": "a1IaZ000001VBrRUAW"
+  },
+  {
+    "style_name": "Laminate",
+    "style_id": "a1IaZ000001VBrSUAW"
+  },
+  {
+    "style_name": "Fire Glass",
+    "style_id": "a1IaZ000001VBt3UAG"
+  },
+  {
+    "style_name": "Oil Filled",
+    "style_id": "a1IaZ000001VBt4UAG"
+  },
+  {
+    "style_name": "Fire Pit",
+    "style_id": "a1IaZ000001VBufUAG"
+  },
+  {
+    "style_name": "Thread Compound",
+    "style_id": "a1IaZ000001VBugUAG"
+  },
+  {
+    "style_name": "Fire Table",
+    "style_id": "a1IaZ000001VBwHUAW"
+  },
+  {
+    "style_name": "Fireplace Insert",
+    "style_id": "a1IaZ000001VBxtUAG"
+  },
+  {
+    "style_name": "Fixed",
+    "style_id": "a1IaZ000001VBzVUAW"
+  },
+  {
+    "style_name": "Flagstone",
+    "style_id": "a1IaZ000001VC17UAG"
+  },
+  {
+    "style_name": "Flashing",
+    "style_id": "a1IaZ000001VC2jUAG"
+  },
+  {
+    "style_name": "Flexible",
+    "style_id": "a1IaZ000001VC4LUAW"
+  },
+  {
+    "style_name": "Floor",
+    "style_id": "a1IaZ000001VC5xUAG"
+  },
+  {
+    "style_name": "Floor Drain",
+    "style_id": "a1IaZ000001VC7ZUAW"
+  },
+  {
+    "style_name": "Floor Guide",
+    "style_id": "a1IaZ000001VC9BUAW"
+  },
+  {
+    "style_name": "Floor Heater",
+    "style_id": "a1IaZ000001VCAnUAO"
+  },
+  {
+    "style_name": "Floor Lamp",
+    "style_id": "a1IaZ000001VCCPUA4"
+  },
+  {
+    "style_name": "Flux",
+    "style_id": "a1IaZ000001VCE1UAO"
+  },
+  {
+    "style_name": "Fountain",
+    "style_id": "a1IaZ000001VCFdUAO"
+  },
+  {
+    "style_name": "Frame",
+    "style_id": "a1IaZ000001VCHFUA4"
+  },
+  {
+    "style_name": "French",
+    "style_id": "a1IaZ000001VCIrUAO"
+  },
+  {
+    "style_name": "Front Control",
+    "style_id": "a1IaZ000001VCKTUA4"
+  },
+  {
+    "style_name": "Full Dummy",
+    "style_id": "a1IaZ000001VCM5UAO"
+  },
+  {
+    "style_name": "Full Length",
+    "style_id": "a1IaZ000001VCNhUAO"
+  },
+  {
+    "style_name": "Garden Stake",
+    "style_id": "a1IaZ000001VCPJUA4"
+  },
+  {
+    "style_name": "Geometric",
+    "style_id": "a1IaZ000001VCQvUAO"
+  },
+  {
+    "style_name": "Glass",
+    "style_id": "a1IaZ000001VCSXUA4"
+  },
+  {
+    "style_name": "Glass Door Lock",
+    "style_id": "a1IaZ000001VCU9UAO"
+  },
+  {
+    "style_name": "Strainer",
+    "style_id": "a1IaZ000001VCUAUA4"
+  },
+  {
+    "style_name": "Glue Down",
+    "style_id": "a1IaZ000001VCVlUAO"
+  },
+  {
+    "style_name": "Grate",
+    "style_id": "a1IaZ000001VCXNUA4"
+  },
+  {
+    "style_name": "Gravel",
+    "style_id": "a1IaZ000001VCYzUAO"
+  },
+  {
+    "style_name": "Grille",
+    "style_id": "a1IaZ000001VCabUAG"
+  },
+  {
+    "style_name": "Halogen",
+    "style_id": "a1IaZ000001VCcDUAW"
+  },
+  {
+    "style_name": "Knob + Deadbolt",
+    "style_id": "a1IaZ000001VCcEUAW"
+  },
+  {
+    "style_name": "Hand Dryer",
+    "style_id": "a1IaZ000001VCdpUAG"
+  },
+  {
+    "style_name": "Handheld Sprayer",
+    "style_id": "a1IaZ000001VCfRUAW"
+  },
+  {
+    "style_name": "Handle",
+    "style_id": "a1IaZ000001VCh3UAG"
+  },
+  {
+    "style_name": "Handleset",
+    "style_id": "a1IaZ000001VCifUAG"
+  },
+  {
+    "style_name": "Handleset + Deadbolt",
+    "style_id": "a1IaZ000001VCkHUAW"
+  },
+  {
+    "style_name": "Non-Electric",
+    "style_id": "a1IaZ000001VCkIUAW"
+  },
+  {
+    "style_name": "Hanger",
+    "style_id": "a1IaZ000001VCltUAG"
+  },
+  {
+    "style_name": "HEPA",
+    "style_id": "a1IaZ000001VCnVUAW"
+  },
+  {
+    "style_name": "High Bay",
+    "style_id": "a1IaZ000001VCp7UAG"
+  },
+  {
+    "style_name": "Hook",
+    "style_id": "a1IaZ000001VCqjUAG"
+  },
+  {
+    "style_name": "Hot and Cold",
+    "style_id": "a1IaZ000001VCsLUAW"
+  },
+  {
+    "style_name": "Housing",
+    "style_id": "a1IaZ000001VCtxUAG"
+  },
+  {
+    "style_name": "Hugger",
+    "style_id": "a1IaZ000001VCvZUAW"
+  },
+  {
+    "style_name": "Patio",
+    "style_id": "a1IaZ000001VCvaUAG"
+  },
+  {
+    "style_name": "Humidifier",
+    "style_id": "a1IaZ000001VCxBUAW"
+  },
+  {
+    "style_name": "Humidity Sensing",
+    "style_id": "a1IaZ000001VCynUAG"
+  },
+  {
+    "style_name": "Incandescent",
+    "style_id": "a1IaZ000001VD0PUAW"
+  },
+  {
+    "style_name": "Infrared",
+    "style_id": "a1IaZ000001VD21UAG"
+  },
+  {
+    "style_name": "Infrared Heater",
+    "style_id": "a1IaZ000001VD3dUAG"
+  },
+  {
+    "style_name": "Inline",
+    "style_id": "a1IaZ000001VD5FUAW"
+  },
+  {
+    "style_name": "Inset",
+    "style_id": "a1IaZ000001VD6rUAG"
+  },
+  {
+    "style_name": "Instant Hot Only",
+    "style_id": "a1IaZ000001VD8TUAW"
+  },
+  {
+    "style_name": "Interceptor",
+    "style_id": "a1IaZ000001VDA5UAO"
+  },
+  {
+    "style_name": "Lounge",
+    "style_id": "a1IaZ000001VDA6UAO"
+  },
+  {
+    "style_name": "Screen",
+    "style_id": "a1IaZ000001VDA7UAO"
+  },
+  {
+    "style_name": "Interior",
+    "style_id": "a1IaZ000001VDBhUAO"
+  },
+  {
+    "style_name": "Jeweled",
+    "style_id": "a1IaZ000001VDDJUA4"
+  },
+  {
+    "style_name": "Kamado",
+    "style_id": "a1IaZ000001VDEvUAO"
+  },
+  {
+    "style_name": "Key Cabinet",
+    "style_id": "a1IaZ000001VDGXUA4"
+  },
+  {
+    "style_name": "Keyed Lock",
+    "style_id": "a1IaZ000001VDI9UAO"
+  },
+  {
+    "style_name": "Keyless",
+    "style_id": "a1IaZ000001VDJlUAO"
+  },
+  {
+    "style_name": "Keypad",
+    "style_id": "a1IaZ000001VDLNUA4"
+  },
+  {
+    "style_name": "Kitchen",
+    "style_id": "a1IaZ000001VDMzUAO"
+  },
+  {
+    "style_name": "Kitchen Cart",
+    "style_id": "a1IaZ000001VDObUAO"
+  },
+  {
+    "style_name": "Knob Entry",
+    "style_id": "a1IaZ000001VDQDUA4"
+  },
+  {
+    "style_name": "Lantern",
+    "style_id": "a1IaZ000001VDRpUAO"
+  },
+  {
+    "style_name": "Stone",
+    "style_id": "a1IaZ000001VDRqUAO"
+  },
+  {
+    "style_name": "Latch",
+    "style_id": "a1IaZ000001VDTRUA4"
+  },
+  {
+    "style_name": "Lazy Susan",
+    "style_id": "a1IaZ000001VDV3UAO"
+  },
+  {
+    "style_name": "LED Panel",
+    "style_id": "a1IaZ000001VDWfUAO"
+  },
+  {
+    "style_name": "LED Strip",
+    "style_id": "a1IaZ000001VDYHUA4"
+  },
+  {
+    "style_name": "LED Tube",
+    "style_id": "a1IaZ000001VDZtUAO"
+  },
+  {
+    "style_name": "Single Serve",
+    "style_id": "a1IaZ000001VDZuUAO"
+  },
+  {
+    "style_name": "Lever + Deadbolt",
+    "style_id": "a1IaZ000001VDbVUAW"
+  },
+  {
+    "style_name": "Lever Entry",
+    "style_id": "a1IaZ000001VDd7UAG"
+  },
+  {
+    "style_name": "Lift & Turn",
+    "style_id": "a1IaZ000001VDejUAG"
+  },
+  {
+    "style_name": "Semi-Concealed",
+    "style_id": "a1IaZ000001VDekUAG"
+  },
+  {
+    "style_name": "Light Bar",
+    "style_id": "a1IaZ000001VDgLUAW"
+  },
+  {
+    "style_name": "Light Kit",
+    "style_id": "a1IaZ000001VDhxUAG"
+  },
+  {
+    "style_name": "Lock",
+    "style_id": "a1IaZ000001VDjZUAW"
+  },
+  {
+    "style_name": "Lock Box",
+    "style_id": "a1IaZ000001VDlBUAW"
+  },
+  {
+    "style_name": "Locking",
+    "style_id": "a1IaZ000001VDmnUAG"
+  },
+  {
+    "style_name": "Log Set",
+    "style_id": "a1IaZ000001VDoPUAW"
+  },
+  {
+    "style_name": "Loose Lay",
+    "style_id": "a1IaZ000001VDq1UAG"
+  },
+  {
+    "style_name": "Urinal",
+    "style_id": "a1IaZ000001VDq2UAG"
+  },
+  {
+    "style_name": "Low Bay",
+    "style_id": "a1IaZ000001VDrdUAG"
+  },
+  {
+    "style_name": "Magnetic",
+    "style_id": "a1IaZ000001VDtFUAW"
+  },
+  {
+    "style_name": "Manual",
+    "style_id": "a1IaZ000001VDurUAG"
+  },
+  {
+    "style_name": "Mirror",
+    "style_id": "a1IaZ000001VDwTUAW"
+  },
+  {
+    "style_name": "Molding",
+    "style_id": "a1IaZ000001VDy5UAG"
+  },
+  {
+    "style_name": "Monorail",
+    "style_id": "a1IaZ000001VDzhUAG"
+  },
+  {
+    "style_name": "Mortise",
+    "style_id": "a1IaZ000001VE1JUAW"
+  },
+  {
+    "style_name": "Mortise Lock",
+    "style_id": "a1IaZ000001VE2vUAG"
+  },
+  {
+    "style_name": "Mosaic",
+    "style_id": "a1IaZ000001VE4XUAW"
+  },
+  {
+    "style_name": "Multi Zone",
+    "style_id": "a1IaZ000001VE69UAG"
+  },
+  {
+    "style_name": "Multi-Fuel",
+    "style_id": "a1IaZ000001VE7lUAG"
+  },
+  {
+    "style_name": "Radiant",
+    "style_id": "a1IaZ000001VE7mUAG"
+  },
+  {
+    "style_name": "Mushroom",
+    "style_id": "a1IaZ000001VE9NUAW"
+  },
+  {
+    "style_name": "New Construction",
+    "style_id": "a1IaZ000001VEAzUAO"
+  },
+  {
+    "style_name": "Niche",
+    "style_id": "a1IaZ000001VECbUAO"
+  },
+  {
+    "style_name": "Office",
+    "style_id": "a1IaZ000001VEEDUA4"
+  },
+  {
+    "style_name": "Outdoor",
+    "style_id": "a1IaZ000001VEFpUAO"
+  },
+  {
+    "style_name": "Oven Pull",
+    "style_id": "a1IaZ000001VEHRUA4"
+  },
+  {
+    "style_name": "Overlay",
+    "style_id": "a1IaZ000001VEJ3UAO"
+  },
+  {
+    "style_name": "Package Unit",
+    "style_id": "a1IaZ000001VEKfUAO"
+  },
+  {
+    "style_name": "Panel",
+    "style_id": "a1IaZ000001VEMHUA4"
+  },
+  {
+    "style_name": "Panel-Ready",
+    "style_id": "a1IaZ000001VENtUAO"
+  },
+  {
+    "style_name": "Partition",
+    "style_id": "a1IaZ000001VEPVUA4"
+  },
+  {
+    "style_name": "Patio Heater",
+    "style_id": "a1IaZ000001VER7UAO"
+  },
+  {
+    "style_name": "Paver",
+    "style_id": "a1IaZ000001VESjUAO"
+  },
+  {
+    "style_name": "Puck Light",
+    "style_id": "a1IaZ000001VESkUAO"
+  },
+  {
+    "style_name": "Peel and Stick",
+    "style_id": "a1IaZ000001VEULUA4"
+  },
+  {
+    "style_name": "Pellet",
+    "style_id": "a1IaZ000001VEVxUAO"
+  },
+  {
+    "style_name": "Piano Hinge",
+    "style_id": "a1IaZ000001VEXZUA4"
+  },
+  {
+    "style_name": "Pier Mount",
+    "style_id": "a1IaZ000001VEZBUA4"
+  },
+  {
+    "style_name": "Plain Steel",
+    "style_id": "a1IaZ000001VEanUAG"
+  },
+  {
+    "style_name": "Plank",
+    "style_id": "a1IaZ000001VEcPUAW"
+  },
+  {
+    "style_name": "Planter",
+    "style_id": "a1IaZ000001VEe1UAG"
+  },
+  {
+    "style_name": "Pleated",
+    "style_id": "a1IaZ000001VEfdUAG"
+  },
+  {
+    "style_name": "Pocket",
+    "style_id": "a1IaZ000001VEhFUAW"
+  },
+  {
+    "style_name": "Pocket Door Kit",
+    "style_id": "a1IaZ000001VEirUAG"
+  },
+  {
+    "style_name": "Point of Use",
+    "style_id": "a1IaZ000001VEkTUAW"
+  },
+  {
+    "style_name": "Porcelain",
+    "style_id": "a1IaZ000001VEm5UAG"
+  },
+  {
+    "style_name": "Post Mount",
+    "style_id": "a1IaZ000001VEnhUAG"
+  },
+  {
+    "style_name": "Pot Rack",
+    "style_id": "a1IaZ000001VEpJUAW"
+  },
+  {
+    "style_name": "Prefinished",
+    "style_id": "a1IaZ000001VEqvUAG"
+  },
+  {
+    "style_name": "Pre-Rinse",
+    "style_id": "a1IaZ000001VEsXUAW"
+  },
+  {
+    "style_name": "Programmable",
+    "style_id": "a1IaZ000001VEu9UAG"
+  },
+  {
+    "style_name": "Propane",
+    "style_id": "a1IaZ000001VEvlUAG"
+  },
+  {
+    "style_name": "Pro-Style",
+    "style_id": "a1IaZ000001VExNUAW"
+  },
+  {
+    "style_name": "Pull",
+    "style_id": "a1IaZ000001VEyzUAG"
+  },
+  {
+    "style_name": "Pull-Out Shelf",
+    "style_id": "a1IaZ000001VF0bUAG"
+  },
+  {
+    "style_name": "Push Bar",
+    "style_id": "a1IaZ000001VF2DUAW"
+  },
+  {
+    "style_name": "Push Lock",
+    "style_id": "a1IaZ000001VF3pUAG"
+  },
+  {
+    "style_name": "Push to Open",
+    "style_id": "a1IaZ000001VF5RUAW"
+  },
+  {
+    "style_name": "Push/Pull",
+    "style_id": "a1IaZ000001VF73UAG"
+  },
+  {
+    "style_name": "Push-Pull",
+    "style_id": "a1IaZ000001VF8fUAG"
+  },
+  {
+    "style_name": "Rack",
+    "style_id": "a1IaZ000001VFAHUA4"
+  },
+  {
+    "style_name": "Rail",
+    "style_id": "a1IaZ000001VFBtUAO"
+  },
+  {
+    "style_name": "With Light and Heater",
+    "style_id": "a1IaZ000001VFBuUAO"
+  },
+  {
+    "style_name": "Rectangular",
+    "style_id": "a1IaZ000001VFDVUA4"
+  },
+  {
+    "style_name": "Refrigerator Drawer",
+    "style_id": "a1IaZ000001VFF7UAO"
+  },
+  {
+    "style_name": "Refrigerator Pull",
+    "style_id": "a1IaZ000001VFGjUAO"
+  },
+  {
+    "style_name": "Register",
+    "style_id": "a1IaZ000001VFILUA4"
+  },
+  {
+    "style_name": "Remodel",
+    "style_id": "a1IaZ000001VFJxUAO"
+  },
+  {
+    "style_name": "Tank",
+    "style_id": "a1IaZ000001VFJyUAO"
+  },
+  {
+    "style_name": "Remote",
+    "style_id": "a1IaZ000001VFLZUA4"
+  },
+  {
+    "style_name": "Replacement Filter",
+    "style_id": "a1IaZ000001VFNBUA4"
+  },
+  {
+    "style_name": "Residential",
+    "style_id": "a1IaZ000001VFOnUAO"
+  },
+  {
+    "style_name": "Reverse Osmosis",
+    "style_id": "a1IaZ000001VFQPUA4"
+  },
+  {
+    "style_name": "Ring Pull",
+    "style_id": "a1IaZ000001VFS1UAO"
+  },
+  {
+    "style_name": "Rocking",
+    "style_id": "a1IaZ000001VFTdUAO"
+  },
+  {
+    "style_name": "Subway",
+    "style_id": "a1IaZ000001VFTeUAO"
+  },
+  {
+    "style_name": "Roller",
+    "style_id": "a1IaZ000001VFVFUA4"
+  },
+  {
+    "style_name": "Roof Mount",
+    "style_id": "a1IaZ000001VFWrUAO"
+  },
+  {
+    "style_name": "Rooftop Unit",
+    "style_id": "a1IaZ000001VFYTUA4"
+  },
+  {
+    "style_name": "Schoolhouse",
+    "style_id": "a1IaZ000001VFa5UAG"
+  },
+  {
+    "style_name": "Sculpture",
+    "style_id": "a1IaZ000001VFbhUAG"
+  },
+  {
+    "style_name": "Sealant",
+    "style_id": "a1IaZ000001VFdJUAW"
+  },
+  {
+    "style_name": "Sectional",
+    "style_id": "a1IaZ000001VFevUAG"
+  },
+  {
+    "style_name": "Security Camera",
+    "style_id": "a1IaZ000001VFgXUAW"
+  },
+  {
+    "style_name": "Shade",
+    "style_id": "a1IaZ000001VFi9UAG"
+  },
+  {
+    "style_name": "Shelving",
+    "style_id": "a1IaZ000001VFjlUAG"
+  },
+  {
+    "style_name": "Shower Door",
+    "style_id": "a1IaZ000001VFlNUAW"
+  },
+  {
+    "style_name": "Shower Panel",
+    "style_id": "a1IaZ000001VFmzUAG"
+  },
+  {
+    "style_name": "Shower Rod",
+    "style_id": "a1IaZ000001VFobUAG"
+  },
+  {
+    "style_name": "Side Draft",
+    "style_id": "a1IaZ000001VFqDUAW"
+  },
+  {
+    "style_name": "Side Mount",
+    "style_id": "a1IaZ000001VFrpUAG"
+  },
+  {
+    "style_name": "Simplex Strainer",
+    "style_id": "a1IaZ000001VFtRUAW"
+  },
+  {
+    "style_name": "Single Cylinder",
+    "style_id": "a1IaZ000001VFv3UAG"
+  },
+  {
+    "style_name": "Single Wall",
+    "style_id": "a1IaZ000001VFwfUAG"
+  },
+  {
+    "style_name": "Single Zone",
+    "style_id": "a1IaZ000001VFyHUAW"
+  },
+  {
+    "style_name": "Sink",
+    "style_id": "a1IaZ000001VFztUAG"
+  },
+  {
+    "style_name": "Sink Grid",
+    "style_id": "a1IaZ000001VG1VUAW"
+  },
+  {
+    "style_name": "Smart Bulb",
+    "style_id": "a1IaZ000001VG37UAG"
+  },
+  {
+    "style_name": "Smart Display",
+    "style_id": "a1IaZ000001VG4jUAG"
+  },
+  {
+    "style_name": "Waterless",
+    "style_id": "a1IaZ000001VG4kUAG"
+  },
+  {
+    "style_name": "Wood Burning",
+    "style_id": "a1IaZ000001VG4lUAG"
+  },
+  {
+    "style_name": "Smart Home Hub",
+    "style_id": "a1IaZ000001VG6LUAW"
+  },
+  {
+    "style_name": "Smart Lock",
+    "style_id": "a1IaZ000001VG7xUAG"
+  },
+  {
+    "style_name": "Smart Speaker",
+    "style_id": "a1IaZ000001VG9ZUAW"
+  },
+  {
+    "style_name": "Smart Switch",
+    "style_id": "a1IaZ000001VGBBUA4"
+  },
+  {
+    "style_name": "Soap Dish",
+    "style_id": "a1IaZ000001VGCnUAO"
+  },
+  {
+    "style_name": "Soap Dispenser",
+    "style_id": "a1IaZ000001VGEPUA4"
+  },
+  {
+    "style_name": "Socket",
+    "style_id": "a1IaZ000001VGG1UAO"
+  },
+  {
+    "style_name": "Soft Close",
+    "style_id": "a1IaZ000001VGHdUAO"
+  },
+  {
+    "style_name": "Solar",
+    "style_id": "a1IaZ000001VGJFUA4"
+  },
+  {
+    "style_name": "Solid",
+    "style_id": "a1IaZ000001VGKrUAO"
+  },
+  {
+    "style_name": "Wall Organizer",
+    "style_id": "a1IaZ000001VGKsUAO"
+  },
+  {
+    "style_name": "Southwestern",
+    "style_id": "a1IaZ000001VGMTUA4"
+  },
+  {
+    "style_name": "Space Heater",
+    "style_id": "a1IaZ000001VGO5UAO"
+  },
+  {
+    "style_name": "Speed Oven",
+    "style_id": "a1IaZ000001VGPhUAO"
+  },
+  {
+    "style_name": "Spice Rack",
+    "style_id": "a1IaZ000001VGRJUA4"
+  },
+  {
+    "style_name": "Split System",
+    "style_id": "a1IaZ000001VGSvUAO"
+  },
+  {
+    "style_name": "Touch Latch",
+    "style_id": "a1IaZ000001VGSwUAO"
+  },
+  {
+    "style_name": "Spotlight",
+    "style_id": "a1IaZ000001VGUXUA4"
+  },
+  {
+    "style_name": "Tee",
+    "style_id": "a1IaZ000001VGUYUA4"
+  },
+  {
+    "style_name": "Spring Hinge",
+    "style_id": "a1IaZ000001VGW9UAO"
+  },
+  {
+    "style_name": "Square",
+    "style_id": "a1IaZ000001VGXlUAO"
+  },
+  {
+    "style_name": "Standard Switch",
+    "style_id": "a1IaZ000001VGZNUA4"
+  },
+  {
+    "style_name": "Standby",
+    "style_id": "a1IaZ000001VGazUAG"
+  },
+  {
+    "style_name": "Steam Generator",
+    "style_id": "a1IaZ000001VGcbUAG"
+  },
+  {
+    "style_name": "Steam Head",
+    "style_id": "a1IaZ000001VGeDUAW"
+  },
+  {
+    "style_name": "Stepping Stone",
+    "style_id": "a1IaZ000001VGfpUAG"
+  },
+  {
+    "style_name": "Stone Look",
+    "style_id": "a1IaZ000001VGhRUAW"
+  },
+  {
+    "style_name": "Storage Pedestal",
+    "style_id": "a1IaZ000001VGj3UAG"
+  },
+  {
+    "style_name": "Storeroom",
+    "style_id": "a1IaZ000001VGkfUAG"
+  },
+  {
+    "style_name": "Storm",
+    "style_id": "a1IaZ000001VGmHUAW"
+  },
+  {
+    "style_name": "Utility",
+    "style_id": "a1IaZ000001VGmIUAW"
+  },
+  {
+    "style_name": "Stove Pipe",
+    "style_id": "a1IaZ000001VGntUAG"
+  },
+  {
+    "style_name": "Strap Hinge",
+    "style_id": "a1IaZ000001VGpVUAW"
+  },
+  {
+    "style_name": "Strike",
+    "style_id": "a1IaZ000001VGr7UAG"
+  },
+  {
+    "style_name": "Strip Light",
+    "style_id": "a1IaZ000001VGsjUAG"
+  },
+  {
+    "style_name": "Striped",
+    "style_id": "a1IaZ000001VGuLUAW"
+  },
+  {
+    "style_name": "Surface Mount",
+    "style_id": "a1IaZ000001VGvxUAG"
+  },
+  {
+    "style_name": "Table Lamp",
+    "style_id": "a1IaZ000001VGxZUAW"
+  },
+  {
+    "style_name": "Tabletop",
+    "style_id": "a1IaZ000001VGzBUAW"
+  },
+  {
+    "style_name": "Tankless",
+    "style_id": "a1IaZ000001VH0nUAG"
+  },
+  {
+    "style_name": "Tape Light",
+    "style_id": "a1IaZ000001VH2PUAW"
+  },
+  {
+    "style_name": "Through-Wall",
+    "style_id": "a1IaZ000001VH41UAG"
+  },
+  {
+    "style_name": "Tile",
+    "style_id": "a1IaZ000001VH5dUAG"
+  },
+  {
+    "style_name": "Tile Look",
+    "style_id": "a1IaZ000001VH7FUAW"
+  },
+  {
+    "style_name": "Toe Kick",
+    "style_id": "a1IaZ000001VH8rUAG"
+  },
+  {
+    "style_name": "Toe-Touch",
+    "style_id": "a1IaZ000001VHATUA4"
+  },
+  {
+    "style_name": "Toilet",
+    "style_id": "a1IaZ000001VHC5UAO"
+  },
+  {
+    "style_name": "Torchiere",
+    "style_id": "a1IaZ000001VHDhUAO"
+  },
+  {
+    "style_name": "Touchscreen",
+    "style_id": "a1IaZ000001VHFJUA4"
+  },
+  {
+    "style_name": "Track Head",
+    "style_id": "a1IaZ000001VHGvUAO"
+  },
+  {
+    "style_name": "Track Kit",
+    "style_id": "a1IaZ000001VHIXUA4"
+  },
+  {
+    "style_name": "Trash Drawer",
+    "style_id": "a1IaZ000001VHK9UAO"
+  },
+  {
+    "style_name": "Trash Pull-Out",
+    "style_id": "a1IaZ000001VHLlUAO"
+  },
+  {
+    "style_name": "Trench Drain",
+    "style_id": "a1IaZ000001VHNNUA4"
+  },
+  {
+    "style_name": "Trim",
+    "style_id": "a1IaZ000001VHOzUAO"
+  },
+  {
+    "style_name": "Trim Only",
+    "style_id": "a1IaZ000001VHQbUAO"
+  },
+  {
+    "style_name": "Trip Lever",
+    "style_id": "a1IaZ000001VHSDUA4"
+  },
+  {
+    "style_name": "Troffer",
+    "style_id": "a1IaZ000001VHTpUAO"
+  },
+  {
+    "style_name": "Tub Tray",
+    "style_id": "a1IaZ000001VHVRUA4"
+  },
+  {
+    "style_name": "Tubular",
+    "style_id": "a1IaZ000001VHX3UAO"
+  },
+  {
+    "style_name": "Umbrella",
+    "style_id": "a1IaZ000001VHYfUAO"
+  },
+  {
+    "style_name": "Unfinished",
+    "style_id": "a1IaZ000001VHaHUAW"
+  },
+  {
+    "style_name": "Union",
+    "style_id": "a1IaZ000001VHbtUAG"
+  },
+  {
+    "style_name": "Ventless",
+    "style_id": "a1IaZ000001VHbuUAG"
+  },
+  {
+    "style_name": "Vase",
+    "style_id": "a1IaZ000001VHdVUAW"
+  },
+  {
+    "style_name": "Vent",
+    "style_id": "a1IaZ000001VHf7UAG"
+  },
+  {
+    "style_name": "Vent Cover",
+    "style_id": "a1IaZ000001VHgjUAG"
+  },
+  {
+    "style_name": "Vented",
+    "style_id": "a1IaZ000001VHiLUAW"
+  },
+  {
+    "style_name": "Video Doorbell",
+    "style_id": "a1IaZ000001VHjxUAG"
+  },
+  {
+    "style_name": "Vinyl Plank",
+    "style_id": "a1IaZ000001VHlZUAW"
+  },
+  {
+    "style_name": "Vinyl Tile",
+    "style_id": "a1IaZ000001VHnBUAW"
+  },
+  {
+    "style_name": "Wall Art",
+    "style_id": "a1IaZ000001VHonUAG"
+  },
+  {
+    "style_name": "Wall Control",
+    "style_id": "a1IaZ000001VHqPUAW"
+  },
+  {
+    "style_name": "Wall Mount",
+    "style_id": "a1IaZ000001VHs1UAG"
+  },
+  {
+    "style_name": "Waterproof",
+    "style_id": "a1IaZ000001VHtdUAG"
+  },
+  {
+    "style_name": "Well Light",
+    "style_id": "a1IaZ000001VHvFUAW"
+  },
+  {
+    "style_name": "Wet Rated",
+    "style_id": "a1IaZ000001VHwrUAG"
+  },
+  {
+    "style_name": "Whole House",
+    "style_id": "a1IaZ000001VHyTUAW"
+  },
+  {
+    "style_name": "Whole Room",
+    "style_id": "a1IaZ000001VI05UAG"
+  },
+  {
+    "style_name": "Wind Chime",
+    "style_id": "a1IaZ000001VI1hUAG"
+  },
+  {
+    "style_name": "Window",
+    "style_id": "a1IaZ000001VI3JUAW"
+  },
+  {
+    "style_name": "Wine Rack",
+    "style_id": "a1IaZ000001VI4vUAG"
+  },
+  {
+    "style_name": "With Heater",
+    "style_id": "a1IaZ000001VI6XUAW"
+  },
+  {
+    "style_name": "With Light",
+    "style_id": "a1IaZ000001VI89UAG"
+  },
+  {
+    "style_name": "Without Light",
+    "style_id": "a1IaZ000001VI9lUAG"
+  },
+  {
+    "style_name": "Wood Look",
+    "style_id": "a1IaZ000001VIBNUA4"
+  },
+  {
+    "style_name": "Wood-Fired",
+    "style_id": "a1IaZ000001VICzUAO"
+  },
+  {
+    "style_name": "Y Strainer",
+    "style_id": "a1IaZ000001VIEbUAO"
   }
 ]
