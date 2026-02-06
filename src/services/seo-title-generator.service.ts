@@ -180,6 +180,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Capacity/Size': 'totalCapacity',
   'Size/Volume': 'totalCapacity',
   'Diameter/Width': 'diameter',
+  'Model Number': 'modelNumber',
 };
 
 /**
@@ -230,6 +231,15 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   // Handle Tile Size specially
   if (attribute === 'Tile Size' && typeof value === 'string') {
     return FORMATTING_RULES.tileSize(value);
+  }
+  
+  // Handle Model Number specially - prefix with dash
+  if (attribute === 'Model Number') {
+    const strValue = String(value).trim();
+    if (strValue && strValue.toLowerCase() !== 'not found' && strValue.toLowerCase() !== 'n/a') {
+      return `- ${strValue}`;
+    }
+    return '';
   }
   
   // Check for formatter

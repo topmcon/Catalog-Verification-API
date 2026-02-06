@@ -231,12 +231,44 @@ for (const cat of json.categories) {
     categoryName: cat.category_name,
     department: cat.department,
     family: cat.family,
-    slots: cat.title_schema.slots.map(s => ({
-      position: s.position,
-      attribute: s.attribute,
-      required: s.required
-    })),
-    template: cat.title_schema.template || '',
+    slots: (() => {
+      // Filter out Features slot and re-map
+      let filteredSlots = cat.title_schema.slots
+        .filter(s => s.attribute !== 'Features')
+        .map(s => ({
+          position: s.position,
+          attribute: s.attribute,
+          required: s.required
+        }));
+      
+      // Re-number positions sequentially
+      filteredSlots = filteredSlots.map((s, idx) => ({
+        ...s,
+        position: idx + 1
+      }));
+      
+      // Add Model Number as the last slot
+      const lastPos = filteredSlots.length + 1;
+      filteredSlots.push({
+        position: lastPos,
+        attribute: 'Model Number',
+        required: true
+      });
+      
+      return filteredSlots;
+    })(),
+    template: (() => {
+      // Remove Features from template, add Model Number at end
+      let tpl = cat.title_schema.template || '';
+      tpl = tpl.replace(/\s*\({?Features}?\)\s*/gi, ''); // Remove ({Features}) or (Features)
+      tpl = tpl.replace(/\s*{?Features}?\s*$/i, ''); // Remove trailing Features
+      tpl = tpl.trim();
+      // Add model number
+      if (!tpl.includes('Model Number')) {
+        tpl += ' - {Model Number}';
+      }
+      return tpl;
+    })(),
     exampleTitle: cat.title_schema.example_title || '',
     seoNotes: cat.title_schema.seo_notes || ''
   };

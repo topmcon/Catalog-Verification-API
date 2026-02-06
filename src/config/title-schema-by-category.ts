@@ -2,7 +2,7 @@
  * PRODUCT TITLE SCHEMA BY CATEGORY
  * =================================
  * Auto-generated from Product_Title_Schema_by_Category_REVISED.json
- * Generated: 2026-02-06T18:28:46.385Z
+ * Generated: 2026-02-06T19:06:01.398Z
  * 
  * Formula: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + (FEATURES)
  * 
@@ -315,11 +315,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel (Smart, Ice Maker)",
       "seoNotes": "Lead with capacity — shoppers search by Cu. Ft. Width is secondary. Configuration = door style."
   },
@@ -356,11 +356,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
       "exampleTitle": "GE 21 Cu. Ft. Upright Freezer White (Frost-Free)",
       "seoNotes": "Configuration = Upright, Chest, Column. Capacity is the key differentiator."
   },
@@ -402,11 +402,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel (6 Burners, Griddle)",
       "seoNotes": "Width + Fuel Type are the top 2 search modifiers. Burner count is high-value feature."
   },
@@ -448,11 +448,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Bosch 30-Inch Double Wall Built-In Oven Stainless Steel (Convection)",
       "seoNotes": "Configuration = Single, Double, Combo. Installation = Wall, Built-In. Always include both."
   },
@@ -494,11 +494,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Thermador 36-Inch Gas Built-In Cooktop Stainless Steel (6 Burners)",
       "seoNotes": "Width + Fuel Type are essential. Burner count is key feature for gas cooktops."
   },
@@ -535,11 +535,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "KitchenAid 2.0 Cu. Ft. Over-the-Range Microwave Stainless Steel (Convection, Sensor Cook)",
       "seoNotes": "Type = Over-the-Range, Countertop, Built-In, Drawer. Capacity in Cu. Ft., not watts."
   },
@@ -581,11 +581,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)*} {Type} {Category} {Finish} {dBA Level} ({Features})",
+      "template": "{Brand} {Width (Inches)*} {Type} {Category} {Finish} {dBA Level} - {Model Number}",
       "exampleTitle": "Miele 24-Inch Built-In Dishwasher Stainless Steel 44 dBA (3rd Rack, AutoDos)",
       "seoNotes": "*Only include width if non-standard (18\"). dBA is a top search qualifier for dishwashers."
   },
@@ -627,11 +627,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {CFM} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {CFM} - {Model Number}",
       "exampleTitle": "Zephyr 36-Inch Wall Mount Range Hood Stainless Steel 600 CFM (LED Lighting)",
       "seoNotes": "Type = Under-Cabinet, Wall Mount, Island, Insert, Downdraft. CFM is key spec."
   },
@@ -668,11 +668,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Production (lbs/day)} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Production (lbs/day)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Scotsman 80 lbs/Day Undercounter Icemaker Stainless Steel (Clear Ice, Drain Pump)",
       "seoNotes": "Type = Undercounter, Freestanding, Portable, Built-In. Daily production is the key spec."
   },
@@ -714,11 +714,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Fuel Type} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Weber 36-Inch Gas Built-In Grill Stainless Steel (4 Burners, Rotisserie)",
       "seoNotes": "Type = Built-In, Freestanding, Portable, Cart. Width + Fuel + Type all matter for grills."
   },
@@ -750,11 +750,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Miele Built-In Coffee Maker Stainless Steel (Bean-to-Cup, Auto Frother)",
       "seoNotes": "Type = Built-In, Countertop, Espresso Machine. No size needed unless built-in."
   },
@@ -791,11 +791,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Fuel Type} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Ooni Gas Countertop Pizza Oven Stainless Steel (Multi-Fuel)",
       "seoNotes": "Type = Countertop, Built-In, Outdoor. Fuel Type = Gas, Wood, Multi-Fuel."
   },
@@ -827,11 +827,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type/Size} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type/Size} {Category} {Finish} - {Model Number}",
       "exampleTitle": "KitchenAid Countertop Kitchen Appliance Stainless Steel",
       "seoNotes": "Generic parent category. Use the most specific subcategory when possible."
   },
@@ -868,11 +868,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
       "exampleTitle": "LG 5.0 Cu. Ft. Front Load Washer White (Steam, TurboWash)",
       "seoNotes": "Configuration = Front Load, Top Load. Capacity is the #1 search term for washers."
   },
@@ -914,11 +914,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Fuel Type} {Configuration} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Fuel Type} {Configuration} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Samsung 7.5 Cu. Ft. Electric Front Load Dryer Platinum (Steam Sanitize, Smart)",
       "seoNotes": "Fuel Type = Electric, Gas. Always include — it's a critical purchase filter."
   },
@@ -955,11 +955,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
       "exampleTitle": "LG 4.5 Cu. Ft. Front Load All-in-One Washer/Dryer White (Ventless, Steam)",
       "seoNotes": "Ventless/Vented is a key feature. Capacity matters for combo unit shoppers."
   },
@@ -993,9 +993,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Compatibility",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Category} {Finish} {Compatibility}",
+      "template": "{Brand} {Width (Inches)} {Category} {Finish} {Compatibility} - {Model Number}",
       "exampleTitle": "Samsung 27-Inch Laundry Pedestal Platinum (Storage Drawer)",
       "seoNotes": "Width must match washer/dryer. Compatibility is a key purchase factor."
   },
@@ -1027,11 +1032,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "LG Front Load Laundry Appliance White",
       "seoNotes": "Generic parent. Use Washer, Dryer, or All-in-One subcategories when possible."
   },
@@ -1073,11 +1078,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Collection/Style} {Type} {Hole Config} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Collection/Style} {Type} {Hole Config} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Delta Trinsic Single-Handle Widespread 3-Hole Bathroom Faucet Matte Black (Touch2O)",
       "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount, Vessel. Hole config is essential."
   },
@@ -1114,11 +1119,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Collection/Style} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Collection/Style} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless (MotionSense, Power Boost)",
       "seoNotes": "Type = Pull-Down, Pull-Out, Bridge, Wall-Mount, Bar/Prep, Pot Filler."
   },
@@ -1162,9 +1167,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 7,
               "attribute": "Finish",
               "required": false
+          },
+          {
+              "position": 8,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Material} {Mount Type} {Bowl Config} {Category} {Finish}",
+      "template": "{Brand} {Width (Inches)} {Material} {Mount Type} {Bowl Config} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kraus 33-Inch Stainless Steel Undermount Double Bowl Kitchen Sink Satin",
       "seoNotes": "Mount Type = Undermount, Drop-In, Farmhouse/Apron. Bowl = Single, Double, 60/40."
   },
@@ -1203,9 +1213,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Material} {Mount Type} {Category} {Finish}",
+      "template": "{Brand} {Width (Inches)} {Material} {Mount Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Blanco 18-Inch Stainless Steel Undermount Bar & Prep Sink Satin",
       "seoNotes": "Smaller than kitchen sinks. Same mount types apply."
   },
@@ -1244,9 +1259,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Type} {Material} {Category} {Finish}",
+      "template": "{Brand} {Width (Inches)} {Type} {Material} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kohler 24-Inch Vessel Vitreous China Bathroom Sink White",
       "seoNotes": "Type = Vessel, Undermount, Drop-In, Pedestal, Wall-Mount, Console."
   },
@@ -1288,11 +1308,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Top Material} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Top Material} - {Model Number}",
       "exampleTitle": "James Martin 60-Inch Freestanding Bathroom Vanity Espresso (Marble Top, Double Sink)",
       "seoNotes": "Width is the #1 filter. Type = Freestanding, Wall-Mount, Floating. Top material is high-value."
   },
@@ -1329,11 +1349,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Mount Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Mount Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Robern 30-Inch Recessed Medicine Cabinet Mirrored (LED Lighting, Defogger)",
       "seoNotes": "Mount Type = Recessed, Surface-Mount. LED and defogger are premium features."
   },
@@ -1375,11 +1395,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Bowl Shape} {Flush Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Bowl Shape} {Flush Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "TOTO Elongated One-Piece Dual Flush Toilet Cotton White (Tornado Flush, SoftClose Seat)",
       "seoNotes": "Type = One-Piece, Two-Piece, Wall-Hung. Bowl = Elongated, Round. GPF is key spec."
   },
@@ -1416,11 +1436,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Shape} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Shape} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "TOTO Elongated SoftClose Toilet Seat Cotton White (Quick-Release Hinges)",
       "seoNotes": "Shape = Elongated, Round. Type = Standard, Slow-Close, Heated, Bidet."
   },
@@ -1452,11 +1472,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "TOTO Floor-Mount Bidet Cotton White (Vertical Spray)",
       "seoNotes": "Type = Floor-Mount, Wall-Hung. Simpler title structure than electronic bidets."
   },
@@ -1488,11 +1508,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Shape} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Shape} {Category} {Finish} - {Model Number}",
       "exampleTitle": "TOTO Elongated Bidet Seat Cotton White (Heated, Air Dryer, Remote)",
       "seoNotes": "Shape must match toilet. Features are the key differentiator for electronic seats."
   },
@@ -1529,11 +1549,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Flush Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Flush Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kohler Wall-Mount Waterless Urinal White (Touchless Flush)",
       "seoNotes": "Type = Wall-Mount. Flush = Waterless, Manual, Touchless."
   },
@@ -1575,11 +1595,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Length (Inches)} {Type} {Material} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Length (Inches)} {Type} {Material} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kohler 60-Inch Freestanding Acrylic Bathtub White (Soaking, Center Drain)",
       "seoNotes": "Type = Freestanding, Alcove, Drop-In, Corner, Walk-In. Length is primary dimension."
   },
@@ -1611,11 +1631,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hansgrohe Raindance Shower System Chrome (Thermostatic, Multi-Function)",
       "seoNotes": "Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column."
   },
@@ -1647,11 +1667,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Power (kW)} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Power (kW)} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Mr. Steam 12 kW Steam Shower Generator Chrome (AirTempo Control, AutoFlush)",
       "seoNotes": "Power (kW) is the primary sizing spec. Features drive purchase decisions."
   },
@@ -1685,9 +1705,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Connection Size} {Category} {Material}",
+      "template": "{Brand} {Type} {Connection Size} {Category} {Material} - {Model Number}",
       "exampleTitle": "Moen M-CORE 1/2-Inch Rough-In Valve Brass",
       "seoNotes": "Type = Pressure Balance, Thermostatic, Diverter. Connection size in inches."
   },
@@ -1719,11 +1744,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {CFM} {Type} {Category} ({Features})",
+      "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
       "exampleTitle": "Panasonic 110 CFM Ceiling Mount Bath Fan (WhisperCeiling, LED Light, Humidity Sensor)",
       "seoNotes": "CFM is the #1 spec. Type = Ceiling, Wall. Sones/noise level is key feature."
   },
@@ -1757,9 +1782,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Collection} {Type} {Category} {Finish}",
+      "template": "{Brand} {Collection} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Moen Align Towel Bar Bathroom Accessory Matte Black",
       "seoNotes": "Type = Towel Bar, Towel Ring, Robe Hook, TP Holder, Shelf. Collection name aids search."
   },
@@ -1793,9 +1823,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Amerock 5-Inch Bar Pull Bathroom Cabinet Hardware Brushed Nickel",
       "seoNotes": "Type = Pull, Knob, Handle, Bar Pull. Center-to-center measurement is standard."
   },
@@ -1834,9 +1869,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width/Length} {Light Count} {Type} {Category} {Finish}",
+      "template": "{Brand} {Width/Length} {Light Count} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kichler 24-Inch 3-Light Vanity Bathroom Lighting Brushed Nickel",
       "seoNotes": "Type = Vanity Bar, Sconce, Flush Mount. Light count and width both matter."
   },
@@ -1873,11 +1913,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Dimensions (W×H)} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Dimensions (W×H)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kohler 24×36-Inch Framed Bathroom Mirror Brushed Nickel (LED, Anti-Fog)",
       "seoNotes": "Dimensions in W×H format. Type = Framed, Frameless, LED, Pivot, Tilt."
   },
@@ -1909,11 +1949,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Horsepower} {Category} {Feed Type} ({Features})",
+      "template": "{Brand} {Horsepower} {Category} {Feed Type} - {Model Number}",
       "exampleTitle": "InSinkErator 1 HP Garbage Disposal Continuous Feed (SoundSeal, Quick Lock)",
       "seoNotes": "HP is the key spec. Feed Type = Continuous, Batch."
   },
@@ -1945,11 +1985,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "InSinkErator Instant Hot Water Dispenser Chrome (Invite Series, Filtered)",
       "seoNotes": "Type = Instant Hot, Filtered, Chilled, Combo."
   },
@@ -1981,11 +2021,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Filtration Level} ({Features})",
+      "template": "{Brand} {Type} {Category} {Filtration Level} - {Model Number}",
       "exampleTitle": "APEC Under-Sink Water Filtration System 5-Stage (Reverse Osmosis, UV)",
       "seoNotes": "Type = Under-Sink, Whole-House, Countertop, Faucet-Mount."
   },
@@ -2022,11 +2062,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {GPM/BTU} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {GPM/BTU} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Rinnai 9.8 GPM Gas Indoor Tankless Water Heater (Wi-Fi, Recirculation)",
       "seoNotes": "GPM for gas, kW for electric. Type = Indoor, Outdoor. Fuel Type critical."
   },
@@ -2060,9 +2100,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Top Knobs 6-Inch Bar Pull Cabinet Hardware Polished Nickel",
       "seoNotes": "Type = Pull, Knob, Handle, Bar Pull. Size = center-to-center."
   },
@@ -2096,9 +2141,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Color/Pattern",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern}",
+      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "MSI 3×6-Inch Subway Glass Backsplash Kitchen Tile White",
       "seoNotes": "Material = Ceramic, Porcelain, Glass, Natural Stone, Mosaic."
   },
@@ -2132,9 +2182,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Color/Pattern",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern}",
+      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Daltile 12×12-Inch Porcelain Kitchen Tile Gray",
       "seoNotes": "Similar to backsplash tile. Size and material are top search terms."
   },
@@ -2163,9 +2218,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Franke Soap Dispenser Kitchen Accessory Stainless Steel",
       "seoNotes": "Type = Soap Dispenser, Cutting Board, Drying Rack, Drain. Simpler title."
   },
@@ -2199,9 +2259,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish/Color",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Finish/Color}",
+      "template": "{Brand} {Type} {Style} {Category} {Finish/Color} - {Model Number}",
       "exampleTitle": "Winsome Wood Transitional Kitchen Cart Natural",
       "seoNotes": "Type = Cart, Island, Shelf, Rack. Style = Modern, Transitional, Traditional."
   },
@@ -2235,9 +2300,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} {Material}",
+      "template": "{Brand} {Type} {Size} {Category} {Material} - {Model Number}",
       "exampleTitle": "Rev-A-Shelf Pull-Out 21-Inch Kitchen Storage & Organization Wood",
       "seoNotes": "Type = Pull-Out, Lazy Susan, Drawer Insert, Shelf."
   },
@@ -2269,11 +2339,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Sub-Zero Integrated Luxury Kitchen Refrigerator Panel Ready",
       "seoNotes": "Premium/luxury parent category. Should use specific subcategory titles when possible."
   },
@@ -2312,9 +2382,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter (Inches)} {Light Count} {Style} {Category} {Finish}",
+      "template": "{Brand} {Diameter (Inches)} {Light Count} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Visual Comfort 36-Inch 12-Light Transitional Chandelier Antique Brass",
       "seoNotes": "Diameter + light count are the top filters. Style = Modern, Traditional, Transitional."
   },
@@ -2353,9 +2428,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter (Inches)} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Diameter (Inches)} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hinkley 14-Inch Semi-Flush Mount Modern Ceiling Light Brushed Nickel",
       "seoNotes": "Type = Flush Mount, Semi-Flush. Style is the key differentiator."
   },
@@ -2392,11 +2472,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Diameter (Inches)} {Style} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Diameter (Inches)} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Rejuvenation 12-Inch Industrial Pendant Light Matte Black (Adjustable Height)",
       "seoNotes": "Single pendants. Diameter + style drive search. Mini-pendants are a common subtype."
   },
@@ -2435,9 +2515,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Light Count} {Style} {Category} {Finish}",
+      "template": "{Brand} {Width (Inches)} {Light Count} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kichler 42-Inch 5-Light Linear Island Lighting Bronze",
       "seoNotes": "Width/length of fixture is key (must fit island). Multi-light or linear are common types."
   },
@@ -2471,9 +2556,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Style} {Type} {Category} {Finish}",
+      "template": "{Brand} {Style} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hudson Valley Modern Swing-Arm Wall Sconce Polished Nickel",
       "seoNotes": "Type = Fixed, Swing-Arm, Up/Down. Simpler title — style + type are key."
   },
@@ -2510,11 +2600,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Light Count} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Light Count} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kichler 24-Inch 3-Light Vanity Lighting Brushed Nickel (LED, Dimmable)",
       "seoNotes": "Width must match vanity/mirror. Light count is a top filter."
   },
@@ -2551,11 +2641,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Aperture (Inches)} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Aperture (Inches)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "WAC Lighting 4-Inch New Construction Recessed Lighting White (LED, IC Rated)",
       "seoNotes": "Aperture size (4\", 5\", 6\") is the #1 search term. Type = New Construction, Remodel, Trim."
   },
@@ -2592,11 +2682,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Length (Inches)} {Type} {Category} {Color Temp} ({Features})",
+      "template": "{Brand} {Length (Inches)} {Type} {Category} {Color Temp} - {Model Number}",
       "exampleTitle": "WAC Lighting 24-Inch LED Under Cabinet Light 3000K (Dimmable, Linkable)",
       "seoNotes": "Type = LED Bar, Puck, Tape/Strip. Length and color temp are key specs."
   },
@@ -2635,9 +2725,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Length (Feet)} {Type} {Light Count} {Category} {Finish}",
+      "template": "{Brand} {Length (Feet)} {Type} {Light Count} {Category} {Finish} - {Model Number}",
       "exampleTitle": "WAC Lighting 8-Foot Monorail 4-Light Track and Rail Lighting Brushed Nickel",
       "seoNotes": "Type = Track, Monorail, Cable. Length and number of heads matter."
   },
@@ -2674,11 +2769,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} {Color Temp} ({Features})",
+      "template": "{Brand} {Type} {Size} {Category} {Color Temp} - {Model Number}",
       "exampleTitle": "Philips Hue LED Strip 80-Inch LED Lighting 2700K (Smart, Dimmable)",
       "seoNotes": "Broad category — Type = Strip, Panel, Bulb, Downlight. Smart features are key."
   },
@@ -2712,9 +2807,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Progress Lighting Flush Mount Modern Kitchen Lighting Brushed Nickel",
       "seoNotes": "Use specific subcategory (Pendant, Island, Under Cabinet) when possible."
   },
@@ -2751,11 +2851,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hinkley Wall Lantern Traditional Outdoor Lighting Bronze (LED, Dark Sky)",
       "seoNotes": "Type = Wall Lantern, Path Light, Flood, Post. Dark Sky and LED are premium features."
   },
@@ -2787,11 +2887,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kichler LED Path Light Landscape Lighting Bronze (Low Voltage)",
       "seoNotes": "Type = Path, Spot, Well, Step, Deck. Low voltage vs line voltage is key."
   },
@@ -2828,11 +2928,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Height (Inches)} {Style} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Height (Inches)} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hinkley 22-Inch Traditional Post Light Bronze (LED)",
       "seoNotes": "Height is important for code compliance. Style drives the aesthetic choice."
   },
@@ -2864,11 +2964,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "WAC Lighting LED Recessed Step Lighting Bronze (Low Voltage, IP65)",
       "seoNotes": "Type = Recessed, Surface. IP rating matters for outdoor use."
   },
@@ -2907,9 +3007,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Height (Inches)} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Height (Inches)} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Visual Comfort 28-Inch Table Modern Lamp Antique Brass",
       "seoNotes": "Type = Table, Floor, Desk, Buffet. Height is the key dimension."
   },
@@ -2943,9 +3048,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Category",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Wattage Equivalent} {Bulb Type} {Color Temp} {Category}",
+      "template": "{Brand} {Wattage Equivalent} {Bulb Type} {Color Temp} {Category} - {Model Number}",
       "exampleTitle": "Philips 60W Equivalent A19 3000K Light Bulb",
       "seoNotes": "Bulb Type = A19, BR30, GU10, E12, PAR38. Color Temp in Kelvin. No finish needed."
   },
@@ -2977,11 +3087,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Lutron Caseta Dimmer Switch Light Switch White (Smart, 3-Way)",
       "seoNotes": "Type = Dimmer, Toggle, Rocker, Smart Switch. Gang count can be a feature."
   },
@@ -3010,9 +3120,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Progress Lighting Canopy Kit Lighting Accessory Brushed Nickel",
       "seoNotes": "Type = Canopy, Cord, Chain, Adapter. Simple title structure."
   },
@@ -3044,11 +3159,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Wattage} {Category} ({Features})",
+      "template": "{Brand} {Type} {Wattage} {Category} - {Model Number}",
       "exampleTitle": "Lithonia LED Troffer 40W Commercial Lighting (DLC Listed, Dimmable)",
       "seoNotes": "Type = Troffer, High Bay, Panel, Strip. Wattage and certifications matter."
   },
@@ -3085,11 +3200,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Blade Span (Inches)} {Style} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Blade Span (Inches)} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hunter 52-Inch Modern Ceiling Fan Matte Black (LED Light, Remote, Reversible)",
       "seoNotes": "Blade span is the #1 search term. LED light kit and remote are top features."
   },
@@ -3118,9 +3233,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hunter Remote Control Ceiling Fan Accessory White",
       "seoNotes": "Type = Remote, Light Kit, Blades, Downrod. Simple title."
   },
@@ -3152,11 +3272,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Blade Span (Inches)} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Blade Span (Inches)} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Matthews 16-Inch Wall Mounted Fan Brushed Nickel (Oscillating, 3-Speed)",
       "seoNotes": "Blade span + oscillating are key features."
   },
@@ -3188,11 +3308,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} ({Features})",
+      "template": "{Brand} {Type} {Size} {Category} - {Model Number}",
       "exampleTitle": "Vornado Tower Medium Air Circulator (Whole Room, Oscillating)",
       "seoNotes": "Type = Tower, Pedestal, Personal, Box. Airflow/CFM can be a feature."
   },
@@ -3224,11 +3344,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {CFM} {Type} {Category} ({Features})",
+      "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
       "exampleTitle": "QuietCool 3013 CFM Solar-Powered Attic Fan (Thermostat, Adjustable Panel)",
       "seoNotes": "CFM is the primary spec. Type = Solar, Electric, Gable, Roof-Mount."
   },
@@ -3260,11 +3380,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Type} {Category} ({Features})",
+      "template": "{Brand} {BTU} {Type} {Category} - {Model Number}",
       "exampleTitle": "Frigidaire 12,000 BTU Window Air Conditioner (Wi-Fi, Energy Star)",
       "seoNotes": "Type = Window, Portable, Central, Through-Wall. BTU is the #1 search term."
   },
@@ -3301,11 +3421,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Zone Config} {Type} {Category} ({Features})",
+      "template": "{Brand} {BTU} {Zone Config} {Type} {Category} - {Model Number}",
       "exampleTitle": "Mitsubishi 24,000 BTU Single Zone Ductless Mini Split Air Conditioner (Hyper Heat, Wi-Fi)",
       "seoNotes": "BTU + zone count (single/multi) are the top filters. Heat pump capability is key."
   },
@@ -3337,11 +3457,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Pints)} {Type} {Category} ({Features})",
+      "template": "{Brand} {Capacity (Pints)} {Type} {Category} - {Model Number}",
       "exampleTitle": "hOmeLabs 50-Pint Portable Dehumidifier (Energy Star, Auto Shutoff, Continuous Drain)",
       "seoNotes": "Pint capacity is the sizing standard. Type = Portable, Whole-Home, Crawl Space."
   },
@@ -3378,11 +3498,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Gallons)} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {Capacity (Gallons)} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Rheem 50-Gallon Electric Hybrid Water Heater (Heat Pump, Energy Star, Wi-Fi)",
       "seoNotes": "Capacity + Fuel Type are the 2 essential search terms. Type = Tank, Hybrid, Heat Pump."
   },
@@ -3419,11 +3539,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Dyna-Glo 30,000 BTU Gas Wall-Mount Room Heater (Vent-Free, Thermostat)",
       "seoNotes": "Type = Wall-Mount, Portable, Baseboard, Infrared. BTU for gas, Watts for electric."
   },
@@ -3460,11 +3580,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Cadet 1500W Electric Baseboard Indoor Heating Unit (Thermostat, Quiet)",
       "seoNotes": "Type = Baseboard, Wall, Cove, Radiant Panel. Similar to Room Heater but broader."
   },
@@ -3506,11 +3626,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Napoleon 50,000 BTU Gas Direct Vent Fireplace Black (Remote, Multi-Color)",
       "seoNotes": "Type = Insert, Freestanding Stove, Linear, See-Through. BTU + Fuel + Vent type matter."
   },
@@ -3549,9 +3669,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish}",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Bromic 44,000 BTU Gas Freestanding Patio Heater Stainless Steel",
       "seoNotes": "Type = Freestanding, Wall-Mount, Ceiling, Tabletop. BTU + Fuel are key."
   },
@@ -3583,11 +3708,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {CFM} {Type} {Category} ({Features})",
+      "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
       "exampleTitle": "Hessaire 3,100 CFM Portable Evaporative Cooler (Variable Speed, Auto Swing)",
       "seoNotes": "CFM is the primary sizing spec. Type = Portable, Window, Whole-House."
   },
@@ -3619,11 +3744,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Ecobee Smart Thermostat Premium White (Voice Control, Air Quality Monitor, Siri/Alexa)",
       "seoNotes": "Type = Smart, Programmable, Non-Programmable, Line Voltage. Smart features are key."
   },
@@ -3655,11 +3780,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {CFM} {Type} {Category} ({Features})",
+      "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
       "exampleTitle": "Broan 110 CFM Ceiling Exhaust Fan (LED Light, Humidity Sensor, Quiet)",
       "seoNotes": "CFM is the sizing spec. Type = Ceiling, Inline, Wall. Sones level is key."
   },
@@ -3693,9 +3818,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Diameter (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "DuraVent 6-Inch Double Wall Stove and Chimney Pipe Stainless Steel",
       "seoNotes": "Diameter + Wall type (Single, Double, Triple) are the key specs."
   },
@@ -3732,11 +3862,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Size (W×L)} {Type} {Category} {Glazing} ({Features})",
+      "template": "{Brand} {Size (W×L)} {Type} {Category} {Glazing} - {Model Number}",
       "exampleTitle": "VELUX 22×46-Inch Fixed Skylight Low-E Glass (Solar Blind, Rain Sensor)",
       "seoNotes": "Size in W×L. Type = Fixed, Venting, Tubular. Glazing type matters for energy."
   },
@@ -3770,9 +3900,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Type",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (L×W×D)} {MERV Rating} {Category} {Type}",
+      "template": "{Brand} {Size (L×W×D)} {MERV Rating} {Category} {Type} - {Model Number}",
       "exampleTitle": "Honeywell 20×25×4-Inch MERV 11 Air Filter Pleated",
       "seoNotes": "Exact dimensions required — this IS the product identity. MERV rating is key spec."
   },
@@ -3806,9 +3941,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Diameter (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "DuraVent 6-Inch Flexible Ducting Aluminum",
       "seoNotes": "Type = Flexible, Rigid, Insulated. Diameter is primary spec."
   },
@@ -3840,11 +3980,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Tonnage/BTU} {Type} {Category} ({Features})",
+      "template": "{Brand} {Tonnage/BTU} {Type} {Category} - {Model Number}",
       "exampleTitle": "Carrier 5-Ton Rooftop Package Commercial HVAC Unit (Economizer, VFD)",
       "seoNotes": "Tonnage for cooling, BTU for heating. Type = Rooftop, Split, AHU, Chiller."
   },
@@ -3881,11 +4021,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Rinnai 98,000 BTU Gas Condensing Heating Boiler (Wi-Fi, 95% AFUE)",
       "seoNotes": "Generic heating parent. Use specific subcategory (Room Heater, Boiler) when possible."
   },
@@ -3914,9 +4054,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Size",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Size}",
+      "template": "{Brand} {Type} {Category} {Size} - {Model Number}",
       "exampleTitle": "Honeywell Humidifier Pad HVAC Accessory 10×13-Inch",
       "seoNotes": "Type = Humidifier Pad, Refrigerant, Line Set, Condensate Pump. Simple title."
   },
@@ -3958,11 +4103,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel (Smokeless)",
       "seoNotes": "Shared with Outdoor. Fuel Type + Type (Portable, Built-In) are key."
   },
@@ -4001,9 +4146,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color/Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Plank Width (Inches)} {Species/Look} {Construction} {Category} {Color/Finish}",
+      "template": "{Brand} {Plank Width (Inches)} {Species/Look} {Construction} {Category} {Color/Finish} - {Model Number}",
       "exampleTitle": "Shaw 5-Inch White Oak Engineered Hardwood Flooring Natural",
       "seoNotes": "Construction = Solid, Engineered. Species/look + width are top search terms."
   },
@@ -4040,11 +4190,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Plank Width (Inches)} {Wear Layer (mil)} {Category} {Color/Pattern} ({Features})",
+      "template": "{Brand} {Plank Width (Inches)} {Wear Layer (mil)} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "COREtec 7-Inch 20 mil Luxury Vinyl Flooring Gray Oak (Waterproof, Attached Pad)",
       "seoNotes": "Wear layer thickness differentiates quality tiers. Waterproof is a key feature."
   },
@@ -4081,11 +4231,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Plank Width (Inches)} {AC Rating} {Category} {Color/Pattern} ({Features})",
+      "template": "{Brand} {Plank Width (Inches)} {AC Rating} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Pergo 7-Inch AC4 Laminate Flooring Rustic Oak (WetProtect, Attached Pad)",
       "seoNotes": "AC rating (AC3-AC5) indicates durability class. Width and waterproofing matter."
   },
@@ -4122,11 +4272,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Plank Width (Inches)} {Material} {Category} {Color/Pattern} ({Features})",
+      "template": "{Brand} {Plank Width (Inches)} {Material} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "LifeProof 7-Inch Rigid Core Waterproof Flooring Sterling Oak (Attached Pad)",
       "seoNotes": "Material = Rigid Core, WPC, SPC. Waterproof is already in category name."
   },
@@ -4160,9 +4310,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Color/Pattern",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern}",
+      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Daltile 12×24-Inch Porcelain Tile Carrara White",
       "seoNotes": "Material = Porcelain, Ceramic, Natural Stone, Mosaic. Size format: L×W."
   },
@@ -4199,11 +4354,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} ({Features})",
+      "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Shaw 24×24-Inch Nylon Carpet Tile Charcoal (Peel & Stick, Commercial Grade)",
       "seoNotes": "Tile size (usually 24×24) + material + commercial-grade are key."
   },
@@ -4242,9 +4397,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size} {Material} {Type} {Category} {Color}",
+      "template": "{Brand} {Size} {Material} {Type} {Category} {Color} - {Model Number}",
       "exampleTitle": "Belgard 12×12-Inch Concrete Paver Hardscaping Gray",
       "seoNotes": "Type = Paver, Retaining Wall, Edging, Stepping Stone."
   },
@@ -4283,9 +4443,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Size (Inches)} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Top Knobs 5-Inch Bar Pull Modern Cabinet Hardware Polished Chrome",
       "seoNotes": "Size = center-to-center. Type = Pull, Knob, Handle, Backplate."
   },
@@ -4319,9 +4484,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Collection} {Style} {Category} {Finish}",
+      "template": "{Brand} {Collection} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Schlage Plymouth Traditional Handleset Aged Bronze",
       "seoNotes": "Collection name + style drive search. Finish is the top aesthetic filter."
   },
@@ -4358,11 +4528,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Grade} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Grade} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Schlage Smart Electronic Grade 1 Deadbolt Matte Black (Touchscreen, Z-Wave)",
       "seoNotes": "Type = Keyed, Electronic, Smart. ANSI Grade (1-3) indicates security level."
   },
@@ -4394,11 +4564,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Yale Assure Lock Keyless Entry Satin Nickel (Touchscreen, Wi-Fi, Auto-Lock)",
       "seoNotes": "Type = Keypad, Touchscreen, Fingerprint, Bluetooth. Smart features drive purchase."
   },
@@ -4432,9 +4602,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Collection} {Function} {Category} {Finish}",
+      "template": "{Brand} {Collection} {Function} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Kwikset Juno Entry Keyed Hardware Satin Nickel",
       "seoNotes": "Function = Entry, Privacy, Passage, Dummy."
   },
@@ -4466,11 +4641,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Collection} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Collection} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Emtek Arts & Crafts Mortise Lock Oil-Rubbed Bronze (Privacy Function)",
       "seoNotes": "Premium hardware. Collection and finish are the key differentiators."
   },
@@ -4499,9 +4674,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Included Items} {Category} {Finish}",
+      "template": "{Brand} {Included Items} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Schlage Deadbolt + Lever Lock Combo Pack Matte Black",
       "seoNotes": "Included Items (e.g., Deadbolt + Lever, Deadbolt + Knob). Value-driven purchase."
   },
@@ -4530,9 +4710,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Style} {Category} {Finish}",
+      "template": "{Brand} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Hoppe Contemporary Multi Point Door Hardware Stainless Steel",
       "seoNotes": "Niche category. Style and finish are the differentiators."
   },
@@ -4566,9 +4751,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Track Length (Feet)} {Style} {Category} {Finish}",
+      "template": "{Brand} {Track Length (Feet)} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Everbilt 8-Foot Modern Barn Door Hardware Matte Black",
       "seoNotes": "Track length must match door. Style = Modern, Rustic, Classic."
   },
@@ -4597,9 +4787,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Emtek Privacy Closet and Pocket Door Hardware Satin Brass",
       "seoNotes": "Type = Privacy, Passage, Pull, Flush Pull."
   },
@@ -4628,9 +4823,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Emtek Privacy Sliding Door Hardware Flat Black",
       "seoNotes": "Type = Privacy, Passage, Hook Lock."
   },
@@ -4664,9 +4864,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Baldwin 4.5-Inch Ball Bearing Door Hinge Satin Nickel",
       "seoNotes": "Size in inches. Type = Ball Bearing, Plain, Spring, Self-Closing."
   },
@@ -4695,9 +4900,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Schlage Lever Trim Door Hardware Parts Satin Nickel",
       "seoNotes": "Type = Trim, Strike Plate, Rose, Latch. Replacement parts category."
   },
@@ -4726,9 +4936,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Wright Products Pneumatic Closer Screen and Storm Door Hardware Aluminum",
       "seoNotes": "Type = Closer, Handle, Latch, Hinge. Functional hardware."
   },
@@ -4770,11 +4985,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Masonite 36×80-Inch Fiberglass Entry Door Primed (Insulated, Prefinished)",
       "seoNotes": "Width×Height in inches. Type = Entry, Interior, Patio, French. Material is key for exterior."
   },
@@ -4808,9 +5023,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Function} {Category} {Finish}",
+      "template": "{Brand} {Type} {Function} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Sargent Mortise Lock Classroom Commercial Door Hardware Satin Chrome",
       "seoNotes": "Function = Classroom, Storeroom, Office, Exit. Grade and ADA compliance matter."
   },
@@ -4839,9 +5059,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish}",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Liberty Hook Home Hardware Satin Nickel",
       "seoNotes": "Catch-all. Type = Hook, Number, Kick Plate, Mail Slot. Simple title."
   },
@@ -4873,11 +5098,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Capacity/Size} {Type} {Category} ({Features})",
+      "template": "{Brand} {Capacity/Size} {Type} {Category} - {Model Number}",
       "exampleTitle": "SentrySafe 1.2 Cu. Ft. Fire-Rated Safes, Locks and Lock Boxes (Digital Lock, Waterproof)",
       "seoNotes": "Type = Safe, Lock Box, Key Cabinet. Capacity and fire rating are key."
   },
@@ -4904,11 +5129,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 4,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} ({Features})",
+      "template": "{Brand} {Type} {Category} - {Model Number}",
       "exampleTitle": "Ring Video Doorbell Safety & Security (1080p, Night Vision, Wi-Fi)",
       "seoNotes": "Type = Doorbell Camera, Security Camera, Smoke Detector, CO Detector."
   },
@@ -4942,9 +5167,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Collection} {Type} {Category} {Finish}",
+      "template": "{Brand} {Collection} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Emtek Select T-Bar Knurled Designer Hardware Satin Brass",
       "seoNotes": "Premium/decorative. Collection name carries significant brand value."
   },
@@ -4978,9 +5208,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} {Material}",
+      "template": "{Brand} {Type} {Size} {Category} {Material} - {Model Number}",
       "exampleTitle": "ClosetMaid Shelf 72-Inch Storage and Organization Wire White",
       "seoNotes": "Type = Shelf, Rack, Hook System, Basket. Size matters for fit."
   },
@@ -5019,9 +5254,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color/Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Material} {Color/Finish}",
+      "template": "{Brand} {Type} {Style} {Category} {Material} {Color/Finish} - {Model Number}",
       "exampleTitle": "West Elm Sofa Mid-Century Modern Furniture Wood Walnut",
       "seoNotes": "Type = Sofa, Bed, Dresser, Table, Desk. Style + material drive search."
   },
@@ -5060,9 +5300,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color/Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Material} {Color/Finish}",
+      "template": "{Brand} {Type} {Style} {Category} {Material} {Color/Finish} - {Model Number}",
       "exampleTitle": "Herman Miller Task Modern Chair Mesh Black",
       "seoNotes": "Type = Task/Office, Dining, Lounge, Accent, Bar Stool."
   },
@@ -5101,9 +5346,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Piece Count} {Material} {Category} {Color}",
+      "template": "{Brand} {Type} {Piece Count} {Material} {Category} {Color} - {Model Number}",
       "exampleTitle": "Polywood 5-Piece Adirondack Recycled Lumber Outdoor and Patio Furniture White",
       "seoNotes": "Type = Seating Set, Dining Set, Adirondack, Lounger. Piece count for sets."
   },
@@ -5142,9 +5392,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Dimensions (W×H)} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Dimensions (W×H)} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Uttermost 30×40-Inch Framed Transitional Mirror Gold",
       "seoNotes": "Type = Framed, Frameless, Full-Length, Round. Dimensions in W×H."
   },
@@ -5183,9 +5438,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color/Pattern",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (W×L)} {Material} {Style} {Category} {Color/Pattern}",
+      "template": "{Brand} {Size (W×L)} {Material} {Style} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Safavieh 8×10-Foot Wool Traditional Rug Ivory/Blue",
       "seoNotes": "Size in W×L feet. Material = Wool, Synthetic, Jute, Silk. Style drives aesthetics."
   },
@@ -5224,9 +5484,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Height (Inches)} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Height (Inches)} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Visual Comfort 28-Inch Table Modern Lamp Antique Brass",
       "seoNotes": "Same as Lighting > Lamps. Type = Table, Floor, Desk. Height is key."
   },
@@ -5265,9 +5530,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Dimensions} {Style} {Category} {Finish}",
+      "template": "{Brand} {Type} {Dimensions} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Uttermost Metal Sculpture 36×24-Inch Modern Wall Decor Gold",
       "seoNotes": "Type = Art, Sculpture, Clock, Shelving. Dimensions help buyers gauge scale."
   },
@@ -5306,9 +5576,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Material} {Color}",
+      "template": "{Brand} {Type} {Style} {Category} {Material} {Color} - {Model Number}",
       "exampleTitle": "Global Views Vase Contemporary Home Accent Ceramic Blue",
       "seoNotes": "Type = Vase, Candle Holder, Bookend, Tray, Figurine. Very diverse."
   },
@@ -5342,9 +5617,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} {Material}",
+      "template": "{Brand} {Type} {Size} {Category} {Material} - {Model Number}",
       "exampleTitle": "Container Store Shelf 36-Inch Home Organization Bamboo",
       "seoNotes": "Type = Shelf, Bin, Basket, Hook, Hanger. Functional products."
   },
@@ -5381,11 +5661,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Width (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Lynx 42-Inch Built-In Outdoor Kitchen Island Stainless Steel (Grill, Side Burner)",
       "seoNotes": "Type = Island, Cart, Grill, Sink, Refrigerator. Width for built-in configurations."
   },
@@ -5427,11 +5707,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel (Smokeless)",
       "seoNotes": "Same schema as HVAC Fire Pits. Fuel + Type + Material are top filters."
   },
@@ -5465,9 +5745,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size} {Category} {Material}",
+      "template": "{Brand} {Type} {Size} {Category} {Material} - {Model Number}",
       "exampleTitle": "Solo Stove Fire Screen 27-Inch Fire Pit Accessory Stainless Steel",
       "seoNotes": "Type = Cover, Screen, Grate, Stand. Size must match fire pit."
   },
@@ -5506,9 +5791,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Material}",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Napoleon 55,000 BTU Gas Wall-Mount Outdoor Fireplace Stainless Steel",
       "seoNotes": "Type = Wall-Mount, Freestanding. BTU + Fuel are the key specs."
   },
@@ -5547,9 +5837,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish}",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Bromic 44,000 BTU Gas Ceiling-Mount Outdoor Heating Stainless Steel",
       "seoNotes": "Type = Ceiling-Mount, Wall-Mount, Freestanding, Tabletop."
   },
@@ -5588,9 +5883,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish}",
+      "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Fire Sense 46,000 BTU Propane Freestanding Patio Heater Stainless Steel",
       "seoNotes": "Same as HVAC Patio Heaters. BTU + Fuel + Type drive purchase."
   },
@@ -5632,11 +5932,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 7,
-              "attribute": "Features",
-              "required": false
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Therma-Tru 36×80-Inch Fiberglass Single Exterior Door Primed (Insulated)",
       "seoNotes": "Type = Single, Double, Sidelite, Patio, French. Material is critical for weather."
   },
@@ -5665,9 +5965,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 4,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 5,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Style} {Category} {Finish}",
+      "template": "{Brand} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Emtek Arts & Crafts Entry Set Oil-Rubbed Bronze",
       "seoNotes": "Simpler title. Style + finish are the differentiators."
   },
@@ -5699,11 +6004,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Finish} ({Features})",
+      "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Grohe Wall-Mount Outdoor Shower Faucet Stainless Steel (Thermostatic, Rain Head)",
       "seoNotes": "Type = Wall-Mount, Freestanding, Portable. Thermostatic is a premium feature."
   },
@@ -5740,11 +6045,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Wattage} {Fuel Type} {Type} {Category} ({Features})",
+      "template": "{Brand} {Wattage} {Fuel Type} {Type} {Category} - {Model Number}",
       "exampleTitle": "Generac 7,500W Gas Portable Generator (Electric Start, Transfer Switch Ready)",
       "seoNotes": "Wattage (starting/running) is the primary spec. Type = Portable, Standby, Inverter."
   },
@@ -5783,9 +6088,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Material} {Color}",
+      "template": "{Brand} {Type} {Style} {Category} {Material} {Color} - {Model Number}",
       "exampleTitle": "Campania Planter Traditional Garden Decor Cast Stone Gray",
       "seoNotes": "Type = Planter, Fountain, Statue, Trellis, Birdbath."
   },
@@ -5824,9 +6134,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size} {Material} {Type} {Category} {Color}",
+      "template": "{Brand} {Size} {Material} {Type} {Category} {Color} - {Model Number}",
       "exampleTitle": "Belgard 4×8-Inch Concrete Paver Hardscaping Charcoal",
       "seoNotes": "Same as Flooring Hardscaping. Type = Paver, Wall Block, Cap, Edging."
   },
@@ -5860,9 +6175,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Finish",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Style} {Category} {Finish}",
+      "template": "{Brand} {Type} {Style} {Category} {Finish} - {Model Number}",
       "exampleTitle": "Architectural Mailboxes Wall-Mount Modern Mail Box Black",
       "seoNotes": "Type = Wall-Mount, Post-Mount, Locking, Cluster."
   },
@@ -5901,9 +6221,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 6,
               "attribute": "Color/Pattern",
               "required": true
+          },
+          {
+              "position": 7,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (W×L)} {Material} {Style} {Category} {Color/Pattern}",
+      "template": "{Brand} {Size (W×L)} {Material} {Style} {Category} {Color/Pattern} - {Model Number}",
       "exampleTitle": "Safavieh 5×8-Foot Polypropylene Indoor/Outdoor Rug Blue Stripe",
       "seoNotes": "Must emphasize outdoor/weather-resistant material."
   },
@@ -5937,9 +6262,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Width (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Width (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Bull 30-Inch Double Drawer Storage Drawers/Doors Stainless Steel",
       "seoNotes": "Type = Drawer, Door, Combo. For outdoor kitchen islands."
   },
@@ -5976,11 +6306,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 6,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Mount} {Material} ({Features})",
+      "template": "{Brand} {Type} {Category} {Mount} {Material} - {Model Number}",
       "exampleTitle": "Elkay Wall-Mount Water Fountain Stainless Steel (ADA, Bi-Level, Filtered)",
       "seoNotes": "Type = Wall-Mount, Freestanding, Bottle Filler. ADA compliance is critical."
   },
@@ -6012,11 +6342,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 5,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} {Material} ({Features})",
+      "template": "{Brand} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Bradley Touchless Lavatory System Commercial Restroom Stainless Steel (Soap, Dryer, Faucet)",
       "seoNotes": "Type = Lavatory, Hand Dryer, Partition, Dispenser. ADA + touchless are key features."
   },
@@ -6050,9 +6380,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Watts 4-Inch Y-Pattern Industrial Strainer Cast Iron",
       "seoNotes": "Size = pipe diameter. Type = Y-Pattern, Basket, Duplex. Material matters."
   },
@@ -6086,9 +6421,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Application",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Type} {Size/Volume} {Category} {Application}",
+      "template": "{Brand} {Type} {Size/Volume} {Category} {Application} - {Model Number}",
       "exampleTitle": "Oatey 16 oz Pipe Cement Chemicals & Compounds PVC",
       "seoNotes": "Type = Cement, Flux, Sealant, Cleaner. Application (PVC, Copper, etc.) is key."
   },
@@ -6122,9 +6462,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Connection Size",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Capacity (Gallons)} {Type} {Category} {Connection Size}",
+      "template": "{Brand} {Capacity (Gallons)} {Type} {Category} {Connection Size} - {Model Number}",
       "exampleTitle": "Watts 4.5-Gallon In-Line Hydronic Expansion Tank 3/4-Inch",
       "seoNotes": "Capacity + connection size are the primary specs."
   },
@@ -6158,9 +6503,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "Zurn 4-Inch Floor Drain Drainage & Waste Cast Iron",
       "seoNotes": "Type = Floor Drain, Cleanout, Trap Primer, Interceptor. Size = pipe diameter."
   },
@@ -6194,9 +6544,14 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
               "position": 5,
               "attribute": "Material",
               "required": true
+          },
+          {
+              "position": 6,
+              "attribute": "Model Number",
+              "required": true
           }
       ],
-      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material}",
+      "template": "{Brand} {Size (Inches)} {Type} {Category} {Material} - {Model Number}",
       "exampleTitle": "SharkBite 1/2-Inch Push-to-Connect Pipe Fitting Brass",
       "seoNotes": "Size + Type + Material are the 3 essential specs. Type = Coupling, Elbow, Tee, Adapter."
   },
@@ -6223,11 +6578,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           },
           {
               "position": 4,
-              "attribute": "Features",
+              "attribute": "Model Number",
               "required": true
           }
       ],
-      "template": "{Brand} {Type} {Category} ({Features})",
+      "template": "{Brand} {Type} {Category} - {Model Number}",
       "exampleTitle": "Sonos Wireless Speaker Home Electronics (Wi-Fi, Multi-Room, Voice Control)",
       "seoNotes": "Broad category. Type = Speaker, Smart Display, Hub, Streaming Device."
   },
