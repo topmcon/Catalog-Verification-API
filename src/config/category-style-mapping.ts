@@ -2411,19 +2411,54 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
 };
 
 /**
+ * Normalize category name for lookup (handles singular/plural variants)
+ * e.g., "Kitchen Faucet" → finds "Kitchen Faucets" in map
+ */
+function getCategoryMapping(category: string): CategoryStyleMapping | undefined {
+  // Exact match first
+  if (CATEGORY_STYLE_MAP[category]) {
+    return CATEGORY_STYLE_MAP[category];
+  }
+  
+  // Try plural variant (add 's') - e.g., "Kitchen Faucet" → "Kitchen Faucets"
+  const pluralKey = category + 's';
+  if (CATEGORY_STYLE_MAP[pluralKey]) {
+    return CATEGORY_STYLE_MAP[pluralKey];
+  }
+  
+  // Try singular variant (remove trailing 's') - e.g., "Chandeliers" → "Chandelier"
+  if (category.endsWith('s') && category.length > 1) {
+    const singularKey = category.slice(0, -1);
+    if (CATEGORY_STYLE_MAP[singularKey]) {
+      return CATEGORY_STYLE_MAP[singularKey];
+    }
+  }
+  
+  // Try removing 'es' suffix
+  if (category.endsWith('es') && category.length > 2) {
+    const singularKey = category.slice(0, -2);
+    if (CATEGORY_STYLE_MAP[singularKey]) {
+      return CATEGORY_STYLE_MAP[singularKey];
+    }
+  }
+  
+  return undefined;
+}
+
+/**
  * Get valid styles for a category
  */
 export function getValidStylesForCategory(category: string): string[] {
-  const mapping = CATEGORY_STYLE_MAP[category];
+  const mapping = getCategoryMapping(category);
   if (!mapping) return [];
-  return mapping.values.map(v => v.name);
+  return mapping.values.map((v: StyleValue) => v.name);
 }
 
 /**
  * Get valid styles with IDs for a category
  */
 export function getValidStylesWithIdsForCategory(category: string): StyleValue[] {
-  const mapping = CATEGORY_STYLE_MAP[category];
+  const mapping = getCategoryMapping(category);
   if (!mapping) return [];
   return mapping.values;
 }
@@ -2432,7 +2467,7 @@ export function getValidStylesWithIdsForCategory(category: string): StyleValue[]
  * Get style ID for a category and style name
  */
 export function getStyleIdForCategory(category: string, styleName: string): string | null {
-  const mapping = CATEGORY_STYLE_MAP[category];
+  const mapping = getCategoryMapping(category);
   if (!mapping) return null;
   
   // Normalize for comparison
@@ -2442,11 +2477,11 @@ export function getStyleIdForCategory(category: string, styleName: string): stri
   const normalizedInput = normalizeForComparison(styleName);
   
   // PASS 1: Exact match
-  const exactMatch = mapping.values.find(v => v.name.toLowerCase() === styleName.toLowerCase());
+  const exactMatch = mapping.values.find((v: StyleValue) => v.name.toLowerCase() === styleName.toLowerCase());
   if (exactMatch) return exactMatch.style_id;
   
   // PASS 2: Normalized match
-  const normalizedMatch = mapping.values.find(v => 
+  const normalizedMatch = mapping.values.find((v: StyleValue) => 
     normalizeForComparison(v.name) === normalizedInput
   );
   if (normalizedMatch) return normalizedMatch.style_id;
