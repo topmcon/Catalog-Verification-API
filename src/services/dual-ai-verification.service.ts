@@ -4717,6 +4717,36 @@ function buildFinalResponse(
     }
   }
   
+  // ============================================
+  // FINAL UNIVERSAL VALIDATION: Validate style from ALL sources
+  // This catches invalid styles from disagreements, smart resolution, fallbacks
+  // Runs AFTER all style sources have been considered
+  // ============================================
+  if (potentialStyle && categoryMatch.matchedValue) {
+    const matchedCategory = categoryMatch.matchedValue.category_name;
+    const finalValidation = validateStyleForCategory(potentialStyle, matchedCategory);
+    
+    if (finalValidation.needsCorrection) {
+      logger.warn('[FINAL STYLE VALIDATION] Invalid style detected - correcting', {
+        category: matchedCategory,
+        originalStyle: potentialStyle,
+        correctedStyle: finalValidation.correctedStyle,
+        isAesthetic: finalValidation.isAesthetic,
+        reason: finalValidation.reason
+      });
+      
+      if (finalValidation.correctedStyle) {
+        potentialStyle = finalValidation.correctedStyle;
+        logger.info('[FINAL STYLE CORRECTED] Using valid style from category-type-style list', {
+          from: consensus.agreedPrimaryAttributes.product_style || '(from fallback)',
+          to: potentialStyle,
+          category: matchedCategory,
+          wasAesthetic: finalValidation.isAesthetic
+        });
+      }
+    }
+  }
+  
   if (potentialStyle && categoryMatch.matchedValue) {
     const matchedCategory = categoryMatch.matchedValue.category_name;
     const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
