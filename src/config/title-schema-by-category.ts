@@ -4,7 +4,7 @@
  * Auto-generated from Product_Title_Schema_by_Category_REVISED.json
  * Generated: 2026-02-06T19:06:01.398Z
  * 
- * Formula: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + (FEATURES)
+ * Formula: BRAND + SPEC + TYPE + CATEGORY + FINISH - MODEL
  * 
  * Rules:
  * 1. Brand Always First - highest-value keyword for branded search
@@ -13,9 +13,10 @@
  * 4. Installation Type Fourth - Built-In, Freestanding, Wall-Mount
  * 5. Category Name Fifth - exact category for Google Shopping taxonomy
  * 6. Finish/Color Sixth - most specific term (Brushed Nickel, Stainless Steel)
- * 7. Features Last (Parenthetical) - max 2-3 high-value features
+ * 7. Model Number Last - appended after dash
  * 
  * Max title length: 60-80 chars target, 150 max
+ * NO FEATURES in parentheses - features removed for cleaner SEO titles
  */
 
 export interface TitleSlot {
@@ -69,7 +70,6 @@ export const TITLE_ATTRIBUTE_WHITELIST: string[] = [
   "Diameter/Width",
   "Dimensions",
   "Dimensions (W×H)",
-  "Features",
   "Feed Type",
   "Filtration Level",
   "Finish",
@@ -320,7 +320,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel (Smart, Ice Maker)",
+      "exampleTitle": "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel ",
       "seoNotes": "Lead with capacity — shoppers search by Cu. Ft. Width is secondary. Configuration = door style."
   },
   'freezer': {
@@ -361,7 +361,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "GE 21 Cu. Ft. Upright Freezer White (Frost-Free)",
+      "exampleTitle": "GE 21 Cu. Ft. Upright Freezer White ",
       "seoNotes": "Configuration = Upright, Chest, Column. Capacity is the key differentiator."
   },
   'range': {
@@ -407,7 +407,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel (6 Burners, Griddle)",
+      "exampleTitle": "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel ",
       "seoNotes": "Width + Fuel Type are the top 2 search modifiers. Burner count is high-value feature."
   },
   'oven': {
@@ -453,7 +453,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Bosch 30-Inch Double Wall Built-In Oven Stainless Steel (Convection)",
+      "exampleTitle": "Bosch 30-Inch Double Wall Built-In Oven Stainless Steel ",
       "seoNotes": "Configuration = Single, Double, Combo. Installation = Wall, Built-In. Always include both."
   },
   'cooktop': {
@@ -499,7 +499,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Thermador 36-Inch Gas Built-In Cooktop Stainless Steel (6 Burners)",
+      "exampleTitle": "Thermador 36-Inch Gas Built-In Cooktop Stainless Steel ",
       "seoNotes": "Width + Fuel Type are essential. Burner count is key feature for gas cooktops."
   },
   'microwave': {
@@ -540,7 +540,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "KitchenAid 2.0 Cu. Ft. Over-the-Range Microwave Stainless Steel (Convection, Sensor Cook)",
+      "exampleTitle": "KitchenAid 2.0 Cu. Ft. Over-the-Range Microwave Stainless Steel ",
       "seoNotes": "Type = Over-the-Range, Countertop, Built-In, Drawer. Capacity in Cu. Ft., not watts."
   },
   'dishwasher': {
@@ -586,7 +586,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)*} {Type} {Category} {Finish} {dBA Level} - {Model Number}",
-      "exampleTitle": "Miele 24-Inch Built-In Dishwasher Stainless Steel 44 dBA (3rd Rack, AutoDos)",
+      "exampleTitle": "Miele 24-Inch Built-In Dishwasher Stainless Steel 44 dBA ",
       "seoNotes": "*Only include width if non-standard (18\"). dBA is a top search qualifier for dishwashers."
   },
   'range hood': {
@@ -632,7 +632,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {CFM} - {Model Number}",
-      "exampleTitle": "Zephyr 36-Inch Wall Mount Range Hood Stainless Steel 600 CFM (LED Lighting)",
+      "exampleTitle": "Zephyr 36-Inch Wall Mount Range Hood Stainless Steel 600 CFM ",
       "seoNotes": "Type = Under-Cabinet, Wall Mount, Island, Insert, Downdraft. CFM is key spec."
   },
   'icemaker': {
@@ -673,7 +673,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Production (lbs/day)} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Scotsman 80 lbs/Day Undercounter Icemaker Stainless Steel (Clear Ice, Drain Pump)",
+      "exampleTitle": "Scotsman 80 lbs/Day Undercounter Icemaker Stainless Steel ",
       "seoNotes": "Type = Undercounter, Freestanding, Portable, Built-In. Daily production is the key spec."
   },
   'barbeques': {
@@ -719,7 +719,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Weber 36-Inch Gas Built-In Grill Stainless Steel (4 Burners, Rotisserie)",
+      "exampleTitle": "Weber 36-Inch Gas Built-In Grill Stainless Steel ",
       "seoNotes": "Type = Built-In, Freestanding, Portable, Cart. Width + Fuel + Type all matter for grills."
   },
   'coffee maker': {
@@ -755,7 +755,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Miele Built-In Coffee Maker Stainless Steel (Bean-to-Cup, Auto Frother)",
+      "exampleTitle": "Miele Built-In Coffee Maker Stainless Steel ",
       "seoNotes": "Type = Built-In, Countertop, Espresso Machine. No size needed unless built-in."
   },
   'pizza oven': {
@@ -796,7 +796,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Ooni Gas Countertop Pizza Oven Stainless Steel (Multi-Fuel)",
+      "exampleTitle": "Ooni Gas Countertop Pizza Oven Stainless Steel ",
       "seoNotes": "Type = Countertop, Built-In, Outdoor. Fuel Type = Gas, Wood, Multi-Fuel."
   },
   'kitchen appliances': {
@@ -873,7 +873,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "LG 5.0 Cu. Ft. Front Load Washer White (Steam, TurboWash)",
+      "exampleTitle": "LG 5.0 Cu. Ft. Front Load Washer White ",
       "seoNotes": "Configuration = Front Load, Top Load. Capacity is the #1 search term for washers."
   },
   'dryer': {
@@ -919,7 +919,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Fuel Type} {Configuration} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Samsung 7.5 Cu. Ft. Electric Front Load Dryer Platinum (Steam Sanitize, Smart)",
+      "exampleTitle": "Samsung 7.5 Cu. Ft. Electric Front Load Dryer Platinum ",
       "seoNotes": "Fuel Type = Electric, Gas. Always include — it's a critical purchase filter."
   },
   'all in one washer / dryer': {
@@ -960,7 +960,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "LG 4.5 Cu. Ft. Front Load All-in-One Washer/Dryer White (Ventless, Steam)",
+      "exampleTitle": "LG 4.5 Cu. Ft. Front Load All-in-One Washer/Dryer White ",
       "seoNotes": "Ventless/Vented is a key feature. Capacity matters for combo unit shoppers."
   },
   'standalone pedestal': {
@@ -1001,7 +1001,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Category} {Finish} {Compatibility} - {Model Number}",
-      "exampleTitle": "Samsung 27-Inch Laundry Pedestal Platinum (Storage Drawer)",
+      "exampleTitle": "Samsung 27-Inch Laundry Pedestal Platinum ",
       "seoNotes": "Width must match washer/dryer. Compatibility is a key purchase factor."
   },
   'laundry appliances': {
@@ -1083,7 +1083,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Collection/Style} {Type} {Hole Config} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Delta Trinsic Single-Handle Widespread 3-Hole Bathroom Faucet Matte Black (Touch2O)",
+      "exampleTitle": "Delta Trinsic Single-Handle Widespread 3-Hole Bathroom Faucet Matte Black ",
       "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount, Vessel. Hole config is essential."
   },
   'kitchen faucets': {
@@ -1124,7 +1124,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Collection/Style} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless (MotionSense, Power Boost)",
+      "exampleTitle": "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless ",
       "seoNotes": "Type = Pull-Down, Pull-Out, Bridge, Wall-Mount, Bar/Prep, Pot Filler."
   },
   'kitchen sinks': {
@@ -1313,7 +1313,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Top Material} - {Model Number}",
-      "exampleTitle": "James Martin 60-Inch Freestanding Bathroom Vanity Espresso (Marble Top, Double Sink)",
+      "exampleTitle": "James Martin 60-Inch Freestanding Bathroom Vanity Espresso ",
       "seoNotes": "Width is the #1 filter. Type = Freestanding, Wall-Mount, Floating. Top material is high-value."
   },
   'medicine cabinets': {
@@ -1354,7 +1354,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Mount Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Robern 30-Inch Recessed Medicine Cabinet Mirrored (LED Lighting, Defogger)",
+      "exampleTitle": "Robern 30-Inch Recessed Medicine Cabinet Mirrored ",
       "seoNotes": "Mount Type = Recessed, Surface-Mount. LED and defogger are premium features."
   },
   'toilets': {
@@ -1400,7 +1400,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Bowl Shape} {Flush Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "TOTO Elongated One-Piece Dual Flush Toilet Cotton White (Tornado Flush, SoftClose Seat)",
+      "exampleTitle": "TOTO Elongated One-Piece Dual Flush Toilet Cotton White ",
       "seoNotes": "Type = One-Piece, Two-Piece, Wall-Hung. Bowl = Elongated, Round. GPF is key spec."
   },
   'toilet seats': {
@@ -1441,7 +1441,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Shape} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "TOTO Elongated SoftClose Toilet Seat Cotton White (Quick-Release Hinges)",
+      "exampleTitle": "TOTO Elongated SoftClose Toilet Seat Cotton White ",
       "seoNotes": "Shape = Elongated, Round. Type = Standard, Slow-Close, Heated, Bidet."
   },
   'bidets': {
@@ -1477,7 +1477,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "TOTO Floor-Mount Bidet Cotton White (Vertical Spray)",
+      "exampleTitle": "TOTO Floor-Mount Bidet Cotton White ",
       "seoNotes": "Type = Floor-Mount, Wall-Hung. Simpler title structure than electronic bidets."
   },
   'bidet seats': {
@@ -1513,7 +1513,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Shape} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "TOTO Elongated Bidet Seat Cotton White (Heated, Air Dryer, Remote)",
+      "exampleTitle": "TOTO Elongated Bidet Seat Cotton White ",
       "seoNotes": "Shape must match toilet. Features are the key differentiator for electronic seats."
   },
   'urinals': {
@@ -1554,7 +1554,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Flush Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Kohler Wall-Mount Waterless Urinal White (Touchless Flush)",
+      "exampleTitle": "Kohler Wall-Mount Waterless Urinal White ",
       "seoNotes": "Type = Wall-Mount. Flush = Waterless, Manual, Touchless."
   },
   'bathtubs': {
@@ -1600,7 +1600,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Length (Inches)} {Type} {Material} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Kohler 60-Inch Freestanding Acrylic Bathtub White (Soaking, Center Drain)",
+      "exampleTitle": "Kohler 60-Inch Freestanding Acrylic Bathtub White ",
       "seoNotes": "Type = Freestanding, Alcove, Drop-In, Corner, Walk-In. Length is primary dimension."
   },
   'showers': {
@@ -1636,7 +1636,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Hansgrohe Raindance Shower System Chrome (Thermostatic, Multi-Function)",
+      "exampleTitle": "Hansgrohe Raindance Shower System Chrome ",
       "seoNotes": "Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column."
   },
   'steam showers': {
@@ -1672,7 +1672,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Power (kW)} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Mr. Steam 12 kW Steam Shower Generator Chrome (AirTempo Control, AutoFlush)",
+      "exampleTitle": "Mr. Steam 12 kW Steam Shower Generator Chrome ",
       "seoNotes": "Power (kW) is the primary sizing spec. Features drive purchase decisions."
   },
   'rough-in valves': {
@@ -1749,7 +1749,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Panasonic 110 CFM Ceiling Mount Bath Fan (WhisperCeiling, LED Light, Humidity Sensor)",
+      "exampleTitle": "Panasonic 110 CFM Ceiling Mount Bath Fan ",
       "seoNotes": "CFM is the #1 spec. Type = Ceiling, Wall. Sones/noise level is key feature."
   },
   'bathroom hardware and accessories': {
@@ -1918,7 +1918,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Dimensions (W×H)} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Kohler 24×36-Inch Framed Bathroom Mirror Brushed Nickel (LED, Anti-Fog)",
+      "exampleTitle": "Kohler 24×36-Inch Framed Bathroom Mirror Brushed Nickel ",
       "seoNotes": "Dimensions in W×H format. Type = Framed, Frameless, LED, Pivot, Tilt."
   },
   'garbage disposals': {
@@ -1954,7 +1954,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Horsepower} {Category} {Feed Type} - {Model Number}",
-      "exampleTitle": "InSinkErator 1 HP Garbage Disposal Continuous Feed (SoundSeal, Quick Lock)",
+      "exampleTitle": "InSinkErator 1 HP Garbage Disposal Continuous Feed ",
       "seoNotes": "HP is the key spec. Feed Type = Continuous, Batch."
   },
   'hot & cold water dispensers': {
@@ -1990,7 +1990,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "InSinkErator Instant Hot Water Dispenser Chrome (Invite Series, Filtered)",
+      "exampleTitle": "InSinkErator Instant Hot Water Dispenser Chrome ",
       "seoNotes": "Type = Instant Hot, Filtered, Chilled, Combo."
   },
   'water filtration': {
@@ -2026,7 +2026,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Filtration Level} - {Model Number}",
-      "exampleTitle": "APEC Under-Sink Water Filtration System 5-Stage (Reverse Osmosis, UV)",
+      "exampleTitle": "APEC Under-Sink Water Filtration System 5-Stage ",
       "seoNotes": "Type = Under-Sink, Whole-House, Countertop, Faucet-Mount."
   },
   'tankless water heaters': {
@@ -2067,7 +2067,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {GPM/BTU} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Rinnai 9.8 GPM Gas Indoor Tankless Water Heater (Wi-Fi, Recirculation)",
+      "exampleTitle": "Rinnai 9.8 GPM Gas Indoor Tankless Water Heater ",
       "seoNotes": "GPM for gas, kW for electric. Type = Indoor, Outdoor. Fuel Type critical."
   },
   'cabinet hardware': {
@@ -2477,7 +2477,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Diameter (Inches)} {Style} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Rejuvenation 12-Inch Industrial Pendant Light Matte Black (Adjustable Height)",
+      "exampleTitle": "Rejuvenation 12-Inch Industrial Pendant Light Matte Black ",
       "seoNotes": "Single pendants. Diameter + style drive search. Mini-pendants are a common subtype."
   },
   'island lighting': {
@@ -2605,7 +2605,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Light Count} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Kichler 24-Inch 3-Light Vanity Lighting Brushed Nickel (LED, Dimmable)",
+      "exampleTitle": "Kichler 24-Inch 3-Light Vanity Lighting Brushed Nickel ",
       "seoNotes": "Width must match vanity/mirror. Light count is a top filter."
   },
   'recessed lighting': {
@@ -2646,7 +2646,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Aperture (Inches)} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "WAC Lighting 4-Inch New Construction Recessed Lighting White (LED, IC Rated)",
+      "exampleTitle": "WAC Lighting 4-Inch New Construction Recessed Lighting White ",
       "seoNotes": "Aperture size (4\", 5\", 6\") is the #1 search term. Type = New Construction, Remodel, Trim."
   },
   'under cabinet lights': {
@@ -2687,7 +2687,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Length (Inches)} {Type} {Category} {Color Temp} - {Model Number}",
-      "exampleTitle": "WAC Lighting 24-Inch LED Under Cabinet Light 3000K (Dimmable, Linkable)",
+      "exampleTitle": "WAC Lighting 24-Inch LED Under Cabinet Light 3000K ",
       "seoNotes": "Type = LED Bar, Puck, Tape/Strip. Length and color temp are key specs."
   },
   'track and rail lighting': {
@@ -2774,7 +2774,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Size} {Category} {Color Temp} - {Model Number}",
-      "exampleTitle": "Philips Hue LED Strip 80-Inch LED Lighting 2700K (Smart, Dimmable)",
+      "exampleTitle": "Philips Hue LED Strip 80-Inch LED Lighting 2700K ",
       "seoNotes": "Broad category — Type = Strip, Panel, Bulb, Downlight. Smart features are key."
   },
   'kitchen lighting': {
@@ -2856,7 +2856,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Style} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Hinkley Wall Lantern Traditional Outdoor Lighting Bronze (LED, Dark Sky)",
+      "exampleTitle": "Hinkley Wall Lantern Traditional Outdoor Lighting Bronze ",
       "seoNotes": "Type = Wall Lantern, Path Light, Flood, Post. Dark Sky and LED are premium features."
   },
   'landscape lighting': {
@@ -2892,7 +2892,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Kichler LED Path Light Landscape Lighting Bronze (Low Voltage)",
+      "exampleTitle": "Kichler LED Path Light Landscape Lighting Bronze ",
       "seoNotes": "Type = Path, Spot, Well, Step, Deck. Low voltage vs line voltage is key."
   },
   'post lights': {
@@ -2933,7 +2933,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Height (Inches)} {Style} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Hinkley 22-Inch Traditional Post Light Bronze (LED)",
+      "exampleTitle": "Hinkley 22-Inch Traditional Post Light Bronze ",
       "seoNotes": "Height is important for code compliance. Style drives the aesthetic choice."
   },
   'step lighting': {
@@ -2969,7 +2969,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "WAC Lighting LED Recessed Step Lighting Bronze (Low Voltage, IP65)",
+      "exampleTitle": "WAC Lighting LED Recessed Step Lighting Bronze ",
       "seoNotes": "Type = Recessed, Surface. IP rating matters for outdoor use."
   },
   'lamps': {
@@ -3092,7 +3092,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Lutron Caseta Dimmer Switch Light Switch White (Smart, 3-Way)",
+      "exampleTitle": "Lutron Caseta Dimmer Switch Light Switch White ",
       "seoNotes": "Type = Dimmer, Toggle, Rocker, Smart Switch. Gang count can be a feature."
   },
   'lighting accessories': {
@@ -3164,7 +3164,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Wattage} {Category} - {Model Number}",
-      "exampleTitle": "Lithonia LED Troffer 40W Commercial Lighting (DLC Listed, Dimmable)",
+      "exampleTitle": "Lithonia LED Troffer 40W Commercial Lighting ",
       "seoNotes": "Type = Troffer, High Bay, Panel, Strip. Wattage and certifications matter."
   },
   'ceiling fans': {
@@ -3205,7 +3205,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Blade Span (Inches)} {Style} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Hunter 52-Inch Modern Ceiling Fan Matte Black (LED Light, Remote, Reversible)",
+      "exampleTitle": "Hunter 52-Inch Modern Ceiling Fan Matte Black ",
       "seoNotes": "Blade span is the #1 search term. LED light kit and remote are top features."
   },
   'ceiling fan accessories': {
@@ -3277,7 +3277,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Blade Span (Inches)} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Matthews 16-Inch Wall Mounted Fan Brushed Nickel (Oscillating, 3-Speed)",
+      "exampleTitle": "Matthews 16-Inch Wall Mounted Fan Brushed Nickel ",
       "seoNotes": "Blade span + oscillating are key features."
   },
   'air circulators': {
@@ -3313,7 +3313,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Size} {Category} - {Model Number}",
-      "exampleTitle": "Vornado Tower Medium Air Circulator (Whole Room, Oscillating)",
+      "exampleTitle": "Vornado Tower Medium Air Circulator ",
       "seoNotes": "Type = Tower, Pedestal, Personal, Box. Airflow/CFM can be a feature."
   },
   'attic fans': {
@@ -3349,7 +3349,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
-      "exampleTitle": "QuietCool 3013 CFM Solar-Powered Attic Fan (Thermostat, Adjustable Panel)",
+      "exampleTitle": "QuietCool 3013 CFM Solar-Powered Attic Fan ",
       "seoNotes": "CFM is the primary spec. Type = Solar, Electric, Gable, Roof-Mount."
   },
   'air conditioners': {
@@ -3385,7 +3385,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Frigidaire 12,000 BTU Window Air Conditioner (Wi-Fi, Energy Star)",
+      "exampleTitle": "Frigidaire 12,000 BTU Window Air Conditioner ",
       "seoNotes": "Type = Window, Portable, Central, Through-Wall. BTU is the #1 search term."
   },
   'mini split air conditioners': {
@@ -3426,7 +3426,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU} {Zone Config} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Mitsubishi 24,000 BTU Single Zone Ductless Mini Split Air Conditioner (Hyper Heat, Wi-Fi)",
+      "exampleTitle": "Mitsubishi 24,000 BTU Single Zone Ductless Mini Split Air Conditioner ",
       "seoNotes": "BTU + zone count (single/multi) are the top filters. Heat pump capability is key."
   },
   'dehumidifiers': {
@@ -3462,7 +3462,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Pints)} {Type} {Category} - {Model Number}",
-      "exampleTitle": "hOmeLabs 50-Pint Portable Dehumidifier (Energy Star, Auto Shutoff, Continuous Drain)",
+      "exampleTitle": "hOmeLabs 50-Pint Portable Dehumidifier ",
       "seoNotes": "Pint capacity is the sizing standard. Type = Portable, Whole-Home, Crawl Space."
   },
   'water heaters': {
@@ -3503,7 +3503,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity (Gallons)} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Rheem 50-Gallon Electric Hybrid Water Heater (Heat Pump, Energy Star, Wi-Fi)",
+      "exampleTitle": "Rheem 50-Gallon Electric Hybrid Water Heater ",
       "seoNotes": "Capacity + Fuel Type are the 2 essential search terms. Type = Tank, Hybrid, Heat Pump."
   },
   'room heater': {
@@ -3544,7 +3544,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Dyna-Glo 30,000 BTU Gas Wall-Mount Room Heater (Vent-Free, Thermostat)",
+      "exampleTitle": "Dyna-Glo 30,000 BTU Gas Wall-Mount Room Heater ",
       "seoNotes": "Type = Wall-Mount, Portable, Baseboard, Infrared. BTU for gas, Watts for electric."
   },
   'indoor heating': {
@@ -3585,7 +3585,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU/Watts} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Cadet 1500W Electric Baseboard Indoor Heating Unit (Thermostat, Quiet)",
+      "exampleTitle": "Cadet 1500W Electric Baseboard Indoor Heating Unit ",
       "seoNotes": "Type = Baseboard, Wall, Cove, Radiant Panel. Similar to Room Heater but broader."
   },
   'stoves and fireplaces': {
@@ -3631,7 +3631,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Napoleon 50,000 BTU Gas Direct Vent Fireplace Black (Remote, Multi-Color)",
+      "exampleTitle": "Napoleon 50,000 BTU Gas Direct Vent Fireplace Black ",
       "seoNotes": "Type = Insert, Freestanding Stove, Linear, See-Through. BTU + Fuel + Vent type matter."
   },
   'patio heaters': {
@@ -3713,7 +3713,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Hessaire 3,100 CFM Portable Evaporative Cooler (Variable Speed, Auto Swing)",
+      "exampleTitle": "Hessaire 3,100 CFM Portable Evaporative Cooler ",
       "seoNotes": "CFM is the primary sizing spec. Type = Portable, Window, Whole-House."
   },
   'thermostats': {
@@ -3749,7 +3749,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Ecobee Smart Thermostat Premium White (Voice Control, Air Quality Monitor, Siri/Alexa)",
+      "exampleTitle": "Ecobee Smart Thermostat Premium White ",
       "seoNotes": "Type = Smart, Programmable, Non-Programmable, Line Voltage. Smart features are key."
   },
   'exhaust fans': {
@@ -3785,7 +3785,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {CFM} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Broan 110 CFM Ceiling Exhaust Fan (LED Light, Humidity Sensor, Quiet)",
+      "exampleTitle": "Broan 110 CFM Ceiling Exhaust Fan ",
       "seoNotes": "CFM is the sizing spec. Type = Ceiling, Inline, Wall. Sones level is key."
   },
   'stove and chimney pipe': {
@@ -3867,7 +3867,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Size (W×L)} {Type} {Category} {Glazing} - {Model Number}",
-      "exampleTitle": "VELUX 22×46-Inch Fixed Skylight Low-E Glass (Solar Blind, Rain Sensor)",
+      "exampleTitle": "VELUX 22×46-Inch Fixed Skylight Low-E Glass ",
       "seoNotes": "Size in W×L. Type = Fixed, Venting, Tubular. Glazing type matters for energy."
   },
   'air filters': {
@@ -3985,7 +3985,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Tonnage/BTU} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Carrier 5-Ton Rooftop Package Commercial HVAC Unit (Economizer, VFD)",
+      "exampleTitle": "Carrier 5-Ton Rooftop Package Commercial HVAC Unit ",
       "seoNotes": "Tonnage for cooling, BTU for heating. Type = Rooftop, Split, AHU, Chiller."
   },
   'heating': {
@@ -4026,7 +4026,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Rinnai 98,000 BTU Gas Condensing Heating Boiler (Wi-Fi, 95% AFUE)",
+      "exampleTitle": "Rinnai 98,000 BTU Gas Condensing Heating Boiler ",
       "seoNotes": "Generic heating parent. Use specific subcategory (Room Heater, Boiler) when possible."
   },
   'hvac accessories': {
@@ -4108,7 +4108,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel (Smokeless)",
+      "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel ",
       "seoNotes": "Shared with Outdoor. Fuel Type + Type (Portable, Built-In) are key."
   },
   'hardwood flooring': {
@@ -4195,7 +4195,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Plank Width (Inches)} {Wear Layer (mil)} {Category} {Color/Pattern} - {Model Number}",
-      "exampleTitle": "COREtec 7-Inch 20 mil Luxury Vinyl Flooring Gray Oak (Waterproof, Attached Pad)",
+      "exampleTitle": "COREtec 7-Inch 20 mil Luxury Vinyl Flooring Gray Oak ",
       "seoNotes": "Wear layer thickness differentiates quality tiers. Waterproof is a key feature."
   },
   'laminate flooring': {
@@ -4236,7 +4236,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Plank Width (Inches)} {AC Rating} {Category} {Color/Pattern} - {Model Number}",
-      "exampleTitle": "Pergo 7-Inch AC4 Laminate Flooring Rustic Oak (WetProtect, Attached Pad)",
+      "exampleTitle": "Pergo 7-Inch AC4 Laminate Flooring Rustic Oak ",
       "seoNotes": "AC rating (AC3-AC5) indicates durability class. Width and waterproofing matter."
   },
   'waterproof flooring': {
@@ -4277,7 +4277,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Plank Width (Inches)} {Material} {Category} {Color/Pattern} - {Model Number}",
-      "exampleTitle": "LifeProof 7-Inch Rigid Core Waterproof Flooring Sterling Oak (Attached Pad)",
+      "exampleTitle": "LifeProof 7-Inch Rigid Core Waterproof Flooring Sterling Oak ",
       "seoNotes": "Material = Rigid Core, WPC, SPC. Waterproof is already in category name."
   },
   'tile': {
@@ -4359,7 +4359,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Tile Size} {Material} {Category} {Color/Pattern} - {Model Number}",
-      "exampleTitle": "Shaw 24×24-Inch Nylon Carpet Tile Charcoal (Peel & Stick, Commercial Grade)",
+      "exampleTitle": "Shaw 24×24-Inch Nylon Carpet Tile Charcoal ",
       "seoNotes": "Tile size (usually 24×24) + material + commercial-grade are key."
   },
   'hardscaping': {
@@ -4533,7 +4533,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Grade} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Schlage Smart Electronic Grade 1 Deadbolt Matte Black (Touchscreen, Z-Wave)",
+      "exampleTitle": "Schlage Smart Electronic Grade 1 Deadbolt Matte Black ",
       "seoNotes": "Type = Keyed, Electronic, Smart. ANSI Grade (1-3) indicates security level."
   },
   'keyless entry': {
@@ -4569,7 +4569,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Yale Assure Lock Keyless Entry Satin Nickel (Touchscreen, Wi-Fi, Auto-Lock)",
+      "exampleTitle": "Yale Assure Lock Keyless Entry Satin Nickel ",
       "seoNotes": "Type = Keypad, Touchscreen, Fingerprint, Bluetooth. Smart features drive purchase."
   },
   'keyed hardware': {
@@ -4646,7 +4646,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Collection} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Emtek Arts & Crafts Mortise Lock Oil-Rubbed Bronze (Privacy Function)",
+      "exampleTitle": "Emtek Arts & Crafts Mortise Lock Oil-Rubbed Bronze ",
       "seoNotes": "Premium hardware. Collection and finish are the key differentiators."
   },
   'lock combo packs': {
@@ -4990,7 +4990,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Masonite 36×80-Inch Fiberglass Entry Door Primed (Insulated, Prefinished)",
+      "exampleTitle": "Masonite 36×80-Inch Fiberglass Entry Door Primed ",
       "seoNotes": "Width×Height in inches. Type = Entry, Interior, Patio, French. Material is key for exterior."
   },
   'commercial door hardware': {
@@ -5103,7 +5103,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Capacity/Size} {Type} {Category} - {Model Number}",
-      "exampleTitle": "SentrySafe 1.2 Cu. Ft. Fire-Rated Safes, Locks and Lock Boxes (Digital Lock, Waterproof)",
+      "exampleTitle": "SentrySafe 1.2 Cu. Ft. Fire-Rated Safes, Locks and Lock Boxes ",
       "seoNotes": "Type = Safe, Lock Box, Key Cabinet. Capacity and fire rating are key."
   },
   'safety & security': {
@@ -5134,7 +5134,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Ring Video Doorbell Safety & Security (1080p, Night Vision, Wi-Fi)",
+      "exampleTitle": "Ring Video Doorbell Safety & Security ",
       "seoNotes": "Type = Doorbell Camera, Security Camera, Smoke Detector, CO Detector."
   },
   'designer hardware': {
@@ -5666,7 +5666,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width (Inches)} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Lynx 42-Inch Built-In Outdoor Kitchen Island Stainless Steel (Grill, Side Burner)",
+      "exampleTitle": "Lynx 42-Inch Built-In Outdoor Kitchen Island Stainless Steel ",
       "seoNotes": "Type = Island, Cart, Grill, Sink, Refrigerator. Width for built-in configurations."
   },
   'fire pits (outdoor)': {
@@ -5712,7 +5712,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Diameter/Width} {Fuel Type} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel (Smokeless)",
+      "exampleTitle": "Solo Stove 27-Inch Wood Portable Fire Pit Stainless Steel ",
       "seoNotes": "Same schema as HVAC Fire Pits. Fuel + Type + Material are top filters."
   },
   'fire pit accessories': {
@@ -5937,7 +5937,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Width×Height} {Material} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Therma-Tru 36×80-Inch Fiberglass Single Exterior Door Primed (Insulated)",
+      "exampleTitle": "Therma-Tru 36×80-Inch Fiberglass Single Exterior Door Primed ",
       "seoNotes": "Type = Single, Double, Sidelite, Patio, French. Material is critical for weather."
   },
   'entry sets': {
@@ -6009,7 +6009,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Finish} - {Model Number}",
-      "exampleTitle": "Grohe Wall-Mount Outdoor Shower Faucet Stainless Steel (Thermostatic, Rain Head)",
+      "exampleTitle": "Grohe Wall-Mount Outdoor Shower Faucet Stainless Steel ",
       "seoNotes": "Type = Wall-Mount, Freestanding, Portable. Thermostatic is a premium feature."
   },
   'generators': {
@@ -6050,7 +6050,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Wattage} {Fuel Type} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Generac 7,500W Gas Portable Generator (Electric Start, Transfer Switch Ready)",
+      "exampleTitle": "Generac 7,500W Gas Portable Generator ",
       "seoNotes": "Wattage (starting/running) is the primary spec. Type = Portable, Standby, Inverter."
   },
   'garden decor': {
@@ -6311,7 +6311,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Mount} {Material} - {Model Number}",
-      "exampleTitle": "Elkay Wall-Mount Water Fountain Stainless Steel (ADA, Bi-Level, Filtered)",
+      "exampleTitle": "Elkay Wall-Mount Water Fountain Stainless Steel ",
       "seoNotes": "Type = Wall-Mount, Freestanding, Bottle Filler. ADA compliance is critical."
   },
   'commercial restroom': {
@@ -6347,7 +6347,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} {Material} - {Model Number}",
-      "exampleTitle": "Bradley Touchless Lavatory System Commercial Restroom Stainless Steel (Soap, Dryer, Faucet)",
+      "exampleTitle": "Bradley Touchless Lavatory System Commercial Restroom Stainless Steel ",
       "seoNotes": "Type = Lavatory, Hand Dryer, Partition, Dispenser. ADA + touchless are key features."
   },
   'industrial strainers': {
@@ -6583,7 +6583,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
           }
       ],
       "template": "{Brand} {Type} {Category} - {Model Number}",
-      "exampleTitle": "Sonos Wireless Speaker Home Electronics (Wi-Fi, Multi-Room, Voice Control)",
+      "exampleTitle": "Sonos Wireless Speaker Home Electronics ",
       "seoNotes": "Broad category. Type = Speaker, Smart Display, Hub, Streaming Device."
   },
 };
