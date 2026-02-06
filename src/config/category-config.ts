@@ -353,7 +353,7 @@ const LIGHTING_TYPE_KEYWORDS: Record<string, string[]> = {
 const PRODUCT_TYPE_KEYWORDS: Record<string, string[]> = {
   'Ceiling Fans #': ['ceiling fan', 'fan with light', 'fan blade', 'blade span', 'cfm'],
   'Ceiling Fans with Light #': ['fan with light', 'lighted fan', 'fan light kit'],
-  'Barbeques': ['grill', 'barbeque', 'bbq', 'burner', 'btus', 'grilling'],
+  'Barbeque': ['grill', 'barbeque', 'bbq', 'burner', 'btus', 'grilling'],
   'Toilets #': ['toilet', 'commode', 'gpf', 'elongated bowl', 'round bowl'],
   'Bathtubs #': ['bathtub', 'tub', 'soaking tub', 'freestanding tub', 'whirlpool'],
   'Kitchen Faucets #': ['kitchen faucet', 'pull-down', 'pull-out faucet'],

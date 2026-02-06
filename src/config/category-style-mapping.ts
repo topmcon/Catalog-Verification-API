@@ -240,9 +240,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Refrigerator Drawer', style_id: null, status: 'new_needed' }
     ]
   },
-  'Barbeques': {
+  'Barbeque': {
     department: 'Appliances',
-    category_name: 'Barbeques',
+    category_name: 'Barbeque',
     label: 'Grill Type',
     logic: 'Fuel type or installation',
     values: [
@@ -284,9 +284,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Cold Brew', style_id: null, status: 'new_needed' }
     ]
   },
-  'Kitchen Faucets': {
+  'Kitchen Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Kitchen Faucets',
+    category_name: 'Kitchen Faucet',
     label: 'Faucet Type',
     logic: 'Spray function',
     values: [
@@ -300,9 +300,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Standard', style_id: null, status: 'new_needed' }
     ]
   },
-  'Bathroom Faucets': {
+  'Bathroom Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Bathroom Faucets',
+    category_name: 'Bathroom Faucet',
     label: 'Faucet Type',
     logic: 'Mounting/hole configuration',
     values: [
@@ -313,9 +313,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Vessel', style_id: 'a1IaZ000001S92rUAC', status: 'existing' }
     ]
   },
-  'Tub Faucets': {
+  'Tub Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Tub Faucets',
+    category_name: 'Tub Faucet',
     label: 'Tub Faucet Type',
     logic: 'Mounting type',
     values: [
@@ -325,9 +325,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Roman Tub', style_id: 'a1IaZ000001S92LUAS', status: 'existing' }
     ]
   },
-  'Shower Faucets': {
+  'Shower Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Shower Faucets',
+    category_name: 'Shower Faucet',
     label: 'Shower Faucet Type',
     logic: 'Valve type',
     values: [
@@ -340,9 +340,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Complete System', style_id: null, status: 'new_needed' }
     ]
   },
-  'Bar Faucets': {
+  'Bar Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Bar Faucets',
+    category_name: 'Bar Faucet',
     label: 'Bar Faucet Type',
     logic: 'Spray function',
     values: [
@@ -352,9 +352,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Touchless', style_id: 'a1IaZ000001S92HUAS', status: 'existing' }
     ]
   },
-  'Pot Filler Faucets': {
+  'Pot Filler Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Pot Filler Faucets',
+    category_name: 'Pot Filler Faucet',
     label: 'Pot Filler Type',
     logic: 'Mounting type',
     values: [
@@ -362,9 +362,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Deck Mounted', style_id: 'a1IaZ000001S92JUAS', status: 'existing' }
     ]
   },
-  'Bidet Faucets': {
+  'Bidet Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Bidet Faucets',
+    category_name: 'Bidet Faucet',
     label: 'Bidet Faucet Type',
     logic: 'Mounting type',
     values: [
@@ -373,9 +373,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Deck Mounted', style_id: 'a1IaZ000001S92JUAS', status: 'existing' }
     ]
   },
-  'Food Service Faucets': {
+  'Food Service Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Food Service Faucets',
+    category_name: 'Food Service Faucet',
     label: 'Faucet Type',
     logic: 'Commercial/professional applications',
     values: [
@@ -386,9 +386,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Utility', style_id: null, status: 'new_needed' }
     ]
   },
-  'Outdoor Shower Faucets': {
+  'Outdoor Shower Faucet': {
     department: 'Plumbing & Bath',
-    category_name: 'Outdoor Shower Faucets',
+    category_name: 'Outdoor Shower Faucet',
     label: 'Outdoor Shower Type',
     logic: 'Mounting type',
     values: [
@@ -397,9 +397,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Post Mount', style_id: null, status: 'new_needed' }
     ]
   },
-  'Hot & Cold Water Dispensers': {
+  'Hot & Cold Water Dispenser': {
     department: 'Plumbing & Bath',
-    category_name: 'Hot & Cold Water Dispensers',
+    category_name: 'Hot & Cold Water Dispenser',
     label: 'Dispenser Type',
     logic: 'Temperature/function',
     values: [
@@ -409,9 +409,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Under Sink', style_id: null, status: 'new_needed' }
     ]
   },
-  'Kitchen Sinks': {
+  'Kitchen Sink': {
     department: 'Plumbing & Bath',
-    category_name: 'Kitchen Sinks',
+    category_name: 'Kitchen Sink',
     label: 'Sink Type',
     logic: 'Installation type',
     values: [
@@ -422,9 +422,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Workstation', style_id: 'a1IaZ000001S93WUAS', status: 'existing' }
     ]
   },
-  'Bar & Prep Sinks': {
+  'Bar & Prep Sink': {
     department: 'Plumbing & Bath',
-    category_name: 'Bar & Prep Sinks',
+    category_name: 'Bar & Prep Sink',
     label: 'Sink Type',
     logic: 'Smaller secondary sink options',
     values: [
@@ -433,9 +433,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Bar/Prep', style_id: 'a1IaZ000001S93TUAS', status: 'existing' }
     ]
   },
-  'Kitchen Sink Combos': {
+  'Kitchen Sink Combo': {
     department: 'Plumbing & Bath',
-    category_name: 'Kitchen Sink Combos',
+    category_name: 'Kitchen Sink Combo',
     label: 'Combo Type',
     logic: 'Sink + faucet bundles by installation type',
     values: [
@@ -445,9 +445,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Workstation', style_id: 'a1IaZ000001S93WUAS', status: 'existing' }
     ]
   },
-  'Bathroom Sinks': {
+  'Bathroom Sink': {
     department: 'Plumbing & Bath',
-    category_name: 'Bathroom Sinks',
+    category_name: 'Bathroom Sink',
     label: 'Sink Type',
     logic: 'Installation type',
     values: [
@@ -460,9 +460,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Semi-Recessed', style_id: 'a1IaZ000001S92vUAC', status: 'existing' }
     ]
   },
-  'Bathtubs': {
+  'Bathtub': {
     department: 'Plumbing & Bath',
-    category_name: 'Bathtubs',
+    category_name: 'Bathtub',
     label: 'Bathtub Type',
     logic: 'Installation type',
     values: [
@@ -488,9 +488,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Cable Operated', style_id: null, status: 'new_needed' }
     ]
   },
-  'Showers': {
+  'Shower': {
     department: 'Plumbing & Bath',
-    category_name: 'Showers',
+    category_name: 'Shower',
     label: 'Shower Type',
     logic: 'Showerhead/system type',
     values: [
@@ -503,9 +503,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Shower Panel', style_id: null, status: 'new_needed' }
     ]
   },
-  'Shower Accessories': {
+  'Shower Accessory': {
     department: 'Plumbing & Bath',
-    category_name: 'Shower Accessories',
+    category_name: 'Shower Accessory',
     label: 'Accessory Type',
     logic: 'Accessory type',
     values: [
@@ -518,9 +518,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Shower Door', style_id: null, status: 'new_needed' }
     ]
   },
-  'Steam Showers': {
+  'Steam Shower': {
     department: 'Plumbing & Bath',
-    category_name: 'Steam Showers',
+    category_name: 'Steam Shower',
     label: 'Steam Shower Type',
     logic: 'Component or complete system',
     values: [
@@ -530,9 +530,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Complete System', style_id: null, status: 'new_needed' }
     ]
   },
-  'Tub and Shower Accessories': {
+  'Tub and Shower Accessory': {
     department: 'Plumbing & Bath',
-    category_name: 'Tub and Shower Accessories',
+    category_name: 'Tub and Shower Accessory',
     label: 'Accessory Type',
     logic: 'Accessory type',
     values: [
@@ -542,9 +542,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Drain Cover', style_id: null, status: 'new_needed' }
     ]
   },
-  'Toilets': {
+  'Toilet': {
     department: 'Plumbing & Bath',
-    category_name: 'Toilets',
+    category_name: 'Toilet',
     label: 'Toilet Type',
     logic: 'Configuration',
     values: [
@@ -555,9 +555,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Compact', style_id: null, status: 'new_needed' }
     ]
   },
-  'Toilet Seats': {
+  'Toilet Seat': {
     department: 'Plumbing & Bath',
-    category_name: 'Toilet Seats',
+    category_name: 'Toilet Seat',
     label: 'Seat Type',
     logic: 'Bowl shape compatibility',
     values: [
@@ -566,9 +566,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Bidet Seat', style_id: 'a1IaZ000001S93NUAS', status: 'existing' }
     ]
   },
-  'Bidets': {
+  'Bidet': {
     department: 'Plumbing & Bath',
-    category_name: 'Bidets',
+    category_name: 'Bidet',
     label: 'Bidet Type',
     logic: 'Product type',
     values: [
@@ -578,9 +578,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Handheld Sprayer', style_id: null, status: 'new_needed' }
     ]
   },
-  'Bidet Seats': {
+  'Bidet Seat': {
     department: 'Plumbing & Bath',
-    category_name: 'Bidet Seats',
+    category_name: 'Bidet Seat',
     label: 'Bidet Seat Type',
     logic: 'Bowl shape or power type',
     values: [
@@ -590,9 +590,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Non-Electric', style_id: null, status: 'new_needed' }
     ]
   },
-  'Urinals': {
+  'Urinal': {
     department: 'Plumbing & Bath',
-    category_name: 'Urinals',
+    category_name: 'Urinal',
     label: 'Urinal Type',
     logic: 'Flush type',
     values: [
@@ -601,9 +601,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Waterless', style_id: null, status: 'new_needed' }
     ]
   },
-  'Bathroom Vanities': {
+  'Bathroom Vanity': {
     department: 'Plumbing & Bath',
-    category_name: 'Bathroom Vanities',
+    category_name: 'Bathroom Vanity',
     label: 'Vanity Type',
     logic: 'Configuration',
     values: [
@@ -614,9 +614,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Corner', style_id: 'a1IaZ000001S931UAC', status: 'existing' }
     ]
   },
-  'Bathroom Mirrors': {
+  'Bathroom Mirror': {
     department: 'Plumbing & Bath',
-    category_name: 'Bathroom Mirrors',
+    category_name: 'Bathroom Mirror',
     label: 'Mirror Type',
     logic: 'Mirror type/features',
     values: [
@@ -628,9 +628,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Magnifying', style_id: 'a1IaZ000001S937UAC', status: 'existing' }
     ]
   },
-  'Medicine Cabinets': {
+  'Medicine Cabinet': {
     department: 'Plumbing & Bath',
-    category_name: 'Medicine Cabinets',
+    category_name: 'Medicine Cabinet',
     label: 'Cabinet Type',
     logic: 'Installation type',
     values: [
@@ -667,9 +667,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Handle', style_id: null, status: 'new_needed' }
     ]
   },
-  'Bath Fans': {
+  'Bath Fan': {
     department: 'Plumbing & Bath',
-    category_name: 'Bath Fans',
+    category_name: 'Bath Fan',
     label: 'Bath Fan Type',
     logic: 'Features/configuration',
     values: [
@@ -681,9 +681,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Inline', style_id: null, status: 'new_needed' }
     ]
   },
-  'Rough-In Valves': {
+  'Rough-In Valve': {
     department: 'Plumbing & Bath',
-    category_name: 'Rough-In Valves',
+    category_name: 'Rough-In Valve',
     label: 'Valve Type',
     logic: 'Valve function',
     values: [
@@ -694,9 +694,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Transfer', style_id: 'a1IaZ000001S90GUAS', status: 'existing' }
     ]
   },
-  'Garbage Disposals': {
+  'Garbage Disposal': {
     department: 'Plumbing & Bath',
-    category_name: 'Garbage Disposals',
+    category_name: 'Garbage Disposal',
     label: 'Disposal Type',
     logic: 'Feed type',
     values: [
@@ -719,9 +719,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Replacement Filter', style_id: null, status: 'new_needed' }
     ]
   },
-  'Kitchen Accessories': {
+  'Kitchen Accessory': {
     department: 'Plumbing & Bath',
-    category_name: 'Kitchen Accessories',
+    category_name: 'Kitchen Accessory',
     label: 'Accessory Type',
     logic: 'Accessory type',
     values: [
@@ -805,9 +805,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Nipple', style_id: 'a1IaZ000001TW3xUAG', status: 'existing' }
     ]
   },
-  'Ceiling Fans': {
+  'Ceiling Fan': {
     department: 'Lighting & Electrical',
-    category_name: 'Ceiling Fans',
+    category_name: 'Ceiling Fan',
     label: 'Ceiling Fan Type',
     logic: 'Location or light configuration',
     values: [
@@ -844,9 +844,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Smart', style_id: 'a1IaZ000001S93HUAS', status: 'existing' }
     ]
   },
-  'Outdoor Ceiling Fans': {
+  'Outdoor Ceiling Fan': {
     department: 'Lighting & Electrical',
-    category_name: 'Outdoor Ceiling Fans',
+    category_name: 'Outdoor Ceiling Fan',
     label: 'Fan Type',
     logic: 'Light or rating',
     values: [
@@ -918,9 +918,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Without Light', style_id: null, status: 'new_needed' }
     ]
   },
-  'Ceiling Fan Accessories': {
+  'Ceiling Fan Accessory': {
     department: 'Lighting & Electrical',
-    category_name: 'Ceiling Fan Accessories',
+    category_name: 'Ceiling Fan Accessory',
     label: 'Accessory Type',
     logic: 'Accessory type',
     values: [
@@ -943,9 +943,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Fixed', style_id: null, status: 'new_needed' }
     ]
   },
-  'Air Circulators': {
+  'Air Circulator': {
     department: 'Lighting & Electrical',
-    category_name: 'Air Circulators',
+    category_name: 'Air Circulator',
     label: 'Circulator Type',
     logic: 'Placement',
     values: [
@@ -955,9 +955,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Whole Room', style_id: null, status: 'new_needed' }
     ]
   },
-  'Attic Fans': {
+  'Attic Fan': {
     department: 'Lighting & Electrical',
-    category_name: 'Attic Fans',
+    category_name: 'Attic Fan',
     label: 'Attic Fan Type',
     logic: 'Installation or power type',
     values: [
@@ -967,9 +967,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Electric', style_id: 'a1IaZ0000019ztJUAQ', status: 'existing' }
     ]
   },
-  'Chandeliers': {
+  'Chandelier': {
     department: 'Lighting & Electrical',
-    category_name: 'Chandeliers',
+    category_name: 'Chandelier',
     label: 'Chandelier Type',
     logic: 'Shape/form',
     values: [
@@ -984,9 +984,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Empire', style_id: null, status: 'new_needed' }
     ]
   },
-  'Pendants': {
+  'Pendant': {
     department: 'Lighting & Electrical',
-    category_name: 'Pendants',
+    category_name: 'Pendant',
     label: 'Pendant Type',
     logic: 'Shape',
     values: [
@@ -1001,9 +1001,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Schoolhouse', style_id: null, status: 'new_needed' }
     ]
   },
-  'Ceiling Lights': {
+  'Ceiling Light': {
     department: 'Lighting & Electrical',
-    category_name: 'Ceiling Lights',
+    category_name: 'Ceiling Light',
     label: 'Ceiling Light Type',
     logic: 'Fixture type',
     values: [
@@ -1026,9 +1026,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Globe', style_id: 'a1IaZ000001S920UAC', status: 'existing' }
     ]
   },
-  'Wall Sconces': {
+  'Wall Sconce': {
     department: 'Lighting & Electrical',
-    category_name: 'Wall Sconces',
+    category_name: 'Wall Sconce',
     label: 'Sconce Type',
     logic: 'Light direction or style',
     values: [
@@ -1122,9 +1122,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Bollard', style_id: null, status: 'new_needed' }
     ]
   },
-  'Post Lights': {
+  'Post Light': {
     department: 'Lighting & Electrical',
-    category_name: 'Post Lights',
+    category_name: 'Post Light',
     label: 'Post Light Type',
     logic: 'Mount type or power',
     values: [
@@ -1173,9 +1173,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'LED', style_id: 'a1IaZ000001TeazUAC', status: 'existing' }
     ]
   },
-  'Under Cabinet Lights': {
+  'Under Cabinet Light': {
     department: 'Lighting & Electrical',
-    category_name: 'Under Cabinet Lights',
+    category_name: 'Under Cabinet Light',
     label: 'Under Cabinet Light Type',
     logic: 'Fixture form',
     values: [
@@ -1185,9 +1185,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Tape Light', style_id: null, status: 'new_needed' }
     ]
   },
-  'Lamps': {
+  'Lamp': {
     department: 'Lighting & Electrical',
-    category_name: 'Lamps',
+    category_name: 'Lamp',
     label: 'Lamp Type',
     logic: 'Lamp form',
     values: [
@@ -1239,9 +1239,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Fan Control', style_id: null, status: 'new_needed' }
     ]
   },
-  'Lighting Accessories': {
+  'Lighting Accessory': {
     department: 'Lighting & Electrical',
-    category_name: 'Lighting Accessories',
+    category_name: 'Lighting Accessory',
     label: 'Accessory Type',
     logic: 'Accessory type',
     values: [
@@ -1265,9 +1265,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Catch', style_id: null, status: 'new_needed' }
     ]
   },
-  'Cabinet Knobs': {
+  'Cabinet Knob': {
     department: 'Hardware',
-    category_name: 'Cabinet Knobs',
+    category_name: 'Cabinet Knob',
     label: 'Knob Shape',
     logic: 'Shape',
     values: [
@@ -1279,9 +1279,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Ceramic', style_id: null, status: 'new_needed' }
     ]
   },
-  'Cabinet Pulls': {
+  'Cabinet Pull': {
     department: 'Hardware',
-    category_name: 'Cabinet Pulls',
+    category_name: 'Cabinet Pull',
     label: 'Pull Type',
     logic: 'Pull style',
     values: [
@@ -1293,9 +1293,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Arch Pull', style_id: null, status: 'new_needed' }
     ]
   },
-  'Affordable Cabinet Knobs': {
+  'Affordable Cabinet Knob': {
     department: 'Hardware',
-    category_name: 'Affordable Cabinet Knobs',
+    category_name: 'Affordable Cabinet Knob',
     label: 'Knob Shape',
     logic: 'Shape',
     values: [
@@ -1305,9 +1305,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Mushroom', style_id: null, status: 'new_needed' }
     ]
   },
-  'Affordable Cabinet Pulls': {
+  'Affordable Cabinet Pull': {
     department: 'Hardware',
-    category_name: 'Affordable Cabinet Pulls',
+    category_name: 'Affordable Cabinet Pull',
     label: 'Pull Type',
     logic: 'Pull style',
     values: [
@@ -1317,9 +1317,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Wire Pull', style_id: null, status: 'new_needed' }
     ]
   },
-  'Luxury Cabinet Knobs': {
+  'Luxury Cabinet Knob': {
     department: 'Hardware',
-    category_name: 'Luxury Cabinet Knobs',
+    category_name: 'Luxury Cabinet Knob',
     label: 'Knob Type',
     logic: 'Material/style',
     values: [
@@ -1330,9 +1330,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Jeweled', style_id: null, status: 'new_needed' }
     ]
   },
-  'Luxury Cabinet Pulls': {
+  'Luxury Cabinet Pull': {
     department: 'Hardware',
-    category_name: 'Luxury Cabinet Pulls',
+    category_name: 'Luxury Cabinet Pull',
     label: 'Pull Type',
     logic: 'Pull style',
     values: [
@@ -1342,9 +1342,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Art Pull', style_id: null, status: 'new_needed' }
     ]
   },
-  'Appliance Pulls': {
+  'Appliance Pull': {
     department: 'Hardware',
-    category_name: 'Appliance Pulls',
+    category_name: 'Appliance Pull',
     label: 'Pull Type',
     logic: 'Appliance type',
     values: [
@@ -1365,9 +1365,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Designer Handle', style_id: null, status: 'new_needed' }
     ]
   },
-  'Cabinet Hinges': {
+  'Cabinet Hinge': {
     department: 'Hardware',
-    category_name: 'Cabinet Hinges',
+    category_name: 'Cabinet Hinge',
     label: 'Hinge Type',
     logic: 'Visibility/function',
     values: [
@@ -1379,9 +1379,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Inset', style_id: null, status: 'new_needed' }
     ]
   },
-  'Cabinet Catches and Latches': {
+  'Cabinet Catch and Latch': {
     department: 'Hardware',
-    category_name: 'Cabinet Catches and Latches',
+    category_name: 'Cabinet Catch and Latch',
     label: 'Catch Type',
     logic: 'Mechanism',
     values: [
@@ -1392,9 +1392,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Ball Catch', style_id: null, status: 'new_needed' }
     ]
   },
-  'Cabinet Locks': {
+  'Cabinet Lock': {
     department: 'Hardware',
-    category_name: 'Cabinet Locks',
+    category_name: 'Cabinet Lock',
     label: 'Lock Type',
     logic: 'Lock type',
     values: [
@@ -1431,9 +1431,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Trash Pull-Out', style_id: null, status: 'new_needed' }
     ]
   },
-  'Drawer Slides and Accessories': {
+  'Drawer Slide and Accessory': {
     department: 'Hardware',
-    category_name: 'Drawer Slides and Accessories',
+    category_name: 'Drawer Slide and Accessory',
     label: 'Slide Type',
     logic: 'Slide type',
     values: [
@@ -1455,9 +1455,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Handle', style_id: null, status: 'new_needed' }
     ]
   },
-  'Backplates': {
+  'Backplate': {
     department: 'Hardware',
-    category_name: 'Backplates',
+    category_name: 'Backplate',
     label: 'Backplate Shape',
     logic: 'Shape',
     values: [
@@ -1477,9 +1477,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Lever', style_id: 'a1IaZ000001S93cUAC', status: 'existing' }
     ]
   },
-  'Door Knobs': {
+  'Door Knob': {
     department: 'Hardware',
-    category_name: 'Door Knobs',
+    category_name: 'Door Knob',
     label: 'Function',
     logic: 'Door function',
     values: [
@@ -1489,9 +1489,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Dummy', style_id: 'a1IaZ000001S93aUAC', status: 'existing' }
     ]
   },
-  'Door Levers': {
+  'Door Lever': {
     department: 'Hardware',
-    category_name: 'Door Levers',
+    category_name: 'Door Lever',
     label: 'Function',
     logic: 'Door function',
     values: [
@@ -1501,9 +1501,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Dummy', style_id: 'a1IaZ000001S93aUAC', status: 'existing' }
     ]
   },
-  'Deadbolts': {
+  'Deadbolt': {
     department: 'Hardware',
-    category_name: 'Deadbolts',
+    category_name: 'Deadbolt',
     label: 'Deadbolt Type',
     logic: 'Lock type',
     values: [
@@ -1513,9 +1513,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Keyless', style_id: null, status: 'new_needed' }
     ]
   },
-  'Handlesets': {
+  'Handleset': {
     department: 'Hardware',
-    category_name: 'Handlesets',
+    category_name: 'Handleset',
     label: 'Handleset Type',
     logic: 'Lock configuration',
     values: [
@@ -1577,9 +1577,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Cylinder', style_id: null, status: 'new_needed' }
     ]
   },
-  'Door Hinges': {
+  'Door Hinge': {
     department: 'Hardware',
-    category_name: 'Door Hinges',
+    category_name: 'Door Hinge',
     label: 'Hinge Type',
     logic: 'Hinge type',
     values: [
@@ -1590,9 +1590,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Strap Hinge', style_id: null, status: 'new_needed' }
     ]
   },
-  'Mortise Locks': {
+  'Mortise Lock': {
     department: 'Hardware',
-    category_name: 'Mortise Locks',
+    category_name: 'Mortise Lock',
     label: 'Mortise Type',
     logic: 'Function',
     values: [
@@ -1603,9 +1603,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Storeroom', style_id: null, status: 'new_needed' }
     ]
   },
-  'Lock Combo Packs': {
+  'Lock Combo Pack': {
     department: 'Hardware',
-    category_name: 'Lock Combo Packs',
+    category_name: 'Lock Combo Pack',
     label: 'Combo Type',
     logic: 'Combination',
     values: [
@@ -1691,9 +1691,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Gear', style_id: null, status: 'new_needed' }
     ]
   },
-  'Doors': {
+  'Door': {
     department: 'Hardware',
-    category_name: 'Doors',
+    category_name: 'Door',
     label: 'Door Type',
     logic: 'Door type',
     values: [
@@ -1731,9 +1731,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Cabinet', style_id: null, status: 'new_needed' }
     ]
   },
-  'Water Heaters': {
+  'Water Heater': {
     department: 'Heating & Cooling',
-    category_name: 'Water Heaters',
+    category_name: 'Water Heater',
     label: 'Water Heater Type',
     logic: 'Heating technology',
     values: [
@@ -1744,9 +1744,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Point of Use', style_id: null, status: 'new_needed' }
     ]
   },
-  'Tankless Water Heaters': {
+  'Tankless Water Heater': {
     department: 'Heating & Cooling',
-    category_name: 'Tankless Water Heaters',
+    category_name: 'Tankless Water Heater',
     label: 'Tankless Type',
     logic: 'Fuel or installation',
     values: [
@@ -1757,9 +1757,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Condensing', style_id: null, status: 'new_needed' }
     ]
   },
-  'Air Conditioners': {
+  'Air Conditioner': {
     department: 'Heating & Cooling',
-    category_name: 'Air Conditioners',
+    category_name: 'Air Conditioner',
     label: 'AC Type',
     logic: 'Installation type',
     values: [
@@ -1770,9 +1770,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Ductless', style_id: null, status: 'new_needed' }
     ]
   },
-  'Mini Split Air Conditioners': {
+  'Mini Split Air Conditioner': {
     department: 'Heating & Cooling',
-    category_name: 'Mini Split Air Conditioners',
+    category_name: 'Mini Split Air Conditioner',
     label: 'Mini Split Type',
     logic: 'Zone configuration',
     values: [
@@ -1782,9 +1782,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Cooling Only', style_id: null, status: 'new_needed' }
     ]
   },
-  'Dehumidifiers': {
+  'Dehumidifier': {
     department: 'Heating & Cooling',
-    category_name: 'Dehumidifiers',
+    category_name: 'Dehumidifier',
     label: 'Dehumidifier Type',
     logic: 'Application',
     values: [
@@ -1794,9 +1794,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Crawl Space', style_id: null, status: 'new_needed' }
     ]
   },
-  'Evaporative Coolers': {
+  'Evaporative Cooler': {
     department: 'Heating & Cooling',
-    category_name: 'Evaporative Coolers',
+    category_name: 'Evaporative Cooler',
     label: 'Cooler Type',
     logic: 'Installation type',
     values: [
@@ -1807,9 +1807,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Down Draft', style_id: null, status: 'new_needed' }
     ]
   },
-  'Exhaust Fans': {
+  'Exhaust Fan': {
     department: 'Heating & Cooling',
-    category_name: 'Exhaust Fans',
+    category_name: 'Exhaust Fan',
     label: 'Exhaust Fan Type',
     logic: 'Application/mount',
     values: [
@@ -1847,9 +1847,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Space Heater', style_id: null, status: 'new_needed' }
     ]
   },
-  'Patio Heaters': {
+  'Patio Heater': {
     department: 'Heating & Cooling',
-    category_name: 'Patio Heaters',
+    category_name: 'Patio Heater',
     label: 'Patio Heater Type',
     logic: 'Fuel or mount type',
     values: [
@@ -1861,9 +1861,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Tabletop', style_id: null, status: 'new_needed' }
     ]
   },
-  'Thermostats': {
+  'Thermostat': {
     department: 'Heating & Cooling',
-    category_name: 'Thermostats',
+    category_name: 'Thermostat',
     label: 'Thermostat Type',
     logic: 'Technology/features',
     values: [
@@ -1874,9 +1874,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Touchscreen', style_id: null, status: 'new_needed' }
     ]
   },
-  'Air Filters': {
+  'Air Filter': {
     department: 'Heating & Cooling',
-    category_name: 'Air Filters',
+    category_name: 'Air Filter',
     label: 'Filter Type',
     logic: 'Filter technology',
     values: [
@@ -1900,9 +1900,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Vent', style_id: null, status: 'new_needed' }
     ]
   },
-  'Fire Pits': {
+  'Fire Pit': {
     department: 'Heating & Cooling',
-    category_name: 'Fire Pits',
+    category_name: 'Fire Pit',
     label: 'Fire Pit Type',
     logic: 'Fuel type',
     values: [
@@ -1913,9 +1913,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Built-In', style_id: 'a1IaZ000001S90MUAS', status: 'existing' }
     ]
   },
-  'Stoves and Fireplaces': {
+  'Stove and Fireplace': {
     department: 'Heating & Cooling',
-    category_name: 'Stoves and Fireplaces',
+    category_name: 'Stove and Fireplace',
     label: 'Fireplace Type',
     logic: 'Fuel type',
     values: [
@@ -1940,9 +1940,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Flashing', style_id: null, status: 'new_needed' }
     ]
   },
-  'Skylights': {
+  'Skylight': {
     department: 'Heating & Cooling',
-    category_name: 'Skylights',
+    category_name: 'Skylight',
     label: 'Skylight Type',
     logic: 'Operation/mount type',
     values: [
@@ -1954,9 +1954,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Solar', style_id: null, status: 'new_needed' }
     ]
   },
-  'Generators': {
+  'Generator': {
     department: 'Heating & Cooling',
-    category_name: 'Generators',
+    category_name: 'Generator',
     label: 'Generator Type',
     logic: 'Type or fuel',
     values: [
@@ -2007,9 +2007,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Shelving', style_id: null, status: 'new_needed' }
     ]
   },
-  'Chairs': {
+  'Chair': {
     department: 'Home Décor & Furniture',
-    category_name: 'Chairs',
+    category_name: 'Chair',
     label: 'Chair Type',
     logic: 'Chair type',
     values: [
@@ -2034,9 +2034,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Hammock', style_id: null, status: 'new_needed' }
     ]
   },
-  'Mirrors': {
+  'Mirror': {
     department: 'Home Décor & Furniture',
-    category_name: 'Mirrors',
+    category_name: 'Mirror',
     label: 'Mirror Type',
     logic: 'Mirror type',
     values: [
@@ -2077,9 +2077,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Clock', style_id: null, status: 'new_needed' }
     ]
   },
-  'Rugs': {
+  'Rug': {
     department: 'Home Décor & Furniture',
-    category_name: 'Rugs',
+    category_name: 'Rug',
     label: 'Rug Style',
     logic: 'Design style',
     values: [
@@ -2269,9 +2269,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Garden Stake', style_id: null, status: 'new_needed' }
     ]
   },
-  'Mail Boxes': {
+  'Mail Box': {
     department: 'Outdoor',
-    category_name: 'Mail Boxes',
+    category_name: 'Mail Box',
     label: 'Mailbox Type',
     logic: 'Mount type',
     values: [
@@ -2281,9 +2281,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Locking', style_id: null, status: 'new_needed' }
     ]
   },
-  'Exterior Doors': {
+  'Exterior Door': {
     department: 'Outdoor',
-    category_name: 'Exterior Doors',
+    category_name: 'Exterior Door',
     label: 'Door Type',
     logic: 'Door type',
     values: [
@@ -2294,9 +2294,9 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
       { name: 'Screen', style_id: null, status: 'new_needed' }
     ]
   },
-  'Entry Sets': {
+  'Entry Set': {
     department: 'Outdoor',
-    category_name: 'Entry Sets',
+    category_name: 'Entry Set',
     label: 'Entry Set Type',
     logic: 'Handle type',
     values: [
@@ -2411,38 +2411,10 @@ export const CATEGORY_STYLE_MAP: Record<string, CategoryStyleMapping> = {
 };
 
 /**
- * Normalize category name for lookup (handles singular/plural variants)
- * e.g., "Kitchen Faucet" → finds "Kitchen Faucets" in map
+ * Get category mapping - keys match Salesforce singular format (e.g., "Kitchen Faucet")
  */
 function getCategoryMapping(category: string): CategoryStyleMapping | undefined {
-  // Exact match first
-  if (CATEGORY_STYLE_MAP[category]) {
-    return CATEGORY_STYLE_MAP[category];
-  }
-  
-  // Try plural variant (add 's') - e.g., "Kitchen Faucet" → "Kitchen Faucets"
-  const pluralKey = category + 's';
-  if (CATEGORY_STYLE_MAP[pluralKey]) {
-    return CATEGORY_STYLE_MAP[pluralKey];
-  }
-  
-  // Try singular variant (remove trailing 's') - e.g., "Chandeliers" → "Chandelier"
-  if (category.endsWith('s') && category.length > 1) {
-    const singularKey = category.slice(0, -1);
-    if (CATEGORY_STYLE_MAP[singularKey]) {
-      return CATEGORY_STYLE_MAP[singularKey];
-    }
-  }
-  
-  // Try removing 'es' suffix
-  if (category.endsWith('es') && category.length > 2) {
-    const singularKey = category.slice(0, -2);
-    if (CATEGORY_STYLE_MAP[singularKey]) {
-      return CATEGORY_STYLE_MAP[singularKey];
-    }
-  }
-  
-  return undefined;
+  return CATEGORY_STYLE_MAP[category];
 }
 
 /**

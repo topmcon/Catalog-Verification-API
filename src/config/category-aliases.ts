@@ -7,27 +7,27 @@ import logger from '../utils/logger';
 
 export const CATEGORY_ALIASES: Record<string, string[]> = {
   // Lighting
-  "Wall Sconces": ["Wall Sconces (Lighting)", "Sconces", "Wall Lights", "Wall Mounted Lighting"],
-  "Ceiling Lights": ["Ceiling Mounted Lights", "Ceiling Fixtures", "Overhead Lighting"],
-  "Chandeliers": ["Chandelier Lighting", "Suspended Chandeliers"],
+  "Wall Sconce": ["Wall Sconces (Lighting)", "Sconces", "Wall Lights", "Wall Mounted Lighting"],
+  "Ceiling Light": ["Ceiling Mounted Lights", "Ceiling Fixtures", "Overhead Lighting"],
+  "Chandelier": ["Chandelier Lighting", "Suspended Chandeliers"],
   "Pendant Lights": ["Pendant Lighting", "Hanging Pendants", "Suspended Pendants"],
   "Lamps": ["Table Lamps", "Desk Lamps", "Floor Lamps"],
   "Recessed Lighting": ["Recessed Lights", "Can Lights", "Downlights"],
   
   // Kitchen & Bath
-  "Kitchen Faucets": ["Faucets - Kitchen", "Kitchen Sink Faucets"],
-  "Bathroom Faucets": ["Faucets - Bathroom", "Bath Faucets", "Lavatory Faucets"],
-  "Kitchen Sinks": ["Sinks - Kitchen", "Kitchen Basin"],
-  "Bathroom Sinks": ["Sinks - Bathroom", "Bath Sinks", "Lavatory Sinks"],
-  "Ranges": ["Cooking Ranges", "Stoves", "Ovens & Ranges"],
-  "Refrigerators": ["Fridges", "Refrigeration"],
-  "Dishwashers": ["Dish Washers"],
+  "Kitchen Faucet": ["Faucets - Kitchen", "Kitchen Sink Faucets"],
+  "Bathroom Faucet": ["Faucets - Bathroom", "Bath Faucets", "Lavatory Faucets"],
+  "Kitchen Sink": ["Sinks - Kitchen", "Kitchen Basin"],
+  "Bathroom Sink": ["Sinks - Bathroom", "Bath Sinks", "Lavatory Sinks"],
+  "Range": ["Cooking Ranges", "Stoves", "Ovens & Ranges"],
+  "Refrigerator": ["Fridges", "Refrigeration"],
+  "Dishwasher": ["Dish Washers"],
   
   // Appliances
-  "Cooktops": ["Cook Tops", "Stovetops"],
+  "Cooktop": ["Cook Tops", "Stovetops"],
   "Wall Ovens": ["Built-in Ovens", "Wall Mounted Ovens"],
-  "Microwaves": ["Microwave Ovens"],
-  "Range Hoods": ["Vent Hoods", "Kitchen Hoods", "Exhaust Hoods"],
+  "Microwave": ["Microwave Ovens"],
+  "Range Hood": ["Vent Hoods", "Kitchen Hoods", "Exhaust Hoods"],
   "Wine Coolers": ["Wine Refrigerators", "Wine Chillers"],
   
   // Doors & Hardware
@@ -37,9 +37,9 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   "Door Locks": ["Door Lock Sets", "Entry Locks"],
   
   // Plumbing
-  "Bathtubs": ["Tubs", "Bath Tubs", "Soaking Tubs"],
+  "Bathtub": ["Tubs", "Bath Tubs", "Soaking Tubs"],
   "Showers": ["Shower Systems", "Shower Units"],
-  "Toilets": ["Commodes", "Water Closets"],
+  "Toilet": ["Commodes", "Water Closets"],
   "Shower Heads": ["Showerheads", "Shower Fixtures"],
   
   // Home Decor
@@ -49,7 +49,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   
   // HVAC
   "Thermostats": ["Smart Thermostats", "Temperature Controls"],
-  "Fans": ["Ceiling Fans", "Ventilation Fans"],
+  "Fans": ["Ceiling Fan", "Ventilation Fans"],
   
   // Outdoor
   "Outdoor Lighting": ["Exterior Lighting", "Landscape Lighting"],
@@ -59,7 +59,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   // Cabinets & Storage
   "Kitchen Cabinets": ["Cabinets - Kitchen"],
   "Bathroom Cabinets": ["Cabinets - Bathroom", "Vanity Cabinets"],
-  "Medicine Cabinets": ["Bathroom Medicine Cabinets"],
+  "Medicine Cabinet": ["Bathroom Medicine Cabinets"],
   
   // Flooring & Surfaces
   "Countertops": ["Counter Tops", "Kitchen Countertops"],
@@ -94,7 +94,7 @@ export function normalizeCategoryName(category: string): string {
     }
   }
 
-  // Check for partial matches (e.g., "Wall Sconces (Lighting)" contains "Wall Sconces")
+  // Check for partial matches (e.g., "Wall Sconces (Lighting)" contains "Wall Sconce")
   for (const [primary] of Object.entries(CATEGORY_ALIASES)) {
     if (trimmed.toLowerCase().includes(primary.toLowerCase())) {
       logger.debug(`Category normalized (partial): "${trimmed}" → "${primary}"`);

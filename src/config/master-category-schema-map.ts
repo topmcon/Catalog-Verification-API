@@ -121,7 +121,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Range
   'Range': RANGE_SCHEMA,
-  'Ranges': RANGE_SCHEMA,
   'RANGES': RANGE_SCHEMA,
   'Gas Range': RANGE_SCHEMA,
   'GAS RANGES': RANGE_SCHEMA,
@@ -143,7 +142,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Oven / Wall Oven
   'Oven': OVEN_SCHEMA,
-  'Ovens': OVEN_SCHEMA,
   'OVENS': OVEN_SCHEMA,
   'Wall Oven': OVEN_SCHEMA,
   'Wall Ovens': OVEN_SCHEMA,
@@ -156,7 +154,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Cooktop
   'Cooktop': COOKTOP_SCHEMA,
-  'Cooktops': COOKTOP_SCHEMA,
   'COOKTOPS': COOKTOP_SCHEMA,
   'Gas Cooktop': COOKTOP_SCHEMA,
   'GAS COOKTOPS': COOKTOP_SCHEMA,
@@ -167,7 +164,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Microwave
   'Microwave': MICROWAVE_SCHEMA,
-  'Microwaves': MICROWAVE_SCHEMA,
   'MICROWAVES': MICROWAVE_SCHEMA,
   'Microwave Oven': MICROWAVE_SCHEMA,
   'Over-the-Range Microwave': MICROWAVE_SCHEMA,
@@ -178,7 +174,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Range Hood
   'Range Hood': RANGE_HOOD_SCHEMA,
-  'Range Hoods': RANGE_HOOD_SCHEMA,
   'RANGE HOODS': RANGE_HOOD_SCHEMA,
   'Hood': RANGE_HOOD_SCHEMA,
   'Hoods': RANGE_HOOD_SCHEMA,
@@ -201,7 +196,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Refrigerator
   'Refrigerator': REFRIGERATOR_SCHEMA,
-  'Refrigerators': REFRIGERATOR_SCHEMA,
   'REFRIGERATORS': REFRIGERATOR_SCHEMA,
   'French Door Refrigerator': REFRIGERATOR_SCHEMA,
   'FRENCH DOOR REFRIGERATORS': REFRIGERATOR_SCHEMA,
@@ -217,7 +211,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Freezer
   'Freezer': FREEZER_SCHEMA,
-  'Freezers': FREEZER_SCHEMA,
   'FREEZERS': FREEZER_SCHEMA,
   'Upright Freezer': FREEZER_SCHEMA,
   'UPRIGHT FREEZERS': FREEZER_SCHEMA,
@@ -235,7 +228,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Ice Maker
   'Icemaker': ICE_MAKER_SCHEMA,
-  'Icemakers': ICE_MAKER_SCHEMA,
   'ICEMAKERS': ICE_MAKER_SCHEMA,
   'Ice Maker': ICE_MAKER_SCHEMA,
   'Ice Makers': ICE_MAKER_SCHEMA,
@@ -253,7 +245,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
   
   'Dishwasher': DISHWASHER_SCHEMA,
-  'Dishwashers': DISHWASHER_SCHEMA,
   'DISHWASHERS': DISHWASHER_SCHEMA,
   'Built-In Dishwasher': DISHWASHER_SCHEMA,
   'Drawer Dishwasher': DISHWASHER_SCHEMA,
@@ -265,7 +256,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Washer
   'Washer': WASHER_SCHEMA,
-  'Washers': WASHER_SCHEMA,
   'WASHERS': WASHER_SCHEMA,
   'Washing Machine': WASHER_SCHEMA,
   'Front Load Washer': WASHER_SCHEMA,
@@ -275,7 +265,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Dryer
   'Dryer': DRYER_SCHEMA,
-  'Dryers': DRYER_SCHEMA,
   'DRYERS': DRYER_SCHEMA,
   'Gas Dryer': DRYER_SCHEMA,
   'GAS DRYERS': DRYER_SCHEMA,
@@ -300,12 +289,10 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Pizza Oven
   'Pizza Oven': PIZZA_OVEN_SCHEMA,
-  'Pizza Ovens': PIZZA_OVEN_SCHEMA,
   'PIZZA OVENS': PIZZA_OVEN_SCHEMA,
   
   // Coffee Maker
   'Coffee Maker': COFFEE_MAKER_SCHEMA,
-  'Coffee Makers': COFFEE_MAKER_SCHEMA,
   'COFFEE MAKERS': COFFEE_MAKER_SCHEMA,
   'Espresso Machine': COFFEE_MAKER_SCHEMA,
   'Coffee System': COFFEE_MAKER_SCHEMA,
@@ -321,7 +308,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Freezer Drawer': DRAWER_SCHEMA,
   
   // Outdoor
-  'Barbeques': OUTDOOR_GRILL_SCHEMA,
+  'Barbeque': OUTDOOR_GRILL_SCHEMA,
   'Grill': OUTDOOR_GRILL_SCHEMA,
   'Grills': OUTDOOR_GRILL_SCHEMA,
   'GRILLS': OUTDOOR_GRILL_SCHEMA,
@@ -336,27 +323,23 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
   
   // Kitchen Sinks
-  'Kitchen Sinks': KITCHEN_SINK_SCHEMA,
-  'Kitchen Sinks #': KITCHEN_SINK_SCHEMA,
-  'KITCHEN SINKS': KITCHEN_SINK_SCHEMA,
   'Kitchen Sink': KITCHEN_SINK_SCHEMA,
+  'KITCHEN SINKS': KITCHEN_SINK_SCHEMA,
   'Farmhouse Sink': KITCHEN_SINK_SCHEMA,
   'Apron Sink': KITCHEN_SINK_SCHEMA,
   'Undermount Kitchen Sink': KITCHEN_SINK_SCHEMA,
   'Drop-In Kitchen Sink': KITCHEN_SINK_SCHEMA,
   
   // Kitchen Faucets
-  'Kitchen Faucets': KITCHEN_FAUCET_SCHEMA,
-  'Kitchen Faucets #': KITCHEN_FAUCET_SCHEMA,
-  'KITCHEN FAUCETS': KITCHEN_FAUCET_SCHEMA,
   'Kitchen Faucet': KITCHEN_FAUCET_SCHEMA,
+  'KITCHEN FAUCETS': KITCHEN_FAUCET_SCHEMA,
   'Pull-Down Kitchen Faucet': KITCHEN_FAUCET_SCHEMA,
   'Pull-Out Kitchen Faucet': KITCHEN_FAUCET_SCHEMA,
   'Bridge Faucet': KITCHEN_FAUCET_SCHEMA,
   'Pot Filler': KITCHEN_FAUCET_SCHEMA,
   
   // Bar & Prep Sinks
-  'Bar & Prep Sinks': BAR_PREP_SINK_SCHEMA,
+  'Bar & Prep Sink': BAR_PREP_SINK_SCHEMA,
   'Bar & Prep Sinks #': BAR_PREP_SINK_SCHEMA,
   'Bar Sink': BAR_PREP_SINK_SCHEMA,
   'Bar Sinks': BAR_PREP_SINK_SCHEMA,
@@ -364,9 +347,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Prep Sinks': BAR_PREP_SINK_SCHEMA,
   
   // Bar Faucets
-  'Bar Faucets': BAR_FAUCET_SCHEMA,
-  'Bar Faucets #': BAR_FAUCET_SCHEMA,
   'Bar Faucet': BAR_FAUCET_SCHEMA,
+  'Bar Faucets #': BAR_FAUCET_SCHEMA,
   'Prep Faucet': BAR_FAUCET_SCHEMA,
   
   // ============================================
@@ -374,10 +356,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
   
   // Bathroom Sinks
-  'Bathroom Sinks': BATHROOM_SINK_SCHEMA,
-  'Bathroom Sinks #': BATHROOM_SINK_SCHEMA,
-  'BATHROOM SINKS': BATHROOM_SINK_SCHEMA,
   'Bathroom Sink': BATHROOM_SINK_SCHEMA,
+  'BATHROOM SINKS': BATHROOM_SINK_SCHEMA,
   'Vessel Sink': BATHROOM_SINK_SCHEMA,
   'Pedestal Sink': BATHROOM_SINK_SCHEMA,
   'Undermount Bathroom Sink': BATHROOM_SINK_SCHEMA,
@@ -386,30 +366,24 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Lavatory': BATHROOM_SINK_SCHEMA,
   
   // Bathroom Faucets
-  'Bathroom Faucets': BATHROOM_FAUCET_SCHEMA,
-  'Bathroom Faucets #': BATHROOM_FAUCET_SCHEMA,
-  'BATHROOM FAUCETS': BATHROOM_FAUCET_SCHEMA,
   'Bathroom Faucet': BATHROOM_FAUCET_SCHEMA,
+  'BATHROOM FAUCETS': BATHROOM_FAUCET_SCHEMA,
   'Lavatory Faucet': BATHROOM_FAUCET_SCHEMA,
   'Widespread Faucet': BATHROOM_FAUCET_SCHEMA,
   'Centerset Faucet': BATHROOM_FAUCET_SCHEMA,
   'Single Hole Faucet': BATHROOM_FAUCET_SCHEMA,
   
   // Bathroom Vanities
-  'Bathroom Vanities': BATHROOM_VANITY_SCHEMA,
-  'Bathroom Vanities #': BATHROOM_VANITY_SCHEMA,
-  'BATHROOM VANITIES': BATHROOM_VANITY_SCHEMA,
   'Bathroom Vanity': BATHROOM_VANITY_SCHEMA,
+  'BATHROOM VANITIES': BATHROOM_VANITY_SCHEMA,
   'Vanity': BATHROOM_VANITY_SCHEMA,
   'Vanities': BATHROOM_VANITY_SCHEMA,
   'Single Vanity': BATHROOM_VANITY_SCHEMA,
   'Double Vanity': BATHROOM_VANITY_SCHEMA,
   
   // Toilets
-  'Toilets': TOILET_SCHEMA,
-  'Toilets #': TOILET_SCHEMA,
-  'TOILETS': TOILET_SCHEMA,
   'Toilet': TOILET_SCHEMA,
+  'TOILETS': TOILET_SCHEMA,
   'One-Piece Toilet': TOILET_SCHEMA,
   'Two-Piece Toilet': TOILET_SCHEMA,
   'Wall-Hung Toilet': TOILET_SCHEMA,
@@ -417,10 +391,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Bidet Toilet': TOILET_SCHEMA,
   
   // Bathtubs
-  'Bathtubs': BATHTUB_SCHEMA,
-  'Bathtubs #': BATHTUB_SCHEMA,
-  'BATHTUBS': BATHTUB_SCHEMA,
   'Bathtub': BATHTUB_SCHEMA,
+  'BATHTUBS': BATHTUB_SCHEMA,
   'Bath Tub': BATHTUB_SCHEMA,
   'Tub': BATHTUB_SCHEMA,
   'Freestanding Tub': BATHTUB_SCHEMA,
@@ -433,19 +405,16 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Walk-In Tub': BATHTUB_SCHEMA,
   
   // Tub Faucets
-  'Tub Faucets': TUB_FAUCET_SCHEMA,
+  'Tub Faucet': TUB_FAUCET_SCHEMA,
   'Tub Faucets #': TUB_FAUCET_SCHEMA,
   'TUB FAUCETS': TUB_FAUCET_SCHEMA,
-  'Tub Faucet': TUB_FAUCET_SCHEMA,
   'Roman Tub Faucet': TUB_FAUCET_SCHEMA,
   'Freestanding Tub Faucet': TUB_FAUCET_SCHEMA,
   'Tub Filler': TUB_FAUCET_SCHEMA,
   
   // Showers
-  'Showers': SHOWER_SCHEMA,
-  'Showers #': SHOWER_SCHEMA,
-  'SHOWERS': SHOWER_SCHEMA,
   'Shower': SHOWER_SCHEMA,
+  'SHOWERS': SHOWER_SCHEMA,
   'Shower System': SHOWER_SCHEMA,
   'Shower Head': SHOWER_SCHEMA,
   'Shower Heads': SHOWER_SCHEMA,
@@ -471,17 +440,13 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
   
   // Chandeliers
-  'Chandeliers': CHANDELIER_SCHEMA,
-  'Chandeliers #': CHANDELIER_SCHEMA,
-  'CHANDELIERS': CHANDELIER_SCHEMA,
   'Chandelier': CHANDELIER_SCHEMA,
+  'CHANDELIERS': CHANDELIER_SCHEMA,
   'Crystal Chandelier': CHANDELIER_SCHEMA,
   
   // Pendants
-  'Pendants': PENDANT_SCHEMA,
-  'Pendants #': PENDANT_SCHEMA,
-  'PENDANTS': PENDANT_SCHEMA,
   'Pendant': PENDANT_SCHEMA,
+  'PENDANTS': PENDANT_SCHEMA,
   'Pendant Light': PENDANT_SCHEMA,
   'Pendant Lights': PENDANT_SCHEMA,
   'PENDANT LIGHTS': PENDANT_SCHEMA,
@@ -489,10 +454,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Mini Pendant': PENDANT_SCHEMA,
   
   // Ceiling Fans
-  'Ceiling Fans': CEILING_FAN_SCHEMA,
-  'Ceiling Fans #': CEILING_FAN_SCHEMA,
-  'CEILING FANS': CEILING_FAN_SCHEMA,
   'Ceiling Fan': CEILING_FAN_SCHEMA,
+  'CEILING FANS': CEILING_FAN_SCHEMA,
   
   // Ceiling Fans with Light
   'Ceiling Fans with Light': CEILING_FAN_WITH_LIGHT_SCHEMA,
@@ -501,10 +464,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Fan with Light': CEILING_FAN_WITH_LIGHT_SCHEMA,
   
   // Ceiling Lights
-  'Ceiling Lights': CEILING_LIGHT_SCHEMA,
-  'Ceiling Lights #': CEILING_LIGHT_SCHEMA,
-  'CEILING LIGHTS': CEILING_LIGHT_SCHEMA,
   'Ceiling Light': CEILING_LIGHT_SCHEMA,
+  'CEILING LIGHTS': CEILING_LIGHT_SCHEMA,
   'Flush Mount': CEILING_LIGHT_SCHEMA,
   'Flush Mount Light': CEILING_LIGHT_SCHEMA,
   'Flush Mount Lights': CEILING_LIGHT_SCHEMA,
@@ -513,10 +474,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Semi-Flush Light': CEILING_LIGHT_SCHEMA,
   
   // Wall Sconces
-  'Wall Sconces': WALL_SCONCE_SCHEMA,
-  'Wall Sconces #': WALL_SCONCE_SCHEMA,
-  'WALL SCONCES': WALL_SCONCE_SCHEMA,
   'Wall Sconce': WALL_SCONCE_SCHEMA,
+  'WALL SCONCES': WALL_SCONCE_SCHEMA,
   'Sconce': WALL_SCONCE_SCHEMA,
   'Sconces': WALL_SCONCE_SCHEMA,
   'Wall Light': WALL_SCONCE_SCHEMA,
@@ -539,7 +498,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Recessed Lighting #': RECESSED_LIGHTING_SCHEMA,
   'RECESSED LIGHTING': RECESSED_LIGHTING_SCHEMA,
   'Recessed Light': RECESSED_LIGHTING_SCHEMA,
-  'Recessed Lights': RECESSED_LIGHTING_SCHEMA,
   'Can Light': RECESSED_LIGHTING_SCHEMA,
   'Can Lights': RECESSED_LIGHTING_SCHEMA,
   'Downlight': RECESSED_LIGHTING_SCHEMA,
@@ -570,10 +528,9 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // HVAC
   // ============================================
   
-  'Air Conditioners': AIR_CONDITIONER_SCHEMA,
+  'Air Conditioner': AIR_CONDITIONER_SCHEMA,
   'Air Conditioners #': AIR_CONDITIONER_SCHEMA,
   'AIR CONDITIONERS': AIR_CONDITIONER_SCHEMA,
-  'Air Conditioner': AIR_CONDITIONER_SCHEMA,
   'AC Unit': AIR_CONDITIONER_SCHEMA,
   'Mini Split': AIR_CONDITIONER_SCHEMA,
   'Window AC': AIR_CONDITIONER_SCHEMA,
@@ -584,10 +541,9 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
 
   // Bidets
-  'Bidets': BIDET_SCHEMA,
+  'Bidet': BIDET_SCHEMA,
   'Bidets #': BIDET_SCHEMA,
   'BIDETS': BIDET_SCHEMA,
-  'Bidet': BIDET_SCHEMA,
   'Bidet Seat': BIDET_SCHEMA,
   'Bidet Attachment': BIDET_SCHEMA,
   'Electric Bidet': BIDET_SCHEMA,
@@ -612,7 +568,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Tailpiece': DRAINAGE_WASTE_SCHEMA,
 
   // Rough-In Valves
-  'Rough-In Valves': ROUGH_IN_VALVE_SCHEMA,
+  'Rough-In Valve': ROUGH_IN_VALVE_SCHEMA,
   'Rough-In Valves #': ROUGH_IN_VALVE_SCHEMA,
   'ROUGH-IN VALVES': ROUGH_IN_VALVE_SCHEMA,
   'Rough In Valve': ROUGH_IN_VALVE_SCHEMA,
@@ -622,19 +578,16 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Pressure Balance Valve': ROUGH_IN_VALVE_SCHEMA,
 
   // Garbage Disposals
-  'Garbage Disposals': GARBAGE_DISPOSAL_SCHEMA,
-  'Garbage Disposals #': GARBAGE_DISPOSAL_SCHEMA,
-  'GARBAGE DISPOSALS': GARBAGE_DISPOSAL_SCHEMA,
   'Garbage Disposal': GARBAGE_DISPOSAL_SCHEMA,
+  'GARBAGE DISPOSALS': GARBAGE_DISPOSAL_SCHEMA,
   'Disposer': GARBAGE_DISPOSAL_SCHEMA,
   'Food Waste Disposer': GARBAGE_DISPOSAL_SCHEMA,
   'InSinkErator': GARBAGE_DISPOSAL_SCHEMA,
 
   // Water Heaters
-  'Water Heaters': WATER_HEATER_SCHEMA,
+  'Water Heater': WATER_HEATER_SCHEMA,
   'Water Heaters #': WATER_HEATER_SCHEMA,
   'WATER HEATERS': WATER_HEATER_SCHEMA,
-  'Water Heater': WATER_HEATER_SCHEMA,
   'Tankless Water Heater': WATER_HEATER_SCHEMA,
   'Tank Water Heater': WATER_HEATER_SCHEMA,
   'Heat Pump Water Heater': WATER_HEATER_SCHEMA,
@@ -657,8 +610,8 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Cabinet Hardware': CABINET_HARDWARE_SCHEMA,
   'Cabinet Hardware #': CABINET_HARDWARE_SCHEMA,
   'CABINET HARDWARE': CABINET_HARDWARE_SCHEMA,
-  'Cabinet Knobs': CABINET_HARDWARE_SCHEMA,
-  'Cabinet Pulls': CABINET_HARDWARE_SCHEMA,
+  'Cabinet Knob': CABINET_HARDWARE_SCHEMA,
+  'Cabinet Pull': CABINET_HARDWARE_SCHEMA,
   'Cabinet Handles': CABINET_HARDWARE_SCHEMA,
   'Drawer Pulls': CABINET_HARDWARE_SCHEMA,
   'Drawer Knobs': CABINET_HARDWARE_SCHEMA,
@@ -667,7 +620,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Door Hardware Parts': DOOR_HARDWARE_PARTS_SCHEMA,
   'Door Hardware Parts #': DOOR_HARDWARE_PARTS_SCHEMA,
   'DOOR HARDWARE PARTS': DOOR_HARDWARE_PARTS_SCHEMA,
-  'Door Hinges': DOOR_HARDWARE_PARTS_SCHEMA,
+  'Door Hinge': DOOR_HARDWARE_PARTS_SCHEMA,
   'Strike Plates': DOOR_HARDWARE_PARTS_SCHEMA,
   'Door Latches': DOOR_HARDWARE_PARTS_SCHEMA,
 
@@ -704,10 +657,9 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'High Bay Light': COMMERCIAL_LIGHTING_SCHEMA,
 
   // Lamps
-  'Lamps': LAMP_SCHEMA,
+  'Lamp': LAMP_SCHEMA,
   'Lamps #': LAMP_SCHEMA,
   'LAMPS': LAMP_SCHEMA,
-  'Lamp': LAMP_SCHEMA,
   'Table Lamp': LAMP_SCHEMA,
   'Table Lamps': LAMP_SCHEMA,
   'Floor Lamp': LAMP_SCHEMA,
@@ -728,7 +680,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Track Head': TRACK_RAIL_LIGHTING_SCHEMA,
 
   // Lighting Accessories
-  'Lighting Accessories': LIGHTING_ACCESSORIES_SCHEMA,
+  'Lighting Accessory': LIGHTING_ACCESSORIES_SCHEMA,
   'Lighting Accessories #': LIGHTING_ACCESSORIES_SCHEMA,
   'LIGHTING ACCESSORIES': LIGHTING_ACCESSORIES_SCHEMA,
   'Light Shade': LIGHTING_ACCESSORIES_SCHEMA,
@@ -741,20 +693,18 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   // ============================================
 
   // Mirrors
-  'Mirrors': MIRROR_SCHEMA,
+  'Mirror': MIRROR_SCHEMA,
   'Mirrors #': MIRROR_SCHEMA,
   'MIRRORS': MIRROR_SCHEMA,
-  'Mirror': MIRROR_SCHEMA,
   'Wall Mirror': MIRROR_SCHEMA,
   'Wall Mirrors': MIRROR_SCHEMA,
   'Floor Mirror': MIRROR_SCHEMA,
   'Decorative Mirror': MIRROR_SCHEMA,
 
   // Bathroom Mirrors
-  'Bathroom Mirrors': BATHROOM_MIRROR_SCHEMA,
+  'Bathroom Mirror': BATHROOM_MIRROR_SCHEMA,
   'Bathroom Mirrors #': BATHROOM_MIRROR_SCHEMA,
   'BATHROOM MIRRORS': BATHROOM_MIRROR_SCHEMA,
-  'Bathroom Mirror': BATHROOM_MIRROR_SCHEMA,
   'Vanity Mirror': BATHROOM_MIRROR_SCHEMA,
   'Vanity Mirrors': BATHROOM_MIRROR_SCHEMA,
   'Lighted Mirror': BATHROOM_MIRROR_SCHEMA,
@@ -770,7 +720,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Bedroom Furniture': FURNITURE_SCHEMA,
 
   // Kitchen Accessories
-  'Kitchen Accessories': KITCHEN_ACCESSORIES_SCHEMA,
+  'Kitchen Accessory': KITCHEN_ACCESSORIES_SCHEMA,
   'Kitchen Accessories #': KITCHEN_ACCESSORIES_SCHEMA,
   'KITCHEN ACCESSORIES': KITCHEN_ACCESSORIES_SCHEMA,
   'Kitchen Soap Dispenser': KITCHEN_ACCESSORIES_SCHEMA,
@@ -787,7 +737,6 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'OUTDOOR FIREPLACES': OUTDOOR_FIREPLACE_SCHEMA,
   'Outdoor Fireplace': OUTDOOR_FIREPLACE_SCHEMA,
   'Fire Pit': OUTDOOR_FIREPLACE_SCHEMA,
-  'Fire Pits': OUTDOOR_FIREPLACE_SCHEMA,
   'Fire Table': OUTDOOR_FIREPLACE_SCHEMA,
   'Fire Tables': OUTDOOR_FIREPLACE_SCHEMA,
   'Chiminea': OUTDOOR_FIREPLACE_SCHEMA,

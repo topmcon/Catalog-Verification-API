@@ -40,46 +40,46 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
 
   // ===== BATH & PLUMBING - FAUCETS =====
-  'Bidet Faucets': {
-    removedCategory: 'Bidet Faucets',
-    parentCategory: 'Bathroom Faucets',
+  'Bidet Faucet': {
+    removedCategory: 'Bidet Faucet',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Bidet Faucet'
   },
-  'Shower Faucets': {
-    removedCategory: 'Shower Faucets',
-    parentCategory: 'Bathroom Faucets',
+  'Shower Faucet': {
+    removedCategory: 'Shower Faucet',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Shower Faucet'
   },
-  'Tub Faucets': {
-    removedCategory: 'Tub Faucets',
-    parentCategory: 'Bathroom Faucets',
+  'Tub Faucet': {
+    removedCategory: 'Tub Faucet',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Tub Faucet'
   },
   'Bathtub Faucets': {
     removedCategory: 'Bathtub Faucets',
-    parentCategory: 'Bathroom Faucets',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Tub Faucet'
   },
   'Tub Spouts': {
     removedCategory: 'Tub Spouts',
-    parentCategory: 'Bathroom Faucets',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Faucet component, not separate category',
     suggestedType: 'Tub Spout'
   },
 
   // ===== BATH & PLUMBING - ACCESSORIES =====
-  'Shower Accessories': {
-    removedCategory: 'Shower Accessories',
+  'Shower Accessory': {
+    removedCategory: 'Shower Accessory',
     parentCategory: 'Bathroom Hardware and Accessories',
     reason: 'Redundant subcategory',
     suggestedType: 'Shower'
   },
-  'Tub and Shower Accessories': {
-    removedCategory: 'Tub and Shower Accessories',
+  'Tub and Shower Accessory': {
+    removedCategory: 'Tub and Shower Accessory',
     parentCategory: 'Bathroom Hardware and Accessories',
     reason: 'Redundant subcategory',
     suggestedType: 'Tub/Shower'
@@ -94,7 +94,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== BATH & PLUMBING - TYPOS/DUPLICATES =====
   'conbaucets': {
     removedCategory: 'conbaucets',
-    parentCategory: 'Bathroom Faucets',
+    parentCategory: 'Bathroom Faucet',
     reason: 'Typo/data error',
     suggestedType: undefined
   },
@@ -106,35 +106,35 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
 
   // ===== KITCHEN PLUMBING - FAUCETS =====
-  'Bar Faucets': {
-    removedCategory: 'Bar Faucets',
-    parentCategory: 'Kitchen Faucets',
+  'Bar Faucet': {
+    removedCategory: 'Bar Faucet',
+    parentCategory: 'Kitchen Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Bar Faucet'
   },
-  'Pot Filler Faucets': {
-    removedCategory: 'Pot Filler Faucets',
-    parentCategory: 'Kitchen Faucets',
+  'Pot Filler Faucet': {
+    removedCategory: 'Pot Filler Faucet',
+    parentCategory: 'Kitchen Faucet',
     reason: 'Faucet type, not separate category',
     suggestedType: 'Pot Filler'
   },
-  'Food Service Faucets': {
-    removedCategory: 'Food Service Faucets',
-    parentCategory: 'Kitchen Faucets',
+  'Food Service Faucet': {
+    removedCategory: 'Food Service Faucet',
+    parentCategory: 'Kitchen Faucet',
     reason: 'Commercial faucet style, not separate category',
     suggestedType: 'Commercial/Food Service'
   },
 
   // ===== KITCHEN PLUMBING - OTHER =====
-  'Kitchen Sink Combos': {
-    removedCategory: 'Kitchen Sink Combos',
-    parentCategory: 'Kitchen Sinks',
+  'Kitchen Sink Combo': {
+    removedCategory: 'Kitchen Sink Combo',
+    parentCategory: 'Kitchen Sink',
     reason: 'Product bundle, not category',
     suggestedType: 'Combo'
   },
-  'Tankless Water Heaters': { // Kitchen duplicate
-    removedCategory: 'Tankless Water Heaters',
-    parentCategory: 'Tankless Water Heaters', // Bath version kept
+  'Tankless Water Heater': { // Kitchen duplicate
+    removedCategory: 'Tankless Water Heater',
+    parentCategory: 'Tankless Water Heater', // Bath version kept
     reason: 'Duplicate - Bath version kept',
     suggestedType: undefined
   },
@@ -142,13 +142,13 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== LIGHTING - TYPES =====
   'Flush and Semi-Flush': {
     removedCategory: 'Flush and Semi-Flush',
-    parentCategory: 'Ceiling Lights',
+    parentCategory: 'Ceiling Light',
     reason: 'Ceiling light style/type',
     suggestedType: 'Flush Mount'
   },
-  'Lighted Ceiling Fans': {
-    removedCategory: 'Lighted Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+  'Lighted Ceiling Fan': {
+    removedCategory: 'Lighted Ceiling Fan',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter (Has Light)',
     suggestedType: 'With Light'
   },
@@ -156,97 +156,97 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== CEILING FANS (17 removed) =====
   'Ceiling Fans with Light': {
     removedCategory: 'Ceiling Fans with Light',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter',
     suggestedType: 'With Light'
   },
   'Ceiling Fans with Remotes': {
     removedCategory: 'Ceiling Fans with Remotes', 
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter',
     suggestedType: 'With Remote'
   },
   'Ceiling Fans without Light': {
     removedCategory: 'Ceiling Fans without Light',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter',
     suggestedType: 'Without Light'
   },
   'DC Motor Ceiling Fans': {
     removedCategory: 'DC Motor Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Specification filter',
     suggestedType: 'DC Motor'
   },
   'Designer Ceiling Fans': {
     removedCategory: 'Designer Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Style filter',
     suggestedType: 'Designer'
   },
   'Dual Ceiling Fans': {
     removedCategory: 'Dual Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Type filter',
     suggestedType: 'Dual'
   },
   'Fandelier Ceiling Fans': {
     removedCategory: 'Fandelier Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Style filter',
     suggestedType: 'Fandelier'
   },
   'Hugger Fans': {
     removedCategory: 'Hugger Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Mount type filter',
     suggestedType: 'Hugger/Low Profile'
   },
   'Indoor Ceiling Fans': {
     removedCategory: 'Indoor Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Location filter',
     suggestedType: 'Indoor'
   },
   'Large Ceiling Fans': {
     removedCategory: 'Large Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Size filter',
     suggestedType: 'Large'
   },
   'LED Ceiling Fans': {
     removedCategory: 'LED Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter',
     suggestedType: 'LED'
   },
-  'Outdoor Ceiling Fans': {
-    removedCategory: 'Outdoor Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+  'Outdoor Ceiling Fan': {
+    removedCategory: 'Outdoor Ceiling Fan',
+    parentCategory: 'Ceiling Fan',
     reason: 'Location filter',
     suggestedType: 'Outdoor'
   },
   'Small Ceiling Fans': {
     removedCategory: 'Small Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Size filter',
     suggestedType: 'Small'
   },
   'Smart Home Fans': {
     removedCategory: 'Smart Home Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Feature filter',
     suggestedType: 'Smart/WiFi'
   },
   'Trending Ceiling Fans': {
     removedCategory: 'Trending Ceiling Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Marketing tag, not product category',
     suggestedType: undefined
   },
   'Utility Fans': {
     removedCategory: 'Utility Fans',
-    parentCategory: 'Ceiling Fans',
+    parentCategory: 'Ceiling Fan',
     reason: 'Style filter',
     suggestedType: 'Industrial/Utility'
   },
@@ -254,74 +254,74 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== DOOR HARDWARE (4 removed) =====
   'Door Entry Sets': {
     removedCategory: 'Door Entry Sets',
-    parentCategory: 'Handlesets',
+    parentCategory: 'Handleset',
     reason: 'Type under handlesets/door hardware',
     suggestedType: 'Entry Set'
   },
   'Door Hardware: Knobs and Levers': {
     removedCategory: 'Door Hardware: Knobs and Levers',
-    parentCategory: 'Handlesets',
+    parentCategory: 'Handleset',
     reason: 'Redundant parent name',
     suggestedType: undefined
   },
-  'Door Knobs': {
-    removedCategory: 'Door Knobs',
-    parentCategory: 'Handlesets',
+  'Door Knob': {
+    removedCategory: 'Door Knob',
+    parentCategory: 'Handleset',
     reason: 'Style filter',
     suggestedType: 'Knob'
   },
-  'Door Levers': {
-    removedCategory: 'Door Levers',
-    parentCategory: 'Handlesets',
+  'Door Lever': {
+    removedCategory: 'Door Lever',
+    parentCategory: 'Handleset',
     reason: 'Style filter',
     suggestedType: 'Lever'
   },
 
   // ===== CABINET HARDWARE (18 removed) =====
-  'Affordable Cabinet Knobs': {
-    removedCategory: 'Affordable Cabinet Knobs',
+  'Affordable Cabinet Knob': {
+    removedCategory: 'Affordable Cabinet Knob',
     parentCategory: 'Cabinet Hardware',
     reason: 'Price tier + type filter',
     suggestedType: 'Knob'
   },
-  'Affordable Cabinet Pulls': {
-    removedCategory: 'Affordable Cabinet Pulls',
+  'Affordable Cabinet Pull': {
+    removedCategory: 'Affordable Cabinet Pull',
     parentCategory: 'Cabinet Hardware',
     reason: 'Price tier + type filter',
     suggestedType: 'Pull'
   },
-  'Luxury Cabinet Knobs': {
-    removedCategory: 'Luxury Cabinet Knobs',
+  'Luxury Cabinet Knob': {
+    removedCategory: 'Luxury Cabinet Knob',
     parentCategory: 'Cabinet Hardware',
     reason: 'Price tier + type filter',
     suggestedType: 'Knob'
   },
-  'Luxury Cabinet Pulls': {
-    removedCategory: 'Luxury Cabinet Pulls',
+  'Luxury Cabinet Pull': {
+    removedCategory: 'Luxury Cabinet Pull',
     parentCategory: 'Cabinet Hardware',
     reason: 'Price tier + type filter',
     suggestedType: 'Pull'
   },
-  'Cabinet Knobs': {
-    removedCategory: 'Cabinet Knobs',
+  'Cabinet Knob': {
+    removedCategory: 'Cabinet Knob',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Knob'
   },
-  'Cabinet Pulls': {
-    removedCategory: 'Cabinet Pulls',
+  'Cabinet Pull': {
+    removedCategory: 'Cabinet Pull',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Pull'
   },
-  'Appliance Pulls': {
-    removedCategory: 'Appliance Pulls',
+  'Appliance Pull': {
+    removedCategory: 'Appliance Pull',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type/size filter',
     suggestedType: 'Appliance Pull'
   },
-  'Backplates': {
-    removedCategory: 'Backplates',
+  'Backplate': {
+    removedCategory: 'Backplate',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Backplate'
@@ -338,8 +338,8 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Application filter',
     suggestedType: 'Vanity'
   },
-  'Cabinet Catches and Latches': {
-    removedCategory: 'Cabinet Catches and Latches',
+  'Cabinet Catch and Latch': {
+    removedCategory: 'Cabinet Catch and Latch',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Catch/Latch'
@@ -362,14 +362,14 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Accessory/tool',
     suggestedType: 'Mounting Template'
   },
-  'Cabinet Hinges': {
-    removedCategory: 'Cabinet Hinges',
+  'Cabinet Hinge': {
+    removedCategory: 'Cabinet Hinge',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Hinge'
   },
-  'Cabinet Locks': {
-    removedCategory: 'Cabinet Locks',
+  'Cabinet Lock': {
+    removedCategory: 'Cabinet Lock',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Lock'
@@ -380,8 +380,8 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Overlaps with kitchen storage',
     suggestedType: undefined
   },
-  'Drawer Slides and Accessories': {
-    removedCategory: 'Drawer Slides and Accessories',
+  'Drawer Slide and Accessory': {
+    removedCategory: 'Drawer Slide and Accessory',
     parentCategory: 'Cabinet Hardware',
     reason: 'Type filter',
     suggestedType: 'Drawer Slide'
@@ -411,25 +411,25 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Pendants (Lighting)': {
     removedCategory: 'Pendants (Lighting)',
-    parentCategory: 'Pendants',
+    parentCategory: 'Pendant',
     reason: 'AI variation with department suffix',
     suggestedType: undefined
   },
   'Pendant Lights': {
     removedCategory: 'Pendant Lights',
-    parentCategory: 'Pendants',
+    parentCategory: 'Pendant',
     reason: 'AI variation - correct name is Pendants',
     suggestedType: undefined
   },
   'Ventilation': {
     removedCategory: 'Ventilation',
-    parentCategory: 'Exhaust Fans',
+    parentCategory: 'Exhaust Fan',
     reason: 'Generic term - maps to Exhaust Fans',
     suggestedType: undefined
   },
   'Kitchen Accessories (Plumbing & Bath)': {
     removedCategory: 'Kitchen Accessories (Plumbing & Bath)',
-    parentCategory: 'Kitchen Accessories',
+    parentCategory: 'Kitchen Accessory',
     reason: 'AI variation with department suffix',
     suggestedType: undefined
   },

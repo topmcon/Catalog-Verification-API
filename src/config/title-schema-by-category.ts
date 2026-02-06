@@ -676,7 +676,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Scotsman 80 lbs/Day Undercounter Icemaker Stainless Steel ",
       "seoNotes": "Type = Undercounter, Freestanding, Portable, Built-In. Daily production is the key spec."
   },
-  'barbeques': {
+  'barbeque': {
       "categoryId": "a01Hu000011kgEqIAI",
       "categoryName": "Barbeques",
       "department": "Appliances",
@@ -1040,7 +1040,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "LG Front Load Laundry Appliance White",
       "seoNotes": "Generic parent. Use Washer, Dryer, or All-in-One subcategories when possible."
   },
-  'bathroom faucets': {
+  'bathroom faucet': {
       "categoryId": "a01aZ00000dC5DeQAK",
       "categoryName": "Bathroom Faucets",
       "department": "Plumbing & Bath",
@@ -1086,7 +1086,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Delta Trinsic Single-Handle Widespread 3-Hole Bathroom Faucet Matte Black ",
       "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount, Vessel. Hole config is essential."
   },
-  'kitchen faucets': {
+  'kitchen faucet': {
       "categoryId": "a01aZ00000dC5E9QAK",
       "categoryName": "Kitchen Faucets",
       "department": "Plumbing & Bath",
@@ -1127,7 +1127,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless ",
       "seoNotes": "Type = Pull-Down, Pull-Out, Bridge, Wall-Mount, Bar/Prep, Pot Filler."
   },
-  'kitchen sinks': {
+  'kitchen sink': {
       "categoryId": "a01aZ00000dC5EDQA0",
       "categoryName": "Kitchen Sinks",
       "department": "Plumbing & Bath",
@@ -1178,7 +1178,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kraus 33-Inch Stainless Steel Undermount Double Bowl Kitchen Sink Satin",
       "seoNotes": "Mount Type = Undermount, Drop-In, Farmhouse/Apron. Bowl = Single, Double, 60/40."
   },
-  'bar & prep sinks': {
+  'bar & prep sink': {
       "categoryId": "a01aZ00000dC5E2QAK",
       "categoryName": "Bar & Prep Sinks",
       "department": "Plumbing & Bath",
@@ -1224,7 +1224,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Blanco 18-Inch Stainless Steel Undermount Bar & Prep Sink Satin",
       "seoNotes": "Smaller than kitchen sinks. Same mount types apply."
   },
-  'bathroom sinks': {
+  'bathroom sink': {
       "categoryId": "a01aZ00000dC5DiQAK",
       "categoryName": "Bathroom Sinks",
       "department": "Plumbing & Bath",
@@ -1270,7 +1270,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kohler 24-Inch Vessel Vitreous China Bathroom Sink White",
       "seoNotes": "Type = Vessel, Undermount, Drop-In, Pedestal, Wall-Mount, Console."
   },
-  'bathroom vanities': {
+  'bathroom vanity': {
       "categoryId": "a01aZ00000dC5DjQAK",
       "categoryName": "Bathroom Vanities",
       "department": "Plumbing & Bath",
@@ -1316,7 +1316,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "James Martin 60-Inch Freestanding Bathroom Vanity Espresso ",
       "seoNotes": "Width is the #1 filter. Type = Freestanding, Wall-Mount, Floating. Top material is high-value."
   },
-  'medicine cabinets': {
+  'medicine cabinet': {
       "categoryId": "a01aZ00000dC5DqQAK",
       "categoryName": "Medicine Cabinets",
       "department": "Plumbing & Bath",
@@ -1357,7 +1357,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Robern 30-Inch Recessed Medicine Cabinet Mirrored ",
       "seoNotes": "Mount Type = Recessed, Surface-Mount. LED and defogger are premium features."
   },
-  'toilets': {
+  'toilet': {
       "categoryId": "a01aZ00000dC5DyQAK",
       "categoryName": "Toilets",
       "department": "Plumbing & Bath",
@@ -1403,7 +1403,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "TOTO Elongated One-Piece Dual Flush Toilet Cotton White ",
       "seoNotes": "Type = One-Piece, Two-Piece, Wall-Hung. Bowl = Elongated, Round. GPF is key spec."
   },
-  'toilet seats': {
+  'toilet seat': {
       "categoryId": "a01aZ00000dC5DxQAK",
       "categoryName": "Toilet Seats",
       "department": "Plumbing & Bath",
@@ -1444,7 +1444,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "TOTO Elongated SoftClose Toilet Seat Cotton White ",
       "seoNotes": "Shape = Elongated, Round. Type = Standard, Slow-Close, Heated, Bidet."
   },
-  'bidets': {
+  'bidet': {
       "categoryId": "a01aZ00000dC5DoQAK",
       "categoryName": "Bidets",
       "department": "Plumbing & Bath",
@@ -1480,7 +1480,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "TOTO Floor-Mount Bidet Cotton White ",
       "seoNotes": "Type = Floor-Mount, Wall-Hung. Simpler title structure than electronic bidets."
   },
-  'bidet seats': {
+  'bidet seat': {
       "categoryId": "a01aZ00000dC5DnQAK",
       "categoryName": "Bidet Seats",
       "department": "Plumbing & Bath",
@@ -1516,7 +1516,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "TOTO Elongated Bidet Seat Cotton White ",
       "seoNotes": "Shape must match toilet. Features are the key differentiator for electronic seats."
   },
-  'urinals': {
+  'urinal': {
       "categoryId": "a01aZ00000dC5E0QAK",
       "categoryName": "Urinals",
       "department": "Plumbing & Bath",
@@ -1557,7 +1557,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kohler Wall-Mount Waterless Urinal White ",
       "seoNotes": "Type = Wall-Mount. Flush = Waterless, Manual, Touchless."
   },
-  'bathtubs': {
+  'bathtub': {
       "categoryId": "a01aZ00000dC5DlQAK",
       "categoryName": "Bathtubs",
       "department": "Plumbing & Bath",
@@ -1603,7 +1603,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kohler 60-Inch Freestanding Acrylic Bathtub White ",
       "seoNotes": "Type = Freestanding, Alcove, Drop-In, Corner, Walk-In. Length is primary dimension."
   },
-  'showers': {
+  'shower': {
       "categoryId": "a01aZ00000dC5DuQAK",
       "categoryName": "Showers",
       "department": "Plumbing & Bath",
@@ -1639,7 +1639,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Hansgrohe Raindance Shower System Chrome ",
       "seoNotes": "Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column."
   },
-  'steam showers': {
+  'steam shower': {
       "categoryId": "a01aZ00000dC5DvQAK",
       "categoryName": "Steam Showers",
       "department": "Plumbing & Bath",
@@ -1675,7 +1675,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Mr. Steam 12 kW Steam Shower Generator Chrome ",
       "seoNotes": "Power (kW) is the primary sizing spec. Features drive purchase decisions."
   },
-  'rough-in valves': {
+  'rough-in valve': {
       "categoryId": "a01aZ00000dC5DrQAK",
       "categoryName": "Rough-In Valves",
       "department": "Plumbing & Bath",
@@ -1716,7 +1716,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Moen M-CORE 1/2-Inch Rough-In Valve Brass",
       "seoNotes": "Type = Pressure Balance, Thermostatic, Diverter. Connection size in inches."
   },
-  'bath fans': {
+  'bath fan': {
       "categoryId": "a01aZ00000dC5DcQAK",
       "categoryName": "Bath Fans",
       "department": "Plumbing & Bath",
@@ -1880,7 +1880,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kichler 24-Inch 3-Light Vanity Bathroom Lighting Brushed Nickel",
       "seoNotes": "Type = Vanity Bar, Sconce, Flush Mount. Light count and width both matter."
   },
-  'bathroom mirrors': {
+  'bathroom mirror': {
       "categoryId": "a01aZ00000dC5DhQAK",
       "categoryName": "Bathroom Mirrors",
       "department": "Plumbing & Bath",
@@ -1921,7 +1921,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kohler 24×36-Inch Framed Bathroom Mirror Brushed Nickel ",
       "seoNotes": "Dimensions in W×H format. Type = Framed, Frameless, LED, Pivot, Tilt."
   },
-  'garbage disposals': {
+  'garbage disposal': {
       "categoryId": "a01aZ00000dC5E6QAK",
       "categoryName": "Garbage Disposals",
       "department": "Plumbing & Bath",
@@ -1957,7 +1957,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "InSinkErator 1 HP Garbage Disposal Continuous Feed ",
       "seoNotes": "HP is the key spec. Feed Type = Continuous, Batch."
   },
-  'hot & cold water dispensers': {
+  'hot & cold water dispenser': {
       "categoryId": "a01aZ00000dC5E7QAK",
       "categoryName": "Hot & Cold Water Dispensers",
       "department": "Plumbing & Bath",
@@ -2029,7 +2029,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "APEC Under-Sink Water Filtration System 5-Stage ",
       "seoNotes": "Type = Under-Sink, Whole-House, Countertop, Faucet-Mount."
   },
-  'tankless water heaters': {
+  'tankless water heater': {
       "categoryId": "a01aZ00000dC5DwQAK",
       "categoryName": "Tankless Water Heaters",
       "department": "Plumbing & Bath",
@@ -2347,7 +2347,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Sub-Zero Integrated Luxury Kitchen Refrigerator Panel Ready",
       "seoNotes": "Premium/luxury parent category. Should use specific subcategory titles when possible."
   },
-  'chandeliers': {
+  'chandelier': {
       "categoryId": "a01aZ00000dC5ELQA0",
       "categoryName": "Chandeliers",
       "department": "Lighting & Electrical",
@@ -2393,7 +2393,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Visual Comfort 36-Inch 12-Light Transitional Chandelier Antique Brass",
       "seoNotes": "Diameter + light count are the top filters. Style = Modern, Traditional, Transitional."
   },
-  'ceiling lights': {
+  'ceiling light': {
       "categoryId": "a01aZ00000dC5EKQA0",
       "categoryName": "Ceiling Lights",
       "department": "Lighting & Electrical",
@@ -2439,7 +2439,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Hinkley 14-Inch Semi-Flush Mount Modern Ceiling Light Brushed Nickel",
       "seoNotes": "Type = Flush Mount, Semi-Flush. Style is the key differentiator."
   },
-  'pendants': {
+  'pendant': {
       "categoryId": "a01aZ00000dC5EXQA0",
       "categoryName": "Pendants",
       "department": "Lighting & Electrical",
@@ -2526,7 +2526,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kichler 42-Inch 5-Light Linear Island Lighting Bronze",
       "seoNotes": "Width/length of fixture is key (must fit island). Multi-light or linear are common types."
   },
-  'wall sconces': {
+  'wall sconce': {
       "categoryId": "a01aZ00000dC5EeQAK",
       "categoryName": "Wall Sconces",
       "department": "Lighting & Electrical",
@@ -2649,7 +2649,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "WAC Lighting 4-Inch New Construction Recessed Lighting White ",
       "seoNotes": "Aperture size (4\", 5\", 6\") is the #1 search term. Type = New Construction, Remodel, Trim."
   },
-  'under cabinet lights': {
+  'under cabinet light': {
       "categoryId": "a01aZ00000dC5EcQAK",
       "categoryName": "Under Cabinet Lights",
       "department": "Lighting & Electrical",
@@ -2895,7 +2895,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kichler LED Path Light Landscape Lighting Bronze ",
       "seoNotes": "Type = Path, Spot, Well, Step, Deck. Low voltage vs line voltage is key."
   },
-  'post lights': {
+  'post light': {
       "categoryId": "a01aZ00000dC5EYQA0",
       "categoryName": "Post Lights",
       "department": "Lighting & Electrical",
@@ -2972,7 +2972,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "WAC Lighting LED Recessed Step Lighting Bronze ",
       "seoNotes": "Type = Recessed, Surface. IP rating matters for outdoor use."
   },
-  'lamps': {
+  'lamp': {
       "categoryId": "a01aZ00000dC5EPQA0",
       "categoryName": "Lamps",
       "department": "Lighting & Electrical",
@@ -3095,7 +3095,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Lutron Caseta Dimmer Switch Light Switch White ",
       "seoNotes": "Type = Dimmer, Toggle, Rocker, Smart Switch. Gang count can be a feature."
   },
-  'lighting accessories': {
+  'lighting accessory': {
       "categoryId": "a01aZ00000dC5EVQA0",
       "categoryName": "Lighting Accessories",
       "department": "Lighting & Electrical",
@@ -3167,7 +3167,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Lithonia LED Troffer 40W Commercial Lighting ",
       "seoNotes": "Type = Troffer, High Bay, Panel, Strip. Wattage and certifications matter."
   },
-  'ceiling fans': {
+  'ceiling fan': {
       "categoryId": "a01aZ00000dC5EjQAK",
       "categoryName": "Ceiling Fans",
       "department": "Lighting & Electrical",
@@ -3208,7 +3208,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Hunter 52-Inch Modern Ceiling Fan Matte Black ",
       "seoNotes": "Blade span is the #1 search term. LED light kit and remote are top features."
   },
-  'ceiling fan accessories': {
+  'ceiling fan accessory': {
       "categoryId": "a01aZ00000dC5EiQAK",
       "categoryName": "Ceiling Fan Accessories",
       "department": "Lighting & Electrical",
@@ -3280,7 +3280,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Matthews 16-Inch Wall Mounted Fan Brushed Nickel ",
       "seoNotes": "Blade span + oscillating are key features."
   },
-  'air circulators': {
+  'air circulator': {
       "categoryId": "a01aZ00000dC5EfQAK",
       "categoryName": "Air Circulators",
       "department": "Lighting & Electrical",
@@ -3316,7 +3316,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Vornado Tower Medium Air Circulator ",
       "seoNotes": "Type = Tower, Pedestal, Personal, Box. Airflow/CFM can be a feature."
   },
-  'attic fans': {
+  'attic fan': {
       "categoryId": "a01aZ00000dC5EgQAK",
       "categoryName": "Attic Fans",
       "department": "Lighting & Electrical",
@@ -3352,7 +3352,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "QuietCool 3013 CFM Solar-Powered Attic Fan ",
       "seoNotes": "CFM is the primary spec. Type = Solar, Electric, Gable, Roof-Mount."
   },
-  'air conditioners': {
+  'air conditioner': {
       "categoryId": "a01aZ00000dCek0QAC",
       "categoryName": "Air Conditioners",
       "department": "Heating & Cooling",
@@ -3388,7 +3388,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Frigidaire 12,000 BTU Window Air Conditioner ",
       "seoNotes": "Type = Window, Portable, Central, Through-Wall. BTU is the #1 search term."
   },
-  'mini split air conditioners': {
+  'mini split air conditioner': {
       "categoryId": "a01aZ00000dCekBQAS",
       "categoryName": "Mini Split Air Conditioners",
       "department": "Heating & Cooling",
@@ -3429,7 +3429,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Mitsubishi 24,000 BTU Single Zone Ductless Mini Split Air Conditioner ",
       "seoNotes": "BTU + zone count (single/multi) are the top filters. Heat pump capability is key."
   },
-  'dehumidifiers': {
+  'dehumidifier': {
       "categoryId": "a01aZ00000dCek3QAC",
       "categoryName": "Dehumidifiers",
       "department": "Heating & Cooling",
@@ -3465,7 +3465,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "hOmeLabs 50-Pint Portable Dehumidifier ",
       "seoNotes": "Pint capacity is the sizing standard. Type = Portable, Whole-Home, Crawl Space."
   },
-  'water heaters': {
+  'water heater': {
       "categoryId": "a01aZ00000bI2srQAC",
       "categoryName": "Water Heaters",
       "department": "Heating & Cooling",
@@ -3634,7 +3634,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Napoleon 50,000 BTU Gas Direct Vent Fireplace Black ",
       "seoNotes": "Type = Insert, Freestanding Stove, Linear, See-Through. BTU + Fuel + Vent type matter."
   },
-  'patio heaters': {
+  'patio heater': {
       "categoryId": "a01aZ00000dCekCQAS",
       "categoryName": "Patio Heaters",
       "department": "Heating & Cooling",
@@ -3680,7 +3680,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Bromic 44,000 BTU Gas Freestanding Patio Heater Stainless Steel",
       "seoNotes": "Type = Freestanding, Wall-Mount, Ceiling, Tabletop. BTU + Fuel are key."
   },
-  'evaporative coolers': {
+  'evaporative cooler': {
       "categoryId": "a01aZ00000dCek5QAC",
       "categoryName": "Evaporative Coolers",
       "department": "Heating & Cooling",
@@ -3716,7 +3716,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Hessaire 3,100 CFM Portable Evaporative Cooler ",
       "seoNotes": "CFM is the primary sizing spec. Type = Portable, Window, Whole-House."
   },
-  'thermostats': {
+  'thermostat': {
       "categoryId": "a01aZ00000dCekGQAS",
       "categoryName": "Thermostats",
       "department": "Heating & Cooling",
@@ -3752,7 +3752,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Ecobee Smart Thermostat Premium White ",
       "seoNotes": "Type = Smart, Programmable, Non-Programmable, Line Voltage. Smart features are key."
   },
-  'exhaust fans': {
+  'exhaust fan': {
       "categoryId": "a01aZ00000dCek6QAC",
       "categoryName": "Exhaust Fans",
       "department": "Heating & Cooling",
@@ -3829,7 +3829,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "DuraVent 6-Inch Double Wall Stove and Chimney Pipe Stainless Steel",
       "seoNotes": "Diameter + Wall type (Single, Double, Triple) are the key specs."
   },
-  'skylights': {
+  'skylight': {
       "categoryId": "a01aZ00000dCekDQAS",
       "categoryName": "Skylights",
       "department": "Heating & Cooling",
@@ -3870,7 +3870,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "VELUX 22×46-Inch Fixed Skylight Low-E Glass ",
       "seoNotes": "Size in W×L. Type = Fixed, Venting, Tubular. Glazing type matters for energy."
   },
-  'air filters': {
+  'air filter': {
       "categoryId": "a01aZ00000dCek1QAC",
       "categoryName": "Air Filters",
       "department": "Heating & Cooling",
@@ -4065,7 +4065,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Honeywell Humidifier Pad HVAC Accessory 10×13-Inch",
       "seoNotes": "Type = Humidifier Pad, Refrigerant, Line Set, Condensate Pump. Simple title."
   },
-  'fire pits': {
+  'fire pit': {
       "categoryId": "a01aZ00000dCek7QAC",
       "categoryName": "Fire Pits",
       "department": "Heating & Cooling",
@@ -4454,7 +4454,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Top Knobs 5-Inch Bar Pull Modern Cabinet Hardware Polished Chrome",
       "seoNotes": "Size = center-to-center. Type = Pull, Knob, Handle, Backplate."
   },
-  'handlesets': {
+  'handleset': {
       "categoryId": "a01aZ00000dCejEQAS",
       "categoryName": "Handlesets",
       "department": "Hardware",
@@ -4495,7 +4495,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Schlage Plymouth Traditional Handleset Aged Bronze",
       "seoNotes": "Collection name + style drive search. Finish is the top aesthetic filter."
   },
-  'deadbolts': {
+  'deadbolt': {
       "categoryId": "a01aZ00000dC5F5QAK",
       "categoryName": "Deadbolts",
       "department": "Hardware",
@@ -4613,7 +4613,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Kwikset Juno Entry Keyed Hardware Satin Nickel",
       "seoNotes": "Function = Entry, Privacy, Passage, Dummy."
   },
-  'mortise locks': {
+  'mortise lock': {
       "categoryId": "a01aZ00000dCejJQAS",
       "categoryName": "Mortise Locks",
       "department": "Hardware",
@@ -4834,7 +4834,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Emtek Privacy Sliding Door Hardware Flat Black",
       "seoNotes": "Type = Privacy, Passage, Hook Lock."
   },
-  'door hinges': {
+  'door hinge': {
       "categoryId": "a01aZ00000dC5FAQA0",
       "categoryName": "Door Hinges",
       "department": "Hardware",
@@ -4947,7 +4947,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Wright Products Pneumatic Closer Screen and Storm Door Hardware Aluminum",
       "seoNotes": "Type = Closer, Handle, Latch, Hinge. Functional hardware."
   },
-  'doors': {
+  'door': {
       "categoryId": "a01aZ00000dCejDQAS",
       "categoryName": "Doors",
       "department": "Hardware",
@@ -5265,7 +5265,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "West Elm Sofa Mid-Century Modern Furniture Wood Walnut",
       "seoNotes": "Type = Sofa, Bed, Dresser, Table, Desk. Style + material drive search."
   },
-  'chairs': {
+  'chair': {
       "categoryId": "a01aZ00000XYWwyQAH",
       "categoryName": "Chairs",
       "department": "Home Décor & Furniture",
@@ -5357,7 +5357,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Polywood 5-Piece Adirondack Recycled Lumber Outdoor and Patio Furniture White",
       "seoNotes": "Type = Seating Set, Dining Set, Adirondack, Lounger. Piece count for sets."
   },
-  'mirrors': {
+  'mirror': {
       "categoryId": "a01aZ00000dCekJQAS",
       "categoryName": "Mirrors",
       "department": "Home Décor & Furniture",
@@ -5403,7 +5403,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Uttermost 30×40-Inch Framed Transitional Mirror Gold",
       "seoNotes": "Type = Framed, Frameless, Full-Length, Round. Dimensions in W×H."
   },
-  'rugs': {
+  'rug': {
       "categoryId": "a01aZ00000dCekNQAS",
       "categoryName": "Rugs",
       "department": "Home Décor & Furniture",
@@ -5894,7 +5894,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Fire Sense 46,000 BTU Propane Freestanding Patio Heater Stainless Steel",
       "seoNotes": "Same as HVAC Patio Heaters. BTU + Fuel + Type drive purchase."
   },
-  'exterior doors': {
+  'exterior door': {
       "categoryId": "a01aZ00000dCejkQAC",
       "categoryName": "Exterior Doors",
       "department": "Outdoor",
@@ -5940,7 +5940,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Therma-Tru 36×80-Inch Fiberglass Single Exterior Door Primed ",
       "seoNotes": "Type = Single, Double, Sidelite, Patio, French. Material is critical for weather."
   },
-  'entry sets': {
+  'entry set': {
       "categoryId": "a01aZ00000dCejjQAC",
       "categoryName": "Entry Sets",
       "department": "Outdoor",
@@ -5976,7 +5976,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Emtek Arts & Crafts Entry Set Oil-Rubbed Bronze",
       "seoNotes": "Simpler title. Style + finish are the differentiators."
   },
-  'outdoor shower faucets': {
+  'outdoor shower faucet': {
       "categoryId": "a01aZ00000dCejwQAC",
       "categoryName": "Outdoor Shower Faucets",
       "department": "Outdoor",
@@ -6012,7 +6012,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       "exampleTitle": "Grohe Wall-Mount Outdoor Shower Faucet Stainless Steel ",
       "seoNotes": "Type = Wall-Mount, Freestanding, Portable. Thermostatic is a premium feature."
   },
-  'generators': {
+  'generator': {
       "categoryId": "a01aZ00000dCejoQAC",
       "categoryName": "Generators",
       "department": "Outdoor",
@@ -6601,7 +6601,7 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01Hu000010Q5EiIAK': 'dishwasher',
   'a01Hu000010Q5EoIAK': 'range hood',
   'a01Hu000011kFRfIAM': 'icemaker',
-  'a01Hu000011kgEqIAI': 'barbeques',
+  'a01Hu000011kgEqIAI': 'barbeque',
   'a01Hu000011kmDGIAY': 'coffee maker',
   'a01aZ00000KJFrCQAX': 'pizza oven',
   'a01Hu000010Q5EcIAK': 'kitchen appliances',
@@ -6610,31 +6610,31 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01Hu000010Q5EqIAK': 'all in one washer / dryer',
   'a01Hu000010Q5ErIAK': 'standalone pedestal',
   'a01Hu000010Q5EdIAK': 'laundry appliances',
-  'a01aZ00000dC5DeQAK': 'bathroom faucets',
-  'a01aZ00000dC5E9QAK': 'kitchen faucets',
-  'a01aZ00000dC5EDQA0': 'kitchen sinks',
-  'a01aZ00000dC5E2QAK': 'bar & prep sinks',
-  'a01aZ00000dC5DiQAK': 'bathroom sinks',
-  'a01aZ00000dC5DjQAK': 'bathroom vanities',
-  'a01aZ00000dC5DqQAK': 'medicine cabinets',
-  'a01aZ00000dC5DyQAK': 'toilets',
-  'a01aZ00000dC5DxQAK': 'toilet seats',
-  'a01aZ00000dC5DoQAK': 'bidets',
-  'a01aZ00000dC5DnQAK': 'bidet seats',
-  'a01aZ00000dC5E0QAK': 'urinals',
-  'a01aZ00000dC5DlQAK': 'bathtubs',
-  'a01aZ00000dC5DuQAK': 'showers',
-  'a01aZ00000dC5DvQAK': 'steam showers',
-  'a01aZ00000dC5DrQAK': 'rough-in valves',
-  'a01aZ00000dC5DcQAK': 'bath fans',
+  'a01aZ00000dC5DeQAK': 'bathroom faucet',
+  'a01aZ00000dC5E9QAK': 'kitchen faucet',
+  'a01aZ00000dC5EDQA0': 'kitchen sink',
+  'a01aZ00000dC5E2QAK': 'bar & prep sink',
+  'a01aZ00000dC5DiQAK': 'bathroom sink',
+  'a01aZ00000dC5DjQAK': 'bathroom vanity',
+  'a01aZ00000dC5DqQAK': 'medicine cabinet',
+  'a01aZ00000dC5DyQAK': 'toilet',
+  'a01aZ00000dC5DxQAK': 'toilet seat',
+  'a01aZ00000dC5DoQAK': 'bidet',
+  'a01aZ00000dC5DnQAK': 'bidet seat',
+  'a01aZ00000dC5E0QAK': 'urinal',
+  'a01aZ00000dC5DlQAK': 'bathtub',
+  'a01aZ00000dC5DuQAK': 'shower',
+  'a01aZ00000dC5DvQAK': 'steam shower',
+  'a01aZ00000dC5DrQAK': 'rough-in valve',
+  'a01aZ00000dC5DcQAK': 'bath fan',
   'a01aZ00000dC5DfQAK': 'bathroom hardware and accessories',
   'a01aZ00000dC5DdQAK': 'bathroom cabinet hardware',
   'a01aZ00000dC5DgQAK': 'bathroom lighting',
-  'a01aZ00000dC5DhQAK': 'bathroom mirrors',
-  'a01aZ00000dC5E6QAK': 'garbage disposals',
-  'a01aZ00000dC5E7QAK': 'hot & cold water dispensers',
+  'a01aZ00000dC5DhQAK': 'bathroom mirror',
+  'a01aZ00000dC5E6QAK': 'garbage disposal',
+  'a01aZ00000dC5E7QAK': 'hot & cold water dispenser',
   'a01aZ00000dC5EJQA0': 'water filtration',
-  'a01aZ00000dC5DwQAK': 'tankless water heaters',
+  'a01aZ00000dC5DwQAK': 'tankless water heater',
   'a01aZ00000dC5E4QAK': 'cabinet hardware',
   'a01aZ00000dC5E1QAK': 'backsplash kitchen tile',
   'a01aZ00000dC5EFQA0': 'kitchen tile',
@@ -6642,50 +6642,50 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01aZ00000dC5EAQA0': 'kitchen furniture and decor',
   'a01aZ00000dC5EEQA0': 'kitchen storage & organization',
   'a01aZ00000dC5EGQA0': 'luxury kitchen',
-  'a01aZ00000dC5ELQA0': 'chandeliers',
-  'a01aZ00000dC5EKQA0': 'ceiling lights',
-  'a01aZ00000dC5EXQA0': 'pendants',
+  'a01aZ00000dC5ELQA0': 'chandelier',
+  'a01aZ00000dC5EKQA0': 'ceiling light',
+  'a01aZ00000dC5EXQA0': 'pendant',
   'a01aZ00000dC5EOQA0': 'island lighting',
-  'a01aZ00000dC5EeQAK': 'wall sconces',
+  'a01aZ00000dC5EeQAK': 'wall sconce',
   'a01aZ00000dC5EdQAK': 'vanity lighting',
   'a01aZ00000dC5EZQA0': 'recessed lighting',
-  'a01aZ00000dC5EcQAK': 'under cabinet lights',
+  'a01aZ00000dC5EcQAK': 'under cabinet light',
   'a01aZ00000dC5EbQAK': 'track and rail lighting',
   'a01aZ00000dC5ERQA0': 'led lighting',
   'a01aZ00000dC5EBQA0': 'kitchen lighting',
   'a01aZ00000dC5EWQA0': 'outdoor lighting',
   'a01aZ00000dC5EQQA0': 'landscape lighting',
-  'a01aZ00000dC5EYQA0': 'post lights',
+  'a01aZ00000dC5EYQA0': 'post light',
   'a01aZ00000dC5EaQAK': 'step lighting',
-  'a01aZ00000dC5EPQA0': 'lamps',
+  'a01aZ00000dC5EPQA0': 'lamp',
   'a01aZ00000dC5ESQA0': 'light bulbs',
   'a01aZ00000dC5ETQA0': 'light switches & dimmers',
-  'a01aZ00000dC5EVQA0': 'lighting accessories',
+  'a01aZ00000dC5EVQA0': 'lighting accessory',
   'a01aZ00000dC5EMQA0': 'commercial lighting',
-  'a01aZ00000dC5EjQAK': 'ceiling fans',
-  'a01aZ00000dC5EiQAK': 'ceiling fan accessories',
+  'a01aZ00000dC5EjQAK': 'ceiling fan',
+  'a01aZ00000dC5EiQAK': 'ceiling fan accessory',
   'a01aZ00000dC5F0QAK': 'wall mounted fans',
-  'a01aZ00000dC5EfQAK': 'air circulators',
-  'a01aZ00000dC5EgQAK': 'attic fans',
-  'a01aZ00000dCek0QAC': 'air conditioners',
-  'a01aZ00000dCekBQAS': 'mini split air conditioners',
-  'a01aZ00000dCek3QAC': 'dehumidifiers',
-  'a01aZ00000bI2srQAC': 'water heaters',
+  'a01aZ00000dC5EfQAK': 'air circulator',
+  'a01aZ00000dC5EgQAK': 'attic fan',
+  'a01aZ00000dCek0QAC': 'air conditioner',
+  'a01aZ00000dCekBQAS': 'mini split air conditioner',
+  'a01aZ00000dCek3QAC': 'dehumidifier',
+  'a01aZ00000bI2srQAC': 'water heater',
   'a01aZ00000eEFl0QAG': 'room heater',
   'a01aZ00000dCekAQAS': 'indoor heating',
   'a01aZ00000dCekFQAS': 'stoves and fireplaces',
-  'a01aZ00000dCekCQAS': 'patio heaters',
-  'a01aZ00000dCek5QAC': 'evaporative coolers',
-  'a01aZ00000dCekGQAS': 'thermostats',
-  'a01aZ00000dCek6QAC': 'exhaust fans',
+  'a01aZ00000dCekCQAS': 'patio heater',
+  'a01aZ00000dCek5QAC': 'evaporative cooler',
+  'a01aZ00000dCekGQAS': 'thermostat',
+  'a01aZ00000dCek6QAC': 'exhaust fan',
   'a01aZ00000dCekEQAS': 'stove and chimney pipe',
-  'a01aZ00000dCekDQAS': 'skylights',
-  'a01aZ00000dCek1QAC': 'air filters',
+  'a01aZ00000dCekDQAS': 'skylight',
+  'a01aZ00000dCek1QAC': 'air filter',
   'a01aZ00000dCek4QAC': 'ducting',
   'a01aZ00000dCek2QAC': 'commercial hvac',
   'a01aZ00000dCek9QAC': 'heating',
   'a01aZ00000fKN2RQAW': 'hvac accessories',
-  'a01aZ00000dCek7QAC': 'fire pits',
+  'a01aZ00000dCek7QAC': 'fire pit',
   'a01aZ00000dCekSQAS': 'hardwood flooring',
   'a01aZ00000dCekRQAS': 'luxury vinyl flooring',
   'a01aZ00000dCekTQAS': 'laminate flooring',
@@ -6694,20 +6694,20 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01aZ00000dCekVQAS': 'carpet tile',
   'a01aZ00000dCekUQAS': 'hardscaping',
   'a01aZ00000dC5F2QAK': 'cabinet hardware (hardware)',
-  'a01aZ00000dCejEQAS': 'handlesets',
-  'a01aZ00000dC5F5QAK': 'deadbolts',
+  'a01aZ00000dCejEQAS': 'handleset',
+  'a01aZ00000dC5F5QAK': 'deadbolt',
   'a01aZ00000dCejHQAS': 'keyless entry',
   'a01aZ00000dCejGQAS': 'keyed hardware',
-  'a01aZ00000dCejJQAS': 'mortise locks',
+  'a01aZ00000dCejJQAS': 'mortise lock',
   'a01aZ00000dCejIQAS': 'lock combo packs',
   'a01aZ00000dCejKQAS': 'multi point door hardware',
   'a01aZ00000dC5F1QAK': 'barn door hardware',
   'a01aZ00000dC5F3QAK': 'closet and pocket door hardware',
   'a01aZ00000dCejOQAS': 'sliding door hardware',
-  'a01aZ00000dC5FAQA0': 'door hinges',
+  'a01aZ00000dC5FAQA0': 'door hinge',
   'a01aZ00000dC5F8QAK': 'door hardware parts',
   'a01aZ00000dCejNQAS': 'screen and storm door hardware',
-  'a01aZ00000dCejDQAS': 'doors',
+  'a01aZ00000dCejDQAS': 'door',
   'a01aZ00000dC5F4QAK': 'commercial door hardware',
   'a01aZ00000dCejFQAS': 'home hardware',
   'a01aZ00000dCejLQAS': 'safes, locks and lock boxes',
@@ -6715,10 +6715,10 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01aZ00000dC5F6QAK': 'designer hardware',
   'a01aZ00000dCejPQAS': 'storage and organization',
   'a01aZ00000dCekIQAS': 'furniture',
-  'a01aZ00000XYWwyQAH': 'chairs',
+  'a01aZ00000XYWwyQAH': 'chair',
   'a01aZ00000dCekPQAS': 'outdoor and patio furniture',
-  'a01aZ00000dCekJQAS': 'mirrors',
-  'a01aZ00000dCekNQAS': 'rugs',
+  'a01aZ00000dCekJQAS': 'mirror',
+  'a01aZ00000dCekNQAS': 'rug',
   'a01aZ00000dCekOQAS': 'lamps (home décor & furniture)',
   'a01aZ00000dCekKQAS': 'wall decor',
   'a01aZ00000dCekMQAS': 'home accents',
@@ -6729,10 +6729,10 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
   'a01aZ00000dCejsQAC': 'outdoor fireplaces',
   'a01aZ00000dCejtQAC': 'outdoor heating',
   'a01aZ00000dCejxQAC': 'patio heaters (outdoor)',
-  'a01aZ00000dCejkQAC': 'exterior doors',
-  'a01aZ00000dCejjQAC': 'entry sets',
-  'a01aZ00000dCejwQAC': 'outdoor shower faucets',
-  'a01aZ00000dCejoQAC': 'generators',
+  'a01aZ00000dCejkQAC': 'exterior door',
+  'a01aZ00000dCejjQAC': 'entry set',
+  'a01aZ00000dCejwQAC': 'outdoor shower faucet',
+  'a01aZ00000dCejoQAC': 'generator',
   'a01aZ00000dCejnQAC': 'garden decor',
   'a01aZ00000dCejpQAC': 'hardscaping (outdoor)',
   'a01aZ00000dCejqQAC': 'mail boxes',
@@ -6750,8 +6750,7 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
 
 /**
  * Get title schema for a category (by name or ID)
- * Returns schema if found, null otherwise
- * Handles singular/plural normalization (e.g., "Kitchen Faucet" → "kitchen faucets")
+ * Keys match Salesforce singular format - e.g., "Kitchen Faucet" → "kitchen faucet"
  */
 export function getCategoryTitleSchema(categoryNameOrId: string): CategoryTitleSchema | null {
   let key = categoryNameOrId.toLowerCase().trim();
@@ -6764,34 +6763,7 @@ export function getCategoryTitleSchema(categoryNameOrId: string): CategoryTitleS
     }
   }
   
-  // Exact match first
-  if (CATEGORY_TITLE_SCHEMAS[key]) {
-    return CATEGORY_TITLE_SCHEMAS[key];
-  }
-  
-  // Try plural variant (add 's') - e.g., "kitchen faucet" → "kitchen faucets"
-  const pluralKey = key + 's';
-  if (CATEGORY_TITLE_SCHEMAS[pluralKey]) {
-    return CATEGORY_TITLE_SCHEMAS[pluralKey];
-  }
-  
-  // Try singular variant (remove trailing 's') - e.g., "chandeliers" → "chandelier"
-  if (key.endsWith('s') && key.length > 1) {
-    const singularKey = key.slice(0, -1);
-    if (CATEGORY_TITLE_SCHEMAS[singularKey]) {
-      return CATEGORY_TITLE_SCHEMAS[singularKey];
-    }
-  }
-  
-  // Try removing 'es' suffix (e.g., "bathtubs" already handled, but "dishes" → "dish")
-  if (key.endsWith('es') && key.length > 2) {
-    const singularKey = key.slice(0, -2);
-    if (CATEGORY_TITLE_SCHEMAS[singularKey]) {
-      return CATEGORY_TITLE_SCHEMAS[singularKey];
-    }
-  }
-  
-  return null;
+  return CATEGORY_TITLE_SCHEMAS[key] || null;
 }
 
 /**

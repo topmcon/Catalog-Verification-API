@@ -56,7 +56,7 @@ export const REFRIGERATOR_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Refrigeration',
-    tier3: 'Refrigerators',
+    tier3: 'Refrigerator',
     tier4: 'Full-Size Refrigerators'
   }
 };
@@ -94,7 +94,7 @@ export const DISHWASHER_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Kitchen Appliances',
-    tier3: 'Dishwashers'
+    tier3: 'Dishwasher'
   }
 };
 
@@ -132,7 +132,7 @@ export const RANGE_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Kitchen Appliances',
-    tier3: 'Ranges',
+    tier3: 'Range',
     tier4: 'Freestanding Ranges'
   }
 };
@@ -170,7 +170,7 @@ export const OVEN_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Kitchen Appliances',
-    tier3: 'Ovens',
+    tier3: 'Oven',
     tier4: 'Wall Ovens'
   }
 };
@@ -208,7 +208,7 @@ export const COOKTOP_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Kitchen Appliances',
-    tier3: 'Cooktops'
+    tier3: 'Cooktop'
   }
 };
 
@@ -244,7 +244,7 @@ export const MICROWAVE_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Kitchen Appliances',
-    tier3: 'Microwaves'
+    tier3: 'Microwave'
   }
 };
 
@@ -316,7 +316,7 @@ export const WASHER_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Laundry',
-    tier3: 'Washers'
+    tier3: 'Washer'
   }
 };
 
@@ -352,7 +352,7 @@ export const DRYER_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Laundry',
-    tier3: 'Dryers'
+    tier3: 'Dryer'
   }
 };
 
@@ -388,7 +388,7 @@ export const FREEZER_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Appliances',
     tier2: 'Refrigeration',
-    tier3: 'Freezers'
+    tier3: 'Freezer'
   }
 };
 
@@ -424,7 +424,7 @@ export const KITCHEN_SINK_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Plumbing & Bath',
     tier2: 'Kitchen',
-    tier3: 'Kitchen Sinks'
+    tier3: 'Kitchen Sink'
   }
 };
 
@@ -457,7 +457,7 @@ export const KITCHEN_FAUCET_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Plumbing & Bath',
     tier2: 'Kitchen',
-    tier3: 'Kitchen Faucets'
+    tier3: 'Kitchen Faucet'
   }
 };
 
@@ -490,7 +490,7 @@ export const BATHROOM_FAUCET_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Plumbing & Bath',
     tier2: 'Bathroom',
-    tier3: 'Bathroom Faucets'
+    tier3: 'Bathroom Faucet'
   }
 };
 
@@ -523,7 +523,7 @@ export const TOILET_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Plumbing & Bath',
     tier2: 'Bathroom',
-    tier3: 'Toilets'
+    tier3: 'Toilet'
   }
 };
 
@@ -556,7 +556,7 @@ export const BATHTUB_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Plumbing & Bath',
     tier2: 'Bathroom',
-    tier3: 'Bathtubs'
+    tier3: 'Bathtub'
   }
 };
 
@@ -592,7 +592,7 @@ export const CHANDELIER_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Lighting',
     tier2: 'Indoor Lighting',
-    tier3: 'Chandeliers'
+    tier3: 'Chandelier'
   }
 };
 
@@ -625,7 +625,7 @@ export const PENDANT_SCHEMA: CategoryAttributeConfig = {
   taxonomyTiers: {
     tier1: 'Lighting',
     tier2: 'Indoor Lighting',
-    tier3: 'Pendants'
+    tier3: 'Pendant'
   }
 };
 
@@ -657,8 +657,8 @@ export const CEILING_FAN_SCHEMA: CategoryAttributeConfig = {
   ],
   taxonomyTiers: {
     tier1: 'Lighting',
-    tier2: 'Ceiling Fans',
-    tier3: 'Ceiling Fans'
+    tier2: 'Ceiling Fan',
+    tier3: 'Ceiling Fan'
   }
 };
 
