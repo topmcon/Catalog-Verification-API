@@ -260,42 +260,42 @@
   },
   "37": {
     "rank": 11,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Faucet Included",
     "attribute_id": "a1aaZ000008mBsEQAU"
   },
   "38": {
     "rank": 9,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Handshower Included",
     "attribute_id": "a1aaZ000008mBtIQAU"
   },
   "39": {
     "rank": 12,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Heater Included",
     "attribute_id": "a1aaZ000008mBtMQAU"
   },
   "40": {
     "rank": 13,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Light Included",
     "attribute_id": "a1aaZ000008mBuZQAU"
   },
   "41": {
     "rank": 15,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Tile Flange",
     "attribute_id": "a1aaZ000008mBycQAE"
   },
   "42": {
     "rank": 14,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Slip Resistant",
     "attribute_id": "a1aaZ000008mBxwQAE"
@@ -358,21 +358,21 @@
   },
   "51": {
     "rank": 10,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Diverter Included",
     "attribute_id": "a1aaZ000008mBrNQAU"
   },
   "52": {
     "rank": 13,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "53": {
     "rank": 12,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
@@ -519,105 +519,105 @@
   },
   "74": {
     "rank": 14,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "75": {
     "rank": 12,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Hanging Options",
     "attribute_id": "a1aaZ000008mBtJQAU"
   },
   "76": {
     "rank": 14,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "77": {
     "rank": 10,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Watts Per Bulb",
     "attribute_id": "a1aaZ000008mBzlQAE"
   },
   "78": {
     "rank": 11,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "79": {
     "rank": 14,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "80": {
     "rank": 10,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "81": {
     "rank": 12,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "82": {
     "rank": 13,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Escutcheon Included",
     "attribute_id": "a1aaZ000008mBrxQAE"
   },
   "83": {
     "rank": 8,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "84": {
     "rank": 15,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Pop-Up Included",
     "attribute_id": "a1aaZ000008mBwPQAU"
   },
   "85": {
     "rank": 14,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Spout Type",
     "attribute_id": "a1aaZ000008mByDQAU"
   },
   "86": {
     "rank": 15,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Chandelier Type",
     "attribute_id": "a1aaZ000008mBoRQAU"
   },
   "87": {
     "rank": 15,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Sconce Type",
     "attribute_id": "a1aaZ000008mBx6QAE"
   },
   "88": {
     "rank": 14,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
@@ -645,56 +645,56 @@
   },
   "92": {
     "rank": 12,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Gallons Per Flush",
     "attribute_id": "a1aaZ000008mBspQAE"
   },
   "93": {
     "rank": 13,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Bidet Seat Included",
     "attribute_id": "a1aaZ000008lz4kQAA"
   },
   "94": {
     "rank": 15,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "95": {
     "rank": 12,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "96": {
     "rank": 14,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "97": {
     "rank": 15,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Pre Rinse",
     "attribute_id": "a1aaZ000008mBwUQAU"
   },
   "98": {
     "rank": 12,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Pullout Spray",
     "attribute_id": "a1aaZ000008mBwbQAE"
   },
   "99": {
     "rank": 11,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Valve Type",
     "attribute_id": "a1aaZ000008mBzDQAU"
@@ -729,56 +729,56 @@
   },
   "104": {
     "rank": 15,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Pendant Size",
     "attribute_id": "a1aaZ000008mBwJQAU"
   },
   "105": {
     "rank": 13,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Hanging Options",
     "attribute_id": "a1aaZ000008mBtJQAU"
   },
   "106": {
     "rank": 9,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Drain Connection",
     "attribute_id": "a1aaZ000008mBrZQAU"
   },
   "107": {
     "rank": 12,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Minimum Cabinet Size",
     "attribute_id": "a1aaZ000008mBv4QAE"
   },
   "108": {
     "rank": 13,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Colander Included",
     "attribute_id": "a1aaZ000008mBoYQAU"
   },
   "109": {
     "rank": 11,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Cutting Board Included",
     "attribute_id": "a1aaZ000008mBpCQAU"
   },
   "110": {
     "rank": 15,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Farmhouse",
     "attribute_id": "a1aaZ000008mBsAQAU"
   },
   "111": {
     "rank": 14,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Waterfall Faucet",
     "attribute_id": "a1aaZ000008mBzhQAE"
@@ -799,14 +799,14 @@
   },
   "114": {
     "rank": 8,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Sound Dampening",
     "attribute_id": "a1aaZ000008mBy7QAE"
   },
   "115": {
     "rank": 15,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Valve Type",
     "attribute_id": "a1aaZ000008mBzDQAU"
@@ -827,21 +827,21 @@
   },
   "118": {
     "rank": 10,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Drain Connection",
     "attribute_id": "a1aaZ000008mBrZQAU"
   },
   "119": {
     "rank": 9,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Faucet Included",
     "attribute_id": "a1aaZ000008mBsEQAU"
   },
   "120": {
     "rank": 12,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Corner Sink",
     "attribute_id": "a1aaZ000008mBoxQAE"
@@ -862,28 +862,28 @@
   },
   "123": {
     "rank": 13,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Pre Rinse",
     "attribute_id": "a1aaZ000008mBwUQAU"
   },
   "124": {
     "rank": 14,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Pullout Spray",
     "attribute_id": "a1aaZ000008mBwbQAE"
   },
   "125": {
     "rank": 12,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Voltage Type",
     "attribute_id": "a1aaZ000008mBzRQAU"
   },
   "126": {
     "rank": 14,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Watts Per Bulb",
     "attribute_id": "a1aaZ000008mBzlQAE"
@@ -904,7 +904,7 @@
   },
   "129": {
     "rank": 11,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Water Connection",
     "attribute_id": "a1aaZ000008mBzZQAU"
@@ -946,7 +946,7 @@
   },
   "135": {
     "rank": 13,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
@@ -981,98 +981,98 @@
   },
   "140": {
     "rank": 7,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Cross Bore",
     "attribute_id": "a1aaZ000008mBp1QAE"
   },
   "141": {
     "rank": 10,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Door Thickness",
     "attribute_id": "a1aaZ000008mBrSQAU"
   },
   "142": {
     "rank": 8,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Concealed Screws",
     "attribute_id": "a1aaZ000008mBogQAE"
   },
   "143": {
     "rank": 10,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Vanity Top Thickness",
     "attribute_id": "a1aaZ000008mBzJQAU"
   },
   "144": {
     "rank": 14,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Vanity Legs Included",
     "attribute_id": "a1aaZ000008mBzFQAU"
   },
   "145": {
     "rank": 13,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Vanity Top Included",
     "attribute_id": "a1aaZ000008mBzHQAU"
   },
   "146": {
     "rank": 5,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Number Of Shelves",
     "attribute_id": "a1aaZ000008mBvtQAE"
   },
   "147": {
     "rank": 12,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Sink Material",
     "attribute_id": "a1aaZ000008mBxqQAE"
   },
   "148": {
     "rank": 11,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Soft Close Slides",
     "attribute_id": "a1aaZ000008mBy3QAE"
   },
   "149": {
     "rank": 15,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Vanity Top Material",
     "attribute_id": "a1aaZ000008mBzIQAU"
   },
   "150": {
     "rank": 12,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Average Hours",
     "attribute_id": "a1aaZ000008lz44QAA"
   },
   "151": {
     "rank": 13,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "152": {
     "rank": 14,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Drainboard",
     "attribute_id": "a1aaZ000008mBrdQAE"
   },
   "153": {
     "rank": 3,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
@@ -1100,28 +1100,28 @@
   },
   "157": {
     "rank": 10,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
   },
   "158": {
     "rank": 14,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Electronic",
     "attribute_id": "a1aaZ000008mBrrQAE"
   },
   "159": {
     "rank": 11,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Seat Front",
     "attribute_id": "a1aaZ000008mBx8QAE"
   },
   "160": {
     "rank": 8,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Trip Lever Placement",
     "attribute_id": "a1aaZ000008mByuQAE"
@@ -1177,21 +1177,21 @@
   },
   "168": {
     "rank": 15,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "ASME Code",
     "attribute_id": "a1aaZ000008lz3uQAA"
   },
   "169": {
     "rank": 11,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "170": {
     "rank": 15,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Faucet Hole Size",
     "attribute_id": "a1aaZ000008mBsCQAU"
@@ -1254,7 +1254,7 @@
   },
   "179": {
     "rank": 11,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
@@ -1275,161 +1275,161 @@
   },
   "182": {
     "rank": 15,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Reversible Mounting",
     "attribute_id": "a1aaZ000008mBwsQAE"
   },
   "183": {
     "rank": 4,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "184": {
     "rank": 11,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "185": {
     "rank": 12,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
   },
   "186": {
     "rank": 6,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Control Type",
     "attribute_id": "a1aaZ000008mBonQAE"
   },
   "187": {
     "rank": 10,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Number of Blades",
     "attribute_id": "a1aaZ000008mBvYQAU"
   },
   "188": {
     "rank": 13,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Reversible Motor",
     "attribute_id": "a1aaZ000008mBwrQAE"
   },
   "189": {
     "rank": 11,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "190": {
     "rank": 8,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "191": {
     "rank": 14,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "192": {
     "rank": 15,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Spout Swivel",
     "attribute_id": "a1aaZ000008mByCQAU"
   },
   "193": {
     "rank": 13,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "194": {
     "rank": 12,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Spout Type",
     "attribute_id": "a1aaZ000008mByDQAU"
   },
   "195": {
     "rank": 9,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "196": {
     "rank": 14,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Shade Shape",
     "attribute_id": "a1aaZ000009X685QAC"
   },
   "197": {
     "rank": 8,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Sloped Ceiling Compatible",
     "attribute_id": "a1aaZ000009X4e6QAC"
   },
   "198": {
     "rank": 6,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "199": {
     "rank": 9,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Rotisserie",
     "attribute_id": "a1aaZ000008mBwvQAE"
   },
   "200": {
     "rank": 7,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Number Of Burners",
     "attribute_id": "a1aaZ000008mBvbQAE"
   },
   "201": {
     "rank": 14,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "BTU Output",
     "attribute_id": "a1aaZ000008mBnrQAE"
   },
   "202": {
     "rank": 6,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Total BTUs",
     "attribute_id": "a1aaZ000008mByhQAE"
   },
   "203": {
     "rank": 10,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Rough In",
     "attribute_id": "a1aaZ000008mBwwQAE"
   },
   "204": {
     "rank": 6,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Spray Pattern",
     "attribute_id": "a1aaZ000008mByGQAU"
@@ -1457,14 +1457,14 @@
   },
   "208": {
     "rank": 10,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Water Connection",
     "attribute_id": "a1aaZ000008mBzZQAU"
   },
   "209": {
     "rank": 3,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Water Connection Type",
     "attribute_id": "a1aaZ000008mBzaQAE"
@@ -1492,35 +1492,35 @@
   },
   "213": {
     "rank": 15,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "214": {
     "rank": 13,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Stainless Steel Grade",
     "attribute_id": "a1aaZ000008mByJQAU"
   },
   "215": {
     "rank": 9,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Refrigerant",
     "attribute_id": "a1aaZ000008mBwiQAE"
   },
   "216": {
     "rank": 10,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Sleep Mode",
     "attribute_id": "a1aaZ000008mBxtQAE"
   },
   "217": {
     "rank": 15,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Plug Type",
     "attribute_id": "a1aaZ000008mBwOQAU"
@@ -1534,105 +1534,105 @@
   },
   "219": {
     "rank": 7,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Electrical Phases",
     "attribute_id": "a1aaZ000008mBrqQAE"
   },
   "220": {
     "rank": 8,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Sink Shape",
     "attribute_id": "a1aaZ000008mBxrQAE"
   },
   "221": {
     "rank": 5,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "222": {
     "rank": 13,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Water Connection",
     "attribute_id": "a1aaZ000008mBzZQAU"
   },
   "223": {
     "rank": 12,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Water Connection Type",
     "attribute_id": "a1aaZ000008mBzaQAE"
   },
   "224": {
     "rank": 11,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Energy Efficient",
     "attribute_id": "a1aaZ000008mBruQAE"
   },
   "225": {
     "rank": 12,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Lamp Base Material",
     "attribute_id": "a1aaZ000008mBuOQAU"
   },
   "226": {
     "rank": 14,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "227": {
     "rank": 2,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Average Hours",
     "attribute_id": "a1aaZ000008lz44QAA"
   },
   "228": {
     "rank": 10,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Electrical Outlet",
     "attribute_id": "a1aaZ000008mBrpQAE"
   },
   "229": {
     "rank": 14,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "ASME Code",
     "attribute_id": "a1aaZ000008lz3uQAA"
   },
   "230": {
     "rank": 13,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Gallons Per Flush",
     "attribute_id": "a1aaZ000008mBspQAE"
   },
   "231": {
     "rank": 12,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Flush Type",
     "attribute_id": "a1aaZ000008mBsVQAU"
   },
   "232": {
     "rank": 8,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Trip Lever Placement",
     "attribute_id": "a1aaZ000008mByuQAE"
   },
   "233": {
     "rank": 11,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
@@ -1660,7 +1660,7 @@
   },
   "237": {
     "rank": 11,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Track Accessory Type",
     "attribute_id": "a1aaZ000008mBynQAE"
@@ -1674,28 +1674,28 @@
   },
   "239": {
     "rank": 3,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Electrical Phases",
     "attribute_id": "a1aaZ000008mBrqQAE"
   },
   "240": {
     "rank": 2,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Feed Type",
     "attribute_id": "a1aaZ000008mBsIQAU"
   },
   "241": {
     "rank": 4,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Horsepower",
     "attribute_id": "a1aaZ000008mBtZQAU"
   },
   "242": {
     "rank": 5,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "No Load RPM",
     "attribute_id": "a1aaZ000008mBvNQAU"
@@ -1737,14 +1737,14 @@
   },
   "248": {
     "rank": 14,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Handshower Included",
     "attribute_id": "a1aaZ000008mBtIQAU"
   },
   "249": {
     "rank": 5,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
@@ -1793,21 +1793,21 @@
   },
   "256": {
     "rank": 3,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "257": {
     "rank": 2,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Concealed Screws",
     "attribute_id": "a1aaZ000008mBogQAE"
   },
   "258": {
     "rank": 11,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Application",
     "attribute_id": "a1aaZ000008lz3pQAA"
@@ -1933,112 +1933,112 @@
   },
   "276": {
     "rank": 15,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Max Capacity (Pounds)",
     "attribute_id": "a1aaZ000008mBuqQAE"
   },
   "277": {
     "rank": 1,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Backset",
     "attribute_id": "a1aaZ000008lz4GQAQ"
   },
   "278": {
     "rank": 3,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Door Thickness",
     "attribute_id": "a1aaZ000008mBrSQAU"
   },
   "279": {
     "rank": 4,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Edge Bore",
     "attribute_id": "a1aaZ000008mBroQAE"
   },
   "280": {
     "rank": 10,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Handle Projection",
     "attribute_id": "a1aaZ000008mBtAQAU"
   },
   "281": {
     "rank": 2,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Concealed Screws",
     "attribute_id": "a1aaZ000008mBogQAE"
   },
   "282": {
     "rank": 6,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Function",
     "attribute_id": "a1aaZ000008mBsoQAE"
   },
   "283": {
     "rank": 7,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Handing",
     "attribute_id": "a1aaZ000008mBt5QAE"
   },
   "284": {
     "rank": 8,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Handle Design",
     "attribute_id": "a1aaZ000008mBt6QAE"
   },
   "285": {
     "rank": 9,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Handle Material",
     "attribute_id": "a1aaZ000008mBt9QAE"
   },
   "286": {
     "rank": 11,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Latch Faceplate",
     "attribute_id": "a1aaZ000008mBuQQAU"
   },
   "287": {
     "rank": 12,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Lever Shape",
     "attribute_id": "a1aaZ000008mBuXQAU"
   },
   "288": {
     "rank": 15,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Locking Mechanism",
     "attribute_id": "a1aaZ000008mBueQAE"
   },
   "289": {
     "rank": 14,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Rosette Shape",
     "attribute_id": "a1aaZ000008mBwuQAE"
   },
   "290": {
     "rank": 5,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "Fire Rated",
     "attribute_id": "a1aaZ000008mBsPQAU"
   },
   "291": {
     "rank": 9,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Comes in Set",
     "attribute_id": "a1aaZ000008mBodQAE"
@@ -2059,84 +2059,84 @@
   },
   "294": {
     "rank": 3,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Water Connection",
     "attribute_id": "a1aaZ000008mBzZQAU"
   },
   "295": {
     "rank": 2,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Volume Control",
     "attribute_id": "a1aaZ000008mBzSQAU"
   },
   "296": {
     "rank": 5,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Valve Type",
     "attribute_id": "a1aaZ000008mBzDQAU"
   },
   "297": {
     "rank": 4,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Water Connection Type",
     "attribute_id": "a1aaZ000008mBzaQAE"
   },
   "298": {
     "rank": 7,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "299": {
     "rank": 10,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Hose Included",
     "attribute_id": "a1aaZ000008mBtaQAE"
   },
   "300": {
     "rank": 3,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "301": {
     "rank": 8,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "302": {
     "rank": 5,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Handshower",
     "attribute_id": "a1aaZ000008mBtFQAU"
   },
   "303": {
     "rank": 11,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Pause Control",
     "attribute_id": "a1aaZ000008mBwHQAU"
   },
   "304": {
     "rank": 12,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Spray Settings",
     "attribute_id": "a1aaZ000008mByHQAU"
   },
   "305": {
     "rank": 13,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
@@ -2255,126 +2255,126 @@
   },
   "322": {
     "rank": 6,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Duct Size",
     "attribute_id": "a1aaZ000008mBrlQAE"
   },
   "323": {
     "rank": 2,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "324": {
     "rank": 12,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Heater Included",
     "attribute_id": "a1aaZ000008mBtMQAU"
   },
   "325": {
     "rank": 15,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Includes Remote",
     "attribute_id": "a1aaZ000008mBtwQAE"
   },
   "326": {
     "rank": 3,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Bulb Type",
     "attribute_id": "a1aaZ000009X67uQAC"
   },
   "327": {
     "rank": 5,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Duct Discharge",
     "attribute_id": "a1aaZ000008mBrkQAE"
   },
   "328": {
     "rank": 8,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Fan Type",
     "attribute_id": "a1aaZ000009X1zWQAS"
   },
   "329": {
     "rank": 11,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Grille Shape",
     "attribute_id": "a1aaZ000008mBt1QAE"
   },
   "330": {
     "rank": 13,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Housing Shape",
     "attribute_id": "a1aaZ000008mBtfQAE"
   },
   "331": {
     "rank": 14,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Humidity Sensing",
     "attribute_id": "a1aaZ000008mBtjQAE"
   },
   "332": {
     "rank": 1,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Amperage",
     "attribute_id": "a1aaZ000009X1zYQAS"
   },
   "333": {
     "rank": 10,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Frequency",
     "attribute_id": "a1aaZ000008mBsdQAE"
   },
   "334": {
     "rank": 7,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Energy Star",
     "attribute_id": "a1aaZ000009X4xcQAC"
   },
   "335": {
     "rank": 9,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "Fire Rated",
     "attribute_id": "a1aaZ000008mBsPQAU"
   },
   "336": {
     "rank": 8,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "337": {
     "rank": 7,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Number of Bulbs",
     "attribute_id": "a1aaZ000009X4e1QAC"
   },
   "338": {
     "rank": 11,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "339": {
     "rank": 2,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
@@ -2388,63 +2388,63 @@
   },
   "341": {
     "rank": 6,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "342": {
     "rank": 11,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "343": {
     "rank": 12,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Basin Rack Included",
     "attribute_id": "a1aaZ000008lz4XQAQ"
   },
   "344": {
     "rank": 14,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Basket Strainer Included",
     "attribute_id": "a1aaZ000008lz4dQAA"
   },
   "345": {
     "rank": 15,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Apron Front",
     "attribute_id": "a1aaZ000008lz3rQAA"
   },
   "346": {
     "rank": 13,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Basin Split",
     "attribute_id": "a1aaZ000008lz4YQAQ"
   },
   "347": {
     "rank": 2,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "348": {
     "rank": 2,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "349": {
     "rank": 2,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
@@ -2479,91 +2479,91 @@
   },
   "354": {
     "rank": 4,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "355": {
     "rank": 3,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "356": {
     "rank": 5,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Bulb Shape",
     "attribute_id": "a1aaZ000008mBnxQAE"
   },
   "357": {
     "rank": 6,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Bulb Visible",
     "attribute_id": "a1aaZ000008mBnzQAE"
   },
   "358": {
     "rank": 10,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Chandelier Type",
     "attribute_id": "a1aaZ000008mBoRQAU"
   },
   "359": {
     "rank": 2,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Characteristics",
     "attribute_id": "a1aaZ000008mBoSQAU"
   },
   "360": {
     "rank": 13,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "361": {
     "rank": 14,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Number of Bulbs",
     "attribute_id": "a1aaZ000009X4e1QAC"
   },
   "362": {
     "rank": 12,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "363": {
     "rank": 11,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "364": {
     "rank": 7,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Escutcheon Shape",
     "attribute_id": "a1aaZ000008mBryQAE"
   },
   "365": {
     "rank": 15,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "366": {
     "rank": 1,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Number Of Basins",
     "attribute_id": "a1aaZ000008mBvWQAU"
@@ -2626,28 +2626,28 @@
   },
   "375": {
     "rank": 8,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "376": {
     "rank": 6,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Drain Placement",
     "attribute_id": "a1aaZ000008mBraQAE"
   },
   "377": {
     "rank": 3,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Number Of Basins",
     "attribute_id": "a1aaZ000008mBvWQAU"
   },
   "378": {
     "rank": 1,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Sink Shape",
     "attribute_id": "a1aaZ000008mBxrQAE"
@@ -2682,35 +2682,35 @@
   },
   "383": {
     "rank": 10,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "384": {
     "rank": 9,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "385": {
     "rank": 12,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "386": {
     "rank": 3,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Shade",
     "attribute_id": "a1aaZ000008mBxIQAU"
   },
   "387": {
     "rank": 1,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
@@ -2745,63 +2745,63 @@
   },
   "392": {
     "rank": 9,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "ASME Code",
     "attribute_id": "a1aaZ000008lz3uQAA"
   },
   "393": {
     "rank": 5,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "394": {
     "rank": 3,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Number Of Doors",
     "attribute_id": "a1aaZ000008mBvdQAE"
   },
   "395": {
     "rank": 14,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Backset",
     "attribute_id": "a1aaZ000008lz4GQAQ"
   },
   "396": {
     "rank": 8,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Backsplash Included",
     "attribute_id": "a1aaZ000008lz4IQAQ"
   },
   "397": {
     "rank": 9,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Cabinet Hardware Included",
     "attribute_id": "a1aaZ000008mBo5QAE"
   },
   "398": {
     "rank": 7,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "399": {
     "rank": 6,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Cabinet Material",
     "attribute_id": "a1aaZ000008mBo7QAE"
   },
   "400": {
     "rank": 2,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Number Of Drawers",
     "attribute_id": "a1aaZ000008mBvfQAE"
@@ -2843,35 +2843,35 @@
   },
   "406": {
     "rank": 7,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Capacity (Gallons)",
     "attribute_id": "a1aaZ000008mBoDQAU"
   },
   "407": {
     "rank": 8,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "408": {
     "rank": 6,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Drain Placement",
     "attribute_id": "a1aaZ000008mBraQAE"
   },
   "409": {
     "rank": 2,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Number Of Bathers",
     "attribute_id": "a1aaZ000008mBvXQAU"
   },
   "410": {
     "rank": 3,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Tub Shape",
     "attribute_id": "a1aaZ000008mByvQAE"
@@ -2934,35 +2934,35 @@
   },
   "419": {
     "rank": 3,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "420": {
     "rank": 8,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "421": {
     "rank": 9,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "422": {
     "rank": 7,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "423": {
     "rank": 6,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Spray Settings",
     "attribute_id": "a1aaZ000008mByHQAU"
@@ -2976,98 +2976,98 @@
   },
   "425": {
     "rank": 5,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Showerhead Shape",
     "attribute_id": "a1aaZ000008mBxfQAE"
   },
   "426": {
     "rank": 4,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
   },
   "427": {
     "rank": 2,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Number of Light Source(s)",
     "attribute_id": "a1aaZ000008mBvnQAE"
   },
   "428": {
     "rank": 3,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Number of Tiers",
     "attribute_id": "a1aaZ000008mBvxQAE"
   },
   "429": {
     "rank": 7,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "430": {
     "rank": 9,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "431": {
     "rank": 7,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Shade",
     "attribute_id": "a1aaZ000008mBxIQAU"
   },
   "432": {
     "rank": 10,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Blade Span",
     "attribute_id": "a1aaZ000008lz4pQAA"
   },
   "433": {
     "rank": 4,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Rough In",
     "attribute_id": "a1aaZ000008mBwwQAE"
   },
   "434": {
     "rank": 6,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Trapway",
     "attribute_id": "a1aaZ000008mByoQAE"
   },
   "435": {
     "rank": 2,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Seat Included",
     "attribute_id": "a1aaZ000008mBx9QAE"
   },
   "436": {
     "rank": 7,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Flush Type",
     "attribute_id": "a1aaZ000008mBsVQAU"
   },
   "437": {
     "rank": 3,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "438": {
     "rank": 6,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
@@ -3284,7 +3284,7 @@
   },
   "469": {
     "rank": 10,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Accepts Deck Mount Faucet",
     "attribute_id": "a1aaZ000008lz3UQAQ"
@@ -3319,7 +3319,7 @@
   },
   "474": {
     "rank": 2,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Toilet Seat Lid Included",
     "attribute_id": "a1aaZ000008mByfQAE"
@@ -3382,280 +3382,280 @@
   },
   "483": {
     "rank": 5,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Shade",
     "attribute_id": "a1aaZ000008mBxIQAU"
   },
   "484": {
     "rank": 9,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Fixture Shape",
     "attribute_id": "a1aaZ000008mBsQQAU"
   },
   "485": {
     "rank": 4,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "486": {
     "rank": 1,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "487": {
     "rank": 2,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "488": {
     "rank": 13,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "489": {
     "rank": 7,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "490": {
     "rank": 10,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "491": {
     "rank": 1,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "492": {
     "rank": 3,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "493": {
     "rank": 4,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "494": {
     "rank": 9,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "495": {
     "rank": 5,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "496": {
     "rank": 13,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Bulb Visible",
     "attribute_id": "a1aaZ000008mBnzQAE"
   },
   "497": {
     "rank": 8,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Full Backplate",
     "attribute_id": "a1aaZ000008mBsnQAE"
   },
   "498": {
     "rank": 2,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "499": {
     "rank": 3,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Number of Light Source(s)",
     "attribute_id": "a1aaZ000008mBvnQAE"
   },
   "500": {
     "rank": 4,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "501": {
     "rank": 2,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Number of Blades",
     "attribute_id": "a1aaZ000008mBvYQAU"
   },
   "502": {
     "rank": 4,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Reversible Blades",
     "attribute_id": "a1aaZ000008mBwqQAE"
   },
   "503": {
     "rank": 3,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "504": {
     "rank": 10,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Bowl Shape",
     "attribute_id": "a1aaZ000008lz50QAA"
   },
   "505": {
     "rank": 3,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Water Efficient",
     "attribute_id": "a1aaZ000008mBzdQAE"
   },
   "506": {
     "rank": 2,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "507": {
     "rank": 9,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Diverter Included",
     "attribute_id": "a1aaZ000008mBrNQAU"
   },
   "508": {
     "rank": 8,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Integrated Diverter",
     "attribute_id": "a1aaZ000008mBu8QAE"
   },
   "509": {
     "rank": 10,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "510": {
     "rank": 7,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Faucet Hole Size",
     "attribute_id": "a1aaZ000008mBsCQAU"
   },
   "511": {
     "rank": 2,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "512": {
     "rank": 9,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Filtering",
     "attribute_id": "a1aaZ000008mBsMQAU"
   },
   "513": {
     "rank": 4,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Bridge Faucet",
     "attribute_id": "a1aaZ000008mBnnQAE"
   },
   "514": {
     "rank": 3,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "ASME Code",
     "attribute_id": "a1aaZ000008lz3uQAA"
   },
   "515": {
     "rank": 5,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
   },
   "516": {
     "rank": 1,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Frame Type",
     "attribute_id": "a1aaZ000008mBsaQAE"
   },
   "517": {
     "rank": 2,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Mirror Front",
     "attribute_id": "a1aaZ000008mBvBQAU"
   },
   "518": {
     "rank": 3,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Mirror Shape",
     "attribute_id": "a1aaZ000008mBvDQAU"
   },
   "519": {
     "rank": 6,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Orientation",
     "attribute_id": "a1aaZ000008mBw3QAE"
   },
   "520": {
     "rank": 5,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Shade",
     "attribute_id": "a1aaZ000008mBxIQAU"
   },
   "521": {
     "rank": 1,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Number of Light Source(s)",
     "attribute_id": "a1aaZ000008mBvnQAE"
   },
   "522": {
     "rank": 5,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Number of Light Source(s)",
     "attribute_id": "a1aaZ000008mBvnQAE"
@@ -3711,21 +3711,21 @@
   },
   "530": {
     "rank": 3,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Hinge Center to Center",
     "attribute_id": "a1aaZ000008mBtXQAU"
   },
   "531": {
     "rank": 7,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Bowl Shape",
     "attribute_id": "a1aaZ000008lz50QAA"
   },
   "532": {
     "rank": 4,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Seat Front",
     "attribute_id": "a1aaZ000008mBx8QAE"
@@ -3753,21 +3753,21 @@
   },
   "536": {
     "rank": 4,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Faucet Included",
     "attribute_id": "a1aaZ000008mBsEQAU"
   },
   "537": {
     "rank": 3,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Bowl Shape",
     "attribute_id": "a1aaZ000008lz50QAA"
   },
   "538": {
     "rank": 7,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Eco Friendly",
     "attribute_id": "a1aaZ000008mBrnQAE"
@@ -3963,49 +3963,49 @@
   },
   "566": {
     "rank": 5,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Handshower Included",
     "attribute_id": "a1aaZ000008mBtIQAU"
   },
   "567": {
     "rank": 11,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "568": {
     "rank": 7,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "569": {
     "rank": 10,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "570": {
     "rank": 1,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "571": {
     "rank": 8,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Electronic",
     "attribute_id": "a1aaZ000008mBrrQAE"
   },
   "572": {
     "rank": 6,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
@@ -4019,42 +4019,42 @@
   },
   "574": {
     "rank": 8,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "575": {
     "rank": 5,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Light Included",
     "attribute_id": "a1aaZ000008mBuZQAU"
   },
   "576": {
     "rank": 10,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Fixture Shape",
     "attribute_id": "a1aaZ000008mBsQQAU"
   },
   "577": {
     "rank": 3,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "578": {
     "rank": 4,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "579": {
     "rank": 2,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
@@ -4075,28 +4075,28 @@
   },
   "582": {
     "rank": 10,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Basin Rack Included",
     "attribute_id": "a1aaZ000008lz4XQAQ"
   },
   "583": {
     "rank": 7,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Drain Placement",
     "attribute_id": "a1aaZ000008mBraQAE"
   },
   "584": {
     "rank": 6,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "585": {
     "rank": 2,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "Sink Shape",
     "attribute_id": "a1aaZ000008mBxrQAE"
@@ -4166,7 +4166,7 @@
   },
   "595": {
     "rank": 7,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
@@ -4180,63 +4180,63 @@
   },
   "597": {
     "rank": 1,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "598": {
     "rank": 3,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "599": {
     "rank": 8,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Spout Swivel",
     "attribute_id": "a1aaZ000008mByCQAU"
   },
   "600": {
     "rank": 5,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "601": {
     "rank": 4,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "602": {
     "rank": 2,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "603": {
     "rank": 6,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Spout Type",
     "attribute_id": "a1aaZ000008mByDQAU"
   },
   "604": {
     "rank": 10,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "605": {
     "rank": 4,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
@@ -4250,91 +4250,91 @@
   },
   "607": {
     "rank": 3,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Number of Circuits",
     "attribute_id": "a1aaZ000008mBvcQAE"
   },
   "608": {
     "rank": 4,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "System Type",
     "attribute_id": "a1aaZ000008mByUQAU"
   },
   "609": {
     "rank": 7,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Power Feed Type",
     "attribute_id": "a1aaZ000008mBwSQAU"
   },
   "610": {
     "rank": 1,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Location Rating",
     "attribute_id": "a1aaZ000008mBucQAE"
   },
   "611": {
     "rank": 7,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Control Type",
     "attribute_id": "a1aaZ000008mBonQAE"
   },
   "612": {
     "rank": 6,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Drain Connection",
     "attribute_id": "a1aaZ000008mBrZQAU"
   },
   "613": {
     "rank": 7,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Corner Sink",
     "attribute_id": "a1aaZ000008mBoxQAE"
   },
   "614": {
     "rank": 6,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Drain Placement",
     "attribute_id": "a1aaZ000008mBraQAE"
   },
   "615": {
     "rank": 10,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Farmhouse",
     "attribute_id": "a1aaZ000008mBsAQAU"
   },
   "616": {
     "rank": 15,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "AutoFlush Included",
     "attribute_id": "a1aaZ000008lz40QAA"
   },
   "617": {
     "rank": 8,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Includes Drip Pan",
     "attribute_id": "a1aaZ000008mBtqQAE"
   },
   "618": {
     "rank": 9,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "619": {
     "rank": 3,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
@@ -4348,21 +4348,21 @@
   },
   "621": {
     "rank": 6,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Flush Technology",
     "attribute_id": "a1aaZ000008mBsUQAU"
   },
   "622": {
     "rank": 8,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Independently Rotating",
     "attribute_id": "a1aaZ000008mBu2QAE"
   },
   "623": {
     "rank": 3,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Number Of Shelves",
     "attribute_id": "a1aaZ000008mBvtQAE"
@@ -4411,77 +4411,77 @@
   },
   "630": {
     "rank": 10,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Max Room Volume",
     "attribute_id": "a1aaZ000008mBusQAE"
   },
   "631": {
     "rank": 14,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Breaker Needs",
     "attribute_id": "a1aaZ000008lz52QAA"
   },
   "632": {
     "rank": 1,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Art Subject",
     "attribute_id": "a1aaZ000008lz3tQAA"
   },
   "633": {
     "rank": 4,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Botanical Type",
     "attribute_id": "a1aaZ000008lz4wQAA"
   },
   "634": {
     "rank": 7,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Bulb Shape",
     "attribute_id": "a1aaZ000008mBnxQAE"
   },
   "635": {
     "rank": 2,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Heater Included",
     "attribute_id": "a1aaZ000008mBtMQAU"
   },
   "636": {
     "rank": 3,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Includes Remote",
     "attribute_id": "a1aaZ000008mBtwQAE"
   },
   "637": {
     "rank": 8,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Air Filter Type",
     "attribute_id": "a1aaZ000008lz3eQAA"
   },
   "638": {
     "rank": 14,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "BTU Cooling",
     "attribute_id": "a1aaZ000008mBnqQAE"
   },
   "639": {
     "rank": 13,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "CEER Rating",
     "attribute_id": "a1aaZ000008mBoHQAU"
   },
   "640": {
     "rank": 12,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Cooling Area",
     "attribute_id": "a1aaZ000008mBorQAE"
@@ -4495,14 +4495,14 @@
   },
   "642": {
     "rank": 6,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Concealed Screws",
     "attribute_id": "a1aaZ000008mBogQAE"
   },
   "643": {
     "rank": 8,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Escutcheon Shape",
     "attribute_id": "a1aaZ000008mBryQAE"
@@ -4537,49 +4537,49 @@
   },
   "648": {
     "rank": 4,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Number Of Drawers",
     "attribute_id": "a1aaZ000008mBvfQAE"
   },
   "649": {
     "rank": 2,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Outdoor Approved",
     "attribute_id": "a1aaZ000008mBw4QAE"
   },
   "650": {
     "rank": 6,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "28 Degree Latch",
     "attribute_id": "a1aaZ000008lz3TQAQ"
   },
   "651": {
     "rank": 4,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Number Of Basins",
     "attribute_id": "a1aaZ000008mBvWQAU"
   },
   "652": {
     "rank": 3,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Number Of Doors",
     "attribute_id": "a1aaZ000008mBvdQAE"
   },
   "653": {
     "rank": 15,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Bulb Visible",
     "attribute_id": "a1aaZ000008mBnzQAE"
   },
   "654": {
     "rank": 13,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Fixture Shape",
     "attribute_id": "a1aaZ000008mBsQQAU"
@@ -4642,14 +4642,14 @@
   },
   "663": {
     "rank": 9,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Decor Location",
     "attribute_id": "a1aaZ000008mBpLQAU"
   },
   "664": {
     "rank": 7,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Frame Material",
     "attribute_id": "a1aaZ000008mBsZQAU"
@@ -4677,7 +4677,7 @@
   },
   "668": {
     "rank": 5,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
@@ -4698,70 +4698,70 @@
   },
   "671": {
     "rank": 1,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Blade Pitch",
     "attribute_id": "a1aaZ000008lz4oQAA"
   },
   "672": {
     "rank": 9,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Downrod Size(s)",
     "attribute_id": "a1aaZ000008mBrWQAU"
   },
   "673": {
     "rank": 3,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Blades Included",
     "attribute_id": "a1aaZ000008lz4qQAA"
   },
   "674": {
     "rank": 15,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Light Kit Included",
     "attribute_id": "a1aaZ000008mBubQAE"
   },
   "675": {
     "rank": 14,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Light Kit Compatible",
     "attribute_id": "a1aaZ000008mBuaQAE"
   },
   "676": {
     "rank": 9,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "677": {
     "rank": 5,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Bridge Faucet",
     "attribute_id": "a1aaZ000008mBnnQAE"
   },
   "678": {
     "rank": 10,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "679": {
     "rank": 6,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
   },
   "680": {
     "rank": 8,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Bulb Visible",
     "attribute_id": "a1aaZ000008mBnzQAE"
@@ -4782,63 +4782,63 @@
   },
   "683": {
     "rank": 9,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Cabinet Fit Size",
     "attribute_id": "a1aaZ000008mBo4QAE"
   },
   "684": {
     "rank": 6,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Diameter",
     "attribute_id": "a1aaZ000008mBrFQAU"
   },
   "685": {
     "rank": 4,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Max Capacity (Pounds)",
     "attribute_id": "a1aaZ000008mBuqQAE"
   },
   "686": {
     "rank": 7,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Installation Hardware Included",
     "attribute_id": "a1aaZ000008mBu6QAE"
   },
   "687": {
     "rank": 5,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "688": {
     "rank": 7,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Battery Included",
     "attribute_id": "a1aaZ000008lz4eQAA"
   },
   "689": {
     "rank": 8,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Battery Quantity",
     "attribute_id": "a1aaZ000008lz4gQAA"
   },
   "690": {
     "rank": 9,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Battery Operated",
     "attribute_id": "a1aaZ000008lz4fQAA"
   },
   "691": {
     "rank": 6,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Voltage Type",
     "attribute_id": "a1aaZ000008mBzRQAU"
@@ -4873,7 +4873,7 @@
   },
   "696": {
     "rank": 10,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Field Cuttable",
     "attribute_id": "a1aaZ000008mBsJQAU"
@@ -4894,133 +4894,133 @@
   },
   "699": {
     "rank": 8,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "700": {
     "rank": 9,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Accessory Type",
     "attribute_id": "a1aaZ000008lz3VQAQ"
   },
   "701": {
     "rank": 6,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Voltage Type",
     "attribute_id": "a1aaZ000008mBzRQAU"
   },
   "702": {
     "rank": 3,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Kilowatts",
     "attribute_id": "a1aaZ000008mBuKQAU"
   },
   "703": {
     "rank": 5,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Drain Connection",
     "attribute_id": "a1aaZ000008mBrZQAU"
   },
   "704": {
     "rank": 4,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Faucet Included",
     "attribute_id": "a1aaZ000008mBsEQAU"
   },
   "705": {
     "rank": 9,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "706": {
     "rank": 1,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Number Of Basins",
     "attribute_id": "a1aaZ000008mBvWQAU"
   },
   "707": {
     "rank": 2,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Blade Span",
     "attribute_id": "a1aaZ000008lz4pQAA"
   },
   "708": {
     "rank": 5,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "CFM (High)",
     "attribute_id": "a1aaZ000008mBoOQAU"
   },
   "709": {
     "rank": 7,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Controller Included",
     "attribute_id": "a1aaZ000008mBooQAE"
   },
   "710": {
     "rank": 1,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "711": {
     "rank": 4,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "712": {
     "rank": 2,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Handle Material",
     "attribute_id": "a1aaZ000008mBt9QAE"
   },
   "713": {
     "rank": 7,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "ASME Code",
     "attribute_id": "a1aaZ000008lz3uQAA"
   },
   "714": {
     "rank": 5,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Control Type",
     "attribute_id": "a1aaZ000008mBonQAE"
   },
   "715": {
     "rank": 3,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "With Casters",
     "attribute_id": "a1aaZ000008mBzuQAE"
   },
   "716": {
     "rank": 4,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Fuel Type",
     "attribute_id": "a1aaZ000008mBsmQAE"
   },
   "717": {
     "rank": 2,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Outdoor Approved",
     "attribute_id": "a1aaZ000008mBw4QAE"
@@ -5041,21 +5041,21 @@
   },
   "720": {
     "rank": 1,
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "721": {
     "rank": 11,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "722": {
     "rank": 15,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
@@ -5083,21 +5083,21 @@
   },
   "726": {
     "rank": 9,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Cabinet Fit Size",
     "attribute_id": "a1aaZ000008mBo4QAE"
   },
   "727": {
     "rank": 4,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "728": {
     "rank": 6,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Frame Material",
     "attribute_id": "a1aaZ000008mBsZQAU"
@@ -5209,161 +5209,161 @@
   },
   "744": {
     "rank": 15,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Sound Dampening",
     "attribute_id": "a1aaZ000008mBy7QAE"
   },
   "745": {
     "rank": 12,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "746": {
     "rank": 13,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Basin Rack Included",
     "attribute_id": "a1aaZ000008lz4XQAQ"
   },
   "747": {
     "rank": 11,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Drainboard",
     "attribute_id": "a1aaZ000008mBrdQAE"
   },
   "748": {
     "rank": 10,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Motor Type",
     "attribute_id": "a1aaZ000008mBvJQAU"
   },
   "749": {
     "rank": 14,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Sound Dampening",
     "attribute_id": "a1aaZ000008mBy7QAE"
   },
   "750": {
     "rank": 8,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Auto Shut Off",
     "attribute_id": "a1aaZ000008lz3yQAA"
   },
   "751": {
     "rank": 15,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Stainless Steel Interior",
     "attribute_id": "a1aaZ000008mByKQAU"
   },
   "752": {
     "rank": 11,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Power Source",
     "attribute_id": "a1aaZ000008mBwTQAU"
   },
   "753": {
     "rank": 13,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "RPM",
     "attribute_id": "a1aaZ000008mBwxQAE"
   },
   "754": {
     "rank": 10,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Number of Functions",
     "attribute_id": "a1aaZ000008mBvhQAE"
   },
   "755": {
     "rank": 11,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Integrated Volume Control",
     "attribute_id": "a1aaZ000008mBu9QAE"
   },
   "756": {
     "rank": 12,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Integrated Diverter",
     "attribute_id": "a1aaZ000008mBu8QAE"
   },
   "757": {
     "rank": 6,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Inlet Area",
     "attribute_id": "a1aaZ000008mBu4QAE"
   },
   "758": {
     "rank": 14,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Service Stops Included",
     "attribute_id": "a1aaZ000008mBxGQAU"
   },
   "759": {
     "rank": 13,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Valve Trim Included",
     "attribute_id": "a1aaZ000008mBzAQAU"
   },
   "760": {
     "rank": 7,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Flow Rate (GPM)",
     "attribute_id": "a1aaZ000008mBsSQAU"
   },
   "761": {
     "rank": 8,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "ASSE Code",
     "attribute_id": "a1aaZ000008lz3vQAA"
   },
   "762": {
     "rank": 9,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Scald Guard",
     "attribute_id": "a1aaZ000008mBx5QAE"
   },
   "763": {
     "rank": 15,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "Valve Technology",
     "attribute_id": "a1aaZ000008mBz8QAE"
   },
   "764": {
     "rank": 13,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Heater Included",
     "attribute_id": "a1aaZ000008mBtMQAU"
   },
   "765": {
     "rank": 12,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "766": {
     "rank": 14,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Night Light",
     "attribute_id": "a1aaZ000008mBvMQAU"
@@ -5454,77 +5454,77 @@
   },
   "779": {
     "rank": 4,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Fire Rated",
     "attribute_id": "a1aaZ000008mBsPQAU"
   },
   "780": {
     "rank": 1,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Combination Oven",
     "attribute_id": "a1aaZ000008mBocQAE"
   },
   "781": {
     "rank": 8,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Locking Mechanism",
     "attribute_id": "a1aaZ000008mBueQAE"
   },
   "782": {
     "rank": 11,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Power Feed Type",
     "attribute_id": "a1aaZ000008mBwSQAU"
   },
   "783": {
     "rank": 5,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Handing",
     "attribute_id": "a1aaZ000008mBt5QAE"
   },
   "784": {
     "rank": 7,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Light Direction",
     "attribute_id": "a1aaZ000008mBuYQAU"
   },
   "785": {
     "rank": 12,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Sustainability",
     "attribute_id": "a1aaZ000008mByPQAU"
   },
   "786": {
     "rank": 12,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Accessory Type",
     "attribute_id": "a1aaZ000008lz3VQAQ"
   },
   "787": {
     "rank": 15,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Fan Blade Material",
     "attribute_id": "a1aaZ000008mBs7QAE"
   },
   "788": {
     "rank": 11,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Bulb Included",
     "attribute_id": "a1aaZ000008mBnwQAE"
   },
   "789": {
     "rank": 14,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Fuel Type",
     "attribute_id": "a1aaZ000008mBsmQAE"
@@ -5559,119 +5559,119 @@
   },
   "794": {
     "rank": 2,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Drain Required",
     "attribute_id": "a1aaZ000008mBrbQAE"
   },
   "795": {
     "rank": 5,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Flushometer Included",
     "attribute_id": "a1aaZ000008mBsWQAU"
   },
   "796": {
     "rank": 10,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "SmartKey",
     "attribute_id": "a1aaZ000008mBxzQAE"
   },
   "797": {
     "rank": 8,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Knob Shape",
     "attribute_id": "a1aaZ000008mBuLQAU"
   },
   "798": {
     "rank": 6,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Handcrafted",
     "attribute_id": "a1aaZ000008mBt4QAE"
   },
   "799": {
     "rank": 1,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "App Compatibility",
     "attribute_id": "a1aaZ000008lz3oQAA"
   },
   "800": {
     "rank": 7,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Keyway",
     "attribute_id": "a1aaZ000008mBuJQAU"
   },
   "801": {
     "rank": 4,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Filtered",
     "attribute_id": "a1aaZ000008mBsLQAU"
   },
   "802": {
     "rank": 3,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Drum Material",
     "attribute_id": "a1aaZ000008mBrhQAE"
   },
   "803": {
     "rank": 10,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Mirror Type",
     "attribute_id": "a1aaZ000008mBvEQAU"
   },
   "804": {
     "rank": 9,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Mirror Shape",
     "attribute_id": "a1aaZ000008mBvDQAU"
   },
   "805": {
     "rank": 5,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Frame Material",
     "attribute_id": "a1aaZ000008mBsZQAU"
   },
   "806": {
     "rank": 12,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Orientation",
     "attribute_id": "a1aaZ000008mBw3QAE"
   },
   "807": {
     "rank": 8,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Luxury Whirlpool",
     "attribute_id": "a1aaZ000008mBujQAE"
   },
   "808": {
     "rank": 14,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Touch Faucet",
     "attribute_id": "a1aaZ000008mBykQAE"
   },
   "809": {
     "rank": 15,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "USB Port",
     "attribute_id": "a1aaZ000008mBz5QAE"
   },
   "810": {
     "rank": 4,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Electrical Outlet",
     "attribute_id": "a1aaZ000008mBrpQAE"
@@ -5734,70 +5734,70 @@
   },
   "819": {
     "rank": 7,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Fuel Type",
     "attribute_id": "a1aaZ000008mBsmQAE"
   },
   "820": {
     "rank": 6,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Fixture Shape",
     "attribute_id": "a1aaZ000008mBsQQAU"
   },
   "821": {
     "rank": 2,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "BTU Output",
     "attribute_id": "a1aaZ000008mBnrQAE"
   },
   "822": {
     "rank": 8,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Includes Drip Pan",
     "attribute_id": "a1aaZ000008mBtqQAE"
   },
   "823": {
     "rank": 5,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Field Cuttable",
     "attribute_id": "a1aaZ000008mBsJQAU"
   },
   "824": {
     "rank": 4,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Cross Bore",
     "attribute_id": "a1aaZ000008mBp1QAE"
   },
   "825": {
     "rank": 13,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Temperature Settings",
     "attribute_id": "a1aaZ000008mByaQAE"
   },
   "826": {
     "rank": 12,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Spray Nozzles",
     "attribute_id": "a1aaZ000008mByFQAU"
   },
   "827": {
     "rank": 1,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Assembly Required",
     "attribute_id": "a1aaZ000008lz3wQAA"
   },
   "828": {
     "rank": 3,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "CSA Code",
     "attribute_id": "a1aaZ000008mBp4QAE"
@@ -5888,70 +5888,70 @@
   },
   "841": {
     "rank": 7,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Total Capacity",
     "attribute_id": "a1aaZ000008mByiQAE"
   },
   "842": {
     "rank": 1,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Application",
     "attribute_id": "a1aaZ000008lz3pQAA"
   },
   "843": {
     "rank": 4,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Maximum Sones",
     "attribute_id": "a1aaZ000008mBuxQAE"
   },
   "844": {
     "rank": 2,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Contains PFAS Chemicals",
     "attribute_id": "a1aaZ000008mBokQAE"
   },
   "845": {
     "rank": 6,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Orientation",
     "attribute_id": "a1aaZ000008mBw3QAE"
   },
   "846": {
     "rank": 2,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Drying System",
     "attribute_id": "a1aaZ000008mBrjQAE"
   },
   "847": {
     "rank": 8,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Light Kit Included",
     "attribute_id": "a1aaZ000008mBubQAE"
   },
   "848": {
     "rank": 4,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Heater Included",
     "attribute_id": "a1aaZ000008mBtMQAU"
   },
   "849": {
     "rank": 5,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Humidity Control",
     "attribute_id": "a1aaZ000008mBtiQAE"
   },
   "850": {
     "rank": 11,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Smart Home",
     "attribute_id": "a1aaZ000008mBxyQAE"
@@ -6070,112 +6070,112 @@
   },
   "867": {
     "rank": 1,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "868": {
     "rank": 4,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Noise Level",
     "attribute_id": "a1aaZ000009X1zUQAS"
   },
   "869": {
     "rank": 5,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Includes Thermostat",
     "attribute_id": "a1aaZ000009X1zgQAC"
   },
   "870": {
     "rank": 6,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "Amperage",
     "attribute_id": "a1aaZ000009X1zYQAS"
   },
   "871": {
     "rank": 11,
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "attribute_name": "cfm",
     "attribute_id": "a1aaZ000009X5yGQAS"
   },
   "872": {
     "rank": 2,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "873": {
     "rank": 3,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "874": {
     "rank": 14,
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK",
     "attribute_name": "gauge",
     "attribute_id": "a1aaZ000009ew9yQAA"
   },
   "875": {
     "rank": 13,
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "876": {
     "rank": 1,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "877": {
     "rank": 8,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Amperage",
     "attribute_id": "a1aaZ000009X1zYQAS"
   },
   "878": {
     "rank": 10,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Includes Thermostat",
     "attribute_id": "a1aaZ000009X1zgQAC"
   },
   "879": {
     "rank": 11,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "880": {
     "rank": 12,
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "881": {
     "rank": 4,
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "attribute_name": "cfm",
     "attribute_id": "a1aaZ000009X5yGQAS"
   },
   "882": {
     "rank": 2,
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
@@ -6238,35 +6238,35 @@
   },
   "891": {
     "rank": 4,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "892": {
     "rank": 12,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "893": {
     "rank": 13,
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "894": {
     "rank": 4,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "overflow",
     "attribute_id": "a1aaZ000009gMbmQAE"
   },
   "895": {
     "rank": 5,
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
@@ -6336,49 +6336,49 @@
   },
   "905": {
     "rank": 1,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "906": {
     "rank": 4,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "907": {
     "rank": 5,
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK",
     "attribute_name": "overflow",
     "attribute_id": "a1aaZ000009gMbmQAE"
   },
   "908": {
     "rank": 1,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "909": {
     "rank": 2,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "910": {
     "rank": 9,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "configuration",
     "attribute_id": "a1aaZ000009ew9lQAA"
   },
   "911": {
     "rank": 15,
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "attribute_name": "overflow",
     "attribute_id": "a1aaZ000009gMbmQAE"
@@ -6427,91 +6427,91 @@
   },
   "918": {
     "rank": 1,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "919": {
     "rank": 5,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "920": {
     "rank": 13,
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK",
     "attribute_name": "Bulb Type",
     "attribute_id": "a1aaZ000009X67uQAC"
   },
   "921": {
     "rank": 12,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "motor",
     "attribute_id": "a1aaZ000009X4cWQAS"
   },
   "922": {
     "rank": 4,
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "923": {
     "rank": 2,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Number of Bulbs",
     "attribute_id": "a1aaZ000009X4e1QAC"
   },
   "924": {
     "rank": 6,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "925": {
     "rank": 7,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "926": {
     "rank": 8,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "927": {
     "rank": 9,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "928": {
     "rank": 11,
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "929": {
     "rank": 6,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "930": {
     "rank": 13,
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
@@ -6707,49 +6707,49 @@
   },
   "958": {
     "rank": 9,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "959": {
     "rank": 11,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "960": {
     "rank": 12,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "961": {
     "rank": 13,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "962": {
     "rank": 14,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "CA Drought Compliant",
     "attribute_id": "a1aaZ000008mBo2QAE"
   },
   "963": {
     "rank": 15,
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "964": {
     "rank": 13,
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
@@ -6805,105 +6805,105 @@
   },
   "972": {
     "rank": 1,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "cfm",
     "attribute_id": "a1aaZ000009X5yGQAS"
   },
   "973": {
     "rank": 3,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Energy Star",
     "attribute_id": "a1aaZ000009X4xcQAC"
   },
   "974": {
     "rank": 6,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "975": {
     "rank": 7,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "976": {
     "rank": 9,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "motor",
     "attribute_id": "a1aaZ000009X4cWQAS"
   },
   "977": {
     "rank": 10,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Noise Level",
     "attribute_id": "a1aaZ000009X1zUQAS"
   },
   "978": {
     "rank": 12,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "979": {
     "rank": 13,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "980": {
     "rank": 14,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "981": {
     "rank": 15,
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "982": {
     "rank": 9,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "983": {
     "rank": 10,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Rust Resistant",
     "attribute_id": "a1aaZ000009X5olQAC"
   },
   "984": {
     "rank": 11,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "shape",
     "attribute_id": "a1aaZ000009X5UCQA0"
   },
   "985": {
     "rank": 14,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "986": {
     "rank": 15,
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
@@ -7050,154 +7050,154 @@
   },
   "1007": {
     "rank": 1,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Amperage",
     "attribute_id": "a1aaZ000009X1zYQAS"
   },
   "1008": {
     "rank": 6,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1009": {
     "rank": 7,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "1010": {
     "rank": 9,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1011": {
     "rank": 12,
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "attribute_name": "Noise Level",
     "attribute_id": "a1aaZ000009X1zUQAS"
   },
   "1012": {
     "rank": 1,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1013": {
     "rank": 2,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1014": {
     "rank": 14,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1015": {
     "rank": 15,
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "1016": {
     "rank": 1,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1017": {
     "rank": 4,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1018": {
     "rank": 5,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1019": {
     "rank": 6,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "1020": {
     "rank": 7,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "1021": {
     "rank": 8,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "CA Drought Compliant",
     "attribute_id": "a1aaZ000008mBo2QAE"
   },
   "1022": {
     "rank": 9,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "1023": {
     "rank": 10,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "1024": {
     "rank": 11,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "1025": {
     "rank": 12,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Number Of Bathers",
     "attribute_id": "a1aaZ000008mBvXQAU"
   },
   "1026": {
     "rank": 13,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Tub Shape",
     "attribute_id": "a1aaZ000008mByvQAE"
   },
   "1027": {
     "rank": 14,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "1028": {
     "rank": 15,
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
@@ -7379,70 +7379,70 @@
   },
   "1054": {
     "rank": 3,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1055": {
     "rank": 5,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1056": {
     "rank": 8,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1057": {
     "rank": 9,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "1058": {
     "rank": 10,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "1059": {
     "rank": 11,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "CA Drought Compliant",
     "attribute_id": "a1aaZ000008mBo2QAE"
   },
   "1060": {
     "rank": 12,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "1061": {
     "rank": 13,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "1062": {
     "rank": 14,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "1063": {
     "rank": 15,
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG",
     "attribute_name": "Number Of Bathers",
     "attribute_id": "a1aaZ000008mBvXQAU"
@@ -7540,35 +7540,35 @@
   },
   "1077": {
     "rank": 1,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1078": {
     "rank": 11,
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK",
     "attribute_name": "adjustable",
     "attribute_id": "a1aaZ000009X61bQAC"
   },
   "1079": {
     "rank": 7,
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1080": {
     "rank": 4,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1081": {
     "rank": 5,
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0",
     "attribute_name": "gauge",
     "attribute_id": "a1aaZ000009ew9yQAA"
@@ -7673,35 +7673,35 @@
   },
   "1096": {
     "rank": 5,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "1097": {
     "rank": 6,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Bulb Type",
     "attribute_id": "a1aaZ000009X67uQAC"
   },
   "1098": {
     "rank": 9,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1099": {
     "rank": 13,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "1100": {
     "rank": 15,
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
@@ -7771,49 +7771,49 @@
   },
   "1110": {
     "rank": 2,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1111": {
     "rank": 5,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "1112": {
     "rank": 8,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Motion Sensor",
     "attribute_id": "a1aaZ000009X5vHQAS"
   },
   "1113": {
     "rank": 12,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1114": {
     "rank": 13,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "1115": {
     "rank": 14,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "1116": {
     "rank": 15,
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0",
     "attribute_name": "CA Drought Compliant",
     "attribute_id": "a1aaZ000008mBo2QAE"
@@ -7827,133 +7827,133 @@
   },
   "1118": {
     "rank": 1,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "1119": {
     "rank": 3,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1120": {
     "rank": 6,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "1121": {
     "rank": 11,
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1122": {
     "rank": 1,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1123": {
     "rank": 2,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
   },
   "1124": {
     "rank": 3,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Valve Included",
     "attribute_id": "a1aaZ000008mBz7QAE"
   },
   "1125": {
     "rank": 4,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "CA Drought Compliant",
     "attribute_id": "a1aaZ000008mBo2QAE"
   },
   "1126": {
     "rank": 5,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Faucet Holes",
     "attribute_id": "a1aaZ000008mBsDQAU"
   },
   "1127": {
     "rank": 6,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Handles Included",
     "attribute_id": "a1aaZ000008mBtDQAU"
   },
   "1128": {
     "rank": 7,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Faucet Type",
     "attribute_id": "a1aaZ000008mBsGQAU"
   },
   "1129": {
     "rank": 8,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Number Of Bathers",
     "attribute_id": "a1aaZ000008mBvXQAU"
   },
   "1130": {
     "rank": 9,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Tub Shape",
     "attribute_id": "a1aaZ000008mByvQAE"
   },
   "1131": {
     "rank": 10,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Faucet Centers",
     "attribute_id": "a1aaZ000008mBsBQAU"
   },
   "1132": {
     "rank": 11,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1133": {
     "rank": 12,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Drain Assembly Included",
     "attribute_id": "a1aaZ000008mBrYQAU"
   },
   "1134": {
     "rank": 13,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Escutcheon Included",
     "attribute_id": "a1aaZ000008mBrxQAE"
   },
   "1135": {
     "rank": 14,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Pop-Up Included",
     "attribute_id": "a1aaZ000008mBwPQAU"
   },
   "1136": {
     "rank": 15,
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "attribute_name": "Spout Type",
     "attribute_id": "a1aaZ000008mByDQAU"
@@ -8009,35 +8009,35 @@
   },
   "1144": {
     "rank": 7,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "1145": {
     "rank": 11,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1146": {
     "rank": 12,
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1147": {
     "rank": 1,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1148": {
     "rank": 8,
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
@@ -8086,21 +8086,21 @@
   },
   "1155": {
     "rank": 3,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1156": {
     "rank": 8,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1157": {
     "rank": 11,
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
@@ -8233,28 +8233,28 @@
   },
   "1176": {
     "rank": 1,
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1177": {
     "rank": 1,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1178": {
     "rank": 7,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "configuration",
     "attribute_id": "a1aaZ000009ew9lQAA"
   },
   "1179": {
     "rank": 1,
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
@@ -8282,63 +8282,63 @@
   },
   "1183": {
     "rank": 1,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1184": {
     "rank": 2,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1185": {
     "rank": 4,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "1186": {
     "rank": 5,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Amperage",
     "attribute_id": "a1aaZ000009X1zYQAS"
   },
   "1187": {
     "rank": 11,
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "1188": {
     "rank": 1,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1189": {
     "rank": 9,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1190": {
     "rank": 13,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "1191": {
     "rank": 15,
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW",
     "attribute_name": "Bulb Type",
     "attribute_id": "a1aaZ000009X67uQAC"
@@ -8401,49 +8401,49 @@
   },
   "1200": {
     "rank": 1,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1201": {
     "rank": 9,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "configuration",
     "attribute_id": "a1aaZ000009ew9lQAA"
   },
   "1202": {
     "rank": 10,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1203": {
     "rank": 14,
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK",
     "attribute_name": "gauge",
     "attribute_id": "a1aaZ000009ew9yQAA"
   },
   "1204": {
     "rank": 1,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1205": {
     "rank": 5,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1206": {
     "rank": 9,
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK",
     "attribute_name": "configuration",
     "attribute_id": "a1aaZ000009ew9lQAA"
@@ -8527,84 +8527,84 @@
   },
   "1218": {
     "rank": 1,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1219": {
     "rank": 4,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Installation Type",
     "attribute_id": "a1aaZ000009X5F8QAK"
   },
   "1220": {
     "rank": 13,
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
     "attribute_name": "Mounting Type",
     "attribute_id": "a1aaZ000009X5ohQAC"
   },
   "1221": {
     "rank": 15,
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK",
     "attribute_name": "Handshower",
     "attribute_id": "a1aaZ000008mBtFQAU"
   },
   "1222": {
     "rank": 2,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1223": {
     "rank": 3,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Energy Star",
     "attribute_id": "a1aaZ000009X4xcQAC"
   },
   "1224": {
     "rank": 6,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "led",
     "attribute_id": "a1aaZ000009X55ZQAS"
   },
   "1225": {
     "rank": 9,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "lumens",
     "attribute_id": "a1aaZ000009X5vBQAS"
   },
   "1226": {
     "rank": 10,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "motor",
     "attribute_id": "a1aaZ000009X4cWQAS"
   },
   "1227": {
     "rank": 13,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "1228": {
     "rank": 14,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Number Of Handles",
     "attribute_id": "a1aaZ000008mBviQAE"
   },
   "1229": {
     "rank": 15,
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "attribute_name": "Spout Reach",
     "attribute_id": "a1aaZ000008mByAQAU"
@@ -8660,42 +8660,42 @@
   },
   "1237": {
     "rank": 1,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Voltage",
     "attribute_id": "a1aaZ000009X681QAC"
   },
   "1238": {
     "rank": 5,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "wattage",
     "attribute_id": "a1aaZ000009X61XQAS"
   },
   "1239": {
     "rank": 6,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "material",
     "attribute_id": "a1aaZ000009gMbeQAE"
   },
   "1240": {
     "rank": 10,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "dimmable",
     "attribute_id": "a1aaZ000009etDdQAI"
   },
   "1241": {
     "rank": 11,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "Bulb Base",
     "attribute_id": "a1aaZ000009X680QAC"
   },
   "1242": {
     "rank": 12,
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK",
     "attribute_name": "extension",
     "attribute_id": "a1aaZ000009X5v6QAC"

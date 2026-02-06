@@ -92,7 +92,7 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Barbeques",
+    "category_name": "Barbeque",
     "category_id": "a01Hu000011kgEqIAI"
   },
   {
@@ -128,7 +128,7 @@
   {
     "family": "Furniture",
     "department": "Home Décor & Furniture",
-    "category_name": "Chairs",
+    "category_name": "Chair",
     "category_id": "a01aZ00000XYWwyQAH"
   },
   {
@@ -140,7 +140,7 @@
   {
     "family": "General",
     "department": "Heating & Cooling",
-    "category_name": "Water Heaters",
+    "category_name": "Water Heater",
     "category_id": "a01aZ00000bI2srQAC"
   },
   {
@@ -152,7 +152,7 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bath Fans",
+    "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK"
   },
   {
@@ -164,7 +164,7 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathroom Faucets",
+    "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK"
   },
   {
@@ -182,19 +182,19 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathroom Mirrors",
+    "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathroom Sinks",
+    "category_name": "Bathroom Sink",
     "category_id": "a01aZ00000dC5DiQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathroom Vanities",
+    "category_name": "Bathroom Vanity",
     "category_id": "a01aZ00000dC5DjQAK"
   },
   {
@@ -206,25 +206,25 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathtubs",
+    "category_name": "Bathtub",
     "category_id": "a01aZ00000dC5DlQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bidet Faucets",
+    "category_name": "Bidet Faucet",
     "category_id": "a01aZ00000dC5DmQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bidet Seats",
+    "category_name": "Bidet Seat",
     "category_id": "a01aZ00000dC5DnQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bidets",
+    "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK"
   },
   {
@@ -236,67 +236,67 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Medicine Cabinets",
+    "category_name": "Medicine Cabinet",
     "category_id": "a01aZ00000dC5DqQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Rough-In Valves",
+    "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Shower Accessories",
+    "category_name": "Shower Accessory",
     "category_id": "a01aZ00000dC5DsQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Shower Faucets",
+    "category_name": "Shower Faucet",
     "category_id": "a01aZ00000dC5DtQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Showers",
+    "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Steam Showers",
+    "category_name": "Steam Shower",
     "category_id": "a01aZ00000dC5DvQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Tankless Water Heaters",
+    "category_name": "Tankless Water Heater",
     "category_id": "a01aZ00000dC5DwQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Toilet Seats",
+    "category_name": "Toilet Seat",
     "category_id": "a01aZ00000dC5DxQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Toilets",
+    "category_name": "Toilet",
     "category_id": "a01aZ00000dC5DyQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Tub Faucets",
+    "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Urinals",
+    "category_name": "Urinal",
     "category_id": "a01aZ00000dC5E0QAK"
   },
   {
@@ -308,13 +308,13 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Bar & Prep Sinks",
+    "category_name": "Bar & Prep Sink",
     "category_id": "a01aZ00000dC5E2QAK"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Bar Faucets",
+    "category_name": "Bar Faucet",
     "category_id": "a01aZ00000dC5E3QAK"
   },
   {
@@ -326,31 +326,31 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Food Service Faucets",
+    "category_name": "Food Service Faucet",
     "category_id": "a01aZ00000dC5E5QAK"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Garbage Disposals",
+    "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Hot & Cold Water Dispensers",
+    "category_name": "Hot & Cold Water Dispenser",
     "category_id": "a01aZ00000dC5E7QAK"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Kitchen Accessories",
+    "category_name": "Kitchen Accessory",
     "category_id": "a01aZ00000dC5E8QAK"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Kitchen Faucets",
+    "category_name": "Kitchen Faucet",
     "category_id": "a01aZ00000dC5E9QAK"
   },
   {
@@ -368,13 +368,13 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Kitchen Sink Combos",
+    "category_name": "Kitchen Sink Combo",
     "category_id": "a01aZ00000dC5ECQA0"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Kitchen Sinks",
+    "category_name": "Kitchen Sink",
     "category_id": "a01aZ00000dC5EDQA0"
   },
   {
@@ -398,13 +398,13 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Pot Filler Faucets",
+    "category_name": "Pot Filler Faucet",
     "category_id": "a01aZ00000dC5EHQA0"
   },
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Tankless Water Heaters",
+    "category_name": "Tankless Water Heater",
     "category_id": "a01aZ00000dC5EIQA0"
   },
   {
@@ -416,13 +416,13 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Lights",
+    "category_name": "Ceiling Light",
     "category_id": "a01aZ00000dC5EKQA0"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Chandeliers",
+    "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0"
   },
   {
@@ -446,7 +446,7 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dC5EPQA0"
   },
   {
@@ -476,13 +476,13 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Lighted Ceiling Fans",
+    "category_name": "Lighted Ceiling Fan",
     "category_id": "a01aZ00000dC5EUQA0"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Lighting Accessories",
+    "category_name": "Lighting Accessory",
     "category_id": "a01aZ00000dC5EVQA0"
   },
   {
@@ -494,13 +494,13 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Pendants",
+    "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Post Lights",
+    "category_name": "Post Light",
     "category_id": "a01aZ00000dC5EYQA0"
   },
   {
@@ -524,7 +524,7 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Under Cabinet Lights",
+    "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK"
   },
   {
@@ -536,133 +536,133 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Wall Sconces",
+    "category_name": "Wall Sconce",
     "category_id": "a01aZ00000dC5EeQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Air Circulators",
+    "category_name": "Air Circulator",
     "category_id": "a01aZ00000dC5EfQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Attic Fans",
+    "category_name": "Attic Fan",
     "category_id": "a01aZ00000dC5EgQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fan Accessories",
+    "category_name": "Ceiling Fan Accessory",
     "category_id": "a01aZ00000dC5EiQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fans",
+    "category_name": "Ceiling Fan",
     "category_id": "a01aZ00000dC5EjQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fans with Light",
+    "category_name": "Ceiling Fan with Light",
     "category_id": "a01aZ00000dC5EkQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fans with Remotes",
+    "category_name": "Ceiling Fan with Remote",
     "category_id": "a01aZ00000dC5ElQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fans without Light",
+    "category_name": "Ceiling Fan without Light",
     "category_id": "a01aZ00000dC5EmQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "DC Motor Ceiling Fans",
+    "category_name": "DC Motor Ceiling Fan",
     "category_id": "a01aZ00000dC5EnQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Designer Ceiling Fans",
+    "category_name": "Designer Ceiling Fan",
     "category_id": "a01aZ00000dC5EoQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Dual Ceiling Fans",
+    "category_name": "Dual Ceiling Fan",
     "category_id": "a01aZ00000dC5EpQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Fandelier Ceiling Fans",
+    "category_name": "Fandelier Ceiling Fan",
     "category_id": "a01aZ00000dC5EqQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Hugger Fans",
+    "category_name": "Hugger Fan",
     "category_id": "a01aZ00000dC5ErQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Indoor Ceiling Fans",
+    "category_name": "Indoor Ceiling Fan",
     "category_id": "a01aZ00000dC5EsQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Large Ceiling Fans",
+    "category_name": "Large Ceiling Fan",
     "category_id": "a01aZ00000dC5EtQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "LED Ceiling Fans",
+    "category_name": "LED Ceiling Fan",
     "category_id": "a01aZ00000dC5EuQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Outdoor Ceiling Fans",
+    "category_name": "Outdoor Ceiling Fan",
     "category_id": "a01aZ00000dC5EvQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Small Ceiling Fans",
+    "category_name": "Small Ceiling Fan",
     "category_id": "a01aZ00000dC5EwQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Smart Home Fans",
+    "category_name": "Smart Home Fan",
     "category_id": "a01aZ00000dC5ExQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Trending Ceiling Fans",
+    "category_name": "Trending Ceiling Fan",
     "category_id": "a01aZ00000dC5EyQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Utility Fans",
+    "category_name": "Utility Fan",
     "category_id": "a01aZ00000dC5EzQAK"
   },
   {
     "family": "General",
     "department": "Lighting & Electrical",
-    "category_name": "Wall Mounted Fans",
+    "category_name": "Wall Mounted Fan",
     "category_id": "a01aZ00000dC5F0QAK"
   },
   {
@@ -692,7 +692,7 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Deadbolts",
+    "category_name": "Deadbolt",
     "category_id": "a01aZ00000dC5F5QAK"
   },
   {
@@ -704,49 +704,49 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Entry Sets",
+    "category_name": "Door Entry Set",
     "category_id": "a01aZ00000dC5F7QAK"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Hardware Parts",
+    "category_name": "Door Hardware Part",
     "category_id": "a01aZ00000dC5F8QAK"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Hardware: Knobs and Levers",
+    "category_name": "Door Hardware: Knob and Lever",
     "category_id": "a01aZ00000dC5F9QAK"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Hinges",
+    "category_name": "Door Hinge",
     "category_id": "a01aZ00000dC5FAQA0"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Knobs",
+    "category_name": "Door Knob",
     "category_id": "a01aZ00000dCejBQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Door Levers",
+    "category_name": "Door Lever",
     "category_id": "a01aZ00000dCejCQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Doors",
+    "category_name": "Door",
     "category_id": "a01aZ00000dCejDQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Handlesets",
+    "category_name": "Handleset",
     "category_id": "a01aZ00000dCejEQAS"
   },
   {
@@ -770,13 +770,13 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Lock Combo Packs",
+    "category_name": "Lock Combo Pack",
     "category_id": "a01aZ00000dCejIQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Mortise Locks",
+    "category_name": "Mortise Lock",
     "category_id": "a01aZ00000dCejJQAS"
   },
   {
@@ -788,7 +788,7 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Safes, Locks and Lock Boxes",
+    "category_name": "Safe, Lock and Lock Box",
     "category_id": "a01aZ00000dCejLQAS"
   },
   {
@@ -818,31 +818,31 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Affordable Cabinet Knobs",
+    "category_name": "Affordable Cabinet Knob",
     "category_id": "a01aZ00000dCejQQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Affordable Cabinet Pulls",
+    "category_name": "Affordable Cabinet Pull",
     "category_id": "a01aZ00000dCejRQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Appliance Pulls",
+    "category_name": "Appliance Pull",
     "category_id": "a01aZ00000dCejSQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Backplates",
+    "category_name": "Backplate",
     "category_id": "a01aZ00000dCejTQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Catches and Latches",
+    "category_name": "Cabinet Catch and Latch",
     "category_id": "a01aZ00000dCejUQAS"
   },
   {
@@ -854,31 +854,31 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Hardware Bulk Packs",
+    "category_name": "Cabinet Hardware Bulk Pack",
     "category_id": "a01aZ00000dCejWQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Hardware Mounting Templates",
+    "category_name": "Cabinet Hardware Mounting Template",
     "category_id": "a01aZ00000dCejXQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Hinges",
+    "category_name": "Cabinet Hinge",
     "category_id": "a01aZ00000dCejYQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Knobs",
+    "category_name": "Cabinet Knob",
     "category_id": "a01aZ00000dCejZQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Locks",
+    "category_name": "Cabinet Lock",
     "category_id": "a01aZ00000dCejaQAC"
   },
   {
@@ -890,7 +890,7 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Cabinet Pulls",
+    "category_name": "Cabinet Pull",
     "category_id": "a01aZ00000dCejcQAC"
   },
   {
@@ -902,19 +902,19 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Drawer Slides and Accessories",
+    "category_name": "Drawer Slide and Accessory",
     "category_id": "a01aZ00000dCejeQAC"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Luxury Cabinet Knobs",
+    "category_name": "Luxury Cabinet Knob",
     "category_id": "a01aZ00000dCejfQAC"
   },
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Luxury Cabinet Pulls",
+    "category_name": "Luxury Cabinet Pull",
     "category_id": "a01aZ00000dCejgQAC"
   },
   {
@@ -926,25 +926,25 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Entry Sets",
+    "category_name": "Entry Set",
     "category_id": "a01aZ00000dCejjQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Exterior Doors",
+    "category_name": "Exterior Door",
     "category_id": "a01aZ00000dCejkQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Fire Pit Accessories",
+    "category_name": "Fire Pit Accessory",
     "category_id": "a01aZ00000dCejlQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCejmQAC"
   },
   {
@@ -956,7 +956,7 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Generators",
+    "category_name": "Generator",
     "category_id": "a01aZ00000dCejoQAC"
   },
   {
@@ -968,19 +968,19 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Mail Boxes",
+    "category_name": "Mail Box",
     "category_id": "a01aZ00000dCejqQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Ceiling Fans",
+    "category_name": "Outdoor Ceiling Fan",
     "category_id": "a01aZ00000dCejrQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Fireplaces",
+    "category_name": "Outdoor Fireplace",
     "category_id": "a01aZ00000dCejsQAC"
   },
   {
@@ -992,7 +992,7 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Kitchens",
+    "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC"
   },
   {
@@ -1004,31 +1004,31 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Shower Faucets",
+    "category_name": "Outdoor Shower Faucet",
     "category_id": "a01aZ00000dCejwQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Patio Heaters",
+    "category_name": "Patio Heater",
     "category_id": "a01aZ00000dCejxQAC"
   },
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Rugs",
+    "category_name": "Rug",
     "category_id": "a01aZ00000dCejyQAC"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Air Conditioners",
+    "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Air Filters",
+    "category_name": "Air Filter",
     "category_id": "a01aZ00000dCek1QAC"
   },
   {
@@ -1040,7 +1040,7 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Dehumidifiers",
+    "category_name": "Dehumidifier",
     "category_id": "a01aZ00000dCek3QAC"
   },
   {
@@ -1052,25 +1052,25 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Evaporative Coolers",
+    "category_name": "Evaporative Cooler",
     "category_id": "a01aZ00000dCek5QAC"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Exhaust Fans",
+    "category_name": "Exhaust Fan",
     "category_id": "a01aZ00000dCek6QAC"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Fire Pits",
+    "category_name": "Fire Pit",
     "category_id": "a01aZ00000dCek7QAC"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Generators",
+    "category_name": "Generator",
     "category_id": "a01aZ00000dCek8QAC"
   },
   {
@@ -1088,19 +1088,19 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Mini Split Air Conditioners",
+    "category_name": "Mini Split Air Conditioner",
     "category_id": "a01aZ00000dCekBQAS"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Patio Heaters",
+    "category_name": "Patio Heater",
     "category_id": "a01aZ00000dCekCQAS"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Skylights",
+    "category_name": "Skylight",
     "category_id": "a01aZ00000dCekDQAS"
   },
   {
@@ -1112,13 +1112,13 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Stoves and Fireplaces",
+    "category_name": "Stove and Fireplace",
     "category_id": "a01aZ00000dCekFQAS"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Thermostats",
+    "category_name": "Thermostat",
     "category_id": "a01aZ00000dCekGQAS"
   },
   {
@@ -1130,7 +1130,7 @@
   {
     "family": "Home Improvement",
     "department": "Home Décor & Furniture",
-    "category_name": "Mirrors",
+    "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS"
   },
   {
@@ -1154,13 +1154,13 @@
   {
     "family": "Home Improvement",
     "department": "Home Décor & Furniture",
-    "category_name": "Rugs",
+    "category_name": "Rug",
     "category_id": "a01aZ00000dCekNQAS"
   },
   {
     "family": "Home Improvement",
     "department": "Home Décor & Furniture",
-    "category_name": "Lamps",
+    "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS"
   },
   {
@@ -1214,19 +1214,19 @@
   {
     "family": "General",
     "department": "Industrial & Commercial",
-    "category_name": "Industrial Strainers",
+    "category_name": "Industrial Strainer",
     "category_id": "a01aZ00000dDRGuQAO"
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Tub and Shower Accessories",
+    "category_name": "Tub and Shower Accessory",
     "category_id": "a01aZ00000dDnKlQAK"
   },
   {
     "family": "General",
     "department": "Outdoor",
-    "category_name": "Storage Drawers/Doors",
+    "category_name": "Storage Drawer/Door",
     "category_id": "a01aZ00000dEXvOQAW"
   },
   {
@@ -1238,7 +1238,7 @@
   {
     "family": "General",
     "department": "Industrial & Commercial",
-    "category_name": "Hydronic Expansion Tanks",
+    "category_name": "Hydronic Expansion Tank",
     "category_id": "a01aZ00000dFPfcQAG"
   },
   {
@@ -1256,13 +1256,13 @@
   {
     "family": "General",
     "department": "Plumbing & Bath",
-    "category_name": "Pipe Fittings",
+    "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK"
   },
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "HVAC Accessories",
+    "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW"
   },
   {
