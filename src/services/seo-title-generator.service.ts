@@ -236,7 +236,7 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   // Handle Model Number specially - prefix with dash
   if (attribute === 'Model Number') {
     const strValue = String(value).trim();
-    if (strValue && strValue.toLowerCase() !== 'not found' && strValue.toLowerCase() !== 'n/a') {
+    if (strValue && strValue.toLowerCase() !== 'not found' && strValue.toLowerCase() !== 'n/a' && strValue.toLowerCase() !== 'not applicable') {
       return `- ${strValue}`;
     }
     return '';
@@ -255,6 +255,7 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   // Skip invalid values
   if (strValue.toLowerCase() === 'not found' || 
       strValue.toLowerCase() === 'n/a' ||
+      strValue.toLowerCase() === 'not applicable' ||
       strValue === '' ||
       strValue === 'undefined') {
     return '';
@@ -362,12 +363,24 @@ function generateFallbackTitle(input: SEOTitleInput): string {
 }
 
 /**
- * Check if a value is valid (not empty, not "not found", not "n/a")
+ * Check if a value is valid (not empty, not "not found", not "n/a", not "not applicable")
  */
 function isValidValue(value: unknown): boolean {
   if (value === undefined || value === null) return false;
   const str = String(value).toLowerCase().trim();
-  return str !== '' && str !== 'not found' && str !== 'n/a' && str !== 'undefined';
+  // Exclude invalid placeholders
+  if (str === '' || str === 'not found' || str === 'n/a' || str === 'not applicable' || str === 'undefined') {
+    return false;
+  }
+  // Exclude values that look like variant lists (e.g., "Available in multiple finishes...")
+  if (str.startsWith('available in') || str.includes('multiple finishes') || str.includes('multiple colors')) {
+    return false;
+  }
+  // Exclude values that are too long (likely descriptions, not attributes)
+  if (str.length > 50) {
+    return false;
+  }
+  return true;
 }
 
 /**
