@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import logger from '../utils/logger';
 import { PicklistMismatch, IPicklistMismatch } from '../models/picklist-mismatch.model';
+import { normalizeCategory, getCategoryRemapping } from '../config/category-consolidation-mapping';
 
 /**
  * PRIMARY ATTRIBUTE NAMES AND KEYS
@@ -394,13 +395,24 @@ class PicklistMatcherService {
 
   /**
    * Match a category name to SF picklist
+   * Now includes automatic remapping of deprecated subcategories to parent categories
    */
   matchCategory(categoryName: string): MatchResult<Category> {
     if (!categoryName || !this.initialized) {
       return { matched: false, original: categoryName, matchedValue: null, similarity: 0 };
     }
 
-    const normalized = categoryName.toLowerCase().trim();
+    // First, check if this category was removed/consolidated and needs remapping
+    const normalization = normalizeCategory(categoryName);
+    let effectiveCategoryName = categoryName;
+    
+    if (normalization.wasRemapped) {
+      const remapInfo = getCategoryRemapping(categoryName);
+      logger.info(`Category remapped: "${categoryName}" → "${normalization.category}" (${remapInfo?.reason || 'consolidated category'})`);
+      effectiveCategoryName = normalization.category;
+    }
+
+    const normalized = effectiveCategoryName.toLowerCase().trim();
     
     // Try exact match first
     const exactMatch = this.categories.find(c => 
@@ -414,7 +426,7 @@ class PicklistMatcherService {
     // Find closest matches
     const scored = this.categories.map(c => ({
       category: c,
-      similarity: this.calculateSimilarity(categoryName, c.category_name)
+      similarity: this.calculateSimilarity(effectiveCategoryName, c.category_name)
     })).sort((a, b) => b.similarity - a.similarity);
 
     const best = scored[0];
@@ -431,8 +443,8 @@ class PicklistMatcherService {
     
     // Additional fallback: partial match
     const partialMatch = this.categories.find(c =>
-      c.category_name.toLowerCase().includes(categoryName.toLowerCase()) ||
-      categoryName.toLowerCase().includes(c.category_name.toLowerCase())
+      c.category_name.toLowerCase().includes(effectiveCategoryName.toLowerCase()) ||
+      effectiveCategoryName.toLowerCase().includes(c.category_name.toLowerCase())
     );
     if (partialMatch) {
       return {
@@ -444,7 +456,7 @@ class PicklistMatcherService {
       };
     }
 
-    this.logMismatch('category', categoryName, scored.slice(0, 3).map(s => s.category.category_name), best?.similarity);
+    this.logMismatch('category', effectiveCategoryName, scored.slice(0, 3).map(s => s.category.category_name), best?.similarity);
     
     return { 
       matched: false, 
