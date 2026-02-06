@@ -2780,7 +2780,7 @@ You must respond with valid JSON in this exact format:
     "weight": "numeric value in lbs",
     "msrp": "value",
     "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
-    "product_title": "ENHANCED standardized title (proper capitalization, cleaned encoding)",
+    "product_title": "⚠️ TITLE FORMAT: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + MODEL. NO FEATURES OR PARENTHETICAL TEXT. Example: 'Delta Trinsic Single Handle Pull-Down Kitchen Faucet Matte Black' NOT 'Delta Trinsic Kitchen Faucet (Touch2O Technology)'",
     "details": "additional details",
     "features_list": "GENERATED feature list as HTML <ul><li>Feature 1</li><li>Feature 2</li>...</ul>",
     "upc_gtin": "value",
@@ -5020,8 +5020,8 @@ function buildFinalResponse(
       ''
     ),
     
-    // Features for possible keyword injection
-    features: cleanedText.features,
+    // Features NOT passed to title generator (removed from titles in v2.1)
+    // features: cleanedText.features,
     
     // Raw title as fallback
     rawTitle: cleanedText.title

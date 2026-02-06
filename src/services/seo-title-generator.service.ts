@@ -3,20 +3,20 @@
  * =================================
  * Generates SEO-optimized product titles using category-specific schemas.
  * 
- * FORMULA: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + (FEATURES)
+ * FORMULA: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH
  * 
  * Key changes from v1:
  * - Brand is ALWAYS first (highest SEO value)
  * - Model number REMOVED from title
- * - Features in parentheses at END (max 2-3)
+ * - Features REMOVED from title (no parenthetical features)
  * - Category-specific slot ordering from schema
  * - Proper formatting (30-Inch, 28 Cu. Ft., 50,000 BTU)
  * 
  * Example outputs:
- * - "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel (Smart, Ice Maker)"
- * - "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel (6 Burners, Griddle)"
- * - "Kohler 60-Inch Freestanding Bathtub White (Soaking, Center Drain)"
- * - "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless (MotionSense)"
+ * - "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel"
+ * - "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel"
+ * - "Kohler 60-Inch Freestanding Bathtub White"
+ * - "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless"
  */
 
 import logger from '../utils/logger';
@@ -356,15 +356,7 @@ function generateFallbackTitle(input: SEOTitleInput): string {
     parts.push(String(appearance));
   }
   
-  // 5. Features (if any)
-  if (input.features && input.features.length > 0) {
-    const validFeatures = input.features
-      .filter(f => f && typeof f === 'string' && isValidValue(f))
-      .slice(0, 2);
-    if (validFeatures.length > 0) {
-      parts.push(`(${validFeatures.join(', ')})`);
-    }
-  }
+  // Features intentionally NOT included in title (v2.1 change)
   
   return parts.join(' ');
 }

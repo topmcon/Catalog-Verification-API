@@ -214,6 +214,14 @@ ALL text output must be CUSTOMER-READY. Fix these issues:
     - Product titles: Title Case for key words
     - Preserve technical terms: "BTU", "WiFi", "SmartHQ"
 
+13a. **Product Title Format** (CRITICAL):
+    - FORMULA: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + MODEL
+    - NO PARENTHETICAL TEXT (features, warranty info, technology names in parentheses)
+    - NO FEATURES IN TITLE - features go in features_list only
+    - GOOD: "Delta Trinsic Single Handle Pull-Down Kitchen Faucet Matte Black"
+    - BAD: "Delta Trinsic Kitchen Faucet (Touch2O Technology)"
+    - BAD: "KOHLER Kitchen Faucet Polished Chrome (Covered under Kohler's...)"
+
 14. **Grammar & Punctuation**:
     - Add spaces after periods, commas, colons
     - Remove duplicate punctuation
