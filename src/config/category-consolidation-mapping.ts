@@ -393,6 +393,63 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     parentCategory: 'Outdoor Lighting', // Lighting dept version kept
     reason: 'Duplicate - Lighting dept version kept',
     suggestedType: undefined
+  },
+
+  // ===== AI VARIATION CORRECTIONS =====
+  // These are common variations AI suggests that need normalization
+  'Bathroom Vanity Lighting': {
+    removedCategory: 'Bathroom Vanity Lighting',
+    parentCategory: 'Vanity Lighting',
+    reason: 'AI variation - correct name is Vanity Lighting',
+    suggestedType: undefined
+  },
+  'Shower Accessories (Plumbing & Bath)': {
+    removedCategory: 'Shower Accessories (Plumbing & Bath)',
+    parentCategory: 'Bathroom Hardware and Accessories',
+    reason: 'AI variation with department suffix',
+    suggestedType: 'Shower'
+  },
+  'Pendants (Lighting)': {
+    removedCategory: 'Pendants (Lighting)',
+    parentCategory: 'Pendants',
+    reason: 'AI variation with department suffix',
+    suggestedType: undefined
+  },
+  'Pendant Lights': {
+    removedCategory: 'Pendant Lights',
+    parentCategory: 'Pendants',
+    reason: 'AI variation - correct name is Pendants',
+    suggestedType: undefined
+  },
+  'Ventilation': {
+    removedCategory: 'Ventilation',
+    parentCategory: 'Exhaust Fans',
+    reason: 'Generic term - maps to Exhaust Fans',
+    suggestedType: undefined
+  },
+  'Kitchen Accessories (Plumbing & Bath)': {
+    removedCategory: 'Kitchen Accessories (Plumbing & Bath)',
+    parentCategory: 'Kitchen Accessories',
+    reason: 'AI variation with department suffix',
+    suggestedType: undefined
+  },
+  'Drains': {
+    removedCategory: 'Drains',
+    parentCategory: 'Drainage & Waste',
+    reason: 'Specific term - maps to broader category',
+    suggestedType: 'Drain'
+  },
+  'Laundry Appliance Accessories and Parts': {
+    removedCategory: 'Laundry Appliance Accessories and Parts',
+    parentCategory: 'Laundry Appliances',
+    reason: 'AI variation - accessories belong in main category',
+    suggestedType: 'Accessory'
+  },
+  'Home Decor & Fixtures': {
+    removedCategory: 'Home Decor & Fixtures',
+    parentCategory: 'Home Accents',
+    reason: 'AI variation - maps to Home Accents',
+    suggestedType: undefined
   }
 };
 
