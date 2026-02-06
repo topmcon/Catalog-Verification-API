@@ -52,6 +52,24 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Faucet type, not separate category',
     suggestedType: 'Shower Faucet'
   },
+  'Tub Faucets': {
+    removedCategory: 'Tub Faucets',
+    parentCategory: 'Bathroom Faucets',
+    reason: 'Faucet type, not separate category',
+    suggestedType: 'Tub Faucet'
+  },
+  'Bathtub Faucets': {
+    removedCategory: 'Bathtub Faucets',
+    parentCategory: 'Bathroom Faucets',
+    reason: 'Faucet type, not separate category',
+    suggestedType: 'Tub Faucet'
+  },
+  'Tub Spouts': {
+    removedCategory: 'Tub Spouts',
+    parentCategory: 'Bathroom Faucets',
+    reason: 'Faucet component, not separate category',
+    suggestedType: 'Tub Spout'
+  },
 
   // ===== BATH & PLUMBING - ACCESSORIES =====
   'Shower Accessories': {
