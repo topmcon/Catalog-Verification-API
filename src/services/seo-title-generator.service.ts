@@ -1,22 +1,22 @@
 /**
- * SEO TITLE GENERATOR SERVICE (v2)
- * =================================
+ * SEO TITLE GENERATOR SERVICE (v2.1)
+ * ===================================
  * Generates SEO-optimized product titles using category-specific schemas.
  * 
- * FORMULA: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH
+ * FORMULA: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH - MODEL
  * 
  * Key changes from v1:
  * - Brand is ALWAYS first (highest SEO value)
- * - Model number REMOVED from title
+ * - Model number included at END with dash prefix (e.g., "- K30-100-SL")
  * - Features REMOVED from title (no parenthetical features)
  * - Category-specific slot ordering from schema
  * - Proper formatting (30-Inch, 28 Cu. Ft., 50,000 BTU)
  * 
  * Example outputs:
- * - "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel"
- * - "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel"
- * - "Kohler 60-Inch Freestanding Bathtub White"
- * - "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless"
+ * - "Samsung 28 Cu. Ft. French Door Counter-Depth Refrigerator Stainless Steel - RF28T5001SR"
+ * - "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel - DF48450G"
+ * - "Kohler 60-Inch Freestanding Bathtub White - K-700"
+ * - "Moen Arbor Pull-Down Kitchen Faucet Spot Resist Stainless - 7594SRS"
  */
 
 import logger from '../utils/logger';
@@ -36,7 +36,7 @@ export { CategoryTitleSchema, TitleSlot };
  */
 export interface SEOTitleInput {
   brand?: string;
-  modelNumber?: string; // Note: NOT used in title (kept for logging only)
+  modelNumber?: string; // Used at END of title with dash prefix (e.g., "- K30-100-SL")
   category: string;
   subCategory?: string;
   

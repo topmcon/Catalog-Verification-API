@@ -6751,6 +6751,7 @@ export const CATEGORY_ID_TO_KEY: Record<string, string> = {
 /**
  * Get title schema for a category (by name or ID)
  * Returns schema if found, null otherwise
+ * Handles singular/plural normalization (e.g., "Kitchen Faucet" → "kitchen faucets")
  */
 export function getCategoryTitleSchema(categoryNameOrId: string): CategoryTitleSchema | null {
   let key = categoryNameOrId.toLowerCase().trim();
@@ -6763,7 +6764,34 @@ export function getCategoryTitleSchema(categoryNameOrId: string): CategoryTitleS
     }
   }
   
-  return CATEGORY_TITLE_SCHEMAS[key] || null;
+  // Exact match first
+  if (CATEGORY_TITLE_SCHEMAS[key]) {
+    return CATEGORY_TITLE_SCHEMAS[key];
+  }
+  
+  // Try plural variant (add 's') - e.g., "kitchen faucet" → "kitchen faucets"
+  const pluralKey = key + 's';
+  if (CATEGORY_TITLE_SCHEMAS[pluralKey]) {
+    return CATEGORY_TITLE_SCHEMAS[pluralKey];
+  }
+  
+  // Try singular variant (remove trailing 's') - e.g., "chandeliers" → "chandelier"
+  if (key.endsWith('s') && key.length > 1) {
+    const singularKey = key.slice(0, -1);
+    if (CATEGORY_TITLE_SCHEMAS[singularKey]) {
+      return CATEGORY_TITLE_SCHEMAS[singularKey];
+    }
+  }
+  
+  // Try removing 'es' suffix (e.g., "bathtubs" already handled, but "dishes" → "dish")
+  if (key.endsWith('es') && key.length > 2) {
+    const singularKey = key.slice(0, -2);
+    if (CATEGORY_TITLE_SCHEMAS[singularKey]) {
+      return CATEGORY_TITLE_SCHEMAS[singularKey];
+    }
+  }
+  
+  return null;
 }
 
 /**
