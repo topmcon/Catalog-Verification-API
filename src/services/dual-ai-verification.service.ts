@@ -41,7 +41,7 @@ import {
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/category-config';
-import { matchStyleToCategory, getValidStylesForCategory } from '../config/category-style-mapping';
+import { matchStyleToCategory, getValidStylesForCategory, getAllCategoriesWithStylesForPrompt } from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -215,6 +215,59 @@ function isValidShowerStyle(style: string): boolean {
     
     return false;
   });
+}
+
+/**
+ * UNIVERSAL validation: Check if style is valid for ANY category
+ * Returns the corrected style from category-type-style list if aesthetic style was used
+ */
+function validateStyleForCategory(
+  style: string,
+  category: string
+): { 
+  needsCorrection: boolean; 
+  correctedStyle: string | null; 
+  reason: string;
+  isAesthetic: boolean;
+} {
+  if (!style || !category) {
+    return { needsCorrection: false, correctedStyle: null, reason: 'Missing style or category', isAesthetic: false };
+  }
+  
+  // Get valid styles for this category from category-type-style-mapping
+  const validStyles = getValidStylesForCategory(category);
+  
+  // If no mapping exists for this category, allow any style
+  if (validStyles.length === 0) {
+    return { needsCorrection: false, correctedStyle: null, reason: `No style mapping for category "${category}"`, isAesthetic: false };
+  }
+  
+  // Check if current style matches any valid style (case-insensitive, contextual)
+  const normalizedStyle = style.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  const styleMatch = validStyles.find(vs => {
+    const normalizedValid = vs.toLowerCase().trim().replace(/[\s\-_]/g, '');
+    return normalizedValid === normalizedStyle || 
+           normalizedValid.includes(normalizedStyle) || 
+           normalizedStyle.includes(normalizedValid);
+  });
+  
+  if (styleMatch) {
+    // Style is valid (possibly with different casing) - use the canonical form
+    return { needsCorrection: false, correctedStyle: styleMatch, reason: 'Style matches valid option', isAesthetic: false };
+  }
+  
+  // Style is NOT in the valid list for this category
+  const isAesthetic = isAestheticStyle(style);
+  
+  // Use first valid style as fallback
+  const fallbackStyle = validStyles[0] || null;
+  
+  return {
+    needsCorrection: true,
+    correctedStyle: fallbackStyle,
+    reason: `Style "${style}" is NOT valid for category "${category}". Valid options: ${validStyles.slice(0, 5).join(', ')}${validStyles.length > 5 ? '...' : ''}`,
+    isAesthetic
+  };
 }
 
 /**
@@ -2608,6 +2661,7 @@ function getSystemPrompt(): string {
   const primaryAttrs = getPrimaryAttributesForPrompt();
   const categoryTop15 = getAllCategoriesWithTop15ForPrompt();
   const categoryList = getCategoryListForPrompt();
+  const categoryStyles = getAllCategoriesWithStylesForPrompt();
   
   return `You are an expert product data analyst specializing in appliances and home products.
 
@@ -2695,6 +2749,16 @@ ${primaryAttrs}
 ⚠️ CRITICAL: When populating top15_filter_attributes in your JSON response, you MUST use the field_key shown in parentheses (e.g., "horsepower", "feed_type"), NOT the full attribute name.
 ${categoryTop15}
 
+== VALID CATEGORY STYLES (MANDATORY - Select the BEST contextual match from this list) ==
+⚠️ CRITICAL: For product_style, analyze the product and select the BEST matching style from the list below.
+- Contextual matching: Determine which style best describes THIS product's type/function
+- The final value MUST be one from the list - this ensures proper website categorization
+- Example: A pull-down kitchen faucet → analyze it has pull-down spray → select "Pull-Down" from list
+- Example: A freestanding bathtub → analyze it's freestanding → select "Freestanding" from list
+- AVOID aesthetic styles (Contemporary, Modern, Traditional) - use functional product types
+- If genuinely no style from the list applies, use "Not Applicable"
+${categoryStyles}
+
 == ADDITIONAL ATTRIBUTES ==
 Any other specifications not covered above go here. These will be displayed as an HTML spec table.
 
@@ -2709,7 +2773,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_style": "value (CRITICAL PRIORITY ORDER: 1) Product TYPE (fixture/installation type) FIRST - Wall Lantern, Pendant, Sconce, Built-In, Rain Head, etc. 2) Design aesthetic ONLY as LAST RESORT - Modern, Contemporary, Traditional. For LIGHTING: NEVER use aesthetic styles if a fixture type exists (use 'Sconce' not 'Modern', 'Pendant' not 'Contemporary'). For APPLIANCES: use functional type (Gas, French Door, Front Load). AESTHETIC STYLES ARE FALLBACK ONLY. EXAMPLES: ❌ WRONG: Wall Sconce product → 'Contemporary' | ✅ CORRECT: Wall Sconce product → 'Wall Sconce' or 'Outdoor Wall Sconce'. ❌ WRONG: Pendant light → 'Modern' | ✅ CORRECT: Pendant light → 'Pendant' or 'Mini-Pendant'. ❌ WRONG: Vanity light → 'Contemporary' | ✅ CORRECT: Vanity light → 'Bath Bar' or 'Vanity Light'. ❌ WRONG: Chandelier → 'Modern' | ✅ CORRECT: Chandelier → 'Drum' or 'Crystal'.)",
+    "product_style": "⚠️ MANDATORY: Analyze the product and select the BEST contextual match from the 'VALID CATEGORY STYLES' list above. Determine which style from the list best describes this product's type/function, then use that exact value. The output MUST be a value from the list to ensure proper website categorization. Example: Kitchen faucet with pull-down spray → 'Pull-Down'. Widespread bathroom faucet → 'Widespread'. Freestanding tub → 'Freestanding'. AVOID aesthetic terms (Contemporary, Modern) - use functional product types.",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
@@ -4484,6 +4548,32 @@ function buildFinalResponse(
           from: consensus.agreedPrimaryAttributes.product_style,
           to: potentialStyle,
           category: matchedCategory
+        });
+      }
+    }
+    
+    // ============================================
+    // POST-PROCESSING VALIDATION: Universal Category-Style Validation
+    // Validates that the style is in the category-type-style-mapping list
+    // ============================================
+    const universalValidation = validateStyleForCategory(potentialStyle, matchedCategory);
+    
+    if (universalValidation.needsCorrection) {
+      logger.warn('[STYLE VALIDATION] Style not in category-type-style list - correcting', {
+        category: matchedCategory,
+        originalStyle: potentialStyle,
+        correctedStyle: universalValidation.correctedStyle,
+        isAesthetic: universalValidation.isAesthetic,
+        reason: universalValidation.reason
+      });
+      
+      if (universalValidation.correctedStyle) {
+        potentialStyle = universalValidation.correctedStyle;
+        logger.info('[STYLE CORRECTED] Using valid style from category-type-style list', {
+          from: consensus.agreedPrimaryAttributes.product_style,
+          to: potentialStyle,
+          category: matchedCategory,
+          wasAesthetic: universalValidation.isAesthetic
         });
       }
     }

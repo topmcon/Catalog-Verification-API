@@ -2538,6 +2538,22 @@ export function matchStyleToCategory(category: string, potentialStyle: string): 
 }
 
 /**
+ * Get all categories with their valid styles formatted for AI prompts
+ * This ensures AI ONLY selects from the category-type-style list
+ */
+export function getAllCategoriesWithStylesForPrompt(): string {
+  return Object.entries(CATEGORY_STYLE_MAP)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([categoryName, config]) => {
+      const styles = config.values
+        .map((v, idx) => `   ${idx + 1}. "${v.name}"`)
+        .join('\n');
+      return `\n${categoryName} (${config.label}):\n${styles}`;
+    })
+    .join('\n');
+}
+
+/**
  * Get all categories in a department
  */
 export function getCategoriesInDepartment(department: string): string[] {
@@ -2566,5 +2582,6 @@ export default {
   isValidStyleForCategory,
   matchStyleToCategory,
   getCategoriesInDepartment,
-  getAllDepartments
+  getAllDepartments,
+  getAllCategoriesWithStylesForPrompt
 };
