@@ -137,12 +137,12 @@ export const CATEGORY_NAME_ALIASES: Record<string, string[]> = {
   'Freezer': ['Freezers', 'Chest Freezer', 'Upright Freezer'],
   'Icemaker': ['Ice Maker', 'Ice Machine'],
   'All in One Washer / Dryer': ['Washer Dryer Combo', 'Combo Washer Dryer', 'Laundry Center'],
-  'Bathroom Sinks': ['Bath Sink', 'Lavatory', 'Lav Sink'],
-  'Kitchen Sinks': ['Kitchen Sink', 'Undermount Sink'],
-  'Toilets': ['Toilet', 'Commode', 'Water Closet'],
-  'Bathtubs': ['Bathtub', 'Tub', 'Soaking Tub'],
-  'Chandeliers': ['Chandelier', 'Crystal Chandelier'],
-  'Pendants': ['Pendant', 'Pendant Light', 'Hanging Light'],
+  'Bathroom Sink': ['Bath Sink', 'Lavatory', 'Lav Sink', 'Bathroom Sinks'],
+  'Kitchen Sink': ['Kitchen Sinks', 'Undermount Sink'],
+  'Toilet': ['Toilets', 'Commode', 'Water Closet'],
+  'Bathtub': ['Bathtubs', 'Tub', 'Soaking Tub'],
+  'Chandelier': ['Chandeliers', 'Crystal Chandelier'],
+  'Pendant': ['Pendants', 'Pendant Light', 'Hanging Light'],
 };
 
 /**
