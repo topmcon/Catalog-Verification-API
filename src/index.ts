@@ -59,7 +59,7 @@ async function main(): Promise<void> {
 
     // Start async verification processor
     logger.info('Starting async verification processor...');
-    asyncVerificationProcessor.start(5000, 20); // Process queue every 5 seconds, 20 concurrent jobs
+    asyncVerificationProcessor.start(5000, 50); // Process queue every 5 seconds, 50 concurrent jobs (8 vCPU, 16GB RAM)
 
     // Start self-healing error detector (scans every 5 minutes)
     if (process.env.SELF_HEALING_ENABLED === 'true') {
