@@ -1480,6 +1480,10 @@
     "brand_id": "a0MaZ00000726q5UAA"
   },
   {
+    "brand_name": "CHADDOCK",
+    "brand_id": "a0MaZ00000726q6UAA"
+  },
+  {
     "brand_name": "MEYDA CUSTOM LIGHTING",
     "brand_id": "a0MaZ00000726rhUAA"
   },
@@ -1562,5 +1566,9 @@
   {
     "brand_name": "PHILLIPS COLLECTION",
     "brand_id": "a0MaZ00000727NxUAI"
+  },
+  {
+    "brand_name": "Chaddock",
+    "brand_id": "a0MaZ00000727PZUAY"
   }
 ]
