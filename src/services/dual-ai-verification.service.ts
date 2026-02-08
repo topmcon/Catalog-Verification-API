@@ -5050,12 +5050,13 @@ function buildFinalResponse(
     Category_Id: categoryMatch.matched && categoryMatch.matchedValue 
       ? categoryMatch.matchedValue.category_id 
       : null,
-    SubCategory_Verified: cleanEncodingIssues(
-      consensus.agreedPrimaryAttributes.subcategory || 
-      consensus.agreedPrimaryAttributes.category_subcategory || 
-      rawProduct.Web_Retailer_SubCategory || 
-      ''
-    ),
+    SubCategory_Verified: categoryMatch.matched && categoryMatch.matchedValue 
+      ? categoryMatch.matchedValue.category_name  // Use EXACT Salesforce category name (same as Category)
+      : cleanEncodingIssues(
+          consensus.agreedPrimaryAttributes.subcategory || 
+          rawProduct.Web_Retailer_SubCategory || 
+          ''
+        ),
     Product_Family_Verified: categoryMatch.matched && categoryMatch.matchedValue?.family
       ? categoryMatch.matchedValue.family  // Use family directly from SF picklist data
       : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
@@ -5203,18 +5204,22 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'Overall Height') ||
       ''
     ),
-    Weight_Verified: preferAIValue(
-      consensus.agreedPrimaryAttributes.weight,
-      openaiResult.primaryAttributes.weight,
-      xaiResult.primaryAttributes.weight,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.Weight_Web_Retailer ||
-      findAttributeInRawData(rawProduct, 'Weight') ||
-      findAttributeInRawData(rawProduct, 'Product Weight') ||
-      findAttributeInRawData(rawProduct, 'Shipping Weight') ||
-      ''
-    ),
+    Weight_Verified: (() => {
+      const weight = preferAIValue(
+        consensus.agreedPrimaryAttributes.weight,
+        openaiResult.primaryAttributes.weight,
+        xaiResult.primaryAttributes.weight,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Weight_Web_Retailer ||
+        findAttributeInRawData(rawProduct, 'Weight') ||
+        findAttributeInRawData(rawProduct, 'Product Weight') ||
+        findAttributeInRawData(rawProduct, 'Shipping Weight') ||
+        ''
+      );
+      // Strip unit suffixes (lbs, lb, kg, oz, etc.) and return just the number
+      return weight ? String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim() : '';
+    })(),
     MSRP_Verified: preferAIValue(
       consensus.agreedPrimaryAttributes.msrp,
       openaiResult.primaryAttributes.msrp,
