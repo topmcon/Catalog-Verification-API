@@ -48,18 +48,23 @@ export const GLOBAL_PRIMARY_ATTRIBUTES = PRIMARY_ATTRIBUTES;
 
 /**
  * Premium/Luxury brands - highest tier
+ * NOTE: These are for CLASSIFICATION, not picklist validation
+ * Some brands may not be in brands.json but are recognized as premium
+ * SYNCED CHECK: src/config/salesforce-picklists/brands.json
+ * Last review: 2026-02-08
  */
 export const PREMIUM_BRANDS = [
   'Sub-Zero', 'Wolf', 'Thermador', 'Viking', 'Miele', 
   'Gaggenau', 'La Cornue', 'Dacor', 'Monogram', 'BlueStar',
-  'Hestan', 'JennAir', 'Café', 'Fisher & Paykel', 'Liebherr',
+  'Hestan', 'JennAir', 'CAFE', 'Fisher & Paykel', 'Liebherr',
   'Bertazzoni', 'ZLINE', 'Lynx', 'Kalamazoo', 'Alfresco',
   'Cove', 'True Residential', 'Big Chill', 'AGA', 'Lacanche',
-  'Ilve', 'Capital', 'American Range', 'DCS', 'Perlick'
+  'Ilve', 'Capital', 'American Range', 'DCS Appliances', 'Perlick'
 ] as const;
 
 /**
  * Mid-tier brands - quality mainstream
+ * NOTE: For classification only, not strict validation
  */
 export const MID_TIER_BRANDS = [
   'KitchenAid', 'Bosch', 'Samsung', 'LG', 'GE Profile',
@@ -70,6 +75,7 @@ export const MID_TIER_BRANDS = [
 
 /**
  * Value brands - budget-friendly
+ * NOTE: For classification only, not strict validation
  */
 export const VALUE_BRANDS = [
   'Frigidaire', 'Amana', 'Hotpoint', 'Roper', 'Crosley',
@@ -122,7 +128,9 @@ export const PREMIUM_FEATURE_KEYWORDS = [
 
 /**
  * Known aliases for category names
- * Used for fuzzy matching in lookups
+ * Maps plural/variant forms TO canonical singular forms from categories.json
+ * SYNCED WITH: src/config/salesforce-picklists/categories.json
+ * Last sync: 2026-02-08
  */
 export const CATEGORY_NAME_ALIASES: Record<string, string[]> = {
   'Refrigerator': ['Fridge', 'Refrigerators', 'Frig'],
@@ -135,7 +143,7 @@ export const CATEGORY_NAME_ALIASES: Record<string, string[]> = {
   'Washer': ['Washing Machine', 'Washers'],
   'Dryer': ['Dryers', 'Clothes Dryer'],
   'Freezer': ['Freezers', 'Chest Freezer', 'Upright Freezer'],
-  'Icemaker': ['Ice Maker', 'Ice Machine'],
+  'Ice Maker': ['Icemaker', 'Ice Machine'],
   'All in One Washer / Dryer': ['Washer Dryer Combo', 'Combo Washer Dryer', 'Laundry Center'],
   'Bathroom Sink': ['Bath Sink', 'Lavatory', 'Lav Sink', 'Bathroom Sinks'],
   'Kitchen Sink': ['Kitchen Sinks', 'Undermount Sink'],
@@ -143,6 +151,11 @@ export const CATEGORY_NAME_ALIASES: Record<string, string[]> = {
   'Bathtub': ['Bathtubs', 'Tub', 'Soaking Tub'],
   'Chandelier': ['Chandeliers', 'Crystal Chandelier'],
   'Pendant': ['Pendants', 'Pendant Light', 'Hanging Light'],
+  'Wall Sconce': ['Wall Sconces', 'Sconce'],
+  'Ceiling Fan': ['Ceiling Fans', 'Fan'],
+  'Shower': ['Showers'],
+  'Shower Faucet': ['Shower Faucets'],
+  'Shower Accessory': ['Shower Accessories'],
 };
 
 /**

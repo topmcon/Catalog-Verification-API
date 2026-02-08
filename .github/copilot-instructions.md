@@ -104,9 +104,14 @@ When the user says **"API Accuracy Report"** or **"Run API Accuracy Report"**, e
    - Examples of each issue type
    - Recommendations for fixes
    - Picklist stats and duplicate warnings
+   - **Hardcoded Lists Sync Status** (IN SYNC or OUT OF SYNC)
 3. Highlight any **HIGH severity** issues (🔴) that need immediate attention
 4. If pass rate is below 90%, suggest investigating the top issues
-5. Note that the report audits the **last 300 unique API calls** from Salesforce
+5. If hardcoded lists are OUT OF SYNC, suggest running:
+   ```bash
+   node scripts/regenerate-hardcoded-lists.js
+   ```
+6. Note that the report audits the **last 300 unique API calls** from Salesforce
 
 **What the report checks:**
 - Brand_Verified → Must exist in brands.json
@@ -117,6 +122,10 @@ When the user says **"API Accuracy Report"** or **"Run API Accuracy Report"**, e
 - Numeric fields → Must be valid numbers
 - Product_Title_Verified → Should be 60-80 characters
 - ID fields → Must match picklist IDs
+- **Hardcoded Lists** → TypeScript constants must match source JSON picklists:
+  - `category-matcher.service.ts`: DEPARTMENT_CATEGORIES
+  - `dual-ai-verification.service.ts`: LIGHTING_CATEGORIES, SHOWER_PLUMBING_CATEGORIES, VALID_SHOWER_STYLES
+  - `constants.ts`: CATEGORY_NAME_ALIASES
 
 ---
 

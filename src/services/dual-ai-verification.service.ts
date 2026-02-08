@@ -71,31 +71,44 @@ const AESTHETIC_STYLES = [
 
 /**
  * Lighting categories where aesthetic styles should be avoided
+ * AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
+ * Last sync: 2026-02-08
  */
 const LIGHTING_CATEGORIES = [
-  'Chandeliers',
-  'Pendants',
-  'Wall Sconces',
-  'Vanity Lighting',
   'Bathroom Lighting',
-  'Outdoor Lighting',
-  'Flush Mount Lighting',
-  'Semi-Flush Mount Lighting',
-  'Track Lighting',
-  'Ceiling Fans with Lights',
+  'Bathroom Vanity',
+  'Kitchen Lighting',
+  'Ceiling Light',
+  'Chandelier',
+  'Commercial Lighting',
+  'Flush and Semi-Flush',
+  'Island Lighting',
+  'Lamp',
   'Landscape Lighting',
-  'Under Cabinet Lighting'
+  'LED Lighting',
+  'Lighted Ceiling Fan',
+  'Outdoor Lighting',
+  'Pendant',
+  'Post Light',
+  'Recessed Lighting',
+  'Step Lighting',
+  'Track and Rail Lighting',
+  'Under Cabinet Light',
+  'Vanity Lighting'
 ];
 
 /**
  * Shower/Plumbing categories where product types should be prioritized
+ * AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
+ * Last sync: 2026-02-08
  */
 const SHOWER_PLUMBING_CATEGORIES = [
-  'Showers',
-  'Shower Accessories',
-  'Showerheads',
-  'Shower Faucets',
-  'Shower Systems'
+  'Shower Accessory',
+  'Shower Faucet',
+  'Shower',
+  'Steam Shower',
+  'Outdoor Shower Faucet',
+  'Tub and Shower Accessory'
 ];
 
 /**

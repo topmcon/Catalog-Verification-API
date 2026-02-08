@@ -713,6 +713,15 @@ export class PicklistController {
             logger.info('Auto-committed picklist changes to GitHub', { stdout });
           }
         });
+        
+        // Regenerate hardcoded TypeScript lists from updated JSON picklists
+        exec('node /opt/catalog-verification-api/scripts/regenerate-hardcoded-lists.js', (error: any, stdout: any, stderr: any) => {
+          if (error) {
+            logger.error('Failed to regenerate hardcoded lists', { error: error.message, stderr });
+          } else {
+            logger.info('Regenerated hardcoded TypeScript lists from picklists', { stdout });
+          }
+        });
       }
       
       if (result.success) {

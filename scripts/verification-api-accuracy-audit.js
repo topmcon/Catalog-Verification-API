@@ -7,6 +7,7 @@
  * PURPOSE:
  * Comprehensive audit of the last 300 unique verification API calls from Salesforce
  * to ensure all results sent back follow procedures and use correct picklist values.
+ * Also validates that hardcoded TypeScript lists are in sync with source picklists.
  * 
  * WHAT IT CHECKS:
  * 1. Brand_Verified - Must exist in brands.json picklist
@@ -19,6 +20,10 @@
  * 8. Category_Id - Must match the category_id for the matched category
  * 9. Brand_Id - Must match the brand_id for the matched brand
  * 10. Style_Id - Must match the style_id for the matched style
+ * 11. Hardcoded Lists Sync - checks these TypeScript constants match JSON picklists:
+ *     - category-matcher.service.ts: DEPARTMENT_CATEGORIES
+ *     - dual-ai-verification.service.ts: LIGHTING_CATEGORIES, SHOWER_PLUMBING_CATEGORIES, VALID_SHOWER_STYLES
+ *     - constants.ts: CATEGORY_NAME_ALIASES
  * 
  * USAGE:
  *   # Run on production server via SSH:
@@ -32,10 +37,12 @@
  * - Console summary with pass/fail rates
  * - Detailed breakdown by issue type
  * - Specific examples of each issue
+ * - Hardcoded lists sync status
  * - Recommendations for fixes
  * - JSON report saved to audit-results/
  * 
  * CREATED: 2026-02-08
+ * UPDATED: 2026-02-08 - Added hardcoded lists sync check
  * BASED ON: Audit of 997 jobs from 2/5/2026-2/8/2026
  * ═══════════════════════════════════════════════════════════════════════════════
  */
@@ -615,6 +622,140 @@ async function runAudit() {
       console.log('');
     }
 
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // HARDCODED LISTS SYNC CHECK
+    // ═══════════════════════════════════════════════════════════════════════════════
+    console.log('═══════════════════════════════════════════════════════════════════════════════');
+    console.log('                       HARDCODED LISTS SYNC STATUS                            ');
+    console.log('═══════════════════════════════════════════════════════════════════════════════');
+    console.log('');
+    
+    let hardcodedSyncStatus = { inSync: true, discrepancies: [] };
+    
+    try {
+      // Check category-matcher.service.ts
+      const categoryMatcherPath = path.join(__dirname, '../src/services/category-matcher.service.ts');
+      const categoryMatcherContent = fs.readFileSync(categoryMatcherPath, 'utf-8');
+      
+      // Extract hardcoded category values and check against source
+      const deptMatch = categoryMatcherContent.match(/const DEPARTMENT_CATEGORIES[\s\S]*?=\s*\{([\s\S]*?)\};/);
+      if (deptMatch) {
+        const hardcodedCats = deptMatch[1].match(/'([^']+)'/g) || [];
+        const skipValues = new Set(['appliances', 'plumbing & bath', 'lighting', 'home decor & fixtures', 'hvac', 'major appliances', 'specialty appliances', 'kitchen', 'bathroom', 'from categories.json', 'from categories.json (singular forms)']);
+        
+        for (const cat of hardcodedCats) {
+          const cleanCat = cat.replace(/'/g, '').toLowerCase();
+          if (skipValues.has(cleanCat)) continue;
+          if (!categoryNames.has(cleanCat) && !categoryNames.has(cleanCat.replace(/s$/, ''))) {
+            hardcodedSyncStatus.inSync = false;
+            hardcodedSyncStatus.discrepancies.push({
+              file: 'category-matcher.service.ts',
+              value: cat.replace(/'/g, ''),
+              type: 'category'
+            });
+          }
+        }
+      }
+      
+      // Check dual-ai-verification.service.ts
+      const dualAiPath = path.join(__dirname, '../src/services/dual-ai-verification.service.ts');
+      const dualAiContent = fs.readFileSync(dualAiPath, 'utf-8');
+      
+      // Check LIGHTING_CATEGORIES
+      const lightingMatch = dualAiContent.match(/const LIGHTING_CATEGORIES = \[([\s\S]*?)\];/);
+      if (lightingMatch) {
+        const hardcodedLighting = lightingMatch[1].match(/'([^']+)'/g) || [];
+        for (const cat of hardcodedLighting) {
+          const cleanCat = cat.replace(/'/g, '').toLowerCase();
+          if (!categoryNames.has(cleanCat) && !categoryNames.has(cleanCat.replace(/s$/, ''))) {
+            hardcodedSyncStatus.inSync = false;
+            hardcodedSyncStatus.discrepancies.push({
+              file: 'dual-ai-verification.service.ts',
+              list: 'LIGHTING_CATEGORIES',
+              value: cat.replace(/'/g, ''),
+              type: 'category'
+            });
+          }
+        }
+      }
+      
+      // Check SHOWER_PLUMBING_CATEGORIES
+      const showerMatch = dualAiContent.match(/const SHOWER_PLUMBING_CATEGORIES = \[([\s\S]*?)\];/);
+      if (showerMatch) {
+        const hardcodedShower = showerMatch[1].match(/'([^']+)'/g) || [];
+        for (const cat of hardcodedShower) {
+          const cleanCat = cat.replace(/'/g, '').toLowerCase();
+          if (!categoryNames.has(cleanCat) && !categoryNames.has(cleanCat.replace(/s$/, ''))) {
+            hardcodedSyncStatus.inSync = false;
+            hardcodedSyncStatus.discrepancies.push({
+              file: 'dual-ai-verification.service.ts',
+              list: 'SHOWER_PLUMBING_CATEGORIES',
+              value: cat.replace(/'/g, ''),
+              type: 'category'
+            });
+          }
+        }
+      }
+      
+      // Check VALID_SHOWER_STYLES
+      const showerStylesMatch = dualAiContent.match(/const VALID_SHOWER_STYLES = \[([\s\S]*?)\];/);
+      if (showerStylesMatch) {
+        const hardcodedStyles = showerStylesMatch[1].match(/'([^']+)'/g) || [];
+        for (const style of hardcodedStyles) {
+          const cleanStyle = style.replace(/'/g, '').toLowerCase();
+          if (!styleNames.has(cleanStyle)) {
+            hardcodedSyncStatus.inSync = false;
+            hardcodedSyncStatus.discrepancies.push({
+              file: 'dual-ai-verification.service.ts',
+              list: 'VALID_SHOWER_STYLES',
+              value: style.replace(/'/g, ''),
+              type: 'style'
+            });
+          }
+        }
+      }
+      
+      // Check constants.ts CATEGORY_NAME_ALIASES (keys should be in categories.json)
+      const constantsPath = path.join(__dirname, '../src/config/constants.ts');
+      const constantsContent = fs.readFileSync(constantsPath, 'utf-8');
+      
+      const aliasMatch = constantsContent.match(/export const CATEGORY_NAME_ALIASES[\s\S]*?=\s*\{([\s\S]*?)\};/);
+      if (aliasMatch) {
+        // Extract keys (the canonical category names)
+        const keyMatches = aliasMatch[1].matchAll(/'([^']+)':\s*\[/g);
+        for (const match of keyMatches) {
+          const categoryKey = match[1].toLowerCase();
+          if (!categoryNames.has(categoryKey) && !categoryNames.has(categoryKey.replace(/s$/, ''))) {
+            hardcodedSyncStatus.inSync = false;
+            hardcodedSyncStatus.discrepancies.push({
+              file: 'constants.ts',
+              list: 'CATEGORY_NAME_ALIASES',
+              value: match[1],
+              type: 'category'
+            });
+          }
+        }
+      }
+      
+      if (hardcodedSyncStatus.inSync) {
+        console.log('   ✅ All hardcoded lists are IN SYNC with source picklists');
+      } else {
+        console.log('   🔴 HARDCODED LISTS OUT OF SYNC');
+        console.log('');
+        console.log('   Discrepancies found:');
+        for (const d of hardcodedSyncStatus.discrepancies) {
+          console.log(`      ❌ ${d.file}${d.list ? ` (${d.list})` : ''}: "${d.value}" not in ${d.type}s.json`);
+        }
+        console.log('');
+        console.log('   FIX: Run node scripts/regenerate-hardcoded-lists.js');
+      }
+      console.log('');
+      
+    } catch (syncError) {
+      console.log('   ⚠️  Could not check hardcoded lists sync:', syncError.message);
+      console.log('');
+    }
+
     // Save report to file
     const reportPath = path.join(__dirname, '../audit-results', `ACCURACY-AUDIT-${new Date().toISOString().split('T')[0]}.json`);
     const report = {
@@ -645,6 +786,10 @@ async function runAudit() {
         styles: styles.length,
         duplicateCategories: duplicates.map(([name, count]) => ({ name, count }))
       },
+      hardcodedListsSync: {
+        inSync: hardcodedSyncStatus.inSync,
+        discrepancies: hardcodedSyncStatus.discrepancies
+      },
       jobDetails: audit.jobDetails.filter(j => !j.passed).slice(0, 50) // Only failed jobs, limit 50
     };
 
@@ -657,6 +802,7 @@ async function runAudit() {
     console.log('═══════════════════════════════════════════════════════════════════════════════');
     console.log('');
     console.log(`   Pass Rate: ${passRate}%  |  Fail Rate: ${failRate}%`);
+    console.log(`   Hardcoded Lists: ${hardcodedSyncStatus.inSync ? '✅ IN SYNC' : '🔴 OUT OF SYNC (' + hardcodedSyncStatus.discrepancies.length + ' issues)'}`);
     console.log('');
 
     return audit;

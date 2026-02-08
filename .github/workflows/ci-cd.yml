@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate picklist sync
+        run: node scripts/validate-picklist-sync.js
+
       - name: Build
         run: npm run build
 

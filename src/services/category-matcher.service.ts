@@ -6,39 +6,76 @@
 import { CATEGORY_ALIASES } from '../config/category-schema';
 
 // Department to categories mapping (comprehensive)
+// AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
+// Last sync: 2026-02-08
 const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   'Appliances': [
-    // Major Appliances
-    'Refrigerator', 'Dishwasher', 'Range', 'Oven', 'Cooktop', 
-    'Microwave', 'Range Hood', 'Washer', 'Dryer', 'Freezer',
+    'Refrigerator',
+    'Dishwasher',
+    'Range',
+    'Oven',
+    'Cooktop',
+    'Microwave',
+    'Range Hood',
+    'Washer',
+    'Dryer',
+    'Freezer',
     'All in One Washer / Dryer',
-    // Specialty Appliances
-    'Wine Cooler', 'Icemaker', 'Ice Maker', 'Beverage Center',
-    'Pizza Oven', 'Coffee Maker', 'Warming Drawer', 'Barbeques', 'BBQ', 'Grill',
-    'Drawer', 'Standalone Pedestal', 'Range Hood Insert/Liner'
+    'Icemaker',
+    'Barbeque',
+    'Coffee Maker',
+    'Refrigeration',
+    'Garbage Disposal'
   ],
   'Plumbing & Bath': [
-    // Kitchen
-    'Kitchen Sinks #', 'Kitchen Faucets #', 'Bar & Prep Sinks #', 'Bar Faucets #',
-    // Bathroom
-    'Bathroom Faucets #', 'Bathroom Sinks #', 'Bathroom Vanities #',
-    'Bathtubs #', 'Showers #', 'Toilets #', 'Tub Faucets #',
-    'Bathroom Hardware and Accessories #'
+    'Bathroom Cabinet Hardware',
+    'Bathroom Faucet',
+    'Bathroom Hardware and Accessories',
+    'Bathroom Mirror',
+    'Bathroom Sink',
+    'Bathroom Vanity',
+    'Bathtub Waste & Overflow',
+    'Bathtub',
+    'Bidet Faucet',
+    'Bidet Seat',
+    'Bidet',
+    'Shower Accessory',
+    'Shower Faucet',
+    'Shower',
+    'Steam Shower'
   ],
   'Lighting': [
-    'Chandeliers #', 'Pendants #', 'Ceiling Lights #', 'Ceiling Fans #',
-    'Ceiling Fans with Light #', 'Wall Sconces #', 'Outdoor Lighting #',
-    'Recessed Lighting #'
+    'Bathroom Lighting',
+    'Bathroom Vanity',
+    'Kitchen Lighting',
+    'Ceiling Light',
+    'Chandelier',
+    'Commercial Lighting',
+    'Flush and Semi-Flush',
+    'Island Lighting',
+    'Lamp',
+    'Landscape Lighting',
+    'LED Lighting',
+    'Lighted Ceiling Fan',
+    'Outdoor Lighting',
+    'Pendant',
+    'Post Light',
+    'Recessed Lighting',
+    'Step Lighting',
+    'Track and Rail Lighting',
+    'Under Cabinet Light',
+    'Vanity Lighting'
   ],
   'Home Decor & Fixtures': [
-    'Storage Drawers/Doors #', 'Cabinet Organization and Storage #'
+    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
   ],
   'HVAC': [
-    'Air Conditioners #'
+    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
   ]
 };
 
-// Keyword mappings for better matching (reserved for future enhanced matching)
+// Keyword mappings for better matching
+// SYNCED FROM: src/config/salesforce-picklists/categories.json  
 // @ts-ignore - reserved for future use
 export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   'Refrigerator': ['refrigerator', 'fridge', 'french door', 'side by side', 'bottom freezer', 'top freezer'],
@@ -51,17 +88,17 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   'Washer': ['washer', 'washing machine', 'front load washer', 'top load washer'],
   'Dryer': ['dryer', 'clothes dryer', 'gas dryer', 'electric dryer'],
   'Freezer': ['freezer', 'upright freezer', 'chest freezer'],
-  'Wine Cooler': ['wine cooler', 'wine refrigerator', 'wine cellar', 'wine storage'],
-  'Icemaker': ['ice maker', 'icemaker', 'ice machine'],
-  'Beverage Center': ['beverage center', 'beverage cooler', 'drink fridge'],
-  'Kitchen Sinks #': ['kitchen sink', 'farmhouse sink', 'apron sink', 'undermount sink'],
-  'Kitchen Faucets #': ['kitchen faucet', 'pull down faucet', 'pull out faucet'],
-  'Bathroom Faucets #': ['bathroom faucet', 'lavatory faucet', 'vessel faucet'],
-  'Toilets #': ['toilet', 'commode', 'water closet'],
-  'Bathtubs #': ['bathtub', 'tub', 'soaking tub', 'freestanding tub', 'alcove tub'],
-  'Chandeliers #': ['chandelier', 'crystal chandelier'],
-  'Pendants #': ['pendant', 'pendant light', 'hanging light'],
-  'Ceiling Fans #': ['ceiling fan', 'fan'],
+  'Wine Refrigerator': ['wine cooler', 'wine refrigerator', 'wine cellar', 'wine storage'],
+  'Ice Maker': ['ice maker', 'icemaker', 'ice machine'],
+  'Beverage Refrigerator': ['beverage center', 'beverage cooler', 'drink fridge', 'beverage refrigerator'],
+  'Kitchen Sink': ['kitchen sink', 'farmhouse sink', 'apron sink', 'undermount sink'],
+  'Kitchen Faucet': ['kitchen faucet', 'pull down faucet', 'pull out faucet'],
+  'Bathroom Faucet': ['bathroom faucet', 'lavatory faucet', 'vessel faucet'],
+  'Toilet': ['toilet', 'commode', 'water closet'],
+  'Bathtub': ['bathtub', 'tub', 'soaking tub', 'freestanding tub', 'alcove tub'],
+  'Chandelier': ['chandelier', 'crystal chandelier'],
+  'Pendant': ['pendant', 'pendant light', 'hanging light'],
+  'Ceiling Fan': ['ceiling fan', 'fan'],
 };
 
 export interface CategoryMatch {
