@@ -92,6 +92,32 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
+When the user says **"API Accuracy Report"** or **"Run API Accuracy Report"**, execute these steps:
+1. Run the Verification API Accuracy Audit script on production:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
+     "cd /opt/catalog-verification-api && node scripts/verification-api-accuracy-audit.js"
+   ```
+2. Display the full output including:
+   - Audit Summary (pass/fail rates)
+   - Issues by Category (with severity indicators)
+   - Examples of each issue type
+   - Recommendations for fixes
+   - Picklist stats and duplicate warnings
+3. Highlight any **HIGH severity** issues (🔴) that need immediate attention
+4. If pass rate is below 90%, suggest investigating the top issues
+5. Note that the report audits the **last 300 unique API calls** from Salesforce
+
+**What the report checks:**
+- Brand_Verified → Must exist in brands.json
+- Category_Verified → Must exist in categories.json (singular form)
+- SubCategory_Verified → Must match Category_Verified
+- Product_Style_Verified → Must exist in styles.json
+- Weight_Verified → Must be numeric only (no "lbs" suffix)
+- Numeric fields → Must be valid numbers
+- Product_Title_Verified → Should be 60-80 characters
+- ID fields → Must match picklist IDs
+
 ---
 
 ## Required Ports & Processes
