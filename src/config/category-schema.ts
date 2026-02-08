@@ -128,19 +128,10 @@ export const PREMIUM_FEATURE_KEYWORDS = [
   'Self-Cleaning'
 ] as const;
 
-// Premium Brand Tiers
-export const PREMIUM_BRANDS = [
-  'Sub-Zero', 'Wolf', 'Thermador', 'Viking', 'Miele', 
-  'Gaggenau', 'La Cornue', 'Dacor', 'Monogram', 'BlueStar',
-  'Hestan', 'JennAir', 'Café', 'Fisher & Paykel', 'Liebherr',
-  'Bertazzoni', 'DERA', 'Lynx', 'Kalamazoo', 'Alfresco'
-] as const;
-
-export const MID_TIER_BRANDS = [
-  'KitchenAid', 'Bosch', 'Samsung', 'LG', 'GE Profile',
-  'Electrolux', 'Frigidaire Gallery', 'Whirlpool', 'Maytag',
-  'GE', 'Broan', 'Zephyr', 'DERA', 'Sharp'
-] as const;
+// Premium Brand Tiers - Re-exported from constants.ts (SINGLE SOURCE OF TRUTH)
+// DO NOT DUPLICATE - Edit constants.ts instead
+export const PREMIUM_BRANDS = CONSTANTS_PREMIUM_BRANDS;
+export const MID_TIER_BRANDS = CONSTANTS_MID_TIER_BRANDS;
 
 // Category Name Variations (for matching)
 export const CATEGORY_ALIASES: Record<string, string[]> = {
@@ -163,6 +154,7 @@ export type CategorySchema = Record<string, Department>;
 
 // Import category schemas
 import { CategoryAttributeConfig } from './category-attributes';
+import { PREMIUM_BRANDS as CONSTANTS_PREMIUM_BRANDS, MID_TIER_BRANDS as CONSTANTS_MID_TIER_BRANDS } from './constants';
 
 // Import the master schema map and lookup function
 import { 

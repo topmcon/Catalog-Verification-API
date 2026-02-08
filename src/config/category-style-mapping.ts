@@ -2580,6 +2580,168 @@ export function getAllDepartments(): string[] {
   return Array.from(depts).sort();
 }
 
+/**
+ * Get all categories matching a keyword pattern
+ * Used to dynamically find categories by name pattern (e.g., all "shower" categories)
+ * @param keyword - Case-insensitive keyword to match in category names
+ * @returns Array of category names that contain the keyword
+ */
+export function getCategoriesMatchingPattern(keyword: string): string[] {
+  const lowerKeyword = keyword.toLowerCase();
+  return Object.keys(CATEGORY_STYLE_MAP).filter(cat =>
+    cat.toLowerCase().includes(lowerKeyword)
+  );
+}
+
+/**
+ * Check if a category name matches a keyword pattern
+ * @param keyword - Case-insensitive keyword to match
+ * @param categoryName - Category to check
+ * @returns True if category contains the keyword
+ */
+export function isCategoryMatchingPattern(keyword: string, categoryName: string): boolean {
+  return categoryName.toLowerCase().includes(keyword.toLowerCase());
+}
+
+/**
+ * Pre-computed lighting categories (cached for performance)
+ * Gets all categories in the "Lighting & Electrical" department from master mapping
+ */
+let _cachedLightingCategories: string[] | null = null;
+export function getLightingCategories(): string[] {
+  if (!_cachedLightingCategories) {
+    _cachedLightingCategories = getCategoriesInDepartment('Lighting & Electrical');
+  }
+  return _cachedLightingCategories;
+}
+
+/**
+ * Check if a category is a lighting category (from master mapping)
+ * Uses department-based lookup from CATEGORY_STYLE_MAP
+ */
+export function isLightingCategoryFromMaster(categoryName: string): boolean {
+  const lightingCategories = getLightingCategories();
+  const normalizedCategory = categoryName.toLowerCase().trim();
+  return lightingCategories.some(cat => 
+    cat.toLowerCase() === normalizedCategory
+  );
+}
+
+/**
+ * Pre-computed shower/plumbing categories (cached for performance)
+ * Gets all categories containing "shower" in the name from master mapping
+ */
+let _cachedShowerCategories: string[] | null = null;
+export function getShowerCategories(): string[] {
+  if (!_cachedShowerCategories) {
+    _cachedShowerCategories = getCategoriesMatchingPattern('shower');
+  }
+  return _cachedShowerCategories;
+}
+
+/**
+ * Check if a category is a shower-related category (from master mapping)
+ * Uses pattern-based lookup for categories containing "shower"
+ */
+export function isShowerCategoryFromMaster(categoryName: string): boolean {
+  const showerCategories = getShowerCategories();
+  const normalizedCategory = categoryName.toLowerCase().trim();
+  return showerCategories.some(cat => 
+    cat.toLowerCase() === normalizedCategory
+  );
+}
+
+/**
+ * Get all valid styles for categories matching a keyword pattern
+ * Used to dynamically get styles for related categories (e.g., all "shower" categories)
+ * @param keyword - Case-insensitive keyword to match in category names
+ * @returns Array of unique style names from all matching categories
+ */
+export function getStylesForCategoryPattern(keyword: string): string[] {
+  const matchingCategories = Object.keys(CATEGORY_STYLE_MAP).filter(cat =>
+    cat.toLowerCase().includes(keyword.toLowerCase())
+  );
+  
+  const allStyles = new Set<string>();
+  matchingCategories.forEach(cat => {
+    getValidStylesForCategory(cat).forEach(style => allStyles.add(style));
+  });
+  
+  return Array.from(allStyles);
+}
+
+/**
+ * Get all valid styles with IDs for categories matching a keyword pattern
+ * @param keyword - Case-insensitive keyword to match in category names
+ * @returns Array of unique StyleValue objects from all matching categories
+ */
+export function getStylesWithIdsForCategoryPattern(keyword: string): StyleValue[] {
+  const matchingCategories = Object.keys(CATEGORY_STYLE_MAP).filter(cat =>
+    cat.toLowerCase().includes(keyword.toLowerCase())
+  );
+  
+  const styleMap = new Map<string, StyleValue>();
+  matchingCategories.forEach(cat => {
+    getValidStylesWithIdsForCategory(cat).forEach(style => {
+      if (!styleMap.has(style.name)) {
+        styleMap.set(style.name, style);
+      }
+    });
+  });
+  
+  return Array.from(styleMap.values());
+}
+
+/**
+ * Check if a style is valid for any category matching a keyword pattern
+ * @param keyword - Category pattern to match (e.g., "shower")
+ * @param styleName - Style name to validate
+ * @returns true if the style is valid for any matching category
+ */
+export function isValidStyleForCategoryPattern(keyword: string, styleName: string): boolean {
+  const validStyles = getStylesForCategoryPattern(keyword);
+  if (validStyles.length === 0) return false;
+  
+  const normalizeStr = (str: string): string => 
+    str.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  
+  const normalizedInput = normalizeStr(styleName);
+  
+  return validStyles.some(vs => {
+    if (vs.toLowerCase() === styleName.toLowerCase()) return true;
+    if (normalizeStr(vs) === normalizedInput) return true;
+    // Containment check for partial matches
+    const normalizedValid = normalizeStr(vs);
+    if (normalizedInput.includes(normalizedValid) || normalizedValid.includes(normalizedInput)) {
+      const shorter = Math.min(normalizedInput.length, normalizedValid.length);
+      const longer = Math.max(normalizedInput.length, normalizedValid.length);
+      return shorter / longer >= 0.6; // At least 60% overlap
+    }
+    return false;
+  });
+}
+
+/**
+ * Pre-computed shower styles from master mapping (cached for performance)
+ * Includes styles from: Shower, Shower Faucet, Shower Accessory, Steam Shower, 
+ * Outdoor Shower Faucet, Tub and Shower Accessory
+ */
+let _cachedShowerStyles: string[] | null = null;
+export function getValidShowerStyles(): string[] {
+  if (!_cachedShowerStyles) {
+    _cachedShowerStyles = getStylesForCategoryPattern('shower');
+  }
+  return _cachedShowerStyles;
+}
+
+/**
+ * Check if a style is valid for any shower-related category
+ * This replaces the hardcoded VALID_SHOWER_STYLES array
+ */
+export function isValidShowerStyleFromMaster(styleName: string): boolean {
+  return isValidStyleForCategoryPattern('shower', styleName);
+}
+
 export default {
   CATEGORY_STYLE_MAP,
   UNIVERSAL_DESIGN_STYLES,
@@ -2590,5 +2752,16 @@ export default {
   matchStyleToCategory,
   getCategoriesInDepartment,
   getAllDepartments,
-  getAllCategoriesWithStylesForPrompt
+  getAllCategoriesWithStylesForPrompt,
+  getCategoriesMatchingPattern,
+  isCategoryMatchingPattern,
+  getLightingCategories,
+  isLightingCategoryFromMaster,
+  getShowerCategories,
+  isShowerCategoryFromMaster,
+  getStylesForCategoryPattern,
+  getStylesWithIdsForCategoryPattern,
+  isValidStyleForCategoryPattern,
+  getValidShowerStyles,
+  isValidShowerStyleFromMaster
 };

@@ -41,7 +41,15 @@ import {
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/category-config';
-import { matchStyleToCategory, getValidStylesForCategory, getAllCategoriesWithStylesForPrompt } from '../config/category-style-mapping';
+import { 
+  matchStyleToCategory, 
+  getValidStylesForCategory, 
+  getAllCategoriesWithStylesForPrompt, 
+  isValidShowerStyleFromMaster, 
+  UNIVERSAL_DESIGN_STYLES,
+  isLightingCategoryFromMaster,
+  isShowerCategoryFromMaster 
+} from '../config/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -55,75 +63,36 @@ import * as lookups from '../config/lookups';
 
 /**
  * Aesthetic styles that should be avoided in favor of product types
+ * These are design/decorative styles rather than functional product types
+ * Now synced from UNIVERSAL_DESIGN_STYLES in category-style-mapping.ts
  */
-const AESTHETIC_STYLES = [
-  'Modern',
-  'Contemporary',
-  'Traditional',
-  'Transitional',
-  'Rustic',
-  'Industrial',
-  'Farmhouse',
-  'Vintage',
-  'Classic',
-  'Minimalist'
-];
+const AESTHETIC_STYLES = UNIVERSAL_DESIGN_STYLES;
 
 /**
- * Lighting categories where aesthetic styles should be avoided
- * AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
- * Last sync: 2026-02-08
+ * Lighting categories - DYNAMICALLY LOADED from master JSON
+ * Uses getCategoriesInDepartment('Lighting') from category-type-style-mapping.json
+ * This ensures all lighting categories are always current with the master list.
+ * Access via: getLightingCategories() or isLightingCategoryFromMaster()
  */
-const LIGHTING_CATEGORIES = [
-  'Bathroom Lighting',
-  'Bathroom Vanity',
-  'Kitchen Lighting',
-  'Ceiling Light',
-  'Chandelier',
-  'Commercial Lighting',
-  'Flush and Semi-Flush',
-  'Island Lighting',
-  'Lamp',
-  'Landscape Lighting',
-  'LED Lighting',
-  'Lighted Ceiling Fan',
-  'Outdoor Lighting',
-  'Pendant',
-  'Post Light',
-  'Recessed Lighting',
-  'Step Lighting',
-  'Track and Rail Lighting',
-  'Under Cabinet Light',
-  'Vanity Lighting'
-];
+// REMOVED HARDCODED ARRAY - Now using getLightingCategories() dynamically
 
 /**
- * Shower/Plumbing categories where product types should be prioritized
- * AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
- * Last sync: 2026-02-08
+ * Shower/Plumbing categories - DYNAMICALLY LOADED from master JSON  
+ * Uses getCategoriesMatchingPattern('shower') from category-type-style-mapping.json
+ * This ensures all shower categories are always current with the master list.
+ * Access via: getShowerCategories() or isShowerCategoryFromMaster()
  */
-const SHOWER_PLUMBING_CATEGORIES = [
-  'Shower Accessory',
-  'Shower Faucet',
-  'Shower',
-  'Steam Shower',
-  'Outdoor Shower Faucet',
-  'Tub and Shower Accessory'
-];
+// REMOVED HARDCODED ARRAY - Now using getShowerCategories() dynamically
 
 /**
- * Valid styles for shower products - synced from category-style-mapping
- * Includes: Showerhead, Rain Head, Handheld, Shower System, Dual, Body Spray, Shower Panel
+ * Valid styles for shower products - DYNAMICALLY LOADED from master JSON
+ * Includes styles from: Shower, Shower Faucet, Shower Accessory, Steam Shower,
+ * Outdoor Shower Faucet, Tub and Shower Accessory
+ * 
+ * Loaded from: category-type-style-mapping.json via getValidShowerStyles()
+ * Total styles: ~30 (vs old hardcoded 7)
  */
-const VALID_SHOWER_STYLES = [
-  'Showerhead',
-  'Rain Head',
-  'Handheld',
-  'Shower System',
-  'Dual',
-  'Body Spray',
-  'Shower Panel'
-];
+// REMOVED HARDCODED ARRAY - Now using getValidShowerStyles() dynamically
 
 /**
  * Check if a style is aesthetic (design-based) rather than product type
@@ -137,12 +106,13 @@ function isAestheticStyle(style: string): boolean {
 
 /**
  * Check if a category is lighting-related
+ * NOW USES DYNAMIC LOOKUP from category-type-style-mapping.json
+ * Uses department-based lookup (Lighting department)
  */
 function isLightingCategory(category: string): boolean {
   if (!category) return false;
-  return LIGHTING_CATEGORIES.some(lightingCat => 
-    category.toLowerCase().includes(lightingCat.toLowerCase())
-  );
+  // Use the dynamic lookup from category-style-mapping.ts
+  return isLightingCategoryFromMaster(category);
 }
 
 /**
@@ -181,53 +151,25 @@ function validateAndCorrectLightingStyle(
 
 /**
  * Check if a category is a shower/plumbing category
+ * NOW USES DYNAMIC LOOKUP from category-type-style-mapping.json
+ * Uses pattern-based lookup for categories containing "shower"
  */
 function isShowerCategory(category: string): boolean {
   if (!category) return false;
-  const lowerCategory = category.toLowerCase();
-  return SHOWER_PLUMBING_CATEGORIES.some(cat => 
-    lowerCategory.includes(cat.toLowerCase()) || cat.toLowerCase().includes(lowerCategory)
-  );
-}
-
-/**
- * Normalize string for contextual comparison
- * Removes spaces, hyphens, underscores and converts to lowercase
- * Examples: "Shower Head" -> "showerhead", "Rain-Head" -> "rainhead"
- */
-function normalizeForComparison(str: string): string {
-  return str.toLowerCase().trim().replace(/[\s\-_]/g, '');
+  // Use the dynamic lookup from category-style-mapping.ts
+  return isShowerCategoryFromMaster(category);
 }
 
 /**
  * Check if a style is a valid shower style in the Salesforce picklist
- * Uses two-pass matching: exact first, then normalized/contextual
+ * NOW USES DYNAMIC LOOKUP from category-type-style-mapping.json
+ * This replaces the old hardcoded 7-style array with all 30+ shower styles
  */
 function isValidShowerStyle(style: string): boolean {
   if (!style) return false;
-  const lowerStyle = style.toLowerCase().trim();
-  const normalizedStyle = normalizeForComparison(style);
-  
-  return VALID_SHOWER_STYLES.some(validStyle => {
-    const lowerValid = validStyle.toLowerCase();
-    const normalizedValid = normalizeForComparison(validStyle);
-    
-    // PASS 1: Exact match
-    if (lowerStyle === lowerValid) return true;
-    
-    // PASS 2: Normalized match ("shower head" === "showerhead")
-    if (normalizedStyle === normalizedValid) return true;
-    
-    // PASS 3: Containment check (both normalized)
-    if (normalizedStyle.includes(normalizedValid) || normalizedValid.includes(normalizedStyle)) {
-      // Ensure meaningful match (not just partial word matching)
-      const shorter = Math.min(normalizedStyle.length, normalizedValid.length);
-      const longer = Math.max(normalizedStyle.length, normalizedValid.length);
-      return shorter / longer >= 0.6; // At least 60% overlap
-    }
-    
-    return false;
-  });
+  // Use the dynamic lookup from category-style-mapping.ts
+  // This checks against all shower-related categories in the master JSON
+  return isValidShowerStyleFromMaster(style);
 }
 
 /**
