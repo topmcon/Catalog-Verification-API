@@ -9,6 +9,9 @@
  * 4. Generate standardized titles and descriptions
  */
 
+// Import brand tiers from constants FIRST (before any exports that use them)
+import { PREMIUM_BRANDS as CONSTANTS_PREMIUM_BRANDS, MID_TIER_BRANDS as CONSTANTS_MID_TIER_BRANDS } from './constants';
+
 // Global Primary Display Attributes - Apply to ALL products
 export const GLOBAL_PRIMARY_ATTRIBUTES = [
   "Brand (Verified)",
@@ -154,7 +157,7 @@ export type CategorySchema = Record<string, Department>;
 
 // Import category schemas
 import { CategoryAttributeConfig } from './category-attributes';
-import { PREMIUM_BRANDS as CONSTANTS_PREMIUM_BRANDS, MID_TIER_BRANDS as CONSTANTS_MID_TIER_BRANDS } from './constants';
+// PREMIUM_BRANDS and MID_TIER_BRANDS imported at top of file
 
 // Import the master schema map and lookup function
 import { 
