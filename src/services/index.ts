@@ -14,6 +14,7 @@ export { default as trackingService } from './tracking.service';
 export { default as analyticsService } from './analytics.service';
 export { default as alertingService } from './alerting.service';
 export { default as aiUsageTracker } from './ai-usage-tracking.service';
+export { default as tokenManagementService } from './token-management.service';
 export { errorMonitor } from './error-monitor.service';
 
 // Research Attestation Service

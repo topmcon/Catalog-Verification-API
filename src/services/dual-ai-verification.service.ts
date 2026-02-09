@@ -41,6 +41,7 @@ import {
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/category-config';
+import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
 import { 
   matchStyleToCategory, 
   getValidStylesForCategory, 
@@ -298,6 +299,7 @@ import picklistMatcher from './picklist-matcher.service';
 import { verificationAnalyticsService } from './verification-analytics.service';
 import alertingService from './alerting.service';
 import responseQualityService from './response-quality-analytics.service';
+import tokenManagementService from './token-management.service';
 import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
@@ -1797,6 +1799,77 @@ export async function verifyProductWithDualAI(
       }
     }
     
+    // PHASE 0.9: TOKEN MANAGEMENT - Detect and handle token overflow risks
+    // Get category schema first (needed for spec prioritization)
+    const initialCategoryGuess = rawProduct.Web_Retailer_Category || 
+                                 rawProduct.Ferguson_Base_Category || 
+                                 rawProduct.Ferguson_Product_Type || 
+                                 'Bath Tub'; // Default to a valid category if unknown
+    const categorySchemaForTokens = getCategoryAttributeSchema(initialCategoryGuess) || getCategoryAttributeSchema('Bath Tub')!;
+    
+    // Estimate token count BEFORE building prompts
+    const tokenEstimate = tokenManagementService.estimateTokenCount(
+      rawProduct,
+      categorySchemaForTokens,
+      preResearchResult || undefined
+    );
+    
+    logger.info('TOKEN ESTIMATE', {
+      sessionId: verificationSessionId,
+      estimatedTokens: tokenEstimate.estimatedTokens,
+      riskLevel: tokenEstimate.riskLevel,
+      exceedsLimit: tokenEstimate.exceedsLimit,
+      breakdown: tokenEstimate.breakdown,
+      recommendation: tokenEstimate.recommendation,
+      webRetailerSpecsCount: rawProduct.Web_Retailer_Specs?.length || 0,
+      fergusonAttributesCount: rawProduct.Ferguson_Attributes?.length || 0,
+    });
+    
+    // Apply smart truncation if needed
+    let processedProduct = rawProduct;
+    let processedResearch = preResearchResult;
+    
+    if (tokenEstimate.riskLevel === 'high' || tokenEstimate.riskLevel === 'critical') {
+      logger.warn('⚠️ HIGH TOKEN COUNT DETECTED - Applying smart truncation', {
+        sessionId: verificationSessionId,
+        estimatedTokens: tokenEstimate.estimatedTokens,
+        riskLevel: tokenEstimate.riskLevel,
+        productId: rawProduct.SF_Catalog_Id,
+        modelNumber: rawProduct.Model_Number_Web_Retailer,
+      });
+      
+      const truncationResult = tokenManagementService.applySmartTruncation(
+        rawProduct,
+        categorySchemaForTokens,
+        preResearchResult,
+        tokenEstimate
+      );
+      
+      processedProduct = truncationResult.truncatedProduct;
+      processedResearch = truncationResult.truncatedResearch;
+      
+      logger.info('✅ Smart truncation applied successfully', {
+        sessionId: verificationSessionId,
+        originalTokens: truncationResult.result.originalTokens,
+        finalTokens: truncationResult.result.finalTokens,
+        tokensSaved: truncationResult.result.tokensSaved,
+        truncatedSections: truncationResult.result.truncatedSections,
+        retainedSpecsCount: truncationResult.result.retainedSpecsCount,
+        removedSpecsCount: truncationResult.result.removedSpecsCount,
+      });
+      
+      // Update research context if research was truncated
+      if (truncationResult.result.truncatedSections.includes('Research_Results') && processedResearch) {
+        preResearchContext = formatResearchForPrompt(processedResearch);
+      }
+    } else {
+      logger.info('✅ Token count is safe - no truncation needed', {
+        sessionId: verificationSessionId,
+        estimatedTokens: tokenEstimate.estimatedTokens,
+        riskLevel: tokenEstimate.riskLevel,
+      });
+    }
+    
     // PHASE 1: AI Analysis (with pre-research context if available)
     logger.info('PHASE 1: Dual AI Analysis', {
       sessionId: verificationSessionId,
@@ -1805,7 +1878,12 @@ export async function verifyProductWithDualAI(
       externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
       modelMismatch: dataSourceAnalysis.modelValidation?.mismatchReason || null,
       coherenceConflicts: coherenceResult.conflicts.length,
-      hasUrlBrandMismatch
+      hasUrlBrandMismatch,
+      tokenManagement: {
+        estimatedTokens: tokenEstimate.estimatedTokens,
+        riskLevel: tokenEstimate.riskLevel,
+        truncationApplied: processedProduct !== rawProduct,
+      },
     });
     
     const openaiStartTime = Date.now();
@@ -1835,8 +1913,8 @@ export async function verifyProductWithDualAI(
     
     // Pass research context and model validation to AIs
     const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(rawProduct, verificationSessionId, promptOptions, trackingId),
-      analyzeWithXAI(rawProduct, verificationSessionId, promptOptions, trackingId)
+      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId),
+      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId)
     ]);
 
     // Track OpenAI result
