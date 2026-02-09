@@ -3774,5 +3774,9 @@
   {
     "attribute_name": "Water Heater Type",
     "attribute_id": "a1aaZ000009yxrFQAQ"
+  },
+  {
+    "attribute_name": "Wi-Fi",
+    "attribute_id": "a1aaZ00000A4kw9QAB"
   }
 ]
