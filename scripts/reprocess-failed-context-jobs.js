@@ -107,7 +107,7 @@ async function reprocessFailedJobs() {
         console.log(`   Processing time: ${response.data.metadata?.processing_time_ms || 'N/A'}ms`);
         
         // Check if token management was applied
-        const wasToken Truncated = response.data.metadata?.token_management_applied || false;
+        const wasTruncated = response.data.metadata?.token_management_applied || false;
         console.log(`   Token management applied: ${wasTruncated ? '✅ YES' : '❌ NO'}`);
         
         results.push({
