@@ -7,7 +7,7 @@ import { CATEGORY_ALIASES } from '../config/category-schema';
 
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: 2026-02-08
+// Last sync: 2026-02-09
 const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   'Appliances': [
     'Refrigerator',

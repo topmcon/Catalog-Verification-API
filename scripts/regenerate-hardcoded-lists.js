@@ -143,9 +143,19 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
 function updateDualAIVerification(categories) {
   const filePath = path.join(SERVICES_DIR, 'dual-ai-verification.service.ts');
   let content = fs.readFileSync(filePath, 'utf-8');
+  
+  // Check if these were already refactored to dynamic loading
+  if (content.includes('REMOVED HARDCODED ARRAY - Now using getLightingCategories()') ||
+      content.includes('isLightingCategoryFromMaster')) {
+    console.log('✅ LIGHTING_CATEGORIES already uses dynamic loading from master JSON');
+    console.log('✅ SHOWER_PLUMBING_CATEGORIES already uses dynamic loading from master JSON');
+    console.log('   (No hardcoded arrays to update - categories loaded from category-type-style-mapping.json)');
+    return true;
+  }
+
   let updated = false;
   
-  // Update LIGHTING_CATEGORIES
+  // Update LIGHTING_CATEGORIES (legacy hardcoded pattern)
   const lightingCats = generateLightingCategories(categories);
   const newLighting = `/**
  * Lighting categories where aesthetic styles should be avoided
@@ -163,7 +173,7 @@ const LIGHTING_CATEGORIES = [
     console.log('✅ Updated LIGHTING_CATEGORIES');
   }
   
-  // Update SHOWER_PLUMBING_CATEGORIES
+  // Update SHOWER_PLUMBING_CATEGORIES (legacy hardcoded pattern)
   const showerCats = generateShowerCategories(categories);
   const newShower = `/**
  * Shower/Plumbing categories where product types should be prioritized

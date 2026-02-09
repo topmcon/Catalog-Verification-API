@@ -51,6 +51,9 @@ export interface IPicklistSyncLog extends Document {
     brands?: IPicklistChange[];
     categories?: IPicklistChange[];
     styles?: IPicklistChange[];
+    types?: IPicklistChange[];
+    departments?: IPicklistChange[];
+    families?: IPicklistChange[];
   };
   
   // Timing
@@ -62,6 +65,9 @@ export interface IPicklistSyncLog extends Document {
     brands_before?: any[];
     categories_before?: any[];
     styles_before?: any[];
+    types_before?: any[];
+    departments_before?: any[];
+    families_before?: any[];
   };
 }
 
@@ -74,7 +80,7 @@ const PicklistChangeSchema = new Schema<IPicklistChange>({
 }, { _id: false });
 
 const PicklistTypeSummarySchema = new Schema<IPicklistTypeSummary>({
-  type: { type: String, enum: ['attributes', 'brands', 'categories', 'styles', 'category_filter_attributes'], required: true },
+  type: { type: String, enum: ['attributes', 'brands', 'categories', 'styles', 'types', 'departments', 'families', 'category_filter_attributes'], required: true },
   previous_count: { type: Number, required: true },
   new_count: { type: Number, required: true },
   items_added: { type: Number, required: true },
@@ -102,7 +108,10 @@ const PicklistSyncLogSchema = new Schema<IPicklistSyncLog>({
     attributes: [PicklistChangeSchema],
     brands: [PicklistChangeSchema],
     categories: [PicklistChangeSchema],
-    styles: [PicklistChangeSchema]
+    styles: [PicklistChangeSchema],
+    types: [PicklistChangeSchema],
+    departments: [PicklistChangeSchema],
+    families: [PicklistChangeSchema]
   },
   
   processing_time_ms: { type: Number, required: true },
@@ -111,7 +120,10 @@ const PicklistSyncLogSchema = new Schema<IPicklistSyncLog>({
     attributes_before: [{ type: Schema.Types.Mixed }],
     brands_before: [{ type: Schema.Types.Mixed }],
     categories_before: [{ type: Schema.Types.Mixed }],
-    styles_before: [{ type: Schema.Types.Mixed }]
+    styles_before: [{ type: Schema.Types.Mixed }],
+    types_before: [{ type: Schema.Types.Mixed }],
+    departments_before: [{ type: Schema.Types.Mixed }],
+    families_before: [{ type: Schema.Types.Mixed }]
   }
 }, {
   timestamps: true,
