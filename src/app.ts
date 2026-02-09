@@ -25,7 +25,7 @@ export function createApp(): Application {
     allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key', 'x-request-id'],
   }));
 
-  // Rate limiting
+  // Rate limiting (excluding Salesforce API calls)
   const limiter = rateLimit({
     windowMs: config.rateLimit.windowMs,
     max: config.rateLimit.maxRequests,
@@ -38,6 +38,11 @@ export function createApp(): Application {
     },
     standardHeaders: true,
     legacyHeaders: false,
+    skip: (req) => {
+      // Skip rate limiting for Salesforce callouts
+      const userAgent = req.get('user-agent') || '';
+      return userAgent.includes('SFDC-Callout');
+    },
   });
   app.use('/api/', limiter);
 
