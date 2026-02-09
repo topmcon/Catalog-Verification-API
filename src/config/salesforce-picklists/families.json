@@ -1,34 +1,11 @@
 [
   {
-    "family_name": "Bath",
-    "department_name": "Plumbing & Bath"
-  },
-  {
-    "family_name": "Furniture",
-    "department_name": "Home D\u00e9cor & Furniture"
-  },
-  {
-    "family_name": "General",
-    "department_name": "Electronics"
-  },
-  {
-    "family_name": "HVAC",
-    "department_name": "Heating & Cooling"
-  },
-  {
-    "family_name": "Home Improvement",
-    "department_name": "Hardware"
-  },
-  {
-    "family_name": "Kitchen",
-    "department_name": "Appliances"
-  },
-  {
-    "family_name": "Laundry",
-    "department_name": "Appliances"
-  },
-  {
     "family_name": "Outdoor",
     "department_name": "Lighting & Electrical"
+  },
+  {
+    "family_id": "TEST_FAM",
+    "family_name": "Test Family",
+    "department_id": "TEST_DEPT"
   }
 ]
