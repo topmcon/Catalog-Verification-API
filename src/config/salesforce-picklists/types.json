@@ -8069,5 +8069,9 @@
   {
     "type_name": "Abstract",
     "type_id": "a1jaZ000001lF35QAE"
+  },
+  {
+    "type_name": "Test Type Delete Me",
+    "type_id": "test-delete-12345"
   }
 ]
