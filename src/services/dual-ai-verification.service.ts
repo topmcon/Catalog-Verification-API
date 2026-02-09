@@ -55,8 +55,7 @@ import {
   getAllCategoriesWithTypesForPrompt,
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
-// TODO: Implement Type matching - import will be used when Type matching logic is added
-// import { matchTypeToPicklist } from './type-matcher.service';
+import { matchTypeToPicklist } from './type-matcher.service';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -859,7 +858,7 @@ function buildDataCoherenceErrorResponse(
       SubCategory_Verified: '',
       Product_Family_Verified: '',
       Department_Verified: '',
-      Type_Verified: 'Not Applicable',  // Type layer between Category and Style
+      Type_Verified: '',  // Will be populated by type matching when available
       Type_Id: null,
       Product_Style_Verified: '',
       Style_Id: null,
@@ -4421,6 +4420,41 @@ function buildFinalResponse(
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
   
+  // Match Type against Salesforce types picklist
+  const aiProductType = consensus.agreedPrimaryAttributes.product_type || '';
+  const verifiedCategory = categoryMatch.matched && categoryMatch.matchedValue 
+    ? categoryMatch.matchedValue.category_name 
+    : (consensus.agreedCategory || '');
+  const typeMatch = picklistMatcher.matchType(aiProductType);
+  
+  // If direct picklist match failed, try the category-aware type matcher
+  let typeMatchResult = typeMatch;
+  if (!typeMatch.matched && aiProductType && aiProductType.trim() !== '') {
+    const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory);
+    if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
+      typeMatchResult = {
+        matched: true,
+        original: aiProductType,
+        matchedValue: {
+          type_id: categoryAwareMatch.matchedValue.type_id,
+          type_name: categoryAwareMatch.matchedValue.type_name
+        },
+        similarity: categoryAwareMatch.confidence
+      };
+    }
+  } else {
+    typeMatchResult = typeMatch;
+  }
+  
+  logger.info('Type matching result', {
+    sessionId,
+    aiProductType,
+    category: verifiedCategory,
+    matched: typeMatchResult.matched,
+    matchedTo: typeMatchResult.matchedValue?.type_name || null,
+    similarity: typeMatchResult.similarity
+  });
+  
   // Initialize picklist request arrays - track values not in Salesforce picklists
   const brandRequests: BrandRequest[] = [];
   const categoryRequests: CategoryRequest[] = [];
@@ -5119,8 +5153,12 @@ function buildFinalResponse(
     Department_Verified: categoryMatch.matched && categoryMatch.matchedValue?.department
       ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
       : '',
-    Type_Verified: 'Not Applicable',  // TODO: Add Type matching from consensus.agreedPrimaryAttributes.product_type
-    Type_Id: null,  // TODO: Match Type to SF picklist and get Type_Id
+    Type_Verified: typeMatchResult.matched && typeMatchResult.matchedValue
+      ? typeMatchResult.matchedValue.type_name  // Use EXACT Salesforce type name
+      : cleanEncodingIssues(aiProductType || 'Not Applicable'),  // Use AI value or fallback
+    Type_Id: typeMatchResult.matched && typeMatchResult.matchedValue 
+      ? typeMatchResult.matchedValue.type_id 
+      : null,
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name when matched
       : styleToUse,  // Use AI-derived style even if not in SF picklist (will be in Style_Requests)

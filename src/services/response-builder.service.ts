@@ -151,8 +151,8 @@ export function buildPrimaryAttributes(
     Category_Verified: verifiedCategory,
     SubCategory_Verified: verifiedSubCategory,
     Product_Family_Verified: determineProductFamily(verifiedCategory, verifiedSubCategory),
-    Type_Verified: 'Not Applicable',  // TODO: Implement Type matching from dual-AI verification
-    Type_Id: null,
+    Type_Verified: determineProductType(incoming, verifiedCategory),
+    Type_Id: null,  // Type ID populated by dual-AI verification flow
     Product_Style_Verified: determineProductStyle(incoming),
     Color_Verified: verifiedColor,
     Finish_Verified: verifiedFinish,
@@ -692,6 +692,34 @@ function determineProductFamily(category: string, _subCategory: string): string 
   };
 
   return familyMap[category] || 'Appliances';
+}
+
+/**
+ * Determine product type from incoming data and match against SF picklist
+ */
+function determineProductType(incoming: SalesforceIncomingProduct, verifiedCategory: string): string {
+  // Try to extract product type from Ferguson data or web retailer specs
+  const productType = incoming.Ferguson_Product_Type ||
+    getAttributeValue(incoming.Ferguson_Attributes, 'Product Type') ||
+    getAttributeValue(incoming.Web_Retailer_Specs, 'Product Type') ||
+    '';
+  
+  if (!productType || productType.trim() === '') {
+    return '';
+  }
+  
+  // Try to match against picklist
+  try {
+    const { matchTypeToPicklist } = require('./type-matcher.service');
+    const result = matchTypeToPicklist(productType, verifiedCategory);
+    if (result.matched && result.matchedValue) {
+      return result.matchedValue.type_name;
+    }
+  } catch {
+    // Type matcher not available, return raw value
+  }
+  
+  return productType;
 }
 
 function determineProductStyle(incoming: SalesforceIncomingProduct): string {

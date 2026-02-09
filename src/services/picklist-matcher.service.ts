@@ -111,7 +111,7 @@ interface MatchResult<T> {
 }
 
 interface MismatchLog {
-  type: 'brand' | 'category' | 'style' | 'attribute';
+  type: 'brand' | 'category' | 'style' | 'attribute' | 'type';
   originalValue: string;
   timestamp: Date;
   productContext?: {
@@ -571,6 +571,83 @@ class PicklistMatcherService {
       similarity: best?.similarity || 0,
       suggestions: scored.slice(0, 3).map(s => s.style)
     };
+  }
+
+  /**
+   * Match a type name to SF types picklist
+   * Used for the Type layer between Category and Style
+   */
+  matchType(typeName: string): MatchResult<Type> {
+    if (!typeName || !this.initialized) {
+      return { matched: false, original: typeName, matchedValue: null, similarity: 0 };
+    }
+
+    const normalized = typeName.toLowerCase().trim();
+    
+    // Skip non-applicable values
+    if (normalized === 'not applicable' || normalized === 'n/a' || normalized === '') {
+      return { matched: false, original: typeName, matchedValue: null, similarity: 0 };
+    }
+
+    // Exact match
+    const exactMatch = this.types.find(t => 
+      t.type_name.toLowerCase() === normalized
+    );
+    
+    if (exactMatch) {
+      return { matched: true, original: typeName, matchedValue: exactMatch, similarity: 1.0 };
+    }
+
+    // Similarity scoring
+    const scored = this.types.map(t => ({
+      type: t,
+      similarity: this.calculateSimilarity(typeName, t.type_name)
+    })).sort((a, b) => b.similarity - a.similarity);
+
+    const best = scored[0];
+    if (best && best.similarity >= 0.75) {
+      return { 
+        matched: true, 
+        original: typeName, 
+        matchedValue: best.type, 
+        similarity: best.similarity,
+        suggestions: scored.slice(1, 4).map(s => s.type)
+      };
+    }
+
+    // Partial match fallback
+    const partialMatch = this.types.find(t =>
+      t.type_name.toLowerCase().includes(normalized) ||
+      normalized.includes(t.type_name.toLowerCase())
+    );
+    if (partialMatch) {
+      return {
+        matched: true,
+        original: typeName,
+        matchedValue: partialMatch,
+        similarity: 0.65,
+        suggestions: scored.slice(0, 3).map(s => s.type)
+      };
+    }
+
+    this.logMismatch('type' as any, typeName, scored.slice(0, 3).map(s => s.type.type_name), best?.similarity);
+    
+    return { 
+      matched: false, 
+      original: typeName, 
+      matchedValue: null, 
+      similarity: best?.similarity || 0,
+      suggestions: scored.slice(0, 3).map(s => s.type)
+    };
+  }
+
+  /**
+   * Get existing type by name (exact match, case-insensitive)
+   */
+  getTypeByName(typeName: string): Type | null {
+    if (!typeName || !this.initialized) return null;
+    const normalized = typeName.toLowerCase().trim();
+    return this.types.find(t => t.type_name.toLowerCase() === normalized) || null;
   }
 
   /**
