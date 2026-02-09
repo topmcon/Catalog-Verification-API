@@ -85,6 +85,23 @@ interface Attribute {
   attribute_name: string;
 }
 
+interface Type {
+  type_id: string;
+  type_name: string;
+  category_id: string;
+}
+
+interface Department {
+  department_id: string;
+  department_name: string;
+}
+
+interface Family {
+  family_id: string;
+  family_name: string;
+  department_id: string;
+}
+
 interface MatchResult<T> {
   matched: boolean;
   original: string;
@@ -227,6 +244,9 @@ class PicklistMatcherService {
   private categories: Category[] = [];
   private styles: Style[] = [];
   private attributes: Attribute[] = [];
+  private types: Type[] = [];
+  private departments: Department[] = [];
+  private families: Family[] = [];
   private mismatches: MismatchLog[] = [];
   private initialized = false;
 
@@ -245,12 +265,37 @@ class PicklistMatcherService {
       this.styles = JSON.parse(fs.readFileSync(path.join(picklistDir, 'styles.json'), 'utf-8'));
       this.attributes = JSON.parse(fs.readFileSync(path.join(picklistDir, 'attributes.json'), 'utf-8'));
       
+      // Load Type hierarchy picklists (optional - may not exist yet)
+      try {
+        this.types = JSON.parse(fs.readFileSync(path.join(picklistDir, 'types.json'), 'utf-8'));
+      } catch (error) {
+        this.types = [];
+        logger.warn('types.json not found - will be empty until Salesforce syncs', { picklistDir });
+      }
+      
+      try {
+        this.departments = JSON.parse(fs.readFileSync(path.join(picklistDir, 'departments.json'), 'utf-8'));
+      } catch (error) {
+        this.departments = [];
+        logger.warn('departments.json not found - will be empty until Salesforce syncs', { picklistDir });
+      }
+      
+      try {
+        this.families = JSON.parse(fs.readFileSync(path.join(picklistDir, 'families.json'), 'utf-8'));
+      } catch (error) {
+        this.families = [];
+        logger.warn('families.json not found - will be empty until Salesforce syncs', { picklistDir });
+      }
+      
       this.initialized = true;
       logger.info('Picklists loaded successfully', {
         brands: this.brands.length,
         categories: this.categories.length,
         styles: this.styles.length,
-        attributes: this.attributes.length
+        attributes: this.attributes.length,
+        types: this.types.length,
+        departments: this.departments.length,
+        families: this.families.length
       });
     } catch (error) {
       logger.error('Failed to load picklists', { error });
@@ -915,6 +960,9 @@ class PicklistMatcherService {
   getCategories(): Category[] { return [...this.categories]; }
   getStyles(): Style[] { return [...this.styles]; }
   getAttributes(): Attribute[] { return [...this.attributes]; }
+  getTypes(): Type[] { return [...this.types]; }
+  getDepartments(): Department[] { return [...this.departments]; }
+  getFamilies(): Family[] { return [...this.families]; }
 
   /**
    * Get brand by ID
@@ -1076,7 +1124,7 @@ class PicklistMatcherService {
    * Returns validation errors if data is suspicious/corrupted
    */
   private validatePicklistData(
-    type: 'attributes' | 'brands' | 'categories' | 'styles',
+    type: 'attributes' | 'brands' | 'categories' | 'styles' | 'types' | 'departments' | 'families',
     newData: any[],
     existingCount?: number,
     replaceMode?: boolean
@@ -1180,6 +1228,9 @@ class PicklistMatcherService {
     brands?: Brand[];
     categories?: Category[];
     styles?: Style[];
+    types?: Type[];
+    departments?: Department[];
+    families?: Family[];
     category_filter_attributes?: any; // JSON object mapping categories to filter attributes
     replace_mode?: boolean; // If false, uses incremental mode instead of full replacement
   }): Promise<{
@@ -1514,6 +1565,249 @@ class PicklistMatcherService {
       } catch (error: any) {
         errors.push(`Failed to sync styles: ${error.message}`);
         logger.error('Failed to sync styles', { error });
+      }
+    }
+
+    // Sync types - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
+    if (data.types && Array.isArray(data.types)) {
+      try {
+        const prevCount = this.types.length;
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('types', data.types!, prevCount, replaceMode);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Type sync validation failed', { error: err, incoming: data.types!.length });
+          });
+          logger.warn('Skipping corrupted types', { count: data.types!.length });
+        } else {
+          let mergedTypes: Type[];
+          let addedCount = 0;
+          let updatedCount = 0;
+          let removedCount = 0;
+
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedTypes = [...data.types];
+            addedCount = data.types.length;
+            removedCount = prevCount;
+            logger.info('Types sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.types.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.types.map(type => [type.type_id, type]));
+
+            // Add or update each incoming type
+            for (const incomingType of data.types) {
+              if (existingMap.has(incomingType.type_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingType.type_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingType)) {
+                  existingMap.set(incomingType.type_id, incomingType);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
+                existingMap.set(incomingType.type_id, incomingType);
+                addedCount++;
+              }
+            }
+
+            // Convert map back to array
+            mergedTypes = Array.from(existingMap.values());
+            
+            logger.info('Types synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedTypes.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
+          
+          // Save to file and update cache
+          const filePath = path.join(picklistDir, 'types.json');
+          fs.writeFileSync(filePath, JSON.stringify(mergedTypes, null, 2));
+          this.types = mergedTypes;
+          
+          updated.push({
+            type: 'types',
+            previous: prevCount,
+            current: mergedTypes.length,
+            added: addedCount,
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
+          });
+        }
+      } catch (error: any) {
+        errors.push(`Failed to sync types: ${error.message}`);
+        logger.error('Failed to sync types', { error });
+      }
+    }
+
+    // Sync departments - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
+    if (data.departments && Array.isArray(data.departments)) {
+      try {
+        const prevCount = this.departments.length;
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('departments', data.departments!, prevCount, replaceMode);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Department sync validation failed', { error: err, incoming: data.departments!.length });
+          });
+          logger.warn('Skipping corrupted departments', { count: data.departments!.length });
+        } else {
+          let mergedDepartments: Department[];
+          let addedCount = 0;
+          let updatedCount = 0;
+          let removedCount = 0;
+
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedDepartments = [...data.departments];
+            addedCount = data.departments.length;
+            removedCount = prevCount;
+            logger.info('Departments sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.departments.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.departments.map(dept => [dept.department_id, dept]));
+
+            // Add or update each incoming department
+            for (const incomingDept of data.departments) {
+              if (existingMap.has(incomingDept.department_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingDept.department_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingDept)) {
+                  existingMap.set(incomingDept.department_id, incomingDept);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
+                existingMap.set(incomingDept.department_id, incomingDept);
+                addedCount++;
+              }
+            }
+
+            // Convert map back to array
+            mergedDepartments = Array.from(existingMap.values());
+            
+            logger.info('Departments synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedDepartments.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
+          
+          // Save to file and update cache
+          const filePath = path.join(picklistDir, 'departments.json');
+          fs.writeFileSync(filePath, JSON.stringify(mergedDepartments, null, 2));
+          this.departments = mergedDepartments;
+          
+          updated.push({
+            type: 'departments',
+            previous: prevCount,
+            current: mergedDepartments.length,
+            added: addedCount,
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
+          });
+        }
+      } catch (error: any) {
+        errors.push(`Failed to sync departments: ${error.message}`);
+        logger.error('Failed to sync departments', { error });
+      }
+    }
+
+    // Sync families - INCREMENTAL ADD/UPDATE or FULL REPLACEMENT
+    if (data.families && Array.isArray(data.families)) {
+      try {
+        const prevCount = this.families.length;
+        
+        // Validate data quality before sync
+        const validationErrors = this.validatePicklistData('families', data.families!, prevCount, replaceMode);
+        if (validationErrors.length > 0) {
+          validationErrors.forEach(err => {
+            errors.push(err);
+            logger.error('Family sync validation failed', { error: err, incoming: data.families!.length });
+          });
+          logger.warn('Skipping corrupted families', { count: data.families!.length });
+        } else {
+          let mergedFamilies: Family[];
+          let addedCount = 0;
+          let updatedCount = 0;
+          let removedCount = 0;
+
+          if (replaceMode) {
+            // FULL REPLACEMENT MODE - completely replace with incoming data
+            mergedFamilies = [...data.families];
+            addedCount = data.families.length;
+            removedCount = prevCount;
+            logger.info('Families sync (FULL REPLACEMENT)', { 
+              previous: prevCount, 
+              incoming: data.families.length,
+              replaced: prevCount
+            });
+          } else {
+            // INCREMENTAL MODE - merge with existing
+            const existingMap = new Map(this.families.map(fam => [fam.family_id, fam]));
+
+            // Add or update each incoming family
+            for (const incomingFamily of data.families) {
+              if (existingMap.has(incomingFamily.family_id)) {
+                // Update existing
+                const existing = existingMap.get(incomingFamily.family_id);
+                if (JSON.stringify(existing) !== JSON.stringify(incomingFamily)) {
+                  existingMap.set(incomingFamily.family_id, incomingFamily);
+                  updatedCount++;
+                }
+              } else {
+                // Add new
+                existingMap.set(incomingFamily.family_id, incomingFamily);
+                addedCount++;
+              }
+            }
+
+            // Convert map back to array
+            mergedFamilies = Array.from(existingMap.values());
+            
+            logger.info('Families synced successfully (incremental)', { 
+              previous: prevCount, 
+              current: mergedFamilies.length,
+              added: addedCount,
+              updated: updatedCount
+            });
+          }
+          
+          // Save to file and update cache
+          const filePath = path.join(picklistDir, 'families.json');
+          fs.writeFileSync(filePath, JSON.stringify(mergedFamilies, null, 2));
+          this.families = mergedFamilies;
+          
+          updated.push({
+            type: 'families',
+            previous: prevCount,
+            current: mergedFamilies.length,
+            added: addedCount,
+            updated: updatedCount,
+            removed: removedCount,
+            mode: replaceMode ? 'replace' : 'incremental'
+          });
+        }
+      } catch (error: any) {
+        errors.push(`Failed to sync families: ${error.message}`);
+        logger.error('Failed to sync families', { error });
       }
     }
 

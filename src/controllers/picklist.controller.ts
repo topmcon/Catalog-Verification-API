@@ -76,6 +76,33 @@ export class PicklistController {
     }
   }
 
+  async getTypes(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const types = picklistMatcher.getTypes();
+      res.json({ success: true, count: types.length, data: types });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getDepartments(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const departments = picklistMatcher.getDepartments();
+      res.json({ success: true, count: departments.length, data: departments });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getFamilies(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const families = picklistMatcher.getFamilies();
+      res.json({ success: true, count: families.length, data: families });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   /**
    * POST /api/picklists/match/brand
    * Test brand matching
@@ -391,27 +418,33 @@ export class PicklistController {
   async syncPicklists(req: Request, res: Response, next: NextFunction): Promise<void> {
     const startTime = Date.now();
     const syncId = uuidv4();
-    const { attributes, brands, categories, styles, category_filter_attributes, replace_mode = true } = req.body;
+    const { attributes, brands, categories, styles, types, departments, families, category_filter_attributes, replace_mode = true } = req.body;
     
     // Capture current state BEFORE sync for comparison
     const beforeState = {
       attributes: picklistMatcher.getAttributes(),
       brands: picklistMatcher.getBrands(),
       categories: picklistMatcher.getCategories(),
-      styles: picklistMatcher.getStyles()
+      styles: picklistMatcher.getStyles(),
+      types: picklistMatcher.getTypes(),
+      departments: picklistMatcher.getDepartments(),
+      families: picklistMatcher.getFamilies()
     };
     
     try {
       // Validate that at least one picklist type is provided
-      if (!attributes && !brands && !categories && !styles && !category_filter_attributes) {
+      if (!attributes && !brands && !categories && !styles && !types && !departments && !families && !category_filter_attributes) {
         res.status(400).json({ 
           success: false, 
-          error: 'At least one picklist type (attributes, brands, categories, styles, category_filter_attributes) must be provided',
+          error: 'At least one picklist type (attributes, brands, categories, styles, types, departments, families, category_filter_attributes) must be provided',
           expected_format: {
             attributes: [{ attribute_id: 'string', attribute_name: 'string' }],
             brands: [{ brand_id: 'string', brand_name: 'string' }],
             categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
             styles: [{ style_id: 'string', style_name: 'string' }],
+            types: [{ type_id: 'string', type_name: 'string', category_id: 'string' }],
+            departments: [{ department_id: 'string', department_name: 'string' }],
+            families: [{ family_id: 'string', family_name: 'string', department_id: 'string' }],
             category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } },
             replace_mode: 'boolean (optional, default: true) - set to false for incremental mode instead of full replacement'
           }
@@ -460,6 +493,33 @@ export class PicklistController {
         }
       }
       
+      if (types && !Array.isArray(types)) {
+        validationErrors.push('types must be an array');
+      } else if (types) {
+        const invalidTypes = types.filter((t: any) => !t.type_id || !t.type_name || !t.category_id);
+        if (invalidTypes.length > 0) {
+          validationErrors.push(`${invalidTypes.length} types missing required fields (type_id, type_name, category_id)`);
+        }
+      }
+      
+      if (departments && !Array.isArray(departments)) {
+        validationErrors.push('departments must be an array');
+      } else if (departments) {
+        const invalidDepts = departments.filter((d: any) => !d.department_id || !d.department_name);
+        if (invalidDepts.length > 0) {
+          validationErrors.push(`${invalidDepts.length} departments missing required fields (department_id, department_name)`);
+        }
+      }
+      
+      if (families && !Array.isArray(families)) {
+        validationErrors.push('families must be an array');
+      } else if (families) {
+        const invalidFamilies = families.filter((f: any) => !f.family_id || !f.family_name || !f.department_id);
+        if (invalidFamilies.length > 0) {
+          validationErrors.push(`${invalidFamilies.length} families missing required fields (family_id, family_name, department_id)`);
+        }
+      }
+      
       if (category_filter_attributes && typeof category_filter_attributes !== 'object') {
         validationErrors.push('category_filter_attributes must be an object');
       } else if (category_filter_attributes && !Array.isArray(category_filter_attributes)) {
@@ -489,6 +549,9 @@ export class PicklistController {
         brands_count: brands?.length || 0,
         categories_count: categories?.length || 0,
         styles_count: styles?.length || 0,
+        types_count: types?.length || 0,
+        departments_count: departments?.length || 0,
+        families_count: families?.length || 0,
         category_filter_attributes_count: category_filter_attributes ? Object.keys(category_filter_attributes).length : 0,
         source_ip: req.ip
       });
@@ -499,6 +562,9 @@ export class PicklistController {
         brands,
         categories,
         styles,
+        types,
+        departments,
+        families,
         category_filter_attributes,
         replace_mode
       });
@@ -509,7 +575,10 @@ export class PicklistController {
         attributes: picklistMatcher.getAttributes(),
         brands: picklistMatcher.getBrands(),
         categories: picklistMatcher.getCategories(),
-        styles: picklistMatcher.getStyles()
+        styles: picklistMatcher.getStyles(),
+        types: picklistMatcher.getTypes(),
+        departments: picklistMatcher.getDepartments(),
+        families: picklistMatcher.getFamilies()
       };
       const processingTime = Date.now() - startTime;
       
@@ -520,6 +589,9 @@ export class PicklistController {
         brands?: IPicklistChange[];
         categories?: IPicklistChange[];
         styles?: IPicklistChange[];
+        types?: IPicklistChange[];
+        departments?: IPicklistChange[];
+        families?: IPicklistChange[];
       } = {};
       
       // Compare attributes - BEFORE vs AFTER (not before vs incoming)
@@ -614,6 +686,75 @@ export class PicklistController {
         ];
       }
       
+      // Compare types - BEFORE vs AFTER
+      if (types) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.types, 
+          afterState.types, 
+          'type_id', 
+          'type_name'
+        );
+        summaries.push({
+          type: 'types',
+          previous_count: beforeState.types.length,
+          new_count: afterState.types.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map((t: any) => t.type_name),
+          removed_items: removed.map((t: any) => t.type_name)
+        });
+        detailedChanges.types = [
+          ...added.map((t: any) => ({ type: 'added' as const, item_id: t.type_id, item_name: t.type_name, new_value: t })),
+          ...removed.map((t: any) => ({ type: 'removed' as const, item_id: t.type_id, item_name: t.type_name, old_value: t }))
+        ];
+      }
+      
+      // Compare departments - BEFORE vs AFTER
+      if (departments) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.departments, 
+          afterState.departments, 
+          'department_id', 
+          'department_name'
+        );
+        summaries.push({
+          type: 'departments',
+          previous_count: beforeState.departments.length,
+          new_count: afterState.departments.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map((d: any) => d.department_name),
+          removed_items: removed.map((d: any) => d.department_name)
+        });
+        detailedChanges.departments = [
+          ...added.map((d: any) => ({ type: 'added' as const, item_id: d.department_id, item_name: d.department_name, new_value: d })),
+          ...removed.map((d: any) => ({ type: 'removed' as const, item_id: d.department_id, item_name: d.department_name, old_value: d }))
+        ];
+      }
+      
+      // Compare families - BEFORE vs AFTER
+      if (families) {
+        const { added, removed } = this.comparePicklists(
+          beforeState.families, 
+          afterState.families, 
+          'family_id', 
+          'family_name'
+        );
+        summaries.push({
+          type: 'families',
+          previous_count: beforeState.families.length,
+          new_count: afterState.families.length,
+          items_added: added.length,
+          items_removed: removed.length,
+          added_items: added.map((f: any) => f.family_name),
+          removed_items: removed.map((f: any) => f.family_name)
+        });
+        detailedChanges.families = [
+          ...added.map((f: any) => ({ type: 'added' as const, item_id: f.family_id, item_name: f.family_name, new_value: f })),
+          ...removed.map((f: any) => ({ type: 'removed' as const, item_id: f.family_id, item_name: f.family_name, old_value: f }))
+        ];
+      }
+      
       // Create audit log entry
       const apiKeyHeader = req.header('x-api-key') || '';
       const syncLog = new PicklistSyncLog({
@@ -628,6 +769,9 @@ export class PicklistController {
           brands ? 'brands' : null,
           categories ? 'categories' : null,
           styles ? 'styles' : null,
+          types ? 'types' : null,
+          departments ? 'departments' : null,
+          families ? 'families' : null,
           category_filter_attributes ? 'category_filter_attributes' : null
         ].filter(Boolean) as string[],
         success: result.success,

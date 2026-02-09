@@ -14,6 +14,9 @@ router.get('/brands', picklistController.getBrands.bind(picklistController));
 router.get('/categories', picklistController.getCategories.bind(picklistController));
 router.get('/styles', picklistController.getStyles.bind(picklistController));
 router.get('/attributes', picklistController.getAttributes.bind(picklistController));
+router.get('/types', picklistController.getTypes.bind(picklistController));
+router.get('/departments', picklistController.getDepartments.bind(picklistController));
+router.get('/families', picklistController.getFamilies.bind(picklistController));
 
 // Get by ID endpoints
 router.get('/brands/:id', picklistController.getBrandById.bind(picklistController));

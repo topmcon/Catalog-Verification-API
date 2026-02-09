@@ -17,7 +17,7 @@ export interface IPicklistChange {
 
 // Summary of changes for one picklist type
 export interface IPicklistTypeSummary {
-  type: 'attributes' | 'brands' | 'categories' | 'styles' | 'category_filter_attributes';
+  type: 'attributes' | 'brands' | 'categories' | 'styles' | 'types' | 'departments' | 'families' | 'category_filter_attributes';
   previous_count: number;
   new_count: number;
   items_added: number;
