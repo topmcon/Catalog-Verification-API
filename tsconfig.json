@@ -4,7 +4,7 @@
     "module": "commonjs",
     "lib": ["ES2022"],
     "outDir": "./dist",
-    "rootDir": "./src",
+    /* "rootDir": "./src", */ // Commented out to allow imports from picklist-master
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -34,5 +34,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "src/config/salesforce-picklists/backups"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "src/config/salesforce-picklists/backups", "src/picklist-master"]
 }

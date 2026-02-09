@@ -3,22 +3,15 @@
  * ==========================
  * Centralized lookup functions for category schemas, attributes, and mappings.
  * Single source of truth for all category-related lookups.
- * 
- * **IMPORTANT - PICKLIST MAINTENANCE**:
- * This file imports from locations that depend on Salesforce picklists.
- * When picklists update, verify imports from:
- * - master-category-schema-map.ts → /picklist-master/02-categories/
- * 
- * See /picklist-master/README.md for complete update workflow.
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { CategoryAttributeConfig } from './types';
-import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from './category-attributes';
-import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from './master-category-schema-map';
-import { getCategorySchema as getAICategorySchema, CategorySchema } from './category-config';
-import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from './constants';
+import { CategoryAttributeConfig } from '../../config/types';
+import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from '../04-attributes/category-attributes';
+import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from '../02-categories/master-category-schema-map';
+import { getCategorySchema as getAICategorySchema, CategorySchema } from '../../config/category-config';
+import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from '../02-categories/category-config';
 
 // ============================================
 // OPTIMIZED FILTER ATTRIBUTES (from JSON v2.0)

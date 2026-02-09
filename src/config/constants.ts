@@ -3,6 +3,14 @@
  * =================================
  * All static constants used across the category system.
  * Single source of truth for brand lists, attribute names, and feature keywords.
+ * 
+ * **IMPORTANT - PICKLIST MAINTENANCE**:
+ * When Salesforce picklists update, check these sections against:
+ * - Brand tiers → /picklist-master/01-brands/brand-config.ts
+ * - Category aliases → /picklist-master/02-categories/category-config.ts
+ * - Attribute fallbacks → /picklist-master/04-attributes/attribute-config.ts
+ * 
+ * See /picklist-master/README.md for complete update workflow.
  */
 
 // ============================================
