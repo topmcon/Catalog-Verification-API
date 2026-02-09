@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 
 const MODEL_PRICING = {
   'gpt-4o-mini': { input: 0.15 / 1_000_000, output: 0.6 / 1_000_000 },
+  'gpt-4o-mini-search-preview': { input: 0.15 / 1_000_000, output: 0.6 / 1_000_000 },
   'gpt-4o': { input: 2.5 / 1_000_000, output: 10 / 1_000_000 },
   'gpt-4-turbo-preview': { input: 10 / 1_000_000, output: 30 / 1_000_000 },
   'grok-2-vision-1212': { input: 2.0 / 1_000_000, output: 10 / 1_000_000 },
