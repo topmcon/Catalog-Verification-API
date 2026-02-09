@@ -88,7 +88,7 @@ interface Attribute {
 interface Type {
   type_id: string;
   type_name: string;
-  category_id: string;
+  applicable_categories?: Array<{ department: string; category_name: string }>;
 }
 
 interface Department {

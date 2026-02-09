@@ -442,7 +442,7 @@ export class PicklistController {
             brands: [{ brand_id: 'string', brand_name: 'string' }],
             categories: [{ category_id: 'string', category_name: 'string', department: 'string', family: 'string' }],
             styles: [{ style_id: 'string', style_name: 'string' }],
-            types: [{ type_id: 'string', type_name: 'string', category_id: 'string' }],
+            types: [{ type_id: 'string', type_name: 'string' }],
             departments: [{ department_id: 'string', department_name: 'string' }],
             families: [{ family_id: 'string', family_name: 'string', department_id: 'string' }],
             category_filter_attributes: { 'CategoryName': { department: 'string', category_id: 'string', attributes: [] } },
@@ -496,9 +496,9 @@ export class PicklistController {
       if (types && !Array.isArray(types)) {
         validationErrors.push('types must be an array');
       } else if (types) {
-        const invalidTypes = types.filter((t: any) => !t.type_id || !t.type_name || !t.category_id);
+        const invalidTypes = types.filter((t: any) => !t.type_id || !t.type_name);
         if (invalidTypes.length > 0) {
-          validationErrors.push(`${invalidTypes.length} types missing required fields (type_id, type_name, category_id)`);
+          validationErrors.push(`${invalidTypes.length} types missing required fields (type_id, type_name)`);
         }
       }
       
