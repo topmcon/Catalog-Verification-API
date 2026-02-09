@@ -19,50 +19,29 @@ export interface CategoryRemapping {
  * Complete mapping of removed categories to their parent categories
  */
 export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
+  // ===== CRITICAL NOTE =====
+  // ONLY include categories that are TRULY removed/deprecated from Salesforce.
+  // NEVER remap valid Salesforce categories - check categories.json first!
+  // Recent bugs: "Drawer", "Cooking", "Refrigeration", "Tub Faucet", etc. were valid but remapped.
+
   // ===== KITCHEN APPLIANCES =====
-  // NOTE: "Drawer" is a VALID Salesforce category (ID: a01Hu000011kpC2IAI) for warming drawers,
-  // outdoor kitchen storage drawers, etc. It should NOT be remapped to Refrigerator.
-  'Cooking': {
-    removedCategory: 'Cooking',
-    parentCategory: 'Range', // Could also be Cooktop or Oven
-    reason: 'Generic parent duplicating specific categories',
-    suggestedType: undefined
-  },
-  'Refrigeration': {
-    removedCategory: 'Refrigeration',
-    parentCategory: 'Refrigerator',
-    reason: 'Generic parent duplicating specific categories',
-    suggestedType: undefined
-  },
+  // ⚠️ "Drawer" is VALID (ID: a01Hu000011kpC2IAI) - DO NOT REMAP
+  // ⚠️ "Cooking" is VALID (ID: a01aZ00000Hm4voQAB) - DO NOT REMAP  
+  // ⚠️ "Refrigeration" is VALID (ID: a01aZ00000MlHtiQAF) - DO NOT REMAP
 
   // ===== BATH & PLUMBING - FAUCETS =====
-  'Bidet Faucet': {
-    removedCategory: 'Bidet Faucet',
-    parentCategory: 'Bathroom Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Bidet Faucet'
-  },
-  'Shower Faucet': {
-    removedCategory: 'Shower Faucet',
-    parentCategory: 'Bathroom Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Shower Faucet'
-  },
-  'Tub Faucet': {
-    removedCategory: 'Tub Faucet',
-    parentCategory: 'Bathroom Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Tub Faucet'
-  },
+  // ⚠️ "Bidet Faucet" is VALID (ID: a01aZ00000dC5DmQAK) - DO NOT REMAP
+  // ⚠️ "Shower Faucet" is VALID (ID: a01aZ00000dC5DtQAK) - DO NOT REMAP
+  // ⚠️ "Tub Faucet" is VALID (ID: a01aZ00000dC5DzQAK) - DO NOT REMAP
   'Bathtub Faucets': {
     removedCategory: 'Bathtub Faucets',
-    parentCategory: 'Bathroom Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Tub Faucet'
+    parentCategory: 'Tub Faucet',  // Use the valid "Tub Faucet" category
+    reason: 'Typo/alternate name - correct name is Tub Faucet',
+    suggestedType: undefined
   },
   'Tub Spouts': {
     removedCategory: 'Tub Spouts',
-    parentCategory: 'Bathroom Faucet',
+    parentCategory: 'Bathroom Hardware and Accessories',
     reason: 'Faucet component, not separate category',
     suggestedType: 'Tub Spout'
   },
@@ -102,18 +81,9 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
 
   // ===== KITCHEN PLUMBING - FAUCETS =====
-  'Bar Faucet': {
-    removedCategory: 'Bar Faucet',
-    parentCategory: 'Kitchen Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Bar Faucet'
-  },
-  'Pot Filler Faucet': {
-    removedCategory: 'Pot Filler Faucet',
-    parentCategory: 'Kitchen Faucet',
-    reason: 'Faucet type, not separate category',
-    suggestedType: 'Pot Filler'
-  },
+  // ⚠️ "Bar Faucet" is VALID (ID: a01aZ00000dC5E3QAK) - DO NOT REMAP
+  // ⚠️ "Pot Filler Faucet" is VALID (ID: a01aZ00000dC5EHQA0) - DO NOT REMAP
+  
   'Food Service Faucet': {
     removedCategory: 'Food Service Faucet',
     parentCategory: 'Kitchen Faucet',
@@ -128,12 +98,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Product bundle, not category',
     suggestedType: 'Combo'
   },
-  'Tankless Water Heater': { // Kitchen duplicate
-    removedCategory: 'Tankless Water Heater',
-    parentCategory: 'Tankless Water Heater', // Bath version kept
-    reason: 'Duplicate - Bath version kept',
-    suggestedType: undefined
-  },
+  // ⚠️ "Tankless Water Heater" is VALID (ID: a01aZ00000dC5DwQAK) - DO NOT REMAP
 
   // ===== LIGHTING - TYPES =====
   'Flush and Semi-Flush': {
@@ -216,12 +181,8 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Feature filter',
     suggestedType: 'LED'
   },
-  'Outdoor Ceiling Fan': {
-    removedCategory: 'Outdoor Ceiling Fan',
-    parentCategory: 'Ceiling Fan',
-    reason: 'Location filter',
-    suggestedType: 'Outdoor'
-  },
+  // ⚠️ "Outdoor Ceiling Fan" is VALID (ID: a01aZ00000dC5EvQAK) - DO NOT REMAP
+  
   'Small Ceiling Fans': {
     removedCategory: 'Small Ceiling Fans',
     parentCategory: 'Ceiling Fan',
@@ -376,20 +337,11 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Overlaps with kitchen storage',
     suggestedType: undefined
   },
-  'Drawer Slide and Accessory': {
-    removedCategory: 'Drawer Slide and Accessory',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Drawer Slide'
-  },
+  // ⚠️ "Drawer Slide and Accessory" is VALID (ID: a01aZ00000dCejeQAC) - DO NOT REMAP
 
-  // ===== OUTDOOR DUPLICATES (2 removed) =====
-  'Outdoor Lighting': { // Outdoor dept duplicate
-    removedCategory: 'Outdoor Lighting',
-    parentCategory: 'Outdoor Lighting', // Lighting dept version kept
-    reason: 'Duplicate - Lighting dept version kept',
-    suggestedType: undefined
-  },
+  // ===== OUTDOOR DUPLICATES =====
+  // ⚠️ "Outdoor Lighting" is VALID (ID: a01aZ00000dC5EWQA0) - DO NOT REMAP
+  // Note: If there are true duplicates, they need different IDs to be removed
 
   // ===== AI VARIATION CORRECTIONS =====
   // These are common variations AI suggests that need normalization
