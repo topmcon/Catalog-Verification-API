@@ -91,7 +91,7 @@ const SelfHealingTrackerSchema = new mongoose.Schema({
   }],
 });
 
-const AIUsage = mongoose.model('AIUsage', AIUsageSchema);
+const AIUsage = mongoose.model('ai_usage', AIUsageSchema, 'ai_usage');
 const SelfHealingTracker = mongoose.model('SelfHealingTracker', SelfHealingTrackerSchema);
 
 async function generate30DayReport() {
