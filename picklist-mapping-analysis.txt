@@ -1,0 +1,36 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║              NEW PICKLIST FILES - MATCHING ANALYSIS                        ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ EXISTING → NEW (ENHANCED/REPLACED)                                      │
+└─────────────────────────────────────────────────────────────────────────┘
+
+MATCHED (Enhanced Versions):
+  ✓ categories.json 
+      → categories_master.json (ENHANCED)
+  
+  ✓ category-filter-attributes.json 
+      → category-filter-attributes_enhanced.json (ENHANCED)
+  
+  ✓ styles.json 
+      → styles (8).json (ENHANCED)
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ NEW FILES (Not in existing picklists)                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+NEW CONCEPTS:
+  ✗ departments.json (NEW - likely parent grouping for categories)
+  ✗ families.json (NEW - product families concept)
+  ✗ types.json (NEW - the "type" element you mentioned!)
+  ✗ category-style-mapping.json (NEW - replaces TypeScript mapping)
+  ✗ category-type-mapping.json (NEW - maps categories to types)
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ MISSING FROM NEW LIST (Still needed?)                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  ⚠️  brands.json (NOT in new list)
+  ⚠️  attributes.json (NOT in new list)
+

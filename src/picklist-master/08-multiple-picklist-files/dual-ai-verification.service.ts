@@ -40,8 +40,8 @@ import {
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
-} from '../config/category-config';
-import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
+} from '../../config/category-config';
+import { getCategorySchema as getCategoryAttributeSchema } from '../04-attributes/category-attributes';
 import { 
   matchStyleToCategory, 
   getValidStylesForCategory, 
@@ -50,18 +50,12 @@ import {
   UNIVERSAL_DESIGN_STYLES,
   isLightingCategoryFromMaster,
   isShowerCategoryFromMaster 
-} from '../config/category-style-mapping';
-import { 
-  getAllCategoriesWithTypesForPrompt,
-  getTypeHierarchyExplanation 
-} from '../config/type-prompts';
-// TODO: Implement Type matching - import will be used when Type matching logic is added
-// import { matchTypeToPicklist } from './type-matcher.service';
+} from '../03-styles/category-style-mapping';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
-import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
-import * as lookups from '../config/lookups';
+import { normalizeCategoryName, areCategoriesEquivalent } from '../../config/category-aliases';
+import * as lookups from '../05-category-filter-attributes/lookups';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
 
 // ============================================
@@ -859,8 +853,6 @@ function buildDataCoherenceErrorResponse(
       SubCategory_Verified: '',
       Product_Family_Verified: '',
       Department_Verified: '',
-      Type_Verified: 'Not Applicable',  // Type layer between Category and Style
-      Type_Id: null,
       Product_Style_Verified: '',
       Style_Id: null,
       Color_Verified: '',
@@ -2703,19 +2695,16 @@ function getSystemPrompt(): string {
   const categoryTop15 = getAllCategoriesWithTop15ForPrompt();
   const categoryList = getCategoryListForPrompt();
   const categoryStyles = getAllCategoriesWithStylesForPrompt();
-  const categoryTypes = getAllCategoriesWithTypesForPrompt();
-  const typeHierarchy = getTypeHierarchyExplanation();
   
   return `You are an expert product data analyst specializing in appliances and home products.
 
 Your task is to:
 1. ANALYZE the raw product data provided
 2. DETERMINE which category from our master list the product belongs to
-3. DETERMINE the product's TYPE (functional variation within category)
-4. MAP the raw data to the correct attributes for that category
-5. VERIFY and CLEAN the data (fix obvious errors, standardize formats)
-6. IDENTIFY any missing required fields
-7. GENERATE high-quality, customer-facing text for title, description, and features
+3. MAP the raw data to the correct attributes for that category
+4. VERIFY and CLEAN the data (fix obvious errors, standardize formats)
+5. IDENTIFY any missing required fields
+6. GENERATE high-quality, customer-facing text for title, description, and features
 
 ## ⚠️ CRITICAL: DIMENSION HANDLING
 
@@ -2793,17 +2782,6 @@ ${primaryAttrs}
 ⚠️ CRITICAL: When populating top15_filter_attributes in your JSON response, you MUST use the field_key shown in parentheses (e.g., "horsepower", "feed_type"), NOT the full attribute name.
 ${categoryTop15}
 
-${typeHierarchy}
-
-== VALID PRODUCT TYPES (MANDATORY - Determines functional variation) ==
-⚠️ CRITICAL: For product_type, analyze the product and select the BEST matching type from the list below.
-- Type represents functional variations within a category (e.g., "4-Door Flex" for Refrigerators)
-- The final value MUST be one from the list for the determined category
-- This is used BEFORE style selection in the hierarchy: Category → TYPE → Style
-- Example: Refrigerator → "French Door" (Type) → "Bottom Freezer" (Style)
-- Example: Kitchen Faucet → "Single Handle" (Type) → "Pull-Down" (Style)
-${categoryTypes}
-
 == VALID CATEGORY STYLES (MANDATORY - Select the BEST contextual match from this list) ==
 ⚠️ CRITICAL: For product_style, analyze the product and select the BEST matching style from the list below.
 - Contextual matching: Determine which style best describes THIS product's type/function
@@ -2828,8 +2806,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_type": "⚠️ MANDATORY: Analyze the product and select the BEST matching type from the 'VALID PRODUCT TYPES' list above. This describes the functional variation within the category (e.g., '4-Door Flex' for refrigerators, 'Single Handle' for faucets). The output MUST be a value from the types list for this category.",
-    "product_style": "⚠️ MANDATORY: Analyze the product and select the BEST contextual match from the 'VALID CATEGORY STYLES' list above. Determine which style from the list best describes THIS product's type/function, then use that exact value. The output MUST be a value from the list to ensure proper website categorization. Example: Kitchen faucet with pull-down spray → 'Pull-Down'. Widespread bathroom faucet → 'Widespread'. Freestanding tub → 'Freestanding'. AVOID aesthetic terms (Contemporary, Modern) - use functional product types.",
+    "product_style": "⚠️ MANDATORY: Analyze the product and select the BEST contextual match from the 'VALID CATEGORY STYLES' list above. Determine which style from the list best describes this product's type/function, then use that exact value. The output MUST be a value from the list to ensure proper website categorization. Example: Kitchen faucet with pull-down spray → 'Pull-Down'. Widespread bathroom faucet → 'Widespread'. Freestanding tub → 'Freestanding'. AVOID aesthetic terms (Contemporary, Modern) - use functional product types.",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
@@ -5119,8 +5096,6 @@ function buildFinalResponse(
     Department_Verified: categoryMatch.matched && categoryMatch.matchedValue?.department
       ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
       : '',
-    Type_Verified: 'Not Applicable',  // TODO: Add Type matching from consensus.agreedPrimaryAttributes.product_type
-    Type_Id: null,  // TODO: Match Type to SF picklist and get Type_Id
     Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name when matched
       : styleToUse,  // Use AI-derived style even if not in SF picklist (will be in Style_Requests)

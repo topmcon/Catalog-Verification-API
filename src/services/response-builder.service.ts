@@ -151,6 +151,8 @@ export function buildPrimaryAttributes(
     Category_Verified: verifiedCategory,
     SubCategory_Verified: verifiedSubCategory,
     Product_Family_Verified: determineProductFamily(verifiedCategory, verifiedSubCategory),
+    Type_Verified: 'Not Applicable',  // TODO: Implement Type matching from dual-AI verification
+    Type_Id: null,
     Product_Style_Verified: determineProductStyle(incoming),
     Color_Verified: verifiedColor,
     Finish_Verified: verifiedFinish,

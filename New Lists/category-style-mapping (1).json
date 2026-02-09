@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "created": "2026-02-09",
+    "purpose": "Maps aesthetic STYLES to categories",
+    "note": "Most styles are universal and apply to all categories. Some may be category-specific.",
+    "hierarchy": "Department \u2192 Family \u2192 Category \u2192 STYLE"
+  },
+  "universal_styles": [
+    {
+      "style_name": "Art Deco",
+      "style_id": "a1IaZ000001TYybUAG",
+      "status": "existing"
+    },
+    {
+      "style_name": "Bohemian",
+      "style_id": "a1IaZ000001V9EXUA0",
+      "status": "existing"
+    },
+    {
+      "style_name": "Coastal",
+      "style_id": "a1IaZ000001VAAbUAO",
+      "status": "existing"
+    },
+    {
+      "style_name": "Contemporary",
+      "style_id": "a1IaZ000001TVZJUA4",
+      "status": "existing"
+    },
+    {
+      "style_name": "Farmhouse",
+      "style_id": "a1IaZ000001S93RUAS",
+      "status": "existing"
+    },
+    {
+      "style_name": "Geometric",
+      "style_id": "a1IaZ000001VCQvUAO",
+      "status": "existing"
+    },
+    {
+      "style_name": "Industrial",
+      "style_id": "a1IaZ000001Sjb7UAC",
+      "status": "existing"
+    },
+    {
+      "style_name": "Modern",
+      "style_id": "a1IaZ000001TWAPUA4",
+      "status": "existing"
+    },
+    {
+      "style_name": "Rustic",
+      "style_id": "a1IaZ000001TVcXUAW",
+      "status": "existing"
+    },
+    {
+      "style_name": "Southwestern",
+      "style_id": "a1IaZ000001VGMTUA4",
+      "status": "existing"
+    },
+    {
+      "style_name": "Striped",
+      "style_id": "a1IaZ000001VGuLUAW",
+      "status": "existing"
+    },
+    {
+      "style_name": "Traditional",
+      "style_id": "a1IaZ000001TLjdUAG",
+      "status": "existing"
+    },
+    {
+      "style_name": "Transitional",
+      "style_id": "a1IaZ000001TVXhUAO",
+      "status": "existing"
+    },
+    {
+      "style_name": "Tropical",
+      "style_id": "a1IaZ000001TekfUAC",
+      "status": "existing"
+    },
+    {
+      "style_name": "Victorian",
+      "style_id": "a1IaZ000001TVuHUAW",
+      "status": "existing"
+    },
+    {
+      "style_name": "Vintage",
+      "style_id": "a1IaZ000001TW2LUAW",
+      "status": "existing"
+    }
+  ],
+  "category_specific_styles": {
+    "note": "Add entries here if certain styles should only apply to specific categories",
+    "mappings": []
+  }
+}

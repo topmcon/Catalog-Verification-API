@@ -633,6 +633,8 @@ function buildPrimaryAttributes(
     Category_Verified: matchedCategory,
     SubCategory_Verified: getConsensusValue(consensusMap, 'subcategory') || rawProduct.Web_Retailer_SubCategory,
     Product_Family_Verified: getConsensusValue(consensusMap, 'product_family') || '',
+    Type_Verified: getConsensusValue(consensusMap, 'product_type') || 'Not Applicable',  // NEW: Type from AI analysis
+    Type_Id: null,  // TODO: Add Type picklist matching
     Product_Style_Verified: getConsensusValue(consensusMap, 'product_style') || '',
     Color_Verified: getConsensusValue(consensusMap, 'color') || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || '',
     Finish_Verified: getConsensusValue(consensusMap, 'finish') || rawProduct.Ferguson_Finish || '',

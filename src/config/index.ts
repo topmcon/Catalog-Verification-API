@@ -172,16 +172,52 @@ export {
   PREMIUM_BRANDS,
   MID_TIER_BRANDS,
   VALUE_BRANDS,
-  PREMIUM_FEATURE_KEYWORDS,
-  CATEGORY_NAME_ALIASES,
-  AI_CATEGORY_ALIASES,
-  DEPARTMENTS,
-  AI_FALLBACK_ATTRIBUTES,
   isPremiumBrand,
   isMidTierBrand,
+  isValueBrand,
   getBrandTier,
-  hasPremiumFeatures,
-} from './constants';
+} from '../picklist-master/01-brands/brand-config';
+
+export {
+  CATEGORY_NAME_ALIASES,
+  AI_CATEGORY_ALIASES,
+  type DepartmentName,
+} from '../picklist-master/02-categories/category-config';
+
+// Export Type hierarchy functions
+export {
+  getTypesForCategory,
+  getTypeById,
+  getTypeByName,
+  getCategoryTypeMapping,
+  isValidTypeForCategory,
+  getAllTypeNames,
+  getPrimaryTypesForCategory,
+  getTypeContext,
+  TYPES,
+  CATEGORY_TYPE_MAPPINGS,
+} from '../picklist-master/03-types/type-config';
+
+// Export Department and Family functions
+export {
+  getAllDepartmentNames,
+  getAllFamilyNames,
+  getFamiliesForDepartment,
+  getDepartmentForFamily,
+  isDepartment,
+  isFamily,
+  DEPARTMENTS,
+  FAMILIES,
+} from '../picklist-master/04-departments-families/department-family-config';
+
+export {
+  PRIMARY_ATTRIBUTES,
+  GLOBAL_PRIMARY_ATTRIBUTES,
+  type PrimaryAttributeName,
+  AI_FALLBACK_ATTRIBUTES,
+} from '../picklist-master/06-attributes/attribute-config';
+
+export { PREMIUM_FEATURE_KEYWORDS, hasPremiumFeatures } from './constants';
 
 // Export lookup functions
 export {
@@ -201,4 +237,11 @@ export {
   findBestCategoryMatch,
   getSystemCoverage,
   getCategoryCoverage,
-} from './lookups';
+} from '../picklist-master/07-category-filter-attributes/lookups';
+
+// Export Type prompt generation functions
+export {
+  getAllCategoriesWithTypesForPrompt,
+  getTypesForCategoryPrompt,
+  getTypeHierarchyExplanation,
+} from './type-prompts';

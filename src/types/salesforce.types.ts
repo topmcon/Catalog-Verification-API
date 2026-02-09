@@ -123,6 +123,8 @@ export interface PrimaryDisplayAttributes {
   SubCategory_Verified: string;
   Product_Family_Verified: string;
   Department_Verified?: string;  // From SF category data
+  Type_Verified: string;  // NEW: Type layer between Category and Style (e.g., "4-Door Flex" for Refrigerator)
+  Type_Id?: string | null;  // SF picklist ID for type
   Product_Style_Verified: string;  // Category-specific
   Style_Id?: string | null;  // SF picklist ID for style
   Color_Verified: string;          // Extracted/verified color
