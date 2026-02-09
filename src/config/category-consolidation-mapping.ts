@@ -20,12 +20,8 @@ export interface CategoryRemapping {
  */
 export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== KITCHEN APPLIANCES =====
-  'Drawer': {
-    removedCategory: 'Drawer',
-    parentCategory: 'Refrigerator', // or Microwave depending on context
-    reason: 'Style/configuration attribute, not a category',
-    suggestedType: 'Drawer'
-  },
+  // NOTE: "Drawer" is a VALID Salesforce category (ID: a01Hu000011kpC2IAI) for warming drawers,
+  // outdoor kitchen storage drawers, etc. It should NOT be remapped to Refrigerator.
   'Cooking': {
     removedCategory: 'Cooking',
     parentCategory: 'Range', // Could also be Cooktop or Oven

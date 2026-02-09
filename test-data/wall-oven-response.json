@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "Request Received / Processing",
+  "jobId": "35e7ee8e-94ea-4059-831f-9eb7d2d68332",
+  "SF_Catalog_Id": "test-wall-oven-140specs",
+  "SF_Catalog_Name": "PT9800SHSS",
+  "status": "queued",
+  "estimatedProcessingTime": "30-120 seconds",
+  "webhookConfigured": true,
+  "webhookUrl": "https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification",
+  "receivedAt": "2026-02-09T13:37:26.060Z"
+}
