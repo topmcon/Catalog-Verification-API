@@ -1,98 +1,66 @@
 [
   {
-    "style_name": "Art Deco",
-    "style_id": "a1IaZ000001TYybUAG",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Bohemian",
-    "style_id": "a1IaZ000001V9EXUA0",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Coastal",
-    "style_id": "a1IaZ000001VAAbUAO",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Contemporary",
-    "style_id": "a1IaZ000001TVZJUA4",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
     "style_name": "Farmhouse",
-    "style_id": "a1IaZ000001S93RUAS",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Geometric",
-    "style_id": "a1IaZ000001VCQvUAO",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001S93RUAS"
   },
   {
     "style_name": "Industrial",
-    "style_id": "a1IaZ000001Sjb7UAC",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Modern",
-    "style_id": "a1IaZ000001TWAPUA4",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Rustic",
-    "style_id": "a1IaZ000001TVcXUAW",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Southwestern",
-    "style_id": "a1IaZ000001VGMTUA4",
-    "status": "existing",
-    "applicable_to": "all_categories"
-  },
-  {
-    "style_name": "Striped",
-    "style_id": "a1IaZ000001VGuLUAW",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001Sjb7UAC"
   },
   {
     "style_name": "Traditional",
-    "style_id": "a1IaZ000001TLjdUAG",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001TLjdUAG"
   },
   {
     "style_name": "Transitional",
-    "style_id": "a1IaZ000001TVXhUAO",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001TVXhUAO"
   },
   {
-    "style_name": "Tropical",
-    "style_id": "a1IaZ000001TekfUAC",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_name": "Contemporary",
+    "style_id": "a1IaZ000001TVZJUA4"
+  },
+  {
+    "style_name": "Rustic",
+    "style_id": "a1IaZ000001TVcXUAW"
   },
   {
     "style_name": "Victorian",
-    "style_id": "a1IaZ000001TVuHUAW",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001TVuHUAW"
   },
   {
     "style_name": "Vintage",
-    "style_id": "a1IaZ000001TW2LUAW",
-    "status": "existing",
-    "applicable_to": "all_categories"
+    "style_id": "a1IaZ000001TW2LUAW"
+  },
+  {
+    "style_name": "Modern",
+    "style_id": "a1IaZ000001TWAPUA4"
+  },
+  {
+    "style_name": "Art Deco",
+    "style_id": "a1IaZ000001TYybUAG"
+  },
+  {
+    "style_name": "Tropical",
+    "style_id": "a1IaZ000001TekfUAC"
+  },
+  {
+    "style_name": "Bohemian",
+    "style_id": "a1IaZ000001V9EXUA0"
+  },
+  {
+    "style_name": "Coastal",
+    "style_id": "a1IaZ000001VAAbUAO"
+  },
+  {
+    "style_name": "Geometric",
+    "style_id": "a1IaZ000001VCQvUAO"
+  },
+  {
+    "style_name": "Southwestern",
+    "style_id": "a1IaZ000001VGMTUA4"
+  },
+  {
+    "style_name": "Striped",
+    "style_id": "a1IaZ000001VGuLUAW"
   }
 ]
