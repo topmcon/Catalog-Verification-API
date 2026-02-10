@@ -49,10 +49,10 @@ import {
   isValidShowerStyleFromMaster, 
   UNIVERSAL_DESIGN_STYLES,
   isLightingCategoryFromMaster,
-  isShowerCategoryFromMaster 
-} from '../config/category-style-mapping';
+  isShowerCategoryFromMaster,
+  getAllCategoriesWithTypesForPrompt
+} from '../config/master-picklist-helpers';
 import { 
-  getAllCategoriesWithTypesForPrompt,
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
 import { matchTypeToPicklist } from './type-matcher.service';

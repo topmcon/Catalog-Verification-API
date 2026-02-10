@@ -1,0 +1,3187 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "created": "2026-02-09",
+    "purpose": "Maps functional TYPES to categories",
+    "hierarchy": "Department → Family → Category → TYPE",
+    "note": "Types are category-specific configurations/functions"
+  },
+  "mappings": [
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Coffee Maker",
+      "category_id": "a01Hu000011kmDGIAY",
+      "filter_label": "Coffee Maker Type",
+      "logic": "Brewing method",
+      "types": [
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Countertop",
+          "type_id": "a1jaZ000001lF52QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drip",
+          "type_id": "a1jaZ000001lF5lQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Espresso",
+          "type_id": "a1jaZ000001lF63QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Single Serve",
+          "type_id": "a1jaZ000001lFAoQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cold Brew",
+          "type_id": "a1jaZ000001lF4hQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Cooktop",
+      "category_id": "a01Hu000010Q5EhIAK",
+      "filter_label": "Cooktop Type",
+      "logic": "Heat source",
+      "types": [
+        {
+          "type_name": "Gas",
+          "type_id": "a1jaZ000001lF6oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Induction",
+          "type_id": "a1jaZ000001lF7OQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Radiant",
+          "type_id": "a1jaZ000001lF9rQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Downdraft",
+          "type_id": "a1jaZ000001lF5eQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Dishwasher",
+      "category_id": "a01Hu000010Q5EiIAK",
+      "filter_label": "Dishwasher Type",
+      "logic": "Control location or installation type",
+      "types": [
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Top Control",
+          "type_id": "a1jaZ000001lFC4QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Front Control",
+          "type_id": "a1jaZ000001lF6iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drawer",
+          "type_id": "a1jaZ000001lF5hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Countertop",
+          "type_id": "a1jaZ000001lF52QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Portable",
+          "type_id": "a1jaZ000001lF9SQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Panel-Ready",
+          "type_id": "a1jaZ000001lF94QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Drawer",
+      "category_id": "a01Hu000011kpC2IAI",
+      "filter_label": "Drawer Type",
+      "logic": "Function",
+      "types": [
+        {
+          "type_name": "Warming",
+          "type_id": "a1jaZ000001lFD6QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Storage",
+          "type_id": "a1jaZ000001lFBUQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Refrigerator Drawer",
+          "type_id": "a1jaZ000001lF9yQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Freezer",
+      "category_id": "a01Hu000010Q5EkIAK",
+      "filter_label": "Freezer Type",
+      "logic": "Form factor",
+      "types": [
+        {
+          "type_name": "Upright",
+          "type_id": "a1jaZ000001lFCcQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Chest",
+          "type_id": "a1jaZ000001lF4UQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Column",
+          "type_id": "a1jaZ000001lF4iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Undercounter",
+          "type_id": "a1jaZ000001lFCWQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Icemaker",
+      "category_id": "a01Hu000011kFRfIAM",
+      "filter_label": "Icemaker Type",
+      "logic": "Installation type",
+      "types": [
+        {
+          "type_name": "Undercounter",
+          "type_id": "a1jaZ000001lFCWQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF6fQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Portable",
+          "type_id": "a1jaZ000001lF9SQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
+          "type_id": "a1jaZ000001lF8qQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Microwave",
+      "category_id": "a01Hu000010Q5ElIAK",
+      "filter_label": "Microwave Type",
+      "logic": "Installation location",
+      "types": [
+        {
+          "type_name": "Over-the-Range",
+          "type_id": "a1jaZ000001lF8zQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Countertop",
+          "type_id": "a1jaZ000001lF52QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drawer",
+          "type_id": "a1jaZ000001lF5hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Under Cabinet",
+          "type_id": "a1jaZ000001lFCUQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Oven",
+      "category_id": "a01Hu000010Q5EmIAK",
+      "filter_label": "Oven Type",
+      "logic": "Configuration or cooking method",
+      "types": [
+        {
+          "type_name": "Single",
+          "type_id": "a1jaZ000001lFAjQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Double Wall",
+          "type_id": "a1jaZ000001lF5bQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Microwave Combo",
+          "type_id": "a1jaZ000001lF8RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Steam",
+          "type_id": "a1jaZ000001lFBOQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Convection",
+          "type_id": "a1jaZ000001lF4yQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Speed Oven",
+          "type_id": "a1jaZ000001lFBAQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Pizza Oven",
+      "category_id": "a01aZ00000KJFrCQAX",
+      "filter_label": "Pizza Oven Type",
+      "logic": "Fuel type",
+      "types": [
+        {
+          "type_name": "Gas",
+          "type_id": "a1jaZ000001lF6oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wood-Fired",
+          "type_id": "a1jaZ000001lFDSQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Multi-Fuel",
+          "type_id": "a1jaZ000001lF8cQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Countertop",
+          "type_id": "a1jaZ000001lF52QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
+          "type_id": "a1jaZ000001lF8qQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Range",
+      "category_id": "a01Hu000010Q5EnIAK",
+      "filter_label": "Range Type",
+      "logic": "Fuel type or installation style",
+      "types": [
+        {
+          "type_name": "Gas",
+          "type_id": "a1jaZ000001lF6oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Induction",
+          "type_id": "a1jaZ000001lF7OQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Dual Fuel",
+          "type_id": "a1jaZ000001lF5pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF6fQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Slide-In",
+          "type_id": "a1jaZ000001lFAuQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pro-Style",
+          "type_id": "a1jaZ000001lF9cQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Range Hood",
+      "category_id": "a01Hu000010Q5EoIAK",
+      "filter_label": "Range Hood Type",
+      "logic": "Mounting/installation type",
+      "types": [
+        {
+          "type_name": "Wall-Mounted",
+          "type_id": "a1jaZ000001lFD4QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Under Cabinet",
+          "type_id": "a1jaZ000001lFCUQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Island Mount",
+          "type_id": "a1jaZ000001lF7bQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Insert",
+          "type_id": "a1jaZ000001lF7SQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Downdraft",
+          "type_id": "a1jaZ000001lF5eQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pro-Style",
+          "type_id": "a1jaZ000001lF9cQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Refrigerator",
+      "category_id": "a01Hu000010Q5EpIAK",
+      "filter_label": "Refrigerator Type",
+      "logic": "Door configuration/form factor",
+      "types": [
+        {
+          "type_name": "French Door",
+          "type_id": "a1jaZ000001lF6hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Side-by-Side",
+          "type_id": "a1jaZ000001lFAhQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Top Freezer",
+          "type_id": null,
+          "status": "new_needed",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bottom Freezer",
+          "type_id": null,
+          "status": "new_needed",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Counter Depth",
+          "type_id": "a1jaZ000001lF51QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Column",
+          "type_id": "a1jaZ000001lF4iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001lF42QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Undercounter",
+          "type_id": "a1jaZ000001lFCWQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "4-Door Flex",
+          "type_id": "a1jaZ000001lF33QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Laundry",
+      "category_name": "All in One Washer / Dryer",
+      "category_id": "a01Hu000010Q5EqIAK",
+      "filter_label": "Combo Type",
+      "logic": "Configuration",
+      "types": [
+        {
+          "type_name": "Unitized",
+          "type_id": "a1jaZ000001lFCaQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Front Load",
+          "type_id": "a1jaZ000001lF6jQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Ventless",
+          "type_id": "a1jaZ000001lFCkQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Laundry",
+      "category_name": "Dryer",
+      "category_id": "a01Hu000010Q5EjIAK",
+      "filter_label": "Dryer Type",
+      "logic": "Fuel type or venting",
+      "types": [
+        {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Gas",
+          "type_id": "a1jaZ000001lF6oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stackable",
+          "type_id": "a1jaZ000001lFBHQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Heat Pump",
+          "type_id": "a1jaZ000001lF7CQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Ventless",
+          "type_id": "a1jaZ000001lFCkQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Laundry",
+      "category_name": "Standalone Pedestal",
+      "category_id": "a01Hu000010Q5ErIAK",
+      "filter_label": "Pedestal Type",
+      "logic": "Primarily for matching washer/dryer",
+      "types": [
+        {
+          "type_name": "Standalone",
+          "type_id": "a1jaZ000001lFBJQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Storage Pedestal",
+          "type_id": "a1jaZ000001lFBXQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Appliances",
+      "family_name": "Laundry",
+      "category_name": "Washer",
+      "category_id": "a01Hu000010Q5EsIAK",
+      "filter_label": "Washer Type",
+      "logic": "Loading configuration",
+      "types": [
+        {
+          "type_name": "Front Load",
+          "type_id": "a1jaZ000001lF6jQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Top Load",
+          "type_id": "a1jaZ000001lFC5QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stackable",
+          "type_id": "a1jaZ000001lFBHQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Electronics",
+      "family_name": "General",
+      "category_name": "Home Electronics",
+      "category_id": "a01aZ00000XaZKQQA3",
+      "filter_label": "Electronics Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Smart Home Hub",
+          "type_id": "a1jaZ000001lFAyQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Smart Speaker",
+          "type_id": "a1jaZ000001lFB0QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Security Camera",
+          "type_id": "a1jaZ000001lFAQQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Video Doorbell",
+          "type_id": "a1jaZ000001lFCmQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Smart Display",
+          "type_id": "a1jaZ000001lFAxQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Carpet Tile",
+      "category_id": "a01aZ00000dCekVQAS",
+      "filter_label": "Carpet Tile Type",
+      "logic": "Application/installation",
+      "types": [
+        {
+          "type_name": "Peel and Stick",
+          "type_id": "a1jaZ000001lF9CQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Modular",
+          "type_id": "a1jaZ000001lF8UQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Commercial",
+          "type_id": "a1jaZ000001lF4lQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Residential",
+          "type_id": "a1jaZ000001lFA4QAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Hardscaping",
+      "category_id": "a01aZ00000dCekUQAS",
+      "filter_label": "Hardscape Type",
+      "logic": "Material",
+      "types": [
+        {
+          "type_name": "Paver",
+          "type_id": "a1jaZ000001lF9AQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flagstone",
+          "type_id": "a1jaZ000001lF6LQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Brick",
+          "type_id": "a1jaZ000001lF3yQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Gravel",
+          "type_id": "a1jaZ000001lF6wQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stepping Stone",
+          "type_id": "a1jaZ000001lFBRQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Hardwood Flooring",
+      "category_id": "a01aZ00000dCekSQAS",
+      "filter_label": "Hardwood Type",
+      "logic": "Construction",
+      "types": [
+        {
+          "type_name": "Solid",
+          "type_id": "a1jaZ000001lFB8QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Engineered",
+          "type_id": "a1jaZ000001lF61QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Prefinished",
+          "type_id": "a1jaZ000001lF9YQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Unfinished",
+          "type_id": "a1jaZ000001lFCYQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Laminate Flooring",
+      "category_id": "a01aZ00000dCekTQAS",
+      "filter_label": "Laminate Type",
+      "logic": "Appearance",
+      "types": [
+        {
+          "type_name": "Wood Look",
+          "type_id": "a1jaZ000001lFDRQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Tile Look",
+          "type_id": "a1jaZ000001lFByQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stone Look",
+          "type_id": "a1jaZ000001lFBTQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Waterproof",
+          "type_id": "a1jaZ000001lFD9QAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Luxury Vinyl Flooring",
+      "category_id": "a01aZ00000dCekRQAS",
+      "filter_label": "LVF Type",
+      "logic": "Format/installation",
+      "types": [
+        {
+          "type_name": "Plank",
+          "type_id": "a1jaZ000001lF9LQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Tile",
+          "type_id": "a1jaZ000001lFBxQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Click Lock",
+          "type_id": "a1jaZ000001lF4aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Glue Down",
+          "type_id": "a1jaZ000001lF6tQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Loose Lay",
+          "type_id": "a1jaZ000001lF8JQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Tile",
+      "category_id": "a01aZ00000dCekQQAS",
+      "filter_label": "Tile Type",
+      "logic": "Material",
+      "types": [
+        {
+          "type_name": "Ceramic",
+          "type_id": "a1jaZ000001lF4QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Porcelain",
+          "type_id": "a1jaZ000001lF9RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stone",
+          "type_id": "a1jaZ000001lFBSQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Glass",
+          "type_id": "a1jaZ000001lF6qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Mosaic",
+          "type_id": "a1jaZ000001lF8ZQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cement",
+          "type_id": "a1jaZ000001lF4MQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Flooring",
+      "family_name": "General",
+      "category_name": "Waterproof Flooring",
+      "category_id": "a01aZ00000dCekWQAS",
+      "filter_label": "Waterproof Type",
+      "logic": "Material",
+      "types": [
+        {
+          "type_name": "Vinyl Plank",
+          "type_id": "a1jaZ000001lFCnQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Vinyl Tile",
+          "type_id": "a1jaZ000001lFCoQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Laminate",
+          "type_id": "a1jaZ000001lF81QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Engineered",
+          "type_id": "a1jaZ000001lF61QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Barn Door Hardware",
+      "category_id": "a01aZ00000dC5F1QAK",
+      "filter_label": "Hardware Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Track Kit",
+          "type_id": "a1jaZ000001lFCGQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hanger",
+          "type_id": "a1jaZ000001lF7AQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rail",
+          "type_id": "a1jaZ000001lF9sQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Floor Guide",
+          "type_id": "a1jaZ000001lF6TQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "type_id": "a1jaZ000001lF75QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Cabinet Finishing",
+      "category_id": "a01aZ00000dCejVQAS",
+      "filter_label": "Finishing Type",
+      "logic": "Finishing component",
+      "types": [
+        {
+          "type_name": "Edge Banding",
+          "type_id": "a1jaZ000001lF5tQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Molding",
+          "type_id": "a1jaZ000001lF8VQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Toe Kick",
+          "type_id": "a1jaZ000001lFC0QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "End Panel",
+          "type_id": "a1jaZ000001lF60QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Crown Molding",
+          "type_id": "a1jaZ000001lF57QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Cabinet Hardware",
+      "category_id": "a01aZ00000dC5F2QAK",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Knob",
+          "type_id": "a1jaZ000001lF7pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pull",
+          "type_id": "a1jaZ000001lF9hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "type_id": "a1jaZ000001lF75QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hinge",
+          "type_id": "a1jaZ000001lF7EQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Catch",
+          "type_id": "a1jaZ000001lF4JQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Cabinet Organization and Storage",
+      "category_id": "a01aZ00000dCejbQAC",
+      "filter_label": "Organizer Type",
+      "logic": "Organizer type",
+      "types": [
+        {
+          "type_name": "Pull-Out Shelf",
+          "type_id": "a1jaZ000001lF9kQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lazy Susan",
+          "type_id": "a1jaZ000001lF85QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drawer Insert",
+          "type_id": "a1jaZ000001lF5iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Door Organizer",
+          "type_id": "a1jaZ000001lF5WQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trash Pull-Out",
+          "type_id": "a1jaZ000001lFCJQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Closet and Pocket Door Hardware",
+      "category_id": "a01aZ00000dC5F3QAK",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Pocket Door Kit",
+          "type_id": "a1jaZ000001lF9PQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Closet Rod",
+          "type_id": "a1jaZ000001lF4dQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Track",
+          "type_id": "a1jaZ000001lFCEQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pull",
+          "type_id": "a1jaZ000001lF9hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lock",
+          "type_id": "a1jaZ000001lF8FQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Commercial Door Hardware",
+      "category_id": "a01aZ00000dC5F4QAK",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Exit Device",
+          "type_id": "a1jaZ000001lF65QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Door Closer",
+          "type_id": "a1jaZ000001lF5VQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Push/Pull",
+          "type_id": "a1jaZ000001lF9pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Kick Plate",
+          "type_id": "a1jaZ000001lF7kQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Mortise Lock",
+          "type_id": "a1jaZ000001lF8YQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Designer Cabinet Hardware",
+      "category_id": "a01aZ00000dCejdQAC",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Designer Knob",
+          "type_id": "a1jaZ000001lF5MQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Designer Pull",
+          "type_id": "a1jaZ000001lF5NQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Designer Handle",
+          "type_id": "a1jaZ000001lF5LQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Keyed Hardware",
+      "category_id": "a01aZ00000dCejGQAS",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Knob",
+          "type_id": "a1jaZ000001lF7pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lever",
+          "type_id": "a1jaZ000001lF86QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Deadbolt",
+          "type_id": "a1jaZ000001lF5GQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handleset",
+          "type_id": "a1jaZ000001lF78QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Keyless Entry",
+      "category_id": "a01aZ00000dCejHQAS",
+      "filter_label": "Keyless Type",
+      "logic": "Access method",
+      "types": [
+        {
+          "type_name": "Keypad",
+          "type_id": "a1jaZ000001lF7jQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Touchscreen",
+          "type_id": "a1jaZ000001lFCBQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Smart Lock",
+          "type_id": "a1jaZ000001lFAzQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Biometric",
+          "type_id": "a1jaZ000001lF3nQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bluetooth",
+          "type_id": "a1jaZ000001lF3rQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Multi Point Door Hardware",
+      "category_id": "a01aZ00000dCejKQAS",
+      "filter_label": "Hardware Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Handleset",
+          "type_id": "a1jaZ000001lF78QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lock",
+          "type_id": "a1jaZ000001lF8FQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Strike",
+          "type_id": "a1jaZ000001lFBeQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Gear",
+          "type_id": "a1jaZ000001lF6pQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Screen and Storm Door Hardware",
+      "category_id": "a01aZ00000dCejNQAS",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Handle Set",
+          "type_id": "a1jaZ000001lF77QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Closer",
+          "type_id": "a1jaZ000001lF4cQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hinge",
+          "type_id": "a1jaZ000001lF7EQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Latch",
+          "type_id": "a1jaZ000001lF84QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Push Bar",
+          "type_id": "a1jaZ000001lF9lQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Sliding Door Hardware",
+      "category_id": "a01aZ00000dCejOQAS",
+      "filter_label": "Hardware Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Track",
+          "type_id": "a1jaZ000001lFCEQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Roller",
+          "type_id": "a1jaZ000001lFAAQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "type_id": "a1jaZ000001lF75QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lock",
+          "type_id": "a1jaZ000001lF8FQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Floor Guide",
+          "type_id": "a1jaZ000001lF6TQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Storage and Organization",
+      "category_id": "a01aZ00000dCejPQAS",
+      "filter_label": "Storage Type",
+      "logic": "Storage type",
+      "types": [
+        {
+          "type_name": "Shelf",
+          "type_id": "a1jaZ000001lFAXQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hook",
+          "type_id": "a1jaZ000001lF7FQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rack",
+          "type_id": "a1jaZ000001lF9qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bin",
+          "type_id": "a1jaZ000001lF3lQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cabinet",
+          "type_id": "a1jaZ000001lF46QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Vanity Cabinet Hardware",
+      "category_id": "a01aZ00000dCejhQAC",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware type",
+      "types": [
+        {
+          "type_name": "Knob",
+          "type_id": "a1jaZ000001lF7pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pull",
+          "type_id": "a1jaZ000001lF9hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "type_id": "a1jaZ000001lF75QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "HVAC",
+      "category_name": "Commercial HVAC",
+      "category_id": "a01aZ00000dCek2QAC",
+      "filter_label": "Commercial HVAC Type",
+      "logic": "System type",
+      "types": [
+        {
+          "type_name": "Rooftop Unit",
+          "type_id": "a1jaZ000001lFAEQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Split System",
+          "type_id": "a1jaZ000001lFBCQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Package Unit",
+          "type_id": "a1jaZ000001lF91QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Chiller",
+          "type_id": "a1jaZ000001lF4VQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Boiler",
+          "type_id": "a1jaZ000001lF3tQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "HVAC",
+      "category_name": "Ducting",
+      "category_id": "a01aZ00000dCek4QAC",
+      "filter_label": "Duct Type",
+      "logic": "Duct type",
+      "types": [
+        {
+          "type_name": "Flexible",
+          "type_id": "a1jaZ000001lF6NQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rigid",
+          "type_id": "a1jaZ000001lFA6QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Insulated",
+          "type_id": "a1jaZ000001lF7VQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Connector",
+          "type_id": "a1jaZ000001lF4uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Vent",
+          "type_id": "a1jaZ000001lFChQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "HVAC",
+      "category_name": "Indoor Heating",
+      "category_id": "a01aZ00000dCekAQAS",
+      "filter_label": "Heating Type",
+      "logic": "Installation/type",
+      "types": [
+        {
+          "type_name": "Baseboard",
+          "type_id": "a1jaZ000001lF3VQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wall Heater",
+          "type_id": "a1jaZ000001lFCuQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Floor Heater",
+          "type_id": "a1jaZ000001lF6UQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fireplace Insert",
+          "type_id": "a1jaZ000001lF6JQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Space Heater",
+          "type_id": "a1jaZ000001lFB9QAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "HVAC",
+      "category_name": "Room Heater",
+      "category_id": "a01aZ00000eEFl0QAG",
+      "filter_label": "Heater Type",
+      "logic": "Heating technology",
+      "types": [
+        {
+          "type_name": "Ceramic",
+          "type_id": "a1jaZ000001lF4QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Infrared",
+          "type_id": "a1jaZ000001lF7PQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Oil Filled",
+          "type_id": "a1jaZ000001lF8nQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fan Forced",
+          "type_id": "a1jaZ000001lF6AQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Radiant",
+          "type_id": "a1jaZ000001lF9rQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Convection",
+          "type_id": "a1jaZ000001lF4yQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "HVAC",
+      "category_name": "Stove and Chimney Pipe",
+      "category_id": "a01aZ00000dCekEQAS",
+      "filter_label": "Pipe Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Chimney Pipe",
+          "type_id": "a1jaZ000001lF4WQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stove Pipe",
+          "type_id": "a1jaZ000001lFBbQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Connector",
+          "type_id": "a1jaZ000001lF4uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cap",
+          "type_id": "a1jaZ000001lF4EQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flashing",
+          "type_id": "a1jaZ000001lF6MQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Home Décor & Furniture",
+      "family_name": "Furniture",
+      "category_name": "Outdoor and Patio Furniture",
+      "category_id": "a01aZ00000dCekPQAS",
+      "filter_label": "Outdoor Furniture Type",
+      "logic": "Furniture type",
+      "types": [
+        {
+          "type_name": "Seating",
+          "type_id": "a1jaZ000001lFANQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Dining",
+          "type_id": "a1jaZ000001lF5RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lounge",
+          "type_id": "a1jaZ000001lF8KQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Umbrella",
+          "type_id": "a1jaZ000001lFCTQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hammock",
+          "type_id": "a1jaZ000001lF70QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Home Décor & Furniture",
+      "family_name": "Home Improvement",
+      "category_name": "Furniture",
+      "category_id": "a01aZ00000dCekIQAS",
+      "filter_label": "Furniture Type",
+      "logic": "Furniture category",
+      "types": [
+        {
+          "type_name": "Accent",
+          "type_id": "a1jaZ000001lF36QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Storage",
+          "type_id": "a1jaZ000001lFBUQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Seating",
+          "type_id": "a1jaZ000001lFANQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Table",
+          "type_id": "a1jaZ000001lFBkQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shelving",
+          "type_id": "a1jaZ000001lFAYQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Home Décor & Furniture",
+      "family_name": "Home Improvement",
+      "category_name": "Home Accents",
+      "category_id": "a01aZ00000dCekMQAS",
+      "filter_label": "Accent Type",
+      "logic": "Accent type",
+      "types": [
+        {
+          "type_name": "Vase",
+          "type_id": "a1jaZ000001lFCgQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sculpture",
+          "type_id": "a1jaZ000001lFAKQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Frame",
+          "type_id": "a1jaZ000001lF6cQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Candle Holder",
+          "type_id": "a1jaZ000001lF4AQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bowl",
+          "type_id": "a1jaZ000001lF3xQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Figurine",
+          "type_id": "a1jaZ000001lF6DQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Clock",
+          "type_id": "a1jaZ000001lF4bQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Home Décor & Furniture",
+      "family_name": "Home Improvement",
+      "category_name": "Home Organization",
+      "category_id": "a01aZ00000dCekLQAS",
+      "filter_label": "Organization Type",
+      "logic": "Organization type",
+      "types": [
+        {
+          "type_name": "Shelf",
+          "type_id": "a1jaZ000001lFAXQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Basket",
+          "type_id": "a1jaZ000001lF3XQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bin",
+          "type_id": "a1jaZ000001lF3lQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rack",
+          "type_id": "a1jaZ000001lF9qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Closet System",
+          "type_id": "a1jaZ000001lF4eQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wall Organizer",
+          "type_id": "a1jaZ000001lFD1QAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Home Décor & Furniture",
+      "family_name": "Home Improvement",
+      "category_name": "Wall Decor",
+      "category_id": "a01aZ00000dCekKQAS",
+      "filter_label": "Wall Decor Type",
+      "logic": "Decor type",
+      "types": [
+        {
+          "type_name": "Wall Art",
+          "type_id": "a1jaZ000001lFCrQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Mirror",
+          "type_id": "a1jaZ000001lF8TQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Clock",
+          "type_id": "a1jaZ000001lF4bQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shelf",
+          "type_id": "a1jaZ000001lFAXQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sconce",
+          "type_id": "a1jaZ000001lFAIQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Tapestry",
+          "type_id": "a1jaZ000001lFBqQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Industrial & Commercial",
+      "family_name": "General",
+      "category_name": "Chemicals & Compounds",
+      "category_id": "a01aZ00000dF7KTQA0",
+      "filter_label": "Product Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Pipe Cement",
+          "type_id": "a1jaZ000001lF9IQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Primer",
+          "type_id": "a1jaZ000001lF9aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sealant",
+          "type_id": "a1jaZ000001lFALQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flux",
+          "type_id": "a1jaZ000001lF6aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Thread Compound",
+          "type_id": "a1jaZ000001lFBuQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Industrial & Commercial",
+      "family_name": "General",
+      "category_name": "Commercial Lighting",
+      "category_id": "a01aZ00000dC5EMQA0",
+      "filter_label": "Light Type",
+      "logic": "Fixture type",
+      "types": [
+        {
+          "type_name": "Panel",
+          "type_id": "a1jaZ000001lF93QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Troffer",
+          "type_id": "a1jaZ000001lFCOQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "High Bay",
+          "type_id": "a1jaZ000001lF7DQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Low Bay",
+          "type_id": "a1jaZ000001lF8LQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Strip Light",
+          "type_id": "a1jaZ000001lFBgQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Exit Sign",
+          "type_id": "a1jaZ000001lF66QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Industrial & Commercial",
+      "family_name": "General",
+      "category_name": "Commercial Restroom",
+      "category_id": "a01aZ00000dC5DpQAK",
+      "filter_label": "Product Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Toilet",
+          "type_id": "a1jaZ000001lFC2QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Urinal",
+          "type_id": "a1jaZ000001lFCdQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sink",
+          "type_id": "a1jaZ000001lFAsQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hand Dryer",
+          "type_id": "a1jaZ000001lF72QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Dispenser",
+          "type_id": "a1jaZ000001lF5TQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Partition",
+          "type_id": "a1jaZ000001lF95QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Industrial & Commercial",
+      "family_name": "General",
+      "category_name": "Drainage & Waste",
+      "category_id": "a01aZ00000dhf6HQAQ",
+      "filter_label": "Drainage Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Floor Drain",
+          "type_id": "a1jaZ000001lF6SQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trench Drain",
+          "type_id": "a1jaZ000001lFCKQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cleanout",
+          "type_id": "a1jaZ000001lF4ZQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Interceptor",
+          "type_id": "a1jaZ000001lF7XQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Vent",
+          "type_id": "a1jaZ000001lFChQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Industrial & Commercial",
+      "family_name": "General",
+      "category_name": "Water Fountain",
+      "category_id": "a01aZ00000dBtNpQAK",
+      "filter_label": "Fountain Type",
+      "logic": "Mount/type",
+      "types": [
+        {
+          "type_name": "Wall Mount",
+          "type_id": "a1jaZ000001lFCxQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF6fQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bottle Filler",
+          "type_id": "a1jaZ000001lF3vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "ADA Compliant",
+          "type_id": "a1jaZ000001lF34QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
+          "type_id": "a1jaZ000001lF8qQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Bath",
+      "category_name": "Vanity Lighting",
+      "category_id": "a01aZ00000dC5EdQAK",
+      "filter_label": "Vanity Light Type",
+      "logic": "Fixture type",
+      "types": [
+        {
+          "type_name": "Vanity",
+          "type_id": "a1jaZ000001lFCfQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bath Bar",
+          "type_id": "a1jaZ000001lF3aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sconce",
+          "type_id": "a1jaZ000001lFAIQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Globe",
+          "type_id": "a1jaZ000001lF6sQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Island Lighting",
+      "category_id": "a01aZ00000dC5EOQA0",
+      "filter_label": "Island Light Type",
+      "logic": "Fixture form",
+      "types": [
+        {
+          "type_name": "Linear",
+          "type_id": "a1jaZ000001lF8DQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Multi-Light",
+          "type_id": "a1jaZ000001lF8dQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pendant",
+          "type_id": "a1jaZ000001lF9EQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Chandelier",
+          "type_id": "a1jaZ000001lF4SQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "LED Lighting",
+      "category_id": "a01aZ00000dC5ERQA0",
+      "filter_label": "LED Light Type",
+      "logic": "LED product type",
+      "types": [
+        {
+          "type_name": "LED Strip",
+          "type_id": "a1jaZ000001lF7zQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED Panel",
+          "type_id": "a1jaZ000001lF7xQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED Retrofit",
+          "type_id": "a1jaZ000001lF7yQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED Tube",
+          "type_id": "a1jaZ000001lF80QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Light Bulbs",
+      "category_id": "a01aZ00000dC5ESQA0",
+      "filter_label": "Bulb Type",
+      "logic": "Bulb technology",
+      "types": [
+        {
+          "type_name": "LED",
+          "type_id": "a1jaZ000001lF7tQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Incandescent",
+          "type_id": "a1jaZ000001lF7MQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "CFL",
+          "type_id": "a1jaZ000001lF45QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Halogen",
+          "type_id": "a1jaZ000001lF6zQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Smart Bulb",
+          "type_id": "a1jaZ000001lFAwQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Vintage",
+          "type_id": null,
+          "status": "new_needed",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Light Switches & Dimmers",
+      "category_id": "a01aZ00000dC5ETQA0",
+      "filter_label": "Switch Type",
+      "logic": "Switch function",
+      "types": [
+        {
+          "type_name": "Standard Switch",
+          "type_id": "a1jaZ000001lFBLQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Dimmer",
+          "type_id": "a1jaZ000001lF5QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Smart Switch",
+          "type_id": "a1jaZ000001lFB1QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Motion Sensor",
+          "type_id": "a1jaZ000001lF8aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Timer",
+          "type_id": "a1jaZ000001lFBzQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fan Control",
+          "type_id": "a1jaZ000001lF69QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Recessed Lighting",
+      "category_id": "a01aZ00000dC5EZQA0",
+      "filter_label": "Recessed Light Type",
+      "logic": "Installation type or component",
+      "types": [
+        {
+          "type_name": "New Construction",
+          "type_id": "a1jaZ000001lF8gQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Remodel",
+          "type_id": "a1jaZ000001lFA1QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Canless",
+          "type_id": "a1jaZ000001lF4BQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED",
+          "type_id": "a1jaZ000001lF7tQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trim",
+          "type_id": "a1jaZ000001lFCLQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Housing",
+          "type_id": "a1jaZ000001lF7HQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Step Lighting",
+      "category_id": "a01aZ00000dC5EaQAK",
+      "filter_label": "Step Light Type",
+      "logic": "Installation type",
+      "types": [
+        {
+          "type_name": "Recessed",
+          "type_id": "a1jaZ000001lF9vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Surface Mount",
+          "type_id": "a1jaZ000001lFBiQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Solar",
+          "type_id": "a1jaZ000001lFB7QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED",
+          "type_id": "a1jaZ000001lF7tQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "General",
+      "category_name": "Track and Rail Lighting",
+      "category_id": "a01aZ00000dC5EbQAK",
+      "filter_label": "Track Light Type",
+      "logic": "Component type",
+      "types": [
+        {
+          "type_name": "Track",
+          "type_id": "a1jaZ000001lFCEQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Track Head",
+          "type_id": "a1jaZ000001lFCFQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Monorail",
+          "type_id": "a1jaZ000001lF8WQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Connector",
+          "type_id": "a1jaZ000001lF4uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "LED",
+          "type_id": "a1jaZ000001lF7tQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Kitchen",
+      "category_name": "Kitchen Lighting",
+      "category_id": "a01aZ00000dC5EBQA0",
+      "filter_label": "Kitchen Light Type",
+      "logic": "Fixture type or location",
+      "types": [
+        {
+          "type_name": "Pendant",
+          "type_id": "a1jaZ000001lF9EQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Island",
+          "type_id": "a1jaZ000001lF7aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Under Cabinet",
+          "type_id": "a1jaZ000001lFCUQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Track",
+          "type_id": "a1jaZ000001lFCEQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flush Mount",
+          "type_id": "a1jaZ000001lF6YQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Recessed",
+          "type_id": "a1jaZ000001lF9vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Linear",
+          "type_id": "a1jaZ000001lF8DQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Outdoor",
+      "category_name": "Landscape Lighting",
+      "category_id": "a01aZ00000dC5EQQA0",
+      "filter_label": "Landscape Light Type",
+      "logic": "Fixture type",
+      "types": [
+        {
+          "type_name": "Path Light",
+          "type_id": "a1jaZ000001lF97QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Spotlight",
+          "type_id": "a1jaZ000001lFBDQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flood Light",
+          "type_id": "a1jaZ000001lF6QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Well Light",
+          "type_id": "a1jaZ000001lFDAQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Deck",
+          "type_id": "a1jaZ000001lF5HQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bollard",
+          "type_id": "a1jaZ000001lF3uQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Outdoor",
+      "category_name": "Outdoor Lighting",
+      "category_id": "a01aZ00000dC5EWQA0",
+      "filter_label": "Outdoor Light Type",
+      "logic": "Fixture type/application",
+      "types": [
+        {
+          "type_name": "Wall Lantern",
+          "type_id": "a1jaZ000001lFCvQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Post Light",
+          "type_id": "a1jaZ000001lF9TQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Path Light",
+          "type_id": "a1jaZ000001lF97QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flood Light",
+          "type_id": "a1jaZ000001lF6QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Landscape",
+          "type_id": "a1jaZ000001lF82QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Security",
+          "type_id": "a1jaZ000001lFAPQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Deck",
+          "type_id": "a1jaZ000001lF5HQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Ceiling Mounted",
+          "type_id": "a1jaZ000001lF4LQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Outdoor",
+      "category_name": "Outdoor Lighting",
+      "category_id": "a01aZ00000dC5EWQA0",
+      "filter_label": "Outdoor Light Type",
+      "logic": "Fixture type",
+      "types": [
+        {
+          "type_name": "Wall Lantern",
+          "type_id": "a1jaZ000001lFCvQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Post Light",
+          "type_id": "a1jaZ000001lF9TQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Path Light",
+          "type_id": "a1jaZ000001lF97QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flood Light",
+          "type_id": "a1jaZ000001lF6QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Security",
+          "type_id": "a1jaZ000001lFAPQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Landscape",
+          "type_id": "a1jaZ000001lF82QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Outdoor",
+      "family_name": "Outdoor",
+      "category_name": "Garden Decor",
+      "category_id": "a01aZ00000dCejnQAC",
+      "filter_label": "Decor Type",
+      "logic": "Decor type",
+      "types": [
+        {
+          "type_name": "Planter",
+          "type_id": "a1jaZ000001lF9MQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Statue",
+          "type_id": "a1jaZ000001lFBNQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fountain",
+          "type_id": "a1jaZ000001lF6bQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bird Bath",
+          "type_id": "a1jaZ000001lF3oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wind Chime",
+          "type_id": "a1jaZ000001lFDHQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Garden Stake",
+          "type_id": "a1jaZ000001lF6nQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Outdoor",
+      "family_name": "Outdoor",
+      "category_name": "Outdoor Heating",
+      "category_id": "a01aZ00000dCejtQAC",
+      "filter_label": "Heating Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Patio Heater",
+          "type_id": "a1jaZ000001lF99QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fire Pit",
+          "type_id": "a1jaZ000001lF6HQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Fire Table",
+          "type_id": "a1jaZ000001lF6IQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Infrared Heater",
+          "type_id": "a1jaZ000001lF7QQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Bath",
+      "category_name": "Bathroom Cabinet Hardware",
+      "category_id": "a01aZ00000dC5DdQAK",
+      "filter_label": "Hardware Type",
+      "logic": "Hardware shape",
+      "types": [
+        {
+          "type_name": "Knob",
+          "type_id": "a1jaZ000001lF7pQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pull",
+          "type_id": "a1jaZ000001lF9hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "type_id": "a1jaZ000001lF75QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Bath",
+      "category_name": "Bathroom Hardware and Accessories",
+      "category_id": "a01aZ00000dC5DfQAK",
+      "filter_label": "Accessory Type",
+      "logic": "Accessory type",
+      "types": [
+        {
+          "type_name": "Towel Bar",
+          "type_id": "a1jaZ000001lFCCQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Towel Ring",
+          "type_id": "a1jaZ000001lFCDQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Robe Hook",
+          "type_id": "a1jaZ000001lFA8QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Toilet Paper Holder",
+          "type_id": "a1jaZ000001lFC3QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shelf",
+          "type_id": "a1jaZ000001lFAXQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Grab Bar",
+          "type_id": "a1jaZ000001lF6uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Set",
+          "type_id": "a1jaZ000001lFAVQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Bath",
+      "category_name": "Bathroom Lighting",
+      "category_id": "a01aZ00000dC5DgQAK",
+      "filter_label": "Bathroom Light Type",
+      "logic": "Fixture type",
+      "types": [
+        {
+          "type_name": "Vanity",
+          "type_id": "a1jaZ000001lFCfQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bath Bar",
+          "type_id": "a1jaZ000001lF3aQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Sconce",
+          "type_id": "a1jaZ000001lFAIQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Flush Mount",
+          "type_id": "a1jaZ000001lF6YQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pendant",
+          "type_id": "a1jaZ000001lF9EQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Bath",
+      "category_name": "Bathtub Waste & Overflow",
+      "category_id": "a01aZ00000dC5DkQAK",
+      "filter_label": "Drain Type",
+      "logic": "Drain operation type",
+      "types": [
+        {
+          "type_name": "Toe-Touch",
+          "type_id": "a1jaZ000001lFC1QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Push-Pull",
+          "type_id": "a1jaZ000001lF9oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lift & Turn",
+          "type_id": "a1jaZ000001lF89QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trip Lever",
+          "type_id": "a1jaZ000001lFCNQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Cable Operated",
+          "type_id": "a1jaZ000001lF47QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "General",
+      "category_name": "Flush and Semi-Flush",
+      "category_id": "a01aZ00000dC5ENQA0",
+      "filter_label": "Mount Type",
+      "logic": "Mount type or shape",
+      "types": [
+        {
+          "type_name": "Flush Mount",
+          "type_id": "a1jaZ000001lF6YQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Semi-Flush",
+          "type_id": "a1jaZ000001lFASQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drum",
+          "type_id": "a1jaZ000001lF5nQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Globe",
+          "type_id": "a1jaZ000001lF6sQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Kitchen",
+      "category_name": "Backsplash Kitchen Tile",
+      "category_id": "a01aZ00000dC5E1QAK",
+      "filter_label": "Backsplash Type",
+      "logic": "Material or pattern",
+      "types": [
+        {
+          "type_name": "Ceramic",
+          "type_id": "a1jaZ000001lF4QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Porcelain",
+          "type_id": "a1jaZ000001lF9RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Glass",
+          "type_id": "a1jaZ000001lF6qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stone",
+          "type_id": "a1jaZ000001lFBSQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Mosaic",
+          "type_id": "a1jaZ000001lF8ZQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Subway",
+          "type_id": "a1jaZ000001lFBhQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Peel and Stick",
+          "type_id": "a1jaZ000001lF9CQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Kitchen",
+      "category_name": "Kitchen Furniture and Decor",
+      "category_id": "a01aZ00000dC5EAQA0",
+      "filter_label": "Furniture Type",
+      "logic": "Furniture type",
+      "types": [
+        {
+          "type_name": "Kitchen Island",
+          "type_id": "a1jaZ000001lF7oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Kitchen Cart",
+          "type_id": "a1jaZ000001lF7mQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bar Stool",
+          "type_id": "a1jaZ000001lF3RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bakers Rack",
+          "type_id": "a1jaZ000001lF3MQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wine Rack",
+          "type_id": "a1jaZ000001lFDKQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Buffet",
+          "type_id": "a1jaZ000001lF40QAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Kitchen",
+      "category_name": "Kitchen Storage & Organization",
+      "category_id": "a01aZ00000dC5EEQA0",
+      "filter_label": "Storage Type",
+      "logic": "Storage solution",
+      "types": [
+        {
+          "type_name": "Pull-Out Shelf",
+          "type_id": "a1jaZ000001lF9kQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lazy Susan",
+          "type_id": "a1jaZ000001lF85QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drawer Organizer",
+          "type_id": "a1jaZ000001lF5kQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Spice Rack",
+          "type_id": "a1jaZ000001lFBBQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Pot Rack",
+          "type_id": "a1jaZ000001lF9WQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trash Pull-Out",
+          "type_id": "a1jaZ000001lFCJQA2",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Kitchen",
+      "category_name": "Kitchen Tile",
+      "category_id": "a01aZ00000dC5EFQA0",
+      "filter_label": "Tile Type",
+      "logic": "Material or pattern",
+      "types": [
+        {
+          "type_name": "Ceramic",
+          "type_id": "a1jaZ000001lF4QQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Porcelain",
+          "type_id": "a1jaZ000001lF9RQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Glass",
+          "type_id": "a1jaZ000001lF6qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Stone",
+          "type_id": "a1jaZ000001lFBSQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Mosaic",
+          "type_id": "a1jaZ000001lF8ZQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Subway",
+          "type_id": "a1jaZ000001lFBhQAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Kitchen",
+      "category_name": "Water Filtration",
+      "category_id": "a01aZ00000dC5EJQA0",
+      "filter_label": "Filter Type",
+      "logic": "Installation type",
+      "types": [
+        {
+          "type_name": "Under Sink",
+          "type_id": "a1jaZ000001lFCVQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Whole House",
+          "type_id": "a1jaZ000001lFDDQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Countertop",
+          "type_id": "a1jaZ000001lF52QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Faucet Mount",
+          "type_id": "a1jaZ000001lF6BQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Reverse Osmosis",
+          "type_id": "a1jaZ000001lFA5QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Replacement Filter",
+          "type_id": "a1jaZ000001lFA3QAM",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    }
+  ]
+}
