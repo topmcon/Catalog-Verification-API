@@ -9,6 +9,7 @@ import { VerificationJob } from '../models/verification-job.model';
 import { verifyProductWithDualAI } from './dual-ai-verification.service';
 import webhookService from './webhook.service';
 import { SalesforceIncomingProduct } from '../types/salesforce.types';
+import { compareResponses, ComparisonResult } from './response-comparison.service';
 
 class AsyncVerificationProcessor {
   private activeJobs: Set<string> = new Set(); // Track active job IDs
@@ -153,6 +154,48 @@ class AsyncVerificationProcessor {
           status: 'completed',
           modelMatch: modelMatch ? 'VERIFIED ✓' : 'MISMATCH ⚠️'
         });
+
+        // STEP 6.5: Compare against prior response (if available)
+        let comparisonResult: ComparisonResult | null = null;
+        if (job.rawPayload?.Prior_Response_Data) {
+          logger.info('STEP 6.5: Running post-verification comparison against prior response', {
+            jobId: job.jobId,
+            priorJobId: job.rawPayload.Prior_Response_Data.jobId,
+            priorTimestamp: job.rawPayload.Prior_Response_Data.timestamp
+          });
+
+          comparisonResult = compareResponses(
+            result,
+            job.rawPayload.Prior_Response_Data,
+            job.jobId
+          );
+
+          if (comparisonResult) {
+            // Store comparison results in job for analysis
+            job.comparisonAnalysis = comparisonResult;
+
+            logger.info('Response comparison completed', {
+              jobId: job.jobId,
+              changedFields: comparisonResult.changedFields,
+              improvements: comparisonResult.improvements,
+              regressions: comparisonResult.regressions,
+              criticalChanges: comparisonResult.criticalChanges,
+              summary: comparisonResult.summary
+            });
+
+            // Log critical changes or regressions
+            if (comparisonResult.criticalChanges > 0 || comparisonResult.regressions > 0) {
+              logger.warn('⚠️ LOGIC FAILURE DETECTED - Review verification logic', {
+                jobId: job.jobId,
+                criticalChanges: comparisonResult.criticalChanges,
+                regressions: comparisonResult.regressions,
+                recommendations: comparisonResult.recommendations
+              });
+            }
+          }
+
+          await job.save();
+        }
 
         // Send webhook callback
         await webhookService.sendResults(job.jobId);

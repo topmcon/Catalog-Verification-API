@@ -30,6 +30,29 @@ export interface SalesforceIncomingProduct {
   SF_Catalog_Name: string;  // Model number
 
   // ============================================
+  // PRIOR RESPONSE DATA (POST-VERIFICATION ANALYSIS ONLY - NEVER USE IN VERIFICATION)
+  // ============================================
+  // When Salesforce sends a re-verification request for a product we previously verified,
+  // they will include our prior response data for comparison/analysis.
+  // 
+  // ⚠️ CRITICAL: DO NOT use this data during verification process!
+  // 
+  // Purpose: AFTER verification completes, compare new response vs prior response to:
+  // 1. Identify logic failures or inconsistencies
+  // 2. Track improvements in verification accuracy
+  // 3. Flag significant changes that may indicate data source issues
+  // 4. Generate quality metrics for AI verification systems
+  // 
+  // This data is for POST-VERIFICATION ANALYSIS ONLY!
+  Prior_Response_Data?: {
+    Primary_Attributes?: any;
+    Top_15_Filter_Attributes?: any;
+    Additional_Attributes?: any;
+    timestamp?: string;
+    jobId?: string;
+  };
+
+  // ============================================
   // LEGACY DATA (INTERNAL GUIDANCE ONLY - NEVER USE IN RESPONSE)
   // ============================================
   // These fields contain OLD manually-entered data that is UNRELIABLE.

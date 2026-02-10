@@ -7,6 +7,7 @@ export interface IVerificationJob extends Document {
   status: 'pending' | 'processing' | 'completed' | 'failed';
   rawPayload: any; // Original request from Salesforce
   result?: any; // Final verification result
+  comparisonAnalysis?: any; // Post-verification comparison against prior response (if available)
   error?: string;
   webhookUrl?: string; // Salesforce callback URL
   webhookAttempts: number;
@@ -37,6 +38,7 @@ const VerificationJobSchema = new Schema<IVerificationJob>(
     },
     rawPayload: { type: Schema.Types.Mixed, required: true },
     result: { type: Schema.Types.Mixed },
+    comparisonAnalysis: { type: Schema.Types.Mixed }, // Post-verification comparison results
     error: { type: String },
     webhookUrl: { type: String },
     webhookAttempts: { type: Number, default: 0 },

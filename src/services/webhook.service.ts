@@ -13,6 +13,7 @@ interface WebhookPayload {
   data: any;
   sessionId: string;
   processingTimeMs: number;
+  comparisonAnalysis?: any; // Post-verification comparison against prior response (if available)
 }
 
 /**
@@ -66,7 +67,8 @@ class WebhookService {
           ...job.result
         },
         sessionId: job.jobId,
-        processingTimeMs: job.processingTimeMs || 0
+        processingTimeMs: job.processingTimeMs || 0,
+        ...(job.comparisonAnalysis && { comparisonAnalysis: job.comparisonAnalysis })
       };
       
       // Sanitize: Salesforce Apex JSON parser cannot handle null values
