@@ -2856,7 +2856,7 @@ You must respond with valid JSON in this exact format:
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
     "weight": "numeric value in lbs",
-    "msrp": "value",
+    "msrp": "⚠️ CRITICAL: Manufacturer's Suggested Retail Price ONLY. Use the HIGHEST price found from official sources (manufacturer website, spec sheets, authorized retailers showing 'List Price' or 'MSRP'). DO NOT use current sale prices, street prices, or discounted market values. MSRP must be the original manufacturer's suggested price.",
     "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
     "product_title": "⚠️ TITLE FORMAT: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + MODEL. NO FEATURES OR PARENTHETICAL TEXT. Example: 'Delta Trinsic Single Handle Pull-Down Kitchen Faucet Matte Black' NOT 'Delta Trinsic Kitchen Faucet (Touch2O Technology)'",
     "details": "additional details",
@@ -3471,8 +3471,185 @@ function semanticValueMatch(
     return noMatch;
   }
   
-  // Not a picklist field - no semantic matching available
+  // Not a picklist field - apply general semantic attribute normalization
+  return semanticAttributeNormalization(openaiVal, xaiVal, fieldKey);
+}
+
+/**
+ * Semantic normalization for general attribute values (non-picklist fields)
+ * Handles: boolean equivalence, numeric words, string variations
+ */
+function semanticAttributeNormalization(
+  openaiVal: any,
+  xaiVal: any,
+  fieldKey: string
+): {
+  isMatch: boolean;
+  resolvedValue: string | null;
+  openaiResolved: any;
+  xaiResolved: any;
+} {
+  const noMatch = { isMatch: false, resolvedValue: null, openaiResolved: null, xaiResolved: null };
+  
+  // Skip null/undefined values
+  if (openaiVal == null && xaiVal == null) return noMatch;
+  if (openaiVal == null || xaiVal == null) return noMatch;
+  
+  const openaiStr = String(openaiVal).trim();
+  const xaiStr = String(xaiVal).trim();
+  
+  // Empty strings
+  if (!openaiStr && !xaiStr) return noMatch;
+  
+  // 🔴 CRITICAL: MSRP field validation - must be actual MSRP, not market value
+  if (fieldKey.toLowerCase().includes('msrp')) {
+    // Normalize both values
+    const openaiNorm = normalizeAttributeValue(openaiStr);
+    const xaiNorm = normalizeAttributeValue(xaiStr);
+    
+    // Extract numeric values
+    const openaiNum = parseFloat(openaiNorm.replace(/[^\d.-]/g, ''));
+    const xaiNum = parseFloat(xaiNorm.replace(/[^\d.-]/g, ''));
+    
+    // If both are valid numbers and within 5% tolerance, they're likely the same MSRP
+    if (!isNaN(openaiNum) && !isNaN(xaiNum)) {
+      const tolerance = Math.max(openaiNum, xaiNum) * 0.05; // 5% tolerance
+      if (Math.abs(openaiNum - xaiNum) <= tolerance) {
+        // Use the higher value (MSRP is typically higher than street price)
+        const resolvedValue = openaiNum >= xaiNum ? openaiStr : xaiStr;
+        return {
+          isMatch: true,
+          resolvedValue,
+          openaiResolved: openaiStr,
+          xaiResolved: xaiStr
+        };
+      }
+    }
+    
+    // Otherwise mark as disagreement for manual review
+    return {
+      isMatch: false,
+      resolvedValue: null,
+      openaiResolved: openaiStr,
+      xaiResolved: xaiStr
+    };
+  }
+  
+  // Boolean equivalence: Yes/True/1, No/False/0
+  const booleanMatch = matchBooleanEquivalence(openaiStr, xaiStr);
+  if (booleanMatch.matched) {
+    return {
+      isMatch: true,
+      resolvedValue: booleanMatch.normalizedValue,
+      openaiResolved: booleanMatch.normalizedValue,
+      xaiResolved: booleanMatch.normalizedValue
+    };
+  }
+  
+  // Numeric word equivalence: "2" vs "Two", "3" vs "Three"
+  const numericMatch = matchNumericWords(openaiStr, xaiStr);
+  if (numericMatch.matched) {
+    return {
+      isMatch: true,
+      resolvedValue: numericMatch.normalizedValue,
+      openaiResolved: numericMatch.normalizedValue,
+      xaiResolved: numericMatch.normalizedValue
+    };
+  }
+  
+  // Enhanced string normalization
+  const openaiNorm = normalizeAttributeValue(openaiStr);
+  const xaiNorm = normalizeAttributeValue(xaiStr);
+  
+  // Exact match after normalization
+  if (openaiNorm === xaiNorm) {
+    return {
+      isMatch: true,
+      resolvedValue: openaiVal, // Use original value, not normalized
+      openaiResolved: openaiVal,
+      xaiResolved: xaiVal
+    };
+  }
+  
+  // Partial match: "Stainless Steel" vs "Stainless"
+  if (openaiNorm.includes(xaiNorm) || xaiNorm.includes(openaiNorm)) {
+    // Use the longer, more descriptive version
+    const resolvedValue = openaiStr.length >= xaiStr.length ? openaiVal : xaiVal;
+    return {
+      isMatch: true,
+      resolvedValue,
+      openaiResolved: openaiVal,
+      xaiResolved: xaiVal
+    };
+  }
+  
+  // No semantic match found
   return noMatch;
+}
+
+/**
+ * Match boolean equivalents: Yes/True/1, No/False/0
+ */
+function matchBooleanEquivalence(val1: string, val2: string): { matched: boolean; normalizedValue: string } {
+  const normalize = (v: string): string | null => {
+    const lower = v.toLowerCase().trim();
+    if (['yes', 'true', '1', 'on', 'enabled'].includes(lower)) return 'Yes';
+    if (['no', 'false', '0', 'off', 'disabled'].includes(lower)) return 'No';
+    return null;
+  };
+  
+  const norm1 = normalize(val1);
+  const norm2 = normalize(val2);
+  
+  if (norm1 && norm2 && norm1 === norm2) {
+    return { matched: true, normalizedValue: norm1 };
+  }
+  
+  return { matched: false, normalizedValue: '' };
+}
+
+/**
+ * Match numeric words: "2" vs "Two", "3" vs "Three"
+ */
+function matchNumericWords(val1: string, val2: string): { matched: boolean; normalizedValue: string } {
+  const wordToNumber: Record<string, string> = {
+    'zero': '0', 'one': '1', 'two': '2', 'three': '3', 'four': '4',
+    'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9',
+    'ten': '10', 'eleven': '11', 'twelve': '12', 'thirteen': '13',
+    'fourteen': '14', 'fifteen': '15', 'sixteen': '16', 'seventeen': '17',
+    'eighteen': '18', 'nineteen': '19', 'twenty': '20'
+  };
+  
+  const normalize = (v: string): string => {
+    const lower = v.toLowerCase().trim();
+    return wordToNumber[lower] || v;
+  };
+  
+  const norm1 = normalize(val1);
+  const norm2 = normalize(val2);
+  
+  // Both normalized to the same numeric value
+  if (norm1 === norm2 && /^\d+$/.test(norm1)) {
+    return { matched: true, normalizedValue: norm1 };
+  }
+  
+  return { matched: false, normalizedValue: '' };
+}
+
+/**
+ * Normalize attribute values for comparison
+ */
+function normalizeAttributeValue(val: string): string {
+  return String(val)
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')                    // Multiple spaces to single
+    .replace(/["']/g, '')                     // Remove quotes
+    .replace(/\s*(inches?|in\.?|")\s*/gi, '') // Remove "inches", "in"
+    .replace(/\s*(lbs?|pounds?)\s*/gi, '')    // Remove weight units
+    .replace(/\s*(cu\.?\s*ft\.?|cubic feet)\s*/gi, '') // Remove volume units
+    .replace(/unavailable|n\/a|not available|unknown/gi, '') // Remove placeholders
+    .trim();
 }
 
 function buildAgreedAttributes(
