@@ -22,6 +22,73 @@ export interface TypeMatchResult {
 }
 
 /**
+ * Common AI output aliases that should map to specific type picklist values
+ * Key: normalized alias, Value: { category: correct type_name }
+ * This handles cases where AI outputs descriptions that don't match picklist names exactly
+ */
+const TYPE_ALIASES: Record<string, Record<string, string>> = {
+  // Oven aliases
+  'built-in': { 'Oven': 'Single' },
+  'built-in oven': { 'Oven': 'Single' },
+  'built in oven': { 'Oven': 'Single' },
+  'wall oven': { 'Oven': 'Single' },
+  'single wall oven': { 'Oven': 'Single' },
+  'single wall': { 'Oven': 'Single' },
+  'single oven': { 'Oven': 'Single' },
+  'double oven': { 'Oven': 'Double Wall' },
+  'double wall oven': { 'Oven': 'Double Wall' },
+  'microwave oven combo': { 'Oven': 'Microwave Combo' },
+  'microwave combination': { 'Oven': 'Microwave Combo' },
+  'speed cook': { 'Oven': 'Speed Oven' },
+  'steam oven': { 'Oven': 'Steam' },
+  'convection oven': { 'Oven': 'Convection' },
+  // Refrigerator aliases
+  'side by side': { 'Refrigerator': 'Side-by-Side' },
+  'side-by-side refrigerator': { 'Refrigerator': 'Side-by-Side' },
+  'french door refrigerator': { 'Refrigerator': 'French Door' },
+  'top freezer refrigerator': { 'Refrigerator': 'Top Freezer' },
+  'bottom freezer refrigerator': { 'Refrigerator': 'Bottom Freezer' },
+  // Range aliases
+  'freestanding range': { 'Range': 'Freestanding' },
+  'slide-in range': { 'Range': 'Slide-In' },
+  'slide in range': { 'Range': 'Slide-In' },
+  'dual fuel range': { 'Range': 'Dual Fuel' },
+  // Dishwasher aliases
+  'built-in dishwasher': { 'Dishwasher': 'Built-In' },
+  'portable dishwasher': { 'Dishwasher': 'Portable' },
+  'drawer dishwasher': { 'Dishwasher': 'Drawer' },
+  // Washer aliases
+  'front load': { 'Washer': 'Front Load', 'Dryer': 'Front Load' },
+  'front load washer': { 'Washer': 'Front Load' },
+  'top load': { 'Washer': 'Top Load', 'Dryer': 'Top Load' },
+  'top load washer': { 'Washer': 'Top Load' },
+};
+
+/**
+ * Try to resolve a type via alias mapping
+ * @param aiType - AI-provided type name
+ * @param category - Product category
+ * @returns Resolved type name or null
+ */
+function resolveTypeAlias(aiType: string, category: string): string | null {
+  const normalizedInput = aiType.toLowerCase().trim();
+  const aliases = TYPE_ALIASES[normalizedInput];
+  if (aliases) {
+    // Check exact category match
+    if (aliases[category]) {
+      return aliases[category];
+    }
+    // Check case-insensitive category match
+    for (const [cat, typeName] of Object.entries(aliases)) {
+      if (cat.toLowerCase() === category.toLowerCase()) {
+        return typeName;
+      }
+    }
+  }
+  return null;
+}
+
+/**
  * Normalize type name for matching
  * - Converts to lowercase
  * - Trims whitespace
@@ -73,6 +140,31 @@ export function matchTypeToPicklist(
 
   const validTypes = categoryMapping.types;
   const normalizedInput = normalizeTypeName(aiType);
+
+  // TRY 0: Alias resolution (handles common AI descriptions like "Built-In Oven" → "Single" for Oven)
+  const aliasResolved = resolveTypeAlias(aiType, category);
+  if (aliasResolved) {
+    const aliasType = validTypes.find(t => t.type_name.toLowerCase() === aliasResolved.toLowerCase());
+    if (aliasType) {
+      const typePicklistItem = getTypeByName(aliasType.type_name);
+      if (typePicklistItem) {
+        logger.info('Type matched (alias resolution)', {
+          input: aiType,
+          alias: aliasResolved,
+          matched: aliasType.type_name,
+          category,
+          confidence: 0.95
+        });
+        return {
+          matched: true,
+          matchedValue: typePicklistItem,
+          confidence: 0.95,
+          matchMethod: 'fuzzy',
+          originalInput
+        };
+      }
+    }
+  }
 
   // TRY 1: Exact match (case-insensitive)
   for (const type of validTypes) {

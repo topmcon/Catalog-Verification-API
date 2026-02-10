@@ -2796,20 +2796,24 @@ ${typeHierarchy}
 
 == VALID PRODUCT TYPES (MANDATORY - Determines functional variation) ==
 ⚠️ CRITICAL: For product_type, analyze the product and select the BEST matching type from the list below.
-- Type represents functional variations within a category (e.g., "4-Door Flex" for Refrigerators)
-- The final value MUST be one from the list for the determined category
-- This is used BEFORE style selection in the hierarchy: Category → TYPE → Style
-- Example: Refrigerator → "French Door" (Type) → "Bottom Freezer" (Style)
-- Example: Kitchen Faucet → "Single Handle" (Type) → "Pull-Down" (Style)
+- Type represents the FUNCTIONAL CONFIGURATION within a category
+- You MUST select a value from the types list for the determined category - DO NOT leave blank
+- Example: Oven → analyze if it's single/double wall → select "Single" or "Double Wall"
+- Example: Refrigerator → analyze door configuration → select "French Door" or "Side-by-Side"
+- Example: Kitchen Faucet → analyze handle/spray type → select "Single Handle" or "Pull-Down"
+- If the product clearly fits a type, ALWAYS select it even if you are uncertain
+- Only use "Not Applicable" if the category genuinely has no applicable type
 ${categoryTypes}
 
-== VALID CATEGORY STYLES (MANDATORY - Select the BEST contextual match from this list) ==
-⚠️ CRITICAL: For product_style, analyze the product and select the BEST matching style from the list below.
-- Contextual matching: Determine which style best describes THIS product's type/function
-- The final value MUST be one from the list - this ensures proper website categorization
-- Example: A pull-down kitchen faucet → analyze it has pull-down spray → select "Pull-Down" from list
-- Example: A freestanding bathtub → analyze it's freestanding → select "Freestanding" from list
-- AVOID aesthetic styles (Contemporary, Modern, Traditional) - use functional product types
+== VALID CATEGORY STYLES (MANDATORY - Select the BEST matching DESIGN AESTHETIC from this list) ==
+⚠️ CRITICAL: For product_style, select the DESIGN AESTHETIC that best describes the product's visual appearance.
+- These are DESIGN/AESTHETIC styles (e.g., Contemporary, Modern, Traditional, Industrial)
+- The final value MUST be one from the list below - this ensures proper website categorization
+- Analyze the product's visual design language, era influences, and aesthetic qualities
+- Example: A sleek minimalist oven with clean lines → "Contemporary" or "Modern"
+- Example: A decorative chandelier with ornate details → "Traditional" or "Victorian"
+- Example: An exposed-bulb industrial pendant → "Industrial"
+- DO NOT put functional types here (use product_type for functional types like "Single", "French Door")
 - If genuinely no style from the list applies, use "Not Applicable"
 ${categoryStyles}
 
@@ -2828,7 +2832,7 @@ You must respond with valid JSON in this exact format:
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
     "product_type": "⚠️ MANDATORY: Analyze the product and select the BEST matching type from the 'VALID PRODUCT TYPES' list above. This describes the functional variation within the category (e.g., '4-Door Flex' for refrigerators, 'Single Handle' for faucets). The output MUST be a value from the types list for this category.",
-    "product_style": "⚠️ MANDATORY: Analyze the product and select the BEST contextual match from the 'VALID CATEGORY STYLES' list above. Determine which style from the list best describes THIS product's type/function, then use that exact value. The output MUST be a value from the list to ensure proper website categorization. Example: Kitchen faucet with pull-down spray → 'Pull-Down'. Widespread bathroom faucet → 'Widespread'. Freestanding tub → 'Freestanding'. AVOID aesthetic terms (Contemporary, Modern) - use functional product types.",
+    "product_style": "⚠️ MANDATORY: Select the DESIGN AESTHETIC from the 'VALID CATEGORY STYLES' list that best matches this product's visual style. These are aesthetic/visual terms like 'Contemporary', 'Modern', 'Traditional', 'Industrial', 'Farmhouse'. Analyze the product's design language and visual appearance to pick the best match. DO NOT put functional types here (those go in product_type).",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
@@ -4852,7 +4856,7 @@ function buildFinalResponse(
   
   if (potentialStyle && categoryMatch.matchedValue) {
     const matchedCategory = categoryMatch.matchedValue.category_name;
-    const mappedStyle = matchStyleToCategory(matchedCategory, potentialStyle);
+    const mappedStyle = matchStyleToCategory(potentialStyle, matchedCategory);
     
     if (mappedStyle) {
       // Verify the mapped style exists in Salesforce picklist
