@@ -3,7 +3,7 @@
     "version": "2.0",
     "created": "2026-02-09",
     "purpose": "Maps functional TYPES to categories",
-    "hierarchy": "Department \u2192 Family \u2192 Category \u2192 TYPE",
+    "hierarchy": "Department → Family → Category → TYPE",
     "note": "Types are category-specific configurations/functions"
   },
   "mappings": [
@@ -308,14 +308,14 @@
       "logic": "Configuration or cooking method",
       "types": [
         {
-          "type_name": "Single Wall",
-          "type_id": null,
-          "status": "new_needed",
+          "type_name": "Single",
+          "type_id": "a1jaZ000001lFAjQAM",
+          "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Wall",
-          "type_id": "a1IaZ0000019zenUAA",
+          "type_id": "a1jaZ000001lF5bQAE",
           "status": "existing",
           "primary_filter": true
         },
@@ -1722,7 +1722,7 @@
       ]
     },
     {
-      "department_name": "Home D\u00e9cor & Furniture",
+      "department_name": "Home Décor & Furniture",
       "family_name": "Furniture",
       "category_name": "Outdoor and Patio Furniture",
       "category_id": "a01aZ00000dCekPQAS",
@@ -1762,7 +1762,7 @@
       ]
     },
     {
-      "department_name": "Home D\u00e9cor & Furniture",
+      "department_name": "Home Décor & Furniture",
       "family_name": "Home Improvement",
       "category_name": "Furniture",
       "category_id": "a01aZ00000dCekIQAS",
@@ -1802,7 +1802,7 @@
       ]
     },
     {
-      "department_name": "Home D\u00e9cor & Furniture",
+      "department_name": "Home Décor & Furniture",
       "family_name": "Home Improvement",
       "category_name": "Home Accents",
       "category_id": "a01aZ00000dCekMQAS",
@@ -1854,7 +1854,7 @@
       ]
     },
     {
-      "department_name": "Home D\u00e9cor & Furniture",
+      "department_name": "Home Décor & Furniture",
       "family_name": "Home Improvement",
       "category_name": "Home Organization",
       "category_id": "a01aZ00000dCekLQAS",
@@ -1900,7 +1900,7 @@
       ]
     },
     {
-      "department_name": "Home D\u00e9cor & Furniture",
+      "department_name": "Home Décor & Furniture",
       "family_name": "Home Improvement",
       "category_name": "Wall Decor",
       "category_id": "a01aZ00000dCekKQAS",
