@@ -1,71 +1,99 @@
 import logger from '../utils/logger';
 
 /**
- * Category name normalization and alias mapping
- * Reduces category disagreements between AIs
+ * CATEGORY NAME ALIASES — SINGLE SOURCE OF TRUTH
+ * ================================================
+ * Maps canonical category names → arrays of alternative names/aliases.
+ * Used by normalizeCategoryName() to resolve AI output variations.
+ * 
+ * RULES:
+ * 1. Keys MUST be exact category names from categories.json where possible
+ * 2. If no exact match in categories.json, key serves as a normalization target
+ * 3. All other files (constants.ts, category-schema.ts) re-export from here
+ * 4. When adding new aliases, add them HERE — never create a separate copy
+ * 
+ * SYNCED WITH: src/config/salesforce-picklists/categories.json
+ * IMPORTED BY: constants.ts (re-exports as CATEGORY_NAME_ALIASES)
+ *              category-schema.ts (re-exports)
+ *              dual-ai-verification.service.ts (direct import)
+ *              lookups.ts (via constants.ts re-export)
  */
 
 export const CATEGORY_ALIASES: Record<string, string[]> = {
-  // Lighting
-  "Wall Sconce": ["Wall Sconces (Lighting)", "Sconces", "Wall Lights", "Wall Mounted Lighting"],
-  "Ceiling Light": ["Ceiling Mounted Lights", "Ceiling Fixtures", "Overhead Lighting"],
-  "Chandelier": ["Chandelier Lighting", "Suspended Chandeliers"],
-  "Pendant Lights": ["Pendant Lighting", "Hanging Pendants", "Suspended Pendants"],
-  "Lamps": ["Table Lamps", "Desk Lamps", "Floor Lamps"],
-  "Recessed Lighting": ["Recessed Lights", "Can Lights", "Downlights"],
-  
-  // Kitchen & Bath
-  "Kitchen Faucet": ["Faucets - Kitchen", "Kitchen Sink Faucets"],
-  "Bathroom Faucet": ["Faucets - Bathroom", "Bath Faucets", "Lavatory Faucets"],
-  "Kitchen Sink": ["Sinks - Kitchen", "Kitchen Basin"],
-  "Bathroom Sink": ["Sinks - Bathroom", "Bath Sinks", "Lavatory Sinks"],
-  "Range": ["Cooking Ranges", "Stoves", "Ovens & Ranges"],
-  "Refrigerator": ["Fridges", "Refrigeration"],
-  "Dishwasher": ["Dish Washers"],
-  
-  // Appliances
-  "Cooktop": ["Cook Tops", "Stovetops"],
-  "Wall Ovens": ["Built-in Ovens", "Wall Mounted Ovens"],
-  "Microwave": ["Microwave Ovens"],
-  "Range Hood": ["Vent Hoods", "Kitchen Hoods", "Exhaust Hoods"],
-  "Wine Coolers": ["Wine Refrigerators", "Wine Chillers"],
-  
-  // Doors & Hardware
-  "Door Hardware": ["Door Handles", "Door Knobs & Handles"],
-  "Door Hardware Parts": ["Door Hardware Components", "Door Parts"],
-  "Door Hinges": ["Hinges - Door", "Door Hinge Hardware"],
-  "Door Locks": ["Door Lock Sets", "Entry Locks"],
-  
-  // Plumbing
-  "Bathtub": ["Tubs", "Bath Tubs", "Soaking Tubs"],
-  "Showers": ["Shower Systems", "Shower Units"],
-  "Toilet": ["Commodes", "Water Closets"],
-  "Shower Heads": ["Showerheads", "Shower Fixtures"],
-  
-  // Home Decor
-  "Home Decor & Fixtures": ["Home Decor", "Decorative Fixtures", "Home Accessories"],
-  "Furniture": ["Home Furniture"],
-  "Mirrors": ["Wall Mirrors", "Decorative Mirrors"],
-  
-  // HVAC
-  "Thermostats": ["Smart Thermostats", "Temperature Controls"],
-  "Fans": ["Ceiling Fan", "Ventilation Fans"],
-  
-  // Outdoor
-  "Outdoor Lighting": ["Exterior Lighting", "Landscape Lighting"],
-  "Outdoor Furniture": ["Patio Furniture", "Garden Furniture"],
-  "Grills": ["BBQ Grills", "Outdoor Grills", "Barbecue Grills"],
-  
-  // Cabinets & Storage
-  "Kitchen Cabinets": ["Cabinets - Kitchen"],
-  "Bathroom Cabinets": ["Cabinets - Bathroom", "Vanity Cabinets"],
-  "Medicine Cabinet": ["Bathroom Medicine Cabinets"],
-  
-  // Flooring & Surfaces
-  "Countertops": ["Counter Tops", "Kitchen Countertops"],
-  "Backsplashes": ["Back Splashes", "Kitchen Backsplashes"],
-  "Tile": ["Tiles", "Ceramic Tile", "Porcelain Tile"],
-  
+  // ============================================
+  // APPLIANCES (all keys match categories.json)
+  // ============================================
+  'Refrigerator': ['Fridge', 'Refrigerators', 'Frig', 'Fridges', 'Refrigeration'],
+  'Dishwasher': ['Dishwashers', 'Dish Washer', 'Dish Washers'],
+  'Range': ['Stove', 'Ranges', 'Cooking Range', 'Gas Range', 'Electric Range', 'Cooking Ranges', 'Stoves', 'Ovens & Ranges'],
+  'Cooktop': ['Cooktops', 'Cook Top', 'Stovetop', 'Cook Tops', 'Stovetops'],
+  'Oven': ['Ovens', 'Wall Oven', 'Wall Ovens', 'Built-in Ovens', 'Wall Mounted Ovens'],
+  'Microwave': ['Microwaves', 'Microwave Oven', 'Microwave Ovens'],
+  'Range Hood': ['Hood', 'Vent Hood', 'Ventilation', 'Range Hoods', 'Vent Hoods', 'Kitchen Hoods', 'Exhaust Hoods'],
+  'Washer': ['Washing Machine', 'Washers'],
+  'Dryer': ['Dryers', 'Clothes Dryer'],
+  'Freezer': ['Freezers', 'Chest Freezer', 'Upright Freezer'],
+  'Icemaker': ['Ice Maker', 'Ice Machine'],
+  'All in One Washer / Dryer': ['Washer Dryer Combo', 'Combo Washer Dryer', 'Laundry Center'],
+
+  // ============================================
+  // LIGHTING & ELECTRICAL (keys match categories.json)
+  // ============================================
+  'Wall Sconce': ['Wall Sconces', 'Sconce', 'Wall Sconces (Lighting)', 'Sconces', 'Wall Lights', 'Wall Mounted Lighting'],
+  'Ceiling Light': ['Ceiling Mounted Lights', 'Ceiling Fixtures', 'Overhead Lighting'],
+  'Chandelier': ['Chandeliers', 'Crystal Chandelier', 'Chandelier Lighting', 'Suspended Chandeliers'],
+  'Pendant': ['Pendants', 'Pendant Light', 'Pendant Lights', 'Hanging Light', 'Pendant Lighting', 'Hanging Pendants', 'Suspended Pendants'],
+  'Lamp': ['Lamps', 'Table Lamps', 'Desk Lamps', 'Floor Lamps'],
+  'Recessed Lighting': ['Recessed Lights', 'Can Lights', 'Downlights'],
+  'Ceiling Fan': ['Ceiling Fans', 'Fan', 'Fans', 'Ventilation Fans'],
+  'Outdoor Lighting': ['Exterior Lighting', 'Landscape Lighting'],
+
+  // ============================================
+  // PLUMBING & BATH (keys match categories.json)
+  // ============================================
+  'Kitchen Faucet': ['Faucets - Kitchen', 'Kitchen Sink Faucets'],
+  'Bathroom Faucet': ['Faucets - Bathroom', 'Bath Faucets', 'Lavatory Faucets'],
+  'Kitchen Sink': ['Kitchen Sinks', 'Sinks - Kitchen', 'Kitchen Basin', 'Undermount Sink'],
+  'Bathroom Sink': ['Bathroom Sinks', 'Bath Sink', 'Lavatory', 'Lav Sink', 'Sinks - Bathroom', 'Bath Sinks', 'Lavatory Sinks'],
+  'Bathtub': ['Bathtubs', 'Tub', 'Tubs', 'Soaking Tub', 'Bath Tubs', 'Soaking Tubs'],
+  'Shower': ['Showers', 'Shower Systems', 'Shower Units'],
+  'Shower Faucet': ['Shower Faucets'],
+  'Shower Accessory': ['Shower Accessories', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
+  'Toilet': ['Toilets', 'Commode', 'Commodes', 'Water Closet', 'Water Closets'],
+  'Medicine Cabinet': ['Bathroom Medicine Cabinets'],
+
+  // ============================================
+  // HARDWARE (keys approximate — many subcategories in categories.json)
+  // ============================================
+  'Door Hardware: Knob and Lever': ['Door Hardware', 'Door Handles', 'Door Knobs & Handles'],
+  'Door Hardware Part': ['Door Hardware Parts', 'Door Hardware Components', 'Door Parts'],
+  'Door Hinge': ['Door Hinges', 'Hinges - Door', 'Door Hinge Hardware'],
+  'Door Entry Set': ['Door Locks', 'Door Lock Sets', 'Entry Locks'],
+
+  // ============================================
+  // HOME DECOR & FURNITURE
+  // ============================================
+  'Furniture': ['Home Furniture', 'Outdoor Furniture', 'Patio Furniture', 'Garden Furniture'],
+  'Mirror': ['Mirrors', 'Wall Mirrors', 'Decorative Mirrors'],
+  'Wall Decor': ['Home Decor', 'Home Decor & Fixtures', 'Decorative Fixtures', 'Home Accessories'],
+  'Thermostat': ['Thermostats', 'Smart Thermostats', 'Temperature Controls'],
+
+  // ============================================
+  // OUTDOOR
+  // ============================================
+  'Outdoor Kitchen': ['Grills', 'BBQ Grills', 'Outdoor Grills', 'Barbecue Grills'],
+
+  // ============================================
+  // FLOORING & SURFACES
+  // ============================================
+  'Tile': ['Tiles', 'Ceramic Tile', 'Porcelain Tile'],
+  'Backsplash Kitchen Tile': ['Backsplashes', 'Back Splashes', 'Kitchen Backsplashes', 'Countertops', 'Counter Tops', 'Kitchen Countertops'],
+
+  // ============================================
+  // CABINETS
+  // ============================================
+  'Cabinet Hardware': ['Kitchen Cabinets', 'Cabinets - Kitchen', 'Bathroom Cabinets', 'Cabinets - Bathroom', 'Vanity Cabinets'],
+
   // Add more as discovered from confusion matrix
 };
 

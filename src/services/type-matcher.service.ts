@@ -46,8 +46,8 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'side by side': { 'Refrigerator': 'Side-by-Side' },
   'side-by-side refrigerator': { 'Refrigerator': 'Side-by-Side' },
   'french door refrigerator': { 'Refrigerator': 'French Door' },
-  'top freezer refrigerator': { 'Refrigerator': 'Top Freezer' },
-  'bottom freezer refrigerator': { 'Refrigerator': 'Bottom Freezer' },
+  'top freezer refrigerator': { 'Refrigerator': 'Top-Freezer' },
+  'bottom freezer refrigerator': { 'Refrigerator': 'Bottom-Freezer' },
   // Range aliases
   'freestanding range': { 'Range': 'Freestanding' },
   'slide-in range': { 'Range': 'Slide-In' },

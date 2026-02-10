@@ -18,7 +18,7 @@ export const GLOBAL_PRIMARY_ATTRIBUTES = [
   "Category / Subcategory (Verified)",
   "Product Family (Verified)",
   "Product Style (Verified) (Category Specific)",
-  "Depth / length (Verified)",
+  "Depth / Length (Verified)",
   "Width (Verified)",
   "Height (Verified)",
   "Weight (Verified)",
@@ -27,13 +27,13 @@ export const GLOBAL_PRIMARY_ATTRIBUTES = [
   "Description",
   "Product Title (Verified)",
   "Details",
-  "Features list",
+  "Features List",
   "UPC / GTIN (Verified)",
   "Model Number (Verified)",
   "Model Number Alias (Symbols Removed)",
   "Model Parent",
-  "Model Varient Number",
-  "Total Model Varients (List all varient models)"
+  "Model Variant Number",
+  "Total Model Variants (List all variant models)"
 ] as const;
 
 // Title Format Template
@@ -136,21 +136,10 @@ export const PREMIUM_FEATURE_KEYWORDS = [
 export const PREMIUM_BRANDS = CONSTANTS_PREMIUM_BRANDS;
 export const MID_TIER_BRANDS = CONSTANTS_MID_TIER_BRANDS;
 
-// Category Name Variations (for matching)
-export const CATEGORY_ALIASES: Record<string, string[]> = {
-  'Refrigerator': ['Fridge', 'Refrigerators', 'Frig'],
-  'Dishwasher': ['Dishwashers', 'Dish Washer'],
-  'Range': ['Stove', 'Ranges', 'Cooking Range'],
-  'Cooktop': ['Cooktops', 'Cook Top', 'Stovetop'],
-  'Oven': ['Ovens', 'Wall Oven', 'Wall Ovens'],
-  'Microwave': ['Microwaves', 'Microwave Oven'],
-  'Range Hood': ['Hood', 'Vent Hood', 'Ventilation', 'Range Hoods'],
-  'Washer': ['Washing Machine', 'Washers'],
-  'Dryer': ['Dryers', 'Clothes Dryer'],
-  'Freezer': ['Freezers', 'Chest Freezer', 'Upright Freezer'],
-  'Icemaker': ['Ice Maker', 'Ice Machine'],
-  'All in One Washer / Dryer': ['Washer Dryer Combo', 'Combo Washer Dryer', 'Laundry Center']
-};
+// Category Name Variations — Re-exported from category-aliases.ts (SINGLE SOURCE OF TRUTH)
+// DO NOT DUPLICATE — Edit category-aliases.ts instead
+import { CATEGORY_ALIASES as _CONSOLIDATED_ALIASES } from './category-aliases';
+export const CATEGORY_ALIASES: Record<string, string[]> = _CONSOLIDATED_ALIASES;
 
 // Export the full schema (will be populated from JSON)
 export type CategorySchema = Record<string, Department>;
