@@ -4455,6 +4455,19 @@ function buildFinalResponse(
     similarity: typeMatchResult.similarity
   });
   
+  // If type matching failed and aiProductType is empty, try matching "Not Applicable" fallback
+  if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '')) {
+    const notApplicableMatch = picklistMatcher.matchType('Not Applicable');
+    if (notApplicableMatch.matched && notApplicableMatch.matchedValue) {
+      typeMatchResult = notApplicableMatch;
+      logger.info('Type fallback to "Not Applicable" matched', {
+        sessionId,
+        type_id: notApplicableMatch.matchedValue.type_id,
+        type_name: notApplicableMatch.matchedValue.type_name
+      });
+    }
+  }
+  
   // Initialize picklist request arrays - track values not in Salesforce picklists
   const brandRequests: BrandRequest[] = [];
   const categoryRequests: CategoryRequest[] = [];
