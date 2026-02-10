@@ -3183,10 +3183,10 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
 
   void getCategorySchema(agreedCategory);
   
-  // Build agreed attributes first
-  const agreedPrimary = buildAgreedAttributes(openaiResult.primaryAttributes, xaiResult.primaryAttributes, disagreements);
-  const agreedTop15 = buildAgreedAttributes(openaiResult.top15Attributes, xaiResult.top15Attributes, disagreements);
-  const agreedAdditional = buildAgreedAttributes(openaiResult.additionalAttributes, xaiResult.additionalAttributes, disagreements);
+  // Build agreed attributes first - now with semantic picklist matching
+  const agreedPrimary = buildAgreedAttributes(openaiResult.primaryAttributes, xaiResult.primaryAttributes, disagreements, agreedCategory);
+  const agreedTop15 = buildAgreedAttributes(openaiResult.top15Attributes, xaiResult.top15Attributes, disagreements, agreedCategory);
+  const agreedAdditional = buildAgreedAttributes(openaiResult.additionalAttributes, xaiResult.additionalAttributes, disagreements, agreedCategory);
   
   // Reconcile dimensions - handle swapped depth/width and circular products
   const reconciledDims = reconcileDimensions(openaiResult.primaryAttributes, xaiResult.primaryAttributes, agreedCategory);
@@ -3273,7 +3273,214 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   };
 }
 
-function buildAgreedAttributes(openaiAttrs: Record<string, any>, xaiAttrs: Record<string, any>, disagreements: ConsensusResult['disagreements']): Record<string, any> {
+/**
+ * Semantic value matcher - uses picklist matchers to resolve AI outputs to picklist values
+ * This enables "Built-in Oven" and "Single" to be recognized as the same type
+ * Handles: brand, category, product_type, product_style
+ */
+function semanticValueMatch(
+  openaiVal: any,
+  xaiVal: any,
+  fieldKey: string,
+  agreedCategory: string
+): {
+  isMatch: boolean;
+  resolvedValue: string | null;
+  openaiResolved: any;
+  xaiResolved: any;
+} {
+  const noMatch = { isMatch: false, resolvedValue: null, openaiResolved: null, xaiResolved: null };
+  
+  // Brand matching
+  if (fieldKey === 'brand') {
+    const openaiMatch = picklistMatcher.matchBrand(String(openaiVal || ''));
+    const xaiMatch = picklistMatcher.matchBrand(String(xaiVal || ''));
+    
+    // Both matched to SAME brand
+    if (openaiMatch.matched && xaiMatch.matched && 
+        openaiMatch.matchedValue?.brand_id === xaiMatch.matchedValue?.brand_id) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.brand_name,
+        openaiResolved: openaiMatch.matchedValue!.brand_name,
+        xaiResolved: xaiMatch.matchedValue!.brand_name
+      };
+    }
+    
+    // Only one matched - use that one
+    if (openaiMatch.matched && !xaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.brand_name,
+        openaiResolved: openaiMatch.matchedValue!.brand_name,
+        xaiResolved: null
+      };
+    }
+    if (xaiMatch.matched && !openaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: xaiMatch.matchedValue!.brand_name,
+        openaiResolved: null,
+        xaiResolved: xaiMatch.matchedValue!.brand_name
+      };
+    }
+    
+    // Both matched but to DIFFERENT brands = real disagreement
+    if (openaiMatch.matched && xaiMatch.matched) {
+      return {
+        isMatch: false,
+        resolvedValue: null,
+        openaiResolved: openaiMatch.matchedValue!.brand_name,
+        xaiResolved: xaiMatch.matchedValue!.brand_name
+      };
+    }
+    
+    return noMatch;
+  }
+  
+  // Category matching
+  if (fieldKey === 'category' || fieldKey === 'category_subcategory') {
+    const openaiMatch = picklistMatcher.matchCategory(String(openaiVal || ''));
+    const xaiMatch = picklistMatcher.matchCategory(String(xaiVal || ''));
+    
+    if (openaiMatch.matched && xaiMatch.matched && 
+        openaiMatch.matchedValue?.category_id === xaiMatch.matchedValue?.category_id) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.category_name,
+        openaiResolved: openaiMatch.matchedValue!.category_name,
+        xaiResolved: xaiMatch.matchedValue!.category_name
+      };
+    }
+    
+    if (openaiMatch.matched && !xaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.category_name,
+        openaiResolved: openaiMatch.matchedValue!.category_name,
+        xaiResolved: null
+      };
+    }
+    if (xaiMatch.matched && !openaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: xaiMatch.matchedValue!.category_name,
+        openaiResolved: null,
+        xaiResolved: xaiMatch.matchedValue!.category_name
+      };
+    }
+    
+    if (openaiMatch.matched && xaiMatch.matched) {
+      return {
+        isMatch: false,
+        resolvedValue: null,
+        openaiResolved: openaiMatch.matchedValue!.category_name,
+        xaiResolved: xaiMatch.matchedValue!.category_name
+      };
+    }
+    
+    return noMatch;
+  }
+  
+  // Product Type matching (category-aware)
+  if (fieldKey === 'product_type' && agreedCategory) {
+    const openaiMatch = matchTypeToPicklist(String(openaiVal || ''), agreedCategory);
+    const xaiMatch = matchTypeToPicklist(String(xaiVal || ''), agreedCategory);
+    
+    // 🔥 THIS IS THE KEY FIX: "Built-in Oven" and "Single" both map to same type_id
+    if (openaiMatch.matched && xaiMatch.matched && 
+        openaiMatch.matchedValue?.type_id === xaiMatch.matchedValue?.type_id) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.type_name,
+        openaiResolved: openaiMatch.matchedValue!.type_name,
+        xaiResolved: xaiMatch.matchedValue!.type_name
+      };
+    }
+    
+    if (openaiMatch.matched && !xaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.type_name,
+        openaiResolved: openaiMatch.matchedValue!.type_name,
+        xaiResolved: null
+      };
+    }
+    if (xaiMatch.matched && !openaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: xaiMatch.matchedValue!.type_name,
+        openaiResolved: null,
+        xaiResolved: xaiMatch.matchedValue!.type_name
+      };
+    }
+    
+    if (openaiMatch.matched && xaiMatch.matched) {
+      return {
+        isMatch: false,
+        resolvedValue: null,
+        openaiResolved: openaiMatch.matchedValue!.type_name,
+        xaiResolved: xaiMatch.matchedValue!.type_name
+      };
+    }
+    
+    return noMatch;
+  }
+  
+  // Product Style matching
+  if (fieldKey === 'product_style') {
+    const openaiMatch = picklistMatcher.matchStyle(String(openaiVal || ''));
+    const xaiMatch = picklistMatcher.matchStyle(String(xaiVal || ''));
+    
+    if (openaiMatch.matched && xaiMatch.matched && 
+        openaiMatch.matchedValue?.style_id === xaiMatch.matchedValue?.style_id) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.style_name,
+        openaiResolved: openaiMatch.matchedValue!.style_name,
+        xaiResolved: xaiMatch.matchedValue!.style_name
+      };
+    }
+    
+    if (openaiMatch.matched && !xaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: openaiMatch.matchedValue!.style_name,
+        openaiResolved: openaiMatch.matchedValue!.style_name,
+        xaiResolved: null
+      };
+    }
+    if (xaiMatch.matched && !openaiMatch.matched) {
+      return {
+        isMatch: true,
+        resolvedValue: xaiMatch.matchedValue!.style_name,
+        openaiResolved: null,
+        xaiResolved: xaiMatch.matchedValue!.style_name
+      };
+    }
+    
+    if (openaiMatch.matched && xaiMatch.matched) {
+      return {
+        isMatch: false,
+        resolvedValue: null,
+        openaiResolved: openaiMatch.matchedValue!.style_name,
+        xaiResolved: xaiMatch.matchedValue!.style_name
+      };
+    }
+    
+    return noMatch;
+  }
+  
+  // Not a picklist field - no semantic matching available
+  return noMatch;
+}
+
+function buildAgreedAttributes(
+  openaiAttrs: Record<string, any>, 
+  xaiAttrs: Record<string, any>, 
+  disagreements: ConsensusResult['disagreements'],
+  agreedCategory: string
+): Record<string, any> {
   const agreed: Record<string, any> = {};
   const allKeys = new Set([...Object.keys(openaiAttrs), ...Object.keys(xaiAttrs)]);
   
@@ -3281,6 +3488,36 @@ function buildAgreedAttributes(openaiAttrs: Record<string, any>, xaiAttrs: Recor
     const openaiVal = openaiAttrs[key];
     const xaiVal = xaiAttrs[key];
     
+    // Try semantic picklist matching first for known picklist fields
+    const semanticMatch = semanticValueMatch(openaiVal, xaiVal, key, agreedCategory);
+    if (semanticMatch.isMatch && semanticMatch.resolvedValue) {
+      agreed[key] = semanticMatch.resolvedValue;
+      logger.debug('Semantic picklist match', {
+        field: key,
+        openaiInput: openaiVal,
+        xaiInput: xaiVal,
+        resolvedTo: semanticMatch.resolvedValue
+      });
+      continue;
+    }
+    
+    // If semantic matching found a real disagreement (both matched to different picklist values)
+    if (!semanticMatch.isMatch && semanticMatch.openaiResolved && semanticMatch.xaiResolved) {
+      disagreements.push({
+        field: key,
+        openaiValue: semanticMatch.openaiResolved,
+        xaiValue: semanticMatch.xaiResolved,
+        resolution: 'unresolved'
+      });
+      logger.debug('Semantic picklist disagreement', {
+        field: key,
+        openaiResolved: semanticMatch.openaiResolved,
+        xaiResolved: semanticMatch.xaiResolved
+      });
+      continue;
+    }
+    
+    // Fall back to literal value matching for non-picklist fields
     if (valuesMatch(openaiVal, xaiVal)) {
       agreed[key] = openaiVal ?? xaiVal;
     } else if (openaiVal && !xaiVal) {
