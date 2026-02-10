@@ -2786,6 +2786,26 @@ Each feature should be:
 
 ATTRIBUTE STRUCTURE:
 
+⚠️ CRITICAL: FIELD NAME MAPPING
+You MUST use the exact field_key names shown below in your JSON response. Sources may use different terminology - map them correctly:
+
+**MSRP Field Mapping:**
+- Source says: "MSRP", "Manufacturer's Suggested Retail Price", "List Price", "Retail Price", "SRP", "Suggested Retail"
+- Output field: "msrp": "value"
+
+**Weight Field Mapping:**
+- Source says: "Weight", "Shipping Weight", "Net Weight", "Product Weight"
+- Output field: "weight": "value in lbs" (convert kg to lbs if needed)
+
+**Dimensions Field Mapping:**
+- Source says: "Depth", "Length" → Output: "depth_length": "value"
+- Source says: "Width", "W" → Output: "width": "value"  
+- Source says: "Height", "H" → Output: "height": "value"
+
+**UPC Field Mapping:**
+- Source says: "UPC", "GTIN", "Barcode", "Product Code", "UPC/EAN"
+- Output field: "upc_gtin": "value"
+
 == PRIMARY ATTRIBUTES (Same for ALL products) ==
 ${primaryAttrs}
 
@@ -2856,7 +2876,7 @@ You must respond with valid JSON in this exact format:
     "width": "numeric value only (width; for round items use same as depth_length)",
     "height": "numeric value only",
     "weight": "numeric value in lbs",
-    "msrp": "⚠️ CRITICAL: Manufacturer's Suggested Retail Price ONLY. Use the HIGHEST price found from official sources (manufacturer website, spec sheets, authorized retailers showing 'List Price' or 'MSRP'). DO NOT use current sale prices, street prices, or discounted market values. MSRP must be the original manufacturer's suggested price.",
+    "msrp": "⚠️ CRITICAL: Manufacturer's Suggested Retail Price ONLY (also called 'List Price', 'Retail Price', 'SRP' in sources). Use the HIGHEST price found from official sources (manufacturer website, spec sheets, authorized retailers). DO NOT use current sale prices, street prices, or discounted market values. MSRP must be the original manufacturer's suggested price, NOT current market/selling price.",
     "description": "ENHANCED customer-ready description (max 500 chars, complete sentences, professional tone)",
     "product_title": "⚠️ TITLE FORMAT: BRAND + PRIMARY_SPEC + CONFIG/TYPE + INSTALL + CATEGORY + FINISH + MODEL. NO FEATURES OR PARENTHETICAL TEXT. Example: 'Delta Trinsic Single Handle Pull-Down Kitchen Faucet Matte Black' NOT 'Delta Trinsic Kitchen Faucet (Touch2O Technology)'",
     "details": "additional details",
@@ -2886,8 +2906,11 @@ ${categoryList}
 
 IMPORTANT:
 - Use ONLY the categories listed above
-- Map raw data fields to our standard attribute names
-- Standardize units (dimensions in inches, capacity in cu. ft.)
+- Map raw data fields to our standard field_key names (see FIELD NAME MAPPING section above)
+  - Example: Source "List Price: $1299" → Output: "msrp": "1299"
+  - Example: Source "Manufacturer's Suggested Retail Price: $1299" → Output: "msrp": "1299"
+  - Example: Source "Shipping Weight: 45 lbs" → Output: "weight": "45"
+- Standardize units (dimensions in inches, capacity in cu. ft., weight in lbs)
 - Clean up formatting (proper capitalization, remove extra spaces)
 - Flag fields you cannot determine with confidence
 - For TOP 15 attributes, use only the attributes defined for the determined category
