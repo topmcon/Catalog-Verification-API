@@ -8,90 +8,69 @@ import { CATEGORY_ALIASES } from '../config/category-schema';
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
 // Last sync: 2026-02-10
-// To regenerate: node scripts/regenerate-hardcoded-lists.js
 const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   'Appliances': [
-    'All in One Washer / Dryer', 'Barbeque', 'Coffee Maker', 'Cooking',
-    'Cooktop', 'Dishwasher', 'Drawer', 'Dryer', 'Freezer', 'Icemaker',
-    'Kitchen Appliances', 'Laundry Appliances', 'Microwave', 'Oven',
-    'Pizza Oven', 'Range', 'Range Hood', 'Refrigeration', 'Refrigerator',
-    'Standalone Pedestal', 'Washer'
-  ],
-  'Electronics': [
-    'Home Electronics'
-  ],
-  'Flooring': [
-    'Carpet Tile', 'Hardscaping', 'Hardwood Flooring', 'Laminate Flooring',
-    'Luxury Vinyl Flooring', 'Tile', 'Waterproof Flooring'
-  ],
-  'Hardware': [
-    'Affordable Cabinet Knob', 'Affordable Cabinet Pull', 'Appliance Pull',
-    'Backplate', 'Barn Door Hardware', 'Cabinet Catch and Latch',
-    'Cabinet Finishing', 'Cabinet Hardware', 'Cabinet Hardware Bulk Pack',
-    'Cabinet Hardware Mounting Template', 'Cabinet Hinge', 'Cabinet Knob',
-    'Cabinet Lock', 'Cabinet Organization and Storage', 'Cabinet Pull',
-    'Closet and Pocket Door Hardware', 'Commercial Door Hardware', 'Deadbolt',
-    'Designer Cabinet Hardware', 'Designer Hardware', 'Door', 'Door Entry Set',
-    'Door Hardware Part', 'Door Hardware: Knob and Lever', 'Door Hinge',
-    'Door Knob', 'Door Lever', 'Drawer Slide and Accessory', 'Handleset',
-    'Home Hardware', 'Keyed Hardware', 'Keyless Entry', 'Lock Combo Pack',
-    'Luxury Cabinet Knob', 'Luxury Cabinet Pull', 'Mortise Lock',
-    'Multi Point Door Hardware', 'Safe, Lock and Lock Box', 'Safety & Security',
-    'Screen and Storm Door Hardware', 'Sliding Door Hardware',
-    'Storage and Organization', 'Vanity Cabinet Hardware'
-  ],
-  'Heating & Cooling': [
-    'Air Conditioner', 'Air Filter', 'Commercial HVAC', 'Dehumidifier',
-    'Ducting', 'Evaporative Cooler', 'Exhaust Fan', 'Fire Pit', 'Generator',
-    'HVAC Accessory', 'Heating', 'Indoor Heating', 'Mini Split Air Conditioner',
-    'Patio Heater', 'Room Heater', 'Skylight', 'Stove and Chimney Pipe',
-    'Stove and Fireplace', 'Thermostat', 'Water Heater'
-  ],
-  'Home Décor & Furniture': [
-    'Chair', 'Furniture', 'Home Accents', 'Home Organization', 'Lamp',
-    'Mirror', 'Outdoor and Patio Furniture', 'Rug', 'Wall Decor'
-  ],
-  'Industrial & Commercial': [
-    'Chemicals & Compounds', 'Commercial Lighting', 'Commercial Restroom',
-    'Drainage & Waste', 'Hydronic Expansion Tank', 'Industrial Strainer',
-    'Water Fountain'
-  ],
-  'Lighting & Electrical': [
-    'Air Circulator', 'Attic Fan', 'Ceiling Fan', 'Ceiling Fan Accessory',
-    'Ceiling Fan with Light', 'Ceiling Fan with Remote',
-    'Ceiling Fan without Light', 'Ceiling Light', 'Chandelier',
-    'DC Motor Ceiling Fan', 'Designer Ceiling Fan', 'Dual Ceiling Fan',
-    'Fandelier Ceiling Fan', 'Hugger Fan', 'Indoor Ceiling Fan',
-    'Island Lighting', 'Kitchen Lighting', 'LED Ceiling Fan', 'LED Lighting',
-    'Lamp', 'Landscape Lighting', 'Large Ceiling Fan', 'Light Bulbs',
-    'Light Switches & Dimmers', 'Lighted Ceiling Fan', 'Lighting Accessory',
-    'Outdoor Ceiling Fan', 'Outdoor Lighting', 'Pendant', 'Post Light',
-    'Recessed Lighting', 'Small Ceiling Fan', 'Smart Home Fan', 'Step Lighting',
-    'Track and Rail Lighting', 'Trending Ceiling Fan', 'Under Cabinet Light',
-    'Utility Fan', 'Vanity Lighting', 'Wall Mounted Fan', 'Wall Sconce'
-  ],
-  'Outdoor': [
-    'Entry Set', 'Exterior Door', 'Fire Pit', 'Fire Pit Accessory',
-    'Garden Decor', 'Generator', 'Hardscaping', 'Mail Box',
-    'Outdoor Ceiling Fan', 'Outdoor Fireplace', 'Outdoor Heating',
-    'Outdoor Kitchen', 'Outdoor Lighting', 'Outdoor Shower Faucet',
-    'Patio Heater', 'Rug', 'Storage Drawer/Door'
+    'Refrigerator',
+    'Dishwasher',
+    'Range',
+    'Oven',
+    'Cooktop',
+    'Microwave',
+    'Range Hood',
+    'Washer',
+    'Dryer',
+    'Freezer',
+    'All in One Washer / Dryer',
+    'Icemaker',
+    'Barbeque',
+    'Coffee Maker',
+    'Refrigeration',
+    'Garbage Disposal'
   ],
   'Plumbing & Bath': [
-    'Backsplash Kitchen Tile', 'Bar & Prep Sink', 'Bar Faucet', 'Bath Fan',
-    'Bathroom Cabinet Hardware', 'Bathroom Faucet',
-    'Bathroom Hardware and Accessories', 'Bathroom Lighting',
-    'Bathroom Lighting (Bathroom)', 'Bathroom Mirror', 'Bathroom Sink',
-    'Bathroom Vanity', 'Bathtub', 'Bathtub Waste & Overflow', 'Bidet',
-    'Bidet Faucet', 'Bidet Seat', 'Cabinet Hardware', 'Flush and Semi-Flush',
-    'Food Service Faucet', 'Garbage Disposal', 'Hot & Cold Water Dispenser',
-    'Kitchen Accessory', 'Kitchen Faucet', 'Kitchen Furniture and Decor',
-    'Kitchen Sink', 'Kitchen Sink Combo', 'Kitchen Storage & Organization',
-    'Kitchen Tile', 'Luxury Kitchen', 'Medicine Cabinet', 'Pipe Fitting',
-    'Pot Filler Faucet', 'Rough-In Valve', 'Shower', 'Shower Accessory',
-    'Shower Faucet', 'Steam Shower', 'Tankless Water Heater', 'Toilet',
-    'Toilet Seat', 'Tub Faucet', 'Tub and Shower Accessory', 'Urinal',
-    'Water Filtration'
+    'Bathroom Cabinet Hardware',
+    'Bathroom Faucet',
+    'Bathroom Hardware and Accessories',
+    'Bathroom Mirror',
+    'Bathroom Sink',
+    'Bathroom Vanity',
+    'Bathtub Waste & Overflow',
+    'Bathtub',
+    'Bidet Faucet',
+    'Bidet Seat',
+    'Bidet',
+    'Shower Accessory',
+    'Shower Faucet',
+    'Shower',
+    'Steam Shower'
+  ],
+  'Lighting': [
+    'Bathroom Lighting',
+    'Bathroom Vanity',
+    'Kitchen Lighting',
+    'Ceiling Light',
+    'Chandelier',
+    'Commercial Lighting',
+    'Flush and Semi-Flush',
+    'Island Lighting',
+    'Lamp',
+    'Landscape Lighting',
+    'LED Lighting',
+    'Lighted Ceiling Fan',
+    'Outdoor Lighting',
+    'Pendant',
+    'Post Light',
+    'Recessed Lighting',
+    'Step Lighting',
+    'Track and Rail Lighting',
+    'Under Cabinet Light',
+    'Vanity Lighting'
+  ],
+  'Home Decor & Fixtures': [
+    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
+  ],
+  'HVAC': [
+    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
   ]
 };
 

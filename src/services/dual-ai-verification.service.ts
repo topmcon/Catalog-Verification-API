@@ -56,6 +56,7 @@ import {
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
 import { matchTypeToPicklist } from './type-matcher.service';
+import { getTypeByName } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -2795,14 +2796,32 @@ ${categoryTop15}
 ${typeHierarchy}
 
 == VALID PRODUCT TYPES (MANDATORY - Determines functional variation) ==
-⚠️ CRITICAL: For product_type, analyze the product and select the BEST matching type from the list below.
+⚠️ CRITICAL: For product_type, you MUST analyze ALL available data (title, model number, specs, images, research) and select the BEST matching type from the list below.
+
+**Type Selection Rules:**
 - Type represents the FUNCTIONAL CONFIGURATION within a category
-- You MUST select a value from the types list for the determined category - DO NOT leave blank
-- Example: Oven → analyze if it's single/double wall → select "Single" or "Double Wall"
-- Example: Refrigerator → analyze door configuration → select "French Door" or "Side-by-Side"
-- Example: Kitchen Faucet → analyze handle/spray type → select "Single Handle" or "Pull-Down"
-- If the product clearly fits a type, ALWAYS select it even if you are uncertain
-- Only use "Not Applicable" if the category genuinely has no applicable type
+- You MUST select a value from the types list for the determined category
+- Analyze model numbers, product titles, specifications, images, and descriptions
+- Example: Oven → analyze model (OB30 = 30" built-in = Single), specs (one cavity = Single) → select "Single" or "Double Wall"
+- Example: Refrigerator → analyze door configuration from images/specs → select "French Door" or "Side-by-Side"  
+- Example: Kitchen Faucet → analyze handle count and spray type → select "Single Handle" or "Pull-Down"
+
+**When to use "Not Applicable":**
+- ⚠️ ONLY use "Not Applicable" if you are verifying a product from a DIFFERENT category
+- Example: Analyzing a Refrigerator but the field asks for "Oven Type" → "Not Applicable"
+- Example: Analyzing a Sink but the field asks for "Refrigerator Door Type" → "Not Applicable"
+- ❌ NEVER use "Not Applicable" if the product IS in the category being analyzed
+- ❌ If you can't determine the type but the product IS in this category, use "Not Found" NOT "Not Applicable"
+
+**Decision Process:**
+1. Confirm the product IS in this category (if not, use "Not Applicable")
+2. Examine model number (e.g., "OB30SDPTX1" → OB=Oven Built-in, 30=30-inch → likely Single)
+3. Review specifications (cavity count, door configuration, handle count, etc.)
+4. Analyze images (door style, configuration, handles)
+5. Check product title and description
+6. Select the BEST match from the types list even if slightly uncertain
+7. If genuinely cannot determine AND product IS in category → use "Not Found"
+
 ${categoryTypes}
 
 == VALID CATEGORY STYLES (MANDATORY - Select the BEST matching DESIGN AESTHETIC from this list) ==
@@ -2831,7 +2850,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "Category / Subcategory",
     "product_family": "value",
-    "product_type": "⚠️ MANDATORY: Analyze the product and select the BEST matching type from the 'VALID PRODUCT TYPES' list above. This describes the functional variation within the category (e.g., '4-Door Flex' for refrigerators, 'Single Handle' for faucets). The output MUST be a value from the types list for this category.",
+    "product_type": "⚠️ MANDATORY: Analyze ALL data (model number, title, specs, images) and select the BEST matching type from the 'VALID PRODUCT TYPES' list for this category. This is the FUNCTIONAL VARIATION (e.g., 'Single' vs 'Double Wall' for ovens, 'French Door' vs 'Side-by-Side' for refrigerators). If product IS in this category but type cannot be determined, use 'Not Found'. ONLY use 'Not Applicable' if product is from a different category than what this field is for.",
     "product_style": "⚠️ MANDATORY: Select the DESIGN AESTHETIC from the 'VALID CATEGORY STYLES' list that best matches this product's visual style. These are aesthetic/visual terms like 'Contemporary', 'Modern', 'Traditional', 'Industrial', 'Farmhouse'. Analyze the product's design language and visual appearance to pick the best match. DO NOT put functional types here (those go in product_type).",
     "depth_length": "numeric value only (depth OR length - use whichever applies; for round items use diameter)",
     "width": "numeric value only (width; for round items use same as depth_length)",
@@ -2881,19 +2900,26 @@ For EVERY field, you MUST provide a value. Use these markers when appropriate:
 **"Not Found"** - Use when:
 - You searched for the data but could not find it in any source
 - The information simply isn't available anywhere
+- You cannot determine the value despite thorough research
 - Example: Brand not mentioned in any source → brand: "Not Found"
+- Example: Oven type cannot be determined from model/specs/images → product_type: "Not Found"
 
 **"Not Applicable"** - Use when:
-- The field doesn't apply to this product type
-- Example: "number_of_burners" for a refrigerator → "Not Applicable"
-- Example: "cooling_capacity_btu" for a gas range → "Not Applicable"
-- Example: "number_of_handles" for a showerhead → "Not Applicable"
-- Example: "valve_type" for a showerhead without valve → "Not Applicable"
+- The field DOES NOT APPLY to the product's category
+- You are analyzing a product from a DIFFERENT category than the field asks for
+- Example: Verifying a Refrigerator but field asks for "number_of_burners" (range attribute) → "Not Applicable"
+- Example: Verifying a Showerhead but field asks for "oven_type" (oven attribute) → "Not Applicable"
+- Example: Verifying a Ceiling Fan but field asks for "refrigerator_door_type" → "Not Applicable"
+- ❌ NEVER use for category/type fields when product IS in that category - use "Not Found" instead
+
+**Critical Distinction:**
+- Product IS an Oven, can't determine type → product_type: "Not Found" (not "Not Applicable")
+- Product is a Refrigerator, field asks for oven_type → oven_type: "Not Applicable" (different category)
 
 **NEVER leave a field empty or null** - Always use one of:
 - The actual value (if found)
-- "Not Found" (if searched but not found)
-- "Not Applicable" (if field doesn't apply to this product)
+- "Not Found" (if searched but not found, or cannot determine)
+- "Not Applicable" (if field doesn't apply to product's category)
 
 When analyzing data:
 1. ALWAYS examine all provided URLs, documents, images, and spec tables
@@ -4459,16 +4485,34 @@ function buildFinalResponse(
     similarity: typeMatchResult.similarity
   });
   
-  // If type matching failed and aiProductType is empty, try matching "Not Applicable" fallback
-  if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '')) {
-    const notApplicableMatch = picklistMatcher.matchType('Not Applicable');
-    if (notApplicableMatch.matched && notApplicableMatch.matchedValue) {
-      typeMatchResult = notApplicableMatch;
-      logger.info('Type fallback to "Not Applicable" matched', {
+  // If type matching failed, check if we should use "Not Applicable" type with its ID
+  // This handles:
+  // 1. AI returned empty/null type → use "Not Applicable"
+  // 2. AI returned "Not Applicable", "N/A", or "Not Found" → should have ID populated
+  const isNAPattern = aiProductType && /^(not applicable|n\/?a|not found|none)$/i.test(aiProductType.trim());
+  
+  if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '' || isNAPattern)) {
+    // Directly get "Not Applicable" type from types.json (bypasses picklistMatcher which rejects it)
+    const notApplicableType = getTypeByName('Not Applicable');
+    if (notApplicableType) {
+      typeMatchResult = {
+        matched: true,
+        original: aiProductType || 'Not Applicable',
+        matchedValue: {
+          type_id: notApplicableType.type_id,
+          type_name: notApplicableType.type_name
+        },
+        similarity: 1.0
+      };
+      logger.info('Type set to "Not Applicable" with ID', {
         sessionId,
-        type_id: notApplicableMatch.matchedValue.type_id,
-        type_name: notApplicableMatch.matchedValue.type_name
+        aiProductType: aiProductType || '(empty)',
+        type_id: notApplicableType.type_id,
+        type_name: notApplicableType.type_name,
+        reason: isNAPattern ? 'AI returned N/A pattern' : 'AI returned empty type'
       });
+    } else {
+      logger.warn('"Not Applicable" type not found in types.json', { sessionId, aiProductType });
     }
   }
   
