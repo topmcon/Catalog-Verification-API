@@ -49,12 +49,21 @@ When the user says **"Establish Connection"** or **"Connect to production"**, ex
 8. Ask user if they want to continue from where we left off
 
 When the user says **"Save everything"** or **"Save all"**, execute these steps:
-1. **Create session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
-   - Document work completed this session
-   - List files modified and commits made
-   - Include current sync status (local, GitHub, production commits)
-   - Note service health and any issues encountered
-   - Outline next steps or work in progress
+1. **Create comprehensive handoff session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
+   
+   This document must allow a **cold-start pickup from a different computer** with zero context loss. Include ALL of the following:
+   
+   - **Context / Why**: What triggered this session's work (user reports, prior session issues, etc.)
+   - **Architecture context**: Relevant system architecture needed to understand changes (data flow, file relationships, loading chains)
+   - **Detailed work completed**: Every fix/change with **before → after** values, not just summaries
+   - **Files modified**: Every file with specific description of what changed
+   - **Commits**: All commit hashes and messages from this session
+   - **Current system state**: Sync status (local/GitHub/production commits), service health, verification results
+   - **Remaining warnings/issues**: Anything not yet resolved, with severity and recommended approach
+   - **Next steps**: Specific actionable items for the next session
+   - **Key reference files**: Table of important files and their purpose for quick navigation
+   
+   **Target: 150-250 lines minimum.** The goal is a self-contained document that gives full context without needing to read prior summaries or code.
 2. Check for any uncommitted changes (`git status`)
 3. Stage all changes including session summary (`git add -A`)
 4. Commit with descriptive message (ask user or auto-generate based on changed files)
