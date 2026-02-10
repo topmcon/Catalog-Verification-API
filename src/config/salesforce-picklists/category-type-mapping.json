@@ -3182,6 +3182,68 @@
           "primary_filter": true
         }
       ]
+    },
+    {
+      "department_name": "Lighting & Electrical",
+      "family_name": "Ceiling Fans",
+      "category_name": "Ceiling Fan",
+      "category_id": "a01aZ00000dC5EjQAK",
+      "filter_label": "Ceiling Fan Type",
+      "logic": "Installation location and motor configuration",
+      "types": [
+        {
+          "type_name": "Indoor",
+          "type_id": "a1jaZ000001lF7NQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
+          "type_id": "a1jaZ000001lF8qQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hugger",
+          "type_id": "a1jaZ000001lF7IQAU",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
+    },
+    {
+      "department_name": "Heating & Cooling",
+      "family_name": "Water Heating",
+      "category_name": "Water Heater",
+      "category_id": "a01aZ00000bI2srQAC",
+      "filter_label": "Water Heater Type",
+      "logic": "Heating method and fuel type",
+      "types": [
+        {
+          "type_name": "Tankless",
+          "type_id": "a1jaZ000001lFBoQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Tank",
+          "type_id": "a1jaZ000001lFBmQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Gas",
+          "type_id": "a1jaZ000001lF6oQAE",
+          "status": "existing",
+          "primary_filter": true
+        }
+      ]
     }
   ]
 }

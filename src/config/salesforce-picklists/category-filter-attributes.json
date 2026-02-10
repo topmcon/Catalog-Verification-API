@@ -10009,6 +10009,41 @@
     "attribute_name": "gauge",
     "attribute_id": "a1aaZ000009ew9yQAA"
   },
+  "1430": {
+    "rank": 16,
+    "category_name": "Ceiling Fan",
+    "category_id": "a01aZ00000dC5EjQAK",
+    "attribute_name": "Remote Control Included",
+    "attribute_id": "a1aaZ000008mBz6QAE"
+  },
+  "1431": {
+    "rank": 17,
+    "category_name": "Ceiling Fan",
+    "category_id": "a01aZ00000dC5EjQAK",
+    "attribute_name": "Blade Span",
+    "attribute_id": "a1aaZ000008mBnpQAE"
+  },
+  "1432": {
+    "rank": 18,
+    "category_name": "Ceiling Fan",
+    "category_id": "a01aZ00000dC5EjQAK",
+    "attribute_name": "Number of Blades",
+    "attribute_id": "a1aaZ000008mBw1QAE"
+  },
+  "1433": {
+    "rank": 19,
+    "category_name": "Ceiling Fan",
+    "category_id": "a01aZ00000dC5EjQAK",
+    "attribute_name": "Motor Type",
+    "attribute_id": "a1aaZ000008mBvmQAE"
+  },
+  "1434": {
+    "rank": 20,
+    "category_name": "Ceiling Fan",
+    "category_id": "a01aZ00000dC5EjQAK",
+    "attribute_name": "Smart Home Compatible",
+    "attribute_id": "a1aaZ000008mByUQAU"
+  },
   "version": "5.0",
   "date": "2026-02-10",
   "total_categories": 83,
