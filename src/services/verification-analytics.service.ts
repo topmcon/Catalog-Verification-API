@@ -528,8 +528,9 @@ export class VerificationAnalyticsService {
   /**
    * Safely parse documents_analyzed field to prevent cast errors
    * Handles multiple formats: array of objects, JSON string, util.inspect output
+   * NOTE: Currently disabled - documents_analyzed tracking causes schema mismatch errors
    */
-  private parseDocumentsAnalyzed(response: SalesforceVerificationResponse): Array<{
+  private _parseDocumentsAnalyzed(_response: SalesforceVerificationResponse): Array<{
     url: string;
     type: string;
     ai_recommendation: 'skip' | 'use' | 'review';
