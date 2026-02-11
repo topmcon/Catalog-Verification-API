@@ -138,36 +138,36 @@ export interface SalesforceIncomingProduct {
  */
 
 // Primary Display Attributes (Global - applies to ALL products)
+// Field naming: AI_ prefix indicates AI-verified/generated values
+// _Lookup suffix indicates Salesforce picklist record ID
 export interface PrimaryDisplayAttributes {
-  Brand_Verified: string;
-  Brand_Id?: string | null;  // SF picklist ID for brand
-  Category_Verified: string;
-  Category_Id?: string | null;  // SF picklist ID for category
-  SubCategory_Verified: string;
-  Product_Family_Verified: string;
-  Department_Verified?: string;  // From SF category data
-  Type_Verified: string;  // NEW: Type layer between Category and Style (e.g., "4-Door Flex" for Refrigerator)
-  Type_Id?: string | null;  // SF picklist ID for type
-  Product_Style_Verified: string;  // Category-specific
-  Style_Id?: string | null;  // SF picklist ID for style
-  Color_Verified: string;          // Extracted/verified color
-  Finish_Verified: string;         // Extracted/verified finish
-  Depth_Verified: string;
-  Width_Verified: string;
-  Height_Verified: string;
-  Weight_Verified: string;
-  MSRP_Verified: string;
-  // Market_Value fields removed - no longer sent to Salesforce
-  Description_Verified: string;
-  Product_Title_Verified: string;
-  Details_Verified: string;
-  Features_List_HTML: string;  // Cleaned/enhanced HTML
-  UPC_GTIN_Verified: string;
-  Model_Number_Verified: string;
-  Model_Number_Alias: string;  // Symbols removed
-  Model_Parent: string;
-  Model_Variant_Number: string;
-  Total_Model_Variants: string;  // Comma-separated list
+  AI_Brand: string;
+  AI_Brand_Lookup?: string | null;
+  AI_Product_Category: string;
+  AI_Product_Category_Lookup?: string | null;
+  AI_Product_Family: string;
+  AI_Product_Department?: string;
+  AI_Type: string;
+  AI_Type_Id?: string | null;
+  AI_Style: string;
+  AI_Style_Lookup?: string | null;
+  AI_Color: string;
+  AI_Finish: string;
+  AI_Depth: string;
+  AI_Width: string;
+  AI_Height: string;
+  AI_Weight: string;
+  AI_MSRP: string;
+  AI_Description: string;
+  AI_Product_Title: string;
+  // Details_Verified field removed - no longer sent to Salesforce
+  AI_Features: string;
+  AI_UPC_GTIN: string;
+  AI_Model_Number: string;
+  AI_Model_Alias: string;
+  AI_Model_Parent: string;
+  AI_Model_Variant_Number: string;
+  AI_Total_Model_Variants: string;
 }
 
 // Top Filter Attributes (Category-Specific - Top 15 for filtering)

@@ -852,35 +852,34 @@ function buildDataCoherenceErrorResponse(
     SF_Catalog_Id: rawProduct.SF_Catalog_Id || '',
     SF_Catalog_Name: rawProduct.SF_Catalog_Name || '',
     Primary_Attributes: {
-      Brand_Verified: '',
-      Brand_Id: '',
-      Category_Verified: '',
-      Category_Id: '',
-      SubCategory_Verified: '',
-      Product_Family_Verified: '',
-      Department_Verified: '',
-      Type_Verified: '',  // Will be populated by type matching when available
-      Type_Id: null,
-      Product_Style_Verified: '',
-      Style_Id: null,
-      Color_Verified: '',
-      Finish_Verified: '',
-      Depth_Verified: '',
-      Width_Verified: '',
-      Height_Verified: '',
-      Weight_Verified: '',
-      MSRP_Verified: '',
+      AI_Brand: '',
+      AI_Brand_Lookup: '',
+      AI_Product_Category: '',
+      AI_Product_Category_Lookup: '',
+      AI_Product_Family: '',
+      AI_Product_Department: '',
+      AI_Type: '',  // Will be populated by type matching when available
+      AI_Type_Id: null,
+      AI_Style: '',
+      AI_Style_Lookup: null,
+      AI_Color: '',
+      AI_Finish: '',
+      AI_Depth: '',
+      AI_Width: '',
+      AI_Height: '',
+      AI_Weight: '',
+      AI_MSRP: '',
       // Market_Value fields removed - no longer sent to Salesforce
-      Description_Verified: '',
-      Product_Title_Verified: '',
-      Details_Verified: '',
-      Features_List_HTML: '',
-      UPC_GTIN_Verified: '',
-      Model_Number_Verified: '',
-      Model_Number_Alias: '',
-      Model_Parent: '',
-      Model_Variant_Number: '',
-      Total_Model_Variants: '',
+      AI_Description: '',
+      AI_Product_Title: '',
+      // Details_Verified field removed - no longer sent to Salesforce
+      AI_Features: '',
+      AI_UPC_GTIN: '',
+      AI_Model_Number: '',
+      AI_Model_Alias: '',
+      AI_Model_Parent: '',
+      AI_Model_Variant_Number: '',
+      AI_Total_Model_Variants: '',
     },
     Top_Filter_Attributes: {},
     Top_Filter_Attribute_Ids: {},
@@ -2409,7 +2408,7 @@ export async function verifyProductWithDualAI(
     // This catches anything the AI missed that exists in Ferguson/Web data
     // ========================================================================
     if (response.Top_Filter_Attributes) {
-      const category = response.Primary_Attributes?.Category_Verified || consensus.agreedCategory || undefined;
+      const category = response.Primary_Attributes?.AI_Product_Category || consensus.agreedCategory || undefined;
       const sweptAttributes = finalSweepTopFilterAttributes(
         response.Top_Filter_Attributes,
         rawProduct,
@@ -5667,44 +5666,38 @@ function buildFinalResponse(
   });
   
   const primaryAttributes: PrimaryDisplayAttributes = {
-    Brand_Verified: brandMatch.matched && brandMatch.matchedValue 
+    AI_Brand: brandMatch.matched && brandMatch.matchedValue 
       ? brandMatch.matchedValue.brand_name  // Use EXACT Salesforce brand name
       : cleanedText.brand,
-    Brand_Id: brandMatch.matched && brandMatch.matchedValue 
+    AI_Brand_Lookup: brandMatch.matched && brandMatch.matchedValue 
       ? brandMatch.matchedValue.brand_id 
       : null,
-    Category_Verified: categoryMatch.matched && categoryMatch.matchedValue 
+    AI_Product_Category: categoryMatch.matched && categoryMatch.matchedValue 
       ? categoryMatch.matchedValue.category_name  // Use EXACT Salesforce category name
       : cleanEncodingIssues(consensus.agreedCategory || ''),
-    Category_Id: categoryMatch.matched && categoryMatch.matchedValue 
+    AI_Product_Category_Lookup: categoryMatch.matched && categoryMatch.matchedValue 
       ? categoryMatch.matchedValue.category_id 
       : null,
-    SubCategory_Verified: categoryMatch.matched && categoryMatch.matchedValue 
-      ? categoryMatch.matchedValue.category_name  // Use EXACT Salesforce category name (same as Category)
-      : cleanEncodingIssues(
-          consensus.agreedPrimaryAttributes.subcategory || 
-          rawProduct.Web_Retailer_SubCategory || 
-          ''
-        ),
-    Product_Family_Verified: categoryMatch.matched && categoryMatch.matchedValue?.family
+    // SubCategory removed - was redundant (same as Category)
+    AI_Product_Family: categoryMatch.matched && categoryMatch.matchedValue?.family
       ? categoryMatch.matchedValue.family  // Use family directly from SF picklist data
       : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
-    Department_Verified: categoryMatch.matched && categoryMatch.matchedValue?.department
+    AI_Product_Department: categoryMatch.matched && categoryMatch.matchedValue?.department
       ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
       : '',
-    Type_Verified: typeMatchResult.matched && typeMatchResult.matchedValue
+    AI_Type: typeMatchResult.matched && typeMatchResult.matchedValue
       ? typeMatchResult.matchedValue.type_name  // Use EXACT Salesforce type name
       : cleanEncodingIssues(aiProductType || 'Not Applicable'),  // Use AI value or fallback
-    Type_Id: typeMatchResult.matched && typeMatchResult.matchedValue 
+    AI_Type_Id: typeMatchResult.matched && typeMatchResult.matchedValue 
       ? typeMatchResult.matchedValue.type_id 
       : null,
-    Product_Style_Verified: styleMatch.matched && styleMatch.matchedValue 
+    AI_Style: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name when matched
       : styleToUse,  // Use AI-derived style even if not in SF picklist (will be in Style_Requests)
-    Style_Id: styleMatch.matched && styleMatch.matchedValue 
+    AI_Style_Lookup: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_id 
       : null,
-    Color_Verified: (() => {
+    AI_Color: (() => {
       let color = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.color,
@@ -5765,7 +5758,7 @@ function buildFinalResponse(
       
       return color;
     })(),
-    Finish_Verified: (() => {
+    AI_Finish: (() => {
       let finish = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.finish,
@@ -5803,7 +5796,7 @@ function buildFinalResponse(
       
       return finish;
     })(),
-    Depth_Verified: preferAIValue(
+    AI_Depth: preferAIValue(
       consensus.agreedPrimaryAttributes.depth_length,
       openaiResult.primaryAttributes.depth_length,
       xaiResult.primaryAttributes.depth_length,
@@ -5815,7 +5808,7 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'Overall Depth') ||
       ''
     ),
-    Width_Verified: preferAIValue(
+    AI_Width: preferAIValue(
       consensus.agreedPrimaryAttributes.width,
       openaiResult.primaryAttributes.width,
       xaiResult.primaryAttributes.width,
@@ -5827,7 +5820,7 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'Overall Width') ||
       ''
     ),
-    Height_Verified: preferAIValue(
+    AI_Height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
       openaiResult.primaryAttributes.height,
       xaiResult.primaryAttributes.height,
@@ -5839,7 +5832,7 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'Overall Height') ||
       ''
     ),
-    Weight_Verified: (() => {
+    AI_Weight: (() => {
       const weight = preferAIValue(
         consensus.agreedPrimaryAttributes.weight,
         openaiResult.primaryAttributes.weight,
@@ -5855,7 +5848,7 @@ function buildFinalResponse(
       // Strip unit suffixes (lbs, lb, kg, oz, etc.) and return just the number
       return weight ? String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim() : '';
     })(),
-    MSRP_Verified: preferAIValue(
+    AI_MSRP: preferAIValue(
       consensus.agreedPrimaryAttributes.msrp,
       openaiResult.primaryAttributes.msrp,
       xaiResult.primaryAttributes.msrp,
@@ -5868,20 +5861,11 @@ function buildFinalResponse(
       ''
     ),
     // Market_Value fields removed - no longer sent to Salesforce
-    Description_Verified: cleanedText.description,
-    Product_Title_Verified: seoTitle,  // Use SEO-optimized title
-    Details_Verified: cleanEncodingIssues(
-      preferAIValue(
-        consensus.agreedPrimaryAttributes.details,
-        openaiResult.primaryAttributes.details,
-        xaiResult.primaryAttributes.details,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        ''
-      )
-    ),
-    Features_List_HTML: cleanedText.featuresHtml,
-    UPC_GTIN_Verified: (() => {
+    AI_Description: cleanedText.description,
+    AI_Product_Title: seoTitle,  // Use SEO-optimized title
+    // Details_Verified field removed - no longer sent to Salesforce
+    AI_Features: cleanedText.featuresHtml,
+    AI_UPC_GTIN: (() => {
       // Try AI-determined UPC first
       const aiUPC = preferAIValue(
         consensus.agreedPrimaryAttributes.upc_gtin,
@@ -5906,7 +5890,7 @@ function buildFinalResponse(
       });
       return '741360976603'; // Default UPC placeholder
     })(),
-    Model_Number_Verified: (() => {
+    AI_Model_Number: (() => {
       // NEW PRIORITY: 1) AI consensus/smart resolution (researched & validated), 2) Ferguson, 3) Web Retailer, 4) SF_Catalog_Name (fallback only)
       // AI often finds the complete model number (e.g., "K-26568-CP") while SF may have partial (e.g., "26568-BL")
       const aiModel = preferAIValue(
@@ -5934,12 +5918,12 @@ function buildFinalResponse(
       const sfModel = rawProduct.SF_Catalog_Name?.trim();
       return sfModel || '';
     })(),
-    Model_Number_Alias: (() => {
+    AI_Model_Alias: (() => {
       const primary = rawProduct.SF_Catalog_Name || consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer || '';
       // Remove special characters for alias
       return primary.replace(/[\/\-\s]/g, '');
     })(),
-    Model_Parent: (() => {
+    AI_Model_Parent: (() => {
       // First try AI consensus
       const aiValue = preferAIValue(
         consensus.agreedPrimaryAttributes.model_parent,
@@ -5961,7 +5945,7 @@ function buildFinalResponse(
       
       return 'None Identified';
     })(),
-    Model_Variant_Number: (() => {
+    AI_Model_Variant_Number: (() => {
       // First try to get from AI
       const aiValue = preferAIValue(
         consensus.agreedPrimaryAttributes.model_variant_number,
@@ -5989,7 +5973,7 @@ function buildFinalResponse(
       
       return 'None Identified';
     })(),
-    Total_Model_Variants: (() => {
+    AI_Total_Model_Variants: (() => {
       // First try to get from AI
       let value = cleanEncodingIssues(
         preferAIValue(
@@ -6750,21 +6734,21 @@ function buildFinalResponse(
   catalogIndexService.recordVerification({
     sf_catalog_id: rawProduct.SF_Catalog_Id,
     model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
-    brand: primaryAttributes.Brand_Verified || '',
-    brand_id: primaryAttributes.Brand_Id || null,
-    category: primaryAttributes.Category_Verified || '',
-    category_id: primaryAttributes.Category_Id || null,
-    department: primaryAttributes.Department_Verified || '',
-    family: primaryAttributes.Product_Family_Verified || '',
-    subcategory: primaryAttributes.SubCategory_Verified || '',
-    style: primaryAttributes.Product_Style_Verified || '',
-    style_id: primaryAttributes.Style_Id || null,
+    brand: primaryAttributes.AI_Brand || '',
+    brand_id: primaryAttributes.AI_Brand_Lookup || null,
+    category: primaryAttributes.AI_Product_Category || '',
+    category_id: primaryAttributes.AI_Product_Category_Lookup || null,
+    department: primaryAttributes.AI_Product_Department || '',
+    family: primaryAttributes.AI_Product_Family || '',
+    // subcategory removed - was redundant with category
+    style: primaryAttributes.AI_Style || '',
+    style_id: primaryAttributes.AI_Style_Lookup || null,
     attributes: {
       ...topFilterAttributes,
-      color: primaryAttributes.Color_Verified,
-      width: primaryAttributes.Width_Verified,
-      height: primaryAttributes.Height_Verified,
-      depth: primaryAttributes.Depth_Verified
+      color: primaryAttributes.AI_Color,
+      width: primaryAttributes.AI_Width,
+      height: primaryAttributes.AI_Height,
+      depth: primaryAttributes.AI_Depth
     },
     confidence_score: consensus.overallConfidence,
     openai_category: openaiResult.primaryAttributes?.category || '',

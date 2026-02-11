@@ -80,10 +80,10 @@ async function testAttributeRequestFlow() {
     SF_Catalog_Id: 'a03aZ00000Nk21gQAB',
     SF_Catalog_Name: '1201D32MB/RC',
     Primary_Attributes: {
-      Brand_Verified: 'Elegant Lighting',
-      Brand_Id: 'brand_123',
-      Category_Verified: 'Chandeliers',
-      Category_Id: 'cat_456'
+      AI_Brand: 'Elegant Lighting',
+      AI_Brand_Lookup: 'brand_123',
+      AI_Product_Category: 'Chandeliers',
+      AI_Product_Category_Lookup: 'cat_456'
     },
     Top_Filter_Attributes: {
       'Chandelier Type': 'Waterfall',

@@ -130,14 +130,14 @@ class AsyncVerificationProcessor {
         // Check model number match
         const modelMatch = webhookService.verifyModelMatch(
           job.sfCatalogName,
-          result.data?.Primary_Attributes?.Model_Number_Verified || ''
+          result.data?.Primary_Attributes?.AI_Model_Number || ''
         );
 
         if (!modelMatch) {
           logger.warn('Model number verification failed', {
             jobId: job.jobId,
             expected: job.sfCatalogName,
-            received: result.data?.Primary_Attributes?.Model_Number_Verified
+            received: result.data?.Primary_Attributes?.AI_Model_Number
           });
         }
 

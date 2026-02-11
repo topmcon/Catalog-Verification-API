@@ -414,10 +414,10 @@ class SelfHealingOrchestrator {
     
     // 1. BRAND AUDIT
     if (payloadData.brand) {
-      const aiReturned = primaryAttrs.Brand_Verified || '';
+      const aiReturned = primaryAttrs.AI_Brand || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Brand_Verified',
+          field: 'AI_Brand',
           availableInPayload: payloadData.brand,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract brand that exists in payload'
@@ -432,10 +432,10 @@ class SelfHealingOrchestrator {
     
     // 2. MODEL NUMBER AUDIT
     if (payloadData.modelNumber) {
-      const aiReturned = primaryAttrs.Model_Number_Verified || '';
+      const aiReturned = primaryAttrs.AI_Model_Number || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Model_Number_Verified',
+          field: 'AI_Model_Number',
           availableInPayload: payloadData.modelNumber,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract model number that exists in payload'
@@ -448,10 +448,10 @@ class SelfHealingOrchestrator {
     
     // 3. CATEGORY AUDIT
     if (payloadData.category) {
-      const aiReturned = primaryAttrs.Category_Verified || '';
+      const aiReturned = primaryAttrs.AI_Product_Category || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Category_Verified',
+          field: 'AI_Product_Category',
           availableInPayload: payloadData.category,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to determine category despite payload data'
@@ -464,10 +464,10 @@ class SelfHealingOrchestrator {
     
     // 4. TITLE AUDIT
     if (payloadData.title) {
-      const aiReturned = primaryAttrs.Product_Title_Verified || '';
+      const aiReturned = primaryAttrs.AI_Product_Title || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Product_Title_Verified',
+          field: 'AI_Product_Title',
           availableInPayload: payloadData.title.substring(0, 100),
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract title that exists in payload'
@@ -480,10 +480,10 @@ class SelfHealingOrchestrator {
     
     // 5. PRICE/MSRP AUDIT
     if (payloadData.price) {
-      const aiReturned = primaryAttrs.MSRP_Verified || '';
+      const aiReturned = primaryAttrs.AI_MSRP || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'MSRP_Verified',
+          field: 'AI_MSRP',
           availableInPayload: payloadData.price,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract price that exists in payload'
@@ -496,10 +496,10 @@ class SelfHealingOrchestrator {
     
     // 6. DIMENSIONS AUDIT
     if (payloadData.width) {
-      const aiReturned = primaryAttrs.Width_Verified || topFilterAttrs.Width_Verified || '';
+      const aiReturned = primaryAttrs.AI_Width || topFilterAttrs.AI_Width || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Width_Verified',
+          field: 'AI_Width',
           availableInPayload: payloadData.width,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract width from payload'
@@ -509,10 +509,10 @@ class SelfHealingOrchestrator {
     }
     
     if (payloadData.height) {
-      const aiReturned = primaryAttrs.Height_Verified || topFilterAttrs.Height_Verified || '';
+      const aiReturned = primaryAttrs.AI_Height || topFilterAttrs.AI_Height || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Height_Verified',
+          field: 'AI_Height',
           availableInPayload: payloadData.height,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract height from payload'
@@ -523,10 +523,10 @@ class SelfHealingOrchestrator {
     
     // 7. UPC/GTIN AUDIT
     if (payloadData.upc) {
-      const aiReturned = primaryAttrs.UPC_GTIN_Verified || '';
+      const aiReturned = primaryAttrs.AI_UPC_GTIN || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'UPC_GTIN_Verified',
+          field: 'AI_UPC_GTIN',
           availableInPayload: payloadData.upc,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract UPC/GTIN from payload'
@@ -537,10 +537,10 @@ class SelfHealingOrchestrator {
     
     // 8. COLOR/FINISH AUDIT
     if (payloadData.color) {
-      const aiReturned = primaryAttrs.Color_Verified || '';
+      const aiReturned = primaryAttrs.AI_Color || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Color_Verified',
+          field: 'AI_Color',
           availableInPayload: payloadData.color,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract color from payload'
@@ -550,10 +550,10 @@ class SelfHealingOrchestrator {
     }
     
     if (payloadData.finish) {
-      const aiReturned = primaryAttrs.Finish_Verified || '';
+      const aiReturned = primaryAttrs.AI_Finish || '';
       if (this.isBlankOrUnknown(aiReturned)) {
         extractionFailures.push({
-          field: 'Finish_Verified',
+          field: 'AI_Finish',
           availableInPayload: payloadData.finish,
           aiReturned: aiReturned || '(empty)',
           reason: 'AI failed to extract finish from payload'
@@ -588,19 +588,19 @@ class SelfHealingOrchestrator {
     // ================================================================
     const blankResponseFields: string[] = [];
     const allResponseFields = [
-      { name: 'Brand_Verified', value: primaryAttrs.Brand_Verified },
-      { name: 'Category_Verified', value: primaryAttrs.Category_Verified },
-      { name: 'Product_Title_Verified', value: primaryAttrs.Product_Title_Verified },
-      { name: 'Model_Number_Verified', value: primaryAttrs.Model_Number_Verified },
-      { name: 'MSRP_Verified', value: primaryAttrs.MSRP_Verified },
-      { name: 'UPC_GTIN_Verified', value: primaryAttrs.UPC_GTIN_Verified },
-      { name: 'Color_Verified', value: primaryAttrs.Color_Verified },
-      { name: 'Finish_Verified', value: primaryAttrs.Finish_Verified },
-      { name: 'Width_Verified', value: primaryAttrs.Width_Verified || topFilterAttrs.width_verified },
-      { name: 'Height_Verified', value: primaryAttrs.Height_Verified || topFilterAttrs.height_verified },
-      { name: 'Depth_Verified', value: primaryAttrs.Depth_Verified || topFilterAttrs.depth_verified },
-      { name: 'Description', value: primaryAttrs.Description || result?.Description },
-      { name: 'Features_List', value: primaryAttrs.Features_List || result?.Features_List }
+      { name: 'AI_Brand', value: primaryAttrs.AI_Brand },
+      { name: 'AI_Product_Category', value: primaryAttrs.AI_Product_Category },
+      { name: 'AI_Product_Title', value: primaryAttrs.AI_Product_Title },
+      { name: 'AI_Model_Number', value: primaryAttrs.AI_Model_Number },
+      { name: 'AI_MSRP', value: primaryAttrs.AI_MSRP },
+      { name: 'AI_UPC_GTIN', value: primaryAttrs.AI_UPC_GTIN },
+      { name: 'AI_Color', value: primaryAttrs.AI_Color },
+      { name: 'AI_Finish', value: primaryAttrs.AI_Finish },
+      { name: 'AI_Width', value: primaryAttrs.AI_Width || topFilterAttrs.ai_width },
+      { name: 'AI_Height', value: primaryAttrs.AI_Height || topFilterAttrs.ai_height },
+      { name: 'AI_Depth', value: primaryAttrs.AI_Depth || topFilterAttrs.ai_depth },
+      { name: 'AI_Description', value: primaryAttrs.AI_Description || result?.AI_Description },
+      { name: 'AI_Features', value: primaryAttrs.AI_Features || result?.AI_Features }
     ];
     
     // Check every response field
@@ -636,7 +636,7 @@ class SelfHealingOrchestrator {
     // TRIGGER SELF-HEALING if ANY extraction failures OR any blank fields in response
     // This ensures we review EVERY job where data might be missing
     const criticalBlankFields = blankResponseFields.filter(f => 
-      ['Brand_Verified', 'Category_Verified', 'Product_Title_Verified', 'Model_Number_Verified'].includes(f)
+      ['AI_Brand', 'AI_Product_Category', 'AI_Product_Title', 'AI_Model_Number'].includes(f)
     );
     
     // Trigger healing if:
@@ -655,7 +655,7 @@ class SelfHealingOrchestrator {
     
     // Calculate severity based on what failed
     const criticalFailures = extractionFailures.filter(f => 
-      ['Brand_Verified', 'Category_Verified', 'Product_Title_Verified', 'Model_Number_Verified'].includes(f.field)
+      ['AI_Brand', 'AI_Product_Category', 'AI_Product_Title', 'AI_Model_Number'].includes(f.field)
     );
     
     let severity: 'low' | 'medium' | 'high' = 'low';

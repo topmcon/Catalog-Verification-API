@@ -382,10 +382,10 @@ export async function completeTracking(
     topFilterAttributesPopulated,
     additionalAttributesIncluded: !!response.Additional_Attributes_HTML,
     htmlTableGenerated: !!response.Additional_Attributes_HTML,
-    Brand_Verified: response.Primary_Attributes?.Brand_Verified,
-    Category_Verified: response.Primary_Attributes?.Category_Verified,
-    SubCategory_Verified: response.Primary_Attributes?.SubCategory_Verified,
-    Product_Title_Verified: response.Primary_Attributes?.Product_Title_Verified,
+    AI_Brand: response.Primary_Attributes?.AI_Brand,
+    AI_Product_Category: response.Primary_Attributes?.AI_Product_Category,
+    // SubCategory_Verified removed - was redundant
+    AI_Product_Title: response.Primary_Attributes?.AI_Product_Title,
     responseSizeBytes: JSON.stringify(response).length,
     responsePayload: process.env.TRACK_RAW_PAYLOADS === 'true' ? response as any : undefined,
   };
@@ -412,8 +412,7 @@ export async function completeTracking(
           suggestedAction: `Review code logic for extracting ${field} from product data`,
           metadata: {
             field,
-            category: response.Primary_Attributes?.Category_Verified,
-            subfolder: response.Primary_Attributes?.SubCategory_Verified
+            category: response.Primary_Attributes?.AI_Product_Category
           }
         });
       });

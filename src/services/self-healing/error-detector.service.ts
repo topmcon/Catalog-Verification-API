@@ -225,13 +225,13 @@ class SelfHealingErrorDetector {
 
       // Check key fields
       const keyFields = [
-        'Brand_Verified',
-        'Category_Verified',
-        'Model_Number_Verified',
-        'Product_Title_Verified',
-        'MSRP_Verified',
-        'Width_Verified',
-        'Height_Verified'
+        'AI_Brand',
+        'AI_Product_Category',
+        'AI_Model_Number',
+        'AI_Product_Title',
+        'AI_MSRP',
+        'AI_Width',
+        'AI_Height'
       ];
 
       for (const field of keyFields) {
@@ -284,7 +284,7 @@ class SelfHealingErrorDetector {
         sampleJobId: sampleJob.jobId,
         issueType: 'missing_data',
         severity: this.calculateSeverity(jobIds.length, pattern.split(',').length),
-        category: sampleJob.result?.data?.Primary_Display_Attributes?.Category_Verified || 'Unknown',
+        category: sampleJob.result?.data?.Primary_Display_Attributes?.AI_Product_Category || 'Unknown',
         description: `Fields missing despite data in payload: ${pattern}`,
         missingFields: pattern.split(','),
         wrongFields: [],
@@ -395,13 +395,13 @@ class SelfHealingErrorDetector {
 
     // Map verified field names to possible payload field names
     const fieldMappings: Record<string, string[]> = {
-      'Brand_Verified': ['Brand_Web_Retailer', 'Ferguson_Brand', 'Manufacturer', 'Brand'],
-      'Category_Verified': ['Web_Retailer_Category', 'Ferguson_Base_Category', 'Category'],
-      'Model_Number_Verified': ['Model_Number_Web_Retailer', 'Ferguson_Model_Number', 'ModelNumber'],
-      'Product_Title_Verified': ['Product_Title_Web_Retailer', 'Ferguson_Title', 'Title'],
-      'MSRP_Verified': ['MSRP_Web_Retailer', 'Ferguson_Price', 'Price', 'MSRP'],
-      'Width_Verified': ['Width_Web_Retailer', 'Ferguson_Width', 'Width'],
-      'Height_Verified': ['Height_Web_Retailer', 'Ferguson_Height', 'Height']
+      'AI_Brand': ['Brand_Web_Retailer', 'Ferguson_Brand', 'Manufacturer', 'Brand'],
+      'AI_Product_Category': ['Web_Retailer_Category', 'Ferguson_Base_Category', 'Category'],
+      'AI_Model_Number': ['Model_Number_Web_Retailer', 'Ferguson_Model_Number', 'ModelNumber'],
+      'AI_Product_Title': ['Product_Title_Web_Retailer', 'Ferguson_Title', 'Title'],
+      'AI_MSRP': ['MSRP_Web_Retailer', 'Ferguson_Price', 'Price', 'MSRP'],
+      'AI_Width': ['Width_Web_Retailer', 'Ferguson_Width', 'Width'],
+      'AI_Height': ['Height_Web_Retailer', 'Ferguson_Height', 'Height']
     };
 
     const possibleFields = fieldMappings[field] || [];
@@ -558,7 +558,7 @@ class SelfHealingErrorDetector {
         sampleJobId: sampleJob.jobId,
         issueType: 'research_incomplete',
         severity: avgCompletionRate < 50 ? 'high' : 'medium',
-        category: sampleJob.result?.data?.Primary_Display_Attributes?.Category_Verified || 'Unknown',
+        category: sampleJob.result?.data?.Primary_Display_Attributes?.AI_Product_Category || 'Unknown',
         description: `Research incomplete (${avgCompletionRate}% complete). Failed steps: ${pattern || 'unknown'}`,
         missingFields: [],
         wrongFields: [],
@@ -633,7 +633,7 @@ class SelfHealingErrorDetector {
         sampleJobId: sampleJob.jobId,
         issueType: 'research_conflict',
         severity: 'critical', // Always critical - needs human review
-        category: sampleJob.result?.data?.Primary_Display_Attributes?.Category_Verified || 'Unknown',
+        category: sampleJob.result?.data?.Primary_Display_Attributes?.AI_Product_Category || 'Unknown',
         description: `Research conflicts requiring human review. Fields: ${pattern}`,
         missingFields: [],
         wrongFields: [],

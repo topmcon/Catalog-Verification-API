@@ -32,16 +32,16 @@ function logComparison(sessionId: string, rawInput: any, finalResponse: any, pro
       rawInput,
       finalResponse,
       keyFields: {
-        Product_Title_Verified: finalResponse?.data?.Primary_Display_Attributes?.Product_Title_Verified || '',
-        Brand_Verified: finalResponse?.data?.Primary_Display_Attributes?.Brand_Verified || '',
-        Category_Verified: finalResponse?.data?.Primary_Display_Attributes?.Category_Verified || '',
-        Model_Number_Verified: finalResponse?.data?.Primary_Display_Attributes?.Model_Number_Verified || '',
-        UPC_GTIN_Verified: finalResponse?.data?.Primary_Display_Attributes?.UPC_GTIN_Verified || '',
-        Finish_Verified: finalResponse?.data?.Primary_Display_Attributes?.Finish_Verified || '',
-        Color_Verified: finalResponse?.data?.Primary_Display_Attributes?.Color_Verified || '',
-        Width_Verified: finalResponse?.data?.Primary_Display_Attributes?.Width_Verified || '',
-        Height_Verified: finalResponse?.data?.Primary_Display_Attributes?.Height_Verified || '',
-        MSRP_Verified: finalResponse?.data?.Primary_Display_Attributes?.MSRP_Verified || ''
+        AI_Product_Title: finalResponse?.data?.Primary_Display_Attributes?.AI_Product_Title || '',
+        AI_Brand: finalResponse?.data?.Primary_Display_Attributes?.AI_Brand || '',
+        AI_Product_Category: finalResponse?.data?.Primary_Display_Attributes?.AI_Product_Category || '',
+        AI_Model_Number: finalResponse?.data?.Primary_Display_Attributes?.AI_Model_Number || '',
+        AI_UPC_GTIN: finalResponse?.data?.Primary_Display_Attributes?.AI_UPC_GTIN || '',
+        AI_Finish: finalResponse?.data?.Primary_Display_Attributes?.AI_Finish || '',
+        AI_Color: finalResponse?.data?.Primary_Display_Attributes?.AI_Color || '',
+        AI_Width: finalResponse?.data?.Primary_Display_Attributes?.AI_Width || '',
+        AI_Height: finalResponse?.data?.Primary_Display_Attributes?.AI_Height || '',
+        AI_MSRP: finalResponse?.data?.Primary_Display_Attributes?.AI_MSRP || ''
       }
     };
     

@@ -30,7 +30,7 @@ interface VerificationData {
   category_id: string | null;
   department: string;
   family: string;
-  subcategory: string;
+  // subcategory removed - was redundant (same as category)
   style: string;
   style_id: string | null;
   attributes: Record<string, any>;
@@ -169,21 +169,7 @@ class CatalogIndexService {
       }
     }
     
-    // Update subcategory
-    if (data.subcategory) {
-      const existingSub = categoryDoc?.subcategories.find(s => s.name === data.subcategory);
-      if (existingSub) {
-        await CategoryIndex.updateOne(
-          { category_name: data.category, 'subcategories.name': data.subcategory },
-          { $inc: { 'subcategories.$.count': 1 } }
-        );
-      } else {
-        await CategoryIndex.updateOne(
-          { category_name: data.category },
-          { $push: { subcategories: { name: data.subcategory, count: 1 } } }
-        );
-      }
-    }
+    // Subcategory tracking removed - SubCategory_Verified was redundant
     
     // Update attributes
     for (const [attrName, attrValue] of Object.entries(data.attributes)) {
@@ -568,7 +554,7 @@ class CatalogIndexService {
       category_id: data.category_id,
       department: data.department,
       family: data.family,
-      subcategory: data.subcategory,
+      // subcategory removed - was redundant (same as category)
       style: data.style,
       style_id: data.style_id,
       openai_category: data.openai_category,
@@ -782,28 +768,28 @@ class CatalogIndexService {
         const verification = responsePayload.Verification || {};
         
         // Skip if no category (incomplete data)
-        if (!primary.Category_Verified && !response.Category_Verified) {
+        if (!primary.AI_Product_Category && !response.AI_Product_Category) {
           continue;
         }
         
         await this.recordVerification({
           sf_catalog_id: request.SF_Catalog_Id || '',
           model_number: request.Model_Number_Web_Retailer || request.SF_Catalog_Name || '',
-          brand: primary.Brand_Verified || response.Brand_Verified || '',
-          brand_id: primary.Brand_Id || null,
-          category: primary.Category_Verified || response.Category_Verified || '',
-          category_id: primary.Category_Id || null,
-          department: primary.Department_Verified || '',
-          family: primary.Product_Family_Verified || '',
-          subcategory: primary.SubCategory_Verified || response.SubCategory_Verified || '',
-          style: primary.Product_Style_Verified || '',
-          style_id: primary.Style_Id || null,
+          brand: primary.AI_Brand || response.AI_Brand || '',
+          brand_id: primary.AI_Brand_Lookup || null,
+          category: primary.AI_Product_Category || response.AI_Product_Category || '',
+          category_id: primary.AI_Product_Category_Lookup || null,
+          department: primary.AI_Product_Department || '',
+          family: primary.AI_Product_Family || '',
+          // subcategory removed - was redundant
+          style: primary.AI_Style || '',
+          style_id: primary.AI_Style_Lookup || null,
           attributes: {
             ...top15,
-            color: primary.Color_Verified,
-            width: primary.Width_Verified,
-            height: primary.Height_Verified,
-            depth: primary.Depth_Verified
+            color: primary.AI_Color,
+            width: primary.AI_Width,
+            height: primary.AI_Height,
+            depth: primary.AI_Depth
           },
           confidence_score: verification.confidence_scores?.consensus || 0.8,
           openai_category: tracker.openaiResult?.determinedCategory || '',
@@ -815,9 +801,9 @@ class CatalogIndexService {
         processed++;
         results.push({
           sf_catalog_id: request.SF_Catalog_Id,
-          brand: primary.Brand_Verified || response.Brand_Verified,
-          category: primary.Category_Verified || response.Category_Verified,
-          style: primary.Product_Style_Verified || '',
+          brand: primary.AI_Brand || response.AI_Brand,
+          category: primary.AI_Product_Category || response.AI_Product_Category,
+          style: primary.AI_Style || '',
           timestamp: tracker.requestTimestamp
         });
       } catch (err) {

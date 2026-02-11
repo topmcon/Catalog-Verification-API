@@ -97,11 +97,11 @@ export interface OutgoingResponseData {
   additionalAttributesIncluded: boolean;
   htmlTableGenerated: boolean;
   
-  // Key verified values returned
-  Brand_Verified?: string;
-  Category_Verified?: string;
-  SubCategory_Verified?: string;
-  Product_Title_Verified?: string;
+  // Key verified values returned (AI_ prefix indicates AI-verified fields)
+  AI_Brand?: string;
+  AI_Product_Category?: string;
+  // SubCategory_Verified removed - was redundant
+  AI_Product_Title?: string;
   
   // Response size
   responseSizeBytes: number;
@@ -240,10 +240,10 @@ const OutgoingResponseDataSchema = new Schema({
   additionalAttributesIncluded: { type: Boolean, default: false },
   htmlTableGenerated: { type: Boolean, default: false },
   
-  Brand_Verified: { type: String },
-  Category_Verified: { type: String },
-  SubCategory_Verified: { type: String },
-  Product_Title_Verified: { type: String },
+  AI_Brand: { type: String },
+  AI_Product_Category: { type: String },
+  // SubCategory_Verified removed - was redundant
+  AI_Product_Title: { type: String },
   
   responseSizeBytes: { type: Number, default: 0 },
   

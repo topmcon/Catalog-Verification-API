@@ -628,32 +628,32 @@ function buildPrimaryAttributes(
     : categoryValue;
 
   return {
-    Brand_Verified: matchedBrand,
-    Brand_Id: brandId,
-    Category_Verified: matchedCategory,
-    SubCategory_Verified: getConsensusValue(consensusMap, 'subcategory') || rawProduct.Web_Retailer_SubCategory,
-    Product_Family_Verified: getConsensusValue(consensusMap, 'product_family') || '',
-    Type_Verified: getConsensusValue(consensusMap, 'product_type') || '',  // Type from AI analysis - matched in dual-AI flow
-    Type_Id: null,  // Type ID populated by dual-AI verification flow
-    Product_Style_Verified: getConsensusValue(consensusMap, 'product_style') || '',
-    Color_Verified: getConsensusValue(consensusMap, 'color') || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || '',
-    Finish_Verified: getConsensusValue(consensusMap, 'finish') || rawProduct.Ferguson_Finish || '',
-    Depth_Verified: getConsensusValue(consensusMap, 'depth') || rawProduct.Depth_Web_Retailer,
-    Width_Verified: getConsensusValue(consensusMap, 'width') || rawProduct.Width_Web_Retailer,
-    Height_Verified: getConsensusValue(consensusMap, 'height') || rawProduct.Height_Web_Retailer,
-    Weight_Verified: getConsensusValue(consensusMap, 'weight') || rawProduct.Weight_Web_Retailer,
-    MSRP_Verified: getConsensusValue(consensusMap, 'msrp') || rawProduct.MSRP_Web_Retailer,
+    AI_Brand: matchedBrand,
+    AI_Brand_Lookup: brandId,
+    AI_Product_Category: matchedCategory,
+    // SubCategory removed - was redundant (same as Category)
+    AI_Product_Family: getConsensusValue(consensusMap, 'product_family') || '',
+    AI_Type: getConsensusValue(consensusMap, 'product_type') || '',  // Type from AI analysis - matched in dual-AI flow
+    AI_Type_Id: null,  // Type ID populated by dual-AI verification flow
+    AI_Style: getConsensusValue(consensusMap, 'product_style') || '',
+    AI_Color: getConsensusValue(consensusMap, 'color') || rawProduct.Ferguson_Color || rawProduct.Color_Finish_Web_Retailer || '',
+    AI_Finish: getConsensusValue(consensusMap, 'finish') || rawProduct.Ferguson_Finish || '',
+    AI_Depth: getConsensusValue(consensusMap, 'depth') || rawProduct.Depth_Web_Retailer,
+    AI_Width: getConsensusValue(consensusMap, 'width') || rawProduct.Width_Web_Retailer,
+    AI_Height: getConsensusValue(consensusMap, 'height') || rawProduct.Height_Web_Retailer,
+    AI_Weight: getConsensusValue(consensusMap, 'weight') || rawProduct.Weight_Web_Retailer,
+    AI_MSRP: getConsensusValue(consensusMap, 'msrp') || rawProduct.MSRP_Web_Retailer,
     // Market_Value fields removed - no longer sent to Salesforce
-    Description_Verified: getConsensusValue(consensusMap, 'description') || rawProduct.Product_Description_Web_Retailer,
-    Product_Title_Verified: getConsensusValue(consensusMap, 'title') || rawProduct.Product_Title_Web_Retailer,
-    Details_Verified: getConsensusValue(consensusMap, 'details') || '',
-    Features_List_HTML: buildFeaturesHtml(consensusMap),
-    UPC_GTIN_Verified: getConsensusValue(consensusMap, 'upc') || '',
-    Model_Number_Verified: rawProduct.Model_Number_Web_Retailer,
-    Model_Number_Alias: removeSymbolsFromModelNumber(rawProduct.Model_Number_Web_Retailer),
-    Model_Parent: extractModelParent(rawProduct.Model_Number_Web_Retailer),
-    Model_Variant_Number: '',
-    Total_Model_Variants: ''
+    AI_Description: getConsensusValue(consensusMap, 'description') || rawProduct.Product_Description_Web_Retailer,
+    AI_Product_Title: getConsensusValue(consensusMap, 'title') || rawProduct.Product_Title_Web_Retailer,
+    // Details_Verified field removed - no longer sent to Salesforce
+    AI_Features: buildFeaturesHtml(consensusMap),
+    AI_UPC_GTIN: getConsensusValue(consensusMap, 'upc') || '',
+    AI_Model_Number: rawProduct.Model_Number_Web_Retailer,
+    AI_Model_Alias: removeSymbolsFromModelNumber(rawProduct.Model_Number_Web_Retailer),
+    AI_Model_Parent: extractModelParent(rawProduct.Model_Number_Web_Retailer),
+    AI_Model_Variant_Number: '',
+    AI_Total_Model_Variants: ''
   };
 }
 

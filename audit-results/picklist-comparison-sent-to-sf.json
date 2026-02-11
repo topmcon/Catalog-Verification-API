@@ -1,0 +1,165 @@
+{
+  "sent_at": "2026-02-11T16:18:42.171Z",
+  "endpoint": "https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/category_attributes_verify",
+  "summary": {
+    "categories_count": 204,
+    "brands_count": 402,
+    "attributes_count": 945,
+    "styles_count": 16,
+    "types_count": 688,
+    "categories_with_subcategory": 204,
+    "categories_with_styles_apply": 180
+  },
+  "notes": [
+    "Our categories include custom fields: subcategory and styles_apply",
+    "Parent group categories removed: Kitchen Appliances, Laundry Appliances, Cabinet Hardware, Outdoor Lighting, Outdoor Heating, Furniture",
+    "These parent groups should NOT be product categories",
+    "subcategory maps each category to its department for filtering",
+    "styles_apply lists which styles are valid for each category"
+  ],
+  "key_points": {
+    "categories": {
+      "count": 204,
+      "parent_groups_removed": [
+        "Kitchen Appliances",
+        "Laundry Appliances",
+        "Cabinet Hardware",
+        "Outdoor Lighting",
+        "Outdoor Heating",
+        "Furniture"
+      ],
+      "custom_fields": {
+        "subcategory": "Maps category to department (e.g., \"Washer\" → \"Laundry\")",
+        "styles_apply": "Lists valid styles for each category"
+      },
+      "sample_with_custom_fields": [
+        {
+          "family": "Kitchen",
+          "department": "Appliances",
+          "category_name": "Cooktop",
+          "category_id": "a01Hu000010Q5EhIAK",
+          "subcategory": "Kitchen Appliances",
+          "styles_apply": true
+        },
+        {
+          "family": "Kitchen",
+          "department": "Appliances",
+          "category_name": "Dishwasher",
+          "category_id": "a01Hu000010Q5EiIAK",
+          "subcategory": "Kitchen Appliances",
+          "styles_apply": true
+        },
+        {
+          "family": "Kitchen",
+          "department": "Appliances",
+          "category_name": "Freezer",
+          "category_id": "a01Hu000010Q5EkIAK",
+          "subcategory": "Kitchen",
+          "styles_apply": true
+        },
+        {
+          "family": "Kitchen",
+          "department": "Appliances",
+          "category_name": "Microwave",
+          "category_id": "a01Hu000010Q5ElIAK",
+          "subcategory": "Kitchen Appliances",
+          "styles_apply": true
+        },
+        {
+          "family": "Kitchen",
+          "department": "Appliances",
+          "category_name": "Oven",
+          "category_id": "a01Hu000010Q5EmIAK",
+          "subcategory": "Kitchen Appliances",
+          "styles_apply": true
+        }
+      ]
+    },
+    "brands": {
+      "count": 402,
+      "sample": [
+        "LINKASINK",
+        "SUB-ZERO",
+        "COYOTE",
+        "GAGGENAU",
+        "SMEG",
+        "ARTISAN",
+        "PERLICK",
+        "WHIRLPOOL",
+        "WOLF",
+        "WAC LIGHTING"
+      ]
+    },
+    "attributes": {
+      "count": 945,
+      "sample": [
+        "120 Degree F Inlet Water Capability",
+        "28 Degree Latch",
+        "Accepts Deck Mount Faucet",
+        "Accessory Type",
+        "ADA",
+        "Adjustable Color Temperature",
+        "Adjustable Shelves",
+        "Adjustable Thermostat",
+        "Agitator",
+        "AHRI Production",
+        "Air Filter",
+        "Air Filter Type",
+        "Air Fry",
+        "All Hardware and Components Included",
+        "Annual Energy Consumption (kWh)",
+        "Annual Operation Cost",
+        "ANSI Certification",
+        "Antimicrobial",
+        "Aperture Size",
+        "App Compatibility"
+      ]
+    },
+    "styles": {
+      "count": 16,
+      "all_styles": [
+        "Farmhouse",
+        "Industrial",
+        "Traditional",
+        "Transitional",
+        "Contemporary",
+        "Rustic",
+        "Victorian",
+        "Vintage",
+        "Modern",
+        "Art Deco",
+        "Tropical",
+        "Bohemian",
+        "Coastal",
+        "Geometric",
+        "Southwestern",
+        "Striped"
+      ]
+    },
+    "types": {
+      "count": 688,
+      "sample": [
+        "1-Light",
+        "3-Blade",
+        "3-Light",
+        "4-Blade",
+        "4-Door Flex",
+        "4-Light",
+        "5-Blade",
+        "5-Light",
+        "6-Light",
+        "Abstract",
+        "Accent",
+        "Access Door",
+        "Access Doors",
+        "Accessory",
+        "ADA Compliant",
+        "Adapter",
+        "Air Bath",
+        "Air Gap",
+        "Alcove",
+        "Americana"
+      ]
+    }
+  }
+}

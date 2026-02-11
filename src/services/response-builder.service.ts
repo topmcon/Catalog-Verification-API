@@ -128,11 +128,7 @@ export function buildPrimaryAttributes(
     incoming.Web_Retailer_Category,
     incoming.Ferguson_Base_Category
   );
-  const verifiedSubCategory = mapToVerifiedSubCategory(
-    incoming.Web_Retailer_SubCategory,
-    incoming.Ferguson_Product_Type,
-    incoming.Ferguson_Attributes
-  );
+  // verifiedSubCategory removed - was redundant (SubCategory_Verified always equaled Category_Verified)
 
   // Extract finish from model number if not provided
   const extractedFinish = extractFinishFromModel(
@@ -147,31 +143,31 @@ export function buildPrimaryAttributes(
     .toUpperCase();
 
   const primaryAttrs = {
-    Brand_Verified: getCorrected('brand', incoming.Ferguson_Brand || incoming.Brand_Web_Retailer),
-    Category_Verified: verifiedCategory,
-    SubCategory_Verified: verifiedSubCategory,
-    Product_Family_Verified: determineProductFamily(verifiedCategory, verifiedSubCategory),
-    Type_Verified: determineProductType(incoming, verifiedCategory),
-    Type_Id: null,  // Type ID populated by dual-AI verification flow
-    Product_Style_Verified: determineProductStyle(incoming),
-    Color_Verified: verifiedColor,
-    Finish_Verified: verifiedFinish,
-    Depth_Verified: depth,
-    Width_Verified: width,
-    Height_Verified: height,
-    Weight_Verified: incoming.Weight_Web_Retailer || getAttributeValue(incoming.Ferguson_Attributes, 'Product Weight'),
-    MSRP_Verified: incoming.MSRP_Web_Retailer,
+    AI_Brand: getCorrected('brand', incoming.Ferguson_Brand || incoming.Brand_Web_Retailer),
+    AI_Product_Category: verifiedCategory,
+    // SubCategory removed - was redundant (same as Category)
+    AI_Product_Family: determineProductFamily(verifiedCategory, ''),
+    AI_Type: determineProductType(incoming, verifiedCategory),
+    AI_Type_Id: null,  // Type ID populated by dual-AI verification flow
+    AI_Style: determineProductStyle(incoming),
+    AI_Color: verifiedColor,
+    AI_Finish: verifiedFinish,
+    AI_Depth: depth,
+    AI_Width: width,
+    AI_Height: height,
+    AI_Weight: incoming.Weight_Web_Retailer || getAttributeValue(incoming.Ferguson_Attributes, 'Product Weight'),
+    AI_MSRP: incoming.MSRP_Web_Retailer,
     // Market_Value fields removed - no longer sent to Salesforce
-    Description_Verified: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer) || incoming.Ferguson_Description),
-    Product_Title_Verified: getCorrected('title', buildVerifiedTitle(incoming)),
-    Details_Verified: extractDetails(incoming),
-    Features_List_HTML: buildFeaturesListHTML(incoming),
-    UPC_GTIN_Verified: getAttributeValue(incoming.Ferguson_Attributes, 'UPC') || '',
-    Model_Number_Verified: incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number,
-    Model_Number_Alias: modelNumberAlias,
-    Model_Parent: extractModelParent(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
-    Model_Variant_Number: extractModelVariant(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
-    Total_Model_Variants: '',  // Would need catalog lookup
+    AI_Description: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer) || incoming.Ferguson_Description),
+    AI_Product_Title: getCorrected('title', buildVerifiedTitle(incoming)),
+    // Details_Verified field removed - no longer sent to Salesforce
+    AI_Features: buildFeaturesListHTML(incoming),
+    AI_UPC_GTIN: getAttributeValue(incoming.Ferguson_Attributes, 'UPC') || '',
+    AI_Model_Number: incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number,
+    AI_Model_Alias: modelNumberAlias,
+    AI_Model_Parent: extractModelParent(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
+    AI_Model_Variant_Number: extractModelVariant(incoming.Model_Number_Web_Retailer || incoming.Ferguson_Model_Number),
+    AI_Total_Model_Variants: '',  // Would need catalog lookup
   };
   
   // Sanitize all values to prevent SF JSON parsing errors (removes N/A, Unknown, etc.)
@@ -906,42 +902,10 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
   return mapped || '';
 }
 
-function mapToVerifiedSubCategory(webSubCategory: string, fergusonProductType: string, fergusonAttrs?: Array<{name: string; value: string}>): string {
-  const subCategoryMap: Record<string, string> = {
-    'SLIDE IN GAS RANGE': 'Slide-In Gas Range',
-    'SLIDE IN ELECTRIC RANGE': 'Slide-In Electric Range',
-    'FREESTANDING GAS RANGE': 'Freestanding Gas Range',
-    'Cooking Appliances': 'Gas Range',
-  };
+// mapToVerifiedSubCategory function REMOVED - SubCategory_Verified was redundant
+// The Type_Verified field now captures product variants (Pull-Down Faucet, Slide-In Range, etc.)
 
-  // Direct mapping first
-  if (subCategoryMap[webSubCategory]) return subCategoryMap[webSubCategory];
-  if (subCategoryMap[fergusonProductType]) return subCategoryMap[fergusonProductType];
-  
-  // For Kitchen Faucets, derive subcategory from attributes
-  if (fergusonProductType === 'Faucet' && fergusonAttrs) {
-    const pulloutSpray = fergusonAttrs.find(a => a.name === 'Pullout Spray')?.value;
-    const pulloutDir = fergusonAttrs.find(a => a.name === 'Pullout Direction')?.value;
-    const numHandles = fergusonAttrs.find(a => a.name === 'Number Of Handles')?.value;
-    
-    const subParts: string[] = [];
-    if (pulloutSpray === 'Yes') {
-      subParts.push(pulloutDir === 'Down' ? 'Pull-Down' : 'Pull-Out');
-    }
-    if (numHandles === '1') {
-      subParts.push('Single Handle');
-    } else if (numHandles === '2') {
-      subParts.push('Double Handle');
-    }
-    if (subParts.length > 0) {
-      return subParts.join(' ') + ' Faucet';
-    }
-  }
-
-  return webSubCategory || fergusonProductType || '';
-}
-
-function determineProductFamily(category: string, _subCategory: string): string {
+function determineProductFamily(category: string, _unused?: string): string {
   // Based on category, return product family
   const familyMap: Record<string, string> = {
     'Range': 'Cooking Appliances',
@@ -1056,22 +1020,7 @@ function cleanDescription(description: string): string {
     .substring(0, 5000);        // Limit length
 }
 
-function extractDetails(incoming: SalesforceIncomingProduct): string {
-  // Combine key details from both sources
-  const details: string[] = [];
-  
-  const convection = getAttributeValue(incoming.Ferguson_Attributes, 'Convection');
-  if (convection === 'Yes') details.push('Convection Cooking');
-  
-  const wifi = getAttributeValue(incoming.Ferguson_Attributes, 'WiFi Enabled') ||
-               getAttributeValue(incoming.Ferguson_Attributes, 'Smart Home');
-  if (wifi === 'Yes') details.push('WiFi/Smart Enabled');
-
-  const selfClean = getAttributeValue(incoming.Ferguson_Attributes, 'Self Cleaning');
-  if (selfClean === 'Yes') details.push('Self-Cleaning');
-
-  return details.join(', ');
-}
+// extractDetails function removed - Details_Verified field no longer sent to Salesforce
 
 function buildFeaturesListHTML(incoming: SalesforceIncomingProduct): string {
   // If web retailer features exist and have content, use them
@@ -1341,9 +1290,9 @@ function calculateVerificationScore(
 
   // Primary attributes scoring (60% weight)
   const primaryFields = [
-    'Brand_Verified', 'Category_Verified', 'Model_Number_Verified',
-    'Width_Verified', 'Height_Verified', 'Depth_Verified',
-    'MSRP_Verified', 'Description_Verified', 'Product_Title_Verified'
+    'AI_Brand', 'AI_Product_Category', 'AI_Model_Number',
+    'AI_Width', 'AI_Height', 'AI_Depth',
+    'AI_MSRP', 'AI_Description', 'AI_Product_Title'
   ];
 
   for (const field of primaryFields) {
@@ -1379,8 +1328,8 @@ function findMissingFields(
 
   // Check required primary fields
   const requiredPrimary = [
-    'Brand_Verified', 'Category_Verified', 'Model_Number_Verified',
-    'MSRP_Verified', 'Description_Verified', 'Product_Title_Verified'
+    'AI_Brand', 'AI_Product_Category', 'AI_Model_Number',
+    'AI_MSRP', 'AI_Description', 'AI_Product_Title'
   ];
 
   for (const field of requiredPrimary) {

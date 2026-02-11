@@ -232,7 +232,7 @@ function analyzeChange(
   }
 
   // Brand, Category, Type changes are critical
-  if (field.includes('Brand_Verified') || field.includes('Category_Verified') || field.includes('Type_Verified')) {
+  if (field.includes('AI_Brand') || field.includes('AI_Product_Category') || field.includes('AI_Type')) {
     // Check if change is from empty/N/A to a real value (improvement)
     if ((oldNorm === '' || oldNorm === 'not applicable' || oldNorm === 'not found') && 
         (newNorm !== '' && newNorm !== 'not applicable' && newNorm !== 'not found')) {

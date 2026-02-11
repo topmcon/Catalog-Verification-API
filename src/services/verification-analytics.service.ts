@@ -80,9 +80,9 @@ export class VerificationAnalyticsService {
         verification_status: response.Verification?.verification_status || 'failed',
         status: (response.Status === 'success' ? 'success' : response.Status === 'partial' ? 'partial' : 'error') as 'success' | 'partial' | 'error',
         
-        product_category: response.Primary_Attributes?.Category_Verified || inputPayload.Web_Retailer_Category || 'Unknown',
-        product_subcategory: response.Primary_Attributes?.SubCategory_Verified || inputPayload.Web_Retailer_SubCategory || '',
-        brand: response.Primary_Attributes?.Brand_Verified || inputPayload.Brand_Web_Retailer || 'Unknown'
+        product_category: response.Primary_Attributes?.AI_Product_Category || inputPayload.Web_Retailer_Category || 'Unknown',
+        // product_subcategory removed - SubCategory_Verified was redundant
+        brand: response.Primary_Attributes?.AI_Brand || inputPayload.Brand_Web_Retailer || 'Unknown'
       };
       
       // Create with explicit error handling and validation
@@ -152,7 +152,7 @@ export class VerificationAnalyticsService {
    * Categorize field as primary, filter, or additional
    */
   private categorizeField(fieldName: string): 'primary' | 'filter' | 'additional' {
-    const primaryFields = ['Brand_Verified', 'Category_Verified', 'SubCategory_Verified', 'Product_Title_Verified', 'Description_Verified'];
+    const primaryFields = ['AI_Brand', 'AI_Product_Category', 'AI_Product_Title', 'AI_Description'];
     const filterFields = ['Material', 'Color', 'Finish', 'Style', 'Installation_Type', 'Drain_Location'];
     
     if (primaryFields.includes(fieldName)) return 'primary';
