@@ -285,66 +285,102 @@ docker start mongodb 2>/dev/null || docker run -d --name mongodb -p 27017:27017 
 
 ---
 
-## Picklist Sync System
+## Picklist Sync System - HOLD BUCKET (Manual Review Required)
 
-### How Salesforce Updates Our Picklists (Automated)
+### ⚠️ IMPORTANT: Syncs Are NO LONGER Auto-Applied
 
-1. **Salesforce Pushes Updates**: Salesforce calls `POST /api/picklists/sync` with updated picklist data
-2. **API Receives & Validates**: Production server validates and processes the sync request
-3. **Files Updated**: JSON files in `src/config/salesforce-picklists/` are updated:
-   - `attributes.json`
-   - `brands.json`
-   - `categories.json`
-   - `styles.json`
-   - `category-filter-attributes.json`
-4. **Sync Logged**: Complete audit trail saved to `PicklistSyncLog` collection in MongoDB
-5. **Catalog Index Updated**: Internal catalog index marks items as "in Salesforce"
-6. **Auto-Commit to GitHub**: Cron job (runs every 5 min) detects changes and commits to GitHub
+To prevent accidental overwrite of custom fields (like `subcategory`, `styles_apply`), 
+Salesforce picklist syncs are now **HELD for manual review** instead of auto-applied.
 
-### Checking for Recent Picklist Updates
+### How Salesforce Updates Work Now
 
-When "Establish Connection" is run, use the dedicated script to check:
+1. **Salesforce Pushes Updates**: Salesforce calls `POST /api/picklists/sync` with picklist data
+2. **API Receives & Analyzes**: Server validates data and calculates what would change
+3. **Changes HELD in Hold Bucket**: Saved to `PendingPicklistSync` MongoDB collection (NOT applied)
+4. **Impact Assessment**: System flags severity (low/medium/high/critical) based on:
+   - Number of additions/removals
+   - **Custom fields at risk** (subcategory, styles_apply would be lost)
+5. **Returns 202 Accepted**: Salesforce receives confirmation sync is pending review
+6. **Manual Review Required**: During "Establish Connection", pending syncs are displayed for review
+7. **Approve or Reject**: User must explicitly approve to apply changes, or reject to discard
+
+### Checking for Pending Syncs (During Establish Connection)
+
 ```bash
-# Show detailed picklist sync status with before/after changes
-ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"
 ```
 
 This displays:
-- ✅ When the last sync occurred (EST timezone + time ago)
-- ✅ What changed (before/after item counts)
-- ✅ Detailed list of items added/removed (up to 10 shown per type)
-- ✅ Total changes across all picklist types
-- ✅ Sync ID for audit trail lookup
+- 🟢 Number of pending syncs awaiting review
+- 🟡 Impact assessment (severity, additions, removals)
+- 🔴 **CRITICAL warnings** if custom fields would be overwritten
+- Detailed list of what would change per picklist type
 
-**CRITICAL**: If you see significant changes (many items removed/added), ask the user:
-- "These changes look significant. Do they seem correct?"
-- "Should we investigate why these items were removed/added?"
-- "Do we need to update any automation based on these changes?"
+### Approving or Rejecting Pending Syncs
+
+**Approve (apply the changes):**
+```bash
+curl -X POST https://verify.cxc-ai.com/api/picklists/sync/pending/{pending_id}/approve \
+  -H "Content-Type: application/json" \
+  -d '{"reviewed_by": "copilot-session", "notes": "Approved after review"}'
+```
+
+**Reject (discard without applying):**
+```bash
+curl -X POST https://verify.cxc-ai.com/api/picklists/sync/pending/{pending_id}/reject \
+  -H "Content-Type: application/json" \
+  -d '{"reviewed_by": "copilot-session", "notes": "Rejected to preserve custom fields"}'
+```
+
+### When to Approve vs Reject
+
+**APPROVE when:**
+- Only additions (no removals)
+- Severity is "low" and no custom fields at risk
+- User confirms the changes look correct
+
+**REJECT when:**
+- 🔴 CRITICAL severity - custom fields at risk
+- Unexpected removals that might indicate Salesforce data issue
+- User is unsure and wants to investigate first
 
 ### Picklist Management Tools
 
-#### 0. Check Picklist Sync Status (Monitoring)
+#### 0. Check Pending Syncs (Hold Bucket)
+**Script**: `scripts/check-pending-picklist-syncs.js`  
+**Run from**: Production server (via SSH)  
+**Purpose**: Check for Salesforce picklist syncs awaiting review  
+**What it does**:
+- Shows count of pending/approved/rejected syncs
+- Displays impact assessment and severity
+- Lists additions/removals per picklist type
+- **Warns if custom fields would be overwritten**
+- **Used by "Establish Connection" procedure**
+
+**Usage**:
+```bash
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"
+```
+
+**When to use**:
+- During "Establish Connection" (automatic)
+- Before approving any pending syncs
+- Investigating why syncs are building up
+
+#### 1. Check Applied Sync History (Audit Log)
 **Script**: `scripts/check-picklist-sync-status.js`  
 **Run from**: Production server (via SSH)  
-**Purpose**: Display detailed information about the most recent picklist sync from Salesforce  
+**Purpose**: Display information about the most recent APPLIED picklist sync  
 **What it does**:
-- Shows when the last sync occurred (EST timezone + time ago)
+- Shows when the last applied sync occurred
 - Displays before/after item counts for each picklist type
-- Lists up to 10 added/removed items per type
-- Shows sync ID, processing time, source IP
-- Calculates total changes across all picklist types
-- **Used by "Establish Connection" procedure**
+- Lists items that were added/removed
+- Shows sync ID for audit trail
 
 **Usage**:
 ```bash
 ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
 ```
-
-**When to use**:
-- During "Establish Connection" (automatic)
-- Investigating recent picklist changes
-- Monitoring Salesforce sync activity
-- Verifying picklist updates were received
 
 ---
 
@@ -535,33 +571,38 @@ When user says "Establish Connection", perform these checks and report:
    - System performance metrics (success rates, throughput)
    - **Actionable recommendations** based on detected issues
 
-6. **Picklist Sync Status**: Run dedicated script to show detailed changes:
+6. **Pending Picklist Syncs (HOLD BUCKET)**: Check for syncs awaiting review:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"
+   ```
+   This shows:
+   - Count of pending/approved/rejected syncs
+   - Impact assessment (severity, additions, removals)
+   - **CRITICAL warnings** if custom fields would be overwritten (subcategory, styles_apply)
+   - **If pending syncs exist, ASK USER**:
+     - "There are X pending picklist syncs awaiting review. Would you like to review them now?"
+     - For each pending sync, show severity and ask: "Approve, Reject, or Skip?"
+     - **NEVER auto-approve CRITICAL severity syncs**
+
+7. **Picklist Sync History** (optional): If user wants to see applied syncs:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
    ```
-   This shows:
-   - When last sync occurred (EST time + time ago)
-   - What changed (before/after counts)
-   - Items added/removed (detailed list up to 10 per type)
-   - **CRITICAL**: If significant changes detected, ASK USER:
-     - "These changes look significant. Do they seem correct?"
-     - "Should we investigate why these items were removed/added?"
-     - "Do we need to update any automation based on these changes?"
 
-7. **Report Status Table**:
+8. **Report Status Table**:
    - Local commit
    - GitHub commit  
    - Production commit
    - Service status (running/stopped)
    - API health (healthy/unhealthy)
-   - Last picklist sync (timestamp, # changes)
+   - Pending syncs (count awaiting review)
    - Session analytics summary (jobs processed, success rate, issues)
 
-8. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+9. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
    - Show key highlights: what was completed, current state, next steps
    - Reference the session summary file by name
 
-9. **Ask**: "Would you like to continue from where we left off?"
+10. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 

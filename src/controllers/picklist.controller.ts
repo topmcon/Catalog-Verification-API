@@ -1,12 +1,17 @@
 /**
  * Picklist Controller
  * Handles SF picklist CRUD operations, mismatch reporting, and sync from Salesforce
+ * 
+ * IMPORTANT: Picklist syncs from Salesforce are now HELD for manual review.
+ * Syncs are NOT applied automatically to prevent accidental overwrites of
+ * custom fields (subcategory, styles_apply, etc.) that exist in our system.
  */
 
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import picklistMatcher from '../services/picklist-matcher.service';
-import { PicklistSyncLog, IPicklistTypeSummary, IPicklistChange } from '../models/picklist-sync-log.model';
+import { PicklistSyncLog } from '../models/picklist-sync-log.model';
+import { PendingPicklistSync, IPendingChange, IImpactAssessment } from '../models/pending-picklist-sync.model';
 import { catalogIndexService } from '../services/catalog-index.service';
 import logger from '../utils/logger';
 
@@ -542,8 +547,8 @@ export class PicklistController {
       }
       
       // Log the sync request
-      logger.info('Picklist sync request received from Salesforce', {
-        sync_id: syncId,
+      logger.info('Picklist sync request received from Salesforce - HOLDING FOR REVIEW', {
+        pending_id: syncId,
         replace_mode,
         attributes_count: attributes?.length || 0,
         brands_count: brands?.length || 0,
@@ -556,383 +561,551 @@ export class PicklistController {
         source_ip: req.ip
       });
       
-      // Perform the sync
-      const result = await picklistMatcher.syncPicklists({
-        attributes,
-        brands,
-        categories,
-        styles,
-        types,
-        departments,
-        families,
-        category_filter_attributes,
-        replace_mode
-      });
+      // ============================================================
+      // HOLD BUCKET SYSTEM: Do NOT auto-apply syncs
+      // Instead, save for manual review to prevent accidental overwrites
+      // of custom fields like subcategory, styles_apply, etc.
+      // ============================================================
       
-      // Get updated stats AND current state AFTER sync
-      const stats = picklistMatcher.getStats();
-      const afterState = {
-        attributes: picklistMatcher.getAttributes(),
-        brands: picklistMatcher.getBrands(),
-        categories: picklistMatcher.getCategories(),
-        styles: picklistMatcher.getStyles(),
-        types: picklistMatcher.getTypes(),
-        departments: picklistMatcher.getDepartments(),
-        families: picklistMatcher.getFamilies()
-      };
-      const processingTime = Date.now() - startTime;
+      // Calculate what would change (without applying)
+      const pendingChanges: IPendingChange[] = [];
+      const warnings: string[] = [];
+      let totalAdditions = 0;
+      let totalRemovals = 0;
+      let customFieldsAtRisk = 0;
       
-      // Calculate detailed changes for audit log (compare BEFORE to AFTER state, not before to incoming)
-      const summaries: IPicklistTypeSummary[] = [];
-      const detailedChanges: {
-        attributes?: IPicklistChange[];
-        brands?: IPicklistChange[];
-        categories?: IPicklistChange[];
-        styles?: IPicklistChange[];
-        types?: IPicklistChange[];
-        departments?: IPicklistChange[];
-        families?: IPicklistChange[];
-      } = {};
-      
-      // Compare attributes - BEFORE vs AFTER (not before vs incoming)
+      // Analyze attributes changes
       if (attributes) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.attributes, 
-          afterState.attributes, 
-          'attribute_id', 
-          'attribute_name'
-        );
-        summaries.push({
+        const current = beforeState.attributes;
+        const currentIds = new Set(current.map((a: any) => a.attribute_id));
+        const incomingIds = new Set(attributes.map((a: any) => a.attribute_id));
+        
+        const toAdd = attributes.filter((a: any) => !currentIds.has(a.attribute_id)).map((a: any) => a.attribute_name);
+        const toRemove = current.filter((a: any) => !incomingIds.has(a.attribute_id)).map((a: any) => a.attribute_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
           type: 'attributes',
-          previous_count: beforeState.attributes.length,
-          new_count: afterState.attributes.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map(a => a.attribute_name),
-          removed_items: removed.map(a => a.attribute_name)
+          current_count: current.length,
+          incoming_count: attributes.length,
+          items_to_add: toAdd.slice(0, 20),  // Limit to first 20 for readability
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
         });
-        detailedChanges.attributes = [
-          ...added.map(a => ({ type: 'added' as const, item_id: a.attribute_id, item_name: a.attribute_name, new_value: a })),
-          ...removed.map(a => ({ type: 'removed' as const, item_id: a.attribute_id, item_name: a.attribute_name, old_value: a }))
-        ];
       }
       
-      // Compare brands - BEFORE vs AFTER
+      // Analyze brands changes
       if (brands) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.brands, 
-          afterState.brands, 
-          'brand_id', 
-          'brand_name'
-        );
-        summaries.push({
+        const current = beforeState.brands;
+        const currentIds = new Set(current.map((b: any) => b.brand_id));
+        const incomingIds = new Set(brands.map((b: any) => b.brand_id));
+        
+        const toAdd = brands.filter((b: any) => !currentIds.has(b.brand_id)).map((b: any) => b.brand_name);
+        const toRemove = current.filter((b: any) => !incomingIds.has(b.brand_id)).map((b: any) => b.brand_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
           type: 'brands',
-          previous_count: beforeState.brands.length,
-          new_count: afterState.brands.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map(b => b.brand_name),
-          removed_items: removed.map(b => b.brand_name)
+          current_count: current.length,
+          incoming_count: brands.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
         });
-        detailedChanges.brands = [
-          ...added.map(b => ({ type: 'added' as const, item_id: b.brand_id, item_name: b.brand_name, new_value: b })),
-          ...removed.map(b => ({ type: 'removed' as const, item_id: b.brand_id, item_name: b.brand_name, old_value: b }))
-        ];
       }
       
-      // Compare categories - BEFORE vs AFTER
+      // Analyze categories changes - CRITICAL: Check for custom field loss
       if (categories) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.categories, 
-          afterState.categories, 
-          'category_id', 
-          'category_name'
-        );
-        summaries.push({
-          type: 'categories',
-          previous_count: beforeState.categories.length,
-          new_count: afterState.categories.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map(c => c.category_name),
-          removed_items: removed.map(c => c.category_name)
-        });
-        detailedChanges.categories = [
-          ...added.map(c => ({ type: 'added' as const, item_id: c.category_id, item_name: c.category_name, new_value: c })),
-          ...removed.map(c => ({ type: 'removed' as const, item_id: c.category_id, item_name: c.category_name, old_value: c }))
-        ];
-      }
-      
-      // Compare styles - BEFORE vs AFTER
-      if (styles) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.styles, 
-          afterState.styles, 
-          'style_id', 
-          'style_name'
-        );
-        summaries.push({
-          type: 'styles',
-          previous_count: beforeState.styles.length,
-          new_count: afterState.styles.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map(s => s.style_name),
-          removed_items: removed.map(s => s.style_name)
-        });
-        detailedChanges.styles = [
-          ...added.map(s => ({ type: 'added' as const, item_id: s.style_id, item_name: s.style_name, new_value: s })),
-          ...removed.map(s => ({ type: 'removed' as const, item_id: s.style_id, item_name: s.style_name, old_value: s }))
-        ];
-      }
-      
-      // Compare types - BEFORE vs AFTER
-      if (types) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.types, 
-          afterState.types, 
-          'type_id', 
-          'type_name'
-        );
-        summaries.push({
-          type: 'types',
-          previous_count: beforeState.types.length,
-          new_count: afterState.types.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map((t: any) => t.type_name),
-          removed_items: removed.map((t: any) => t.type_name)
-        });
-        detailedChanges.types = [
-          ...added.map((t: any) => ({ type: 'added' as const, item_id: t.type_id, item_name: t.type_name, new_value: t })),
-          ...removed.map((t: any) => ({ type: 'removed' as const, item_id: t.type_id, item_name: t.type_name, old_value: t }))
-        ];
-      }
-      
-      // Compare departments - BEFORE vs AFTER
-      if (departments) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.departments, 
-          afterState.departments, 
-          'department_id', 
-          'department_name'
-        );
-        summaries.push({
-          type: 'departments',
-          previous_count: beforeState.departments.length,
-          new_count: afterState.departments.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map((d: any) => d.department_name),
-          removed_items: removed.map((d: any) => d.department_name)
-        });
-        detailedChanges.departments = [
-          ...added.map((d: any) => ({ type: 'added' as const, item_id: d.department_id, item_name: d.department_name, new_value: d })),
-          ...removed.map((d: any) => ({ type: 'removed' as const, item_id: d.department_id, item_name: d.department_name, old_value: d }))
-        ];
-      }
-      
-      // Compare families - BEFORE vs AFTER
-      if (families) {
-        const { added, removed } = this.comparePicklists(
-          beforeState.families, 
-          afterState.families, 
-          'family_id', 
-          'family_name'
-        );
-        summaries.push({
-          type: 'families',
-          previous_count: beforeState.families.length,
-          new_count: afterState.families.length,
-          items_added: added.length,
-          items_removed: removed.length,
-          added_items: added.map((f: any) => f.family_name),
-          removed_items: removed.map((f: any) => f.family_name)
-        });
-        detailedChanges.families = [
-          ...added.map((f: any) => ({ type: 'added' as const, item_id: f.family_id, item_name: f.family_name, new_value: f })),
-          ...removed.map((f: any) => ({ type: 'removed' as const, item_id: f.family_id, item_name: f.family_name, old_value: f }))
-        ];
-      }
-      
-      // Create audit log entry
-      const apiKeyHeader = req.header('x-api-key') || '';
-      const syncLog = new PicklistSyncLog({
-        sync_id: syncId,
-        timestamp: new Date(),
-        source_ip: req.ip || 'unknown',
-        user_agent: req.header('user-agent'),
-        api_key_hint: apiKeyHeader.length > 4 ? `...${apiKeyHeader.slice(-4)}` : '****',
-        request_body_size: JSON.stringify(req.body).length,
-        picklist_types_included: [
-          attributes ? 'attributes' : null,
-          brands ? 'brands' : null,
-          categories ? 'categories' : null,
-          styles ? 'styles' : null,
-          types ? 'types' : null,
-          departments ? 'departments' : null,
-          families ? 'families' : null,
-          category_filter_attributes ? 'category_filter_attributes' : null
-        ].filter(Boolean) as string[],
-        success: result.success,
-        sync_errors: result.errors,
-        summaries,
-        detailed_changes: detailedChanges,
-        processing_time_ms: processingTime,
-        snapshots: {
-          attributes_before: attributes ? beforeState.attributes : undefined,
-          brands_before: brands ? beforeState.brands : undefined,
-          categories_before: categories ? beforeState.categories : undefined,
-          styles_before: styles ? beforeState.styles : undefined
+        const current = beforeState.categories;
+        const currentIds = new Set(current.map((c: any) => c.category_id));
+        const incomingIds = new Set(categories.map((c: any) => c.category_id));
+        
+        const toAdd = categories.filter((c: any) => !currentIds.has(c.category_id)).map((c: any) => c.category_name);
+        const toRemove = current.filter((c: any) => !incomingIds.has(c.category_id)).map((c: any) => c.category_name);
+        
+        // Check for custom fields that would be lost
+        const customFieldsLost: string[] = [];
+        const categoriesWithCustomFields = current.filter((c: any) => c.subcategory || c.styles_apply !== undefined);
+        if (categoriesWithCustomFields.length > 0) {
+          // SF data doesn't have these fields, so they would be wiped
+          const incomingHasSubcategory = categories.some((c: any) => c.subcategory);
+          const incomingHasStylesApply = categories.some((c: any) => c.styles_apply !== undefined);
+          
+          if (!incomingHasSubcategory && categoriesWithCustomFields.some((c: any) => c.subcategory)) {
+            customFieldsLost.push('subcategory');
+            customFieldsAtRisk += categoriesWithCustomFields.filter((c: any) => c.subcategory).length;
+            warnings.push(`⚠️ CRITICAL: ${categoriesWithCustomFields.filter((c: any) => c.subcategory).length} categories have 'subcategory' field that would be LOST`);
+          }
+          if (!incomingHasStylesApply && categoriesWithCustomFields.some((c: any) => c.styles_apply !== undefined)) {
+            customFieldsLost.push('styles_apply');
+            customFieldsAtRisk += categoriesWithCustomFields.filter((c: any) => c.styles_apply !== undefined).length;
+            warnings.push(`⚠️ CRITICAL: ${categoriesWithCustomFields.filter((c: any) => c.styles_apply !== undefined).length} categories have 'styles_apply' field that would be LOST`);
+          }
         }
-      });
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
+          type: 'categories',
+          current_count: current.length,
+          incoming_count: categories.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: customFieldsLost
+        });
+      }
       
-      // Save audit log (async, don't await)
-      syncLog.save().catch(err => {
-        logger.error('Failed to save picklist sync log', { sync_id: syncId, error: err });
-      });
+      // Analyze styles changes
+      if (styles) {
+        const current = beforeState.styles;
+        const currentIds = new Set(current.map((s: any) => s.style_id));
+        const incomingIds = new Set(styles.map((s: any) => s.style_id));
+        
+        const toAdd = styles.filter((s: any) => !currentIds.has(s.style_id)).map((s: any) => s.style_name);
+        const toRemove = current.filter((s: any) => !incomingIds.has(s.style_id)).map((s: any) => s.style_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
+          type: 'styles',
+          current_count: current.length,
+          incoming_count: styles.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
+        });
+      }
       
-      // === UPDATE CATALOG INTELLIGENCE INDEX ===
-      // Mark styles/categories as now existing in SF picklist
-      let catalogIndexUpdate = {
-        styles_synced: 0,
-        styles_newly_in_sf: [] as string[],
-        categories_synced: 0
+      // Analyze types changes
+      if (types) {
+        const current = beforeState.types;
+        const currentIds = new Set(current.map((t: any) => t.type_id));
+        const incomingIds = new Set(types.map((t: any) => t.type_id));
+        
+        const toAdd = types.filter((t: any) => !currentIds.has(t.type_id)).map((t: any) => t.type_name);
+        const toRemove = current.filter((t: any) => !incomingIds.has(t.type_id)).map((t: any) => t.type_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
+          type: 'types',
+          current_count: current.length,
+          incoming_count: types.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
+        });
+      }
+      
+      // Analyze departments changes
+      if (departments) {
+        const current = beforeState.departments;
+        const currentIds = new Set(current.map((d: any) => d.department_id));
+        const incomingIds = new Set(departments.map((d: any) => d.department_id));
+        
+        const toAdd = departments.filter((d: any) => !currentIds.has(d.department_id)).map((d: any) => d.department_name);
+        const toRemove = current.filter((d: any) => !incomingIds.has(d.department_id)).map((d: any) => d.department_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
+          type: 'departments',
+          current_count: current.length,
+          incoming_count: departments.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
+        });
+      }
+      
+      // Analyze families changes
+      if (families) {
+        const current = beforeState.families;
+        const currentIds = new Set(current.map((f: any) => f.family_id));
+        const incomingIds = new Set(families.map((f: any) => f.family_id));
+        
+        const toAdd = families.filter((f: any) => !currentIds.has(f.family_id)).map((f: any) => f.family_name);
+        const toRemove = current.filter((f: any) => !incomingIds.has(f.family_id)).map((f: any) => f.family_name);
+        
+        totalAdditions += toAdd.length;
+        totalRemovals += toRemove.length;
+        
+        pendingChanges.push({
+          type: 'families',
+          current_count: current.length,
+          incoming_count: families.length,
+          items_to_add: toAdd.slice(0, 20),
+          items_to_remove: toRemove.slice(0, 20),
+          custom_fields_at_risk: []
+        });
+      }
+      
+      // Determine severity
+      let severity: 'low' | 'medium' | 'high' | 'critical' = 'low';
+      let reason = 'Minor additions only';
+      
+      if (customFieldsAtRisk > 0) {
+        severity = 'critical';
+        reason = `Custom fields at risk of being overwritten (${customFieldsAtRisk} items with subcategory/styles_apply)`;
+      } else if (totalRemovals > 20) {
+        severity = 'high';
+        reason = `Large number of removals (${totalRemovals} items)`;
+      } else if (totalRemovals > 5) {
+        severity = 'medium';
+        reason = `Some removals detected (${totalRemovals} items)`;
+      } else if (totalAdditions > 0 && totalRemovals === 0) {
+        severity = 'low';
+        reason = `Additions only (${totalAdditions} items)`;
+      }
+      
+      const impactAssessment: IImpactAssessment = {
+        severity,
+        reason,
+        total_additions: totalAdditions,
+        total_removals: totalRemovals,
+        custom_fields_at_risk: customFieldsAtRisk,
+        warnings
       };
       
-      try {
-        // Sync styles to catalog index
-        if (styles && Array.isArray(styles) && styles.length > 0) {
-          const styleResult = await catalogIndexService.syncSalesforceStyles(styles);
-          catalogIndexUpdate.styles_synced = styleResult.updated;
-          catalogIndexUpdate.styles_newly_in_sf = styleResult.new_in_sf;
-          
-          logger.info('Catalog index updated with SF styles', {
-            sync_id: syncId,
-            styles_synced: styleResult.updated,
-            new_in_sf: styleResult.new_in_sf,
-            already_in_sf: styleResult.already_in_sf.length,
-            not_in_index: styleResult.not_in_index.length
-          });
-        }
-        
-        // Sync categories to catalog index
-        if (categories && Array.isArray(categories) && categories.length > 0) {
-          const catResult = await catalogIndexService.syncSalesforceCategories(categories);
-          catalogIndexUpdate.categories_synced = catResult.updated;
-          
-          logger.info('Catalog index updated with SF categories', {
-            sync_id: syncId,
-            categories_updated: catResult.updated
-          });
-        }
-      } catch (indexError) {
-        logger.error('Failed to update catalog index from SF sync', {
-          sync_id: syncId,
-          error: indexError
-        });
-        // Don't fail the sync if catalog index update fails
-      }
+      // Calculate expiration (30 days from now)
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 30);
       
-      // Log summary to console
-      logger.info('Picklist sync completed', {
-        sync_id: syncId,
-        success: result.success,
-        processing_time_ms: processingTime,
-        changes: summaries.map(s => ({
-          type: s.type,
-          added: s.items_added,
-          removed: s.items_removed
-        })),
-        catalog_index_update: catalogIndexUpdate
-      });
-      
-      // Auto-commit picklist changes to GitHub (async, don't wait)
-      if (result.success && summaries.some(s => s.items_added > 0 || s.items_removed > 0)) {
-        const { exec } = require('child_process');
-        exec('/opt/catalog-verification-api/scripts/auto-commit-picklists-to-github.sh', (error: any, stdout: any, stderr: any) => {
-          if (error) {
-            logger.error('Auto-commit to GitHub failed', { error: error.message, stderr });
-          } else {
-            logger.info('Auto-committed picklist changes to GitHub', { stdout });
-          }
-        });
-        
-        // Regenerate hardcoded TypeScript lists from updated JSON picklists
-        exec('node /opt/catalog-verification-api/scripts/regenerate-hardcoded-lists.js', (error: any, stdout: any, stderr: any) => {
-          if (error) {
-            logger.error('Failed to regenerate hardcoded lists', { error: error.message, stderr });
-          } else {
-            logger.info('Regenerated hardcoded TypeScript lists from picklists', { stdout });
-          }
-        });
-      }
-      
-      if (result.success) {
-        res.json({ 
-          success: true, 
-          message: 'Picklists synced successfully',
-          sync_id: syncId,
-          updated: result.updated,
-          changes: summaries,
-          catalog_index_update: catalogIndexUpdate,
-          current_stats: stats,
-          processing_time_ms: processingTime
-        });
-      } else {
-        res.status(207).json({ 
-          success: false, 
-          message: 'Some picklists failed to sync',
-          sync_id: syncId,
-          updated: result.updated,
-          errors: result.errors,
-          changes: summaries,
-          catalog_index_update: catalogIndexUpdate,
-          current_stats: stats,
-          processing_time_ms: processingTime
-        });
-      }
-    } catch (error) {
-      const processingTime = Date.now() - startTime;
-      logger.error('Picklist sync failed', { sync_id: syncId, error, processing_time_ms: processingTime });
-      
-      // Log failed sync attempt
-      const syncLog = new PicklistSyncLog({
-        sync_id: syncId,
-        timestamp: new Date(),
+      // Save to pending syncs
+      const pendingSync = new PendingPicklistSync({
+        pending_id: syncId,
+        created_at: new Date(),
+        expires_at: expiresAt,
         source_ip: req.ip || 'unknown',
         user_agent: req.header('user-agent'),
-        request_body_size: JSON.stringify(req.body || {}).length,
-        picklist_types_included: [],
-        success: false,
-        sync_errors: [(error as Error).message],
-        summaries: [],
+        api_key_hint: (req.header('x-api-key') || '').slice(-4) || '****',
+        incoming_data: {
+          attributes,
+          brands,
+          categories,
+          styles,
+          types,
+          departments,
+          families,
+          category_filter_attributes,
+          replace_mode
+        },
+        pending_changes: pendingChanges,
+        impact_assessment: impactAssessment,
+        current_state_snapshot: {
+          attributes_count: beforeState.attributes.length,
+          brands_count: beforeState.brands.length,
+          categories_count: beforeState.categories.length,
+          styles_count: beforeState.styles.length,
+          types_count: beforeState.types.length,
+          departments_count: beforeState.departments.length,
+          families_count: beforeState.families.length
+        },
+        status: 'pending'
+      });
+      
+      await pendingSync.save();
+      
+      const processingTime = Date.now() - startTime;
+      
+      logger.info('Picklist sync HELD for review', {
+        pending_id: syncId,
+        severity,
+        total_additions: totalAdditions,
+        total_removals: totalRemovals,
+        custom_fields_at_risk: customFieldsAtRisk,
         processing_time_ms: processingTime
       });
-      syncLog.save().catch(() => {});
       
+      // Return 202 Accepted - sync is pending review
+      res.status(202).json({
+        success: true,
+        message: 'Picklist sync received and HELD FOR REVIEW. Changes will NOT be applied automatically.',
+        pending_id: syncId,
+        status: 'pending_review',
+        expires_at: expiresAt.toISOString(),
+        impact_assessment: impactAssessment,
+        pending_changes: pendingChanges,
+        review_url: `/api/picklists/sync/pending/${syncId}`,
+        approve_url: `/api/picklists/sync/pending/${syncId}/approve`,
+        reject_url: `/api/picklists/sync/pending/${syncId}/reject`,
+        processing_time_ms: processingTime,
+        note: 'To apply these changes, call the approve endpoint or use the review script during "Establish Connection".'
+      });
+      
+    } catch (error) {
+      const processingTime = Date.now() - startTime;
+      logger.error('Picklist sync hold failed', { pending_id: syncId, error, processing_time_ms: processingTime });
+      next(error);
+    }
+  }
+  
+  // ============================================================
+  // PENDING SYNC REVIEW ENDPOINTS
+  // ============================================================
+  
+  /**
+   * GET /api/picklists/sync/pending
+   * List all pending picklist syncs awaiting review
+   */
+  async getPendingSyncs(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { status = 'pending', limit = 20 } = req.query;
+      
+      const query: any = {};
+      if (status !== 'all') {
+        query.status = status;
+      }
+      
+      const pendingSyncs = await PendingPicklistSync.find(query)
+        .sort({ created_at: -1 })
+        .limit(Number(limit))
+        .lean();
+      
+      // Count by status
+      const counts = {
+        pending: await PendingPicklistSync.countDocuments({ status: 'pending' }),
+        approved: await PendingPicklistSync.countDocuments({ status: 'approved' }),
+        rejected: await PendingPicklistSync.countDocuments({ status: 'rejected' }),
+        expired: await PendingPicklistSync.countDocuments({ status: 'expired' })
+      };
+      
+      res.json({
+        success: true,
+        counts,
+        data: pendingSyncs
+      });
+    } catch (error) {
       next(error);
     }
   }
   
   /**
-   * Helper: Compare old vs new picklist data to find added/removed items
+   * GET /api/picklists/sync/pending/:pendingId
+   * Get a specific pending sync with full details
    */
-  private comparePicklists<T extends Record<string, any>>(
-    oldItems: T[],
-    newItems: T[],
-    idField: keyof T,
-    _nameField: keyof T  // Used by caller for display purposes
-  ): { added: T[]; removed: T[] } {
-    const oldIds = new Set(oldItems.map(item => item[idField]));
-    const newIds = new Set(newItems.map(item => item[idField]));
-    
-    const added = newItems.filter(item => !oldIds.has(item[idField]));
-    const removed = oldItems.filter(item => !newIds.has(item[idField]));
-    
-    return { added, removed };
+  async getPendingSync(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { pendingId } = req.params;
+      
+      const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId }).lean();
+      
+      if (!pendingSync) {
+        res.status(404).json({
+          success: false,
+          error: 'Pending sync not found',
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      res.json({
+        success: true,
+        data: pendingSync
+      });
+    } catch (error) {
+      next(error);
+    }
   }
   
+  /**
+   * POST /api/picklists/sync/pending/:pendingId/approve
+   * Approve and apply a pending picklist sync
+   */
+  async approvePendingSync(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const startTime = Date.now();
+    const { pendingId } = req.params;
+    const { reviewed_by = 'copilot-session', notes } = req.body;
+    
+    try {
+      // Find the pending sync
+      const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId });
+      
+      if (!pendingSync) {
+        res.status(404).json({
+          success: false,
+          error: 'Pending sync not found',
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      if (pendingSync.status !== 'pending') {
+        res.status(400).json({
+          success: false,
+          error: `Sync is not pending (status: ${pendingSync.status})`,
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      // Check if expired
+      if (new Date() > pendingSync.expires_at) {
+        pendingSync.status = 'expired';
+        await pendingSync.save();
+        
+        res.status(400).json({
+          success: false,
+          error: 'Pending sync has expired',
+          pending_id: pendingId,
+          expired_at: pendingSync.expires_at
+        });
+        return;
+      }
+      
+      // Now apply the sync using the original sync logic
+      const { attributes, brands, categories, styles, types, departments, families, category_filter_attributes, replace_mode } = pendingSync.incoming_data;
+      
+      const result = await picklistMatcher.syncPicklists({
+        attributes: attributes || undefined,
+        brands: brands || undefined,
+        categories: categories || undefined,
+        styles: styles || undefined,
+        types: types || undefined,
+        departments: departments || undefined,
+        families: families || undefined,
+        category_filter_attributes: category_filter_attributes || undefined,
+        replace_mode: replace_mode ?? true
+      });
+      
+      const syncId = uuidv4();
+      const processingTime = Date.now() - startTime;
+      
+      // Update pending sync status
+      pendingSync.status = 'approved';
+      pendingSync.reviewed_at = new Date();
+      pendingSync.reviewed_by = reviewed_by;
+      pendingSync.review_notes = notes;
+      pendingSync.applied_sync_id = syncId;
+      await pendingSync.save();
+      
+      // Create sync log for audit trail
+      const syncLog = new PicklistSyncLog({
+        sync_id: syncId,
+        timestamp: new Date(),
+        source_ip: 'approved-from-pending',
+        user_agent: `approved by ${reviewed_by}`,
+        api_key_hint: 'manual',
+        request_body_size: JSON.stringify(pendingSync.incoming_data).length,
+        picklist_types_included: pendingSync.pending_changes.map(c => c.type),
+        success: result.success,
+        sync_errors: result.errors || [],
+        summaries: pendingSync.pending_changes.map(c => ({
+          type: c.type,
+          previous_count: c.current_count,
+          new_count: c.incoming_count,
+          items_added: c.items_to_add.length,
+          items_removed: c.items_to_remove.length,
+          added_items: c.items_to_add,
+          removed_items: c.items_to_remove
+        })),
+        processing_time_ms: processingTime
+      });
+      await syncLog.save();
+      
+      // Update catalog index if styles/categories were included
+      let catalogIndexUpdate = { styles_synced: 0, categories_synced: 0 };
+      try {
+        if (styles && Array.isArray(styles) && styles.length > 0) {
+          const styleResult = await catalogIndexService.syncSalesforceStyles(styles);
+          catalogIndexUpdate.styles_synced = styleResult.updated;
+        }
+        if (categories && Array.isArray(categories) && categories.length > 0) {
+          const catResult = await catalogIndexService.syncSalesforceCategories(categories);
+          catalogIndexUpdate.categories_synced = catResult.updated;
+        }
+      } catch (indexError) {
+        logger.error('Failed to update catalog index after approval', { pending_id: pendingId, error: indexError });
+      }
+      
+      logger.info('Pending picklist sync APPROVED and applied', {
+        pending_id: pendingId,
+        sync_id: syncId,
+        reviewed_by,
+        processing_time_ms: processingTime
+      });
+      
+      res.json({
+        success: true,
+        message: 'Pending sync approved and applied successfully',
+        pending_id: pendingId,
+        sync_id: syncId,
+        reviewed_by,
+        applied_changes: pendingSync.pending_changes,
+        catalog_index_update: catalogIndexUpdate,
+        processing_time_ms: processingTime
+      });
+      
+    } catch (error) {
+      logger.error('Failed to approve pending sync', { pending_id: pendingId, error });
+      next(error);
+    }
+  }
+  
+  /**
+   * POST /api/picklists/sync/pending/:pendingId/reject
+   * Reject a pending picklist sync (discard without applying)
+   */
+  async rejectPendingSync(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { pendingId } = req.params;
+    const { reviewed_by = 'copilot-session', notes } = req.body;
+    
+    try {
+      const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId });
+      
+      if (!pendingSync) {
+        res.status(404).json({
+          success: false,
+          error: 'Pending sync not found',
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      if (pendingSync.status !== 'pending') {
+        res.status(400).json({
+          success: false,
+          error: `Sync is not pending (status: ${pendingSync.status})`,
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      // Update status to rejected
+      pendingSync.status = 'rejected';
+      pendingSync.reviewed_at = new Date();
+      pendingSync.reviewed_by = reviewed_by;
+      pendingSync.review_notes = notes || 'Rejected to prevent overwrite of custom fields';
+      await pendingSync.save();
+      
+      logger.info('Pending picklist sync REJECTED', {
+        pending_id: pendingId,
+        reviewed_by,
+        notes
+      });
+      
+      res.json({
+        success: true,
+        message: 'Pending sync rejected and discarded',
+        pending_id: pendingId,
+        reviewed_by,
+        rejected_changes: pendingSync.pending_changes
+      });
+      
+    } catch (error) {
+      logger.error('Failed to reject pending sync', { pending_id: pendingId, error });
+      next(error);
+    }
+  }
+
   /**
    * GET /api/picklists/sync/logs
    * Get sync audit logs
