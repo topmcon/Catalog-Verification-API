@@ -804,7 +804,7 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'FLOOR LAMPS': 'Lamp',
     'CEILING FANS': 'Ceiling Fan',
     'CEILING FAN': 'Ceiling Fan',
-    'OUTDOOR LIGHTING': 'Outdoor Lighting',
+    // 'OUTDOOR LIGHTING' → handled in GROUP CATEGORIES section below (needs context)
     'RECESSED LIGHTING': 'Recessed Lighting',
     'TRACK LIGHTING': 'Track and Rail Lighting',
     'VANITY LIGHTING': 'Vanity Lighting',
@@ -840,7 +840,7 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     // ============================================
     // HARDWARE
     // ============================================
-    'CABINET HARDWARE': 'Cabinet Hardware',
+    // 'CABINET HARDWARE' → handled in GROUP CATEGORIES section below (needs context)
     'DOOR HARDWARE': 'Door Hardware: Knob and Lever',
     'DOOR KNOBS': 'Door Hardware: Knob and Lever',
     'DOOR HANDLES': 'Door Hardware: Knob and Lever',
@@ -869,6 +869,17 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'KITCHEN ACCESSORY': 'Kitchen Accessory',
     'STORAGE': 'Kitchen Storage & Organization',
     'KITCHEN STORAGE': 'Kitchen Storage & Organization',
+    
+    // ============================================
+    // GROUP/PARENT CATEGORIES - Map to empty (require AI disambiguation)
+    // These are parent groups, NOT valid product categories
+    // ============================================
+    'LAUNDRY APPLIANCES': '',  // Needs context: could be Washer or Dryer
+    'KITCHEN APPLIANCES': '',  // Needs context: could be any kitchen appliance
+    'CABINET HARDWARE': '',    // Needs context: could be Cabinet Knob or Cabinet Pull
+    'FURNITURE': '',           // Needs context: could be Chair or specific furniture
+    'OUTDOOR HEATING': '',     // Needs context: likely Patio Heater
+    'OUTDOOR LIGHTING': '',    // Needs context: specific outdoor lighting category
   };
 
   // Normalize input to uppercase for consistent matching
@@ -878,11 +889,21 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
 
   // PRIORITY ORDER: Subcategory first (most specific), then main category
   // This ensures "ELECTRIC RANGES" + "SINGLE WALL ELECTRIC OVEN" → "Oven" not "Range"
-  return categoryMap[normalizedSub] ||     // Check subcategory FIRST (most specific)
+  
+  // Check if any input is a GROUP category (should not be used directly)
+  const groupCategories = ['LAUNDRY APPLIANCES', 'KITCHEN APPLIANCES', 'CABINET HARDWARE', 
+                           'FURNITURE', 'OUTDOOR HEATING', 'OUTDOOR LIGHTING'];
+  
+  // If subcategory is a group, skip it and use main category mapping instead
+  const effectiveSub = groupCategories.includes(normalizedSub) ? '' : normalizedSub;
+  
+  const mapped = categoryMap[effectiveSub] ||     // Check subcategory FIRST (most specific, unless it's a group)
          categoryMap[normalizedWeb] || 
-         categoryMap[normalizedFerguson] || 
-         webCategory || 
-         fergusonCategory;
+         categoryMap[normalizedFerguson];
+  
+  // If mapping found, return it. If not, return empty string (NOT raw category)
+  // This prevents unmapped groups from becoming the category
+  return mapped || '';
 }
 
 function mapToVerifiedSubCategory(webSubCategory: string, fergusonProductType: string, fergusonAttrs?: Array<{name: string; value: string}>): string {

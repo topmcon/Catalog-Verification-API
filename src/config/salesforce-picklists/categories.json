@@ -2,22 +2,6 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Kitchen Appliances",
-    "category_id": "a01Hu000010Q5EcIAK",
-    "subcategory": "Kitchen",
-    "styles_apply": true
-  },
-  {
-    "family": "Laundry",
-    "department": "Appliances",
-    "category_name": "Laundry Appliances",
-    "category_id": "a01Hu000010Q5EdIAK",
-    "subcategory": "Laundry",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Appliances",
     "category_name": "Cooktop",
     "category_id": "a01Hu000010Q5EhIAK",
     "subcategory": "Kitchen Appliances",
@@ -425,14 +409,6 @@
   },
   {
     "family": "Kitchen",
-    "department": "Hardware",
-    "category_name": "Cabinet Hardware",
-    "category_id": "a01aZ00000dC5E4QAK",
-    "subcategory": "Cabinet Hardware",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
     "department": "Plumbing & Bath",
     "category_name": "Food Service Faucet",
     "category_id": "a01aZ00000dC5E5QAK",
@@ -646,14 +622,6 @@
     "category_id": "a01aZ00000dC5EVQA0",
     "subcategory": "Specialty Lighting",
     "styles_apply": false
-  },
-  {
-    "family": "Outdoor",
-    "department": "Lighting & Electrical",
-    "category_name": "Outdoor Lighting",
-    "category_id": "a01aZ00000dC5EWQA0",
-    "subcategory": "Ceiling Lighting",
-    "styles_apply": true
   },
   {
     "family": "General",
@@ -893,14 +861,6 @@
     "category_name": "Barn Door Hardware",
     "category_id": "a01aZ00000dC5F1QAK",
     "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
-    "category_name": "Cabinet Hardware",
-    "category_id": "a01aZ00000dC5F2QAK",
-    "subcategory": "Cabinet Hardware",
     "styles_apply": true
   },
   {
@@ -1314,25 +1274,9 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Heating",
-    "category_id": "a01aZ00000dCejtQAC",
-    "subcategory": "Outdoor",
-    "styles_apply": true
-  },
-  {
-    "family": "Outdoor",
-    "department": "Outdoor",
     "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC",
     "subcategory": "Outdoor",
-    "styles_apply": true
-  },
-  {
-    "family": "Outdoor",
-    "department": "Lighting & Electrical",
-    "category_name": "Outdoor Lighting",
-    "category_id": "a01aZ00000dCejvQAC",
-    "subcategory": "Outdoor Lighting",
     "styles_apply": true
   },
   {
@@ -1494,14 +1438,6 @@
     "category_id": "a01aZ00000dCekGQAS",
     "subcategory": "HVAC Components",
     "styles_apply": false
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
-    "category_name": "Furniture",
-    "category_id": "a01aZ00000dCekIQAS",
-    "subcategory": "Furniture",
-    "styles_apply": true
   },
   {
     "family": "Home Improvement",
