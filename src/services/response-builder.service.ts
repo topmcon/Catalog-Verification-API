@@ -611,8 +611,12 @@ function parseDimension(value: string): string {
 /**
  * Map incoming category values to Salesforce picklist category names
  * Exported for use in dual-ai-verification.service.ts
+ * 
+ * IMPORTANT: Subcategory is checked FIRST because it's more specific!
+ * Example: webCategory="ELECTRIC RANGES" but subCategory="SINGLE WALL ELECTRIC OVEN"
+ * → subcategory mapping wins → returns "Oven" not "Range"
  */
-export function mapToVerifiedCategory(webCategory: string, fergusonCategory: string): string {
+export function mapToVerifiedCategory(webCategory: string, fergusonCategory: string, subCategory?: string): string {
   // Comprehensive mapping from incoming category values to Salesforce picklist category names
   // Keys are UPPERCASE to handle case variations in incoming data
   const categoryMap: Record<string, string> = {
@@ -626,6 +630,11 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'SLIDE IN ELECTRIC RANGE': 'Range',
     'FREESTANDING GAS RANGE': 'Range',
     'FREESTANDING ELECTRIC RANGE': 'Range',
+    'FREESTANDING SMOOTHTOP ELECTRIC RANGE': 'Range',
+    '30" FREE STANDING GAS RANGE': 'Range',
+    '30 FREE STANDING GAS RANGE': 'Range',
+    'FREE STANDING GAS RANGE': 'Range',
+    'FREE STANDING ELECTRIC RANGE': 'Range',
     'RANGES': 'Range',
     'RANGE': 'Range',
     'COOKING APPLIANCES': 'Range',
@@ -633,7 +642,7 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'STOVES': 'Range',
     'STOVE': 'Range',
     
-    // Ovens
+    // Ovens (CHECKED BEFORE RANGES when they appear in subcategory!)
     'WALL OVENS': 'Oven',
     'WALL OVEN': 'Oven',
     'OVENS': 'Oven',
@@ -642,6 +651,9 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'SINGLE WALL ELECTRIC OVEN': 'Oven',
     'DOUBLE WALL OVEN': 'Oven',
     'DOUBLE WALL OVENS': 'Oven',
+    'DOUBLE WALL ELECTRIC OVEN': 'Oven',
+    'ELECTRIC OVEN AND MICROWAVE COMBO': 'Oven',
+    'MICROWAVE WALL OVEN COMBINATION': 'Oven',
     'BUILT-IN OVEN': 'Oven',
     'BUILT IN OVEN': 'Oven',
     'CONVECTION OVEN': 'Oven',
@@ -670,6 +682,11 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'COUNTERTOP MICROWAVES': 'Microwave',
     'BUILT-IN MICROWAVES': 'Microwave',
     'MICROWAVE DRAWERS': 'Microwave',
+    
+    // Warming Drawers
+    'WARMING DRAWERS': 'Kitchen Accessory',
+    'WARMING DRAWERS (ELECTRIC)': 'Kitchen Accessory',
+    'WARMING DRAWER': 'Kitchen Accessory',
     
     // Range Hoods
     'RANGE HOODS': 'Range Hood',
@@ -857,8 +874,12 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
   // Normalize input to uppercase for consistent matching
   const normalizedWeb = (webCategory || '').toUpperCase().trim();
   const normalizedFerguson = (fergusonCategory || '').toUpperCase().trim();
+  const normalizedSub = (subCategory || '').toUpperCase().trim();
 
-  return categoryMap[normalizedWeb] || 
+  // PRIORITY ORDER: Subcategory first (most specific), then main category
+  // This ensures "ELECTRIC RANGES" + "SINGLE WALL ELECTRIC OVEN" → "Oven" not "Range"
+  return categoryMap[normalizedSub] ||     // Check subcategory FIRST (most specific)
+         categoryMap[normalizedWeb] || 
          categoryMap[normalizedFerguson] || 
          webCategory || 
          fergusonCategory;

@@ -4888,10 +4888,13 @@ function buildFinalResponse(
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   
   // PRE-MAP category using our comprehensive mapping before picklist matching
-  // This handles incoming values like "REFRIGERATORS" -> "Refrigerator"
+  // IMPORTANT: Subcategory is passed and checked FIRST because it's more specific!
+  // Example: Web_Retailer_Category="ELECTRIC RANGES" but Web_Retailer_SubCategory="SINGLE WALL ELECTRIC OVEN"
+  // → subcategory mapping wins → "Oven" not "Range"
   const preMappedCategory = mapToVerifiedCategory(
     rawProduct.Web_Retailer_Category || '',
-    rawProduct.Ferguson_Base_Category || rawProduct.Ferguson_Categories || ''
+    rawProduct.Ferguson_Base_Category || rawProduct.Ferguson_Categories || '',
+    rawProduct.Web_Retailer_SubCategory || ''  // Subcategory takes priority in mapping!
   ) || consensus.agreedCategory || '';
   
   const categoryMatch = picklistMatcher.matchCategory(preMappedCategory);
