@@ -2,7 +2,7 @@
  * Push All Picklists to Salesforce
  * 
  * This script sends ALL our current picklist data to Salesforce to sync them with our lists.
- * Picklists: brands, categories, attributes, styles
+ * Picklists: departments, families, categories, types, styles, brands, attributes (7 total)
  * 
  * Usage: node scripts/push-all-picklists-to-salesforce.js [--dry-run]
  */
@@ -21,25 +21,40 @@ const DRY_RUN = process.argv.includes('--dry-run');
 const PICKLIST_DIR = path.join(__dirname, '../src/config/salesforce-picklists');
 
 const PICKLISTS = {
-  brands: {
-    file: 'brands.json',
-    type: 'brands',
-    itemKey: 'brands'
+  departments: {
+    file: 'departments.json',
+    type: 'departments',
+    itemKey: 'departments'
+  },
+  families: {
+    file: 'families.json',
+    type: 'families',
+    itemKey: 'families'
   },
   categories: {
     file: 'categories.json',
     type: 'categories',
     itemKey: 'categories'
   },
-  attributes: {
-    file: 'attributes.json',
-    type: 'attributes',
-    itemKey: 'attributes'
+  types: {
+    file: 'types.json',
+    type: 'types',
+    itemKey: 'types'
   },
   styles: {
     file: 'styles.json',
     type: 'styles',
     itemKey: 'styles'
+  },
+  brands: {
+    file: 'brands.json',
+    type: 'brands',
+    itemKey: 'brands'
+  },
+  attributes: {
+    file: 'attributes.json',
+    type: 'attributes',
+    itemKey: 'attributes'
   }
 };
 
