@@ -222,13 +222,12 @@ function validateStyleForCategory(
   // Style is NOT in the valid list for this category
   const isAesthetic = isAestheticStyle(style);
   
-  // Use first valid style as fallback
-  const fallbackStyle = validStyles[0] || null;
-  
+  // Return "Not Applicable" when no valid style matches - never use random fallback
+  // This ensures we don't send incorrect styles like "Art Deco" for appliances
   return {
     needsCorrection: true,
-    correctedStyle: fallbackStyle,
-    reason: `Style "${style}" is NOT valid for category "${category}". Valid options: ${validStyles.slice(0, 5).join(', ')}${validStyles.length > 5 ? '...' : ''}`,
+    correctedStyle: 'Not Applicable',
+    reason: `Style "${style}" is NOT valid for category "${category}". Setting to "Not Applicable".`,
     isAesthetic
   };
 }
@@ -1834,12 +1833,12 @@ export async function verifyProductWithDualAI(
       fergusonAttributesCount: rawProduct.Ferguson_Attributes?.length || 0,
     });
     
-    // Apply smart truncation if needed
+    // Apply smart truncation if needed (trigger at medium risk too, not just high/critical)
     let processedProduct = rawProduct;
     let processedResearch = preResearchResult;
     
-    if (tokenEstimate.riskLevel === 'high' || tokenEstimate.riskLevel === 'critical') {
-      logger.warn('⚠️ HIGH TOKEN COUNT DETECTED - Applying smart truncation', {
+    if (tokenEstimate.riskLevel === 'medium' || tokenEstimate.riskLevel === 'high' || tokenEstimate.riskLevel === 'critical') {
+      logger.warn('⚠️ TOKEN RISK DETECTED - Applying smart truncation', {
         sessionId: verificationSessionId,
         estimatedTokens: tokenEstimate.estimatedTokens,
         riskLevel: tokenEstimate.riskLevel,

@@ -817,30 +817,9 @@ class PicklistMatcherService {
       };
     }
     
-    // Word-based fallback: match if all significant words match
-    const searchWords = searchTerm.split(/[\s\-_\/]+/).filter(w => w.length > 2);
-    if (searchWords.length > 0) {
-      const wordMatch = this.attributes.find(a => {
-        const attrWords = a.attribute_name.toLowerCase().split(/[\s\-_\/]+/).filter(w => w.length > 2);
-        // Check if search term's words are a subset of attribute words or vice versa
-        const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw) || sw.includes(aw)));
-        const attrInSearch = attrWords.every(aw => searchWords.some(sw => sw.includes(aw) || aw.includes(sw)));
-        return searchInAttr || attrInSearch;
-      });
-      if (wordMatch) {
-        logger.info('Attribute matched via word-based fallback', {
-          original: attributeName,
-          matched: wordMatch.attribute_name
-        });
-        return {
-          matched: true,
-          original: attributeName,
-          matchedValue: wordMatch,
-          similarity: 0.5,
-          suggestions: scored.slice(0, 3).map(s => s.attribute)
-        };
-      }
-    }
+    // Word-based fallback REMOVED - was causing false positives like "Lint Filter" → "Farmhouse"
+    // When no good match exists, return matched: false so an Attribute_Request is generated
+    // This ensures only semantically correct matches are used
 
     this.logMismatch('attribute', attributeName, scored.slice(0, 3).map(s => s.attribute.attribute_name), best?.similarity);
     

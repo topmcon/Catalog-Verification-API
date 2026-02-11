@@ -35,8 +35,8 @@ import logger from '../utils/logger';
  * More accurate for technical/structured data: 1 token ≈ 3-4 chars
  */
 const CHARS_PER_TOKEN = 3.5;
-const MAX_SAFE_TOKENS = 100000; // Leave 28K buffer for AI response
-const HIGH_RISK_THRESHOLD = 80000; // Warn if approaching limit
+const MAX_SAFE_TOKENS = 90000; // Leave 38K buffer for AI response (128K limit)
+const HIGH_RISK_THRESHOLD = 70000; // Warn if approaching limit
 
 export interface TokenEstimate {
   estimatedTokens: number;
@@ -410,13 +410,31 @@ export function truncateResearchResults(
     tokensSaved += estimateTokensFromText(removedPagesText);
   }
   
-  // Strategy 2: Limit PDF text excerpts to 1000 chars instead of 2000
-  truncatedResearch.documents = research.documents.map(doc => ({
-    ...doc,
-    text: doc.text?.substring(0, 1000),
-  }));
+  // Strategy 2: AGGRESSIVE PDF truncation - extract structured data only
+  // Skip prose paragraphs, keep only specification-like content (key:value patterns)
+  truncatedResearch.documents = research.documents.map(doc => {
+    if (!doc.text) return doc;
+    
+    // Extract structured data patterns (key:value, numbered specs, tables)
+    const structuredLines = doc.text.split('\n').filter(line => {
+      const trimmed = line.trim();
+      // Keep lines that look like specs: "Width: 30 inches", "• Feature", "1. Spec"
+      return /^[\w\s]+:\s*.+/.test(trimmed) ||  // Key: Value pattern
+             /^[•\-\*\d]+[.\)]\s*.+/.test(trimmed) ||  // Bullet or numbered
+             /^\|.*\|$/.test(trimmed) ||  // Table row
+             trimmed.length < 100;  // Short lines are usually structured
+    });
+    
+    // Take first 500 chars of structured content only
+    const structuredText = structuredLines.join('\n').substring(0, 500);
+    
+    return {
+      ...doc,
+      text: structuredText,
+    };
+  });
   const pdfTextReduced = research.documents.reduce((sum, doc) => 
-    sum + (doc.text?.length || 0) - 1000, 0);
+    sum + (doc.text?.length || 0) - 500, 0);
   tokensSaved += estimateTokensFromText(' '.repeat(Math.max(0, pdfTextReduced)));
   
   // Strategy 3: Remove combinedSpecifications if we already have individual specs
