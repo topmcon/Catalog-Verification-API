@@ -87,6 +87,44 @@ const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw
 - AI calls: `Promise.all([openaiResult, xaiResult])`
 - No changes needed
 
+### 6. Remove Parent Group Categories ✅
+**Problem:** AI was selecting parent groups (e.g., "Laundry Appliances") instead of specific categories (e.g., "Washer", "Dryer")
+
+**Before (categories.json):** 212 entries including parent groups
+- "Laundry Appliances" (parent of Washer, Dryer)
+- "Kitchen Appliances" (parent of Wall Oven, Cooktop, etc.)
+- "Cabinet Hardware" (parent of Knobs, Pulls, etc.)
+- "Outdoor Lighting" (duplicates + parent)
+- "Outdoor Heating" (parent)
+- "Furniture" (parent)
+
+**After (categories.json):** 204 entries
+- All 8 parent group entries REMOVED
+- Only specific, product-level categories remain
+
+**File:** `src/config/salesforce-picklists/categories.json`
+
+### 7. Category Map Cleanup ✅
+**Problem:** response-builder.service.ts had duplicate mappings and needed parent group handling
+
+**Changes:**
+- Added GROUP CATEGORIES section mapping parent groups to empty string
+- Removed duplicate "CABINET HARDWARE" → "Cabinet Hardware" mapping
+- Removed duplicate "OUTDOOR LIGHTING" → "Outdoor Lighting" mapping
+
+**File:** `src/services/response-builder.service.ts` (lines 875-882)
+
+```typescript
+// GROUP CATEGORIES - These are parent groups, not product categories
+// When selected, return empty string so Salesforce sees it as unset
+'LAUNDRY APPLIANCES': '',
+'KITCHEN APPLIANCES': '',
+'CABINET HARDWARE': '',
+'OUTDOOR LIGHTING': '',
+'OUTDOOR HEATING': '',
+'FURNITURE': '',
+```
+
 ---
 
 ## Files Modified
@@ -97,6 +135,8 @@ const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw
 | `src/services/picklist-matcher.service.ts` | Removed 27 lines of broken word-based fallback |
 | `src/services/verification-analytics.service.ts` | Removed 126 lines of unused documents tracking methods |
 | `src/services/token-management.service.ts` | Enhanced truncation logic |
+| `src/services/response-builder.service.ts` | Added GROUP CATEGORIES section, removed duplicate mappings |
+| `src/config/salesforce-picklists/categories.json` | Removed 8 parent group entries (212 → 204 categories) |
 | `docs/salesforce/PICKLIST-SYNC-API-DOCUMENTATION.md` | Minor formatting |
 
 ---
@@ -108,6 +148,8 @@ const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw
 | `0049961` | fix: Style fallback uses 'Not Applicable', remove broken word-based attribute matching, enhance token truncation |
 | `40dd327` | fix: Prefix unused parseDocumentsAnalyzed to fix TS compilation error |
 | `a4376aa` | fix: Remove unused documents_analyzed methods entirely |
+| `73676b0` | docs: Add session summary for verification bug fixes (2026-02-11) |
+| `b997ee0` | Remove parent group categories from categories.json and clean duplicate mappings |
 
 ---
 
@@ -115,15 +157,15 @@ const searchInAttr = searchWords.every(sw => attrWords.some(aw => aw.includes(sw
 
 ### Sync Status
 ```
-LOCAL:  a4376aa
-GITHUB: a4376aa
-PROD:   a4376aa
+LOCAL:  b997ee0
+GITHUB: b997ee0
+PROD:   b997ee0
 ✅ ALL SYNCED
 ```
 
 ### Service Health
 ```json
-{"status":"healthy","timestamp":"2026-02-11T14:26:37.897Z"}
+{"status":"healthy","timestamp":"2026-02-11T15:04:30.230Z"}
 ```
 
 ### Cron Jobs
@@ -163,10 +205,11 @@ PROD:   a4376aa
 
 ## Next Steps
 
-1. **Monitor production** - Verify style fallback and attribute matching fixes are working
-2. **Categories SF push** - Work with SF team to fix format mismatch
-3. **Token overflow** - If still occurring, add smarter document summarization
-4. **Performance** - Consider document caching for frequently accessed spec sheets
+1. **Monitor production** - Verify fixes working: style fallback, attribute matching, category selection
+2. **Test category selection** - Trigger products from SF to verify parent groups no longer selected
+3. **Categories SF push** - Work with SF team to fix format mismatch if needed
+4. **Token overflow** - If still occurring, add smarter document summarization
+5. **Performance** - Consider document caching for frequently accessed spec sheets
 
 ---
 
@@ -176,19 +219,20 @@ PROD:   a4376aa
 |------|---------|
 | `src/services/dual-ai-verification.service.ts` | Main verification logic, style validation |
 | `src/services/picklist-matcher.service.ts` | Brand/category/type/style/attribute matching |
+| `src/services/response-builder.service.ts` | Category mapping, GROUP CATEGORIES handling |
 | `src/services/token-management.service.ts` | Token estimation and smart truncation |
 | `src/config/category-style-mapping.ts` | Category → valid styles mapping |
+| `src/config/salesforce-picklists/categories.json` | Master categories (204 entries, no parent groups) |
 | `picklists/styles.json` | Master styles picklist |
-| `picklists/categories.json` | Master categories with subcategory/styles_apply |
 
 ---
 
 ## Session Duration
 - Start: ~08:30 EST
-- End: ~09:26 EST
-- Duration: ~1 hour
+- End: ~10:04 EST
+- Duration: ~1.5 hours
 
 ## Deployed To Production
-- Commit: `a4376aa`
-- Time: 2026-02-11 09:26 EST
+- Commit: `b997ee0`
+- Time: 2026-02-11 10:04 EST
 - Status: ✅ Healthy
