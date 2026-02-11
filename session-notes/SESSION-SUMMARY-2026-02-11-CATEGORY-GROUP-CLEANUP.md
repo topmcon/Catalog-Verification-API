@@ -151,6 +151,6 @@ Added type mappings for ~55 categories in batches including:
 
 ## Session Commits
 
-Will be added after deployment:
-- Commit hash: (pending)
-- Message: "Category group cleanup: remove 15 groups, complete type mappings, sync TS hardcodes"
+- **Commit hash:** b54fc06
+- **Message:** "Category group cleanup: remove 15 groups, complete type mappings, sync TS hardcodes"
+- **Deployed to production:** ✅ 2026-02-11 00:30 UTC
