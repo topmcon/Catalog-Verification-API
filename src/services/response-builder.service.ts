@@ -609,19 +609,253 @@ function parseDimension(value: string): string {
 }
 
 function mapToVerifiedCategory(webCategory: string, fergusonCategory: string): string {
+  // Comprehensive mapping from incoming category values to Salesforce picklist category names
+  // Keys are UPPERCASE to handle case variations in incoming data
   const categoryMap: Record<string, string> = {
+    // ============================================
+    // APPLIANCES - COOKING
+    // ============================================
     'GAS RANGES': 'Range',
     'ELECTRIC RANGES': 'Range',
     'DUAL FUEL RANGES': 'Range',
     'SLIDE IN GAS RANGE': 'Range',
     'SLIDE IN ELECTRIC RANGE': 'Range',
-    'Cooking Appliances': 'Range',
-    'Ovens Ranges Cooktops': 'Range',
-    // Add more mappings
+    'FREESTANDING GAS RANGE': 'Range',
+    'FREESTANDING ELECTRIC RANGE': 'Range',
+    'RANGES': 'Range',
+    'RANGE': 'Range',
+    'COOKING APPLIANCES': 'Range',
+    'OVENS RANGES COOKTOPS': 'Range',
+    'STOVES': 'Range',
+    'STOVE': 'Range',
+    
+    // Ovens
+    'WALL OVENS': 'Oven',
+    'WALL OVEN': 'Oven',
+    'OVENS': 'Oven',
+    'OVEN': 'Oven',
+    'SINGLE WALL OVEN': 'Oven',
+    'SINGLE WALL ELECTRIC OVEN': 'Oven',
+    'DOUBLE WALL OVEN': 'Oven',
+    'DOUBLE WALL OVENS': 'Oven',
+    'BUILT-IN OVEN': 'Oven',
+    'BUILT IN OVEN': 'Oven',
+    'CONVECTION OVEN': 'Oven',
+    'STEAM OVEN': 'Oven',
+    'MICROWAVE WALL OVEN COMBO': 'Oven',
+    
+    // Cooktops
+    'COOKTOPS': 'Cooktop',
+    'COOKTOP': 'Cooktop',
+    'COOKTOPS (GAS)': 'Cooktop',
+    'COOKTOPS (ELECTRIC)': 'Cooktop',
+    'COOKTOPS (INDUCTION)': 'Cooktop',
+    'GAS COOKTOPS': 'Cooktop',
+    'ELECTRIC COOKTOPS': 'Cooktop',
+    'INDUCTION COOKTOPS': 'Cooktop',
+    'GAS COOKTOP': 'Cooktop',
+    'ELECTRIC COOKTOP': 'Cooktop',
+    'INDUCTION COOKTOP': 'Cooktop',
+    
+    // Microwaves
+    'MICROWAVES': 'Microwave',
+    'MICROWAVE': 'Microwave',
+    'MICROWAVE OVENS': 'Microwave',
+    'OVER-THE-RANGE MICROWAVES': 'Microwave',
+    'OVER THE RANGE MICROWAVES': 'Microwave',
+    'COUNTERTOP MICROWAVES': 'Microwave',
+    'BUILT-IN MICROWAVES': 'Microwave',
+    'MICROWAVE DRAWERS': 'Microwave',
+    
+    // Range Hoods
+    'RANGE HOODS': 'Range Hood',
+    'RANGE HOOD': 'Range Hood',
+    'HOODS': 'Range Hood',
+    'HOOD': 'Range Hood',
+    'VENTILATION': 'Range Hood',
+    'VENT HOODS': 'Range Hood',
+    'KITCHEN VENTILATION': 'Range Hood',
+    'WALL MOUNT RANGE HOODS': 'Range Hood',
+    'ISLAND RANGE HOODS': 'Range Hood',
+    'UNDER CABINET RANGE HOODS': 'Range Hood',
+    'DOWNDRAFT VENTILATION': 'Range Hood',
+    
+    // ============================================
+    // APPLIANCES - REFRIGERATION
+    // ============================================
+    'REFRIGERATORS': 'Refrigerator',
+    'REFRIGERATOR': 'Refrigerator',
+    'FRIDGES': 'Refrigerator',
+    'FRIDGE': 'Refrigerator',
+    'FRENCH DOOR REFRIGERATORS': 'Refrigerator',
+    'FRENCH DOOR REFRIGERATOR': 'Refrigerator',
+    'FRENCH DOOR FREESTANDING REFRIGERATOR': 'Refrigerator',
+    'SIDE-BY-SIDE REFRIGERATORS': 'Refrigerator',
+    'SIDE BY SIDE REFRIGERATORS': 'Refrigerator',
+    'SIDE-BY-SIDE REFRIGERATOR': 'Refrigerator',
+    'TOP FREEZER REFRIGERATORS': 'Refrigerator',
+    'TOP FREEZER REFRIGERATOR': 'Refrigerator',
+    'BOTTOM FREEZER REFRIGERATORS': 'Refrigerator',
+    'BOTTOM FREEZER REFRIGERATOR': 'Refrigerator',
+    'BOTTOM FREEZER FREESTANDING REFRIGERATOR': 'Refrigerator',
+    'BUILT-IN REFRIGERATORS': 'Refrigerator',
+    'BUILT IN REFRIGERATORS': 'Refrigerator',
+    'COLUMN REFRIGERATORS': 'Refrigerator',
+    'COMPACT REFRIGERATORS': 'Refrigerator',
+    'WINE REFRIGERATORS': 'Refrigerator',
+    'WINE COOLERS': 'Refrigerator',
+    'BEVERAGE REFRIGERATORS': 'Refrigerator',
+    'BEVERAGE CENTERS': 'Refrigerator',
+    'UNDERCOUNTER REFRIGERATORS': 'Refrigerator',
+    
+    // Freezers
+    'FREEZERS': 'Freezer',
+    'FREEZER': 'Freezer',
+    'CHEST FREEZERS': 'Freezer',
+    'UPRIGHT FREEZERS': 'Freezer',
+    'COLUMN FREEZERS': 'Freezer',
+    
+    // Ice Makers
+    'ICE MAKERS': 'Icemaker',
+    'ICE MAKER': 'Icemaker',
+    'ICEMAKERS': 'Icemaker',
+    
+    // ============================================
+    // APPLIANCES - DISHWASHERS
+    // ============================================
+    'DISHWASHERS': 'Dishwasher',
+    'DISHWASHER': 'Dishwasher',
+    'BUILT-IN DISHWASHERS': 'Dishwasher',
+    'BUILT IN DISHWASHER': 'Dishwasher',
+    'BUILT-IN DISHWASHER': 'Dishwasher',
+    'PORTABLE DISHWASHERS': 'Dishwasher',
+    'DRAWER DISHWASHERS': 'Dishwasher',
+    
+    // ============================================
+    // APPLIANCES - LAUNDRY
+    // ============================================
+    'WASHERS': 'Washer',
+    'WASHER': 'Washer',
+    'WASHING MACHINES': 'Washer',
+    'FRONT LOAD WASHERS': 'Washer',
+    'TOP LOAD WASHERS': 'Washer',
+    'LAUNDRY MACHINES': 'Washer',
+    
+    'DRYERS': 'Dryer',
+    'DRYER': 'Dryer',
+    'CLOTHES DRYERS': 'Dryer',
+    'ELECTRIC DRYERS': 'Dryer',
+    'GAS DRYERS': 'Dryer',
+    
+    'WASHER DRYER COMBOS': 'All in One Washer / Dryer',
+    'LAUNDRY CENTERS': 'All in One Washer / Dryer',
+    'COMBO WASHER DRYERS': 'All in One Washer / Dryer',
+    
+    // ============================================
+    // APPLIANCES - OUTDOOR
+    // ============================================
+    'GRILLS': 'Barbeque',
+    'GRILL': 'Barbeque',
+    'BARBEQUES': 'Barbeque',
+    'BBQ': 'Barbeque',
+    'OUTDOOR GRILLS': 'Barbeque',
+    'GAS GRILLS': 'Barbeque',
+    
+    // ============================================
+    // LIGHTING
+    // ============================================
+    'CHANDELIERS': 'Chandelier',
+    'CHANDELIER': 'Chandelier',
+    'PENDANTS': 'Pendant',
+    'PENDANT': 'Pendant',
+    'PENDANT LIGHTS': 'Pendant',
+    'CEILING LIGHTS': 'Ceiling Light',
+    'CEILING LIGHT': 'Ceiling Light',
+    'FLUSH MOUNTS': 'Flush and Semi-Flush',
+    'FLUSH MOUNT': 'Flush and Semi-Flush',
+    'SEMI-FLUSH MOUNTS': 'Flush and Semi-Flush',
+    'WALL SCONCES': 'Wall Sconce',
+    'WALL SCONCE': 'Wall Sconce',
+    'SCONCES': 'Wall Sconce',
+    'LAMPS': 'Lamp',
+    'LAMP': 'Lamp',
+    'TABLE LAMPS': 'Lamp',
+    'FLOOR LAMPS': 'Lamp',
+    'CEILING FANS': 'Ceiling Fan',
+    'CEILING FAN': 'Ceiling Fan',
+    'OUTDOOR LIGHTING': 'Outdoor Lighting',
+    'RECESSED LIGHTING': 'Recessed Lighting',
+    'TRACK LIGHTING': 'Track and Rail Lighting',
+    'VANITY LIGHTING': 'Vanity Lighting',
+    'BATHROOM LIGHTING': 'Bathroom Lighting',
+    'KITCHEN LIGHTING': 'Kitchen Lighting',
+    
+    // ============================================
+    // PLUMBING & BATH
+    // ============================================
+    'KITCHEN FAUCETS': 'Kitchen Faucet',
+    'KITCHEN FAUCET': 'Kitchen Faucet',
+    'BATHROOM FAUCETS': 'Bathroom Faucet',
+    'BATHROOM FAUCET': 'Bathroom Faucet',
+    'LAVATORY FAUCETS': 'Bathroom Faucet',
+    'TOILETS': 'Toilet',
+    'TOILET': 'Toilet',
+    'BATHTUBS': 'Bathtub',
+    'BATHTUB': 'Bathtub',
+    'TUBS': 'Bathtub',
+    'SHOWERS': 'Shower',
+    'SHOWER': 'Shower',
+    'SHOWER SYSTEMS': 'Shower',
+    'KITCHEN SINKS': 'Kitchen Sink',
+    'KITCHEN SINK': 'Kitchen Sink',
+    'BATHROOM SINKS': 'Bathroom Sink',
+    'BATHROOM SINK': 'Bathroom Sink',
+    'BATH FANS': 'Bath Fan',
+    'BATH FAN': 'Bath Fan',
+    'BATHROOM FAN': 'Bath Fan',
+    'EXHAUST FANS': 'Exhaust Fan',
+    'EXHAUST FAN': 'Exhaust Fan',
+    
+    // ============================================
+    // HARDWARE
+    // ============================================
+    'CABINET HARDWARE': 'Cabinet Hardware',
+    'DOOR HARDWARE': 'Door Hardware: Knob and Lever',
+    'DOOR KNOBS': 'Door Hardware: Knob and Lever',
+    'DOOR HANDLES': 'Door Hardware: Knob and Lever',
+    'DOOR LOCKS': 'Door Entry Set',
+    'DEADBOLTS': 'Door Entry Set',
+    
+    // ============================================
+    // HVAC
+    // ============================================
+    'AIR CONDITIONERS': 'Air Conditioner',
+    'AIR CONDITIONER': 'Air Conditioner',
+    'DEHUMIDIFIERS': 'Dehumidifier',
+    'DEHUMIDIFIER': 'Dehumidifier',
+    'THERMOSTATS': 'Thermostat',
+    'THERMOSTAT': 'Thermostat',
+    'DUCTING': 'Ducting',
+    'DUCTWORK': 'Ducting',
+    
+    // ============================================
+    // ACCESSORIES & MISC
+    // ============================================
+    'PEDESTALS': 'Standalone Pedestal',
+    'LAUNDRY PEDESTALS': 'Standalone Pedestal',
+    'WASHER PEDESTALS': 'Standalone Pedestal',
+    'KITCHEN ACCESSORIES': 'Kitchen Accessory',
+    'KITCHEN ACCESSORY': 'Kitchen Accessory',
+    'STORAGE': 'Kitchen Storage & Organization',
+    'KITCHEN STORAGE': 'Kitchen Storage & Organization',
   };
 
-  return categoryMap[webCategory] || 
-         categoryMap[fergusonCategory] || 
+  // Normalize input to uppercase for consistent matching
+  const normalizedWeb = (webCategory || '').toUpperCase().trim();
+  const normalizedFerguson = (fergusonCategory || '').toUpperCase().trim();
+
+  return categoryMap[normalizedWeb] || 
+         categoryMap[normalizedFerguson] || 
          webCategory || 
          fergusonCategory;
 }
