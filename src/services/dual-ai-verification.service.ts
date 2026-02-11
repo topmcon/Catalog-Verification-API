@@ -55,7 +55,8 @@ import {
 import { 
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
-import { matchTypeToPicklist } from './type-matcher.service';
+import { matchTypeToPicklist, extractTypeFromSemanticContext } from './type-matcher.service';
+import { mapToVerifiedCategory } from './response-builder.service';
 import { getTypeByName } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
@@ -4885,7 +4886,15 @@ function buildFinalResponse(
   
   // Match against Salesforce picklists and use EXACT picklist values
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
-  const categoryMatch = picklistMatcher.matchCategory(consensus.agreedCategory || '');
+  
+  // PRE-MAP category using our comprehensive mapping before picklist matching
+  // This handles incoming values like "REFRIGERATORS" -> "Refrigerator"
+  const preMappedCategory = mapToVerifiedCategory(
+    rawProduct.Web_Retailer_Category || '',
+    rawProduct.Ferguson_Base_Category || rawProduct.Ferguson_Categories || ''
+  ) || consensus.agreedCategory || '';
+  
+  const categoryMatch = picklistMatcher.matchCategory(preMappedCategory);
   
   // Match Type against Salesforce types picklist
   const aiProductType = consensus.agreedPrimaryAttributes.product_type || '';
@@ -4894,10 +4903,11 @@ function buildFinalResponse(
     : (consensus.agreedCategory || '');
   const typeMatch = picklistMatcher.matchType(aiProductType);
   
-  // If direct picklist match failed, try the category-aware type matcher
+  // If direct picklist match failed, try the category-aware type matcher with subcategory hint
+  const subcategoryHint = rawProduct.Web_Retailer_SubCategory || rawProduct.Ferguson_Business_Category || '';
   let typeMatchResult = typeMatch;
   if (!typeMatch.matched && aiProductType && aiProductType.trim() !== '') {
-    const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory);
+    const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory, subcategoryHint);
     if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
       typeMatchResult = {
         matched: true,
@@ -4924,32 +4934,61 @@ function buildFinalResponse(
   
   // If type matching failed, check if we should use "Not Applicable" type with its ID
   // This handles:
-  // 1. AI returned empty/null type → use "Not Applicable"
+  // 1. AI returned empty/null type → try semantic extraction from subcategory, then use "Not Applicable"
   // 2. AI returned "Not Applicable", "N/A", or "Not Found" → should have ID populated
   const isNAPattern = aiProductType && /^(not applicable|n\/?a|not found|none)$/i.test(aiProductType.trim());
   
   if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '' || isNAPattern)) {
-    // Directly get "Not Applicable" type from types.json (bypasses picklistMatcher which rejects it)
-    const notApplicableType = getTypeByName('Not Applicable');
-    if (notApplicableType) {
-      typeMatchResult = {
-        matched: true,
-        original: aiProductType || 'Not Applicable',
-        matchedValue: {
+    // FIRST: Try semantic extraction from subcategory if available
+    if (subcategoryHint && !isNAPattern) {
+      const semanticType = extractTypeFromSemanticContext(subcategoryHint, verifiedCategory);
+      if (semanticType) {
+        const extractedType = getTypeByName(semanticType);
+        if (extractedType) {
+          typeMatchResult = {
+            matched: true,
+            original: subcategoryHint,
+            matchedValue: {
+              type_id: extractedType.type_id,
+              type_name: extractedType.type_name
+            },
+            similarity: 0.85
+          };
+          logger.info('Type extracted from subcategory (semantic)', {
+            sessionId,
+            subcategory: subcategoryHint,
+            extractedType: semanticType,
+            type_id: extractedType.type_id,
+            category: verifiedCategory
+          });
+        }
+      }
+    }
+    
+    // SECOND: If still not matched, fall back to "Not Applicable"
+    if (!typeMatchResult.matched) {
+      // Directly get "Not Applicable" type from types.json (bypasses picklistMatcher which rejects it)
+      const notApplicableType = getTypeByName('Not Applicable');
+      if (notApplicableType) {
+        typeMatchResult = {
+          matched: true,
+          original: aiProductType || 'Not Applicable',
+          matchedValue: {
+            type_id: notApplicableType.type_id,
+            type_name: notApplicableType.type_name
+          },
+          similarity: 1.0
+        };
+        logger.info('Type set to "Not Applicable" with ID', {
+          sessionId,
+          aiProductType: aiProductType || '(empty)',
           type_id: notApplicableType.type_id,
-          type_name: notApplicableType.type_name
-        },
-        similarity: 1.0
-      };
-      logger.info('Type set to "Not Applicable" with ID', {
-        sessionId,
-        aiProductType: aiProductType || '(empty)',
-        type_id: notApplicableType.type_id,
-        type_name: notApplicableType.type_name,
-        reason: isNAPattern ? 'AI returned N/A pattern' : 'AI returned empty type'
-      });
-    } else {
-      logger.warn('"Not Applicable" type not found in types.json', { sessionId, aiProductType });
+          type_name: notApplicableType.type_name,
+          reason: isNAPattern ? 'AI returned N/A pattern' : 'AI returned empty type'
+        });
+      } else {
+        logger.warn('"Not Applicable" type not found in types.json', { sessionId, aiProductType });
+      }
     }
   }
   

@@ -608,7 +608,11 @@ function parseDimension(value: string): string {
   return cleaned;
 }
 
-function mapToVerifiedCategory(webCategory: string, fergusonCategory: string): string {
+/**
+ * Map incoming category values to Salesforce picklist category names
+ * Exported for use in dual-ai-verification.service.ts
+ */
+export function mapToVerifiedCategory(webCategory: string, fergusonCategory: string): string {
   // Comprehensive mapping from incoming category values to Salesforce picklist category names
   // Keys are UPPERCASE to handle case variations in incoming data
   const categoryMap: Record<string, string> = {
