@@ -2,6 +2,18 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
+    "category_name": "Kitchen Appliances",
+    "category_id": "a01Hu000010Q5EcIAK"
+  },
+  {
+    "family": "Laundry",
+    "department": "Appliances",
+    "category_name": "Laundry Appliances",
+    "category_id": "a01Hu000010Q5EdIAK"
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
     "category_name": "Cooktop",
     "category_id": "a01Hu000010Q5EhIAK"
   },
@@ -98,14 +110,32 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
+    "category_name": "Cooking",
+    "category_id": "a01aZ00000Hm4voQAB"
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
     "category_name": "Pizza Oven",
     "category_id": "a01aZ00000KJFrCQAX"
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
+    "category_name": "Refrigeration",
+    "category_id": "a01aZ00000MlHtiQAF"
   },
   {
     "family": "Furniture",
     "department": "Home Décor & Furniture",
     "category_name": "Chair",
     "category_id": "a01aZ00000XYWwyQAH"
+  },
+  {
+    "family": "General",
+    "department": "Electronics",
+    "category_name": "Home Electronics",
+    "category_id": "a01aZ00000XaZKQQA3"
   },
   {
     "family": "General",
@@ -722,6 +752,12 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
+    "category_name": "Home Hardware",
+    "category_id": "a01aZ00000dCejFQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
     "category_name": "Keyed Hardware",
     "category_id": "a01aZ00000dCejGQAS"
   },
@@ -758,6 +794,12 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
+    "category_name": "Safety & Security",
+    "category_id": "a01aZ00000dCejMQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
     "category_name": "Screen and Storm Door Hardware",
     "category_id": "a01aZ00000dCejNQAS"
   },
@@ -766,6 +808,12 @@
     "department": "Hardware",
     "category_name": "Sliding Door Hardware",
     "category_id": "a01aZ00000dCejOQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Storage and Organization",
+    "category_id": "a01aZ00000dCejPQAS"
   },
   {
     "family": "Home Improvement",
@@ -938,6 +986,12 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
+    "category_name": "Outdoor Heating",
+    "category_id": "a01aZ00000dCejtQAC"
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
     "category_name": "Outdoor Kitchen",
     "category_id": "a01aZ00000dCejuQAC"
   },
@@ -1022,6 +1076,18 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
+    "category_name": "Heating",
+    "category_id": "a01aZ00000dCek9QAC"
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Indoor Heating",
+    "category_id": "a01aZ00000dCekAQAS"
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
     "category_name": "Mini Split Air Conditioner",
     "category_id": "a01aZ00000dCekBQAS"
   },
@@ -1058,6 +1124,12 @@
   {
     "family": "Home Improvement",
     "department": "Home Décor & Furniture",
+    "category_name": "Furniture",
+    "category_id": "a01aZ00000dCekIQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home Décor & Furniture",
     "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS"
   },
@@ -1070,6 +1142,18 @@
   {
     "family": "Home Improvement",
     "department": "Home Décor & Furniture",
+    "category_name": "Home Organization",
+    "category_id": "a01aZ00000dCekLQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home Décor & Furniture",
+    "category_name": "Home Accents",
+    "category_id": "a01aZ00000dCekMQAS"
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home Décor & Furniture",
     "category_name": "Rug",
     "category_id": "a01aZ00000dCekNQAS"
   },
@@ -1078,6 +1162,12 @@
     "department": "Home Décor & Furniture",
     "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS"
+  },
+  {
+    "family": "Furniture",
+    "department": "Home Décor & Furniture",
+    "category_name": "Outdoor and Patio Furniture",
+    "category_id": "a01aZ00000dCekPQAS"
   },
   {
     "family": "General",
