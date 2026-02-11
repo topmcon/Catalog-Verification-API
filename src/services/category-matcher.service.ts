@@ -24,7 +24,6 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Icemaker',
     'Barbeque',
     'Coffee Maker',
-    'Refrigeration',
     'Garbage Disposal'
   ],
   'Plumbing & Bath': [

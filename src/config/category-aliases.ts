@@ -73,7 +73,8 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   // ============================================
   // HOME DECOR & FURNITURE
   // ============================================
-  'Furniture': ['Home Furniture', 'Outdoor Furniture', 'Patio Furniture', 'Garden Furniture'],
+  // Note: 'Furniture' is a family/department grouping, not a category.
+  // Specific furniture categories like 'Outdoor Furniture' should be used instead.
   'Mirror': ['Mirrors', 'Wall Mirrors', 'Decorative Mirrors'],
   'Wall Decor': ['Home Decor', 'Home Decor & Fixtures', 'Decorative Fixtures', 'Home Accessories'],
   'Thermostat': ['Thermostats', 'Smart Thermostats', 'Temperature Controls'],
