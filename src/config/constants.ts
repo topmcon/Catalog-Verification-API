@@ -202,12 +202,10 @@ export const AI_CATEGORY_ALIASES: Record<string, string> = {
  */
 export const DEPARTMENTS = [
   'Appliances',
-  'Electronics',
   'Flooring',
   'Hardware',
   'Heating & Cooling',
   'Home Décor & Furniture',
-  'Industrial & Commercial',
   'Lighting & Electrical',
   'Outdoor',
   'Plumbing & Bath'

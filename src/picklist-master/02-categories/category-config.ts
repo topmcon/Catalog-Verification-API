@@ -101,16 +101,17 @@ export const AI_CATEGORY_ALIASES: Record<string, string> = {
 // ============================================
 
 /**
- * Department names
+ * Department names (8 industry-standard departments)
  */
 export const DEPARTMENTS = [
   'Appliances',
-  'Plumbing & Bath',
-  'Lighting',
-  'Home Decor',
-  'HVAC',
+  'Flooring',
+  'Hardware',
+  'Heating & Cooling',
+  'Home Décor & Furniture',
+  'Lighting & Electrical',
   'Outdoor',
-  'Other / Needs Review'
+  'Plumbing & Bath'
 ] as const;
 
 export type DepartmentName = typeof DEPARTMENTS[number];
