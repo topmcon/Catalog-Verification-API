@@ -59,7 +59,7 @@ import {
 } from '../config/type-prompts';
 import { matchTypeToPicklist, extractTypeFromSemanticContext } from './type-matcher.service';
 import { mapToVerifiedCategory } from './response-builder.service';
-import { getTypeByName } from '../picklist-master/03-types/type-config';
+import { getTypeByName, getCategoryTypeMapping } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -2512,6 +2512,11 @@ ${typeHierarchy}
 **Type Selection Rules:**
 - Type represents the FUNCTIONAL CONFIGURATION within a category
 - You MUST select a value from the types list for the determined category
+- 🔴 CRITICAL: ONLY select types that appear under YOUR CATEGORY in the list below
+- 🔴 DO NOT select types from other categories even if they seem related
+  - Example: "Dishwasher Pull" is for Cabinet Hardware → Appliance Pull, NOT for Dishwasher appliances
+  - Example: "Single Handle" is for Kitchen Faucet, NOT for Bar Faucet (different types for each)
+  - Example: "Shower" type belongs to Bathtub category, NOT to Shower category (different products)
 - Analyze model numbers, product titles, specifications, images, and descriptions
 - Example: Oven → analyze model (OB30 = 30" built-in = Single), specs (one cavity = Single) → select "Single" or "Double Wall"
 - Example: Refrigerator → analyze door configuration from images/specs → select "French Door" or "Side-by-Side"  
@@ -3100,6 +3105,33 @@ function semanticValueMatch(
   if (fieldKey === 'product_type' && agreedCategory) {
     const openaiMatch = matchTypeToPicklist(String(openaiVal || ''), agreedCategory);
     const xaiMatch = matchTypeToPicklist(String(xaiVal || ''), agreedCategory);
+    
+    // ⚠️ STRICT VALIDATION: Reject types that don't belong to this category
+    const categoryMapping = getCategoryTypeMapping(agreedCategory);
+    const validTypeNames = categoryMapping?.types.map(t => t.type_name) || [];
+    
+    // Check if EITHER AI selected an invalid type (cross-contamination detection)
+    const openaiInvalid = openaiVal && !openaiMatch.matched && String(openaiVal).toLowerCase() !== 'not found' && String(openaiVal).toLowerCase() !== 'not applicable';
+    const xaiInvalid = xaiVal && !xaiMatch.matched && String(xaiVal).toLowerCase() !== 'not found' && String(xaiVal).toLowerCase() !== 'not applicable';
+    
+    if (openaiInvalid || xaiInvalid) {
+      logger.error('🔴 TYPE CROSS-CONTAMINATION DETECTED', {
+        category: agreedCategory,
+        openaiType: String(openaiVal),
+        xaiType: String(xaiVal),
+        openaiMatched: openaiMatch.matched,
+        xaiMatched: xaiMatch.matched,
+        validTypes: validTypeNames.slice(0, 10) // First 10 for reference
+      });
+      
+      // Force to "Not Found" to prevent invalid data
+      return {
+        isMatch: true,
+        resolvedValue: 'Not Found',
+        openaiResolved: openaiInvalid ? null : (openaiMatch.matchedValue?.type_name || null),
+        xaiResolved: xaiInvalid ? null : (xaiMatch.matchedValue?.type_name || null)
+      };
+    }
     
     // 🔥 THIS IS THE KEY FIX: "Built-in Oven" and "Single" both map to same type_id
     if (openaiMatch.matched && xaiMatch.matched && 
