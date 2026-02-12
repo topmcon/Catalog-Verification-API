@@ -9,7 +9,8 @@
 
 import { 
   CATEGORY_TYPE_MAPPINGS,
-  getCategoryTypeMapping
+  getCategoryTypeMapping,
+  getTypeClarification
 } from '../picklist-master/03-types/type-config';
 
 /**
@@ -56,11 +57,13 @@ export function getAllCategoriesWithTypesForPrompt(): string {
         .map(t => t.type_name)
     );
     
-    // List all types, mark primary ones
+    // List all types, mark primary ones, add clarifications
     for (const type of mapping.types) {
       const isPrimary = primaryTypes.has(type.type_name);
       const marker = isPrimary ? ' [PRIMARY]' : '';
-      lines.push(`  - ${type.type_name}${marker}`);
+      const clarification = getTypeClarification(type.type_name);
+      const clarificationText = clarification ? ` ${clarification}` : '';
+      lines.push(`  - ${type.type_name}${marker}${clarificationText}`);
     }
     
     lines.push(''); // Blank line between categories
@@ -95,7 +98,9 @@ export function getTypesForCategoryPrompt(categoryName: string): string {
   for (const type of mapping.types) {
     const isPrimary = primaryTypes.has(type.type_name);
     const marker = isPrimary ? ' [PRIMARY - Most common]' : '';
-    lines.push(`  - ${type.type_name}${marker}`);
+    const clarification = getTypeClarification(type.type_name);
+    const clarificationText = clarification ? ` ${clarification}` : '';
+    lines.push(`  - ${type.type_name}${marker}${clarificationText}`);
   }
   
   lines.push('');

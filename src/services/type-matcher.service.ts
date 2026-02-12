@@ -48,6 +48,11 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'microwave combination': { 'Oven': 'Microwave Combo' },
   'microwave combo': { 'Oven': 'Microwave Combo' },
   'combo oven': { 'Oven': 'Microwave Combo' },
+  'combination oven': { 'Oven': 'Microwave Combo' },
+  'combination wall oven': { 'Oven': 'Microwave Combo' },
+  'combo wall oven': { 'Oven': 'Microwave Combo' },
+  'oven microwave combo': { 'Oven': 'Microwave Combo' },
+  'oven microwave combination': { 'Oven': 'Microwave Combo' },
   'speed cook': { 'Oven': 'Speed Oven' },
   'speed oven': { 'Oven': 'Speed Oven' },
   'steam oven': { 'Oven': 'Steam' },
@@ -120,8 +125,11 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   'gas cooktop': { 'Cooktop': 'Gas' },
   'electric cooktop': { 'Cooktop': 'Electric' },
+  'electric induction': { 'Cooktop': 'Induction' },
+  'electric induction cooktop': { 'Cooktop': 'Induction' },
   'induction cooktop': { 'Cooktop': 'Induction' },
   'radiant': { 'Cooktop': 'Electric' },
+  'radiant cooktop': { 'Cooktop': 'Electric' },
   
   // ============================================
   // DISHWASHER ALIASES
@@ -154,6 +162,10 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // MICROWAVE ALIASES
   // ============================================
+  'trim kit': { 'Microwave': 'Trim Kit' },
+  'microwave trim kit': { 'Microwave': 'Trim Kit' },
+  'installation kit': { 'Microwave': 'Trim Kit' },
+  'built-in kit': { 'Microwave': 'Trim Kit' },
   'over the range': { 'Microwave': 'Over-the-Range' },
   'over-the-range': { 'Microwave': 'Over-the-Range' },
   'otr': { 'Microwave': 'Over-the-Range' },
@@ -281,11 +293,13 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   // Oven patterns
   { pattern: /single.*wall.*oven|single.*oven/i, category: 'Oven', typeName: 'Single' },
   { pattern: /double.*wall.*oven|double.*oven/i, category: 'Oven', typeName: 'Double Wall' },
-  { pattern: /microwave.*combo|combo.*microwave/i, category: 'Oven', typeName: 'Microwave Combo' },
+  { pattern: /combination.*wall.*oven|combination.*oven|combo.*wall.*oven/i, category: 'Oven', typeName: 'Microwave Combo' },
+  { pattern: /microwave.*combo|combo.*microwave|oven.*microwave.*combo/i, category: 'Oven', typeName: 'Microwave Combo' },
   { pattern: /speed.*oven/i, category: 'Oven', typeName: 'Speed Oven' },
   { pattern: /steam.*oven/i, category: 'Oven', typeName: 'Steam' },
   
   // Microwave patterns  
+  { pattern: /trim.*kit|installation.*kit|built.*in.*kit/i, category: 'Microwave', typeName: 'Trim Kit' },
   { pattern: /over[\s-]*the[\s-]*range.*microwave|otr.*microwave/i, category: 'Microwave', typeName: 'Over-the-Range' },
   { pattern: /countertop.*microwave/i, category: 'Microwave', typeName: 'Countertop' },
   { pattern: /microwave.*drawer|drawer.*microwave/i, category: 'Microwave', typeName: 'Drawer' },
@@ -293,8 +307,8 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   
   // Cooktop patterns
   { pattern: /gas.*cooktop/i, category: 'Cooktop', typeName: 'Gas' },
+  { pattern: /induction.*cooktop|electric.*induction.*cooktop/i, category: 'Cooktop', typeName: 'Induction' },
   { pattern: /electric.*cooktop|radiant.*cooktop/i, category: 'Cooktop', typeName: 'Electric' },
-  { pattern: /induction.*cooktop/i, category: 'Cooktop', typeName: 'Induction' },
   
   // Dishwasher patterns
   { pattern: /built[\s-]*in.*dishwasher/i, category: 'Dishwasher', typeName: 'Built-In' },
