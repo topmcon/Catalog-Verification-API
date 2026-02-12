@@ -7,7 +7,7 @@ import { CATEGORY_ALIASES } from '../config/category-schema';
 
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: 2026-02-10
+// Last sync: 2026-02-12
 const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   'Appliances': [
     'Refrigerator',
@@ -24,8 +24,8 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Icemaker',
     'Barbeque',
     'Coffee Maker',
-    'Garbage Disposal',
-    'Drawer'
+    'Refrigeration',
+    'Garbage Disposal'
   ],
   'Plumbing & Bath': [
     'Bathroom Cabinet Hardware',
@@ -40,7 +40,9 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Bidet',
     'Shower Faucet',
     'Shower',
-    'Steam Shower'
+    'Steam Shower',
+    'Toilet Seat',
+    'Toilet'
   ],
   'Lighting': [
     'Bathroom Lighting',
@@ -55,17 +57,17 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Landscape Lighting',
     'LED Lighting',
     'Lighted Ceiling Fan',
-    'Outdoor Lighting',
     'Pendant',
     'Post Light',
     'Recessed Lighting',
     'Step Lighting',
     'Track and Rail Lighting',
     'Under Cabinet Light',
-    'Vanity Lighting'
+    'Vanity Lighting',
+    'Wall Sconce'
   ],
   'Home Decor & Fixtures': [
-    'Cabinet Organization and Storage', 'Cabinet Hardware'
+    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
   ],
   'HVAC': [
     'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'

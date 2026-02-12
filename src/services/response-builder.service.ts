@@ -782,6 +782,11 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     // HARDWARE
     // ============================================
     // 'CABINET HARDWARE' → handled in GROUP CATEGORIES section below (needs context)
+    'BATHROOM HARDWARE': 'Bathroom Cabinet Hardware',
+    'BATHROOM HARDWARE AND ACCESSORIES': 'Bathroom Cabinet Hardware',
+    'BATHROOM ACCESSORIES': 'Bathroom Cabinet Hardware',
+    'BATH HARDWARE': 'Bathroom Cabinet Hardware',
+    'BATH ACCESSORIES': 'Bathroom Cabinet Hardware',
     'DOOR HARDWARE': 'Door Hardware: Knob and Lever',
     'DOOR KNOBS': 'Door Hardware: Knob and Lever',
     'DOOR HANDLES': 'Door Hardware: Knob and Lever',

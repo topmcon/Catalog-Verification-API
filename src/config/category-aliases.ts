@@ -56,10 +56,10 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Kitchen Sink': ['Kitchen Sinks', 'Sinks - Kitchen', 'Kitchen Basin', 'Undermount Sink'],
   'Kitchen Storage & Organization': ['Kitchen Accessory', 'Kitchen Accessories', 'Kitchen Accessories (Plumbing & Bath)', 'KITCHEN ACCESSORIES', 'KITCHEN ACCESSORY'],
   'Bathroom Sink': ['Bathroom Sinks', 'Bath Sink', 'Lavatory', 'Lav Sink', 'Sinks - Bathroom', 'Bath Sinks', 'Lavatory Sinks'],
+  'Bathroom Cabinet Hardware': ['Bathroom Hardware and Accessories', 'Bathroom Accessories', 'Bath Hardware', 'Bath Accessories', 'BATHROOM HARDWARE', 'BATHROOM ACCESSORIES'],
   'Bathtub': ['Bathtubs', 'Tub', 'Tubs', 'Soaking Tub', 'Bath Tubs', 'Soaking Tubs'],
-  'Shower': ['Showers', 'Shower Systems', 'Shower Units'],
+  'Shower': ['Showers', 'Shower Systems', 'Shower Units', 'Shower Accessory', 'Shower Accessories', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
   'Shower Faucet': ['Shower Faucets'],
-  'Shower Accessory': ['Shower Accessories', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
   'Toilet': ['Toilets', 'Commode', 'Commodes', 'Water Closet', 'Water Closets'],
   'Medicine Cabinet': ['Bathroom Medicine Cabinets'],
 
