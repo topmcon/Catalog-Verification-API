@@ -1323,7 +1323,7 @@ export function markEmptyField(
   // Fields that are typically not applicable to certain categories
   const categoryFieldApplicability: Record<string, string[]> = {
     // Bathroom products typically don't have these
-    'Bathroom Hardware and Accessories': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type', 'ice_maker'],
+    'Bathroom Faucet': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type', 'ice_maker'],
     'Toilets': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type'],
     'Sinks': ['cooling_capacity_btu', 'number_of_burners', 'oven_capacity', 'defrost_type'],
     // Kitchen appliances

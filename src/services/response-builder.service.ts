@@ -679,10 +679,10 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'BUILT-IN MICROWAVES': 'Microwave',
     'MICROWAVE DRAWERS': 'Microwave',
     
-    // Warming Drawers
-    'WARMING DRAWERS': 'Kitchen Accessory',
-    'WARMING DRAWERS (ELECTRIC)': 'Kitchen Accessory',
-    'WARMING DRAWER': 'Kitchen Accessory',
+    // Warming Drawers - Map to Drawer category (Appliances → Kitchen → Drawer)
+    'WARMING DRAWERS': 'Drawer',
+    'WARMING DRAWERS (ELECTRIC)': 'Drawer',
+    'WARMING DRAWER': 'Drawer',
     
     // Range Hoods
     'RANGE HOODS': 'Range Hood',
@@ -861,8 +861,9 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'PEDESTALS': 'Standalone Pedestal',
     'LAUNDRY PEDESTALS': 'Standalone Pedestal',
     'WASHER PEDESTALS': 'Standalone Pedestal',
-    'KITCHEN ACCESSORIES': 'Kitchen Accessory',
-    'KITCHEN ACCESSORY': 'Kitchen Accessory',
+    // Kitchen Accessories - Require AI disambiguation (no generic accessory category)
+    'KITCHEN ACCESSORIES': '',
+    'KITCHEN ACCESSORY': '',
     'STORAGE': 'Kitchen Storage & Organization',
     'KITCHEN STORAGE': 'Kitchen Storage & Organization',
     

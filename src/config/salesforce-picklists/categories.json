@@ -153,7 +153,7 @@
   },
   {
     "family": "Furniture",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Chair",
     "category_id": "a01aZ00000XYWwyQAH",
     "subcategory": "Furniture",
@@ -205,14 +205,6 @@
     "category_name": "Bathroom Faucet",
     "category_id": "a01aZ00000dC5DeQAK",
     "subcategory": "Bathroom Faucets",
-    "styles_apply": true
-  },
-  {
-    "family": "Bath",
-    "department": "Plumbing & Bath",
-    "category_name": "Bathroom Hardware and Accessories",
-    "category_id": "a01aZ00000dC5DfQAK",
-    "subcategory": "Bathroom Accessories",
     "styles_apply": true
   },
   {
@@ -310,14 +302,6 @@
     "category_id": "a01aZ00000dC5DrQAK",
     "subcategory": "Plumbing Parts & Fittings",
     "styles_apply": false
-  },
-  {
-    "family": "Bath",
-    "department": "Plumbing & Bath",
-    "category_name": "Shower Accessory",
-    "category_id": "a01aZ00000dC5DsQAK",
-    "subcategory": "Shower Components",
-    "styles_apply": true
   },
   {
     "family": "Bath",
@@ -429,14 +413,6 @@
     "category_name": "Hot & Cold Water Dispenser",
     "category_id": "a01aZ00000dC5E7QAK",
     "subcategory": "Kitchen Faucets",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Plumbing & Bath",
-    "category_name": "Kitchen Accessory",
-    "category_id": "a01aZ00000dC5E8QAK",
-    "subcategory": "Kitchen",
     "styles_apply": true
   },
   {
@@ -617,14 +593,6 @@
   },
   {
     "family": "General",
-    "department": "Lighting & Electrical",
-    "category_name": "Lighting Accessory",
-    "category_id": "a01aZ00000dC5EVQA0",
-    "subcategory": "Specialty Lighting",
-    "styles_apply": false
-  },
-  {
-    "family": "General",
     "department": "Plumbing & Bath",
     "category_name": "Pendant",
     "category_id": "a01aZ00000dC5EXQA0",
@@ -700,14 +668,6 @@
     "department": "Lighting & Electrical",
     "category_name": "Attic Fan",
     "category_id": "a01aZ00000dC5EgQAK",
-    "subcategory": "General",
-    "styles_apply": true
-  },
-  {
-    "family": "General",
-    "department": "Lighting & Electrical",
-    "category_name": "Ceiling Fan Accessory",
-    "category_id": "a01aZ00000dC5EiQAK",
     "subcategory": "General",
     "styles_apply": true
   },
@@ -1162,14 +1122,6 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Drawer Slide and Accessory",
-    "category_id": "a01aZ00000dCejeQAC",
-    "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
     "category_name": "Luxury Cabinet Knob",
     "category_id": "a01aZ00000dCejfQAC",
     "subcategory": "Home Improvement",
@@ -1204,14 +1156,6 @@
     "department": "Outdoor",
     "category_name": "Exterior Door",
     "category_id": "a01aZ00000dCejkQAC",
-    "subcategory": "Outdoor",
-    "styles_apply": true
-  },
-  {
-    "family": "Outdoor",
-    "department": "Outdoor",
-    "category_name": "Fire Pit Accessory",
-    "category_id": "a01aZ00000dCejlQAC",
     "subcategory": "Outdoor",
     "styles_apply": true
   },
@@ -1441,23 +1385,23 @@
   },
   {
     "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Mirror",
     "category_id": "a01aZ00000dCekJQAS",
-    "subcategory": "Mirrors & Wall Décor",
+    "subcategory": "Mirrors & Wall D\u00e9cor",
     "styles_apply": true
   },
   {
     "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Wall Decor",
     "category_id": "a01aZ00000dCekKQAS",
-    "subcategory": "Mirrors & Wall Décor",
+    "subcategory": "Mirrors & Wall D\u00e9cor",
     "styles_apply": true
   },
   {
     "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Home Organization",
     "category_id": "a01aZ00000dCekLQAS",
     "subcategory": "Home Improvement",
@@ -1465,7 +1409,7 @@
   },
   {
     "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Home Accents",
     "category_id": "a01aZ00000dCekMQAS",
     "subcategory": "Textiles & Accents",
@@ -1473,7 +1417,7 @@
   },
   {
     "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Rug",
     "category_id": "a01aZ00000dCekNQAS",
     "subcategory": "Textiles & Accents",
@@ -1489,7 +1433,7 @@
   },
   {
     "family": "Furniture",
-    "department": "Home Décor & Furniture",
+    "department": "Home D\u00e9cor & Furniture",
     "category_name": "Outdoor and Patio Furniture",
     "category_id": "a01aZ00000dCekPQAS",
     "subcategory": "Furniture",
@@ -1560,14 +1504,6 @@
     "styles_apply": true
   },
   {
-    "family": "Bath",
-    "department": "Plumbing & Bath",
-    "category_name": "Tub and Shower Accessory",
-    "category_id": "a01aZ00000dDnKlQAK",
-    "subcategory": "Bathroom Accessories",
-    "styles_apply": true
-  },
-  {
     "family": "General",
     "department": "Outdoor",
     "category_name": "Storage Drawer/Door",
@@ -1614,14 +1550,6 @@
     "category_id": "a01aZ00000eF8O3QAK",
     "subcategory": "Plumbing Parts & Fittings",
     "styles_apply": false
-  },
-  {
-    "family": "HVAC",
-    "department": "Heating & Cooling",
-    "category_name": "HVAC Accessory",
-    "category_id": "a01aZ00000fKN2RQAW",
-    "subcategory": "HVAC",
-    "styles_apply": true
   },
   {
     "family": "Bath",

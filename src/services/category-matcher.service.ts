@@ -24,12 +24,12 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Icemaker',
     'Barbeque',
     'Coffee Maker',
-    'Garbage Disposal'
+    'Garbage Disposal',
+    'Drawer'
   ],
   'Plumbing & Bath': [
     'Bathroom Cabinet Hardware',
     'Bathroom Faucet',
-    'Bathroom Hardware and Accessories',
     'Bathroom Mirror',
     'Bathroom Sink',
     'Bathroom Vanity',
@@ -38,7 +38,6 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Bidet Faucet',
     'Bidet Seat',
     'Bidet',
-    'Shower Accessory',
     'Shower Faucet',
     'Shower',
     'Steam Shower'
@@ -66,7 +65,7 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Vanity Lighting'
   ],
   'Home Decor & Fixtures': [
-    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
+    'Cabinet Organization and Storage', 'Cabinet Hardware'
   ],
   'HVAC': [
     'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
