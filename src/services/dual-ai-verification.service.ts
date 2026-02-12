@@ -4627,8 +4627,10 @@ function buildFinalResponse(
   
   // If type matching failed, check if we should use "Not Applicable" type with its ID
   // This handles:
-  // 1. AI returned empty/null type → try semantic extraction from subcategory, then use "Not Applicable"
-  // 2. AI returned "Not Applicable", "N/A", or "Not Found" → should have ID populated
+  // 1. AI returned empty/null type → try semantic extraction from subcategory
+  // 2. AI returned empty/null type → try image analysis productType
+  // 3. AI returned empty/null type → fall back to "Not Applicable"
+  // 4. AI returned "Not Applicable", "N/A", or "Not Found" → should have ID populated
   const isNAPattern = aiProductType && /^(not applicable|n\/?a|not found|none)$/i.test(aiProductType.trim());
   
   if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '' || isNAPattern)) {
@@ -4658,7 +4660,58 @@ function buildFinalResponse(
       }
     }
     
-    // SECOND: If still not matched, fall back to "Not Applicable"
+    // SECOND: Try image analysis productType if available
+    if (!typeMatchResult.matched && researchResult?.images) {
+      const successfulImages = researchResult.images.filter(img => img.success && img.productType);
+      for (const img of successfulImages) {
+        if (img.productType) {
+          // Try direct match first
+          const imageTypeMatch = picklistMatcher.matchType(img.productType);
+          if (imageTypeMatch.matched && imageTypeMatch.matchedValue) {
+            typeMatchResult = {
+              matched: true,
+              original: img.productType,
+              matchedValue: {
+                type_id: imageTypeMatch.matchedValue.type_id,
+                type_name: imageTypeMatch.matchedValue.type_name
+              },
+              similarity: imageTypeMatch.similarity || 0.9
+            };
+            logger.info('Type extracted from image analysis productType', {
+              sessionId,
+              imageProductType: img.productType,
+              matchedType: imageTypeMatch.matchedValue.type_name,
+              type_id: imageTypeMatch.matchedValue.type_id
+            });
+            break;
+          }
+          
+          // Try category-aware match
+          const categoryAwareMatch = matchTypeToPicklist(img.productType, verifiedCategory, subcategoryHint);
+          if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
+            typeMatchResult = {
+              matched: true,
+              original: img.productType,
+              matchedValue: {
+                type_id: categoryAwareMatch.matchedValue.type_id,
+                type_name: categoryAwareMatch.matchedValue.type_name
+              },
+              similarity: categoryAwareMatch.confidence
+            };
+            logger.info('Type extracted from image analysis (category-aware match)', {
+              sessionId,
+              imageProductType: img.productType,
+              matchedType: categoryAwareMatch.matchedValue.type_name,
+              type_id: categoryAwareMatch.matchedValue.type_id,
+              category: verifiedCategory
+            });
+            break;
+          }
+        }
+      }
+    }
+    
+    // THIRD: If still not matched, fall back to "Not Applicable"
     if (!typeMatchResult.matched) {
       // Directly get "Not Applicable" type from types.json (bypasses picklistMatcher which rejects it)
       const notApplicableType = getTypeByName('Not Applicable');

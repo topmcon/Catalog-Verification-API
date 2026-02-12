@@ -377,8 +377,8 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Kitchen Accessories (Plumbing & Bath)': {
     removedCategory: 'Kitchen Accessories (Plumbing & Bath)',
-    parentCategory: 'Kitchen Accessory',
-    reason: 'AI variation with department suffix',
+    parentCategory: 'Kitchen Storage & Organization',
+    reason: 'AI variation with department suffix - mapped to valid SF category',
     suggestedType: undefined
   },
   'Drains': {

@@ -719,10 +719,11 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Living Room Furniture': FURNITURE_SCHEMA,
   'Bedroom Furniture': FURNITURE_SCHEMA,
 
-  // Kitchen Accessories
+  // Kitchen Accessories / Kitchen Storage & Organization
   'Kitchen Accessory': KITCHEN_ACCESSORIES_SCHEMA,
   'Kitchen Accessories #': KITCHEN_ACCESSORIES_SCHEMA,
   'KITCHEN ACCESSORIES': KITCHEN_ACCESSORIES_SCHEMA,
+  'Kitchen Storage & Organization': KITCHEN_ACCESSORIES_SCHEMA,
   'Kitchen Soap Dispenser': KITCHEN_ACCESSORIES_SCHEMA,
   'Paper Towel Holder': KITCHEN_ACCESSORIES_SCHEMA,
   'Utensil Holder': KITCHEN_ACCESSORIES_SCHEMA,

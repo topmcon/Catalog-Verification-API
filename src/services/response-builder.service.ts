@@ -806,9 +806,9 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'PEDESTALS': 'Standalone Pedestal',
     'LAUNDRY PEDESTALS': 'Standalone Pedestal',
     'WASHER PEDESTALS': 'Standalone Pedestal',
-    // Kitchen Accessories - Require AI disambiguation (no generic accessory category)
-    'KITCHEN ACCESSORIES': '',
-    'KITCHEN ACCESSORY': '',
+    // Kitchen Accessories - Map to valid SF category
+    'KITCHEN ACCESSORIES': 'Kitchen Storage & Organization',
+    'KITCHEN ACCESSORY': 'Kitchen Storage & Organization',
     'STORAGE': 'Kitchen Storage & Organization',
     'KITCHEN STORAGE': 'Kitchen Storage & Organization',
     
