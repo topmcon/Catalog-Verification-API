@@ -746,8 +746,8 @@ export function getRequiredAttributes(categoryName: string): string[] {
   
   // Combine top15 filter and html table attributes (deduplicated)
   const allAttrs = new Set([
-    ...schema.top15FilterAttributes,
-    ...schema.htmlTableAttributes
+    ...(schema.top15FilterAttributes || []),
+    ...(schema.htmlTableAttributes || [])
   ]);
   
   return Array.from(allAttrs);

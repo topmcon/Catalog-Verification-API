@@ -669,6 +669,8 @@ function buildTopFilterAttributes(
   if (!categorySchema) return topAttributes;
   
   // Get the top 15 filter attributes for this category
+  if (!categorySchema.top15FilterAttributes) return topAttributes;
+  
   for (const attrName of categorySchema.top15FilterAttributes) {
     const normalizedName = normalizeAttributeName(attrName);
     const consensus = consensusMap.get(normalizedName);

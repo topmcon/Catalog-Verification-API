@@ -261,10 +261,10 @@ export function scoreSpecificationImportance(
   }
   
   // FACTOR 2: Top 15 filter attributes
-  const isTop15 = categorySchema.top15FilterAttributes.some(attr => {
+  const isTop15 = categorySchema?.top15FilterAttributes?.some(attr => {
     const normalizedAttr = attr.toLowerCase().replace(/_/g, ' ');
     return normalizedName.includes(normalizedAttr) || normalizedAttr.includes(normalizedName);
-  });
+  }) || false;
   if (isTop15) {
     score += 35;
     reasons.push('TOP_15_FILTER_ATTRIBUTE');

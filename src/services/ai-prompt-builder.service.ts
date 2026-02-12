@@ -118,7 +118,7 @@ ${formatSpecificationTable(rawProduct.Specification_Table)}
 ${GLOBAL_PRIMARY_ATTRIBUTES.map((attr, i) => `${i + 1}. ${attr}`).join('\n')}
 
 ### Top 15 Filter Attributes (Category-Specific - CRITICAL for filtering):
-${categorySchema.top15FilterAttributes.map((attr, i) => `${i + 1}. ${attr}`).join('\n')}
+${categorySchema?.top15FilterAttributes?.map((attr, i) => `${i + 1}. ${attr}`).join('\n') || 'No specific filter attributes defined for this category'}
 
 **IMPORTANT**: These Top 15 attributes are PRIORITY. Look for them in:
 1. The Web_Retailer_Specs array above (match attribute names)
@@ -136,7 +136,7 @@ ${categorySchema.top15FilterAttributes.map((attr, i) => `${i + 1}. ${attr}`).joi
 - "Drain Location" or "Drain Position" → maps to drain_placement
 
 ### Additional Attributes for HTML Table:
-${categorySchema.htmlTableAttributes.map((attr, i) => `${i + 1}. ${attr}`).join('\n')}
+${categorySchema?.htmlTableAttributes?.map((attr, i) => `${i + 1}. ${attr}`).join('\n') || 'No additional table attributes defined for this category'}
 
 ## VERIFICATION RULES
 
