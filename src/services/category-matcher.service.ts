@@ -67,7 +67,7 @@ const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
     'Wall Sconce'
   ],
   'Home Decor & Fixtures': [
-    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
+    'Drawer', 'Cabinet Organization and Storage', 'Designer Cabinet Hardware'
   ],
   'HVAC': [
     'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
