@@ -1,25 +1,31 @@
 [
   {
     "type_name": "1-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
+    "type_name": "2-Light",
+    "type_id": "a1jaZ000001lF34QAE",
+    "category_usage": "Wall Sconce",
+    "type_group": ""
+  },
+  {
     "type_name": "3-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
   {
     "type_name": "3-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
     "type_name": "4-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
@@ -29,27 +35,31 @@
   },
   {
     "type_name": "4-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Vanity Light",
     "type_group": "Light Count"
   },
   {
     "type_name": "5-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
   {
     "type_name": "5-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
     "type_name": "6-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Lighting",
     "type_group": "Light Count"
+  },
+  {
+    "type_name": "ADA Compliant",
+    "type_id": "a1jaZ000001lF34QAE"
   },
   {
     "type_name": "Abstract",
@@ -88,20 +98,12 @@
     "type_id": "a1jaZ000001lF3DQAU"
   },
   {
-    "type_name": "Americana",
-    "type_id": "a1jaZ000001lF3EQAU"
-  },
-  {
     "type_name": "Appliance Pull",
     "type_id": "a1jaZ000001lF3FQAU"
   },
   {
     "type_name": "Apron Front",
     "type_id": "a1jaZ000001lF3GQAU"
-  },
-  {
-    "type_name": "Aquarium Lighting",
-    "type_id": "a1jaZ000001lF3HQAU"
   },
   {
     "type_name": "Arc Lamp",
@@ -113,13 +115,23 @@
   },
   {
     "type_name": "Area Rug",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Rug",
     "type_group": "Type"
   },
   {
     "type_name": "Art Pull",
     "type_id": "a1jaZ000001lF3KQAU"
+  },
+  {
+    "type_name": "BBQ Accessories",
+    "type_id": "a1jaZ000001lF3LQAU"
+  },
+  {
+    "type_name": "Backplate",
+    "type_id": "a1jaZ000001lF3LQAU",
+    "category_usage": "Cabinet Hardware",
+    "type_group": ""
   },
   {
     "type_name": "Bakers Rack",
@@ -132,10 +144,6 @@
   {
     "type_name": "Ball Catch",
     "type_id": "a1jaZ000001lF3OQAU"
-  },
-  {
-    "type_name": "Bar Faucet",
-    "type_id": "a1jaZ000001lF3PQAU"
   },
   {
     "type_name": "Bar Pull",
@@ -162,10 +170,6 @@
     "type_id": "a1jaZ000001lF3VQAU"
   },
   {
-    "type_name": "Basement",
-    "type_id": "a1jaZ000001lF3WQAU"
-  },
-  {
     "type_name": "Basket",
     "type_id": "a1jaZ000001lF3XQAU"
   },
@@ -186,28 +190,8 @@
     "type_id": "a1jaZ000001lF3bQAE"
   },
   {
-    "type_name": "Bathroom",
-    "type_id": "a1jaZ000001lF3cQAE"
-  },
-  {
-    "type_name": "Bathroom Sink Faucet",
-    "type_id": "a1jaZ000001lF3dQAE"
-  },
-  {
-    "type_name": "Bathtub Faucet",
-    "type_id": "a1jaZ000001lF3eQAE"
-  },
-  {
-    "type_name": "BBQ Accessories",
-    "type_id": "a1jaZ000001lF3LQAU"
-  },
-  {
     "type_name": "Bench",
     "type_id": "a1jaZ000001lF3fQAE"
-  },
-  {
-    "type_name": "Beverage Center",
-    "type_id": "a1jaZ000001lF3gQAE"
   },
   {
     "type_name": "Bi-Fold",
@@ -294,12 +278,20 @@
     "type_id": "a1jaZ000001lF41QAE"
   },
   {
+    "type_name": "Built-In",
+    "type_id": "a1jaZ000001lF42QAE"
+  },
+  {
     "type_name": "Built-In Access Doors",
     "type_id": "a1jaZ000001lF43QAE"
   },
   {
     "type_name": "Butt Hinge",
     "type_id": "a1jaZ000001lF44QAE"
+  },
+  {
+    "type_name": "CFL",
+    "type_id": "a1jaZ000001lF45QAE"
   },
   {
     "type_name": "Cabinet",
@@ -315,7 +307,7 @@
   },
   {
     "type_name": "Candelabra",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Chandelier",
     "type_group": "Shape"
   },
@@ -356,10 +348,6 @@
     "type_id": "a1jaZ000001lF4HQAU"
   },
   {
-    "type_name": "Casual",
-    "type_id": "a1jaZ000001lF4IQAU"
-  },
-  {
     "type_name": "Catch",
     "type_id": "a1jaZ000001lF4JQAU"
   },
@@ -392,12 +380,14 @@
     "type_id": "a1jaZ000001lF4QQAU"
   },
   {
-    "type_name": "CFL",
-    "type_id": "a1jaZ000001lF45QAE"
-  },
-  {
     "type_name": "Chain",
     "type_id": "a1jaZ000001lF4RQAU"
+  },
+  {
+    "type_name": "Chair",
+    "type_id": "a1jaZ000001lF4RQAU",
+    "category_usage": "Furniture",
+    "type_group": ""
   },
   {
     "type_name": "Chandelier",
@@ -418,10 +408,6 @@
   {
     "type_name": "Chimney Pipe",
     "type_id": "a1jaZ000001lF4WQAU"
-  },
-  {
-    "type_name": "Classroom",
-    "type_id": "a1jaZ000001lF4XQAU"
   },
   {
     "type_name": "Clawfoot",
@@ -477,7 +463,7 @@
   },
   {
     "type_name": "Comfort Height",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Height"
   },
@@ -495,7 +481,7 @@
   },
   {
     "type_name": "Commercial Style",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Kitchen Faucet",
     "type_group": "Spout Style"
   },
@@ -568,14 +554,6 @@
     "type_id": "a1jaZ000001lF54QAE"
   },
   {
-    "type_name": "Cowhide",
-    "type_id": "a1jaZ000001lF55QAE"
-  },
-  {
-    "type_name": "Crawl Space",
-    "type_id": "a1jaZ000001lF56QAE"
-  },
-  {
     "type_name": "Crown Molding",
     "type_id": "a1jaZ000001lF57QAE"
   },
@@ -644,6 +622,12 @@
     "type_id": "a1jaZ000001lF5NQAU"
   },
   {
+    "type_name": "Desk",
+    "type_id": "a1jaZ000001lF5YQAU",
+    "category_usage": "Furniture",
+    "type_group": ""
+  },
+  {
     "type_name": "Desk Lamp",
     "type_id": "a1jaZ000001lF5OQAU"
   },
@@ -661,7 +645,7 @@
   },
   {
     "type_name": "Dining Chair",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -763,7 +747,7 @@
   },
   {
     "type_name": "Dual-Flush",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
@@ -785,7 +769,7 @@
   },
   {
     "type_name": "Edge Pull",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Cabinet Hardware",
     "type_group": "Type"
   },
@@ -882,6 +866,10 @@
     "type_id": "a1jaZ000001lF6GQAU"
   },
   {
+    "type_name": "Fire Pit",
+    "type_id": "a1jaZ000001lF6HQAU"
+  },
+  {
     "type_name": "Fire Table",
     "type_id": "a1jaZ000001lF6IQAU"
   },
@@ -928,10 +916,6 @@
   {
     "type_name": "Floor Guide",
     "type_id": "a1jaZ000001lF6TQAU"
-  },
-  {
-    "type_name": "Floor Heater",
-    "type_id": "a1jaZ000001lF6UQAU"
   },
   {
     "type_name": "Floor Lamp",
@@ -1003,7 +987,7 @@
   },
   {
     "type_name": "Fully Integrated",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Dishwasher",
     "type_group": "Installation"
   },
@@ -1053,13 +1037,17 @@
   },
   {
     "type_name": "Gravity",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
   {
     "type_name": "Grille",
     "type_id": "a1jaZ000001lF6xQAE"
+  },
+  {
+    "type_name": "HEPA",
+    "type_id": "a1jaZ000001lF6yQAE"
   },
   {
     "type_name": "Halogen",
@@ -1079,7 +1067,7 @@
   },
   {
     "type_name": "Hand-Scraped",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Hardwood Flooring",
     "type_group": "Finish"
   },
@@ -1124,16 +1112,12 @@
     "type_id": "a1jaZ000001lF7CQAU"
   },
   {
-    "type_name": "HEPA",
-    "type_id": "a1jaZ000001lF6yQAE"
-  },
-  {
     "type_name": "High Bay",
     "type_id": "a1jaZ000001lF7DQAU"
   },
   {
     "type_name": "High-Arc",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Faucets",
     "type_group": "Spout Style"
   },
@@ -1158,10 +1142,6 @@
     "type_id": "a1jaZ000001lF7IQAU"
   },
   {
-    "type_name": "Humidifier",
-    "type_id": "a1jaZ000001lF7JQAU"
-  },
-  {
     "type_name": "Humidity Sensing",
     "type_id": "a1jaZ000001lF7KQAU"
   },
@@ -1184,10 +1164,6 @@
   {
     "type_name": "Infrared",
     "type_id": "a1jaZ000001lF7PQAU"
-  },
-  {
-    "type_name": "Infrared Heater",
-    "type_id": "a1jaZ000001lF7QQAU"
   },
   {
     "type_name": "Inline",
@@ -1242,10 +1218,6 @@
     "type_id": "a1jaZ000001lF7dQAE"
   },
   {
-    "type_name": "Kegerator",
-    "type_id": "a1jaZ000001lF7eQAE"
-  },
-  {
     "type_name": "Key Cabinet",
     "type_id": "a1jaZ000001lF7fQAE"
   },
@@ -1270,16 +1242,8 @@
     "type_id": "a1jaZ000001lF7kQAE"
   },
   {
-    "type_name": "Kitchen",
-    "type_id": "a1jaZ000001lF7lQAE"
-  },
-  {
     "type_name": "Kitchen Cart",
     "type_id": "a1jaZ000001lF7mQAE"
-  },
-  {
-    "type_name": "Kitchen Faucet",
-    "type_id": "a1jaZ000001lF7nQAE"
   },
   {
     "type_name": "Kitchen Island",
@@ -1302,36 +1266,8 @@
     "type_id": "a1jaZ000001lF7sQAE"
   },
   {
-    "type_name": "Laminate",
-    "type_id": "a1jaZ000001lF81QAE"
-  },
-  {
-    "type_name": "Landscape",
-    "type_id": "a1jaZ000001lF82QAE"
-  },
-  {
-    "type_name": "Lantern",
-    "type_id": "a1jaZ000001lF83QAE"
-  },
-  {
-    "type_name": "Latch",
-    "type_id": "a1jaZ000001lF84QAE"
-  },
-  {
-    "type_name": "Lazy Susan",
-    "type_id": "a1jaZ000001lF85QAE"
-  },
-  {
     "type_name": "LED",
     "type_id": "a1jaZ000001lF7tQAE"
-  },
-  {
-    "type_name": "LED Aquarium Light",
-    "type_id": "a1jaZ000001lF7uQAE"
-  },
-  {
-    "type_name": "LED Aquarium Light Fixture",
-    "type_id": "a1jaZ000001lF7vQAE"
   },
   {
     "type_name": "LED Bulbs",
@@ -1352,6 +1288,26 @@
   {
     "type_name": "LED Tube",
     "type_id": "a1jaZ000001lF80QAE"
+  },
+  {
+    "type_name": "Laminate",
+    "type_id": "a1jaZ000001lF81QAE"
+  },
+  {
+    "type_name": "Landscape",
+    "type_id": "a1jaZ000001lF82QAE"
+  },
+  {
+    "type_name": "Lantern",
+    "type_id": "a1jaZ000001lF83QAE"
+  },
+  {
+    "type_name": "Latch",
+    "type_id": "a1jaZ000001lF84QAE"
+  },
+  {
+    "type_name": "Lazy Susan",
+    "type_id": "a1jaZ000001lF85QAE"
   },
   {
     "type_name": "Lever",
@@ -1415,7 +1371,7 @@
   },
   {
     "type_name": "Lounge Chair",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -1425,7 +1381,7 @@
   },
   {
     "type_name": "Low-Arc",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Faucets",
     "type_group": "Spout Style"
   },
@@ -1459,7 +1415,7 @@
   },
   {
     "type_name": "Mini Pendant",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Pendant Light",
     "type_group": "Type"
   },
@@ -1513,7 +1469,7 @@
   },
   {
     "type_name": "Nail Down",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Hardwood Flooring",
     "type_group": "Installation"
   },
@@ -1536,14 +1492,6 @@
   {
     "type_name": "Non-Electric",
     "type_id": "a1jaZ000001lF8jQAE"
-  },
-  {
-    "type_name": "Not Applicable",
-    "type_id": "a1jaZ000001lF8kQAE"
-  },
-  {
-    "type_name": "Not Found",
-    "type_id": "a1jaZ000001lF8lQAE"
   },
   {
     "type_name": "Office",
@@ -1578,12 +1526,8 @@
     "type_id": "a1jaZ000001lF8tQAE"
   },
   {
-    "type_name": "Outdoor Lighting",
-    "type_id": "a1jaZ000001lF8uQAE"
-  },
-  {
     "type_name": "Outdoor Rug",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Rug",
     "type_group": "Type"
   },
@@ -1638,14 +1582,6 @@
   {
     "type_name": "Path Light",
     "type_id": "a1jaZ000001lF97QAE"
-  },
-  {
-    "type_name": "Patio",
-    "type_id": "a1jaZ000001lF98QAE"
-  },
-  {
-    "type_name": "Patio Heater",
-    "type_id": "a1jaZ000001lF99QAE"
   },
   {
     "type_name": "Paver",
@@ -1732,10 +1668,6 @@
     "type_id": "a1jaZ000001lF9UQAU"
   },
   {
-    "type_name": "Pot Filler",
-    "type_id": "a1jaZ000001lF9VQAU"
-  },
-  {
     "type_name": "Pot Rack",
     "type_id": "a1jaZ000001lF9WQAU"
   },
@@ -1753,7 +1685,7 @@
   },
   {
     "type_name": "Pressure-Assisted",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
@@ -1843,7 +1775,7 @@
   },
   {
     "type_name": "Rear Control",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Range",
     "type_group": "Control Position"
   },
@@ -1897,7 +1829,7 @@
   },
   {
     "type_name": "Rigid Core",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Luxury Vinyl Flooring",
     "type_group": "Core Type"
   },
@@ -1939,15 +1871,21 @@
   },
   {
     "type_name": "Round-Front",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Bowl Shape"
   },
   {
     "type_name": "Runner",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Rug",
     "type_group": "Type"
+  },
+  {
+    "type_name": "SPC",
+    "type_id": "",
+    "category_usage": "Luxury Vinyl Flooring",
+    "type_group": "Core Type"
   },
   {
     "type_name": "Safe",
@@ -1978,20 +1916,12 @@
     "type_id": "a1jaZ000001lFAMQA2"
   },
   {
-    "type_name": "Seating",
-    "type_id": "a1jaZ000001lFANQA2"
-  },
-  {
     "type_name": "Sectional",
     "type_id": "a1jaZ000001lFAOQA2"
   },
   {
     "type_name": "Security",
     "type_id": "a1jaZ000001lFAPQA2"
-  },
-  {
-    "type_name": "Security Camera",
-    "type_id": "a1jaZ000001lFAQQA2"
   },
   {
     "type_name": "Semi-Concealed",
@@ -2028,10 +1958,6 @@
   {
     "type_name": "Shower Door",
     "type_id": "a1jaZ000001lFAZQA2"
-  },
-  {
-    "type_name": "Shower Faucet",
-    "type_id": "a1jaZ000001lFAaQAM"
   },
   {
     "type_name": "Shower Panel",
@@ -2079,7 +2005,7 @@
   },
   {
     "type_name": "Single Door",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Refrigerator",
     "type_group": "Door Configuration"
   },
@@ -2120,6 +2046,12 @@
     "type_id": "a1jaZ000001lFAuQAM"
   },
   {
+    "type_name": "Sliding",
+    "type_id": "a1jaZ000001lFArQAM",
+    "category_usage": "Door",
+    "type_group": ""
+  },
+  {
     "type_name": "Smart",
     "type_id": "a1jaZ000001lFAvQAM"
   },
@@ -2128,20 +2060,8 @@
     "type_id": "a1jaZ000001lFAwQAM"
   },
   {
-    "type_name": "Smart Display",
-    "type_id": "a1jaZ000001lFAxQAM"
-  },
-  {
-    "type_name": "Smart Home Hub",
-    "type_id": "a1jaZ000001lFAyQAM"
-  },
-  {
     "type_name": "Smart Lock",
     "type_id": "a1jaZ000001lFAzQAM"
-  },
-  {
-    "type_name": "Smart Speaker",
-    "type_id": "a1jaZ000001lFB0QAM"
   },
   {
     "type_name": "Smart Switch",
@@ -2149,7 +2069,7 @@
   },
   {
     "type_name": "Smart/Electronic",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Configuration"
   },
@@ -2171,7 +2091,7 @@
   },
   {
     "type_name": "Sofa",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -2186,16 +2106,6 @@
   {
     "type_name": "Solid",
     "type_id": "a1jaZ000001lFB8QAM"
-  },
-  {
-    "type_name": "Space Heater",
-    "type_id": "a1jaZ000001lFB9QAM"
-  },
-  {
-    "type_name": "SPC",
-    "type_id": "pending_salesforce_id",
-    "category_usage": "Luxury Vinyl Flooring",
-    "type_group": "Core Type"
   },
   {
     "type_name": "Speed Oven",
@@ -2243,7 +2153,7 @@
   },
   {
     "type_name": "Standard Height",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Height"
   },
@@ -2453,7 +2363,7 @@
   },
   {
     "type_name": "Touch-On",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Kitchen Faucet",
     "type_group": "Handle Configuration"
   },
@@ -2515,7 +2425,7 @@
   },
   {
     "type_name": "Triple Bowl",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Kitchen Sink",
     "type_group": "Bowl Configuration"
   },
@@ -2577,7 +2487,7 @@
   },
   {
     "type_name": "Up/Down Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Wall Sconce",
     "type_group": "Direction"
   },
@@ -2622,8 +2532,10 @@
     "type_id": "a1jaZ000001lFClQAM"
   },
   {
-    "type_name": "Video Doorbell",
-    "type_id": "a1jaZ000001lFCmQAM"
+    "type_name": "Vintage",
+    "type_id": null,
+    "category_usage": "Light Bulbs",
+    "type_group": ""
   },
   {
     "type_name": "Vinyl Plank",
@@ -2636,6 +2548,12 @@
   {
     "type_name": "Volume Control",
     "type_id": "a1jaZ000001lFCpQAM"
+  },
+  {
+    "type_name": "WPC",
+    "type_id": "",
+    "category_usage": "Luxury Vinyl Flooring",
+    "type_group": "Core Type"
   },
   {
     "type_name": "Walk-In",
@@ -2652,10 +2570,6 @@
   {
     "type_name": "Wall Fixture",
     "type_id": "a1jaZ000001lFCtQAM"
-  },
-  {
-    "type_name": "Wall Heater",
-    "type_id": "a1jaZ000001lFCuQAM"
   },
   {
     "type_name": "Wall Lantern",
@@ -2695,7 +2609,7 @@
   },
   {
     "type_name": "Wall-Hung",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Toilet",
     "type_group": "Configuration"
   },
@@ -2744,12 +2658,12 @@
     "type_id": "a1jaZ000001lFDEQA2"
   },
   {
-    "type_name": "Widespread",
-    "type_id": "a1jaZ000001lFDGQA2"
-  },
-  {
     "type_name": "WiFi",
     "type_id": "a1jaZ000001lFDFQA2"
+  },
+  {
+    "type_name": "Widespread",
+    "type_id": "a1jaZ000001lFDGQA2"
   },
   {
     "type_name": "Wind Chime",
@@ -2758,10 +2672,6 @@
   {
     "type_name": "Window",
     "type_id": "a1jaZ000001lFDIQA2"
-  },
-  {
-    "type_name": "Wine Cooler",
-    "type_id": "a1jaZ000001lFDJQA2"
   },
   {
     "type_name": "Wine Rack",
@@ -2773,7 +2683,7 @@
   },
   {
     "type_name": "Wire-Brushed",
-    "type_id": "pending_salesforce_id",
+    "type_id": "",
     "category_usage": "Hardwood Flooring",
     "type_group": "Finish"
   },
@@ -2808,12 +2718,6 @@
   {
     "type_name": "Workstation",
     "type_id": "a1jaZ000001lFDTQA2"
-  },
-  {
-    "type_name": "WPC",
-    "type_id": "pending_salesforce_id",
-    "category_usage": "Luxury Vinyl Flooring",
-    "type_group": "Core Type"
   },
   {
     "type_name": "Y Strainer",

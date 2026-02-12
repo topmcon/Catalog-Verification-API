@@ -1,0 +1,32 @@
+[
+  {
+    "department_name": "Appliances"
+  },
+  {
+    "department_name": "Electronics"
+  },
+  {
+    "department_name": "Flooring"
+  },
+  {
+    "department_name": "Hardware"
+  },
+  {
+    "department_name": "Heating & Cooling"
+  },
+  {
+    "department_name": "Home Décor & Furniture"
+  },
+  {
+    "department_name": "Industrial & Commercial"
+  },
+  {
+    "department_name": "Lighting & Electrical"
+  },
+  {
+    "department_name": "Outdoor"
+  },
+  {
+    "department_name": "Plumbing & Bath"
+  }
+]

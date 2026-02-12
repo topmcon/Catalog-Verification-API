@@ -10,14 +10,6 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Beverage Center",
-    "category_id": "NEEDS_NEW_ID",
-    "subcategory": "Kitchen Appliances",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Appliances",
     "category_name": "Coffee Maker",
     "category_id": "a01Hu000011kmDGIAY",
     "subcategory": "Kitchen Appliances",
@@ -74,6 +66,14 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
+    "category_name": "Luxury Kitchen",
+    "category_id": "a01aZ00000dC5EGQA0",
+    "subcategory": "Kitchen Appliances",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
     "category_name": "Microwave",
     "category_id": "a01Hu000010Q5ElIAK",
     "subcategory": "Kitchen Appliances",
@@ -114,16 +114,16 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Refrigerator",
-    "category_id": "a01Hu000010Q5EpIAK",
-    "subcategory": "Kitchen Appliances",
+    "category_name": "Refrigeration",
+    "category_id": "a01aZ00000MlHtiQAF",
+    "subcategory": "Kitchen",
     "styles_apply": true
   },
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Wine Cooler",
-    "category_id": "NEEDS_NEW_ID",
+    "category_name": "Refrigerator",
+    "category_id": "a01Hu000010Q5EpIAK",
     "subcategory": "Kitchen Appliances",
     "styles_apply": true
   },
@@ -141,7 +141,7 @@
     "category_name": "Dryer",
     "category_id": "a01Hu000010Q5EjIAK",
     "subcategory": "Laundry Appliances",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Laundry",
@@ -157,7 +157,7 @@
     "category_name": "Washer",
     "category_id": "a01Hu000010Q5EsIAK",
     "subcategory": "Laundry Appliances",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "General",
@@ -170,8 +170,16 @@
   {
     "family": "General",
     "department": "Flooring",
-    "category_name": "Carpet",
+    "category_name": "Carpet Tile",
     "category_id": "a01aZ00000dCekVQAS",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Hardscaping",
+    "category_id": "a01aZ00000dCekUQAS",
     "subcategory": "General",
     "styles_apply": true
   },
@@ -220,7 +228,7 @@
     "department": "Flooring",
     "category_name": "Kitchen Tile",
     "category_id": "a01aZ00000dC5EFQA0",
-    "subcategory": "Tile",
+    "subcategory": "Hard Surface Flooring",
     "styles_apply": true
   },
   {
@@ -429,7 +437,7 @@
     "category_name": "Door Hinge",
     "category_id": "a01aZ00000dC5FAQA0",
     "subcategory": "Door Hardware",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Home Improvement",
@@ -576,12 +584,12 @@
     "styles_apply": true
   },
   {
-    "family": "General",
+    "family": "Bath",
     "department": "Heating & Cooling",
     "category_name": "Tankless Water Heater",
     "category_id": "a01aZ00000dC5DwQAK",
     "subcategory": "Water Heaters",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "General",
@@ -589,7 +597,7 @@
     "category_name": "Water Heater",
     "category_id": "a01aZ00000bI2srQAC",
     "subcategory": "Water Heaters",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "HVAC",
@@ -597,7 +605,7 @@
     "category_name": "Air Conditioner",
     "category_id": "a01aZ00000dCek0QAC",
     "subcategory": "Air Conditioning",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "HVAC",
@@ -650,18 +658,18 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Heating",
-    "category_id": "a01aZ00000dCek9QAC",
-    "subcategory": "HVAC",
-    "styles_apply": true
-  },
-  {
-    "family": "HVAC",
-    "department": "Heating & Cooling",
     "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "subcategory": "HVAC Components",
     "styles_apply": false
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Heating",
+    "category_id": "a01aZ00000dCek9QAC",
+    "subcategory": "HVAC",
+    "styles_apply": true
   },
   {
     "family": "HVAC",
@@ -677,7 +685,7 @@
     "category_name": "Mini Split Air Conditioner",
     "category_id": "a01aZ00000dCekBQAS",
     "subcategory": "Air Conditioning",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "HVAC",
@@ -717,7 +725,7 @@
     "category_name": "Thermostat",
     "category_id": "a01aZ00000dCekGQAS",
     "subcategory": "HVAC Components",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Outdoor",
@@ -738,9 +746,25 @@
   {
     "family": "Furniture",
     "department": "Home Décor & Furniture",
+    "category_name": "Furniture",
+    "category_id": "a01aZ00000dCekIQAS",
+    "subcategory": "Furniture",
+    "styles_apply": true
+  },
+  {
+    "family": "Furniture",
+    "department": "Home Décor & Furniture",
     "category_name": "Outdoor and Patio Furniture",
     "category_id": "a01aZ00000dCekPQAS",
     "subcategory": "Furniture",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home Décor & Furniture",
+    "category_name": "Home Accents",
+    "category_id": "a01aZ00000dCekMQAS",
+    "subcategory": "Textiles & Accents",
     "styles_apply": true
   },
   {
@@ -826,6 +850,14 @@
   {
     "family": "Bath",
     "department": "Lighting & Electrical",
+    "category_name": "Vanity Light",
+    "category_id": "new_id_required",
+    "subcategory": "Wall Lighting",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Lighting & Electrical",
     "category_name": "Vanity Lighting",
     "category_id": "a01aZ00000dC5EdQAK",
     "subcategory": "Wall Lighting",
@@ -858,6 +890,46 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan Accessory",
+    "category_id": "a01aZ00000dC5EiQAK",
+    "subcategory": "Fans",
+    "styles_apply": false
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan with Light",
+    "category_id": "a01aZ00000dC5EkQAK",
+    "subcategory": "Fans",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan with Remote",
+    "category_id": "a01aZ00000dC5ElQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan without Light",
+    "category_id": "a01aZ00000dC5EmQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Light",
+    "category_id": "a01aZ00000dC5EKQA0",
+    "subcategory": "Ceiling Lighting",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
     "category_name": "Chandelier",
     "category_id": "a01aZ00000dC5ELQA0",
     "subcategory": "Ceiling Lighting",
@@ -874,6 +946,78 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
+    "category_name": "DC Motor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EnQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Designer Ceiling Fan",
+    "category_id": "a01aZ00000dC5EoQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Dual Ceiling Fan",
+    "category_id": "a01aZ00000dC5EpQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Fandelier Ceiling Fan",
+    "category_id": "a01aZ00000dC5EqQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Flush and Semi-Flush",
+    "category_id": "a01aZ00000dC5ENQA0",
+    "subcategory": "Ceiling Lighting",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Hugger Fan",
+    "category_id": "a01aZ00000dC5ErQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Indoor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EsQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Island Lighting",
+    "category_id": "a01aZ00000dC5EOQA0",
+    "subcategory": "Ceiling Lighting",
+    "styles_apply": false
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "LED Ceiling Fan",
+    "category_id": "a01aZ00000dC5EuQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
     "category_name": "LED Lighting",
     "category_id": "a01aZ00000dC5ERQA0",
     "subcategory": "General",
@@ -882,9 +1026,25 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
+    "category_name": "Lamp",
+    "category_id": "a01aZ00000dC5EPQA0",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Large Ceiling Fan",
+    "category_id": "a01aZ00000dC5EtQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
     "category_name": "Light Bulbs",
     "category_id": "a01aZ00000dC5ESQA0",
-    "subcategory": "Bulbs & Accessories",
+    "subcategory": "Electrical",
     "styles_apply": false
   },
   {
@@ -892,7 +1052,15 @@
     "department": "Lighting & Electrical",
     "category_name": "Light Switches & Dimmers",
     "category_id": "a01aZ00000dC5ETQA0",
-    "subcategory": "Switches & Dimmers",
+    "subcategory": "Electrical",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Lighted Ceiling Fan",
+    "category_id": "a01aZ00000dC5EUQA0",
+    "subcategory": "General",
     "styles_apply": true
   },
   {
@@ -906,10 +1074,26 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
+    "category_name": "Outdoor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EvQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
     "category_name": "Outdoor Lighting",
     "category_id": "a01aZ00000dC5EWQA0",
     "subcategory": "Outdoor",
     "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Pendant",
+    "category_id": "a01aZ00000dC5EXQA0",
+    "subcategory": "Ceiling Lighting",
+    "styles_apply": false
   },
   {
     "family": "General",
@@ -925,7 +1109,23 @@
     "category_name": "Recessed Lighting",
     "category_id": "a01aZ00000dC5EZQA0",
     "subcategory": "Specialty Lighting",
-    "styles_apply": false
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Small Ceiling Fan",
+    "category_id": "a01aZ00000dC5EwQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Smart Home Fan",
+    "category_id": "a01aZ00000dC5ExQAK",
+    "subcategory": "General",
+    "styles_apply": true
   },
   {
     "family": "General",
@@ -941,7 +1141,15 @@
     "category_name": "Track and Rail Lighting",
     "category_id": "a01aZ00000dC5EbQAK",
     "subcategory": "Specialty Lighting",
-    "styles_apply": false
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Trending Ceiling Fan",
+    "category_id": "a01aZ00000dC5EyQAK",
+    "subcategory": "General",
+    "styles_apply": true
   },
   {
     "family": "General",
@@ -949,7 +1157,23 @@
     "category_name": "Under Cabinet Light",
     "category_id": "a01aZ00000dC5EcQAK",
     "subcategory": "Specialty Lighting",
-    "styles_apply": false
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Utility Fan",
+    "category_id": "a01aZ00000dC5EzQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Wall Mounted Fan",
+    "category_id": "a01aZ00000dC5F0QAK",
+    "subcategory": "General",
+    "styles_apply": true
   },
   {
     "family": "General",
@@ -965,38 +1189,6 @@
     "category_name": "Lamp",
     "category_id": "a01aZ00000dCekOQAS",
     "subcategory": "Lamps",
-    "styles_apply": true
-  },
-  {
-    "family": "Indoor Lighting",
-    "department": "Lighting & Electrical",
-    "category_name": "Ceiling Light",
-    "category_id": "a01aZ00000dC5EKQA0",
-    "subcategory": "Ceiling Lighting",
-    "styles_apply": true
-  },
-  {
-    "family": "Indoor Lighting",
-    "department": "Lighting & Electrical",
-    "category_name": "Flush and Semi-Flush",
-    "category_id": "a01aZ00000dC5ENQA0",
-    "subcategory": "Ceiling Lighting",
-    "styles_apply": true
-  },
-  {
-    "family": "Indoor Lighting",
-    "department": "Lighting & Electrical",
-    "category_name": "Island Lighting",
-    "category_id": "a01aZ00000dC5EOQA0",
-    "subcategory": "Ceiling Lighting",
-    "styles_apply": true
-  },
-  {
-    "family": "Indoor Lighting",
-    "department": "Lighting & Electrical",
-    "category_name": "Pendant",
-    "category_id": "a01aZ00000dC5EXQA0",
-    "subcategory": "Ceiling Lighting",
     "styles_apply": true
   },
   {
@@ -1069,7 +1261,7 @@
     "category_name": "Generator",
     "category_id": "a01aZ00000dCejoQAC",
     "subcategory": "Outdoor Infrastructure",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Outdoor",
@@ -1112,12 +1304,20 @@
     "styles_apply": true
   },
   {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Rug",
+    "category_id": "a01aZ00000dCejyQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
     "family": "Bath",
     "department": "Plumbing & Bath",
     "category_name": "Bath Fan",
     "category_id": "a01aZ00000dC5DcQAK",
     "subcategory": "Ventilation",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Bath",
@@ -1221,13 +1421,21 @@
     "category_name": "Rough-In Valve",
     "category_id": "a01aZ00000dC5DrQAK",
     "subcategory": "Plumbing Parts & Fittings",
-    "styles_apply": false
+    "styles_apply": true
   },
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
     "category_name": "Shower",
     "category_id": "a01aZ00000dC5DuQAK",
+    "subcategory": "Shower Components",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Shower Accessory",
+    "category_id": "a01aZ00000dC5DsQAK",
     "subcategory": "Shower Components",
     "styles_apply": true
   },
@@ -1268,6 +1476,14 @@
     "department": "Plumbing & Bath",
     "category_name": "Tub Faucet",
     "category_id": "a01aZ00000dC5DzQAK",
+    "subcategory": "Tub & Shower Faucets",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Tub and Shower Accessory",
+    "category_id": "a01aZ00000dDnKlQAK",
     "subcategory": "Tub & Shower Faucets",
     "styles_apply": true
   },
@@ -1404,7 +1620,7 @@
     "department": "Plumbing & Bath",
     "category_name": "Water Filtration",
     "category_id": "a01aZ00000dC5EJQA0",
-    "subcategory": "Water Treatment",
+    "subcategory": "Plumbing Parts & Fittings",
     "styles_apply": false
   },
   {

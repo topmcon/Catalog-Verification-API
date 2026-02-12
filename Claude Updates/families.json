@@ -1,0 +1,74 @@
+[
+  {
+    "family_name": "Bath",
+    "departments": [
+      "Hardware",
+      "Heating & Cooling",
+      "Lighting & Electrical",
+      "Plumbing & Bath"
+    ]
+  },
+  {
+    "family_name": "Furniture",
+    "departments": [
+      "Home Décor & Furniture"
+    ]
+  },
+  {
+    "family_name": "General",
+    "departments": [
+      "Electronics",
+      "Flooring",
+      "Hardware",
+      "Heating & Cooling",
+      "Industrial & Commercial",
+      "Lighting & Electrical",
+      "Outdoor",
+      "Plumbing & Bath"
+    ]
+  },
+  {
+    "family_name": "HVAC",
+    "departments": [
+      "Heating & Cooling"
+    ]
+  },
+  {
+    "family_name": "Home Improvement",
+    "departments": [
+      "Hardware",
+      "Home Décor & Furniture",
+      "Lighting & Electrical"
+    ]
+  },
+  {
+    "family_name": "Kitchen",
+    "departments": [
+      "Appliances",
+      "Hardware",
+      "Lighting & Electrical",
+      "Plumbing & Bath"
+    ]
+  },
+  {
+    "family_name": "Laundry",
+    "departments": [
+      "Appliances",
+      "Plumbing & Bath"
+    ]
+  },
+  {
+    "family_name": "Outdoor",
+    "departments": [
+      "Heating & Cooling",
+      "Lighting & Electrical",
+      "Outdoor"
+    ]
+  },
+  {
+    "family_name": "Utility",
+    "departments": [
+      "Plumbing & Bath"
+    ]
+  }
+]

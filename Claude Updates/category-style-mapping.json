@@ -1,689 +1,89 @@
-# Picklist Update - Complete Style System
-
-**Instructions**: Copy this entire document and paste it to Copilot with the command: "Update picklists with this data"
-
-**Date**: February 11, 2026  
-**Version**: Complete Style System (Aesthetic + Functional)  
-**Total Styles**: 149 (15 existing, 134 new)  
-**Total Mappings**: 79 categories
-
----
-
-## 📋 OVERVIEW
-
-### **What This Updates:**
-
-1. **Styles** (149 total)
-   - 15 existing styles (keeping production IDs)
-   - 134 new styles (need Salesforce IDs)
-   - Mix of aesthetic styles (Modern, Traditional, etc.) and functional styles (capacity, features, etc.)
-
-2. **Category-Style Mappings** (79 categories)
-   - 65 decorative categories → aesthetic styles
-   - 14 functional categories → performance/feature styles
-
-### **The Unified Approach:**
-
-Every category has a "Style" filter, but what appears depends on the category:
-- **Bathroom Faucet**: Modern, Traditional, Victorian, Farmhouse...
-- **Generator**: Portable (≤5,000W), Whole House (≥15,000W)...
-- **Thermostat**: Smart WiFi, Programmable, Non-Programmable...
-
-**Result**: No categories without relevant filtering!
-
----
-
-## STYLES
-
-**Action**: `REPLACE_ALL`
-
-**Note**: 149 total styles. 15 have existing Salesforce IDs from production. 134 are new and will receive Salesforce IDs when created.
-
-
-```json
 {
-  "action": "REPLACE_ALL",
-  "styles": [
-    {
-      "style_name": "1/4\" Radius",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "1000-1500 sq ft",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "2-Way",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "3-Way",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "30 Gallon",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "4-Way",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "40 Gallon",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "5/8\" Radius",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "50 Gallon",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "500-1000 sq ft",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "65 Gallon",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "80+ Gallon",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Adjustable Heads",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Adjustable Trim",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Airtight",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Antique Brass",
-      "style_id": "New - Create Salesforce ID"
-    },
+  "metadata": {
+    "version": "3.0",
+    "created": "2026-02-12",
+    "purpose": "Maps styles to categories - complete unified style system",
+    "note": "Maps styles to categories - complete unified style system. Cleaned: fixed phantom categories, synced IDs.",
+    "hierarchy": "Department → Family → Category → STYLE"
+  },
+  "universal_styles": [
     {
       "style_name": "Art Deco",
       "style_id": "a1IaZ000001TYybUAG",
-      "description": "Glamorous 1920s-30s aesthetic with geometric patterns and luxe materials"
-    },
-    {
-      "style_name": "Baffle Trim",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Ball Bearing",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Battery Operated",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Battery Powered",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Black",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Bohemian",
       "style_id": "a1IaZ000001V9EXUA0",
-      "description": "Eclectic, free-spirited mix of patterns, textures, and global influences"
-    },
-    {
-      "style_name": "C-Wire Required",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Coastal",
       "style_id": "a1IaZ000001VAAbUAO",
-      "description": "Relaxed, beach-inspired aesthetic with light woods and natural textures"
-    },
-    {
-      "style_name": "Colonial",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Early American aesthetic with traditional craftsmanship and symmetry"
-    },
-    {
-      "style_name": "Color Changing",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Commercial-Style",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Professional-grade appearance with industrial-quality finishes"
-    },
-    {
-      "style_name": "Compact (\u22644.0 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Compact (\u22646.5 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Concealed Bearing",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Contemporary",
       "style_id": "a1IaZ000001TVZJUA4",
-      "description": "Current, of-the-moment designs with evolving trends and clean lines"
-    },
-    {
-      "style_name": "Dimmable",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Diverter Valve",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Dual Fuel",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Eclectic",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Mix-and-match aesthetic combining diverse styles and eras"
-    },
-    {
-      "style_name": "Electric",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Electric Start",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Energy Star",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Energy Star Certified",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "European",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Refined Continental aesthetic with sophisticated details"
-    },
-    {
-      "style_name": "Extra Large (5.0+ cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Extra Large (7.5+ cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Extra Large Room (\u226518,000 BTU)",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Farmhouse",
       "style_id": "a1IaZ000001S93RUAS",
-      "description": "Casual, rustic aesthetic with practical functionality and natural materials"
-    },
-    {
-      "style_name": "Fixed Heads",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Flexible Track",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "GU10 Bulb",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Gasoline",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Geometric",
       "style_id": "a1IaZ000001VCQvUAO",
-      "description": "Pattern-focused designs with shapes, angles, and bold contrasts"
-    },
-    {
-      "style_name": "Graphite/Slate",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "H-Type Track",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Hardwired",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Heat Pump",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Heat Pump Compatible",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "High Airflow (\u226580 CFM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Humidity Sensor",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "IC Rated",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Indoor",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Industrial",
       "style_id": "a1IaZ000001Sjb7UAC",
-      "description": "Urban, raw aesthetic with exposed materials and metal finishes"
-    },
-    {
-      "style_name": "Inverter",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Inverter Technology",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "J-Type Track",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "L-Type Track",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "LED Bar",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "LED Compatible",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "LED Light Included",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "LED Puck",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "LED Strip",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Large (10,000-15,000W)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Large (4.5-5.0 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Large (7.0-7.5 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Large Home (7-9 GPM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Large Room (12,000-18,000 BTU)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Linkable",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Luxury",
-      "style_id": "New - Create Salesforce ID",
-      "description": "High-end aesthetic with premium materials and refined details"
-    },
-    {
-      "style_name": "MR16 Bulb",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Matte Black",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Mediterranean",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Warm, sun-drenched aesthetic inspired by coastal Southern Europe"
-    },
-    {
-      "style_name": "Medium (4.0-4.5 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Medium (6.5-7.0 cu ft)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Medium Home (5-7 GPM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Medium Room (8,000-12,000 BTU)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Mid-Century Modern",
-      "style_id": "New - Create Salesforce ID",
-      "description": "1950s-60s aesthetic with clean lines and organic forms"
-    },
-    {
-      "style_name": "Mid-Size (5,000-10,000W)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Minimalist",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Pared-down aesthetic emphasizing simplicity and function"
+      "status": "existing"
     },
     {
       "style_name": "Modern",
       "style_id": "a1IaZ000001TWAPUA4",
-      "description": "Sleek, minimalist designs with clean lines and geometric shapes"
-    },
-    {
-      "style_name": "Moroccan",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Exotic North African aesthetic with intricate patterns and rich colors"
-    },
-    {
-      "style_name": "Motion Sensor",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Multi-Stage Heat/Cool",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Multi-Zone (2 Zones)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Multi-Zone (3 Zones)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Multi-Zone (4+ Zones)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Natural Gas",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "New Construction Housing",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Non-Programmable",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Oil Rubbed Bronze",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Outdoor",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Plug-In",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Point of Use (\u22643 GPM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Polished Chrome",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Portable",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Portable (\u22645,000W)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Pressure Balance",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Programmable 5-2 Day",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Programmable 7-Day",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Propane",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Quiet Operation (\u22641.0 Sones)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Reflector Trim",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Remodel Housing",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Rustic",
       "style_id": "a1IaZ000001TVcXUAW",
-      "description": "Natural, rugged aesthetic celebrating raw materials and earthy tones"
-    },
-    {
-      "style_name": "Satin Nickel",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Scandinavian",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Nordic aesthetic with light woods, neutrals, and functional design"
-    },
-    {
-      "style_name": "Sensor Dry",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Shaker",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Simple, functional American aesthetic with clean lines and craftsmanship"
-    },
-    {
-      "style_name": "Shower Trim",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Single Zone",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Sleek",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Smooth, streamlined aesthetic with polished finishes"
-    },
-    {
-      "style_name": "Small Home (3-5 GPM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Small Room (\u22648,000 BTU)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Smart WiFi",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Smart/WiFi",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Smart/WiFi Enabled",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Spa-Like",
-      "style_id": "New - Create Salesforce ID",
-      "description": "Serene, wellness-inspired aesthetic with natural materials"
-    },
-    {
-      "style_name": "Square Corner",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Stainless Look",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Standard Airflow (50-80 CFM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Standard Noise (1.0-3.0 Sones)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Steam Clean",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Steam Refresh",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Striped",
       "style_id": "a1IaZ000001VGuLUAW",
-      "description": "Linear pattern style with parallel lines and directional design"
-    },
-    {
-      "style_name": "Thermostatic",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Through-Wall",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Touchscreen",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Traditional",
       "style_id": "a1IaZ000001TLjdUAG",
-      "description": "Classic, timeless designs with ornate details and formal elements"
-    },
-    {
-      "style_name": "Transfer Valve",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Transitional",
       "style_id": "a1IaZ000001TVXhUAO",
-      "description": "Balanced blend of traditional warmth and contemporary clean lines"
-    },
-    {
-      "style_name": "Trim Included",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Tropical",
       "style_id": "a1IaZ000001TekfUAC",
-      "description": "Island-inspired designs with natural materials and vibrant elements"
-    },
-    {
-      "style_name": "Valve Only",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     },
     {
       "style_name": "Victorian",
       "style_id": "a1IaZ000001TVuHUAW",
-      "description": "Ornate, romantic 19th-century aesthetic with elaborate detailing"
+      "status": "existing"
     },
     {
       "style_name": "Vintage",
       "style_id": "a1IaZ000001TW2LUAW",
-      "description": "Retro designs inspired by past eras with nostalgic elements"
-    },
-    {
-      "style_name": "Voice Control",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "White",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Whole House (\u226515,000W)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Whole House (\u22659 GPM)",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "Window Unit",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "\u2264500 sq ft",
-      "style_id": "New - Create Salesforce ID"
-    },
-    {
-      "style_name": "\u22651500 sq ft",
-      "style_id": "New - Create Salesforce ID"
+      "status": "existing"
     }
-  ]
-}
-```
-
----
-
-## CATEGORY-STYLE MAPPING
-
-**Action**: `ADD`
-
-**Note**: Defines which styles apply to each category. All 79 categories are mapped.
-
-```json
-{
-  "action": "ADD",
-  "category_style_mappings": [
+  ],
+  "category_specific_mappings": [
     {
       "category_name": "Air Conditioner",
       "category_id": "a01aZ00000dCek0QAC",
@@ -691,39 +91,39 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Energy Star",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Extra Large Room (\u226518,000 BTU)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Extra Large Room (≥18,000 BTU)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Large Room (12,000-18,000 BTU)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Medium Room (8,000-12,000 BTU)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Portable",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Small Room (\u22648,000 BTU)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Small Room (≤8,000 BTU)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Smart/WiFi",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Through-Wall",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Window Unit",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -796,35 +196,35 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Energy Star Certified",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "High Airflow (\u226580 CFM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "High Airflow (≥80 CFM)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Humidity Sensor",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "LED Light Included",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Motion Sensor",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Quiet Operation (\u22641.0 Sones)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Quiet Operation (≤1.0 Sones)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Standard Airflow (50-80 CFM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Standard Noise (1.0-3.0 Sones)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -886,7 +286,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -925,7 +325,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -960,7 +360,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1077,7 +477,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1089,7 +489,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Shaker",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -1120,7 +520,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Spa-Like",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -1185,7 +585,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1224,7 +624,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Shaker",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -1431,7 +831,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1470,7 +870,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1544,7 +944,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1567,7 +967,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1620,43 +1020,43 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "1/4\" Radius",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "5/8\" Radius",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Antique Brass",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Ball Bearing",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Concealed Bearing",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Matte Black",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Oil Rubbed Bronze",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Polished Chrome",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Satin Nickel",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Square Corner",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -1667,7 +1067,7 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Colonial",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Contemporary",
@@ -1706,7 +1106,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "European",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Industrial",
@@ -1714,7 +1114,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1737,43 +1137,43 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Black",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Compact (\u22646.5 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Compact (≤6.5 cu ft)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Extra Large (7.5+ cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Graphite/Slate",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Large (7.0-7.5 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Medium (6.5-7.0 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Sensor Dry",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Stainless Look",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Steam Refresh",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "White",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -1800,7 +1200,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1843,7 +1243,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -1855,7 +1255,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Scandinavian",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -1873,48 +1273,48 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Generator",
-      "category_id": "a01aZ00000dCek8QAC",
+      "category_id": "a01aZ00000dCejoQAC",
       "style_type": "functional",
       "styles": [
         {
           "style_name": "Dual Fuel",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Electric Start",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Gasoline",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Inverter",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Large (10,000-15,000W)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Mid-Size (5,000-10,000W)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Natural Gas",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Portable (\u22645,000W)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Portable (≤5,000W)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Propane",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Whole House (\u226515,000W)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Whole House (≥15,000W)",
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -1991,7 +1391,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Eclectic",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Farmhouse",
@@ -2098,7 +1498,7 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Lamp",
-      "category_id": "a01aZ00000dCekOQAS",
+      "category_id": "a01aZ00000dC5EPQA0",
       "style_type": "aesthetic",
       "styles": [
         {
@@ -2119,7 +1519,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2230,43 +1630,43 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "1000-1500 sq ft",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "500-1000 sq ft",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Heat Pump",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Inverter Technology",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Multi-Zone (2 Zones)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Multi-Zone (3 Zones)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Multi-Zone (4+ Zones)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Single Zone",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "\u2264500 sq ft",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "≤500 sq ft",
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "\u22651500 sq ft",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "≥1500 sq ft",
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2311,7 +1711,7 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Outdoor Ceiling Fan",
-      "category_id": "a01aZ00000dCejrQAC",
+      "category_id": "a01aZ00000dC5EvQAK",
       "style_type": "aesthetic",
       "styles": [
         {
@@ -2342,7 +1742,7 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Outdoor Lighting",
-      "category_id": "a01aZ00000dCejvQAC",
+      "category_id": "a01aZ00000dC5EWQA0",
       "style_type": "aesthetic",
       "styles": [
         {
@@ -2431,7 +1831,7 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Patio Heater",
-      "category_id": "a01aZ00000dCekCQAS",
+      "category_id": "a01aZ00000dCejxQAC",
       "style_type": "aesthetic",
       "styles": [
         {
@@ -2490,7 +1890,7 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Commercial-Style",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Contemporary",
@@ -2536,39 +1936,39 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Adjustable Trim",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Airtight",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Baffle Trim",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Dimmable",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "IC Rated",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "New Construction Housing",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Reflector Trim",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Remodel Housing",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Shower Trim",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2598,39 +1998,39 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "2-Way",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "3-Way",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "4-Way",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Diverter Valve",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Pressure Balance",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Thermostatic",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Transfer Valve",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Trim Included",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Valve Only",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2661,7 +2061,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Moroccan",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Striped",
@@ -2688,7 +2088,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2696,7 +2096,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Spa-Like",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -2742,7 +2142,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2769,7 +2169,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Luxury",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2777,7 +2177,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Spa-Like",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2806,48 +2206,48 @@ Every category has a "Style" filter, but what appears depends on the category:
     },
     {
       "category_name": "Tankless Water Heater",
-      "category_id": "a01aZ00000dC5EIQA0",
+      "category_id": "a01aZ00000dC5DwQAK",
       "style_type": "functional",
       "styles": [
         {
           "style_name": "Electric",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Indoor",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Large Home (7-9 GPM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Medium Home (5-7 GPM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Natural Gas",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Outdoor",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Point of Use (\u22643 GPM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Point of Use (≤3 GPM)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Propane",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Small Home (3-5 GPM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Whole House (\u22659 GPM)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Whole House (≥9 GPM)",
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2858,43 +2258,43 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Battery Powered",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "C-Wire Required",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Heat Pump Compatible",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Multi-Stage Heat/Cool",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Non-Programmable",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Programmable 5-2 Day",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Programmable 7-Day",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Smart WiFi",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Touchscreen",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Voice Control",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2913,7 +2313,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mediterranean",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2921,7 +2321,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Moroccan",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -2940,7 +2340,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2948,7 +2348,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Sleek",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Traditional",
@@ -2971,7 +2371,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Minimalist",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -2990,39 +2390,39 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Adjustable Heads",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Fixed Heads",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Flexible Track",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "GU10 Bulb",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "H-Type Track",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "J-Type Track",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "L-Type Track",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "LED Compatible",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "MR16 Bulb",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -3087,39 +2487,39 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Battery Operated",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Color Changing",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Dimmable",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Hardwired",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "LED Bar",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "LED Puck",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "LED Strip",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Linkable",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Plug-In",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -3235,7 +2635,7 @@ Every category has a "Style" filter, but what appears depends on the category:
         },
         {
           "style_name": "Mid-Century Modern",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Modern",
@@ -3266,43 +2666,43 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "Black",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
-          "style_name": "Compact (\u22644.0 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_name": "Compact (≤4.0 cu ft)",
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Extra Large (5.0+ cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Graphite/Slate",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Large (4.5-5.0 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Medium (4.0-4.5 cu ft)",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Smart/WiFi Enabled",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Stainless Look",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Steam Clean",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "White",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -3313,161 +2713,45 @@ Every category has a "Style" filter, but what appears depends on the category:
       "styles": [
         {
           "style_name": "30 Gallon",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "40 Gallon",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "50 Gallon",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "65 Gallon",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "80+ Gallon",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Electric",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Energy Star",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Heat Pump",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Natural Gas",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         },
         {
           "style_name": "Propane",
-          "style_id": "New - Create Salesforce ID"
+          "style_id": "pending_salesforce_id"
         }
       ]
     }
   ]
 }
-```
-
----
-
-## DATABASE SCHEMA
-
-```sql
--- Style definitions table
-CREATE TABLE styles (
-  style_id VARCHAR(18) PRIMARY KEY,
-  style_name VARCHAR(100) UNIQUE NOT NULL,
-  description TEXT,
-  style_type ENUM('aesthetic', 'performance', 'capacity', 'feature') DEFAULT 'aesthetic'
-);
-
--- Category-Style relationships
-CREATE TABLE category_styles (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  category_id VARCHAR(18) NOT NULL,
-  style_id VARCHAR(18) NOT NULL,
-  FOREIGN KEY (category_id) REFERENCES categories(category_id),
-  FOREIGN KEY (style_id) REFERENCES styles(style_id),
-  UNIQUE KEY (category_id, style_id)
-);
-
--- Indexes for performance
-CREATE INDEX idx_category_styles_category ON category_styles(category_id);
-CREATE INDEX idx_category_styles_style ON category_styles(style_id);
-```
-
----
-
-## VERIFICATION CHECKLIST
-
-After applying this update:
-
-- [ ] 149 styles created (15 existing IDs preserved, 134 new IDs created)
-- [ ] All new styles have Salesforce IDs (not "New - Create Salesforce ID")
-- [ ] 79 categories have style mappings
-- [ ] 65 decorative categories mapped to aesthetic styles
-- [ ] 14 functional categories mapped to performance/feature styles
-- [ ] No duplicate style names
-- [ ] All category IDs are valid
-
----
-
-## EXAMPLE QUERIES
-
-### Get styles for a category
-```sql
--- Get all styles for Bathroom Faucet
-SELECT s.style_name, s.style_id
-FROM category_styles cs
-JOIN styles s ON cs.style_id = s.style_id
-WHERE cs.category_id = 'a01aZ00000dC5DeQAK'
-ORDER BY s.style_name;
-```
-
-### Get all products with a style
-```sql
--- Get all Modern products
-SELECT p.product_name, c.category_name
-FROM products p
-JOIN product_styles ps ON p.product_id = ps.product_id
-JOIN styles s ON ps.style_id = s.style_id
-JOIN categories c ON p.category_id = c.category_id
-WHERE s.style_name = 'Modern';
-```
-
----
-
-## SUMMARY STATISTICS
-
-| Metric | Count |
-|--------|-------|
-| Total styles | 149 |
-| Existing styles (preserved IDs) | 15 |
-| New styles (need IDs) | 134 |
-| Total category mappings | 79 |
-| Decorative categories | 65 |
-| Functional categories | 14 |
-
-### Existing Styles from Production
-
-- Art Deco
-- Bohemian
-- Coastal
-- Contemporary
-- Farmhouse
-- Geometric
-- Industrial
-- Modern
-- Rustic
-- Striped
-- Traditional
-- Transitional
-- Tropical
-- Victorian
-- Vintage
-
-### Sample New Styles
-
-**Aesthetic:**
-- Colonial, Commercial-Style, Eclectic, European, Luxury
-- Mediterranean, Mid-Century Modern, Minimalist, Moroccan
-- Scandinavian, Shaker, Sleek, Spa-Like
-
-**Functional:**
-- Capacity: Small Room, Medium Room, Large Room, Whole House
-- Performance: Quiet Operation, High Airflow, Smart WiFi
-- Features: Programmable, Energy Star, LED Light Included
-- Configuration: Single Zone, Multi-Zone, Pressure Balance
-
----
-
-*Generated: February 11, 2026 - Complete unified style system*

@@ -17,12 +17,6 @@
       "logic": "Brewing method",
       "types": [
         {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Countertop",
           "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
@@ -102,12 +96,6 @@
       "filter_label": "Dishwasher Type",
       "logic": "Control location or installation type",
       "types": [
-        {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
         {
           "type_name": "Top Control",
           "type_id": "a1jaZ000001lFC4QAM",
@@ -215,12 +203,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Compact",
           "type_id": "a1jaZ000001lF4oQAE",
           "status": "existing",
@@ -239,12 +221,6 @@
         {
           "type_name": "Undercounter",
           "type_id": "a1jaZ000001lFCWQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
           "status": "existing",
           "primary_filter": true
         },
@@ -285,12 +261,6 @@
         {
           "type_name": "Countertop",
           "type_id": "a1jaZ000001lF52QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
           "status": "existing",
           "primary_filter": true
         },
@@ -565,12 +535,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Undercounter",
           "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
@@ -761,7 +725,7 @@
     {
       "department_name": "Flooring",
       "family_name": "General",
-      "category_name": "Carpet Tile",
+      "category_name": "Carpet",
       "category_id": "a01aZ00000dCekVQAS",
       "filter_label": "Carpet Tile Type",
       "logic": "Application/installation",
@@ -1994,12 +1958,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "ADA Compliant",
-          "type_id": "a1jaZ000001lF34QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Outdoor",
           "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
@@ -2145,12 +2103,6 @@
           "type_name": "Smart Bulb",
           "type_id": "a1jaZ000001lFAwQAM",
           "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Vintage",
-          "type_id": null,
-          "status": "new_needed",
           "primary_filter": true
         }
       ]
@@ -2472,52 +2424,6 @@
         {
           "type_name": "Ceiling Mounted",
           "type_id": "a1jaZ000001lF4LQAU",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Lighting & Electrical",
-      "family_name": "Outdoor",
-      "category_name": "Outdoor Lighting",
-      "category_id": "a01aZ00000dC5EWQA0",
-      "filter_label": "Outdoor Light Type",
-      "logic": "Fixture type",
-      "types": [
-        {
-          "type_name": "Wall Lantern",
-          "type_id": "a1jaZ000001lFCvQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Post Light",
-          "type_id": "a1jaZ000001lF9TQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Path Light",
-          "type_id": "a1jaZ000001lF97QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Flood Light",
-          "type_id": "a1jaZ000001lF6QQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Security",
-          "type_id": "a1jaZ000001lFAPQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Landscape",
-          "type_id": "a1jaZ000001lF82QAE",
           "status": "existing",
           "primary_filter": true
         }
@@ -3706,46 +3612,6 @@
     },
     {
       "department_name": "Plumbing & Bath",
-      "family_name": "Bathtubs",
-      "category_name": "Bathtub Waste & Overflow",
-      "category_id": "a01aZ00000dC5DkQAK",
-      "filter_label": "Drain Type",
-      "logic": "Drain operation method",
-      "types": [
-        {
-          "type_name": "Lift & Turn",
-          "type_id": "a1jaZ000001lF8BQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Push-Pull",
-          "type_id": "a1jaZ000001lF9oQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Toe-Touch",
-          "type_id": "a1jaZ000001lFC0QAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Cable Operated",
-          "type_id": "a1jaZ000001lF47QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Trip Lever",
-          "type_id": "a1jaZ000001lFCKQA2",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Plumbing & Bath",
       "family_name": "Showers",
       "category_name": "Shower",
       "category_id": "a01aZ00000dC5DuQAK",
@@ -3821,86 +3687,6 @@
         {
           "type_name": "Steam Head",
           "type_id": "a1jaZ000001lFBQQA2",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Plumbing & Bath",
-      "family_name": "Showers",
-      "category_name": "Shower Accessory",
-      "category_id": "a01aZ00000dC5DsQAK",
-      "filter_label": "Shower Accessory Type",
-      "logic": "Product function",
-      "types": [
-        {
-          "type_name": "Showerhead",
-          "type_id": "a1jaZ000001lFAeQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Handheld",
-          "type_id": "a1jaZ000001lF73QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Body Spray",
-          "type_id": "a1jaZ000001lF3sQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Shower Door",
-          "type_id": "a1jaZ000001lFAZQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Shower Panel",
-          "type_id": "a1jaZ000001lFAbQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Rain Head",
-          "type_id": "a1jaZ000001lF9uQAE",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Plumbing & Bath",
-      "family_name": "Showers",
-      "category_name": "Tub and Shower Accessory",
-      "category_id": "a01aZ00000dDnKlQAK",
-      "filter_label": "Tub/Shower Accessory Type",
-      "logic": "Product function",
-      "types": [
-        {
-          "type_name": "Grab Bar",
-          "type_id": "a1jaZ000001lF6sQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Shower Rod",
-          "type_id": "a1jaZ000001lFAcQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Shower Door",
-          "type_id": "a1jaZ000001lFAZQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Drain Cover",
-          "type_id": "a1jaZ000001lF5gQAE",
           "status": "existing",
           "primary_filter": true
         }
@@ -4047,12 +3833,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "ADA Compliant",
-          "type_id": "a1jaZ000001lF34QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Wall-Hung",
           "type_id": "",
           "type_group": "Configuration",
@@ -4063,20 +3843,6 @@
           "type_name": "Smart/Electronic",
           "type_id": "",
           "type_group": "Configuration",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Comfort Height",
-          "type_id": "",
-          "type_group": "Height",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Standard Height",
-          "type_id": "",
-          "type_group": "Height",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
@@ -4436,66 +4202,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "2-Light",
-          "type_id": "a1jaZ000001lF34QAE",
-          "type_group": "Light Count",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "3-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "4-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        }
-      ],
-      "styles_apply": true
-    },
-    {
-      "department_name": "Lighting & Electrical",
-      "family_name": "Indoor Lighting",
-      "category_name": "Vanity Light",
-      "category_id": "a01aZ00000dC5EeQAK",
-      "filter_label": "Vanity Light Type",
-      "logic": "Light count and style",
-      "types": [
-        {
-          "type_name": "Bath Bar",
-          "type_id": "a1jaZ000001lF3aQAE",
-          "type_group": "Type",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
-          "type_group": "Type",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "1-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "2-Light",
-          "type_id": "a1jaZ000001lF34QAE",
-          "type_group": "Light Count",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "3-Light",
           "type_id": "",
           "type_group": "Light Count",
@@ -4723,46 +4429,6 @@
         {
           "type_name": "Remote",
           "type_id": "a1jaZ000001lFA2QAM",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Lighting & Electrical",
-      "family_name": "Ceiling Fans",
-      "category_name": "Ceiling Fan Accessory",
-      "category_id": "a01aZ00000dC5EiQAK",
-      "filter_label": "Ceiling Fan Accessory Type",
-      "logic": "Product function",
-      "types": [
-        {
-          "type_name": "Light Kit",
-          "type_id": "a1jaZ000001lF8DQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Blade",
-          "type_id": "a1jaZ000001lF3qQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Downrod",
-          "type_id": "a1jaZ000001lF5eQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Remote",
-          "type_id": "a1jaZ000001lFA2QAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Wall Control",
-          "type_id": "a1jaZ000001lFCsQAM",
           "status": "existing",
           "primary_filter": true
         }
@@ -5011,40 +4677,6 @@
     {
       "department_name": "Hardware",
       "family_name": "Cabinet Hardware",
-      "category_name": "Cabinet Hardware",
-      "category_id": "a01aZ00000dC5F2QAK",
-      "filter_label": "Cabinet Hardware Type",
-      "logic": "Hardware function",
-      "types": [
-        {
-          "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7qQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Backplate",
-          "type_id": "a1jaZ000001lF3LQAU",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Hardware",
-      "family_name": "Cabinet Hardware",
       "category_name": "Cabinet Hardware Bulk Pack",
       "category_id": "a01aZ00000dCejWQAS",
       "filter_label": "Bulk Pack Type",
@@ -5137,12 +4769,6 @@
         {
           "type_name": "Decorative",
           "type_id": "a1jaZ000001lF5KQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Backplate",
-          "type_id": "a1jaZ000001lF3LQAU",
           "status": "existing",
           "primary_filter": true
         }
@@ -5581,12 +5207,6 @@
           "type_id": "a1jaZ000001lF9OQAU",
           "status": "existing",
           "primary_filter": true
-        },
-        {
-          "type_name": "Sliding",
-          "type_id": "a1jaZ000001lFArQAM",
-          "status": "existing",
-          "primary_filter": true
         }
       ]
     },
@@ -5607,12 +5227,6 @@
         {
           "type_name": "French",
           "type_id": "a1jaZ000001lF6gQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Sliding",
-          "type_id": "a1jaZ000001lFArQAM",
           "status": "existing",
           "primary_filter": true
         },
@@ -5832,13 +5446,6 @@
           "type_group": "Light Count",
           "status": "pending_salesforce_id",
           "primary_filter": true
-        },
-        {
-          "type_name": "2-Light",
-          "type_id": "a1jaZ000001lF34QAE",
-          "type_group": "Light Count",
-          "status": "existing",
-          "primary_filter": true
         }
       ],
       "styles_apply": true
@@ -6025,56 +5632,6 @@
     },
     {
       "department_name": "Heating & Cooling",
-      "family_name": "Ventilation",
-      "category_name": "Utility Fan",
-      "category_id": "a01aZ00000dC5EzQAK",
-      "filter_label": "Utility Fan Type",
-      "logic": "Application style",
-      "types": [
-        {
-          "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Commercial",
-          "type_id": "a1jaZ000001lF4lQAE",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Heating & Cooling",
-      "family_name": "Ventilation",
-      "category_name": "Wall Mounted Fan",
-      "category_id": "a01aZ00000dC5F0QAK",
-      "filter_label": "Wall Fan Type",
-      "logic": "Features",
-      "types": [
-        {
-          "type_name": "Wall Mounted",
-          "type_id": "a1jaZ000001lFCyQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Oscillating",
-          "type_id": "a1jaZ000001lF8pQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Remote",
-          "type_id": "a1jaZ000001lFA2QAM",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "Heating & Cooling",
       "family_name": "HVAC",
       "category_name": "HVAC Accessory",
       "category_id": "a01aZ00000fKN2RQAW",
@@ -6172,12 +5729,6 @@
           "type_id": "a1jaZ000001lFDSQA2",
           "status": "existing",
           "primary_filter": true
-        },
-        {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
         }
       ]
     },
@@ -6189,12 +5740,6 @@
       "filter_label": "Outdoor Kitchen Type",
       "logic": "Configuration style",
       "types": [
-        {
-          "type_name": "Built-In",
-          "type_id": "a1jaZ000001lF42QAE",
-          "status": "existing",
-          "primary_filter": true
-        },
         {
           "type_name": "Island",
           "type_id": "a1jaZ000001lF7bQAE",
@@ -6223,12 +5768,6 @@
       "filter_label": "Fire Pit Type",
       "logic": "Design and fuel source",
       "types": [
-        {
-          "type_name": "Fire Pit",
-          "type_id": "a1jaZ000001lF6HQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
         {
           "type_name": "Fire Table",
           "type_id": "a1jaZ000001lF6IQAU",
@@ -6892,307 +6431,170 @@
       ]
     },
     {
-      "department_name": "",
-      "family_name": "",
-      "category_name": "Chandelier",
-      "category_id": "a01aZ00000dC5EIQA0",
-      "styles_apply": true,
-      "filter_label": "Chandelier Type",
-      "logic": "Functional classification",
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Beverage Center",
+      "category_id": "NEEDS_NEW_ID",
+      "filter_label": "Beverage Center Type",
+      "logic": "Installation and configuration",
       "types": [
         {
-          "type_name": "Chandelier",
-          "type_id": "a1jaZ000001lF4SQAU",
-          "type_group": "Type",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Linear",
-          "type_id": "a1jaZ000001lF7FQAU",
-          "type_group": "Shape",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Drum",
-          "type_id": "a1jaZ000001lF5mQAE",
-          "type_group": "Shape",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Candelabra",
-          "type_id": "",
-          "type_group": "Shape",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Globe",
-          "type_id": "",
-          "type_group": "Shape",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "1-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "3-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "5-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "6-Light",
-          "type_id": "",
-          "type_group": "Light Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "",
-      "family_name": "",
-      "category_name": "Ceiling Fan",
-      "category_id": "a01aZ00000dC5EGQA0",
-      "styles_apply": true,
-      "filter_label": "Ceiling Fan Type",
-      "logic": "Functional classification",
-      "types": [
-        {
-          "type_name": "With Light",
-          "type_id": "a1jaZ000001lFDNQA2",
-          "type_group": "Features",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Without Light",
-          "type_id": "a1jaZ000001lFDPQA2",
-          "type_group": "Features",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Smart",
-          "type_id": "a1jaZ000001lF9KQAU",
-          "type_group": "Control",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Remote",
-          "type_id": "",
-          "type_group": "Control",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "3-Blade",
-          "type_id": "",
-          "type_group": "Blade Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "4-Blade",
-          "type_id": "",
-          "type_group": "Blade Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "5-Blade",
-          "type_id": "",
-          "type_group": "Blade Count",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "",
-      "family_name": "",
-      "category_name": "Cabinet Hardware",
-      "category_id": "a01aZ00000dC5E4QAK",
-      "styles_apply": true,
-      "filter_label": "Cabinet Hardware Type",
-      "logic": "Functional classification",
-      "types": [
-        {
-          "type_name": "Knob",
+          "type_name": "French Door",
           "type_id": "a1jaZ000001lF6hQAE",
-          "type_group": "Type",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Bar Pull",
-          "type_id": "a1jaZ000001lF3PQAU",
-          "type_group": "Type",
+          "type_name": "Side-by-Side",
+          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Cup Pull",
-          "type_id": "a1jaZ000001lF4vQAE",
-          "type_group": "Type",
+          "type_name": "Top-Freezer",
+          "type_id": "a1jaZ000001lFC6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Bin Pull",
-          "type_id": "a1jaZ000001lF3mQAE",
-          "type_group": "Type",
+          "type_name": "Bottom-Freezer",
+          "type_id": "a1jaZ000001lF3wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Appliance Pull",
-          "type_id": "a1jaZ000001lF3FQAU",
-          "type_group": "Type",
+          "type_name": "Counter Depth",
+          "type_id": "a1jaZ000001lF51QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Edge Pull",
+          "type_name": "Column",
+          "type_id": "a1jaZ000001lF4iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Undercounter",
+          "type_id": "a1jaZ000001lFCWQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "4-Door Flex",
+          "type_id": "a1jaZ000001lF33QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Single Door",
           "type_id": "",
-          "type_group": "Type",
+          "type_group": "Door Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
-          "type_name": "Wire Pull",
-          "type_id": "a1jaZ000001lFDLQA2",
-          "type_group": "Type",
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF60QAE",
+          "type_group": "Installation",
           "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Panel-Ready",
+          "type_id": "",
+          "type_group": "Installation",
+          "status": "pending_salesforce_id",
           "primary_filter": true
         }
       ]
     },
     {
-      "department_name": "",
-      "family_name": "",
-      "category_name": "Furniture",
-      "category_id": "a01aZ00000dCekIQAS",
-      "styles_apply": true,
-      "filter_label": "Furniture Type",
-      "logic": "Functional classification",
+      "department_name": "Appliances",
+      "family_name": "Kitchen",
+      "category_name": "Wine Cooler",
+      "category_id": "NEEDS_NEW_ID",
+      "filter_label": "Wine Cooler Type",
+      "logic": "Installation and configuration",
       "types": [
         {
-          "type_name": "Sofa",
-          "type_id": "",
-          "type_group": "Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Chair",
-          "type_id": "a1jaZ000001lF4RQAU",
-          "type_group": "Type",
+          "type_name": "French Door",
+          "type_id": "a1jaZ000001lF6hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Dining Chair",
-          "type_id": "",
-          "type_group": "Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Lounge Chair",
-          "type_id": "",
-          "type_group": "Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Bar Stool",
-          "type_id": "a1jaZ000001lF3RQAU",
-          "type_group": "Type",
+          "type_name": "Side-by-Side",
+          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Bench",
-          "type_id": "a1jaZ000001lF3fQAE",
-          "type_group": "Type",
+          "type_name": "Top-Freezer",
+          "type_id": "a1jaZ000001lFC6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Table",
+          "type_name": "Bottom-Freezer",
+          "type_id": "a1jaZ000001lF3wQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Counter Depth",
+          "type_id": "a1jaZ000001lF51QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Column",
+          "type_id": "a1jaZ000001lF4iQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Undercounter",
+          "type_id": "a1jaZ000001lFCWQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "4-Door Flex",
+          "type_id": "a1jaZ000001lF33QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Compact",
+          "type_id": "a1jaZ000001lF4oQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Single Door",
           "type_id": "",
-          "type_group": "Type",
+          "type_group": "Door Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
-          "type_name": "Desk",
-          "type_id": "a1jaZ000001lF5YQAU",
-          "type_group": "Type",
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF60QAE",
+          "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Cabinet",
-          "type_id": "a1jaZ000001lF46QAE",
-          "type_group": "Type",
-          "status": "existing",
-          "primary_filter": true
-        }
-      ]
-    },
-    {
-      "department_name": "",
-      "family_name": "",
-      "category_name": "Rug",
-      "category_id": "a01aZ00000dCekNQAS",
-      "styles_apply": true,
-      "filter_label": "Rug Type",
-      "logic": "Functional classification",
-      "types": [
-        {
-          "type_name": "Area Rug",
+          "type_name": "Panel-Ready",
           "type_id": "",
-          "type_group": "Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Runner",
-          "type_id": "",
-          "type_group": "Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Bath Mat",
-          "type_id": "a1jaZ000001lF3bQAE",
-          "type_group": "Type",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Outdoor Rug",
-          "type_id": "",
-          "type_group": "Type",
+          "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         }
