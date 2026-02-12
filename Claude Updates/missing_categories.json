@@ -1,0 +1,994 @@
+[
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Door",
+    "category_id": "a01aZ00000dCejDQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Heating & Cooling",
+    "category_name": "Tankless Water Heater",
+    "category_id": "a01aZ00000dC5DwQAK",
+    "subcategory": "Water Heaters",
+    "styles_apply": false
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Stove and Chimney Pipe",
+    "category_id": "a01aZ00000dCekEQAS",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Keyless Entry",
+    "category_id": "a01aZ00000dCejHQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Door Knob",
+    "category_id": "a01aZ00000dCejBQAS",
+    "subcategory": "Door Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Hardscaping",
+    "category_id": "a01aZ00000dCejpQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Designer Ceiling Fan",
+    "category_id": "a01aZ00000dC5EoQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Lighted Ceiling Fan",
+    "category_id": "a01aZ00000dC5EUQA0",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Laundry",
+    "department": "Appliances",
+    "category_name": "All in One Washer / Dryer",
+    "category_id": "a01Hu000010Q5EqIAK",
+    "subcategory": "Laundry",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Medicine Cabinet",
+    "category_id": "a01aZ00000dC5DqQAK",
+    "subcategory": "Vanities & Mirrors",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Outdoor Shower Faucet",
+    "category_id": "a01aZ00000dCejwQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Heating & Cooling",
+    "category_name": "Patio Heater",
+    "category_id": "a01aZ00000dCejxQAC",
+    "subcategory": "Outdoor Heating",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Utility Fan",
+    "category_id": "a01aZ00000dC5EzQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Stove and Fireplace",
+    "category_id": "a01aZ00000dCekFQAS",
+    "subcategory": "Heating Systems",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Plumbing & Bath",
+    "category_name": "Food Service Faucet",
+    "category_id": "a01aZ00000dC5E5QAK",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Hardware",
+    "category_name": "Light Switches & Dimmers",
+    "category_id": "a01aZ00000dC5ETQA0",
+    "subcategory": "Cabinet Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Mortise Lock",
+    "category_id": "a01aZ00000dCejJQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Plumbing & Bath",
+    "category_name": "Hot & Cold Water Dispenser",
+    "category_id": "a01aZ00000dC5E7QAK",
+    "subcategory": "Kitchen Faucets",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Bathroom Lighting (Bathroom)",
+    "category_id": "a01aZ00000hFKH6QAO",
+    "subcategory": "Bath",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Wall Mounted Fan",
+    "category_id": "a01aZ00000dC5F0QAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Lock",
+    "category_id": "a01aZ00000dCejaQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Small Ceiling Fan",
+    "category_id": "a01aZ00000dC5EwQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Multi Point Door Hardware",
+    "category_id": "a01aZ00000dCejKQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Hardware Bulk Pack",
+    "category_id": "a01aZ00000dCejWQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Waterproof Flooring",
+    "category_id": "a01aZ00000dCekWQAS",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Sliding Door Hardware",
+    "category_id": "a01aZ00000dCejOQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Screen and Storm Door Hardware",
+    "category_id": "a01aZ00000dCejNQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Attic Fan",
+    "category_id": "a01aZ00000dC5EgQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Door Hinge",
+    "category_id": "a01aZ00000dC5FAQA0",
+    "subcategory": "Door Hardware",
+    "styles_apply": false
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Mini Split Air Conditioner",
+    "category_id": "a01aZ00000dCekBQAS",
+    "subcategory": "Air Conditioning",
+    "styles_apply": false
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Lamp",
+    "category_id": "a01aZ00000dC5EPQA0",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Tile",
+    "category_id": "a01aZ00000dCekQQAS",
+    "subcategory": "Hard Surface Flooring",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Hardwood Flooring",
+    "category_id": "a01aZ00000dCekSQAS",
+    "subcategory": "Hard Surface Flooring",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Dehumidifier",
+    "category_id": "a01aZ00000dCek3QAC",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Generator",
+    "category_id": "a01aZ00000dCejoQAC",
+    "subcategory": "Outdoor Infrastructure",
+    "styles_apply": false
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Garden Decor",
+    "category_id": "a01aZ00000dCejnQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Commercial Door Hardware",
+    "category_id": "a01aZ00000dC5F4QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Carpet Tile",
+    "category_id": "a01aZ00000dCekVQAS",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Industrial & Commercial",
+    "category_name": "Industrial Strainer",
+    "category_id": "a01aZ00000dDRGuQAO",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Home Hardware",
+    "category_id": "a01aZ00000dCejFQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Safe, Lock and Lock Box",
+    "category_id": "a01aZ00000dCejLQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Large Ceiling Fan",
+    "category_id": "a01aZ00000dC5EtQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Backplate",
+    "category_id": "a01aZ00000dCejTQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Generator",
+    "category_id": "a01aZ00000dCek8QAC",
+    "subcategory": "Outdoor Infrastructure",
+    "styles_apply": false
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Designer Cabinet Hardware",
+    "category_id": "a01aZ00000dCejdQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Knob",
+    "category_id": "a01aZ00000dCejZQAS",
+    "subcategory": "Cabinet Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan with Light",
+    "category_id": "a01aZ00000dC5EkQAK",
+    "subcategory": "Fans",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Exterior Door",
+    "category_id": "a01aZ00000dCejkQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Fire Pit Accessory",
+    "category_id": "a01aZ00000dCejlQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Home Organization",
+    "category_id": "a01aZ00000dCekLQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Lighting & Electrical",
+    "category_name": "Landscape Lighting",
+    "category_id": "a01aZ00000dC5EQQA0",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Door Hardware Part",
+    "category_id": "a01aZ00000dC5F8QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Lighting & Electrical",
+    "category_name": "Kitchen Lighting",
+    "category_id": "a01aZ00000dC5EBQA0",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Air Filter",
+    "category_id": "a01aZ00000dCek1QAC",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Trending Ceiling Fan",
+    "category_id": "a01aZ00000dC5EyQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Closet and Pocket Door Hardware",
+    "category_id": "a01aZ00000dC5F3QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Dual Ceiling Fan",
+    "category_id": "a01aZ00000dC5EpQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Post Light",
+    "category_id": "a01aZ00000dC5EYQA0",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Outdoor Fireplace",
+    "category_id": "a01aZ00000dCejsQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "LED Lighting",
+    "category_id": "a01aZ00000dC5ERQA0",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Air Circulator",
+    "category_id": "a01aZ00000dC5EfQAK",
+    "subcategory": "Wall Lighting",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Luxury Cabinet Knob",
+    "category_id": "a01aZ00000dCejfQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Step Lighting",
+    "category_id": "a01aZ00000dC5EaQAK",
+    "subcategory": "Specialty Lighting",
+    "styles_apply": false
+  },
+  {
+    "family": "Kitchen",
+    "department": "Plumbing & Bath",
+    "category_name": "Kitchen Furniture and Decor",
+    "category_id": "a01aZ00000dC5EAQA0",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Bidet Faucet",
+    "category_id": "a01aZ00000dC5DmQAK",
+    "subcategory": "Bathroom Faucets",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Lighting & Electrical",
+    "category_name": "Tankless Water Heater",
+    "category_id": "a01aZ00000dC5EIQA0",
+    "subcategory": "Water Heaters",
+    "styles_apply": false
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Finishing",
+    "category_id": "a01aZ00000dCejVQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Hardware",
+    "category_name": "Island Lighting",
+    "category_id": "a01aZ00000dC5EOQA0",
+    "subcategory": "Drawer & Cabinet Parts",
+    "styles_apply": false
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Drawer Slide and Accessory",
+    "category_id": "a01aZ00000dCejeQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Plumbing & Bath",
+    "category_name": "Kitchen Sink Combo",
+    "category_id": "a01aZ00000dC5ECQA0",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan with Remote",
+    "category_id": "a01aZ00000dC5ElQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Evaporative Cooler",
+    "category_id": "a01aZ00000dCek5QAC",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Fandelier Ceiling Fan",
+    "category_id": "a01aZ00000dC5EqQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "LED Ceiling Fan",
+    "category_id": "a01aZ00000dC5EuQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Affordable Cabinet Knob",
+    "category_id": "a01aZ00000dCejQQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Furniture",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Chair",
+    "category_id": "a01aZ00000XYWwyQAH",
+    "subcategory": "Furniture",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Commercial HVAC",
+    "category_id": "a01aZ00000dCek2QAC",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Lighting & Electrical",
+    "category_name": "Luxury Kitchen",
+    "category_id": "a01aZ00000dC5EGQA0",
+    "subcategory": "Fans",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Rug",
+    "category_id": "a01aZ00000dCekNQAS",
+    "subcategory": "Textiles & Accents",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Outdoor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EvQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Hardscaping",
+    "category_id": "a01aZ00000dCekUQAS",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Rug",
+    "category_id": "a01aZ00000dCejyQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Lighting & Electrical",
+    "category_name": "Outdoor Ceiling Fan",
+    "category_id": "a01aZ00000dCejrQAC",
+    "subcategory": "Fans",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Urinal",
+    "category_id": "a01aZ00000dC5E0QAK",
+    "subcategory": "Toilets & Bidets",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Vanity Cabinet Hardware",
+    "category_id": "a01aZ00000dCejhQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Plumbing & Bath",
+    "category_name": "Backsplash Kitchen Tile",
+    "category_id": "a01aZ00000dC5E1QAK",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Home Accents",
+    "category_id": "a01aZ00000dCekMQAS",
+    "subcategory": "Textiles & Accents",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Laminate Flooring",
+    "category_id": "a01aZ00000dCekTQAS",
+    "subcategory": "Hard Surface Flooring",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Hinge",
+    "category_id": "a01aZ00000dCejYQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Bidet Seat",
+    "category_id": "a01aZ00000dC5DnQAK",
+    "subcategory": "Toilets & Bidets",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Wall Decor",
+    "category_id": "a01aZ00000dCekKQAS",
+    "subcategory": "Mirrors & Wall D\u00e9cor",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Tub and Shower Accessory",
+    "category_id": "a01aZ00000dDnKlQAK",
+    "subcategory": "Bathroom Accessories",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Lighting & Electrical",
+    "category_name": "Kitchen Tile",
+    "category_id": "a01aZ00000dC5EFQA0",
+    "subcategory": "Fans",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Indoor Heating",
+    "category_id": "a01aZ00000dCekAQAS",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Hardware",
+    "category_name": "Water Filtration",
+    "category_id": "a01aZ00000dC5EJQA0",
+    "subcategory": "Door Hardware",
+    "styles_apply": false
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Fire Pit",
+    "category_id": "a01aZ00000dCejmQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "DC Motor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EnQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Designer Hardware",
+    "category_id": "a01aZ00000dC5F6QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Catch and Latch",
+    "category_id": "a01aZ00000dCejUQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Smart Home Fan",
+    "category_id": "a01aZ00000dC5ExQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Door Entry Set",
+    "category_id": "a01aZ00000dC5F7QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Hardware Mounting Template",
+    "category_id": "a01aZ00000dCejXQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Thermostat",
+    "category_id": "a01aZ00000dCekGQAS",
+    "subcategory": "HVAC Components",
+    "styles_apply": false
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Ceiling Fan without Light",
+    "category_id": "a01aZ00000dC5EmQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Entry Set",
+    "category_id": "a01aZ00000dCejjQAC",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Skylight",
+    "category_id": "a01aZ00000dCekDQAS",
+    "subcategory": "HVAC",
+    "styles_apply": true
+  },
+  {
+    "family": "HVAC",
+    "department": "Heating & Cooling",
+    "category_name": "Patio Heater",
+    "category_id": "a01aZ00000dCekCQAS",
+    "subcategory": "Outdoor Heating",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Hardware",
+    "category_name": "Bathroom Cabinet Hardware",
+    "category_id": "a01aZ00000dC5DdQAK",
+    "subcategory": "Cabinet Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Affordable Cabinet Pull",
+    "category_id": "a01aZ00000dCejRQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Heating & Cooling",
+    "category_name": "Water Heater",
+    "category_id": "a01aZ00000bI2srQAC",
+    "subcategory": "Water Heaters",
+    "styles_apply": false
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Indoor Ceiling Fan",
+    "category_id": "a01aZ00000dC5EsQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Lock Combo Pack",
+    "category_id": "a01aZ00000dCejIQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Pull",
+    "category_id": "a01aZ00000dCejcQAC",
+    "subcategory": "Cabinet Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Safety & Security",
+    "category_id": "a01aZ00000dCejMQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Appliance Pull",
+    "category_id": "a01aZ00000dCejSQAS",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
+    "category_name": "Hugger Fan",
+    "category_id": "a01aZ00000dC5ErQAK",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Barn Door Hardware",
+    "category_id": "a01aZ00000dC5F1QAK",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Mail Box",
+    "category_id": "a01aZ00000dCejqQAC",
+    "subcategory": "Outdoor Infrastructure",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Luxury Vinyl Flooring",
+    "category_id": "a01aZ00000dCekRQAS",
+    "subcategory": "Hard Surface Flooring",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Deadbolt",
+    "category_id": "a01aZ00000dC5F5QAK",
+    "subcategory": "Door Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Luxury Cabinet Pull",
+    "category_id": "a01aZ00000dCejgQAC",
+    "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Furniture",
+    "department": "Home D\u00e9cor & Furniture",
+    "category_name": "Outdoor and Patio Furniture",
+    "category_id": "a01aZ00000dCekPQAS",
+    "subcategory": "Furniture",
+    "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Shower Faucet",
+    "category_id": "a01aZ00000dC5DtQAK",
+    "subcategory": "Tub & Shower Faucets",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
+    "category_name": "Cooking",
+    "category_id": "a01aZ00000Hm4voQAB",
+    "subcategory": "Kitchen",
+    "styles_apply": true
+  }
+]
