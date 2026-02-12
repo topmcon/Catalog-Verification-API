@@ -32,7 +32,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // OVEN ALIASES
   // ============================================
-  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Built-In', 'Dishwasher': 'Built-In', 'Microwave': 'Built-In', 'Icemaker': 'Built-In', 'Barbeque': 'Built-In' },
+  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Over-the-Range', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
   'built-in oven': { 'Oven': 'Single' },
   'built in oven': { 'Oven': 'Single' },
   'wall oven': { 'Oven': 'Single' },
@@ -78,8 +78,8 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'bottom freezer refrigerator': { 'Refrigerator': 'Bottom-Freezer' },
   'bottom-freezer': { 'Refrigerator': 'Bottom-Freezer' },
   'bottom mount': { 'Refrigerator': 'Bottom-Freezer' },
-  'built-in refrigerator': { 'Refrigerator': 'Built-In' },
-  'built in': { 'Refrigerator': 'Built-In', 'Dishwasher': 'Built-In', 'Microwave': 'Built-In', 'Icemaker': 'Built-In', 'Barbeque': 'Built-In' },
+  'built-in refrigerator': { 'Refrigerator': 'Column' },
+  'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Over-the-Range', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
   'column': { 'Refrigerator': 'Column', 'Freezer': 'Column' },
   'column refrigerator': { 'Refrigerator': 'Column' },
   'undercounter': { 'Refrigerator': 'Undercounter' },
@@ -88,12 +88,12 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'compact': { 'Refrigerator': 'Compact' },
   'compact refrigerator': { 'Refrigerator': 'Compact' },
   'mini fridge': { 'Refrigerator': 'Compact' },
-  'wine': { 'Refrigerator': 'Wine' },
-  'wine cooler': { 'Refrigerator': 'Wine' },
-  'wine refrigerator': { 'Refrigerator': 'Wine' },
-  'beverage': { 'Refrigerator': 'Beverage' },
-  'beverage center': { 'Refrigerator': 'Beverage' },
-  'beverage cooler': { 'Refrigerator': 'Beverage' },
+  'wine': { 'Refrigerator': 'Wine Cooler' },
+  'wine cooler': { 'Refrigerator': 'Wine Cooler' },
+  'wine refrigerator': { 'Refrigerator': 'Wine Cooler' },
+  'beverage': { 'Refrigerator': 'Beverage Center' },
+  'beverage center': { 'Refrigerator': 'Beverage Center' },
+  'beverage cooler': { 'Refrigerator': 'Beverage Center' },
   
   // ============================================
   // RANGE ALIASES
@@ -126,8 +126,8 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // DISHWASHER ALIASES
   // ============================================
-  'built-in dishwasher': { 'Dishwasher': 'Built-In' },
-  'built in dishwasher': { 'Dishwasher': 'Built-In' },
+  'built-in dishwasher': { 'Dishwasher': 'Drawer' },
+  'built in dishwasher': { 'Dishwasher': 'Drawer' },
   'portable': { 'Dishwasher': 'Portable' },
   'portable dishwasher': { 'Dishwasher': 'Portable' },
   'drawer': { 'Dishwasher': 'Drawer', 'Microwave': 'Drawer' },
@@ -192,7 +192,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'incandescent': { 'Light Bulb': 'Incandescent' },
   'halogen': { 'Light Bulb': 'Halogen' },
   'mini pendant': { 'Pendant': 'Mini Pendant' },
-  'multi light': { 'Pendant': 'Multi Light' },
+  'multi light': { 'Pendant': 'Multi-Light' },
   'drum': { 'Pendant': 'Drum' },
   'linear': { 'Pendant': 'Linear', 'Chandelier': 'Linear' },
   
@@ -206,7 +206,8 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'pull out': { 'Kitchen Faucet': 'Pull-Out' },
   'pullout': { 'Kitchen Faucet': 'Pull-Out' },
   'single handle': { 'Kitchen Faucet': 'Single Handle', 'Bathroom Faucet': 'Single Handle' },
-  'double handle': { 'Kitchen Faucet': 'Double Handle', 'Bathroom Faucet': 'Widespread' },
+  'double handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
+  'two handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'widespread': { 'Bathroom Faucet': 'Widespread' },
   'centerset': { 'Bathroom Faucet': 'Centerset' },
   'vessel': { 'Bathroom Faucet': 'Vessel' },
@@ -216,8 +217,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'drop-in': { 'Bathtub': 'Drop-In', 'Kitchen Sink': 'Drop-In' },
   'drop in': { 'Bathtub': 'Drop-In', 'Kitchen Sink': 'Drop-In' },
   'undermount': { 'Kitchen Sink': 'Undermount', 'Bathroom Sink': 'Undermount' },
-  'farmhouse': { 'Kitchen Sink': 'Farmhouse' },
-  'apron': { 'Kitchen Sink': 'Farmhouse' },
+  'farmhouse': { 'Kitchen Sink': 'Apron Front' },
+  'apron': { 'Kitchen Sink': 'Apron Front' },
+  'apron front': { 'Kitchen Sink': 'Apron Front' },
   'pedestal': { 'Bathroom Sink': 'Pedestal' },
   
   // ============================================
@@ -236,7 +238,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // OUTDOOR/BBQ ALIASES
   // ============================================
-  'built-in grill': { 'Barbeque': 'Built-In' },
+  'built-in grill': { 'Barbeque': 'Built-In Access Doors' },
   'freestanding grill': { 'Barbeque': 'Freestanding' },
   'portable grill': { 'Barbeque': 'Portable' },
   

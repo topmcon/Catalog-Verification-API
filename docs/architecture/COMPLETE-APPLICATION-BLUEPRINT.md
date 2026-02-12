@@ -1,6 +1,6 @@
 # UNIVERSAL VERIFICATION ENGINE - COMPLETE APPLICATION BLUEPRINT
-**Version**: 1.0  
-**Generated**: February 12, 2026  
+**Version**: 1.1  
+**Last Updated**: February 12, 2026 (Post-Consolidation)  
 **Purpose**: Complete map of every file, every data flow, and every dependency in the verification system
 
 ---
@@ -27,20 +27,20 @@
 | Metric | Value | Assessment |
 |--------|-------|------------|
 | **Total Source Files** | 159 | HIGH - can be reduced |
-| **Total Lines of Code** | ~50,000+ | HIGH - bloated |
-| **Largest Service File** | 7,463 lines (dual-ai-verification) | 🔴 CRITICAL - needs split |
+| **Total Lines of Code** | ~45,000+ | HIGH - reduced from consolidation |
+| **Largest Service File** | 7,208 lines (dual-ai-verification) | 🔴 CRITICAL - needs split |
 | **Services Count** | 36 | HIGH - many could merge |
 | **Models Count** | 18 | MODERATE |
 | **Routes Count** | 15 | MODERATE |
-| **Config Files** | 24+ | HIGH - consolidation needed |
-| **Duplicate Folders** | picklist-master/ copies services | 🔴 DELETE |
+| **Config Files** | 24+ | ✅ Picklists consolidated |
+| **Duplicate Folders** | picklist-master/ mostly cleaned | ✅ 08-multiple-picklist-files DELETED |
 
 ### Key Findings
 
-1. **7,463-line monster file** - `dual-ai-verification.service.ts` does too much
-2. **Duplicate code** - `src/picklist-master/08-multiple-picklist-files/` contains copies of services
-3. **Config sprawl** - Same data exists in multiple places (TypeScript + JSON)
-4. **Hardcoded values** - Many lists embedded in code instead of loaded from config
+1. **7,208-line monster file** - `dual-ai-verification.service.ts` does too much
+2. ✅ **Duplicate code DELETED** - `src/picklist-master/08-multiple-picklist-files/` removed
+3. ✅ **Picklists consolidated** - Master JSON files cleaned (178 categories, 685 types, 30 styles, 390 brands)
+4. ✅ **Hardcoded lists synced** - DEPARTMENT_CATEGORIES regenerated from master picklists
 5. **Unused features** - Several services appear to be legacy/unused
 
 ---
@@ -139,17 +139,17 @@
     │   ├── title-schema-by-category.ts   🔌 PLUGGABLE (6,791 lines!)
     │   ├── type-prompts.ts               🔌 PLUGGABLE
     │   │
-    │   ├── salesforce-picklists/         🔌 💎 PLUGGABLE CORE
-    │   │   ├── attributes.json           🔌 PLUGGABLE (3,781 lines)
-    │   │   ├── brands.json               🔌 PLUGGABLE (1,609 lines)
-    │   │   ├── categories.json           🔌 PLUGGABLE (1,562 lines)
-    │   │   ├── category-filter-attributes.json  🔌 PLUGGABLE (18,794 lines!)
-    │   │   ├── category-style-mapping.json      🔌 PLUGGABLE
-    │   │   ├── category-type-mapping.json       🔌 PLUGGABLE (7,148 lines)
-    │   │   ├── departments.json          🔌 PLUGGABLE
-    │   │   ├── families.json             🔌 PLUGGABLE
-    │   │   ├── styles.json               🔌 PLUGGABLE
-    │   │   └── types.json                🔌 PLUGGABLE (2,833 lines)
+    │   ├── salesforce-picklists/         🔌 💎 PLUGGABLE CORE (CONSOLIDATED)
+    │   │   ├── attributes.json           🔌 PLUGGABLE (3,781 lines, 945 entries)
+    │   │   ├── brands.json               🔌 PLUGGABLE (1,561 lines, 390 entries)
+    │   │   ├── categories.json           🔌 PLUGGABLE (1,425 lines, 178 entries)
+    │   │   ├── category-filter-attributes.json  🔌 PLUGGABLE (14,260 lines, 2,037 entries)
+    │   │   ├── category-style-mapping.json      🔌 PLUGGABLE (1,912 lines, 59 mappings v3.0)
+    │   │   ├── category-type-mapping.json       🔌 PLUGGABLE (6,603 lines, 164 mappings v2.0)
+    │   │   ├── departments.json          🔌 PLUGGABLE (26 lines)
+    │   │   ├── families.json             🔌 PLUGGABLE (33 lines)
+    │   │   ├── styles.json               🔌 PLUGGABLE (152 lines, 30 entries)
+    │   │   └── types.json                🔌 PLUGGABLE (2,821 lines, 685 entries)
     │   │
     │   └── schemas/                      🔌 PLUGGABLE - per-category schemas
     │       ├── index.ts
@@ -222,7 +222,7 @@
     │   │
     │   │── # CORE VERIFICATION PIPELINE
     │   ├── async-verification-processor.service.ts  ✅ 💎 STATIC CORE (281 lines)
-    │   ├── dual-ai-verification.service.ts      ✅ 💎 STATIC CORE (7,463 lines) 🔴 NEEDS SPLIT
+    │   ├── dual-ai-verification.service.ts      ✅ 💎 STATIC CORE (7,208 lines) 🔴 NEEDS SPLIT
     │   ├── consensus.service.ts                 ✅ 💎 STATIC CORE (327 lines)
     │   ├── response-builder.service.ts          ⚠️ MIXED (1,379 lines) - has hardcoded aliases
     │   │
@@ -232,7 +232,7 @@
     │   │
     │   │── # PICKLIST MATCHING
     │   ├── picklist-matcher.service.ts          ✅ 💎 STATIC CORE (1,956 lines)
-    │   ├── category-matcher.service.ts          ⚠️ MIXED (242 lines) - has hardcoded lists
+    │   ├── category-matcher.service.ts          ✅ SYNCED (245 lines) - DEPARTMENT_CATEGORIES auto-regenerated
     │   ├── type-matcher.service.ts              ✅ STATIC (637 lines)
     │   │
     │   │── # SALESFORCE INTEGRATION
@@ -304,19 +304,18 @@
     │   ├── test-failed-match-logger.ts       ✅ STATIC
     │   └── test-verification-with-logging.ts ✅ STATIC
     │
-    └── picklist-master/          🔴 DELETE ENTIRE FOLDER
-        │                         This is a DUPLICATE reference folder
-        │                         containing copies of services and configs
-        │                         that are not actually used (except type-config.ts)
+    └── picklist-master/          ⚠️ PARTIALLY CLEANED
+        │                         Some duplicate folders deleted, some remain
+        │                         Only type-config.ts is actively used
         │
-        ├── 01-brands/            🔴 DELETE - unused
-        ├── 02-categories/        ⚠️ PARTIAL USE - only category-config.ts imports
-        ├── 03-types/             ⚠️ USED - type-config.ts is imported
-        ├── 04-departments-families/  🔴 DELETE - unused
-        ├── 05-styles/            🔴 DELETE - unused
-        ├── 06-attributes/        🔴 DELETE - unused
-        ├── 07-category-filter-attributes/  🔴 DELETE - unused
-        └── 08-multiple-picklist-files/     🔴 DELETE - 281KB of duplicate services!
+        ├── 01-brands/            ⚠️ REVIEW - still exists
+        ├── 03-types/             ✅ USED - type-config.ts is imported
+        ├── 04-departments-families/  ⚠️ REVIEW - still exists
+        ├── 06-attributes/        ⚠️ REVIEW - still exists
+        ├── 07-category-filter-attributes/  ⚠️ REVIEW - still exists
+        ├── 02-categories/        ✅ DELETED
+        ├── 05-styles/            ✅ DELETED
+        └── 08-multiple-picklist-files/     ✅ DELETED (was 281KB duplicate)
 ```
 
 ---
@@ -628,29 +627,29 @@ self-healing/orchestrator.service.ts
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `salesforce-picklists/*.json` | ~36,000 | Picklist data |
+| `salesforce-picklists/*.json` | ~32,500 | Picklist data (consolidated) |
 | `category-config.ts` | 511 | Category helpers |
 | `title-schema-by-category.ts` | 6,791 | Title patterns |
 | `type-prompts.ts` | 133 | Type descriptions |
 | `schemas/*.ts` | ~2,000 | Category schemas |
 | `smart-field-inference.service.ts` | 1,436 | Field rules |
 | `types/salesforce.types.ts` | ~500 | Field mappings |
-| **TOTAL** | **~48,000** | |
+| **TOTAL** | **~44,000** | |
 
 ### MIXED (Contains Both Static Logic & Hardcoded Domain Data)
 
 | File | Lines | Issue |
 |------|-------|-------|
-| `dual-ai-verification.service.ts` | 7,463 | Massive, contains hardcoded checks |
+| `dual-ai-verification.service.ts` | 7,208 | Massive, contains hardcoded checks |
 | `response-builder.service.ts` | 1,379 | Contains CATEGORY_NAME_ALIASES hardcoded |
-| `category-matcher.service.ts` | 242 | Contains DEPARTMENT_CATEGORIES hardcoded |
+| `category-matcher.service.ts` | 245 | ✅ DEPT_CATEGORIES now auto-synced from master |
 | `constants.ts` | 296 | Contains CATEGORY_ALIASES hardcoded |
 
 ---
 
 ## 6. COMPLEXITY HOTSPOTS & REFACTORING OPPORTUNITIES
 
-### 🔴 CRITICAL: dual-ai-verification.service.ts (7,463 lines)
+### 🔴 CRITICAL: dual-ai-verification.service.ts (7,208 lines)
 
 **Problem**: One file does everything - prompts, AI calls, consensus, matching, validation, fallbacks
 
@@ -668,7 +667,7 @@ dual-ai-verification/
 └── attribute-assembler.ts      (500 lines) - top 15 assembly
 ```
 
-**Estimated reduction**: 7,463 → ~3,000 lines (through deduplication)
+**Estimated reduction**: 7,208 → ~3,000 lines (through deduplication)
 
 ### 🟡 HIGH: title-schema-by-category.ts (6,791 lines)
 
@@ -678,18 +677,20 @@ dual-ai-verification/
 
 ### 🟡 HIGH: Hardcoded Lists in Multiple Files
 
+### 🟡 HIGH: Hardcoded Lists in Multiple Files
+
 **Problem**: Same data exists in:
 - `constants.ts` → CATEGORY_ALIASES
 - `category-aliases.ts` → CATEGORY_NORMALIZATIONS
 - `category-consolidation-mapping.ts` → CATEGORY_CONSOLIDATION
 - `response-builder.service.ts` → CATEGORY_NAME_ALIASES
-- `category-matcher.service.ts` → DEPARTMENT_CATEGORIES
+- `category-matcher.service.ts` → DEPARTMENT_CATEGORIES ✅ Now auto-regenerated
 
 **Should Be**: Single source `category-aliases.json` loaded everywhere
 
-### 🟡 HIGH: category-filter-attributes.json (18,794 lines)
+### 🟡 HIGH: category-filter-attributes.json (14,260 lines - reduced from 18,794)
 
-**Problem**: One massive file for all category attributes
+**Problem**: One massive file for all category attributes (now 2,037 entries for 171 categories)
 
 **Could Split**: Per-department or per-category JSON files
 
@@ -697,17 +698,20 @@ dual-ai-verification/
 
 ## 7. DEAD CODE & REDUNDANCY ANALYSIS
 
-### 🔴 DELETE: src/picklist-master/ (Mostly Dead)
+### src/picklist-master/ Status (PARTIALLY CLEANED)
 
 | Path | Size | Status |
 |------|------|--------|
-| `08-multiple-picklist-files/` | 281KB | 🔴 Copies of services - DELETE |
-| `05-styles/category-style-mapping.ts` | 110KB | 🔴 Old TS version - DELETE |
-| `06-attributes/picklist-matcher.service.ts` | 57KB | 🔴 Copy - DELETE |
-| `02-categories/*.ts` | ~60KB | ⚠️ Partially used |
+| `08-multiple-picklist-files/` | 281KB | ✅ DELETED |
+| `05-styles/` | ~110KB | ✅ DELETED |
+| `02-categories/` | ~60KB | ✅ DELETED |
+| `01-brands/` | ~4KB | ⚠️ Still exists - review |
 | `03-types/type-config.ts` | 4KB | ✅ USED - Keep |
+| `04-departments-families/` | ~2KB | ⚠️ Still exists - review |
+| `06-attributes/` | ~2KB | ⚠️ Still exists - review |
+| `07-category-filter-attributes/` | ~2KB | ⚠️ Still exists - review |
 
-**Action**: Keep only `03-types/type-config.ts`, delete rest
+**Action**: Keep only `03-types/type-config.ts`, remaining folders need review
 
 ### ⚠️ REVIEW: Potentially Unused Services
 
@@ -723,9 +727,9 @@ dual-ai-verification/
 
 | File | Action |
 |------|--------|
-| `category-style-mapping.ts.OLD-DEPRECATED-1088-HARDCODED-TYPES` | DELETE |
-| `category-style-mapping.ts.backup` | DELETE |
-| `Cat-Type-Style Update/` folder | ARCHIVE or DELETE |
+| `category-style-mapping.ts.OLD-DEPRECATED*` | ✅ DELETED |
+| `category-style-mapping.ts.backup` | ✅ DELETED |
+| `Cat-Type-Style Update/` folder | ✅ DELETED |
 
 ---
 
@@ -928,11 +932,21 @@ export function getCategories() {
 
 ## SUMMARY: REFACTORING ROADMAP
 
-### Phase 1: Cleanup (2 hours)
-1. Delete `src/picklist-master/08-multiple-picklist-files/` (duplicate)
-2. Delete backup/deprecated files
-3. Move `type-config.ts` to `src/config/`
-4. Delete rest of `picklist-master/`
+### Phase 1: Cleanup ✅ PARTIALLY COMPLETE
+1. ✅ Delete `src/picklist-master/08-multiple-picklist-files/` (duplicate) - DONE
+2. ✅ Delete backup/deprecated files - DONE
+3. ⏳ Move `type-config.ts` to `src/config/` - TODO
+4. ⏳ Delete rest of `picklist-master/` - IN PROGRESS (01-brands, 04-depts, 06-attrs, 07-filter-attrs remain)
+
+### Phase 1.5: Picklist Consolidation ✅ COMPLETE (Feb 12, 2026)
+1. ✅ Deduplicated brands.json (402 → 390 entries)
+2. ✅ Consolidated categories.json (190 → 178 entries)
+3. ✅ Cleaned types.json (688 → 685 entries)
+4. ✅ Cleaned styles.json (30 entries, 1 pending ID)
+5. ✅ Cleaned category-filter-attributes.json (2,362 → 2,037 entries)
+6. ✅ Cleaned category-style-mapping.json (79 → 59 mappings)
+7. ✅ Regenerated DEPARTMENT_CATEGORIES from master
+8. ⚠️ Need Salesforce IDs: Beverage Center, Wine Cooler, Built-In style
 
 ### Phase 2: Consolidate Hardcoded Data (4 hours)
 1. Create single `category-aliases.json`
@@ -957,8 +971,20 @@ export function getCategories() {
 2. Create empty domain template
 3. Test with Parts Verification as new instance
 
-**Total Estimated Effort**: 20 hours
+**Total Estimated Effort**: ~16 hours remaining (Phase 1 partially done)
 
 ---
 
-*This blueprint generated from live codebase analysis on February 12, 2026*
+## CHANGELOG
+
+### v1.1 - February 12, 2026 (Post-Consolidation)
+- Updated all picklist line counts and entry counts
+- Marked deleted folders/files as ✅ DELETED
+- Updated dual-ai-verification.service.ts: 7,463 → 7,208 lines
+- Updated category-filter-attributes.json: 18,794 → 14,260 lines
+- Added Phase 1.5 (Picklist Consolidation) to roadmap
+- category-matcher.service.ts DEPARTMENT_CATEGORIES now auto-regenerated
+
+---
+
+*Blueprint v1.0 generated February 12, 2026. Updated to v1.1 same day post-consolidation.*

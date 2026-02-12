@@ -85,49 +85,6 @@
   ],
   "category_specific_mappings": [
     {
-      "category_name": "Air Conditioner",
-      "category_id": "a01aZ00000dCek0QAC",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Energy Star",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Extra Large Room (≥18,000 BTU)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Large Room (12,000-18,000 BTU)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Medium Room (8,000-12,000 BTU)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Portable",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Small Room (≤8,000 BTU)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Smart/WiFi",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Through-Wall",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Window Unit",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
       "category_name": "Bar & Prep Sink",
       "category_id": "a01aZ00000dC5E2QAK",
       "style_type": "aesthetic",
@@ -186,45 +143,6 @@
         {
           "style_name": "Transitional",
           "style_id": "a1IaZ000001TVXhUAO"
-        }
-      ]
-    },
-    {
-      "category_name": "Bath Fan",
-      "category_id": "a01aZ00000dC5DcQAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Energy Star Certified",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "High Airflow (≥80 CFM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Humidity Sensor",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "LED Light Included",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Motion Sensor",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Quiet Operation (≤1.0 Sones)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Standard Airflow (50-80 CFM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Standard Noise (1.0-3.0 Sones)",
-          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -766,45 +684,6 @@
       ]
     },
     {
-      "category_name": "Ceiling Fan with Light",
-      "category_id": "a01aZ00000dC5EkQAK",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Coastal",
-          "style_id": "a1IaZ000001VAAbUAO"
-        },
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Farmhouse",
-          "style_id": "a1IaZ000001S93RUAS"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        },
-        {
-          "style_name": "Transitional",
-          "style_id": "a1IaZ000001TVXhUAO"
-        },
-        {
-          "style_name": "Tropical",
-          "style_id": "a1IaZ000001TekfUAC"
-        }
-      ]
-    },
-    {
       "category_name": "Ceiling Light",
       "category_id": "a01aZ00000dC5EKQA0",
       "style_type": "aesthetic",
@@ -1014,53 +893,6 @@
       ]
     },
     {
-      "category_name": "Door Hinge",
-      "category_id": "a01aZ00000dC5FAQA0",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "1/4\" Radius",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "5/8\" Radius",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Antique Brass",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Ball Bearing",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Concealed Bearing",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Matte Black",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Oil Rubbed Bronze",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Polished Chrome",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Satin Nickel",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Square Corner",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
       "category_name": "Door Knob",
       "category_id": "a01aZ00000dCejBQAS",
       "style_type": "aesthetic",
@@ -1131,53 +963,6 @@
       ]
     },
     {
-      "category_name": "Dryer",
-      "category_id": "a01Hu000010Q5EjIAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Black",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Compact (≤6.5 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Extra Large (7.5+ cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Graphite/Slate",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Large (7.0-7.5 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Medium (6.5-7.0 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Sensor Dry",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Stainless Look",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Steam Refresh",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "White",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
       "category_name": "Flush and Semi-Flush",
       "category_id": "a01aZ00000dC5ENQA0",
       "style_type": "aesthetic",
@@ -1213,108 +998,6 @@
         {
           "style_name": "Transitional",
           "style_id": "a1IaZ000001TVXhUAO"
-        }
-      ]
-    },
-    {
-      "category_name": "Furniture",
-      "category_id": "a01aZ00000dCekIQAS",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Bohemian",
-          "style_id": "a1IaZ000001V9EXUA0"
-        },
-        {
-          "style_name": "Coastal",
-          "style_id": "a1IaZ000001VAAbUAO"
-        },
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Farmhouse",
-          "style_id": "a1IaZ000001S93RUAS"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
-        },
-        {
-          "style_name": "Mid-Century Modern",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
-        },
-        {
-          "style_name": "Rustic",
-          "style_id": "a1IaZ000001TVcXUAW"
-        },
-        {
-          "style_name": "Scandinavian",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        },
-        {
-          "style_name": "Transitional",
-          "style_id": "a1IaZ000001TVXhUAO"
-        },
-        {
-          "style_name": "Victorian",
-          "style_id": "a1IaZ000001TVuHUAW"
-        }
-      ]
-    },
-    {
-      "category_name": "Generator",
-      "category_id": "a01aZ00000dCek8QAC",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Dual Fuel",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Electric Start",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Gasoline",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Inverter",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Large (10,000-15,000W)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Mid-Size (5,000-10,000W)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Natural Gas",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Portable (≤5,000W)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Propane",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Whole House (≥15,000W)",
-          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -1357,49 +1040,6 @@
         {
           "style_name": "Contemporary",
           "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
-        },
-        {
-          "style_name": "Rustic",
-          "style_id": "a1IaZ000001TVcXUAW"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        }
-      ]
-    },
-    {
-      "category_name": "Home Accents",
-      "category_id": "a01aZ00000dCekMQAS",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Bohemian",
-          "style_id": "a1IaZ000001V9EXUA0"
-        },
-        {
-          "style_name": "Coastal",
-          "style_id": "a1IaZ000001VAAbUAO"
-        },
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Eclectic",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Farmhouse",
-          "style_id": "a1IaZ000001S93RUAS"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
         },
         {
           "style_name": "Modern",
@@ -1624,53 +1264,6 @@
       ]
     },
     {
-      "category_name": "Mini Split Air Conditioner",
-      "category_id": "a01aZ00000dCekBQAS",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "1000-1500 sq ft",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "500-1000 sq ft",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Heat Pump",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Inverter Technology",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Multi-Zone (2 Zones)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Multi-Zone (3 Zones)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Multi-Zone (4+ Zones)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Single Zone",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "≤500 sq ft",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "≥1500 sq ft",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
       "category_name": "Mirror",
       "category_id": "a01aZ00000dCekJQAS",
       "style_type": "aesthetic",
@@ -1729,37 +1322,6 @@
         {
           "style_name": "Rustic",
           "style_id": "a1IaZ000001TVcXUAW"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        },
-        {
-          "style_name": "Tropical",
-          "style_id": "a1IaZ000001TekfUAC"
-        }
-      ]
-    },
-    {
-      "category_name": "Outdoor Ceiling Fan",
-      "category_id": "a01aZ00000dCejrQAC",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Coastal",
-          "style_id": "a1IaZ000001VAAbUAO"
-        },
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
         },
         {
           "style_name": "Traditional",
@@ -1930,49 +1492,6 @@
       ]
     },
     {
-      "category_name": "Recessed Lighting",
-      "category_id": "a01aZ00000dC5EZQA0",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Adjustable Trim",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Airtight",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Baffle Trim",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Dimmable",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "IC Rated",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "New Construction Housing",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Reflector Trim",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Remodel Housing",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Shower Trim",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
       "category_name": "Refrigerator",
       "category_id": "a01Hu000010Q5EpIAK",
       "style_type": "aesthetic",
@@ -1988,49 +1507,6 @@
         {
           "style_name": "Traditional",
           "style_id": "a1IaZ000001TLjdUAG"
-        }
-      ]
-    },
-    {
-      "category_name": "Rough-In Valve",
-      "category_id": "a01aZ00000dC5DrQAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "2-Way",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "3-Way",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "4-Way",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Diverter Valve",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Pressure Balance",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Thermostatic",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Transfer Valve",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Trim Included",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Valve Only",
-          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2097,29 +1573,6 @@
         {
           "style_name": "Spa-Like",
           "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        }
-      ]
-    },
-    {
-      "category_name": "Shower Accessory",
-      "category_id": "a01aZ00000dC5DsQAK",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
         },
         {
           "style_name": "Traditional",
@@ -2201,100 +1654,6 @@
         {
           "style_name": "Traditional",
           "style_id": "a1IaZ000001TLjdUAG"
-        }
-      ]
-    },
-    {
-      "category_name": "Tankless Water Heater",
-      "category_id": "a01aZ00000dC5EIQA0",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Electric",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Indoor",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Large Home (7-9 GPM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Medium Home (5-7 GPM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Natural Gas",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Outdoor",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Point of Use (≤3 GPM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Propane",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Small Home (3-5 GPM)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Whole House (≥9 GPM)",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
-      "category_name": "Thermostat",
-      "category_id": "a01aZ00000dCekGQAS",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Battery Powered",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "C-Wire Required",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Heat Pump Compatible",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Multi-Stage Heat/Cool",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Non-Programmable",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Programmable 5-2 Day",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Programmable 7-Day",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Smart WiFi",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Touchscreen",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Voice Control",
-          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2384,72 +1743,6 @@
       ]
     },
     {
-      "category_name": "Track and Rail Lighting",
-      "category_id": "a01aZ00000dC5EbQAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Adjustable Heads",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Fixed Heads",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Flexible Track",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "GU10 Bulb",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "H-Type Track",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "J-Type Track",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "L-Type Track",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "LED Compatible",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "MR16 Bulb",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
-      "category_name": "Tub and Shower Accessory",
-      "category_id": "a01aZ00000dDnKlQAK",
-      "style_type": "aesthetic",
-      "styles": [
-        {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
-        },
-        {
-          "style_name": "Industrial",
-          "style_id": "a1IaZ000001Sjb7UAC"
-        },
-        {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
-        },
-        {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
-        }
-      ]
-    },
-    {
       "category_name": "Tub Faucet",
       "category_id": "a01aZ00000dC5DzQAK",
       "style_type": "aesthetic",
@@ -2477,49 +1770,6 @@
         {
           "style_name": "Victorian",
           "style_id": "a1IaZ000001TVuHUAW"
-        }
-      ]
-    },
-    {
-      "category_name": "Under Cabinet Light",
-      "category_id": "a01aZ00000dC5EcQAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Battery Operated",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Color Changing",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Dimmable",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Hardwired",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "LED Bar",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "LED Puck",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "LED Strip",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Linkable",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Plug-In",
-          "style_id": "pending_salesforce_id"
         }
       ]
     },
@@ -2656,100 +1906,6 @@
         {
           "style_name": "Victorian",
           "style_id": "a1IaZ000001TVuHUAW"
-        }
-      ]
-    },
-    {
-      "category_name": "Washer",
-      "category_id": "a01Hu000010Q5EsIAK",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "Black",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Compact (≤4.0 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Extra Large (5.0+ cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Graphite/Slate",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Large (4.5-5.0 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Medium (4.0-4.5 cu ft)",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Smart/WiFi Enabled",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Stainless Look",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Steam Clean",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "White",
-          "style_id": "pending_salesforce_id"
-        }
-      ]
-    },
-    {
-      "category_name": "Water Heater",
-      "category_id": "a01aZ00000bI2srQAC",
-      "style_type": "functional",
-      "styles": [
-        {
-          "style_name": "30 Gallon",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "40 Gallon",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "50 Gallon",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "65 Gallon",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "80+ Gallon",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Electric",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Energy Star",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Heat Pump",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Natural Gas",
-          "style_id": "pending_salesforce_id"
-        },
-        {
-          "style_name": "Propane",
-          "style_id": "pending_salesforce_id"
         }
       ]
     }

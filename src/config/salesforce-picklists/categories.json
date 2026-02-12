@@ -1422,5 +1422,13 @@
     "category_id": "a01aZ00000dC5EXQA0",
     "subcategory": "Sinks",
     "styles_apply": false
+  },
+  {
+    "family": "Decor",
+    "department": "Home Decor",
+    "category_name": "Home Accents",
+    "category_id": "a01aZ00000dCekMQAS",
+    "subcategory": "Home Decor",
+    "styles_apply": true
   }
 ]

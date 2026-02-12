@@ -1,6 +1,6 @@
 # Master Verification Flow & Data Source Map
 
-**Last Updated**: 2026-02-10 (all critical issues resolved)  
+**Last Updated**: 2026-02-12 (picklist consolidation complete)  
 **Status**: ACTIVE — Update this document whenever the verification flow changes  
 **Sync Verification**: `node scripts/verify-hardcoded-sync.js` → 13 ✅ | 6 ⚠️ | 0 🔴  
 **Purpose**: Single source of truth for how every field is determined, which data sources feed each step, and the sync status of all lists
@@ -54,7 +54,7 @@ SALESFORCE API CALL (POST /api/verify/salesforce)
 │  │ @ master-picklist-helpers.ts → type-config.ts       │  │
 │  └────────────────────────────────────────────────────┘  │
 │  ┌────────────────────────────────────────────────────┐  │
-│  │ STYLES (16 Universal Design Aesthetics)            │  │
+│  │ STYLES (15 Universal Design Aesthetics)            │  │
 │  │ Source: category-style-mapping.json                 │  │
 │  │ Via: getAllCategoriesWithStylesForPrompt()           │  │
 │  │ @ master-picklist-helpers.ts                        │  │
@@ -278,16 +278,16 @@ All in `src/config/salesforce-picklists/`:
 
 | File | Items | Synced From | Auto-Updates |
 |---|---|---|---|
-| `brands.json` | ~402 brands | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `categories.json` | ~212 categories | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `styles.json` | 16 styles | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `types.json` | ~648 types | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `attributes.json` | ~945 attributes | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `category-type-mapping.json` | ~77 categories × types | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `category-style-mapping.json` | 16 universal styles | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `category-filter-attributes.json` | ~19K lines | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `departments.json` | 10 departments | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
-| `families.json` | many families | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `brands.json` | 390 brands | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `categories.json` | 178 categories | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `styles.json` | 30 styles | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `types.json` | 685 types | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `attributes.json` | 945 attributes | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `category-type-mapping.json` | 164 category→type mappings | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `category-style-mapping.json` | 15 universal + 59 category-specific | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `category-filter-attributes.json` | 2,037 category entries (14K lines) | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `departments.json` | 8 departments | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
+| `families.json` | 8 families | Salesforce via `/api/picklists/sync` | Yes (SF pushes) |
 
 ### Dynamic Loading Files (Read from JSON — ✅ Always In Sync)
 
@@ -305,7 +305,7 @@ All in `src/config/salesforce-picklists/`:
 | File | What's Hardcoded | Risk Level | Status |
 |---|---|---|---|
 | `src/config/constants.ts` — `DEPARTMENTS` | 10 departments | ✅ FIXED | Matches departments.json |
-| `src/services/category-matcher.service.ts` — `DEPARTMENT_CATEGORIES` | 10 depts / 202 cats | ✅ FIXED | Matches categories.json |
+| `src/services/category-matcher.service.ts` — `DEPARTMENT_CATEGORIES` | 5 depts / 55 cats (partial coverage) | ⚠️ PARTIAL | Covers main departments, not all 178 categories |
 | `src/config/category-aliases.ts` — `CATEGORY_ALIASES` | 42 category aliases (SINGLE SOURCE) | ✅ CONSOLIDATED | constants.ts & category-schema.ts re-export from here |
 | `src/config/constants.ts` — `CATEGORY_NAME_ALIASES` | Re-export from category-aliases.ts | ✅ RE-EXPORT | No longer a separate copy |
 | `src/config/category-schema.ts` — `CATEGORY_ALIASES` | Re-export from category-aliases.ts | ✅ RE-EXPORT | No longer a separate copy |
@@ -328,8 +328,8 @@ All in `src/config/salesforce-picklists/`:
 
 | Status | Count | Description |
 |---|---|---|
-| ✅ **IN SYNC** (dynamic or fixed) | 13 items | Verified via `verify-hardcoded-sync.js` |
-| ⚠️ **SUPPLEMENTARY** (manual) | 6 items | Cannot be auto-generated — alias/intelligence/tier maps |
+| ✅ **IN SYNC** (dynamic or fixed) | 12 items | Verified via `verify-hardcoded-sync.js` |
+| ⚠️ **SUPPLEMENTARY** (manual/partial) | 7 items | Cannot be auto-generated — alias/intelligence/tier maps + DEPARTMENT_CATEGORIES partial |
 | 🔴 **OUT OF SYNC** | 0 items | None — all critical items resolved |
 
 ### What's Protected (Dynamic Loading Chain)
@@ -374,7 +374,7 @@ constants.ts
   └── PREMIUM/MID/VALUE_BRANDS 🟡 business logic
 
 category-matcher.service.ts
-  ├── DEPARTMENT_CATEGORIES (10 depts, 202 cats) ← matches categories.json ✅
+  ├── DEPARTMENT_CATEGORIES (5 depts, 55 cats) ← partial coverage ⚠️
   └── CATEGORY_KEYWORDS ← supplementary coherence
 
 category-aliases.ts (SINGLE SOURCE OF TRUTH for category aliases)
@@ -488,6 +488,10 @@ salesforce-picklists/*.json ← Salesforce pushes here (source of truth)
 | 2026-02-10 | All 5 critical issues resolved — 0 🔴 remaining | Copilot |
 | 2026-02-10 | CATEGORY_ALIASES consolidated to single source (category-aliases.ts) | Copilot |
 | 2026-02-10 | DEPARTMENTS, DEPARTMENT_CATEGORIES, TYPE_ALIASES, PRIMARY_ATTRIBUTES fixed | Copilot |
+| 2026-02-12 | Picklist consolidation audit — updated all counts post-deduplication | Copilot |
+| 2026-02-12 | brands.json: 402→390 (12 duplicates removed) | Copilot |
+| 2026-02-12 | categories.json: 212→178, types.json: 648→685, styles.json: 16→30 | Copilot |
+| 2026-02-12 | DEPARTMENT_CATEGORIES marked as partial coverage (5 depts / 55 cats) | Copilot |
 
 ---
 
