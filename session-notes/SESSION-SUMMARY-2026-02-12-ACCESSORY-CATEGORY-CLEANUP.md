@@ -190,7 +190,9 @@ Products previously categorized as "Kitchen Accessory", "Shower Accessory", etc.
 
 ## Commits This Session
 
-_(To be filled after commit)_
+| Commit | Message |
+|--------|---------|
+| `26b867b` | fix: Remove Accessory categories from taxonomy - use Type instead |
 
 ---
 
@@ -198,9 +200,9 @@ _(To be filled after commit)_
 
 | Environment | Commit | Status |
 |-------------|--------|--------|
-| Local | (pending) | Modified files ready |
-| GitHub | 6d5b1c6 | Will update |
-| Production | 6d5b1c6 | Will deploy |
+| Local | 26b867b | ✅ Synced |
+| GitHub | 26b867b | ✅ Synced |
+| Production | 26b867b | ✅ Deployed & Running |
 
 ---
 
