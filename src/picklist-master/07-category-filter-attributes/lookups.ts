@@ -15,8 +15,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { CategoryAttributeConfig } from '../../config/types';
-import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from '../06-attributes/category-attributes';
-import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from '../02-categories/master-category-schema-map';
+import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from '../../config/category-attributes';
+import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from '../../config/master-category-schema-map';
 import { getCategorySchema as getAICategorySchema, CategorySchema } from '../../config/category-config';
 import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from '../02-categories/category-config';
 
