@@ -290,11 +290,59 @@ export function getCategorySchema(categoryName: string): CategorySchema | null {
 }
 
 /**
+ * Category clarifications to prevent AI confusion
+ * Maps category names to helpful descriptions for disambiguation
+ */
+const CATEGORY_CLARIFICATIONS: Record<string, string> = {
+  // Prevent confusion: Cabinet hardware vs. Appliance parts
+  'Appliance Pull': '(Decorative cabinet hardware pulls styled to match appliances - NOT actual appliance replacement parts)',
+  'Refrigerator Pull': '(Decorative cabinet hardware pulls styled to match refrigerators - NOT actual refrigerator replacement parts)',
+  'Dishwasher Pull': '(Decorative cabinet hardware pulls styled to match dishwashers - NOT actual dishwasher replacement parts)',
+  
+  // Clarify: Actual appliances AND their parts/accessories
+  'Range': '(Cooking appliance AND range replacement parts/accessories)',
+  'Refrigerator': '(Refrigeration appliance AND refrigerator replacement parts/accessories)',
+  'Dishwasher': '(Dishwashing appliance AND dishwasher replacement parts/accessories)',
+  'Oven': '(Oven appliance AND oven replacement parts/accessories)',
+  'Cooktop': '(Cooktop appliance AND cooktop replacement parts/accessories)',
+  'Microwave': '(Microwave appliance AND microwave replacement parts/accessories)',
+  'Range Hood': '(Range hood appliance AND range hood replacement parts/accessories)',
+  
+  // Prevent confusion: Fixture vs. Controls for fixture
+  'Bathtub': '(The tub itself - NOT bathtub faucets or controls)',
+  'Shower': '(Shower enclosure/pan - NOT shower faucets or heads)',
+  'Sink': '(The sink basin itself - NOT sink faucets)',
+  'Toilet': '(The toilet fixture - NOT toilet accessories/parts)',
+  
+  // Clarify: Control mechanisms vs. fixtures
+  'Bathtub Faucet': '(Controls/faucets FOR bathtubs - NOT the tub itself)',
+  'Shower Faucet': '(Controls/faucets FOR showers - NOT the shower enclosure)',
+  'Kitchen Faucet': '(Faucets FOR kitchen sinks - NOT the sink itself)',
+  'Bathroom Faucet': '(Faucets FOR bathroom sinks - NOT the sink itself)',
+  
+  // Prevent confusion: Cabinet vs. Cabinet hardware
+  'Cabinet': '(Storage cabinet furniture - NOT cabinet hardware like pulls/knobs)',
+  'Cabinet Pull': '(Hardware handles for cabinets - NOT the cabinet itself)',
+  'Cabinet Knob': '(Hardware knobs for cabinets - NOT the cabinet itself)',
+  
+  // Clarify: Furniture vs. Accessories
+  'Vanity': '(Bathroom vanity furniture - NOT vanity accessories)',
+  'Mirror': '(Wall mirrors - NOT medicine cabinets)',
+  'Medicine Cabinet': '(Wall-mounted storage with mirror - NOT just mirrors)',
+};
+
+/**
  * Get all categories as a formatted list for AI prompts
+ * Includes clarifying descriptions for potentially confusing categories
  */
 export function getCategoryListForPrompt(): string {
   const categories = Object.keys(categoryFilterAttributes.categories).sort();
-  return categories.map((cat, idx) => `${idx + 1}. ${cat}`).join('\n');
+  return categories.map((cat, idx) => {
+    const clarification = CATEGORY_CLARIFICATIONS[cat];
+    return clarification 
+      ? `${idx + 1}. ${cat} ${clarification}`
+      : `${idx + 1}. ${cat}`;
+  }).join('\n');
 }
 
 /**

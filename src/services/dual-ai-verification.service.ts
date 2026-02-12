@@ -2600,6 +2600,19 @@ You must respond with valid JSON in this exact format:
 AVAILABLE CATEGORIES:
 ${categoryList}
 
+🔴 CRITICAL CATEGORY SELECTION RULES:
+- READ the clarifications in parentheses carefully - they prevent common mistakes
+- "Appliance Pull" / "Refrigerator Pull" / "Dishwasher Pull" = DECORATIVE CABINET HARDWARE (NOT actual appliance parts)
+  - Example: Handles/pulls styled to MATCH appliance aesthetics, installed on CABINETS
+  - If product says "for [Appliance Model]" or "replacement part" → Use the APPLIANCE category, NOT "Appliance Pull"
+- Appliance categories (Range, Refrigerator, Dishwasher, etc.) include BOTH:
+  - The appliance itself (e.g., a refrigerator)
+  - Replacement parts/accessories FOR that appliance (e.g., handles for a specific fridge model)
+- "Bathtub" = The tub fixture, "Bathtub Faucet" = Controls FOR the tub
+- "Sink" = The basin, "Kitchen Faucet" / "Bathroom Faucet" = Controls FOR sinks
+- "Cabinet" = Furniture storage, "Cabinet Pull" / "Cabinet Knob" = Hardware FOR cabinets
+- When in doubt: Look for "for [item]", "compatible with", "replacement for" → Category is the item it's FOR
+
 IMPORTANT:
 - Use ONLY the categories listed above
 - Map raw data fields to our standard field_key names (see FIELD NAME MAPPING section above)
