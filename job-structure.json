@@ -1,0 +1,2856 @@
+
+=== MOST RECENT JOB STRUCTURE ===
+
+{
+  "_id": "698e1a7d6ce888de91c96246",
+  "jobId": "e712f96d-b895-4b29-9f05-64486108b607",
+  "sfCatalogId": "a03aZ00000gtdLaQAI",
+  "sfCatalogName": "SHE41CM5N",
+  "status": "completed",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frzswxygmolz_20260211_150108.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpqbcdjhpop_20260211_150108.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmcqkeinnjk_20260211_150110.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxvpbwofbuu_20260211_150111.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkblclmyxnd_20260211_150112.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkdemupioec_20260211_150112.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgdruuhulcn_20260211_145958.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frvmqczsztzi_20260211_150002.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxhgycqlkqd_20260211_150004.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frtwvicvvvpx_20260211_150005.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frsksaqyiwlh_20260211_150007.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frwgtzckwhrd_20260211_150009.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fryjzoyotyzm_20260211_150009.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frdxwtqohmhg_20260211_150011.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgzhawmcdfd_20260211_150014.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpismysabnn_20260211_150014.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frrmvopjidcu_20260211_150014.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frttyuzwoklj_20260211_150015.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxrhmknsygy_20260211_150017.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frilgverkspc_20260211_150019.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/froldcltstha_20260211_150021.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfaafuwylif_20260211_150023.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frffpzjjvpxx_20260211_150024.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frolvusfvxmw_20260211_150027.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frddfznfcthv_20260211_150030.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfxfqcdruqs_20260211_150032.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frwsdixxiqrt_20260211_150034.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frljciwuqjqv_20260211_150036.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frywqtovydqw_20260211_150038.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmrcrnusfsz_20260211_150039.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fropaicmuiqt_20260211_150041.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fritkfjokxrh_20260211_150044.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frccdmrhydgp_20260211_150047.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmshumaykhj_20260211_150050.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkecchbuxrh_20260211_150052.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frsdbrwihdox_20260211_150053.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnxocmuakid_20260211_150054.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frcfzitwxqnj_20260211_150057.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/franvxlvfisg_20260211_150058.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfckaxythhm_20260211_150100.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frvzsdpigxcj_20260211_150102.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frhhxiwceuyw_20260211_150103.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frezodwhxzrx_20260211_150105.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frohabrwbtjp_20260211_150107.png"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/SHE41CM5N.html?srsltid=AfmBOopxXENZ07L3UOE6Cp8Vj_bAZ76du-cifoJfbx48e7CsNxXtEKiU",
+    "Ferguson_URL": "https://www.fergusonhome.com/bosch-she41cm/s2015829",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Specifications</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">General</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Material Number</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">SHE41CM5N</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Brand Name</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bosch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Category</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-in Dishwashers</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Product Name</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">100 Series, built-under dishwasher, 24&#39;&#39;, Brushed steel anti-fingerprint</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Upc</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">825225974048</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Series</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">100 Series</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Appliance Color/Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy Star® Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Installation</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-under</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Built-In / Free-Standing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Built-in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ada Compliant</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Decibel (Sound) Rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Panel Options</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Not possible</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Drying System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Inherent heat</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>List Of Programs</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Intensive, Auto 55-60°C, Eco, Quick L, Custom program</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Noise Level (Db(A) Re 1Pw)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number Of Place Settings</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">12</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Removable Top</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Total Annual Water Consumption</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">753</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Variable Hinge</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number Of Programs</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Technical Specifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connection Rating (W)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1440</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fuse Protection (A)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">12</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Voltage (V)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">120</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Frequency (Hz)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">60</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Design</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Basic Touch Control</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Location Of Control Panel</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Type Of Control</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Electronic</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Cleaning</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Extremely Quiet - Ecosilence Drive</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Nsf Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Water Softener</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Convenience</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Emotionlight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Program Status Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Not applicable</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Sidelight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Delay Start</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">TRUE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Pause/Reload</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Connectivity</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connected Appliances With Home Connect</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Home Connect Features</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Remote Monitoring and Control</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Size And Weight</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Adjustable Feet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes - all from front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Appliance Dimensions (H X W X D) (In)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">33 7/8&#39;&#39; x 23 9/16&#39;&#39; x 23 3/4&#39;&#39;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Gross Weight (Lbs)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">94</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net Weight (Lbs)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">85</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Required Cutout/Niche Size For Installation (In)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">33 7/8&#39;&#39; x 24&#39;&#39; x 24&#39;&#39;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Power Cord Length</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">67&#39;&#39;</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Installation</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Plug Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Nema5-15P</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Safety</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Child Safety Locks</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">TRUE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Water Protection With Warranty - Aquastop</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr></table>",
+    "UPC_Legacy": "825225974048",
+    "Category_Legacy": "Dishwasher",
+    "Product_Description_Legacy": "CCY BI DW SS 24 100 SERIES",
+    "Features_Legacy": "<ul><li>A smarter clean with PrecisionWash(R)</li><li>Not just dry, but PureDry(R)</li><li>48 dBA -- the quietest dishwasher brand in the U.S.*</li><li>Prevent leaks with AquaStop(R)</li><li>Favourite programme: personalized function by just one touch.</li><li>ExtraDry: selectable option for additional drying.</li><li>Enhance your cleaning experience with Wi-Fi enabled Home Connect(R)</li><li>10-Year Rust-Through Warranty.</li><li>Anti-fingerprint Stainless Steel doors</li><li>Auto Program: automatically the best cleaning performance.</li><li>The dishwasher that removes more than food.</li><li>Your appliance listens to you.</li><li>Enhance your cleaning experience with Wi-Fi enabled Home Connect.</li><li>Programme Assistant - The right programme for each load.</li><li>Download programmes to match your everyday life.</li></ul>",
+    "Weight_Legacy": 85,
+    "Capacity_Legacy": 12,
+    "Height_Legacy": "33 7/8",
+    "Width_Legacy": "23 3/4",
+    "Depth_Legacy": "23 37/64",
+    "Product_Title_Legacy": "24\" Full Console Built-In Smart Dishwasher with 12 Place Setting Capacity",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 849,
+    "Model_Number_Legacy": "SHE41CM5N",
+    "Brand_Legacy": "BOSCH",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-02-11T15:00:13.912719"
+      },
+      "search_meta_data": {
+        "business_category": "Dishwashers",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "cKF4FqcCaN"
+      },
+      "performance": {
+        "total_time": "3.55s",
+        "step3_detail_time": "1.46s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.09s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Recommended"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/Bosch/100%20Series",
+          "name": "100 Series"
+        },
+        "questions_count": 1,
+        "total_reviews": 720,
+        "review_count": 720,
+        "total_ratings": 720,
+        "rating": 4.3,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/bosch-refrigerator/c115482",
+            "name": "Refrigeration",
+            "id": 115482
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-range/c115481",
+            "name": "Ranges",
+            "id": 115481
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-wall-oven/c115477",
+            "name": "Wall Ovens",
+            "id": 115477
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-cooktop/c115472",
+            "name": "Cooktops",
+            "id": 115472
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-dishwasher/c115473",
+            "name": "Dishwashers",
+            "id": 115473
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-microwave/c115476",
+            "name": "Microwaves",
+            "id": 115476
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-washer/c115475",
+            "name": "Washing Machines",
+            "id": 115475
+          }
+        ],
+        "business_category": "Dishwashers",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-appliances/c115471",
+            "name": "Bosch"
+          },
+          {
+            "url": "https://www.fergusonhome.com/bosch-dishwasher/c115473",
+            "name": "Dishwashers"
+          }
+        ],
+        "resources": [
+          {
+            "id": "bosch-she41cm-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "bosch-she41cm-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "bosch-she41cm-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "bosch-she41cm-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-energy-guide.pdf",
+            "name": "Energy Guide"
+          },
+          {
+            "id": "bosch-she41cm-home-connect-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-home-connect-guide.pdf",
+            "name": "Home Connect Guide"
+          },
+          {
+            "id": "bosch-she41cm-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/bosch/2015829/bosch-she41cm-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "1 Year Limited Parts and Labor, 30 Day Cosmetic",
+        "warranty": "",
+        "country_of_origin": "USA",
+        "certifications": [
+          "NSF"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "408",
+            "name": "Cutout Depth"
+          },
+          {
+            "value": "409",
+            "name": "Cutout Height"
+          },
+          {
+            "value": "412",
+            "name": "Cutout Width"
+          },
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "6937",
+            "name": "Place Setting Capacity"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "5382",
+            "name": "Water Consumption"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "5136",
+            "name": "Drying System"
+          },
+          {
+            "value": "5152",
+            "name": "Overflow Detector"
+          },
+          {
+            "value": "6946",
+            "name": "App Compatibility"
+          },
+          {
+            "value": "5123",
+            "name": "Built-in Food Disposer"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "6439",
+            "name": "Dishwasher Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "5138",
+            "name": "End of Cycle Indicator"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "5399",
+            "name": "Interior Material"
+          },
+          {
+            "value": "1226",
+            "name": "Number of Racks"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6943",
+            "name": "Smart Home"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "3866",
+            "name": "dB Rating"
+          },
+          {
+            "value": "9280",
+            "name": "Number of Wash Cycles"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "3875",
+            "name": "Wattage"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "335",
+            "name": "Collection"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          },
+          {
+            "value": "4686",
+            "name": "Title 20 Compliant"
+          }
+        ],
+        "dimensions": {
+          "width": "23.5625 in.",
+          "height": "33.875 in.",
+          "depth": "23.75 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Cutout Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "33.875",
+                "name": "Cutout Height"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Cutout Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "23.75",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "33.875",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": false,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": true,
+                "description": "The total number of place setting's the dishwasher is capable of washing in a single load. A place setting contains 1 of each of the following: a dinner plate, dessert plate, glass tumbler, tea cup and saucer, knife, fork, spoon, dessert spoon, teaspoon, and bowl.",
+                "units": null,
+                "value": "12",
+                "name": "Place Setting Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "85",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "How much water the product consumes during operation, measured in gallons.",
+                "units": "Gallons",
+                "value": "3.5",
+                "name": "Water Consumption"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "23.5625",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the product includes a drying system to help aid in the removal of moisture once the wash cycle is complete.",
+                "units": null,
+                "value": "Yes",
+                "name": "Drying System"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product has a feature that indicates the product may overflow.",
+                "units": null,
+                "value": "Yes",
+                "name": "Overflow Detector"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The smartphone app(s) the product is compatible with.",
+                "units": null,
+                "value": "Home Connect",
+                "name": "App Compatibility"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product has a built-in waste disposer to remove blockages from the drainage system.",
+                "units": null,
+                "value": "Yes",
+                "name": "Built-in Food Disposer"
+              },
+              {
+                "featured": true,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "The type of dishwasher this product is.",
+                "units": null,
+                "value": "Front Controls",
+                "name": "Dishwasher Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Child Lock, Door Lock",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+                "units": null,
+                "value": "Yes",
+                "name": "End of Cycle Indicator"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "Yes",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": false,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Built-In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the interior construction of the product.",
+                "units": null,
+                "value": "Stainless Steel",
+                "name": "Interior Material"
+              },
+              {
+                "featured": true,
+                "description": "The total number of racks.",
+                "units": null,
+                "value": "2",
+                "name": "Number of Racks"
+              },
+              {
+                "featured": false,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+                "units": null,
+                "value": "Yes",
+                "name": "Smart Home"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Transitional",
+                "name": "Theme"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "12",
+                "name": "Amperage"
+              },
+              {
+                "featured": true,
+                "description": "The degree of loudness this product is rated at, measured in decibels (a unit used to measure the intensity of a sound).",
+                "units": null,
+                "value": "48",
+                "name": "dB Rating"
+              },
+              {
+                "featured": false,
+                "description": "The total number of washing cycles this product can perform.",
+                "units": null,
+                "value": "3",
+                "name": "Number of Wash Cycles"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+                "units": null,
+                "value": "1440",
+                "name": "Wattage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "NSF",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+                "units": null,
+                "value": "300",
+                "name": "Collection"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": true,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "No",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Limited Parts and Labor, 30 Day Cosmetic",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "No",
+                "name": "Outdoor Approved"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+                "units": null,
+                "value": "Yes",
+                "name": "Title 20 Compliant"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "title_20_compliant": {
+            "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+            "units": null,
+            "value": "Yes"
+          },
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "No"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Limited Parts and Labor, 30 Day Cosmetic"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "No"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "collection": {
+            "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+            "units": null,
+            "value": "300"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "NSF"
+          },
+          "wattage": {
+            "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+            "units": null,
+            "value": "1440"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "number_of_wash_cycles": {
+            "description": "The total number of washing cycles this product can perform.",
+            "units": null,
+            "value": "3"
+          },
+          "db_rating": {
+            "description": "The degree of loudness this product is rated at, measured in decibels (a unit used to measure the intensity of a sound).",
+            "units": null,
+            "value": "48"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "12"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Transitional"
+          },
+          "smart_home": {
+            "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+            "units": null,
+            "value": "Yes"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_racks": {
+            "description": "The total number of racks.",
+            "units": null,
+            "value": "2"
+          },
+          "interior_material": {
+            "description": "The material used in the interior construction of the product.",
+            "units": null,
+            "value": "Stainless Steel"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Built-In"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "Yes"
+          },
+          "end_of_cycle_indicator": {
+            "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+            "units": null,
+            "value": "Yes"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Child Lock, Door Lock"
+          },
+          "dishwasher_type": {
+            "description": "The type of dishwasher this product is.",
+            "units": null,
+            "value": "Front Controls"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Touch"
+          },
+          "built-in_food_disposer": {
+            "description": "Whether the product has a built-in waste disposer to remove blockages from the drainage system.",
+            "units": null,
+            "value": "Yes"
+          },
+          "app_compatibility": {
+            "description": "The smartphone app(s) the product is compatible with.",
+            "units": null,
+            "value": "Home Connect"
+          },
+          "overflow_detector": {
+            "description": "Whether the product has a feature that indicates the product may overflow.",
+            "units": null,
+            "value": "Yes"
+          },
+          "drying_system": {
+            "description": "Whether the product includes a drying system to help aid in the removal of moisture once the wash cycle is complete.",
+            "units": null,
+            "value": "Yes"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "23.5625"
+          },
+          "water_consumption": {
+            "description": "How much water the product consumes during operation, measured in gallons.",
+            "units": "Gallons",
+            "value": "3.5"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "85"
+          },
+          "place_setting_capacity": {
+            "description": "The total number of place setting's the dishwasher is capable of washing in a single load. A place setting contains 1 of each of the following: a dinner plate, dessert plate, glass tumbler, tea cup and saucer, knife, fork, spoon, dessert spoon, teaspoon, and bowl.",
+            "units": null,
+            "value": "12"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "33.875"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "23.75"
+          },
+          "cutout_width": {
+            "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "cutout_height": {
+            "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "33.875"
+          },
+          "cutout_depth": {
+            "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>Bosch 2-Rack 100 Series dishwashers deliver a clean and dry you can rely on, plus extra flexibility when you need it. The redesigned, edge-to-edge recessed handle with integrated front controls blend functionality and beauty. With PrecisionWash, intelligent sensors continually scan and check the progress of dishes throughout the cycle, while powerful spray arms target every item of every load, for a smarter clean. PureDry technology delivers simply clean, simply dry dishes with an energy efficient, closed drying system. Get personalized app features like Smart Cycle, hands-free voice control with Amazon Alexa or Google Home and so much more, all when you use Wi-Fi enabled Home Connect.</p><p><strong>Features:</strong></p><ul><li>Accommodates 12 place settings</li><li>Easy to use touch controls for mode selection</li><li>Comes equipped with 3 wash cycles</li><li>Interior is constructed of durable stainless steel</li><li>Quiet operation rated at 48 dB is not disruptive</li><li>The touch control panel has been simplified to offer the cycles and options you use most--all at the touch of your fingertips</li><li>Remarkably quiet operation at 48 dBA</li><li>Large interior provides ample space and flexibility for pots, pans, dishes, &amp; more</li><li>Offers 5 standard wash cycles, including the following: Heavy, Auto, Normal, Speed60, Favorite, and 3 standard options, including: Sanitize, Remote Start, and Extra Dry. Plus, the ability to access additional wash cycles and options though Home Connect such as Delay Start, Delicate, Machine Care, and more</li><li>Beautiful stainless steel interior</li><li>Precisely engineered detergent tray holds detergent tabs in place for a dedicated spray jet to directly dissolve them, preventing buildup for a deeper clean</li><li>Includes two lower rack silverware baskets</li><li>Covered under 1 year limited parts and labor and 30 day cosmetic manufacturer warranties</li></ul><p><strong>Product Technologies:</strong></p><ul><li><strong>PureDry: </strong>Bosch's energy efficient drying system allows you to safely place plastics anywhere, even on the bottom rack, without fear of melting</li></ul><ul><li><strong>PrecisionWash®: </strong>Uses Intelligent sensors to monitor the wash water and automatically adjust the cycle for a smarter clean</li></ul><ul><li><strong>Home Connect® App: </strong>Access additional wash cycles to choose the right one for your needs with Smart Cycle</li></ul><ul><li><strong>24/7 AquaStop®: </strong>Premium leak protection system contains leaks through a precisely engineered tub and dual sensor system</li></ul><p><strong>Specifications:</strong></p><ul><li>Place Setting Capacity: 12</li><li>Number of Cycles: 3</li><li>Number of Racks: 2</li><li>Control Type: Touch</li><li>dB Rating: 48</li><li>Depth: 23-3/4\"</li><li>Height: 33-7/8\"</li><li>Width: 23-9/16\"</li><li>Amperage: 12A</li><li>Voltage: 120V</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm5n-9806939.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1216.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1217.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1218.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1219.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1220.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1221.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1222.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1223.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1224.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1225.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1226.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1227.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1228.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1229.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1230.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1231.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1232.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm-alternate-image-1233.jpg"
+        ],
+        "configuration_type": "NO_CONFIGURATION",
+        "is_square_footage_based": false,
+        "is_configurable": false,
+        "in_stock_variant_count": 3,
+        "total_inventory_quantity": 1834,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": false,
+        "variant_count": 3,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Bosch 100 Series 24 Inch Wide 12 Place Setting Built-In Fingerprint Resistant Front Control Dishwasher with PureDry and PrecisionWash Black",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm6n-9806939.jpg"
+            },
+            "currency": "USD",
+            "price": 729,
+            "swatch_gradient": "",
+            "title": "Black",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 3 to 7 business days",
+              "Leaves the Warehouse in 3 to 7 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 7 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 7 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "000000",
+            "inventory_quantity": 410,
+            "url": "https://www.fergusonhome.com/bosch-she41cm/s2015829?uid=4810939",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm6n-9806939.jpg"
+            ],
+            "model_number": "SHE41CM6N",
+            "name": "Black",
+            "id": 4810939
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Bosch 100 Series 24 Inch Wide 12 Place Setting Built-In Fingerprint Resistant Front Control Dishwasher with PureDry and PrecisionWash Stainless Steel",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm5n-9806939.jpg"
+            },
+            "currency": "USD",
+            "price": 729.99,
+            "swatch_gradient": "",
+            "title": "Stainless Steel",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 3 to 7 business days",
+              "Leaves the Warehouse in 3 to 7 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 7 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 7 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 1099,
+            "url": "https://www.fergusonhome.com/bosch-she41cm/s2015829?uid=4810940",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm5n-9806939.jpg"
+            ],
+            "model_number": "SHE41CM5N",
+            "name": "Stainless Steel",
+            "id": 4810940
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Bosch 100 Series 24 Inch Wide 12 Place Setting Built-In Fingerprint Resistant Front Control Dishwasher with PureDry and PrecisionWash White",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm2n-9806939.jpg"
+            },
+            "currency": "USD",
+            "price": 729,
+            "swatch_gradient": "",
+            "title": "White",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 3 to 7 business days",
+              "Leaves the Warehouse in 3 to 7 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 7 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 7 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "ffffff",
+            "inventory_quantity": 325,
+            "url": "https://www.fergusonhome.com/bosch-she41cm/s2015829?uid=4810941",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/bosch/bosch-she41cm2n-9806939.jpg"
+            ],
+            "model_number": "SHE41CM2N",
+            "name": "White",
+            "id": 4810941
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 0,
+        "base_type": "Sanitation and Waste Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 729.99,
+          "min": 729
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 729.99,
+        "price_min": 729,
+        "price": 729,
+        "application": "Dishwashers",
+        "product_type": "Sanitation and Waste Appliances",
+        "url": "https://www.fergusonhome.com/bosch-she41cm/s2015829",
+        "parent_model_number": "SHE41CM",
+        "model_number": "SHE41CM5N",
+        "brand_logo": {
+          "description": "Bosch",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/bosch/Logo/bosch.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/bosch-appliances/c115471",
+        "brand": "Bosch",
+        "name": "100 Series 24 Inch Wide 12 Place Setting Built-In Fingerprint Resistant Front Control Dishwasher with PureDry and PrecisionWash",
+        "family_id": 2015829,
+        "id": 2015829
+      },
+      "variant_url": "https://www.fergusonhome.com/bosch-she41cm/s2015829?uid=4810940",
+      "match_type": "exact",
+      "matched_model": "SHE41CM5N",
+      "model_number": "SHE41CM5N",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "SHE41CM5N",
+        "name": "Material Number"
+      },
+      {
+        "value": "Bosch",
+        "name": "Brand Name"
+      },
+      {
+        "value": "Built-in Dishwashers",
+        "name": "Category"
+      },
+      {
+        "value": "100 Series, built-under dishwasher, 24'', Brushed steel anti-fingerprint",
+        "name": "Product Name"
+      },
+      {
+        "value": "825225974048",
+        "name": "Upc"
+      },
+      {
+        "value": "100 Series",
+        "name": "Series"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Appliance Color/Finish"
+      },
+      {
+        "value": "No",
+        "name": "Energy Star(R) Certified"
+      },
+      {
+        "value": "Built-under",
+        "name": "Installation"
+      },
+      {
+        "value": "Built-in",
+        "name": "Built-In / Free-Standing"
+      },
+      {
+        "value": "No",
+        "name": "Ada Compliant"
+      },
+      {
+        "value": "48",
+        "name": "Decibel (Sound) Rating"
+      },
+      {
+        "value": "Not possible",
+        "name": "Door Panel Options"
+      },
+      {
+        "value": "Inherent heat",
+        "name": "Drying System"
+      },
+      {
+        "value": "Intensive, Auto 55-60(degree)C, Eco, Quick L, Custom program",
+        "name": "List Of Programs"
+      },
+      {
+        "value": "48",
+        "name": "Noise Level (Db(A) Re 1Pw)"
+      },
+      {
+        "value": "12",
+        "name": "Number Of Place Settings"
+      },
+      {
+        "value": "No",
+        "name": "Removable Top"
+      },
+      {
+        "value": "753",
+        "name": "Total Annual Water Consumption"
+      },
+      {
+        "value": "No",
+        "name": "Variable Hinge"
+      },
+      {
+        "value": "5",
+        "name": "Number Of Programs"
+      },
+      {
+        "value": "1440",
+        "name": "Connection Rating (W)"
+      },
+      {
+        "value": "12",
+        "name": "Fuse Protection (A)"
+      },
+      {
+        "value": "120",
+        "name": "Voltage (V)"
+      },
+      {
+        "value": "60",
+        "name": "Frequency (Hz)"
+      },
+      {
+        "value": "No",
+        "name": "Basic Touch Control"
+      },
+      {
+        "value": "Front",
+        "name": "Location Of Control Panel"
+      },
+      {
+        "value": "Electronic",
+        "name": "Type Of Control"
+      },
+      {
+        "value": "Yes",
+        "name": "Extremely Quiet - Ecosilence Drive"
+      },
+      {
+        "value": "Yes",
+        "name": "Nsf Certified"
+      },
+      {
+        "value": "No",
+        "name": "Water Softener"
+      },
+      {
+        "value": "No",
+        "name": "Emotionlight"
+      },
+      {
+        "value": "Not applicable",
+        "name": "Program Status Light"
+      },
+      {
+        "value": "No",
+        "name": "Sidelight"
+      },
+      {
+        "value": "TRUE",
+        "name": "Delay Start"
+      },
+      {
+        "value": "No",
+        "name": "Interior Light"
+      },
+      {
+        "value": "No",
+        "name": "Pause/Reload"
+      },
+      {
+        "value": "Yes",
+        "name": "Connected Appliances With Home Connect"
+      },
+      {
+        "value": "Remote Monitoring and Control",
+        "name": "Home Connect Features"
+      },
+      {
+        "value": "Yes - all from front",
+        "name": "Adjustable Feet"
+      },
+      {
+        "value": "33 7/8'' x 23 9/16'' x 23 3/4''",
+        "name": "Appliance Dimensions (H X W X D) (In)"
+      },
+      {
+        "value": "94",
+        "name": "Gross Weight (Lbs)"
+      },
+      {
+        "value": "85",
+        "name": "Net Weight (Lbs)"
+      },
+      {
+        "value": "33 7/8'' x 24'' x 24''",
+        "name": "Required Cutout/Niche Size For Installation (In)"
+      },
+      {
+        "value": "67''",
+        "name": "Power Cord Length"
+      },
+      {
+        "value": "Nema5-15P",
+        "name": "Plug Type"
+      },
+      {
+        "value": "TRUE",
+        "name": "Child Safety Locks"
+      },
+      {
+        "value": "No",
+        "name": "Water Protection With Warranty - Aquastop"
+      }
+    ],
+    "Web_Retailer_SubCategory": "BUILT IN DISHWASHER",
+    "Web_Retailer_Category": "DISHWASHERS",
+    "Product_Description_Web_Retailer": "Bosch 2-Rack 100 Series dishwashers deliver a clean and dry you can rely on, plus extra flexibility when you need it. The redesigned, edge-to-edge recessed handle with integrated front controls blend functionality and beauty. With PrecisionWash, intelligent sensors continually scan and check the progress of dishes throughout the cycle, while powerful spray arms target every item of every load, for a smarter clean. PureDry technology delivers simply clean, simply dry dishes with an energy efficient, closed drying system. Get personalized app features like Smart Cycle, hands-free voice control with Amazon Alexa or Google Home and so much more, all when you use Wi-Fi enabled Home Connect.",
+    "Features_Web_Retailer": "<ul><li>A smarter clean with PrecisionWash(R)</li><li>Not just dry, but PureDry(R)</li><li>48 dBA -- the quietest dishwasher brand in the U.S.*</li><li>Prevent leaks with AquaStop(R)</li><li>Favourite programme: personalized function by just one touch.</li><li>ExtraDry: selectable option for additional drying.</li><li>Enhance your cleaning experience with Wi-Fi enabled Home Connect(R)</li><li>10-Year Rust-Through Warranty.</li><li>Anti-fingerprint Stainless Steel doors</li><li>Auto Program: automatically the best cleaning performance.</li><li>The dishwasher that removes more than food.</li><li>Your appliance listens to you.</li><li>Enhance your cleaning experience with Wi-Fi enabled Home Connect.</li><li>Programme Assistant - The right programme for each load.</li><li>Download programmes to match your everyday life.</li></ul>",
+    "Weight_Web_Retailer": 85,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": "33 7/8",
+    "Width_Web_Retailer": "23 3/4",
+    "Depth_Web_Retailer": "23 37/64",
+    "Product_Title_Web_Retailer": "100 Series Dishwasher 24'' Brushed steel anti-fingerprint",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 849,
+    "Model_Number_Web_Retailer": "SHE41CM5N",
+    "Brand_Web_Retailer": "BOSCH",
+    "SF_Catalog_Name": "SHE41CM5N",
+    "SF_Catalog_Id": "a03aZ00000gtdLaQAI"
+  },
+  "webhookUrl": "https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/catalog_verification",
+  "webhookAttempts": 1,
+  "createdAt": "2026-02-12T18:22:53.750Z",
+  "updatedAt": "2026-02-12T18:24:35.579Z",
+  "__v": 0,
+  "startedAt": "2026-02-12T18:22:53.757Z",
+  "completedAt": "2026-02-12T18:24:33.074Z",
+  "processingTimeMs": 99315,
+  "result": {
+    "SF_Catalog_Id": "a03aZ00000gtdLaQAI",
+    "SF_Catalog_Name": "SHE41CM5N",
+    "Primary_Attributes": {
+      "AI_Brand": "BOSCH",
+      "AI_Brand_Lookup": "a0MaZ000000Es5NUAS",
+      "AI_Product_Category": "Dishwasher",
+      "AI_Product_Category_Lookup": "a01Hu000010Q5EiIAK",
+      "AI_Product_Family": "Kitchen",
+      "AI_Product_Department": "Appliances",
+      "AI_Type": "Front Control",
+      "AI_Type_Id": "a1jaZ000001lF6iQAE",
+      "AI_Style": "Not Applicable",
+      "AI_Style_Lookup": null,
+      "AI_Color": "Stainless Steel",
+      "AI_Finish": "Anti-fingerprint",
+      "AI_Depth": "23.75",
+      "AI_Width": "23.56",
+      "AI_Height": "33.88",
+      "AI_Weight": "85",
+      "AI_MSRP": "849",
+      "AI_Description": "The Bosch 100 Series Built-In Dishwasher offers a sleek design with advanced cleaning technology. Featuring Precision. Wash for smarter cleaning and Pure. Dry for efficient drying, this dishwasher accommodates 12 place settings and operates quietly at 48 dBA. Enjoy the convenience of Wi-Fi connectivity with Home Connect, allowing remote monitoring and control.",
+      "AI_Product_Title": "BOSCH 24-Inch Dishwasher Anti-fingerprint - SHE41CM5N",
+      "AI_Features": "<ul>\n  <li>PrecisionWash technology for smarter cleaning</li>\n  <li>PureDry system for efficient drying</li>\n  <li>48 dBA noise level for quiet operation</li>\n  <li>Wi-Fi enabLED with Home Connect for remote control</li>\n  <li>12 place setting capacity</li>\n  <li>Touch control panel for easy operation</li>\n  <li>Child lock and door lock features</li>\n  <li>Built-in food disposer</li>\n  <li>Stainless steel interior for durability</li>\n  <li>3 wash cycles including Heavy, Auto, and Normal</li>\n</ul>",
+      "AI_UPC_GTIN": "825225974048",
+      "AI_Model_Number": "SHE41CM5N",
+      "AI_Model_Alias": "SHE41CM5N",
+      "AI_Model_Parent": "SHE41CM",
+      "AI_Model_Variant_Number": "5N",
+      "AI_Total_Model_Variants": "5N, 6N, 2N"
+    },
+    "Top_Filter_Attributes": {
+      "number_of_wash_cycles": "5",
+      "place_setting_capacity": "12",
+      "installation_type": "Built-In",
+      "panel_ready": "Procurement No Results",
+      "voltage": "120",
+      "number_of_racks": "Procurement No Results",
+      "interior_material": "Procurement No Results",
+      "db_rating": "Procurement No Results",
+      "dishwasher_type": "Front Controls",
+      "amperage": "12"
+    },
+    "Top_Filter_Attribute_Ids": {
+      "number_of_wash_cycles": "a1aaZ000008mBvzQAE",
+      "place_setting_capacity": "a1aaZ000008mBwNQAU",
+      "installation_type": "a1aaZ000009X5F8QAK",
+      "panel_ready": "a1aaZ000008mBwFQAU",
+      "voltage": "a1aaZ000009X681QAC",
+      "number_of_racks": "a1aaZ000008mBvrQAE",
+      "interior_material": "a1aaZ000008mBuEQAU",
+      "db_rating": "a1aaZ000008mBpIQAU",
+      "dishwasher_type": "a1aaZ000008mBrHQAU",
+      "amperage": "a1aaZ000009X1zYQAS"
+    },
+    "Additional_Attributes_HTML": "<table style=\"border-collapse: collapse; width: 100%; margin: 10px 0; font-family: Arial, sans-serif; font-size: 14px;\" border=\"1\">\n  <thead>\n    <tr>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Attribute</th>\n      <th style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #4a90d9; color: white; font-weight: bold;\">Value</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Energy Star</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">No</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Manufacturer Warranty</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">1 Year Limited Parts and Labor, 30 Day Cosmetic</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Country Of Origin</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">USA</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Made In America</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Theme</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Transitional</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Amperage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">12</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Db Rating</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">48</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Number Of Wash Cycles</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">3</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Voltage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">120</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Wattage</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">1440</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Certifications</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">NSF</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Drying System</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Overflow Detector</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">App Compatibility</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Home Connect</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Built In Food Disposer</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Yes</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Door Features</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Child Lock, Door Lock</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Interior Material</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Stainless Steel</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Number Of Racks</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">2</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">Panel Ready</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #fff;\">No</td>\n    </tr>\n    <tr>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Smart Home</td>\n      <td style=\"padding: 10px 15px; text-align: left; border: 1px solid #ddd; background-color: #f9f9f9;\">Yes</td>\n    </tr>\n  </tbody>\n</table>",
+    "Price_Analysis": {
+      "msrp_web_retailer": 849,
+      "msrp_ferguson": 0
+    },
+    "Media": {
+      "Primary_Image_URL": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgdruuhulcn_20260211_145958.png",
+      "All_Image_URLs": [
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgdruuhulcn_20260211_145958.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frvmqczsztzi_20260211_150002.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxhgycqlkqd_20260211_150004.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frtwvicvvvpx_20260211_150005.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frsksaqyiwlh_20260211_150007.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frwgtzckwhrd_20260211_150009.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fryjzoyotyzm_20260211_150009.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frdxwtqohmhg_20260211_150011.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgzhawmcdfd_20260211_150014.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpismysabnn_20260211_150014.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frrmvopjidcu_20260211_150014.jpg",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frttyuzwoklj_20260211_150015.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxrhmknsygy_20260211_150017.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frilgverkspc_20260211_150019.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/froldcltstha_20260211_150021.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfaafuwylif_20260211_150023.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frffpzjjvpxx_20260211_150024.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frolvusfvxmw_20260211_150027.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frddfznfcthv_20260211_150030.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfxfqcdruqs_20260211_150032.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frwsdixxiqrt_20260211_150034.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frljciwuqjqv_20260211_150036.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frywqtovydqw_20260211_150038.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmrcrnusfsz_20260211_150039.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fropaicmuiqt_20260211_150041.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fritkfjokxrh_20260211_150044.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frccdmrhydgp_20260211_150047.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmshumaykhj_20260211_150050.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkecchbuxrh_20260211_150052.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frsdbrwihdox_20260211_150053.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnxocmuakid_20260211_150054.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frcfzitwxqnj_20260211_150057.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/franvxlvfisg_20260211_150058.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfckaxythhm_20260211_150100.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frvzsdpigxcj_20260211_150102.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frhhxiwceuyw_20260211_150103.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frezodwhxzrx_20260211_150105.png",
+        "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frohabrwbtjp_20260211_150107.png"
+      ],
+      "Image_Count": 38
+    },
+    "Reference_Links": {
+      "Ferguson_URL": "https://www.fergusonhome.com/bosch-she41cm/s2015829",
+      "Web_Retailer_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/SHE41CM5N.html?srsltid=AfmBOopxXENZ07L3UOE6Cp8Vj_bAZ76du-cifoJfbx48e7CsNxXtEKiU",
+      "Manufacturer_URL": ""
+    },
+    "Documents": {
+      "total_count": 6,
+      "recommended_count": 0,
+      "documents": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frzswxygmolz_20260211_150108.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpqbcdjhpop_20260211_150108.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmcqkeinnjk_20260211_150110.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxvpbwofbuu_20260211_150111.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkblclmyxnd_20260211_150112.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkdemupioec_20260211_150112.pdf",
+          "ai_recommendation": "review",
+          "relevance_score": 0,
+          "reason": "Not evaluated by AI"
+        }
+      ]
+    },
+    "Research_Analysis": {
+      "research_performed": true,
+      "total_resources_analyzed": 6,
+      "web_pages": [
+        {
+          "url": "https://www.ajmadison.com/cgi-bin/ajmadison/SHE41CM5N.html?srsltid=AfmBOopxXENZ07L3UOE6Cp8Vj_bAZ76du-cifoJfbx48e7CsNxXtEKiU",
+          "success": true,
+          "specs_extracted": 0,
+          "features_extracted": 0,
+          "processing_time_ms": 0
+        },
+        {
+          "url": "https://www.fergusonhome.com/bosch-she41cm/s2015829",
+          "success": true,
+          "specs_extracted": 46,
+          "features_extracted": 37,
+          "processing_time_ms": 0
+        }
+      ],
+      "pdfs": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frzswxygmolz_20260211_150108.pdf",
+          "filename": "frzswxygmolz_20260211_150108.pdf",
+          "success": false,
+          "pages": 0,
+          "specs_extracted": 0,
+          "text_length": 0,
+          "processing_time_ms": 0,
+          "error": "PDF parsing library not available"
+        },
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpqbcdjhpop_20260211_150108.pdf",
+          "filename": "frpqbcdjhpop_20260211_150108.pdf",
+          "success": false,
+          "pages": 0,
+          "specs_extracted": 0,
+          "text_length": 0,
+          "processing_time_ms": 0,
+          "error": "PDF parsing library not available"
+        }
+      ],
+      "images": [
+        {
+          "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgdruuhulcn_20260211_145958.png",
+          "success": true,
+          "model_used": "grok-2-vision-1212",
+          "color_detected": "Stainless Steel",
+          "finish_detected": "Brushed",
+          "product_type": "Dishwasher",
+          "features_detected": 4,
+          "confidence": 0.95,
+          "processing_time_ms": 0
+        }
+      ],
+      "final_web_search": {
+        "performed": true,
+        "query": "BOSCH SHE41CM5N",
+        "verified_data_used": {
+          "brand": "BOSCH",
+          "model": "SHE41CM5N",
+          "category": "Dishwasher"
+        },
+        "missing_fields_searched": [
+          "product_style",
+          "color",
+          "finish"
+        ],
+        "specs_found": 3,
+        "features_found": 0,
+        "sources": [
+          "https://www.bosch-home.com/us/productslist/dishwashers/front-controls/SHE41CM5N",
+          "https://www.planettv.com/products/bosch/she41cm5n.html",
+          "https://www.appliancesplus.com/products/bosch/she41cm5n.html",
+          "https://www.bosch-home.com/us/products/dishwashers/built-in-dishwashers/SHE41CM5N",
+          "https://www.bestbuy.com/site/bosch-100-series-24-built-in-dishwasher-stainless-steel/6451858.p?skuId=6451858"
+        ],
+        "success": true
+      },
+      "summary": {
+        "total_specs_extracted": 51,
+        "total_features_extracted": 30,
+        "success_rate": 67
+      }
+    },
+    "Research_Attestation": {
+      "attestation_enabled": true,
+      "research_performed": true,
+      "checklist_completion": {
+        "completed_steps": 8,
+        "total_steps": 8,
+        "completion_rate": "100%",
+        "steps": {
+          "raw_sf_data_review": true,
+          "url_scraping": true,
+          "openai_analysis": true,
+          "xai_analysis": true,
+          "smart_inference": true,
+          "image_analysis": true,
+          "cross_reference": true,
+          "final_verification": true
+        }
+      },
+      "field_status_summary": {
+        "total_fields": 36,
+        "found_with_value": 31,
+        "procurement_no_results": 4,
+        "research_incomplete": 0,
+        "not_found_fields": [
+          "panel_ready",
+          "number_of_racks",
+          "interior_material",
+          "db_rating"
+        ],
+        "incomplete_fields": []
+      },
+      "status_code_meanings": {
+        "Procurement No Results": "All 8 research steps completed, data genuinely not available",
+        "Research Incomplete - Pending": "Some research steps could not be completed",
+        "Research Error - Manual Review Required": "Conflicts or errors require human review"
+      }
+    },
+    "Received_Attributes_Confirmation": {
+      "web_retailer_specs_processed": [
+        {
+          "name": "Material Number",
+          "value": "SHE41CM5N",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Brand Name",
+          "value": "Bosch",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Category",
+          "value": "Built-in Dishwashers",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Product Name",
+          "value": "100 Series, built-under dishwasher, 24'', Brushed steel anti-fingerprint",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Upc",
+          "value": "825225974048",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Series",
+          "value": "100 Series",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Appliance Color/Finish",
+          "value": "Stainless Steel",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Energy Star(R) Certified",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Installation",
+          "value": "Built-under",
+          "matched_to_field": "Top_Filter_Attributes.installation_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Built-In / Free-Standing",
+          "value": "Built-in",
+          "matched_to_field": "Top_Filter_Attributes.installation_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Ada Compliant",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Decibel (Sound) Rating",
+          "value": "48",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Door Panel Options",
+          "value": "Not possible",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Drying System",
+          "value": "Inherent heat",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "List Of Programs",
+          "value": "Intensive, Auto 55-60(degree)C, Eco, Quick L, Custom program",
+          "matched_to_field": "Top_Filter_Attributes.number_of_wash_cycles",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Noise Level (Db(A) Re 1Pw)",
+          "value": "48",
+          "matched_to_field": "Top_Filter_Attributes.voltage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Number Of Place Settings",
+          "value": "12",
+          "matched_to_field": "Top_Filter_Attributes.place_setting_capacity",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Removable Top",
+          "value": "No",
+          "matched_to_field": "Top_Filter_Attributes.voltage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Total Annual Water Consumption",
+          "value": "753",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Variable Hinge",
+          "value": "No",
+          "matched_to_field": "Top_Filter_Attributes.voltage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Number Of Programs",
+          "value": "5",
+          "matched_to_field": "Top_Filter_Attributes.number_of_wash_cycles",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Connection Rating (W)",
+          "value": "1440",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Fuse Protection (A)",
+          "value": "12",
+          "matched_to_field": "Top_Filter_Attributes.amperage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Voltage (V)",
+          "value": "120",
+          "matched_to_field": "Top_Filter_Attributes.voltage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Frequency (Hz)",
+          "value": "60",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Basic Touch Control",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Location Of Control Panel",
+          "value": "Front",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Type Of Control",
+          "value": "Electronic",
+          "matched_to_field": "Top_Filter_Attributes.dishwasher_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Extremely Quiet - Ecosilence Drive",
+          "value": "Yes",
+          "matched_to_field": "Top_Filter_Attributes.voltage",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Nsf Certified",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Water Softener",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Emotionlight",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Program Status Light",
+          "value": "Not applicable",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Sidelight",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Delay Start",
+          "value": "TRUE",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Interior Light",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Pause/Reload",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Connected Appliances With Home Connect",
+          "value": "Yes",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Home Connect Features",
+          "value": "Remote Monitoring and Control",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Adjustable Feet",
+          "value": "Yes - all from front",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Appliance Dimensions (H X W X D) (In)",
+          "value": "33 7/8'' x 23 9/16'' x 23 3/4''",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Gross Weight (Lbs)",
+          "value": "94",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Net Weight (Lbs)",
+          "value": "85",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Required Cutout/Niche Size For Installation (In)",
+          "value": "33 7/8'' x 24'' x 24''",
+          "matched_to_field": "Top_Filter_Attributes.installation_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Power Cord Length",
+          "value": "67''",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Plug Type",
+          "value": "Nema5-15P",
+          "matched_to_field": "Top_Filter_Attributes.dishwasher_type",
+          "status": "included_in_response"
+        },
+        {
+          "name": "Child Safety Locks",
+          "value": "TRUE",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        },
+        {
+          "name": "Water Protection With Warranty - Aquastop",
+          "value": "No",
+          "status": "not_used",
+          "reason": "Not matched to any attribute in this category"
+        }
+      ],
+      "ferguson_attributes_processed": [],
+      "summary": {
+        "total_received_from_web_retailer": 48,
+        "total_received_from_ferguson": 0,
+        "total_included_in_response": 14,
+        "total_in_additional_attributes": 0,
+        "total_not_used": 34
+      }
+    },
+    "Field_AI_Reviews": {
+      "brand": {
+        "openai": {
+          "value": "Bosch",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Bosch",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "BOSCH"
+      },
+      "category_subcategory": {
+        "openai": {
+          "value": "Dishwashers / Built-in Dishwashers",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Dishwasher / Built-in Dishwashers",
+          "agreed": false,
+          "confidence": 95
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Dishwasher"
+      },
+      "product_family": {
+        "openai": {
+          "value": "100 Series",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "100 Series",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "100 Series"
+      },
+      "product_type": {
+        "openai": {
+          "value": "Front Controls",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Front Control",
+          "agreed": false,
+          "confidence": 95
+        },
+        "consensus": "partial",
+        "source": "xai_selected",
+        "final_value": "Front Control"
+      },
+      "depth_length": {
+        "openai": {
+          "value": "23.75",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "23.75",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "23.75"
+      },
+      "width": {
+        "openai": {
+          "value": "23.5625",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "23.5625"
+      },
+      "height": {
+        "openai": {
+          "value": "33.875",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "33.875"
+      },
+      "weight": {
+        "openai": {
+          "value": "85",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "85",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "85"
+      },
+      "msrp": {
+        "openai": {
+          "value": "849",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "849",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "849"
+      },
+      "description": {
+        "openai": {
+          "value": "The Bosch 100 Series Built-In Dishwasher offers a sleek design with advanced cleaning technology. Featuring PrecisionWash for smarter cleaning and PureDry for efficient drying, this dishwasher accommodates 12 place settings and operates quietly at 48 dBA. Enjoy the convenience of Wi-Fi connectivity with Home Connect, allowing remote monitoring and control.",
+          "agreed": false,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "The Bosch 100 Series dishwasher offers reliable cleaning with PrecisionWash technology, ensuring intelligent sensors monitor and adjust for optimal results. Featuring PureDry for efficient drying and Wi-Fi connectivity via Home Connect, it accommodates 12 place settings quietly at 48 dBA. This built-in model combines sleek design with practical features for everyday use.",
+          "agreed": false,
+          "confidence": 95
+        },
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final_value": "The Bosch 100 Series Built-In Dishwasher offers a sleek design with advanced cleaning technology. Featuring PrecisionWash for smarter cleaning and PureDry for efficient drying, this dishwasher accommodates 12 place settings and operates quietly at 48 dBA. Enjoy the convenience of Wi-Fi connectivity with Home Connect, allowing remote monitoring and control."
+      },
+      "upc_gtin": {
+        "openai": {
+          "value": "825225974048",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "825225974048",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "825225974048"
+      },
+      "model_number": {
+        "openai": {
+          "value": "SHE41CM5N",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "SHE41CM5N",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "SHE41CM5N"
+      },
+      "model_number_alias": {
+        "openai": {
+          "value": "SHE41CM5N",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "SHE41CM5N",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "SHE41CM5N"
+      },
+      "model_parent": {
+        "openai": {
+          "value": "SHE41CM",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "SHE41CM",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "SHE41CM"
+      },
+      "product_style": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Contemporary"
+      },
+      "color": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Stainless Steel"
+      },
+      "finish": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Anti-fingerprint"
+      },
+      "cutout_depth": {
+        "openai": {
+          "value": "24",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "24"
+      },
+      "cutout_height": {
+        "openai": {
+          "value": "33.875",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "33.875"
+      },
+      "cutout_width": {
+        "openai": {
+          "value": "24",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "24"
+      },
+      "depth": {
+        "openai": {
+          "value": "23.75",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "23.75"
+      },
+      "place_setting_capacity": {
+        "openai": {
+          "value": "12",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "12"
+      },
+      "product_weight": {
+        "openai": {
+          "value": "85",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "85"
+      },
+      "water_consumption": {
+        "openai": {
+          "value": "3.5",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "3.5"
+      },
+      "drying_system": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Yes"
+      },
+      "overflow_detector": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Yes"
+      },
+      "app_compatibility": {
+        "openai": {
+          "value": "Home Connect",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Home Connect"
+      },
+      "built_in_food_disposer": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Yes"
+      },
+      "control_type": {
+        "openai": {
+          "value": "Touch",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Touch",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Touch"
+      },
+      "dishwasher_type": {
+        "openai": {
+          "value": "Front Controls",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Front Controls"
+      },
+      "fingerprint_resistant": {
+        "openai": {
+          "value": "Yes",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "consensus": "single_source",
+        "source": "openai_selected",
+        "final_value": "Yes"
+      },
+      "installation_type": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Built-In",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Built-In"
+      },
+      "energy_star": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "No",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "No"
+      },
+      "air_filter_type": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "includes_remote": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "No",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "No"
+      },
+      "noise_level": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "48",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "48"
+      },
+      "includes_thermostat": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "amperage": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "12",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "12"
+      },
+      "refrigerant": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "sleep_mode": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "cfm": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Found",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Found"
+      },
+      "cooling_area": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "ceer_rating": {
+        "openai": {
+          "value": null,
+          "agreed": false,
+          "confidence": 0
+        },
+        "xai": {
+          "value": "Not Applicable",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "single_source",
+        "source": "xai_selected",
+        "final_value": "Not Applicable"
+      },
+      "product_title": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Bosch 100 Series 24\" Built-In Dishwasher with 12 Place Setting Capacity Stainless Steel"
+      },
+      "details": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Features include a touch control panel, multiple wash cycles, and a fingerprint-resistant finish."
+      },
+      "features_list": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "<ul><li>Precisionwash technology for smarter cleaning</li><li>Puredry system for efficient drying</li><li>48 dba noise level for quiet operation</li><li>Wi-fi enabled with home connect for remote control</li><li>12 place setting capacity</li><li>Touch control panel for easy operation</li><li>Child lock and door lock features</li><li>Built-in food disposer</li><li>Stainless steel interior for durability</li><li>3 wash cycles including heavy, auto, and normal</li><li>Precisionwash technology for intelligent cleaning adjustments</li><li>Puredry system for energy-efficient drying</li><li>Wi-fi enabled with home connect for remote monitoring</li><li>Accommodates 12 place settings for family-sized loads</li><li>Quiet operation at 48 dba</li><li>Child safety locks for added security</li><li>Touch controls for easy operation</li></ul>"
+      },
+      "model_variant_number": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Procurement No Results"
+      },
+      "total_model_variants": {
+        "openai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "xai": {
+          "value": null,
+          "agreed": true,
+          "confidence": 0
+        },
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final_value": "Procurement No Results"
+      },
+      "category": {
+        "openai": {
+          "value": "Dishwasher",
+          "agreed": true,
+          "confidence": 95
+        },
+        "xai": {
+          "value": "Dishwasher",
+          "agreed": true,
+          "confidence": 95
+        },
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final_value": "Dishwasher"
+      }
+    },
+    "AI_Review": {
+      "openai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 95,
+        "fields_verified": 36,
+        "fields_corrected": 0
+      },
+      "xai": {
+        "reviewed": true,
+        "result": "agreed",
+        "confidence": 95,
+        "fields_verified": 33,
+        "fields_corrected": 3
+      },
+      "consensus": {
+        "both_reviewed": true,
+        "agreement_status": "full_agreement",
+        "agreement_percentage": 96,
+        "final_arbiter": "consensus"
+      }
+    },
+    "Verification": {
+      "verification_timestamp": "2026-02-12T18:24:33.046Z",
+      "verification_session_id": "2053b631-42c4-4f6f-ba3d-0289a48090a6",
+      "verification_score": 96,
+      "verification_status": "verified",
+      "data_sources_used": [
+        "OpenAI",
+        "xAI",
+        "Web_Retailer",
+        "External_Research"
+      ],
+      "corrections_made": [
+        {
+          "field": "energy_star",
+          "originalValue": "No",
+          "correctedValue": "No",
+          "reason": "Verified from Ferguson research and specification table",
+          "source": "xai"
+        },
+        {
+          "field": "msrp",
+          "originalValue": "849",
+          "correctedValue": "849",
+          "reason": "Confirmed as the highest price from official sources like Ferguson and raw data",
+          "source": "xai"
+        },
+        {
+          "field": "width",
+          "originalValue": "23 3/4",
+          "correctedValue": "23.56",
+          "reason": "Standardized to numeric inches based on research; original included units",
+          "source": "xai"
+        },
+        {
+          "field": "brand",
+          "originalValue": "BOSCH",
+          "correctedValue": "Bosch",
+          "reason": "Fixed encoding issues and standardized brand name",
+          "source": "text_cleaner"
+        },
+        {
+          "field": "product_title",
+          "originalValue": "Bosch 100 Series 24\" Built-In Dishwasher with 12 Place Setting Capacity Stainless Steel",
+          "correctedValue": "Bosch 100 Series 24\" Built-in Dishwasher with 12 Place Setting Capacity Stainless Steel",
+          "reason": "Cleaned and formatted title for customer display",
+          "source": "text_cleaner"
+        },
+        {
+          "field": "description",
+          "originalValue": "The Bosch 100 Series Built-In Dishwasher offers a sleek design with advanced cleaning technology. Fe...",
+          "correctedValue": "The Bosch 100 Series Built-In Dishwasher offers a sleek design with advanced cleaning technology. Fe...",
+          "reason": "Cleaned grammar, spelling, and formatting for customer display",
+          "source": "text_cleaner"
+        }
+      ],
+      "missing_fields": [],
+      "confidence_scores": {
+        "openai": 0.95,
+        "xai": 0.95,
+        "consensus": 0.9565384615384616,
+        "category": 0.95
+      },
+      "score_breakdown": {
+        "ai_confidence_component": 48,
+        "agreement_component": 40,
+        "category_bonus": 10,
+        "fields_agreed": 71,
+        "fields_disagreed": 0,
+        "total_fields": 71,
+        "agreement_percentage": 100,
+        "text_fields_excluded": 3,
+        "disagreement_details": [
+          {
+            "field": "product_style",
+            "openai": "Contemporary",
+            "xai": "Transitional"
+          },
+          {
+            "field": "model_variant_number",
+            "openai": "Not Found",
+            "xai": "5N"
+          },
+          {
+            "field": "total_model_variants",
+            "openai": "SHE41CM5N, SHE41CM6N, SHE41CM2N",
+            "xai": "SHE41CM2N, SHE41CM5N, SHE41CM6N"
+          }
+        ],
+        "data_source_scenario": "web_retailer_only",
+        "research_performed": true,
+        "research_attempts": 3,
+        "urls_scraped": 2,
+        "documents_analyzed": 6,
+        "images_analyzed": 38,
+        "external_data_trusted": true
+      }
+    },
+    "Attribute_Requests": [
+      {
+        "attribute_name": "certifications",
+        "requested_for_category": "Dishwasher",
+        "source": "ai_analysis",
+        "reason": "Attribute \"certifications\" detected in AI analysis with value \"NSF\" but not found in Salesforce picklist (similarity: 50%). Please create this attribute so future products can map values to it."
+      }
+    ],
+    "Brand_Requests": [],
+    "Category_Requests": [],
+    "Style_Requests": [
+      {
+        "style_name": "Not Applicable",
+        "suggested_for_category": "Dishwasher",
+        "source": "ai_analysis",
+        "product_context": {
+          "sf_catalog_id": "a03aZ00000gtdLaQAI",
+          "model_number": "SHE41CM5N"
+        },
+        "reason": "Style \"Not Applicable\" from AI analysis - requesting creation for category \"Dishwasher\""
+      }
+    ],
+    "Status": "success"
+  },
+  "salesforceAcknowledged": true,
+  "salesforceAcknowledgedAt": "2026-02-12T18:24:35.576Z",
+  "salesforceProcessed": true,
+  "webhookLastAttempt": "2026-02-12T18:24:35.579Z",
+  "webhookSuccess": true
+}
+
+
+=== FIELD SUMMARY ===
+  _id: object
+  jobId: string
+  sfCatalogId: string
+  sfCatalogName: string
+  status: string
+  rawPayload: object
+  webhookUrl: string
+  webhookAttempts: number
+  createdAt: object
+  updatedAt: object
+  __v: number
+  startedAt: object
+  completedAt: object
+  processingTimeMs: number
+  result: object
+  salesforceAcknowledged: boolean
+  salesforceAcknowledgedAt: object
+  salesforceProcessed: boolean
+  webhookLastAttempt: object
+  webhookSuccess: boolean

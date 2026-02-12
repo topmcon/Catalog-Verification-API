@@ -1,0 +1,651 @@
+🔌 Connected to MongoDB
+
+════════════════════════════════════════════════════════════════════════════════
+📊 BATCH QUALITY AUDIT - DATA VALIDATION REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+Total Completed Jobs: 500
+
+📈 SUMMARY:
+
+  ✅ Clean Results: 95 (19.0%)
+  ⚠️  Brand NOT APPLICABLE: 0
+  ⚠️  Category NOT APPLICABLE: 0
+  ⚠️  Style NOT APPLICABLE: 47
+  ⚠️  Brand BLANK: 358
+  ⚠️  Category BLANK: 358
+  ⚠️  Title BLANK: 358
+  ⚠️  Weight BLANK: 358
+
+────────────────────────────────────────────────────────────────────────────────
+⚠️  STYLE NOT APPLICABLE (47 items):
+────────────────────────────────────────────────────────────────────────────────
+
+  [1] Job: e712f96d-b895-4b29-9f05-64486108b607
+      Product: SHE41CM5N
+      Brand: BOSCH
+      Category: Dishwasher
+      Style: Not Applicable
+
+  [2] Job: 212cbba9-c37f-43dc-bbcb-09b2aa47121d
+      Product: SWC530LBIST
+      Brand: SUMMIT
+      Category: Refrigerator
+      Style: Not Applicable
+
+  [7] Job: 74cda429-8a87-4b98-9e09-6f1c56fbf9c1
+      Product: EPWD257UIW
+      Brand: ELECTROLUX
+      Category: Standalone Pedestal
+      Style: Not Applicable
+
+  [12] Job: e78db27f-2040-41d8-8cf9-55a9180dcf1b
+      Product: SPRAR055D1SS
+      Brand: SILHOUETTE
+      Category: Refrigerator
+      Style: Not Applicable
+
+  [13] Job: 9f135185-263f-4933-95e5-932f1ab6d23e
+      Product: ZDT925SPNSS
+      Brand: MONOGRAM
+      Category: Dishwasher
+      Style: Not Applicable
+
+  [15] Job: c16af3dd-9733-4491-88c8-2eb6f75979c6
+      Product: GCFE3060BF
+      Brand: FRIGIDAIRE
+      Category: Range
+      Style: Not Applicable
+
+  [19] Job: 6b358ffd-abd2-4c56-9430-a8bf596f5ec4
+      Product: VSOE130SS
+      Brand: VIKING
+      Category: Oven
+      Style: Not Applicable
+
+  [20] Job: d20f29ab-a249-424d-b498-543631f7e9b1
+      Product: MVSOE630SS
+      Brand: VIKING
+      Category: Oven
+      Style: Not Applicable
+
+  [22] Job: 52440c48-0c74-41de-8c1c-2e4d9956f720
+      Product: WOS51EC0HS
+      Brand: WHIRLPOOL
+      Category: Oven
+      Style: Not Applicable
+
+  [23] Job: 06a85387-ccb8-4f1a-b1ec-02e03e4cf048
+      Product: MES8800PZ
+      Brand: MAYTAG
+      Category: Range
+      Style: Not Applicable
+
+  [24] Job: 506b3927-95d3-4213-b3cf-6ac9b2efb798
+      Product: SOU130S1
+      Brand: SMEG
+      Category: Oven
+      Style: Not Applicable
+
+  [25] Job: 311fa34b-02e1-4ea4-9b3e-04f17dcfb41b
+      Product: WOES5030LZ
+      Brand: WHIRLPOOL
+      Category: Oven
+      Style: Not Applicable
+
+  [27] Job: 8d2c513f-f4fa-4345-995e-ed84d48b1758
+      Product: KOSE500ESS
+      Brand: KITCHENAID
+      Category: Oven
+      Style: Not Applicable
+
+  [29] Job: 219b3d69-0bc7-46d1-99dc-61d1ad0be723
+      Product: PKD7000SN6SS
+      Brand: GE
+      Category: Oven
+      Style: Not Applicable
+
+  [32] Job: 0c0c5f7d-0f78-42cf-b05b-370e50b362fd
+      Product: JEP5036DTBB
+      Brand: GE
+      Category: Cooktop
+      Style: Not Applicable
+
+  [36] Job: 8e05d1ba-b656-4abf-9e61-7cca096017af
+      Product: WFE775H0HZ
+      Brand: WHIRLPOOL
+      Category: Range
+      Style: Not Applicable
+
+  [37] Job: 6c3e03b7-c9d0-4b13-b783-f869aa605bbf
+      Product: WFE535S0LS3
+      Brand: WHIRLPOOL
+      Category: Range
+      Style: Not Applicable
+
+  [41] Job: 76f58459-f5aa-4e9c-a412-1fdd0ce76050
+      Product: KOES530PSS00
+      Brand: KITCHENAID
+      Category: Oven
+      Style: Not Applicable
+
+  [42] Job: 6fd784c4-6453-430c-9c1e-3c8485b7a515
+      Product: JTS5000EVES
+      Brand: GE
+      Category: Oven
+      Style: Not Applicable
+
+  [45] Job: 9a669662-df78-416f-ad31-88ac55e4f7b9
+      Product: KBSD708MSS
+      Brand: KITCHENAID
+      Category: Refrigerator
+      Style: Not Applicable
+
+  ... and 27 more
+
+────────────────────────────────────────────────────────────────────────────────
+⚠️  BRAND BLANK/NULL (358 items):
+────────────────────────────────────────────────────────────────────────────────
+
+  [5] Job: eb5f626c-534d-40cd-874c-3de4e0fbad9a
+      Product: WFGS7530RZ
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [17] Job: 186014f5-7eb5-46d7-be09-22e81b3cc764
+      Product: DOB30M977SM
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [120] Job: 72413d6f-14d3-4153-9c33-b872082ccf47
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [121] Job: c0da1d62-3fec-4151-9e8e-8a4000656ec0
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [122] Job: 01272387-a936-4e81-9eca-c31ee04c62d2
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [123] Job: 6f8d2e73-46a3-4879-b9bd-fb99996f6f19
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [124] Job: f0d6a9f7-590a-485a-90eb-058615500b95
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [125] Job: 6d692ed7-babc-4157-a465-b25170105c38
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [126] Job: 3bccc5a9-ad1c-41ef-a912-59d3c123cc3f
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [127] Job: 4dcdf695-879f-407d-ba72-8823bfc4d66b
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [128] Job: 6ac3faaa-59f0-4c05-bb53-5a0cc0ff20a4
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [129] Job: 9c3bb69a-849c-4a2e-b380-dce1f001f7a8
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [130] Job: b0c5db88-1595-4232-8209-7362f5ea640b
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [131] Job: b6619a46-3f18-41c9-836f-ed6a438366bd
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [132] Job: adc2e75d-1e6a-49f4-adc0-4460e3162648
+      Product: HTX26GASWWW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [133] Job: 81f8418f-b35b-4ccf-a631-8a57f99dce12
+      Product: UXDC732MSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [134] Job: 438d4bef-ebcb-4c54-9ae9-027e2bbadf92
+      Product: JIC4536KS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [135] Job: 4a75e0be-fc30-4e6f-8c06-939c567b0db9
+      Product: ESW7010 OBSW/USA
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [136] Job: 91a2580f-a06c-4068-80f0-06b81085629d
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [137] Job: 478bbeac-6252-4ba4-97c8-b885d449bd1a
+      Product: JGC7636BS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  ... and 338 more
+
+────────────────────────────────────────────────────────────────────────────────
+⚠️  CATEGORY BLANK/NULL (358 items):
+────────────────────────────────────────────────────────────────────────────────
+
+  [5] Job: eb5f626c-534d-40cd-874c-3de4e0fbad9a
+      Product: WFGS7530RZ
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [17] Job: 186014f5-7eb5-46d7-be09-22e81b3cc764
+      Product: DOB30M977SM
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [120] Job: 72413d6f-14d3-4153-9c33-b872082ccf47
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [121] Job: c0da1d62-3fec-4151-9e8e-8a4000656ec0
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [122] Job: 01272387-a936-4e81-9eca-c31ee04c62d2
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [123] Job: 6f8d2e73-46a3-4879-b9bd-fb99996f6f19
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [124] Job: f0d6a9f7-590a-485a-90eb-058615500b95
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [125] Job: 6d692ed7-babc-4157-a465-b25170105c38
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [126] Job: 3bccc5a9-ad1c-41ef-a912-59d3c123cc3f
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [127] Job: 4dcdf695-879f-407d-ba72-8823bfc4d66b
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [128] Job: 6ac3faaa-59f0-4c05-bb53-5a0cc0ff20a4
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [129] Job: 9c3bb69a-849c-4a2e-b380-dce1f001f7a8
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [130] Job: b0c5db88-1595-4232-8209-7362f5ea640b
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [131] Job: b6619a46-3f18-41c9-836f-ed6a438366bd
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [132] Job: adc2e75d-1e6a-49f4-adc0-4460e3162648
+      Product: HTX26GASWWW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [133] Job: 81f8418f-b35b-4ccf-a631-8a57f99dce12
+      Product: UXDC732MSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [134] Job: 438d4bef-ebcb-4c54-9ae9-027e2bbadf92
+      Product: JIC4536KS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [135] Job: 4a75e0be-fc30-4e6f-8c06-939c567b0db9
+      Product: ESW7010 OBSW/USA
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [136] Job: 91a2580f-a06c-4068-80f0-06b81085629d
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [137] Job: 478bbeac-6252-4ba4-97c8-b885d449bd1a
+      Product: JGC7636BS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  ... and 338 more
+
+────────────────────────────────────────────────────────────────────────────────
+⚠️  TITLE BLANK/NULL (358 items):
+────────────────────────────────────────────────────────────────────────────────
+
+  [5] Job: eb5f626c-534d-40cd-874c-3de4e0fbad9a
+      Product: WFGS7530RZ
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [17] Job: 186014f5-7eb5-46d7-be09-22e81b3cc764
+      Product: DOB30M977SM
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [120] Job: 72413d6f-14d3-4153-9c33-b872082ccf47
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [121] Job: c0da1d62-3fec-4151-9e8e-8a4000656ec0
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [122] Job: 01272387-a936-4e81-9eca-c31ee04c62d2
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [123] Job: 6f8d2e73-46a3-4879-b9bd-fb99996f6f19
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [124] Job: f0d6a9f7-590a-485a-90eb-058615500b95
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [125] Job: 6d692ed7-babc-4157-a465-b25170105c38
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [126] Job: 3bccc5a9-ad1c-41ef-a912-59d3c123cc3f
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [127] Job: 4dcdf695-879f-407d-ba72-8823bfc4d66b
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [128] Job: 6ac3faaa-59f0-4c05-bb53-5a0cc0ff20a4
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [129] Job: 9c3bb69a-849c-4a2e-b380-dce1f001f7a8
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [130] Job: b0c5db88-1595-4232-8209-7362f5ea640b
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [131] Job: b6619a46-3f18-41c9-836f-ed6a438366bd
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [132] Job: adc2e75d-1e6a-49f4-adc0-4460e3162648
+      Product: HTX26GASWWW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [133] Job: 81f8418f-b35b-4ccf-a631-8a57f99dce12
+      Product: UXDC732MSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [134] Job: 438d4bef-ebcb-4c54-9ae9-027e2bbadf92
+      Product: JIC4536KS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [135] Job: 4a75e0be-fc30-4e6f-8c06-939c567b0db9
+      Product: ESW7010 OBSW/USA
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [136] Job: 91a2580f-a06c-4068-80f0-06b81085629d
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [137] Job: 478bbeac-6252-4ba4-97c8-b885d449bd1a
+      Product: JGC7636BS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  ... and 338 more
+
+────────────────────────────────────────────────────────────────────────────────
+⚠️  WEIGHT BLANK/NULL (358 items):
+────────────────────────────────────────────────────────────────────────────────
+
+  [5] Job: eb5f626c-534d-40cd-874c-3de4e0fbad9a
+      Product: WFGS7530RZ
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [17] Job: 186014f5-7eb5-46d7-be09-22e81b3cc764
+      Product: DOB30M977SM
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [120] Job: 72413d6f-14d3-4153-9c33-b872082ccf47
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [121] Job: c0da1d62-3fec-4151-9e8e-8a4000656ec0
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [122] Job: 01272387-a936-4e81-9eca-c31ee04c62d2
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [123] Job: 6f8d2e73-46a3-4879-b9bd-fb99996f6f19
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [124] Job: f0d6a9f7-590a-485a-90eb-058615500b95
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [125] Job: 6d692ed7-babc-4157-a465-b25170105c38
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [126] Job: 3bccc5a9-ad1c-41ef-a912-59d3c123cc3f
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [127] Job: 4dcdf695-879f-407d-ba72-8823bfc4d66b
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [128] Job: 6ac3faaa-59f0-4c05-bb53-5a0cc0ff20a4
+      Product: KVWB606DSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [129] Job: 9c3bb69a-849c-4a2e-b380-dce1f001f7a8
+      Product: JVR0430HS0
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [130] Job: b0c5db88-1595-4232-8209-7362f5ea640b
+      Product: T411VDW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [131] Job: b6619a46-3f18-41c9-836f-ed6a438366bd
+      Product: AK7448AS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [132] Job: adc2e75d-1e6a-49f4-adc0-4460e3162648
+      Product: HTX26GASWWW
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [133] Job: 81f8418f-b35b-4ccf-a631-8a57f99dce12
+      Product: UXDC732MSS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [134] Job: 438d4bef-ebcb-4c54-9ae9-027e2bbadf92
+      Product: JIC4536KS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [135] Job: 4a75e0be-fc30-4e6f-8c06-939c567b0db9
+      Product: ESW7010 OBSW/USA
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [136] Job: 91a2580f-a06c-4068-80f0-06b81085629d
+      Product: LDFN4542S
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  [137] Job: 478bbeac-6252-4ba4-97c8-b885d449bd1a
+      Product: JGC7636BS
+      Brand: ❌ MISSING
+      Category: ❌ MISSING
+      Style: ❌ MISSING
+
+  ... and 338 more
+
+════════════════════════════════════════════════════════════════════════════════
+
