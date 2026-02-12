@@ -182,7 +182,7 @@ export {
   CATEGORY_NAME_ALIASES,
   AI_CATEGORY_ALIASES,
   type DepartmentName,
-} from '../picklist-master/02-categories/category-config';
+} from './constants';
 
 // Export Type hierarchy functions
 export {

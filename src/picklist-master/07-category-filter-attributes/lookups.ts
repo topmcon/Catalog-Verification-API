@@ -18,7 +18,7 @@ import { CategoryAttributeConfig } from '../../config/types';
 import { getCategorySchema as getBaseCategorySchema, CATEGORY_SCHEMAS } from '../../config/category-attributes';
 import { MASTER_CATEGORY_SCHEMA_MAP, getSchemaForCategory as getMasterSchema } from '../../config/master-category-schema-map';
 import { getCategorySchema as getAICategorySchema, CategorySchema } from '../../config/category-config';
-import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from '../02-categories/category-config';
+import { AI_CATEGORY_ALIASES, CATEGORY_NAME_ALIASES } from '../../config/constants';
 
 // ============================================
 // OPTIMIZED FILTER ATTRIBUTES (from JSON v2.0)
