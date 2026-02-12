@@ -232,6 +232,22 @@
     "styles_apply": true
   },
   {
+    "family": "Laundry",
+    "department": "Plumbing & Bath",
+    "category_name": "Laundry Sink",
+    "category_id": "a01aZ00000dC5ESQA0",
+    "subcategory": "Sinks",
+    "styles_apply": false
+  },
+  {
+    "family": "Utility",
+    "department": "Plumbing & Bath",
+    "category_name": "Utility Sink",
+    "category_id": "a01aZ00000dC5EXQA0",
+    "subcategory": "Sinks",
+    "styles_apply": false
+  },
+  {
     "family": "Bath",
     "department": "Plumbing & Bath",
     "category_name": "Bathroom Vanity",

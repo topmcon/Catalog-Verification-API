@@ -4461,6 +4461,59 @@
     },
     {
       "department_name": "Lighting & Electrical",
+      "family_name": "Indoor Lighting",
+      "category_name": "Vanity Light",
+      "category_id": "a01aZ00000dC5EeQAK",
+      "filter_label": "Vanity Light Type",
+      "logic": "Light count and style",
+      "types": [
+        {
+          "type_name": "Bath Bar",
+          "type_id": "a1jaZ000001lF3aQAE",
+          "type_group": "Type",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Vanity",
+          "type_id": "a1jaZ000001lFCfQAM",
+          "type_group": "Type",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "1-Light",
+          "type_id": "",
+          "type_group": "Light Count",
+          "status": "pending_salesforce_id",
+          "primary_filter": true
+        },
+        {
+          "type_name": "2-Light",
+          "type_id": "a1jaZ000001lF34QAE",
+          "type_group": "Light Count",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "3-Light",
+          "type_id": "",
+          "type_group": "Light Count",
+          "status": "pending_salesforce_id",
+          "primary_filter": true
+        },
+        {
+          "type_name": "4-Light",
+          "type_id": "",
+          "type_group": "Light Count",
+          "status": "pending_salesforce_id",
+          "primary_filter": true
+        }
+      ],
+      "styles_apply": true
+    },
+    {
+      "department_name": "Lighting & Electrical",
       "family_name": "Cabinet Lighting",
       "category_name": "Under Cabinet Light",
       "category_id": "a01aZ00000dC5EcQAK",
