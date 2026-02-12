@@ -41,7 +41,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Tub Spouts': {
     removedCategory: 'Tub Spouts',
-    parentCategory: 'Bathroom Hardware and Accessories',
+    parentCategory: 'Bathroom Cabinet Hardware',
     reason: 'Faucet component, not separate category',
     suggestedType: 'Tub Spout'
   },
@@ -49,23 +49,16 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   // ===== BATH & PLUMBING - ACCESSORIES =====
   'Shower Accessory': {
     removedCategory: 'Shower Accessory',
-    parentCategory: 'Bathroom Hardware and Accessories',
+    parentCategory: 'Bathroom Cabinet Hardware',
     reason: 'Redundant subcategory',
     suggestedType: 'Shower'
   },
   'Tub and Shower Accessory': {
     removedCategory: 'Tub and Shower Accessory',
-    parentCategory: 'Bathroom Hardware and Accessories',
+    parentCategory: 'Bathroom Cabinet Hardware',
     reason: 'Redundant subcategory',
     suggestedType: 'Tub/Shower'
   },
-  'Bathtub Waste & Overflow': {
-    removedCategory: 'Bathtub Waste & Overflow',
-    parentCategory: 'Bathroom Hardware and Accessories',
-    reason: 'Component/accessory, too specific',
-    suggestedType: 'Waste & Overflow'
-  },
-
   // ===== BATH & PLUMBING - TYPOS/DUPLICATES =====
   'conbaucets': {
     removedCategory: 'conbaucets',
@@ -73,47 +66,12 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Typo/data error',
     suggestedType: undefined
   },
-  'Bathroom Lighting (Bathroom)': {
-    removedCategory: 'Bathroom Lighting (Bathroom)',
-    parentCategory: 'Bathroom Lighting',
-    reason: 'Duplicate with different ID',
-    suggestedType: undefined
-  },
-
   // ===== KITCHEN PLUMBING - FAUCETS =====
   // ⚠️ "Bar Faucet" is VALID (ID: a01aZ00000dC5E3QAK) - DO NOT REMAP
   // ⚠️ "Pot Filler Faucet" is VALID (ID: a01aZ00000dC5EHQA0) - DO NOT REMAP
-  
-  'Food Service Faucet': {
-    removedCategory: 'Food Service Faucet',
-    parentCategory: 'Kitchen Faucet',
-    reason: 'Commercial faucet style, not separate category',
-    suggestedType: 'Commercial/Food Service'
-  },
-
-  // ===== KITCHEN PLUMBING - OTHER =====
-  'Kitchen Sink Combo': {
-    removedCategory: 'Kitchen Sink Combo',
-    parentCategory: 'Kitchen Sink',
-    reason: 'Product bundle, not category',
-    suggestedType: 'Combo'
-  },
-  // ⚠️ "Tankless Water Heater" is VALID (ID: a01aZ00000dC5DwQAK) - DO NOT REMAP
+  // ===== KITCHEN PLUMBING - OTHER =====  // ⚠️ "Tankless Water Heater" is VALID (ID: a01aZ00000dC5DwQAK) - DO NOT REMAP
 
   // ===== LIGHTING - TYPES =====
-  'Flush and Semi-Flush': {
-    removedCategory: 'Flush and Semi-Flush',
-    parentCategory: 'Ceiling Light',
-    reason: 'Ceiling light style/type',
-    suggestedType: 'Flush Mount'
-  },
-  'Lighted Ceiling Fan': {
-    removedCategory: 'Lighted Ceiling Fan',
-    parentCategory: 'Ceiling Fan',
-    reason: 'Feature filter (Has Light)',
-    suggestedType: 'With Light'
-  },
-
   // ===== CEILING FANS (17 removed) =====
   'Ceiling Fans with Light': {
     removedCategory: 'Ceiling Fans with Light',
@@ -221,122 +179,21 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
     reason: 'Redundant parent name',
     suggestedType: undefined
   },
-  'Door Knob': {
-    removedCategory: 'Door Knob',
-    parentCategory: 'Handleset',
-    reason: 'Style filter',
-    suggestedType: 'Knob'
-  },
-  'Door Lever': {
-    removedCategory: 'Door Lever',
-    parentCategory: 'Handleset',
-    reason: 'Style filter',
-    suggestedType: 'Lever'
-  },
 
   // ===== CABINET HARDWARE (18 removed) =====
-  'Affordable Cabinet Knob': {
-    removedCategory: 'Affordable Cabinet Knob',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Price tier + type filter',
-    suggestedType: 'Knob'
-  },
-  'Affordable Cabinet Pull': {
-    removedCategory: 'Affordable Cabinet Pull',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Price tier + type filter',
-    suggestedType: 'Pull'
-  },
-  'Luxury Cabinet Knob': {
-    removedCategory: 'Luxury Cabinet Knob',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Price tier + type filter',
-    suggestedType: 'Knob'
-  },
-  'Luxury Cabinet Pull': {
-    removedCategory: 'Luxury Cabinet Pull',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Price tier + type filter',
-    suggestedType: 'Pull'
-  },
-  'Cabinet Knob': {
-    removedCategory: 'Cabinet Knob',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Knob'
-  },
-  'Cabinet Pull': {
-    removedCategory: 'Cabinet Pull',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Pull'
-  },
-  'Appliance Pull': {
-    removedCategory: 'Appliance Pull',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type/size filter',
-    suggestedType: 'Appliance Pull'
-  },
-  'Backplate': {
-    removedCategory: 'Backplate',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Backplate'
-  },
-  'Designer Cabinet Hardware': {
-    removedCategory: 'Designer Cabinet Hardware',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Style filter',
-    suggestedType: 'Designer'
-  },
-  'Vanity Cabinet Hardware': {
-    removedCategory: 'Vanity Cabinet Hardware',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Application filter',
-    suggestedType: 'Vanity'
-  },
-  'Cabinet Catch and Latch': {
-    removedCategory: 'Cabinet Catch and Latch',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Catch/Latch'
-  },
-  'Cabinet Finishing': {
-    removedCategory: 'Cabinet Finishing',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Finishing'
-  },
   'Cabinet Hardware Bulk Packs': {
     removedCategory: 'Cabinet Hardware Bulk Packs',
-    parentCategory: 'Cabinet Hardware',
+    parentCategory: 'Designer Cabinet Hardware',
     reason: 'Packaging option, not category',
     suggestedType: undefined
   },
   'Cabinet Hardware Mounting Templates': {
     removedCategory: 'Cabinet Hardware Mounting Templates',
-    parentCategory: 'Cabinet Hardware',
+    parentCategory: 'Designer Cabinet Hardware',
     reason: 'Accessory/tool',
     suggestedType: 'Mounting Template'
   },
-  'Cabinet Hinge': {
-    removedCategory: 'Cabinet Hinge',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Hinge'
-  },
-  'Cabinet Lock': {
-    removedCategory: 'Cabinet Lock',
-    parentCategory: 'Cabinet Hardware',
-    reason: 'Type filter',
-    suggestedType: 'Lock'
-  },
-  'Cabinet Organization and Storage': {
-    removedCategory: 'Cabinet Organization and Storage',
-    parentCategory: 'Kitchen Storage & Organization',
-    reason: 'Overlaps with kitchen storage',
-    suggestedType: undefined
-  },
+
   // ⚠️ "Drawer Slide and Accessory" is VALID (ID: a01aZ00000dCejeQAC) - DO NOT REMAP
 
   // ===== OUTDOOR DUPLICATES =====
@@ -353,7 +210,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Shower Accessories (Plumbing & Bath)': {
     removedCategory: 'Shower Accessories (Plumbing & Bath)',
-    parentCategory: 'Bathroom Hardware and Accessories',
+    parentCategory: 'Bathroom Cabinet Hardware',
     reason: 'AI variation with department suffix',
     suggestedType: 'Shower'
   },
@@ -389,7 +246,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Laundry Appliance Accessories and Parts': {
     removedCategory: 'Laundry Appliance Accessories and Parts',
-    parentCategory: 'Laundry Appliances',
+    parentCategory: 'Washer',
     reason: 'AI variation - accessories belong in main category',
     suggestedType: 'Accessory'
   },

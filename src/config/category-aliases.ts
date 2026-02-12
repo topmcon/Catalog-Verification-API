@@ -46,7 +46,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Lamp': ['Lamps', 'Table Lamps', 'Desk Lamps', 'Floor Lamps'],
   'Recessed Lighting': ['Recessed Lights', 'Can Lights', 'Downlights'],
   'Ceiling Fan': ['Ceiling Fans', 'Fan', 'Fans', 'Ventilation Fans'],
-  'Outdoor Lighting': ['Exterior Lighting', 'Landscape Lighting'],
+  // NOTE: 'Outdoor Lighting' removed - not a valid SF category (use specific types)
 
   // ============================================
   // PLUMBING & BATH (keys match categories.json)
@@ -94,7 +94,8 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   // ============================================
   // CABINETS
   // ============================================
-  'Cabinet Hardware': ['Kitchen Cabinets', 'Cabinets - Kitchen', 'Bathroom Cabinets', 'Cabinets - Bathroom', 'Vanity Cabinets'],
+  // NOTE: 'Cabinet Hardware' removed - not a valid SF category
+  // Use specific types: Cabinet Knob, Cabinet Pull, Cabinet Hinge, etc.
 
   // Add more as discovered from confusion matrix
 };
