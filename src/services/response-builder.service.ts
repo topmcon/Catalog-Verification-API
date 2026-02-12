@@ -29,65 +29,10 @@ import {
 } from '../types/salesforce.types';
 import { generateAttributeTable } from '../utils/html-generator';
 import { getSchemaForCategory } from '../config/master-category-schema-map';
+import { sanitizeObjectForSalesforce } from '../utils/sanitization.utils';
 import logger from '../utils/logger';
 
-/**
- * Sanitize attribute values for Salesforce JSON compatibility
- * Removes N/A shorthand values and cleans problematic strings that cause SF JSON parsing errors
- * IMPORTANT: "Not Applicable" is our standard marker and should be KEPT
- */
-function sanitizeForSalesforce(value: any): string {
-  if (value === null || value === undefined) return '';
-  
-  const strValue = String(value).trim();
-  
-  // KEEP "Not Applicable" - this is our standard marker
-  if (strValue === 'Not Applicable') {
-    return strValue;
-  }
-  
-  // Replace N/A shorthand variants with empty string
-  const naPatterns = [
-    /^N\/A$/i,
-    /^N\/A\s*\(/i,  // "N/A (some reason)"
-    /^NA$/i,
-    /^Not Available$/i,
-    /^None$/i,
-    /^Unknown$/i,
-    /^-$/,
-    /^--$/
-  ];
-  
-  for (const pattern of naPatterns) {
-    if (pattern.test(strValue)) {
-      return '';
-    }
-  }
-  
-  // If the value starts with N/A, extract the meaningful part or return empty
-  if (/^N\/A/i.test(strValue)) {
-    return '';
-  }
-  
-  return strValue;
-}
-
-/**
- * Sanitize an entire object's values for Salesforce
- */
-function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
-  const sanitized = {} as T;
-  for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-      sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
-    } else if (typeof value === 'string') {
-      sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
-    } else {
-      sanitized[key as keyof T] = value;
-    }
-  }
-  return sanitized;
-}
+// Sanitization functions imported from: ../utils/sanitization.utils.ts
 
 /**
  * Build Primary Display Attributes (Global - applies to ALL products)

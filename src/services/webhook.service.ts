@@ -6,6 +6,7 @@
 import axios from 'axios';
 import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
+import { sanitizeNulls } from '../utils/sanitization.utils';
 // Self-healing disabled - removed import
 
 interface WebhookPayload {
@@ -16,26 +17,7 @@ interface WebhookPayload {
   comparisonAnalysis?: any; // Post-verification comparison against prior response (if available)
 }
 
-/**
- * Recursively convert all null values to empty strings
- * Salesforce Apex JSON parser cannot handle null values
- */
-function sanitizeForSalesforce(obj: any): any {
-  if (obj === null || obj === undefined) {
-    return '';
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(item => sanitizeForSalesforce(item));
-  }
-  if (typeof obj === 'object') {
-    const sanitized: any = {};
-    for (const key of Object.keys(obj)) {
-      sanitized[key] = sanitizeForSalesforce(obj[key]);
-    }
-    return sanitized;
-  }
-  return obj;
-}
+// sanitizeForSalesforce extracted to: ../utils/sanitization.utils.ts (as sanitizeNulls)
 
 class WebhookService {
   private readonly MAX_RETRIES = 3;
@@ -72,7 +54,7 @@ class WebhookService {
       };
       
       // Sanitize: Salesforce Apex JSON parser cannot handle null values
-      const payload = sanitizeForSalesforce(rawPayload) as WebhookPayload;
+      const payload = sanitizeNulls(rawPayload) as WebhookPayload;
 
       logger.info('STEP 7: Sending results back to Salesforce via webhook', {
         jobId,

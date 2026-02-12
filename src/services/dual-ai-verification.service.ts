@@ -53,6 +53,7 @@ import {
   validateAndCorrectLightingStyle,
   validateAndCorrectShowerStyle,
 } from './style-validator.service';
+import { isNAValue, sanitizeObjectForSalesforce } from '../utils/sanitization.utils';
 import { 
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
@@ -144,75 +145,8 @@ interface ConsensusResult {
   overallConfidence: number;
 }
 
-/**
- * Sanitize attribute values for Salesforce JSON compatibility
- * Removes N/A shorthand values that cause SF Apex JSON deserializer to fail
- * IMPORTANT: "Not Applicable" is our standard marker and should be KEPT
- */
-function sanitizeForSalesforce(value: any): string {
-  if (value === null || value === undefined) return '';
-  
-  const strValue = String(value).trim();
-  
-  // KEEP "Not Applicable" - this is our standard marker
-  if (strValue === 'Not Applicable') {
-    return strValue;
-  }
-  
-  // Replace N/A shorthand variants with "Not Applicable" for consistency
-  const naPatterns = [
-    /^N\/A$/i,
-    /^N\/A\s*\(/i,  // "N/A (some reason)"
-    /^NA$/i,
-    /^Not Available$/i,
-    /^None$/i,
-    /^Unknown$/i,
-    /^-$/,
-    /^--$/
-  ];
-  
-  for (const pattern of naPatterns) {
-    if (pattern.test(strValue)) {
-      return '';  // Return empty for shorthand, let field marking handle it
-    }
-  }
-  
-  // If the value starts with N/A, return empty
-  if (/^N\/A/i.test(strValue)) {
-    return '';
-  }
-  
-  return strValue;
-}
-
-/**
- * Check if a value is an N/A variant that should be filtered out
- * Used for pre-filtering values before they enter data structures
- * Note: "Not Applicable" is our standard marker and should NOT be filtered
- */
-function isNAValue(value: any): boolean {
-  if (value === null || value === undefined) return true;
-  
-  const strValue = String(value).trim();
-  if (strValue === '') return true;
-  
-  // IMPORTANT: "Not Applicable" is a valid value we want to keep!
-  // Only filter out shorthand/legacy variants
-  const naPatterns = [
-    /^N\/A$/i,
-    /^N\/A\s*\(/i,
-    /^NA$/i,
-    /^Not Available$/i,
-    /^None$/i,
-    /^Unknown$/i,
-    /^-$/,
-    /^--$/
-  ];
-  
-  return naPatterns.some(pattern => pattern.test(strValue)) || /^N\/A/i.test(strValue);
-}
-
-// NUMERIC_FIELDS and sanitizeNumericForSalesforce removed - no longer needed after Market_Value fields removal
+// Sanitization functions extracted to: ../utils/sanitization.utils.ts
+// - sanitizeForSalesforce, isNAValue, sanitizeObjectForSalesforce
 
 /**
  * DATA COHERENCE VALIDATION
@@ -1401,22 +1335,7 @@ function valuesMatchLoose(a: any, b: any): boolean {
   return strA === strB || strA.includes(strB) || strB.includes(strA);
 }
 
-/**
- * Sanitize an entire object's values for Salesforce
- */
-function sanitizeObjectForSalesforce<T extends Record<string, any>>(obj: T): T {
-  const sanitized = {} as T;
-  for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-      sanitized[key as keyof T] = sanitizeObjectForSalesforce(value);
-    } else if (typeof value === 'string') {
-      sanitized[key as keyof T] = sanitizeForSalesforce(value) as T[keyof T];
-    } else {
-      sanitized[key as keyof T] = value;
-    }
-  }
-  return sanitized;
-}
+// sanitizeObjectForSalesforce extracted to: ../utils/sanitization.utils.ts
 
 export async function verifyProductWithDualAI(
   rawProduct: SalesforceIncomingProduct,
