@@ -2582,6 +2582,7 @@ ${typeHierarchy}
 - Example: Oven → analyze model (OB30 = 30" built-in = Single), specs (one cavity = Single) → select "Single" or "Double Wall"
 - Example: Refrigerator → analyze door configuration from images/specs → select "French Door" or "Side-by-Side"  
 - Example: Kitchen Faucet → analyze handle count and spray type → select "Single Handle" or "Pull-Down"
+- Example: Ceiling Fan → check title/specs for "Indoor", "Outdoor", "Hugger", "Low Profile", "Flush Mount", "Wet Rated", "Damp Rated" → select "Indoor", "Outdoor", or "Hugger"
 
 **When to use "Not Applicable":**
 - ⚠️ ONLY use "Not Applicable" if you are verifying a product from a DIFFERENT category
@@ -2596,6 +2597,9 @@ ${typeHierarchy}
 3. Review specifications (cavity count, door configuration, handle count, etc.)
 4. Analyze images (door style, configuration, handles)
 5. Check product title and description
+   - **Ceiling Fans**: Look for "Indoor", "Outdoor", "Hugger", "Low Profile", "Flush Mount", "Wet Rated", "Damp Rated", or "UL Listed for Damp/Wet Locations" in title/description
+   - **Chandeliers**: Look for "Tier/Tiered" (number of tiers), "Candle" (candle-style), "Drum" (drum shade), "Crystal" (crystal type)
+   - **Door Hardware**: Look for "Passage", "Privacy", "Entry", "Dummy", "Single Cylinder", "Double Cylinder" in title/description
 6. Select the BEST match from the types list even if slightly uncertain
 7. If genuinely cannot determine AND product IS in category → use "Not Found"
 
