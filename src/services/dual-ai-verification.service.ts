@@ -1656,6 +1656,40 @@ export async function verifyProductWithDualAI(
     });
     
     let consensus = buildConsensus(openaiResult, xaiResult);
+    
+    // POST-CONSENSUS VALIDATION: Enforce critical business rules (only if category determined)
+    if (consensus.agreedCategory) {
+      const validation = validateConsensusCategory(
+        consensus.agreedCategory,
+        rawProduct,
+        consensus.agreedPrimaryAttributes
+      );
+      
+      if (!validation.isValid) {
+        logger.warn('Category rule violation detected - correcting', {
+          sessionId: verificationSessionId,
+          wrongCategory: consensus.agreedCategory,
+          correctCategory: validation.correctedCategory,
+          violatedRule: validation.violatedRule,
+          reason: validation.reason,
+          product: rawProduct.SF_Catalog_Name
+        });
+        
+        // Override with corrected category
+        consensus.agreedCategory = validation.correctedCategory!;
+        
+        // Override product_type if validation specified
+        if (validation.correctedType) {
+          consensus.agreedPrimaryAttributes.product_type = validation.correctedType;
+        }
+        
+        // Reload category schema for corrected category (if not null)
+        if (consensus.agreedCategory) {
+          void getCategorySchema(consensus.agreedCategory);
+        }
+      }
+    }
+    
     let crossValidationPerformed = false;
     let researchPhaseTriggered = !!preResearchResult; // Already triggered if pre-research was done
     let retryCount = 0;
@@ -1675,6 +1709,33 @@ export async function verifyProductWithDualAI(
       ]);
       
       consensus = buildConsensus(openaiRevised, xaiRevised);
+      
+      // POST-CONSENSUS VALIDATION after cross-validation too (only if category determined)
+      if (consensus.agreedCategory) {
+        const validationAfterCrossCheck = validateConsensusCategory(
+          consensus.agreedCategory,
+          rawProduct,
+          consensus.agreedPrimaryAttributes
+        );
+        
+        if (!validationAfterCrossCheck.isValid) {
+          logger.warn('Category rule violation after cross-validation - correcting', {
+            sessionId: verificationSessionId,
+            wrongCategory: consensus.agreedCategory,
+            correctCategory: validationAfterCrossCheck.correctedCategory,
+            violatedRule: validationAfterCrossCheck.violatedRule,
+            reason: validationAfterCrossCheck.reason
+          });
+          
+          consensus.agreedCategory = validationAfterCrossCheck.correctedCategory!;
+          if (validationAfterCrossCheck.correctedType) {
+            consensus.agreedPrimaryAttributes.product_type = validationAfterCrossCheck.correctedType;
+          }
+          if (consensus.agreedCategory) {
+            void getCategorySchema(consensus.agreedCategory);
+          }
+        }
+      }
     }
 
     // PHASE 4: Additional research for missing/unresolved fields
@@ -2601,35 +2662,6 @@ AVAILABLE CATEGORIES:
 ${categoryList}
 
 🔴 CRITICAL CATEGORY SELECTION RULES:
-- READ the clarifications in parentheses carefully - they prevent common mistakes
-
-🚨 APPLIANCE ACCESSORIES vs. DECORATIVE HARDWARE PULLS:
-This is a COMMON ERROR - READ CAREFULLY:
-
-❌ WRONG: "Appliance Pull" / "Refrigerator Pull" / "Dishwasher Pull"
-  - These are DECORATIVE CABINET HARDWARE styled to match appliances
-  - Installed ON CABINETS, not on the appliance itself
-  - Generic decorative pulls, NOT brand-specific parts
-
-✅ CORRECT: Use APPLIANCE CATEGORY → Type="Accessory" when:
-  - Product says "for [Brand] [Model]" (e.g., "for GE Profile", "for Café Range")
-  - Includes specific appliance model number in description
-  - Description says "replacement part", "handle kit for", "compatible with [specific appliance]"
-  - Made BY the appliance manufacturer (GE, Whirlpool, Café, Samsung, etc.)
-  - Example: "Café Handle & Knob Set for Pro Range CXPR8HKPTFB" → Category: "Refrigerator" (or "Range"), Type: "Accessory"
-  - Example: "GE Refrigerator Door Handle WR12X29352" → Category: "Refrigerator", Type: "Accessory"
-
-- Appliance categories (Range, Refrigerator, Dishwasher, etc.) include BOTH:
-  - The appliance itself (e.g., a refrigerator)
-  - Replacement parts/accessories FOR that appliance (e.g., handles for a specific fridge model)
-
-- "Bathtub" = The tub fixture, "Bathtub Faucet" = Controls FOR the tub
-- "Sink" = The basin, "Kitchen Faucet" / "Bathroom Faucet" = Controls FOR sinks
-- "Cabinet" = Furniture storage, "Cabinet Pull" / "Cabinet Knob" = Hardware FOR cabinets
-
-- When in doubt: Look for "for [item]", "compatible with", "replacement for" → Category is the item it's FOR
-
-IMPORTANT:
 - Use ONLY the categories listed above
 - Map raw data fields to our standard field_key names (see FIELD NAME MAPPING section above)
   - Example: Source "List Price: $1299" → Output: "msrp": "1299"
@@ -2736,6 +2768,35 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
 - "Appliance Pull" = Generic decorative cabinet hardware (Hardware department)
 - Appliance Categories + Type "Accessory" = Manufacturer-specific replacement parts (Appliances department)
 - This is the #1 most common categorization error - DO NOT GET THIS WRONG
+
+---
+
+## 🔴 CRITICAL: FIELD VALUE RULES - NEVER LEAVE FIELDS BLANK
+
+For EVERY field in your response, you MUST provide a value. Use these markers when data is unavailable:
+
+**"Not Found"** - Use when:
+- You searched for the data but could not find it in any source
+- The information simply isn't available anywhere
+- You cannot determine the value despite thorough research
+- Example: Brand not mentioned in any source → brand: "Not Found"
+- Example: Oven type cannot be determined from model/specs/images → product_type: "Not Found"
+
+**"Not Applicable"** - Use when:
+- The field DOES NOT APPLY to the product's category
+- You are analyzing a product from a DIFFERENT category than the field asks for
+- Example: Verifying a Refrigerator but field asks for "number_of_burners" (range attribute) → "Not Applicable"
+- Example: Verifying a Showerhead but field asks for "oven_type" (oven attribute) → "Not Applicable"
+- ❌ NEVER use "Not Applicable" for category/type fields when product IS in that category - use "Not Found" instead
+
+**Critical Distinction:**
+- Product IS an Oven, can't determine type → product_type: "Not Found" ✅
+- Product is a Refrigerator, field asks for oven_type → oven_type: "Not Applicable" ✅
+
+**NEVER leave a field empty or null** - Always use one of:
+1. The actual value (if found)
+2. "Not Found" (if searched but not found, or cannot determine)
+3. "Not Applicable" (if field doesn't apply to product's category)
 
 ---
 
@@ -2931,6 +2992,116 @@ function parseAIResponse(parsed: any, provider: 'openai' | 'xai'): AIAnalysisRes
     primaryImageReason: parsed.primaryImageRecommendation?.reason,
     rawResponse: JSON.stringify(parsed)
   };
+}
+
+/**
+ * POST-CONSENSUS VALIDATION: Enforces critical business rules after AI consensus
+ * This catches systematic errors where both AIs agree on the WRONG category
+ * 
+ * CRITICAL RULE: Manufacturer-specific appliance parts must use appliance category + Type="Accessory"
+ * NOT decorative hardware categories like "Appliance Pull"
+ */
+interface CategoryValidationResult {
+  isValid: boolean;
+  correctedCategory?: string;
+  correctedType?: string;
+  reason?: string;
+  violatedRule?: string;
+}
+
+function validateConsensusCategory(
+  agreedCategory: string,
+  rawProduct: SalesforceIncomingProduct,
+  agreedPrimaryAttributes: Record<string, any>
+): CategoryValidationResult {
+  
+  // Extract key fields for analysis
+  const title = (rawProduct.Product_Title_Web_Retailer || rawProduct.Product_Title_Legacy || '').toLowerCase();
+  const description = (rawProduct.Product_Description_Web_Retailer || rawProduct.Product_Description_Legacy || '').toLowerCase();
+  const modelNumber = rawProduct.Model_Number_Web_Retailer || '';
+  const brand = agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || '';
+  
+  // RULE 1: Appliance-specific parts must use appliance category, NOT decorative hardware
+  // Pattern: "for [Brand] [Appliance]" + model number = manufacturer replacement part
+  
+  const applianceManufacturers = [
+    'ge', 'general electric', 'café', 'cafe', 'monogram',
+    'whirlpool', 'kitchenaid', 'maytag', 'jenn-air', 'amana',
+    'samsung', 'lg', 'frigidaire', 'electrolux',
+    'bosch', 'thermador', 'viking', 'wolf', 'sub-zero',
+    'miele', 'dacor', 'haier', 'kenmore'
+  ];
+  
+  const hasApplianceBrand = applianceManufacturers.some(mfg => 
+    brand.toLowerCase().includes(mfg) || 
+    title.includes(mfg)
+  );
+  
+  // Check for "for [appliance type]" patterns
+  const applianceForPatterns = [
+    /for\s+(refrigerator|fridge|range|oven|dishwasher|cooktop|microwave|freezer)/i,
+    /for\s+\w+\s+(refrigerator|fridge|range|oven|dishwasher|cooktop|microwave)/i, // "for GE Range"
+    /(refrigerator|range|oven|dishwasher|cooktop|microwave)\s+(handle|knob|part|accessory|kit)/i,
+    /(replacement|compatible|designed)\s+(for|with)\s+\w+\s+(model|refrigerator|range|oven|dishwasher)/i,
+    /compatible\s+with.*\s+(refrigerator|range|oven|dishwasher|cooktop)/i
+  ];
+  
+  const hasApplianceForPattern = applianceForPatterns.some(pattern => 
+    pattern.test(title) || pattern.test(description)
+  );
+  
+  // Check if it's a decorative hardware category (wrong for appliance-specific parts)
+  const decorativeHardwareCategories = [
+    'appliance pull',
+    'refrigerator pull', 
+    'dishwasher pull',
+    'cabinet pull',
+    'cabinet knob',
+    'drawer pull',
+    'cabinet hardware'
+  ];
+  
+  const normalizedCategory = agreedCategory.toLowerCase().trim();
+  const isDecorativeHardware = decorativeHardwareCategories.some(cat => 
+    normalizedCategory === cat || normalizedCategory.includes(cat)
+  );
+  
+  // ENFORCE RULE: If manufacturer-specific part classified as decorative hardware → WRONG
+  if (hasApplianceBrand && hasApplianceForPattern && modelNumber && isDecorativeHardware) {
+    
+    // Deduce correct appliance category from title/description
+    let correctCategory = 'Range'; // Default fallback
+    
+    if (title.includes('refrigerator') || title.includes('fridge') || description.includes('refrigerator')) {
+      correctCategory = 'Refrigerator';
+    } else if (title.includes('range') || description.includes('range')) {
+      correctCategory = 'Range';
+    } else if (title.includes('dishwasher') || description.includes('dishwasher')) {
+      correctCategory = 'Dishwasher';
+    } else if (title.includes('oven') || description.includes('oven')) {
+      correctCategory = 'Oven';
+    } else if (title.includes('cooktop') || description.includes('cooktop')) {
+      correctCategory = 'Cooktop';
+    } else if (title.includes('microwave') || description.includes('microwave')) {
+      correctCategory = 'Microwave';
+    } else if (title.includes('freezer') || description.includes('freezer')) {
+      correctCategory = 'Freezer';
+    }
+    
+    return {
+      isValid: false,
+      correctedCategory: correctCategory,
+      correctedType: 'Accessory',
+      reason: `Product is manufacturer-specific replacement part for ${correctCategory} (${brand} model ${modelNumber}), not generic decorative hardware`,
+      violatedRule: 'APPLIANCE_ACCESSORIES_VS_DECORATIVE_HARDWARE'
+    };
+  }
+  
+  // RULE 2: Could add more validation rules here in the future
+  // Example: Validate that category matches Web_Retailer_Category domain
+  // Example: Check for category/type mismatches
+  
+  return { isValid: true };
 }
 
 function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisResult): ConsensusResult {
