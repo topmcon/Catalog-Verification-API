@@ -2728,6 +2728,46 @@ interface PromptOptions {
   };
 }
 
+/**
+ * Sanitize raw product data for AI prompt - CRITICAL DATA INTEGRITY
+ * Removes contaminating fields that would bias AI verification
+ * 
+ * FILTERS OUT:
+ * 1. Prior_Response_Data - Our own previous AI output (circular logic risk)
+ * 2. Any AI_ prefixed fields - Past verification results should NOT influence new verification
+ * 3. Any other fields that represent derived/computed data
+ * 
+ * WHY THIS MATTERS:
+ * If AI sees its previous output as "input data", it may echo it back instead of
+ * performing independent verification. This creates circular logic where wrong answers
+ * get reinforced instead of corrected.
+ */
+function sanitizeProductDataForAI(rawProduct: SalesforceIncomingProduct): any {
+  const sanitized: any = {};
+  
+  for (const [key, value] of Object.entries(rawProduct)) {
+    // FILTER 1: Remove Prior_Response_Data entirely
+    if (key === 'Prior_Response_Data') {
+      continue; // Skip - this is our own previous output
+    }
+    
+    // FILTER 2: Remove any AI_ prefixed fields (past verification outputs)
+    if (key.startsWith('AI_')) {
+      continue; // Skip - these are derived fields from previous verifications
+    }
+    
+    // FILTER 3: Remove any _Verified or _Lookup suffix fields (also our outputs)
+    if (key.endsWith('_Verified') || key.endsWith('_Lookup')) {
+      continue; // Skip - these are computed fields
+    }
+    
+    // Keep all legitimate input data (Ferguson, Web_Retailer, Legacy, etc.)
+    sanitized[key] = value;
+  }
+  
+  return sanitized;
+}
+
 function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: PromptOptions | string): string {
   // Support legacy signature: buildAnalysisPrompt(rawProduct, researchContext)
   const opts: PromptOptions = typeof options === 'string' 
@@ -2735,6 +2775,9 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
     : (options || {});
     
   const { researchContext, modelMismatchWarning, externalDataTrusted = true, dataCoherenceWarnings } = opts;
+  
+  // CRITICAL: Sanitize product data to remove AI output fields before showing to AI
+  const cleanProductData = sanitizeProductDataForAI(rawProduct);
   
   let prompt = `You are a product data VERIFICATION specialist. Your job is to INDEPENDENTLY VERIFY product information, not blindly trust it.
 
@@ -2835,7 +2878,7 @@ When Ferguson and Web_Retailer CONTRADICT each other:
 4. **CRITICAL: Your final response should ONLY contain verified data from Ferguson/Web_Retailer/Research - NEVER Legacy values**
 
 ## RAW PRODUCT DATA (UNVERIFIED - REQUIRES CONFIRMATION):
-${JSON.stringify(rawProduct, null, 2)}
+${JSON.stringify(cleanProductData, null, 2)}
 `;
 
   // Add DATA COHERENCE WARNING if conflicts detected
@@ -4076,6 +4119,9 @@ async function reanalyzeWithContext(rawProduct: SalesforceIncomingProduct, provi
   const client = provider === 'openai' ? openai : xai;
   const model = provider === 'openai' ? (config.openai?.model || 'gpt-4o-mini') : (config.xai?.model || 'grok-3-mini');
 
+  // CRITICAL: Sanitize product data to remove AI output fields
+  const cleanProductData = sanitizeProductDataForAI(rawProduct);
+
   const prompt = `You previously analyzed a product. Another AI analyst determined it should be categorized as:
 Category: ${otherResult.determinedCategory}
 Confidence: ${otherResult.categoryConfidence}
@@ -4084,7 +4130,7 @@ Reasoning: ${otherResult.categoryReasoning}
 Please re-analyze the product considering this perspective. If you agree after reviewing, update your categorization. If you still disagree, explain why.
 
 ORIGINAL PRODUCT DATA:
-${JSON.stringify(rawProduct, null, 2)}
+${JSON.stringify(cleanProductData, null, 2)}
 
 Return your revised analysis as JSON with the same format as before.`;
 
