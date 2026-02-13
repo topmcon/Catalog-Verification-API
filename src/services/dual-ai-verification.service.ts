@@ -2619,6 +2619,57 @@ function getCategorySpecificPrompt(determinedCategory: string): string {
   const validTypes = getValidTypesForCategory(determinedCategory);
   const validStyles = getValidStylesForCategory(determinedCategory);
   
+  // Build category-specific type selection guidance
+  let typeSelectionGuide = '';
+  if (validTypes.length > 0) {
+    typeSelectionGuide = `\n== HOW TO EXTRACT PRODUCT TYPE ==\n`;
+    
+    // Category-specific extraction hints
+    const categoryLower = determinedCategory.toLowerCase();
+    if (categoryLower.includes('ceiling fan')) {
+      typeSelectionGuide += `For Ceiling Fans, look for these keywords in title/description/specifications:\n`;
+      typeSelectionGuide += `  - "Indoor" / "Interior" → Type: Indoor\n`;
+      typeSelectionGuide += `  - "Outdoor" / "Wet Rated" / "UL Listed for Wet Locations" / "Damp Rated" → Type: Outdoor\n`;
+      typeSelectionGuide += `  - "Hugger" / "Low Profile" / "Flush Mount" / "Close to Ceiling" → Type: Hugger\n`;
+      typeSelectionGuide += `  - "Accessory" / "Remotes" / "Light Kits" / "Downrods" → Type: Accessory\n`;
+    } else if (categoryLower.includes('refrigerator')) {
+      typeSelectionGuide += `For Refrigerators, analyze door configuration from images/specs:\n`;
+      typeSelectionGuide += `  - Count doors and their arrangement\n`;
+      typeSelectionGuide += `  - Look for "French Door", "Side-by-Side", "Top Freezer", "Bottom Freezer", "4-Door Flex"\n`;
+    } else if (categoryLower.includes('oven')) {
+      typeSelectionGuide += `For Ovens, analyze model number and cavity count:\n`;
+      typeSelectionGuide += `  - Model with "30" or "OB30" → 30" built-in\n`;
+      typeSelectionGuide += `  - Check specs for "single cavity" vs "double cavity"\n`;
+      typeSelectionGuide += `  - Look for "Single", "Double Wall", "Combination" in title\n`;
+    } else if (categoryLower.includes('faucet')) {
+      typeSelectionGuide += `For Faucets, check handle count and spray type:\n`;
+      typeSelectionGuide += `  - Look for "Single Handle", "Two Handle", "Widespread"\n`;
+      typeSelectionGuide += `  - Check for "Pull-Down", "Pull-Out" spray configurations\n`;
+    } else if (categoryLower.includes('chandelier')) {
+      typeSelectionGuide += `For Chandeliers, look for structural indicators:\n`;
+      typeSelectionGuide += `  - "Tier" / "Tiered" / number of tiers\n`;
+      typeSelectionGuide += `  - "Candle" style, "Drum" shade, "Crystal" type\n`;
+    } else if (categoryLower.includes('door hardware')) {
+      typeSelectionGuide += `For Door Hardware, check lock mechanism:\n`;
+      typeSelectionGuide += `  - "Passage" (no lock), "Privacy" (push-button), "Entry" (keyed)\n`;
+      typeSelectionGuide += `  - "Dummy" (non-functional), "Single Cylinder", "Double Cylinder"\n`;
+    } else {
+      typeSelectionGuide += `Extraction strategy:\n`;
+      typeSelectionGuide += `  1. Check product title for type keywords\n`;
+      typeSelectionGuide += `  2. Review specifications for functional variations\n`;
+      typeSelectionGuide += `  3. Analyze product images if available\n`;
+      typeSelectionGuide += `  4. Look for configuration details (door count, handle count, installation method)\n`;
+    }
+    
+    typeSelectionGuide += `\n**Decision Process:**\n`;
+    typeSelectionGuide += `  1. Read product title carefully for type keywords\n`;
+    typeSelectionGuide += `  2. Check specifications and description\n`;
+    typeSelectionGuide += `  3. Analyze images for visual confirmation\n`;
+    typeSelectionGuide += `  4. Select BEST match from types list even if slightly uncertain\n`;
+    typeSelectionGuide += `  5. Only use "Not Found" if genuinely cannot determine from available data\n`;
+    typeSelectionGuide += `  6. NEVER use "Not Applicable" (product is already in correct category)\n`;
+  }
+  
   // Build category-specific type list
   let categoryTypeContext = '';
   if (validTypes.length > 0) {
@@ -2658,12 +2709,64 @@ Your task is to:
 6. GENERATE high-quality, customer-facing text for title, description, and features
 
 ${typeHierarchy}
+${typeSelectionGuide}
 ${categoryTypeContext}
 ${categoryStyleContext}
 ${categoryTop15Context}
 
 == PRIMARY ATTRIBUTES (Same for ALL products) ==
-${primaryAttrs}`;
+${primaryAttrs}
+
+== RESPONSE FORMAT ==
+
+You must respond with valid JSON in this exact format:
+{
+  "category": {
+    "name": "${determinedCategory}",
+    "confidence": 0.95,
+    "reasoning": "Category already determined in Stage 1"
+  },
+  "primary_attributes": {
+    "brand": "value",
+    "category_subcategory": "${determinedCategory}",
+    "product_family": "value",
+    "product_type": "⚠️ MANDATORY: Select from the VALID PRODUCT TYPES list above. This is the FUNCTIONAL variation (e.g., 'Indoor' for ceiling fans, 'Single' vs 'Double Wall' for ovens). Use 'Not Found' only if genuinely cannot determine from data.",
+    "product_style": "⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.",
+    "depth_length": "numeric value only (depth OR length)",
+    "width": "numeric value only",
+    "height": "numeric value only",
+    "weight": "numeric value in lbs",
+    "msrp": "Manufacturer's Suggested Retail Price (NOT current sale price)",
+    "description": "Enhanced customer-ready description (max 500 chars)",
+    "product_title": "BRAND + SPEC + TYPE + CATEGORY + FINISH + MODEL",
+    "details": "additional details",
+    "features_list": "HTML <ul><li> format",
+    "upc_gtin": "value",
+    "model_number": "value",
+    "model_number_alias": "symbols removed",
+    "model_parent": "parent model if variant",
+    "model_variant_number": "variant identifier",
+    "total_model_variants": "comma-separated list"
+  },
+  "top15_filter_attributes": {
+    "field_key": "value (use field_key from parentheses above, NOT attribute name)"
+  },
+  "additional_attributes": {
+    "attribute_name": "value"
+  },
+  "missing_fields": ["field1", "field2"],
+  "corrections": [
+    {"field": "field_name", "original": "old_value", "corrected": "new_value", "reason": "why"}
+  ],
+  "confidence": 0.85
+}
+
+⚠️ CRITICAL FIELD VALUE RULES:
+- NEVER leave fields blank or null
+- Use actual value if found
+- Use "Not Found" if searched but not available
+- Use "Not Applicable" ONLY if field doesn't apply to this category
+- For product_type: Since product IS in ${determinedCategory} category, use "Not Found" if cannot determine (NOT "Not Applicable")`;
 }
 
 /**
