@@ -2706,6 +2706,39 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
   
   let prompt = `You are a product data VERIFICATION specialist. Your job is to INDEPENDENTLY VERIFY product information, not blindly trust it.
 
+## ⛔ STOP - READ THIS FIRST - MOST COMMON MISTAKE ⛔
+
+### APPLIANCE-SPECIFIC PARTS vs. DECORATIVE HARDWARE:
+
+**MANDATORY CHECKPOINT - ANSWER THESE QUESTIONS FIRST:**
+1. Does the product title/description say "for [Brand Name] [Appliance Type]"? (e.g., "for Café Range", "for GE Refrigerator")
+2. Does it include a specific appliance model number? (e.g., "CXPR8HKPTFB", "WR12X29352")
+3. Is it made BY an appliance manufacturer? (GE, Café, Whirlpool, Samsung, LG, etc.)
+4. Does it say "compatible with", "replacement for", "designed for" a SPECIFIC appliance brand/model?
+
+**IF YES TO ANY ABOVE:**
+✅ **CATEGORY** = The APPLIANCE type (Refrigerator, Range, Dishwasher, Oven, etc.)
+✅ **TYPE** = "Accessory"
+✅ **NEVER use:** "Appliance Pull", "Refrigerator Pull", "Dishwasher Pull", "Cabinet Pull"
+
+**EXAMPLE - CORRECT:**
+- Product: "Café Handle & Knob Set for Pro Range Model CXPR8HKPTFB"
+- ✅ Category: "Refrigerator" or "Range"
+- ✅ Type: "Accessory"  
+- ❌ NOT: "Appliance Pull"
+
+**IF NO TO ALL ABOVE (generic decorative hardware):**
+- Then use "Cabinet Pull", "Appliance Pull
+
+", etc. (decorative hardware categories)
+
+**WHY THIS MATTERS:**
+- "Appliance Pull" = Generic decorative cabinet hardware (Hardware department)
+- Appliance Categories + Type "Accessory" = Manufacturer-specific replacement parts (Appliances department)
+- This is the #1 most common categorization error - DO NOT GET THIS WRONG
+
+---
+
 ## YOUR ROLE: VERIFY, DON'T TRUST
 The data below is UNVERIFIED input that may contain errors, wrong products, or incomplete information.
 - Treat ALL input data as "claims to investigate" NOT "facts to accept"
