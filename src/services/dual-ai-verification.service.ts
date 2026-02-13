@@ -2584,13 +2584,25 @@ ${categoryList}
 - Example: "Built-In Oven" → select "Oven" (specific appliance)
 - Example: "Pull-Down Kitchen Faucet" → select "Kitchen Faucet" (not generic "Faucet")
 
+**⚠️ IMPORTANT: Stage 1 Response Format**
+This is Stage 1 (category determination only). Return a complete JSON structure, but:
+- Focus ONLY on accurate category selection
+- Leave attribute fields EMPTY (they will be populated in Stage 2)
+- Do NOT attempt to populate primary_attributes or top15_filter_attributes yet
+
 You must respond with valid JSON in this exact format:
 {
   "category": {
     "name": "The exact category name from the list",
     "confidence": 0.95,
     "reasoning": "Why this category was chosen based on product analysis"
-  }
+  },
+  "primary_attributes": {},
+  "top15_filter_attributes": {},
+  "additional_attributes": {},
+  "missing_fields": [],
+  "corrections": [],
+  "confidence": 0.95
 }`;
 }
 
