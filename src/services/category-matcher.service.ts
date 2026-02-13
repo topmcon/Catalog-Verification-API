@@ -4,78 +4,46 @@
  */
 
 import { CATEGORY_ALIASES } from '../config/category-schema';
+import categoriesPicklist from '../config/salesforce-picklists/categories.json';
+
+interface CategoryPicklistItem {
+  category_name: string;
+  department: string;
+}
+
+const CATEGORIES: CategoryPicklistItem[] = categoriesPicklist as CategoryPicklistItem[];
+
+function buildDepartmentCategories(): Record<string, string[]> {
+  const result: Record<string, string[]> = {};
+
+  for (const category of CATEGORIES) {
+    if (!result[category.department]) {
+      result[category.department] = [];
+    }
+
+    result[category.department].push(category.category_name);
+  }
+
+  return result;
+}
+
+function buildCategoryDepartmentLookup(): Map<string, string> {
+  const lookup = new Map<string, string>();
+
+  for (const category of CATEGORIES) {
+    lookup.set(category.category_name.toLowerCase(), category.department);
+  }
+
+  return lookup;
+}
 
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: 2026-02-12
-const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
-  'Appliances': [
-    'Refrigerator',
-    'Dishwasher',
-    'Range',
-    'Oven',
-    'Cooktop',
-    'Microwave',
-    'Range Hood',
-    'Washer',
-    'Dryer',
-    'Freezer',
-    'All in One Washer / Dryer',
-    'Barbeque',
-    'Coffee Maker',
-    'Icemaker',
-    'Garbage Disposal'
-  ],
-  'Plumbing & Bath': [
-    'Bathroom Cabinet Hardware',
-    'Outdoor Shower Faucet',
-    'Bathroom Faucet',
-    'Bathroom Hardware and Accessories',
-    'Bathroom Mirror',
-    'Bathroom Sink',
-    'Bathroom Vanity',
-    'Bathtub',
-    'Bathtub Waste & Overflow',
-    'Bidet',
-    'Bidet Faucet',
-    'Bidet Seat',
-    'Shower',
-    'Shower Faucet',
-    'Steam Shower'
-  ],
-  'Lighting': [
-    'Vanity Cabinet Hardware',
-    'Skylight',
-    'Bathroom Lighting',
-    'Vanity Lighting',
-    'Chandelier',
-    'Commercial Lighting',
-    'LED Lighting',
-    'Outdoor Lighting',
-    'Post Light',
-    'Recessed Lighting',
-    'Step Lighting',
-    'Track and Rail Lighting',
-    'Under Cabinet Light',
-    'Wall Sconce',
-    'Lamp',
-    'Ceiling Light',
-    'Flush and Semi-Flush',
-    'Island Lighting',
-    'Pendant',
-    'Kitchen Lighting'
-  ],
-  'Home Decor & Fixtures': [
-    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
-  ],
-  'HVAC': [
-    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
-  ]
-};
+const DEPARTMENT_CATEGORIES = buildDepartmentCategories();
+const CATEGORY_DEPARTMENT_LOOKUP = buildCategoryDepartmentLookup();
 
 // Keyword mappings for better matching
-// SYNCED FROM: src/config/salesforce-picklists/categories.json  
-// @ts-ignore - reserved for future use
+// SYNCED FROM: src/config/salesforce-picklists/categories.json
 export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   'Refrigerator': ['refrigerator', 'fridge', 'french door', 'side by side', 'bottom freezer', 'top freezer'],
   'Dishwasher': ['dishwasher', 'dish washer'],
@@ -87,9 +55,9 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   'Washer': ['washer', 'washing machine', 'front load washer', 'top load washer'],
   'Dryer': ['dryer', 'clothes dryer', 'gas dryer', 'electric dryer'],
   'Freezer': ['freezer', 'upright freezer', 'chest freezer'],
-  'Wine Refrigerator': ['wine cooler', 'wine refrigerator', 'wine cellar', 'wine storage'],
-  'Ice Maker': ['ice maker', 'icemaker', 'ice machine'],
-  'Beverage Refrigerator': ['beverage center', 'beverage cooler', 'drink fridge', 'beverage refrigerator'],
+  'Beverage Center': ['beverage center', 'beverage cooler', 'drink fridge', 'beverage refrigerator'],
+  'Wine Cooler': ['wine cooler', 'wine refrigerator', 'wine cellar', 'wine storage'],
+  'Icemaker': ['ice maker', 'icemaker', 'ice machine'],
   'Kitchen Sink': ['kitchen sink', 'farmhouse sink', 'apron sink', 'undermount sink'],
   'Kitchen Faucet': ['kitchen faucet', 'pull down faucet', 'pull out faucet'],
   'Bathroom Faucet': ['bathroom faucet', 'lavatory faucet', 'vessel faucet'],
@@ -185,42 +153,27 @@ function findDirectMatch(input: string): { categoryName: string; department: str
   return null;
 }
 
+function getDepartmentForCategory(categoryName: string): string | null {
+  const department = CATEGORY_DEPARTMENT_LOOKUP.get(categoryName.toLowerCase());
+  return department || null;
+}
+
 /**
  * Find category by keyword in text
  */
 function findKeywordMatch(text: string): { categoryName: string; department: string } | null {
   const normalized = normalizeText(text);
   
-  // Keywords to category mapping
-  const keywords: Record<string, { cat: string; dept: string }> = {
-    'refrigerator': { cat: 'Refrigerator', dept: 'Appliances' },
-    'fridge': { cat: 'Refrigerator', dept: 'Appliances' },
-    'dishwasher': { cat: 'Dishwasher', dept: 'Appliances' },
-    'range': { cat: 'Range', dept: 'Appliances' },
-    'stove': { cat: 'Range', dept: 'Appliances' },
-    'oven': { cat: 'Oven', dept: 'Appliances' },
-    'microwave': { cat: 'Microwave', dept: 'Appliances' },
-    'cooktop': { cat: 'Cooktop', dept: 'Appliances' },
-    'rangehood': { cat: 'Range Hood', dept: 'Appliances' },
-    'venthood': { cat: 'Range Hood', dept: 'Appliances' },
-    'washer': { cat: 'Washer', dept: 'Appliances' },
-    'dryer': { cat: 'Dryer', dept: 'Appliances' },
-    'freezer': { cat: 'Freezer', dept: 'Appliances' },
-    'icemaker': { cat: 'Icemaker', dept: 'Other / Needs Review' },
-    'faucet': { cat: 'Kitchen Faucets #', dept: 'Plumbing & Bath' },
-    'sink': { cat: 'Kitchen Sinks #', dept: 'Plumbing & Bath' },
-    'toilet': { cat: 'Toilets #', dept: 'Plumbing & Bath' },
-    'bathtub': { cat: 'Bathtubs #', dept: 'Plumbing & Bath' },
-    'shower': { cat: 'Showers #', dept: 'Plumbing & Bath' },
-    'chandelier': { cat: 'Chandeliers #', dept: 'Lighting' },
-    'pendant': { cat: 'Pendants #', dept: 'Lighting' },
-    'sconce': { cat: 'Wall Sconces #', dept: 'Lighting' },
-    'ceilingfan': { cat: 'Ceiling Fans #', dept: 'Lighting' }
-  };
-  
-  for (const [kw, result] of Object.entries(keywords)) {
-    if (normalized.includes(kw)) {
-      return { categoryName: result.cat, department: result.dept };
+  for (const [categoryName, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+    const department = getDepartmentForCategory(categoryName);
+    if (!department) {
+      continue;
+    }
+
+    for (const keyword of keywords) {
+      if (normalized.includes(normalizeText(keyword))) {
+        return { categoryName, department };
+      }
     }
   }
   

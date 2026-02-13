@@ -174,7 +174,7 @@ export const TYPE_CLARIFICATIONS: Record<string, string> = {
   // ============================================
   // UNIVERSAL TYPES
   // ============================================
-  "Accessory": "(Parts, trim kits, installation hardware - NOT the appliance itself)",
+  "Accessory": "(Replacement parts, handles, knobs, trim kits, installation hardware FOR a specific appliance brand/model - NOT decorative cabinet hardware. Example: 'Café handle kit for Range model CXPR8' = Accessory)",
   "Not Applicable": "(ONLY use if product genuinely has no functional type - very rare)",
   "Not Found": "(ONLY use if none of the available types match - should be rare)",
   

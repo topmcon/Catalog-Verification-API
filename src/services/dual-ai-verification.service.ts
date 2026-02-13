@@ -2602,15 +2602,31 @@ ${categoryList}
 
 🔴 CRITICAL CATEGORY SELECTION RULES:
 - READ the clarifications in parentheses carefully - they prevent common mistakes
-- "Appliance Pull" / "Refrigerator Pull" / "Dishwasher Pull" = DECORATIVE CABINET HARDWARE (NOT actual appliance parts)
-  - Example: Handles/pulls styled to MATCH appliance aesthetics, installed on CABINETS
-  - If product says "for [Appliance Model]" or "replacement part" → Use the APPLIANCE category, NOT "Appliance Pull"
+
+🚨 APPLIANCE ACCESSORIES vs. DECORATIVE HARDWARE PULLS:
+This is a COMMON ERROR - READ CAREFULLY:
+
+❌ WRONG: "Appliance Pull" / "Refrigerator Pull" / "Dishwasher Pull"
+  - These are DECORATIVE CABINET HARDWARE styled to match appliances
+  - Installed ON CABINETS, not on the appliance itself
+  - Generic decorative pulls, NOT brand-specific parts
+
+✅ CORRECT: Use APPLIANCE CATEGORY → Type="Accessory" when:
+  - Product says "for [Brand] [Model]" (e.g., "for GE Profile", "for Café Range")
+  - Includes specific appliance model number in description
+  - Description says "replacement part", "handle kit for", "compatible with [specific appliance]"
+  - Made BY the appliance manufacturer (GE, Whirlpool, Café, Samsung, etc.)
+  - Example: "Café Handle & Knob Set for Pro Range CXPR8HKPTFB" → Category: "Refrigerator" (or "Range"), Type: "Accessory"
+  - Example: "GE Refrigerator Door Handle WR12X29352" → Category: "Refrigerator", Type: "Accessory"
+
 - Appliance categories (Range, Refrigerator, Dishwasher, etc.) include BOTH:
   - The appliance itself (e.g., a refrigerator)
   - Replacement parts/accessories FOR that appliance (e.g., handles for a specific fridge model)
+
 - "Bathtub" = The tub fixture, "Bathtub Faucet" = Controls FOR the tub
 - "Sink" = The basin, "Kitchen Faucet" / "Bathroom Faucet" = Controls FOR sinks
 - "Cabinet" = Furniture storage, "Cabinet Pull" / "Cabinet Knob" = Hardware FOR cabinets
+
 - When in doubt: Look for "for [item]", "compatible with", "replacement for" → Category is the item it's FOR
 
 IMPORTANT:
