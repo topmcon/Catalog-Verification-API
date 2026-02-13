@@ -44,7 +44,8 @@ import {
 import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
 import { 
   matchStyleToCategory, 
-  getValidStylesForCategory, 
+  getValidStylesForCategory,
+  getValidTypesForCategory,
   getAllCategoriesWithStylesForPrompt, 
   getAllCategoriesWithTypesForPrompt
 } from '../config/master-picklist-helpers';
@@ -1569,8 +1570,8 @@ export async function verifyProductWithDualAI(
       });
     }
     
-    // PHASE 1: AI Analysis (with pre-research context if available)
-    logger.info('PHASE 1: Dual AI Analysis', {
+    // PHASE 1: Two-Stage AI Analysis
+    logger.info('PHASE 1: Two-Stage AI Analysis - STAGE 1 (Category) + STAGE 2 (Details)', {
       sessionId: verificationSessionId,
       hasPreResearchContext: !!preResearchContext,
       dataScenario: dataSourceAnalysis.scenario,
@@ -1583,10 +1584,8 @@ export async function verifyProductWithDualAI(
         riskLevel: tokenEstimate.riskLevel,
         truncationApplied: processedProduct !== rawProduct,
       },
+      twoStageEnabled: true // Flag for monitoring
     });
-    
-    const openaiStartTime = Date.now();
-    const xaiStartTime = Date.now();
     
     // Build prompt options with model validation info AND coherence warnings
     // Pass coherence warnings so AI can reason about conflicting data
@@ -1610,18 +1609,84 @@ export async function verifyProductWithDualAI(
       } : undefined
     };
     
-    // Pass research context and model validation to AIs
-    const [openaiResult, xaiResult] = await Promise.all([
-      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId),
-      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId)
+    // ===============================================
+    // 🔍 STAGE 1: CATEGORY DETERMINATION ONLY
+    // ===============================================
+    logger.info('🔍 STAGE 1: Determining product category', {
+      sessionId: verificationSessionId,
+      productId: rawProduct.SF_Catalog_Id
+    });
+    
+    const stage1StartTime = Date.now();
+    const [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
+      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'category-only' }),
+      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'category-only' })
     ]);
+    
+    logger.info('✅ STAGE 1 complete - Category determined', {
+      sessionId: verificationSessionId,
+      openaiCategory: openaiCategoryResult.determinedCategory,
+      xaiCategory: xaiCategoryResult.determinedCategory,
+      openaiConfidence: openaiCategoryResult.categoryConfidence,
+      xaiConfidence: xaiCategoryResult.categoryConfidence,
+      durationMs: Date.now() - stage1StartTime
+    });
+    
+    // Build consensus on category only
+    const categoryConsensus = buildConsensus(openaiCategoryResult, xaiCategoryResult);
+    const determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
+    
+    if (!determinedCategory) {
+      logger.error('❌ STAGE 1 FAILED: No category could be determined', {
+        sessionId: verificationSessionId,
+        openaiError: openaiCategoryResult.error,
+        xaiError: xaiCategoryResult.error
+      });
+      throw new Error('Category determination failed - both AIs returned no category');
+    }
+    
+    logger.info('🎯 Category consensus reached', {
+      sessionId: verificationSessionId,
+      agreedCategory: determinedCategory,
+      categoriesMatched: categoryConsensus.agreed,
+      categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
+    });
+    
+    // ===============================================
+    // 🎯 STAGE 2: DETAILED ANALYSIS (CATEGORY-SPECIFIC)
+    // ===============================================
+    logger.info('🎯 STAGE 2: Detailed analysis with category-specific context', {
+      sessionId: verificationSessionId,
+      category: determinedCategory,
+      productId: rawProduct.SF_Catalog_Id
+    });
+    
+    const stage2StartTime = Date.now();
+    const [openaiResult, xaiResult] = await Promise.all([
+      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+        stage: 'category-specific', 
+        category: determinedCategory 
+      }),
+      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+        stage: 'category-specific', 
+        category: determinedCategory 
+      })
+    ]);
+    
+    logger.info('✅ STAGE 2 complete - Detailed analysis finished', {
+      sessionId: verificationSessionId,
+      category: determinedCategory,
+      openaiFieldsPopulated: Object.keys(openaiResult.primaryAttributes).length + Object.keys(openaiResult.top15Attributes).length,
+      xaiFieldsPopulated: Object.keys(xaiResult.primaryAttributes).length + Object.keys(xaiResult.top15Attributes).length,
+      durationMs: Date.now() - stage2StartTime
+    });
 
-    // Track OpenAI result
+    // Track OpenAI result (STAGE 2 - detailed analysis)
     trackingService.recordOpenAIResult(trackingId, {
       success: openaiResult.success,
-      determinedCategory: openaiResult.determinedCategory,
-      categoryConfidence: openaiResult.categoryConfidence,
-      processingTimeMs: Date.now() - openaiStartTime,
+      determinedCategory: determinedCategory, // From STAGE 1 consensus
+      categoryConfidence: openaiCategoryResult.categoryConfidence, // From STAGE 1
+      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime), // Both stages
       fieldsPopulated: Object.keys(openaiResult.primaryAttributes).length + Object.keys(openaiResult.top15Attributes).length,
       fieldsMissing: openaiResult.missingFields.length,
       correctionsApplied: openaiResult.corrections.length,
@@ -1630,12 +1695,12 @@ export async function verifyProductWithDualAI(
       errorMessage: openaiResult.error,
     });
 
-    // Track xAI result
+    // Track xAI result (STAGE 2 - detailed analysis)
     trackingService.recordXAIResult(trackingId, {
       success: xaiResult.success,
-      determinedCategory: xaiResult.determinedCategory,
-      categoryConfidence: xaiResult.categoryConfidence,
-      processingTimeMs: Date.now() - xaiStartTime,
+      determinedCategory: determinedCategory, // From STAGE 1 consensus
+      categoryConfidence: xaiCategoryResult.categoryConfidence, // From STAGE 1
+      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime), // Both stages
       fieldsPopulated: Object.keys(xaiResult.primaryAttributes).length + Object.keys(xaiResult.top15Attributes).length,
       fieldsMissing: xaiResult.missingFields.length,
       correctionsApplied: xaiResult.corrections.length,
@@ -1644,10 +1709,11 @@ export async function verifyProductWithDualAI(
       errorMessage: xaiResult.error,
     });
 
-    logger.info('PHASE 1 complete - Initial AI analysis', {
+    logger.info('PHASE 1 complete - Two-stage AI analysis finished', {
       sessionId: verificationSessionId,
-      openaiCategory: openaiResult.determinedCategory,
-      xaiCategory: xaiResult.determinedCategory
+      stage1Category: determinedCategory,
+      stage2FieldsTotal: Object.keys(openaiResult.primaryAttributes).length + Object.keys(xaiResult.primaryAttributes).length,
+      totalDurationMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime)
     });
 
     // PHASE 2: Build initial consensus
@@ -2221,7 +2287,7 @@ export async function verifyProductWithDualAI(
       rawProduct,
       response,
       processingTime,
-      { openai: Date.now() - openaiStartTime, xai: Date.now() - xaiStartTime }
+      { openai: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime), xai: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime) }
     ).catch(err => {
       logger.error('Failed to store analytics', { error: err.message });
     });
@@ -2249,7 +2315,8 @@ async function analyzeWithOpenAI(
   rawProduct: SalesforceIncomingProduct, 
   sessionId: string, 
   promptOptions?: PromptOptions, 
-  trackingId?: string
+  trackingId?: string,
+  stageConfig?: { stage: 'category-only' | 'category-specific', category?: string }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
@@ -2271,10 +2338,23 @@ async function analyzeWithOpenAI(
     });
 
     try {
+      // Select appropriate system prompt based on stage
+      let systemPrompt: string;
+      if (stageConfig?.stage === 'category-only') {
+        systemPrompt = getCategoryOnlyPrompt();
+        logger.info('🔍 STAGE 1: Using category-only prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
+        systemPrompt = getCategorySpecificPrompt(stageConfig.category);
+        logger.info('🎯 STAGE 2: Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+      } else {
+        systemPrompt = getSystemPrompt(); // Legacy full prompt
+        logger.info('⚠️ Using legacy full prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      }
+      
       const response = await openai.chat.completions.create({
         model,
         messages: [
-          { role: 'system', content: getSystemPrompt() },
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
         temperature: 0.1,
@@ -2343,7 +2423,8 @@ async function analyzeWithXAI(
   rawProduct: SalesforceIncomingProduct, 
   sessionId: string, 
   promptOptions?: PromptOptions, 
-  trackingId?: string
+  trackingId?: string,
+  stageConfig?: { stage: 'category-only' | 'category-specific', category?: string }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
@@ -2365,10 +2446,23 @@ async function analyzeWithXAI(
     });
 
     try {
+      // Select appropriate system prompt based on stage
+      let systemPrompt: string;
+      if (stageConfig?.stage === 'category-only') {
+        systemPrompt = getCategoryOnlyPrompt();
+        logger.info('🔍 STAGE 1: Using category-only prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
+        systemPrompt = getCategorySpecificPrompt(stageConfig.category);
+        logger.info('🎯 STAGE 2: Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+      } else {
+        systemPrompt = getSystemPrompt(); // Legacy full prompt
+        logger.info('⚠️ Using legacy full prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      }
+      
       const response = await xai.chat.completions.create({
         model,
         messages: [
-          { role: 'system', content: getSystemPrompt() },
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
         ],
         temperature: 0.1
@@ -2450,6 +2544,120 @@ function createErrorResult(provider: 'openai' | 'xai', error: unknown): AIAnalys
   };
 }
 
+/**
+ * ===============================================
+ * TWO-STAGE AI ANALYSIS ARCHITECTURE
+ * ===============================================
+ * STAGE 1: Determine category ONLY (lightweight prompt)
+ * STAGE 2: Analyze with category-specific context ONLY
+ * 
+ * Benefits:
+ * - AI only sees relevant types/styles/attributes (not 200+ irrelevant ones)
+ * - Eliminates cross-contamination confusion
+ * - Smaller, focused prompts = faster, cheaper, more accurate
+ * - No defensive validation needed for type/style matching
+ */
+
+/**
+ * STAGE 1 PROMPT: Category Determination Only
+ * Lightweight prompt with just category list
+ */
+function getCategoryOnlyPrompt(): string {
+  const categoryList = getCategoryListForPrompt();
+  
+  return `You are an expert product classifier specializing in appliances and home products.
+
+⚠️ CRITICAL: Your ONLY task is to determine the product's category. Do NOT populate other fields yet.
+
+Your task:
+1. ANALYZE the raw product data provided
+2. DETERMINE which category from our master list the product belongs to
+3. Return ONLY the category determination with high confidence
+
+${categoryList}
+
+**Category Selection Rules:**
+- Analyze product title, model number, specifications, and images
+- Match to the MOST SPECIFIC category available
+- Consider product type, function, and installation location
+- Example: "Ceiling Fan with Light" → select "Ceiling Fan" (not generic "Lighting")
+- Example: "Built-In Oven" → select "Oven" (specific appliance)
+- Example: "Pull-Down Kitchen Faucet" → select "Kitchen Faucet" (not generic "Faucet")
+
+You must respond with valid JSON in this exact format:
+{
+  "category": {
+    "name": "The exact category name from the list",
+    "confidence": 0.95,
+    "reasoning": "Why this category was chosen based on product analysis"
+  }
+}`;
+}
+
+/**
+ * STAGE 2 PROMPT: Category-Specific Detail Analysis
+ * Focused prompt with ONLY the determined category's types/styles/attributes
+ */
+function getCategorySpecificPrompt(determinedCategory: string): string {
+  const primaryAttrs = getPrimaryAttributesForPrompt();
+  const typeHierarchy = getTypeHierarchyExplanation();
+  
+  // Get ONLY this category's context
+  const categorySchema = getCategorySchema(determinedCategory);
+  const validTypes = getValidTypesForCategory(determinedCategory);
+  const validStyles = getValidStylesForCategory(determinedCategory);
+  
+  // Build category-specific type list
+  let categoryTypeContext = '';
+  if (validTypes.length > 0) {
+    categoryTypeContext = `\n== VALID PRODUCT TYPES FOR ${determinedCategory.toUpperCase()} ==\n`;
+    categoryTypeContext += validTypes.map((t: string, idx: number) => `  ${idx + 1}. ${t}`).join('\n');
+    categoryTypeContext += '\n\n⚠️ CRITICAL: ONLY select types from the list above. Do NOT use types from other categories.';
+  } else {
+    categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
+  }
+  
+  // Build category-specific style list
+  const categoryStyleContext = `\n== VALID DESIGN STYLES ==\nUniversal design styles (apply to all categories):\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
+  
+  // Build category-specific top15 attributes
+  let categoryTop15Context = '';
+  if (categorySchema && categorySchema.top15FilterAttributes.length > 0) {
+    categoryTop15Context = `\n== TOP 15 FILTER ATTRIBUTES FOR ${determinedCategory.toUpperCase()} ==\n`;
+    categoryTop15Context += `⚠️ CRITICAL: Use the field_key shown in parentheses in your JSON response.\n\n`;
+    categoryTop15Context += categorySchema.top15FilterAttributes
+      .map((attr: any, idx: number) => `   ${idx + 1}. "${attr.name}" (use key: "${attr.fieldKey}")`)
+      .join('\n');
+  } else {
+    categoryTop15Context = `\n== TOP 15 FILTER ATTRIBUTES ==\nNo specific filter attributes defined for this category.`;
+  }
+  
+  return `You are an expert product data analyst specializing in appliances and home products.
+
+⚠️ CATEGORY CONTEXT: This product has been determined to be in the "${determinedCategory}" category.
+Your task is to analyze the product and populate ALL fields specific to this category.
+
+Your task is to:
+1. ANALYZE the raw product data provided
+2. DETERMINE the product's TYPE (functional variation within ${determinedCategory} category)
+3. MAP the raw data to the correct attributes for ${determinedCategory}
+4. VERIFY and CLEAN the data (fix obvious errors, standardize formats)
+5. IDENTIFY any missing required fields
+6. GENERATE high-quality, customer-facing text for title, description, and features
+
+${typeHierarchy}
+${categoryTypeContext}
+${categoryStyleContext}
+${categoryTop15Context}
+
+== PRIMARY ATTRIBUTES (Same for ALL products) ==
+${primaryAttrs}`;
+}
+
+/**
+ * LEGACY PROMPT: Full prompt with all categories (kept for comparison/fallback)
+ * This was the old single-stage approach that caused cross-contamination
+ */
 function getSystemPrompt(): string {
   const primaryAttrs = getPrimaryAttributesForPrompt();
   const categoryTop15 = getAllCategoriesWithTop15ForPrompt();
