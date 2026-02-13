@@ -2627,11 +2627,20 @@ function getCategorySpecificPrompt(determinedCategory: string): string {
     // Category-specific extraction hints
     const categoryLower = determinedCategory.toLowerCase();
     if (categoryLower.includes('ceiling fan')) {
-      typeSelectionGuide += `For Ceiling Fans, look for these keywords in title/description/specifications:\n`;
+      typeSelectionGuide += `For Ceiling Fans, look for these keywords in title/description/specifications:\n\n`;
+      typeSelectionGuide += `⚠️ CHECK FOR ACCESSORIES FIRST (highest priority):\n`;
+      typeSelectionGuide += `  - "Downrod" / "Down Rod" / "Extension Rod" → Type: Accessory\n`;
+      typeSelectionGuide += `  - "Remote" / "Remote Control" / "Wall Control" / "Controller" → Type: Accessory\n`;
+      typeSelectionGuide += `  - "Light Kit" / "Light Fixture Kit" / "Lighting Kit" → Type: Accessory\n`;
+      typeSelectionGuide += `  - "Blades" / "Fan Blades" / "Replacement Blades" → Type: Accessory\n`;
+      typeSelectionGuide += `  - "Receiver" / "Transmitter" / "Canopy" / "Mounting" → Type: Accessory\n`;
+      typeSelectionGuide += `  - If product is NOT a complete ceiling fan unit → Type: Accessory\n\n`;
+      typeSelectionGuide += `IF NOT AN ACCESSORY, then check installation location:\n`;
+      typeSelectionGuide += `  - "Hugger" / "Low Profile" / "Flush Mount" / "Flushmount" / "Close to Ceiling" → Type: Hugger\n`;
+      typeSelectionGuide += `  - "Outdoor" / "Wet Rated" / "UL Listed for Wet Locations" / "Damp Rated" / "Weather" → Type: Outdoor\n`;
       typeSelectionGuide += `  - "Indoor" / "Interior" → Type: Indoor\n`;
-      typeSelectionGuide += `  - "Outdoor" / "Wet Rated" / "UL Listed for Wet Locations" / "Damp Rated" → Type: Outdoor\n`;
-      typeSelectionGuide += `  - "Hugger" / "Low Profile" / "Flush Mount" / "Close to Ceiling" → Type: Hugger\n`;
-      typeSelectionGuide += `  - "Accessory" / "Remotes" / "Light Kits" / "Downrods" → Type: Accessory\n`;
+      typeSelectionGuide += `  - "Indoor / Outdoor" (BOTH mentioned) → Type: Outdoor (more versatile rating)\n\n`;
+      typeSelectionGuide += `**Priority Order:** Accessory → Hugger → Outdoor → Indoor\n`;
     } else if (categoryLower.includes('refrigerator')) {
       typeSelectionGuide += `For Refrigerators, analyze door configuration from images/specs:\n`;
       typeSelectionGuide += `  - Count doors and their arrangement\n`;
@@ -2662,12 +2671,17 @@ function getCategorySpecificPrompt(determinedCategory: string): string {
     }
     
     typeSelectionGuide += `\n**Decision Process:**\n`;
-    typeSelectionGuide += `  1. Read product title carefully for type keywords\n`;
-    typeSelectionGuide += `  2. Check specifications and description\n`;
-    typeSelectionGuide += `  3. Analyze images for visual confirmation\n`;
-    typeSelectionGuide += `  4. Select BEST match from types list even if slightly uncertain\n`;
-    typeSelectionGuide += `  5. Only use "Not Found" if genuinely cannot determine from available data\n`;
-    typeSelectionGuide += `  6. NEVER use "Not Applicable" (product is already in correct category)\n`;
+    typeSelectionGuide += `  1. **FIRST**: Check if product is an accessory/component (not a complete unit)\n`;
+    typeSelectionGuide += `     - Downrods, remotes, controls, light kits, blades → Type: Accessory\n`;
+    typeSelectionGuide += `  2. Read product title carefully for remaining type keywords\n`;
+    typeSelectionGuide += `  3. If multiple types mentioned (e.g., "Indoor / Outdoor"):\n`;
+    typeSelectionGuide += `     - Choose the MORE SPECIFIC or MORE CAPABLE type\n`;
+    typeSelectionGuide += `     - "Indoor / Outdoor" → Outdoor (wet-rated is more versatile)\n`;
+    typeSelectionGuide += `     - "Hugger" mentioned anywhere → Hugger (specific installation type)\n`;
+    typeSelectionGuide += `  4. Check specifications and description for confirmation\n`;
+    typeSelectionGuide += `  5. Select BEST match from types list even if slightly uncertain\n`;
+    typeSelectionGuide += `  6. Only use "Not Found" if genuinely cannot determine from available data\n`;
+    typeSelectionGuide += `  7. NEVER use "Not Applicable" (product is already in correct category)\n`;
   }
   
   // Build category-specific type list
