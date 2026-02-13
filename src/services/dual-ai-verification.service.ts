@@ -3094,6 +3094,7 @@ function validateConsensusCategory(
   );
   
   // Check if it's a decorative hardware category (wrong for appliance-specific parts)
+  // These are GENERIC categories that should NOT be used for manufacturer-specific parts
   const decorativeHardwareCategories = [
     'appliance pull',
     'refrigerator pull', 
@@ -3101,7 +3102,8 @@ function validateConsensusCategory(
     'cabinet pull',
     'cabinet knob',
     'drawer pull',
-    'cabinet hardware'
+    'cabinet hardware',
+    'kitchen accessory'  // Generic accessory category - wrong for manufacturer parts
   ];
   
   const normalizedCategory = agreedCategory.toLowerCase().trim();
