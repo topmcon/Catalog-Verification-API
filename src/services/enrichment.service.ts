@@ -9,7 +9,7 @@
  */
 
 import { matchCategory, CategoryMatch } from './category-matcher.service';
-import { generateTitle, TitleInput } from './title-generator.service';
+import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { generateDescription, DescriptionInput } from './description-generator.service';
 import { GLOBAL_PRIMARY_ATTRIBUTES } from '../config/category-schema';
 import { getRequiredAttributes, CategoryAttributeConfig } from '../config/category-attributes';
@@ -79,10 +79,11 @@ export async function enrichProduct(rawData: RawProductData): Promise<Enrichment
       aiGeneratedFields = aiFilledAttributes.filledFields;
     }
     
-    // Step 4: Generate standardized title
-    const titleInput: TitleInput = {
+    // Step 4: Generate standardized title using SEO title generator
+    const titleInput: SEOTitleInput = {
       brand: attributes.brand || rawData.brand,
       category: categoryMatch.categoryName,
+      modelNumber: attributes.modelNumber || rawData.modelNumber || rawData.sku,
       width: attributes.width || rawData.width,
       height: attributes.height || rawData.height,
       depth: attributes.depth || rawData.depth,
@@ -97,7 +98,7 @@ export async function enrichProduct(rawData: RawProductData): Promise<Enrichment
       totalCapacity: attributes.totalCapacity || rawData.totalCapacity,
       configuration: attributes.configuration || rawData.configuration,
     };
-    const title = generateTitle(titleInput);
+    const title = generateSEOTitle(titleInput);
     
     // Step 5: Generate professional description
     const descInput: DescriptionInput = {
