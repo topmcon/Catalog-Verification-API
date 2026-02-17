@@ -64,11 +64,32 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - **Key reference files**: Table of important files and their purpose for quick navigation
    
    **Target: 150-250 lines minimum.** The goal is a self-contained document that gives full context without needing to read prior summaries or code.
-2. Check for any uncommitted changes (`git status`)
-3. Stage all changes including session summary (`git add -A`)
-4. Commit with descriptive message (ask user or auto-generate based on changed files)
-5. Push to GitHub (`git push origin main`)
-6. Deploy to production:
+2. **⚠️ PRE-DEPLOYMENT AUDIT** - Check if any code changes require dependent file updates:
+   ```bash
+   # Check what type of changes were made
+   git status --short
+   ```
+   **If changes include any of these patterns, run the corresponding audit:**
+   
+   | Change Pattern | Run Audit | What It Checks |
+   |----------------|-----------|----------------|
+   | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
+   | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
+   | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
+   | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
+   | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
+   
+   **If audit finds issues:**
+   - Fix all issues before proceeding
+   - Re-run audit to confirm fixes
+   - Document fixes in session summary
+   
+   **If NO code changes** (only docs/session notes): Skip audit, proceed to step 3
+3. Check for any uncommitted changes (`git status`)
+4. Stage all changes including session summary (`git add -A`)
+5. Commit with descriptive message (ask user or auto-generate based on changed files)
+6. Push to GitHub (`git push origin main`)
+7. Deploy to production:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
      "cd /opt/catalog-verification-api && \
@@ -78,7 +99,7 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
       npm run build && \
       systemctl restart catalog-verification"
    ```
-7. **⚠️ CRITICAL: Verify all three environments are synced** - Run this check:
+8. **⚠️ CRITICAL: Verify all three environments are synced** - Run this check:
    ```bash
    LOCAL=$(git rev-parse --short HEAD) && \
    GITHUB=$(git ls-remote origin main | cut -c1-7) && \
@@ -86,18 +107,18 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    echo "LOCAL: $LOCAL | GITHUB: $GITHUB | PROD: $PROD" && \
    if [ "$LOCAL" = "$GITHUB" ] && [ "$GITHUB" = "$PROD" ]; then echo "✅ ALL SYNCED"; else echo "⚠️ OUT OF SYNC - PROCEDURE NOT COMPLETE"; fi
    ```
-   **If OUT OF SYNC: Re-run step 6. Do NOT finish until all 3 match.**
-8. Confirm production service is healthy:
+   **If OUT OF SYNC: Re-run step 7. Do NOT finish until all 3 match.**
+9. Confirm production service is healthy:
    ```bash
    curl -s https://verify.cxc-ai.com/health
    ```
-9. Report summary:
+10. Report summary:
    - Files changed
    - Commit hash (must be same across all 3 environments)
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
 
-**⚠️ The "Save everything" procedure is NOT complete until step 7 shows ALL SYNCED.**
+**⚠️ The "Save everything" procedure is NOT complete until step 8 shows ALL SYNCED.**
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
@@ -616,19 +637,40 @@ When user says "Save everything", perform these actions:
    - Include current sync status (local, GitHub, production commits)
    - Note service health and any issues encountered
    - Outline next steps or work in progress
-2. **Check for changes**: `git status`
-3. **Stage all changes**: `git add -A`
-4. **Commit changes**: 
+2. **⚠️ PRE-DEPLOYMENT AUDIT** - Check if any code changes require dependent file updates:
+   ```bash
+   # Check what type of changes were made
+   git status --short
+   ```
+   **If changes include any of these patterns, run the corresponding audit:**
+   
+   | Change Pattern | Run Audit | What It Checks |
+   |----------------|-----------|----------------|
+   | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
+   | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
+   | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
+   | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
+   | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
+   
+   **If audit finds issues:**
+   - Fix all issues before proceeding
+   - Re-run audit to confirm fixes
+   - Document fixes in session summary
+   
+   **If NO code changes** (only docs/session notes): Skip audit, proceed to step 3
+3. **Check for changes**: `git status`
+4. **Stage all changes**: `git add -A`
+5. **Commit changes**: 
    - Auto-generate message from changed files, OR
    - Ask user for commit message if changes are significant
-5. **Push to GitHub**: `git push origin main`
-6. **Deploy to production**:
+6. **Push to GitHub**: `git push origin main`
+7. **Deploy to production**:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && git pull origin main && npm install && npm run build && systemctl restart catalog-verification"
    ```
-7. **Verify sync**: Confirm all three environments have same commit
-8. **Health check**: `curl -s https://verify.cxc-ai.com/health`
-9. **Report**:
+8. **Verify sync**: Confirm all three environments have same commit
+9. **Health check**: `curl -s https://verify.cxc-ai.com/health`
+10. **Report**:
    - Files changed
    - Commit hash
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
