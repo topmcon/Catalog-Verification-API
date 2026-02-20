@@ -36,10 +36,11 @@ async function main() {
     
     // Extract detailed analysis data
     const analyzed = jobs.map((job, index) => {
-      const verified = job.Verified_Fields || {};
-      const aiConsensus = verified.AI_Consensus || {};
-      const aiReview = verified.AI_Review || {};
-      const verification = verified.Verification || {};
+      const result = job.result || {};
+      const fieldAiReviews = result.Field_AI_Reviews || {};
+      const aiReview = result.AI_Review || {};
+      const verification = result.Verification || {};
+      const primaryAttrs = result.Primary_Attributes || {};
       const raw = job.rawPayload || {};
 
       return {
@@ -49,9 +50,9 @@ async function main() {
         sf_catalog_name: job.sfCatalogName,
         status: job.status,
         created_at: job.createdAt,
-        processing_time_ms: verification.verification_timestamp 
-          ? new Date(verification.verification_timestamp) - new Date(job.createdAt)
-          : null,
+        processing_time_ms: job.processingTimeMs || (job.completedAt && job.startedAt 
+          ? new Date(job.completedAt) - new Date(job.startedAt)
+          : null),
         
         // Product Input Data
         input: {
@@ -62,54 +63,54 @@ async function main() {
           upc: raw.UPC_Legacy
         },
 
-        // AI Results
+        // AI Results from Field_AI_Reviews
         category: {
-          openai: aiConsensus.category?.openai?.value,
-          xai: aiConsensus.category?.xai?.value,
-          consensus: aiConsensus.category?.consensus,
-          source: aiConsensus.category?.source,
-          final: aiConsensus.category?.final_value,
-          confidence: aiConsensus.category?.openai?.confidence || aiConsensus.category?.xai?.confidence,
-          agreed: aiConsensus.category?.openai?.value === aiConsensus.category?.xai?.value
+          openai: fieldAiReviews.category?.openai?.value,
+          xai: fieldAiReviews.category?.xai?.value,
+          consensus: fieldAiReviews.category?.consensus,
+          source: fieldAiReviews.category?.source,
+          final: fieldAiReviews.category?.final_value || primaryAttrs.AI_Product_Category,
+          confidence: fieldAiReviews.category?.openai?.confidence || fieldAiReviews.category?.xai?.confidence,
+          agreed: fieldAiReviews.category?.openai?.value === fieldAiReviews.category?.xai?.value
         },
 
         type: {
-          openai: aiConsensus.type?.openai?.value,
-          xai: aiConsensus.type?.xai?.value,
-          consensus: aiConsensus.type?.consensus,
-          source: aiConsensus.type?.source,
-          final: aiConsensus.type?.final_value,
-          confidence: aiConsensus.type?.openai?.confidence || aiConsensus.type?.xai?.confidence,
-          agreed: aiConsensus.type?.openai?.value === aiConsensus.type?.xai?.value
+          openai: fieldAiReviews.product_type?.openai?.value,
+          xai: fieldAiReviews.product_type?.xai?.value,
+          consensus: fieldAiReviews.product_type?.consensus,
+          source: fieldAiReviews.product_type?.source,
+          final: fieldAiReviews.product_type?.final_value || primaryAttrs.AI_Type,
+          confidence: fieldAiReviews.product_type?.openai?.confidence || fieldAiReviews.product_type?.xai?.confidence,
+          agreed: fieldAiReviews.product_type?.openai?.value === fieldAiReviews.product_type?.xai?.value
         },
 
         style: {
-          openai: aiConsensus.style?.openai?.value,
-          xai: aiConsensus.style?.xai?.value,
-          consensus: aiConsensus.style?.consensus,
-          source: aiConsensus.style?.source,
-          final: aiConsensus.style?.final_value,
-          confidence: aiConsensus.style?.openai?.confidence || aiConsensus.style?.xai?.confidence,
-          agreed: aiConsensus.style?.openai?.value === aiConsensus.style?.xai?.value
+          openai: fieldAiReviews.product_style?.openai?.value,
+          xai: fieldAiReviews.product_style?.xai?.value,
+          consensus: fieldAiReviews.product_style?.consensus,
+          source: fieldAiReviews.product_style?.source,
+          final: fieldAiReviews.product_style?.final_value || primaryAttrs.AI_Style,
+          confidence: fieldAiReviews.product_style?.openai?.confidence || fieldAiReviews.product_style?.xai?.confidence,
+          agreed: fieldAiReviews.product_style?.openai?.value === fieldAiReviews.product_style?.xai?.value
         },
 
         brand: {
-          openai: aiConsensus.brand?.openai?.value,
-          xai: aiConsensus.brand?.xai?.value,
-          consensus: aiConsensus.brand?.consensus,
-          source: aiConsensus.brand?.source,
-          final: aiConsensus.brand?.final_value,
-          agreed: aiConsensus.brand?.openai?.value === aiConsensus.brand?.xai?.value
+          openai: fieldAiReviews.brand?.openai?.value,
+          xai: fieldAiReviews.brand?.xai?.value,
+          consensus: fieldAiReviews.brand?.consensus,
+          source: fieldAiReviews.brand?.source,
+          final: fieldAiReviews.brand?.final_value || primaryAttrs.AI_Brand,
+          agreed: fieldAiReviews.brand?.openai?.value === fieldAiReviews.brand?.xai?.value
         },
 
         department: {
-          final: aiConsensus.department?.final_value,
-          source: aiConsensus.department?.source
+          final: primaryAttrs.AI_Product_Department,
+          source: 'primary_attrs'
         },
 
         family: {
-          final: aiConsensus.family?.final_value,
-          source: aiConsensus.family?.source
+          final: fieldAiReviews.product_family?.final_value || primaryAttrs.AI_Product_Family,
+          source: fieldAiReviews.product_family?.source || 'primary_attrs'
         },
 
         // Verification Metrics
