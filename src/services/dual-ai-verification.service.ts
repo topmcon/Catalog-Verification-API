@@ -64,7 +64,7 @@ import {
 } from '../config/type-prompts';
 import { matchTypeToPicklist, extractTypeFromSemanticContext } from './type-matcher.service';
 import { mapToVerifiedCategory } from './response-builder.service';
-import { getTypeByName, getCategoryTypeMapping } from '../picklist-master/03-types/type-config';
+import { getTypeByName, getCategoryTypeMapping, isValidTypeForCategory } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
@@ -594,6 +594,54 @@ function findClosestCategory(
   // Return best match if above threshold
   if (bestMatch && bestScore >= minConfidence) {
     return { category: bestMatch, confidence: bestScore };
+  }
+  
+  return null;
+}
+
+/**
+ * PHASE 2 TYPE VALIDATION: Fuzzy match type against valid types for category
+ * Similar to findClosestCategory but for types
+ * 
+ * @param input - Type name from AI (might be typo or similar)
+ * @param validTypes - Valid types for the category
+ * @param minConfidence - Minimum similarity threshold (default 0.85 - stricter than category)
+ * @returns Closest type match and confidence, or null
+ */
+function findClosestType(
+  input: string,
+  validTypes: string[],
+  minConfidence: number = 0.85
+): { type: string; confidence: number } | null {
+  if (!input || !validTypes || validTypes.length === 0) {
+    return null;
+  }
+  
+  const normalizedInput = input.toLowerCase().trim();
+  
+  let bestMatch: string | null = null;
+  let bestScore = 0;
+  
+  for (const validType of validTypes) {
+    const normalizedValid = validType.toLowerCase().trim();
+    
+    // Perfect match
+    if (normalizedInput === normalizedValid) {
+      return { type: validType, confidence: 1.0 };
+    }
+    
+    // Calculate similarity
+    const score = calculateStringSimilarity(normalizedInput, normalizedValid);
+    
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = validType;
+    }
+  }
+  
+  // Return best match if above threshold
+  if (bestMatch && bestScore >= minConfidence) {
+    return { type: bestMatch, confidence: bestScore };
   }
   
   return null;
@@ -1970,6 +2018,143 @@ export async function verifyProductWithDualAI(
       durationMs: Date.now() - stage3StartTime
     });
 
+    // ===============================================
+    // 🔧 PHASE 2.5: TYPE VALIDATION (POST-STAGE 3)
+    // ===============================================
+    // Validate that Type is valid for the determined Category
+    // Similar to category validation after Stage 2
+    
+    let determinedType = openaiResult.primaryAttributes.product_type || xaiResult.primaryAttributes.product_type;
+    const categoryMapping = getCategoryTypeMapping(determinedCategory);
+    const validTypesForCategory = categoryMapping?.types.map(t => t.type_name) || [];
+    
+    // Skip validation if category has no types or type is N/A/Not Found
+    const skipTypeValidation = validTypesForCategory.length === 0 
+      || !determinedType 
+      || String(determinedType).toLowerCase() === 'not applicable' 
+      || String(determinedType).toLowerCase() === 'not found';
+    
+    if (!skipTypeValidation && determinedType && determinedCategory) {
+      const isTypeValid = isValidTypeForCategory(String(determinedType), determinedCategory);
+      
+      if (!isTypeValid) {
+        // TYPE CROSS-CONTAMINATION DETECTED
+        logger.warn('🔴 PHASE 2 VALIDATION: TYPE VALIDATION FAILED', {
+          sessionId: verificationSessionId,
+          category: determinedCategory,
+          invalidType: determinedType,
+          validTypes: validTypesForCategory.slice(0, 10),
+          productId: rawProduct.SF_Catalog_Id
+        });
+        
+        // Try fuzzy matching first
+        const fuzzyMatch = findClosestType(String(determinedType), validTypesForCategory, 0.85);
+        
+        if (fuzzyMatch) {
+          logger.info('✅ Fuzzy match found for invalid type', {
+            sessionId: verificationSessionId,
+            originalType: determinedType,
+            fuzzyMatch: fuzzyMatch.type,
+            confidence: fuzzyMatch.confidence
+          });
+          determinedType = fuzzyMatch.type;
+          // Update both AI results with corrected type
+          openaiResult.primaryAttributes.product_type = fuzzyMatch.type;
+          xaiResult.primaryAttributes.product_type = fuzzyMatch.type;
+        } else {
+          // No fuzzy match - retry Stage 3 with strict warning
+          logger.warn('⚠️ No fuzzy match found - retrying Stage 3 with strict type validation', {
+            sessionId: verificationSessionId,
+            category: determinedCategory,
+            invalidType: determinedType,
+            validTypes: validTypesForCategory.slice(0, 10)
+          });
+          
+          // Create strict prompt options with type warning
+          const strictTypePromptOptions: Record<string, any> = {
+            strictTypeMode: true,
+            invalidTypeWarning: `⚠️ VALIDATION ERROR: Previous attempt selected type "${determinedType}" which is NOT valid for category "${determinedCategory}". Valid types for this category are: ${validTypesForCategory.join(', ')}. You MUST select from this list ONLY.`
+          };
+          
+          // Retry Stage 3 with strict type validation
+          const [retryOpenaiResult, retryXaiResult] = await Promise.all([
+            analyzeWithOpenAI(processedProduct, verificationSessionId, strictTypePromptOptions, trackingId, { 
+              stage: 'category-specific', 
+              department: determinedDepartment,
+              category: determinedCategory 
+            }),
+            analyzeWithXAI(processedProduct, verificationSessionId, strictTypePromptOptions, trackingId, { 
+              stage: 'category-specific', 
+              department: determinedDepartment,
+              category: determinedCategory 
+            })
+          ]);
+          
+          const retryDeterminedType = retryOpenaiResult.primaryAttributes.product_type || retryXaiResult.primaryAttributes.product_type;
+          const isRetryTypeValid = retryDeterminedType ? isValidTypeForCategory(String(retryDeterminedType), determinedCategory) : false;
+          
+          if (isRetryTypeValid) {
+            // Retry succeeded
+            logger.info('✅ Retry succeeded - type validation passed', {
+              sessionId: verificationSessionId,
+              category: determinedCategory,
+              originalInvalidType: determinedType,
+              retryValidType: retryDeterminedType
+            });
+            determinedType = retryDeterminedType;
+            // Use retry results
+            Object.assign(openaiResult, retryOpenaiResult);
+            Object.assign(xaiResult, retryXaiResult);
+          } else {
+            // Retry failed - try fuzzy match on retry result
+            logger.error('❌ Retry failed - type validation still failing after retry', {
+              sessionId: verificationSessionId,
+              category: determinedCategory,
+              originalInvalidType: determinedType,
+              retryInvalidType: retryDeterminedType,
+              validTypesForCategory
+            });
+            
+            const retryFuzzyMatch = retryDeterminedType 
+              ? findClosestType(String(retryDeterminedType), validTypesForCategory, 0.75) // Lower threshold
+              : null;
+            
+            if (retryFuzzyMatch) {
+              logger.warn('⚠️ Fuzzy match found on retry result (lowered threshold)', {
+                sessionId: verificationSessionId,
+                retryType: retryDeterminedType,
+                fuzzyMatch: retryFuzzyMatch.type,
+                confidence: retryFuzzyMatch.confidence
+              });
+              determinedType = retryFuzzyMatch.type;
+              // Update retry results
+              retryOpenaiResult.primaryAttributes.product_type = retryFuzzyMatch.type;
+              retryXaiResult.primaryAttributes.product_type = retryFuzzyMatch.type;
+              Object.assign(openaiResult, retryOpenaiResult);
+              Object.assign(xaiResult, retryXaiResult);
+            } else {
+              // Complete failure - set to "Not Found"
+              logger.error('🔴 Type validation complete failure - forcing to "Not Found"', {
+                sessionId: verificationSessionId,
+                category: determinedCategory,
+                originalType: determinedType,
+                retryType: retryDeterminedType
+              });
+              determinedType = 'Not Found';
+              openaiResult.primaryAttributes.product_type = 'Not Found';
+              xaiResult.primaryAttributes.product_type = 'Not Found';
+            }
+          } 
+        }
+      } else {
+        logger.info('✅ Type validation passed', {
+          sessionId: verificationSessionId,
+          category: determinedCategory,
+          validType: determinedType
+        });
+      }
+    }
+
     // Track OpenAI result (All 3 stages)
     trackingService.recordOpenAIResult(trackingId, {
       success: openaiResult.success,
@@ -2641,8 +2826,8 @@ async function analyzeWithOpenAI(
         systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
         logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
-        systemPrompt = getCategorySpecificPrompt(stageConfig.category);
-        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategorySpecificPrompt(stageConfig.category, promptOptions);
+        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, strictTypeMode: promptOptions?.strictTypeMode, productId: rawProduct.SF_Catalog_Id });
       } else {
         systemPrompt = getSystemPrompt(); // Legacy full prompt
         logger.info('⚠️ Using legacy full prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
@@ -2756,8 +2941,8 @@ async function analyzeWithXAI(
         systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
         logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
-        systemPrompt = getCategorySpecificPrompt(stageConfig.category);
-        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategorySpecificPrompt(stageConfig.category, promptOptions);
+        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, strictTypeMode: promptOptions?.strictTypeMode, productId: rawProduct.SF_Catalog_Id });
       } else {
         systemPrompt = getSystemPrompt(); // Legacy full prompt
         logger.info('⚠️ Using legacy full prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
@@ -2973,7 +3158,7 @@ You must respond with valid JSON in this exact format:
  * STAGE 2 PROMPT: Category-Specific Detail Analysis
  * Focused prompt with ONLY the determined category's types/styles/attributes
  */
-function getCategorySpecificPrompt(determinedCategory: string): string {
+function getCategorySpecificPrompt(determinedCategory: string, promptOptions?: Record<string, any>): string {
   const primaryAttrs = getPrimaryAttributesForPrompt();
   const typeHierarchy = getTypeHierarchyExplanation();
   
@@ -2981,6 +3166,17 @@ function getCategorySpecificPrompt(determinedCategory: string): string {
   const categorySchema = getCategorySchema(determinedCategory);
   const validTypes = getValidTypesForCategory(determinedCategory);
   const validStyles = getValidStylesForCategory(determinedCategory);
+  
+  // Inject strict type validation warning if in retry mode
+  let strictTypeWarning = '';
+  if (promptOptions?.strictTypeMode && promptOptions?.invalidTypeWarning) {
+    strictTypeWarning = `
+
+🚨 TYPE VALIDATION WARNING 🚨
+${promptOptions.invalidTypeWarning}
+
+`;
+  }
   
   // Build category-specific type selection guidance
   let typeSelectionGuide = '';
@@ -3075,7 +3271,7 @@ function getCategorySpecificPrompt(determinedCategory: string): string {
   return `You are an expert product data analyst specializing in appliances and home products.
 
 ⚠️ CATEGORY CONTEXT: This product has been determined to be in the "${determinedCategory}" category.
-Your task is to analyze the product and populate ALL fields specific to this category.
+Your task is to analyze the product and populate ALL fields specific to this category.${strictTypeWarning}
 
 Your task is to:
 1. ANALYZE the raw product data provided
@@ -3419,6 +3615,8 @@ interface PromptOptions {
   externalDataTrusted?: boolean;
   strictCategoryMode?: boolean;  // Phase 2: Retry with stricter validation
   invalidCategoryWarning?: string;  // Phase 2: Warning about invalid previous selection
+  strictTypeMode?: boolean;  // Phase 2.5: Retry with stricter type validation
+  invalidTypeWarning?: string;  // Phase 2.5: Warning about invalid type for category
   dataCoherenceWarnings?: {
     conflicts: Array<{
       type: string;
