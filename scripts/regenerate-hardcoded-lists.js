@@ -145,6 +145,15 @@ function updateDualAIVerification(categories) {
   let content = fs.readFileSync(filePath, 'utf-8');
   
   // Check if these were already refactored to dynamic loading
+  // Updated check: Look for imports from style-validator.service (refactored location)
+  if (content.includes('from \'./style-validator.service\'') &&
+      content.includes('validateStyleForCategory')) {
+    console.log('✅ Style validation already refactored to style-validator.service.ts');
+    console.log('   (Uses dynamic loading from master-picklist-helpers.ts - no hardcoded arrays)');
+    return true;
+  }
+  
+  // Legacy check for old refactoring patterns
   if (content.includes('REMOVED HARDCODED ARRAY - Now using getLightingCategories()') ||
       content.includes('isLightingCategoryFromMaster')) {
     console.log('✅ LIGHTING_CATEGORIES already uses dynamic loading from master JSON');

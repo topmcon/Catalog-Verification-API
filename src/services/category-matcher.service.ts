@@ -13,59 +13,78 @@ interface CategoryPicklistItem {
 
 const CATEGORIES: CategoryPicklistItem[] = categoriesPicklist as CategoryPicklistItem[];
 
-function buildDepartmentCategories(): Record<string, string[]> {
-  const result: Record<string, string[]> = {};
-
-  for (const category of CATEGORIES) {
-    if (!result[category.department]) {
-      result[category.department] = [];
-    }
-
-    result[category.department].push(category.category_name);
-  }
-
-  return result;
-}
-
-function buildCategoryDepartmentLookup(): Map<string, string> {
-  const lookup = new Map<string, string>();
-
-  for (const category of CATEGORIES) {
-    lookup.set(category.category_name.toLowerCase(), category.department);
-  }
-
-  return lookup;
+// Build runtime lookups from categories
+const CATEGORY_DEPARTMENT_LOOKUP = new Map<string, string>();
+for (const category of CATEGORIES) {
+  CATEGORY_DEPARTMENT_LOOKUP.set(category.category_name.toLowerCase(), category.department);
 }
 
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-const DEPARTMENT_CATEGORIES = buildDepartmentCategories();
-const CATEGORY_DEPARTMENT_LOOKUP = buildCategoryDepartmentLookup();
-
-// Keyword mappings for better matching
-// SYNCED FROM: src/config/salesforce-picklists/categories.json
-export const CATEGORY_KEYWORDS: Record<string, string[]> = {
-  'Refrigerator': ['refrigerator', 'fridge', 'french door', 'side by side', 'bottom freezer', 'top freezer'],
-  'Dishwasher': ['dishwasher', 'dish washer'],
-  'Range': ['range', 'stove', 'gas range', 'electric range', 'dual fuel range'],
-  'Oven': ['oven', 'wall oven', 'double oven', 'single oven', 'convection oven'],
-  'Cooktop': ['cooktop', 'cook top', 'stovetop', 'burner', 'induction cooktop'],
-  'Microwave': ['microwave', 'over the range microwave', 'otr', 'microwave drawer'],
-  'Range Hood': ['range hood', 'hood', 'ventilation', 'exhaust hood', 'vent hood'],
-  'Washer': ['washer', 'washing machine', 'front load washer', 'top load washer'],
-  'Dryer': ['dryer', 'clothes dryer', 'gas dryer', 'electric dryer'],
-  'Freezer': ['freezer', 'upright freezer', 'chest freezer'],
-  'Beverage Center': ['beverage center', 'beverage cooler', 'drink fridge', 'beverage refrigerator'],
-  'Wine Cooler': ['wine cooler', 'wine refrigerator', 'wine cellar', 'wine storage'],
-  'Icemaker': ['ice maker', 'icemaker', 'ice machine'],
-  'Kitchen Sink': ['kitchen sink', 'farmhouse sink', 'apron sink', 'undermount sink'],
-  'Kitchen Faucet': ['kitchen faucet', 'pull down faucet', 'pull out faucet'],
-  'Bathroom Faucet': ['bathroom faucet', 'lavatory faucet', 'vessel faucet'],
-  'Toilet': ['toilet', 'commode', 'water closet'],
-  'Bathtub': ['bathtub', 'tub', 'soaking tub', 'freestanding tub', 'alcove tub'],
-  'Chandelier': ['chandelier', 'crystal chandelier'],
-  'Pendant': ['pendant', 'pendant light', 'hanging light'],
-  'Ceiling Fan': ['ceiling fan', 'fan'],
+// Last sync: 2026-02-21
+const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
+  'Appliances': [
+    'Refrigerator',
+    'Dishwasher',
+    'Range',
+    'Oven',
+    'Cooktop',
+    'Microwave',
+    'Range Hood',
+    'Washer',
+    'Dryer',
+    'Freezer',
+    'All in One Washer / Dryer',
+    'Barbeque',
+    'Coffee Maker',
+    'Icemaker',
+    'Garbage Disposal'
+  ],
+  'Plumbing & Bath': [
+    'Bathroom Cabinet Hardware',
+    'Outdoor Shower Faucet',
+    'Bathroom Faucet',
+    'Bathroom Hardware and Accessories',
+    'Bathroom Mirror',
+    'Bathroom Sink',
+    'Bathroom Vanity',
+    'Bathtub',
+    'Bathtub Waste & Overflow',
+    'Bidet',
+    'Bidet Faucet',
+    'Bidet Seat',
+    'Shower',
+    'Shower Faucet',
+    'Steam Shower'
+  ],
+  'Lighting': [
+    'Vanity Cabinet Hardware',
+    'Skylight',
+    'Bathroom Lighting',
+    'Vanity Lighting',
+    'Chandelier',
+    'Commercial Lighting',
+    'LED Lighting',
+    'Post Light',
+    'Recessed Lighting',
+    'Step Lighting',
+    'Track and Rail Lighting',
+    'Under Cabinet Light',
+    'Wall Sconce',
+    'Lamp',
+    'Ceiling Light',
+    'Flush and Semi-Flush',
+    'Island Lighting',
+    'Pendant',
+    'Kitchen Lighting',
+    'Landscape Lighting'
+  ],
+  'Home Decor & Fixtures': [
+    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
+  ],
+  'HVAC': [
+    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
+  ]
 };
 
 export interface CategoryMatch {
@@ -153,26 +172,29 @@ function findDirectMatch(input: string): { categoryName: string; department: str
   return null;
 }
 
-function getDepartmentForCategory(categoryName: string): string | null {
-  const department = CATEGORY_DEPARTMENT_LOOKUP.get(categoryName.toLowerCase());
-  return department || null;
-}
-
 /**
  * Find category by keyword in text
+ * Uses category names and aliases as keywords
  */
 function findKeywordMatch(text: string): { categoryName: string; department: string } | null {
   const normalized = normalizeText(text);
   
-  for (const [categoryName, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
-    const department = getDepartmentForCategory(categoryName);
-    if (!department) {
-      continue;
-    }
-
-    for (const keyword of keywords) {
-      if (normalized.includes(normalizeText(keyword))) {
-        return { categoryName, department };
+  // Check each department's categories
+  for (const [dept, categories] of Object.entries(DEPARTMENT_CATEGORIES)) {
+    for (const cat of categories) {
+      const cleanCat = cat.replace(/ #$/, ''); // Remove trailing #
+      
+      // Check if category name appears in text
+      if (normalized.includes(normalizeText(cleanCat))) {
+        return { categoryName: cat, department: dept };
+      }
+      
+      // Check aliases
+      const aliases = CATEGORY_ALIASES[cleanCat] || [];
+      for (const alias of aliases) {
+        if (normalized.includes(normalizeText(alias))) {
+          return { categoryName: cat, department: dept };
+        }
       }
     }
   }
