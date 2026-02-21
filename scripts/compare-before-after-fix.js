@@ -95,8 +95,16 @@ async function compareBeforeAfter() {
     console.log('🗑️  REMOVED CATEGORIES USAGE:\n');
     
     removedEntries.forEach(entry => {
-      const beforeCount = beforeJobs.filter(j => j.result?.Field_AI_Reviews?.category_verified === entry).length;
-      const afterCount = afterJobs.filter(j => j.result?.Field_AI_Reviews?.category_verified === entry).length;
+      const beforeCount = beforeJobs.filter(j => {
+        const cat = j.result?.Field_AI_Reviews?.category_verified || 
+                    j.result?.Field_AI_Reviews?.category_subcategory?.final_value;
+        return cat === entry;
+      }).length;
+      const afterCount = afterJobs.filter(j => {
+        const cat = j.result?.Field_AI_Reviews?.category_verified || 
+                    j.result?.Field_AI_Reviews?.category_subcategory?.final_value;
+        return cat === entry;
+      }).length;
       
       if (beforeCount > 0 || afterCount > 0) {
         console.log(`  ${entry}:`);
@@ -139,7 +147,9 @@ function analyzeJobs(jobs, label) {
   const nonExistentCategories = new Set();
   
   jobs.forEach(job => {
-    const category = job.result?.Field_AI_Reviews?.category_verified;
+    // Try both field structures (old and new)
+    const category = job.result?.Field_AI_Reviews?.category_verified || 
+                     job.result?.Field_AI_Reviews?.category_subcategory?.final_value;
     if (category) {
       categoriesUsed.add(category);
       if (!categoryNames.includes(category)) {
@@ -157,7 +167,11 @@ function analyzeJobs(jobs, label) {
   if (nonExistentCategories.size > 0) {
     console.log(`\n  Non-existent categories:`);
     [...nonExistentCategories].forEach(cat => {
-      const count = jobs.filter(j => j.result?.Field_AI_Reviews?.category_verified === cat).length;
+      const count = jobs.filter(j => {
+        const jobCat = j.result?.Field_AI_Reviews?.category_verified || 
+                       j.result?.Field_AI_Reviews?.category_subcategory?.final_value;
+        return jobCat === cat;
+      }).length;
       console.log(`    - ${cat} (${count} jobs)`);
     });
   }

@@ -66,7 +66,9 @@ async function analyzePostFix() {
     ];
     
     recentJobs.forEach(job => {
-      const category = job.result?.Field_AI_Reviews?.category_verified;
+      // Try both field structures (old and new)
+      const category = job.result?.Field_AI_Reviews?.category_verified || 
+                       job.result?.Field_AI_Reviews?.category_subcategory?.final_value;
       if (category) {
         categoriesUsed.add(category);
         
@@ -95,7 +97,11 @@ async function analyzePostFix() {
     if (nonExistentCategories.size > 0) {
       console.log('❌ NON-EXISTENT CATEGORIES STILL APPEARING:\n');
       [...nonExistentCategories].forEach(cat => {
-        const count = recentJobs.filter(j => j.result?.Field_AI_Reviews?.category_verified === cat).length;
+        const count = recentJobs.filter(j => {
+          const jobCat = j.result?.Field_AI_Reviews?.category_verified || 
+                         j.result?.Field_AI_Reviews?.category_subcategory?.final_value;
+          return jobCat === cat;
+        }).length;
         console.log(`   ${cat} (${count} jobs)`);
       });
       console.log('');
@@ -126,9 +132,10 @@ async function analyzePostFix() {
       const reviews = job.result?.Field_AI_Reviews;
       if (!reviews) return;
       
-      const category = reviews.category_verified;
-      const type = reviews.type_verified;
-      const style = reviews.style_verified;
+      // Try both field structures
+      const category = reviews.category_verified || reviews.category_subcategory?.final_value;
+      const type = reviews.type_verified || reviews.product_type?.final_value;
+      const style = reviews.style_verified || reviews.product_style?.final_value;
       
       console.log(`${index + 1}. ${category || 'N/A'} → ${type || 'N/A'} → ${style || 'N/A'}`);
       
