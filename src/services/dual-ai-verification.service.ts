@@ -2023,10 +2023,18 @@ export async function verifyProductWithDualAI(
     // ===============================================
     // Validate that Type is valid for the determined Category
     // Similar to category validation after Stage 2
+    // 
+    // CRITICAL FIX: Validate BOTH AI results separately to detect disagreements
+    // If one is valid and one is invalid, force both to the valid one
+    // If both are invalid, attempt correction on both
     
-    let determinedType = openaiResult.primaryAttributes.product_type || xaiResult.primaryAttributes.product_type;
+    const openaiType = openaiResult.primaryAttributes.product_type;
+    const xaiType = xaiResult.primaryAttributes.product_type;
     const categoryMapping = getCategoryTypeMapping(determinedCategory);
     const validTypesForCategory = categoryMapping?.types.map(t => t.type_name) || [];
+    
+    // Determine which type to validate (prefer the one that exists)
+    let determinedType = openaiType || xaiType;
     
     // Skip validation if category has no types or type is N/A/Not Found
     const skipTypeValidation = validTypesForCategory.length === 0 
@@ -2035,14 +2043,72 @@ export async function verifyProductWithDualAI(
       || String(determinedType).toLowerCase() === 'not found';
     
     if (!skipTypeValidation && determinedType && determinedCategory) {
-      const isTypeValid = isValidTypeForCategory(String(determinedType), determinedCategory);
+      // Check if BOTH AIs agree on the type
+      const typesAgree = openaiType && xaiType && openaiType === xaiType;
       
-      if (!isTypeValid) {
+      // Validate both types (or the single type if only one exists)
+      const openaiTypeValid = openaiType ? isValidTypeForCategory(String(openaiType), determinedCategory) : false;
+      const xaiTypeValid = xaiType ? isValidTypeForCategory(String(xaiType), determinedCategory) : false;
+      
+      // If they disagree, log the disagreement
+      if (!typesAgree && openaiType && xaiType) {
+        logger.warn('⚠️ PHASE 2.5: AIs disagree on type', {
+          sessionId: verificationSessionId,
+          category: determinedCategory,
+          openaiType,
+          xaiType,
+          openaiValid: openaiTypeValid,
+          xaiValid: xaiTypeValid
+        });
+      }
+      
+      // CRITICAL FIX: If they disagree, force both to agree on the valid one
+      if (!typesAgree && openaiType && xaiType) {
+        if (openaiTypeValid && !xaiTypeValid) {
+          // OpenAI is valid, XAI is invalid → force both to OpenAI's value
+          logger.info('✅ Forcing type agreement: OpenAI valid, XAI invalid', {
+            sessionId: verificationSessionId,
+            category: determinedCategory,
+            openaiType,
+            xaiType,
+            forcedValue: openaiType
+          });
+          xaiResult.primaryAttributes.product_type = openaiType;
+          determinedType = openaiType;
+        } else if (!openaiTypeValid && xaiTypeValid) {
+          // XAI is valid, OpenAI is invalid → force both to XAI's value
+          logger.info('✅ Forcing type agreement: XAI valid, OpenAI invalid', {
+            sessionId: verificationSessionId,
+            category: determinedCategory,
+            openaiType,
+            xaiType,
+            forcedValue: xaiType
+          });
+          openaiResult.primaryAttributes.product_type = xaiType;
+          determinedType = xaiType;
+        } else {
+          // Both invalid - will handle below in the normal validation flow
+          logger.warn('🔴 Both AIs selected invalid types', {
+            sessionId: verificationSessionId,
+            category: determinedCategory,
+            openaiType,
+            xaiType,
+            bothInvalid: true
+          });
+        }
+      }
+      
+      // Re-check validation after potential forced agreement
+      const finalTypeValid = determinedType ? isValidTypeForCategory(String(determinedType), determinedCategory) : false;
+      
+      if (!finalTypeValid || (!typesAgree && !openaiTypeValid && !xaiTypeValid)) {
         // TYPE CROSS-CONTAMINATION DETECTED
-        logger.warn('🔴 PHASE 2 VALIDATION: TYPE VALIDATION FAILED', {
+        logger.warn('🔴 PHASE 2.5 VALIDATION: TYPE VALIDATION FAILED', {
           sessionId: verificationSessionId,
           category: determinedCategory,
           invalidType: determinedType,
+          openaiType,
+          xaiType,
           validTypes: validTypesForCategory.slice(0, 10),
           productId: rawProduct.SF_Catalog_Id
         });
@@ -2058,7 +2124,7 @@ export async function verifyProductWithDualAI(
             confidence: fuzzyMatch.confidence
           });
           determinedType = fuzzyMatch.type;
-          // Update both AI results with corrected type
+          // Update BOTH AI results with corrected type
           openaiResult.primaryAttributes.product_type = fuzzyMatch.type;
           xaiResult.primaryAttributes.product_type = fuzzyMatch.type;
         } else {
@@ -2090,11 +2156,16 @@ export async function verifyProductWithDualAI(
             })
           ]);
           
-          const retryDeterminedType = retryOpenaiResult.primaryAttributes.product_type || retryXaiResult.primaryAttributes.product_type;
+          const retryOpenaiType = retryOpenaiResult.primaryAttributes.product_type;
+          const retryXaiType = retryXaiResult.primaryAttributes.product_type;
+          const retryDeterminedType = retryOpenaiType || retryXaiType;
           const isRetryTypeValid = retryDeterminedType ? isValidTypeForCategory(String(retryDeterminedType), determinedCategory) : false;
           
-          if (isRetryTypeValid) {
-            // Retry succeeded
+          // Check if retry results agree
+          const retryTypesAgree = retryOpenaiType && retryXaiType && retryOpenaiType === retryXaiType;
+          
+          if (isRetryTypeValid && retryTypesAgree) {
+            // Retry succeeded with agreement
             logger.info('✅ Retry succeeded - type validation passed', {
               sessionId: verificationSessionId,
               category: determinedCategory,
@@ -2103,6 +2174,32 @@ export async function verifyProductWithDualAI(
             });
             determinedType = retryDeterminedType;
             // Use retry results
+            Object.assign(openaiResult, retryOpenaiResult);
+            Object.assign(xaiResult, retryXaiResult);
+          } else if (isRetryTypeValid && !retryTypesAgree) {
+            // Retry returned valid type but AIs disagree - force agreement
+            const retryOpenaiValid = retryOpenaiType ? isValidTypeForCategory(String(retryOpenaiType), determinedCategory) : false;
+            const retryXaiValid = retryXaiType ? isValidTypeForCategory(String(retryXaiType), determinedCategory) : false;
+            
+            if (retryOpenaiValid && !retryXaiValid) {
+              logger.info('✅ Retry: Forcing agreement to OpenAI value', {
+                sessionId: verificationSessionId,
+                retryOpenaiType,
+                retryXaiType,
+                chosen: retryOpenaiType
+              });
+              retryXaiResult.primaryAttributes.product_type = retryOpenaiType;
+            } else if (!retryOpenaiValid && retryXaiValid) {
+              logger.info('✅ Retry: Forcing agreement to XAI value', {
+                sessionId: verificationSessionId,
+                retryOpenaiType,
+                retryXaiType,
+                chosen: retryXaiType
+              });
+              retryOpenaiResult.primaryAttributes.product_type = retryXaiType;
+            }
+            
+            determinedType = retryDeterminedType;
             Object.assign(openaiResult, retryOpenaiResult);
             Object.assign(xaiResult, retryXaiResult);
           } else {
@@ -2150,7 +2247,10 @@ export async function verifyProductWithDualAI(
         logger.info('✅ Type validation passed', {
           sessionId: verificationSessionId,
           category: determinedCategory,
-          validType: determinedType
+          validType: determinedType,
+          openaiType,
+          xaiType,
+          agree: typesAgree
         });
       }
     }
@@ -5872,12 +5972,14 @@ function buildFinalResponse(
   // 1. AI returned empty/null type → try semantic extraction from subcategory
   // 2. AI returned empty/null type → try image analysis productType
   // 3. AI returned empty/null type → fall back to "Not Applicable"
-  // 4. AI returned "Not Applicable", "N/A", or "Not Found" → should have ID populated
+  // 
+  // CRITICAL: Image analysis should ONLY run when type is truly empty (per user directive)
+  // If AI explicitly returned "Not Applicable" or "Not Found", respect that choice
   const isNAPattern = aiProductType && /^(not applicable|n\/?a|not found|none)$/i.test(aiProductType.trim());
   
-  if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '' || isNAPattern)) {
+  if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '')) {
     // FIRST: Try semantic extraction from subcategory if available
-    if (subcategoryHint && !isNAPattern) {
+    if (subcategoryHint) {
       const semanticType = extractTypeFromSemanticContext(subcategoryHint, verifiedCategory);
       if (semanticType) {
         const extractedType = getTypeByName(semanticType);
@@ -5977,6 +6079,29 @@ function buildFinalResponse(
       } else {
         logger.warn('"Not Applicable" type not found in types.json', { sessionId, aiProductType });
       }
+    }
+  }
+  
+  // Handle case where AI explicitly returned "Not Applicable" or "Not Found" but it didn't match picklist
+  // In this case, we should respect AI's choice and populate the ID
+  if (!typeMatchResult.matched && isNAPattern) {
+    const notApplicableType = getTypeByName('Not Applicable');
+    if (notApplicableType) {
+      typeMatchResult = {
+        matched: true,
+        original: aiProductType,
+        matchedValue: {
+          type_id: notApplicableType.type_id,
+          type_name: notApplicableType.type_name
+        },
+        similarity: 1.0
+      };
+      logger.info('Type set to "Not Applicable" (AI explicit choice)', {
+        sessionId,
+        aiProductType,
+        type_id: notApplicableType.type_id,
+        reason: 'AI explicitly returned N/A pattern - respecting choice'
+      });
     }
   }
   
