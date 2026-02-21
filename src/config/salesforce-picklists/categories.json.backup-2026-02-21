@@ -10,6 +10,14 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
+    "category_name": "Beverage Center",
+    "category_id": "NEEDS_NEW_ID",
+    "subcategory": "Kitchen Appliances",
+    "styles_apply": true
+  },
+  {
+    "family": "Kitchen",
+    "department": "Appliances",
     "category_name": "Coffee Maker",
     "category_id": "a01Hu000011kmDGIAY",
     "subcategory": "Kitchen Appliances",
@@ -112,6 +120,14 @@
     "styles_apply": true
   },
   {
+    "family": "Kitchen",
+    "department": "Appliances",
+    "category_name": "Wine Cooler",
+    "category_id": "NEEDS_NEW_ID",
+    "subcategory": "Kitchen Appliances",
+    "styles_apply": true
+  },
+  {
     "family": "Laundry",
     "department": "Appliances",
     "category_name": "All in One Washer / Dryer",
@@ -148,6 +164,14 @@
     "department": "Electronics",
     "category_name": "Home Electronics",
     "category_id": "a01aZ00000XaZKQQA3",
+    "subcategory": "General",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Carpet",
+    "category_id": "a01aZ00000dCekVQAS",
     "subcategory": "General",
     "styles_apply": true
   },
@@ -245,6 +269,14 @@
     "category_name": "Cabinet Finishing",
     "category_id": "a01aZ00000dCejVQAS",
     "subcategory": "Home Improvement",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Hardware",
+    "category_id": "a01aZ00000dC5F2QAK",
+    "subcategory": "Cabinet Hardware",
     "styles_apply": true
   },
   {
@@ -858,6 +890,14 @@
   {
     "family": "General",
     "department": "Lighting & Electrical",
+    "category_name": "Outdoor Lighting",
+    "category_id": "a01aZ00000dC5EWQA0",
+    "subcategory": "Outdoor",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Lighting & Electrical",
     "category_name": "Post Light",
     "category_id": "a01aZ00000dC5EYQA0",
     "subcategory": "General",
@@ -1350,5 +1390,29 @@
     "category_id": "a01aZ00000dC5EJQA0",
     "subcategory": "Water Treatment",
     "styles_apply": false
+  },
+  {
+    "family": "Laundry",
+    "department": "Plumbing & Bath",
+    "category_name": "Laundry Sink",
+    "category_id": "a01aZ00000dC5ESQA0",
+    "subcategory": "Sinks",
+    "styles_apply": false
+  },
+  {
+    "family": "Utility",
+    "department": "Plumbing & Bath",
+    "category_name": "Utility Sink",
+    "category_id": "a01aZ00000dC5EXQA0",
+    "subcategory": "Sinks",
+    "styles_apply": false
+  },
+  {
+    "family": "Decor",
+    "department": "Home Decor",
+    "category_name": "Home Accents",
+    "category_id": "a01aZ00000dCekMQAS",
+    "subcategory": "Home Decor",
+    "styles_apply": true
   }
 ]

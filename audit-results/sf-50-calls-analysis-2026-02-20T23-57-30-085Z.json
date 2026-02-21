@@ -1,0 +1,5935 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-20T23-57-30-085Z",
+    "stats": {
+      "total": 50,
+      "timespan": {
+        "first": "2026-02-20T23:43:56.853Z",
+        "last": "2026-02-20T23:45:16.098Z",
+        "duration_seconds": 79.245
+      },
+      "category": {
+        "agreed": 50,
+        "disagreed": 0,
+        "unique_values": 24,
+        "top_values": {
+          "Range Hood": 5,
+          "Bathroom Hardware and Accessories": 5,
+          "Bathroom Mirror": 4,
+          "Bathtub": 3,
+          "Bathroom Lighting": 3,
+          "Wall Sconce": 3,
+          "Outdoor Lighting": 3,
+          "Outdoor Wall Lights": 3,
+          "Laundry Pedestal": 3,
+          "Standalone Pedestal": 3
+        }
+      },
+      "type": {
+        "agreed": 49,
+        "disagreed": 1,
+        "unique_values": 23,
+        "top_values": {
+          "Not Applicable": 11,
+          "Lighted": 4,
+          "Accessory": 4,
+          "Freestanding": 3,
+          "Wall Sconce": 3,
+          "Wall-Mounted": 3,
+          "Towel Bar": 2,
+          "Toilet Paper Holder": 2,
+          "Vanity": 2,
+          "Flood Light": 2
+        }
+      },
+      "style": {
+        "agreed": 48,
+        "disagreed": 2,
+        "unique_values": 3,
+        "top_values": {
+          "Contemporary": 24,
+          "Modern": 22,
+          "Transitional": 4
+        }
+      },
+      "department": {
+        "unique_values": 4,
+        "distribution": {
+          "Appliances": 17,
+          "Plumbing & Bath": 16,
+          "Lighting & Electrical": 11,
+          "Hardware": 3
+        }
+      },
+      "family": {
+        "unique_values": 39,
+        "distribution": {
+          "Designer Series": 1,
+          "Vitality": 2,
+          "Vasto": 1,
+          "Sorano": 1,
+          "Volkano": 2,
+          "Lava": 1,
+          "Rasina": 1,
+          "WedgeWire": 1,
+          "Lussari": 1,
+          "Esprit": 1,
+          "Bute": 1,
+          "Refrigeration Accessories": 1,
+          "Endurance Double Spot": 2,
+          "Cubix": 1,
+          "Gardenia": 1,
+          "Twist": 1,
+          "Fathom": 1,
+          "Loft 2.0": 2,
+          "Titanium": 1,
+          "Signature Collection": 2,
+          "Forze": 1,
+          "Laundry Pedestal": 5,
+          "Polar": 1,
+          "Bespoke": 1,
+          "WAC Landscape": 1,
+          "Vilo": 1,
+          "Vitrine": 1,
+          "Glacier": 1,
+          "Barcelona": 2,
+          "Sculpt": 2,
+          "WMMS3130R": 1,
+          "Hood Accessories": 1,
+          "Slim Baffle": 1,
+          "Core Collection": 1,
+          "WC34 Series": 1,
+          "Minimalist Collection": 1,
+          "Freestanding Electric Range": 1,
+          "LG STUDIO": 1,
+          "Laundry Pedestals": 1
+        }
+      },
+      "verification": {
+        "avg_score": 89.68,
+        "avg_processing_time_ms": 107943.82,
+        "total_corrections": 319
+      },
+      "webhook": {
+        "success_rate": 100,
+        "sf_acknowledged_rate": 100
+      }
+    }
+  },
+  "jobs": [
+    {
+      "index": 1,
+      "job_id": "6998f20cbdec86c8b84b16ad",
+      "sf_catalog_id": "a03aZ00000hmwH3QAI",
+      "sf_catalog_name": "VSL436622RC",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:16.098Z",
+      "processing_time_ms": 82924,
+      "input": {
+        "model_number": "VSL436622RC",
+        "brand": "TRADE-WIND",
+        "category": "Range Hood",
+        "product_title": "22\" Designer Series Style Range Hood Liner with 600 CFM Internal Blower",
+        "upc": "767459001995"
+      },
+      "category": {
+        "openai": "Range Hood",
+        "xai": "Range Hood",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range Hood",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Insert",
+        "xai": "Insert",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Insert",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Trade-Wind",
+        "xai": "Trade-Wind",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "TRADE-WIND",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Designer Series",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 94,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:38.989Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "width",
+            "original": "22",
+            "corrected": "34.375",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "46",
+            "corrected": "30",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "10 25/64",
+            "corrected": "10.25",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "22",
+            "corrected": "22",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Trade-Wind Designer Series Insert Range Hood - Stainless Steel - VSL436622RC",
+            "corrected": "TRADE-WIND Designer Series Insert Range Hood - Stainless Steel - Vsl436622rc",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 90,
+        "agreement_percentage": 94,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 2,
+      "job_id": "6998f20abdec86c8b84b16a7",
+      "sf_catalog_id": "a03aZ00000gQL5dQAG",
+      "sf_catalog_name": "YM3630RIFPD3",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:14.760Z",
+      "processing_time_ms": 96800,
+      "input": {
+        "model_number": "YM3630RIFPD3",
+        "brand": "ROBERN",
+        "category": "Bathroom Mirror",
+        "product_title": "36\" Rectangular Mirror with Built-In LED",
+        "upc": "723085204605"
+      },
+      "category": {
+        "openai": "Bathroom Mirror",
+        "xai": "Bathroom Mirror",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Mirror",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Lighted",
+        "xai": "Lighted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Lighted",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Robern",
+        "xai": "Robern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ROBERN",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Vitality",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 91,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:51.521Z",
+        "corrections_count": 3,
+        "corrections": [
+          {
+            "field": "model_number",
+            "original": "YM3630RCFPD3",
+            "corrected": "YM3630RIFPD3",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "899.25",
+            "corrected": "999",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Robern Vitality 36\" W x 30\" H Lighted Bathroom Mirror",
+            "corrected": "ROBERN Vitality 36\" W X 30\" H Lighted Bathroom Mirror",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 91,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 3,
+      "job_id": "6998f209bdec86c8b84b169d",
+      "sf_catalog_id": "a03aZ00000gQL5cQAG",
+      "sf_catalog_name": "YM2440RIFPD4",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:13.362Z",
+      "processing_time_ms": 96374,
+      "input": {
+        "model_number": "YM2440RIFPD4",
+        "brand": "ROBERN",
+        "category": "Bathroom Mirror",
+        "product_title": "24\" Vitality Rectangular Frameless Bathroom Mirror with Light",
+        "upc": "723085204612"
+      },
+      "category": {
+        "openai": "Bathroom Mirror",
+        "xai": "Bathroom Mirror",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Mirror",
+        "confidence": 95,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Lighted",
+        "xai": "Lighted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Lighted",
+        "confidence": 95,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 95,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Robern",
+        "xai": "Robern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ROBERN",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Vitality",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:49.700Z",
+        "corrections_count": 3,
+        "corrections": [
+          {
+            "field": "msrp",
+            "original": "1429",
+            "corrected": "1429",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "24.65",
+            "corrected": "24.65",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Robern Vitality 24\" W x 40\" H Lighted Bathroom Mirror",
+            "corrected": "ROBERN Vitality 24\" W X 40\" H Lighted Bathroom Mirror",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 95,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 4,
+      "job_id": "6998f207bdec86c8b84b1687",
+      "sf_catalog_id": "a03aZ00000e5N8XQAU",
+      "sf_catalog_name": "W92403",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:11.812Z",
+      "processing_time_ms": 115024,
+      "input": {
+        "model_number": "W92403",
+        "brand": "ICO Bath",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "24\" Tuzio Vasto 120 V Hardwired Steel Towel Warmer",
+        "upc": "840873019088"
+      },
+      "category": {
+        "openai": "Towel Warmer",
+        "xai": "Towel Warmer",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Towel Warmer",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "ICO Bath",
+        "xai": "ICO Bath",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ICO Bath",
+        "agreed": true
+      },
+      "department": {
+        "final": "",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Vasto",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 89,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:47:06.818Z",
+        "corrections_count": 8,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "Not Found",
+            "corrected": "ICO Bath",
+            "source": "openai"
+          },
+          {
+            "field": "product_family",
+            "original": "Not Found",
+            "corrected": "Vasto",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "Not Found",
+            "corrected": "31",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "Not Found",
+            "corrected": "3187",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "31",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "3187",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "upc_gtin",
+            "original": "840873019088",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "ICO Bath Vasto 24-Inch Hardwired Steel Towel Warmer Modern Chrome W92403",
+            "corrected": "ICO Bath Vasto 24\" Hardwired Steel Towel Warmer Modern Chrome W92403",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 89,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": false
+      }
+    },
+    {
+      "index": 5,
+      "job_id": "6998f206bdec86c8b84b167b",
+      "sf_catalog_id": "a03aZ00000e5N8WQAU",
+      "sf_catalog_name": "W4018",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:10.570Z",
+      "processing_time_ms": 105182,
+      "input": {
+        "model_number": "W4018",
+        "brand": "ICO Bath",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "20\" Tuzio Sorano 110-120V Hardwired Stainless Steel Towel Warmer",
+        "upc": "840873022545"
+      },
+      "category": {
+        "openai": "Towel Warmer",
+        "xai": "Towel Warmer",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Towel Warmer",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary, Traditional",
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final": "Contemporary",
+        "confidence": 85,
+        "agreed": false
+      },
+      "brand": {
+        "openai": "ICO Bath",
+        "xai": "ICO Bath",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ICO Bath",
+        "agreed": true
+      },
+      "department": {
+        "final": "",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Sorano",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 86,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:55.745Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "upc_gtin",
+            "original": "840873022545",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "2465",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "19",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "ICO Bath W4018 Tuzio Sorano 19-1/2\"W x 23\"H Hardwired Stainless Steel Towel Warmer",
+            "corrected": "ICO Bath W4018 Tuzio Sorano 19-1/2\" W X 23\" H Hardwired Stainless Steel Towel Warmer",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 86,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": false
+      }
+    },
+    {
+      "index": 6,
+      "job_id": "6998f204bdec86c8b84b166a",
+      "sf_catalog_id": "a03aZ00000e5N8VQAU",
+      "sf_catalog_name": "V91313",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:08.897Z",
+      "processing_time_ms": 94491,
+      "input": {
+        "model_number": "V91313",
+        "brand": "ICO Bath",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "16\" Volkano Double Bar Towel Stand",
+        "upc": "840873017596"
+      },
+      "category": {
+        "openai": "Bathroom Hardware and Accessories",
+        "xai": "Bathroom Hardware and Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Hardware and Accessories",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Towel Stand",
+        "xai": "Towel Bar",
+        "consensus": "partial",
+        "source": "xai_selected",
+        "final": "Towel Bar",
+        "confidence": 90,
+        "agreed": false
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "ICO Bath",
+        "xai": "ICO Bath",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ICO Bath",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Volkano",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 90,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:43.362Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "depth_length",
+            "original": "16 1/8",
+            "corrected": "16.14",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "33 1/8",
+            "corrected": "33.11",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "16",
+            "corrected": "16",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "777",
+            "corrected": "777",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Not specified in raw data",
+            "corrected": "Towel Bar",
+            "source": "xai"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 90,
+        "agreement_percentage": 90,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 7,
+      "job_id": "6998f203bdec86c8b84b1662",
+      "sf_catalog_id": "a03aZ00000e5N8UQAU",
+      "sf_catalog_name": "V91053",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:07.404Z",
+      "processing_time_ms": 110462,
+      "input": {
+        "model_number": "V91053",
+        "brand": "ICO Bath",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "Volkano Free Standing Spring Bar Toilet Paper Holder",
+        "upc": "840873017497"
+      },
+      "category": {
+        "openai": "Bathroom Hardware and Accessories",
+        "xai": "Bathroom Hardware and Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Hardware and Accessories",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Toilet Paper Holder",
+        "xai": "Toilet Paper Holder",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Toilet Paper Holder",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "ICO Bath",
+        "xai": "ICO Bath",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ICO Bath",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Volkano",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 88,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:57.839Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "width",
+            "original": "5 13/16",
+            "corrected": "5.8",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "09",
+            "corrected": "9",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Towel Rack (from image analysis)",
+            "corrected": "Toilet Paper Holder",
+            "source": "xai"
+          },
+          {
+            "field": "description",
+            "original": "Elevate your bathroom's functionality and style with the ICO Bath Volkano Free Standing Spring Bar T...",
+            "corrected": "Elevate your bathroom's functionality and style with the ICO Bath Volkano Free Standing Spring Bar T...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 88,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 8,
+      "job_id": "6998f201bdec86c8b84b1650",
+      "sf_catalog_id": "a03aZ00000e5N8TQAU",
+      "sf_catalog_name": "V67764",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:05.929Z",
+      "processing_time_ms": 110834,
+      "input": {
+        "model_number": "V67764",
+        "brand": "ICO Bath",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "21\" Lava Glass Shelf",
+        "upc": "840873020701"
+      },
+      "category": {
+        "openai": "Bathroom Hardware and Accessories",
+        "xai": "Bathroom Hardware and Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Hardware and Accessories",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Shelf",
+        "xai": "Shelf",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Shelf",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "ICO Bath",
+        "xai": "ICO Bath",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ICO Bath",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Lava",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 81,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:46:56.746Z",
+        "corrections_count": 10,
+        "corrections": [
+          {
+            "field": "weight",
+            "original": "3.53",
+            "corrected": "3.3",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "1.97",
+            "corrected": "5.71",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "5.71",
+            "corrected": "2.4",
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "20.47",
+            "corrected": "20.4",
+            "source": "openai"
+          },
+          {
+            "field": "material",
+            "original": "Glass",
+            "corrected": "Brass",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "1.97 in.",
+            "corrected": "1.97",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "5.71 in.",
+            "corrected": "5.71",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "3.53",
+            "corrected": "3.3",
+            "source": "xai"
+          },
+          {
+            "field": "description",
+            "original": "GLASS SHELF *LAVA BN",
+            "corrected": "The ICO Bath Lava Glass Shelf is a sleek, modern addition to any bathroom...",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "ICO Bath Lava 20.47-inch Glass Shelf for Bathroom Hardware, Brushed Nickel, Model V67764",
+            "corrected": "ICO Bath Lava 20.47\" Glass Shelf for Bathroom Hardware, Brushed Nickel, Model V67764",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 90,
+        "agreement_percentage": 81,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 9,
+      "job_id": "6998f200bdec86c8b84b163a",
+      "sf_catalog_id": "a03aZ00000dFjxoQAC",
+      "sf_catalog_name": "VF44030CG",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:04.564Z",
+      "processing_time_ms": 136583,
+      "input": {
+        "model_number": "VF44030CG",
+        "brand": "ELEGANT LIGHTING",
+        "category": "Bathroom Vanity",
+        "product_title": "30\" Single Bathroom Floating Vanity",
+        "upc": "00842814168701"
+      },
+      "category": {
+        "openai": "Bathroom Vanity",
+        "xai": "Bathroom Vanity",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Vanity",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Wall Mounted",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Elegant Lighting",
+        "xai": "Elegant Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ELEGANT LIGHTING",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Rasina",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:47:21.124Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "ELEGANT LIGHTING",
+            "corrected": "Elegant Lighting",
+            "source": "openai"
+          },
+          {
+            "field": "product_type",
+            "original": "Bathroom Vanities",
+            "corrected": "Wall Mounted",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Modern",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "562",
+            "corrected": "562",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "281.67",
+            "corrected": "562",
+            "source": "xai"
+          },
+          {
+            "field": "cabinet_material",
+            "original": "MDF",
+            "corrected": "Engineered Wood",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Elegant Lighting Rasina 30\" Wall Mounted Single Basin Vanity Set - Concrete Grey - VF44030CG",
+            "corrected": "ELEGANT LIGHTING Rasina 30\" Wall Mounted Single Basin Vanity Set - Concrete Grey - Vf44030cg",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 10,
+      "job_id": "6998f1febdec86c8b84b162b",
+      "sf_catalog_id": "a03aZ00000cJf3CQAS",
+      "sf_catalog_name": "WS 4 PS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:02.949Z",
+      "processing_time_ms": 106624,
+      "input": {
+        "model_number": "WS 4 PS",
+        "brand": "Infinity Drain",
+        "category": "Drainage & Waste",
+        "product_title": "4\" WedgeWire Drain Grate Only for Select Infinity Drain Center Drains",
+        "upc": "840126114935"
+      },
+      "category": {
+        "openai": "Drainage & Waste",
+        "xai": "Drainage & Waste",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Drainage & Waste",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Floor Drain",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Infinity Drain",
+        "xai": "Infinity Drain",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Infinity Drain",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "WedgeWire",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 86,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:49.554Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "height",
+            "original": "3/16",
+            "corrected": "0.1875",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "04",
+            "corrected": "4",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "04",
+            "corrected": "4",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "192",
+            "corrected": "240",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Not explicitly stated",
+            "corrected": "Accessory",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Infinity Drain WS 4 PS Floor Drain Polished Stainless",
+            "corrected": "Infinity Drain Ws 4 Ps Floor Drain Polished Stainless",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 86,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 11,
+      "job_id": "6998f1fdbdec86c8b84b161b",
+      "sf_catalog_id": "a03aZ00000bCy40QAC",
+      "sf_catalog_name": "VLU3NSWNO",
+      "status": "completed",
+      "created_at": "2026-02-20T23:45:01.281Z",
+      "processing_time_ms": 111286,
+      "input": {
+        "model_number": "VLU3NSWNO",
+        "brand": "VICTORIA + ALBERT",
+        "category": "Bathtub",
+        "product_title": "70\" Lussari Free Standing Natural Stone Soaking Tub with Center Drain",
+        "upc": "824438628557"
+      },
+      "category": {
+        "openai": "Bathtub",
+        "xai": "Bathtub",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathtub",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Freestanding",
+        "xai": "Freestanding",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Freestanding",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Transitional",
+        "xai": "Transitional",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Transitional",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Victoria and Albert",
+        "xai": "Victoria and Albert",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VICTORIA + ALBERT",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Lussari",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:52.549Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "weight",
+            "original": "166",
+            "corrected": "166",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "7098",
+            "corrected": "7098",
+            "source": "openai"
+          },
+          {
+            "field": "model_number",
+            "original": "LU3-N-SW-NO",
+            "corrected": "VLU3NSWNO",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "5324",
+            "corrected": "7098",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Victoria and Albert Lussari 70\" Freestanding Natural Stone Soaking Bathtub with Center Drain, Standard White Finish, Model VLU3NSWNO",
+            "corrected": "VICTORIA + ALBERT Victoria and Albert Lussari 70\" Freestanding Natural Stone Soaking Bathtub with Center Drain, Standard White Finish, Model Vlu3nswno",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 12,
+      "job_id": "6998f1fbbdec86c8b84b1612",
+      "sf_catalog_id": "a03aZ00000bCy3UQAS",
+      "sf_catalog_name": "WS-69815-CH",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:59.811Z",
+      "processing_time_ms": 114030,
+      "input": {
+        "model_number": "WS-69815-CH",
+        "brand": "WAC LIGHTING",
+        "category": "Bathroom Lighting",
+        "product_title": "5\" Esprit 2 Light Bathroom Vanity Light",
+        "upc": "790576671871"
+      },
+      "category": {
+        "openai": "Bathroom Lighting",
+        "xai": "Bathroom Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Lighting",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Vanity",
+        "xai": "Vanity",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Vanity",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "WAC Lighting",
+        "xai": "WAC Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WAC LIGHTING",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Esprit",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 91,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:53.827Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "upc_gtin",
+            "original": "790576496894",
+            "corrected": "790576671871",
+            "source": "xai"
+          },
+          {
+            "field": "finish",
+            "original": "Brushed Nickel",
+            "corrected": "Chrome",
+            "source": "xai"
+          },
+          {
+            "field": "delivered_lumens",
+            "original": "2175",
+            "corrected": "635",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "4 1/2",
+            "corrected": "3.13",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "3 1/8",
+            "corrected": "4.5",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "WAC Lighting Esprit 15\" Vanity Light - Chrome - WS-69815-CH",
+            "corrected": "WAC LIGHTING Esprit 15\" Vanity Light - Chrome - Ws-69815-Ch",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 91,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 13,
+      "job_id": "6998f1fabdec86c8b84b1608",
+      "sf_catalog_id": "a03aZ00000ZQL59QAH",
+      "sf_catalog_name": "WS8332-CH",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:58.297Z",
+      "processing_time_ms": 128787,
+      "input": {
+        "model_number": "WS8332-CH",
+        "brand": "KUZCO",
+        "category": "Wall Sconce",
+        "product_title": "2\" LED Wall Sconce",
+        "upc": "691759027044"
+      },
+      "category": {
+        "openai": "Wall Sconce",
+        "xai": "Wall Sconce",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall Sconce",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Wall Sconce",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Kuzco Lighting",
+        "xai": "Kuzco Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "KUZCO",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Bute",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:47:07.053Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "wattage",
+            "original": "Not Found",
+            "corrected": "39",
+            "source": "openai"
+          },
+          {
+            "field": "lumens",
+            "original": "2404",
+            "corrected": "2404",
+            "source": "openai"
+          },
+          {
+            "field": "color_temperature",
+            "original": "Not Found",
+            "corrected": "3000K",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "3.4",
+            "corrected": "4.4",
+            "source": "xai"
+          },
+          {
+            "field": "bulb_included",
+            "original": "Bulbs Not Included",
+            "corrected": "Yes",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Kuzco Lighting 1-Light LED Wall Sconce with Chrome Finish, Bute Collection, Model WS8332-CH",
+            "corrected": "KUZCO Lighting 1-Light LED Wall Sconce with Chrome Finish, Bute Collection, Model Ws8332-Ch",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 14,
+      "job_id": "6998f1f8bdec86c8b84b15fd",
+      "sf_catalog_id": "a03aZ00000VUd0UQAT",
+      "sf_catalog_name": "ZKUN",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:56.205Z",
+      "processing_time_ms": 93241,
+      "input": {
+        "model_number": "ZKUN",
+        "brand": "MONOGRAM",
+        "category": "Refrigerator",
+        "product_title": "Fully Integrated Refrigeration / Freezer Heater and Unification Kit - SXS Installation",
+        "upc": "084691850175"
+      },
+      "category": {
+        "openai": "Refrigerator",
+        "xai": "Refrigerator",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Refrigerator",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Accessory",
+        "xai": "Accessory",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Accessory",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Not Applicable",
+        "xai": "Modern",
+        "consensus": "partial",
+        "source": "xai_selected",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": false
+      },
+      "brand": {
+        "openai": "Monogram",
+        "xai": "Monogram",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MONOGRAM",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Refrigeration Accessories",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 77,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:46:29.405Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "msrp",
+            "original": "550",
+            "corrected": "500",
+            "source": "xai"
+          },
+          {
+            "field": "product_description",
+            "original": "Genuine Part from GE AppliancesCheck Your Model Number to Confirm CompatibilityIncludes a One-Year Limited Warranty",
+            "corrected": "Enhanced description based on verified sources",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Refrigeration Appliance Accessories and Parts",
+            "corrected": "Accessory",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "MONOGRAM",
+            "corrected": "Monogram",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Monogram ZKUN Fully Integrated Refrigeration / Freezer Heater and Unification Kit - Stainless Steel",
+            "corrected": "Monogram Zkun Fully Integrated Refrigeration / Freezer Heater and Unification Kit - Stainless Steel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 77,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 15,
+      "job_id": "6998f1f6bdec86c8b84b15f1",
+      "sf_catalog_id": "a03aZ00000URICpQAP",
+      "sf_catalog_name": "WP-LED430-50-AWT",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:54.661Z",
+      "processing_time_ms": 121315,
+      "input": {
+        "model_number": "WP-LED430-50-AWT",
+        "brand": "WAC LIGHTING",
+        "category": "Outdoor Lighting",
+        "product_title": "Endurance Double Spot Two Light 7\" Tall High Output LED Spot Light - 30 Watts",
+        "upc": "790576385662"
+      },
+      "category": {
+        "openai": "Outdoor Lighting",
+        "xai": "Outdoor Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Lighting",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Flood Light",
+        "xai": "Flood Light",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Flood Light",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "WAC LIGHTING",
+        "xai": "WAC Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WAC LIGHTING",
+        "agreed": false
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Endurance Double Spot",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:55.970Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Not Found",
+            "corrected": "Flood Light",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "311.85",
+            "corrected": "311.85",
+            "source": "openai"
+          },
+          {
+            "field": "color_finish",
+            "original": "Architectural White (from Legacy)",
+            "corrected": "Architectural White",
+            "source": "xai"
+          },
+          {
+            "field": "product_weight",
+            "original": "2.94 lbs. (from Legacy)",
+            "corrected": "2.94",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "6 1/2 (from Legacy)",
+            "corrected": "6.5",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "WAC Lighting Endurance Double Spot Flood Light for Outdoor Use in Architectural White - Model WP-LED430-50-AWT",
+            "corrected": "WAC LIGHTING Endurance Double Spot Flood Light for Outdoor Use in Architectural White - Model Wp-Led430-50-Awt",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 16,
+      "job_id": "6998f1f5bdec86c8b84b15de",
+      "sf_catalog_id": "a03aZ00000URICoQAP",
+      "sf_catalog_name": "WP-LED430-30-AWT",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:53.135Z",
+      "processing_time_ms": 117567,
+      "input": {
+        "model_number": "WP-LED430-30-AWT",
+        "brand": "WAC LIGHTING",
+        "category": "Outdoor Lighting",
+        "product_title": "7\" Endurance Double Spot Energy Star LED Spot Light",
+        "upc": "790576385655"
+      },
+      "category": {
+        "openai": "Outdoor Lighting",
+        "xai": "Outdoor Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Lighting",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Flood Light",
+        "xai": "Flood Light",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Flood Light",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "WAC Lighting",
+        "xai": "WAC Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WAC LIGHTING",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Endurance Double Spot",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 90,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:50.677Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Outdoor Lighting",
+            "corrected": "Flood Light",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "model_number",
+            "original": "WPLED43030AWT",
+            "corrected": "WP-LED430-30-AWT",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "12 1/2",
+            "corrected": "6.5",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "6 1/2",
+            "corrected": "12.5",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "6 1/2",
+            "corrected": "6.5",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "WAC Lighting Endurance Double Spot Flood Light - 30 Watts - Architectural White - WP-LED430-30-AWT",
+            "corrected": "WAC LIGHTING Endurance Double Spot Flood Light - 30 Watts - Architectural White - Wp-Led430-30-Awt",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 90,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 17,
+      "job_id": "6998f1f3bdec86c8b84b15cd",
+      "sf_catalog_id": "a03aZ00000URICkQAP",
+      "sf_catalog_name": "WS-W220208-30-BK",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:51.494Z",
+      "processing_time_ms": 105757,
+      "input": {
+        "model_number": "WS-W220208-30-BK",
+        "brand": "WAC LIGHTING",
+        "category": "Outdoor Lighting",
+        "product_title": "6\" Cubix 2 Light LED Outdoor Wall Sconce",
+        "upc": "790576878409"
+      },
+      "category": {
+        "openai": "Outdoor Wall Lights",
+        "xai": "Outdoor Wall Lights",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Wall Lights",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "WAC Lighting",
+        "xai": "WAC Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WAC LIGHTING",
+        "agreed": true
+      },
+      "department": {
+        "final": "Hardware",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Cubix",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:37.231Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "product_title",
+            "original": "6\" Cubix 2 Light LED Outdoor Wall Sconce",
+            "corrected": "WAC Lighting Cubix 2 Light LED Outdoor Wall Sconce Black WS-W220208-30-BK",
+            "source": "openai"
+          },
+          {
+            "field": "description",
+            "original": "WWSW22020830BK *CVR* CUBIX LED SGL UP/DWN INDR",
+            "corrected": "The WAC Lighting Cubix 2 Light LED Outdoor Wall Sconce combines modern design with functionality. Featuring a sleek black finish, this fixture is perfect for illuminating outdoor spaces while providing a stylish accent to your home.",
+            "source": "openai"
+          },
+          {
+            "field": "lumens",
+            "original": "285",
+            "corrected": "260",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "2.35",
+            "corrected": "2.35",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "6 3/4",
+            "corrected": "6.75",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "WAC Lighting Cubix 2 Light LED Outdoor Wall Sconce Black WS-W220208-30-BK",
+            "corrected": "WAC LIGHTING Cubix 2 Light LED Outdoor Wall Sconce Black Ws-W220208-30-Bk",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 18,
+      "job_id": "6998f1f2bdec86c8b84b15bf",
+      "sf_catalog_id": "a03aZ00000UQq6oQAD",
+      "sf_catalog_name": "VG08016MG",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:50.194Z",
+      "processing_time_ms": 113349,
+      "input": {
+        "model_number": "VG08016MG",
+        "brand": "VIGO",
+        "category": "Shower",
+        "product_title": "20\" Gardenia 2-Jet Shower Panel System with Round Head and Hand Shower Wand",
+        "upc": "849922073255"
+      },
+      "category": {
+        "openai": "Shower",
+        "xai": "Shower",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Shower",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Accessory",
+        "xai": "Accessory",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Accessory",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "VIGO",
+        "xai": "VIGO",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VIGO",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Gardenia",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:43.513Z",
+        "corrections_count": 3,
+        "corrections": [
+          {
+            "field": "material",
+            "original": "Aluminium",
+            "corrected": "Aluminum, Brass",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "399.9",
+            "corrected": "399.9",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "VIGO Gardenia 39\" x 4\" W 2-Jet Retrofit Shower Panel System with Shower Head, Hand Shower, Bodysprays, and Hose - Matte Brushed Gold",
+            "corrected": "VIGO Gardenia 39\" X 4\" W 2-Jet Retrofit Shower Panel System with Shower Head, Hand Shower, Bodysprays, and Hose - Matte Brushed Gold",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 19,
+      "job_id": "6998f1f0bdec86c8b84b15b0",
+      "sf_catalog_id": "a03aZ00000TdGrEQAV",
+      "sf_catalog_name": "WS-W5620-BZ",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:48.788Z",
+      "processing_time_ms": 111427,
+      "input": {
+        "model_number": "WS-W5620-BZ",
+        "brand": "MODERN FORMS",
+        "category": "Outdoor Lighting",
+        "product_title": "5\" Twist 2 Light LED Outdoor Wall Sconce",
+        "upc": "790576296272"
+      },
+      "category": {
+        "openai": "Outdoor Lighting",
+        "xai": "Outdoor Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Lighting",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Wall Lantern",
+        "xai": "Wall Lantern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall Lantern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Modern Forms",
+        "xai": "Modern Forms",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MODERN FORMS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Twist",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:40.201Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Outdoor Lighting",
+            "corrected": "Wall Lantern",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Modern",
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "05",
+            "corrected": "5",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Door Handle (from image analysis)",
+            "corrected": "Wall Lantern",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Modern Forms Twist 20-inch LED Outdoor Wall Lantern in Bronze, Model WS-W5620-BZ",
+            "corrected": "MODERN FORMS Twist 20\" LED Outdoor Wall Lantern in Bronze, Model Ws-W5620-Bz",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 20,
+      "job_id": "6998f1efbdec86c8b84b159f",
+      "sf_catalog_id": "a03aZ00000TdGr7QAF",
+      "sf_catalog_name": "WS-W37916-BK",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:47.297Z",
+      "processing_time_ms": 101953,
+      "input": {
+        "model_number": "WS-W37916-BK",
+        "brand": "MODERN FORMS",
+        "category": "Outdoor Lighting",
+        "product_title": "6\" Fathom LED Outdoor Wall Sconce",
+        "upc": "790576687704"
+      },
+      "category": {
+        "openai": "Outdoor Wall Lights",
+        "xai": "Outdoor Wall Lights",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Wall Lights",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Modern Forms",
+        "xai": "Modern Forms",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MODERN FORMS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Hardware",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Fathom",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 90,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:29.226Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "width",
+            "original": "06",
+            "corrected": "6",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "Not explicitly stated in legacy",
+            "corrected": "2.63",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "13",
+            "corrected": "13",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Modern Forms Fathom 16\" Tall LED Outdoor Wall Sconce Black WS-W37916-BK",
+            "corrected": "MODERN FORMS Fathom 16\" Tall LED Outdoor Wall Sconce Black Ws-W37916-Bk",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 90,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 21,
+      "job_id": "6998f1edbdec86c8b84b1592",
+      "sf_catalog_id": "a03aZ00000TdGr2QAF",
+      "sf_catalog_name": "WM-23-2.17-L9-PCO",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:45.804Z",
+      "processing_time_ms": 148090,
+      "input": {
+        "model_number": "WM-23-2.17-L9-PCO",
+        "brand": "WATERMARK",
+        "category": "Bathroom Faucet",
+        "product_title": "22\" Loft 2.0 1.2 GPM Widespread Bathroom Faucet with Pop-Up Drain Assembly",
+        "upc": "026508178944"
+      },
+      "category": {
+        "openai": "Bathroom Faucet",
+        "xai": "Bathroom Faucet",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Faucet",
+        "confidence": 95,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Widespread",
+        "xai": "Widespread",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Widespread",
+        "confidence": 95,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Transitional",
+        "xai": "Transitional",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Transitional",
+        "confidence": 95,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Watermark",
+        "xai": "Watermark",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WATERMARK",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Loft 2.0",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:47:13.885Z",
+        "corrections_count": 12,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Not Found",
+            "corrected": "Widespread",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Transitional",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "Not Found",
+            "corrected": 12,
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "Not Found",
+            "corrected": 22,
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "Not Found",
+            "corrected": 4.25,
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "Not Found",
+            "corrected": 6,
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "Not Found",
+            "corrected": 669,
+            "source": "openai"
+          },
+          {
+            "field": "model_number",
+            "original": "WM-23-2.17-L9-PC",
+            "corrected": "WM-23-2.17-L9-PCO",
+            "source": "xai"
+          },
+          {
+            "field": "flow_rate_gpm",
+            "original": "0.5",
+            "corrected": "1.2",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "11.375",
+            "corrected": "4.25",
+            "source": "xai"
+          },
+          {
+            "field": "spout_height",
+            "original": "7.125",
+            "corrected": "1.5",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Watermark Loft 2.0 1.2 GPM Widespread Bathroom Faucet with Pop-Up Drain Assembly - Polished Chrome",
+            "corrected": "WATERMARK Loft 2.0 1.2 GPM Widespread Bathroom Faucet with Pop-up Drain Assembly - Polished Chrome",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 95,
+        "xai_confidence": 85,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 22,
+      "job_id": "6998f1ecbdec86c8b84b157f",
+      "sf_catalog_id": "a03aZ00000TdGqzQAF",
+      "sf_catalog_name": "WM-22-0.4-PCO",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:44.394Z",
+      "processing_time_ms": 115351,
+      "input": {
+        "model_number": "WM-22-0.4-PCO",
+        "brand": "WATERMARK",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "10\" Wall Mounted Paper Holder",
+        "upc": "012611956805"
+      },
+      "category": {
+        "openai": "Bathroom Hardware and Accessories",
+        "xai": "Bathroom Hardware and Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Hardware and Accessories",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Toilet Paper Holder",
+        "xai": "Toilet Paper Holder",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Toilet Paper Holder",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Watermark",
+        "xai": "Watermark",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WATERMARK",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Titanium",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:39.712Z",
+        "corrections_count": 14,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Bathroom Hardware and Accessories",
+            "corrected": "Toilet Paper Holder",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "Not Found",
+            "corrected": "3.25",
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "Not Found",
+            "corrected": "6.25",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "Not Found",
+            "corrected": "1.875",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "Not Found",
+            "corrected": "1",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "Not Found",
+            "corrected": "363.75",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "04",
+            "corrected": "1.875",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "10",
+            "corrected": "6.25",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "11",
+            "corrected": "3.25",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "1",
+            "corrected": "1",
+            "source": "xai"
+          },
+          {
+            "field": "finish",
+            "original": "Polished Copper",
+            "corrected": "Polished Copper",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Watermark WM-22-0.4 Toilet Paper Holder - Titanium Collection - Polished Copper",
+            "corrected": "WATERMARK Wm-22-0.4 Toilet Paper Holder - Titanium Collection - Polished Copper",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "The Watermark Titanium wall-mounted toilet paper holder is a durable, brass-constructed accessory de...",
+            "corrected": "The Watermark Titanium wall-mounted toilet paper holder is a durable, brass-constructed accessory de...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 23,
+      "job_id": "6998f1ebbdec86c8b84b1570",
+      "sf_catalog_id": "a03aZ00000TdGqvQAF",
+      "sf_catalog_name": "VKW5074BSL",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:43.046Z",
+      "processing_time_ms": 133163,
+      "input": {
+        "model_number": "VKW5074BSL",
+        "brand": "VISUAL COMFORT",
+        "category": "Chandelier",
+        "product_title": "38\" Sputnik Style Chandelier by Kelly Wearstler",
+        "upc": "756808952514"
+      },
+      "category": {
+        "openai": "Chandelier",
+        "xai": "Chandelier",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Chandelier",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Sputnik",
+        "xai": "Sputnik",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Sputnik",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Visual Comfort",
+        "xai": "Visual Comfort",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VISUAL COMFORT",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Signature Collection",
+        "source": "openai_selected"
+      },
+      "verification": {
+        "score": 94,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:56.195Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "height",
+            "original": "26",
+            "corrected": "26.5",
+            "source": "openai"
+          },
+          {
+            "field": "wattage",
+            "original": "20 - 40 C11",
+            "corrected": "1200",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "26.5",
+            "corrected": "25.5",
+            "source": "xai"
+          },
+          {
+            "field": "chain_length",
+            "original": "6'",
+            "corrected": "72",
+            "source": "xai"
+          },
+          {
+            "field": "wattage",
+            "original": "20 - 40 C11",
+            "corrected": "1200",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Visual Comfort Strada Sputnik Chandelier in Burnished Silver Leaf KW5074BSL",
+            "corrected": "VISUAL COMFORT Strada Sputnik Chandelier in Burnished Silver Leaf Kw5074bsl",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 94,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 24,
+      "job_id": "6998f1e9bdec86c8b84b1564",
+      "sf_catalog_id": "a03aZ00000TdGqrQAF",
+      "sf_catalog_name": "WM-23-0.1-PCO",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:41.746Z",
+      "processing_time_ms": 117889,
+      "input": {
+        "model_number": "WM-23-0.1-PCO",
+        "brand": "WATERMARK",
+        "category": "Shower Accessory",
+        "product_title": "18\" Wall Mounted Towel Bar",
+        "upc": "034584005755"
+      },
+      "category": {
+        "openai": "Bathroom Hardware and Accessories",
+        "xai": "Bathroom Hardware and Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Hardware and Accessories",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Towel Bar",
+        "xai": "Towel Bar",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Towel Bar",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Watermark",
+        "xai": "Watermark",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WATERMARK",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Loft 2.0",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 88,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:39.600Z",
+        "corrections_count": 3,
+        "corrections": [
+          {
+            "field": "weight",
+            "original": "4",
+            "corrected": "3",
+            "source": "xai"
+          },
+          {
+            "field": "finish",
+            "original": "Polished Copper",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Watermark Loft 2.0 18\" Towel Bar - Polished Copper - WM-23-0.1-PCO",
+            "corrected": "WATERMARK Loft 2.0 18\" Towel Bar - Polished Copper - Wm-23-0.1-Pco",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 88,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 25,
+      "job_id": "6998f1e8bdec86c8b84b1557",
+      "sf_catalog_id": "a03aZ00000TdGqjQAF",
+      "sf_catalog_name": "WSGRSS1515BKS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:40.181Z",
+      "processing_time_ms": 104781,
+      "input": {
+        "model_number": "WSGRSS1515BKS",
+        "brand": "ROHL",
+        "category": "Bathroom Hardware and Accessories",
+        "product_title": "15\" Wire Sink Grid For RSS1515 Stainless Steel Sink - Black Stainless Steel",
+        "upc": "824438352599"
+      },
+      "category": {
+        "openai": "Sink Accessories and Parts",
+        "xai": "Sink Accessories and Parts",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Sink Accessories and Parts",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Transitional",
+        "xai": "Transitional",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Transitional",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Rohl",
+        "xai": "Rohl",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ROHL",
+        "agreed": true
+      },
+      "department": {
+        "final": "",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Forze",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 89,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:24.948Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "category_subcategory",
+            "original": "Bathroom Hardware and Accessories",
+            "corrected": "Sink Accessories and Parts",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "387",
+            "corrected": "291",
+            "source": "xai"
+          },
+          {
+            "field": "shape",
+            "original": "Square",
+            "corrected": "Rectangular",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Rohl Forze 14.5-inch Wire Sink Grid for RSS1515 Sink - Black Stainless Steel - Model WSGRSS1515BKS",
+            "corrected": "ROHL Forze 14.5\" Wire Sink Grid for Rss1515 Sink - Black Stainless Steel - Model Wsgrss1515bks",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 89,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": false
+      }
+    },
+    {
+      "index": 26,
+      "job_id": "6998f1e6bdec86c8b84b154e",
+      "sf_catalog_id": "a03aZ00000TcvhPQAR",
+      "sf_catalog_name": "WDPS2B",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:38.061Z",
+      "processing_time_ms": 96786,
+      "input": {
+        "model_number": "WDPS2B",
+        "brand": "LG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" Pedestal Riser for Front Load Washers and Dryers: Black Steel",
+        "upc": "195174042991"
+      },
+      "category": {
+        "openai": "Washer and Dryer Set Accessories",
+        "xai": "Washer and Dryer Set Accessories",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Washer and Dryer Set Accessories",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "LG",
+        "xai": "LG",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "LG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestal",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 86,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:14.825Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "msrp",
+            "original": "219",
+            "corrected": "274",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "5 1/8",
+            "corrected": "5.125",
+            "source": "xai"
+          },
+          {
+            "field": "product_description",
+            "original": "Pedestal Riser for Front Load Washers and Dryers: Black Steel",
+            "corrected": "The LG WDPS2B is a 27-inch wide laundry pedestal riser designed for select LG front-load washers and dryers.",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "LG 27 Inch Pedestal Riser for Washer and Dryer Sets Black Steel WDPS2B",
+            "corrected": "LG 27 Inch Pedestal Riser for Washer and Dryer Sets Black Steel Wdps2b",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "The LG WDPS2B is a 27-inch wide laundry pedestal riser designed for select LG front-load washers and...",
+            "corrected": "The LG WDPS2B is a 27-inch wide laundry pedestal riser designed for select LG front-load washers and...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 86,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 27,
+      "job_id": "6998f1e4bdec86c8b84b153d",
+      "sf_catalog_id": "a03aZ00000P4vT8QAJ",
+      "sf_catalog_name": "WS-3226-BN",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:36.177Z",
+      "processing_time_ms": 135214,
+      "input": {
+        "model_number": "WS-3226-BN",
+        "brand": "MODERN FORMS",
+        "category": "Vanity Lighting",
+        "product_title": "26\" Polar LED Bathroom Vanity and Wall Light",
+        "upc": "790576236469"
+      },
+      "category": {
+        "openai": "Bathroom Lighting",
+        "xai": "Bathroom Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Lighting",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Vanity",
+        "xai": "Vanity",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Vanity",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Modern Forms",
+        "xai": "Modern Forms",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MODERN FORMS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Polar",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 96,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:51.367Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "wattage",
+            "original": "50",
+            "corrected": "50",
+            "source": "openai"
+          },
+          {
+            "field": "lumens",
+            "original": "3750",
+            "corrected": "960",
+            "source": "openai"
+          },
+          {
+            "field": "lumens",
+            "original": "3750",
+            "corrected": "960",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "5 1/16",
+            "corrected": "5",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "26",
+            "corrected": "26",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Modern Forms Polar 26\" Wide LED Vanity Light - Brushed Nickel - WS-3226-BN",
+            "corrected": "MODERN FORMS Polar 26\" Wide LED Vanity Light - Brushed Nickel - Ws-3226-Bn",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 96,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 28,
+      "job_id": "6998f1e2bdec86c8b84b1534",
+      "sf_catalog_id": "a03aZ00000Ow5b5QAB",
+      "sf_catalog_name": "WE702NZ",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:34.840Z",
+      "processing_time_ms": 114941,
+      "input": {
+        "model_number": "WE702NZ",
+        "brand": "SAMSUNG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" AI Laundry Combo Pedestal with Storage Drawer",
+        "upc": "887276894676"
+      },
+      "category": {
+        "openai": "Laundry Pedestal",
+        "xai": "Laundry Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Laundry Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Samsung",
+        "xai": "Samsung",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "SAMSUNG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Bespoke",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 81,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:46:29.739Z",
+        "corrections_count": 10,
+        "corrections": [
+          {
+            "field": "msrp",
+            "original": "Not Found",
+            "corrected": "279.99",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "47.18",
+            "corrected": "47.2",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "17 7/8",
+            "corrected": "15",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "29 27/32",
+            "corrected": "27",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "34 21/32",
+            "corrected": "30.88",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "279.99",
+            "corrected": "299",
+            "source": "xai"
+          },
+          {
+            "field": "color_finish",
+            "original": "Silver",
+            "corrected": "Dark Steel",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "SAMSUNG",
+            "corrected": "Samsung",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Samsung WE702NZ Bespoke AI Laundry Combo Pedestal with Storage Drawer in Dark Steel",
+            "corrected": "Samsung We702nz Bespoke Ai Laundry Combo Pedestal with Storage Drawer in Dark Steel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 81,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 29,
+      "job_id": "6998f1e1bdec86c8b84b1521",
+      "sf_catalog_id": "a03aZ00000Nk22PQAR",
+      "sf_catalog_name": "WL-LED140-C-WT",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:33.233Z",
+      "processing_time_ms": 132244,
+      "input": {
+        "model_number": "WL-LED140-C-WT",
+        "brand": "WAC LIGHTING",
+        "category": "Outdoor Lighting",
+        "product_title": "5\" LED Horizontal Ledge Step and Wall Light",
+        "upc": "790576458724"
+      },
+      "category": {
+        "openai": "Landscape Lighting",
+        "xai": "Landscape Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Landscape Lighting",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Accessory",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "WAC Lighting",
+        "xai": "WAC Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WAC LIGHTING",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "WAC Landscape",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:45.472Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "lumens",
+            "original": "3",
+            "corrected": "3",
+            "source": "xai"
+          },
+          {
+            "field": "wattage",
+            "original": "3.5",
+            "corrected": "3.5",
+            "source": "xai"
+          },
+          {
+            "field": "upc_gtin",
+            "original": "790576458724",
+            "corrected": "Not Found",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Outdoor Lighting",
+            "corrected": "Path Light",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "WAC Lighting WL-LED140-C 5\" Wide Horizontal LED Step and Wall Light - White",
+            "corrected": "WAC LIGHTING Wl-Led140-C 5\" Wide Horizontal LED Step and Wall Light - White",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 30,
+      "job_id": "6998f1dfbdec86c8b84b1514",
+      "sf_catalog_id": "a03aZ00000Nk22KQAR",
+      "sf_catalog_name": "W0048",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:31.631Z",
+      "processing_time_ms": 140798,
+      "input": {
+        "model_number": "W0048",
+        "brand": "VAXCEL",
+        "category": "Wall Sconce",
+        "product_title": "5\" Vilo 1 Light Satin Nickel Cylinder Flush ADA Wall Sconce White Glass",
+        "upc": "884656728514"
+      },
+      "category": {
+        "openai": "Bathroom Lighting",
+        "xai": "Bathroom Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Lighting",
+        "confidence": 95,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Sconce",
+        "xai": "Sconce",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Sconce",
+        "confidence": 95,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Vaxcel Lighting",
+        "xai": "Vaxcel Lighting",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VAXCEL",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Vilo",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:52.389Z",
+        "corrections_count": 14,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "Not Found",
+            "corrected": "Vaxcel Lighting",
+            "source": "openai"
+          },
+          {
+            "field": "product_type",
+            "original": "Not Found",
+            "corrected": "Sconce",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "Not Found",
+            "corrected": 4,
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "Not Found",
+            "corrected": 4.5,
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "Not Found",
+            "corrected": 18.5,
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "Not Found",
+            "corrected": 7.71,
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "Not Found",
+            "corrected": 189.99,
+            "source": "openai"
+          },
+          {
+            "field": "description",
+            "original": "Not Found",
+            "corrected": "The Vilo collection blends simplicity and sophistication with its sleek design. Featuring a combination of clear water glass and frosted opal glass, this wall sconce provides ample ambient lighting, making it perfect for bathrooms, hallways, and more.",
+            "source": "openai"
+          },
+          {
+            "field": "features_list",
+            "original": "Not Found",
+            "corrected": "<ul><li>Constructed from metal</li><li>Includes a water glass outer and frosted opal glass inner shade</li><li>Requires (1) medium (E26) 75 watt bulb (not included)</li><li>Capable of being dimmed</li><li>ETL listed for damp locations</li><li>Title 24 compliant</li><li>ADA compliant</li><li>Covered by Vaxcel Lighting's 1 year limited manufacturer warranty</li></ul>",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "2.5",
+            "corrected": "7.71",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "189.99",
+            "corrected": "189.99",
+            "source": "xai"
+          },
+          {
+            "field": "product_type",
+            "original": "Bath Bar",
+            "corrected": "Sconce",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Vaxcel Lighting Vilo 19\" Tall Bath Bar with Water Glass and Frosted Glass Shade Satin Nickel",
+            "corrected": "VAXCEL Lighting Vilo 19\" Tall Bath Bar with Water Glass and Frosted Glass Shade Satin Nickel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 95,
+        "xai_confidence": 95,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 31,
+      "job_id": "6998f1debdec86c8b84b1508",
+      "sf_catalog_id": "a03aZ00000Nk22JQAR",
+      "sf_catalog_name": "VARN2309PNCG",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:30.332Z",
+      "processing_time_ms": 85080,
+      "input": {
+        "model_number": "VARN2309PNCG",
+        "brand": "VISUAL COMFORT",
+        "category": "Wall Sconce",
+        "product_title": "5\" Alpine Small Single Sconce in Polished Nickel",
+        "upc": "756808038454"
+      },
+      "category": {
+        "openai": "Wall Sconce",
+        "xai": "Wall Sconce",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall Sconce",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Wall Sconce",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Modern",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "VISUAL COMFORT",
+        "xai": "Visual Comfort",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VISUAL COMFORT",
+        "agreed": false
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Signature Collection",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 87,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:55.386Z",
+        "corrections_count": 14,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "Signature Collection",
+            "corrected": "VISUAL COMFORT",
+            "source": "openai"
+          },
+          {
+            "field": "product_family",
+            "original": "value",
+            "corrected": "Signature Collection",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "value",
+            "corrected": "Modern",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "Not Found",
+            "corrected": "6.25",
+            "source": "openai"
+          },
+          {
+            "field": "width",
+            "original": "4 1/2",
+            "corrected": "4.5",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "11",
+            "corrected": "11",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "5 lbs.",
+            "corrected": "5",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "339",
+            "corrected": "339",
+            "source": "openai"
+          },
+          {
+            "field": "description",
+            "original": "VISUAL COMFORT, Collection: Alpine, Polished Nickel Fixture",
+            "corrected": "The Alpine Wall Sconce by AERIN combines artisanal craftsmanship with modern design. Featuring a polished nickel finish and clear glass shades, this elegant fixture enhances any hallway, living room, or dining area.",
+            "source": "openai"
+          },
+          {
+            "field": "product_title",
+            "original": "5\" Alpine Small Single Sconce in Polished Nickel",
+            "corrected": "VISUAL COMFORT Alpine Small Single Sconce in Polished Nickel",
+            "source": "openai"
+          },
+          {
+            "field": "model_number",
+            "original": "ARN2309PNCG",
+            "corrected": "VARN2309PNCG",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "Signature Collection",
+            "corrected": "Visual Comfort",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "4 1/2",
+            "corrected": "4.5",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Visual Comfort Alpine 1-Light Small Single Sconce Wall Light in Polished Nickel with Clear Glass",
+            "corrected": "VISUAL COMFORT Alpine 1-Light Small Single Sconce Wall Light in Polished Nickel with Clear Glass",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 90,
+        "agreement_percentage": 87,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 32,
+      "job_id": "6998f1ddbdec86c8b84b1500",
+      "sf_catalog_id": "a03aZ00000Nk22DQAR",
+      "sf_catalog_name": "WS-W32516-BZ",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:29.165Z",
+      "processing_time_ms": 116582,
+      "input": {
+        "model_number": "WS-W32516-BZ",
+        "brand": "MODERN FORMS",
+        "category": "Outdoor Lighting",
+        "product_title": "6\" Vitrine LED Wall Light",
+        "upc": "790576354170"
+      },
+      "category": {
+        "openai": "Outdoor Wall Lights",
+        "xai": "Outdoor Wall Lights",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Outdoor Wall Lights",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Modern Forms",
+        "xai": "Modern Forms",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MODERN FORMS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Hardware",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Vitrine",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:25.729Z",
+        "corrections_count": 8,
+        "corrections": [
+          {
+            "field": "product_title",
+            "original": "6\" Vitrine LED Wall Light",
+            "corrected": "Modern Forms Vitrine 16\" Tall LED Outdoor Wall Sconce - Bronze - WS-W32516-BZ",
+            "source": "openai"
+          },
+          {
+            "field": "description",
+            "original": "MODERN FORMS, Collection: Vitrine, 120 VAC, Number of Lamps: 1, LED Module Lamp, 11.1 W Lamp Wattage, 454 Lumens, 3000 K Color Temperature, 90 CRI, Dimmable/Non-Dimmable: Dimmable, 54000 hr Average Life, Glass Shade, Aluminum Fixture, Bronze Fixture, 6.5 in L Overall, 4 in W Overall, 16.1 in H Overall, Lamp Included: Yes, Additional Information: 6.5 extends, Contemporary styleList",
+            "corrected": "Illuminate your outdoor spaces with the Modern Forms Vitrine 16\" Tall LED Outdoor Wall Sconce. Featuring a sleek design with a durable aluminum body and a mouth-blown seeded glass shade, this sconce provides a warm glow while enhancing your home's exterior aesthetics.",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "373",
+            "corrected": "373",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "7.19",
+            "corrected": "7.19",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "16",
+            "corrected": "16",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "6 1/2",
+            "corrected": "6.5",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "3 1/16",
+            "corrected": "4",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Modern Forms Vitrine 16\" Tall LED Outdoor Wall Sconce - Bronze - WS-W32516-BZ",
+            "corrected": "MODERN FORMS Vitrine 16\" Tall LED Outdoor Wall Sconce - Bronze - Ws-W32516-Bz",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 33,
+      "job_id": "6998f1dbbdec86c8b84b14f7",
+      "sf_catalog_id": "a03aZ00000Nk22CQAR",
+      "sf_catalog_name": "WS-12721-CH",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:27.584Z",
+      "processing_time_ms": 96102,
+      "input": {
+        "model_number": "WS-12721-CH",
+        "brand": "MODERN FORMS",
+        "category": "Wall Sconce",
+        "product_title": "6\" Glacier LED Wall Sconce",
+        "upc": "790576298832"
+      },
+      "category": {
+        "openai": "Wall Sconce",
+        "xai": "Wall Sconce",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall Sconce",
+        "confidence": 95,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Wall Sconce",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 95,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Modern Forms",
+        "xai": "Modern Forms",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MODERN FORMS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Lighting & Electrical",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Glacier",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 91,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:03.667Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "width",
+            "original": "6 1/16",
+            "corrected": "6",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "2 3/4",
+            "corrected": "2.75",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "21",
+            "corrected": "21",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "491",
+            "corrected": "491",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Modern Forms Glacier 21\" Height LED Wall Sconce - Chrome - WS-12721-CH",
+            "corrected": "MODERN FORMS Glacier 21\" Height LED Wall Sconce - Chrome - Ws-12721-Ch",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 95,
+        "xai_confidence": 85,
+        "agreement_percentage": 91,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 34,
+      "job_id": "6998f1d9bdec86c8b84b14ee",
+      "sf_catalog_id": "a03aZ00000MWPmpQAH",
+      "sf_catalog_name": "VBARMNSMNO",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:25.827Z",
+      "processing_time_ms": 87583,
+      "input": {
+        "model_number": "BARM-N-SM-NO",
+        "brand": "VICTORIA + ALBERT",
+        "category": "Bathtub",
+        "product_title": "70\" Barcelona Free Standing Volcanic Limestone Soaking Tub with Center Drain",
+        "upc": "824438545731"
+      },
+      "category": {
+        "openai": "Bathtub",
+        "xai": "Bathtub",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathtub",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Freestanding",
+        "xai": "Freestanding",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Freestanding",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Victoria and Albert",
+        "xai": "Victoria and Albert",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VICTORIA + ALBERT",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Barcelona",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 96,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:53.395Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "VICTORIA + ALBERT",
+            "corrected": "Victoria and Albert",
+            "source": "openai"
+          },
+          {
+            "field": "capacity_gallons",
+            "original": "84",
+            "corrected": "103",
+            "source": "openai"
+          },
+          {
+            "field": "product_title",
+            "original": "70\" Barcelona Free Standing Volcanic Limestone Soaking Tub with Center Drain",
+            "corrected": "Victoria and Albert Barcelona Freestanding Soaking Tub - 70\" - Natural Stone",
+            "source": "openai"
+          },
+          {
+            "field": "brand",
+            "original": "VICTORIA + ALBERT",
+            "corrected": "Victoria and Albert",
+            "source": "xai"
+          },
+          {
+            "field": "capacity_gallons",
+            "original": "84",
+            "corrected": "103",
+            "source": "xai"
+          },
+          {
+            "field": "model_number",
+            "original": "BARM-N-SM-NO (from Ferguson) vs. VBARMNSMNO (from SF_Catalog_Name)",
+            "corrected": "BARM-N-SM-NO",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Victoria and Albert Barcelona Freestanding Bathtub in Matte White, 70-inch Length, Model BARM-N-SM-NO",
+            "corrected": "VICTORIA + ALBERT Victoria and Albert Barcelona Freestanding Bathtub in Matte White, 70\" Length, Model Barm-N-Sm-No",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 96,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 35,
+      "job_id": "6998f1d8bdec86c8b84b14e5",
+      "sf_catalog_id": "a03aZ00000MWPmoQAH",
+      "sf_catalog_name": "VBA2MNSMOF",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:24.360Z",
+      "processing_time_ms": 98039,
+      "input": {
+        "model_number": "VBA2MNSMOF",
+        "brand": "VICTORIA + ALBERT",
+        "category": "Bathtub",
+        "product_title": "67\" Free Standing Volcanic Limestone Soaking Tub with Center Drain and Overflow",
+        "upc": "824438516595"
+      },
+      "category": {
+        "openai": "Bathtub",
+        "xai": "Bathtub",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathtub",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Freestanding",
+        "xai": "Freestanding",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Freestanding",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Transitional",
+        "xai": "Transitional",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Transitional",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Victoria + Albert",
+        "xai": "Victoria + Albert",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VICTORIA + ALBERT",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Barcelona",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 94,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:02.380Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "VICTORIA + ALBERT",
+            "corrected": "Victoria + Albert",
+            "source": "xai"
+          },
+          {
+            "field": "model_number",
+            "original": "VBA2MNSMOF",
+            "corrected": "VBA2MNSMOF",
+            "source": "xai"
+          },
+          {
+            "field": "material",
+            "original": "Volcanic Limestone",
+            "corrected": "Natural Stone",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Victoria + Albert Barcelona Freestanding Bathtub, 67 inches, Matte White",
+            "corrected": "VICTORIA + ALBERT Barcelona Freestanding Bathtub, 67 Inches, Matte White",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 90,
+        "agreement_percentage": 94,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 36,
+      "job_id": "6998f1d6bdec86c8b84b14d8",
+      "sf_catalog_id": "a03aZ00000M9MfmQAF",
+      "sf_catalog_name": "YM2040SPPFN3H84",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:22.726Z",
+      "processing_time_ms": 116561,
+      "input": {
+        "model_number": "YM2040SPPFN3H84",
+        "brand": "ROBERN",
+        "category": "Bathroom Mirror",
+        "product_title": "Sculpt Mirrors Hanging Pill Lighted in Polished Stainless Steel",
+        "upc": "723085309669"
+      },
+      "category": {
+        "openai": "Bathroom Mirror",
+        "xai": "Bathroom Mirror",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Mirror",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Lighted",
+        "xai": "Lighted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Lighted",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Robern",
+        "xai": "Robern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ROBERN",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Sculpt",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:19.275Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "installation_type",
+            "original": "Ceiling Mount",
+            "corrected": "Ceiling Mounted",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "1-7/8\"",
+            "corrected": "1.85",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "39 3/8\"",
+            "corrected": "39.375",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "19 1/4\"",
+            "corrected": "19.25",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "2379",
+            "corrected": "2379",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Robern Sculpt Lighted Oval Bathroom Mirror with LED, Polished Stainless Steel Finish, Model YM2040SPPFN3H84",
+            "corrected": "ROBERN Sculpt Lighted Oval Bathroom Mirror with LED, Polished Stainless Steel Finish, Model Ym2040sppfn3h84",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 37,
+      "job_id": "6998f1d5bdec86c8b84b14cd",
+      "sf_catalog_id": "a03aZ00000LzRxfQAF",
+      "sf_catalog_name": "YM3141RPSMD377",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:21.054Z",
+      "processing_time_ms": 94925,
+      "input": {
+        "model_number": "YM3141RPSMD3K77",
+        "brand": "ROBERN",
+        "category": "Bathroom Mirror",
+        "product_title": "31\" Robern Sculpt Lighted Mirror with Slim Museum Frame - Polished Nickel",
+        "upc": "723085256482"
+      },
+      "category": {
+        "openai": "Bathroom Mirror",
+        "xai": "Bathroom Mirror",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Bathroom Mirror",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Lighted",
+        "xai": "Lighted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Lighted",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Robern",
+        "xai": "Robern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ROBERN",
+        "agreed": true
+      },
+      "department": {
+        "final": "Plumbing & Bath",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Sculpt",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 94,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:55.964Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "model_number",
+            "original": "YM3141RPSMD3K77",
+            "corrected": "YM3141RPSMD3K77",
+            "source": "openai"
+          },
+          {
+            "field": "product_type",
+            "original": "Not Found",
+            "corrected": "Lighted",
+            "source": "openai"
+          },
+          {
+            "field": "model_number",
+            "original": "YM3141RPSMD3K77",
+            "corrected": "YM3141RPSMD377",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "Various prices in Ferguson data",
+            "corrected": "2629",
+            "source": "xai"
+          },
+          {
+            "field": "finish",
+            "original": "Not explicitly matched in all sources",
+            "corrected": "Polished Nickel",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Robern Sculpt Lighted 31.25-inch x 41.25-inch Rectangular Bathroom Mirror with Polished Nickel Finish - Model YM3141RPSMD377",
+            "corrected": "ROBERN Sculpt Lighted 31.25\" X 41.25\" Rectangular Bathroom Mirror with Polished Nickel Finish - Model Ym3141rpsmd377",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 94,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 38,
+      "job_id": "6998f1d3bdec86c8b84b14c4",
+      "sf_catalog_id": "a03aZ000005OhdsQAC",
+      "sf_catalog_name": "WMMS3130RS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:19.288Z",
+      "processing_time_ms": 107143,
+      "input": {
+        "model_number": "WMMS3130RS",
+        "brand": "WHIRLPOOL",
+        "category": "Microwave",
+        "product_title": "30\" 1.7 cu. ft. Over-the-Range Microwave Oven with 1,000 Watts",
+        "upc": "883049691008"
+      },
+      "category": {
+        "openai": "Microwave",
+        "xai": "Microwave",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Microwave",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Over-the-Range",
+        "xai": "Over-the-Range",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Over-the-Range",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Whirlpool",
+        "xai": "Whirlpool",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WHIRLPOOL",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "WMMS3130R",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 93,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:46:06.338Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "WHIRLPOOL",
+            "corrected": "Whirlpool",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "prop65",
+            "original": "CA",
+            "corrected": "Standard",
+            "source": "xai"
+          },
+          {
+            "field": "gross_weight",
+            "original": "59.9",
+            "corrected": "59.9",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "WHIRLPOOL",
+            "corrected": "Whirlpool",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Whirlpool 1.7 Cu. Ft. Over-the-Range Microwave with 1,000 Watts Stainless Steel WMMS3130RS",
+            "corrected": "Whirlpool 1.7 Cu. Ft. Over-the-Range Microwave with 1,000 Watts Stainless Steel Wmms3130rs",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "The Whirlpool 30\" Over-the-Range Microwave Oven offers a spacious 1.7 cu. ft. capacity and 1,000 wat...",
+            "corrected": "The Whirlpool 30\" Over-the-Range Microwave Oven offers a spacious 1.7 cu ft capacity and 1,000 watts...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 93,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 39,
+      "job_id": "6998f1d1bdec86c8b84b14ba",
+      "sf_catalog_id": "a03aZ0000037vUWQAY",
+      "sf_catalog_name": "VCCI3608SS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:17.352Z",
+      "processing_time_ms": 90010,
+      "input": {
+        "model_number": "VCCI3608SS",
+        "brand": "VIKING",
+        "category": "Range Hood",
+        "product_title": "36\" Chimney Island Hood Duct Cover For 8 ft. Ceiling",
+        "upc": "800284004295"
+      },
+      "category": {
+        "openai": "Range Hood",
+        "xai": "Range Hood",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range Hood",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Accessory",
+        "xai": "Accessory",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Accessory",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "VIKING",
+        "xai": "Viking",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "VIKING",
+        "agreed": false
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Hood Accessories",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 74,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:47.322Z",
+        "corrections_count": 7,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "BRIGADE",
+            "corrected": "VIKING",
+            "source": "openai"
+          },
+          {
+            "field": "product_family",
+            "original": "Not Found",
+            "corrected": "Hood Accessories",
+            "source": "openai"
+          },
+          {
+            "field": "brand",
+            "original": "BRIGADE",
+            "corrected": "Viking",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "12\"H. Duct Cover",
+            "corrected": "Viking 36-Inch Stainless Steel Duct Cover for Island Range Hood, Model VCCI3608SS",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "null",
+            "corrected": "39",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "VIKING",
+            "corrected": "Viking",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "VIKING Duct Cover for 36\" Island Hood - Stainless Steel - VCCI3608SS",
+            "corrected": "Viking Duct Cover for 36\" Island Hood - Stainless Steel - Vcci3608ss",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 74,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 40,
+      "job_id": "6998f1cfbdec86c8b84b14ab",
+      "sf_catalog_id": "a03Hu00001SY9SJIA1",
+      "sf_catalog_name": "WHN2048PS1-TWSB-8-BL",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:15.633Z",
+      "processing_time_ms": 99371,
+      "input": {
+        "model_number": "WHN2048PS1-TWSB-8-BL",
+        "brand": "IMPERIAL HOODS",
+        "category": "Range Hood",
+        "product_title": "48\" Contempory Slim Wall Range Hood - Slim Baffle Filters",
+        "upc": "063467848097"
+      },
+      "category": {
+        "openai": "Range Hood",
+        "xai": "Range Hood",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range Hood",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Wall-Mounted",
+        "xai": "Wall-Mounted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall-Mounted",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Imperial Hoods",
+        "xai": "Imperial Hoods",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "IMPERIAL HOODS",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Slim Baffle",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 92,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:54.973Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "product_title",
+            "original": "48\" Contempory Slim Wall Range Hood - Slim Baffle Filters",
+            "corrected": "Imperial Hoods 48-inch Contemporary Slim Wall-Mounted Range Hood with Stainless Steel Finish - Model WHN2048PS1TWSB8SS",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "48",
+            "corrected": "48",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "04",
+            "corrected": "4",
+            "source": "xai"
+          },
+          {
+            "field": "model_number",
+            "original": "WHN2048PS1-TWSB-8-BL",
+            "corrected": "WHN2048PS1TWSB8SS",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Imperial WHN2048PS1TWSB8SS - 48\" Contemporary Slim Wall Range Hood - Stainless Steel",
+            "corrected": "IMPERIAL HOODS Imperial Whn2048ps1twsb8ss - 48\" Contemporary Slim Wall Range Hood - Stainless Steel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 90,
+        "agreement_percentage": 92,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 41,
+      "job_id": "6998f1cdbdec86c8b84b149d",
+      "sf_catalog_id": "a03Hu00001SY5Z2IAL",
+      "sf_catalog_name": "ZANE30DBS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:13.836Z",
+      "processing_time_ms": 94632,
+      "input": {
+        "model_number": "ZANE30DBS",
+        "brand": "ZEPHYR",
+        "category": "Range Hood",
+        "product_title": "30\" Anzio Wall Mount Range Hood with 5-Speed 600 CFM Blower",
+        "upc": "646328010675"
+      },
+      "category": {
+        "openai": "Range Hood",
+        "xai": "Range Hood",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range Hood",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Wall-Mounted",
+        "xai": "Wall-Mounted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall-Mounted",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Zephyr",
+        "xai": "Zephyr",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "ZEPHYR",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Core Collection",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:48.356Z",
+        "corrections_count": 3,
+        "corrections": [
+          {
+            "field": "height",
+            "original": "27 - 48.5",
+            "corrected": "27",
+            "source": "xai"
+          },
+          {
+            "field": "color_finish",
+            "original": "Black Stainless Steel",
+            "corrected": "Black Stainless Steel",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "Zephyr 30-inch Wall-Mounted Range Hood with 600 CFM, Black Stainless Steel, LED Lighting, Model ZANE30DBS",
+            "corrected": "ZEPHYR 30\" Wall-Mounted Range Hood with 600 CFM, Black Stainless Steel, LED Lighting, Model Zane30dbs",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 42,
+      "job_id": "6998f1cbbdec86c8b84b1491",
+      "sf_catalog_id": "a03Hu00001SY5YuIAL",
+      "sf_catalog_name": "WC34E90SB",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:11.368Z",
+      "processing_time_ms": 82301,
+      "input": {
+        "model_number": "WC34E90SB",
+        "brand": "BEST RANGE HOODS",
+        "category": "Range Hood",
+        "product_title": "36\" Wall Mount Chimney Range Hood with Optional External Blowers",
+        "upc": "026715227129"
+      },
+      "category": {
+        "openai": "Range Hood",
+        "xai": "Range Hood",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range Hood",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Wall-Mounted",
+        "xai": "Wall-Mounted",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Wall-Mounted",
+        "confidence": 90,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "BEST RANGE HOODS",
+        "xai": "Broan",
+        "consensus": "partial",
+        "source": "openai_selected",
+        "final": "BEST RANGE HOODS",
+        "agreed": false
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "WC34 Series",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 90,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:33.629Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "BEST RANGE HOODS",
+            "corrected": "Broan",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "35 29/64 (from Legacy)",
+            "corrected": "35.44",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "18 9/64 (from Legacy)",
+            "corrected": "18.12",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "45 1/4 (from Legacy and Web_Retailer)",
+            "corrected": "27.38",
+            "source": "xai"
+          },
+          {
+            "field": "product_family",
+            "original": "Not explicitly stated",
+            "corrected": "Wall Mount",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "BEST RANGE HOODS WC34E90SB Wall-Mounted Range Hood Stainless Steel",
+            "corrected": "BEST RANGE HOODS Wc34e90sb Wall-Mounted Range Hood Stainless Steel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 90,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 43,
+      "job_id": "6998f1c9bdec86c8b84b148a",
+      "sf_catalog_id": "a03Hu00001N2KY9IAN",
+      "sf_catalog_name": "ZTW900SSNSS",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:09.358Z",
+      "processing_time_ms": 104338,
+      "input": {
+        "model_number": "ZTW900SSNSS",
+        "brand": "MONOGRAM",
+        "category": "Drawer",
+        "product_title": "30\" Warming Drawer with 1.9 Cu. Ft. Capacity",
+        "upc": "084691843276"
+      },
+      "category": {
+        "openai": "Warming Drawer",
+        "xai": "Warming Drawer",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Warming Drawer",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Monogram",
+        "xai": "Monogram",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "MONOGRAM",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Minimalist Collection",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 87,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:53.643Z",
+        "corrections_count": 5,
+        "corrections": [
+          {
+            "field": "manufacturer_warranty",
+            "original": "Limited 1-year entire appliance",
+            "corrected": "2 Year Limited",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "MONOGRAM",
+            "corrected": "Monogram",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "MONOGRAM",
+            "corrected": "Monogram",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Monogram Minimalist 30 Inch Stainless Steel Warming Drawer ZTW900SSNSS",
+            "corrected": "Monogram Minimalist 30 Inch Stainless Steel Warming Drawer Ztw900ssnss",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "The Monogram Minimalist 30-inch warming drawer offers a sleek, modern design with 1.9 cu. ft. of spa...",
+            "corrected": "The Monogram Minimalist 30-inch warming drawer offers a sleek, modern design with 1.9 cu ft of space...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 87,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 44,
+      "job_id": "6998f1c7bdec86c8b84b147e",
+      "sf_catalog_id": "a03Hu00001N2JH4IAN",
+      "sf_catalog_name": "WFE775H0HZ",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:07.557Z",
+      "processing_time_ms": 105155,
+      "input": {
+        "model_number": "WFE775H0HZ",
+        "brand": "WHIRLPOOL",
+        "category": "Range",
+        "product_title": "30\" Freestanding Electric Range with 5 Radiant Elements",
+        "upc": "883049448619"
+      },
+      "category": {
+        "openai": "Range",
+        "xai": "Range",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Range",
+        "confidence": 95,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Electric",
+        "xai": "Electric",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Electric",
+        "confidence": 95,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Whirlpool",
+        "xai": "Whirlpool",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "WHIRLPOOL",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Freestanding Electric Range",
+        "source": "xai_selected"
+      },
+      "verification": {
+        "score": 95,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:52.594Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "WHIRLPOOL",
+            "corrected": "Whirlpool",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "1499",
+            "corrected": "1499",
+            "source": "xai"
+          },
+          {
+            "field": "product_family",
+            "original": "Not explicitly stated",
+            "corrected": "Freestanding Electric Range",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "WHIRLPOOL",
+            "corrected": "Whirlpool",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Whirlpool 6.4 cu. ft. Freestanding Electric Range with Frozen Bake Technology - Stainless Steel",
+            "corrected": "Whirlpool 6.4 Cu Ft Freestanding Electric Range with Frozen Bake Technology - Stainless Steel",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "Experience the convenience of cooking with the Whirlpool 6.4 cu. ft. Freestanding Electric Range. Fe...",
+            "corrected": "Experience the convenience of cooking with the Whirlpool 6.4 cu ft Freestanding Electric Range. Feat...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 95,
+        "xai_confidence": 95,
+        "agreement_percentage": 95,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 45,
+      "job_id": "6998f1c5bdec86c8b84b1478",
+      "sf_catalog_id": "a03Hu00001N2IChIAN",
+      "sf_catalog_name": "WDES9428F",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:05.732Z",
+      "processing_time_ms": 103633,
+      "input": {
+        "model_number": "WDES9428F",
+        "brand": "LG",
+        "category": "Oven",
+        "product_title": "LG STUDIO Double Wall Oven, 4.7 cu-ft, 30'', 7'' LCD Touch-Screen Control, Instaview, Steam Sous Vide, Air Fry",
+        "upc": "195174022825"
+      },
+      "category": {
+        "openai": "Oven",
+        "xai": "Oven",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Oven",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Double Wall",
+        "xai": "Double Wall",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Double Wall",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "LG",
+        "xai": "LG",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "LG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "LG STUDIO",
+        "source": "both_agreed"
+      },
+      "verification": {
+        "score": 94,
+        "status": "verified",
+        "timestamp": "2026-02-20T23:45:49.311Z",
+        "corrections_count": 8,
+        "corrections": [
+          {
+            "field": "product_type",
+            "original": "Double Wall Oven",
+            "corrected": "Double Wall",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Contemporary",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "52 1/16",
+            "corrected": "52.0625",
+            "source": "xai"
+          },
+          {
+            "field": "width",
+            "original": "29 3/4",
+            "corrected": "29.75",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "24 3/8",
+            "corrected": "26.906",
+            "source": "xai"
+          },
+          {
+            "field": "web_retailer_category",
+            "original": "ELECTRIC RANGES",
+            "corrected": "Not Applicable",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "LG STUDIO 9.4 cu. ft. Smart InstaView® Electric Double Built-In Wall Oven with Air Fry & Steam Sous Vide",
+            "corrected": "LG Studio 9.4 Cu Ft Smart Instaview® Electric Double Built-in Wall Oven with Air Fry & Steam Sous Vide",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "description",
+            "original": "Experience versatile cooking with the LG Studio 9.4 cu. ft. double wall oven, featuring True Convect...",
+            "corrected": "Experience versatile cooking with the LG Studio 9.4 cu ft double wall oven, featuring True Convectio...",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 94,
+        "agreement_status": "full_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 46,
+      "job_id": "6998f1c4bdec86c8b84b1471",
+      "sf_catalog_id": "a03Hu00001N2ChYIAV",
+      "sf_catalog_name": "WDP6W",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:04.087Z",
+      "processing_time_ms": 100766,
+      "input": {
+        "model_number": "WDP6W",
+        "brand": "LG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" Laundry Pedestal",
+        "upc": "195174038284"
+      },
+      "category": {
+        "openai": "Standalone Pedestal",
+        "xai": "Standalone Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Standalone Pedestal",
+        "confidence": 90,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Standalone",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Contemporary",
+        "xai": "Contemporary",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Contemporary",
+        "confidence": 90,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "LG",
+        "xai": "LG",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "LG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestal",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 84,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:44.820Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "LG CANADA",
+            "corrected": "LG",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "309",
+            "corrected": "395",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "25 3/8",
+            "corrected": "28",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "LG 27 Inch Wide Laundry Pedestal - White - WDP6W",
+            "corrected": "LG 27 Inch Wide Laundry Pedestal - White - Wdp6w",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 90,
+        "xai_confidence": 85,
+        "agreement_percentage": 84,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 47,
+      "job_id": "6998f1c2bdec86c8b84b1469",
+      "sf_catalog_id": "a03Hu00001N2BCRIA3",
+      "sf_catalog_name": "WDP6B",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:02.421Z",
+      "processing_time_ms": 99724,
+      "input": {
+        "model_number": "WDP6B",
+        "brand": "LG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" Pedestal Storage Drawer",
+        "upc": "195174037003"
+      },
+      "category": {
+        "openai": "Standalone Pedestal",
+        "xai": "Standalone Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Standalone Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Storage Pedestal",
+        "xai": "Storage Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Storage Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "LG",
+        "xai": "LG",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "LG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestal",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 84,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:42.117Z",
+        "corrections_count": 4,
+        "corrections": [
+          {
+            "field": "depth_length",
+            "original": "25 3/8",
+            "corrected": "28",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "309",
+            "corrected": "417",
+            "source": "xai"
+          },
+          {
+            "field": "color_finish",
+            "original": "Black",
+            "corrected": "Black Steel",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "LG WDP6B 27 Inch Wide Storage Pedestal - Black Steel",
+            "corrected": "LG Wdp6b 27 Inch Wide Storage Pedestal - Black Steel",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 84,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 48,
+      "job_id": "6998f1c0bdec86c8b84b1463",
+      "sf_catalog_id": "a03Hu00001N29jKIAR",
+      "sf_catalog_name": "WE357A0P",
+      "status": "completed",
+      "created_at": "2026-02-20T23:44:00.922Z",
+      "processing_time_ms": 86320,
+      "input": {
+        "model_number": "WE357A0P",
+        "brand": "SAMSUNG",
+        "category": "Standalone Pedestal",
+        "product_title": "14\" Laundry Pedestal (Stainless Platinum)",
+        "upc": "036725568518"
+      },
+      "category": {
+        "openai": "Laundry Pedestal",
+        "xai": "Laundry Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Laundry Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Samsung",
+        "xai": "Samsung",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "SAMSUNG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestal",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 79,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:27.213Z",
+        "corrections_count": 6,
+        "corrections": [
+          {
+            "field": "height",
+            "original": "14 1/8",
+            "corrected": "15.4",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "28 3/32",
+            "corrected": "33.1",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "51",
+            "corrected": "51",
+            "source": "xai"
+          },
+          {
+            "field": "msrp",
+            "original": "279",
+            "corrected": "279",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "SAMSUNG",
+            "corrected": "Samsung",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Samsung 27\" Storage Pedestal - Platinum - WE357AOP",
+            "corrected": "Samsung 27\" Storage Pedestal - Platinum - We357aop",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 79,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 49,
+      "job_id": "6998f1bfbdec86c8b84b145e",
+      "sf_catalog_id": "a03Hu00001N24NzIAJ",
+      "sf_catalog_name": "WE402NW",
+      "status": "completed",
+      "created_at": "2026-02-20T23:43:59.628Z",
+      "processing_time_ms": 112746,
+      "input": {
+        "model_number": "WE402NW",
+        "brand": "SAMSUNG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" Pedestal for Smart Front Load Washer and Dryer",
+        "upc": "887276310152"
+      },
+      "category": {
+        "openai": "Laundry Pedestal",
+        "xai": "Laundry Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Laundry Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Not Applicable",
+        "confidence": 0,
+        "agreed": true
+      },
+      "style": {
+        "openai": null,
+        "xai": null,
+        "consensus": "disagreed",
+        "source": "manual_needed",
+        "final": "Contemporary",
+        "confidence": 0,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Samsung",
+        "xai": "Samsung",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "SAMSUNG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestal",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 81,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:52.358Z",
+        "corrections_count": 9,
+        "corrections": [
+          {
+            "field": "weight",
+            "original": "16.6",
+            "corrected": "36.6",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "14 13/64",
+            "corrected": "14.2",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "28 7/64",
+            "corrected": "28.1",
+            "source": "openai"
+          },
+          {
+            "field": "msrp",
+            "original": "259",
+            "corrected": "259",
+            "source": "openai"
+          },
+          {
+            "field": "weight",
+            "original": "16.6",
+            "corrected": "36.6",
+            "source": "xai"
+          },
+          {
+            "field": "depth_length",
+            "original": "28 7/64",
+            "corrected": "28.1",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "14 13/64",
+            "corrected": "14.2",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "SAMSUNG",
+            "corrected": "Samsung",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Samsung 27 Inch Wide Laundry Pedestal in White, Model WE402NW",
+            "corrected": "Samsung 27 Inch Wide Laundry Pedestal in White, Model We402nw",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 95,
+        "agreement_percentage": 81,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    },
+    {
+      "index": 50,
+      "job_id": "6998f1bcbdec86c8b84b1456",
+      "sf_catalog_id": "a03Hu00001N1visIAB",
+      "sf_catalog_name": "WE502NV",
+      "status": "completed",
+      "created_at": "2026-02-20T23:43:56.853Z",
+      "processing_time_ms": 102913,
+      "input": {
+        "model_number": "WE502NV",
+        "brand": "SAMSUNG",
+        "category": "Standalone Pedestal",
+        "product_title": "27\" Laundry Pedestal with Storage Drawer",
+        "upc": "887276665290"
+      },
+      "category": {
+        "openai": "Standalone Pedestal",
+        "xai": "Standalone Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Standalone Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "type": {
+        "openai": "Storage Pedestal",
+        "xai": "Storage Pedestal",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Storage Pedestal",
+        "confidence": 85,
+        "agreed": true
+      },
+      "style": {
+        "openai": "Modern",
+        "xai": "Modern",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "Modern",
+        "confidence": 85,
+        "agreed": true
+      },
+      "brand": {
+        "openai": "Samsung",
+        "xai": "Samsung",
+        "consensus": "agreed",
+        "source": "both_agreed",
+        "final": "SAMSUNG",
+        "agreed": true
+      },
+      "department": {
+        "final": "Appliances",
+        "source": "primary_attrs"
+      },
+      "family": {
+        "final": "Laundry Pedestals",
+        "source": "manual_needed"
+      },
+      "verification": {
+        "score": 82,
+        "status": "needs_review",
+        "timestamp": "2026-02-20T23:45:39.725Z",
+        "corrections_count": 11,
+        "corrections": [
+          {
+            "field": "brand",
+            "original": "SAMSUNG",
+            "corrected": "Samsung",
+            "source": "openai"
+          },
+          {
+            "field": "product_style",
+            "original": "Not Found",
+            "corrected": "Modern",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "28 1/8",
+            "corrected": "28.125",
+            "source": "openai"
+          },
+          {
+            "field": "height",
+            "original": "14 11/64",
+            "corrected": "15.171875",
+            "source": "openai"
+          },
+          {
+            "field": "depth_length",
+            "original": "28 1/8",
+            "corrected": "29",
+            "source": "xai"
+          },
+          {
+            "field": "height",
+            "original": "14 11/64",
+            "corrected": "15",
+            "source": "xai"
+          },
+          {
+            "field": "weight",
+            "original": "21",
+            "corrected": "45.9",
+            "source": "xai"
+          },
+          {
+            "field": "net_dimension",
+            "original": "686 x 381 x 737 inch",
+            "corrected": "27 x 15 x 29 inch",
+            "source": "xai"
+          },
+          {
+            "field": "product_title",
+            "original": "27\" Laundry Pedestal with Storage Drawer",
+            "corrected": "Samsung 27-Inch Storage Pedestal for Front Load Washer and Dryer in Brushed Black",
+            "source": "xai"
+          },
+          {
+            "field": "brand",
+            "original": "SAMSUNG",
+            "corrected": "Samsung",
+            "source": "text_cleaner"
+          },
+          {
+            "field": "product_title",
+            "original": "Samsung 27\" Storage Pedestal - WE502NV - Brushed Black",
+            "corrected": "Samsung 27\" Storage Pedestal - We502nv - Brushed Black",
+            "source": "text_cleaner"
+          }
+        ]
+      },
+      "review": {
+        "openai_confidence": 85,
+        "xai_confidence": 85,
+        "agreement_percentage": 82,
+        "agreement_status": "partial_agreement"
+      },
+      "webhook": {
+        "sent": true,
+        "sf_acknowledged": true,
+        "sf_processed": true
+      }
+    }
+  ]
+}

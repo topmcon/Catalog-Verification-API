@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-02-21T00:26:53.912Z",
+  "summary": {
+    "total_jobs": 50,
+    "department_mismatches": 0,
+    "type_contamination": 0,
+    "attribute_contamination": 0,
+    "missing_critical": 0,
+    "total_affected": 0,
+    "clean_data_rate": "100.0%"
+  },
+  "violations": {
+    "departmentMismatch": [],
+    "typeContamination": [],
+    "attributeContamination": [],
+    "missingCriticalAttributes": []
+  }
+}
