@@ -6,6 +6,7 @@
  */
 
 import categoryFilterAttributesData from './salesforce-picklists/category-filter-attributes.json';
+import categoriesData from './salesforce-picklists/categories.json';
 
 // Type-safe interface for category filter attributes
 interface CategoryFilterConfig {
@@ -26,7 +27,27 @@ interface CategoryFilterAttributes {
   categories: Record<string, CategoryFilterConfig>;
 }
 
+// Type-safe interface for categories with department info
+interface CategoryWithDepartment {
+  family: string;
+  department: string;
+  category_name: string;
+  category_id: string;
+  subcategory: string;
+  styles_apply: boolean;
+}
+
 const categoryFilterAttributes = categoryFilterAttributesData as unknown as CategoryFilterAttributes;
+const categories = categoriesData as CategoryWithDepartment[];
+
+// Build a map of category name -> department for quick lookup
+const categoryToDepartmentMap: Record<string, string> = {};
+categories.forEach(cat => {
+  categoryToDepartmentMap[cat.category_name] = cat.department;
+});
+
+// Get unique departments sorted alphabetically
+const DEPARTMENTS = Array.from(new Set(categories.map(c => c.department))).sort();
 
 /**
  * PRIMARY ATTRIBUTES (UNIVERSAL - ALL PRODUCTS)
@@ -332,20 +353,6 @@ const CATEGORY_CLARIFICATIONS: Record<string, string> = {
 };
 
 /**
- * Get all categories as a formatted list for AI prompts
- * Includes clarifying descriptions for potentially confusing categories
- */
-export function getCategoryListForPrompt(): string {
-  const categories = Object.keys(categoryFilterAttributes.categories).sort();
-  return categories.map((cat, idx) => {
-    const clarification = CATEGORY_CLARIFICATIONS[cat];
-    return clarification 
-      ? `${idx + 1}. ${cat} ${clarification}`
-      : `${idx + 1}. ${cat}`;
-  }).join('\n');
-}
-
-/**
  * Get primary attributes formatted for AI prompts
  */
 export function getPrimaryAttributesForPrompt(): string {
@@ -377,6 +384,58 @@ export function getAllCategoriesWithTop15ForPrompt(): string {
  */
 export function getAllCategories(): string[] {
   return Object.keys(categoryFilterAttributes.categories).sort();
+}
+
+/**
+ * Get list of all departments for AI prompts (Stage 1: Department Selection)
+ */
+export function getDepartmentListForPrompt(): string {
+  return DEPARTMENTS.map((dept, idx) => `${idx + 1}. ${dept}`).join('\n');
+}
+
+/**
+ * Get all available departments
+ */
+export function getAllDepartments(): string[] {
+  return DEPARTMENTS;
+}
+
+/**
+ * Get department for a given category name
+ */
+export function getDepartmentForCategory(categoryName: string): string | undefined {
+  return categoryToDepartmentMap[categoryName];
+}
+
+/**
+ * Get all categories for a specific department
+ */
+export function getCategoriesForDepartment(department: string): string[] {
+  return categories
+    .filter(cat => cat.department === department)
+    .map(cat => cat.category_name)
+    .sort();
+}
+
+/**
+ * Get categories filtered by department (for hierarchical selection)
+ * If no department specified, returns all categories
+ */
+export function getCategoryListForPrompt(department?: string): string {
+  let categoryList: string[];
+  
+  if (department) {
+    categoryList = getCategoriesForDepartment(department);
+  } else {
+    categoryList = Object.keys(categoryFilterAttributes.categories).sort();
+  }
+  
+  return categoryList.map((cat, idx) => {
+    const clarification = CATEGORY_CLARIFICATIONS[cat];
+    return clarification 
+      ? `${idx + 1}. ${cat} ${clarification}`
+      : `${idx + 1}. ${cat}`;
+  }).join('\n');
 }
 
 /**
@@ -522,14 +581,6 @@ export function getCategoryById(categoryId: string): CategorySchema | null {
     }
   }
   return null;
-}
-
-/**
- * Get department for a category
- */
-export function getDepartmentForCategory(categoryName: string): string {
-  const config = categoryFilterAttributes.categories[categoryName];
-  return config?.department || 'OTHER';
 }
 
 /**

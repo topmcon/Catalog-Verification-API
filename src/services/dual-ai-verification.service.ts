@@ -37,6 +37,7 @@ import {
   getCategorySchema,
   getCategorySchemaWithContext,
   getCategoryListForPrompt,
+  getDepartmentListForPrompt,
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
@@ -106,6 +107,9 @@ const xai = new OpenAI({
 interface AIAnalysisResult {
   provider: 'openai' | 'xai';
   success: boolean;
+  determinedDepartment?: string;  // Stage 1: Department determination
+  departmentConfidence?: number;   // Stage 1: Confidence in department choice
+  departmentReasoning?: string;    // Stage 1: Why this department was chosen
   determinedCategory: string;
   categoryConfidence: number;
   categoryReasoning: string;
@@ -132,6 +136,7 @@ interface AIAnalysisResult {
 
 interface ConsensusResult {
   agreed: boolean;
+  agreedDepartment: string | null;  // Consensus on department
   agreedCategory: string | null;
   agreedPrimaryAttributes: Record<string, any>;
   agreedTop15Attributes: Record<string, any>;
@@ -1570,8 +1575,8 @@ export async function verifyProductWithDualAI(
       });
     }
     
-    // PHASE 1: Two-Stage AI Analysis
-    logger.info('PHASE 1: Two-Stage AI Analysis - STAGE 1 (Category) + STAGE 2 (Details)', {
+    // PHASE 1: Three-Stage Hierarchical AI Analysis
+    logger.info('PHASE 1: Three-Stage Hierarchical AI Analysis - STAGE 1 (Department) + STAGE 2 (Category) + STAGE 3 (Details)', {
       sessionId: verificationSessionId,
       hasPreResearchContext: !!preResearchContext,
       dataScenario: dataSourceAnalysis.scenario,
@@ -1584,7 +1589,7 @@ export async function verifyProductWithDualAI(
         riskLevel: tokenEstimate.riskLevel,
         truncationApplied: processedProduct !== rawProduct,
       },
-      twoStageEnabled: true // Flag for monitoring
+      hierarchicalEnabled: true // Flag for monitoring
     });
     
     // Build prompt options with model validation info AND coherence warnings
@@ -1610,26 +1615,77 @@ export async function verifyProductWithDualAI(
     };
     
     // ===============================================
-    // 🔍 STAGE 1: CATEGORY DETERMINATION ONLY
+    // 🏢 STAGE 1: DEPARTMENT DETERMINATION ONLY
     // ===============================================
-    logger.info('🔍 STAGE 1: Determining product category', {
+    logger.info('🏢 STAGE 1 (Hierarchical): Determining product department', {
       sessionId: verificationSessionId,
       productId: rawProduct.SF_Catalog_Id
     });
     
     const stage1StartTime = Date.now();
-    const [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
-      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'category-only' }),
-      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'category-only' })
+    const [openaiDeptResult, xaiDeptResult] = await Promise.all([
+      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'department-only' }),
+      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { stage: 'department-only' })
     ]);
     
-    logger.info('✅ STAGE 1 complete - Category determined', {
+    logger.info('✅ STAGE 1 complete - Department determined', {
       sessionId: verificationSessionId,
+      openaiDepartment: openaiDeptResult.determinedDepartment,
+      xaiDepartment: xaiDeptResult.determinedDepartment,
+      openaiConfidence: openaiDeptResult.departmentConfidence,
+      xaiConfidence: xaiDeptResult.departmentConfidence,
+      durationMs: Date.now() - stage1StartTime
+    });
+    
+    // Build consensus on department
+    const departmentConsensus = buildConsensus(openaiDeptResult, xaiDeptResult);
+    const determinedDepartment = departmentConsensus.agreedDepartment || openaiDeptResult.determinedDepartment || xaiDeptResult.determinedDepartment;
+    
+    if (!determinedDepartment) {
+      logger.error('❌ STAGE 1 FAILED: No department could be determined', {
+        sessionId: verificationSessionId,
+        openaiError: openaiDeptResult.error,
+        xaiError: xaiDeptResult.error
+      });
+      throw new Error('Department determination failed - both AIs returned no department');
+    }
+    
+    logger.info('🎯 Department consensus reached', {
+      sessionId: verificationSessionId,
+      agreedDepartment: determinedDepartment,
+      departmentsMatched: openaiDeptResult.determinedDepartment === xaiDeptResult.determinedDepartment,
+      departmentConfidence: Math.max(openaiDeptResult.departmentConfidence || 0, xaiDeptResult.departmentConfidence || 0)
+    });
+    
+    // ===============================================
+    // 🔍 STAGE 2: CATEGORY DETERMINATION (FILTERED BY DEPARTMENT)
+    // ===============================================
+    logger.info('🔍 STAGE 2 (Hierarchical): Determining product category', {
+      sessionId: verificationSessionId,
+      department: determinedDepartment,
+      productId: rawProduct.SF_Catalog_Id
+    });
+    
+    const stage2StartTime = Date.now();
+    const [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
+      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+        stage: 'category-only', 
+        department: determinedDepartment 
+      }),
+      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+        stage: 'category-only', 
+        department: determinedDepartment 
+      })
+    ]);
+    
+    logger.info('✅ STAGE 2 complete - Category determined', {
+      sessionId: verificationSessionId,
+      department: determinedDepartment,
       openaiCategory: openaiCategoryResult.determinedCategory,
       xaiCategory: xaiCategoryResult.determinedCategory,
       openaiConfidence: openaiCategoryResult.categoryConfidence,
       xaiConfidence: xaiCategoryResult.categoryConfidence,
-      durationMs: Date.now() - stage1StartTime
+      durationMs: Date.now() - stage2StartTime
     });
     
     // Build consensus on category only
@@ -1637,8 +1693,9 @@ export async function verifyProductWithDualAI(
     const determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
     
     if (!determinedCategory) {
-      logger.error('❌ STAGE 1 FAILED: No category could be determined', {
+      logger.error('❌ STAGE 2 FAILED: No category could be determined', {
         sessionId: verificationSessionId,
+        department: determinedDepartment,
         openaiError: openaiCategoryResult.error,
         xaiError: xaiCategoryResult.error
       });
@@ -1647,46 +1704,51 @@ export async function verifyProductWithDualAI(
     
     logger.info('🎯 Category consensus reached', {
       sessionId: verificationSessionId,
+      department: determinedDepartment,
       agreedCategory: determinedCategory,
       categoriesMatched: categoryConsensus.agreed,
       categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
     });
     
     // ===============================================
-    // 🎯 STAGE 2: DETAILED ANALYSIS (CATEGORY-SPECIFIC)
+    // 🎯 STAGE 3: DETAILED ANALYSIS (CATEGORY-SPECIFIC)
     // ===============================================
-    logger.info('🎯 STAGE 2: Detailed analysis with category-specific context', {
+    logger.info('🎯 STAGE 3 (Hierarchical): Detailed analysis with category-specific context', {
       sessionId: verificationSessionId,
+      department: determinedDepartment,
       category: determinedCategory,
       productId: rawProduct.SF_Catalog_Id
     });
     
-    const stage2StartTime = Date.now();
+    const stage3StartTime = Date.now();
     const [openaiResult, xaiResult] = await Promise.all([
       analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
         stage: 'category-specific', 
+        department: determinedDepartment,
         category: determinedCategory 
       }),
       analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
         stage: 'category-specific', 
+        department: determinedDepartment,
         category: determinedCategory 
       })
     ]);
     
-    logger.info('✅ STAGE 2 complete - Detailed analysis finished', {
+    logger.info('✅ STAGE 3 complete - Detailed analysis finished', {
       sessionId: verificationSessionId,
+      department: determinedDepartment,
       category: determinedCategory,
       openaiFieldsPopulated: Object.keys(openaiResult.primaryAttributes).length + Object.keys(openaiResult.top15Attributes).length,
       xaiFieldsPopulated: Object.keys(xaiResult.primaryAttributes).length + Object.keys(xaiResult.top15Attributes).length,
-      durationMs: Date.now() - stage2StartTime
+      durationMs: Date.now() - stage3StartTime
     });
 
-    // Track OpenAI result (STAGE 2 - detailed analysis)
+    // Track OpenAI result (All 3 stages)
     trackingService.recordOpenAIResult(trackingId, {
       success: openaiResult.success,
-      determinedCategory: determinedCategory, // From STAGE 1 consensus
-      categoryConfidence: openaiCategoryResult.categoryConfidence, // From STAGE 1
-      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime), // Both stages
+      determinedCategory: determinedCategory, // From STAGE 2 consensus
+      categoryConfidence: openaiCategoryResult.categoryConfidence, // From STAGE 2
+      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime) + (Date.now() - stage3StartTime),
       fieldsPopulated: Object.keys(openaiResult.primaryAttributes).length + Object.keys(openaiResult.top15Attributes).length,
       fieldsMissing: openaiResult.missingFields.length,
       correctionsApplied: openaiResult.corrections.length,
@@ -1695,12 +1757,12 @@ export async function verifyProductWithDualAI(
       errorMessage: openaiResult.error,
     });
 
-    // Track xAI result (STAGE 2 - detailed analysis)
+    // Track xAI result (All 3 stages)
     trackingService.recordXAIResult(trackingId, {
       success: xaiResult.success,
-      determinedCategory: determinedCategory, // From STAGE 1 consensus
-      categoryConfidence: xaiCategoryResult.categoryConfidence, // From STAGE 1
-      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime), // Both stages
+      determinedCategory: determinedCategory, // From STAGE 2 consensus
+      categoryConfidence: xaiCategoryResult.categoryConfidence, // From STAGE 2
+      processingTimeMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime) + (Date.now() - stage3StartTime),
       fieldsPopulated: Object.keys(xaiResult.primaryAttributes).length + Object.keys(xaiResult.top15Attributes).length,
       fieldsMissing: xaiResult.missingFields.length,
       correctionsApplied: xaiResult.corrections.length,
@@ -1709,11 +1771,12 @@ export async function verifyProductWithDualAI(
       errorMessage: xaiResult.error,
     });
 
-    logger.info('PHASE 1 complete - Two-stage AI analysis finished', {
+    logger.info('PHASE 1 complete - Three-stage hierarchical AI analysis finished', {
       sessionId: verificationSessionId,
-      stage1Category: determinedCategory,
-      stage2FieldsTotal: Object.keys(openaiResult.primaryAttributes).length + Object.keys(xaiResult.primaryAttributes).length,
-      totalDurationMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime)
+      stage1Department: determinedDepartment,
+      stage2Category: determinedCategory,
+      stage3FieldsTotal: Object.keys(openaiResult.primaryAttributes).length + Object.keys(xaiResult.primaryAttributes).length,
+      totalDurationMs: (Date.now() - stage1StartTime) + (Date.now() - stage2StartTime) + (Date.now() - stage3StartTime)
     });
 
     // PHASE 2: Build initial consensus
@@ -2220,7 +2283,7 @@ export async function verifyProductWithDualAI(
     }
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
     
     // ========================================================================
     // FINAL SWEEP: Check all "Not Found" values against raw data
@@ -2316,7 +2379,11 @@ async function analyzeWithOpenAI(
   sessionId: string, 
   promptOptions?: PromptOptions, 
   trackingId?: string,
-  stageConfig?: { stage: 'category-only' | 'category-specific', category?: string }
+  stageConfig?: { 
+    stage: 'department-only' | 'category-only' | 'category-specific', 
+    department?: string,
+    category?: string 
+  }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
@@ -2340,12 +2407,15 @@ async function analyzeWithOpenAI(
     try {
       // Select appropriate system prompt based on stage
       let systemPrompt: string;
-      if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt();
-        logger.info('🔍 STAGE 1: Using category-only prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      if (stageConfig?.stage === 'department-only') {
+        systemPrompt = getDepartmentOnlyPrompt();
+        logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      } else if (stageConfig?.stage === 'category-only') {
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category);
-        logger.info('🎯 STAGE 2: Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
       } else {
         systemPrompt = getSystemPrompt(); // Legacy full prompt
         logger.info('⚠️ Using legacy full prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
@@ -2424,7 +2494,11 @@ async function analyzeWithXAI(
   sessionId: string, 
   promptOptions?: PromptOptions, 
   trackingId?: string,
-  stageConfig?: { stage: 'category-only' | 'category-specific', category?: string }
+  stageConfig?: { 
+    stage: 'department-only' | 'category-only' | 'category-specific', 
+    department?: string,
+    category?: string 
+  }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
   let lastError: any;
@@ -2448,12 +2522,15 @@ async function analyzeWithXAI(
     try {
       // Select appropriate system prompt based on stage
       let systemPrompt: string;
-      if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt();
-        logger.info('🔍 STAGE 1: Using category-only prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      if (stageConfig?.stage === 'department-only') {
+        systemPrompt = getDepartmentOnlyPrompt();
+        logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
+      } else if (stageConfig?.stage === 'category-only') {
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category);
-        logger.info('🎯 STAGE 2: Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
+        logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
       } else {
         systemPrompt = getSystemPrompt(); // Legacy full prompt
         logger.info('⚠️ Using legacy full prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
@@ -2559,19 +2636,72 @@ function createErrorResult(provider: 'openai' | 'xai', error: unknown): AIAnalys
  */
 
 /**
- * STAGE 1 PROMPT: Category Determination Only
- * Lightweight prompt with just category list
+ * STAGE 1 PROMPT: Department Determination Only (NEW - Hierarchical Phase 3)
+ * Ultra-lightweight prompt with just department list
  */
-function getCategoryOnlyPrompt(): string {
-  const categoryList = getCategoryListForPrompt();
+function getDepartmentOnlyPrompt(): string {
+  const departmentList = getDepartmentListForPrompt();
   
   return `You are an expert product classifier specializing in appliances and home products.
 
-⚠️ CRITICAL: Your ONLY task is to determine the product's category. Do NOT populate other fields yet.
+⚠️ CRITICAL: Your ONLY task is to determine the product's DEPARTMENT. This is Stage 1 of hierarchical classification.
+
+Your task:
+1. ANALYZE the raw product data provided (title, model, specifications)
+2. DETERMINE which DEPARTMENT this product belongs to
+3. Return ONLY the department determination with high confidence
+
+== AVAILABLE DEPARTMENTS ==
+${departmentList}
+
+**Department Selection Rules:**
+- Analyze product title, model number, and primary function
+- Choose the department that BEST matches the product's core purpose
+- Examples:
+  • "Built-In Refrigerator" → Appliances
+  • "Pull-Down Kitchen Faucet" → Plumbing & Bath
+  • "Outdoor Wall Sconce Light" → Lighting & Electrical
+  • "Front Door Handle Set" → Hardware
+  • "Ceiling Fan with Light" → Lighting & Electrical (primary function is cooling/circulation, but categorized under lighting)
+  • "Portable Air Conditioner" → Heating & Cooling
+  • "Outdoor Patio Heater" → Outdoor
+
+**⚠️ IMPORTANT: Stage 1 Response Format**
+This is Stage 1 (department determination only). Return a simplified JSON structure:
+
+{
+  "department": {
+    "name": "The exact department name from the list",
+    "confidence": 0.95,
+    "reasoning": "Why this department was chosen based on product analysis"
+  },
+  "category": {},
+  "primary_attributes": {},
+  "top15_filter_attributes": {},
+  "additional_attributes": {},
+  "missing_fields": [],
+  "corrections": [],
+  "confidence": 0.95
+}`;
+}
+
+/**
+ * STAGE 2 PROMPT: Category Determination (Department-Filtered)
+ * Shows ONLY categories from the determined department
+ */
+function getCategoryOnlyPrompt(department?: string): string {
+  const categoryList = getCategoryListForPrompt(department);
+  const departmentContext = department 
+    ? `from the **${department}** department` 
+    : 'from our master list';
+  
+  return `You are an expert product classifier specializing in appliances and home products.
+
+⚠️ CRITICAL: Your ONLY task is to determine the product's category ${departmentContext}. Do NOT populate other fields yet.
 
 Your task:
 1. ANALYZE the raw product data provided
-2. DETERMINE which category from our master list the product belongs to
+2. DETERMINE which category ${departmentContext} the product belongs to
 3. Return ONLY the category determination with high confidence
 
 ${categoryList}
@@ -2584,10 +2714,10 @@ ${categoryList}
 - Example: "Built-In Oven" → select "Oven" (specific appliance)
 - Example: "Pull-Down Kitchen Faucet" → select "Kitchen Faucet" (not generic "Faucet")
 
-**⚠️ IMPORTANT: Stage 1 Response Format**
-This is Stage 1 (category determination only). Return a complete JSON structure, but:
+**⚠️ IMPORTANT: Stage 2 Response Format**
+This is Stage 2 (category determination only). Return a complete JSON structure, but:
 - Focus ONLY on accurate category selection
-- Leave attribute fields EMPTY (they will be populated in Stage 2)
+- Leave attribute fields EMPTY (they will be populated in later stages)
 - Do NOT attempt to populate primary_attributes or top15_filter_attributes yet
 
 You must respond with valid JSON in this exact format:
@@ -3354,6 +3484,9 @@ function parseAIResponse(parsed: any, provider: 'openai' | 'xai'): AIAnalysisRes
   return {
     provider,
     success: true,
+    determinedDepartment: parsed.department?.name || undefined,
+    departmentConfidence: parsed.department?.confidence || undefined,
+    departmentReasoning: parsed.department?.reasoning || undefined,
     determinedCategory: parsed.category?.name || '',
     categoryConfidence: parsed.category?.confidence || 0,
     categoryReasoning: parsed.category?.reasoning || '',
@@ -3494,6 +3627,25 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   const disagreements: ConsensusResult['disagreements'] = [];
   const needsResearch: string[] = [];
   
+  // Department consensus (Stage  1)
+  let agreedDepartment: string | null = null;
+  if (openaiResult.determinedDepartment && xaiResult.determinedDepartment) {
+    const departmentsMatch = openaiResult.determinedDepartment === xaiResult.determinedDepartment;
+    agreedDepartment = departmentsMatch
+      ? openaiResult.determinedDepartment
+      : (openaiResult.departmentConfidence! >= xaiResult.departmentConfidence! 
+          ? openaiResult.determinedDepartment 
+          : xaiResult.determinedDepartment);
+    
+    if (!departmentsMatch) {
+      logger.warn('Department disagreement', {
+        openai: openaiResult.determinedDepartment,
+        xai: xaiResult.determinedDepartment,
+        chosen: agreedDepartment
+      });
+    }
+  }
+  
   // Normalize categories before comparison
   const normalizedOpenAI = normalizeCategoryName(openaiResult.determinedCategory);
   const normalizedXAI = normalizeCategoryName(xaiResult.determinedCategory);
@@ -3601,7 +3753,8 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
 
   return {
     agreed: categoriesMatch && disagreements.filter(d => d.resolution === 'unresolved').length === 0,
-    agreedCategory,
+    agreedDepartment,
+   agreedCategory,
     agreedPrimaryAttributes: agreedPrimary,
     agreedTop15Attributes: agreedTop15,
     agreedAdditionalAttributes: agreedAdditional,
@@ -5086,6 +5239,8 @@ function buildFinalResponse(
   _processingTimeMs: number,
   openaiResult: AIAnalysisResult,
   xaiResult: AIAnalysisResult,
+  determinedDepartment: string,
+  _determinedCategory: string,
   researchResult?: ResearchResult | null,
   dataSourceAnalysis?: DataSourceAnalysis,
   researchPerformed?: boolean,
@@ -5517,8 +5672,26 @@ function buildFinalResponse(
   // Track style to use even if not in SF picklist (for populating response while requesting creation)
   let styleToUse: string = '';
   
-  // Get style from agreed attributes, or fall back to individual AI values if they disagreed
-  let potentialStyle = consensus.agreedPrimaryAttributes.product_style || '';
+  // ============================================
+  // HIERARCHICAL VALIDATION: Check if type is "Not Applicable"
+  // If product has no type variations, skip style determination
+  // ============================================
+  const productType = consensus.agreedPrimaryAttributes.product_type || '';
+  const typeIsNA = productType.toLowerCase().includes('not applicable') || 
+                   productType.toLowerCase().includes('n/a') ||
+                   productType.trim() === '';
+  
+  if (typeIsNA) {
+    logger.info('[HIERARCHICAL VALIDATION] Type is Not Applicable - skipping style determination', {
+      sessionId,
+      category: categoryMatch.matchedValue?.category_name,
+      productType
+    });
+    styleToUse = 'Not Applicable';
+  } else {
+    // Proceed with normal style determination
+    // Get style from agreed attributes, or fall back to individual AI values if they disagreed
+    let potentialStyle = consensus.agreedPrimaryAttributes.product_style || '';
   
   // ============================================
   // POST-PROCESSING VALIDATION: Lighting Style Correction
@@ -5929,6 +6102,8 @@ function buildFinalResponse(
     }
   }
   
+  } // Close else block for type != N/A
+  
   // ============================================
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
@@ -6081,9 +6256,7 @@ function buildFinalResponse(
     AI_Product_Family: categoryMatch.matched && categoryMatch.matchedValue?.family
       ? categoryMatch.matchedValue.family  // Use family directly from SF picklist data
       : cleanEncodingIssues(consensus.agreedPrimaryAttributes.product_family || ''),
-    AI_Product_Department: categoryMatch.matched && categoryMatch.matchedValue?.department
-      ? categoryMatch.matchedValue.department  // Use department directly from SF picklist data
-      : '',
+    AI_Product_Department: determinedDepartment,  // Use hierarchically determined department from Stage 1
     AI_Type: typeMatchResult.matched && typeMatchResult.matchedValue
       ? typeMatchResult.matchedValue.type_name  // Use EXACT Salesforce type name
       : cleanEncodingIssues(aiProductType || 'Not Applicable'),  // Use AI value or fallback
