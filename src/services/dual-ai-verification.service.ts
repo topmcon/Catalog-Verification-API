@@ -40,6 +40,9 @@ import {
   getDepartmentListForPrompt,
   getPrimaryAttributesForPrompt,
   getAllCategoriesWithTop15ForPrompt,
+  getAllCategories,
+  getAllDepartments,
+  getCategoriesForDepartment,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/category-config';
 import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
@@ -546,6 +549,54 @@ function calculateStringSimilarity(str1: string, str2: string): number {
   }
   
   return matches / longer.length;
+}
+
+/**
+ * Find closest matching category using fuzzy string matching
+ * Returns best match with confidence score, or null if no good match found
+ * 
+ * @param input - Category name suggested by AI
+ * @param validCategories - List of valid categories from picklist
+ * @param minConfidence - Minimum confidence threshold (default 0.7)
+ * @returns Best match with confidence score, or null
+ */
+function findClosestCategory(
+  input: string, 
+  validCategories: string[], 
+  minConfidence: number = 0.7
+): { category: string; confidence: number } | null {
+  if (!input || !validCategories || validCategories.length === 0) {
+    return null;
+  }
+  
+  const normalizedInput = input.toLowerCase().trim();
+  
+  let bestMatch: string | null = null;
+  let bestScore = 0;
+  
+  for (const validCat of validCategories) {
+    const normalizedValid = validCat.toLowerCase().trim();
+    
+    // Perfect match
+    if (normalizedInput === normalizedValid) {
+      return { category: validCat, confidence: 1.0 };
+    }
+    
+    // Calculate similarity
+    const score = calculateStringSimilarity(normalizedInput, normalizedValid);
+    
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = validCat;
+    }
+  }
+  
+  // Return best match if above threshold
+  if (bestMatch && bestScore >= minConfidence) {
+    return { category: bestMatch, confidence: bestScore };
+  }
+  
+  return null;
 }
 
 /**
@@ -1639,7 +1690,7 @@ export async function verifyProductWithDualAI(
     
     // Build consensus on department
     const departmentConsensus = buildConsensus(openaiDeptResult, xaiDeptResult);
-    const determinedDepartment = departmentConsensus.agreedDepartment || openaiDeptResult.determinedDepartment || xaiDeptResult.determinedDepartment;
+    let determinedDepartment = departmentConsensus.agreedDepartment || openaiDeptResult.determinedDepartment || xaiDeptResult.determinedDepartment;
     
     if (!determinedDepartment) {
       logger.error('❌ STAGE 1 FAILED: No department could be determined', {
@@ -1656,6 +1707,48 @@ export async function verifyProductWithDualAI(
       departmentsMatched: openaiDeptResult.determinedDepartment === xaiDeptResult.determinedDepartment,
       departmentConfidence: Math.max(openaiDeptResult.departmentConfidence || 0, xaiDeptResult.departmentConfidence || 0)
     });
+    
+    // ===============================================
+    // ✅ PHASE 2 VALIDATION: DEPARTMENT VALIDATION
+    // ===============================================
+    const validDepartments = getAllDepartments();
+    if (!validDepartments.includes(determinedDepartment)) {
+      logger.error('❌ VALIDATION FAILED: Invalid department selected by AI', {
+        sessionId: verificationSessionId,
+        invalidDepartment: determinedDepartment,
+        validDepartments,
+        openaiDepartment: openaiDeptResult.determinedDepartment,
+        xaiDepartment: xaiDeptResult.determinedDepartment
+      });
+      
+      // Try fuzzy matching to find closest valid department
+      const fuzzyMatch = findClosestCategory(determinedDepartment, validDepartments, 0.85);
+      
+      if (fuzzyMatch) {
+        logger.warn('⚠️ Fuzzy match found for invalid department', {
+          sessionId: verificationSessionId,
+          originalDepartment: determinedDepartment,
+          correctedDepartment: fuzzyMatch.category,
+          confidence: fuzzyMatch.confidence
+        });
+        
+        // Use fuzzy match correction
+        determinedDepartment = fuzzyMatch.category;
+        Object.assign(departmentConsensus, { agreedDepartment: determinedDepartment });
+      } else {
+        logger.error('❌ No fuzzy match found - department validation failed', {
+          sessionId: verificationSessionId,
+          invalidDepartment: determinedDepartment,
+          validDepartments
+        });
+        throw new Error(`Department validation failed: "${determinedDepartment}" is not a valid department`);
+      }
+    } else {
+      logger.info('✅ Department validation passed', {
+        sessionId: verificationSessionId,
+        validDepartment: determinedDepartment
+      });
+    }
     
     // ===============================================
     // 🔍 STAGE 2: CATEGORY DETERMINATION (FILTERED BY DEPARTMENT)
@@ -1690,7 +1783,7 @@ export async function verifyProductWithDualAI(
     
     // Build consensus on category only
     const categoryConsensus = buildConsensus(openaiCategoryResult, xaiCategoryResult);
-    const determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
+    let determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
     
     if (!determinedCategory) {
       logger.error('❌ STAGE 2 FAILED: No category could be determined', {
@@ -1709,6 +1802,140 @@ export async function verifyProductWithDualAI(
       categoriesMatched: categoryConsensus.agreed,
       categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
     });
+    
+    // ===============================================
+    // ✅ PHASE 2 VALIDATION: CATEGORY VALIDATION
+    // ===============================================
+    const validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
+    const allValidCategories = getAllCategories();
+    
+    // Check if category exists in the selected department
+    if (!validCategoriesForDept.includes(determinedCategory)) {
+      logger.error('❌ VALIDATION FAILED: Invalid category for department', {
+        sessionId: verificationSessionId,
+        department: determinedDepartment,
+        invalidCategory: determinedCategory,
+        validCategoriesForDept,
+        openaiCategory: openaiCategoryResult.determinedCategory,
+        xaiCategory: xaiCategoryResult.determinedCategory
+      });
+      
+      // Try fuzzy matching within the department first
+      let fuzzyMatch = findClosestCategory(determinedCategory, validCategoriesForDept, 0.85);
+      
+      if (!fuzzyMatch) {
+        // Try fuzzy matching across all categories (maybe wrong department)
+        fuzzyMatch = findClosestCategory(determinedCategory, allValidCategories, 0.85);
+        
+        if (fuzzyMatch) {
+          logger.warn('⚠️ Category found in different department - AI may have chosen wrong department', {
+            sessionId: verificationSessionId,
+            invalidCategory: determinedCategory,
+            correctedCategory: fuzzyMatch.category,
+            originalDepartment: determinedDepartment,
+            categoryActualDepartment: getCategoriesForDepartment(determinedDepartment).includes(fuzzyMatch.category) ? determinedDepartment : 'OTHER',
+            confidence: fuzzyMatch.confidence
+          });
+        }
+      }
+      
+      if (fuzzyMatch) {
+        logger.warn('⚠️ Fuzzy match found for invalid category', {
+          sessionId: verificationSessionId,
+          originalCategory: determinedCategory,
+          correctedCategory: fuzzyMatch.category,
+          confidence: fuzzyMatch.confidence
+        });
+        
+        // Use fuzzy match correction
+        determinedCategory = fuzzyMatch.category;
+        Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+      } else {
+        // No fuzzy match found - retry with stricter prompt
+        logger.warn('⚠️ No fuzzy match found - retrying with strict category validation', {
+          sessionId: verificationSessionId,
+          department: determinedDepartment,
+          invalidCategory: determinedCategory,
+          validCategoriesForDept,
+          retryAttempt: 1
+        });
+        
+        // Create strict retry prompt with explicit invalid category warning
+        const strictPromptOptions = {
+          ...promptOptions,
+          strictCategoryMode: true,
+          invalidCategoryWarning: `CRITICAL: Your previous selection "${determinedCategory}" is NOT VALID for department "${determinedDepartment}". You MUST select from the provided category list. DO NOT create new category names.`
+        };
+        
+        // Retry Stage 2 with strict mode
+        const [retryOpenaiResult, retryXaiResult] = await Promise.all([
+          analyzeWithOpenAI(processedProduct, verificationSessionId, strictPromptOptions, trackingId, { 
+            stage: 'category-only', 
+            department: determinedDepartment 
+          }),
+          analyzeWithXAI(processedProduct, verificationSessionId, strictPromptOptions, trackingId, { 
+            stage: 'category-only', 
+            department: determinedDepartment 
+          })
+        ]);
+        
+        logger.info('✅ Retry attempt completed', {
+          sessionId: verificationSessionId,
+          retryOpenaiCategory: retryOpenaiResult.determinedCategory,
+          retryXaiCategory: retryXaiResult.determinedCategory
+        });
+        
+        // Build consensus from retry
+        const retryCategoryConsensus = buildConsensus(retryOpenaiResult, retryXaiResult);
+        const retryDeterminedCategory = retryCategoryConsensus.agreedCategory || retryOpenaiResult.determinedCategory || retryXaiResult.determinedCategory;
+        
+        // Validate retry result
+        if (retryDeterminedCategory && validCategoriesForDept.includes(retryDeterminedCategory)) {
+          logger.info('✅ Retry successful - valid category selected', {
+            sessionId: verificationSessionId,
+            originalCategory: determinedCategory,
+            retryCategory: retryDeterminedCategory
+          });
+          determinedCategory = retryDeterminedCategory;
+          Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+        } else {
+          // Retry failed - still invalid
+          logger.error('❌ Retry failed - category validation still failing after retry', {
+            sessionId: verificationSessionId,
+            department: determinedDepartment,
+            originalInvalidCategory: determinedCategory,
+            retryInvalidCategory: retryDeterminedCategory,
+            validCategoriesForDept,
+            allValidCategories: allValidCategories.slice(0, 10)
+          });
+          
+          // Last resort: Try fuzzy match on retry result
+          const retryFuzzyMatch = retryDeterminedCategory 
+            ? findClosestCategory(retryDeterminedCategory, validCategoriesForDept, 0.75) // Lower threshold
+            : null;
+          
+          if (retryFuzzyMatch) {
+            logger.warn('⚠️ Fuzzy match found on retry result (lowered threshold)', {
+              sessionId: verificationSessionId,
+              retryCategory: retryDeterminedCategory,
+              fuzzyMatch: retryFuzzyMatch.category,
+              confidence: retryFuzzyMatch.confidence
+            });
+            determinedCategory = retryFuzzyMatch.category;
+            Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+          } else {
+            // Complete failure - throw error
+            throw new Error(`Category validation failed after retry: "${determinedCategory}" → "${retryDeterminedCategory}" - neither valid for department "${determinedDepartment}"`);
+          }
+        }
+      }
+    } else {
+      logger.info('✅ Category validation passed', {
+        sessionId: verificationSessionId,
+        department: determinedDepartment,
+        validCategory: determinedCategory
+      });
+    }
     
     // ===============================================
     // 🎯 STAGE 3: DETAILED ANALYSIS (CATEGORY-SPECIFIC)
@@ -2411,8 +2638,8 @@ async function analyzeWithOpenAI(
         systemPrompt = getDepartmentOnlyPrompt();
         logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt(stageConfig.department);
-        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category);
         logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
@@ -2526,8 +2753,8 @@ async function analyzeWithXAI(
         systemPrompt = getDepartmentOnlyPrompt();
         logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt(stageConfig.department);
-        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category);
         logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, productId: rawProduct.SF_Catalog_Id });
@@ -2689,16 +2916,21 @@ This is Stage 1 (department determination only). Return a simplified JSON struct
  * STAGE 2 PROMPT: Category Determination (Department-Filtered)
  * Shows ONLY categories from the determined department
  */
-function getCategoryOnlyPrompt(department?: string): string {
+function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOptions): string {
   const categoryList = getCategoryListForPrompt(department);
   const departmentContext = department 
     ? `from the **${department}** department` 
     : 'from our master list';
   
+  // Add strict validation warning if in retry mode
+  const strictWarning = promptOptions?.invalidCategoryWarning 
+    ? `\n\n🚨 ${promptOptions.invalidCategoryWarning}\n`
+    : '';
+  
   return `You are an expert product classifier specializing in appliances and home products.
 
 ⚠️ CRITICAL: Your ONLY task is to determine the product's category ${departmentContext}. Do NOT populate other fields yet.
-
+${strictWarning}
 Your task:
 1. ANALYZE the raw product data provided
 2. DETERMINE which category ${departmentContext} the product belongs to
@@ -2713,6 +2945,7 @@ ${categoryList}
 - Example: "Ceiling Fan with Light" → select "Ceiling Fan" (not generic "Lighting")
 - Example: "Built-In Oven" → select "Oven" (specific appliance)
 - Example: "Pull-Down Kitchen Faucet" → select "Kitchen Faucet" (not generic "Faucet")
+${promptOptions?.strictCategoryMode ? '\n⚠️ **STRICT MODE**: You MUST select a category from the provided list. DO NOT create new category names.' : ''}
 
 **⚠️ IMPORTANT: Stage 2 Response Format**
 This is Stage 2 (category determination only). Return a complete JSON structure, but:
@@ -3184,6 +3417,8 @@ interface PromptOptions {
   researchContext?: string;
   modelMismatchWarning?: string;
   externalDataTrusted?: boolean;
+  strictCategoryMode?: boolean;  // Phase 2: Retry with stricter validation
+  invalidCategoryWarning?: string;  // Phase 2: Warning about invalid previous selection
   dataCoherenceWarnings?: {
     conflicts: Array<{
       type: string;
