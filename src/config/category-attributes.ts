@@ -30,7 +30,7 @@ export const REFRIGERATOR_SCHEMA: CategoryAttributeConfig = {
   top15FilterAttributes: [
     'Brand',
     'Width',
-    'Configuration (French Door, Side-by-Side, Top Freezer, Bottom Freezer)',
+    'Configuration (French Door, Side-by-Side, Wine Cooler, Beverage Center, Kegerator)',
     'Installation Type (Built-In, Freestanding, Counter-Depth)',
     'Total Capacity (Cu. Ft.)',
     'Refrigerator Capacity (Cu. Ft.)',

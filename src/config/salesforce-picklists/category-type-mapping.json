@@ -639,6 +639,24 @@
           "primary_filter": true
         },
         {
+          "type_name": "Wine Cooler",
+          "type_id": "a1jaZ000001lFDJQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Beverage Center",
+          "type_id": "a1jaZ000001lF3gQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Kegerator",
+          "type_id": "a1jaZ000001lF7eQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Panel-Ready",
           "type_id": "",
           "type_group": "Installation",

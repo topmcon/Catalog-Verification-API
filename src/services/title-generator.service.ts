@@ -14,7 +14,8 @@ import { PREMIUM_BRANDS } from '../config/category-schema';
 export const REFRIGERATOR_CONFIGURATIONS = [
   'French Door', 'Side-by-Side', 'Side by Side',
   'Top Freezer', 'Bottom Freezer', 'Top Mount', 'Bottom Mount',
-  'Single Door', 'Column', 'All Refrigerator', 'All Freezer'
+  'Single Door', 'Column', 'All Refrigerator', 'All Freezer',
+  'Wine Cooler', 'Beverage Center', 'Kegerator', 'Compact', 'Undercounter'
 ];
 
 // Installation types (how appliance is installed) - exported for external use

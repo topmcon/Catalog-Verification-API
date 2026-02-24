@@ -800,7 +800,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 28 Cu. Ft. Refrigerator Finish - Model",
-    "seoNotes": "Lead with capacity. Configuration = door style (French Door, Side-by-Side). Installation = Built-In, Counter-Depth, Freestanding."
+    "seoNotes": "Lead with capacity. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",

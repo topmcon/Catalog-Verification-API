@@ -3372,9 +3372,10 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  - "Indoor / Outdoor" (BOTH mentioned) → Type: Outdoor (more versatile rating)\n\n`;
       typeSelectionGuide += `**Priority Order:** Accessory → Hugger → Outdoor → Indoor\n`;
     } else if (categoryLower.includes('refrigerator')) {
-      typeSelectionGuide += `For Refrigerators, analyze door configuration from images/specs:\n`;
-      typeSelectionGuide += `  - Count doors and their arrangement\n`;
-      typeSelectionGuide += `  - Look for "French Door", "Side-by-Side", "Top Freezer", "Bottom Freezer", "4-Door Flex"\n`;
+      typeSelectionGuide += `For Refrigerators, determine product type based on function:\n`;
+      typeSelectionGuide += `  - **Specialized Refrigeration**: Wine Cooler (wine storage), Beverage Center (drinks), Kegerator (beer dispenser with tap)\n`;
+      typeSelectionGuide += `  - **Standard Refrigerators**: Analyze door configuration → "French Door", "Side-by-Side", "Top Freezer", "Bottom Freezer", "4-Door Flex"\n`;
+      typeSelectionGuide += `  - **Installation/Size**: Undercounter (built-in), Compact (mini fridge), Freestanding\n`;
     } else if (categoryLower.includes('oven')) {
       typeSelectionGuide += `For Ovens, analyze model number and cavity count:\n`;
       typeSelectionGuide += `  - Model with "30" or "OB30" → 30" built-in\n`;

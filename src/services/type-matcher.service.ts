@@ -99,6 +99,10 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'beverage': { 'Refrigerator': 'Beverage Center' },
   'beverage center': { 'Refrigerator': 'Beverage Center' },
   'beverage cooler': { 'Refrigerator': 'Beverage Center' },
+  'kegerator': { 'Refrigerator': 'Kegerator' },
+  'keg': { 'Refrigerator': 'Kegerator' },
+  'beer dispenser': { 'Refrigerator': 'Kegerator' },
+  'beer fridge': { 'Refrigerator': 'Kegerator' },
   
   // ============================================
   // RANGE ALIASES

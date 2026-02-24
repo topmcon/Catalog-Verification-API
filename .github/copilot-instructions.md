@@ -68,16 +68,27 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    ```bash
    # Check what type of changes were made
    git status --short
+   
+   # ALWAYS run comprehensive dependency validator
+   bash scripts/validate-dependencies.sh
    ```
    **If changes include any of these patterns, run the corresponding audit:**
    
    | Change Pattern | Run Audit | What It Checks |
    |----------------|-----------|----------------|
+   | `category-type-mapping.json` or `types.json` | `bash scripts/validate-dependencies.sh --check-types <Category>` | Type keywords, AI prompts, title generators, attributes all in sync |
    | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
    | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
    | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
    | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
    | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
+   
+   **⭐ NEW: Dependency Validation (MANDATORY for ALL picklist/schema/type changes)**:
+   - Checks type-matcher keywords match category-type-mapping
+   - Verifies AI prompts mention new types
+   - Validates title generator configurations include types
+   - Ensures category attributes align with schemas
+   - See: [docs/QUICK-DEPENDENCY-REFERENCE.md](../docs/QUICK-DEPENDENCY-REFERENCE.md)
    
    **If audit finds issues:**
    - Fix all issues before proceeding
@@ -641,16 +652,27 @@ When user says "Save everything", perform these actions:
    ```bash
    # Check what type of changes were made
    git status --short
+   
+   # ALWAYS run comprehensive dependency validator
+   bash scripts/validate-dependencies.sh
    ```
    **If changes include any of these patterns, run the corresponding audit:**
    
    | Change Pattern | Run Audit | What It Checks |
    |----------------|-----------|----------------|
+   | `category-type-mapping.json` or `types.json` | `bash scripts/validate-dependencies.sh --check-types <Category>` | Type keywords, AI prompts, title generators, attributes all in sync |
    | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
    | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
    | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
    | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
    | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
+   
+   **⭐ NEW: Dependency Validation (MANDATORY for ALL picklist/schema/type changes)**:
+   - Checks type-matcher keywords match category-type-mapping
+   - Verifies AI prompts mention new types
+   - Validates title generator configurations include types
+   - Ensures category attributes align with schemas
+   - See: [docs/QUICK-DEPENDENCY-REFERENCE.md](../docs/QUICK-DEPENDENCY-REFERENCE.md)
    
    **If audit finds issues:**
    - Fix all issues before proceeding
