@@ -3372,10 +3372,20 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  - "Indoor / Outdoor" (BOTH mentioned) → Type: Outdoor (more versatile rating)\n\n`;
       typeSelectionGuide += `**Priority Order:** Accessory → Hugger → Outdoor → Indoor\n`;
     } else if (categoryLower.includes('refrigerator')) {
-      typeSelectionGuide += `For Refrigerators, determine product type based on function:\n`;
-      typeSelectionGuide += `  - **Specialized Refrigeration**: Wine Cooler (wine storage), Beverage Center (drinks), Kegerator (beer dispenser with tap)\n`;
-      typeSelectionGuide += `  - **Standard Refrigerators**: Analyze door configuration → "French Door", "Side-by-Side", "Top Freezer", "Bottom Freezer", "4-Door Flex"\n`;
-      typeSelectionGuide += `  - **Installation/Size**: Undercounter (built-in), Compact (mini fridge), Freestanding\n`;
+      typeSelectionGuide += `For Refrigerators, **PRIORITIZE EXPLICIT TYPE MENTIONS** in title/description:\n`;
+      typeSelectionGuide += `  - **STEP 1 - Check for Specialized Types FIRST**:\n`;
+      typeSelectionGuide += `    • "Wine Cooler" / "Wine Storage" / "Wine Refrigerator" → Wine Cooler\n`;
+      typeSelectionGuide += `    • "Beverage Center" / "Beverage Cooler" / "XX Can" (e.g., "140 Can") → Beverage Center\n`;
+      typeSelectionGuide += `    • "Kegerator" / "Keg" / "Beer Dispenser" / "Tap System" → Kegerator\n`;
+      typeSelectionGuide += `  - **STEP 2 - If NOT specialized, check door configuration**:\n`;
+      typeSelectionGuide += `    • "French Door" (explicitly mentioned OR 3-4 doors with bottom freezer) → French Door\n`;
+      typeSelectionGuide += `    • "Side-by-Side" / "Side by Side" (2 vertical doors) → Side-by-Side\n`;
+      typeSelectionGuide += `    • "Top Freezer" / "Top Mount" (explicitly mentioned) → Top Freezer\n`;
+      typeSelectionGuide += `    • "Bottom Freezer" / "Bottom Mount" (explicitly mentioned, NOT french door) → Bottom Freezer\n`;
+      typeSelectionGuide += `    • "4-Door Flex" (explicitly "Flex" OR 4 doors WITHOUT french door designation) → 4-Door Flex\n`;
+      typeSelectionGuide += `  - **STEP 3 - Installation/Size**: Undercounter (built-in under counter), Freestanding\n`;
+      typeSelectionGuide += `  ⚠️ **CRITICAL**: If title says "Beverage Center" with can capacity, DO NOT classify as anything else!\n`;
+      typeSelectionGuide += `  ⚠️ **4-Door Flex vs French Door**: "French Door" takes priority if both could apply\n`;
     } else if (categoryLower.includes('oven')) {
       typeSelectionGuide += `For Ovens, analyze model number and cavity count:\n`;
       typeSelectionGuide += `  - Model with "30" or "OB30" → 30" built-in\n`;

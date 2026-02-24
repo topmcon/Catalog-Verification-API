@@ -619,12 +619,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Single Door",
           "type_id": "",
           "type_group": "Door Configuration",

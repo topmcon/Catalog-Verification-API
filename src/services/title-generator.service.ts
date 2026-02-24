@@ -15,7 +15,7 @@ export const REFRIGERATOR_CONFIGURATIONS = [
   'French Door', 'Side-by-Side', 'Side by Side',
   'Top Freezer', 'Bottom Freezer', 'Top Mount', 'Bottom Mount',
   'Single Door', 'Column', 'All Refrigerator', 'All Freezer',
-  'Wine Cooler', 'Beverage Center', 'Kegerator', 'Compact', 'Undercounter'
+  'Wine Cooler', 'Beverage Center', 'Kegerator', 'Undercounter'
 ];
 
 // Installation types (how appliance is installed) - exported for external use
