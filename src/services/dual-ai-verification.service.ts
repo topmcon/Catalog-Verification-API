@@ -63,7 +63,6 @@ import {
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
 import { matchTypeToPicklist, extractTypeFromSemanticContext } from './type-matcher.service';
-import { mapToVerifiedCategory } from './response-builder.service';
 import { getTypeByName, getCategoryTypeMapping, isValidTypeForCategory } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
@@ -2086,6 +2085,52 @@ export async function verifyProductWithDualAI(
           });
           openaiResult.primaryAttributes.product_type = xaiType;
           determinedType = xaiType;
+        } else if (openaiTypeValid && xaiTypeValid) {
+          // BOTH are valid but disagree → prefer PRIMARY_FILTER types over generic "Accessory"
+          const openaiTypeInfo = categoryMapping?.types.find(t => t.type_name === openaiType);
+          const xaiTypeInfo = categoryMapping?.types.find(t => t.type_name === xaiType);
+          const openaiIsPrimary = openaiTypeInfo?.primary_filter === true;
+          const xaiIsPrimary = xaiTypeInfo?.primary_filter === true;
+          
+          if (openaiIsPrimary && !xaiIsPrimary) {
+            // OpenAI has primary filter type, XAI has generic → prefer OpenAI
+            logger.info('✅ Forcing type agreement: OpenAI primary filter, XAI generic', {
+              sessionId: verificationSessionId,
+              category: determinedCategory,
+              openaiType,
+              xaiType,
+              openaiPrimary: openaiIsPrimary,
+              xaiPrimary: xaiIsPrimary,
+              forcedValue: openaiType,
+              reason: 'Prefer primary_filter types over generic catch-alls'
+            });
+            xaiResult.primaryAttributes.product_type = openaiType;
+            determinedType = openaiType;
+          } else if (!openaiIsPrimary && xaiIsPrimary) {
+            // XAI has primary filter type, OpenAI has generic → prefer XAI
+            logger.info('✅ Forcing type agreement: XAI primary filter, OpenAI generic', {
+              sessionId: verificationSessionId,
+              category: determinedCategory,
+              openaiType,
+              xaiType,
+              openaiPrimary: openaiIsPrimary,
+              xaiPrimary: xaiIsPrimary,
+              forcedValue: xaiType,
+              reason: 'Prefer primary_filter types over generic catch-alls'
+            });
+            openaiResult.primaryAttributes.product_type = xaiType;
+            determinedType = xaiType;
+          } else {
+            // Both primary or both generic - no clear winner, will handle in consensus
+            logger.warn('⚠️ Both types valid with same priority - will resolve in consensus', {
+              sessionId: verificationSessionId,
+              category: determinedCategory,
+              openaiType,
+              xaiType,
+              openaiPrimary: openaiIsPrimary,
+              xaiPrimary: xaiIsPrimary
+            });
+          }
         } else {
           // Both invalid - will handle below in the normal validation flow
           logger.warn('🔴 Both AIs selected invalid types', {
@@ -2197,6 +2242,32 @@ export async function verifyProductWithDualAI(
                 chosen: retryXaiType
               });
               retryOpenaiResult.primaryAttributes.product_type = retryXaiType;
+            } else if (retryOpenaiValid && retryXaiValid) {
+              // BOTH valid but disagree → prefer PRIMARY_FILTER types
+              const retryOpenaiTypeInfo = categoryMapping?.types.find(t => t.type_name === retryOpenaiType);
+              const retryXaiTypeInfo = categoryMapping?.types.find(t => t.type_name === retryXaiType);
+              const retryOpenaiIsPrimary = retryOpenaiTypeInfo?.primary_filter === true;
+              const retryXaiIsPrimary = retryXaiTypeInfo?.primary_filter === true;
+              
+              if (retryOpenaiIsPrimary && !retryXaiIsPrimary) {
+                logger.info('✅ Retry: Forcing agreement to OpenAI (primary filter)', {
+                  sessionId: verificationSessionId,
+                  retryOpenaiType,
+                  retryXaiType,
+                  chosen: retryOpenaiType,
+                  reason: 'Prefer primary_filter types over generic'
+                });
+                retryXaiResult.primaryAttributes.product_type = retryOpenaiType;
+              } else if (!retryOpenaiIsPrimary && retryXaiIsPrimary) {
+                logger.info('✅ Retry: Forcing agreement to XAI (primary filter)', {
+                  sessionId: verificationSessionId,
+                  retryOpenaiType,
+                  retryXaiType,
+                  chosen: retryXaiType,
+                  reason: 'Prefer primary_filter types over generic'
+                });
+                retryOpenaiResult.primaryAttributes.product_type = retryXaiType;
+              }
             }
             
             determinedType = retryDeterminedType;
@@ -5773,7 +5844,7 @@ function buildFinalResponse(
   openaiResult: AIAnalysisResult,
   xaiResult: AIAnalysisResult,
   determinedDepartment: string,
-  _determinedCategory: string,
+  determinedCategory: string,
   researchResult?: ResearchResult | null,
   dataSourceAnalysis?: DataSourceAnalysis,
   researchPerformed?: boolean,
@@ -5919,23 +5990,17 @@ function buildFinalResponse(
   // Match against Salesforce picklists and use EXACT picklist values
   const brandMatch = picklistMatcher.matchBrand(cleanedText.brand);
   
-  // PRE-MAP category using our comprehensive mapping before picklist matching
-  // IMPORTANT: Subcategory is passed and checked FIRST because it's more specific!
-  // Example: Web_Retailer_Category="ELECTRIC RANGES" but Web_Retailer_SubCategory="SINGLE WALL ELECTRIC OVEN"
-  // → subcategory mapping wins → "Oven" not "Range"
-  const preMappedCategory = mapToVerifiedCategory(
-    rawProduct.Web_Retailer_Category || '',
-    rawProduct.Ferguson_Base_Category || rawProduct.Ferguson_Categories || '',
-    rawProduct.Web_Retailer_SubCategory || ''  // Subcategory takes priority in mapping!
-  ) || consensus.agreedCategory || '';
+  // ✅ FIX: Use validated category from Phase 2.5 - DO NOT re-map!
+  // Phase 2.5 already validated this category through hierarchical analysis
+  // Re-mapping with source data can contradict the validated category
+  // Example bug: Validated "Freezer" → product_family="Specialty Refrigerators" → overwrote to "Refrigerator" ❌
+  const verifiedCategory = determinedCategory;
   
-  const categoryMatch = picklistMatcher.matchCategory(preMappedCategory);
+  // Match validated category to picklist for category_id (but don't change the category name)
+  const categoryMatch = picklistMatcher.matchCategory(verifiedCategory);
   
   // Match Type against Salesforce types picklist
   const aiProductType = consensus.agreedPrimaryAttributes.product_type || '';
-  const verifiedCategory = categoryMatch.matched && categoryMatch.matchedValue 
-    ? categoryMatch.matchedValue.category_name 
-    : (consensus.agreedCategory || '');
   const typeMatch = picklistMatcher.matchType(aiProductType);
   
   // If direct picklist match failed, try the category-aware type matcher with subcategory hint
@@ -6009,28 +6074,9 @@ function buildFinalResponse(
       const successfulImages = researchResult.images.filter(img => img.success && img.productType);
       for (const img of successfulImages) {
         if (img.productType) {
-          // Try direct match first
-          const imageTypeMatch = picklistMatcher.matchType(img.productType);
-          if (imageTypeMatch.matched && imageTypeMatch.matchedValue) {
-            typeMatchResult = {
-              matched: true,
-              original: img.productType,
-              matchedValue: {
-                type_id: imageTypeMatch.matchedValue.type_id,
-                type_name: imageTypeMatch.matchedValue.type_name
-              },
-              similarity: imageTypeMatch.similarity || 0.9
-            };
-            logger.info('Type extracted from image analysis productType', {
-              sessionId,
-              imageProductType: img.productType,
-              matchedType: imageTypeMatch.matchedValue.type_name,
-              type_id: imageTypeMatch.matchedValue.type_id
-            });
-            break;
-          }
-          
-          // Try category-aware match
+          // ✅ FIX: Use category-aware match FIRST to prevent cross-category type contamination
+          // Bug: Global match allowed "Dishwasher" → "Dishwasher Pull" for Refrigerator category ❌
+          // Fix: Category-scoped match only accepts types valid for the validated category ✅
           const categoryAwareMatch = matchTypeToPicklist(img.productType, verifiedCategory, subcategoryHint);
           if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
             typeMatchResult = {
