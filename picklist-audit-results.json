@@ -1,0 +1,59 @@
+{
+  "passed": [
+    {
+      "file": "brands.json",
+      "fields": [
+        "brand_name",
+        "brand_id"
+      ],
+      "count": 385
+    },
+    {
+      "file": "categories.json",
+      "fields": [
+        "family",
+        "department",
+        "category_name",
+        "category_id",
+        "subcategory",
+        "styles_apply"
+      ],
+      "count": 169
+    },
+    {
+      "file": "styles.json",
+      "fields": [
+        "style_name",
+        "style_id",
+        "description"
+      ],
+      "count": 30
+    },
+    {
+      "file": "attributes.json",
+      "fields": [
+        "attribute_name",
+        "attribute_id"
+      ],
+      "count": 945
+    },
+    {
+      "file": "category-filter-attributes.json",
+      "note": "version 1.0"
+    },
+    {
+      "file": "src/services/picklist-matcher.service.ts",
+      "note": "Clean"
+    },
+    {
+      "file": "src/services/dual-ai-verification.service.ts",
+      "note": "Clean"
+    },
+    {
+      "file": "src/config/lookups.ts",
+      "note": "Clean"
+    }
+  ],
+  "failed": [],
+  "warnings": []
+}

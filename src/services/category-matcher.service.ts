@@ -21,7 +21,7 @@ for (const category of CATEGORIES) {
 
 // Department to categories mapping (comprehensive)
 // AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: 2026-02-21
+// Last sync: 2026-02-24
 const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
   'Appliances': [
     'Refrigerator',
