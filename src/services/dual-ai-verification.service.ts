@@ -62,7 +62,7 @@ import { isNAValue, sanitizeObjectForSalesforce } from '../utils/sanitization.ut
 import { 
   getTypeHierarchyExplanation 
 } from '../config/type-prompts';
-import { matchTypeToPicklist, extractTypeFromSemanticContext } from './type-matcher.service';
+import { matchTypeToPicklist } from './type-matcher.service';
 import { getTypeByName, getCategoryTypeMapping, isValidTypeForCategory } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
@@ -6032,99 +6032,69 @@ function buildFinalResponse(
     similarity: typeMatchResult.similarity
   });
   
-  // If type matching failed, check if we should use "Not Applicable" type with its ID
-  // This handles:
-  // 1. AI returned empty/null type → try semantic extraction from subcategory
-  // 2. AI returned empty/null type → try image analysis productType
-  // 3. AI returned empty/null type → fall back to "Not Applicable"
+  // ✅ USER DIRECTIVE: Image analysis and semantic extraction are ADVISORY ONLY
+  // They CANNOT define or overwrite the Type field - only Phase 2.5 validated AI types are authoritative
+  // Image findings are stored in metadata for reference but have no authority
   // 
-  // CRITICAL: Image analysis should ONLY run when type is truly empty (per user directive)
-  // If AI explicitly returned "Not Applicable" or "Not Found", respect that choice
+  // Store image analysis findings as advisory metadata (not authoritative)
+  let imageAdvisoryType: string | null = null;
+  if (researchResult?.images) {
+    const successfulImages = researchResult.images.filter(img => img.success && img.productType);
+    if (successfulImages.length > 0 && successfulImages[0].productType) {
+      imageAdvisoryType = successfulImages[0].productType;
+      logger.info('Image analysis type stored as advisory (non-authoritative)', {
+        sessionId,
+        imageProductType: imageAdvisoryType,
+        category: verifiedCategory,
+        note: 'Image analysis cannot define or overwrite validated Type - advisory only'
+      });
+    }
+  }
+  
+  // Handle case where AI returned "Not Applicable" or "Not Found" pattern
   const isNAPattern = aiProductType && /^(not applicable|n\/?a|not found|none)$/i.test(aiProductType.trim());
   
+  // If type matching failed and AI type is empty, set to "Not Found"
+  // DO NOT use image analysis or semantic extraction to define the type
   if (!typeMatchResult.matched && (!aiProductType || aiProductType.trim() === '')) {
-    // FIRST: Try semantic extraction from subcategory if available
-    if (subcategoryHint) {
-      const semanticType = extractTypeFromSemanticContext(subcategoryHint, verifiedCategory);
-      if (semanticType) {
-        const extractedType = getTypeByName(semanticType);
-        if (extractedType) {
-          typeMatchResult = {
-            matched: true,
-            original: subcategoryHint,
-            matchedValue: {
-              type_id: extractedType.type_id,
-              type_name: extractedType.type_name
-            },
-            similarity: 0.85
-          };
-          logger.info('Type extracted from subcategory (semantic)', {
-            sessionId,
-            subcategory: subcategoryHint,
-            extractedType: semanticType,
-            type_id: extractedType.type_id,
-            category: verifiedCategory
-          });
-        }
-      }
-    }
+    // AI didn't provide a type - set to "Not Found" (do not guess from images/subcategory)
+    const notFoundType = getTypeByName('Not Found');
+    const notApplicableType = getTypeByName('Not Applicable');
     
-    // SECOND: Try image analysis productType if available
-    if (!typeMatchResult.matched && researchResult?.images) {
-      const successfulImages = researchResult.images.filter(img => img.success && img.productType);
-      for (const img of successfulImages) {
-        if (img.productType) {
-          // ✅ FIX: Use category-aware match FIRST to prevent cross-category type contamination
-          // Bug: Global match allowed "Dishwasher" → "Dishwasher Pull" for Refrigerator category ❌
-          // Fix: Category-scoped match only accepts types valid for the validated category ✅
-          const categoryAwareMatch = matchTypeToPicklist(img.productType, verifiedCategory, subcategoryHint);
-          if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
-            typeMatchResult = {
-              matched: true,
-              original: img.productType,
-              matchedValue: {
-                type_id: categoryAwareMatch.matchedValue.type_id,
-                type_name: categoryAwareMatch.matchedValue.type_name
-              },
-              similarity: categoryAwareMatch.confidence
-            };
-            logger.info('Type extracted from image analysis (category-aware match)', {
-              sessionId,
-              imageProductType: img.productType,
-              matchedType: categoryAwareMatch.matchedValue.type_name,
-              type_id: categoryAwareMatch.matchedValue.type_id,
-              category: verifiedCategory
-            });
-            break;
-          }
-        }
-      }
-    }
-    
-    // THIRD: If still not matched, fall back to "Not Applicable"
-    if (!typeMatchResult.matched) {
-      // Directly get "Not Applicable" type from types.json (bypasses picklistMatcher which rejects it)
-      const notApplicableType = getTypeByName('Not Applicable');
-      if (notApplicableType) {
-        typeMatchResult = {
-          matched: true,
-          original: aiProductType || 'Not Applicable',
-          matchedValue: {
-            type_id: notApplicableType.type_id,
-            type_name: notApplicableType.type_name
-          },
-          similarity: 1.0
-        };
-        logger.info('Type set to "Not Applicable" with ID', {
-          sessionId,
-          aiProductType: aiProductType || '(empty)',
+    if (notFoundType) {
+      typeMatchResult = {
+        matched: true,
+        original: aiProductType || '(empty)',
+        matchedValue: {
+          type_id: notFoundType.type_id,
+          type_name: notFoundType.type_name
+        },
+        similarity: 1.0
+      };
+      logger.info('Type set to "Not Found" (AI did not determine type)', {
+        sessionId,
+        aiProductType: aiProductType || '(empty)',
+        type_id: notFoundType.type_id,
+        imageAdvisoryType,
+        subcategoryHint: subcategoryHint || null,
+        reason: 'Phase 2.5 validated AI did not provide type - image analysis advisory only'
+      });
+    } else if (notApplicableType) {
+      // Fallback to Not Applicable if Not Found doesn't exist
+      typeMatchResult = {
+        matched: true,
+        original: aiProductType || 'Not Applicable',
+        matchedValue: {
           type_id: notApplicableType.type_id,
-          type_name: notApplicableType.type_name,
-          reason: isNAPattern ? 'AI returned N/A pattern' : 'AI returned empty type'
-        });
-      } else {
-        logger.warn('"Not Applicable" type not found in types.json', { sessionId, aiProductType });
-      }
+          type_name: notApplicableType.type_name
+        },
+        similarity: 1.0
+      };
+      logger.warn('Type set to "Not Applicable" ("Not Found" type missing from schema)', {
+        sessionId,
+        aiProductType: aiProductType || '(empty)',
+        imageAdvisoryType
+      });
     }
   }
   
@@ -6132,21 +6102,26 @@ function buildFinalResponse(
   // In this case, we should respect AI's choice and populate the ID
   if (!typeMatchResult.matched && isNAPattern) {
     const notApplicableType = getTypeByName('Not Applicable');
-    if (notApplicableType) {
+    const notFoundType = getTypeByName('Not Found');
+    const preferredType = aiProductType.toLowerCase().includes('not found') ? notFoundType : notApplicableType;
+    
+    if (preferredType) {
       typeMatchResult = {
         matched: true,
         original: aiProductType,
         matchedValue: {
-          type_id: notApplicableType.type_id,
-          type_name: notApplicableType.type_name
+          type_id: preferredType.type_id,
+          type_name: preferredType.type_name
         },
         similarity: 1.0
       };
-      logger.info('Type set to "Not Applicable" (AI explicit choice)', {
+      logger.info('Type set to N/A or Not Found (AI explicit choice)', {
         sessionId,
         aiProductType,
-        type_id: notApplicableType.type_id,
-        reason: 'AI explicitly returned N/A pattern - respecting choice'
+        type_id: preferredType.type_id,
+        type_name: preferredType.type_name,
+        imageAdvisoryType,
+        reason: 'AI explicitly returned N/A/Not Found pattern - respecting choice'
       });
     }
   }
