@@ -20,72 +20,23 @@ for (const category of CATEGORIES) {
 }
 
 // Department to categories mapping (comprehensive)
-// AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: 2026-02-24
-const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
-  'Appliances': [
-    'Refrigerator',
-    'Dishwasher',
-    'Range',
-    'Oven',
-    'Cooktop',
-    'Microwave',
-    'Range Hood',
-    'Washer',
-    'Dryer',
-    'Freezer',
-    'All in One Washer / Dryer',
-    'Barbeque',
-    'Coffee Maker',
-    'Icemaker',
-    'Garbage Disposal'
-  ],
-  'Plumbing & Bath': [
-    'Bathroom Cabinet Hardware',
-    'Outdoor Shower Faucet',
-    'Bathroom Faucet',
-    'Bathroom Hardware and Accessories',
-    'Bathroom Mirror',
-    'Bathroom Sink',
-    'Bathroom Vanity',
-    'Bathtub',
-    'Bathtub Waste & Overflow',
-    'Bidet',
-    'Bidet Faucet',
-    'Bidet Seat',
-    'Shower',
-    'Shower Faucet',
-    'Steam Shower'
-  ],
-  'Lighting': [
-    'Vanity Cabinet Hardware',
-    'Skylight',
-    'Bathroom Lighting',
-    'Vanity Lighting',
-    'Chandelier',
-    'Commercial Lighting',
-    'LED Lighting',
-    'Post Light',
-    'Recessed Lighting',
-    'Step Lighting',
-    'Track and Rail Lighting',
-    'Under Cabinet Light',
-    'Wall Sconce',
-    'Lamp',
-    'Ceiling Light',
-    'Flush and Semi-Flush',
-    'Island Lighting',
-    'Pendant',
-    'Kitchen Lighting',
-    'Landscape Lighting'
-  ],
-  'Home Decor & Fixtures': [
-    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
-  ],
-  'HVAC': [
-    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
-  ]
-};
+// AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json at runtime
+// Syncs automatically with Salesforce picklist updates
+const DEPARTMENT_CATEGORIES: Record<string, string[]> = (() => {
+  const mapping: Record<string, string[]> = {};
+  for (const category of CATEGORIES) {
+    const dept = category.department;
+    if (!mapping[dept]) {
+      mapping[dept] = [];
+    }
+    mapping[dept].push(category.category_name);
+  }
+  // Sort categories within each department for consistency
+  for (const dept in mapping) {
+    mapping[dept].sort();
+  }
+  return mapping;
+})();
 
 export interface CategoryMatch {
   categoryName: string;
