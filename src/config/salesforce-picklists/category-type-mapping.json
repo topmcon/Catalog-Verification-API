@@ -6553,6 +6553,12 @@
           "primary_filter": true
         },
         {
+          "type_name": "Electric",
+          "type_id": "a1jaZ000001lF5vQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Charcoal",
           "type_id": "a1jaZ000001lF4TQAU",
           "status": "existing",

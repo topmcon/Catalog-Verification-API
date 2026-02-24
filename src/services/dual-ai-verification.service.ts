@@ -2554,7 +2554,7 @@ export async function verifyProductWithDualAI(
             
             // Apply the resolved value to the appropriate attribute set
             if (disagreement.field in consensus.agreedPrimaryAttributes || 
-                ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent'].includes(disagreement.field.toLowerCase())) {
+                ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_type', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
               consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
             } else {
               consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
@@ -2855,7 +2855,7 @@ export async function verifyProductWithDualAI(
         
         // Apply to appropriate attribute set
         if (disagreement.field in consensus.agreedPrimaryAttributes || 
-            ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
+            ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_type', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
           consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
         } else {
           consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
