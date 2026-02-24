@@ -100,38 +100,44 @@ function updateCategoryMatcher(categories) {
   const filePath = path.join(SERVICES_DIR, 'category-matcher.service.ts');
   let content = fs.readFileSync(filePath, 'utf-8');
   
+  // Check if file already has the auto-generated IIFE format
+  if (content.includes('const DEPARTMENT_CATEGORIES: Record<string, string[]> = (() => {')) {
+    console.log('✅ category-matcher.service.ts already uses runtime auto-generation (IIFE)');
+    console.log('   Skipping update - file will sync automatically from categories.json');
+    return true;
+  }
+  
+  // Legacy: Only update if still using old hardcoded format
   const appliances = generateApplianceCategories(categories);
   const plumbing = generatePlumbingCategories(categories);
   const lighting = generateLightingCategories(categories);
   
-  // Build new DEPARTMENT_CATEGORIES
+  // Build new DEPARTMENT_CATEGORIES (old format - should be migrated to IIFE)
   const newDeptCategories = `// Department to categories mapping (comprehensive)
-// AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json
-// Last sync: ${new Date().toISOString().split('T')[0]}
-const DEPARTMENT_CATEGORIES: Record<string, string[]> = {
-  'Appliances': [
-    ${appliances.map(c => `'${c}'`).join(',\n    ')}
-  ],
-  'Plumbing & Bath': [
-    ${plumbing.slice(0, 15).map(c => `'${c}'`).join(',\n    ')}
-  ],
-  'Lighting': [
-    ${lighting.map(c => `'${c}'`).join(',\n    ')}
-  ],
-  'Home Decor & Fixtures': [
-    'Drawer', 'Cabinet Organization and Storage', 'Cabinet Hardware'
-  ],
-  'HVAC': [
-    'Air Conditioner', 'Dehumidifier', 'Exhaust Fan', 'Attic Fan'
-  ]
-};`;
+// AUTO-GENERATED FROM: src/config/salesforce-picklists/categories.json at runtime
+// Syncs automatically with Salesforce picklist updates
+const DEPARTMENT_CATEGORIES: Record<string, string[]> = (() => {
+  const mapping: Record<string, string[]> = {};
+  for (const category of CATEGORIES) {
+    const dept = category.department;
+    if (!mapping[dept]) {
+      mapping[dept] = [];
+    }
+    mapping[dept].push(category.category_name);
+  }
+  // Sort categories within each department for consistency
+  for (const dept in mapping) {
+    mapping[dept].sort();
+  }
+  return mapping;
+})();`;
 
   // Replace existing DEPARTMENT_CATEGORIES block
-  const deptRegex = /\/\/ Department to categories mapping[\s\S]*?const DEPARTMENT_CATEGORIES[\s\S]*?\};/;
+  const deptRegex = /\/\/ Department to categories mapping[\s\S]*?const DEPARTMENT_CATEGORIES[\s\S]*?\}\);/;
   if (deptRegex.test(content)) {
     content = content.replace(deptRegex, newDeptCategories);
     fs.writeFileSync(filePath, content, 'utf-8');
-    console.log('✅ Updated category-matcher.service.ts DEPARTMENT_CATEGORIES');
+    console.log('✅ Migrated category-matcher.service.ts to IIFE auto-generation');
     return true;
   } else {
     console.log('⚠️  Could not find DEPARTMENT_CATEGORIES in category-matcher.service.ts');
