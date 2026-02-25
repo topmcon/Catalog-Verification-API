@@ -7007,6 +7007,9 @@ function buildFinalResponse(
     
     // Style/Type
     style: styleToUse || '',
+    type: typeMatchResult.matched && typeMatchResult.matchedValue 
+      ? typeMatchResult.matchedValue.type_name 
+      : (aiProductType || ''),  // Use matched type or AI value
     configuration: preferAIValue(
       consensus.agreedPrimaryAttributes.configuration,
       openaiResult.primaryAttributes.configuration,
@@ -7156,6 +7159,7 @@ function buildFinalResponse(
     category: seoTitleInput.category,
     width: seoTitleInput.width || 'NOT SET',
     placeSettings: seoTitleInput.placeSettings || 'NOT SET',
+    type: seoTitleInput.type || 'NOT SET',
     installationType: seoTitleInput.installationType || 'NOT SET'
   });
   
