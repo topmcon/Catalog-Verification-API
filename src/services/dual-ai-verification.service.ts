@@ -6898,9 +6898,46 @@ function buildFinalResponse(
   // Helper: Extract width from text descriptions as fallback
   const extractWidthFromText = (text?: string): string => {
     if (!text) return '';
-    // Match patterns like "24\"", "24 inch", "24-inch", "24 Inch Wide"
-    const match = text.match(/(\d{2,3})\s*(?:"|inch|Inch|-inch|-Inch|\s+Inch\s+Wide)/i);
-    return match ? match[1] : '';
+    
+    // Try multiple patterns in priority order (most specific first)
+    // Pattern 1: "18 Inch Wide" or "24 Inch Wide" (most reliable)
+    let match = text.match(/(\d{2})\s+Inch\s+Wide/i);
+    if (match) {
+      logger.info('Width extracted from "XX Inch Wide" pattern', { 
+        sessionId, 
+        extracted: match[1], 
+        from: text.substring(0, 100) 
+      });
+      return match[1];
+    }
+    
+    // Pattern 2: "18-Inch" or "24-Inch" with hyphen before word boundary
+    match = text.match(/(\d{2})-Inch\b/i);
+    if (match) {
+      logger.info('Width extracted from "XX-Inch" pattern', { 
+        sessionId, 
+        extracted: match[1], 
+        from: text.substring(0, 100) 
+      });
+      return match[1];
+    }
+    
+    // Pattern 3: '18"' or '24"' with quote immediately after number
+    match = text.match(/(\d{2})"\s*(?:Wide|Built|Dishwasher|Fully|Full)/i);
+    if (match) {
+      logger.info('Width extracted from \'XX"\' pattern', { 
+        sessionId, 
+        extracted: match[1], 
+        from: text.substring(0, 100) 
+      });
+      return match[1];
+    }
+    
+    logger.info('Width extraction failed - no pattern matched', { 
+      sessionId, 
+      text: text.substring(0, 100) 
+    });
+    return '';
   };
   
   // Helper: Extract place settings from text
@@ -6908,6 +6945,13 @@ function buildFinalResponse(
     if (!text) return '';
     // Match patterns like "12 Place Settings", "14 Place Setting Capacity"
     const match = text.match(/(\d{1,2})\s+Place\s+Setting/i);
+    if (match) {
+      logger.info('Place Settings extracted', { 
+        sessionId, 
+        extracted: match[1], 
+        from: text.substring(0, 100) 
+      });
+    }
     return match ? match[1] : '';
   };
   
@@ -6926,6 +6970,16 @@ function buildFinalResponse(
     extractWidthFromText(cleanedText.title) ||
     '';
   
+  // Log final width value for debugging
+  if (widthFinal) {
+    logger.info('Final width determined for title', {
+      sessionId,
+      width: widthFinal,
+      source: widthFromAI ? 'AI' : 'Text extraction',
+      category: consensus.agreedCategory
+    });
+  }
+  
   // Get place settings with fallbacks
   const placeSettingsFromAI = preferAIValue(
     consensus.agreedTop15Attributes?.place_settings,
@@ -6940,6 +6994,16 @@ function buildFinalResponse(
     extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
     extractPlaceSettingsFromText(cleanedText.title) ||
     '';
+  
+  // Log final place settings value for debugging
+  if (placeSettingsFinal) {
+    logger.info('Final place settings determined for title', {
+      sessionId,
+      placeSettings: placeSettingsFinal,
+      source: placeSettingsFromAI ? 'AI' : 'Text extraction',
+      category: consensus.agreedCategory
+    });
+  }
   
   // Build title input from all available product data
   const seoTitleInput: SEOTitleInput = {
