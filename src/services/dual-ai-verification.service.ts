@@ -6894,6 +6894,53 @@ function buildFinalResponse(
   // ============================================
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
+  
+  // Helper: Extract width from text descriptions as fallback
+  const extractWidthFromText = (text?: string): string => {
+    if (!text) return '';
+    // Match patterns like "24\"", "24 inch", "24-inch", "24 Inch Wide"
+    const match = text.match(/(\d{2,3})\s*(?:"|inch|Inch|-inch|-Inch|\s+Inch\s+Wide)/i);
+    return match ? match[1] : '';
+  };
+  
+  // Helper: Extract place settings from text
+  const extractPlaceSettingsFromText = (text?: string): string => {
+    if (!text) return '';
+    // Match patterns like "12 Place Settings", "14 Place Setting Capacity"
+    const match = text.match(/(\d{1,2})\s+Place\s+Setting/i);
+    return match ? match[1] : '';
+  };
+  
+  // Get width with multiple fallbacks: AI → Salesforce fields → Parse from text
+  const widthFromAI = preferAIValue(
+    consensus.agreedPrimaryAttributes.width,
+    openaiResult.primaryAttributes.width,
+    xaiResult.primaryAttributes.width,
+    openaiResult.confidence,
+    xaiResult.confidence,
+    rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
+  );
+  const widthFinal = widthFromAI || 
+    extractWidthFromText(rawProduct.Ferguson_Title) ||
+    extractWidthFromText(rawProduct.Web_Retailer_Title) ||
+    extractWidthFromText(cleanedText.title) ||
+    '';
+  
+  // Get place settings with fallbacks
+  const placeSettingsFromAI = preferAIValue(
+    consensus.agreedTop15Attributes?.place_settings,
+    openaiResult.top15Attributes?.place_settings,
+    xaiResult.top15Attributes?.place_settings,
+    openaiResult.confidence,
+    xaiResult.confidence,
+    ''
+  );
+  const placeSettingsFinal = placeSettingsFromAI ||
+    extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
+    extractPlaceSettingsFromText(rawProduct.Web_Retailer_Title) ||
+    extractPlaceSettingsFromText(cleanedText.title) ||
+    '';
+  
   // Build title input from all available product data
   const seoTitleInput: SEOTitleInput = {
     brand: brandMatch.matched && brandMatch.matchedValue 
@@ -6913,14 +6960,7 @@ function buildFinalResponse(
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
     
     // Dimensions
-    width: preferAIValue(
-      consensus.agreedPrimaryAttributes.width,
-      openaiResult.primaryAttributes.width,
-      xaiResult.primaryAttributes.width,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
-    ),
+    width: widthFinal,
     height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
       openaiResult.primaryAttributes.height,
@@ -7042,14 +7082,7 @@ function buildFinalResponse(
       xaiResult.confidence,
       rawProduct.BTU || ''
     ),
-    placeSettings: preferAIValue(
-      consensus.agreedTop15Attributes?.place_settings,
-      openaiResult.top15Attributes?.place_settings,
-      xaiResult.top15Attributes?.place_settings,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      ''
-    ),
+    placeSettings: placeSettingsFinal,
     controlType: preferAIValue(
       consensus.agreedTop15Attributes?.control_type,
       openaiResult.top15Attributes?.control_type,
