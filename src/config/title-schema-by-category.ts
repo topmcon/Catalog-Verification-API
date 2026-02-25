@@ -786,43 +786,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 3,
         "attribute": "Capacity (Cu. Ft.)",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Configuration",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Installation Type",
         "required": false
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 8,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 36-Inch 28 Cu. Ft. Refrigerator Finish - Model",
-    "seoNotes": "Lead with width + capacity for search intent. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. Refrigerator Finish - Model",
+    "seoNotes": "Lead with capacity. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",
