@@ -786,38 +786,43 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Capacity (Cu. Ft.)",
+        "attribute": "Width (Inches)",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Configuration",
+        "attribute": "Capacity (Cu. Ft.)",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Installation Type",
+        "attribute": "Configuration",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Installation Type",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Refrigerator Finish - Model",
-    "seoNotes": "Lead with capacity. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
+    "template": "{Brand} {Width (Inches)} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 36-Inch 28 Cu. Ft. Refrigerator Finish - Model",
+    "seoNotes": "Lead with width + capacity for search intent. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",

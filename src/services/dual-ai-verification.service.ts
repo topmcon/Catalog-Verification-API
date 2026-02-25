@@ -5993,6 +5993,23 @@ function buildFinalResponse(
   researchAttempts?: number,
   finalSearchResult?: FinalVerificationSearchResult | null
 ): SalesforceVerificationResponse {
+
+  const extractWidthFromSourceTitles = (): string => {
+    const titleCandidates = [
+      rawProduct.Product_Title_Web_Retailer,
+      rawProduct.Ferguson_Title,
+      rawProduct.SF_Catalog_Name
+    ].filter((value): value is string => !!value && value.trim() !== '');
+
+    for (const candidate of titleCandidates) {
+      const match = candidate.match(/\b(1[89]|2\d|3\d|4\d|5\d|6\d)\s*(?:"|in(?:ch)?(?:es)?|\-inch)\b/i);
+      if (match?.[1]) {
+        return match[1];
+      }
+    }
+
+    return '';
+  };
   
   // Track if research was performed for field marking
   const didResearch = researchPerformed || !!researchResult || !!finalSearchResult;
@@ -6919,7 +6936,7 @@ function buildFinalResponse(
       xaiResult.primaryAttributes.width,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
+      rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || extractWidthFromSourceTitles()
     ),
     height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
