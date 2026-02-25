@@ -5686,6 +5686,105 @@ function getValidInstallationTypes(): string[] {
 }
 
 /**
+ * Get valid finish values for appliances and fixtures
+ * These are the standard Salesforce picklist values
+ */
+function getValidFinishes(): string[] {
+  return [
+    'Stainless Steel',
+    'Black Stainless',
+    'Black',
+    'White',
+    'Panel Ready',
+    'Slate',
+    'Bisque',
+    'Matte Black',
+    'Matte White',
+    'Brushed Nickel',
+    'Chrome',
+    'Oil Rubbed Bronze',
+    'Polished Nickel',
+    'Venetian Bronze',
+    'Champagne Bronze',
+    'Brushed Gold',
+    'Polished Brass',
+    'Satin Nickel',
+    'Stainless',
+    'Copper',
+    'Pewter',
+    'Silver',
+    'Bronze',
+    'Gold',
+    'Graphite',
+    'Platinum'
+  ];
+}
+
+/**
+ * Normalize finish to standard values, extracting only the finish color/material
+ * REMOVES descriptive phrases and extracts ONLY the finish keyword
+ * Examples:
+ *   "Black cabinet with stainless steel door frame" -> "Stainless Steel"
+ *   "Stainless steel finish" -> "Stainless Steel"
+ *   "black stainless" -> "Black Stainless"
+ */
+function normalizeFinish(value: string | undefined | null): string {
+  if (!value) return '';
+  
+  const normalized = value.trim().toLowerCase();
+  const validFinishes = getValidFinishes();
+  
+  // Check if value is already a valid finish (case-insensitive match)
+  for (const validFinish of validFinishes) {
+    if (normalized === validFinish.toLowerCase()) {
+      return validFinish;
+    }
+  }
+  
+  // Extract finish from descriptive phrases by looking for keywords
+  // Priority order: Check for compound finishes first, then simple ones
+  const finishKeywords = [
+    { keywords: ['black stainless steel', 'black stainless'], finish: 'Black Stainless' },
+    { keywords: ['stainless steel', 'stainless'], finish: 'Stainless Steel' },
+    { keywords: ['oil rubbed bronze', 'oil-rubbed bronze', 'orb'], finish: 'Oil Rubbed Bronze' },
+    { keywords: ['venetian bronze'], finish: 'Venetian Bronze' },
+    { keywords: ['champagne bronze'], finish: 'Champagne Bronze' },
+    { keywords: ['brushed nickel'], finish: 'Brushed Nickel' },
+    { keywords: ['polished nickel'], finish: 'Polished Nickel' },
+    { keywords: ['satin nickel'], finish: 'Satin Nickel' },
+    { keywords: ['brushed gold'], finish: 'Brushed Gold' },
+    { keywords: ['polished brass'], finish: 'Polished Brass' },
+    { keywords: ['matte black'], finish: 'Matte Black' },
+    { keywords: ['matte white'], finish: 'Matte White' },
+    { keywords: ['panel ready', 'panel-ready'], finish: 'Panel Ready' },
+    { keywords: ['chrome', 'polished chrome'], finish: 'Chrome' },
+    { keywords: ['slate'], finish: 'Slate' },
+    { keywords: ['bisque'], finish: 'Bisque' },
+    { keywords: ['copper'], finish: 'Copper' },
+    { keywords: ['pewter'], finish: 'Pewter' },
+    { keywords: ['silver'], finish: 'Silver' },
+    { keywords: ['bronze'], finish: 'Bronze' },
+    { keywords: ['gold'], finish: 'Gold' },
+    { keywords: ['graphite'], finish: 'Graphite' },
+    { keywords: ['platinum'], finish: 'Platinum' },
+    { keywords: ['black'], finish: 'Black' },
+    { keywords: ['white'], finish: 'White' }
+  ];
+  
+  // Search for finish keywords in the descriptive text
+  for (const { keywords, finish } of finishKeywords) {
+    for (const keyword of keywords) {
+      if (normalized.includes(keyword)) {
+        return finish;
+      }
+    }
+  }
+  
+  // If no keywords found, return original trimmed value (fallback)
+  return value.trim();
+}
+
+/**
  * Smart prefer AI value - validates FIRST, then uses confidence
  * Prefers the AI that gives a VALID value over one that doesn't
  */
@@ -7258,13 +7357,16 @@ function buildFinalResponse(
     ),
     
     // Appearance
-    finish: preferAIValue(
-      consensus.agreedPrimaryAttributes.finish,
-      openaiResult.primaryAttributes.finish,
-      xaiResult.primaryAttributes.finish,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.Ferguson_Finish || ''
+    finish: normalizeFinish(
+      smartPreferAIValue(
+        consensus.agreedPrimaryAttributes.finish,
+        openaiResult.primaryAttributes.finish,
+        xaiResult.primaryAttributes.finish,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Ferguson_Finish || '',
+        getValidFinishes()
+      )
     ),
     color: preferAIValue(
       consensus.agreedPrimaryAttributes.color,
