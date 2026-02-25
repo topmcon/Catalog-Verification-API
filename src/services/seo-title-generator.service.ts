@@ -103,7 +103,7 @@ export interface SEOTitleInput {
   // Features (array of feature strings)
   features?: string[];
   
-  // Raw title for fallback
+  // Raw title for accessory subtype extraction and fallback
   rawTitle?: string;
 }
 
@@ -416,6 +416,51 @@ export function generateSEOTitle(input: SEOTitleInput): string {
 /**
  * Generate title using category-specific schema
  */
+/**
+ * Extract specific accessory subtype from raw title/description for better title clarity
+ * Example: "36\" Bespoke 3-Door French Door Refrigerator Panel" → "Refrigerator Panel"
+ */
+function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
+  const rawTitle = input.rawTitle?.toLowerCase() || '';
+  
+  // Common accessory patterns
+  const patterns = [
+    /panel/i,
+    /door panel/i,
+    /refrigerator panel/i,
+    /heater kit/i,
+    /heating kit/i,
+    /ice maker/i,
+    /water filter/i,
+    /shelf/i,
+    /drawer/i,
+    /rack/i,
+    /basket/i,
+    /bin/i,
+    /door/i,
+    /handle/i,
+    /knob/i,
+    /trim kit/i,
+    /conversion kit/i
+  ];
+  
+  for (const pattern of patterns) {
+    if (pattern.test(rawTitle)) {
+      // Extract the matched phrase
+      const match = rawTitle.match(pattern);
+      if (match) {
+        // Capitalize first letter of each word
+        return match[0]
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+    }
+  }
+  
+  return undefined;
+}
+
 function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): string {
   const parts: string[] = [];
   
@@ -433,8 +478,43 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   }
   
   for (const slot of sortedSlots) {
+    // CHANGE 1: Skip "Freestanding" installation type for refrigerators
+    if (slot.attribute === 'Installation Type' && 
+        schema.categoryName === 'Refrigerator' && 
+        input.installationType?.toLowerCase() === 'freestanding') {
+      logger.info('Skipping Freestanding installation type for refrigerator title', {
+        category: schema.categoryName,
+        installationType: input.installationType
+      });
+      continue;
+    }
+    
+    // CHANGE 2: Skip "Built-In" for Beverage Center and Undercounter types
+    if (slot.attribute === 'Installation Type' && 
+        input.installationType?.toLowerCase() === 'built-in' &&
+        (input.type?.toLowerCase() === 'beverage center' || input.type?.toLowerCase() === 'undercounter')) {
+      logger.info('Skipping Built-In installation type for inherently built-in product', {
+        type: input.type,
+        installationType: input.installationType
+      });
+      continue;
+    }
+    
     const rawValue = getInputValue(input, slot.attribute);
     let formattedValue = formatValue(slot.attribute, rawValue, input);
+    
+    // CHANGE 4: For Accessory type, use specific subtype instead of generic "Accessory"
+    if (slot.attribute === 'Type' && rawValue?.toString().toLowerCase() === 'accessory') {
+      const subtype = extractAccessorySubtype(input);
+      if (subtype) {
+        formattedValue = subtype;
+        logger.info('Using accessory subtype for title', {
+          originalType: 'Accessory',
+          extractedSubtype: subtype,
+          rawTitle: input.rawTitle
+        });
+      }
+    }
     
     // Apply slot format template if specified AND no ATTRIBUTE_FORMATTERS entry exists
     // (if ATTRIBUTE_FORMATTERS exists, formatValue already applied formatting)

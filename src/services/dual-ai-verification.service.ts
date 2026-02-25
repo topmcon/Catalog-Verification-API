@@ -7322,6 +7322,7 @@ function buildFinalResponse(
       ? categoryMatch.matchedValue.category_name
       : consensus.agreedCategory || '',
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
+    rawTitle: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '', // For accessory subtype extraction
     
     // Dimensions
     width: widthFinal,
@@ -7487,13 +7488,10 @@ function buildFinalResponse(
         '',
         getValidInstallationTypes() // VALIDATION-FIRST: prefer valid value over confidence
       )
-    ),
+    )
     
     // Features NOT passed to title generator (removed from titles in v2.1)
-    // features: cleanedText.features,
-    
-    // Raw title as fallback
-    rawTitle: cleanedText.title
+    // features: cleanedText.features
   };
   
   // Log seoTitleInput width value for debugging

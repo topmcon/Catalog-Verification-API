@@ -61,7 +61,15 @@ export function getValidTypesForCategory(categoryName: string): string[] {
     return [];
   }
   
-  return mapping.types.map(t => t.type_name);
+  let types = mapping.types.map(t => t.type_name);
+  
+  // CHANGE 3: Block "Freestanding" as a Type for Refrigerators
+  // (Freestanding is an installation method, not a product type for refrigerators)
+  if (categoryName.toLowerCase() === 'refrigerator') {
+    types = types.filter(t => t.toLowerCase() !== 'freestanding');
+  }
+  
+  return types;
 }
 
 /**
