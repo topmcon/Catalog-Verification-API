@@ -2957,7 +2957,7 @@ export async function verifyProductWithDualAI(
     }
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
+    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, determinedType, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
     
     // ========================================================================
     // FINAL SWEEP: Check all "Not Found" values against raw data
@@ -5986,6 +5986,7 @@ function buildFinalResponse(
   xaiResult: AIAnalysisResult,
   determinedDepartment: string,
   determinedCategory: string,
+  determinedType?: string,
   researchResult?: ResearchResult | null,
   dataSourceAnalysis?: DataSourceAnalysis,
   researchPerformed?: boolean,
@@ -6140,14 +6141,37 @@ function buildFinalResponse(
   // Match validated category to picklist for category_id (but don't change the category name)
   const categoryMatch = picklistMatcher.matchCategory(verifiedCategory);
   
-  // Match Type against Salesforce types picklist
-  const aiProductType = consensus.agreedPrimaryAttributes.product_type || '';
-  const typeMatch = picklistMatcher.matchType(aiProductType);
-  
-  // If direct picklist match failed, try the category-aware type matcher with subcategory hint
+  const normalizeTypeCandidate = (value?: string | null): string => String(value || '').trim();
+  const isNAType = (value: string): boolean => /^(not applicable|n\/?a|not found|none)$/i.test(value.trim());
+  const dedupeTypeCandidates = (candidates: string[]): string[] => {
+    const seen = new Set<string>();
+    return candidates.filter(candidate => {
+      const key = candidate.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  // If direct picklist match failed, try category-aware type matching with subcategory/business-category hints
   const subcategoryHint = rawProduct.Web_Retailer_SubCategory || rawProduct.Ferguson_Business_Category || '';
-  let typeMatchResult = typeMatch;
-  if (!typeMatch.matched && aiProductType && aiProductType.trim() !== '') {
+  const typeCandidates = dedupeTypeCandidates([
+    normalizeTypeCandidate(determinedType),
+    normalizeTypeCandidate(consensus.agreedPrimaryAttributes.product_type),
+    normalizeTypeCandidate(openaiResult.primaryAttributes.product_type),
+    normalizeTypeCandidate(xaiResult.primaryAttributes.product_type),
+    normalizeTypeCandidate(rawProduct.Ferguson_Product_Type),
+    normalizeTypeCandidate(rawProduct.Web_Retailer_SubCategory),
+    normalizeTypeCandidate(rawProduct.Ferguson_Business_Category)
+  ].filter(Boolean));
+
+  // Prefer any concrete type over Not Found/Not Applicable, then fall back to any non-empty value
+  let aiProductType = typeCandidates.find(candidate => !isNAType(candidate))
+    || typeCandidates[0]
+    || '';
+
+  let typeMatchResult = picklistMatcher.matchType(aiProductType);
+  if (!typeMatchResult.matched && aiProductType) {
     const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory, subcategoryHint);
     if (categoryAwareMatch.matched && categoryAwareMatch.matchedValue) {
       typeMatchResult = {
@@ -6159,9 +6183,52 @@ function buildFinalResponse(
         },
         similarity: categoryAwareMatch.confidence
       };
+      aiProductType = categoryAwareMatch.matchedValue.type_name;
     }
-  } else {
-    typeMatchResult = typeMatch;
+  }
+
+  // Global fallback catch: if first candidate fails, iterate all available sources before using Not Found
+  if (!typeMatchResult.matched) {
+    for (const fallbackCandidate of typeCandidates) {
+      if (!fallbackCandidate || fallbackCandidate.toLowerCase() === aiProductType.toLowerCase()) {
+        continue;
+      }
+
+      const directFallback = picklistMatcher.matchType(fallbackCandidate);
+      if (directFallback.matched) {
+        aiProductType = fallbackCandidate;
+        typeMatchResult = directFallback;
+        logger.info('Resolved type using fallback candidate (direct picklist match)', {
+          sessionId,
+          verifiedCategory,
+          chosenType: aiProductType,
+          sourceCandidates: typeCandidates
+        });
+        break;
+      }
+
+      const categoryAwareFallback = matchTypeToPicklist(fallbackCandidate, verifiedCategory, subcategoryHint);
+      if (categoryAwareFallback.matched && categoryAwareFallback.matchedValue) {
+        aiProductType = categoryAwareFallback.matchedValue.type_name;
+        typeMatchResult = {
+          matched: true,
+          original: fallbackCandidate,
+          matchedValue: {
+            type_id: categoryAwareFallback.matchedValue.type_id,
+            type_name: categoryAwareFallback.matchedValue.type_name
+          },
+          similarity: categoryAwareFallback.confidence
+        };
+        logger.info('Resolved type using fallback candidate (category-aware match)', {
+          sessionId,
+          verifiedCategory,
+          originalCandidate: fallbackCandidate,
+          chosenType: aiProductType,
+          sourceCandidates: typeCandidates
+        });
+        break;
+      }
+    }
   }
   
   logger.info('Type matching result', {
@@ -6396,7 +6463,7 @@ function buildFinalResponse(
   // HIERARCHICAL VALIDATION: Check if type is "Not Applicable"
   // If product has no type variations, skip style determination
   // ============================================
-  const productType = consensus.agreedPrimaryAttributes.product_type || '';
+  const productType = aiProductType || consensus.agreedPrimaryAttributes.product_type || '';
   const typeIsNA = productType.toLowerCase().includes('not applicable') || 
                    productType.toLowerCase().includes('n/a') ||
                    productType.trim() === '';
