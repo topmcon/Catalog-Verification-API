@@ -32,6 +32,35 @@ When running commands, checking logs, testing APIs, or gathering data:
 
 ---
 
+## 🔍 Troubleshooting & Debugging Protocol
+
+**⚠️ MANDATORY: Always consult the Audit Findings document when troubleshooting!**
+
+### Before Investigating Any Issue:
+
+1. **Check Audit Findings Registry**: `docs/AUDIT-FINDINGS-AND-SOLUTIONS.md`
+   - Search for similar symptoms or patterns
+   - Review "Quick Reference Index" for matching issues
+   - Check if previous fix patterns apply to current problem
+   
+2. **Use Decision Trees**: Document contains decision trees for:
+   - When to use validation-first logic
+   - Schema vs. input update requirements
+   - AI selection logic patterns
+
+3. **After Fixing Any Issue**:
+   - Update `docs/AUDIT-FINDINGS-AND-SOLUTIONS.md` with:
+     - New finding details (symptom, root cause, investigation steps)
+     - Fix applied (commit hash, files, line numbers, code snippets)
+     - Scope (universal vs. limited)
+     - Related findings (pattern recognition)
+   - Add entry to Quick Reference Index
+   - Document lessons learned
+
+**This prevents re-solving the same problem and builds institutional knowledge.**
+
+---
+
 ## Quick Reference
 
 When the user says **"Establish Connection"** or **"Connect to production"**, execute these steps:
@@ -64,6 +93,16 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - **Key reference files**: Table of important files and their purpose for quick navigation
    
    **Target: 150-250 lines minimum.** The goal is a self-contained document that gives full context without needing to read prior summaries or code.
+
+1a. **⚠️ UPDATE AUDIT FINDINGS DOCUMENT** - If ANY bugs were fixed or issues resolved:
+   - Update `docs/AUDIT-FINDINGS-AND-SOLUTIONS.md` with:
+     - New finding entry with symptom, root cause, investigation steps
+     - Fix details (commit hash, files changed, line numbers, code snippets)
+     - Scope of fix (universal vs. limited)
+     - Related findings for pattern recognition
+     - Quick Reference Index entry
+   - **This step is CRITICAL** - builds institutional knowledge to prevent re-solving same problems
+
 2. **⚠️ COMPREHENSIVE PRE-DEPLOYMENT VALIDATION** - MANDATORY for ALL code changes:
    ```bash
    # Run comprehensive validation suite (7 checks)
