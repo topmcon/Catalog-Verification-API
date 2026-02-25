@@ -7129,6 +7129,15 @@ function buildFinalResponse(
     rawTitle: cleanedText.title
   };
   
+  // Log seoTitleInput width value for debugging
+  logger.info('SEO title input prepared', {
+    sessionId,
+    category: seoTitleInput.category,
+    width: seoTitleInput.width || 'NOT SET',
+    placeSettings: seoTitleInput.placeSettings || 'NOT SET',
+    installationType: seoTitleInput.installationType || 'NOT SET'
+  });
+  
   // Generate SEO-optimized title
   const seoTitle = generateSEOTitle(seoTitleInput);
   logger.info('SEO title generated', {

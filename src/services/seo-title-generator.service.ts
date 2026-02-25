@@ -210,14 +210,45 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
     return input.collection || input.style;
   }
   
-  return (input as unknown as Record<string, unknown>)[fieldName] as string | number | string[] | undefined;
+  const value = (input as unknown as Record<string, unknown>)[fieldName] as string | number | string[] | undefined;
+  
+  // Debug logging for Width attribute
+  if (attribute === 'Width (Inches)') {
+    logger.info('[DEBUG] getInputValue for Width (Inches)', {
+      attribute,
+      fieldName,
+      retrievedValue: value || 'UNDEFINED',
+      inputWidthField: input.width || 'NOT SET IN INPUT',
+      inputKeys: Object.keys(input)
+    });
+  }
+  
+  return value;
 }
 
 /**
  * Format a value according to its attribute type
  */
 function formatValue(attribute: string, value: string | number | string[] | undefined, input?: SEOTitleInput): string {
-  if (value === undefined || value === null) return '';
+  if (value === undefined || value === null) {
+    // Debug logging for Width
+    if (attribute === 'Width (Inches)') {
+      logger.info('[DEBUG] formatValue - Width value is undefined/null', {
+        attribute,
+        value: value === undefined ? 'UNDEFINED' : 'NULL'
+      });
+    }
+    return '';
+  }
+  
+  // Debug logging for Width before processing
+  if (attribute === 'Width (Inches)') {
+    logger.info('[DEBUG] formatValue - Processing Width', {
+      attribute,
+      rawValue: value,
+      rawValueType: typeof value
+    });
+  }
   
   // Handle features array specially
   if (attribute === 'Features' && Array.isArray(value)) {
@@ -256,7 +287,19 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   const formatterKey = ATTRIBUTE_FORMATTERS[attribute];
   if (formatterKey && FORMATTING_RULES[formatterKey]) {
     const formatter = FORMATTING_RULES[formatterKey] as (v: number | string) => string;
-    return formatter(value as number | string);
+    const formattedResult = formatter(value as number | string);
+    
+    // Debug logging for Width
+    if (attribute === 'Width (Inches)') {
+      logger.info('[DEBUG] formatValue - Width formatted', {
+        attribute,
+        formatterKey,
+        inputValue: value,
+        formattedResult: formattedResult || 'EMPTY STRING'
+      });
+    }
+    
+    return formattedResult;
   }
   
   // For string values, just convert and clean
@@ -372,13 +415,43 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   // Sort slots by position
   const sortedSlots = [...schema.slots].sort((a, b) => a.position - b.position);
   
+  // Debug logging for dishwashers
+  if (schema.categoryName === 'Dishwasher') {
+    logger.info('[DEBUG] Generating dishwasher title from schema', {
+      inputWidth: input.width || 'NOT SET',
+      inputPlaceSettings: input.placeSettings || 'NOT SET',
+      inputInstallationType: input.installationType || 'NOT SET',
+      slotCount: sortedSlots.length
+    });
+  }
+  
   for (const slot of sortedSlots) {
     const rawValue = getInputValue(input, slot.attribute);
     const formattedValue = formatValue(slot.attribute, rawValue, input);
     
+    // Debug logging for dishwasher width slot
+    if (schema.categoryName === 'Dishwasher' && slot.attribute === 'Width (Inches)') {
+      logger.info('[DEBUG] Processing dishwasher width slot', {
+        slotAttribute: slot.attribute,
+        slotPosition: slot.position,
+        rawValue: rawValue || 'NONE',
+        formattedValue: formattedValue || 'EMPTY',
+        inputWidthField: input.width || 'NOT SET'
+      });
+    }
+    
     if (formattedValue) {
       parts.push(formattedValue);
     }
+  }
+  
+  // Debug logging for dishwashers
+  if (schema.categoryName === 'Dishwasher') {
+    logger.info('[DEBUG] Dishwasher title parts assembled', {
+      partsCount: parts.length,
+      parts: parts.join(' | '),
+      finalTitle: parts.join(' ')
+    });
   }
   
   return parts.join(' ');
