@@ -5970,31 +5970,37 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
@@ -6554,26 +6560,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Function",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
@@ -6718,26 +6730,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
@@ -6974,26 +6992,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
@@ -7015,26 +7039,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
@@ -7174,26 +7204,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
@@ -7384,26 +7420,32 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
