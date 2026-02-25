@@ -11,8 +11,11 @@
 | Schema updated but input builder not updated | Update BOTH schema definition AND data source | efa96c1 | #001, #002, #004 |
 | AI confidence-first without validation | Implement validation-first selection logic | 145a50f | #003 |
 | AI extracting wrong semantic values | Add normalization + validation against picklist | 24e2742, 145a50f | #003 |
-| Configuration slot empty in titles | Add fallback to input.type when input.configuration empty | [PENDING] | #004, #001 |
-| Comma-separated combined values in titles | Split on comma, normalize each, return first valid | [PENDING] | #005, #003 |
+| Configuration slot empty in titles | Add fallback to input.type when input.configuration empty | 9c18a4d | #004, #001 |
+| Comma-separated combined values in titles | Split on comma, normalize each, return first valid | 9c18a4d | #005, #003 |
+| " or " separator not handled in combined values | Extend split regex to handle multiple separators, prioritize Built-In | 40b397d | #006, #005 |
+| Duplicate values in titles | Check if value exists before pushing to parts array | 40b397d | #007 |
+| Wrong category determination | Stage 1 department logic needs prompt improvement (DEFERRED) | N/A | #008 |
 
 ---
 
@@ -444,6 +447,210 @@ if (value.includes(',')) {
 
 ---
 
+### Finding #006: " or " Separator Not Handled in Combined Values
+**Date:** 2026-02-25  
+**Severity:** 🔴 CRITICAL  
+**Category:** Data Normalization  
+**Affects:** All categories with installation_type field
+
+**Symptom:**
+- Installation type values like "Freestanding or Built-In" passed through unnormalized
+- Titles contained combined values: "SUB-ZERO 24-Inch Freestanding or Built-In Wine Cooler"
+- User requirement: "This is wrong - it cannot be both. If it is built in it cannot be freestanding always use built in if it exists"
+
+**Root Cause:**
+Finding #005 addressed comma-separated values (`"Built-In, Free Standing"`) but missed the " or " separator variant (`"Freestanding or Built-In"`). The `normalizeInstallationType()` function only split on commas, not on the word "or". Different data sources use different separators for dual-capability products.
+
+**Investigation Steps:**
+1. User retested 10 refrigerators after Finding #005 fix deployed
+2. Live logs showed session 004f5fba: `"installationType":"Freestanding or Built-In"`
+3. Reviewed normalizeInstallationType() function
+4. Found: Only handled comma separator: `value.split(',')`
+5. Identified: Need regex to split on multiple separator patterns
+
+**Fix Applied:** (Commit 40b397d)
+```typescript
+// File: src/services/dual-ai-verification.service.ts
+// Lines: 5565-5615
+
+// BEFORE:
+const parts = value.split(',').map(part => part.trim());
+
+// AFTER:
+const parts = value.split(/,|\s+or\s+/i).map(part => part.trim());
+
+// NEW PRIORITY RULE:
+const builtInIndex = normalized.findIndex(v => v.toLowerCase() === 'built-in');
+if (builtInIndex !== -1) {
+  return normalized[builtInIndex]; // ALWAYS return Built-In if present
+}
+```
+
+**Files Modified:**
+- `src/services/dual-ai-verification.service.ts` (lines 5565-5615)
+
+**Changes:**
+1. **Extended regex split**: `/,|\s+or\s+/i` handles comma OR " or " separator
+2. **Built-In priority rule**: Check normalized array for "Built-In" FIRST, return if found
+3. **Fallback logic**: If Built-In not present, check first valid value, then fall back to first part
+
+**Algorithm:**
+1. Split on comma OR " or " (case-insensitive)
+2. Normalize each part individually
+3. **Check for Built-In FIRST** → Return if found (user requirement)
+4. Check first valid value → Return if valid
+5. Fall back to first part (consistent behavior)
+
+**Examples:**
+- Input: `"Freestanding or Built-In"` → Output: `"Built-In"` ✅
+- Input: `"Built-In or Freestanding"` → Output: `"Built-In"` ✅
+- Input: `"Built-In, Free Standing"` → Output: `"Built-In"` ✅
+- Input: `"Undercounter or Freestanding"` → Output: `"Undercounter"` (first valid) ✅
+
+**Rationale:**
+- Built-In is ALWAYS the primary installation type for dual-capability products
+- "If it is built in it cannot be freestanding" - user clarification
+- Covers multiple separator patterns (comma, " or ", " and ")
+- Universal priority rule simplifies logic
+
+**Scope:** ✅ UNIVERSAL - All 177 categories using `normalizeInstallationType()`
+
+**Testing:** 
+- TypeScript compiled successfully ✅
+- Deployed to production (commit 40b397d) ✅
+- Awaiting user retest with same 10 refrigerators
+
+**Related Findings:** #005 (Initial comma-separated fix), #003 (Validation-first pattern)
+
+---
+
+### Finding #007: Duplicate Values in Titles
+**Date:** 2026-02-25  
+**Severity:** 🟡 MEDIUM  
+**Category:** Title Generation  
+**Affects:** All categories where same value can appear in multiple slots
+
+**Symptom:**
+- Duplicate words in generated titles
+- Example: "HOSHIZAKI 3.9 Cu. Ft. 23-Inch Undercounter Undercounter Refrigerator"
+- "Undercounter" appearing twice (from type + installationType both being "Undercounter")
+
+**Root Cause:**
+Title generation function `generateFromSchema()` in `seo-title-generator.service.ts` always pushed formatted values to the parts array without checking if the value already exists. When multiple schema slots contain the same value (e.g., `type="Undercounter"` and `installationType="Undercounter"`), the value appeared twice in the final title.
+
+**Investigation Steps:**
+1. User retested 10 refrigerators after Finding #005 fix
+2. Live logs showed session 82129797:
+   - `"type":"Undercounter"`
+   - `"installationType":"Undercounter"`
+3. Current title: "HOSHIZAKI 3.9 Cu. Ft. 23-Inch Undercounter Undercounter Refrigerator"
+4. Expected title: "HOSHIZAKI 3.9 Cu. Ft. 23-Inch Undercounter Refrigerator"
+5. Reviewed title generation logic (lines 413-475)
+6. Found: No duplicate check before pushing to parts array
+
+**Fix Applied:** (Commit 40b397d)
+```typescript
+// File: src/services/seo-title-generator.service.ts
+// Lines: 449-455
+
+// BEFORE:
+if (formattedValue) {
+  parts.push(formattedValue);
+}
+
+// AFTER:
+if (formattedValue && !parts.includes(formattedValue)) {
+  parts.push(formattedValue);
+}
+```
+
+**Files Modified:**
+- `src/services/seo-title-generator.service.ts` (lines 449-455)
+
+**Changes:**
+- Added duplicate check: `!parts.includes(formattedValue)` before pushing
+- Prevents same value from appearing multiple times
+- Simple, efficient solution using array includes()
+
+**Effect:**
+- "Undercounter Undercounter" → "Undercounter" ✅
+- "Built-In Built-In" → "Built-In" ✅
+- No impact on titles with unique values for each slot
+
+**Scope:** ✅ UNIVERSAL - All 177 categories using `generateFromSchema()`
+
+**Testing:**
+- TypeScript compiled successfully ✅
+- Deployed to production (commit 40b397d) ✅
+- Awaiting user retest with same 10 refrigerators
+
+**Related Findings:** None (standalone title generation enhancement)
+
+---
+
+### Finding #008: Wrong Category Determination (DEFERRED)
+**Date:** 2026-02-25  
+**Severity:** 🔴 CRITICAL  
+**Category:** AI Category Determination  
+**Affects:** Products with ambiguous keywords (accessories, multi-function items)
+**Status:** 📋 DOCUMENTED - Requires separate analysis session
+
+**Symptom:**
+- Product: MONOGRAM ZKUN "Refrigeration/Freezer Heater Kit"
+- Current category: "Heating" (Heating & Cooling department)
+- Expected category: "Refrigerator" (Appliances department)
+- AI saw "Heater" keyword and picked wrong department
+
+**Root Cause:**
+Three-stage hierarchical category determination:
+1. **Stage 1**: Department determination (Appliances, Heating & Cooling, etc.)
+2. **Stage 2**: Category determination filtered by Stage 1 department
+3. **Stage 3**: Detailed field extraction
+
+**Problem:** Stage 1 saw "Heater" keyword in product name and picked "Heating & Cooling" department. Stage 2 categories are filtered by Stage 1 department, so "Refrigerator" category was not even considered. AI correctly identified "Accessory" type within the wrong department.
+
+**Investigation Steps:**
+1. User retested refrigerators, found session 59d0b026 categorized as Heating
+2. Product name: "Refrigeration/Freezer Heater Kit" (MONOGRAM ZKUN)
+3. Stage 1 AI saw "Heater" → Picked "Heating & Cooling" department
+4. Stage 2 filtered to Heating categories only → Picked "Heating" category
+5. Should have prioritized "Refrigeration" as PRIMARY function
+
+**Why This Is Complex:**
+- Requires Stage 1 prompt improvement to analyze PRIMARY vs. SECONDARY functions
+- Product has both refrigeration (primary) and heating (secondary: defrost heater) functions
+- Current prompt doesn't distinguish primary purpose from component keywords
+- Affects all products with ambiguous keywords (accessories, parts, multi-function items)
+- Prompt engineering requires careful testing across all departments
+
+**Proposed Solution:**
+Enhance Stage 1 department determination prompt:
+1. Analyze PRIMARY product function vs. SECONDARY components
+2. Prioritize main product category over accessory/part keywords
+3. Look for context clues ("kit for", "accessory for", "replacement for")
+4. Test across all 177 categories to avoid regressions
+
+**Scope:** Stage 1 department determination prompt (affects all products)
+
+**Priority:** HIGH - Impacts data quality, but requires dedicated analysis session
+
+**Why Deferred:**
+- Complex prompt engineering required
+- Must test across all departments to avoid regressions
+- User focused on completing refrigerator fixes first
+- Can be addressed in separate session without blocking current work
+
+**Next Steps:**
+1. Create ticket/task for Stage 1 prompt improvement
+2. Analyze patterns of mis-categorizations in database
+3. Design prompt enhancement with PRIMARY function prioritization
+4. Test with problematic products (accessories, parts, multi-function)
+5. Deploy and monitor for improvements
+
+**Related Findings:** None (new pattern - keyword-based categorization issue)
+
+---
+
 ### 🚀 **Enhancement #2: Schema/Input Mismatch Detection**
 **Status:** 💡 PROPOSED (Not Implemented)  
 **Priority:** MEDIUM  
@@ -549,6 +756,8 @@ Are you adding a new slot to a title schema?
 | efa96c1 | 2026-02-25 | 🔧 FIX | Add missing 'type' field to seoTitleInput - completes schema update |
 | 24e2742 | 2026-02-25 | 🔧 FIX | Add installationType normalization (initial, had semantic errors) |
 | 145a50f | 2026-02-25 | 🔧 REFACTOR | Validation-first AI selection for installation_type (corrected) |
+| 9c18a4d | 2026-02-25 | 🔧 FIX | Configuration fallback + comma-separated values fix (Findings #004, #005) |
+| 40b397d | 2026-02-25 | 🔧 FIX | Handle " or " separator + duplicate prevention (Findings #006, #007) |
 
 ---
 
@@ -565,8 +774,7 @@ Are you adding a new slot to a title schema?
 | Date | Updated By | Changes |
 |------|------------|---------|
 | 2026-02-25 | Copilot Session | Initial creation - Findings #001, #002, #003 |
-| 2026-02-25 | Copilot Session | Added Finding #004 (Configuration missing) and #005 (Combined installation types) |
-
+| 2026-02-25 | Copilot Session | Added Finding #004 (Configuration missing) and #005 (Combined installation types) || 2026-02-25 | Copilot Session | Added Finding #006 (" or " separator), #007 (duplicate values), #008 (wrong category - DEFERRED) - Commit 40b397d |
 ---
 
 ## Notes for Future Development
