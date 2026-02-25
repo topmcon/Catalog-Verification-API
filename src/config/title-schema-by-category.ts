@@ -395,28 +395,33 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Installation Type",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Installation Type",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Place Settings} {Installation Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "GE 24-Inch 16 Place Setting Built-In Dishwasher Fingerprint Resistant Slate - GDT665SSNSS",
-    "seoNotes": "UPDATED v2.4: Brand first, width (24\" standard, 18\" compact), place settings, installation type (Built-In/Undercounter/Portable) - NOT style. Model number at END."
+    "template": "{Brand} {Width (Inches)} {Place Settings} {Type} {Installation Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "GE 24-Inch 16 Place Setting Front Control Built-In Dishwasher Fingerprint Resistant Slate - GDT665SSNSS",
+    "seoNotes": "UPDATED v2.5: Brand first, width (24\" standard, 18\" compact), place settings, type (Front Control/Top Control/Drawer), installation type (Built-In/Undercounter/Portable). Model number at END."
   },
   "drawer": {
     "categoryId": "a01Hu000011kpC2IAI",
