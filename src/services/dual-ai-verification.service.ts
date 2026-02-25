@@ -5566,15 +5566,24 @@ function mergeResearchResults(consensus: ConsensusResult, openaiResearch: Record
 function normalizeInstallationType(value: string | undefined | null): string {
   if (!value) return '';
   
-  // Handle comma-separated combined values (e.g., "Built-In, Free Standing")
-  // Split and try to find the first valid installation type
-  if (value.includes(',')) {
-    const parts = value.split(',').map(p => p.trim());
+  // Handle combined values with comma OR "or" separator (e.g., "Built-In, Free Standing" or "Freestanding or Built-In")
+  // ALWAYS prefer Built-In if it's one of the options (Built-In is primary for dual-capability products)
+  if (value.includes(',') || value.toLowerCase().includes(' or ')) {
+    // Split on comma or " or " (case insensitive)
+    const parts = value.split(/,|\s+or\s+/i).map(p => p.trim());
     const validTypes = getValidInstallationTypes();
     
-    // Try each part - normalize it and check if valid
+    // PRIORITY: If "Built-In" is in the list, ALWAYS use it (primary installation type)
     for (const part of parts) {
-      const normalizedPart = normalizeInstallationType(part); // Recursive call without comma
+      const normalizedPart = normalizeInstallationType(part); // Recursive
+      if (normalizedPart === 'Built-In') {
+        return 'Built-In'; // ALWAYS prefer Built-In
+      }
+    }
+    
+    // Otherwise, try each part and return first valid one
+    for (const part of parts) {
+      const normalizedPart = normalizeInstallationType(part); // Recursive
       if (validTypes.includes(normalizedPart)) {
         return normalizedPart; // Return first valid one
       }

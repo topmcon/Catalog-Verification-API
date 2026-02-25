@@ -455,7 +455,9 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       });
     }
     
-    if (formattedValue) {
+    // Skip if value already exists in parts (prevents duplicates like "Undercounter Undercounter")
+    // Example: type="Undercounter" and installationType="Undercounter" should only appear once
+    if (formattedValue && !parts.includes(formattedValue)) {
       parts.push(formattedValue);
     }
   }
