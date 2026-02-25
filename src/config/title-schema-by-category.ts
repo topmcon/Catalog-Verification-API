@@ -487,28 +487,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Configuration",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Freezer Finish - Model",
-    "seoNotes": "Configuration = Upright, Chest, Column. Capacity is the key differentiator."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. 36-Inch Upright Freezer Finish - Model",
+    "seoNotes": "Capacity and width for space planning. Configuration = Upright, Chest, Column."
   },
   "icemaker": {
     "categoryId": "a01Hu000011kFRfIAM",
@@ -569,28 +575,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Microwave Finish - Model",
-    "seoNotes": "Type = Over-the-Range, Countertop, Built-In, Drawer."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 2.0 Cu. Ft. 30-Inch Over-the-Range Microwave Finish - Model",
+    "seoNotes": "Capacity and width (30\" or 36\" for OTR models to match range). Type = Over-the-Range, Countertop, Built-In, Drawer."
   },
   "oven": {
     "categoryId": "a01Hu000010Q5EmIAK",
@@ -791,33 +803,39 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Configuration",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Installation Type",
         "required": false
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Refrigerator Finish - Model",
-    "seoNotes": "Lead with capacity. Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. 36-Inch French Door Counter-Depth Refrigerator Finish - Model",
+    "seoNotes": "Lead with capacity and width (people shop by both). Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",
@@ -888,28 +906,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. All in One Washer / Dryer Finish - Model",
-    "seoNotes": "Combined capacity. Type = Ventless, Vented, Compact."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Ventless All in One Washer / Dryer Finish - Model",
+    "seoNotes": "Combined capacity and width for space planning. Type = Ventless, Vented, Compact."
   },
   "dryer": {
     "categoryId": "a01Hu000010Q5EjIAK",
@@ -929,28 +953,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Fuel Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Dryer Finish - Model",
-    "seoNotes": "Capacity matches washer. Fuel Type = Gas, Electric."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Fuel Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 7.5 Cu. Ft. 27-Inch Electric Dryer Finish - Model",
+    "seoNotes": "Capacity matches washer, width for space planning. Fuel Type = Gas, Electric."
   },
   "standalone_pedestal": {
     "categoryId": "a01Hu000010Q5ErIAK",
@@ -1011,27 +1041,33 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Width (Inches)",
+        "required": false,
+        "format": "{value}-Inch"
+      },
+      {
+        "position": 4,
         "attribute": "Configuration",
         "required": false
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Configuration} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Washer Finish - Model",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer Finish - Model",
     "seoNotes": "Capacity determines load size. Configuration = Front Load, Top Load."
   },
   "home_electronics": {

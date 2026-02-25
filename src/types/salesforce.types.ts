@@ -186,6 +186,18 @@ export interface TopFilterAttributeIds {
   [key: string]: string | null;  // Maps attribute key to SF attribute_id
 }
 
+// Appliance Features (Appliances Department only - standard features AI determines)
+export interface ApplianceFeatures {
+  built_in: boolean;          // Built-in installation (OVEN & REFRIGERATOR ONLY)
+  panel_ready: boolean;       // Accepts custom panels
+  standard_depth: boolean;    // Standard depth (not counter-depth)
+  full_depth: boolean;        // Full/standard depth appliance
+  voltage_120v: boolean;      // Requires 120V power
+  voltage_240v: boolean;      // Requires 240V power
+  fuel_gas: boolean;          // Uses gas fuel
+  fuel_electric: boolean;     // Uses electric power
+}
+
 // Additional Attributes (Everything else as HTML table)
 export interface AdditionalAttributesHTML {
   html: string;  // Pre-formatted HTML table
@@ -473,6 +485,9 @@ export interface SalesforceVerificationResponse {
 
   // Top Filter Attribute IDs (Maps attribute keys to Salesforce IDs)
   Top_Filter_Attribute_Ids: TopFilterAttributeIds;
+
+  // Appliance Features (Appliances Department only)
+  Appliance_Features?: ApplianceFeatures;
 
   // Additional Attributes as HTML Table
   Additional_Attributes_HTML: string;

@@ -8238,12 +8238,24 @@ function buildFinalResponse(
     consensus.agreedAdditionalAttributes
   );
 
+  // Build Appliance Features (Appliances department only)
+  const applianceFeatures = buildApplianceFeatures(
+    sanitizedPrimaryAttributes.AI_Product_Department,
+    consensus.agreedCategory,
+    String(topFilterAttributes['installation_type'] || topFilterAttributes['Installation_Type'] || ''),
+    String(topFilterAttributes['fuel_type'] || topFilterAttributes['Fuel_Type'] || ''),
+    rawProduct,
+    topFilterAttributes,
+    sanitizedPrimaryAttributes
+  );
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: sanitizedPrimaryAttributes,
     Top_Filter_Attributes: sanitizedTopFilterAttributes,
     Top_Filter_Attribute_Ids: topFilterAttributeIds,
+    ...(applianceFeatures && { Appliance_Features: applianceFeatures }),
     Additional_Attributes_HTML: additionalHtml,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
@@ -8542,6 +8554,157 @@ function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
     Ferguson_URL: rawProduct.Ferguson_URL || '',
     Web_Retailer_URL: rawProduct.Reference_URL || '',
     Manufacturer_URL: '', // Could be extracted from documents
+  };
+}
+
+/**
+ * Build Appliance Features section (Appliances department only)
+ * Determines standard appliance features based on product data and category
+ * 
+ * @param department - Product department (e.g., "Appliances")
+ * @param category - Product category (e.g., "Oven", "Refrigerator")
+ * @param installationType - Installation type from attributes
+ * @param fuelType - Fuel type from attributes (for fuel_gas/fuel_electric)
+ * @param rawProduct - Raw product data for analysis
+ * @param topFilterAttributes - Top filter attributes with voltage and other specs
+ * @param primaryAttributes - Primary attributes for reference
+ * @returns ApplianceFeatures object or undefined if not Appliances department
+ */
+function buildApplianceFeatures(
+  department: string | undefined,
+  category: string | null | undefined,
+  installationType: string | undefined,
+  fuelType: string | undefined,
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes,
+  primaryAttributes: PrimaryDisplayAttributes
+): import('../types/salesforce.types').ApplianceFeatures | undefined {
+  // Only for Appliances department
+  if (!department || department.toLowerCase() !== 'appliances') {
+    return undefined;
+  }
+
+  const categoryLower = category?.toLowerCase() || '';
+  const installLower = installationType?.toLowerCase() || '';
+  const fuelLower = fuelType?.toLowerCase() || '';
+  
+  // Combine title and description for analysis
+  const combinedText = (
+    (primaryAttributes.AI_Product_Title || '') + ' ' +
+    (rawProduct.Product_Title_Web_Retailer || '') + ' ' +
+    (rawProduct.Product_Description_Web_Retailer || '') + ' ' +
+    (rawProduct.Ferguson_Description || '')
+  ).toLowerCase();
+
+  // Determine built_in (ONLY for Oven and Refrigerator categories)
+  let built_in = false;
+  if (categoryLower === 'oven') {
+    built_in = (
+      installLower.includes('built-in') ||
+      installLower.includes('built in') ||
+      installLower.includes('wall') ||
+      combinedText.includes('built-in') ||
+      combinedText.includes('built in oven') ||
+      combinedText.includes('wall oven')
+    );
+  } else if (categoryLower === 'refrigerator') {
+    built_in = (
+      installLower.includes('built-in') ||
+      installLower.includes('built in') ||
+      combinedText.includes('built-in refrigerator') ||
+      combinedText.includes('built in refrigerator')
+    );
+  }
+  // For all other categories (range, dishwasher, etc.), built_in remains false
+
+  // Determine panel_ready
+  const panel_ready = (
+    installLower.includes('panel ready') ||
+    installLower.includes('panel-ready') ||
+    combinedText.includes('panel ready') ||
+    combinedText.includes('panel-ready') ||
+    combinedText.includes('custom panel')
+  );
+
+  // Determine standard_depth (not counter-depth)
+  const is_counter_depth = (
+    installLower.includes('counter-depth') ||
+    installLower.includes('counter depth') ||
+    combinedText.includes('counter-depth') ||
+    combinedText.includes('counter depth')
+  );
+  const standard_depth = !is_counter_depth;
+
+  // Determine full_depth (same as standard_depth for most cases)
+  const full_depth = standard_depth;
+
+  // Determine voltage (check attributes and specs)
+  let voltage_120v = false;
+  let voltage_240v = false;
+  
+  // Check top filter attributes for voltage
+  const voltageAttr = String(topFilterAttributes['voltage'] || topFilterAttributes['volts'] || '').toLowerCase();
+  if (voltageAttr.includes('120') || voltageAttr.includes('115')) {
+    voltage_120v = true;
+  }
+  if (voltageAttr.includes('240') || voltageAttr.includes('220') || voltageAttr.includes('230')) {
+    voltage_240v = true;
+  }
+  
+  // Check in combined text
+  if (combinedText.includes('120v') || combinedText.includes('120 v') || combinedText.includes('115v')) {
+    voltage_120v = true;
+  }
+  if (combinedText.includes('240v') || combinedText.includes('240 v') || combinedText.includes('220v') || combinedText.includes('230v')) {
+    voltage_240v = true;
+  }
+  
+  // Default voltage assumptions by category if not specified
+  if (!voltage_120v && !voltage_240v) {
+    // High-power appliances typically use 240V
+    if (['range', 'oven', 'cooktop', 'dryer', 'water heater'].includes(categoryLower)) {
+      voltage_240v = true;
+    }
+    // Lower-power appliances typically use 120V
+    else if (['dishwasher', 'microwave', 'freezer', 'refrigerator', 'washer'].includes(categoryLower)) {
+      voltage_120v = true;
+    }
+  }
+
+  // Determine fuel type
+  let fuel_gas = false;
+  let fuel_electric = false;
+  
+  if (fuelLower.includes('gas') || fuelLower.includes('natural gas') || fuelLower.includes('propane')) {
+    fuel_gas = true;
+  }
+  if (fuelLower.includes('electric') || fuelLower.includes('induction')) {
+    fuel_electric = true;
+  }
+  if (fuelLower.includes('dual fuel') || fuelLower.includes('dual-fuel')) {
+    fuel_gas = true;
+    fuel_electric = true;
+  }
+  
+  // Check in combined text if not determined from fuel type
+  if (!fuel_gas && !fuel_electric) {
+    if (combinedText.includes('gas range') || combinedText.includes('gas cooktop') || combinedText.includes('gas oven')) {
+      fuel_gas = true;
+    }
+    if (combinedText.includes('electric range') || combinedText.includes('electric cooktop') || combinedText.includes('electric oven') || combinedText.includes('induction')) {
+      fuel_electric = true;
+    }
+  }
+
+  return {
+    built_in,
+    panel_ready,
+    standard_depth,
+    full_depth,
+    voltage_120v,
+    voltage_240v,
+    fuel_gas,
+    fuel_electric
   };
 }
 
