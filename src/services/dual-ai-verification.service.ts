@@ -6895,68 +6895,8 @@ function buildFinalResponse(
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
   
-  // Helper: Extract width from text descriptions as fallback
-  const extractWidthFromText = (text?: string): string => {
-    if (!text) return '';
-    
-    // Try multiple patterns in priority order (most specific first)
-    // Pattern 1: "18 Inch Wide" or "24 Inch Wide" (most reliable)
-    let match = text.match(/(\d{2})\s+Inch\s+Wide/i);
-    if (match) {
-      logger.info('Width extracted from "XX Inch Wide" pattern', { 
-        sessionId, 
-        extracted: match[1], 
-        from: text.substring(0, 100) 
-      });
-      return match[1];
-    }
-    
-    // Pattern 2: "18-Inch" or "24-Inch" with hyphen before word boundary
-    match = text.match(/(\d{2})-Inch\b/i);
-    if (match) {
-      logger.info('Width extracted from "XX-Inch" pattern', { 
-        sessionId, 
-        extracted: match[1], 
-        from: text.substring(0, 100) 
-      });
-      return match[1];
-    }
-    
-    // Pattern 3: '18"' or '24"' with quote immediately after number
-    match = text.match(/(\d{2})"\s*(?:Wide|Built|Dishwasher|Fully|Full)/i);
-    if (match) {
-      logger.info('Width extracted from \'XX"\' pattern', { 
-        sessionId, 
-        extracted: match[1], 
-        from: text.substring(0, 100) 
-      });
-      return match[1];
-    }
-    
-    logger.info('Width extraction failed - no pattern matched', { 
-      sessionId, 
-      text: text.substring(0, 100) 
-    });
-    return '';
-  };
-  
-  // Helper: Extract place settings from text
-  const extractPlaceSettingsFromText = (text?: string): string => {
-    if (!text) return '';
-    // Match patterns like "12 Place Settings", "14 Place Setting Capacity"
-    const match = text.match(/(\d{1,2})\s+Place\s+Setting/i);
-    if (match) {
-      logger.info('Place Settings extracted', { 
-        sessionId, 
-        extracted: match[1], 
-        from: text.substring(0, 100) 
-      });
-    }
-    return match ? match[1] : '';
-  };
-  
-  // Get width with multiple fallbacks: AI → Salesforce fields → Parse from text
-  const widthFromAI = preferAIValue(
+  // Get width from AI or Salesforce structured fields ONLY (no text parsing)
+  const widthFinal = preferAIValue(
     consensus.agreedPrimaryAttributes.width,
     openaiResult.primaryAttributes.width,
     xaiResult.primaryAttributes.width,
@@ -6964,44 +6904,46 @@ function buildFinalResponse(
     xaiResult.confidence,
     rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
   );
-  const widthFinal = widthFromAI || 
-    extractWidthFromText(rawProduct.Ferguson_Title) ||
-    extractWidthFromText(rawProduct.Product_Title_Web_Retailer) ||
-    extractWidthFromText(cleanedText.title) ||
-    '';
   
-  // Log final width value for debugging
-  if (widthFinal) {
-    logger.info('Final width determined for title', {
-      sessionId,
-      width: widthFinal,
-      source: widthFromAI ? 'AI' : 'Text extraction',
-      category: consensus.agreedCategory
-    });
-  }
+  // Get place settings from AI or text extraction (no structured field exists for this)
+  const extractPlaceSettingsFromText = (text?: string): string => {
+    if (!text) return '';
+    const match = text.match(/(\d{1,2})\s+Place\s+Setting/i);
+    return match ? match[1] : '';
+  };
   
-  // Get place settings with fallbacks
-  const placeSettingsFromAI = preferAIValue(
+  const placeSettingsFinal = preferAIValue(
     consensus.agreedTop15Attributes?.place_settings,
     openaiResult.top15Attributes?.place_settings,
     xaiResult.top15Attributes?.place_settings,
     openaiResult.confidence,
     xaiResult.confidence,
     ''
-  );
-  const placeSettingsFinal = placeSettingsFromAI ||
-    extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
-    extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
-    extractPlaceSettingsFromText(cleanedText.title) ||
-    '';
+  ) || 
+  extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
+  extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
+  '';
   
-  // Log final place settings value for debugging
-  if (placeSettingsFinal) {
-    logger.info('Final place settings determined for title', {
+  // Log width source for debugging
+  if (widthFinal) {
+    const widthSource = consensus.agreedPrimaryAttributes.width || openaiResult.primaryAttributes.width || xaiResult.primaryAttributes.width 
+      ? 'AI' 
+      : (rawProduct.Width_Web_Retailer ? 'Width_Web_Retailer' : (rawProduct.Ferguson_Width ? 'Ferguson_Width' : 'unknown'));
+    logger.info('Width determined for title from structured fields', {
       sessionId,
-      placeSettings: placeSettingsFinal,
-      source: placeSettingsFromAI ? 'AI' : 'Text extraction',
-      category: consensus.agreedCategory
+      width: widthFinal,
+      source: widthSource,
+      category: consensus.agreedCategory,
+      widthWebRetailer: rawProduct.Width_Web_Retailer || 'not provided',
+      fergusonWidth: rawProduct.Ferguson_Width || 'not provided'
+    });
+  } else {
+    logger.warn('Width NOT available for title generation', {
+      sessionId,
+      category: consensus.agreedCategory,
+      widthWebRetailer: rawProduct.Width_Web_Retailer || 'not provided',
+      fergusonWidth: rawProduct.Ferguson_Width || 'not provided',
+      aiWidth: consensus.agreedPrimaryAttributes.width || openaiResult.primaryAttributes.width || xaiResult.primaryAttributes.width || 'not extracted'
     });
   }
   
