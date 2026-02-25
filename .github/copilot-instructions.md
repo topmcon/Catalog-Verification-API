@@ -64,38 +64,59 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - **Key reference files**: Table of important files and their purpose for quick navigation
    
    **Target: 150-250 lines minimum.** The goal is a self-contained document that gives full context without needing to read prior summaries or code.
-2. **⚠️ PRE-DEPLOYMENT AUDIT** - Check if any code changes require dependent file updates:
+2. **⚠️ COMPREHENSIVE PRE-DEPLOYMENT VALIDATION** - MANDATORY for ALL code changes:
    ```bash
-   # Check what type of changes were made
-   git status --short
-   
-   # ALWAYS run comprehensive dependency validator
-   bash scripts/validate-dependencies.sh
+   # Run comprehensive validation suite (7 checks)
+   bash scripts/pre-deploy-validate-all.sh
    ```
-   **If changes include any of these patterns, run the corresponding audit:**
    
-   | Change Pattern | Run Audit | What It Checks |
-   |----------------|-----------|----------------|
-   | `category-type-mapping.json` or `types.json` | `bash scripts/validate-dependencies.sh --check-types <Category>` | Type keywords, AI prompts, title generators, attributes all in sync |
-   | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
-   | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
-   | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
-   | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
-   | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
+   **What it validates:**
    
-   **⭐ NEW: Dependency Validation (MANDATORY for ALL picklist/schema/type changes)**:
-   - Checks type-matcher keywords match category-type-mapping
-   - Verifies AI prompts mention new types
-   - Validates title generator configurations include types
-   - Ensures category attributes align with schemas
-   - See: [docs/QUICK-DEPENDENCY-REFERENCE.md](../docs/QUICK-DEPENDENCY-REFERENCE.md)
+   | Check # | Validation | What It Catches | Severity |
+   |---------|------------|-----------------|----------|
+   | 1 | TypeScript Compilation | Syntax errors, type mismatches | 🔴 CRITICAL |
+   | 2 | Dependency Consistency | Picklists, types, mappings sync | 🔴 CRITICAL |
+   | 3 | Feature Completeness | Declared features are implemented | 🔴 CRITICAL |
+   | 4 | Title System Runtime | Schema lookup, regex bugs | 🔴 CRITICAL |
+   | 5 | Title Generation | Sample data validation | 🔴 CRITICAL |
+   | 6 | Picklist Fields | Field name correctness | 🟡 WARNING |
+   | 7 | Hardcoded Lists | Sync with JSON picklists | 🟡 WARNING |
    
-   **If audit finds issues:**
-   - Fix all issues before proceeding
-   - Re-run audit to confirm fixes
+   **What this PREVENTS** (lessons learned from Feb 25 2026 title system failures):
+   - ✅ Regex typos (e.g., `/s+/g` vs `/\s+/g`) - **Check #4 catches**
+   - ✅ Declared but unimplemented features (e.g., `slot.format` not applied) - **Check #3 catches**
+   - ✅ Schema lookup failures - **Check #4 + #5 catch**
+   - ✅ Format template bugs - **Check #5 catches with sample data**
+   - ✅ Data structure mismatches - **Check #2 catches**
+   - ✅ Hardcoded lists out of sync - **Check #7 catches**
+   
+   **Individual validation scripts** (if you need to run specific checks):
+   ```bash
+   # Feature completeness (declared vs implemented)
+   node scripts/audit-declared-vs-implemented.js
+   
+   # Title system comprehensive test (all 177 categories)
+   node scripts/audit-title-system.js
+   
+   # Title generation with sample data
+   node scripts/test-title-generation.js
+   
+   # Dependency consistency (original validator)
+   bash scripts/validate-dependencies.sh
+   
+   # Picklist field validation
+   node scripts/audit-picklist-fields.js
+   
+   # Hardcoded lists sync check
+   node scripts/regenerate-hardcoded-lists.js --check
+   ```
+   
+   **If validation fails:**
+   - 🚫 **DEPLOYMENT BLOCKED** - Fix critical errors before proceeding
+   - Re-run `bash scripts/pre-deploy-validate-all.sh` to confirm fixes
    - Document fixes in session summary
    
-   **If NO code changes** (only docs/session notes): Skip audit, proceed to step 3
+   **If NO code changes** (only docs/session notes): Skip validation, proceed to step 3
 3. Check for any uncommitted changes (`git status`)
 4. Stage all changes including session summary (`git add -A`)
 5. Commit with descriptive message (ask user or auto-generate based on changed files)

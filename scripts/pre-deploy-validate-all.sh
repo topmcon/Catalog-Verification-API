@@ -1,0 +1,147 @@
+#!/bin/bash
+###############################################################################
+# COMPREHENSIVE PRE-DEPLOYMENT VALIDATOR
+# Combines all validation scripts into single comprehensive check
+# Run this before EVERY deployment
+###############################################################################
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+cd "$PROJECT_ROOT"
+
+echo ""
+echo "╔═══════════════════════════════════════════════════════════════════╗"
+echo "║           COMPREHENSIVE PRE-DEPLOYMENT VALIDATION                  ║"
+echo "╚═══════════════════════════════════════════════════════════════════╝"
+echo ""
+
+TOTAL_CHECKS=0
+PASSED_CHECKS=0
+FAILED_CHECKS=0
+
+# Track if we should abort deployment
+ABORT_DEPLOYMENT=false
+
+# ============================================================================
+# Helper function to run a check
+# ============================================================================
+run_check() {
+  local check_name="$1"
+  local check_command="$2"
+  local is_critical="${3:-true}"  # Default to critical
+  
+  TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "CHECK #$TOTAL_CHECKS: $check_name"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  
+  if eval "$check_command"; then
+    PASSED_CHECKS=$((PASSED_CHECKS + 1))
+    echo ""
+    echo "✅ CHECK #$TOTAL_CHECKS PASSED"
+  else
+    FAILED_CHECKS=$((FAILED_CHECKS + 1))
+    echo ""
+    echo "❌ CHECK #$TOTAL_CHECKS FAILED"
+    
+    if [ "$is_critical" = "true" ]; then
+      echo "   🚨 CRITICAL FAILURE - Deployment will be aborted"
+      ABORT_DEPLOYMENT=true
+    else
+      echo "   ⚠️  WARNING - Review before proceeding"
+    fi
+  fi
+}
+
+# ============================================================================
+# CHECK 1: TypeScript Compilation
+# ============================================================================
+run_check "TypeScript Compilation" \
+  "npm run build" \
+  "true"
+
+# ============================================================================
+# CHECK 2: Dependency Consistency
+# ============================================================================
+run_check "Dependency Consistency (Picklists, Types, Mappings)" \
+  "bash scripts/validate-dependencies.sh" \
+  "true"
+
+# ============================================================================
+# CHECK 3: Feature Completeness
+# ============================================================================
+run_check "Feature Completeness (Declared vs Implemented)" \
+  "node scripts/audit-declared-vs-implemented.js" \
+  "true"
+
+# ============================================================================
+# CHECK 4: Title System Runtime Test
+# ============================================================================
+run_check "Title System Runtime Test (All 177 Categories)" \
+  "node scripts/audit-title-system.js" \
+  "true"
+
+# ============================================================================
+# CHECK 5: Title Generation Validation
+# ============================================================================
+run_check "Title Generation Validation (Sample Data)" \
+  "node scripts/test-title-generation.js" \
+  "true"
+
+# ============================================================================
+# CHECK 6: Picklist Field Validation
+# ============================================================================
+run_check "Picklist Field Name Validation" \
+  "node scripts/audit-picklist-fields.js" \
+  "false"  # Non-critical
+
+# ============================================================================
+# CHECK 7: Hardcoded Lists Sync Check
+# ============================================================================
+run_check "Hardcoded Lists Sync Check" \
+  "node scripts/regenerate-hardcoded-lists.js --check" \
+  "false"  # Non-critical
+
+# ============================================================================
+# FINAL SUMMARY
+# ============================================================================
+echo ""
+echo "╔═══════════════════════════════════════════════════════════════════╗"
+echo "║                    VALIDATION SUMMARY                              ║"
+echo "╚═══════════════════════════════════════════════════════════════════╝"
+echo ""
+echo "Total Checks:       $TOTAL_CHECKS"
+echo "Passed:             $PASSED_CHECKS ✅"
+echo "Failed:             $FAILED_CHECKS ❌"
+echo ""
+
+if [ "$ABORT_DEPLOYMENT" = "true" ]; then
+  echo "╔═══════════════════════════════════════════════════════════════════╗"
+  echo "║                  🚫 DEPLOYMENT BLOCKED 🚫                          ║"
+  echo "╚═══════════════════════════════════════════════════════════════════╝"
+  echo ""
+  echo "Critical failures detected. Fix the issues above before deploying."
+  echo ""
+  exit 1
+elif [ "$FAILED_CHECKS" -gt 0 ]; then
+  echo "╔═══════════════════════════════════════════════════════════════════╗"
+  echo "║             ⚠️  WARNINGS DETECTED - REVIEW REQUIRED ⚠️             ║"
+  echo "╚═══════════════════════════════════════════════════════════════════╝"
+  echo ""
+  echo "Non-critical warnings found. Review and proceed with caution."
+  echo ""
+  exit 0
+else
+  echo "╔═══════════════════════════════════════════════════════════════════╗"
+  echo "║            ✅ ALL CHECKS PASSED - SAFE TO DEPLOY ✅                ║"
+  echo "╚═══════════════════════════════════════════════════════════════════╝"
+  echo ""
+  echo "All validation checks passed successfully!"
+  echo ""
+  exit 0
+fi

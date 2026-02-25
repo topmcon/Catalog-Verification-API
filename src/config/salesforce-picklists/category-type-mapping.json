@@ -145,13 +145,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Fully Integrated",
-          "type_id": "",
-          "type_group": "Installation",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
           "type_name": "Accessory",
           "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
