@@ -5561,9 +5561,28 @@ function mergeResearchResults(consensus: ConsensusResult, openaiResearch: Record
 /**
  * Normalize installation type to standard values
  * ONLY fixes typos and casing, does NOT change semantic meaning
+ * Also handles comma-separated combined values by picking the first valid one
  */
 function normalizeInstallationType(value: string | undefined | null): string {
   if (!value) return '';
+  
+  // Handle comma-separated combined values (e.g., "Built-In, Free Standing")
+  // Split and try to find the first valid installation type
+  if (value.includes(',')) {
+    const parts = value.split(',').map(p => p.trim());
+    const validTypes = getValidInstallationTypes();
+    
+    // Try each part - normalize it and check if valid
+    for (const part of parts) {
+      const normalizedPart = normalizeInstallationType(part); // Recursive call without comma
+      if (validTypes.includes(normalizedPart)) {
+        return normalizedPart; // Return first valid one
+      }
+    }
+    
+    // If none are valid, use the first part (at least consistent behavior)
+    return normalizeInstallationType(parts[0]);
+  }
   
   const normalized = value.trim().toLowerCase();
   

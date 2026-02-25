@@ -210,6 +210,13 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
     return input.collection || input.style;
   }
   
+  // Special case for Configuration - try configuration first, then fall back to type
+  // This handles cases where Type matching populated input.type but AI didn't populate input.configuration
+  // Example: Refrigerator Type="French Door" should appear in Configuration slot
+  if (attribute === 'Configuration') {
+    return input.configuration || input.type;
+  }
+  
   const value = (input as unknown as Record<string, unknown>)[fieldName] as string | number | string[] | undefined;
   
   // Debug logging for Width attribute

@@ -8,9 +8,11 @@
 
 | Issue Pattern | Solution Pattern | Commits | Related Findings |
 |---------------|------------------|---------|------------------|
-| Schema updated but input builder not updated | Update BOTH schema definition AND data source | efa96c1 | #001, #002 |
+| Schema updated but input builder not updated | Update BOTH schema definition AND data source | efa96c1 | #001, #002, #004 |
 | AI confidence-first without validation | Implement validation-first selection logic | 145a50f | #003 |
 | AI extracting wrong semantic values | Add normalization + validation against picklist | 24e2742, 145a50f | #003 |
+| Configuration slot empty in titles | Add fallback to input.type when input.configuration empty | [PENDING] | #004, #001 |
+| Comma-separated combined values in titles | Split on comma, normalize each, return first valid | [PENDING] | #005, #003 |
 
 ---
 
@@ -249,6 +251,199 @@ This pattern should be applied to other critical fields with known picklists:
 
 ---
 
+### Finding #004: Configuration Field Missing from Titles (Refrigerator, Freezer, Oven, Washer)
+**Date:** 2026-02-25  
+**Severity:** 🔴 CRITICAL  
+**Category:** Title System (Same Pattern as Finding #001)  
+**Affects:** Refrigerator, Freezer, Oven, Washer
+
+**Symptom:**
+- Titles missing Configuration type (French Door, Wine Cooler, Side-by-Side, etc.)
+- Example: "LANDMARK 15-Inch Built-In, Free Standing Refrigerator Panel Ready" (missing "Wine Cooler")
+- Example: Logs show `"type":"French Door"` but title doesn't include it
+
+**Root Cause:**
+**Exact same pattern as Finding #001 (Type field)** - Schema vs. Input mismatch:
+
+1. Schema defines "Configuration" slot at position 4 (for Refrigerator, Freezer, Oven, Washer)
+2. Title generator maps "Configuration" → `input.configuration`
+3. But `input.configuration` comes from AI consensus field `primaryAttributes.configuration` (often empty)
+4. Meanwhile, `input.type` has the CORRECT value from Type matching system
+5. Title generator looks for `input.configuration`, finds nothing, leaves slot empty
+
+**Production Evidence:**
+From live logs (2026-02-25 15:31):
+```
+Session 1ceaa0a4: Type matching result - "type":"French Door" ✅
+Session ec227c0e: Type matching result - "type":"Wine Cooler" ✅  
+Session 88b971c8: Type matching result - "type":"Beverage Center" ✅
+
+But titles generated WITHOUT these Configuration values!
+```
+
+**Investigation Steps:**
+1. Checked Refrigerator schema → Has "Configuration" slot at position 4 ✅
+2. Checked seoTitleInput object → Has `type` field populated ✅
+3. Checked title generator mapping → "Configuration" maps to `input.configuration` (WRONG SOURCE!) ❌
+4. Identified 4 categories affected: Refrigerator, Freezer, Oven, Washer
+
+**Fix Applied:**
+- **Commit:** [PENDING]
+- **File:** `src/services/seo-title-generator.service.ts`
+- **Location:** `getInputValue()` function (line ~208)
+- **Code:**
+```typescript
+// Special case for Configuration - try configuration first, then fall back to type
+// This handles cases where Type matching populated input.type but AI didn't populate input.configuration
+// Example: Refrigerator Type="French Door" should appear in Configuration slot
+if (attribute === 'Configuration') {
+  return input.configuration || input.type;
+}
+```
+
+**Pattern:**
+This follows the SAME pattern as "Collection/Style" fallback already in the code:
+```typescript
+if (attribute === 'Collection/Style') {
+  return input.collection || input.style;  // Try first, then fallback
+}
+```
+
+**Scope:** ✅ UNIVERSAL - All categories with Configuration slot
+- Refrigerator ✅
+- Freezer ✅
+- Oven ✅
+- Washer ✅
+- **Any future categories using Configuration slot will automatically benefit** ✅
+
+**Impact:** Fixes titles for 4 major appliance categories immediately. Future-proof pattern that requires no per-category adjustments.
+
+**Related Findings:** #001 (Type field - same schema vs. input mismatch pattern), #002 (Incomplete schema updates)
+
+**Testing:** Monitor production titles after deployment for Configuration values appearing:
+- "Samsung 28 Cu. Ft. 36-Inch **French Door** Freestanding Refrigerator Stainless Steel - RF28T5001SR"
+- "Summit 15-Inch **Wine Cooler** Built-In Refrigerator Stainless Steel - SWC530LBIST"
+
+**Prevention:** Always check if attribute field mappings have proper fallbacks when implementing Type matching system
+
+---
+
+### Finding #005: Combined Installation Types in Titles
+**Date:** 2026-02-25  
+**Severity:** 🟡 MEDIUM  
+**Category:** Title System / Data Normalization  
+**Affects:** All categories with Installation Type slot
+
+**Symptom:**
+- Titles showing comma-separated installation types: "Built-In, Free Standing"
+- Example: "LANDMARK 15-Inch Built-In, Free Standing Refrigerator Panel Ready"
+- Looks unprofessional and takes up too much space in titles
+
+**Root Cause:**
+AIs correctly identify products with **dual installation capabilities** (e.g., "Can be installed built-in or free standing") but concatenate them with commas as a single string: "Built-In, Free Standing". 
+
+**This is a data structure problem, NOT an extraction error:**
+- Product DOES support both installation types (correct)
+- But our `installation_type` field should hold ONE primary value (not comma-separated)
+- We need to pick the PRIMARY installation type (Built-In) and discard secondary (Free Standing)
+
+**The Issue:**
+- AIs extract: "Built-In, Free Standing, Undercounter" (identifies all capabilities)
+- System stores: "Built-In, Free Standing, Undercounter" as ONE STRING ❌
+- Should store: "Built-In" (primary value only) ✅
+
+**Production Evidence:**
+From live logs (2026-02-25 15:31):
+```
+Session 77768a5b: "installationType":"Built-In, Free Standing, Undercounter" ❌
+Session 88b971c8: "installationType":"Built-In, Free Standing" ❌
+Session ec227c0e: "installationType":"Built-In, Free Standing" ❌
+
+Database analysis:
+- 85 records with "Built-In, Free Standing" ❌
+- 28 records with "Built-In or Freestanding" ❌
+- Total 113+ records with combined values ❌
+
+Good single values:
+Session 1ceaa0a4: "installationType":"Freestanding" ✅
+Session 14b3d865: "installationType":"Undercounter" ✅
+```
+
+**Why Validation-First Didn't Catch This:**
+- `smartPreferAIValue()` checks if value is in `validValues` list
+- "Built-In, Free Standing" is NOT in the list (invalid)
+- When BOTH AIs give invalid combined values, function falls back to confidence-first
+- Combined value wins based on confidence, gets stored as-is
+
+**Fix Applied:**
+- **Commit:** [PENDING]
+- **File:** `src/services/dual-ai-verification.service.ts`
+- **Function:** `normalizeInstallationType()` (line ~5519)
+- **Logic:** Split comma-separated values, normalize each part, return FIRST VALID value (primary)
+
+```typescript
+// Handle comma-separated combined values - pick PRIMARY installation type
+if (value.includes(',')) {
+  const parts = value.split(',').map(p => p.trim());
+  const validTypes = getValidInstallationTypes();
+  
+  // Try each part - normalize it and check if valid
+  for (const part of parts) {
+    const normalizedPart = normalizeInstallationType(part); // Recursive
+    if (validTypes.includes(normalizedPart)) {
+      return normalizedPart; // Return FIRST VALID (primary)
+    }
+  }
+  
+  // If none are valid, use the first part (at least consistent)
+  return normalizeInstallationType(parts[0]);
+}
+```
+
+**Algorithm - Pick Primary Installation Type:**
+1. Detect comma in value (dual-capability indicator)
+2. Split on comma → ["Built-In", "Free Standing", "Undercounter"]
+3. Normalize each part individually
+4. Return **FIRST VALID** value (primary installation type)
+5. If none valid, return first part (consistent behavior)
+
+**Example:**
+- Input: "Built-In, Free Standing, Undercounter" (product supports all 3)
+- Split: ["Built-In", "Free Standing", "Undercounter"]
+- Normalize: ["Built-In", "Freestanding", "Undercounter"]
+- Check valid: Built-In ✅ (FIRST VALID) → **Return "Built-In"** (primary)
+- Discard: "Freestanding", "Undercounter" (secondary capabilities)
+
+**Rationale:**
+- Products with dual capabilities should list PRIMARY installation type
+- First value in comma list is typically the primary/preferred installation
+- Downstream systems expect single value, not comma-separated
+- Improves data quality for Salesforce picklist fields
+
+**Scope:** ✅ UNIVERSAL - All categories using `normalizeInstallationType()`
+- Applies to ALL 177 categories that have installation_type field
+- No category-specific logic needed
+- Works for ANY comma-separated value pattern
+- **Automatically handles future dual-capability products** ✅
+
+**Impact:** 
+- Fixes 113+ existing records with combined values
+- Prevents future combined values from being stored
+- Improves data quality for Salesforce picklist validation
+- No per-category testing or adjustments required
+
+**Related Findings:** #003 (Validation-first logic - this extends it to handle combined values)
+
+**Testing:** Monitor production titles for single installation type values, no more commas
+
+**Follow-Up Required:**
+- **Database Cleanup:** 113+ existing records in MongoDB with comma-separated values need correction
+- Query: `db.verification_results.find({'field_results.field_name': 'installation_type', 'field_results.final_value': {$regex: /,/}})`
+- Action: Run cleanup script to split and fix historical bad data
+- Priority: MEDIUM (new records fixed, old records remain inconsistent)
+
+---
+
 ### 🚀 **Enhancement #2: Schema/Input Mismatch Detection**
 **Status:** 💡 PROPOSED (Not Implemented)  
 **Priority:** MEDIUM  
@@ -370,6 +565,7 @@ Are you adding a new slot to a title schema?
 | Date | Updated By | Changes |
 |------|------------|---------|
 | 2026-02-25 | Copilot Session | Initial creation - Findings #001, #002, #003 |
+| 2026-02-25 | Copilot Session | Added Finding #004 (Configuration missing) and #005 (Combined installation types) |
 
 ---
 
