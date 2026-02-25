@@ -427,7 +427,15 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   
   for (const slot of sortedSlots) {
     const rawValue = getInputValue(input, slot.attribute);
-    const formattedValue = formatValue(slot.attribute, rawValue, input);
+    let formattedValue = formatValue(slot.attribute, rawValue, input);
+    
+    // Apply slot format template if specified AND no ATTRIBUTE_FORMATTERS entry exists
+    // (if ATTRIBUTE_FORMATTERS exists, formatValue already applied formatting)
+    // Examples: "{value} Place Setting", "{value} CFM"
+    const hasAttributeFormatter = !!ATTRIBUTE_FORMATTERS[slot.attribute];
+    if (formattedValue && slot.format && slot.format.includes('{value}') && !hasAttributeFormatter) {
+      formattedValue = slot.format.replace('{value}', formattedValue);
+    }
     
     // Debug logging for dishwasher width slot
     if (schema.categoryName === 'Dishwasher' && slot.attribute === 'Width (Inches)') {
