@@ -15,7 +15,7 @@
 | Comma-separated combined values in titles | Split on comma, normalize each, return first valid | 9c18a4d | #005, #003 |
 | " or " separator not handled in combined values | Extend split regex to handle multiple separators, prioritize Built-In | 40b397d | #006, #005 |
 | Duplicate values in titles | Check if value exists before pushing to parts array | 40b397d | #007 |
-| Wrong category determination | Stage 1 department logic needs prompt improvement (DEFERRED) | N/A | #008 |
+| Multi-keyword category conflicts (accessories/parts) | Enhance Stage 1 prompt: multi-keyword detection, context validation, department disqualification | TBD | #008, #003, #006 |
 | AI extracting descriptive phrases instead of finish values | Create normalizeFinish() to extract keywords + validation-first logic | 5aadad2 | #009, #003, #005 |
 | Freestanding shown in refrigerator titles | Skip Freestanding installation type in title generation | 7b80a87 | #010 |
 | Built-In redundant for inherently built-in products | Skip Built-In for Beverage Center and Undercounter types | 7b80a87 | #011, #010 |
@@ -593,17 +593,17 @@ if (formattedValue && !parts.includes(formattedValue)) {
 
 ---
 
-### Finding #008: Wrong Category Determination (DEFERRED)
+### Finding #008: Wrong Category Determination - Multi-Keyword Context Validation
 **Date:** 2026-02-25  
 **Severity:** 🔴 CRITICAL  
-**Category:** AI Category Determination  
-**Affects:** Products with ambiguous keywords (accessories, multi-function items)
-**Status:** 📋 DOCUMENTED - Requires separate analysis session
+**Category:** AI Department Determination (Stage 1)  
+**Affects:** Products with ambiguous keywords (accessories, multi-function items, appliance parts)
+**Status:** ✅ FIXED (Commit TBD)
 
 **Symptom:**
 - Product: MONOGRAM ZKUN "Refrigeration/Freezer Heater Kit"
-- Current category: "Heating" (Heating & Cooling department)
-- Expected category: "Refrigerator" (Appliances department)
+- Current category: "Heating" (Heating & Cooling department) ❌
+- Expected category: "Refrigerator" (Appliances department) ✅
 - AI saw "Heater" keyword and picked wrong department
 
 **Root Cause:**
@@ -612,47 +612,104 @@ Three-stage hierarchical category determination:
 2. **Stage 2**: Category determination filtered by Stage 1 department
 3. **Stage 3**: Detailed field extraction
 
-**Problem:** Stage 1 saw "Heater" keyword in product name and picked "Heating & Cooling" department. Stage 2 categories are filtered by Stage 1 department, so "Refrigerator" category was not even considered. AI correctly identified "Accessory" type within the wrong department.
+**Problem:** Stage 1 saw "Heater" keyword in product name and picked "Heating & Cooling" department WITHOUT validating other keywords present ("Refrigeration", "Freezer"). Stage 2 categories are filtered by Stage 1 department, so "Refrigerator" category was not even considered. This created a cascading error where the correct category was eliminated from consideration.
 
 **Investigation Steps:**
 1. User retested refrigerators, found session 59d0b026 categorized as Heating
 2. Product name: "Refrigeration/Freezer Heater Kit" (MONOGRAM ZKUN)
-3. Stage 1 AI saw "Heater" → Picked "Heating & Cooling" department
-4. Stage 2 filtered to Heating categories only → Picked "Heating" category
-5. Should have prioritized "Refrigeration" as PRIMARY function
+3. Keywords found: "Refrigeration" + "Freezer" + "Heater"
+4. Stage 1 AI saw "Heater" FIRST → Picked "Heating & Cooling" department
+5. Ignored "Refrigeration" + "Freezer" keywords that point to Appliances
+6. Stage 2 filtered to Heating categories only → Picked "Heating" category
+7. Heating & Cooling has NO "Refrigerator" or "Freezer" categories (should have disqualified it)
+8. Should have prioritized department with MORE supporting category matches
 
-**Why This Is Complex:**
-- Requires Stage 1 prompt improvement to analyze PRIMARY vs. SECONDARY functions
-- Product has both refrigeration (primary) and heating (secondary: defrost heater) functions
-- Current prompt doesn't distinguish primary purpose from component keywords
-- Affects all products with ambiguous keywords (accessories, parts, multi-function items)
-- Prompt engineering requires careful testing across all departments
+**Why This Was Critical:**
+- Affects all products with multiple category keywords
+- Affects accessories/parts products ("Refrigerator Water Filter", "Oven Light Bulb", "Dishwasher Heater Element")
+- Stage 1 error cascades through Stage 2 and Stage 3 (wrong department → wrong category → wrong attributes)
+- No validation that selected department actually has categories for ALL keywords found
+- AI picking first keyword match instead of STRONGEST keyword match
 
-**Proposed Solution:**
-Enhance Stage 1 department determination prompt:
-1. Analyze PRIMARY product function vs. SECONDARY components
-2. Prioritize main product category over accessory/part keywords
-3. Look for context clues ("kit for", "accessory for", "replacement for")
-4. Test across all 177 categories to avoid regressions
+**User's Enhanced Logic Request:**
+> "It should review and choose best option/keyword unless there are multiple keywords identified, then in this case it must do additional research to understand which keywords has more associated attributes/keywords to justify its choice. Example in this case it saw 'heater' but it overlooked 'refrigerator' and 'freezer' keywords - these additional keywords should have disqualified Heating and Cooling given there is no refrigerator or freezer categories and types within Heating and Cooling."
 
-**Scope:** Stage 1 department determination prompt (affects all products)
+**Fix Applied:** (Commit TBD - Enhanced Stage 1 Prompt)
+```typescript
+// File: src/services/dual-ai-verification.service.ts
+// Function: getDepartmentOnlyPrompt() (lines ~3385-3520)
 
-**Priority:** HIGH - Impacts data quality, but requires dedicated analysis session
+// ENHANCEMENT: Multi-keyword detection and context validation rules added to Stage 1 prompt
 
-**Why Deferred:**
-- Complex prompt engineering required
-- Must test across all departments to avoid regressions
-- User focused on completing refrigerator fixes first
-- Can be addressed in separate session without blocking current work
+// NEW INSTRUCTIONS:
+// 1. IDENTIFY ALL category keywords present in product data (not just first match)
+// 2. PRIMARY FUNCTION TEST: Determine main purpose vs. secondary components
+// 3. CONTEXT VALIDATION TEST: Check if ALL related keywords fit in ONE department
+// 4. ACCESSORY/COMPONENT TEST: For parts/accessories, select department of PRIMARY PRODUCT
+// 5. DISQUALIFICATION RULE: Eliminate departments lacking supporting categories
+// 6. SCORING SYSTEM: Select department with MOST supporting category matches
+```
 
-**Next Steps:**
-1. Create ticket/task for Stage 1 prompt improvement
-2. Analyze patterns of mis-categorizations in database
-3. Design prompt enhancement with PRIMARY function prioritization
-4. Test with problematic products (accessories, parts, multi-function)
-5. Deploy and monitor for improvements
+**Enhanced Prompt Examples Added:**
+```
+"Refrigerator/Freezer Heater Kit" Analysis:
+- Keywords found: refrigerator ✓, freezer ✓, heater ✗
+- Appliances department HAS: Refrigerator + Freezer categories (2 matches)
+- Heating & Cooling department has NO Refrigerator or Freezer categories (0 matches)
+- Primary function: Prevents condensation IN refrigerators (appliance accessory)
+- CONCLUSION: Appliances (2 supporting categories wins)
+```
 
-**Related Findings:** None (new pattern - keyword-based categorization issue)
+**New Logic Flow:**
+1. **Scan product data** for ALL category keywords (refrigerator, freezer, heater, etc.)
+2. **Map keywords to departments**:
+   - "refrigerator" → Appliances
+   - "freezer" → Appliances  
+   - "heater" → Heating & Cooling
+3. **Count supporting categories** in each department:
+   - Appliances: Has Refrigerator ✓, Has Freezer ✓ = Score: 2
+   - Heating & Cooling: Has NO Refrigerator ✗, Has NO Freezer ✗ = Score: 0
+4. **Apply PRIMARY FUNCTION test**:
+   - Product is "kit FOR refrigerators" (accessory OF appliance)
+   - Primary product: Refrigerator (Appliances department)
+5. **Select department with highest score**: Appliances (2 > 0)
+
+**Files Modified:**
+- `src/services/dual-ai-verification.service.ts` (getDepartmentOnlyPrompt function, lines ~3385-3520)
+
+**Prompt Enhancements:**
+- Added "MULTI-KEYWORD DETECTION RULES" section (4 validation tests)
+- Added "DEPARTMENT-CATEGORY RELATIONSHIPS" reference map
+- Added PRIMARY FUNCTION TEST for determining main purpose
+- Added CONTEXT VALIDATION TEST for counting supporting categories
+- Added ACCESSORY/COMPONENT TEST for parts/accessories
+- Added DISQUALIFICATION RULE to eliminate departments with no supporting categories
+- Enhanced reasoning field to require keyword analysis and department validation
+
+**Effect:**
+- **Before**: AI picks first keyword match (saw "heater" → Heating & Cooling)
+- **After**: AI counts supporting categories, picks department with most matches
+- **MONOGRAM ZKUN**: Will now categorize as Appliances (2 supporting categories: Refrigerator + Freezer)
+- **Other accessories**: "Dishwasher Water Heater" → Appliances (not Plumbing)
+- **Other parts**: "Range Hood Light Bulb" → Appliances (not Lighting)
+
+**Scope:** ✅ UNIVERSAL - Stage 1 department determination (affects all products)
+
+**Testing Required:**
+- Test with MONOGRAM ZKUN (should now select Appliances department)
+- Test with other cross-category accessories (water filters, light bulbs, heater elements)
+- Monitor for any regression across other departments
+- Verify reasoning field shows keyword analysis and validation logic
+
+**Impact:**
+- Prevents cascading categorization errors at Stage 1
+- Improves accuracy for accessories/parts products
+- Reduces need for manual corrections
+- Self-documenting reasoning shows AI's logic for auditing
+
+**Related Findings:** 
+- #003 (Validation-first pattern - similar multi-value handling)
+- #006 (Combined values - similar keyword detection pattern)
 
 ---
 

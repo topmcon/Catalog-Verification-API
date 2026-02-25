@@ -3385,6 +3385,7 @@ function createErrorResult(provider: 'openai' | 'xai', error: unknown): AIAnalys
 /**
  * STAGE 1 PROMPT: Department Determination Only (NEW - Hierarchical Phase 3)
  * Ultra-lightweight prompt with just department list
+ * ENHANCED: Multi-keyword detection and context validation (Finding #008 fix)
  */
 function getDepartmentOnlyPrompt(): string {
   const departmentList = getDepartmentListForPrompt();
@@ -3395,23 +3396,70 @@ function getDepartmentOnlyPrompt(): string {
 
 Your task:
 1. ANALYZE the raw product data provided (title, model, specifications)
-2. DETERMINE which DEPARTMENT this product belongs to
-3. Return ONLY the department determination with high confidence
+2. IDENTIFY ALL category keywords present in the product data
+3. EVALUATE which department has the MOST supporting evidence
+4. Return ONLY the department determination with high confidence
 
 == AVAILABLE DEPARTMENTS ==
 ${departmentList}
 
+== DEPARTMENT-CATEGORY RELATIONSHIPS ==
+Each department contains specific categories. When multiple keywords suggest different departments:
+- **Appliances**: Refrigerator, Freezer, Dishwasher, Range, Oven, Cooktop, Microwave, Wine Cooler, Ice Maker, Washer, Dryer, etc.
+- **Heating & Cooling**: Furnace, Boiler, Heat Pump, Air Conditioner, Thermostat, Humidifier, Dehumidifier, Air Purifier, etc.
+- **Plumbing & Bath**: Faucet, Sink, Toilet, Shower, Tub, Water Heater, Pump, Softener, etc.
+- **Lighting & Electrical**: Chandelier, Pendant, Sconce, Ceiling Fan, Switch, Outlet, Generator, etc.
+- **Outdoor**: Grill, Fire Pit, Patio Heater, Outdoor Furniture, Pergola, etc.
+- **Hardware**: Door Handle, Lock, Hinge, Cabinet Hardware, etc.
+
+**🔍 MULTI-KEYWORD DETECTION RULES (CRITICAL):**
+
+When you find MULTIPLE category keywords pointing to DIFFERENT departments:
+
+1. **PRIMARY FUNCTION TEST**: What is the product's MAIN purpose?
+   - Example: "Refrigerator Heater Kit" → Primary function is REFRIGERATION (heating is secondary/supportive)
+   - Example: "Dishwasher Water Heater" → Primary function is DISHWASHING (water heating is internal component)
+   - Example: "Range Hood Light Bulb" → Primary function is RANGE VENTILATION (lighting is feature)
+
+2. **CONTEXT VALIDATION TEST**: Check if ALL related keywords fit in ONE department
+   - Example: "Refrigerator/Freezer Heater Kit" has keywords: refrigerator + freezer + heater
+   - ✅ Appliances department HAS categories: Refrigerator, Freezer (2 matches)
+   - ❌ Heating & Cooling department has NO categories: Refrigerator or Freezer (0 matches)
+   - **CONCLUSION**: Appliances (2 supporting categories) beats Heating & Cooling (0 supporting categories)
+
+3. **ACCESSORY/COMPONENT TEST**: If product is a part/accessory FOR another product
+   - Always select the department of the PRIMARY PRODUCT, not the accessory type
+   - Example: "Refrigerator Water Filter" → Appliances (accessory FOR refrigerator)
+   - Example: "Oven Light Bulb" → Appliances (component OF oven)
+   - Example: "Heater Kit for Side-by-Side Refrigerator" → Appliances (component FOR refrigerator)
+
+4. **DISQUALIFICATION RULE**: Eliminate departments that lack supporting categories
+   - If a product mentions "refrigerator" + "freezer" + "heater", check each department:
+   - Does "Heating & Cooling" have a "Refrigerator" category? NO → Score: 0 supporting categories
+   - Does "Appliances" have "Refrigerator" category? YES → Score: 1+ supporting categories
+   - **Select the department with MORE supporting category matches**
+
 **Department Selection Rules:**
 - Analyze product title, model number, and primary function
-- Choose the department that BEST matches the product's core purpose
-- Examples:
-  • "Built-In Refrigerator" → Appliances
-  • "Pull-Down Kitchen Faucet" → Plumbing & Bath
-  • "Outdoor Wall Sconce Light" → Lighting & Electrical
-  • "Front Door Handle Set" → Hardware
-  • "Ceiling Fan with Light" → Lighting & Electrical (primary function is cooling/circulation, but categorized under lighting)
-  • "Portable Air Conditioner" → Heating & Cooling
-  • "Outdoor Patio Heater" → Outdoor
+- Identify ALL category keywords (don't stop at first match)
+- If multiple departments have matching keywords, use PRIMARY FUNCTION + CONTEXT VALIDATION tests
+- Choose the department with the MOST supporting category matches
+- For accessories/parts, always select department of the PRIMARY PRODUCT
+
+**Examples:**
+  • "Built-In Refrigerator" → Appliances (primary function: refrigeration)
+  • "Pull-Down Kitchen Faucet" → Plumbing & Bath (primary function: water delivery)
+  • "Outdoor Wall Sconce Light" → Lighting & Electrical (primary function: illumination)
+  • "Front Door Handle Set" → Hardware (primary function: door operation)
+  • "Ceiling Fan with Light" → Lighting & Electrical (primary function: cooling/circulation)
+  • "Portable Air Conditioner" → Heating & Cooling (primary function: cooling)
+  • "Outdoor Patio Heater" → Outdoor (primary function: outdoor heating)
+  • **"Refrigerator/Freezer Heater Kit"** → **Appliances** (keywords: refrigerator ✓, freezer ✓, heater ✗)
+    - Appliances has Refrigerator + Freezer categories (2 matches)
+    - Heating & Cooling has NO Refrigerator or Freezer categories (0 matches)
+    - Primary function: Prevents condensation IN refrigerators (appliance accessory)
+  • **"Dishwasher Water Heater Element"** → **Appliances** (component OF dishwasher, not a water heater)
+  • **"Range Hood Light Bulb"** → **Appliances** (component OF range hood, not a light fixture)
 
 **⚠️ IMPORTANT: Stage 1 Response Format**
 This is Stage 1 (department determination only). Return a simplified JSON structure:
@@ -3420,7 +3468,7 @@ This is Stage 1 (department determination only). Return a simplified JSON struct
   "department": {
     "name": "The exact department name from the list",
     "confidence": 0.95,
-    "reasoning": "Why this department was chosen based on product analysis"
+    "reasoning": "Explain your analysis: keywords found, primary function identified, department validation performed, supporting categories counted"
   },
   "category": {},
   "primary_attributes": {},
