@@ -648,6 +648,27 @@ function findClosestType(
 }
 
 /**
+ * Check if an ID is a placeholder that should not be sent to Salesforce
+ * Placeholder IDs like "pending_salesforce_id" or "NEEDS_NEW_ID" will cause SF errors
+ */
+function isPlaceholderId(id: string | null | undefined): boolean {
+  if (!id) return true;  // null/undefined/empty is effectively a placeholder
+  const placeholders = ['pending_salesforce_id', 'NEEDS_NEW_ID', 'PLACEHOLDER'];
+  return placeholders.includes(id);
+}
+
+/**
+ * Safely get a Salesforce ID, returning null if it's a placeholder
+ * This prevents sending invalid placeholder IDs back to Salesforce
+ */
+function getSafeId(id: string | null | undefined): string | null {
+  if (isPlaceholderId(id)) {
+    return null;  // Don't send placeholder IDs to Salesforce
+  }
+  return id || null;
+}
+
+/**
  * Build error response for rejected data coherence
  */
 function buildDataCoherenceErrorResponse(
@@ -7153,13 +7174,13 @@ function buildFinalResponse(
       ? brandMatch.matchedValue.brand_name  // Use EXACT Salesforce brand name
       : cleanedText.brand,
     AI_Brand_Lookup: brandMatch.matched && brandMatch.matchedValue 
-      ? brandMatch.matchedValue.brand_id 
+      ? getSafeId(brandMatch.matchedValue.brand_id)  // Filter out placeholder IDs
       : null,
     AI_Product_Category: categoryMatch.matched && categoryMatch.matchedValue 
       ? categoryMatch.matchedValue.category_name  // Use EXACT Salesforce category name
       : cleanEncodingIssues(consensus.agreedCategory || ''),
     AI_Product_Category_Lookup: categoryMatch.matched && categoryMatch.matchedValue 
-      ? categoryMatch.matchedValue.category_id 
+      ? getSafeId(categoryMatch.matchedValue.category_id)  // Filter out placeholder IDs
       : null,
     // SubCategory removed - was redundant (same as Category)
     AI_Product_Family: categoryMatch.matched && categoryMatch.matchedValue?.family
@@ -7170,13 +7191,13 @@ function buildFinalResponse(
       ? typeMatchResult.matchedValue.type_name  // Use EXACT Salesforce type name
       : cleanEncodingIssues(aiProductType || 'Not Applicable'),  // Use AI value or fallback
     AI_Type_Id: typeMatchResult.matched && typeMatchResult.matchedValue 
-      ? typeMatchResult.matchedValue.type_id 
+      ? getSafeId(typeMatchResult.matchedValue.type_id)  // Filter out placeholder IDs
       : null,
     AI_Style: styleMatch.matched && styleMatch.matchedValue 
       ? styleMatch.matchedValue.style_name  // Use EXACT Salesforce style name when matched
       : styleToUse,  // Use AI-derived style even if not in SF picklist (will be in Style_Requests)
     AI_Style_Lookup: styleMatch.matched && styleMatch.matchedValue 
-      ? styleMatch.matchedValue.style_id 
+      ? getSafeId(styleMatch.matchedValue.style_id)  // Filter out placeholder IDs
       : null,
     AI_Color: (() => {
       let color = cleanEncodingIssues(
@@ -7791,13 +7812,14 @@ function buildFinalResponse(
         
         if (attrMatch.matched && attrMatch.matchedValue) {
           // Found via fuzzy match - use with caution
-          topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+          const safeAttributeId = getSafeId(attrMatch.matchedValue.attribute_id);  // Filter out placeholder IDs
+          topFilterAttributeIds[key] = safeAttributeId;
           logger.warn('Top 15 attribute NOT in category config - used fuzzy match (may be incorrect)', {
             fieldKey: key,
             attributeName,
             category: consensus.agreedCategory,
             fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
-            attribute_id: attrMatch.matchedValue.attribute_id,
+            attribute_id: safeAttributeId,
             similarity: attrMatch.similarity,
             warning: 'This attribute should be added to category-filter-attributes.json with correct SF ID'
           });
@@ -7891,13 +7913,14 @@ function buildFinalResponse(
         const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
         
         if (attrMatch.matched && attrMatch.matchedValue) {
-          topFilterAttributeIds[key] = attrMatch.matchedValue.attribute_id;
+          const safeAttributeId = getSafeId(attrMatch.matchedValue.attribute_id);  // Filter out placeholder IDs
+          topFilterAttributeIds[key] = safeAttributeId;
           logger.warn('Top 15 attribute (by key) NOT in category config - used fuzzy match', {
             fieldKey: key,
             readableName,
             category: consensus.agreedCategory,
             fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
-            attribute_id: attrMatch.matchedValue.attribute_id,
+            attribute_id: safeAttributeId,
             similarity: attrMatch.similarity,
             warning: 'This attribute should be added to category-filter-attributes.json'
           });
@@ -8216,14 +8239,14 @@ function buildFinalResponse(
     sf_catalog_id: rawProduct.SF_Catalog_Id,
     model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
     brand: primaryAttributes.AI_Brand || '',
-    brand_id: primaryAttributes.AI_Brand_Lookup || null,
+    brand_id: getSafeId(primaryAttributes.AI_Brand_Lookup),  // Filter out placeholder IDs
     category: primaryAttributes.AI_Product_Category || '',
-    category_id: primaryAttributes.AI_Product_Category_Lookup || null,
+    category_id: getSafeId(primaryAttributes.AI_Product_Category_Lookup),  // Filter out placeholder IDs
     department: primaryAttributes.AI_Product_Department || '',
     family: primaryAttributes.AI_Product_Family || '',
     // subcategory removed - was redundant with category
     style: primaryAttributes.AI_Style || '',
-    style_id: primaryAttributes.AI_Style_Lookup || null,
+    style_id: getSafeId(primaryAttributes.AI_Style_Lookup),  // Filter out placeholder IDs
     attributes: {
       ...topFilterAttributes,
       color: primaryAttributes.AI_Color,
