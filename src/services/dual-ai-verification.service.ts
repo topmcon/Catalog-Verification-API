@@ -1315,6 +1315,42 @@ function resolveDisagreementSmart(
     return { resolvedValue: openaiValue, winner: 'openai', reason: 'Neither style matches picklist, using OpenAI' };
   }
 
+  // 3.5. INSTALLATION_TYPE: Validate against known good values, prefer valid over confidence
+  if (normalizedField === 'installation_type' || normalizedField === 'installationtype') {
+    const validTypes = getValidInstallationTypes();
+    const normalizedOpenai = normalizeInstallationType(openaiValue);
+    const normalizedXai = normalizeInstallationType(xaiValue);
+    
+    const openaiValid = normalizedOpenai && validTypes.includes(normalizedOpenai);
+    const xaiValid = normalizedXai && validTypes.includes(normalizedXai);
+    
+    // VALIDATION-FIRST: Prefer the valid one regardless of confidence
+    if (openaiValid && !xaiValid) {
+      return { 
+        resolvedValue: normalizedOpenai, 
+        winner: 'openai', 
+        reason: `OpenAI value "${normalizedOpenai}" is valid, xAI value "${xaiValue}" is not in standard list` 
+      };
+    }
+    if (xaiValid && !openaiValid) {
+      return { 
+        resolvedValue: normalizedXai, 
+        winner: 'xai', 
+        reason: `xAI value "${normalizedXai}" is valid, OpenAI value "${openaiValue}" is not in standard list` 
+      };
+    }
+    if (openaiValid && xaiValid) {
+      // Both valid - use OpenAI as tiebreaker
+      return { resolvedValue: normalizedOpenai, winner: 'openai', reason: 'Both installation types are valid, using OpenAI' };
+    }
+    // Neither valid - normalize and use OpenAI (will be flagged in logs)
+    return { 
+      resolvedValue: normalizedOpenai || normalizedXai || openaiValue, 
+      winner: 'openai', 
+      reason: `Neither installation type is in standard list (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), using normalized OpenAI value` 
+    };
+  }
+
   // 4. TYPE FIELD: One might be semantic (product type) vs structural (single/double)
   //    Prefer the semantic product type description
   if (normalizedField === 'type') {
@@ -5524,48 +5560,160 @@ function mergeResearchResults(consensus: ConsensusResult, openaiResearch: Record
 
 /**
  * Normalize installation type to standard values
- * Maps common AI extraction mistakes to correct values
+ * ONLY fixes typos and casing, does NOT change semantic meaning
  */
 function normalizeInstallationType(value: string | undefined | null): string {
   if (!value) return '';
   
   const normalized = value.trim().toLowerCase();
   
-  // Map common AI mistakes to correct values
+  // Map ONLY typos and casing variations - NO semantic changes
   const installTypeMap: { [key: string]: string } = {
-    'built under': 'Built-In',
-    'built-under': 'Built-In',
-    'undercounter': 'Built-In',
-    'under counter': 'Built-In',
-    'under-counter': 'Built-In',
+    // Built-In variations (casing only)
     'built in': 'Built-In',
     'built-in': 'Built-In',
     'builtin': 'Built-In',
+    
+    // Freestanding variations
     'freestanding': 'Freestanding',
     'free standing': 'Freestanding',
     'free-standing': 'Freestanding',
+    
+    // Slide-In variations
     'slide in': 'Slide-In',
     'slide-in': 'Slide-In',
     'slidein': 'Slide-In',
+    
+    // Drop-In variations
     'drop in': 'Drop-In',
     'drop-in': 'Drop-In',
     'dropin': 'Drop-In',
+    
+    // Counter-Depth variations
     'counter depth': 'Counter-Depth',
     'counter-depth': 'Counter-Depth',
     'counterdepth': 'Counter-Depth',
+    
+    // Wall Mount variations
     'wall mount': 'Wall Mount',
     'wall-mount': 'Wall Mount',
+    'wallmount': 'Wall Mount',
+    
+    // Under Cabinet variations
     'under cabinet': 'Under Cabinet',
     'under-cabinet': 'Under Cabinet',
+    'undercabinet': 'Under Cabinet',
+    
+    // Island Mount variations
     'island mount': 'Island Mount',
     'island-mount': 'Island Mount',
+    
+    // Deck Mount variations
     'deck mount': 'Deck Mount',
     'deck-mount': 'Deck Mount',
+    
+    // Floor Mount variations
     'floor mount': 'Floor Mount',
-    'floor-mount': 'Floor Mount'
+    'floor-mount': 'Floor Mount',
+    
+    // Undercounter variations (KEEP as separate value)
+    'undercounter': 'Undercounter',
+    'under counter': 'Undercounter',
+    'under-counter': 'Undercounter'
   };
   
   return installTypeMap[normalized] || value; // Return mapped value or original if no match
+}
+
+/**
+ * Get valid installation types for appliances
+ * These are the standard Salesforce picklist values
+ */
+function getValidInstallationTypes(): string[] {
+  return [
+    'Built-In',
+    'Freestanding',
+    'Slide-In',
+    'Drop-In',
+    'Counter-Depth',
+    'Wall Mount',
+    'Under Cabinet',
+    'Island Mount',
+    'Deck Mount',
+    'Floor Mount',
+    'Undercounter',
+    'Widespread',
+    'Single Hole',
+    'Alcove',
+    'Drop-In Tub',
+    'Freestanding Tub',
+    'Corner',
+    'Undermount',
+    'Topmount',
+    'Farmhouse',
+    'Integrated',
+    'Semi-Recessed',
+    'Vessel'
+  ];
+}
+
+/**
+ * Smart prefer AI value - validates FIRST, then uses confidence
+ * Prefers the AI that gives a VALID value over one that doesn't
+ */
+function smartPreferAIValue(
+  consensusValue: any,
+  openaiValue: any,
+  xaiValue: any,
+  openaiConfidence: number,
+  xaiConfidence: number,
+  fallback: any,
+  validValues?: string[]
+): any {
+  // If consensus exists, use it
+  if (consensusValue !== undefined && consensusValue !== null && consensusValue !== '') {
+    return consensusValue;
+  }
+  
+  // If no validation list provided, use old logic
+  if (!validValues) {
+    if (openaiValue && xaiValue) {
+      return openaiConfidence >= xaiConfidence ? openaiValue : xaiValue;
+    } else if (openaiValue) {
+      return openaiValue;
+    } else if (xaiValue) {
+      return xaiValue;
+    }
+    return fallback;
+  }
+  
+  // VALIDATION-FIRST LOGIC: Check which AI gave valid value
+  const openaiValid = openaiValue && validValues.includes(openaiValue);
+  const xaiValid = xaiValue && validValues.includes(xaiValue);
+  
+  // Both valid → use confidence as tiebreaker
+  if (openaiValid && xaiValid) {
+    return openaiConfidence >= xaiConfidence ? openaiValue : xaiValue;
+  }
+  
+  // Only one valid → use the valid one regardless of confidence
+  if (openaiValid && !xaiValid) {
+    return openaiValue;
+  }
+  if (xaiValid && !openaiValid) {
+    return xaiValue;
+  }
+  
+  // Neither valid → use confidence (might need normalization later)
+  if (openaiValue && xaiValue) {
+    return openaiConfidence >= xaiConfidence ? openaiValue : xaiValue;
+  } else if (openaiValue) {
+    return openaiValue;
+  } else if (xaiValue) {
+    return xaiValue;
+  }
+  
+  return fallback;
 }
 
 /**
@@ -7199,14 +7347,17 @@ function buildFinalResponse(
       xaiResult.confidence,
       ''
     ),
-    installationType: normalizeInstallationType(preferAIValue(
-      consensus.agreedTop15Attributes?.installation_type || consensus.agreedPrimaryAttributes.installation_type,
-      openaiResult.top15Attributes?.installation_type || openaiResult.primaryAttributes.installation_type,
-      xaiResult.top15Attributes?.installation_type || xaiResult.primaryAttributes.installation_type,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      ''
-    )),
+    installationType: normalizeInstallationType(
+      smartPreferAIValue(
+        consensus.agreedTop15Attributes?.installation_type || consensus.agreedPrimaryAttributes.installation_type,
+        openaiResult.top15Attributes?.installation_type || openaiResult.primaryAttributes.installation_type,
+        xaiResult.top15Attributes?.installation_type || xaiResult.primaryAttributes.installation_type,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        '',
+        getValidInstallationTypes() // VALIDATION-FIRST: prefer valid value over confidence
+      )
+    ),
     
     // Features NOT passed to title generator (removed from titles in v2.1)
     // features: cleanedText.features,
