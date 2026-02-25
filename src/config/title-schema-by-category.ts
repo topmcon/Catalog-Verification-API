@@ -7660,7 +7660,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
  * Get title schema for a category (case-insensitive lookup)
  */
 export function getCategoryTitleSchema(categoryName: string): CategoryTitleSchema | null {
-  const normalized = categoryName.toLowerCase().replace(/s+/g, '_').replace(/[/&]/g, '_').replace(/__+/g, '_');
+  const normalized = categoryName.toLowerCase().replace(/\s+/g, '_').replace(/[/&]/g, '_').replace(/__+/g, '_');
   return CATEGORY_TITLE_SCHEMAS[normalized] || null;
 }
 
