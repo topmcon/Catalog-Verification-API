@@ -6922,7 +6922,7 @@ function buildFinalResponse(
   );
   const widthFinal = widthFromAI || 
     extractWidthFromText(rawProduct.Ferguson_Title) ||
-    extractWidthFromText(rawProduct.Web_Retailer_Title) ||
+    extractWidthFromText(rawProduct.Product_Title_Web_Retailer) ||
     extractWidthFromText(cleanedText.title) ||
     '';
   
@@ -6937,7 +6937,7 @@ function buildFinalResponse(
   );
   const placeSettingsFinal = placeSettingsFromAI ||
     extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
-    extractPlaceSettingsFromText(rawProduct.Web_Retailer_Title) ||
+    extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
     extractPlaceSettingsFromText(cleanedText.title) ||
     '';
   
