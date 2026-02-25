@@ -3421,8 +3421,13 @@ ${promptOptions.invalidTypeWarning}
     typeSelectionGuide += `     - "Hugger" mentioned anywhere → Hugger (specific installation type)\n`;
     typeSelectionGuide += `  4. Check specifications and description for confirmation\n`;
     typeSelectionGuide += `  5. Select BEST match from types list even if slightly uncertain\n`;
-    typeSelectionGuide += `  6. Only use "Not Found" if genuinely cannot determine from available data\n`;
-    typeSelectionGuide += `  7. NEVER use "Not Applicable" (product is already in correct category)\n`;
+    typeSelectionGuide += `\n⚠️ ⚠️ ⚠️  CRITICAL TYPE SELECTION RULES  ⚠️ ⚠️ ⚠️\n`;
+    typeSelectionGuide += `  6. ALWAYS select a type from the provided list\n`;
+    typeSelectionGuide += `  7. NEVER return "Not Found" - pick your BEST semantic match\n`;
+    typeSelectionGuide += `  8. If truly uncertain: Pick the most COMMON [PRIMARY] type for this category\n`;
+    typeSelectionGuide += `  9. When in doubt: Choose the most GENERIC type that fits\n`;
+    typeSelectionGuide += `  10. NEVER use "Not Applicable" (product is already in correct category)\n`;
+    typeSelectionGuide += `\n  📌 REMEMBER: A "good enough" match is BETTER than "Not Found"\n`;
   }
   
   // Build category-specific type list
@@ -3485,7 +3490,7 @@ You must respond with valid JSON in this exact format:
     "brand": "value",
     "category_subcategory": "${determinedCategory}",
     "product_family": "value",
-    "product_type": "⚠️ MANDATORY: Select from the VALID PRODUCT TYPES list above. This is the FUNCTIONAL variation (e.g., 'Indoor' for ceiling fans, 'Single' vs 'Double Wall' for ovens). Use 'Not Found' only if genuinely cannot determine from data.",
+    "product_type": "⚠️ MANDATORY: Select from the VALID PRODUCT TYPES list above. This is the FUNCTIONAL variation (e.g., 'Indoor' for ceiling fans, 'Single' vs 'Double Wall' for ovens). ALWAYS choose your BEST match - NEVER return 'Not Found'.",
     "product_style": "⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.",
     "depth_length": "numeric value only (depth OR length)",
     "width": "numeric value only",
@@ -3519,9 +3524,11 @@ You must respond with valid JSON in this exact format:
 ⚠️ CRITICAL FIELD VALUE RULES:
 - NEVER leave fields blank or null
 - Use actual value if found
-- Use "Not Found" if searched but not available
+- For product_type: ALWAYS pick your BEST match from the type list - NEVER "Not Found"
+- For product_style: ALWAYS select from universal design styles list
+- Use "Not Found" for OTHER fields only if searched but truly not available
 - Use "Not Applicable" ONLY if field doesn't apply to this category
-- For product_type: Since product IS in ${determinedCategory} category, use "Not Found" if cannot determine (NOT "Not Applicable")`;
+- For product_type: Since product IS in ${determinedCategory} category, you MUST select a type from the list`;
 }
 
 /**

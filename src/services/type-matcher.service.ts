@@ -78,7 +78,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'top freezer': { 'Refrigerator': 'Top-Freezer' },
   'top freezer refrigerator': { 'Refrigerator': 'Top-Freezer' },
   'top-freezer': { 'Refrigerator': 'Top-Freezer' },
-  'top mount': { 'Refrigerator': 'Top-Freezer' },
+  'top mount': { 'Refrigerator': 'Top-Freezer', 'Kitchen Sink': 'Drop-In', 'Bathroom Sink': 'Drop-In' },
   'bottom freezer': { 'Refrigerator': 'Bottom-Freezer' },
   'bottom freezer refrigerator': { 'Refrigerator': 'Bottom-Freezer' },
   'bottom-freezer': { 'Refrigerator': 'Bottom-Freezer' },
@@ -182,7 +182,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'wall mount': { 'Range Hood': 'Wall Mount' },
   'wall mounted': { 'Range Hood': 'Wall Mount' },
   'chimney': { 'Range Hood': 'Wall Mount' },
-  'island': { 'Range Hood': 'Island' },
+  'island': { 'Range Hood': 'Island', 'Pendant': 'Island' },
   'island mount': { 'Range Hood': 'Island' },
   'under cabinet': { 'Range Hood': 'Under Cabinet' },
   'undercabinet': { 'Range Hood': 'Under Cabinet' },
@@ -206,13 +206,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'led': { 'Lamp': 'LED', 'Light Bulb': 'LED', 'Recessed Lighting': 'LED' },
   'incandescent': { 'Light Bulb': 'Incandescent' },
   'halogen': { 'Light Bulb': 'Halogen' },
-  'mini pendant': { 'Pendant': 'Mini Pendant' },
-  'multi light': { 'Pendant': 'Multi-Light' },
-  'drum': { 'Pendant': 'Drum' },
-  'linear': { 'Pendant': 'Linear', 'Chandelier': 'Linear' },
   
   // ============================================
-  // PLUMBING ALIASES
+  // PLUMBING ALASES - Kitchen Faucets
   // ============================================
   'pull-down': { 'Kitchen Faucet': 'Pull-Down' },
   'pull down': { 'Kitchen Faucet': 'Pull-Down' },
@@ -220,22 +216,174 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'pull-out': { 'Kitchen Faucet': 'Pull-Out' },
   'pull out': { 'Kitchen Faucet': 'Pull-Out' },
   'pullout': { 'Kitchen Faucet': 'Pull-Out' },
-  'single handle': { 'Kitchen Faucet': 'Single Handle', 'Bathroom Faucet': 'Single Handle' },
+  'single handle': { 'Kitchen Faucet': 'Single Handle', 'Bathroom Faucet': 'Single Hole' },
   'double handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'two handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
+  'pot filler': { 'Kitchen Faucet': 'Pot Filler', 'Pot Filler Faucet': 'Wall Mount' },
+  'bar faucet': { 'Kitchen Faucet': 'Bar Prep', 'Bar Faucet': 'Single Hole' },
+  
+  // ============================================
+  // PLUMBINGALIASES - Bathroom Faucets
+  // ============================================
   'widespread': { 'Bathroom Faucet': 'Widespread' },
   'centerset': { 'Bathroom Faucet': 'Centerset' },
+  'single hole': { 'Bathroom Faucet': 'Single Hole' },
+  'monoblock': { 'Bathroom Faucet': 'Single Hole' },
+  'mono-block': { 'Bathroom Faucet': 'Single Hole' },
+  'one hole': { 'Bathroom Faucet': 'Single Hole' },
+  '1 hole': { 'Bathroom Faucet': 'Single Hole' },
   'vessel': { 'Bathroom Faucet': 'Vessel' },
+  'vessel faucet': { 'Bathroom Faucet': 'Vessel' },
   'wall mount faucet': { 'Bathroom Faucet': 'Wall Mount' },
+  'wall mounted faucet': { 'Bathroom Faucet': 'Wall Mount' },
+  'touchless': { 'Bathroom Faucet': 'Touchless', 'Kitchen Faucet': 'Touchless' },
+  'sensor faucet': { 'Bathroom Faucet': 'Touchless', 'Kitchen Faucet': 'Touchless' },
+  'wall mount bathroom': { 'Bathroom Faucet': 'Wall Mount' },
+  
+  // ============================================
+  // PLUMBING ALIASES - Tub & Shower Faucets
+  // ============================================
+  'roman tub': { 'Tub Faucet': 'Deck Mount' },
+  'deck mount': { 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
+  'deck mounted': { 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
+  'roman tub faucet': { 'Tub Faucet': 'Deck Mount' },
+  'deck mount tub': { 'Tub Faucet': 'Deck Mount' },
+  'tub filler': { 'Tub Faucet': 'Freestanding', 'Pot Filler Faucet': 'Wall Mount' },
+  'freestanding tub filler': { 'Tub Faucet': 'Freestanding' },
+  'freestanding tub faucet': { 'Tub Faucet': 'Freestanding' },
+  'thermostatic': { 'Shower Faucet': 'Thermostatic' },
+  'pressure balance': { 'Shower Faucet': 'Pressure Balance' },
+  'shower system': { 'Shower Faucet': 'Shower System', 'Shower': 'Shower System' },
+  'shower tower': { 'Shower Faucet': 'Shower System', 'Shower': 'Shower System' },
+  'rain shower': { 'Shower Faucet': 'Rain' },
+  'body spray': { 'Shower Faucet': 'Body Spray' },
+  
+  // ============================================
+  // PLUMBING ALIASES - Sinks & Bathtubs
+  // ============================================
   'freestanding tub': { 'Bathtub': 'Freestanding' },
   'alcove': { 'Bathtub': 'Alcove' },
+  'alcove tub': { 'Bathtub': 'Alcove' },
   'drop-in': { 'Bathtub': 'Drop-In', 'Kitchen Sink': 'Drop-In' },
   'drop in': { 'Bathtub': 'Drop-In', 'Kitchen Sink': 'Drop-In' },
+  'drop-in sink': { 'Kitchen Sink': 'Drop-In', 'Bathroom Sink': 'Drop-In' },
+  'topmount': { 'Kitchen Sink': 'Drop-In', 'Bathroom Sink': 'Drop-In' },
   'undermount': { 'Kitchen Sink': 'Undermount', 'Bathroom Sink': 'Undermount' },
+  'undermount sink': { 'Kitchen Sink': 'Undermount', 'Bathroom Sink': 'Undermount' },
+  'under mount': { 'Kitchen Sink': 'Undermount', 'Bathroom Sink': 'Undermount' },
   'farmhouse': { 'Kitchen Sink': 'Apron Front' },
+  'farmhouse sink': { 'Kitchen Sink': 'Apron Front' },
   'apron': { 'Kitchen Sink': 'Apron Front' },
   'apron front': { 'Kitchen Sink': 'Apron Front' },
+  'apron front sink': { 'Kitchen Sink': 'Apron Front' },
+  'single bowl': { 'Kitchen Sink': 'Single Bowl', 'Bar & Prep Sink': 'Single Bowl' },
+  'single basin': { 'Kitchen Sink': 'Single Bowl', 'Bathroom Sink': 'Single Bowl' },
+  'double bowl': { 'Kitchen Sink': 'Double Bowl' },
+  'double basin': { 'Kitchen Sink': 'Double Bowl' },
   'pedestal': { 'Bathroom Sink': 'Pedestal' },
+  'pedestal sink': { 'Bathroom Sink': 'Pedestal' },
+  'console': { 'Bathroom Sink': 'Console' },
+  'wall hung': { 'Bathroom Sink': 'Wall Mount', 'Toilet': 'Wall Mount' },
+  'wall-hung': { 'Bathroom Sink': 'Wall Mount', 'Toilet': 'Wall Mount' },
+  
+  // ============================================
+  // BATHROOM HARDWARE ALIASES
+  // ============================================
+  'towel bar': { 'Bathroom Hardware and Accessories': 'Towel Bar' },
+  'towel rack': { 'Bathroom Hardware and Accessories': 'Towel Bar' },
+  'toilet paper holder': { 'Bathroom Hardware and Accessories': 'Toilet Paper Holder' },
+  'toilet tissue holder': { 'Bathroom Hardware and Accessories': 'Toilet Paper Holder' },
+  'tissue holder': { 'Bathroom Hardware and Accessories': 'Toilet Paper Holder' },
+  'toilet paper': { 'Bathroom Hardware and Accessories': 'Toilet Paper Holder' },
+  'tp holder': { 'Bathroom Hardware and Accessories': 'Toilet Paper Holder' },
+  'robe hook': { 'Bathroom Hardware and Accessories': 'Robe Hook' },
+  'towel hook': { 'Bathroom Hardware and Accessories': 'Towel Hook' },
+  'towel ring': { 'Bathroom Hardware and Accessories': 'Towel Ring' },
+  'soap dispenser': { 'Bathroom Hardware and Accessories': 'Soap Dispenser' },
+  'soap dish': { 'Bathroom Hardware and Accessories': 'Soap Dish' },
+  'towel warmer': { 'Bathroom Hardware and Accessories': 'Towel Warmer' },
+  'grab bar': { 'Bathroom Hardware and Accessories': 'Grab Bar' },
+  'safety bar': { 'Bathroom Hardware and Accessories': 'Grab Bar' },
+  
+  // ============================================
+  // MEDICINE CABINET & MIRROR ALIASES
+  // ============================================
+  'medicine cabinet': { 'Medicine Cabinet': 'Medicine Cabinet' },
+  'medicine cab': { 'Medicine Cabinet': 'Medicine Cabinet' },
+  'recessed cabinet': { 'Medicine Cabinet': 'Recessed' },
+  'surface mount': { 'Medicine Cabinet': 'Surface Mount' },
+  'surface mounted': { 'Medicine Cabinet': 'Surface Mount' },
+  'wall mirror': { 'Medicine Cabinet': 'Wall Mirror', 'Bathroom Mirror': 'Wall Mirror' },
+  'vanity mirror': { 'Medicine Cabinet': 'Vanity Mirror', 'Bathroom Mirror': 'Vanity Mirror' },
+  'lighted mirror': { 'Bathroom Mirror': 'Lighted' },
+  'led mirror': { 'Bathroom Mirror': 'LED' },
+  
+  // ============================================
+  // CEILING FAN ALIASES
+  // ============================================
+  'indoor': { 'Ceiling Fan': 'Indoor' },
+  'indoor fan': { 'Ceiling Fan': 'Indoor' },
+  'outdoor': { 'Ceiling Fan': 'Outdoor', 'Pendant': 'Outdoor', 'Chandelier': 'Outdoor' },
+  'outdoor fan': { 'Ceiling Fan': 'Outdoor' },
+  'hugger': { 'Ceiling Fan': 'Hugger' },
+  'hugger fan': { 'Ceiling Fan': 'Hugger' },
+  'flush mount fan': { 'Ceiling Fan': 'Hugger' },
+  'low profile': { 'Ceiling Fan': 'Hugger' },
+  'downrod': { 'Ceiling Fan': 'Downrod' },
+  'downrod fan': { 'Ceiling Fan': 'Downrod' },
+  'dual mount': { 'Ceiling Fan': 'Dual Mount' },
+  
+  // ============================================
+  // LIGHTING ACCESSORIES ALIASES
+  // ============================================
+  'ceiling canopy': { 'Lighting Accessory': 'Canopy' },
+  'canopy kit': { 'Lighting Accessory': 'Canopy' },
+  'ceiling fan downrod': { 'Ceiling Fan Accessory': 'Downrod' },
+  'ceiling fan accessory': { 'Ceiling Fan Accessory': 'Accessory' },
+  'fan light kit': { 'Ceiling Fan Accessory': 'Light Kit' },
+  'light kit': { 'Ceiling Fan Accessory': 'Light Kit' },
+  
+  // ============================================
+  // RECESSED LIGHTING ALIASES
+  // ============================================
+  'canless': { 'Recessed Lighting': 'Canless' },
+  'canless recessed': { 'Recessed Lighting': 'Canless' },
+  'wafer': { 'Recessed Lighting': 'Canless' },
+  'gimbal': { 'Recessed Lighting': 'Gimbal' },
+  'adjustable': { 'Recessed Lighting': 'Adjustable' },
+  'baffle': { 'Recessed Lighting': 'Baffle' },
+  'retrofit': { 'Recessed Lighting': 'Retrofit' },
+  'new construction': { 'Recessed Lighting': 'New Construction' },
+  
+  // ============================================
+  // PENDANT & CHANDELIER ALIASES
+  // ============================================
+  'mini pendant': { 'Pendant': 'Mini Pendant' },
+  'mini': { 'Pendant': 'Mini Pendant' },
+  'multi light': { 'Pendant': 'Multi-Light', 'Chandelier': 'Multi-Light' },
+  'multi-light': { 'Pendant': 'Multi-Light', 'Chandelier': 'Multi-Light' },
+  'cluster': { 'Pendant': 'Multi-Light', 'Chandelier': 'Cluster' },
+  'drum': { 'Pendant': 'Drum' },
+  'drum pendant': { 'Pendant': 'Drum' },
+  'linear': { 'Pendant': 'Linear', 'Chandelier': 'Linear' },
+  'linear pendant': { 'Pendant': 'Linear' },
+  'kitchen island': { 'Pendant': 'Island' },
+  'globe': { 'Pendant': 'Globe' },
+  'lantern': { 'Pendant': 'Lantern', 'Chandelier': 'Lantern' },
+  'commercial lantern': { 'Chandelier': 'Lantern' },
+  'candelabra': { 'Chandelier': 'Candelabra' },
+  'crystal': { 'Chandelier': 'Crystal' },
+  'flush mount': { 'Flush and Semi-Flush': 'Flush Mount' },
+  'semi flush': { 'Flush and Semi-Flush': 'Semi-Flush' },
+  'semi-flush': { 'Flush and Semi-Flush': 'Semi-Flush' },
+  
+  // ============================================
+  // VANITY LIGHTING ALIASES
+  // ============================================
+  'vanity': { 'Bathroom Lighting': 'Vanity' },
+  'vanity light': { 'Bathroom Lighting': 'Vanity' },
+  'bath bar': { 'Bathroom Lighting': 'Vanity' },
+  'bathroom vanity': { 'Bathroom Lighting': 'Vanity' },
   
   // ============================================
   // HARDWARE ALIASES
