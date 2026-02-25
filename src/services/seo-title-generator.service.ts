@@ -274,6 +274,45 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   return strValue;
 }
 
+function normalizeModelNumber(modelNumber?: string): string {
+  if (!modelNumber) return '';
+  const value = modelNumber.trim();
+  if (!value) return '';
+
+  const invalid = ['not found', 'n/a', 'not applicable', 'undefined', 'null'];
+  if (invalid.includes(value.toLowerCase())) return '';
+
+  return value;
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function enforceModelAtEnd(title: string, modelNumber?: string): string {
+  const model = normalizeModelNumber(modelNumber);
+  if (!model) return title;
+
+  // Remove any trailing model appearance so we can append exactly once at the end
+  const escaped = escapeRegExp(model);
+  title = title
+    .replace(new RegExp(`\\s*-\\s*${escaped}\\s*$`, 'i'), '')
+    .replace(new RegExp(`\\s+${escaped}\\s*$`, 'i'), '')
+    .trim();
+
+  const suffix = `- ${model}`;
+
+  // Reserve room for suffix and keep overall max length at 150
+  const maxLength = 150;
+  const maxBaseLength = Math.max(0, maxLength - suffix.length - 1);
+  if (title.length > maxBaseLength) {
+    title = title.substring(0, maxBaseLength).replace(/\s+$/, '').replace(/[\-.,;:]+$/, '').trim();
+  }
+
+  if (!title) return model;
+  return `${title} ${suffix}`.trim();
+}
+
 /**
  * MAIN FUNCTION: Generate SEO-optimized product title
  * 
@@ -309,6 +348,9 @@ export function generateSEOTitle(input: SEOTitleInput): string {
       title = title.substring(0, 147) + '...';
     }
   }
+
+  // Hard guarantee: model number is always at end when available
+  title = enforceModelAtEnd(title, input.modelNumber);
   
   logger.debug('Generated SEO title (v2)', {
     category: categoryName,
