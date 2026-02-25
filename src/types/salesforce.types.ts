@@ -129,6 +129,11 @@ export interface SalesforceIncomingProduct {
   Ferguson_Certifications: string;
   Ferguson_Description: string;  // HTML content
   Ferguson_Attributes: SalesforceIncomingAttribute[];
+  
+  // Additional Specification Fields (may be present in some categories)
+  CFM?: string | number;  // Range Hoods - airflow rating
+  GPM?: string | number;  // Faucets/Plumbing - gallons per minute
+  BTU?: string | number;  // Heating/Cooking - British Thermal Units
 }
 
 /**
