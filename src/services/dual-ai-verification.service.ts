@@ -1856,6 +1856,19 @@ export async function verifyProductWithDualAI(
     const validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
     const allValidCategories = getAllCategories();
     
+    // 🔧 CRITICAL: Apply category name normalization BEFORE validation
+    // This resolves aliases (e.g., "Shower Accessories" → "Shower Faucet")
+    const normalizedCategory = normalizeCategoryName(determinedCategory);
+    if (normalizedCategory !== determinedCategory) {
+      logger.info('✅ Category alias resolved', {
+        sessionId: verificationSessionId,
+        originalCategory: determinedCategory,
+        normalizedCategory: normalizedCategory
+      });
+      determinedCategory = normalizedCategory;
+      Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+    }
+    
     // Check if category exists in the selected department
     if (!validCategoriesForDept.includes(determinedCategory)) {
       logger.error('❌ VALIDATION FAILED: Invalid category for department', {
@@ -1934,7 +1947,18 @@ export async function verifyProductWithDualAI(
         
         // Build consensus from retry
         const retryCategoryConsensus = buildConsensus(retryOpenaiResult, retryXaiResult);
-        const retryDeterminedCategory = retryCategoryConsensus.agreedCategory || retryOpenaiResult.determinedCategory || retryXaiResult.determinedCategory;
+        let retryDeterminedCategory = retryCategoryConsensus.agreedCategory || retryOpenaiResult.determinedCategory || retryXaiResult.determinedCategory;
+        
+        // 🔧 CRITICAL: Apply category name normalization BEFORE retry validation
+        const normalizedRetryCategory = normalizeCategoryName(retryDeterminedCategory);
+        if (normalizedRetryCategory !== retryDeterminedCategory) {
+          logger.info('✅ Retry category alias resolved', {
+            sessionId: verificationSessionId,
+            originalRetryCategory: retryDeterminedCategory,
+            normalizedRetryCategory: normalizedRetryCategory
+          });
+          retryDeterminedCategory = normalizedRetryCategory;
+        }
         
         // Validate retry result
         if (retryDeterminedCategory && validCategoriesForDept.includes(retryDeterminedCategory)) {
