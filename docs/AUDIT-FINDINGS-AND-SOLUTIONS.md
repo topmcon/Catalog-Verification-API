@@ -16,7 +16,11 @@
 | " or " separator not handled in combined values | Extend split regex to handle multiple separators, prioritize Built-In | 40b397d | #006, #005 |
 | Duplicate values in titles | Check if value exists before pushing to parts array | 40b397d | #007 |
 | Wrong category determination | Stage 1 department logic needs prompt improvement (DEFERRED) | N/A | #008 |
-| AI extracting descriptive phrases instead of finish values | Create normalizeFinish() to extract keywords + validation-first logic | PENDING | #009, #003, #005 |
+| AI extracting descriptive phrases instead of finish values | Create normalizeFinish() to extract keywords + validation-first logic | 5aadad2 | #009, #003, #005 |
+| Freestanding shown in refrigerator titles | Skip Freestanding installation type in title generation | 7b80a87 | #010 |
+| Built-In redundant for inherently built-in products | Skip Built-In for Beverage Center and Undercounter types | 7b80a87 | #011, #010 |
+| Freestanding allowed as refrigerator Type | Block Freestanding from valid Types for refrigerators | 7b80a87 | #012, #003 |
+| Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
 
 ---
 
@@ -777,6 +781,324 @@ finish: normalizeFinish(
 
 ---
 
+### Finding #010: Freestanding Redundant in Refrigerator Titles
+**Date:** 2026-02-25  
+**Severity:** 🟡 MEDIUM  
+**Category:** Title Generation  
+**Affects:** Refrigerators only
+
+**Symptom:**
+- Refrigerator titles showing "Freestanding" installation type
+- Example: "WHIRLPOOL 29.6 Cu. Ft. 36-Inch French Door Freestanding Refrigerator"
+- User feedback: "Freestanding" adds no SEO value for refrigerators, should be omitted
+
+**Root Cause:**
+Title generation always includes Installation Type slot when populated. For refrigerators, "Freestanding" is the default/standard installation method and doesn't differentiate the product (unlike Built-In, Counter-Depth, or Undercounter which are meaningful differentiators).
+
+**Investigation Steps:**
+1. User requested hiding "Freestanding" from refrigerator titles only
+2. Reviewed title generation logic in generateFromSchema()
+3. Found no conditional logic to skip slots based on value + category combination
+4. Confirmed still storing data in backend (installationType field preserved)
+
+**Fix Applied:** (Commit 7b80a87)
+```typescript
+// File: src/services/seo-title-generator.service.ts
+// Lines: 479-488
+
+// CHANGE 1: Skip "Freestanding" installation type for refrigerators
+if (slot.attribute === 'Installation Type' && 
+    schema.categoryName === 'Refrigerator' && 
+    input.installationType?.toLowerCase() === 'freestanding') {
+  logger.info('Skipping Freestanding installation type for refrigerator title', {
+    category: schema.categoryName,
+    installationType: input.installationType
+  });
+  continue;
+}
+```
+
+**Files Modified:**
+- `src/services/seo-title-generator.service.ts` (lines 479-488)
+
+**Effect:**
+- "WHIRLPOOL 29.6 Cu. Ft. 36-Inch French Door Freestanding Refrigerator..." ❌
+- "WHIRLPOOL 29.6 Cu. Ft. 36-Inch French Door Refrigerator..." ✅
+- Backend data preserved: `installationType: "Freestanding"` still stored
+- Built-In, Counter-Depth, Undercounter, etc. still shown (meaningful differentiators)
+
+**Scope:** 🎯 REFRIGERATORS ONLY - Other categories may have "Freestanding" as meaningful differentiator
+
+**Rationale:**
+- Most refrigerators are freestanding by default
+- "Freestanding" provides no search value or differentiation
+- Special installation types (Built-In, Counter-Depth) ARE meaningful and remain
+- Improves title clarity and SEO focus
+
+**Testing:** ✅ Deployed to production (commit 7b80a87)
+
+**Related Findings:** #011 (Similar pattern - hiding redundant installation types)
+
+---
+
+### Finding #011: Built-In Redundant for Inherently Built-In Products
+**Date:** 2026-02-25  
+**Severity:** 🟡 MEDIUM  
+**Category:** Title Generation  
+**Affects:** Beverage Centers, Undercounter refrigerators
+
+**Symptom:**
+- Titles showing "Built-In" for products that are inherently built-in
+- Example: "AVALLON 24-Inch Beverage Center Built-In Refrigerator"
+- User feedback: "Beverage centers and undercounter units are always built-in, saying 'Built-In' is redundant"
+
+**Root Cause:**
+Certain product types (Beverage Centers, Undercounter) are **designed exclusively** for built-in/undercounter installation. Stating "Built-In" in the title is redundant because the Type already communicates the installation method.
+
+**Investigation Steps:**
+1. User requested hiding "Built-In" for Beverage Center and Undercounter types
+2. Reviewed products: Beverage Centers are always built-in, Undercounter by definition is built-in
+3. Similar to Finding #010 pattern (hiding redundant installation info)
+4. Confirmed backend data preservation (installationType still stored)
+
+**Fix Applied:** (Commit 7b80a87)
+```typescript
+// File: src/services/seo-title-generator.service.ts
+// Lines: 490-499
+
+// CHANGE 2: Skip "Built-In" for Beverage Center and Undercounter types
+if (slot.attribute === 'Installation Type' && 
+    input.installationType?.toLowerCase() === 'built-in' &&
+    (input.type?.toLowerCase() === 'beverage center' || input.type?.toLowerCase() === 'undercounter')) {
+  logger.info('Skipping Built-In installation type for inherently built-in product', {
+    type: input.type,
+    installationType: input.installationType
+  });
+  continue;
+}
+```
+
+**Files Modified:**
+- `src/services/seo-title-generator.service.ts` (lines 490-499)
+
+**Effect:**
+- "AVALLON 24-Inch Beverage Center Built-In Refrigerator..." ❌
+- "AVALLON 24-Inch Beverage Center Refrigerator..." ✅
+- "KITCHENAID 24-Inch Undercounter Built-In Refrigerator..." ❌  
+- "KITCHENAID 24-Inch Undercounter Refrigerator..." ✅
+- Backend data preserved: `installationType: "Built-In"` still stored
+
+**Scope:** 🎯 BEVERAGE CENTERS & UNDERCOUNTER ONLY - Other types may need "Built-In" shown
+
+**Rationale:**
+- Product Type already communicates installation method
+- "Beverage Center" = inherently built-in unit
+- "Undercounter" = by definition installed under counter
+- Reduces title redundancy and improves clarity
+
+**Testing:** ✅ Deployed to production (commit 7b80a87)
+
+**Related Findings:** #010 (Same pattern - hiding redundant installation types)
+
+---
+
+### Finding #012: Freestanding Incorrectly Used as Refrigerator Type
+**Date:** 2026-02-25  
+**Severity:** 🔴 CRITICAL  
+**Category:** Type Validation  
+**Affects:** Refrigerators only
+
+**Symptom:**
+- AI selecting "Freestanding" as the product Type for refrigerators
+- Example: `type: "Freestanding"` ❌ (This is installation method, not product type!)
+- Causes semantic errors: "Freestanding" is NOT a refrigerator type
+
+**Root Cause:**
+"Freestanding" exists in the types.json picklist and was available for AI to select as a Type for refrigerators. However:
+- **Freestanding is an INSTALLATION METHOD** (how it's installed)
+- **Type should be PRODUCT VARIATION** (French Door, Side-by-Side, Wine Cooler, Undercounter, etc.)
+
+AI was confusing installation method with product type, leading to incorrect categorization.
+
+**Investigation Steps:**
+1. User reported: "SUMMIT ALR47BIFLHD has type='Freestanding' - this is wrong"
+2. Reviewed getValidTypesForCategory('Refrigerator') - found "Freestanding" in list
+3. Confirmed: "Freestanding" is installation type, not product type
+4. "Freestanding" IS a valid Type for other categories (e.g., bathtubs, fireplaces)
+5. Solution: Block it specifically for refrigerators
+
+**Fix Applied:** (Commit 7b80a87)
+```typescript
+// File: src/config/master-picklist-helpers.ts
+// Lines: 55-75
+
+export function getValidTypesForCategory(categoryName: string): string[] {
+  const mapping = CATEGORY_TYPE_MAPPINGS.mappings.find(
+    m => m.category_name.toLowerCase() === categoryName.toLowerCase()
+  );
+  
+  if (!mapping || !mapping.types) {
+    return [];
+  }
+  
+  let types = mapping.types.map(t => t.type_name);
+  
+  // CHANGE 3: Block "Freestanding" as a Type for Refrigerators
+  // (Freestanding is an installation method, not a product type for refrigerators)
+  if (categoryName.toLowerCase() === 'refrigerator') {
+    types = types.filter(t => t.toLowerCase() !== 'freestanding');
+  }
+  
+  return types;
+}
+```
+
+**Files Modified:**
+- `src/config/master-picklist-helpers.ts` (lines 55-75)
+
+**Effect:**
+- AI can NO LONGER select "Freestanding" as Type for refrigerators
+- Forces proper type selection: French Door, Side-by-Side, Wine Cooler, Undercounter, etc.
+- AI will see correct valid types list during STAGE 3 field extraction
+- "Freestanding" still available as Type for other categories (bathtubs, ranges, etc.)
+
+**Scope:** 🎯 REFRIGERATORS ONLY - Freestanding remains valid Type for other categories
+
+**Rationale:**
+- Semantic accuracy: Type should describe product variation, not installation
+- Data quality: Prevents incorrect categorization
+- AI guidance: Removes confusing option from AI's valid types list
+- Category-specific validation prevents broader impact
+
+**Testing:** ✅ Deployed to production (commit 7b80a87)
+
+**Related Findings:** #003 (Validation-first logic pattern), #010 (Related to Freestanding handling)
+
+---
+
+### Finding #013: Accessory Titles Too Vague
+**Date:** 2026-02-25  
+**Severity:** 🟡 MEDIUM  
+**Category:** Title Generation  
+**Affects:** All categories with Accessory Type
+
+**Symptom:**
+- Products classified as "Accessory" Type show generic titles
+- Example: "SAMSUNG 36-Inch Accessory Refrigerator..." ❌ (What kind of accessory?)
+- Raw title: "36\" Bespoke 3-Door French Door Refrigerator Panel - Bottom Panel"
+- User feedback: "Type is correct (Accessory), but title should be more specific"
+
+**Root Cause:**
+When Type = "Accessory", title generation uses the generic word "Accessory" in the title. While technically correct for backend classification, it provides no useful information about what KIND of accessory it is (panel, kit, filter, shelf, etc.).
+
+**User Requirement:**
+- **Backend**: Keep `type: "Accessory"` (correct category classification)
+- **Title**: Show SPECIFIC accessory subtype (e.g., "Refrigerator Panel", "Heater Kit", "Ice Maker")
+- **Source**: Extract subtype from raw product title/description
+
+**Investigation Steps:**
+1. User showed example: "36\" Refrigerator Panel" should appear in title, not "Accessory"
+2. Confirmed: Type field should remain "Accessory" for proper categorization
+3. Solution: Extract specific subtype from raw title when Type = "Accessory"
+4. Pattern recognition: Common accessory subtypes (panel, kit, filter, drawer, shelf, etc.)
+
+**Fix Applied:** (Commit 7b80a87)
+```typescript
+// File: src/services/seo-title-generator.service.ts
+// Lines: 419-460 (new function)
+
+/**
+ * Extract specific accessory subtype from raw title/description for better title clarity
+ * Example: "36\" Bespoke 3-Door French Door Refrigerator Panel" → "Refrigerator Panel"
+ */
+function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
+  const rawTitle = input.rawTitle?.toLowerCase() || '';
+  
+  // Common accessory patterns
+  const patterns = [
+    /panel/i,
+    /door panel/i,
+    /refrigerator panel/i,
+    /heater kit/i,
+    /heating kit/i,
+    /ice maker/i,
+    /water filter/i,
+    /shelf/i,
+    /drawer/i,
+    /rack/i,
+    /basket/i,
+    /bin/i,
+    /door/i,
+    /handle/i,
+    /knob/i,
+    /trim kit/i,
+    /conversion kit/i
+  ];
+  
+  for (const pattern of patterns) {
+    if (pattern.test(rawTitle)) {
+      const match = rawTitle.match(pattern);
+      if (match) {
+        // Capitalize first letter of each word
+        return match[0]
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+    }
+  }
+  
+  return undefined;
+}
+
+// In generateFromSchema() - Lines: 510-521
+// CHANGE 4: For Accessory type, use specific subtype instead of generic "Accessory"
+if (slot.attribute === 'Type' && rawValue?.toString().toLowerCase() === 'accessory') {
+  const subtype = extractAccessorySubtype(input);
+  if (subtype) {
+    formattedValue = subtype;
+    logger.info('Using accessory subtype for title', {
+      originalType: 'Accessory',
+      extractedSubtype: subtype,
+      rawTitle: input.rawTitle
+    });
+  }
+}
+```
+
+**Files Modified:**
+- `src/services/seo-title-generator.service.ts` (lines 419-460, 510-521)
+- `src/services/dual-ai-verification.service.ts` (line 7325 - added rawTitle to seoTitleInput)
+- `src/services/seo-title-generator.service.ts` (line 108 - added rawTitle to interface)
+
+**Effect:**
+- **Before**: "SAMSUNG 36-Inch Accessory Refrigerator..." ❌
+- **After**: "SAMSUNG 36-Inch Refrigerator Panel..." ✅
+- **Backend**: `type: "Accessory"` still stored correctly
+- **Title**: Shows specific subtype extracted from raw title
+
+**Supported Subtypes:**
+- Panel, Door Panel, Refrigerator Panel
+- Heater Kit, Heating Kit
+- Ice Maker, Water Filter
+- Shelf, Drawer, Rack, Basket, Bin
+- Door, Handle, Knob
+- Trim Kit, Conversion Kit
+
+**Scope:** ✅ UNIVERSAL - All categories with Accessory Type
+
+**Rationale:**
+- Improves title clarity and SEO value
+- Provides specific information to customers
+- Maintains correct backend classification (Type = "Accessory")
+- Pattern-based extraction works across all accessory types
+
+**Testing:** ✅ Deployed to production (commit 7b80a87)
+
+**Related Findings:** None (new enhancement pattern)
+
+---
+
 ### 🚀 **Enhancement #2: Schema/Input Mismatch Detection**
 **Status:** 💡 PROPOSED (Not Implemented)  
 **Priority:** MEDIUM  
@@ -884,6 +1206,8 @@ Are you adding a new slot to a title schema?
 | 145a50f | 2026-02-25 | 🔧 REFACTOR | Validation-first AI selection for installation_type (corrected) |
 | 9c18a4d | 2026-02-25 | 🔧 FIX | Configuration fallback + comma-separated values fix (Findings #004, #005) |
 | 40b397d | 2026-02-25 | 🔧 FIX | Handle " or " separator + duplicate prevention (Findings #006, #007) |
+| 5aadad2 | 2026-02-25 | 🔧 FIX | Finish normalization to extract keywords (Finding #009) |
+| 7b80a87 | 2026-02-25 | ✨ ENHANCE | Title generation improvements (Findings #010, #011, #012, #013) |
 
 ---
 
@@ -902,8 +1226,7 @@ Are you adding a new slot to a title schema?
 | 2026-02-25 | Copilot Session | Initial creation - Findings #001, #002, #003 |
 | 2026-02-25 | Copilot Session | Added Finding #004 (Configuration missing) and #005 (Combined installation types) |
 | 2026-02-25 | Copilot Session | Added Finding #006 (" or " separator), #007 (duplicate values), #008 (wrong category - DEFERRED) - Commit 40b397d |
-| 2026-02-25 | Copilot Session | Added Finding #009 (Finish descriptive phrases) - Universal fix for all categories |
----
+| 2026-02-25 | Copilot Session | Added Finding #009 (Finish descriptive phrases) - Universal fix for all categories || 2026-02-25 | Copilot Session | Added Finding #010 (Freestanding in titles), #011 (Built-In redundant), #012 (Freestanding as Type), #013 (Accessory subtypes) - Commit 7b80a87 |---
 
 ## Notes for Future Development
 
