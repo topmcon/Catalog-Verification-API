@@ -2667,9 +2667,17 @@ export async function verifyProductWithDualAI(
             // Apply the resolved value to the appropriate attribute set
             if (disagreement.field in consensus.agreedPrimaryAttributes || 
                 ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_type', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
-              consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
+              // Normalize installation_type if it's being resolved
+              const valueToStore = disagreement.field === 'installation_type' 
+                ? normalizeInstallationType(resolution.resolvedValue)
+                : resolution.resolvedValue;
+              consensus.agreedPrimaryAttributes[disagreement.field] = valueToStore;
             } else {
-              consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
+              // Normalize installation_type if it's being resolved
+              const valueToStore = disagreement.field === 'installation_type' 
+                ? normalizeInstallationType(resolution.resolvedValue)
+                : resolution.resolvedValue;
+              consensus.agreedTop15Attributes[disagreement.field] = valueToStore;
             }
             
             // Mark as resolved with the winning AI
@@ -2968,9 +2976,17 @@ export async function verifyProductWithDualAI(
         // Apply to appropriate attribute set
         if (disagreement.field in consensus.agreedPrimaryAttributes || 
             ['brand', 'msrp', 'weight', 'upc_gtin', 'model_parent', 'product_type', 'product_style', 'product_title', 'description', 'features_list'].includes(disagreement.field.toLowerCase())) {
-          consensus.agreedPrimaryAttributes[disagreement.field] = resolution.resolvedValue;
+          // Normalize installation_type if it's being resolved
+          const valueToStore = disagreement.field === 'installation_type' 
+            ? normalizeInstallationType(resolution.resolvedValue)
+            : resolution.resolvedValue;
+          consensus.agreedPrimaryAttributes[disagreement.field] = valueToStore;
         } else {
-          consensus.agreedTop15Attributes[disagreement.field] = resolution.resolvedValue;
+          // Normalize installation_type if it's being resolved
+          const valueToStore = disagreement.field === 'installation_type' 
+            ? normalizeInstallationType(resolution.resolvedValue)
+            : resolution.resolvedValue;
+          consensus.agreedTop15Attributes[disagreement.field] = valueToStore;
         }
         
         disagreement.resolution = resolution.winner === 'xai' ? 'xai' : 'openai';
@@ -5507,6 +5523,52 @@ function mergeResearchResults(consensus: ConsensusResult, openaiResearch: Record
 }
 
 /**
+ * Normalize installation type to standard values
+ * Maps common AI extraction mistakes to correct values
+ */
+function normalizeInstallationType(value: string | undefined | null): string {
+  if (!value) return '';
+  
+  const normalized = value.trim().toLowerCase();
+  
+  // Map common AI mistakes to correct values
+  const installTypeMap: { [key: string]: string } = {
+    'built under': 'Built-In',
+    'built-under': 'Built-In',
+    'undercounter': 'Built-In',
+    'under counter': 'Built-In',
+    'under-counter': 'Built-In',
+    'built in': 'Built-In',
+    'built-in': 'Built-In',
+    'builtin': 'Built-In',
+    'freestanding': 'Freestanding',
+    'free standing': 'Freestanding',
+    'free-standing': 'Freestanding',
+    'slide in': 'Slide-In',
+    'slide-in': 'Slide-In',
+    'slidein': 'Slide-In',
+    'drop in': 'Drop-In',
+    'drop-in': 'Drop-In',
+    'dropin': 'Drop-In',
+    'counter depth': 'Counter-Depth',
+    'counter-depth': 'Counter-Depth',
+    'counterdepth': 'Counter-Depth',
+    'wall mount': 'Wall Mount',
+    'wall-mount': 'Wall Mount',
+    'under cabinet': 'Under Cabinet',
+    'under-cabinet': 'Under Cabinet',
+    'island mount': 'Island Mount',
+    'island-mount': 'Island Mount',
+    'deck mount': 'Deck Mount',
+    'deck-mount': 'Deck Mount',
+    'floor mount': 'Floor Mount',
+    'floor-mount': 'Floor Mount'
+  };
+  
+  return installTypeMap[normalized] || value; // Return mapped value or original if no match
+}
+
+/**
  * Helper to prefer AI consensus value, or select higher confidence AI if they disagree
  * Falls back to raw source data only if no AI provided value
  */
@@ -7137,14 +7199,14 @@ function buildFinalResponse(
       xaiResult.confidence,
       ''
     ),
-    installationType: preferAIValue(
+    installationType: normalizeInstallationType(preferAIValue(
       consensus.agreedTop15Attributes?.installation_type || consensus.agreedPrimaryAttributes.installation_type,
       openaiResult.top15Attributes?.installation_type || openaiResult.primaryAttributes.installation_type,
       xaiResult.top15Attributes?.installation_type || xaiResult.primaryAttributes.installation_type,
       openaiResult.confidence,
       xaiResult.confidence,
       ''
-    ),
+    )),
     
     // Features NOT passed to title generator (removed from titles in v2.1)
     // features: cleanedText.features,
