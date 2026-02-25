@@ -44,6 +44,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Chandelier': ['Chandeliers', 'Crystal Chandelier', 'Chandelier Lighting', 'Suspended Chandeliers'],
   'Pendant': ['Pendants', 'Pendant Light', 'Pendant Lights', 'Hanging Light', 'Pendant Lighting', 'Hanging Pendants', 'Suspended Pendants'],
   'Lamp': ['Lamps', 'Table Lamps', 'Desk Lamps', 'Floor Lamps'],
+  'Lighting Accessory': ['Lighting Accessories', 'Lighting Accessories and Parts', 'Lighting Accessory and Parts'],
   'Recessed Lighting': ['Recessed Lights', 'Can Lights', 'Downlights'],
   'Ceiling Fan': ['Ceiling Fans', 'Fan', 'Fans', 'Ventilation Fans'],
   // NOTE: 'Outdoor Lighting' removed - not a valid SF category (use specific types)
@@ -56,7 +57,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Kitchen Sink': ['Kitchen Sinks', 'Sinks - Kitchen', 'Kitchen Basin', 'Undermount Sink'],
   'Kitchen Storage & Organization': ['Kitchen Accessory', 'Kitchen Accessories', 'Kitchen Accessories (Plumbing & Bath)', 'KITCHEN ACCESSORIES', 'KITCHEN ACCESSORY'],
   'Bathroom Sink': ['Bathroom Sinks', 'Bath Sink', 'Lavatory', 'Lav Sink', 'Sinks - Bathroom', 'Bath Sinks', 'Lavatory Sinks'],
-  'Bathroom Cabinet Hardware': ['Bathroom Hardware and Accessories', 'Bathroom Accessories', 'Bath Hardware', 'Bath Accessories', 'BATHROOM HARDWARE', 'BATHROOM ACCESSORIES'],
+  'Bathroom Cabinet Hardware': ['Bathroom Hardware and Accessories', 'Bathroom Accessories', 'Bath Hardware', 'Bath Accessories', 'BATHROOM HARDWARE', 'BATHROOM ACCESSORIES', 'Towel Warmer', 'Towel Warmers', 'Bathroom Towel Warmer'],
   'Bathtub': ['Bathtubs', 'Tub', 'Tubs', 'Soaking Tub', 'Bath Tubs', 'Soaking Tubs'],
   'Shower': ['Showers', 'Shower Systems', 'Shower Units', 'Shower Accessory', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
   'Shower Faucet': ['Shower Faucets', 'Shower Accessories', 'Shower Components'],
@@ -97,6 +98,12 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   // ============================================
   // NOTE: 'Cabinet Hardware' removed - not a valid SF category
   // Use specific types: Cabinet Knob, Cabinet Pull, Cabinet Hinge, etc.
+  'Designer Cabinet Hardware': ['Cabinet Hardware'],
+
+  // ============================================
+  // HEATING & COOLING
+  // ============================================
+  'HVAC Accessory': ['Sheet Metal Tools'],
 
   // Add more as discovered from confusion matrix
 };

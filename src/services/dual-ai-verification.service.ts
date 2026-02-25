@@ -43,6 +43,7 @@ import {
   getAllCategories,
   getAllDepartments,
   getCategoriesForDepartment,
+  getDepartmentForCategory,
   PRIMARY_ATTRIBUTE_FIELD_KEYS
 } from '../config/category-config';
 import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
@@ -1853,7 +1854,7 @@ export async function verifyProductWithDualAI(
     // ===============================================
     // ✅ PHASE 2 VALIDATION: CATEGORY VALIDATION
     // ===============================================
-    const validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
+    let validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
     const allValidCategories = getAllCategories();
     
     // 🔧 CRITICAL: Apply category name normalization BEFORE validation
@@ -1867,6 +1868,21 @@ export async function verifyProductWithDualAI(
       });
       determinedCategory = normalizedCategory;
       Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+    }
+
+    // If category is valid but in a different department, auto-correct department
+    const categoryDepartment = getDepartmentForCategory(determinedCategory);
+    if (categoryDepartment && categoryDepartment !== determinedDepartment) {
+      logger.warn('⚠️ Category belongs to different department - auto-correcting department', {
+        sessionId: verificationSessionId,
+        category: determinedCategory,
+        originalDepartment: determinedDepartment,
+        correctedDepartment: categoryDepartment
+      });
+
+      determinedDepartment = categoryDepartment;
+      Object.assign(departmentConsensus, { agreedDepartment: determinedDepartment });
+      validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
     }
     
     // Check if category exists in the selected department
@@ -1961,6 +1977,20 @@ export async function verifyProductWithDualAI(
         }
         
         // Validate retry result
+        const retryCategoryDepartment = retryDeterminedCategory ? getDepartmentForCategory(retryDeterminedCategory) : undefined;
+        if (retryCategoryDepartment && retryCategoryDepartment !== determinedDepartment) {
+          logger.warn('⚠️ Retry category belongs to different department - auto-correcting department', {
+            sessionId: verificationSessionId,
+            retryCategory: retryDeterminedCategory,
+            originalDepartment: determinedDepartment,
+            correctedDepartment: retryCategoryDepartment
+          });
+
+          determinedDepartment = retryCategoryDepartment;
+          Object.assign(departmentConsensus, { agreedDepartment: determinedDepartment });
+          validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
+        }
+
         if (retryDeterminedCategory && validCategoriesForDept.includes(retryDeterminedCategory)) {
           logger.info('✅ Retry successful - valid category selected', {
             sessionId: verificationSessionId,
@@ -1995,8 +2025,45 @@ export async function verifyProductWithDualAI(
             determinedCategory = retryFuzzyMatch.category;
             Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
           } else {
+            // Final fallback: use a valid category from trusted source category fields
+            const sourceCategoryCandidates = [
+              rawProduct.Web_Retailer_Category,
+              rawProduct.Web_Retailer_SubCategory,
+              rawProduct.Ferguson_Base_Category,
+              rawProduct.Ferguson_Product_Type,
+              (rawProduct as any).Category_Legacy
+            ].filter((value): value is string => !!value && value.trim().length > 0);
+
+            let sourceFallbackCategory: string | null = null;
+            for (const candidate of sourceCategoryCandidates) {
+              const normalizedCandidate = normalizeCategoryName(candidate);
+              if (allValidCategories.includes(normalizedCandidate)) {
+                sourceFallbackCategory = normalizedCandidate;
+                break;
+              }
+            }
+
+            if (sourceFallbackCategory) {
+              const sourceCategoryDepartment = getDepartmentForCategory(sourceFallbackCategory);
+              if (sourceCategoryDepartment && sourceCategoryDepartment !== determinedDepartment) {
+                determinedDepartment = sourceCategoryDepartment;
+                Object.assign(departmentConsensus, { agreedDepartment: determinedDepartment });
+                validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
+              }
+
+              logger.warn('⚠️ Using source category fallback after retry failure', {
+                sessionId: verificationSessionId,
+                fallbackCategory: sourceFallbackCategory,
+                fallbackDepartment: determinedDepartment,
+                sourceCandidates: sourceCategoryCandidates
+              });
+
+              determinedCategory = sourceFallbackCategory;
+              Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+            } else {
             // Complete failure - throw error
             throw new Error(`Category validation failed after retry: "${determinedCategory}" → "${retryDeterminedCategory}" - neither valid for department "${determinedDepartment}"`);
+            }
           }
         }
       }
