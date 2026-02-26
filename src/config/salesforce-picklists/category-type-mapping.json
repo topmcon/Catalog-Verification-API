@@ -680,6 +680,12 @@
           "primary_filter": true
         },
         {
+          "type_name": "Top Load",
+          "type_id": "a1jaZ000001lFC5QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Ventless",
           "type_id": "a1jaZ000001lFCkQAM",
           "status": "existing",
@@ -811,6 +817,12 @@
         {
           "type_name": "Top Load",
           "type_id": "a1jaZ000001lFC5QAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Unitized",
+          "type_id": "a1jaZ000001lFCaQAM",
           "status": "existing",
           "primary_filter": true
         },

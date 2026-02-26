@@ -917,23 +917,28 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 5,
+        "attribute": "Fuel Type",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Ventless All in One Washer / Dryer Finish - Model",
-    "seoNotes": "Combined capacity and width for space planning. Type = Ventless, Vented, Compact."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Unitized Electric All in One Washer / Dryer Finish - Model",
+    "seoNotes": "Combined capacity and width for space planning. Type = Unitized, Front Load, Top Load. Fuel Type = Gas, Electric."
   },
   "dryer": {
     "categoryId": "a01Hu000010Q5EjIAK",
@@ -1052,7 +1057,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Configuration",
+        "attribute": "Type",
         "required": false
       },
       {
@@ -1071,9 +1076,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Category} {Finish} {Model Number}",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer Finish - Model",
-    "seoNotes": "Capacity determines load size. Configuration = Front Load, Top Load."
+    "seoNotes": "Capacity determines load size. Type = Front Load, Top Load, Unitized."
   },
   "home_electronics": {
     "categoryId": "a01aZ00000XaZKQQA3",
