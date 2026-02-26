@@ -23,6 +23,7 @@
 | Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
 | Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
 | Electric/Gas incorrectly as dryer Types (not attributes) | Restructure category-type-mapping: Remove Electric/Gas from types, add Front Load/Top Load/Unitized | 8866dc6 | #015 |
+| AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | TBD | #016 |
 
 ---
 
@@ -1597,6 +1598,430 @@ When Salesforce sends laundry products after this deployment:
 **Status:** LIVE in production (all 3 environments synced)
 
 **Session Documentation:** See [session-notes/SESSION-SUMMARY-2026-02-26-LAUNDRY-TYPE-RESTRUCTURE.md](../session-notes/SESSION-SUMMARY-2026-02-26-LAUNDRY-TYPE-RESTRUCTURE.md)
+
+---
+
+### **Finding #015 Extension: Range Category Applied Same Pattern** 🔧
+**Status:** ✅ FIXED (2026-02-26)  
+**Priority:** HIGH  
+**Category:** Configuration / Data Structure / Title Generation  
+**Affects:** Range category
+
+**Symptom:**
+- Gas, Electric, Dual Fuel, Induction listed as TYPES (should be Fuel Type attribute)
+- Freestanding, Slide-In, Drop-In listed as TYPES (should be Installation Type attribute)
+- Range titles missing configuration Type (Pro-Style, Front Control, Rear Control)
+- Same architectural issue that Dryer/Washer/All-in-One had before Finding #015 fix
+
+**Example Issues:**
+- **Range BEFORE:** "Wolf 48-Inch Dual Fuel Slide-In Range..." (missing Pro-Style configuration)
+- **Range SHOULD BE:** "Wolf 48-Inch Pro-Style Dual Fuel Slide-In Range..." (shows structural type)
+
+**Root Cause:**
+Range category predated Finding #015 fix and used specialized fields approach:
+- `fuelType` field mapped to position 3 in title
+- `installationType` field mapped to position 4 in title
+- No Type slot for structural configuration (Pro-Style, Front Control, Rear Control)
+- Salesforce listed fuel types and installation types AS Types (incorrect per #015 pattern)
+
+**Following #015 Pattern:**
+- **Type** = structural configuration (Pro-Style, Front Control, Rear Control)
+- **Fuel Type** = energy specification (Gas, Electric, Dual Fuel, Induction)
+- **Installation Type** = mounting style (Slide-In, Freestanding, Drop-In)
+
+**Investigation Steps:**
+1. User preparing Range verification requests
+2. Generated validation report - all technical checks passed ✅
+3. User questioned: "should it be like this, what does audit finding say"
+4. Reviewed Finding #015 - Dryer separated Type from Fuel Type
+5. Compared Range structure - identified same architectural issue
+6. User chose Option 2: Refactor Range to match #015 pattern
+
+**Fix Applied:** (Commit: TBD)
+
+**Files Modified:**
+
+1. **`src/config/title-schema-by-category.ts`** (Lines: 689-733)
+
+```typescript
+// BEFORE (7 slots):
+slots: [
+  { position: 1, attribute: "Brand" },
+  { position: 2, attribute: "Width (Inches)" },
+  { position: 3, attribute: "Fuel Type" },         // Fuel at position 3
+  { position: 4, attribute: "Installation Type" },  // Installation at position 4
+  { position: 5, attribute: "Category" },
+  { position: 6, attribute: "Finish" },
+  { position: 7, attribute: "Model Number" }
+]
+template: "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category}..."
+exampleTitle: "Brand 30-Inch Range Finish - Model"
+
+// AFTER (8 slots):
+slots: [
+  { position: 1, attribute: "Brand" },
+  { position: 2, attribute: "Width (Inches)" },
+  { position: 3, attribute: "Type" },               // ✅ ADDED Type slot
+  { position: 4, attribute: "Fuel Type" },          // Moved to position 4
+  { position: 5, attribute: "Installation Type" },  // Moved to position 5
+  { position: 6, attribute: "Category" },
+  { position: 7, attribute: "Finish" },
+  { position: 8, attribute: "Model Number" }
+]
+template: "{Brand} {Width (Inches)} {Type} {Fuel Type} {Installation Type} {Category}..."
+exampleTitle: "Wolf 48-Inch Pro-Style Dual Fuel Slide-In Range Stainless Steel - DF48450G"
+seoNotes: "Type = Pro-Style, Front Control, Rear Control. Fuel Type = Gas, Electric, Dual Fuel, Induction. Installation Type = Slide-In, Freestanding, Drop-In."
+```
+
+2. **`src/config/salesforce-picklists/category-type-mapping.json`** (Lines: 427-510)
+
+```json
+// BEFORE (11 types - mixed fuel/installation/configuration):
+"types": [
+  { "type_name": "Gas", ... },           // ❌ Fuel type as Type
+  { "type_name": "Electric", ... },      // ❌ Fuel type as Type
+  { "type_name": "Induction", ... },     // ❌ Fuel type as Type
+  { "type_name": "Dual Fuel", ... },     // ❌ Fuel type as Type
+  { "type_name": "Freestanding", ... },  // ❌ Installation type as Type
+  { "type_name": "Slide-In", ... },      // ❌ Installation type as Type
+  { "type_name": "Drop-In", ... },       // ❌ Installation type as Type
+  { "type_name": "Pro-Style", ... },     // ✅ Configuration type
+  { "type_name": "Front Control", ... }, // ✅ Configuration type
+  { "type_name": "Rear Control", ... },  // ✅ Configuration type
+  { "type_name": "Accessory", ... }
+]
+logic: "Fuel type or installation style"  // ❌ Mixed concept
+
+// AFTER (4 types - configuration only):
+"types": [
+  { "type_name": "Pro-Style", ... },     // ✅ Configuration type
+  { "type_name": "Front Control", ... }, // ✅ Configuration type  
+  { "type_name": "Rear Control", ... },  // ✅ Configuration type
+  { "type_name": "Accessory", ... }
+]
+logic: "Configuration and control style"   // ✅ Clear structural concept
+note: "Fuel types (Gas, Electric, Dual Fuel, Induction) moved to Fuel Type attribute. Installation types (Freestanding, Slide-In, Drop-In) moved to Installation Type attribute. Following Audit Finding #015 pattern."
+```
+
+**Effect:**
+
+**BEFORE Range Fix:**
+- Title: "Wolf 48-Inch Dual Fuel Slide-In Range Stainless Steel - DF48450G"
+- Missing: Pro-Style configuration type
+- Fuel/Installation types incorrectly categorized as Types in Salesforce
+
+**AFTER Range Fix:**
+- Title: "Wolf 48-Inch **Pro-Style** Dual Fuel Slide-In Range Stainless Steel - DF48450G"
+- Shows: Structural type (Pro-Style) + Fuel type (Dual Fuel) + Installation type (Slide-In)
+- Follows #015 pattern: Type = structural, Fuel Type = attribute, Installation Type = attribute
+
+**Scope:** ✅ RANGE CATEGORY ONLY
+
+**Rationale:**
+1. **Consistency:** Range now follows same pattern as Washer/Dryer/All-in-One
+2. **Type Clarity:** Pro-Style, Front Control, Rear Control are structural configurations (HOW controls are positioned)
+3. **Fuel Clarity:** Gas, Electric, Dual Fuel, Induction are energy specifications (WHAT powers it)
+4. **Installation Clarity:** Slide-In, Freestanding, Drop-In are mounting styles (HOW it's installed)
+5. **Complete Titles:** Titles now show ALL three dimensions for full product identification
+6. **Architectural Pattern:** Maintains universal principle established in Finding #015
+
+**Validation Results:**
+
+**TypeScript Compilation:** ✅ SUCCESS (npm run build passed)
+
+**Testing Recommendations:**
+
+When Salesforce sends Range products after this deployment:
+
+1. **Test Range with "pro-style dual fuel slide-in" in description:**
+   - Verify Type = "Pro-Style"
+   - Verify Fuel Type = "Dual Fuel"
+   - Verify Installation Type = "Slide-In"
+   - Verify title shows "Pro-Style Dual Fuel Slide-In Range"
+
+2. **Test Range with "front control gas freestanding" in description:**
+   - Verify Type = "Front Control"
+   - Verify Fuel Type = "Gas"
+   - Verify Installation Type = "Freestanding"
+   - Verify title shows "Front Control Gas Freestanding Range"
+
+**Related Findings:** #015 (Original Dryer/Washer/All-in-One fix), #004 (Configuration vs. Type pattern)
+
+**Future Categories to Review:**
+- **Oven:** Also uses Configuration + Fuel Type pattern (similar to pre-fix Range)
+- Consider applying same pattern if architectural consistency desired
+
+**Impact:** 
+- **Architectural Consistency:** HIGH - Range now follows universal Type/Attribute pattern
+- **Data Quality:** MEDIUM - Separates structural types from specifications
+- **Title Quality:** MEDIUM - Titles now show configuration type (Pro-Style, Front Control)
+- **User Experience:** LOW - Minor improvement (configuration type may be less critical for Range than for Dryer)
+
+**Deployed:** 🔄 PENDING deployment  
+**Status:** ✅ Code changes complete, awaiting commit/deploy
+
+**Session Documentation:** TBD
+
+---
+
+### Finding #016: AI Re-Categorizing Instead of Validating Salesforce Categories
+**Date:** 2026-02-26  
+**Severity:** 🔴 CRITICAL  
+**Category:** Category Determination (Stage 2)  
+**Affects:** ALL categories when Salesforce provides category assignment  
+**Status:** ✅ FIXED (Commit TBD)
+
+**Symptom:**
+- Product: HESTAN AGSR36WH "36-Inch Agave Storage Drawer/Door"
+- Salesforce Category: "Storage Drawer/Door" (Outdoor department, ID: a01aZ00000dEXvOQAW) ✅
+- AI Changed To: "Drawer" (Kitchen appliance, ID: a01Hu000011kpC2IAI) ❌
+- Wrong title schema applied (Kitchen Drawer instead of Outdoor Storage)
+- Width extraction failure (36" extracted as 34")
+
+- Product: COYOTE C3SSD "32-Inch Outdoor Storage Drawer"  
+- Salesforce Category: "Outdoor Kitchen" (Outdoor department, ID: a01aZ00000dCejuQAC) ✅
+- AI Changed To: "Drawer" (Kitchen appliance, ID: a01Hu000011kpC2IAI) ❌
+- Wrong title schema applied (Kitchen Drawer instead of Outdoor Kitchen)
+- Width extraction failure (32" extracted as 33")
+
+**Root Cause:**
+System designed to **DETERMINE** category instead of **VALIDATE** Salesforce's category assignment.
+
+**Architecture Investigation:**
+
+**Stage 2 (Category Determination) Current Logic:**
+```typescript
+// dual-ai-verification.service.ts lines ~1860-1890
+const [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
+  analyzeWithOpenAI(processedProduct, ..., { stage: 'category-only', department }),
+  analyzeWithXAI(processedProduct, ..., { stage: 'category-only', department })
+]);
+
+// AI models DETERMINE category from product data
+const categoryConsensus = buildConsensus(openaiCategoryResult, xaiCategoryResult);
+determinedCategory = categoryConsensus.agreedCategory || openaiResult || xaiResult;
+// ❌ PROBLEM: Ignores rawProduct.Web_Retailer_Category from Salesforce
+```
+
+**Stage 2 Prompt Analysis:**
+```
+getCategoryOnlyPrompt() says:
+"Your task:
+1. ANALYZE the raw product data provided
+2. DETERMINE which category the product belongs to  <-- ❌ DETERMINE, not VALIDATE
+3. Return ONLY the category determination"
+```
+
+**The AI never sees Salesforce's category** - it just analyzes the product and picks from a list.
+
+**Why It Failed:**
+1. HESTAN/COYOTE products have "storage drawer" in description
+2. AI sees "drawer" keyword → matches to "Drawer" category (Kitchen appliance)
+3. AI doesn't know Salesforce already assigned "Storage Drawer/Door" (Outdoor)
+4. System uses AI's category ("Drawer") instead of SF's category
+5. Wrong title schema applied (Kitchen appliance vs. Outdoor storage)
+
+**Why This Is Different from Finding #008:**
+
+| Finding #008 | Finding #016 |
+|--------------|--------------|
+| AI determining **wrong** category due to keyword confusion | AI **overriding** Salesforce's correct category |
+| Problem: Multi-keyword validation logic | Problem: System ignores Salesforce's assignment |
+| Fix: Enhanced Stage 1 prompt | Fix: Use SF's category as authority |
+| Scope: Department determination | Scope: Category validation |
+
+**User's Question:** "how do we fix this"
+
+**Investigation Steps:**
+1. User reported 2 failed Drawer verifications (Items 7 & 8 from recent API calls)
+2. Analyzed raw data: SF sent "Storage Drawer/Door" and "Outdoor Kitchen"
+3. Checked API response: System changed both to "Drawer" (wrong category)
+4. Searched codebase for category matching logic (4 services involved)
+5. Found Stage 2 in `dual-ai-verification.service.ts` calls AI to **DETERMINE** category
+6. Found `getCategoryOnlyPrompt()` prompts AI to "DETERMINE which category"
+7. **Key Discovery:** AI never told what Salesforce's category is
+8. Reviewed audit findings: No previous entry about respecting SF authority
+9. **Conclusion:** NEW finding - system should VALIDATE, not REPLACE, SF categories
+
+**Fix Applied:** (Commit TBD)
+
+**Strategy: Option C - SF-Only with AI Validation**
+- ✅ Always use Salesforce's category (`rawProduct.Web_Retailer_Category`)
+- ✅ AI validates if category makes sense for product
+- ✅ Log mismatches for monitoring (but never override)
+- ✅ Fallback: If SF provides no category, AI determines (legacy behavior)
+
+**Files Modified:**
+
+1. **`src/services/dual-ai-verification.service.ts`** (Lines: ~1858-1974)
+
+**BEFORE (determination mode):**
+```typescript
+// Stage 2: Category Determination
+const [openaiResult, xaiResult] = await Promise.all([
+  analyzeWithOpenAI(..., { stage: 'category-only', department }),
+  analyzeWithXAI(..., { stage: 'category-only', department })
+]);
+
+const categoryConsensus = buildConsensus(openaiResult, xaiResult);
+determinedCategory = categoryConsensus.agreedCategory || openaiResult || xaiResult;
+// ❌ Uses AI's category (ignores Salesforce)
+```
+
+**AFTER (validation mode):**
+```typescript
+// Stage 2: Category Validation (Respect Salesforce's Assignment)
+// 🔧 FINDING #016 FIX
+const salesforceCategory = rawProduct.Web_Retailer_Category?.trim() || null;
+
+if (salesforceCategory) {
+  // ✅ Use Salesforce's category as authority
+  determinedCategory = salesforceCategory;
+  
+  // Optional: Run AI validation to flag mismatches (monitoring only)
+  const [openaiResult, xaiResult] = await Promise.all([
+    analyzeWithOpenAI(..., { 
+      stage: 'category-only', 
+      department,
+      salesforceCategory: salesforceCategory  // Tell AI what SF said
+    }),
+    analyzeWithXAI(..., { 
+      stage: 'category-only', 
+      department,
+      salesforceCategory: salesforceCategory  // Tell AI what SF said
+    })
+  ]);
+  
+  // Check if AI disagrees (log for review, don't override)
+  const aiSuggested = openaiResult.determinedCategory || xaiResult.determinedCategory;
+  if (aiSuggested && aiSuggested !== determinedCategory) {
+    logger.warn('⚠️ AI suggests different category (not overriding)', {
+      salesforceCategory: determinedCategory,
+      aiSuggestedCategory: aiSuggested,
+      note: 'Respecting Salesforce authority'
+    });
+  }
+} else {
+  // Fallback: No SF category - AI determines (legacy)
+  // [AI determination logic unchanged]
+}
+```
+
+2. **`src/services/dual-ai-verification.service.ts`** (Function signatures, lines ~3191, ~3307)
+
+**Added `salesforceCategory` parameter to both AI analysis functions:**
+```typescript
+// BEFORE:
+stageConfig?: { 
+  stage: 'department-only' | 'category-only' | 'category-specific', 
+  department?: string,
+  category?: string 
+}
+
+// AFTER:
+stageConfig?: { 
+  stage: 'department-only' | 'category-only' | 'category-specific', 
+  department?: string,
+  category?: string,
+  salesforceCategory?: string  // Finding #016: SF's category for validation
+}
+```
+
+3. **`src/services/dual-ai-verification.service.ts`** (getCategoryOnlyPrompt function, lines ~3550-3640)
+
+**Added validation mode when Salesforce category provided:**
+
+**BEFORE (determination only):**
+```typescript
+function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOptions): string {
+  return `Your task:
+  1. ANALYZE the raw product data provided
+  2. DETERMINE which category the product belongs to  <-- ❌ Always determine
+  3. Return category with confidence`;
+}
+```
+
+**AFTER (validation when SF category present):**
+```typescript
+function getCategoryOnlyPrompt(
+  department?: string, 
+  promptOptions?: PromptOptions, 
+  salesforceCategory?: string  // NEW parameter
+): string {
+  
+  // 🔧 FINDING #016 FIX: If SF provided category, validate instead of determine
+  if (salesforceCategory) {
+    return `⚠️ CRITICAL: Salesforce has assigned this product to: "${salesforceCategory}"
+    
+    Your ONLY task is to VALIDATE if this category assignment is correct.
+    Do NOT override Salesforce's category.
+    
+    Your task:
+    1. ANALYZE the raw product data
+    2. VALIDATE if "${salesforceCategory}" is correct
+    3. Return "${salesforceCategory}" with confidence
+    4. If incorrect, explain why in reasoning (but still return SF's category)
+    
+    ⚠️ IMPORTANT: Always return Salesforce's category as final answer.
+    Your role is to validate, not override.`;
+  }
+  
+  // Original determination mode (when no SF category provided)
+  return `Your task:
+  1. ANALYZE the raw product data provided
+  2. DETERMINE which category the product belongs to
+  3. Return category with confidence`;
+}
+```
+
+**Effect:**
+
+**Before Fix:**
+```
+Input: HESTAN AGSR36WH
+SF Category: "Storage Drawer/Door" (Outdoor)
+AI Saw: "storage drawer" keywords
+AI Action: Picked "Drawer" (Kitchen appliance) ❌
+Result: Wrong category → Wrong schema → Wrong title
+```
+
+**After Fix:**
+```
+Input: HESTAN AGSR36WH
+SF Category: "Storage Drawer/Door" (Outdoor)
+AI Told: "Salesforce assigned 'Storage Drawer/Door', validate this"
+AI Action: Returns "Storage Drawer/Door" (respects SF) ✅
+Result: Correct category → Correct schema → Correct title
+```
+
+**Scope:** ✅ UNIVERSAL - Stage 2 category handling (affects all products)
+
+**Testing Required:**
+- [ ] Re-run Item 7 (HESTAN AGSR36WH) verification → Expect category "Storage Drawer/Door"
+- [ ] Re-run Item 8 (COYOTE C3SSD) verification → Expect category "Outdoor Kitchen"
+- [ ] Verify AI validation logs show agreement/disagreement (not overriding)
+- [ ] Test legacy path: Product with no SF category → AI determines category
+- [ ] Monitor production: Check for `⚠️ AI suggests different category` warnings
+
+**Related Findings:** #008 (Multi-keyword department determination - similar but different scope)
+
+**Critical Lesson:**
+When building verification systems:
+- **VALIDATE** existing data (respect source of truth)
+- **DETERMINE** only when data is missing or explicitly requested
+- **NEVER** override authoritative sources without explicit user request
+- **FLAG** mismatches for review, don't silently change data
+
+**Impact:**
+- **Data Integrity:** CRITICAL - Prevents AI from changing Salesforce's category assignments
+- **Title Accuracy:** CRITICAL - Ensures correct title schema applied
+- **Field Extraction:** HIGH - Category determines which fields to extract (Width, Height, etc.)
+- **User Trust:** CRITICAL - System respects Salesforce as source of truth
+
+**Deployed:** 🔄 PENDING deployment (TypeScript compilation ✅ SUCCESS)  
+**Status:** ✅ Code changes complete, awaiting commit/deploy + testing
+
+**Session Documentation:** TBD
 
 ---
 

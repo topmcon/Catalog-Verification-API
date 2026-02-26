@@ -1856,57 +1856,128 @@ export async function verifyProductWithDualAI(
     }
     
     // ===============================================
-    // 🔍 STAGE 2: CATEGORY DETERMINATION (FILTERED BY DEPARTMENT)
+    // 🔍 STAGE 2: CATEGORY VALIDATION (RESPECT SALESFORCE'S ASSIGNMENT)
     // ===============================================
-    logger.info('🔍 STAGE 2 (Hierarchical): Determining product category', {
+    // 🔧 FINDING #016 FIX: Always use Salesforce's category, AI validates (doesn't override)
+    const salesforceCategory = rawProduct.Web_Retailer_Category?.trim() || null;
+    
+    logger.info('🔍 STAGE 2 (Hierarchical): Validating Salesforce category assignment', {
       sessionId: verificationSessionId,
       department: determinedDepartment,
+      salesforceCategory: salesforceCategory,
       productId: rawProduct.SF_Catalog_Id
     });
     
+    // Declare variables that will be used later (scoped at this level)
+    let determinedCategory: string;
     const stage2StartTime = Date.now();
-    const [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
-      analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
-        stage: 'category-only', 
-        department: determinedDepartment 
-      }),
-      analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
-        stage: 'category-only', 
-        department: determinedDepartment 
-      })
-    ]);
+    let openaiCategoryResult: AIAnalysisResult;
+    let xaiCategoryResult: AIAnalysisResult;
+    let categoryConsensus: any = null;
     
-    logger.info('✅ STAGE 2 complete - Category determined', {
-      sessionId: verificationSessionId,
-      department: determinedDepartment,
-      openaiCategory: openaiCategoryResult.determinedCategory,
-      xaiCategory: xaiCategoryResult.determinedCategory,
-      openaiConfidence: openaiCategoryResult.categoryConfidence,
-      xaiConfidence: xaiCategoryResult.categoryConfidence,
-      durationMs: Date.now() - stage2StartTime
-    });
-    
-    // Build consensus on category only
-    const categoryConsensus = buildConsensus(openaiCategoryResult, xaiCategoryResult);
-    let determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
-    
-    if (!determinedCategory) {
-      logger.error('❌ STAGE 2 FAILED: No category could be determined', {
+    if (salesforceCategory) {
+      // Salesforce provided category - use it as authority
+      determinedCategory = salesforceCategory;
+      
+      logger.info('✅ Using Salesforce-provided category', {
+        sessionId: verificationSessionId,
+        category: determinedCategory,
+        source: 'Salesforce (Web_Retailer_Category)'
+      });
+      
+      // Optional: Run AI validation to flag mismatches (for monitoring, not to override)
+      [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
+        analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+          stage: 'category-only', 
+          department: determinedDepartment,
+          salesforceCategory: salesforceCategory  // Tell AI what SF said
+        }),
+        analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+          stage: 'category-only', 
+          department: determinedDepartment,
+          salesforceCategory: salesforceCategory  // Tell AI what SF said
+        })
+      ]);
+      
+      // Check if AI disagrees (for monitoring/alerting, not to override)
+      const aiSuggestedCategory = openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
+      if (aiSuggestedCategory && aiSuggestedCategory !== determinedCategory) {
+        logger.warn('⚠️ AI suggests different category than Salesforce (not overriding)', {
+          sessionId: verificationSessionId,
+          salesforceCategory: determinedCategory,
+          aiSuggestedCategory: aiSuggestedCategory,
+          openaiCategory: openaiCategoryResult.determinedCategory,
+          xaiCategory: xaiCategoryResult.determinedCategory,
+          note: 'Respecting Salesforce authority - AI suggestion logged for review'
+        });
+      }
+      
+      logger.info('✅ STAGE 2 complete - Category validated', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
-        openaiError: openaiCategoryResult.error,
-        xaiError: xaiCategoryResult.error
+        finalCategory: determinedCategory,
+        source: 'Salesforce',
+        aiAgreement: aiSuggestedCategory === determinedCategory,
+        durationMs: Date.now() - stage2StartTime
       });
-      throw new Error('Category determination failed - both AIs returned no category');
+      
+      // Build consensus object for compatibility with rest of code (even though we're using SF's category)
+      categoryConsensus = { 
+        agreed: true, 
+        agreedCategory: determinedCategory, 
+        agreementReason: 'Salesforce-provided category (not AI-determined)' 
+      };
+    } else {
+      // Fallback: No Salesforce category provided - AI determines category
+      logger.warn('⚠️ No Salesforce category provided - AI will determine category', {
+        sessionId: verificationSessionId,
+        department: determinedDepartment,
+        productId: rawProduct.SF_Catalog_Id
+      });
+      
+      [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
+        analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+          stage: 'category-only', 
+          department: determinedDepartment
+        }),
+        analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
+          stage: 'category-only', 
+          department: determinedDepartment
+        })
+      ]);
+      
+      logger.info('✅ STAGE 2 complete - Category determined by AI', {
+        sessionId: verificationSessionId,
+        department: determinedDepartment,
+        openaiCategory: openaiCategoryResult.determinedCategory,
+        xaiCategory: xaiCategoryResult.determinedCategory,
+        openaiConfidence: openaiCategoryResult.categoryConfidence,
+        xaiConfidence: xaiCategoryResult.categoryConfidence,
+        durationMs: Date.now() - stage2StartTime
+      });
+      
+      // Build consensus on category only
+      categoryConsensus = buildConsensus(openaiCategoryResult, xaiCategoryResult);
+      determinedCategory = categoryConsensus.agreedCategory || openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
+      
+      if (!determinedCategory) {
+        logger.error('❌ STAGE 2 FAILED: No category could be determined', {
+          sessionId: verificationSessionId,
+          department: determinedDepartment,
+          openaiError: openaiCategoryResult.error,
+          xaiError: xaiCategoryResult.error
+        });
+        throw new Error('Category determination failed - both AIs returned no category');
+      }
+      
+      logger.info('🎯 Category consensus reached (AI-determined)', {
+        sessionId: verificationSessionId,
+        department: determinedDepartment,
+        agreedCategory: determinedCategory,
+        source: 'AI Consensus',
+        categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
+      });
     }
-    
-    logger.info('🎯 Category consensus reached', {
-      sessionId: verificationSessionId,
-      department: determinedDepartment,
-      agreedCategory: determinedCategory,
-      categoriesMatched: categoryConsensus.agreed,
-      categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
-    });
     
     // ===============================================
     // ✅ PHASE 2 VALIDATION: CATEGORY VALIDATION
@@ -3129,7 +3200,8 @@ async function analyzeWithOpenAI(
   stageConfig?: { 
     stage: 'department-only' | 'category-only' | 'category-specific', 
     department?: string,
-    category?: string 
+    category?: string,
+    salesforceCategory?: string  // Finding #016: SF's category for validation
   }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
@@ -3158,8 +3230,8 @@ async function analyzeWithOpenAI(
         systemPrompt = getDepartmentOnlyPrompt();
         logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (OpenAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
-        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions, stageConfig.salesforceCategory);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (OpenAI)', { sessionId, department: stageConfig.department, salesforceCategory: stageConfig.salesforceCategory, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category, promptOptions);
         logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (OpenAI)', { sessionId, category: stageConfig.category, strictTypeMode: promptOptions?.strictTypeMode, productId: rawProduct.SF_Catalog_Id });
@@ -3244,7 +3316,8 @@ async function analyzeWithXAI(
   stageConfig?: { 
     stage: 'department-only' | 'category-only' | 'category-specific', 
     department?: string,
-    category?: string 
+    category?: string,
+    salesforceCategory?: string  // Finding #016: SF's category for validation
   }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
@@ -3273,8 +3346,8 @@ async function analyzeWithXAI(
         systemPrompt = getDepartmentOnlyPrompt();
         logger.info('🏢 STAGE 1 (Hierarchical): Using department-only prompt (xAI)', { sessionId, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-only') {
-        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions);
-        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
+        systemPrompt = getCategoryOnlyPrompt(stageConfig.department, promptOptions, stageConfig.salesforceCategory);
+        logger.info('🔍 STAGE 2 (Hierarchical): Using category-only prompt (xAI)', { sessionId, department: stageConfig.department, salesforceCategory: stageConfig.salesforceCategory, strictMode: promptOptions?.strictCategoryMode, productId: rawProduct.SF_Catalog_Id });
       } else if (stageConfig?.stage === 'category-specific' && stageConfig.category) {
         systemPrompt = getCategorySpecificPrompt(stageConfig.category, promptOptions);
         logger.info('🎯 STAGE 3 (Hierarchical): Using category-specific prompt (xAI)', { sessionId, category: stageConfig.category, strictTypeMode: promptOptions?.strictTypeMode, productId: rawProduct.SF_Catalog_Id });
@@ -3481,10 +3554,11 @@ This is Stage 1 (department determination only). Return a simplified JSON struct
 }
 
 /**
- * STAGE 2 PROMPT: Category Determination (Department-Filtered)
+ * STAGE 2 PROMPT: Category Determination/Validation (Department-Filtered)
  * Shows ONLY categories from the determined department
+ * 🔧 FINDING #016: Supports validation mode when Salesforce provides category
  */
-function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOptions): string {
+function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOptions, salesforceCategory?: string): string {
   const categoryList = getCategoryListForPrompt(department);
   const departmentContext = department 
     ? `from the **${department}** department` 
@@ -3495,6 +3569,51 @@ function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOption
     ? `\n\n🚨 ${promptOptions.invalidCategoryWarning}\n`
     : '';
   
+  // 🔧 FINDING #016 FIX: If Salesforce provided category, validate instead of determine
+  if (salesforceCategory) {
+    return `You are an expert product classifier specializing in appliances and home products.
+
+⚠️ CRITICAL: Salesforce has assigned this product to category: **"${salesforceCategory}"**
+
+Your ONLY task is to VALIDATE if this category assignment is correct. Do NOT override Salesforce's category.
+${strictWarning}
+Your task:
+1. ANALYZE the raw product data provided
+2. VALIDATE if "${salesforceCategory}" is the correct category for this product
+3. If correct, return "${salesforceCategory}" with high confidence
+4. If incorrect, return "${salesforceCategory}" but explain why it might be wrong in reasoning
+
+${categoryList}
+
+**Validation Rules:**
+- Analyze product title, model number, specifications, and images
+- Check if the product truly belongs in the "${salesforceCategory}" category
+- Consider product type, function, and installation location
+- If the category seems incorrect, note what category it SHOULD be in reasoning (but still return Salesforce's category)
+- Example: If SF says "Drawer" but product is clearly "Storage Drawer/Door" (outdoor), flag the mismatch
+
+⚠️ **IMPORTANT**: Always return Salesforce's category ("${salesforceCategory}") as the final answer. Your role is to validate, not override.
+
+**⚠️ IMPORTANT: Stage 2 Response Format**
+This is Stage 2 (category validation mode). Return a complete JSON structure:
+
+You must respond with valid JSON in this exact format:
+{
+  "category": {
+    "name": "${salesforceCategory}",
+    "confidence": 0.95,
+    "reasoning": "Validation result: Does this product belong in '${salesforceCategory}'? If not, what category should it be?"
+  },
+  "primary_attributes": {},
+  "top15_filter_attributes": {},
+  "additional_attributes": {},
+  "missing_fields": [],
+  "corrections": [],
+  "confidence": 0.95
+}`;
+  }
+  
+  // Original determination mode (when no Salesforce category provided)
   return `You are an expert product classifier specializing in appliances and home products.
 
 ⚠️ CRITICAL: Your ONLY task is to determine the product's category ${departmentContext}. Do NOT populate other fields yet.

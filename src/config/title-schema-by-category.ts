@@ -704,33 +704,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Fuel Type",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Installation Type",
+        "attribute": "Fuel Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Installation Type",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Fuel Type} {Installation Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Range Finish - Model",
-    "seoNotes": "Width + Fuel Type are top search modifiers. Fuel = Gas, Electric, Dual Fuel, Induction. Installation = Slide-In, Freestanding, Drop-In."
+    "template": "{Brand} {Width (Inches)} {Type} {Fuel Type} {Installation Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Wolf 48-Inch Pro-Style Dual Fuel Slide-In Range Stainless Steel - DF48450G",
+    "seoNotes": "Type = Pro-Style, Front Control, Rear Control. Fuel Type = Gas, Electric, Dual Fuel, Induction. Installation Type = Slide-In, Freestanding, Drop-In."
   },
   "range_hood": {
     "categoryId": "a01Hu000010Q5EoIAK",

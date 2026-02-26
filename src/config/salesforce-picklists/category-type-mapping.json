@@ -429,54 +429,11 @@
       "category_name": "Range",
       "category_id": "a01Hu000010Q5EnIAK",
       "filter_label": "Range Type",
-      "logic": "Fuel type or installation style",
+      "logic": "Configuration and control style",
       "types": [
-        {
-          "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Induction",
-          "type_id": "a1jaZ000001lF7OQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Dual Fuel",
-          "type_id": "a1jaZ000001lF5pQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Slide-In",
-          "type_id": "a1jaZ000001lFAuQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
         {
           "type_name": "Pro-Style",
           "type_id": "a1jaZ000001lF9cQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5kQAE",
-          "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
@@ -501,7 +458,8 @@
           "primary_filter": false
         }
       ],
-      "styles_apply": true
+      "styles_apply": true,
+      "note": "Fuel types (Gas, Electric, Dual Fuel, Induction) moved to Fuel Type attribute. Installation types (Freestanding, Slide-In, Drop-In) moved to Installation Type attribute. Following Audit Finding #015 pattern."
     },
     {
       "department_name": "Appliances",
