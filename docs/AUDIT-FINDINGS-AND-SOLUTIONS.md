@@ -23,7 +23,7 @@
 | Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
 | Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
 | Electric/Gas incorrectly as dryer Types (not attributes) | Restructure category-type-mapping: Remove Electric/Gas from types, add Front Load/Top Load/Unitized | 8866dc6 | #015 |
-| AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | TBD | #016 |
+| AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | aa545f3 | #016 |
 
 ---
 
@@ -1769,7 +1769,7 @@ When Salesforce sends Range products after this deployment:
 **Severity:** 🔴 CRITICAL  
 **Category:** Category Determination (Stage 2)  
 **Affects:** ALL categories when Salesforce provides category assignment  
-**Status:** ✅ FIXED (Commit TBD)
+**Status:** ✅ FIXED (Commit aa545f3)
 
 **Symptom:**
 - Product: HESTAN AGSR36WH "36-Inch Agave Storage Drawer/Door"
@@ -1843,7 +1843,7 @@ getCategoryOnlyPrompt() says:
 8. Reviewed audit findings: No previous entry about respecting SF authority
 9. **Conclusion:** NEW finding - system should VALIDATE, not REPLACE, SF categories
 
-**Fix Applied:** (Commit TBD)
+**Fix Applied:** (Commit aa545f3)
 
 **Strategy: Option C - SF-Only with AI Validation**
 - ✅ Always use Salesforce's category (`rawProduct.Web_Retailer_Category`)
@@ -2018,10 +2018,10 @@ When building verification systems:
 - **Field Extraction:** HIGH - Category determines which fields to extract (Width, Height, etc.)
 - **User Trust:** CRITICAL - System respects Salesforce as source of truth
 
-**Deployed:** 🔄 PENDING deployment (TypeScript compilation ✅ SUCCESS)  
-**Status:** ✅ Code changes complete, awaiting commit/deploy + testing
+**Deployed:** ✅ 2026-02-26 commit aa545f3  
+**Status:** LIVE in production (all 3 environments synced)
 
-**Session Documentation:** TBD
+**Session Documentation:** See [session-notes/SESSION-SUMMARY-2026-02-26-FINDING-016-CATEGORY-VALIDATION.md](../session-notes/SESSION-SUMMARY-2026-02-26-FINDING-016-CATEGORY-VALIDATION.md)
 
 ---
 
