@@ -21,7 +21,7 @@
 | Built-In redundant for inherently built-in products | Skip Built-In for Beverage Center and Undercounter types | 7b80a87 | #011, #010 |
 | Freestanding allowed as refrigerator Type | Block Freestanding from valid Types for refrigerators | 7b80a87 | #012, #003 |
 | Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
-| Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | TBD | #014 |
+| Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
 
 ---
 
@@ -1147,6 +1147,75 @@ This is SIMILAR to Finding #012 (Freestanding as Type) but OPPOSITE direction:
 
 **Impact:** HIGH - Affects data quality across ALL 177 categories and ~2800 types
 
+---
+
+### 🎯 Priority 2 Implementation: High-Volume Categories (2026-02-26)
+
+**Commit:** e4d1dd6  
+**Status:** ✅ DEPLOYED  
+**Coverage Improvement:** 0.3% → 2.5% (2 types → 17 types with keywords)
+
+#### Categories Fixed:
+
+**1. Lighting Types (6 types added) ✅**
+```typescript
+'1 light', '1-light', 'single light' → '1-Light'
+'3 light', '3-light', 'three light' → '3-Light'
+'4 light', '4-light', 'four light' → '4-Light'
+'5 light', '5-light', 'five light' → '5-Light'
+'6 light', '6-light', 'six light' → '6-Light'
+```
+
+**2. Toilet Types (9 types added) ✅**
+```typescript
+'comfort height', 'chair height', 'right height' → 'Comfort Height'
+'dual flush', 'dual-flush' → 'Dual-Flush'
+'gravity flush' → 'Gravity'
+'pressure assisted', 'power flush' → 'Pressure-Assisted'
+'round front', 'round bowl' → 'Round-Front'
+'elongated bowl' → 'Elongated'
+'smart toilet', 'electronic toilet', 'bidet toilet' → 'Smart/Electronic'
+'standard height' → 'Standard Height'
+'wall hung toilet', 'wall mount toilet' → 'Wall-Hung'
+```
+
+**3. Kitchen Faucet Types (2 types added) ✅**
+```typescript
+'commercial style', 'pro style' → 'Commercial Style'
+'touch on', 'touch activated' → 'Touch-On'
+```
+
+**4. Kitchen Sink Type (1 type added) ✅**
+```typescript
+'triple bowl', 'triple basin' → 'Triple Bowl'
+```
+
+#### Semantic Patterns Added:
+- Light count detection: `/\b[1-6][\s-]*light/i`
+- Toilet types: comfort height, dual-flush, pressure-assisted patterns
+- Kitchen faucet specialty types
+
+#### Results:
+- **Types with keywords:** 2 → 17 (+750% increase)
+- **Categories with full coverage:** 6 → 10 (out of 18)
+- **Categories still needing work:** 12 (down from 16)
+- **Remaining gaps:**
+  - Universal types (645 types) - 100% missing
+  - Ceiling Fan blade counts (3 types)
+  - Rug types (3 types)
+  - Furniture types (3 types)
+  - Flooring types (6 types)
+  - Miscellaneous specialty types
+
+#### Testing:
+Run audit script to verify coverage:
+```bash
+node scripts/audit-type-keyword-coverage.js
+```
+
+#### Next Steps:
+**Priority 3 (as needed):** Add keywords for specialty categories when pattern analysis shows low Type population rates in production data
+
 **Symptom:**
 - Products classified as "Accessory" Type show generic titles
 - Example: "SAMSUNG 36-Inch Accessory Refrigerator..." ❌ (What kind of accessory?)
@@ -1377,6 +1446,8 @@ Are you adding a new slot to a title schema?
 | 8eb96d3 | 2026-02-25 | 🔧 FIX | Enhance Stage 1 department determination with multi-keyword context validation (Finding #008) |
 | 3ce3cdb | 2026-02-25 | 📝 DOCS | Add Findings #010-#013 to Audit Findings document |
 | 8eb96d3 | 2026-02-25 | 🔧 FIX | Enhance Stage 1 department determination with multi-keyword context validation (Finding #008) |
+| 31266a3 | 2026-02-26 | 🔧 FIX | Add Single Door keyword mappings for refrigerators (Finding #014 - Priority 1) |
+| e4d1dd6 | 2026-02-26 | ✨ ENHANCE | Add keyword mappings for Lighting, Toilet, Kitchen Faucet types (Finding #014 - Priority 2) |
 
 ---
 
@@ -1397,7 +1468,9 @@ Are you adding a new slot to a title schema?
 | 2026-02-25 | Copilot Session | Added Finding #006 (" or " separator), #007 (duplicate values), #008 (wrong category - DEFERRED) - Commit 40b397d |
 | 2026-02-25 | Copilot Session | Added Finding #009 (Finish descriptive phrases) - Universal fix for all categories |
 | 2026-02-25 | Copilot Session | Added Finding #010 (Freestanding in titles), #011 (Built-In redundant), #012 (Freestanding as Type), #013 (Accessory subtypes) - Commit 7b80a87 |
-| 2026-02-25 | Copilot Session | IMPLEMENTED Finding #008 fix: Enhanced Stage 1 prompt with multi-keyword context validation - Commit 8eb96d3 |---
+| 2026-02-25 | Copilot Session | IMPLEMENTED Finding #008 fix: Enhanced Stage 1 prompt with multi-keyword context validation - Commit 8eb96d3 |
+| 2026-02-26 | Copilot Session | Added Finding #014 (Missing type keywords) - Priority 1: Single Door for refrigerators - Commit 31266a3 |
+| 2026-02-26 | Copilot Session | Finding #014 Priority 2: Added keywords for Lighting, Toilet, Kitchen Faucet types - Coverage 0.3% → 2.5% - Commit e4d1dd6 |---
 
 ## Notes for Future Development
 
