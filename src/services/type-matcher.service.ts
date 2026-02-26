@@ -213,6 +213,21 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'led': { 'Lamp': 'LED', 'Light Bulb': 'LED', 'Recessed Lighting': 'LED' },
   'incandescent': { 'Light Bulb': 'Incandescent' },
   'halogen': { 'Light Bulb': 'Halogen' },
+  '1 light': { 'Lighting': '1-Light', 'Vanity Light': '1-Light' },
+  '1-light': { 'Lighting': '1-Light', 'Vanity Light': '1-Light' },
+  'single light': { 'Lighting': '1-Light', 'Vanity Light': '1-Light' },
+  '3 light': { 'Lighting': '3-Light', 'Vanity Light': '3-Light' },
+  '3-light': { 'Lighting': '3-Light', 'Vanity Light': '3-Light' },
+  'three light': { 'Lighting': '3-Light', 'Vanity Light': '3-Light' },
+  '4 light': { 'Lighting': '4-Light', 'Vanity Light': '4-Light' },
+  '4-light': { 'Lighting': '4-Light', 'Vanity Light': '4-Light' },
+  'four light': { 'Lighting': '4-Light', 'Vanity Light': '4-Light' },
+  '5 light': { 'Lighting': '5-Light', 'Vanity Light': '5-Light' },
+  '5-light': { 'Lighting': '5-Light', 'Vanity Light': '5-Light' },
+  'five light': { 'Lighting': '5-Light', 'Vanity Light': '5-Light' },
+  '6 light': { 'Lighting': '6-Light', 'Vanity Light': '6-Light' },
+  '6-light': { 'Lighting': '6-Light', 'Vanity Light': '6-Light' },
+  'six light': { 'Lighting': '6-Light', 'Vanity Light': '6-Light' },
   
   // ============================================
   // PLUMBING ALASES - Kitchen Faucets
@@ -228,6 +243,12 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'two handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'pot filler': { 'Kitchen Faucet': 'Pot Filler', 'Pot Filler Faucet': 'Wall Mount' },
   'bar faucet': { 'Kitchen Faucet': 'Bar Prep', 'Bar Faucet': 'Single Hole' },
+  'commercial style': { 'Kitchen Faucet': 'Commercial Style' },
+  'commercial kitchen': { 'Kitchen Faucet': 'Commercial Style' },
+  'pro style': { 'Kitchen Faucet': 'Commercial Style' },
+  'touch on': { 'Kitchen Faucet': 'Touch-On' },
+  'touch-on': { 'Kitchen Faucet': 'Touch-On' },
+  'touch activated': { 'Kitchen Faucet': 'Touch-On' },
   
   // ============================================
   // PLUMBINGALIASES - Bathroom Faucets
@@ -287,11 +308,43 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'single basin': { 'Kitchen Sink': 'Single Bowl', 'Bathroom Sink': 'Single Bowl' },
   'double bowl': { 'Kitchen Sink': 'Double Bowl' },
   'double basin': { 'Kitchen Sink': 'Double Bowl' },
+  'triple bowl': { 'Kitchen Sink': 'Triple Bowl' },
+  'triple basin': { 'Kitchen Sink': 'Triple Bowl' },
   'pedestal': { 'Bathroom Sink': 'Pedestal' },
   'pedestal sink': { 'Bathroom Sink': 'Pedestal' },
   'console': { 'Bathroom Sink': 'Console' },
   'wall hung': { 'Bathroom Sink': 'Wall Mount', 'Toilet': 'Wall Mount' },
   'wall-hung': { 'Bathroom Sink': 'Wall Mount', 'Toilet': 'Wall Mount' },
+  
+  // ============================================
+  // TOILET ALIASES
+  // ============================================
+  'comfort height': { 'Toilet': 'Comfort Height' },
+  'comfort height toilet': { 'Toilet': 'Comfort Height' },
+  'chair height': { 'Toilet': 'Comfort Height' },
+  'right height': { 'Toilet': 'Comfort Height' },
+  'dual flush': { 'Toilet': 'Dual-Flush' },
+  'dual-flush': { 'Toilet': 'Dual-Flush' },
+  'dual flush toilet': { 'Toilet': 'Dual-Flush' },
+  'gravity flush': { 'Toilet': 'Gravity' },
+  'gravity toilet': { 'Toilet': 'Gravity' },
+  'pressure assisted': { 'Toilet': 'Pressure-Assisted' },
+  'pressure-assisted': { 'Toilet': 'Pressure-Assisted' },
+  'power flush': { 'Toilet': 'Pressure-Assisted' },
+  'round front': { 'Toilet': 'Round-Front' },
+  'round-front': { 'Toilet': 'Round-Front' },
+  'round bowl': { 'Toilet': 'Round-Front' },
+  'elongated': { 'Toilet': 'Elongated' },
+  'elongated bowl': { 'Toilet': 'Elongated' },
+  'smart toilet': { 'Toilet': 'Smart/Electronic' },
+  'electronic toilet': { 'Toilet': 'Smart/Electronic' },
+  'bidet toilet': { 'Toilet': 'Smart/Electronic' },
+  'intelligent toilet': { 'Toilet': 'Smart/Electronic' },
+  'standard height': { 'Toilet': 'Standard Height' },
+  'standard height toilet': { 'Toilet': 'Standard Height' },
+  'wall hung toilet': { 'Toilet': 'Wall-Hung' },
+  'wall-hung toilet': { 'Toilet': 'Wall-Hung' },
+  'wall mount toilet': { 'Toilet': 'Wall-Hung' },
   
   // ============================================
   // BATHROOM HARDWARE ALIASES
@@ -482,6 +535,28 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   // Freezer patterns
   { pattern: /chest.*freezer/i, category: 'Freezer', typeName: 'Chest' },
   { pattern: /upright.*freezer/i, category: 'Freezer', typeName: 'Upright' },
+  
+  // Lighting patterns (light count)
+  { pattern: /\b1[\s-]*light|single[\s-]*light/i, category: 'Lighting', typeName: '1-Light' },
+  { pattern: /\b3[\s-]*light|three[\s-]*light/i, category: 'Lighting', typeName: '3-Light' },
+  { pattern: /\b4[\s-]*light|four[\s-]*light/i, category: 'Lighting', typeName: '4-Light' },
+  { pattern: /\b5[\s-]*light|five[\s-]*light/i, category: 'Lighting', typeName: '5-Light' },
+  { pattern: /\b6[\s-]*light|six[\s-]*light/i, category: 'Lighting', typeName: '6-Light' },
+  
+  // Toilet patterns
+  { pattern: /comfort[\s-]*height|chair[\s-]*height|right[\s-]*height/i, category: 'Toilet', typeName: 'Comfort Height' },
+  { pattern: /dual[\s-]*flush/i, category: 'Toilet', typeName: 'Dual-Flush' },
+  { pattern: /gravity[\s-]*flush/i, category: 'Toilet', typeName: 'Gravity' },
+  { pattern: /pressure[\s-]*assisted|power[\s-]*flush/i, category: 'Toilet', typeName: 'Pressure-Assisted' },
+  { pattern: /round[\s-]*front|round[\s-]*bowl/i, category: 'Toilet', typeName: 'Round-Front' },
+  { pattern: /elongated[\s-]*bowl/i, category: 'Toilet', typeName: 'Elongated' },
+  { pattern: /smart.*toilet|electronic.*toilet|bidet.*toilet|intelligent.*toilet/i, category: 'Toilet', typeName: 'Smart/Electronic' },
+  { pattern: /standard[\s-]*height.*toilet/i, category: 'Toilet', typeName: 'Standard Height' },
+  { pattern: /wall[\s-]*hung.*toilet|wall[\s-]*mount.*toilet/i, category: 'Toilet', typeName: 'Wall-Hung' },
+  
+  // Kitchen Faucet patterns
+  { pattern: /commercial[\s-]*style|pro[\s-]*style/i, category: 'Kitchen Faucet', typeName: 'Commercial Style' },
+  { pattern: /touch[\s-]*on|touch[\s-]*activated/i, category: 'Kitchen Faucet', typeName: 'Touch-On' },
   
   // Range Hood patterns
   { pattern: /wall[\s-]*mount.*hood|chimney.*hood/i, category: 'Range Hood', typeName: 'Wall Mount' },

@@ -1,0 +1,5813 @@
+{
+  "auditDate": "2026-02-26T01:19:37.951Z",
+  "summary": {
+    "totalTypes": 684,
+    "typesWithKeywords": 17,
+    "typesMissing": 667,
+    "coveragePercent": "2.5",
+    "categoriesAffected": 12,
+    "totalCategories": 18
+  },
+  "missingByCategory": [
+    {
+      "category": "Universal",
+      "missingCount": 645,
+      "totalTypes": 645,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "4-Door Flex",
+          "typeId": "a1jaZ000001lF33QAE",
+          "suggestedKeywords": [
+            "4-door flex",
+            "4-door-flex",
+            "4 door flex"
+          ]
+        },
+        {
+          "typeName": "Abstract",
+          "typeId": "a1jaZ000001lF35QAE",
+          "suggestedKeywords": [
+            "abstract",
+            "abstracts"
+          ]
+        },
+        {
+          "typeName": "Accent",
+          "typeId": "a1jaZ000001lF36QAE",
+          "suggestedKeywords": [
+            "accent",
+            "accents"
+          ]
+        },
+        {
+          "typeName": "Access Door",
+          "typeId": "a1jaZ000001lF37QAE",
+          "suggestedKeywords": [
+            "access door",
+            "access-door",
+            "access doors"
+          ]
+        },
+        {
+          "typeName": "Access Doors",
+          "typeId": "a1jaZ000001lF38QAE",
+          "suggestedKeywords": [
+            "access doors",
+            "access-doors",
+            "access door"
+          ]
+        },
+        {
+          "typeName": "Accessory",
+          "typeId": "a1jaZ000001lF39QAE",
+          "suggestedKeywords": [
+            "accessory",
+            "accessorys"
+          ]
+        },
+        {
+          "typeName": "Adapter",
+          "typeId": "a1jaZ000001lF3AQAU",
+          "suggestedKeywords": [
+            "adapter",
+            "adapters"
+          ]
+        },
+        {
+          "typeName": "Air Bath",
+          "typeId": "a1jaZ000001lF3BQAU",
+          "suggestedKeywords": [
+            "air bath",
+            "air-bath",
+            "air baths"
+          ]
+        },
+        {
+          "typeName": "Air Gap",
+          "typeId": "a1jaZ000001lF3CQAU",
+          "suggestedKeywords": [
+            "air gap",
+            "air-gap",
+            "air gaps"
+          ]
+        },
+        {
+          "typeName": "Alcove",
+          "typeId": "a1jaZ000001lF3DQAU",
+          "suggestedKeywords": [
+            "alcove",
+            "alcoves"
+          ]
+        },
+        {
+          "typeName": "Americana",
+          "typeId": "a1jaZ000001lF3EQAU",
+          "suggestedKeywords": [
+            "americana",
+            "americanas"
+          ]
+        },
+        {
+          "typeName": "Appliance Pull",
+          "typeId": "a1jaZ000001lF3FQAU",
+          "suggestedKeywords": [
+            "appliance pull",
+            "appliance-pull",
+            "appliance pulls"
+          ]
+        },
+        {
+          "typeName": "Apron Front",
+          "typeId": "a1jaZ000001lF3GQAU",
+          "suggestedKeywords": [
+            "apron front",
+            "apron-front",
+            "apron fronts"
+          ]
+        },
+        {
+          "typeName": "Aquarium Lighting",
+          "typeId": "a1jaZ000001lF3HQAU",
+          "suggestedKeywords": [
+            "aquarium lighting",
+            "aquarium-lighting",
+            "aquarium lightings"
+          ]
+        },
+        {
+          "typeName": "Arc Lamp",
+          "typeId": "a1jaZ000001lF3IQAU",
+          "suggestedKeywords": [
+            "arc lamp",
+            "arc-lamp",
+            "arc lamps"
+          ]
+        },
+        {
+          "typeName": "Arch Pull",
+          "typeId": "a1jaZ000001lF3JQAU",
+          "suggestedKeywords": [
+            "arch pull",
+            "arch-pull",
+            "arch pulls"
+          ]
+        },
+        {
+          "typeName": "Art Pull",
+          "typeId": "a1jaZ000001lF3KQAU",
+          "suggestedKeywords": [
+            "art pull",
+            "art-pull",
+            "art pulls"
+          ]
+        },
+        {
+          "typeName": "Bakers Rack",
+          "typeId": "a1jaZ000001lF3MQAU",
+          "suggestedKeywords": [
+            "bakers rack",
+            "bakers-rack",
+            "bakers racks"
+          ]
+        },
+        {
+          "typeName": "Ball Bearing",
+          "typeId": "a1jaZ000001lF3NQAU",
+          "suggestedKeywords": [
+            "ball bearing",
+            "ball-bearing",
+            "ball bearings"
+          ]
+        },
+        {
+          "typeName": "Ball Catch",
+          "typeId": "a1jaZ000001lF3OQAU",
+          "suggestedKeywords": [
+            "ball catch",
+            "ball-catch",
+            "ball catchs"
+          ]
+        },
+        {
+          "typeName": "Bar Faucet",
+          "typeId": "a1jaZ000001lF3PQAU",
+          "suggestedKeywords": [
+            "bar faucet",
+            "bar-faucet",
+            "bar faucets"
+          ]
+        },
+        {
+          "typeName": "Bar Pull",
+          "typeId": "a1jaZ000001lF3QQAU",
+          "suggestedKeywords": [
+            "bar pull",
+            "bar-pull",
+            "bar pulls"
+          ]
+        },
+        {
+          "typeName": "Bar Stool",
+          "typeId": "a1jaZ000001lF3RQAU",
+          "suggestedKeywords": [
+            "bar stool",
+            "bar-stool",
+            "bar stools"
+          ]
+        },
+        {
+          "typeName": "Bar/Prep",
+          "typeId": "a1jaZ000001lF3SQAU",
+          "suggestedKeywords": [
+            "bar/prep",
+            "bar/preps"
+          ]
+        },
+        {
+          "typeName": "Barn",
+          "typeId": "a1jaZ000001lF3TQAU",
+          "suggestedKeywords": [
+            "barn",
+            "barns"
+          ]
+        },
+        {
+          "typeName": "Barrier-Free",
+          "typeId": "a1jaZ000001lF3UQAU",
+          "suggestedKeywords": [
+            "barrier-free",
+            "barrier free",
+            "barrierfree"
+          ]
+        },
+        {
+          "typeName": "Baseboard",
+          "typeId": "a1jaZ000001lF3VQAU",
+          "suggestedKeywords": [
+            "baseboard",
+            "baseboards"
+          ]
+        },
+        {
+          "typeName": "Basement",
+          "typeId": "a1jaZ000001lF3WQAU",
+          "suggestedKeywords": [
+            "basement",
+            "basements"
+          ]
+        },
+        {
+          "typeName": "Basket",
+          "typeId": "a1jaZ000001lF3XQAU",
+          "suggestedKeywords": [
+            "basket",
+            "baskets"
+          ]
+        },
+        {
+          "typeName": "Basket Strainer",
+          "typeId": "a1jaZ000001lF3YQAU",
+          "suggestedKeywords": [
+            "basket strainer",
+            "basket-strainer",
+            "basket strainers"
+          ]
+        },
+        {
+          "typeName": "Batch Feed",
+          "typeId": "a1jaZ000001lF3ZQAU",
+          "suggestedKeywords": [
+            "batch feed",
+            "batch-feed",
+            "batch feeds"
+          ]
+        },
+        {
+          "typeName": "Bath Bar",
+          "typeId": "a1jaZ000001lF3aQAE",
+          "suggestedKeywords": [
+            "bath bar",
+            "bath-bar",
+            "bath bars"
+          ]
+        },
+        {
+          "typeName": "Bath Mat",
+          "typeId": "a1jaZ000001lF3bQAE",
+          "suggestedKeywords": [
+            "bath mat",
+            "bath-mat",
+            "bath mats"
+          ]
+        },
+        {
+          "typeName": "Bathroom",
+          "typeId": "a1jaZ000001lF3cQAE",
+          "suggestedKeywords": [
+            "bathroom",
+            "bathrooms"
+          ]
+        },
+        {
+          "typeName": "Bathroom Sink Faucet",
+          "typeId": "a1jaZ000001lF3dQAE",
+          "suggestedKeywords": [
+            "bathroom sink faucet",
+            "bathroom-sink-faucet",
+            "bathroom sink faucets"
+          ]
+        },
+        {
+          "typeName": "Bathtub Faucet",
+          "typeId": "a1jaZ000001lF3eQAE",
+          "suggestedKeywords": [
+            "bathtub faucet",
+            "bathtub-faucet",
+            "bathtub faucets"
+          ]
+        },
+        {
+          "typeName": "BBQ Accessories",
+          "typeId": "a1jaZ000001lF3LQAU",
+          "suggestedKeywords": [
+            "bbq accessories",
+            "bbq-accessories",
+            "bbq accessorie"
+          ]
+        },
+        {
+          "typeName": "Bench",
+          "typeId": "a1jaZ000001lF3fQAE",
+          "suggestedKeywords": [
+            "bench",
+            "benchs"
+          ]
+        },
+        {
+          "typeName": "Beverage Center",
+          "typeId": "a1jaZ000001lF3gQAE",
+          "suggestedKeywords": [
+            "beverage center",
+            "beverage-center",
+            "beverage centers"
+          ]
+        },
+        {
+          "typeName": "Bi-Fold",
+          "typeId": "a1jaZ000001lF3hQAE",
+          "suggestedKeywords": [
+            "bi-fold",
+            "bi fold",
+            "bifold"
+          ]
+        },
+        {
+          "typeName": "Bidet",
+          "typeId": "a1jaZ000001lF3iQAE",
+          "suggestedKeywords": [
+            "bidet",
+            "bidets"
+          ]
+        },
+        {
+          "typeName": "Bidet Attachment",
+          "typeId": "a1jaZ000001lF3jQAE",
+          "suggestedKeywords": [
+            "bidet attachment",
+            "bidet-attachment",
+            "bidet attachments"
+          ]
+        },
+        {
+          "typeName": "Bidet Seat",
+          "typeId": "a1jaZ000001lF3kQAE",
+          "suggestedKeywords": [
+            "bidet seat",
+            "bidet-seat",
+            "bidet seats"
+          ]
+        },
+        {
+          "typeName": "Bin",
+          "typeId": "a1jaZ000001lF3lQAE",
+          "suggestedKeywords": [
+            "bin",
+            "bins"
+          ]
+        },
+        {
+          "typeName": "Bin Pull",
+          "typeId": "a1jaZ000001lF3mQAE",
+          "suggestedKeywords": [
+            "bin pull",
+            "bin-pull",
+            "bin pulls"
+          ]
+        },
+        {
+          "typeName": "Biometric",
+          "typeId": "a1jaZ000001lF3nQAE",
+          "suggestedKeywords": [
+            "biometric",
+            "biometrics"
+          ]
+        },
+        {
+          "typeName": "Bird Bath",
+          "typeId": "a1jaZ000001lF3oQAE",
+          "suggestedKeywords": [
+            "bird bath",
+            "bird-bath",
+            "bird baths"
+          ]
+        },
+        {
+          "typeName": "Bladder",
+          "typeId": "a1jaZ000001lF3pQAE",
+          "suggestedKeywords": [
+            "bladder",
+            "bladders"
+          ]
+        },
+        {
+          "typeName": "Blade",
+          "typeId": "a1jaZ000001lF3qQAE",
+          "suggestedKeywords": [
+            "blade",
+            "blades"
+          ]
+        },
+        {
+          "typeName": "Bluetooth",
+          "typeId": "a1jaZ000001lF3rQAE",
+          "suggestedKeywords": [
+            "bluetooth",
+            "bluetooths"
+          ]
+        },
+        {
+          "typeName": "Body Spray",
+          "typeId": "a1jaZ000001lF3sQAE",
+          "suggestedKeywords": [
+            "body spray",
+            "body-spray",
+            "body sprays"
+          ]
+        },
+        {
+          "typeName": "Boiler",
+          "typeId": "a1jaZ000001lF3tQAE",
+          "suggestedKeywords": [
+            "boiler",
+            "boilers"
+          ]
+        },
+        {
+          "typeName": "Bollard",
+          "typeId": "a1jaZ000001lF3uQAE",
+          "suggestedKeywords": [
+            "bollard",
+            "bollards"
+          ]
+        },
+        {
+          "typeName": "Bottle Filler",
+          "typeId": "a1jaZ000001lF3vQAE",
+          "suggestedKeywords": [
+            "bottle filler",
+            "bottle-filler",
+            "bottle fillers"
+          ]
+        },
+        {
+          "typeName": "Bottom-Freezer",
+          "typeId": "a1jaZ000001lF3wQAE",
+          "suggestedKeywords": [
+            "bottom-freezer",
+            "bottom freezer",
+            "bottomfreezer"
+          ]
+        },
+        {
+          "typeName": "Bowl",
+          "typeId": "a1jaZ000001lF3xQAE",
+          "suggestedKeywords": [
+            "bowl",
+            "bowls"
+          ]
+        },
+        {
+          "typeName": "Brick",
+          "typeId": "a1jaZ000001lF3yQAE",
+          "suggestedKeywords": [
+            "brick",
+            "bricks"
+          ]
+        },
+        {
+          "typeName": "Bridge",
+          "typeId": "a1jaZ000001lF3zQAE",
+          "suggestedKeywords": [
+            "bridge",
+            "bridges"
+          ]
+        },
+        {
+          "typeName": "Buffet",
+          "typeId": "a1jaZ000001lF40QAE",
+          "suggestedKeywords": [
+            "buffet",
+            "buffets"
+          ]
+        },
+        {
+          "typeName": "Buffet Lamp",
+          "typeId": "a1jaZ000001lF41QAE",
+          "suggestedKeywords": [
+            "buffet lamp",
+            "buffet-lamp",
+            "buffet lamps"
+          ]
+        },
+        {
+          "typeName": "Built-In Access Doors",
+          "typeId": "a1jaZ000001lF43QAE",
+          "suggestedKeywords": [
+            "built-in access doors",
+            "built-in-access-doors",
+            "built in access doors"
+          ]
+        },
+        {
+          "typeName": "Butt Hinge",
+          "typeId": "a1jaZ000001lF44QAE",
+          "suggestedKeywords": [
+            "butt hinge",
+            "butt-hinge",
+            "butt hinges"
+          ]
+        },
+        {
+          "typeName": "Cabinet",
+          "typeId": "a1jaZ000001lF46QAE",
+          "suggestedKeywords": [
+            "cabinet",
+            "cabinets"
+          ]
+        },
+        {
+          "typeName": "Cable Operated",
+          "typeId": "a1jaZ000001lF47QAE",
+          "suggestedKeywords": [
+            "cable operated",
+            "cable-operated",
+            "cable operateds"
+          ]
+        },
+        {
+          "typeName": "Cam Lock",
+          "typeId": "a1jaZ000001lF48QAE",
+          "suggestedKeywords": [
+            "cam lock",
+            "cam-lock",
+            "cam locks"
+          ]
+        },
+        {
+          "typeName": "Candle",
+          "typeId": "a1jaZ000001lF49QAE",
+          "suggestedKeywords": [
+            "candle",
+            "candles"
+          ]
+        },
+        {
+          "typeName": "Candle Holder",
+          "typeId": "a1jaZ000001lF4AQAU",
+          "suggestedKeywords": [
+            "candle holder",
+            "candle-holder",
+            "candle holders"
+          ]
+        },
+        {
+          "typeName": "Canless",
+          "typeId": "a1jaZ000001lF4BQAU",
+          "suggestedKeywords": [
+            "canless"
+          ]
+        },
+        {
+          "typeName": "Canless Recessed Lights",
+          "typeId": "a1jaZ000001lF4CQAU",
+          "suggestedKeywords": [
+            "canless recessed lights",
+            "canless-recessed-lights",
+            "canless recessed light"
+          ]
+        },
+        {
+          "typeName": "Canopy",
+          "typeId": "a1jaZ000001lF4DQAU",
+          "suggestedKeywords": [
+            "canopy",
+            "canopys"
+          ]
+        },
+        {
+          "typeName": "Cap",
+          "typeId": "a1jaZ000001lF4EQAU",
+          "suggestedKeywords": [
+            "cap",
+            "caps"
+          ]
+        },
+        {
+          "typeName": "Carbon",
+          "typeId": "a1jaZ000001lF4FQAU",
+          "suggestedKeywords": [
+            "carbon",
+            "carbons"
+          ]
+        },
+        {
+          "typeName": "Cart",
+          "typeId": "a1jaZ000001lF4GQAU",
+          "suggestedKeywords": [
+            "cart",
+            "carts"
+          ]
+        },
+        {
+          "typeName": "Cash Box",
+          "typeId": "a1jaZ000001lF4HQAU",
+          "suggestedKeywords": [
+            "cash box",
+            "cash-box",
+            "cash boxs"
+          ]
+        },
+        {
+          "typeName": "Casual",
+          "typeId": "a1jaZ000001lF4IQAU",
+          "suggestedKeywords": [
+            "casual",
+            "casuals"
+          ]
+        },
+        {
+          "typeName": "Catch",
+          "typeId": "a1jaZ000001lF4JQAU",
+          "suggestedKeywords": [
+            "catch",
+            "catchs"
+          ]
+        },
+        {
+          "typeName": "Ceiling Mount",
+          "typeId": "a1jaZ000001lF4KQAU",
+          "suggestedKeywords": [
+            "ceiling mount",
+            "ceiling-mount",
+            "ceiling mounts"
+          ]
+        },
+        {
+          "typeName": "Ceiling Mounted",
+          "typeId": "a1jaZ000001lF4LQAU",
+          "suggestedKeywords": [
+            "ceiling mounted",
+            "ceiling-mounted",
+            "ceiling mounteds"
+          ]
+        },
+        {
+          "typeName": "Cement",
+          "typeId": "a1jaZ000001lF4MQAU",
+          "suggestedKeywords": [
+            "cement",
+            "cements"
+          ]
+        },
+        {
+          "typeName": "Center Mount",
+          "typeId": "a1jaZ000001lF4NQAU",
+          "suggestedKeywords": [
+            "center mount",
+            "center-mount",
+            "center mounts"
+          ]
+        },
+        {
+          "typeName": "Centerset",
+          "typeId": "a1jaZ000001lF4OQAU",
+          "suggestedKeywords": [
+            "centerset",
+            "centersets"
+          ]
+        },
+        {
+          "typeName": "Central",
+          "typeId": "a1jaZ000001lF4PQAU",
+          "suggestedKeywords": [
+            "central",
+            "centrals"
+          ]
+        },
+        {
+          "typeName": "Ceramic",
+          "typeId": "a1jaZ000001lF4QQAU",
+          "suggestedKeywords": [
+            "ceramic",
+            "ceramics"
+          ]
+        },
+        {
+          "typeName": "CFL",
+          "typeId": "a1jaZ000001lF45QAE",
+          "suggestedKeywords": [
+            "cfl",
+            "cfls"
+          ]
+        },
+        {
+          "typeName": "Chain",
+          "typeId": "a1jaZ000001lF4RQAU",
+          "suggestedKeywords": [
+            "chain",
+            "chains"
+          ]
+        },
+        {
+          "typeName": "Chandelier",
+          "typeId": "a1jaZ000001lF4SQAU",
+          "suggestedKeywords": [
+            "chandelier",
+            "chandeliers"
+          ]
+        },
+        {
+          "typeName": "Charcoal",
+          "typeId": "a1jaZ000001lF4TQAU",
+          "suggestedKeywords": [
+            "charcoal",
+            "charcoals"
+          ]
+        },
+        {
+          "typeName": "Chest",
+          "typeId": "a1jaZ000001lF4UQAU",
+          "suggestedKeywords": [
+            "chest",
+            "chests"
+          ]
+        },
+        {
+          "typeName": "Chiller",
+          "typeId": "a1jaZ000001lF4VQAU",
+          "suggestedKeywords": [
+            "chiller",
+            "chillers"
+          ]
+        },
+        {
+          "typeName": "Chimney Pipe",
+          "typeId": "a1jaZ000001lF4WQAU",
+          "suggestedKeywords": [
+            "chimney pipe",
+            "chimney-pipe",
+            "chimney pipes"
+          ]
+        },
+        {
+          "typeName": "Classroom",
+          "typeId": "a1jaZ000001lF4XQAU",
+          "suggestedKeywords": [
+            "classroom",
+            "classrooms"
+          ]
+        },
+        {
+          "typeName": "Clawfoot",
+          "typeId": "a1jaZ000001lF4YQAU",
+          "suggestedKeywords": [
+            "clawfoot",
+            "clawfoots"
+          ]
+        },
+        {
+          "typeName": "Cleanout",
+          "typeId": "a1jaZ000001lF4ZQAU",
+          "suggestedKeywords": [
+            "cleanout",
+            "cleanouts"
+          ]
+        },
+        {
+          "typeName": "Click Lock",
+          "typeId": "a1jaZ000001lF4aQAE",
+          "suggestedKeywords": [
+            "click lock",
+            "click-lock",
+            "click locks"
+          ]
+        },
+        {
+          "typeName": "Clock",
+          "typeId": "a1jaZ000001lF4bQAE",
+          "suggestedKeywords": [
+            "clock",
+            "clocks"
+          ]
+        },
+        {
+          "typeName": "Closer",
+          "typeId": "a1jaZ000001lF4cQAE",
+          "suggestedKeywords": [
+            "closer",
+            "closers"
+          ]
+        },
+        {
+          "typeName": "Closet Rod",
+          "typeId": "a1jaZ000001lF4dQAE",
+          "suggestedKeywords": [
+            "closet rod",
+            "closet-rod",
+            "closet rods"
+          ]
+        },
+        {
+          "typeName": "Closet System",
+          "typeId": "a1jaZ000001lF4eQAE",
+          "suggestedKeywords": [
+            "closet system",
+            "closet-system",
+            "closet systems"
+          ]
+        },
+        {
+          "typeName": "Cluster",
+          "typeId": "a1jaZ000001lF4fQAE",
+          "suggestedKeywords": [
+            "cluster",
+            "clusters"
+          ]
+        },
+        {
+          "typeName": "Colander",
+          "typeId": "a1jaZ000001lF4gQAE",
+          "suggestedKeywords": [
+            "colander",
+            "colanders"
+          ]
+        },
+        {
+          "typeName": "Cold Brew",
+          "typeId": "a1jaZ000001lF4hQAE",
+          "suggestedKeywords": [
+            "cold brew",
+            "cold-brew",
+            "cold brews"
+          ]
+        },
+        {
+          "typeName": "Column",
+          "typeId": "a1jaZ000001lF4iQAE",
+          "suggestedKeywords": [
+            "column",
+            "columns"
+          ]
+        },
+        {
+          "typeName": "Column Mount",
+          "typeId": "a1jaZ000001lF4jQAE",
+          "suggestedKeywords": [
+            "column mount",
+            "column-mount",
+            "column mounts"
+          ]
+        },
+        {
+          "typeName": "Combo",
+          "typeId": "a1jaZ000001lF4kQAE",
+          "suggestedKeywords": [
+            "combo",
+            "combos"
+          ]
+        },
+        {
+          "typeName": "Commercial",
+          "typeId": "a1jaZ000001lF4lQAE",
+          "suggestedKeywords": [
+            "commercial",
+            "commercials"
+          ]
+        },
+        {
+          "typeName": "Commercial Lantern",
+          "typeId": "a1jaZ000001lF4mQAE",
+          "suggestedKeywords": [
+            "commercial lantern",
+            "commercial-lantern",
+            "commercial lanterns"
+          ]
+        },
+        {
+          "typeName": "Commercial Lantern Chandelier",
+          "typeId": "a1jaZ000001lF4nQAE",
+          "suggestedKeywords": [
+            "commercial lantern chandelier",
+            "commercial-lantern-chandelier",
+            "commercial lantern chandeliers"
+          ]
+        },
+        {
+          "typeName": "Compact",
+          "typeId": "a1jaZ000001lF4oQAE",
+          "suggestedKeywords": [
+            "compact",
+            "compacts"
+          ]
+        },
+        {
+          "typeName": "Compact Refrigerator Freezer Combo",
+          "typeId": "a1jaZ000001lF4pQAE",
+          "suggestedKeywords": [
+            "compact refrigerator freezer combo",
+            "compact-refrigerator-freezer-combo",
+            "compact refrigerator freezer combos"
+          ]
+        },
+        {
+          "typeName": "Complete System",
+          "typeId": "a1jaZ000001lF4qQAE",
+          "suggestedKeywords": [
+            "complete system",
+            "complete-system",
+            "complete systems"
+          ]
+        },
+        {
+          "typeName": "Concealed",
+          "typeId": "a1jaZ000001lF4rQAE",
+          "suggestedKeywords": [
+            "concealed",
+            "concealeds"
+          ]
+        },
+        {
+          "typeName": "Condensing",
+          "typeId": "a1jaZ000001lF4sQAE",
+          "suggestedKeywords": [
+            "condensing",
+            "condensings"
+          ]
+        },
+        {
+          "typeName": "Cone",
+          "typeId": "a1jaZ000001lF4tQAE",
+          "suggestedKeywords": [
+            "cone",
+            "cones"
+          ]
+        },
+        {
+          "typeName": "Connector",
+          "typeId": "a1jaZ000001lF4uQAE",
+          "suggestedKeywords": [
+            "connector",
+            "connectors"
+          ]
+        },
+        {
+          "typeName": "Console",
+          "typeId": "a1jaZ000001lF4vQAE",
+          "suggestedKeywords": [
+            "console",
+            "consoles"
+          ]
+        },
+        {
+          "typeName": "Continuous Feed",
+          "typeId": "a1jaZ000001lF4wQAE",
+          "suggestedKeywords": [
+            "continuous feed",
+            "continuous-feed",
+            "continuous feeds"
+          ]
+        },
+        {
+          "typeName": "Control Panel",
+          "typeId": "a1jaZ000001lF4xQAE",
+          "suggestedKeywords": [
+            "control panel",
+            "control-panel",
+            "control panels"
+          ]
+        },
+        {
+          "typeName": "Convection",
+          "typeId": "a1jaZ000001lF4yQAE",
+          "suggestedKeywords": [
+            "convection",
+            "convections"
+          ]
+        },
+        {
+          "typeName": "Cooling Only",
+          "typeId": "a1jaZ000001lF4zQAE",
+          "suggestedKeywords": [
+            "cooling only",
+            "cooling-only",
+            "cooling onlys"
+          ]
+        },
+        {
+          "typeName": "Corner",
+          "typeId": "a1jaZ000001lF50QAE",
+          "suggestedKeywords": [
+            "corner",
+            "corners"
+          ]
+        },
+        {
+          "typeName": "Counter Depth",
+          "typeId": "a1jaZ000001lF51QAE",
+          "suggestedKeywords": [
+            "counter depth",
+            "counter-depth",
+            "counter depths"
+          ]
+        },
+        {
+          "typeName": "Countertop",
+          "typeId": "a1jaZ000001lF52QAE",
+          "suggestedKeywords": [
+            "countertop",
+            "countertops"
+          ]
+        },
+        {
+          "typeName": "Coupling",
+          "typeId": "a1jaZ000001lF53QAE",
+          "suggestedKeywords": [
+            "coupling",
+            "couplings"
+          ]
+        },
+        {
+          "typeName": "Cover",
+          "typeId": "a1jaZ000001lF54QAE",
+          "suggestedKeywords": [
+            "cover",
+            "covers"
+          ]
+        },
+        {
+          "typeName": "Cowhide",
+          "typeId": "a1jaZ000001lF55QAE",
+          "suggestedKeywords": [
+            "cowhide",
+            "cowhides"
+          ]
+        },
+        {
+          "typeName": "Crawl Space",
+          "typeId": "a1jaZ000001lF56QAE",
+          "suggestedKeywords": [
+            "crawl space",
+            "crawl-space",
+            "crawl spaces"
+          ]
+        },
+        {
+          "typeName": "Crown Molding",
+          "typeId": "a1jaZ000001lF57QAE",
+          "suggestedKeywords": [
+            "crown molding",
+            "crown-molding",
+            "crown moldings"
+          ]
+        },
+        {
+          "typeName": "Crystal",
+          "typeId": "a1jaZ000001lF58QAE",
+          "suggestedKeywords": [
+            "crystal",
+            "crystals"
+          ]
+        },
+        {
+          "typeName": "Crystal Pull",
+          "typeId": "a1jaZ000001lF59QAE",
+          "suggestedKeywords": [
+            "crystal pull",
+            "crystal-pull",
+            "crystal pulls"
+          ]
+        },
+        {
+          "typeName": "Cup Pull",
+          "typeId": "a1jaZ000001lF5AQAU",
+          "suggestedKeywords": [
+            "cup pull",
+            "cup-pull",
+            "cup pulls"
+          ]
+        },
+        {
+          "typeName": "Curb Mount",
+          "typeId": "a1jaZ000001lF5BQAU",
+          "suggestedKeywords": [
+            "curb mount",
+            "curb-mount",
+            "curb mounts"
+          ]
+        },
+        {
+          "typeName": "Cutting Board",
+          "typeId": "a1jaZ000001lF5CQAU",
+          "suggestedKeywords": [
+            "cutting board",
+            "cutting-board",
+            "cutting boards"
+          ]
+        },
+        {
+          "typeName": "Cylinder",
+          "typeId": "a1jaZ000001lF5DQAU",
+          "suggestedKeywords": [
+            "cylinder",
+            "cylinders"
+          ]
+        },
+        {
+          "typeName": "Damp Rated",
+          "typeId": "a1jaZ000001lF5EQAU",
+          "suggestedKeywords": [
+            "damp rated",
+            "damp-rated",
+            "damp rateds"
+          ]
+        },
+        {
+          "typeName": "Damper",
+          "typeId": "a1jaZ000001lF5FQAU",
+          "suggestedKeywords": [
+            "damper",
+            "dampers"
+          ]
+        },
+        {
+          "typeName": "Deadbolt",
+          "typeId": "a1jaZ000001lF5GQAU",
+          "suggestedKeywords": [
+            "deadbolt",
+            "deadbolts"
+          ]
+        },
+        {
+          "typeName": "Deck",
+          "typeId": "a1jaZ000001lF5HQAU",
+          "suggestedKeywords": [
+            "deck",
+            "decks"
+          ]
+        },
+        {
+          "typeName": "Deck Mount",
+          "typeId": "a1jaZ000001lF5IQAU",
+          "suggestedKeywords": [
+            "deck mount",
+            "deck-mount",
+            "deck mounts"
+          ]
+        },
+        {
+          "typeName": "Deck Mounted",
+          "typeId": "a1jaZ000001lF5JQAU",
+          "suggestedKeywords": [
+            "deck mounted",
+            "deck-mounted",
+            "deck mounteds"
+          ]
+        },
+        {
+          "typeName": "Decorative",
+          "typeId": "a1jaZ000001lF5KQAU",
+          "suggestedKeywords": [
+            "decorative",
+            "decoratives"
+          ]
+        },
+        {
+          "typeName": "Designer Handle",
+          "typeId": "a1jaZ000001lF5LQAU",
+          "suggestedKeywords": [
+            "designer handle",
+            "designer-handle",
+            "designer handles"
+          ]
+        },
+        {
+          "typeName": "Designer Knob",
+          "typeId": "a1jaZ000001lF5MQAU",
+          "suggestedKeywords": [
+            "designer knob",
+            "designer-knob",
+            "designer knobs"
+          ]
+        },
+        {
+          "typeName": "Designer Pull",
+          "typeId": "a1jaZ000001lF5NQAU",
+          "suggestedKeywords": [
+            "designer pull",
+            "designer-pull",
+            "designer pulls"
+          ]
+        },
+        {
+          "typeName": "Desk Lamp",
+          "typeId": "a1jaZ000001lF5OQAU",
+          "suggestedKeywords": [
+            "desk lamp",
+            "desk-lamp",
+            "desk lamps"
+          ]
+        },
+        {
+          "typeName": "Diaphragm",
+          "typeId": "a1jaZ000001lF5PQAU",
+          "suggestedKeywords": [
+            "diaphragm",
+            "diaphragms"
+          ]
+        },
+        {
+          "typeName": "Dimmer",
+          "typeId": "a1jaZ000001lF5QQAU",
+          "suggestedKeywords": [
+            "dimmer",
+            "dimmers"
+          ]
+        },
+        {
+          "typeName": "Dining",
+          "typeId": "a1jaZ000001lF5RQAU",
+          "suggestedKeywords": [
+            "dining",
+            "dinings"
+          ]
+        },
+        {
+          "typeName": "Dishwasher Pull",
+          "typeId": "a1jaZ000001lF5SQAU",
+          "suggestedKeywords": [
+            "dishwasher pull",
+            "dishwasher-pull",
+            "dishwasher pulls"
+          ]
+        },
+        {
+          "typeName": "Dispenser",
+          "typeId": "a1jaZ000001lF5TQAU",
+          "suggestedKeywords": [
+            "dispenser",
+            "dispensers"
+          ]
+        },
+        {
+          "typeName": "Diverter",
+          "typeId": "a1jaZ000001lF5UQAU",
+          "suggestedKeywords": [
+            "diverter",
+            "diverters"
+          ]
+        },
+        {
+          "typeName": "Door Closer",
+          "typeId": "a1jaZ000001lF5VQAU",
+          "suggestedKeywords": [
+            "door closer",
+            "door-closer",
+            "door closers"
+          ]
+        },
+        {
+          "typeName": "Door Organizer",
+          "typeId": "a1jaZ000001lF5WQAU",
+          "suggestedKeywords": [
+            "door organizer",
+            "door-organizer",
+            "door organizers"
+          ]
+        },
+        {
+          "typeName": "Doorless",
+          "typeId": "a1jaZ000001lF5XQAU",
+          "suggestedKeywords": [
+            "doorless"
+          ]
+        },
+        {
+          "typeName": "Double Bowl",
+          "typeId": "a1jaZ000001lF5YQAU",
+          "suggestedKeywords": [
+            "double bowl",
+            "double-bowl",
+            "double bowls"
+          ]
+        },
+        {
+          "typeName": "Double Cylinder",
+          "typeId": "a1jaZ000001lF5ZQAU",
+          "suggestedKeywords": [
+            "double cylinder",
+            "double-cylinder",
+            "double cylinders"
+          ]
+        },
+        {
+          "typeName": "Double Sink",
+          "typeId": "a1jaZ000001lF5aQAE",
+          "suggestedKeywords": [
+            "double sink",
+            "double-sink",
+            "double sinks"
+          ]
+        },
+        {
+          "typeName": "Double Wall",
+          "typeId": "a1jaZ000001lF5bQAE",
+          "suggestedKeywords": [
+            "double wall",
+            "double-wall",
+            "double walls"
+          ]
+        },
+        {
+          "typeName": "Down Draft",
+          "typeId": "a1jaZ000001lF5cQAE",
+          "suggestedKeywords": [
+            "down draft",
+            "down-draft",
+            "down drafts"
+          ]
+        },
+        {
+          "typeName": "Down Light",
+          "typeId": "a1jaZ000001lF5dQAE",
+          "suggestedKeywords": [
+            "down light",
+            "down-light",
+            "down lights"
+          ]
+        },
+        {
+          "typeName": "Downdraft",
+          "typeId": "a1jaZ000001lF5eQAE",
+          "suggestedKeywords": [
+            "downdraft",
+            "downdrafts"
+          ]
+        },
+        {
+          "typeName": "Downrod",
+          "typeId": "a1jaZ000001lF5fQAE",
+          "suggestedKeywords": [
+            "downrod",
+            "downrods"
+          ]
+        },
+        {
+          "typeName": "Drain Cover",
+          "typeId": "a1jaZ000001lF5gQAE",
+          "suggestedKeywords": [
+            "drain cover",
+            "drain-cover",
+            "drain covers"
+          ]
+        },
+        {
+          "typeName": "Drawer",
+          "typeId": "a1jaZ000001lF5hQAE",
+          "suggestedKeywords": [
+            "drawer",
+            "drawers"
+          ]
+        },
+        {
+          "typeName": "Drawer Insert",
+          "typeId": "a1jaZ000001lF5iQAE",
+          "suggestedKeywords": [
+            "drawer insert",
+            "drawer-insert",
+            "drawer inserts"
+          ]
+        },
+        {
+          "typeName": "Drawer Lock",
+          "typeId": "a1jaZ000001lF5jQAE",
+          "suggestedKeywords": [
+            "drawer lock",
+            "drawer-lock",
+            "drawer locks"
+          ]
+        },
+        {
+          "typeName": "Drawer Organizer",
+          "typeId": "a1jaZ000001lF5kQAE",
+          "suggestedKeywords": [
+            "drawer organizer",
+            "drawer-organizer",
+            "drawer organizers"
+          ]
+        },
+        {
+          "typeName": "Drip",
+          "typeId": "a1jaZ000001lF5lQAE",
+          "suggestedKeywords": [
+            "drip",
+            "drips"
+          ]
+        },
+        {
+          "typeName": "Drop-In",
+          "typeId": "a1jaZ000001lF5mQAE",
+          "suggestedKeywords": [
+            "drop-in",
+            "drop in",
+            "dropin"
+          ]
+        },
+        {
+          "typeName": "Drum",
+          "typeId": "a1jaZ000001lF5nQAE",
+          "suggestedKeywords": [
+            "drum",
+            "drums"
+          ]
+        },
+        {
+          "typeName": "Dual",
+          "typeId": "a1jaZ000001lF5oQAE",
+          "suggestedKeywords": [
+            "dual",
+            "duals"
+          ]
+        },
+        {
+          "typeName": "Dual Fuel",
+          "typeId": "a1jaZ000001lF5pQAE",
+          "suggestedKeywords": [
+            "dual fuel",
+            "dual-fuel",
+            "dual fuels"
+          ]
+        },
+        {
+          "typeName": "Ductless",
+          "typeId": "a1jaZ000001lF5qQAE",
+          "suggestedKeywords": [
+            "ductless"
+          ]
+        },
+        {
+          "typeName": "Dummy",
+          "typeId": "a1jaZ000001lF5rQAE",
+          "suggestedKeywords": [
+            "dummy",
+            "dummys"
+          ]
+        },
+        {
+          "typeName": "Duplex Strainer",
+          "typeId": "a1jaZ000001lF5sQAE",
+          "suggestedKeywords": [
+            "duplex strainer",
+            "duplex-strainer",
+            "duplex strainers"
+          ]
+        },
+        {
+          "typeName": "Edge Banding",
+          "typeId": "a1jaZ000001lF5tQAE",
+          "suggestedKeywords": [
+            "edge banding",
+            "edge-banding",
+            "edge bandings"
+          ]
+        },
+        {
+          "typeName": "Elbow",
+          "typeId": "a1jaZ000001lF5uQAE",
+          "suggestedKeywords": [
+            "elbow",
+            "elbows"
+          ]
+        },
+        {
+          "typeName": "Electric",
+          "typeId": "a1jaZ000001lF5vQAE",
+          "suggestedKeywords": [
+            "electric",
+            "electrics"
+          ]
+        },
+        {
+          "typeName": "Electronic",
+          "typeId": "a1jaZ000001lF5wQAE",
+          "suggestedKeywords": [
+            "electronic",
+            "electronics"
+          ]
+        },
+        {
+          "typeName": "Electrostatic",
+          "typeId": "a1jaZ000001lF5xQAE",
+          "suggestedKeywords": [
+            "electrostatic",
+            "electrostatics"
+          ]
+        },
+        {
+          "typeName": "Elongated",
+          "typeId": "a1jaZ000001lF5yQAE",
+          "suggestedKeywords": [
+            "elongated",
+            "elongateds"
+          ]
+        },
+        {
+          "typeName": "Empire",
+          "typeId": "a1jaZ000001lF5zQAE",
+          "suggestedKeywords": [
+            "empire",
+            "empires"
+          ]
+        },
+        {
+          "typeName": "End Panel",
+          "typeId": "a1jaZ000001lF60QAE",
+          "suggestedKeywords": [
+            "end panel",
+            "end-panel",
+            "end panels"
+          ]
+        },
+        {
+          "typeName": "Engineered",
+          "typeId": "a1jaZ000001lF61QAE",
+          "suggestedKeywords": [
+            "engineered",
+            "engineereds"
+          ]
+        },
+        {
+          "typeName": "Entry",
+          "typeId": "a1jaZ000001lF62QAE",
+          "suggestedKeywords": [
+            "entry",
+            "entrys"
+          ]
+        },
+        {
+          "typeName": "Espresso",
+          "typeId": "a1jaZ000001lF63QAE",
+          "suggestedKeywords": [
+            "espresso",
+            "espressos"
+          ]
+        },
+        {
+          "typeName": "Ethanol",
+          "typeId": "a1jaZ000001lF64QAE",
+          "suggestedKeywords": [
+            "ethanol",
+            "ethanols"
+          ]
+        },
+        {
+          "typeName": "Exit Device",
+          "typeId": "a1jaZ000001lF65QAE",
+          "suggestedKeywords": [
+            "exit device",
+            "exit-device",
+            "exit devices"
+          ]
+        },
+        {
+          "typeName": "Exit Sign",
+          "typeId": "a1jaZ000001lF66QAE",
+          "suggestedKeywords": [
+            "exit sign",
+            "exit-sign",
+            "exit signs"
+          ]
+        },
+        {
+          "typeName": "Exposed",
+          "typeId": "a1jaZ000001lF67QAE",
+          "suggestedKeywords": [
+            "exposed",
+            "exposeds"
+          ]
+        },
+        {
+          "typeName": "Exterior",
+          "typeId": "a1jaZ000001lF68QAE",
+          "suggestedKeywords": [
+            "exterior",
+            "exteriors"
+          ]
+        },
+        {
+          "typeName": "Fan Control",
+          "typeId": "a1jaZ000001lF69QAE",
+          "suggestedKeywords": [
+            "fan control",
+            "fan-control",
+            "fan controls"
+          ]
+        },
+        {
+          "typeName": "Fan Forced",
+          "typeId": "a1jaZ000001lF6AQAU",
+          "suggestedKeywords": [
+            "fan forced",
+            "fan-forced",
+            "fan forceds"
+          ]
+        },
+        {
+          "typeName": "Faucet Mount",
+          "typeId": "a1jaZ000001lF6BQAU",
+          "suggestedKeywords": [
+            "faucet mount",
+            "faucet-mount",
+            "faucet mounts"
+          ]
+        },
+        {
+          "typeName": "Fiberglass",
+          "typeId": "a1jaZ000001lF6CQAU",
+          "suggestedKeywords": [
+            "fiberglass"
+          ]
+        },
+        {
+          "typeName": "Figurine",
+          "typeId": "a1jaZ000001lF6DQAU",
+          "suggestedKeywords": [
+            "figurine",
+            "figurines"
+          ]
+        },
+        {
+          "typeName": "Filtered",
+          "typeId": "a1jaZ000001lF6EQAU",
+          "suggestedKeywords": [
+            "filtered",
+            "filtereds"
+          ]
+        },
+        {
+          "typeName": "Finger Pull",
+          "typeId": "a1jaZ000001lF6FQAU",
+          "suggestedKeywords": [
+            "finger pull",
+            "finger-pull",
+            "finger pulls"
+          ]
+        },
+        {
+          "typeName": "Fire Glass",
+          "typeId": "a1jaZ000001lF6GQAU",
+          "suggestedKeywords": [
+            "fire glass",
+            "fire-glass"
+          ]
+        },
+        {
+          "typeName": "Fire Table",
+          "typeId": "a1jaZ000001lF6IQAU",
+          "suggestedKeywords": [
+            "fire table",
+            "fire-table",
+            "fire tables"
+          ]
+        },
+        {
+          "typeName": "Fireplace Insert",
+          "typeId": "a1jaZ000001lF6JQAU",
+          "suggestedKeywords": [
+            "fireplace insert",
+            "fireplace-insert",
+            "fireplace inserts"
+          ]
+        },
+        {
+          "typeName": "Fixed",
+          "typeId": "a1jaZ000001lF6KQAU",
+          "suggestedKeywords": [
+            "fixed",
+            "fixeds"
+          ]
+        },
+        {
+          "typeName": "Flagstone",
+          "typeId": "a1jaZ000001lF6LQAU",
+          "suggestedKeywords": [
+            "flagstone",
+            "flagstones"
+          ]
+        },
+        {
+          "typeName": "Flashing",
+          "typeId": "a1jaZ000001lF6MQAU",
+          "suggestedKeywords": [
+            "flashing",
+            "flashings"
+          ]
+        },
+        {
+          "typeName": "Flexible",
+          "typeId": "a1jaZ000001lF6NQAU",
+          "suggestedKeywords": [
+            "flexible",
+            "flexibles"
+          ]
+        },
+        {
+          "typeName": "Floating",
+          "typeId": "a1jaZ000001lF6OQAU",
+          "suggestedKeywords": [
+            "floating",
+            "floatings"
+          ]
+        },
+        {
+          "typeName": "Floating Power Feed Connector",
+          "typeId": "a1jaZ000001lF6PQAU",
+          "suggestedKeywords": [
+            "floating power feed connector",
+            "floating-power-feed-connector",
+            "floating power feed connectors"
+          ]
+        },
+        {
+          "typeName": "Flood Light",
+          "typeId": "a1jaZ000001lF6QQAU",
+          "suggestedKeywords": [
+            "flood light",
+            "flood-light",
+            "flood lights"
+          ]
+        },
+        {
+          "typeName": "Floor",
+          "typeId": "a1jaZ000001lF6RQAU",
+          "suggestedKeywords": [
+            "floor",
+            "floors"
+          ]
+        },
+        {
+          "typeName": "Floor Drain",
+          "typeId": "a1jaZ000001lF6SQAU",
+          "suggestedKeywords": [
+            "floor drain",
+            "floor-drain",
+            "floor drains"
+          ]
+        },
+        {
+          "typeName": "Floor Guide",
+          "typeId": "a1jaZ000001lF6TQAU",
+          "suggestedKeywords": [
+            "floor guide",
+            "floor-guide",
+            "floor guides"
+          ]
+        },
+        {
+          "typeName": "Floor Heater",
+          "typeId": "a1jaZ000001lF6UQAU",
+          "suggestedKeywords": [
+            "floor heater",
+            "floor-heater",
+            "floor heaters"
+          ]
+        },
+        {
+          "typeName": "Floor Lamp",
+          "typeId": "a1jaZ000001lF6VQAU",
+          "suggestedKeywords": [
+            "floor lamp",
+            "floor-lamp",
+            "floor lamps"
+          ]
+        },
+        {
+          "typeName": "Floor Mirror",
+          "typeId": "a1jaZ000001lF6WQAU",
+          "suggestedKeywords": [
+            "floor mirror",
+            "floor-mirror",
+            "floor mirrors"
+          ]
+        },
+        {
+          "typeName": "Floor Mounted Tub Filler",
+          "typeId": "a1jaZ000001lF6XQAU",
+          "suggestedKeywords": [
+            "floor mounted tub filler",
+            "floor-mounted-tub-filler",
+            "floor mounted tub fillers"
+          ]
+        },
+        {
+          "typeName": "Flush Mount",
+          "typeId": "a1jaZ000001lF6YQAU",
+          "suggestedKeywords": [
+            "flush mount",
+            "flush-mount",
+            "flush mounts"
+          ]
+        },
+        {
+          "typeName": "Flush Mount Drum Ceiling Fixture",
+          "typeId": "a1jaZ000001lF6ZQAU",
+          "suggestedKeywords": [
+            "flush mount drum ceiling fixture",
+            "flush-mount-drum-ceiling-fixture",
+            "flush mount drum ceiling fixtures"
+          ]
+        },
+        {
+          "typeName": "Flux",
+          "typeId": "a1jaZ000001lF6aQAE",
+          "suggestedKeywords": [
+            "flux",
+            "fluxs"
+          ]
+        },
+        {
+          "typeName": "Fountain",
+          "typeId": "a1jaZ000001lF6bQAE",
+          "suggestedKeywords": [
+            "fountain",
+            "fountains"
+          ]
+        },
+        {
+          "typeName": "Frame",
+          "typeId": "a1jaZ000001lF6cQAE",
+          "suggestedKeywords": [
+            "frame",
+            "frames"
+          ]
+        },
+        {
+          "typeName": "Framed",
+          "typeId": "a1jaZ000001lF6dQAE",
+          "suggestedKeywords": [
+            "framed",
+            "frameds"
+          ]
+        },
+        {
+          "typeName": "Frameless",
+          "typeId": "a1jaZ000001lF6eQAE",
+          "suggestedKeywords": [
+            "frameless"
+          ]
+        },
+        {
+          "typeName": "Freestanding",
+          "typeId": "a1jaZ000001lF6fQAE",
+          "suggestedKeywords": [
+            "freestanding",
+            "freestandings"
+          ]
+        },
+        {
+          "typeName": "French",
+          "typeId": "a1jaZ000001lF6gQAE",
+          "suggestedKeywords": [
+            "french",
+            "frenchs"
+          ]
+        },
+        {
+          "typeName": "French Door",
+          "typeId": "a1jaZ000001lF6hQAE",
+          "suggestedKeywords": [
+            "french door",
+            "french-door",
+            "french doors"
+          ]
+        },
+        {
+          "typeName": "Front Control",
+          "typeId": "a1jaZ000001lF6iQAE",
+          "suggestedKeywords": [
+            "front control",
+            "front-control",
+            "front controls"
+          ]
+        },
+        {
+          "typeName": "Front Load",
+          "typeId": "a1jaZ000001lF6jQAE",
+          "suggestedKeywords": [
+            "front load",
+            "front-load",
+            "front loads"
+          ]
+        },
+        {
+          "typeName": "Full Dummy",
+          "typeId": "a1jaZ000001lF6kQAE",
+          "suggestedKeywords": [
+            "full dummy",
+            "full-dummy",
+            "full dummys"
+          ]
+        },
+        {
+          "typeName": "Full Length",
+          "typeId": "a1jaZ000001lF6lQAE",
+          "suggestedKeywords": [
+            "full length",
+            "full-length",
+            "full lengths"
+          ]
+        },
+        {
+          "typeName": "Gable Mount",
+          "typeId": "a1jaZ000001lF6mQAE",
+          "suggestedKeywords": [
+            "gable mount",
+            "gable-mount",
+            "gable mounts"
+          ]
+        },
+        {
+          "typeName": "Garden Stake",
+          "typeId": "a1jaZ000001lF6nQAE",
+          "suggestedKeywords": [
+            "garden stake",
+            "garden-stake",
+            "garden stakes"
+          ]
+        },
+        {
+          "typeName": "Gas",
+          "typeId": "a1jaZ000001lF6oQAE",
+          "suggestedKeywords": [
+            "gas",
+            "ga"
+          ]
+        },
+        {
+          "typeName": "Gear",
+          "typeId": "a1jaZ000001lF6pQAE",
+          "suggestedKeywords": [
+            "gear",
+            "gears"
+          ]
+        },
+        {
+          "typeName": "Glass",
+          "typeId": "a1jaZ000001lF6qQAE",
+          "suggestedKeywords": [
+            "glass"
+          ]
+        },
+        {
+          "typeName": "Glass Door Lock",
+          "typeId": "a1jaZ000001lF6rQAE",
+          "suggestedKeywords": [
+            "glass door lock",
+            "glass-door-lock",
+            "glass door locks"
+          ]
+        },
+        {
+          "typeName": "Globe",
+          "typeId": "a1jaZ000001lF6sQAE",
+          "suggestedKeywords": [
+            "globe",
+            "globes"
+          ]
+        },
+        {
+          "typeName": "Glue Down",
+          "typeId": "a1jaZ000001lF6tQAE",
+          "suggestedKeywords": [
+            "glue down",
+            "glue-down",
+            "glue downs"
+          ]
+        },
+        {
+          "typeName": "Grab Bar",
+          "typeId": "a1jaZ000001lF6uQAE",
+          "suggestedKeywords": [
+            "grab bar",
+            "grab-bar",
+            "grab bars"
+          ]
+        },
+        {
+          "typeName": "Grate",
+          "typeId": "a1jaZ000001lF6vQAE",
+          "suggestedKeywords": [
+            "grate",
+            "grates"
+          ]
+        },
+        {
+          "typeName": "Gravel",
+          "typeId": "a1jaZ000001lF6wQAE",
+          "suggestedKeywords": [
+            "gravel",
+            "gravels"
+          ]
+        },
+        {
+          "typeName": "Grille",
+          "typeId": "a1jaZ000001lF6xQAE",
+          "suggestedKeywords": [
+            "grille",
+            "grilles"
+          ]
+        },
+        {
+          "typeName": "Halogen",
+          "typeId": "a1jaZ000001lF6zQAE",
+          "suggestedKeywords": [
+            "halogen",
+            "halogens"
+          ]
+        },
+        {
+          "typeName": "Hammock",
+          "typeId": "a1jaZ000001lF70QAE",
+          "suggestedKeywords": [
+            "hammock",
+            "hammocks"
+          ]
+        },
+        {
+          "typeName": "Hamper",
+          "typeId": "a1jaZ000001lF71QAE",
+          "suggestedKeywords": [
+            "hamper",
+            "hampers"
+          ]
+        },
+        {
+          "typeName": "Hand Dryer",
+          "typeId": "a1jaZ000001lF72QAE",
+          "suggestedKeywords": [
+            "hand dryer",
+            "hand-dryer",
+            "hand dryers"
+          ]
+        },
+        {
+          "typeName": "Handheld",
+          "typeId": "a1jaZ000001lF73QAE",
+          "suggestedKeywords": [
+            "handheld",
+            "handhelds"
+          ]
+        },
+        {
+          "typeName": "Handheld Sprayer",
+          "typeId": "a1jaZ000001lF74QAE",
+          "suggestedKeywords": [
+            "handheld sprayer",
+            "handheld-sprayer",
+            "handheld sprayers"
+          ]
+        },
+        {
+          "typeName": "Handle",
+          "typeId": "a1jaZ000001lF75QAE",
+          "suggestedKeywords": [
+            "handle",
+            "handles"
+          ]
+        },
+        {
+          "typeName": "Handle Pulls",
+          "typeId": "a1jaZ000001lF76QAE",
+          "suggestedKeywords": [
+            "handle pulls",
+            "handle-pulls",
+            "handle pull"
+          ]
+        },
+        {
+          "typeName": "Handle Set",
+          "typeId": "a1jaZ000001lF77QAE",
+          "suggestedKeywords": [
+            "handle set",
+            "handle-set",
+            "handle sets"
+          ]
+        },
+        {
+          "typeName": "Handleset",
+          "typeId": "a1jaZ000001lF78QAE",
+          "suggestedKeywords": [
+            "handleset",
+            "handlesets"
+          ]
+        },
+        {
+          "typeName": "Handleset + Deadbolt",
+          "typeId": "a1jaZ000001lF79QAE",
+          "suggestedKeywords": [
+            "handleset + deadbolt",
+            "handleset-+-deadbolt",
+            "handleset + deadbolts"
+          ]
+        },
+        {
+          "typeName": "Hanger",
+          "typeId": "a1jaZ000001lF7AQAU",
+          "suggestedKeywords": [
+            "hanger",
+            "hangers"
+          ]
+        },
+        {
+          "typeName": "Hanging",
+          "typeId": "a1jaZ000001lF7BQAU",
+          "suggestedKeywords": [
+            "hanging",
+            "hangings"
+          ]
+        },
+        {
+          "typeName": "Heat Pump",
+          "typeId": "a1jaZ000001lF7CQAU",
+          "suggestedKeywords": [
+            "heat pump",
+            "heat-pump",
+            "heat pumps"
+          ]
+        },
+        {
+          "typeName": "HEPA",
+          "typeId": "a1jaZ000001lF6yQAE",
+          "suggestedKeywords": [
+            "hepa",
+            "hepas"
+          ]
+        },
+        {
+          "typeName": "High Bay",
+          "typeId": "a1jaZ000001lF7DQAU",
+          "suggestedKeywords": [
+            "high bay",
+            "high-bay",
+            "high bays"
+          ]
+        },
+        {
+          "typeName": "Hinge",
+          "typeId": "a1jaZ000001lF7EQAU",
+          "suggestedKeywords": [
+            "hinge",
+            "hinges"
+          ]
+        },
+        {
+          "typeName": "Hook",
+          "typeId": "a1jaZ000001lF7FQAU",
+          "suggestedKeywords": [
+            "hook",
+            "hooks"
+          ]
+        },
+        {
+          "typeName": "Hot and Cold",
+          "typeId": "a1jaZ000001lF7GQAU",
+          "suggestedKeywords": [
+            "hot and cold",
+            "hot-and-cold",
+            "hot and colds"
+          ]
+        },
+        {
+          "typeName": "Housing",
+          "typeId": "a1jaZ000001lF7HQAU",
+          "suggestedKeywords": [
+            "housing",
+            "housings"
+          ]
+        },
+        {
+          "typeName": "Hugger",
+          "typeId": "a1jaZ000001lF7IQAU",
+          "suggestedKeywords": [
+            "hugger",
+            "huggers"
+          ]
+        },
+        {
+          "typeName": "Humidifier",
+          "typeId": "a1jaZ000001lF7JQAU",
+          "suggestedKeywords": [
+            "humidifier",
+            "humidifiers"
+          ]
+        },
+        {
+          "typeName": "Humidity Sensing",
+          "typeId": "a1jaZ000001lF7KQAU",
+          "suggestedKeywords": [
+            "humidity sensing",
+            "humidity-sensing",
+            "humidity sensings"
+          ]
+        },
+        {
+          "typeName": "Ice Maker Kit",
+          "typeId": "a1jaZ000001lF7LQAU",
+          "suggestedKeywords": [
+            "ice maker kit",
+            "ice-maker-kit",
+            "ice maker kits"
+          ]
+        },
+        {
+          "typeName": "Incandescent",
+          "typeId": "a1jaZ000001lF7MQAU",
+          "suggestedKeywords": [
+            "incandescent",
+            "incandescents"
+          ]
+        },
+        {
+          "typeName": "Indoor",
+          "typeId": "a1jaZ000001lF7NQAU",
+          "suggestedKeywords": [
+            "indoor",
+            "indoors"
+          ]
+        },
+        {
+          "typeName": "Induction",
+          "typeId": "a1jaZ000001lF7OQAU",
+          "suggestedKeywords": [
+            "induction",
+            "inductions"
+          ]
+        },
+        {
+          "typeName": "Infrared",
+          "typeId": "a1jaZ000001lF7PQAU",
+          "suggestedKeywords": [
+            "infrared",
+            "infrareds"
+          ]
+        },
+        {
+          "typeName": "Infrared Heater",
+          "typeId": "a1jaZ000001lF7QQAU",
+          "suggestedKeywords": [
+            "infrared heater",
+            "infrared-heater",
+            "infrared heaters"
+          ]
+        },
+        {
+          "typeName": "Inline",
+          "typeId": "a1jaZ000001lF7RQAU",
+          "suggestedKeywords": [
+            "inline",
+            "inlines"
+          ]
+        },
+        {
+          "typeName": "Insert",
+          "typeId": "a1jaZ000001lF7SQAU",
+          "suggestedKeywords": [
+            "insert",
+            "inserts"
+          ]
+        },
+        {
+          "typeName": "Inset",
+          "typeId": "a1jaZ000001lF7TQAU",
+          "suggestedKeywords": [
+            "inset",
+            "insets"
+          ]
+        },
+        {
+          "typeName": "Instant Hot Only",
+          "typeId": "a1jaZ000001lF7UQAU",
+          "suggestedKeywords": [
+            "instant hot only",
+            "instant-hot-only",
+            "instant hot onlys"
+          ]
+        },
+        {
+          "typeName": "Insulated",
+          "typeId": "a1jaZ000001lF7VQAU",
+          "suggestedKeywords": [
+            "insulated",
+            "insulateds"
+          ]
+        },
+        {
+          "typeName": "Integrated",
+          "typeId": "a1jaZ000001lF7WQAU",
+          "suggestedKeywords": [
+            "integrated",
+            "integrateds"
+          ]
+        },
+        {
+          "typeName": "Interceptor",
+          "typeId": "a1jaZ000001lF7XQAU",
+          "suggestedKeywords": [
+            "interceptor",
+            "interceptors"
+          ]
+        },
+        {
+          "typeName": "Interior",
+          "typeId": "a1jaZ000001lF7YQAU",
+          "suggestedKeywords": [
+            "interior",
+            "interiors"
+          ]
+        },
+        {
+          "typeName": "Inverter",
+          "typeId": "a1jaZ000001lF7ZQAU",
+          "suggestedKeywords": [
+            "inverter",
+            "inverters"
+          ]
+        },
+        {
+          "typeName": "Island",
+          "typeId": "a1jaZ000001lF7aQAE",
+          "suggestedKeywords": [
+            "island",
+            "islands"
+          ]
+        },
+        {
+          "typeName": "Island Mount",
+          "typeId": "a1jaZ000001lF7bQAE",
+          "suggestedKeywords": [
+            "island mount",
+            "island-mount",
+            "island mounts"
+          ]
+        },
+        {
+          "typeName": "Jeweled",
+          "typeId": "a1jaZ000001lF7cQAE",
+          "suggestedKeywords": [
+            "jeweled",
+            "jeweleds"
+          ]
+        },
+        {
+          "typeName": "Kamado",
+          "typeId": "a1jaZ000001lF7dQAE",
+          "suggestedKeywords": [
+            "kamado",
+            "kamados"
+          ]
+        },
+        {
+          "typeName": "Kegerator",
+          "typeId": "a1jaZ000001lF7eQAE",
+          "suggestedKeywords": [
+            "kegerator",
+            "kegerators"
+          ]
+        },
+        {
+          "typeName": "Key Cabinet",
+          "typeId": "a1jaZ000001lF7fQAE",
+          "suggestedKeywords": [
+            "key cabinet",
+            "key-cabinet",
+            "key cabinets"
+          ]
+        },
+        {
+          "typeName": "Keyed Entry",
+          "typeId": "a1jaZ000001lF7gQAE",
+          "suggestedKeywords": [
+            "keyed entry",
+            "keyed-entry",
+            "keyed entrys"
+          ]
+        },
+        {
+          "typeName": "Keyed Lock",
+          "typeId": "a1jaZ000001lF7hQAE",
+          "suggestedKeywords": [
+            "keyed lock",
+            "keyed-lock",
+            "keyed locks"
+          ]
+        },
+        {
+          "typeName": "Keyless",
+          "typeId": "a1jaZ000001lF7iQAE",
+          "suggestedKeywords": [
+            "keyless"
+          ]
+        },
+        {
+          "typeName": "Keypad",
+          "typeId": "a1jaZ000001lF7jQAE",
+          "suggestedKeywords": [
+            "keypad",
+            "keypads"
+          ]
+        },
+        {
+          "typeName": "Kick Plate",
+          "typeId": "a1jaZ000001lF7kQAE",
+          "suggestedKeywords": [
+            "kick plate",
+            "kick-plate",
+            "kick plates"
+          ]
+        },
+        {
+          "typeName": "Kitchen",
+          "typeId": "a1jaZ000001lF7lQAE",
+          "suggestedKeywords": [
+            "kitchen",
+            "kitchens"
+          ]
+        },
+        {
+          "typeName": "Kitchen Cart",
+          "typeId": "a1jaZ000001lF7mQAE",
+          "suggestedKeywords": [
+            "kitchen cart",
+            "kitchen-cart",
+            "kitchen carts"
+          ]
+        },
+        {
+          "typeName": "Kitchen Faucet",
+          "typeId": "a1jaZ000001lF7nQAE",
+          "suggestedKeywords": [
+            "kitchen faucet",
+            "kitchen-faucet",
+            "kitchen faucets"
+          ]
+        },
+        {
+          "typeName": "Kitchen Island",
+          "typeId": "a1jaZ000001lF7oQAE",
+          "suggestedKeywords": [
+            "kitchen island",
+            "kitchen-island",
+            "kitchen islands"
+          ]
+        },
+        {
+          "typeName": "Knob",
+          "typeId": "a1jaZ000001lF7pQAE",
+          "suggestedKeywords": [
+            "knob",
+            "knobs"
+          ]
+        },
+        {
+          "typeName": "Knob + Deadbolt",
+          "typeId": "a1jaZ000001lF7qQAE",
+          "suggestedKeywords": [
+            "knob + deadbolt",
+            "knob-+-deadbolt",
+            "knob + deadbolts"
+          ]
+        },
+        {
+          "typeName": "Knob Entry",
+          "typeId": "a1jaZ000001lF7rQAE",
+          "suggestedKeywords": [
+            "knob entry",
+            "knob-entry",
+            "knob entrys"
+          ]
+        },
+        {
+          "typeName": "Knurled",
+          "typeId": "a1jaZ000001lF7sQAE",
+          "suggestedKeywords": [
+            "knurled",
+            "knurleds"
+          ]
+        },
+        {
+          "typeName": "Laminate",
+          "typeId": "a1jaZ000001lF81QAE",
+          "suggestedKeywords": [
+            "laminate",
+            "laminates"
+          ]
+        },
+        {
+          "typeName": "Landscape",
+          "typeId": "a1jaZ000001lF82QAE",
+          "suggestedKeywords": [
+            "landscape",
+            "landscapes"
+          ]
+        },
+        {
+          "typeName": "Lantern",
+          "typeId": "a1jaZ000001lF83QAE",
+          "suggestedKeywords": [
+            "lantern",
+            "lanterns"
+          ]
+        },
+        {
+          "typeName": "Latch",
+          "typeId": "a1jaZ000001lF84QAE",
+          "suggestedKeywords": [
+            "latch",
+            "latchs"
+          ]
+        },
+        {
+          "typeName": "Lazy Susan",
+          "typeId": "a1jaZ000001lF85QAE",
+          "suggestedKeywords": [
+            "lazy susan",
+            "lazy-susan",
+            "lazy susans"
+          ]
+        },
+        {
+          "typeName": "LED",
+          "typeId": "a1jaZ000001lF7tQAE",
+          "suggestedKeywords": [
+            "led",
+            "leds"
+          ]
+        },
+        {
+          "typeName": "LED Aquarium Light",
+          "typeId": "a1jaZ000001lF7uQAE",
+          "suggestedKeywords": [
+            "led aquarium light",
+            "led-aquarium-light",
+            "led aquarium lights"
+          ]
+        },
+        {
+          "typeName": "LED Aquarium Light Fixture",
+          "typeId": "a1jaZ000001lF7vQAE",
+          "suggestedKeywords": [
+            "led aquarium light fixture",
+            "led-aquarium-light-fixture",
+            "led aquarium light fixtures"
+          ]
+        },
+        {
+          "typeName": "LED Bulbs",
+          "typeId": "a1jaZ000001lF7wQAE",
+          "suggestedKeywords": [
+            "led bulbs",
+            "led-bulbs",
+            "led bulb"
+          ]
+        },
+        {
+          "typeName": "LED Panel",
+          "typeId": "a1jaZ000001lF7xQAE",
+          "suggestedKeywords": [
+            "led panel",
+            "led-panel",
+            "led panels"
+          ]
+        },
+        {
+          "typeName": "LED Retrofit",
+          "typeId": "a1jaZ000001lF7yQAE",
+          "suggestedKeywords": [
+            "led retrofit",
+            "led-retrofit",
+            "led retrofits"
+          ]
+        },
+        {
+          "typeName": "LED Strip",
+          "typeId": "a1jaZ000001lF7zQAE",
+          "suggestedKeywords": [
+            "led strip",
+            "led-strip",
+            "led strips"
+          ]
+        },
+        {
+          "typeName": "LED Tube",
+          "typeId": "a1jaZ000001lF80QAE",
+          "suggestedKeywords": [
+            "led tube",
+            "led-tube",
+            "led tubes"
+          ]
+        },
+        {
+          "typeName": "Lever",
+          "typeId": "a1jaZ000001lF86QAE",
+          "suggestedKeywords": [
+            "lever",
+            "levers"
+          ]
+        },
+        {
+          "typeName": "Lever + Deadbolt",
+          "typeId": "a1jaZ000001lF87QAE",
+          "suggestedKeywords": [
+            "lever + deadbolt",
+            "lever-+-deadbolt",
+            "lever + deadbolts"
+          ]
+        },
+        {
+          "typeName": "Lever Entry",
+          "typeId": "a1jaZ000001lF88QAE",
+          "suggestedKeywords": [
+            "lever entry",
+            "lever-entry",
+            "lever entrys"
+          ]
+        },
+        {
+          "typeName": "Lift & Turn",
+          "typeId": "a1jaZ000001lF89QAE",
+          "suggestedKeywords": [
+            "lift & turn",
+            "lift-&-turn",
+            "lift & turns"
+          ]
+        },
+        {
+          "typeName": "Light Bar",
+          "typeId": "a1jaZ000001lF8AQAU",
+          "suggestedKeywords": [
+            "light bar",
+            "light-bar",
+            "light bars"
+          ]
+        },
+        {
+          "typeName": "Light Kit",
+          "typeId": "a1jaZ000001lF8BQAU",
+          "suggestedKeywords": [
+            "light kit",
+            "light-kit",
+            "light kits"
+          ]
+        },
+        {
+          "typeName": "Lighted",
+          "typeId": "a1jaZ000001lF8CQAU",
+          "suggestedKeywords": [
+            "lighted",
+            "lighteds"
+          ]
+        },
+        {
+          "typeName": "Linear",
+          "typeId": "a1jaZ000001lF8DQAU",
+          "suggestedKeywords": [
+            "linear",
+            "linears"
+          ]
+        },
+        {
+          "typeName": "Linen Cabinet",
+          "typeId": "a1jaZ000001lF8EQAU",
+          "suggestedKeywords": [
+            "linen cabinet",
+            "linen-cabinet",
+            "linen cabinets"
+          ]
+        },
+        {
+          "typeName": "Lock",
+          "typeId": "a1jaZ000001lF8FQAU",
+          "suggestedKeywords": [
+            "lock",
+            "locks"
+          ]
+        },
+        {
+          "typeName": "Lock Box",
+          "typeId": "a1jaZ000001lF8GQAU",
+          "suggestedKeywords": [
+            "lock box",
+            "lock-box",
+            "lock boxs"
+          ]
+        },
+        {
+          "typeName": "Locking",
+          "typeId": "a1jaZ000001lF8HQAU",
+          "suggestedKeywords": [
+            "locking",
+            "lockings"
+          ]
+        },
+        {
+          "typeName": "Log Set",
+          "typeId": "a1jaZ000001lF8IQAU",
+          "suggestedKeywords": [
+            "log set",
+            "log-set",
+            "log sets"
+          ]
+        },
+        {
+          "typeName": "Loose Lay",
+          "typeId": "a1jaZ000001lF8JQAU",
+          "suggestedKeywords": [
+            "loose lay",
+            "loose-lay",
+            "loose lays"
+          ]
+        },
+        {
+          "typeName": "Lounge",
+          "typeId": "a1jaZ000001lF8KQAU",
+          "suggestedKeywords": [
+            "lounge",
+            "lounges"
+          ]
+        },
+        {
+          "typeName": "Low Bay",
+          "typeId": "a1jaZ000001lF8LQAU",
+          "suggestedKeywords": [
+            "low bay",
+            "low-bay",
+            "low bays"
+          ]
+        },
+        {
+          "typeName": "Magnetic",
+          "typeId": "a1jaZ000001lF8MQAU",
+          "suggestedKeywords": [
+            "magnetic",
+            "magnetics"
+          ]
+        },
+        {
+          "typeName": "Magnifying",
+          "typeId": "a1jaZ000001lF8NQAU",
+          "suggestedKeywords": [
+            "magnifying",
+            "magnifyings"
+          ]
+        },
+        {
+          "typeName": "Manual",
+          "typeId": "a1jaZ000001lF8OQAU",
+          "suggestedKeywords": [
+            "manual",
+            "manuals"
+          ]
+        },
+        {
+          "typeName": "Medicine Cabinet",
+          "typeId": "a1jaZ000001lF8PQAU",
+          "suggestedKeywords": [
+            "medicine cabinet",
+            "medicine-cabinet",
+            "medicine cabinets"
+          ]
+        },
+        {
+          "typeName": "Metal",
+          "typeId": "a1jaZ000001lF8QQAU",
+          "suggestedKeywords": [
+            "metal",
+            "metals"
+          ]
+        },
+        {
+          "typeName": "Microwave Combo",
+          "typeId": "a1jaZ000001lF8RQAU",
+          "suggestedKeywords": [
+            "microwave combo",
+            "microwave-combo",
+            "microwave combos"
+          ]
+        },
+        {
+          "typeName": "Mini",
+          "typeId": "a1jaZ000001lF8SQAU",
+          "suggestedKeywords": [
+            "mini",
+            "minis"
+          ]
+        },
+        {
+          "typeName": "Mirror",
+          "typeId": "a1jaZ000001lF8TQAU",
+          "suggestedKeywords": [
+            "mirror",
+            "mirrors"
+          ]
+        },
+        {
+          "typeName": "Modular",
+          "typeId": "a1jaZ000001lF8UQAU",
+          "suggestedKeywords": [
+            "modular",
+            "modulars"
+          ]
+        },
+        {
+          "typeName": "Molding",
+          "typeId": "a1jaZ000001lF8VQAU",
+          "suggestedKeywords": [
+            "molding",
+            "moldings"
+          ]
+        },
+        {
+          "typeName": "Monorail",
+          "typeId": "a1jaZ000001lF8WQAU",
+          "suggestedKeywords": [
+            "monorail",
+            "monorails"
+          ]
+        },
+        {
+          "typeName": "Mortise",
+          "typeId": "a1jaZ000001lF8XQAU",
+          "suggestedKeywords": [
+            "mortise",
+            "mortises"
+          ]
+        },
+        {
+          "typeName": "Mortise Lock",
+          "typeId": "a1jaZ000001lF8YQAU",
+          "suggestedKeywords": [
+            "mortise lock",
+            "mortise-lock",
+            "mortise locks"
+          ]
+        },
+        {
+          "typeName": "Mosaic",
+          "typeId": "a1jaZ000001lF8ZQAU",
+          "suggestedKeywords": [
+            "mosaic",
+            "mosaics"
+          ]
+        },
+        {
+          "typeName": "Motion Sensor",
+          "typeId": "a1jaZ000001lF8aQAE",
+          "suggestedKeywords": [
+            "motion sensor",
+            "motion-sensor",
+            "motion sensors"
+          ]
+        },
+        {
+          "typeName": "Multi Zone",
+          "typeId": "a1jaZ000001lF8bQAE",
+          "suggestedKeywords": [
+            "multi zone",
+            "multi-zone",
+            "multi zones"
+          ]
+        },
+        {
+          "typeName": "Multi-Fuel",
+          "typeId": "a1jaZ000001lF8cQAE",
+          "suggestedKeywords": [
+            "multi-fuel",
+            "multi fuel",
+            "multifuel"
+          ]
+        },
+        {
+          "typeName": "Multi-Light",
+          "typeId": "a1jaZ000001lF8dQAE",
+          "suggestedKeywords": [
+            "multi-light",
+            "multi light",
+            "multilight"
+          ]
+        },
+        {
+          "typeName": "Mushroom",
+          "typeId": "a1jaZ000001lF8eQAE",
+          "suggestedKeywords": [
+            "mushroom",
+            "mushrooms"
+          ]
+        },
+        {
+          "typeName": "Neo-Angle",
+          "typeId": "a1jaZ000001lF8fQAE",
+          "suggestedKeywords": [
+            "neo-angle",
+            "neo angle",
+            "neoangle"
+          ]
+        },
+        {
+          "typeName": "New Construction",
+          "typeId": "a1jaZ000001lF8gQAE",
+          "suggestedKeywords": [
+            "new construction",
+            "new-construction",
+            "new constructions"
+          ]
+        },
+        {
+          "typeName": "Niche",
+          "typeId": "a1jaZ000001lF8hQAE",
+          "suggestedKeywords": [
+            "niche",
+            "niches"
+          ]
+        },
+        {
+          "typeName": "Nipple",
+          "typeId": "a1jaZ000001lF8iQAE",
+          "suggestedKeywords": [
+            "nipple",
+            "nipples"
+          ]
+        },
+        {
+          "typeName": "Non-Electric",
+          "typeId": "a1jaZ000001lF8jQAE",
+          "suggestedKeywords": [
+            "non-electric",
+            "non electric",
+            "nonelectric"
+          ]
+        },
+        {
+          "typeName": "Not Applicable",
+          "typeId": "a1jaZ000001lF8kQAE",
+          "suggestedKeywords": [
+            "not applicable",
+            "not-applicable",
+            "not applicables"
+          ]
+        },
+        {
+          "typeName": "Not Found",
+          "typeId": "a1jaZ000001lF8lQAE",
+          "suggestedKeywords": [
+            "not found",
+            "not-found",
+            "not founds"
+          ]
+        },
+        {
+          "typeName": "Office",
+          "typeId": "a1jaZ000001lF8mQAE",
+          "suggestedKeywords": [
+            "office",
+            "offices"
+          ]
+        },
+        {
+          "typeName": "Oil Filled",
+          "typeId": "a1jaZ000001lF8nQAE",
+          "suggestedKeywords": [
+            "oil filled",
+            "oil-filled",
+            "oil filleds"
+          ]
+        },
+        {
+          "typeName": "One-Piece",
+          "typeId": "a1jaZ000001lF8oQAE",
+          "suggestedKeywords": [
+            "one-piece",
+            "one piece",
+            "onepiece"
+          ]
+        },
+        {
+          "typeName": "Oscillating",
+          "typeId": "a1jaZ000001lF8pQAE",
+          "suggestedKeywords": [
+            "oscillating",
+            "oscillatings"
+          ]
+        },
+        {
+          "typeName": "Outdoor",
+          "typeId": "a1jaZ000001lF8qQAE",
+          "suggestedKeywords": [
+            "outdoor",
+            "outdoors"
+          ]
+        },
+        {
+          "typeName": "Outdoor Floodlight",
+          "typeId": "a1jaZ000001lF8rQAE",
+          "suggestedKeywords": [
+            "outdoor floodlight",
+            "outdoor-floodlight",
+            "outdoor floodlights"
+          ]
+        },
+        {
+          "typeName": "Outdoor Kitchen Components",
+          "typeId": "a1jaZ000001lF8sQAE",
+          "suggestedKeywords": [
+            "outdoor kitchen components",
+            "outdoor-kitchen-components",
+            "outdoor kitchen component"
+          ]
+        },
+        {
+          "typeName": "Outdoor Kitchen Storage",
+          "typeId": "a1jaZ000001lF8tQAE",
+          "suggestedKeywords": [
+            "outdoor kitchen storage",
+            "outdoor-kitchen-storage",
+            "outdoor kitchen storages"
+          ]
+        },
+        {
+          "typeName": "Outdoor Lighting",
+          "typeId": "a1jaZ000001lF8uQAE",
+          "suggestedKeywords": [
+            "outdoor lighting",
+            "outdoor-lighting",
+            "outdoor lightings"
+          ]
+        },
+        {
+          "typeName": "Outdoor Wall Lighting Accessories",
+          "typeId": "a1jaZ000001lF8vQAE",
+          "suggestedKeywords": [
+            "outdoor wall lighting accessories",
+            "outdoor-wall-lighting-accessories",
+            "outdoor wall lighting accessorie"
+          ]
+        },
+        {
+          "typeName": "Outdoor Wall Sconce",
+          "typeId": "a1jaZ000001lF8wQAE",
+          "suggestedKeywords": [
+            "outdoor wall sconce",
+            "outdoor-wall-sconce",
+            "outdoor wall sconces"
+          ]
+        },
+        {
+          "typeName": "Oval",
+          "typeId": "a1jaZ000001lF8xQAE",
+          "suggestedKeywords": [
+            "oval",
+            "ovals"
+          ]
+        },
+        {
+          "typeName": "Oven Pull",
+          "typeId": "a1jaZ000001lF8yQAE",
+          "suggestedKeywords": [
+            "oven pull",
+            "oven-pull",
+            "oven pulls"
+          ]
+        },
+        {
+          "typeName": "Over-the-Range",
+          "typeId": "a1jaZ000001lF8zQAE",
+          "suggestedKeywords": [
+            "over-the-range",
+            "over the range",
+            "overtherange"
+          ]
+        },
+        {
+          "typeName": "Overlay",
+          "typeId": "a1jaZ000001lF90QAE",
+          "suggestedKeywords": [
+            "overlay",
+            "overlays"
+          ]
+        },
+        {
+          "typeName": "Package Unit",
+          "typeId": "a1jaZ000001lF91QAE",
+          "suggestedKeywords": [
+            "package unit",
+            "package-unit",
+            "package units"
+          ]
+        },
+        {
+          "typeName": "Padlock",
+          "typeId": "a1jaZ000001lF92QAE",
+          "suggestedKeywords": [
+            "padlock",
+            "padlocks"
+          ]
+        },
+        {
+          "typeName": "Panel",
+          "typeId": "a1jaZ000001lF93QAE",
+          "suggestedKeywords": [
+            "panel",
+            "panels"
+          ]
+        },
+        {
+          "typeName": "Panel-Ready",
+          "typeId": "a1jaZ000001lF94QAE",
+          "suggestedKeywords": [
+            "panel-ready",
+            "panel ready",
+            "panelready"
+          ]
+        },
+        {
+          "typeName": "Partition",
+          "typeId": "a1jaZ000001lF95QAE",
+          "suggestedKeywords": [
+            "partition",
+            "partitions"
+          ]
+        },
+        {
+          "typeName": "Passage",
+          "typeId": "a1jaZ000001lF96QAE",
+          "suggestedKeywords": [
+            "passage",
+            "passages"
+          ]
+        },
+        {
+          "typeName": "Path Light",
+          "typeId": "a1jaZ000001lF97QAE",
+          "suggestedKeywords": [
+            "path light",
+            "path-light",
+            "path lights"
+          ]
+        },
+        {
+          "typeName": "Patio",
+          "typeId": "a1jaZ000001lF98QAE",
+          "suggestedKeywords": [
+            "patio",
+            "patios"
+          ]
+        },
+        {
+          "typeName": "Patio Heater",
+          "typeId": "a1jaZ000001lF99QAE",
+          "suggestedKeywords": [
+            "patio heater",
+            "patio-heater",
+            "patio heaters"
+          ]
+        },
+        {
+          "typeName": "Paver",
+          "typeId": "a1jaZ000001lF9AQAU",
+          "suggestedKeywords": [
+            "paver",
+            "pavers"
+          ]
+        },
+        {
+          "typeName": "Pedestal",
+          "typeId": "a1jaZ000001lF9BQAU",
+          "suggestedKeywords": [
+            "pedestal",
+            "pedestals"
+          ]
+        },
+        {
+          "typeName": "Peel and Stick",
+          "typeId": "a1jaZ000001lF9CQAU",
+          "suggestedKeywords": [
+            "peel and stick",
+            "peel-and-stick",
+            "peel and sticks"
+          ]
+        },
+        {
+          "typeName": "Pellet",
+          "typeId": "a1jaZ000001lF9DQAU",
+          "suggestedKeywords": [
+            "pellet",
+            "pellets"
+          ]
+        },
+        {
+          "typeName": "Pendant",
+          "typeId": "a1jaZ000001lF9EQAU",
+          "suggestedKeywords": [
+            "pendant",
+            "pendants"
+          ]
+        },
+        {
+          "typeName": "Piano Hinge",
+          "typeId": "a1jaZ000001lF9FQAU",
+          "suggestedKeywords": [
+            "piano hinge",
+            "piano-hinge",
+            "piano hinges"
+          ]
+        },
+        {
+          "typeName": "Picture Light",
+          "typeId": "a1jaZ000001lF9GQAU",
+          "suggestedKeywords": [
+            "picture light",
+            "picture-light",
+            "picture lights"
+          ]
+        },
+        {
+          "typeName": "Pier Mount",
+          "typeId": "a1jaZ000001lF9HQAU",
+          "suggestedKeywords": [
+            "pier mount",
+            "pier-mount",
+            "pier mounts"
+          ]
+        },
+        {
+          "typeName": "Pipe Cement",
+          "typeId": "a1jaZ000001lF9IQAU",
+          "suggestedKeywords": [
+            "pipe cement",
+            "pipe-cement",
+            "pipe cements"
+          ]
+        },
+        {
+          "typeName": "Pivot",
+          "typeId": "a1jaZ000001lF9JQAU",
+          "suggestedKeywords": [
+            "pivot",
+            "pivots"
+          ]
+        },
+        {
+          "typeName": "Plain Steel",
+          "typeId": "a1jaZ000001lF9KQAU",
+          "suggestedKeywords": [
+            "plain steel",
+            "plain-steel",
+            "plain steels"
+          ]
+        },
+        {
+          "typeName": "Plank",
+          "typeId": "a1jaZ000001lF9LQAU",
+          "suggestedKeywords": [
+            "plank",
+            "planks"
+          ]
+        },
+        {
+          "typeName": "Planter",
+          "typeId": "a1jaZ000001lF9MQAU",
+          "suggestedKeywords": [
+            "planter",
+            "planters"
+          ]
+        },
+        {
+          "typeName": "Pleated",
+          "typeId": "a1jaZ000001lF9NQAU",
+          "suggestedKeywords": [
+            "pleated",
+            "pleateds"
+          ]
+        },
+        {
+          "typeName": "Pocket",
+          "typeId": "a1jaZ000001lF9OQAU",
+          "suggestedKeywords": [
+            "pocket",
+            "pockets"
+          ]
+        },
+        {
+          "typeName": "Pocket Door Kit",
+          "typeId": "a1jaZ000001lF9PQAU",
+          "suggestedKeywords": [
+            "pocket door kit",
+            "pocket-door-kit",
+            "pocket door kits"
+          ]
+        },
+        {
+          "typeName": "Point of Use",
+          "typeId": "a1jaZ000001lF9QQAU",
+          "suggestedKeywords": [
+            "point of use",
+            "point-of-use",
+            "point of uses"
+          ]
+        },
+        {
+          "typeName": "Porcelain",
+          "typeId": "a1jaZ000001lF9RQAU",
+          "suggestedKeywords": [
+            "porcelain",
+            "porcelains"
+          ]
+        },
+        {
+          "typeName": "Portable",
+          "typeId": "a1jaZ000001lF9SQAU",
+          "suggestedKeywords": [
+            "portable",
+            "portables"
+          ]
+        },
+        {
+          "typeName": "Post Light",
+          "typeId": "a1jaZ000001lF9TQAU",
+          "suggestedKeywords": [
+            "post light",
+            "post-light",
+            "post lights"
+          ]
+        },
+        {
+          "typeName": "Post Mount",
+          "typeId": "a1jaZ000001lF9UQAU",
+          "suggestedKeywords": [
+            "post mount",
+            "post-mount",
+            "post mounts"
+          ]
+        },
+        {
+          "typeName": "Pot Filler",
+          "typeId": "a1jaZ000001lF9VQAU",
+          "suggestedKeywords": [
+            "pot filler",
+            "pot-filler",
+            "pot fillers"
+          ]
+        },
+        {
+          "typeName": "Pot Rack",
+          "typeId": "a1jaZ000001lF9WQAU",
+          "suggestedKeywords": [
+            "pot rack",
+            "pot-rack",
+            "pot racks"
+          ]
+        },
+        {
+          "typeName": "Pre-Rinse",
+          "typeId": "a1jaZ000001lF9XQAU",
+          "suggestedKeywords": [
+            "pre-rinse",
+            "pre rinse",
+            "prerinse"
+          ]
+        },
+        {
+          "typeName": "Prefinished",
+          "typeId": "a1jaZ000001lF9YQAU",
+          "suggestedKeywords": [
+            "prefinished",
+            "prefinisheds"
+          ]
+        },
+        {
+          "typeName": "Pressure Balance",
+          "typeId": "a1jaZ000001lF9ZQAU",
+          "suggestedKeywords": [
+            "pressure balance",
+            "pressure-balance",
+            "pressure balances"
+          ]
+        },
+        {
+          "typeName": "Primer",
+          "typeId": "a1jaZ000001lF9aQAE",
+          "suggestedKeywords": [
+            "primer",
+            "primers"
+          ]
+        },
+        {
+          "typeName": "Privacy",
+          "typeId": "a1jaZ000001lF9bQAE",
+          "suggestedKeywords": [
+            "privacy",
+            "privacys"
+          ]
+        },
+        {
+          "typeName": "Pro-Style",
+          "typeId": "a1jaZ000001lF9cQAE",
+          "suggestedKeywords": [
+            "pro-style",
+            "pro style",
+            "prostyle"
+          ]
+        },
+        {
+          "typeName": "Professional Pull",
+          "typeId": "a1jaZ000001lF9dQAE",
+          "suggestedKeywords": [
+            "professional pull",
+            "professional-pull",
+            "professional pulls"
+          ]
+        },
+        {
+          "typeName": "Programmable",
+          "typeId": "a1jaZ000001lF9eQAE",
+          "suggestedKeywords": [
+            "programmable",
+            "programmables"
+          ]
+        },
+        {
+          "typeName": "Propane",
+          "typeId": "a1jaZ000001lF9fQAE",
+          "suggestedKeywords": [
+            "propane",
+            "propanes"
+          ]
+        },
+        {
+          "typeName": "Puck Light",
+          "typeId": "a1jaZ000001lF9gQAE",
+          "suggestedKeywords": [
+            "puck light",
+            "puck-light",
+            "puck lights"
+          ]
+        },
+        {
+          "typeName": "Pull",
+          "typeId": "a1jaZ000001lF9hQAE",
+          "suggestedKeywords": [
+            "pull",
+            "pulls"
+          ]
+        },
+        {
+          "typeName": "Pull-Down",
+          "typeId": "a1jaZ000001lF9iQAE",
+          "suggestedKeywords": [
+            "pull-down",
+            "pull down",
+            "pulldown"
+          ]
+        },
+        {
+          "typeName": "Pull-Out",
+          "typeId": "a1jaZ000001lF9jQAE",
+          "suggestedKeywords": [
+            "pull-out",
+            "pull out",
+            "pullout"
+          ]
+        },
+        {
+          "typeName": "Pull-Out Shelf",
+          "typeId": "a1jaZ000001lF9kQAE",
+          "suggestedKeywords": [
+            "pull-out shelf",
+            "pull-out-shelf",
+            "pull out shelf"
+          ]
+        },
+        {
+          "typeName": "Push Bar",
+          "typeId": "a1jaZ000001lF9lQAE",
+          "suggestedKeywords": [
+            "push bar",
+            "push-bar",
+            "push bars"
+          ]
+        },
+        {
+          "typeName": "Push Lock",
+          "typeId": "a1jaZ000001lF9mQAE",
+          "suggestedKeywords": [
+            "push lock",
+            "push-lock",
+            "push locks"
+          ]
+        },
+        {
+          "typeName": "Push to Open",
+          "typeId": "a1jaZ000001lF9nQAE",
+          "suggestedKeywords": [
+            "push to open",
+            "push-to-open",
+            "push to opens"
+          ]
+        },
+        {
+          "typeName": "Push-Pull",
+          "typeId": "a1jaZ000001lF9oQAE",
+          "suggestedKeywords": [
+            "push-pull",
+            "push pull",
+            "pushpull"
+          ]
+        },
+        {
+          "typeName": "Push/Pull",
+          "typeId": "a1jaZ000001lF9pQAE",
+          "suggestedKeywords": [
+            "push/pull",
+            "push/pulls"
+          ]
+        },
+        {
+          "typeName": "Rack",
+          "typeId": "a1jaZ000001lF9qQAE",
+          "suggestedKeywords": [
+            "rack",
+            "racks"
+          ]
+        },
+        {
+          "typeName": "Radiant",
+          "typeId": "a1jaZ000001lF9rQAE",
+          "suggestedKeywords": [
+            "radiant",
+            "radiants"
+          ]
+        },
+        {
+          "typeName": "Rail",
+          "typeId": "a1jaZ000001lF9sQAE",
+          "suggestedKeywords": [
+            "rail",
+            "rails"
+          ]
+        },
+        {
+          "typeName": "Rain",
+          "typeId": "a1jaZ000001lF9tQAE",
+          "suggestedKeywords": [
+            "rain",
+            "rains"
+          ]
+        },
+        {
+          "typeName": "Rain Head",
+          "typeId": "a1jaZ000001lF9uQAE",
+          "suggestedKeywords": [
+            "rain head",
+            "rain-head",
+            "rain heads"
+          ]
+        },
+        {
+          "typeName": "Recessed",
+          "typeId": "a1jaZ000001lF9vQAE",
+          "suggestedKeywords": [
+            "recessed",
+            "recesseds"
+          ]
+        },
+        {
+          "typeName": "Recessed Toilet Seat Cover Dispenser",
+          "typeId": "a1jaZ000001lF9wQAE",
+          "suggestedKeywords": [
+            "recessed toilet seat cover dispenser",
+            "recessed-toilet-seat-cover-dispenser",
+            "recessed toilet seat cover dispensers"
+          ]
+        },
+        {
+          "typeName": "Rectangular",
+          "typeId": "a1jaZ000001lF9xQAE",
+          "suggestedKeywords": [
+            "rectangular",
+            "rectangulars"
+          ]
+        },
+        {
+          "typeName": "Refrigerator Drawer",
+          "typeId": "a1jaZ000001lF9yQAE",
+          "suggestedKeywords": [
+            "refrigerator drawer",
+            "refrigerator-drawer",
+            "refrigerator drawers"
+          ]
+        },
+        {
+          "typeName": "Refrigerator Pull",
+          "typeId": "a1jaZ000001lF9zQAE",
+          "suggestedKeywords": [
+            "refrigerator pull",
+            "refrigerator-pull",
+            "refrigerator pulls"
+          ]
+        },
+        {
+          "typeName": "Register",
+          "typeId": "a1jaZ000001lFA0QAM",
+          "suggestedKeywords": [
+            "register",
+            "registers"
+          ]
+        },
+        {
+          "typeName": "Remodel",
+          "typeId": "a1jaZ000001lFA1QAM",
+          "suggestedKeywords": [
+            "remodel",
+            "remodels"
+          ]
+        },
+        {
+          "typeName": "Remote",
+          "typeId": "a1jaZ000001lFA2QAM",
+          "suggestedKeywords": [
+            "remote",
+            "remotes"
+          ]
+        },
+        {
+          "typeName": "Replacement Filter",
+          "typeId": "a1jaZ000001lFA3QAM",
+          "suggestedKeywords": [
+            "replacement filter",
+            "replacement-filter",
+            "replacement filters"
+          ]
+        },
+        {
+          "typeName": "Residential",
+          "typeId": "a1jaZ000001lFA4QAM",
+          "suggestedKeywords": [
+            "residential",
+            "residentials"
+          ]
+        },
+        {
+          "typeName": "Reverse Osmosis",
+          "typeId": "a1jaZ000001lFA5QAM",
+          "suggestedKeywords": [
+            "reverse osmosis",
+            "reverse-osmosis",
+            "reverse osmosi"
+          ]
+        },
+        {
+          "typeName": "Rigid",
+          "typeId": "a1jaZ000001lFA6QAM",
+          "suggestedKeywords": [
+            "rigid",
+            "rigids"
+          ]
+        },
+        {
+          "typeName": "Ring Pull",
+          "typeId": "a1jaZ000001lFA7QAM",
+          "suggestedKeywords": [
+            "ring pull",
+            "ring-pull",
+            "ring pulls"
+          ]
+        },
+        {
+          "typeName": "Robe Hook",
+          "typeId": "a1jaZ000001lFA8QAM",
+          "suggestedKeywords": [
+            "robe hook",
+            "robe-hook",
+            "robe hooks"
+          ]
+        },
+        {
+          "typeName": "Rocking",
+          "typeId": "a1jaZ000001lFA9QAM",
+          "suggestedKeywords": [
+            "rocking",
+            "rockings"
+          ]
+        },
+        {
+          "typeName": "Roller",
+          "typeId": "a1jaZ000001lFAAQA2",
+          "suggestedKeywords": [
+            "roller",
+            "rollers"
+          ]
+        },
+        {
+          "typeName": "Roman Tub",
+          "typeId": "a1jaZ000001lFABQA2",
+          "suggestedKeywords": [
+            "roman tub",
+            "roman-tub",
+            "roman tubs"
+          ]
+        },
+        {
+          "typeName": "Roof Mount",
+          "typeId": "a1jaZ000001lFACQA2",
+          "suggestedKeywords": [
+            "roof mount",
+            "roof-mount",
+            "roof mounts"
+          ]
+        },
+        {
+          "typeName": "Roof Mounted Powered Attic Fan",
+          "typeId": "a1jaZ000001lFADQA2",
+          "suggestedKeywords": [
+            "roof mounted powered attic fan",
+            "roof-mounted-powered-attic-fan",
+            "roof mounted powered attic fans"
+          ]
+        },
+        {
+          "typeName": "Rooftop Unit",
+          "typeId": "a1jaZ000001lFAEQA2",
+          "suggestedKeywords": [
+            "rooftop unit",
+            "rooftop-unit",
+            "rooftop units"
+          ]
+        },
+        {
+          "typeName": "Round",
+          "typeId": "a1jaZ000001lFAFQA2",
+          "suggestedKeywords": [
+            "round",
+            "rounds"
+          ]
+        },
+        {
+          "typeName": "Safe",
+          "typeId": "a1jaZ000001lFAGQA2",
+          "suggestedKeywords": [
+            "safe",
+            "safes"
+          ]
+        },
+        {
+          "typeName": "Schoolhouse",
+          "typeId": "a1jaZ000001lFAHQA2",
+          "suggestedKeywords": [
+            "schoolhouse",
+            "schoolhouses"
+          ]
+        },
+        {
+          "typeName": "Sconce",
+          "typeId": "a1jaZ000001lFAIQA2",
+          "suggestedKeywords": [
+            "sconce",
+            "sconces"
+          ]
+        },
+        {
+          "typeName": "Screen",
+          "typeId": "a1jaZ000001lFAJQA2",
+          "suggestedKeywords": [
+            "screen",
+            "screens"
+          ]
+        },
+        {
+          "typeName": "Sculpture",
+          "typeId": "a1jaZ000001lFAKQA2",
+          "suggestedKeywords": [
+            "sculpture",
+            "sculptures"
+          ]
+        },
+        {
+          "typeName": "Sealant",
+          "typeId": "a1jaZ000001lFALQA2",
+          "suggestedKeywords": [
+            "sealant",
+            "sealants"
+          ]
+        },
+        {
+          "typeName": "Seat",
+          "typeId": "a1jaZ000001lFAMQA2",
+          "suggestedKeywords": [
+            "seat",
+            "seats"
+          ]
+        },
+        {
+          "typeName": "Seating",
+          "typeId": "a1jaZ000001lFANQA2",
+          "suggestedKeywords": [
+            "seating",
+            "seatings"
+          ]
+        },
+        {
+          "typeName": "Sectional",
+          "typeId": "a1jaZ000001lFAOQA2",
+          "suggestedKeywords": [
+            "sectional",
+            "sectionals"
+          ]
+        },
+        {
+          "typeName": "Security",
+          "typeId": "a1jaZ000001lFAPQA2",
+          "suggestedKeywords": [
+            "security",
+            "securitys"
+          ]
+        },
+        {
+          "typeName": "Security Camera",
+          "typeId": "a1jaZ000001lFAQQA2",
+          "suggestedKeywords": [
+            "security camera",
+            "security-camera",
+            "security cameras"
+          ]
+        },
+        {
+          "typeName": "Semi-Concealed",
+          "typeId": "a1jaZ000001lFARQA2",
+          "suggestedKeywords": [
+            "semi-concealed",
+            "semi concealed",
+            "semiconcealed"
+          ]
+        },
+        {
+          "typeName": "Semi-Flush",
+          "typeId": "a1jaZ000001lFASQA2",
+          "suggestedKeywords": [
+            "semi-flush",
+            "semi flush",
+            "semiflush"
+          ]
+        },
+        {
+          "typeName": "Semi-Recessed",
+          "typeId": "a1jaZ000001lFATQA2",
+          "suggestedKeywords": [
+            "semi-recessed",
+            "semi recessed",
+            "semirecessed"
+          ]
+        },
+        {
+          "typeName": "Serving Bin with Bowls",
+          "typeId": "a1jaZ000001lFAUQA2",
+          "suggestedKeywords": [
+            "serving bin with bowls",
+            "serving-bin-with-bowls",
+            "serving bin with bowl"
+          ]
+        },
+        {
+          "typeName": "Set",
+          "typeId": "a1jaZ000001lFAVQA2",
+          "suggestedKeywords": [
+            "set",
+            "sets"
+          ]
+        },
+        {
+          "typeName": "Shade",
+          "typeId": "a1jaZ000001lFAWQA2",
+          "suggestedKeywords": [
+            "shade",
+            "shades"
+          ]
+        },
+        {
+          "typeName": "Shelf",
+          "typeId": "a1jaZ000001lFAXQA2",
+          "suggestedKeywords": [
+            "shelf",
+            "shelfs"
+          ]
+        },
+        {
+          "typeName": "Shelving",
+          "typeId": "a1jaZ000001lFAYQA2",
+          "suggestedKeywords": [
+            "shelving",
+            "shelvings"
+          ]
+        },
+        {
+          "typeName": "Shower Door",
+          "typeId": "a1jaZ000001lFAZQA2",
+          "suggestedKeywords": [
+            "shower door",
+            "shower-door",
+            "shower doors"
+          ]
+        },
+        {
+          "typeName": "Shower Faucet",
+          "typeId": "a1jaZ000001lFAaQAM",
+          "suggestedKeywords": [
+            "shower faucet",
+            "shower-faucet",
+            "shower faucets"
+          ]
+        },
+        {
+          "typeName": "Shower Panel",
+          "typeId": "a1jaZ000001lFAbQAM",
+          "suggestedKeywords": [
+            "shower panel",
+            "shower-panel",
+            "shower panels"
+          ]
+        },
+        {
+          "typeName": "Shower Rod",
+          "typeId": "a1jaZ000001lFAcQAM",
+          "suggestedKeywords": [
+            "shower rod",
+            "shower-rod",
+            "shower rods"
+          ]
+        },
+        {
+          "typeName": "Shower System",
+          "typeId": "a1jaZ000001lFAdQAM",
+          "suggestedKeywords": [
+            "shower system",
+            "shower-system",
+            "shower systems"
+          ]
+        },
+        {
+          "typeName": "Showerhead",
+          "typeId": "a1jaZ000001lFAeQAM",
+          "suggestedKeywords": [
+            "showerhead",
+            "showerheads"
+          ]
+        },
+        {
+          "typeName": "Side Draft",
+          "typeId": "a1jaZ000001lFAfQAM",
+          "suggestedKeywords": [
+            "side draft",
+            "side-draft",
+            "side drafts"
+          ]
+        },
+        {
+          "typeName": "Side Mount",
+          "typeId": "a1jaZ000001lFAgQAM",
+          "suggestedKeywords": [
+            "side mount",
+            "side-mount",
+            "side mounts"
+          ]
+        },
+        {
+          "typeName": "Side-by-Side",
+          "typeId": "a1jaZ000001lFAhQAM",
+          "suggestedKeywords": [
+            "side-by-side",
+            "side by side",
+            "sidebyside"
+          ]
+        },
+        {
+          "typeName": "Simplex Strainer",
+          "typeId": "a1jaZ000001lFAiQAM",
+          "suggestedKeywords": [
+            "simplex strainer",
+            "simplex-strainer",
+            "simplex strainers"
+          ]
+        },
+        {
+          "typeName": "Single",
+          "typeId": "a1jaZ000001lFAjQAM",
+          "suggestedKeywords": [
+            "single",
+            "singles"
+          ]
+        },
+        {
+          "typeName": "Single Bowl",
+          "typeId": "a1jaZ000001lFAkQAM",
+          "suggestedKeywords": [
+            "single bowl",
+            "single-bowl",
+            "single bowls"
+          ]
+        },
+        {
+          "typeName": "Single Cylinder",
+          "typeId": "a1jaZ000001lFAlQAM",
+          "suggestedKeywords": [
+            "single cylinder",
+            "single-cylinder",
+            "single cylinders"
+          ]
+        },
+        {
+          "typeName": "Single Handle",
+          "typeId": "a1jaZ000001lFAmQAM",
+          "suggestedKeywords": [
+            "single handle",
+            "single-handle",
+            "single handles"
+          ]
+        },
+        {
+          "typeName": "Single Hole",
+          "typeId": "a1jaZ000001lFAnQAM",
+          "suggestedKeywords": [
+            "single hole",
+            "single-hole",
+            "single holes"
+          ]
+        },
+        {
+          "typeName": "Single Serve",
+          "typeId": "a1jaZ000001lFAoQAM",
+          "suggestedKeywords": [
+            "single serve",
+            "single-serve",
+            "single serves"
+          ]
+        },
+        {
+          "typeName": "Single Sink",
+          "typeId": "a1jaZ000001lFApQAM",
+          "suggestedKeywords": [
+            "single sink",
+            "single-sink",
+            "single sinks"
+          ]
+        },
+        {
+          "typeName": "Single Wall",
+          "typeId": "a1jaZ000001lFAqQAM",
+          "suggestedKeywords": [
+            "single wall",
+            "single-wall",
+            "single walls"
+          ]
+        },
+        {
+          "typeName": "Single Zone",
+          "typeId": "a1jaZ000001lFArQAM",
+          "suggestedKeywords": [
+            "single zone",
+            "single-zone",
+            "single zones"
+          ]
+        },
+        {
+          "typeName": "Sink",
+          "typeId": "a1jaZ000001lFAsQAM",
+          "suggestedKeywords": [
+            "sink",
+            "sinks"
+          ]
+        },
+        {
+          "typeName": "Sink Grid",
+          "typeId": "a1jaZ000001lFAtQAM",
+          "suggestedKeywords": [
+            "sink grid",
+            "sink-grid",
+            "sink grids"
+          ]
+        },
+        {
+          "typeName": "Slide-In",
+          "typeId": "a1jaZ000001lFAuQAM",
+          "suggestedKeywords": [
+            "slide-in",
+            "slide in",
+            "slidein"
+          ]
+        },
+        {
+          "typeName": "Smart",
+          "typeId": "a1jaZ000001lFAvQAM",
+          "suggestedKeywords": [
+            "smart",
+            "smarts"
+          ]
+        },
+        {
+          "typeName": "Smart Bulb",
+          "typeId": "a1jaZ000001lFAwQAM",
+          "suggestedKeywords": [
+            "smart bulb",
+            "smart-bulb",
+            "smart bulbs"
+          ]
+        },
+        {
+          "typeName": "Smart Display",
+          "typeId": "a1jaZ000001lFAxQAM",
+          "suggestedKeywords": [
+            "smart display",
+            "smart-display",
+            "smart displays"
+          ]
+        },
+        {
+          "typeName": "Smart Home Hub",
+          "typeId": "a1jaZ000001lFAyQAM",
+          "suggestedKeywords": [
+            "smart home hub",
+            "smart-home-hub",
+            "smart home hubs"
+          ]
+        },
+        {
+          "typeName": "Smart Lock",
+          "typeId": "a1jaZ000001lFAzQAM",
+          "suggestedKeywords": [
+            "smart lock",
+            "smart-lock",
+            "smart locks"
+          ]
+        },
+        {
+          "typeName": "Smart Speaker",
+          "typeId": "a1jaZ000001lFB0QAM",
+          "suggestedKeywords": [
+            "smart speaker",
+            "smart-speaker",
+            "smart speakers"
+          ]
+        },
+        {
+          "typeName": "Smart Switch",
+          "typeId": "a1jaZ000001lFB1QAM",
+          "suggestedKeywords": [
+            "smart switch",
+            "smart-switch",
+            "smart switchs"
+          ]
+        },
+        {
+          "typeName": "Soaking",
+          "typeId": "a1jaZ000001lFB2QAM",
+          "suggestedKeywords": [
+            "soaking",
+            "soakings"
+          ]
+        },
+        {
+          "typeName": "Soap Dish",
+          "typeId": "a1jaZ000001lFB3QAM",
+          "suggestedKeywords": [
+            "soap dish",
+            "soap-dish",
+            "soap dishs"
+          ]
+        },
+        {
+          "typeName": "Soap Dispenser",
+          "typeId": "a1jaZ000001lFB4QAM",
+          "suggestedKeywords": [
+            "soap dispenser",
+            "soap-dispenser",
+            "soap dispensers"
+          ]
+        },
+        {
+          "typeName": "Socket",
+          "typeId": "a1jaZ000001lFB5QAM",
+          "suggestedKeywords": [
+            "socket",
+            "sockets"
+          ]
+        },
+        {
+          "typeName": "Soft Close",
+          "typeId": "a1jaZ000001lFB6QAM",
+          "suggestedKeywords": [
+            "soft close",
+            "soft-close",
+            "soft closes"
+          ]
+        },
+        {
+          "typeName": "Solar",
+          "typeId": "a1jaZ000001lFB7QAM",
+          "suggestedKeywords": [
+            "solar",
+            "solars"
+          ]
+        },
+        {
+          "typeName": "Solid",
+          "typeId": "a1jaZ000001lFB8QAM",
+          "suggestedKeywords": [
+            "solid",
+            "solids"
+          ]
+        },
+        {
+          "typeName": "Space Heater",
+          "typeId": "a1jaZ000001lFB9QAM",
+          "suggestedKeywords": [
+            "space heater",
+            "space-heater",
+            "space heaters"
+          ]
+        },
+        {
+          "typeName": "Speed Oven",
+          "typeId": "a1jaZ000001lFBAQA2",
+          "suggestedKeywords": [
+            "speed oven",
+            "speed-oven",
+            "speed ovens"
+          ]
+        },
+        {
+          "typeName": "Spice Rack",
+          "typeId": "a1jaZ000001lFBBQA2",
+          "suggestedKeywords": [
+            "spice rack",
+            "spice-rack",
+            "spice racks"
+          ]
+        },
+        {
+          "typeName": "Split System",
+          "typeId": "a1jaZ000001lFBCQA2",
+          "suggestedKeywords": [
+            "split system",
+            "split-system",
+            "split systems"
+          ]
+        },
+        {
+          "typeName": "Spotlight",
+          "typeId": "a1jaZ000001lFBDQA2",
+          "suggestedKeywords": [
+            "spotlight",
+            "spotlights"
+          ]
+        },
+        {
+          "typeName": "Spring Hinge",
+          "typeId": "a1jaZ000001lFBEQA2",
+          "suggestedKeywords": [
+            "spring hinge",
+            "spring-hinge",
+            "spring hinges"
+          ]
+        },
+        {
+          "typeName": "Sputnik",
+          "typeId": "a1jaZ000001lFBFQA2",
+          "suggestedKeywords": [
+            "sputnik",
+            "sputniks"
+          ]
+        },
+        {
+          "typeName": "Square",
+          "typeId": "a1jaZ000001lFBGQA2",
+          "suggestedKeywords": [
+            "square",
+            "squares"
+          ]
+        },
+        {
+          "typeName": "Stackable",
+          "typeId": "a1jaZ000001lFBHQA2",
+          "suggestedKeywords": [
+            "stackable",
+            "stackables"
+          ]
+        },
+        {
+          "typeName": "Stainless Steel",
+          "typeId": "a1jaZ000001lFBIQA2",
+          "suggestedKeywords": [
+            "stainless steel",
+            "stainless-steel",
+            "stainless steels"
+          ]
+        },
+        {
+          "typeName": "Standalone",
+          "typeId": "a1jaZ000001lFBJQA2",
+          "suggestedKeywords": [
+            "standalone",
+            "standalones"
+          ]
+        },
+        {
+          "typeName": "Standard",
+          "typeId": "a1jaZ000001lFBKQA2",
+          "suggestedKeywords": [
+            "standard",
+            "standards"
+          ]
+        },
+        {
+          "typeName": "Standard Switch",
+          "typeId": "a1jaZ000001lFBLQA2",
+          "suggestedKeywords": [
+            "standard switch",
+            "standard-switch",
+            "standard switchs"
+          ]
+        },
+        {
+          "typeName": "Standby",
+          "typeId": "a1jaZ000001lFBMQA2",
+          "suggestedKeywords": [
+            "standby",
+            "standbys"
+          ]
+        },
+        {
+          "typeName": "Statue",
+          "typeId": "a1jaZ000001lFBNQA2",
+          "suggestedKeywords": [
+            "statue",
+            "statues"
+          ]
+        },
+        {
+          "typeName": "Steam",
+          "typeId": "a1jaZ000001lFBOQA2",
+          "suggestedKeywords": [
+            "steam",
+            "steams"
+          ]
+        },
+        {
+          "typeName": "Steam Generator",
+          "typeId": "a1jaZ000001lFBPQA2",
+          "suggestedKeywords": [
+            "steam generator",
+            "steam-generator",
+            "steam generators"
+          ]
+        },
+        {
+          "typeName": "Steam Head",
+          "typeId": "a1jaZ000001lFBQQA2",
+          "suggestedKeywords": [
+            "steam head",
+            "steam-head",
+            "steam heads"
+          ]
+        },
+        {
+          "typeName": "Stepping Stone",
+          "typeId": "a1jaZ000001lFBRQA2",
+          "suggestedKeywords": [
+            "stepping stone",
+            "stepping-stone",
+            "stepping stones"
+          ]
+        },
+        {
+          "typeName": "Stone",
+          "typeId": "a1jaZ000001lFBSQA2",
+          "suggestedKeywords": [
+            "stone",
+            "stones"
+          ]
+        },
+        {
+          "typeName": "Stone Look",
+          "typeId": "a1jaZ000001lFBTQA2",
+          "suggestedKeywords": [
+            "stone look",
+            "stone-look",
+            "stone looks"
+          ]
+        },
+        {
+          "typeName": "Storage",
+          "typeId": "a1jaZ000001lFBUQA2",
+          "suggestedKeywords": [
+            "storage",
+            "storages"
+          ]
+        },
+        {
+          "typeName": "Storage Drawer",
+          "typeId": "a1jaZ000001lFBVQA2",
+          "suggestedKeywords": [
+            "storage drawer",
+            "storage-drawer",
+            "storage drawers"
+          ]
+        },
+        {
+          "typeName": "Storage Drawers",
+          "typeId": "a1jaZ000001lFBWQA2",
+          "suggestedKeywords": [
+            "storage drawers",
+            "storage-drawers",
+            "storage drawer"
+          ]
+        },
+        {
+          "typeName": "Storage Pedestal",
+          "typeId": "a1jaZ000001lFBXQA2",
+          "suggestedKeywords": [
+            "storage pedestal",
+            "storage-pedestal",
+            "storage pedestals"
+          ]
+        },
+        {
+          "typeName": "Storage Tower",
+          "typeId": "a1jaZ000001lFBYQA2",
+          "suggestedKeywords": [
+            "storage tower",
+            "storage-tower",
+            "storage towers"
+          ]
+        },
+        {
+          "typeName": "Storeroom",
+          "typeId": "a1jaZ000001lFBZQA2",
+          "suggestedKeywords": [
+            "storeroom",
+            "storerooms"
+          ]
+        },
+        {
+          "typeName": "Storm",
+          "typeId": "a1jaZ000001lFBaQAM",
+          "suggestedKeywords": [
+            "storm",
+            "storms"
+          ]
+        },
+        {
+          "typeName": "Stove Pipe",
+          "typeId": "a1jaZ000001lFBbQAM",
+          "suggestedKeywords": [
+            "stove pipe",
+            "stove-pipe",
+            "stove pipes"
+          ]
+        },
+        {
+          "typeName": "Strainer",
+          "typeId": "a1jaZ000001lFBcQAM",
+          "suggestedKeywords": [
+            "strainer",
+            "strainers"
+          ]
+        },
+        {
+          "typeName": "Strap Hinge",
+          "typeId": "a1jaZ000001lFBdQAM",
+          "suggestedKeywords": [
+            "strap hinge",
+            "strap-hinge",
+            "strap hinges"
+          ]
+        },
+        {
+          "typeName": "Strike",
+          "typeId": "a1jaZ000001lFBeQAM",
+          "suggestedKeywords": [
+            "strike",
+            "strikes"
+          ]
+        },
+        {
+          "typeName": "Strike Plate",
+          "typeId": "a1jaZ000001lFBfQAM",
+          "suggestedKeywords": [
+            "strike plate",
+            "strike-plate",
+            "strike plates"
+          ]
+        },
+        {
+          "typeName": "Strip Light",
+          "typeId": "a1jaZ000001lFBgQAM",
+          "suggestedKeywords": [
+            "strip light",
+            "strip-light",
+            "strip lights"
+          ]
+        },
+        {
+          "typeName": "Subway",
+          "typeId": "a1jaZ000001lFBhQAM",
+          "suggestedKeywords": [
+            "subway",
+            "subways"
+          ]
+        },
+        {
+          "typeName": "Surface Mount",
+          "typeId": "a1jaZ000001lFBiQAM",
+          "suggestedKeywords": [
+            "surface mount",
+            "surface-mount",
+            "surface mounts"
+          ]
+        },
+        {
+          "typeName": "Swing Arm",
+          "typeId": "a1jaZ000001lFBjQAM",
+          "suggestedKeywords": [
+            "swing arm",
+            "swing-arm",
+            "swing arms"
+          ]
+        },
+        {
+          "typeName": "Table",
+          "typeId": "a1jaZ000001lFBkQAM",
+          "suggestedKeywords": [
+            "table",
+            "tables"
+          ]
+        },
+        {
+          "typeName": "Table Lamp",
+          "typeId": "a1jaZ000001lFBlQAM",
+          "suggestedKeywords": [
+            "table lamp",
+            "table-lamp",
+            "table lamps"
+          ]
+        },
+        {
+          "typeName": "Tabletop",
+          "typeId": "a1jaZ000001lFBmQAM",
+          "suggestedKeywords": [
+            "tabletop",
+            "tabletops"
+          ]
+        },
+        {
+          "typeName": "Tank",
+          "typeId": "a1jaZ000001lFBnQAM",
+          "suggestedKeywords": [
+            "tank",
+            "tanks"
+          ]
+        },
+        {
+          "typeName": "Tankless",
+          "typeId": "a1jaZ000001lFBoQAM",
+          "suggestedKeywords": [
+            "tankless"
+          ]
+        },
+        {
+          "typeName": "Tape Light",
+          "typeId": "a1jaZ000001lFBpQAM",
+          "suggestedKeywords": [
+            "tape light",
+            "tape-light",
+            "tape lights"
+          ]
+        },
+        {
+          "typeName": "Tapestry",
+          "typeId": "a1jaZ000001lFBqQAM",
+          "suggestedKeywords": [
+            "tapestry",
+            "tapestrys"
+          ]
+        },
+        {
+          "typeName": "Tee",
+          "typeId": "a1jaZ000001lFBrQAM",
+          "suggestedKeywords": [
+            "tee",
+            "tees"
+          ]
+        },
+        {
+          "typeName": "Thermostatic",
+          "typeId": "a1jaZ000001lFBsQAM",
+          "suggestedKeywords": [
+            "thermostatic",
+            "thermostatics"
+          ]
+        },
+        {
+          "typeName": "Thermostatic Valve Trim",
+          "typeId": "a1jaZ000001lFBtQAM",
+          "suggestedKeywords": [
+            "thermostatic valve trim",
+            "thermostatic-valve-trim",
+            "thermostatic valve trims"
+          ]
+        },
+        {
+          "typeName": "Thread Compound",
+          "typeId": "a1jaZ000001lFBuQAM",
+          "suggestedKeywords": [
+            "thread compound",
+            "thread-compound",
+            "thread compounds"
+          ]
+        },
+        {
+          "typeName": "Through-Wall",
+          "typeId": "a1jaZ000001lFBvQAM",
+          "suggestedKeywords": [
+            "through-wall",
+            "through wall",
+            "throughwall"
+          ]
+        },
+        {
+          "typeName": "Tiered",
+          "typeId": "a1jaZ000001lFBwQAM",
+          "suggestedKeywords": [
+            "tiered",
+            "tiereds"
+          ]
+        },
+        {
+          "typeName": "Tile",
+          "typeId": "a1jaZ000001lFBxQAM",
+          "suggestedKeywords": [
+            "tile",
+            "tiles"
+          ]
+        },
+        {
+          "typeName": "Tile Look",
+          "typeId": "a1jaZ000001lFByQAM",
+          "suggestedKeywords": [
+            "tile look",
+            "tile-look",
+            "tile looks"
+          ]
+        },
+        {
+          "typeName": "Timer",
+          "typeId": "a1jaZ000001lFBzQAM",
+          "suggestedKeywords": [
+            "timer",
+            "timers"
+          ]
+        },
+        {
+          "typeName": "Toe Kick",
+          "typeId": "a1jaZ000001lFC0QAM",
+          "suggestedKeywords": [
+            "toe kick",
+            "toe-kick",
+            "toe kicks"
+          ]
+        },
+        {
+          "typeName": "Toe-Touch",
+          "typeId": "a1jaZ000001lFC1QAM",
+          "suggestedKeywords": [
+            "toe-touch",
+            "toe touch",
+            "toetouch"
+          ]
+        },
+        {
+          "typeName": "Toilet",
+          "typeId": "a1jaZ000001lFC2QAM",
+          "suggestedKeywords": [
+            "toilet",
+            "toilets"
+          ]
+        },
+        {
+          "typeName": "Toilet Paper Holder",
+          "typeId": "a1jaZ000001lFC3QAM",
+          "suggestedKeywords": [
+            "toilet paper holder",
+            "toilet-paper-holder",
+            "toilet paper holders"
+          ]
+        },
+        {
+          "typeName": "Top Control",
+          "typeId": "a1jaZ000001lFC4QAM",
+          "suggestedKeywords": [
+            "top control",
+            "top-control",
+            "top controls"
+          ]
+        },
+        {
+          "typeName": "Top Load",
+          "typeId": "a1jaZ000001lFC5QAM",
+          "suggestedKeywords": [
+            "top load",
+            "top-load",
+            "top loads"
+          ]
+        },
+        {
+          "typeName": "Top-Freezer",
+          "typeId": "a1jaZ000001lFC6QAM",
+          "suggestedKeywords": [
+            "top-freezer",
+            "top freezer",
+            "topfreezer"
+          ]
+        },
+        {
+          "typeName": "Torch",
+          "typeId": "a1jaZ000001lFC7QAM",
+          "suggestedKeywords": [
+            "torch",
+            "torchs"
+          ]
+        },
+        {
+          "typeName": "Torchiere",
+          "typeId": "a1jaZ000001lFC8QAM",
+          "suggestedKeywords": [
+            "torchiere",
+            "torchieres"
+          ]
+        },
+        {
+          "typeName": "Touch Latch",
+          "typeId": "a1jaZ000001lFC9QAM",
+          "suggestedKeywords": [
+            "touch latch",
+            "touch-latch",
+            "touch latchs"
+          ]
+        },
+        {
+          "typeName": "Touchless",
+          "typeId": "a1jaZ000001lFCAQA2",
+          "suggestedKeywords": [
+            "touchless"
+          ]
+        },
+        {
+          "typeName": "Touchscreen",
+          "typeId": "a1jaZ000001lFCBQA2",
+          "suggestedKeywords": [
+            "touchscreen",
+            "touchscreens"
+          ]
+        },
+        {
+          "typeName": "Towel Bar",
+          "typeId": "a1jaZ000001lFCCQA2",
+          "suggestedKeywords": [
+            "towel bar",
+            "towel-bar",
+            "towel bars"
+          ]
+        },
+        {
+          "typeName": "Towel Ring",
+          "typeId": "a1jaZ000001lFCDQA2",
+          "suggestedKeywords": [
+            "towel ring",
+            "towel-ring",
+            "towel rings"
+          ]
+        },
+        {
+          "typeName": "Track",
+          "typeId": "a1jaZ000001lFCEQA2",
+          "suggestedKeywords": [
+            "track",
+            "tracks"
+          ]
+        },
+        {
+          "typeName": "Track Head",
+          "typeId": "a1jaZ000001lFCFQA2",
+          "suggestedKeywords": [
+            "track head",
+            "track-head",
+            "track heads"
+          ]
+        },
+        {
+          "typeName": "Track Kit",
+          "typeId": "a1jaZ000001lFCGQA2",
+          "suggestedKeywords": [
+            "track kit",
+            "track-kit",
+            "track kits"
+          ]
+        },
+        {
+          "typeName": "Transfer",
+          "typeId": "a1jaZ000001lFCHQA2",
+          "suggestedKeywords": [
+            "transfer",
+            "transfers"
+          ]
+        },
+        {
+          "typeName": "Trash Drawer",
+          "typeId": "a1jaZ000001lFCIQA2",
+          "suggestedKeywords": [
+            "trash drawer",
+            "trash-drawer",
+            "trash drawers"
+          ]
+        },
+        {
+          "typeName": "Trash Pull-Out",
+          "typeId": "a1jaZ000001lFCJQA2",
+          "suggestedKeywords": [
+            "trash pull-out",
+            "trash-pull-out",
+            "trash pull out"
+          ]
+        },
+        {
+          "typeName": "Trench Drain",
+          "typeId": "a1jaZ000001lFCKQA2",
+          "suggestedKeywords": [
+            "trench drain",
+            "trench-drain",
+            "trench drains"
+          ]
+        },
+        {
+          "typeName": "Trim",
+          "typeId": "a1jaZ000001lFCLQA2",
+          "suggestedKeywords": [
+            "trim",
+            "trims"
+          ]
+        },
+        {
+          "typeName": "Trim Only",
+          "typeId": "a1jaZ000001lFCMQA2",
+          "suggestedKeywords": [
+            "trim only",
+            "trim-only",
+            "trim onlys"
+          ]
+        },
+        {
+          "typeName": "Trip Lever",
+          "typeId": "a1jaZ000001lFCNQA2",
+          "suggestedKeywords": [
+            "trip lever",
+            "trip-lever",
+            "trip levers"
+          ]
+        },
+        {
+          "typeName": "Troffer",
+          "typeId": "a1jaZ000001lFCOQA2",
+          "suggestedKeywords": [
+            "troffer",
+            "troffers"
+          ]
+        },
+        {
+          "typeName": "Tub Tray",
+          "typeId": "a1jaZ000001lFCPQA2",
+          "suggestedKeywords": [
+            "tub tray",
+            "tub-tray",
+            "tub trays"
+          ]
+        },
+        {
+          "typeName": "Tubular",
+          "typeId": "a1jaZ000001lFCQQA2",
+          "suggestedKeywords": [
+            "tubular",
+            "tubulars"
+          ]
+        },
+        {
+          "typeName": "Two Handle",
+          "typeId": "a1jaZ000001lFCRQA2",
+          "suggestedKeywords": [
+            "two handle",
+            "two-handle",
+            "two handles"
+          ]
+        },
+        {
+          "typeName": "Two-Piece",
+          "typeId": "a1jaZ000001lFCSQA2",
+          "suggestedKeywords": [
+            "two-piece",
+            "two piece",
+            "twopiece"
+          ]
+        },
+        {
+          "typeName": "Umbrella",
+          "typeId": "a1jaZ000001lFCTQA2",
+          "suggestedKeywords": [
+            "umbrella",
+            "umbrellas"
+          ]
+        },
+        {
+          "typeName": "Under Cabinet",
+          "typeId": "a1jaZ000001lFCUQA2",
+          "suggestedKeywords": [
+            "under cabinet",
+            "under-cabinet",
+            "under cabinets"
+          ]
+        },
+        {
+          "typeName": "Under Sink",
+          "typeId": "a1jaZ000001lFCVQA2",
+          "suggestedKeywords": [
+            "under sink",
+            "under-sink",
+            "under sinks"
+          ]
+        },
+        {
+          "typeName": "Undercounter",
+          "typeId": "a1jaZ000001lFCWQA2",
+          "suggestedKeywords": [
+            "undercounter",
+            "undercounters"
+          ]
+        },
+        {
+          "typeName": "Undermount",
+          "typeId": "a1jaZ000001lFCXQA2",
+          "suggestedKeywords": [
+            "undermount",
+            "undermounts"
+          ]
+        },
+        {
+          "typeName": "Unfinished",
+          "typeId": "a1jaZ000001lFCYQA2",
+          "suggestedKeywords": [
+            "unfinished",
+            "unfinisheds"
+          ]
+        },
+        {
+          "typeName": "Union",
+          "typeId": "a1jaZ000001lFCZQA2",
+          "suggestedKeywords": [
+            "union",
+            "unions"
+          ]
+        },
+        {
+          "typeName": "Unitized",
+          "typeId": "a1jaZ000001lFCaQAM",
+          "suggestedKeywords": [
+            "unitized",
+            "unitizeds"
+          ]
+        },
+        {
+          "typeName": "Up Light",
+          "typeId": "a1jaZ000001lFCbQAM",
+          "suggestedKeywords": [
+            "up light",
+            "up-light",
+            "up lights"
+          ]
+        },
+        {
+          "typeName": "Upright",
+          "typeId": "a1jaZ000001lFCcQAM",
+          "suggestedKeywords": [
+            "upright",
+            "uprights"
+          ]
+        },
+        {
+          "typeName": "Urinal",
+          "typeId": "a1jaZ000001lFCdQAM",
+          "suggestedKeywords": [
+            "urinal",
+            "urinals"
+          ]
+        },
+        {
+          "typeName": "Utility",
+          "typeId": "a1jaZ000001lFCeQAM",
+          "suggestedKeywords": [
+            "utility",
+            "utilitys"
+          ]
+        },
+        {
+          "typeName": "Vanity",
+          "typeId": "a1jaZ000001lFCfQAM",
+          "suggestedKeywords": [
+            "vanity",
+            "vanitys"
+          ]
+        },
+        {
+          "typeName": "Vase",
+          "typeId": "a1jaZ000001lFCgQAM",
+          "suggestedKeywords": [
+            "vase",
+            "vases"
+          ]
+        },
+        {
+          "typeName": "Vent",
+          "typeId": "a1jaZ000001lFChQAM",
+          "suggestedKeywords": [
+            "vent",
+            "vents"
+          ]
+        },
+        {
+          "typeName": "Vent Cover",
+          "typeId": "a1jaZ000001lFCiQAM",
+          "suggestedKeywords": [
+            "vent cover",
+            "vent-cover",
+            "vent covers"
+          ]
+        },
+        {
+          "typeName": "Vented",
+          "typeId": "a1jaZ000001lFCjQAM",
+          "suggestedKeywords": [
+            "vented",
+            "venteds"
+          ]
+        },
+        {
+          "typeName": "Ventless",
+          "typeId": "a1jaZ000001lFCkQAM",
+          "suggestedKeywords": [
+            "ventless"
+          ]
+        },
+        {
+          "typeName": "Vessel",
+          "typeId": "a1jaZ000001lFClQAM",
+          "suggestedKeywords": [
+            "vessel",
+            "vessels"
+          ]
+        },
+        {
+          "typeName": "Video Doorbell",
+          "typeId": "a1jaZ000001lFCmQAM",
+          "suggestedKeywords": [
+            "video doorbell",
+            "video-doorbell",
+            "video doorbells"
+          ]
+        },
+        {
+          "typeName": "Vinyl Plank",
+          "typeId": "a1jaZ000001lFCnQAM",
+          "suggestedKeywords": [
+            "vinyl plank",
+            "vinyl-plank",
+            "vinyl planks"
+          ]
+        },
+        {
+          "typeName": "Vinyl Tile",
+          "typeId": "a1jaZ000001lFCoQAM",
+          "suggestedKeywords": [
+            "vinyl tile",
+            "vinyl-tile",
+            "vinyl tiles"
+          ]
+        },
+        {
+          "typeName": "Volume Control",
+          "typeId": "a1jaZ000001lFCpQAM",
+          "suggestedKeywords": [
+            "volume control",
+            "volume-control",
+            "volume controls"
+          ]
+        },
+        {
+          "typeName": "Walk-In",
+          "typeId": "a1jaZ000001lFCqQAM",
+          "suggestedKeywords": [
+            "walk-in",
+            "walk in",
+            "walkin"
+          ]
+        },
+        {
+          "typeName": "Wall Art",
+          "typeId": "a1jaZ000001lFCrQAM",
+          "suggestedKeywords": [
+            "wall art",
+            "wall-art",
+            "wall arts"
+          ]
+        },
+        {
+          "typeName": "Wall Control",
+          "typeId": "a1jaZ000001lFCsQAM",
+          "suggestedKeywords": [
+            "wall control",
+            "wall-control",
+            "wall controls"
+          ]
+        },
+        {
+          "typeName": "Wall Fixture",
+          "typeId": "a1jaZ000001lFCtQAM",
+          "suggestedKeywords": [
+            "wall fixture",
+            "wall-fixture",
+            "wall fixtures"
+          ]
+        },
+        {
+          "typeName": "Wall Heater",
+          "typeId": "a1jaZ000001lFCuQAM",
+          "suggestedKeywords": [
+            "wall heater",
+            "wall-heater",
+            "wall heaters"
+          ]
+        },
+        {
+          "typeName": "Wall Lantern",
+          "typeId": "a1jaZ000001lFCvQAM",
+          "suggestedKeywords": [
+            "wall lantern",
+            "wall-lantern",
+            "wall lanterns"
+          ]
+        },
+        {
+          "typeName": "Wall Mirror",
+          "typeId": "a1jaZ000001lFCwQAM",
+          "suggestedKeywords": [
+            "wall mirror",
+            "wall-mirror",
+            "wall mirrors"
+          ]
+        },
+        {
+          "typeName": "Wall Mount",
+          "typeId": "a1jaZ000001lFCxQAM",
+          "suggestedKeywords": [
+            "wall mount",
+            "wall-mount",
+            "wall mounts"
+          ]
+        },
+        {
+          "typeName": "Wall Mounted",
+          "typeId": "a1jaZ000001lFCyQAM",
+          "suggestedKeywords": [
+            "wall mounted",
+            "wall-mounted",
+            "wall mounteds"
+          ]
+        },
+        {
+          "typeName": "Wall Mounted Widespread",
+          "typeId": "a1jaZ000001lFCzQAM",
+          "suggestedKeywords": [
+            "wall mounted widespread",
+            "wall-mounted-widespread",
+            "wall mounted widespreads"
+          ]
+        },
+        {
+          "typeName": "Wall Mounted Widespread Bathroom Faucet",
+          "typeId": "a1jaZ000001lFD0QAM",
+          "suggestedKeywords": [
+            "wall mounted widespread bathroom faucet",
+            "wall-mounted-widespread-bathroom-faucet",
+            "wall mounted widespread bathroom faucets"
+          ]
+        },
+        {
+          "typeName": "Wall Organizer",
+          "typeId": "a1jaZ000001lFD1QAM",
+          "suggestedKeywords": [
+            "wall organizer",
+            "wall-organizer",
+            "wall organizers"
+          ]
+        },
+        {
+          "typeName": "Wall Sconce",
+          "typeId": "a1jaZ000001lFD2QAM",
+          "suggestedKeywords": [
+            "wall sconce",
+            "wall-sconce",
+            "wall sconces"
+          ]
+        },
+        {
+          "typeName": "Wall Washer",
+          "typeId": "a1jaZ000001lFD3QAM",
+          "suggestedKeywords": [
+            "wall washer",
+            "wall-washer",
+            "wall washers"
+          ]
+        },
+        {
+          "typeName": "Wall-Mounted",
+          "typeId": "a1jaZ000001lFD4QAM",
+          "suggestedKeywords": [
+            "wall-mounted",
+            "wall mounted",
+            "wallmounted"
+          ]
+        },
+        {
+          "typeName": "Wall-Mounted Sanitary Napkin Disposal",
+          "typeId": "a1jaZ000001lFD5QAM",
+          "suggestedKeywords": [
+            "wall-mounted sanitary napkin disposal",
+            "wall-mounted-sanitary-napkin-disposal",
+            "wall mounted sanitary napkin disposal"
+          ]
+        },
+        {
+          "typeName": "Warming",
+          "typeId": "a1jaZ000001lFD6QAM",
+          "suggestedKeywords": [
+            "warming",
+            "warmings"
+          ]
+        },
+        {
+          "typeName": "Waterfall",
+          "typeId": "a1jaZ000001lFD7QAM",
+          "suggestedKeywords": [
+            "waterfall",
+            "waterfalls"
+          ]
+        },
+        {
+          "typeName": "Waterless",
+          "typeId": "a1jaZ000001lFD8QAM",
+          "suggestedKeywords": [
+            "waterless"
+          ]
+        },
+        {
+          "typeName": "Waterproof",
+          "typeId": "a1jaZ000001lFD9QAM",
+          "suggestedKeywords": [
+            "waterproof",
+            "waterproofs"
+          ]
+        },
+        {
+          "typeName": "Well Light",
+          "typeId": "a1jaZ000001lFDAQA2",
+          "suggestedKeywords": [
+            "well light",
+            "well-light",
+            "well lights"
+          ]
+        },
+        {
+          "typeName": "Wet Rated",
+          "typeId": "a1jaZ000001lFDBQA2",
+          "suggestedKeywords": [
+            "wet rated",
+            "wet-rated",
+            "wet rateds"
+          ]
+        },
+        {
+          "typeName": "Whirlpool",
+          "typeId": "a1jaZ000001lFDCQA2",
+          "suggestedKeywords": [
+            "whirlpool",
+            "whirlpools"
+          ]
+        },
+        {
+          "typeName": "Whole House",
+          "typeId": "a1jaZ000001lFDDQA2",
+          "suggestedKeywords": [
+            "whole house",
+            "whole-house",
+            "whole houses"
+          ]
+        },
+        {
+          "typeName": "Whole Room",
+          "typeId": "a1jaZ000001lFDEQA2",
+          "suggestedKeywords": [
+            "whole room",
+            "whole-room",
+            "whole rooms"
+          ]
+        },
+        {
+          "typeName": "Widespread",
+          "typeId": "a1jaZ000001lFDGQA2",
+          "suggestedKeywords": [
+            "widespread",
+            "widespreads"
+          ]
+        },
+        {
+          "typeName": "WiFi",
+          "typeId": "a1jaZ000001lFDFQA2",
+          "suggestedKeywords": [
+            "wifi",
+            "wifis"
+          ]
+        },
+        {
+          "typeName": "Wind Chime",
+          "typeId": "a1jaZ000001lFDHQA2",
+          "suggestedKeywords": [
+            "wind chime",
+            "wind-chime",
+            "wind chimes"
+          ]
+        },
+        {
+          "typeName": "Window",
+          "typeId": "a1jaZ000001lFDIQA2",
+          "suggestedKeywords": [
+            "window",
+            "windows"
+          ]
+        },
+        {
+          "typeName": "Wine Cooler",
+          "typeId": "a1jaZ000001lFDJQA2",
+          "suggestedKeywords": [
+            "wine cooler",
+            "wine-cooler",
+            "wine coolers"
+          ]
+        },
+        {
+          "typeName": "Wine Rack",
+          "typeId": "a1jaZ000001lFDKQA2",
+          "suggestedKeywords": [
+            "wine rack",
+            "wine-rack",
+            "wine racks"
+          ]
+        },
+        {
+          "typeName": "Wire Pull",
+          "typeId": "a1jaZ000001lFDLQA2",
+          "suggestedKeywords": [
+            "wire pull",
+            "wire-pull",
+            "wire pulls"
+          ]
+        },
+        {
+          "typeName": "With Heater",
+          "typeId": "a1jaZ000001lFDMQA2",
+          "suggestedKeywords": [
+            "with heater",
+            "with-heater",
+            "with heaters"
+          ]
+        },
+        {
+          "typeName": "With Light",
+          "typeId": "a1jaZ000001lFDNQA2",
+          "suggestedKeywords": [
+            "with light",
+            "with-light",
+            "with lights"
+          ]
+        },
+        {
+          "typeName": "With Light and Heater",
+          "typeId": "a1jaZ000001lFDOQA2",
+          "suggestedKeywords": [
+            "with light and heater",
+            "with-light-and-heater",
+            "with light and heaters"
+          ]
+        },
+        {
+          "typeName": "Without Light",
+          "typeId": "a1jaZ000001lFDPQA2",
+          "suggestedKeywords": [
+            "without light",
+            "without-light",
+            "without lights"
+          ]
+        },
+        {
+          "typeName": "Wood Burning",
+          "typeId": "a1jaZ000001lFDQQA2",
+          "suggestedKeywords": [
+            "wood burning",
+            "wood-burning",
+            "wood burnings"
+          ]
+        },
+        {
+          "typeName": "Wood Look",
+          "typeId": "a1jaZ000001lFDRQA2",
+          "suggestedKeywords": [
+            "wood look",
+            "wood-look",
+            "wood looks"
+          ]
+        },
+        {
+          "typeName": "Wood-Fired",
+          "typeId": "a1jaZ000001lFDSQA2",
+          "suggestedKeywords": [
+            "wood-fired",
+            "wood fired",
+            "woodfired"
+          ]
+        },
+        {
+          "typeName": "Workstation",
+          "typeId": "a1jaZ000001lFDTQA2",
+          "suggestedKeywords": [
+            "workstation",
+            "workstations"
+          ]
+        },
+        {
+          "typeName": "Y Strainer",
+          "typeId": "a1jaZ000001lFDUQA2",
+          "suggestedKeywords": [
+            "y strainer",
+            "y-strainer",
+            "y strainers"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Ceiling Fan",
+      "missingCount": 3,
+      "totalTypes": 3,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "3-Blade",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Blade Count",
+          "suggestedKeywords": [
+            "3-blade",
+            "3 blade",
+            "3blade"
+          ]
+        },
+        {
+          "typeName": "4-Blade",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Blade Count",
+          "suggestedKeywords": [
+            "4-blade",
+            "4 blade",
+            "4blade"
+          ]
+        },
+        {
+          "typeName": "5-Blade",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Blade Count",
+          "suggestedKeywords": [
+            "5-blade",
+            "5 blade",
+            "5blade"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Rug",
+      "missingCount": 3,
+      "totalTypes": 3,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Area Rug",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "area rug",
+            "area-rug",
+            "area rugs"
+          ]
+        },
+        {
+          "typeName": "Outdoor Rug",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "outdoor rug",
+            "outdoor-rug",
+            "outdoor rugs"
+          ]
+        },
+        {
+          "typeName": "Runner",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "runner",
+            "runners"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Furniture",
+      "missingCount": 3,
+      "totalTypes": 3,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Dining Chair",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "dining chair",
+            "dining-chair",
+            "dining chairs"
+          ]
+        },
+        {
+          "typeName": "Lounge Chair",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "lounge chair",
+            "lounge-chair",
+            "lounge chairs"
+          ]
+        },
+        {
+          "typeName": "Sofa",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "sofa",
+            "sofas"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Hardwood Flooring",
+      "missingCount": 3,
+      "totalTypes": 3,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Hand-Scraped",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Finish",
+          "suggestedKeywords": [
+            "hand-scraped",
+            "hand scraped",
+            "handscraped"
+          ]
+        },
+        {
+          "typeName": "Nail Down",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Installation",
+          "suggestedKeywords": [
+            "nail down",
+            "nail-down",
+            "nail downs"
+          ]
+        },
+        {
+          "typeName": "Wire-Brushed",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Finish",
+          "suggestedKeywords": [
+            "wire-brushed",
+            "wire brushed",
+            "wirebrushed"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Luxury Vinyl Flooring",
+      "missingCount": 3,
+      "totalTypes": 3,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Rigid Core",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Core Type",
+          "suggestedKeywords": [
+            "rigid core",
+            "rigid-core",
+            "rigid cores"
+          ]
+        },
+        {
+          "typeName": "SPC",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Core Type",
+          "suggestedKeywords": [
+            "spc",
+            "spcs"
+          ]
+        },
+        {
+          "typeName": "WPC",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Core Type",
+          "suggestedKeywords": [
+            "wpc",
+            "wpcs"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Faucets",
+      "missingCount": 2,
+      "totalTypes": 2,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "High-Arc",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Spout Style",
+          "suggestedKeywords": [
+            "high-arc",
+            "high arc",
+            "higharc"
+          ]
+        },
+        {
+          "typeName": "Low-Arc",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Spout Style",
+          "suggestedKeywords": [
+            "low-arc",
+            "low arc",
+            "lowarc"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Vanity Light",
+      "missingCount": 1,
+      "totalTypes": 1,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "4-Light",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Light Count",
+          "suggestedKeywords": [
+            "4-light",
+            "4 light",
+            "4light"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Cabinet Hardware",
+      "missingCount": 1,
+      "totalTypes": 1,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Edge Pull",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "edge pull",
+            "edge-pull",
+            "edge pulls"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Pendant Light",
+      "missingCount": 1,
+      "totalTypes": 1,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Mini Pendant",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Type",
+          "suggestedKeywords": [
+            "mini pendant",
+            "mini-pendant",
+            "mini pendants"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Range",
+      "missingCount": 1,
+      "totalTypes": 1,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Rear Control",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Control Position",
+          "suggestedKeywords": [
+            "rear control",
+            "rear-control",
+            "rear controls"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Wall Sconce",
+      "missingCount": 1,
+      "totalTypes": 1,
+      "coveragePercent": "0.0",
+      "missingTypes": [
+        {
+          "typeName": "Up/Down Light",
+          "typeId": "pending_salesforce_id",
+          "typeGroup": "Direction",
+          "suggestedKeywords": [
+            "up/down light",
+            "up/down-light",
+            "up/down lights"
+          ]
+        }
+      ]
+    }
+  ]
+}
