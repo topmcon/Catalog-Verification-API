@@ -627,7 +627,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Installation Type",
+        "attribute": "Fuel Type",
         "required": false
       },
       {
@@ -637,18 +637,13 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Oven Finish - Model",
-    "seoNotes": "Configuration = Single, Double, Combo. Installation = Wall, Built-In."
+    "template": "{Brand} {Width (Inches)} {Configuration} {Fuel Type} {Category} {Model Number}",
+    "exampleTitle": "GE 30-Inch Double Electric Oven - JTS3000SNSS",
+    "seoNotes": "Configuration = Single, Double, Microwave Combo. Fuel Type = Gas, Electric, Dual Fuel."
   },
   "pizza_oven": {
     "categoryId": "a01aZ00000KJFrCQAX",
