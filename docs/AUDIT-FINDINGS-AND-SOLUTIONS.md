@@ -22,6 +22,7 @@
 | Freestanding allowed as refrigerator Type | Block Freestanding from valid Types for refrigerators | 7b80a87 | #012, #003 |
 | Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
 | Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
+| Electric/Gas incorrectly as dryer Types (not attributes) | Restructure category-type-mapping: Remove Electric/Gas from types, add Front Load/Top Load/Unitized | 8866dc6 | #015 |
 
 ---
 
@@ -1333,6 +1334,272 @@ if (slot.attribute === 'Type' && rawValue?.toString().toLowerCase() === 'accesso
 
 ---
 
+### Finding #015: Laundry Type Semantic Misclassification (Electric/Gas as Types vs. Attributes)
+**Date:** 2026-02-26  
+**Severity:** 🟡 MEDIUM  
+**Category:** Configuration / Data Structure / Title Generation  
+**Affects:** Washer, Dryer, All-in-One Washer/Dryer categories
+
+**Symptom:**
+- Electric and Gas listed as TYPES for Dryer category (should be attributes only - Fuel Type)
+- Dryer titles showing Fuel Type but NOT loading configuration Type (missing Front Load, Top Load)
+- Washer missing Unitized type, using "Configuration" instead of "Type" in title schema
+- All-in-One missing Top Load type and Fuel Type in title
+- Title formats inconsistent across laundry appliances
+
+**Example Issues:**
+- **Dryer:** Title shows "Electric Dryer" but missing whether it's Front Load or Top Load
+- **Washer:** Schema uses {Configuration} but should use {Type} for consistency
+- **All-in-One:** Title doesn't show fuel type (Gas vs. Electric)
+
+**Root Cause:**
+**Type vs. Attribute Confusion:** Electric and Gas are SPECIFICATIONS (Fuel Type attribute), NOT structural configurations (Type). The Type should describe the LOADING MECHANISM (Front Load, Top Load, Unitized), while Fuel Type is a separate attribute like Color or Finish.
+
+**Structural hierarchy should be:**
+```
+Type (structural/functional): Front Load, Top Load, Unitized
+Attributes (specifications): 
+  - Fuel Type: Electric, Gas
+  - Color: White, Stainless
+  - Capacity: 5.0 Cu. Ft.
+```
+
+**Was incorrectly:**
+```
+Dryer Types: Electric, Gas, Stackable, Heat Pump, Ventless...
+(Electric/Gas are attributes, not types!)
+```
+
+**Investigation Steps:**
+1. User requested: "Types should be Front Load, Top Load, Unitized; Electric/Gas should be attributes only"
+2. Reviewed category-type-mapping.json:
+   - Washer: Had Front Load, Top Load ✅ but missing Unitized ❌
+   - Dryer: Had Electric, Gas as types ❌ but missing Front Load, Top Load, Unitized ❌
+   - All-in-One: Had Unitized, Front Load ✅ but missing Top Load ❌
+3. Reviewed title-schema-by-category.ts:
+   - Washer: Used {Configuration} instead of {Type} ❌
+   - Dryer: Had {Fuel Type} but missing {Type} slot ❌
+   - All-in-One: Had {Type} but missing {Fuel Type} slot ❌
+4. Confirmed: Fuel Type attribute exists in attributes.json ✅
+5. Confirmed: Unitized, Front Load, Top Load types exist in types.json ✅
+
+**Fix Applied:** (Commit: 8866dc6)
+
+**Files Modified:**
+
+1. **`src/config/salesforce-picklists/category-type-mapping.json`** (Lines: 665-840)
+
+**WASHER Changes:**
+```json
+// BEFORE:
+"types": [
+  { "type_name": "Front Load", ... },
+  { "type_name": "Top Load", ... },
+  { "type_name": "Stackable", ... },
+  // Missing: Unitized
+]
+
+// AFTER:
+"types": [
+  { "type_name": "Front Load", ... },
+  { "type_name": "Top Load", ... },
+  { "type_name": "Unitized", "type_id": "a1jaZ000001lFCaQAM", ... }, // ✅ ADDED
+  { "type_name": "Stackable", ... },
+]
+```
+
+**DRYER Changes:**
+```json
+// BEFORE:
+"logic": "Fuel type or venting",
+"types": [
+  { "type_name": "Electric", ... },  // ❌ WRONG - attribute, not type
+  { "type_name": "Gas", ... },        // ❌ WRONG - attribute, not type
+  { "type_name": "Stackable", ... },
+  // Missing: Front Load, Top Load, Unitized
+]
+
+// AFTER:
+"logic": "Loading configuration",  // ✅ Updated description
+"types": [
+  { "type_name": "Front Load", "type_id": "a1jaZ000001lF6jQAE", ... }, // ✅ ADDED
+  { "type_name": "Top Load", "type_id": "a1jaZ000001lFC5QAM", ... },   // ✅ ADDED
+  { "type_name": "Unitized", "type_id": "a1jaZ000001lFCaQAM", ... },   // ✅ ADDED
+  { "type_name": "Stackable", ... },
+  // Electric and Gas REMOVED from types ✅
+]
+```
+
+**ALL-IN-ONE Changes:**
+```json
+// BEFORE:
+"types": [
+  { "type_name": "Unitized", ... },
+  { "type_name": "Front Load", ... },
+  // Missing: Top Load
+]
+
+// AFTER:
+"types": [
+  { "type_name": "Unitized", ... },
+  { "type_name": "Front Load", ... },
+  { "type_name": "Top Load", "type_id": "a1jaZ000001lFC5QAM", ... }, // ✅ ADDED
+]
+```
+
+2. **`src/config/title-schema-by-category.ts`** (Lines: 891-1082)
+
+**WASHER Title Schema:**
+```typescript
+// BEFORE:
+slots: [
+  { position: 4, attribute: "Configuration", required: false },  // ❌ Wrong name
+  { position: 5, attribute: "Category", required: true },
+]
+template: "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Category}..."
+seoNotes: "Configuration = Front Load, Top Load."  // ❌ Missing Unitized
+
+// AFTER:
+slots: [
+  { position: 4, attribute: "Type", required: false },  // ✅ Changed to Type
+  { position: 5, attribute: "Category", required: true },
+]
+template: "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category}..."  // ✅ Uses {Type}
+seoNotes: "Type = Front Load, Top Load, Unitized."  // ✅ Added Unitized
+```
+
+**DRYER Title Schema:**
+```typescript
+// BEFORE:
+slots: [
+  { position: 4, attribute: "Fuel Type", required: false },  // Had Fuel Type
+  { position: 5, attribute: "Category", required: true },    // BUT missing Type slot!
+]
+template: "{Brand} {Capacity} {Width} {Fuel Type} {Category}..."  // Missing {Type}
+seoNotes: "Fuel Type = Gas, Electric."  // Missing type info
+
+// AFTER:
+slots: [
+  { position: 4, attribute: "Type", required: false },        // ✅ ADDED Type slot
+  { position: 5, attribute: "Fuel Type", required: false },   // ✅ Fuel Type now position 5
+  { position: 6, attribute: "Category", required: true },
+]
+template: "{Brand} {Capacity} {Width} {Type} {Fuel Type} {Category}..."  // ✅ Both slots
+exampleTitle: "GE 7.5 Cu. Ft. 27-Inch Front Load Electric Dryer White - GTD75ECSLWS"
+seoNotes: "Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas."
+```
+
+**ALL-IN-ONE Title Schema:**
+```typescript
+// BEFORE:
+slots: [
+  { position: 4, attribute: "Type", required: false },
+  { position: 5, attribute: "Category", required: true },  // Missing Fuel Type!
+]
+template: "{Brand} {Capacity} {Width} {Type} {Category}..."  // Missing {Fuel Type}
+seoNotes: "Type = Ventless, Vented, Compact."  // Wrong types!
+
+// AFTER:
+slots: [
+  { position: 4, attribute: "Type", required: false },
+  { position: 5, attribute: "Fuel Type", required: false },  // ✅ ADDED
+  { position: 6, attribute: "Category", required: true },
+]
+template: "{Brand} {Capacity} {Width} {Type} {Fuel Type} {Category}..."  // ✅ Both slots
+exampleTitle: "Brand 28 Cu. Ft. 27-Inch Unitized Electric All in One Washer / Dryer..."
+seoNotes: "Type = Unitized, Front Load, Top Load. Fuel Type = Gas, Electric."
+```
+
+**Effect:**
+
+**BEFORE Changes:**
+- Washer: "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer..." (using Configuration field)
+- Dryer: "Brand 7.5 Cu. Ft. 27-Inch Electric Dryer..." (missing loading type!)
+- All-in-One: "Brand 28 Cu. Ft. 27-Inch Ventless All in One..." (missing fuel type!)
+
+**AFTER Changes:**
+- Washer: "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer..." (now using Type field ✅)
+- Dryer: "GE 7.5 Cu. Ft. 27-Inch **Front Load Electric** Dryer..." (shows BOTH! ✅)
+- All-in-One: "Brand 28 Cu. Ft. 27-Inch **Unitized Electric** All in One..." (shows BOTH! ✅)
+
+**Scope:** ✅ LAUNDRY APPLIANCES ONLY (3 categories: Washer, Dryer, All-in-One)
+
+**Rationale:**
+1. **Type = Structural Configuration:** Front Load, Top Load, Unitized describe HOW the appliance is loaded/configured
+2. **Fuel Type = Energy Specification:** Electric, Gas describe the POWER SOURCE (like Color describes appearance)
+3. **Consistency:** All laundry appliances now use same structure (Type + Fuel Type)
+4. **SEO Value:** Titles now show BOTH structural type AND fuel type for complete product identification
+5. **Data Quality:** Backend correctly separates structural types from attributes
+
+**Secondary Types Retained:**
+The following types were KEPT in the configuration (not removed) as they provide additional filtering value:
+- Stackable (both Washer and Dryer)
+- Compact (both Washer and Dryer)
+- Portable (Washer only)
+- Heat Pump (Dryer only)
+- Ventless (Dryer and All-in-One)
+- Vented (Dryer only)
+
+**Future Consideration:** These secondary types may be candidates for conversion to attributes in a future refactor, but are functional as types for now.
+
+**Validation Results:**
+
+**Type Configuration Verification (via script):**
+```
+🔵 WASHER:
+  Primary Types: Front Load, Top Load, Unitized ✅
+  
+🟠 DRYER:
+  Primary Types: Front Load, Top Load, Unitized ✅
+  Electric removed from types: YES ✅
+  Gas removed from types: YES ✅
+  
+🟢 ALL-IN-ONE:
+  Primary Types: Unitized, Front Load, Top Load ✅
+```
+
+**TypeScript Compilation:** ✅ SUCCESS (npm run build passed)
+
+**Dependency Validation:** ✅ PASS (with expected warnings about AI prompts - non-blocking)
+
+**Testing Recommendations:**
+
+When Salesforce sends laundry products after this deployment:
+
+1. **Test Washer with "front load" in description:**
+   - Verify Type = "Front Load"
+   - Verify title shows "Front Load Washer"
+
+2. **Test Dryer with "electric front load" in description:**
+   - Verify Type = "Front Load" (NOT "Electric")
+   - Verify Fuel Type = "Electric"
+   - Verify title shows "Front Load Electric Dryer"
+
+3. **Test All-in-One with "gas unitized" in description:**
+   - Verify Type = "Unitized"
+   - Verify Fuel Type = "Gas"
+   - Verify title shows "Unitized Gas All in One Washer / Dryer"
+
+**Related Findings:** #004 (Configuration vs. Type pattern), #001 (Schema/input alignment)
+
+**Future Prevention:**
+1. When defining types for new categories, ask: "Is this structural/functional OR is it a specification?"
+2. Structural/functional = Type (Front Load, Built-In, Freestanding)
+3. Specifications = Attributes (Electric, Gas, Color, Finish)
+4. Title schemas should show BOTH when applicable (Type + key attributes)
+
+**Impact:** 
+- **Data Quality:** MEDIUM - Improves type accuracy for laundry appliances
+- **Title Quality:** HIGH - Titles now contain both structural type AND fuel type
+- **User Experience:** HIGH - Customers see complete product information
+
+**Deployed:** ✅ 2026-02-26 commit 8866dc6  
+**Status:** LIVE in production (all 3 environments synced)
+
+**Session Documentation:** See [session-notes/SESSION-SUMMARY-2026-02-26-LAUNDRY-TYPE-RESTRUCTURE.md](../session-notes/SESSION-SUMMARY-2026-02-26-LAUNDRY-TYPE-RESTRUCTURE.md)
+
+---
+
 ### 🚀 **Enhancement #2: Schema/Input Mismatch Detection**
 **Status:** 💡 PROPOSED (Not Implemented)  
 **Priority:** MEDIUM  
@@ -1448,6 +1715,7 @@ Are you adding a new slot to a title schema?
 | 8eb96d3 | 2026-02-25 | 🔧 FIX | Enhance Stage 1 department determination with multi-keyword context validation (Finding #008) |
 | 31266a3 | 2026-02-26 | 🔧 FIX | Add Single Door keyword mappings for refrigerators (Finding #014 - Priority 1) |
 | e4d1dd6 | 2026-02-26 | ✨ ENHANCE | Add keyword mappings for Lighting, Toilet, Kitchen Faucet types (Finding #014 - Priority 2) |
+| 8866dc6 | 2026-02-26 | 🔧 REFACTOR | Laundry type restructure: Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes (Finding #015) |
 
 ---
 
@@ -1470,7 +1738,10 @@ Are you adding a new slot to a title schema?
 | 2026-02-25 | Copilot Session | Added Finding #010 (Freestanding in titles), #011 (Built-In redundant), #012 (Freestanding as Type), #013 (Accessory subtypes) - Commit 7b80a87 |
 | 2026-02-25 | Copilot Session | IMPLEMENTED Finding #008 fix: Enhanced Stage 1 prompt with multi-keyword context validation - Commit 8eb96d3 |
 | 2026-02-26 | Copilot Session | Added Finding #014 (Missing type keywords) - Priority 1: Single Door for refrigerators - Commit 31266a3 |
-| 2026-02-26 | Copilot Session | Finding #014 Priority 2: Added keywords for Lighting, Toilet, Kitchen Faucet types - Coverage 0.3% → 2.5% - Commit e4d1dd6 |---
+| 2026-02-26 | Copilot Session | Finding #014 Priority 2: Added keywords for Lighting, Toilet, Kitchen Faucet types - Coverage 0.3% → 2.5% - Commit e4d1dd6 |
+| 2026-02-26 | Copilot Session | Added Finding #015 (Laundry type restructure) - Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes - Commit 8866dc6 |
+
+---
 
 ## Notes for Future Development
 
