@@ -959,28 +959,33 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Fuel Type",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Fuel Type",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 7.5 Cu. Ft. 27-Inch Electric Dryer Finish - Model",
-    "seoNotes": "Capacity matches washer, width for space planning. Fuel Type = Gas, Electric."
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "GE 7.5 Cu. Ft. 27-Inch Front Load Electric Dryer White - GTD75ECSLWS",
+    "seoNotes": "Capacity matches washer, width for space planning. Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas."
   },
   "standalone_pedestal": {
     "categoryId": "a01Hu000010Q5ErIAK",

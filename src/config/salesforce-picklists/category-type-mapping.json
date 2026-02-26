@@ -699,41 +699,54 @@
       "category_name": "Dryer",
       "category_id": "a01Hu000010Q5EjIAK",
       "filter_label": "Dryer Type",
-      "logic": "Fuel type or venting",
+      "logic": "Loading configuration and features. Fuel type (Electric/Gas) is an attribute, not a type",
       "types": [
         {
-          "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
+          "type_name": "Front Load",
+          "type_id": "a1jaZ000001lF6jQAE",
+          "type_group": "Loading",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
+          "type_name": "Top Load",
+          "type_id": "a1jaZ000001lFC5QAM",
+          "type_group": "Loading",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Unitized",
+          "type_id": "a1jaZ000001lFCaQAM",
+          "type_group": "Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stackable",
           "type_id": "a1jaZ000001lFBHQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Heat Pump",
-          "type_id": "a1jaZ000001lF7CQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Ventless",
-          "type_id": "a1jaZ000001lFCkQAM",
+          "type_group": "Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Compact",
           "type_id": "a1jaZ000001lF4oQAE",
+          "type_group": "Size",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Heat Pump",
+          "type_id": "a1jaZ000001lF7CQAU",
+          "type_group": "Technology",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Ventless",
+          "type_id": "a1jaZ000001lFCkQAM",
+          "type_group": "Venting",
           "status": "existing",
           "primary_filter": true
         },

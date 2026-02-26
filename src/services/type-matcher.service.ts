@@ -124,9 +124,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'dual fuel': { 'Range': 'Dual Fuel' },
   'dual fuel range': { 'Range': 'Dual Fuel' },
   'gas range': { 'Range': 'Gas' },
-  'gas': { 'Range': 'Gas', 'Cooktop': 'Gas', 'Dryer': 'Gas' },
+  'gas': { 'Range': 'Gas', 'Cooktop': 'Gas' },
   'electric range': { 'Range': 'Electric' },
-  'electric': { 'Range': 'Electric', 'Cooktop': 'Electric', 'Dryer': 'Electric' },
+  'electric': { 'Range': 'Electric', 'Cooktop': 'Electric' },
   'induction': { 'Range': 'Induction', 'Cooktop': 'Induction' },
   'induction range': { 'Range': 'Induction' },
   
@@ -163,9 +163,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'top-load': { 'Washer': 'Top Load', 'Dryer': 'Top Load' },
   'top load washer': { 'Washer': 'Top Load' },
   'top loading': { 'Washer': 'Top Load', 'Dryer': 'Top Load' },
-  'electric dryer': { 'Dryer': 'Electric' },
-  'gas dryer': { 'Dryer': 'Gas' },
-  'unitized': { 'All in One Washer / Dryer': 'Unitized' },
+  'unitized': { 'All in One Washer / Dryer': 'Unitized', 'Dryer': 'Unitized' },
   'stacked': { 'All in One Washer / Dryer': 'Unitized' },
   'laundry center': { 'All in One Washer / Dryer': 'Unitized' },
   
@@ -529,8 +527,9 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   // Washer/Dryer patterns
   { pattern: /front[\s-]*load.*washer/i, category: 'Washer', typeName: 'Front Load' },
   { pattern: /top[\s-]*load.*washer/i, category: 'Washer', typeName: 'Top Load' },
-  { pattern: /electric.*dryer/i, category: 'Dryer', typeName: 'Electric' },
-  { pattern: /gas.*dryer/i, category: 'Dryer', typeName: 'Gas' },
+  { pattern: /front[\s-]*load.*dryer/i, category: 'Dryer', typeName: 'Front Load' },
+  { pattern: /top[\s-]*load.*dryer/i, category: 'Dryer', typeName: 'Top Load' },
+  { pattern: /unitized.*dryer|laundry.*center/i, category: 'Dryer', typeName: 'Unitized' },
   
   // Freezer patterns
   { pattern: /chest.*freezer/i, category: 'Freezer', typeName: 'Chest' },

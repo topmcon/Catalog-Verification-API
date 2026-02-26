@@ -654,7 +654,7 @@ export function getSEOKeywordsForCategory(category: string): string[] {
     'dishwasher': ['Quiet', 'Energy Star', 'Third Rack', 'Built-In', 'Smart'],
     'microwave': ['Over-the-Range', 'Countertop', 'Built-In', 'Convection', 'Smart'],
     'washer': ['Front Load', 'Top Load', 'Steam', 'Smart', 'Large Capacity'],
-    'dryer': ['Gas', 'Electric', 'Steam', 'Smart', 'Large Capacity'],
+    'dryer': ['Front Load', 'Top Load', 'Heat Pump', 'Steam', 'Ventless'],
     'freezer': ['Upright', 'Chest', 'Frost Free', 'Energy Star'],
     
     // Lighting
