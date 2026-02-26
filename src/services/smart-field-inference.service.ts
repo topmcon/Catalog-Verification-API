@@ -1424,6 +1424,103 @@ export function finalSweepTopFilterAttributes(
   return updated;
 }
 
+/**
+ * FINDING #017: Extract nominal width from model number or product title
+ * For outdoor built-in products where model often contains size
+ * 
+ * @param modelNumber - Product model number (e.g., "AGSR36WH", "C3-SSD")
+ * @param productTitle - Product title (e.g., "32-Inch Storage Drawer")
+ * @returns Nominal width in inches, or null if not found
+ */
+export function extractNominalWidth(
+  modelNumber: string, 
+  productTitle: string
+): number | null {
+  if (!modelNumber && !productTitle) return null;
+  
+  // Pattern 1: Model has 2-3 digit width followed by optional suffix
+  // Examples: "AGSR36WH" → 36, "C2400SS" → 24, "DCS30" → 30
+  if (modelNumber) {
+    const modelMatch = modelNumber.match(/[A-Z]+(\d{2,3})(?:[A-Z]{2})?$/i);
+    if (modelMatch) {
+      const width = parseInt(modelMatch[1]);
+      // Sanity check: reasonable width range (12" - 60")
+      if (width >= 12 && width <= 60) {
+        logger.info('Extracted nominal width from model number', {
+          modelNumber,
+          extractedWidth: width
+        });
+        return width;
+      }
+    }
+  }
+  
+  // Pattern 2: Title has "XX-Inch" or "XX Inch"
+  // Examples: "32-Inch Storage Drawer" → 32
+  if (productTitle) {
+    const titleMatch = productTitle.match(/(\d{2,3})[-\s]inch/i);
+    if (titleMatch) {
+      const width = parseInt(titleMatch[1]);
+      if (width >= 12 && width <= 60) {
+        logger.info('Extracted nominal width from product title', {
+          productTitle,
+          extractedWidth: width
+        });
+        return width;
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * FINDING #017: Detect dimension type from field label
+ * Helps distinguish cutout vs nominal vs overall dimensions
+ * 
+ * @param fieldLabel - Field label from attributes (e.g., "Cutout Width", "Overall Width")
+ * @returns Dimension type classification
+ */
+export function detectDimensionType(fieldLabel: string): 'nominal' | 'cutout' | 'overall' | 'unknown' {
+  if (!fieldLabel) return 'unknown';
+  
+  const lower = fieldLabel.toLowerCase();
+  
+  // Cutout dimensions (installation opening)
+  if (lower.includes('cutout') || 
+      lower.includes('rough opening') || 
+      lower.includes('installation opening') ||
+      lower.includes('cut out') ||
+      lower.includes('cut-out') ||
+      lower.includes('opening width') ||
+      lower.includes('opening height')) {
+    return 'cutout';
+  }
+  
+  // Overall dimensions (physical product)
+  if (lower.includes('overall') || 
+      lower.includes('actual') || 
+      lower.includes('product width') ||
+      lower.includes('product depth') ||
+      lower.includes('product height') ||
+      lower.includes('exterior') ||
+      lower.includes('outside')) {
+    return 'overall';
+  }
+  
+  // Nominal dimensions (marketing)
+  if (lower.includes('nominal') || 
+      lower.includes('model size') ||
+      lower === 'width' ||  // Generic "width" usually means nominal
+      lower === 'depth' ||
+      lower === 'height' ||
+      lower === 'length') {
+    return 'nominal';
+  }
+  
+  return 'unknown';
+}
+
 export default {
   FIELD_ALIASES,
   findFieldMatch,
@@ -1432,5 +1529,7 @@ export default {
   getCategoryFieldKey,
   finalSweepForValue,
   finalSweepTopFilterAttributes,
-  CATEGORY_FIELD_OVERRIDES
+  CATEGORY_FIELD_OVERRIDES,
+  extractNominalWidth,
+  detectDimensionType
 };

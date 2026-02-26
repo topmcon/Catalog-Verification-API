@@ -535,6 +535,27 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       });
     }
     
+    // FINDING #017 FIX: Skip redundant Type if it's a substring of Category
+    // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
+    if (formattedValue && slot.attribute === 'Type') {
+      const categorySlot = sortedSlots.find(s => s.attribute === 'Category');
+      if (categorySlot) {
+        const categoryValue = getInputValue(input, categorySlot.attribute);
+        const formattedCategory = formatValue(categorySlot.attribute, categoryValue, input);
+        
+        if (formattedCategory && 
+            (formattedCategory.includes('/') || formattedCategory.includes('&')) &&
+            formattedCategory.toLowerCase().includes(formattedValue.toLowerCase())) {
+          logger.info('Skipping redundant Type slot - value is substring of Category', {
+            type: formattedValue,
+            category: formattedCategory,
+            reason: 'Type text already present in Category name'
+          });
+          continue; // Skip this slot entirely
+        }
+      }
+    }
+    
     // Skip if value already exists in parts (prevents duplicates like "Undercounter Undercounter")
     // Example: type="Undercounter" and installationType="Undercounter" should only appear once
     if (formattedValue && !parts.includes(formattedValue)) {

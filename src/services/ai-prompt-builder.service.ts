@@ -66,6 +66,7 @@ ${determineBrandTier(rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand)
 - Depth: Web=${rawProduct.Depth_Web_Retailer}, Ferguson=${rawProduct.Ferguson_Depth}
 - Weight: ${rawProduct.Weight_Web_Retailer}
 - Capacity: ${rawProduct.Capacity_Web_Retailer}
+${buildDimensionGuidance(rawProduct)}
 
 ### Appearance
 - Color/Finish (Web Retailer): ${rawProduct.Color_Finish_Web_Retailer}
@@ -555,6 +556,83 @@ RESPONSE FORMAT:
 }
 
 Respond ONLY with JSON.`;
+}
+
+/**
+ * Build dimension extraction guidance based on category type
+ * Finding #017: Help AI distinguish cutout vs nominal vs overall dimensions
+ */
+function buildDimensionGuidance(
+  rawProduct: SalesforceIncomingProduct
+): string {
+  const category = rawProduct.Web_Retailer_Category?.toLowerCase() || '';
+  const department = rawProduct.Ferguson_Base_Category?.toLowerCase() || '';
+  const modelNumber = rawProduct.Model_Number_Web_Retailer || '';
+  const productTitle = rawProduct.Product_Title_Web_Retailer || '';
+  
+  // Detect if this is an outdoor built-in product
+  const isOutdoorBuiltIn = 
+    department.includes('outdoor') &&
+    (category.includes('drawer') || 
+     category.includes('door') || 
+     category.includes('outdoor kitchen') ||
+     category.includes('storage'));
+  
+  if (!isOutdoorBuiltIn) {
+    return ''; // No special guidance needed
+  }
+  
+  // Try to extract nominal width from model number or title
+  let nominalWidthHint = '';
+  const modelMatch = modelNumber.match(/[A-Z]+(\d{2,3})(?:[A-Z]{2})?$/i);
+  if (modelMatch) {
+    nominalWidthHint = `\n- Model "${modelNumber}" suggests nominal width: ${modelMatch[1]} inches`;
+  } else {
+    const titleMatch = productTitle.match(/(\d{2,3})[-\s]inch/i);
+    if (titleMatch) {
+      nominalWidthHint = `\n- Title "${productTitle}" suggests nominal width: ${titleMatch[1]} inches`;
+    }
+  }
+  
+  return `
+
+### ⚠️ CRITICAL: Dimension Extraction for Outdoor Built-In Products
+
+This product is an OUTDOOR BUILT-IN item. These products have THREE types of dimensions:
+
+1. **NOMINAL WIDTH** (Marketing/Model Size) - **USE THIS FOR AI_Width**
+   - Purpose: Customer-facing size used for product identification and shopping
+   - Found in: Model number (e.g., "AGSR36WH" means 36 inches)
+   - Found in: Product title (e.g., "32-Inch Storage Drawer")
+   - Found in: Labeled as "Nominal Width" or just "Width" without qualifiers
+   - **THIS IS THE VALUE TO EXTRACT FOR AI_Width FIELD**${nominalWidthHint}
+
+2. **CUTOUT WIDTH** (Installation Opening) - **DO NOT USE FOR AI_Width**
+   - Purpose: Size of hole to cut in countertop/cabinet for installation
+   - Found in: "Cutout Width", "Rough Opening", "Installation Opening", "Cut Out Size"
+   - Typically 1-3 inches SMALLER than nominal width
+   - Example: A 36" nominal model requires a 33.875" cutout
+   - **Store in Additional Attributes section ONLY, not in AI_Width**
+
+3. **OVERALL WIDTH** (Physical Product Dimensions) - **DO NOT USE FOR AI_Width**
+   - Purpose: Actual manufactured product size (edge to edge)
+   - Found in: "Overall Width", "Product Width", "Actual Width", "Exterior Width"
+   - May be slightly larger or smaller than nominal
+   - **Store in Additional Attributes section ONLY, not in AI_Width**
+
+**EXTRACTION PRIORITY FOR AI_Width (use first available):**
+1. Extract from model number if pattern detected (highest priority)
+2. Extract from product title if "XX-Inch" pattern found
+3. Look for "Nominal Width" attribute
+4. Use generic "Width" field (usually means nominal)
+5. Use "Overall Width" as last resort (DO NOT use Cutout Width)
+
+**IMPORTANT FORMATTING:**
+- For AI_Width: Return rounded INTEGER (36, not 35.875)
+- For cutout/overall dimensions: Precise decimals are acceptable (33.875, 35.5)
+- The nominal width should match what customers expect based on model number
+
+Same logic applies to Height and Depth dimensions.`;
 }
 
 export default {
