@@ -21,6 +21,7 @@
 | Built-In redundant for inherently built-in products | Skip Built-In for Beverage Center and Undercounter types | 7b80a87 | #011, #010 |
 | Freestanding allowed as refrigerator Type | Block Freestanding from valid Types for refrigerators | 7b80a87 | #012, #003 |
 | Accessory titles too vague | Extract specific accessory subtype from raw title | 7b80a87 | #013 |
+| Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | TBD | #014 |
 
 ---
 
@@ -1038,6 +1039,113 @@ export function getValidTypesForCategory(categoryName: string): string[] {
 **Severity:** 🟡 MEDIUM  
 **Category:** Title Generation  
 **Affects:** All categories with Accessory Type
+
+---
+
+### Finding #014: Missing Keyword Mappings for Valid Types (Single Door Example)
+**Date:** 2026-02-26  
+**Severity:** 🔴 CRITICAL  
+**Category:** Type Matching / Data Quality  
+**Affects:** ALL categories - systematic issue
+
+**Symptom:**
+- Products have NO Type assigned despite having valid Type in description
+- Example: LG LRONC0605V "21 Single Door Refrigerator" - Type field EMPTY ❌
+- Example: SMEG FAB28UPBL1 "24 Refrigerator" - Type field EMPTY ❌
+- Example: SILHOUETTE SPRAR055D1SS "24 Built-in Fridge" - Type field EMPTY ❌
+
+**Root Cause:**
+"Single Door" exists in types.json as a valid Refrigerator Type ("pending_salesforce_id", primary_filter: true), BUT the type-matcher.service.ts is MISSING the keyword alias:
+
+**types.json has it:**
+```json
+{
+  "type_name": "Single Door",
+  "type_id": "pending_salesforce_id",
+  "category_usage": "Refrigerator",
+  "type_group": "Door Configuration"
+}
+```
+
+**type-matcher.service.ts MISSING:**
+- ✅ Has: 'french door', 'side-by-side', 'top freezer', 'bottom freezer', 'wine cooler'
+- ❌ Missing: 'single door', 'compact', 'mini fridge' (all should map to Single Door)
+
+**This is a SYSTEMATIC PROBLEM:** When new types are added to types.json, developers must ALSO add keyword mappings to type-matcher.service.ts. We likely have OTHER missing keywords across all categories.
+
+**Investigation Steps:**
+1. User reported 103 verification calls: 3 products have NO Type despite valid descriptions
+2. Checked types.json - "Single Door" IS a valid type ✅
+3. Checked category-type-mapping.json - "Single Door" listed for Refrigerator ✅
+4. Checked type-matcher.service.ts - NO "single door" keyword ❌
+5. Realized this could affect ANY type lacking keyword mappings
+
+**Fix Applied:** (Commit: TBD)
+```typescript
+// File: src/services/type-matcher.service.ts
+// Lines: 70-85 (TYPE_ALIASES section)
+
+// ADDED: Single Door keyword mappings
+'single door': { 'Refrigerator': 'Single Door' },
+'single door refrigerator': { 'Refrigerator': 'Single Door' },
+'single-door': { 'Refrigerator': 'Single Door' },
+'compact': { 'Refrigerator': 'Single Door' },
+'compact refrigerator': { 'Refrigerator': 'Single Door' },
+'mini fridge': { 'Refrigerator': 'Single Door' },
+'mini refrigerator': { 'Refrigerator': 'Single Door' },
+
+// ADDED: Semantic pattern for Single Door
+// Line ~430 (SEMANTIC_TYPE_PATTERNS section)
+{ pattern: /single[\s-]*door|compact.*refrigerator|mini.*fridge/i, category: 'Refrigerator', typeName: 'Single Door' },
+```
+
+**Files Modified:**
+- `src/services/type-matcher.service.ts` (TYPE_ALIASES + SEMANTIC_TYPE_PATTERNS)
+
+**Scope:** 🎯 REFRIGERATORS (immediate fix) → ⚠️ UNIVERSAL AUDIT NEEDED
+
+**This fix addresses the immediate Single Door issue, but reveals a PATTERN:**
+
+### 🚨 RECOMMENDED: Universal Type Keyword Audit
+
+**Action Items:**
+1. **Audit ALL types.json entries** (2816 lines total)
+2. **Check each type has keyword mappings** in type-matcher.service.ts
+3. **Priority categories to audit:**
+   - Refrigerator (DONE - Single Door added) ✅
+   - Oven (check: Convection, Steam, Speed Oven)
+   - Range (check: Dual Fuel, Induction, Freestanding)
+   - Cooktop (check: Induction, Gas, Electric)
+   - Dishwasher (check: Drawer, Portable)
+   - Washer/Dryer (check: Front Load, Top Load)
+   - All Lighting categories
+   - All Plumbing categories
+4. **Create script:** `scripts/audit-type-keyword-coverage.js`
+   - Load types.json
+   - Load type-matcher.service.ts
+   - Report types WITHOUT keyword/pattern mappings
+   - Generate suggested keywords
+
+**Pattern Recognition:**
+This is SIMILAR to Finding #012 (Freestanding as Type) but OPPOSITE direction:
+- #012: Type in mapping but SHOULD NOT be (Freestanding for Refrigerators)
+- #014: Type in mapping but MISSING keyword (Single Door)
+
+**Both reveal:** type-matcher.service.ts and types.json are not automatically synchronized.
+
+**Testing:** ✅ Test with the 3 products that had no Type:
+- LG LRONC0605V/00 → Should now get "Single Door" Type
+- SMEG FAB28UPBL1 → Should now get "Single Door" Type
+- SILHOUETTE SPRAR055D1SS → Should now get "Single Door" Type (or "Column" if built-in)
+
+**Related Findings:** #001 (Schema/input mismatch pattern), #002 (Development process gaps), #012 (Type validation)
+
+**Future Prevention:**
+1. When adding types to types.json, add keywords to type-matcher.service.ts
+2. Run audit script before each deployment
+3. Create validation test: "Every Type in types.json must have at least one keyword/pattern"
+
+**Impact:** HIGH - Affects data quality across ALL 177 categories and ~2800 types
 
 **Symptom:**
 - Products classified as "Accessory" Type show generic titles
