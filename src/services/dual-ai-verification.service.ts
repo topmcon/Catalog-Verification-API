@@ -7460,9 +7460,9 @@ function buildFinalResponse(
     
     // Category-specific attributes
     fuelType: preferAIValue(
-      consensus.agreedPrimaryAttributes.fuel_type,
-      openaiResult.primaryAttributes.fuel_type,
-      xaiResult.primaryAttributes.fuel_type,
+      consensus.agreedTop15Attributes?.fuel_type,
+      openaiResult.top15Attributes?.fuel_type,
+      xaiResult.top15Attributes?.fuel_type,
       openaiResult.confidence,
       xaiResult.confidence,
       ''
