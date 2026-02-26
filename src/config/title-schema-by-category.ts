@@ -740,25 +740,25 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "slots": [
       {
         "position": 1,
+        "attribute": "Brand",
+        "required": true
+      },
+      {
+        "position": 2,
         "attribute": "CFM",
         "required": false,
         "format": "{value} CFM"
       },
       {
-        "position": 2,
+        "position": 3,
         "attribute": "Width (Inches)",
         "required": false,
         "format": "{value}-Inch"
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Type",
         "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Brand",
-        "required": true
       },
       {
         "position": 5,
@@ -776,9 +776,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{CFM} {Width (Inches)} {Type} {Brand} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "600 CFM 36-Inch Wall Mount THERMADOR Range Hood - Stainless Steel - VTI1190B",
-    "seoNotes": "UPDATED v2.3: CFM first (critical spec 100% in competitor titles), then width, mount type (Under-Cabinet/Wall Mount/Island/Insert), brand. Model number at END per requirements. Matches Ferguson/web retailer patterns."
+    "template": "{Brand} {CFM} {Width (Inches)} {Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "THERMADOR 600 CFM 36-Inch Wall Mount Range Hood - Stainless Steel - VTI1190B",
+    "seoNotes": "UPDATED v2.4: Brand first for consistency with other appliances, then CFM (critical spec), width, mount type (Under-Cabinet/Wall Mount/Island/Insert). Model number at END per requirements."
   },
   "refrigerator": {
     "categoryId": "a01Hu000010Q5EpIAK",
