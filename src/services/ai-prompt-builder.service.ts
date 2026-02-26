@@ -9,6 +9,7 @@
 import { SalesforceIncomingProduct, SalesforceIncomingAttribute, SalesforceStockImage, SalesforceDocument } from '../types/salesforce.types';
 import { CategoryAttributeConfig } from '../config/category-attributes';
 import { GLOBAL_PRIMARY_ATTRIBUTES, PREMIUM_BRANDS, MID_TIER_BRANDS } from '../config/category-schema';
+import logger from '../utils/logger';
 
 /**
  * Build the verification prompt for AI providers
@@ -566,31 +567,56 @@ function buildDimensionGuidance(
   rawProduct: SalesforceIncomingProduct
 ): string {
   const category = rawProduct.Web_Retailer_Category?.toLowerCase() || '';
+  const subcategory = rawProduct.Web_Retailer_SubCategory?.toLowerCase() || '';
   const department = rawProduct.Ferguson_Base_Category?.toLowerCase() || '';
   const modelNumber = rawProduct.Model_Number_Web_Retailer || '';
-  const productTitle = rawProduct.Product_Title_Web_Retailer || '';
+  const productTitle = rawProduct.Product_Title_Web_Retailer?.toLowerCase() || '';
+  const description = rawProduct.Product_Description_Web_Retailer?.toLowerCase() || '';
   
   // Detect if this is an outdoor built-in product
-  const isOutdoorBuiltIn = 
-    department.includes('outdoor') &&
-    (category.includes('drawer') || 
-     category.includes('door') || 
-     category.includes('outdoor kitchen') ||
-     category.includes('storage'));
+  // Check if "outdoor" appears in multiple fields OR category context
+  const hasOutdoor = 
+    category.includes('outdoor') || 
+    subcategory.includes('outdoor') || 
+    department.includes('outdoor') ||
+    productTitle.includes('outdoor') ||
+    description.includes('outdoor');
+  
+  const isBuiltInProduct = 
+    category.includes('drawer') || 
+    category.includes('door') || 
+    subcategory.includes('drawer') ||
+    subcategory.includes('door') ||
+    productTitle.includes('storage drawer') ||
+    productTitle.includes('storage door') ||
+    description.includes('built-in') ||
+    description.includes('built in') ||
+    category.includes('outdoor kitchen');
+  
+  const isOutdoorBuiltIn = hasOutdoor && isBuiltInProduct;
   
   if (!isOutdoorBuiltIn) {
     return ''; // No special guidance needed
   }
   
+  // Log that dimension guidance is being applied
+  logger.info('🎯 Dimension guidance triggered for outdoor built-in product', {
+    modelNumber,
+    category,
+    subcategory,
+    title: rawProduct.Product_Title_Web_Retailer
+  });
+  
   // Try to extract nominal width from model number or title
   let nominalWidthHint = '';
-  const modelMatch = modelNumber.match(/[A-Z]+(\d{2,3})(?:[A-Z]{2})?$/i);
+  // Pattern 1: AGSR36WH = 36", C2400SS = 24", etc
+  const modelMatch = modelNumber.match(/([A-Z]+)(\d{2,3})([A-Z]*)/i);
   if (modelMatch) {
-    nominalWidthHint = `\n- Model "${modelNumber}" suggests nominal width: ${modelMatch[1]} inches`;
+    nominalWidthHint = `\n- Model "${modelNumber}" suggests nominal width: ${modelMatch[2]} inches`;
   } else {
     const titleMatch = productTitle.match(/(\d{2,3})[-\s]inch/i);
     if (titleMatch) {
-      nominalWidthHint = `\n- Title "${productTitle}" suggests nominal width: ${titleMatch[1]} inches`;
+      nominalWidthHint = `\n- Title "${rawProduct.Product_Title_Web_Retailer}" suggests nominal width: ${titleMatch[1]} inches`;
     }
   }
   
