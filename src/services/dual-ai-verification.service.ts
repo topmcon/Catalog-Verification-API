@@ -7421,9 +7421,9 @@ function buildFinalResponse(
       ? typeMatchResult.matchedValue.type_name 
       : (aiProductType || ''),  // Use matched type or AI value
     configuration: preferAIValue(
-      consensus.agreedPrimaryAttributes.configuration,
-      openaiResult.primaryAttributes.configuration,
-      xaiResult.primaryAttributes.configuration,
+      consensus.agreedTop15Attributes?.configuration || consensus.agreedPrimaryAttributes.configuration,
+      openaiResult.top15Attributes?.configuration || openaiResult.primaryAttributes.configuration,
+      xaiResult.top15Attributes?.configuration || xaiResult.primaryAttributes.configuration,
       openaiResult.confidence,
       xaiResult.confidence,
       ''
@@ -7468,9 +7468,9 @@ function buildFinalResponse(
       ''
     ),
     totalCapacity: preferAIValue(
-      consensus.agreedPrimaryAttributes.total_capacity,
-      openaiResult.primaryAttributes.total_capacity,
-      xaiResult.primaryAttributes.total_capacity,
+      consensus.agreedTop15Attributes?.total_capacity || consensus.agreedPrimaryAttributes.total_capacity,
+      openaiResult.top15Attributes?.total_capacity || openaiResult.primaryAttributes.total_capacity,
+      xaiResult.top15Attributes?.total_capacity || xaiResult.primaryAttributes.total_capacity,
       openaiResult.confidence,
       xaiResult.confidence,
       rawProduct.Capacity_Web_Retailer || ''
@@ -7484,17 +7484,17 @@ function buildFinalResponse(
       ''
     ),
     numberOfBurners: preferAIValue(
-      consensus.agreedPrimaryAttributes.number_of_burners,
-      openaiResult.primaryAttributes.number_of_burners,
-      xaiResult.primaryAttributes.number_of_burners,
+      consensus.agreedTop15Attributes?.number_of_burners || consensus.agreedPrimaryAttributes.number_of_burners,
+      openaiResult.top15Attributes?.number_of_burners || openaiResult.primaryAttributes.number_of_burners,
+      xaiResult.top15Attributes?.number_of_burners || xaiResult.primaryAttributes.number_of_burners,
       openaiResult.confidence,
       xaiResult.confidence,
       ''
     ),
     burnerCount: preferAIValue(
-      consensus.agreedPrimaryAttributes.number_of_burners,
-      openaiResult.primaryAttributes.number_of_burners,
-      xaiResult.primaryAttributes.number_of_burners,
+      consensus.agreedTop15Attributes?.number_of_burners || consensus.agreedPrimaryAttributes.number_of_burners,
+      openaiResult.top15Attributes?.number_of_burners || openaiResult.primaryAttributes.number_of_burners,
+      xaiResult.top15Attributes?.number_of_burners || xaiResult.primaryAttributes.number_of_burners,
       openaiResult.confidence,
       xaiResult.confidence,
       ''

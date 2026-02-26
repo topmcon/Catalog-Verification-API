@@ -927,17 +927,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 7,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Unitized Electric All in One Washer / Dryer Finish - Model",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Model Number}",
+    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Unitized Electric All in One Washer / Dryer - Model",
     "seoNotes": "Combined capacity and width for space planning. Type = Unitized, Front Load, Top Load. Fuel Type = Gas, Electric."
   },
   "dryer": {
@@ -979,17 +974,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 7,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "GE 7.5 Cu. Ft. 27-Inch Front Load Electric Dryer White - GTD75ECSLWS",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Model Number}",
+    "exampleTitle": "GE 7.5 Cu. Ft. 27-Inch Front Load Electric Dryer - GTD75ECSLWS",
     "seoNotes": "Capacity matches washer, width for space planning. Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas."
   },
   "standalone_pedestal": {
@@ -1067,17 +1057,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer Finish - Model",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Model Number}",
+    "exampleTitle": "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer - Model",
     "seoNotes": "Capacity determines load size. Type = Front Load, Top Load, Unitized."
   },
   "home_electronics": {
