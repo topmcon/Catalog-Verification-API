@@ -26,6 +26,7 @@
 | AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | aa545f3 | #016 |
 | AI extracting cutout dimensions instead of nominal | Add AI prompt guidance to distinguish cutout/nominal/overall dimensions, prefer model number for nominal | 29acc80 | #017 |
 | Type slot duplicate in Category (title generation) | Skip Type slot if value is substring of Category name | 29acc80 | #017 |
+| Dimension guidance not triggering (detection logic bug) | Check multiple fields with OR logic, fix regex pattern, add debug logging | 79e17c5 | #017-A |
 
 ---
 
@@ -2206,6 +2207,125 @@ When Category name contains Type value, skip redundant slots to avoid duplicatio
 3. `src/services/smart-field-inference.service.ts` (+101 lines)
 
 **Deployed:** ✅ LIVE in production (all 3 environments synced)
+
+### 🔴 HOTFIX REQUIRED: Detection Logic Bug (Finding #017-A)
+
+**Discovered:** 2026-02-26 (same day, ~4 hours after initial deployment)  
+**Status:** ✅ FIXED (commit 79e17c5)  
+**Priority:** CRITICAL
+
+**Symptom After Initial Fix:**
+Re-testing HESTAN and COYOTE showed **SAME failures** - dimension guidance was NOT being applied:
+- HESTAN: Still showing "34-Inch" (not fixed)
+- COYOTE: Still showing "33-Inch" (not fixed)
+- Production logs: NO entries for "dimension guidance triggered"
+
+**Root Cause Investigation:**
+
+Checked production logs - found the `buildDimensionGuidance()` function was **never executing**. The detection logic had TWO bugs:
+
+**Bug 1: Wrong Field Detection**
+```typescript
+// ORIGINAL CODE (commit 29acc80):
+const category = rawProduct.Web_Retailer_Category?.toLowerCase() || '';
+const department = rawProduct.Ferguson_Base_Category?.toLowerCase() || '';
+
+const isOutdoorBuiltIn = 
+  department.includes('outdoor') &&  // ❌ Required "Appliances" to contain "outdoor"
+  (category.includes('drawer') || ...);  // ❌ Required "Outdoor" to contain "drawer"
+
+// ACTUAL DATA for HESTAN/COYOTE:
+Ferguson_Base_Category: "Appliances"  // ❌ No "outdoor"
+Web_Retailer_Category: "Outdoor"     // ❌ No "drawer"
+Result: isOutdoorBuiltIn = FALSE → function returned empty string
+```
+
+**Bug 2: Wrong Regex Capture Group**
+```typescript
+// ORIGINAL CODE:
+const modelMatch = modelNumber.match(/[A-Z]+(\d{2,3})(?:[A-Z]{2})?$/i);
+nominalWidthHint = `...${modelMatch[1]} inches`;  // ❌ Captured group [1]
+
+// For "AGSR36WH":
+// Groups: [0]="AGSR36WH", [1]="36", but pattern failed to match due to $ anchor
+// Result: modelMatch = null → no hint provided
+```
+
+**Hotfix Applied (commit 79e17c5):**
+
+**Fix 1: Enhanced Detection Logic**
+```typescript
+// Check FIVE fields instead of two:
+const category = rawProduct.Web_Retailer_Category?.toLowerCase() || '';
+const subcategory = rawProduct.Web_Retailer_SubCategory?.toLowerCase() || '';
+const department = rawProduct.Ferguson_Base_Category?.toLowerCase() || '';
+const productTitle = rawProduct.Product_Title_Web_Retailer?.toLowerCase() || '';
+const description = rawProduct.Product_Description_Web_Retailer?.toLowerCase() || '';
+
+// OR logic - outdoor found in ANY field:
+const hasOutdoor = 
+  category.includes('outdoor') ||     // ✅ "Outdoor" matches
+  subcategory.includes('outdoor') ||
+  department.includes('outdoor') ||
+  productTitle.includes('outdoor') ||  // ✅ "36\" Hestan Outdoor..." matches
+  description.includes('outdoor');
+
+// OR logic - built-in found in multiple fields:
+const isBuiltInProduct = 
+  category.includes('drawer') || 
+  subcategory.includes('drawer') ||    // ✅ "Drawer" matches
+  productTitle.includes('storage drawer') || // ✅ Matches
+  description.includes('built-in') ||
+  category.includes('outdoor kitchen'); // ✅ "Outdoor Kitchen" matches
+
+const isOutdoorBuiltIn = hasOutdoor && isBuiltInProduct; // ✅ TRUE
+```
+
+**Fix 2: Corrected Regex Pattern**
+```typescript
+// NEW CODE:
+const modelMatch = modelNumber.match(/([A-Z]+)(\d{2,3})([A-Z]*)/i);
+nominalWidthHint = `...${modelMatch[2]} inches`;  // ✅ Capture group [2]
+
+// For "AGSR36WH":
+// Groups: [0]="AGSR36WH", [1]="AGSR", [2]="36", [3]="WH"
+// Result: "36" correctly extracted ✅
+```
+
+**Fix 3: Added Debug Logging**
+```typescript
+logger.info('🎯 Dimension guidance triggered for outdoor built-in product', {
+  modelNumber,
+  category,
+  subcategory,
+  title: rawProduct.Product_Title_Web_Retailer
+});
+```
+
+**Hotfix Deployment:**
+- **Commit:** 79e17c5
+- **Files Modified:** `src/services/ai-prompt-builder.service.ts` (+36 lines, -10 lines)
+- **Deployed:** ✅ LIVE (2026-02-26, ~6 PM EST)
+- **Status:** ALL SYNCED
+
+**Critical Lesson Learned:**
+
+⚠️ **ALWAYS check actual incoming data structure before writing detection logic**
+
+The original implementation assumed:
+- `Ferguson_Base_Category` would contain "Outdoor" (it contains "Appliances")
+- `Web_Retailer_Category` would contain "Drawer" (it contains "Outdoor")
+
+**Best Practice for Detection Logic:**
+1. Use multiple data sources (category, subcategory, title, description)
+2. Use OR logic (match ANY field, not all)
+3. Add logging to verify detection triggers
+4. Test with real production data, not assumptions
+
+**Re-Test Required:**
+- HESTAN AGSR36WH → Should now show "36-Inch"
+- COYOTE C3SSD → Should now show "32-Inch"
+- Production logs should show: "🎯 Dimension guidance triggered"
 
 ---
 
