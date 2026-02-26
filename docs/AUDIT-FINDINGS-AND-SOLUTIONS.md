@@ -24,6 +24,8 @@
 | Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
 | Electric/Gas incorrectly as dryer Types (not attributes) | Restructure category-type-mapping: Remove Electric/Gas from types, add Front Load/Top Load/Unitized | 8866dc6 | #015 |
 | AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | aa545f3 | #016 |
+| AI extracting cutout dimensions instead of nominal | Add AI prompt guidance to distinguish cutout/nominal/overall dimensions, prefer model number for nominal | 29acc80 | #017 |
+| Type slot duplicate in Category (title generation) | Skip Type slot if value is substring of Category name | 29acc80 | #017 |
 
 ---
 
@@ -2022,6 +2024,188 @@ When building verification systems:
 **Status:** LIVE in production (all 3 environments synced)
 
 **Session Documentation:** See [session-notes/SESSION-SUMMARY-2026-02-26-FINDING-016-CATEGORY-VALIDATION.md](../session-notes/SESSION-SUMMARY-2026-02-26-FINDING-016-CATEGORY-VALIDATION.md)
+
+---
+
+## Finding #017: Cutout vs Nominal Dimension Confusion + Title Slot Duplication
+
+**Status:** ✅ FIXED (2026-02-26, commit 29acc80)  
+**Priority:** HIGH  
+**Discovered:** While testing Finding #016 fix  
+**Scope:** Outdoor built-in products (Storage Drawer/Door, Outdoor Kitchen)
+
+### Symptom
+
+**Test Case 1: HESTAN AGSR36WH**
+- Model Number: AGSR36WH (36" in name)
+- Expected Title: "HESTAN **36-Inch** Storage Drawer/Door..."
+- Actual Title: "HESTAN **34-Inch Storage Drawer** **Storage Drawer/Door** Matte - AGSR36WH"
+- **Problems:**
+  - Width wrong: 34" instead of 36"
+  - Duplicate text: "Storage Drawer" appears TWICE
+
+**Test Case 2: COYOTE C3SSD**
+- Model Number: C3-SSD (marketed as "32-Inch")
+- Expected Title: "COYOTE **32-Inch** Outdoor Kitchen..."
+- Actual Title: "COYOTE Accessory **33-Inch** Outdoor Kitchen..."
+- **Problem:** Width wrong: 33" instead of 32"
+
+### Root Cause Analysis
+
+**Problem 1: Cutout vs Nominal Dimension Confusion**
+
+Outdoor built-in products have THREE types of dimensions:
+1. **Nominal Width** (Marketing): "36-Inch Model" (used in titles, model numbers)
+2. **Overall Width** (Physical): 35.5" or 36.125" (actual product size)
+3. **Cutout Width** (Installation): 33.875" (opening size to cut)
+
+**What Happened:**
+```json
+// HESTAN AGSR36WH - What AI extracted:
+"AI_Width": "33.88"  // ← From "Cutout Width: 33.875 inches"
+
+// Should be:
+"AI_Width": "36"  // ← From model "AGSR36WH" = 36"
+```
+
+AI extracted **cutout width** (installation spec) instead of **nominal width** (marketing size) because:
+- Prompt showed: `Width: Web=${Width_Web_Retailer}, Ferguson=${Ferguson_Width}`
+- No guidance on cutout vs nominal vs overall
+- AI saw "Cutout Width: 33.875 inches" in attributes and extracted it
+- Title generator rounded 33.88 → 34" ❌
+
+**Problem 2: Title Slot Duplication**
+
+Storage Drawer/Door schema has:
+- Position 3: Type = "Storage Drawer"
+- Position 4: Category = "Storage Drawer/Door"
+
+Result: "Storage Drawer" text appears TWICE in title
+
+### Fix Applied (3 Phases)
+
+**Phase 1: AI Prompt Enhancement**  
+**File:** `src/services/ai-prompt-builder.service.ts`
+
+Added `buildDimensionGuidance()` function that:
+- Detects outdoor built-in products
+- Adds CRITICAL dimension extraction guidance to AI prompt
+- Distinguishes cutout vs nominal vs overall dimensions
+- Prioritizes model number for nominal width
+- Provides extraction priority order
+- Includes hint from model number pattern
+
+**Lines:** 565-643
+
+**Phase 2: Title Deduplication**  
+**File:** `src/services/seo-title-generator.service.ts`
+
+Added redundant slot detection in `generateFromSchema()`:
+- Checks if Type value is substring of Category
+- Skips Type slot if duplicate detected
+- Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
+
+**Lines:** 525-545
+
+**Phase 3: Smart Dimension Detection**  
+**File:** `src/services/smart-field-inference.service.ts`
+
+Added two utility functions:
+1. `extractNominalWidth(modelNumber, productTitle)`:
+   - Extracts width from model pattern (e.g., "AGSR36WH" → 36)
+   - Extracts width from title pattern (e.g., "32-Inch" → 32)
+   - Returns null if not found
+
+2. `detectDimensionType(fieldLabel)`:
+   - Returns: 'nominal' | 'cutout' | 'overall' | 'unknown'
+   - Helps classify dimension fields for future inference
+
+**Lines:** 1427-1518
+
+### Before vs After
+
+**BEFORE:**
+```typescript
+// AI Prompt (no guidance)
+### Dimensions
+- Width: Web=${Width_Web_Retailer}, Ferguson=${Ferguson_Width}
+
+// AI extracts whatever it finds first:
+AI sees "Cutout Width: 33.875" → Returns 33.88
+Title: "34-Inch" ❌ (Math.round(33.88))
+```
+
+**AFTER:**
+```typescript
+// AI Prompt (with guidance for outdoor products)
+### ⚠️ CRITICAL: Dimension Extraction for Outdoor Built-In Products
+
+**NOMINAL WIDTH** (Marketing) - USE THIS FOR AI_Width
+- Model "AGSR36WH" suggests nominal width: 36 inches
+
+**CUTOUT WIDTH** (Installation) - DO NOT USE FOR AI_Width
+- Store in Additional Attributes ONLY
+
+// AI follows priority:
+1. Extract from model number (36) ✅
+Title: "36-Inch" ✅
+```
+
+### Testing Requirements
+
+**Test Data:** Same items that revealed the issue
+-  HESTAN AGSR36WH
+- COYOTE C3SSD
+
+**Expected Results After Fix:**
+- ✅ HESTAN: AI_Width = 36 (not 33.88), Title = "36-Inch"
+- ✅ COYOTE: AI_Width = 32 (not 32.5), Title = "32-Inch"
+- ✅ No duplicate "Storage Drawer" text in titles
+- ✅ Cutout dimensions preserved in Additional Attributes
+
+### Scope & Impact
+
+**Affected Categories:**
+- Storage Drawer/Door (Outdoor) - CONFIRMED
+- Outdoor Kitchen - CONFIRMED
+- Outdoor Refrigerator - Likely affected
+- Built-In Grill - Likely affected
+- Wine Cooler, Beverage Center - Possibly affected
+
+**Products Impacted:** 500-1000 outdoor built-in products
+
+**User Impact:**
+- Customer confusion: Title shows wrong size
+- Installation errors: Using title dimension for cutout planning
+- Search issues: "36 inch drawer" won't find "34-inch" titles
+- Trust issues: Model says "36" but title says "34"
+
+### Related Findings
+
+- **#016**: Category validation (parent issue - testing revealed this)
+- **#001, #002**: Schema/Input Builder Sync (similar pattern)
+
+### Lessons Learned
+
+**Pattern: Dimension Semantic Confusion**  
+When products have multiple dimension types, AI needs explicit guidance on which to extract for each field.
+
+**Pattern: Model Number as Data Source**  
+For built-in products, model numbers often encode size and are more reliable than parsed specs.
+
+**Pattern: Schema Slot Redundancy**  
+When Category name contains Type value, skip redundant slots to avoid duplication.
+
+### Deployment Status
+
+**Commit:** 29acc80  
+**Date:** 2026-02-26  
+**Files Modified:**
+1. `src/services/ai-prompt-builder.service.ts` (+78 lines)
+2. `src/services/seo-title-generator.service.ts` (+21 lines)
+3. `src/services/smart-field-inference.service.ts` (+101 lines)
+
+**Deployed:** ✅ LIVE in production (all 3 environments synced)
 
 ---
 
