@@ -705,7 +705,7 @@
       "category_name": "Dryer",
       "category_id": "a01Hu000010Q5EjIAK",
       "filter_label": "Dryer Type",
-      "logic": "Loading configuration and features. Fuel type (Electric/Gas) is an attribute, not a type",
+      "logic": "Loading configuration only. Type = physical structure (Front Load, Top Load, Unitized). Fuel Type = attribute (Gas/Electric/Heat Pump). Vent Type = attribute (Vented/Ventless). Size characteristics = attributes (Width for Compact).",
       "types": [
         {
           "type_name": "Front Load",
@@ -725,41 +725,6 @@
           "type_name": "Unitized",
           "type_id": "a1jaZ000001lFCaQAM",
           "type_group": "Configuration",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Stackable",
-          "type_id": "a1jaZ000001lFBHQA2",
-          "type_group": "Configuration",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
-          "type_group": "Size",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Heat Pump",
-          "type_id": "a1jaZ000001lF7CQAU",
-          "type_group": "Technology",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Ventless",
-          "type_id": "a1jaZ000001lFCkQAM",
-          "type_group": "Venting",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Vented",
-          "type_id": "a1jaZ000001lFCjQAM",
-          "type_group": "Venting",
           "status": "existing",
           "primary_filter": true
         },
@@ -806,7 +771,7 @@
       "category_name": "Washer",
       "category_id": "a01Hu000010Q5EsIAK",
       "filter_label": "Washer Type",
-      "logic": "Loading configuration",
+      "logic": "Loading configuration only. Type = physical structure (Front Load, Top Load, Unitized). Other characteristics = attributes (Stackable, Compact via Width, Portable).",
       "types": [
         {
           "type_name": "Front Load",
@@ -823,25 +788,6 @@
         {
           "type_name": "Unitized",
           "type_id": "a1jaZ000001lFCaQAM",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Stackable",
-          "type_id": "a1jaZ000001lFBHQA2",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Portable",
-          "type_id": "a1jaZ000001lF8SQAU",
-          "type_group": "Configuration",
           "status": "existing",
           "primary_filter": true
         },

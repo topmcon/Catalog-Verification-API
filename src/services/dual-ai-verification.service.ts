@@ -3607,6 +3607,29 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `For Faucets, check handle count and spray type:\n`;
       typeSelectionGuide += `  - Look for "Single Handle", "Two Handle", "Widespread"\n`;
       typeSelectionGuide += `  - Check for "Pull-Down", "Pull-Out" spray configurations\n`;
+    } else if (categoryLower.includes('dryer') || categoryLower.includes('washer')) {
+      typeSelectionGuide += `For ${determinedCategory}, **Type = LOADING CONFIGURATION ONLY** (how you load clothes):\n`;
+      typeSelectionGuide += `  ⚠️ **CRITICAL DISTINCTION**:\n`;
+      typeSelectionGuide += `    • **Type** = Physical structure: Front Load, Top Load, or Unitized\n`;
+      typeSelectionGuide += `    • **Fuel Type** = Power source: Gas, Electric, Heat Pump (THIS IS AN ATTRIBUTE, NOT A TYPE!)\n`;
+      typeSelectionGuide += `    • **Vent Type** = Venting: Vented, Ventless (THIS IS AN ATTRIBUTE, NOT A TYPE!)\n`;
+      typeSelectionGuide += `    • **Size** = Compact, Stackable (THESE ARE ATTRIBUTES, NOT TYPES!)\n\n`;
+      typeSelectionGuide += `  **Decision Process**:\n`;
+      typeSelectionGuide += `    1. Look for loading configuration keywords:\n`;
+      typeSelectionGuide += `       - "Front Load" / "Front Loading" → Front Load\n`;
+      typeSelectionGuide += `       - "Top Load" / "Top Loading" → Top Load\n`;
+      typeSelectionGuide += `       - "Unitized" / "Laundry Center" / "Stacked" / "All-in-One" → Unitized\n`;
+      typeSelectionGuide += `    2. **IGNORE these when selecting Type** (they are separate attributes):\n`;
+      typeSelectionGuide += `       - ❌ "Gas" / "Electric" / "Heat Pump" → DO NOT use as Type\n`;
+      typeSelectionGuide += `       - ❌ "Vented" / "Ventless" / "Condenser" → DO NOT use as Type\n`;
+      typeSelectionGuide += `       - ❌ "Compact" / "Stackable" / "Portable" → DO NOT use as Type\n`;
+      typeSelectionGuide += `    3. If loading configuration not explicitly stated:\n`;
+      typeSelectionGuide += `       - Check dimensions: Wide/standard = Front Load, Narrow/tall = Top Load\n`;
+      typeSelectionGuide += `       - Default to Front Load for modern appliances if unclear\n\n`;
+      typeSelectionGuide += `  **Example Mappings**:\n`;
+      typeSelectionGuide += `    • "27-Inch Gas Front Load Dryer" → Type: Front Load, Fuel Type: Gas (attribute)\n`;
+      typeSelectionGuide += `    • "Top Load Electric Washer" → Type: Top Load, Fuel Type: Electric (attribute)\n`;
+      typeSelectionGuide += `    • "Ventless Heat Pump Dryer" → Type: Front Load, Vent Type: Ventless (attribute)\n`;
     } else if (categoryLower.includes('chandelier')) {
       typeSelectionGuide += `For Chandeliers, look for structural indicators:\n`;
       typeSelectionGuide += `  - "Tier" / "Tiered" / number of tiers\n`;
@@ -3677,12 +3700,13 @@ You MUST extract these attributes from product descriptions based on category:
 
 **APPLIANCES** (Cooktop, Range, Oven, Dishwasher, Refrigerator, Microwave, Washer, Dryer):
 - Width (inches): Standard sizes are 24", 27", 30", 36", 48"
-- Fuel Type: Gas, Electric, Induction, Dual Fuel (CRITICAL - customers need this!)
+- Fuel Type: Gas, Electric, Induction, Dual Fuel, Heat Pump (CRITICAL - customers need this!)
 - Number of Burners: For cooktops/ranges (4, 5, 6 burners)
 - Capacity: Cu. Ft. for refrigerators/ovens/washers/dryers
 - Place Settings: For dishwashers (12, 14, 16 place settings)
 - Control Type: For dishwashers (Top Control, Front Control)
 - Installation Type: Built-In, Freestanding, Slide-In, Drop-In, Counter-Depth
+- ⚠️ For Washer/Dryer: Type = Loading configuration (Front Load, Top Load, Unitized) ONLY - NOT fuel/venting!
 
 **RANGE HOODS**:
 - CFM: Airflow rating (CRITICAL - 100% of competitor titles include this!)
