@@ -330,6 +330,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Width (Inches)",
         "required": false,
         "format": "{value}-Inch"
@@ -482,6 +487,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Capacity (Cu. Ft.)",
         "required": false
       },
@@ -614,6 +624,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -1160,6 +1175,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Plank Width (Inches)",
         "required": false
       },
@@ -1198,6 +1218,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -1467,6 +1492,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Length (Inches)",
         "required": false
       },
@@ -1508,6 +1538,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Width (Inches)",
         "required": false
       },
@@ -1546,6 +1581,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -1816,6 +1856,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Diameter (Inches)",
         "required": false
       },
@@ -1931,6 +1976,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -2708,36 +2758,41 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Diameter (Inches)",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Collection",
+        "attribute": "Diameter (Inches)",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Style",
+        "attribute": "Collection",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Style",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Diameter (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
+    "template": "{Brand} {Type} {Diameter (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 30-Inch Luxury Cabinet Knob Finish - Model",
     "seoNotes": "Premium segment. Diameter + collection/style."
   },
@@ -2754,36 +2809,41 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Length (Inches)",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Collection",
+        "attribute": "Length (Inches)",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Style",
+        "attribute": "Collection",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Style",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Length (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
+    "template": "{Brand} {Type} {Length (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 30-Inch Luxury Cabinet Pull Finish - Model",
     "seoNotes": "Premium segment. Length + collection/style."
   },
@@ -3123,6 +3183,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "GPM/BTU",
         "required": false
       },
@@ -3161,6 +3226,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -3243,6 +3313,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -3622,6 +3697,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -4091,6 +4171,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Size (W×L)",
         "required": false
       },
@@ -4252,6 +4337,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -4424,6 +4514,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Width (Inches)",
         "required": false
       },
@@ -4552,6 +4647,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Blade Span (Inches)",
         "required": false
       },
@@ -4590,6 +4690,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -4900,6 +5005,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Height (Inches)",
         "required": false
       },
@@ -5020,6 +5130,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -5284,6 +5399,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Width (Inches)",
         "required": false
       },
@@ -5327,6 +5447,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -5967,6 +6092,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -6643,6 +6773,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Power (kW)",
         "required": false
       },
@@ -6982,36 +7117,41 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Width (Inches)",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Bowl Config",
+        "attribute": "Width (Inches)",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Material",
+        "attribute": "Bowl Config",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Material",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Bowl Config} {Material} {Category} {Finish} {Model Number}",
+    "template": "{Brand} {Type} {Width (Inches)} {Bowl Config} {Material} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 30-Inch Bar & Prep Sink Finish - Model",
     "seoNotes": "Smaller than kitchen sink. Bowl = Single, Double."
   },
@@ -7119,6 +7259,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
@@ -7328,6 +7473,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 2,
         "attribute": "Width (Inches)",
         "required": false
       },
@@ -7371,6 +7521,11 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "position": 1,
         "attribute": "Brand",
         "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 2,
