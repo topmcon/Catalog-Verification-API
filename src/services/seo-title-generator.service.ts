@@ -594,7 +594,25 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   const parts: string[] = [];
   
   // Sort slots by position
-  const sortedSlots = [...schema.slots].sort((a, b) => a.position - b.position);
+  let sortedSlots = [...schema.slots].sort((a, b) => a.position - b.position);
+  
+  // ACCESSORY TITLE FIX: For accessory products, reorder to put Category after Brand
+  // Natural flow: "BRAND Category Width Subtype Finish - Model" 
+  // Example: "THERMADOR Refrigerator 18-Inch Panel Kit Stainless Steel - TFL18IR800"
+  const isAccessory = input.type?.toLowerCase() === 'accessory';
+  if (isAccessory) {
+    // Move Category slot to position 2 (after Brand)
+    const categorySlotIndex = sortedSlots.findIndex(s => s.attribute === 'Category');
+    if (categorySlotIndex > 0) {
+      const [categorySlot] = sortedSlots.splice(categorySlotIndex, 1);
+      // Insert after Brand (position 0)
+      sortedSlots.splice(1, 0, categorySlot);
+      logger.info('Reordered slots for accessory title - Category moved after Brand', {
+        category: schema.categoryName,
+        type: input.type
+      });
+    }
+  }
   
   // Debug logging for dishwashers
   if (schema.categoryName === 'Dishwasher') {
@@ -643,6 +661,17 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
           rawTitle: input.rawTitle
         });
       }
+    }
+    
+    // ACCESSORY TITLE FIX: Never include the word "Accessory" in titles
+    // Skip any slot where value is "Accessory" (Type slot already handled above with subtype)
+    if (formattedValue?.toString().toLowerCase() === 'accessory') {
+      logger.info('Skipping slot with "Accessory" value - word should not appear in title', {
+        slotAttribute: slot.attribute,
+        value: formattedValue,
+        category: schema.categoryName
+      });
+      continue;
     }
     
     // Apply slot format template if specified AND no ATTRIBUTE_FORMATTERS entry exists
