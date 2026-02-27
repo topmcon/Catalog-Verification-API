@@ -31,6 +31,13 @@
 | Placeholder SF IDs in types.json | Use PendingCreationRequest fulfillment workflow to get real IDs | c728ef0 | #019 |
 | Redundant type_id fields in category-type-mapping | Remove unused fields, update interface | c728ef0 | #019 |
 | Category ID mismatch between files | Fix via validation script check #10 | c728ef0 | #019 |
+| Icemaker miscategorized as Freezer | AI override logic - independently determine category, don't validate SF | 8472c28 | #020 |
+| Dual-capability icemakers (Undercounter/Freestanding) | Add type selection priority guide, remove Freestanding from icemaker types | 8472c28 | #020 |
+| Accessory titles too generic (only 20 patterns) | Expand to 120+ patterns, add Type slot to all 177 schemas | 45f9294 | #021, #013 |
+| Panel Kit vs Panel-Ready confusion | Add explicit AI guidance distinguishing accessory from type | b1cb696 | #021 |
+| Accessory word appearing in titles | Skip "Accessory" value in title generation, show specific subtype | 992487c | #021 |
+| Non-SF types in selection lists (pending IDs) | Remove pending_salesforce_id types, AI must use existing SF values only | d4649e0 | #022 |
+| Capacity position in titles suboptimal | Move Capacity to end of all title templates (after Finish) | 30a8b28 | #023 |
 
 ---
 
@@ -2900,6 +2907,302 @@ Successfully tested the PendingCreationRequest fulfillment workflow:
 
 ---
 
+## Finding #020: Icemaker Miscategorized as Freezer - AI Override Logic
+
+**Discovered:** Feb 27, 2026  
+**Status:** ✅ FIXED  
+**Commit:** `8472c28` (series of commits this session)  
+**Severity:** 🔴 HIGH (incorrect categorization)  
+**Scope:** dual-ai-verification.service.ts, category-type-mapping.json
+
+### Discovery Context
+
+User reported that icemaker products were being categorized as "Freezer" by the verification system. Investigation revealed Salesforce was sending `Web_Retailer_Category: Freezer` for these products, and the AI was validating SF's incorrect category instead of independently determining the correct one.
+
+### Root Cause
+
+1. **AI prompt said "validate"** - AI was treating SF's category as authority
+2. **Icemaker type guidance missing** - No guidance for dual-capability products (Undercounter OR Freestanding)
+3. **Freestanding available as Icemaker type** - Invalid option was selectable
+
+### Fix Applied
+
+**1. AI Override Logic (dual-ai-verification.service.ts):**
+```typescript
+// BEFORE:
+"Verify the category matches based on product details"
+
+// AFTER:
+"Independently determine the correct category. DO NOT simply validate 
+what Salesforce provided - determine the correct category yourself 
+based on the product."
+```
+
+**2. Icemaker Type Guidance Added:**
+```typescript
+typeSelectionGuide += `For Icemakers, **Type = INSTALLATION METHOD** (how it's installed):\n\n`;
+typeSelectionGuide += `⚠️ **CRITICAL**: Many ice makers support BOTH undercounter and freestanding installation.\n`;
+typeSelectionGuide += `When BOTH are mentioned, use these rules to determine PRIMARY type:\n\n`;
+typeSelectionGuide += `**Decision Priority Order:**\n`;
+typeSelectionGuide += `  1. **"ADA" or "ADA Compliant" mentioned** → Type: Undercounter\n`;
+typeSelectionGuide += `  2. **"Panel Ready" or "Custom Panel" mentioned** → Type: Undercounter\n`;
+typeSelectionGuide += `  3. **"Outdoor" mentioned** → Type: Undercounter (typically built into outdoor kitchens)\n`;
+typeSelectionGuide += `  4. **"Portable" or "Countertop" mentioned** → Type: Portable\n`;
+typeSelectionGuide += `  5. **"Built-In" or "Undercounter" appears FIRST in title** → Type: Undercounter\n`;
+typeSelectionGuide += `  6. **Both equally mentioned, no other clues** → Default to Undercounter\n`;
+```
+
+**3. Remove Freestanding from Icemaker (category-type-mapping.json):**
+```json
+// BEFORE:
+"Icemaker": ["Undercounter", "Freestanding", "Portable", "Built-In"]
+
+// AFTER:
+"Icemaker": ["Undercounter", "Portable", "Built-In"]
+```
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `dual-ai-verification.service.ts` | AI category independence, icemaker type guidance |
+| `category-type-mapping.json` | Removed Freestanding from Icemaker |
+
+### Key Lesson
+
+**Pattern:** AI must independently determine categories, not just validate SF's possibly incorrect data.
+
+**Best Practice:**
+- AI prompts should explicitly say "determine" not "validate"
+- For dual-capability products, add explicit priority order guidance
+- Remove invalid type options proactively
+
+---
+
+## Finding #021: Accessory Title & Schema Overhaul
+
+**Discovered:** Feb 27, 2026  
+**Status:** ✅ FIXED  
+**Commits:** `0e05544`, `93b5490`, `45f9294`, `3b93fb3`, `992487c`, `b1cb696`, `8472c28`  
+**Severity:** 🟡 MEDIUM (title quality)  
+**Scope:** seo-title-generator.service.ts, title-schema-by-category.ts, dual-ai-verification.service.ts
+
+### Discovery Context
+
+Multiple issues with accessory products discovered in testing:
+1. Accessory titles showed generic "Accessory" instead of specific subtype
+2. Only 20 accessory patterns existed - many accessories fell back to generic
+3. 31 category schemas were missing the Type slot (broke accessory extraction)
+4. Slot ordering was suboptimal for accessories
+5. AI confused "Panel Kit" (accessory) with "Panel-Ready" (refrigerator type)
+
+### Root Cause
+
+**Finding #013 (original accessory fix)** only addressed ~20 patterns. Real-world accessory diversity is much greater (panel kits, trim kits, installation kits, filters, drawers, etc.).
+
+### Fix Applied
+
+**1. Expanded extractAccessorySubtype() to 120+ Patterns:**
+```typescript
+// Categories of patterns added:
+// - Refrigerator: Panel Kit, Ice Maker Kit, Water Filter, Door Handle Set, Shelf Assembly
+// - Dishwasher: Rack Extension, Silverware Basket, Door Panel Kit
+// - Washer/Dryer: Pedestal, Stacking Kit, Drain Hose
+// - Range/Oven: Griddle, Grate Set, Knob Kit
+// - General: Hardware Kit, Installation Kit, Conversion Kit
+// Total: 120+ specific patterns
+```
+
+**2. Type Slot Added to All 177 Schemas:**
+```typescript
+// 31 schemas were missing Type slot:
+// Bath Fan, Bathroom Safety, Bathroom Vanity Light, Bidet,
+// Cabinet Hardware, Carpet, Carpet Pad, Ceiling Fan, Ceiling Fan Light Kit,
+// Central Vacuum, Countertop, Exterior Door, Flooring Accessory,
+// Freestanding Tub, Garage Door Opener, Handheld Shower, Hardwood Flooring,
+// Interior Door, Kitchen Faucet, Laminate Flooring, Lawn Mower,
+// Outdoor Lighting, Power Tool Accessory, Radiant Heating,
+// Refrigerator Filter, Smart Home Device, Solar Panel,
+// Tile, Toilet Accessory, Undercabinet Lighting, Vinyl Flooring/LVT,
+// Water Softener
+
+// Each got Type slot added for universal accessory handling
+```
+
+**3. Accessory Slot Reordering:**
+```typescript
+// Custom order for accessories:
+const accessorySlotOrder = ['Brand', 'Width', 'Category', 'Finish', 'Type', 'Model'];
+// Example output: "JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL"
+```
+
+**4. Skip "Accessory" Word in Titles:**
+```typescript
+// If slot value is exactly "Accessory", skip it
+if (value === 'Accessory') {
+  continue;
+}
+// Let the specific subtype (Panel Kit, Ice Maker, etc.) appear instead
+```
+
+**5. AI Guidance for Panel Kit vs Panel-Ready:**
+```typescript
+typeSelectionGuide += `⚠️ **CRITICAL DISTINCTION**:\n`;
+typeSelectionGuide += `    • "Panel Kit" = ACCESSORY (a kit/panels sold separately for panel-ready appliances)\n`;
+typeSelectionGuide += `    • A refrigerator that IS panel-ready uses its door configuration as Type (French Door, Column, etc.)\n`;
+typeSelectionGuide += `    If title says "Panel Kit for..." → It's an ACCESSORY!\n\n`;
+```
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `seo-title-generator.service.ts` | 120+ patterns, slot reordering, "Accessory" word skip |
+| `title-schema-by-category.ts` | Type slot added to 31 schemas |
+| `dual-ai-verification.service.ts` | Panel Kit vs Panel-Ready guidance |
+
+### Title Format Comparison
+
+| Before | After |
+|--------|-------|
+| `JENNAIR 18-Inch Accessory Refrigerator` | `JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL` |
+| `SAMSUNG 36-Inch Accessory Refrigerator` | `SAMSUNG 36-Inch Refrigerator Fingerprint Resistant Ice Maker Kit` |
+
+### Key Lesson
+
+**Pattern:** Accessory products require special handling throughout the pipeline.
+
+**Best Practice:**
+- Universal Type slot enables accessory detection in any category
+- Specific subtype extraction improves title quality significantly
+- AI needs explicit guidance to distinguish accessories from product types
+
+---
+
+## Finding #022: Non-SF Types Must Be Removed (AI Cannot Create)
+
+**Discovered:** Feb 27, 2026  
+**Status:** ✅ FIXED  
+**Commit:** `d4649e0`  
+**Severity:** 🟡 MEDIUM (data integrity)  
+**Scope:** category-type-mapping.json, type-matcher.service.ts, dual-ai-verification.service.ts
+
+### Discovery Context
+
+User identified that several types were added to the Refrigerator type list that don't exist in Salesforce:
+- Counter Depth (pending_salesforce_id)
+- Single Door (pending_salesforce_id)
+- Panel-Ready (pending_salesforce_id)
+
+**Key Principle:** AI cannot create new picklist values. It MUST only select from existing SF values.
+
+### Root Cause
+
+Types were added with `pending_salesforce_id` status before SF IDs were obtained. These were left in the type list, allowing AI to potentially select invalid values.
+
+### Fix Applied
+
+**1. Removed from category-type-mapping.json:**
+```json
+// REMOVED from Refrigerator types:
+{ "type_name": "Counter Depth", "status": "pending_salesforce_id" }
+{ "type_name": "Single Door", "status": "pending_salesforce_id" }
+{ "type_name": "Panel-Ready", "status": "pending_salesforce_id" }
+```
+
+**2. Removed Keyword Mappings (type-matcher.service.ts):**
+```typescript
+// REMOVED:
+'counter depth': { 'Refrigerator': 'Counter Depth' },
+'counter-depth': { 'Refrigerator': 'Counter Depth' },
+'counterdepth': { 'Refrigerator': 'Counter Depth' },
+'panel ready': { 'Refrigerator': 'Panel-Ready' },
+'panel-ready': { 'Refrigerator': 'Panel-Ready' },
+'panelready': { 'Refrigerator': 'Panel-Ready' },
+'custom panel': { 'Refrigerator': 'Panel-Ready' },
+```
+
+**3. Updated AI Guidance (dual-ai-verification.service.ts):**
+```typescript
+// BEFORE:
+"Panel-Ready" = REFRIGERATOR TYPE (a refrigerator that accepts custom panels)
+
+// AFTER:
+A refrigerator that IS panel-ready uses its door configuration as Type (French Door, Column, etc.)
+// Panel-ready is now an attribute/feature, not a type
+```
+
+### Current Valid Refrigerator Types (12)
+
+French Door, Side-by-Side, Top-Freezer, Bottom-Freezer, Column, Undercounter, 4-Door Flex, Freestanding, Wine Cooler, Beverage Center, Kegerator, Accessory
+
+### Key Lesson
+
+**Pattern:** Only `status: "existing"` types should be selectable by AI.
+
+**Best Practice:**
+- Never add types with `pending_salesforce_id` to active type lists
+- Create types via fulfillment workflow FIRST, then add to lists
+- Keyword matchers must align with valid types only
+
+---
+
+## Finding #023: Capacity Position in Title Templates
+
+**Discovered:** Feb 27, 2026  
+**Status:** ✅ FIXED  
+**Commit:** `30a8b28`  
+**Severity:** 🟢 LOW (cosmetic/SEO preference)  
+**Scope:** title-schema-by-category.ts
+
+### Discovery Context
+
+User requested that Capacity should always appear at the end of titles (after Finish, before Model Number) for better readability.
+
+### Fix Applied
+
+Updated 13 category title templates:
+
+| Category | Old Position | New Position |
+|----------|--------------|--------------|
+| Beverage Center | Brand → Width → **Capacity** → Type | Brand → Width → Type → Category → Finish → **Capacity** → Model |
+| Coffee Maker | Brand → Type → **Capacity** → Category | Brand → Type → Category → Finish → **Capacity** → Model |
+| Freezer | Brand → **Capacity** → Width → Config | Brand → Width → Config → Category → Finish → **Capacity** → Model |
+| Microwave | Brand → **Capacity** → Width → Type | Brand → Width → Type → Category → Finish → **Capacity** → Model |
+| Refrigerator | Brand → **Capacity** → Width → ... | Brand → Width → Type → Install → Config → Category → Finish → **Capacity** → Model |
+| Wine Cooler | Brand → Width → **Capacity** → Type | Brand → Width → Type → Zone → Category → Finish → **Capacity** → Model |
+| All-in-One W/D | Brand → **Capacity** → Width → Type | Brand → Width → Type → Fuel → Category → **Capacity** → Model |
+| Dryer | Brand → **Capacity** → Width → Type | Brand → Width → Type → Fuel → Category → **Capacity** → Model |
+| Washer | Brand → **Capacity** → Width → Type | Brand → Width → Type → Category → **Capacity** → Model |
+| Water Heater | Brand → **Capacity** → Fuel → Category | Brand → Fuel → Category → Finish → **Capacity** → Model |
+| Dehumidifier | Brand → **Capacity** → Type → Category | Brand → Type → Category → Finish → **Capacity** → Model |
+| Hydronic Tank | Brand → **Capacity** → AC Rating | Brand → AC Rating → Category → Finish → **Capacity** → Model |
+| Water Dispenser | Brand → Type → **Capacity** → Category | Brand → Type → Category → Finish → **Capacity** → Model |
+
+### Title Format Comparison
+
+| Before | After |
+|--------|-------|
+| `Brand 28 Cu. Ft. 36-Inch French Door Refrigerator Stainless Steel` | `Brand 36-Inch French Door Refrigerator Stainless Steel 28 Cu. Ft.` |
+| `Brand 2.0 Cu. Ft. 30-Inch Over-the-Range Microwave` | `Brand 30-Inch Over-the-Range Microwave Finish 2.0 Cu. Ft.` |
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `title-schema-by-category.ts` | 13 template reorderings, 39 lines changed |
+
+### Key Lesson
+
+**Pattern:** Title slot ordering is a business/SEO decision.
+
+**Best Practice:**
+- Keep capacity, model number, and technical specs at end
+- Lead with Brand, Width, and primary category identifiers
+- Maintain consistency across similar category families
+
+---
+
 ## Testing Patterns
 
 ### Pattern: Title System Changes
@@ -2994,6 +3297,15 @@ Are you adding a new slot to a title schema?
 | e4d1dd6 | 2026-02-26 | ✨ ENHANCE | Add keyword mappings for Lighting, Toilet, Kitchen Faucet types (Finding #014 - Priority 2) |
 | 8866dc6 | 2026-02-26 | 🔧 REFACTOR | Laundry type restructure: Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes (Finding #015) |
 | c728ef0 | 2026-02-27 | 🔧 FIX | Data quality cleanup: 39 real SF IDs, removed redundant type_id fields, fixed Fire Pit ID, removed dead DEPARTMENTS (Finding #019) |
+| 0e05544 | 2026-02-27 | 🔧 FIX | Dependency validation fixes: keyword mappings, category cleanup (Finding #020/#022 prep) |
+| 93b5490 | 2026-02-27 | ✨ ENHANCE | Add Type slot to Refrigerator schema (Finding #021) |
+| 45f9294 | 2026-02-27 | ✨ ENHANCE | Add Type slot to all 31 remaining category schemas (Finding #021) |
+| 3b93fb3 | 2026-02-27 | 🔧 FIX | Swap Installation/Configuration order in Refrigerator schema |
+| 992487c | 2026-02-27 | 🔧 FIX | Remove "Accessory" word from titles, reorder slots for accessories (Finding #021) |
+| b1cb696 | 2026-02-27 | 🔧 FIX | Add refrigerator accessory detection guidance to AI prompt (Finding #021) |
+| 8472c28 | 2026-02-27 | 🔧 FIX | Icemaker type guidance, accessory slot order update (Finding #020/#021) |
+| 30a8b28 | 2026-02-27 | 🔧 FIX | Move Capacity to end of all title templates (Finding #023) |
+| d4649e0 | 2026-02-27 | 🔧 FIX | Remove non-SF types: Counter Depth, Single Door, Panel-Ready (Finding #022) |
 
 ---
 
@@ -3020,6 +3332,10 @@ Are you adding a new slot to a title schema?
 | 2026-02-26 | Copilot Session | Added Finding #015 (Laundry type restructure) - Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes - Commit 8866dc6 |
 | 2026-02-27 | Copilot Session | Added Finding #018 (OpenAI Stage 1/2 validation failures) - Stage-aware validation bug, response_format optimization issue - Pending implementation |
 | 2026-02-27 | Copilot Session | Added Finding #019 (Data Quality Cleanup) - 39 real SF IDs via fulfillment workflow, removed 957 redundant type_id fields, fixed Fire Pit ID, removed dead DEPARTMENTS code - Commit c728ef0 |
+| 2026-02-27 | Copilot Session | Added Finding #020 (Icemaker → Freezer miscategorization) - AI override logic, icemaker type guidance, Freestanding removed - Commit 8472c28 |
+| 2026-02-27 | Copilot Session | Added Finding #021 (Accessory Title Overhaul) - 120+ patterns, Type slot to 177 schemas, slot reordering, "Accessory" word skip - Multiple commits |
+| 2026-02-27 | Copilot Session | Added Finding #022 (Non-SF Types Removal) - Counter Depth, Single Door, Panel-Ready removed from Refrigerator - Commit d4649e0 |
+| 2026-02-27 | Copilot Session | Added Finding #023 (Capacity Position) - Moved Capacity to end of all title templates - Commit 30a8b28 |
 
 ---
 
