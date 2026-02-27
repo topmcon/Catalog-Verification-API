@@ -596,22 +596,35 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   // Sort slots by position
   let sortedSlots = [...schema.slots].sort((a, b) => a.position - b.position);
   
-  // ACCESSORY TITLE FIX: For accessory products, reorder to put Category after Brand
-  // Natural flow: "BRAND Category Width Subtype Finish - Model" 
-  // Example: "THERMADOR Refrigerator 18-Inch Panel Kit Stainless Steel - TFL18IR800"
+  // ACCESSORY TITLE FIX: For accessory products, reorder slots for natural flow
+  // Desired order: "{Brand} {Width} {Category} {Finish} {Type/Subtype} - {Model}"
+  // Example: "JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL"
   const isAccessory = input.type?.toLowerCase() === 'accessory';
   if (isAccessory) {
-    // Move Category slot to position 2 (after Brand)
-    const categorySlotIndex = sortedSlots.findIndex(s => s.attribute === 'Category');
-    if (categorySlotIndex > 0) {
-      const [categorySlot] = sortedSlots.splice(categorySlotIndex, 1);
-      // Insert after Brand (position 0)
-      sortedSlots.splice(1, 0, categorySlot);
-      logger.info('Reordered slots for accessory title - Category moved after Brand', {
-        category: schema.categoryName,
-        type: input.type
-      });
+    // Define the accessory-specific slot order
+    const accessoryOrder = ['Brand', 'Width (Inches)', 'Category', 'Finish', 'Type', 'Model Number'];
+    
+    // Create new sorted array based on accessory order
+    const reorderedSlots: typeof sortedSlots = [];
+    const remainingSlots: typeof sortedSlots = [...sortedSlots];
+    
+    for (const attrName of accessoryOrder) {
+      const idx = remainingSlots.findIndex(s => s.attribute === attrName);
+      if (idx >= 0) {
+        reorderedSlots.push(remainingSlots[idx]);
+        remainingSlots.splice(idx, 1);
+      }
     }
+    
+    // Add any remaining slots that weren't in our order (skip them for accessories)
+    // Don't add Configuration, Installation Type, etc. for accessories
+    sortedSlots = reorderedSlots;
+    
+    logger.info('Reordered slots for accessory title', {
+      category: schema.categoryName,
+      type: input.type,
+      slotOrder: sortedSlots.map(s => s.attribute).join(' → ')
+    });
   }
   
   // Debug logging for dishwashers
