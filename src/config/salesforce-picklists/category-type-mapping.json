@@ -306,6 +306,12 @@
           "primary_filter": true
         },
         {
+          "type_name": "Built-In",
+          "type_id": "a1jaZ000001w6ndQAA",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",

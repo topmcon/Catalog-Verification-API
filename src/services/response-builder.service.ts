@@ -629,6 +629,15 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'WARMING DRAWERS (ELECTRIC)': 'Drawer',
     'WARMING DRAWER': 'Drawer',
     
+    // Storage Drawers - Map to Drawer category (Type will be "Storage")
+    'STORAGE DRAWERS': 'Drawer',
+    'STORAGE DRAWER': 'Drawer',
+    'OUTDOOR STORAGE DRAWER': 'Drawer',
+    'OUTDOOR STORAGE DRAWERS': 'Drawer',
+    'SINGLE STORAGE DRAWER': 'Drawer',
+    'DOUBLE STORAGE DRAWER': 'Drawer',
+    'TRIPLE STORAGE DRAWER': 'Drawer',
+    
     // Range Hoods
     'RANGE HOODS': 'Range Hood',
     'RANGE HOOD': 'Range Hood',

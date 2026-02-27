@@ -32,7 +32,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // OVEN ALIASES
   // ============================================
-  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Over-the-Range', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
+  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
   'built-in oven': { 'Oven': 'Single' },
   'built in oven': { 'Oven': 'Single' },
   'wall oven': { 'Oven': 'Single' },
@@ -91,7 +91,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'bottom-freezer': { 'Refrigerator': 'Bottom-Freezer' },
   'bottom mount': { 'Refrigerator': 'Bottom-Freezer' },
   'built-in refrigerator': { 'Refrigerator': 'Column' },
-  'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Over-the-Range', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
+  'built-in microwave': { 'Microwave': 'Built-In' },
+  'built in microwave': { 'Microwave': 'Built-In' },
+  'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
   'column': { 'Refrigerator': 'Column', 'Freezer': 'Column' },
   'column refrigerator': { 'Refrigerator': 'Column' },
   'undercounter': { 'Refrigerator': 'Undercounter' },
@@ -534,6 +536,11 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   // Freezer patterns
   { pattern: /chest.*freezer/i, category: 'Freezer', typeName: 'Chest' },
   { pattern: /upright.*freezer/i, category: 'Freezer', typeName: 'Upright' },
+  
+  // Drawer patterns (standalone drawer appliances)
+  { pattern: /warming.*drawer/i, category: 'Drawer', typeName: 'Warming' },
+  { pattern: /storage.*drawer/i, category: 'Drawer', typeName: 'Storage' },
+  { pattern: /refrigerat.*drawer/i, category: 'Drawer', typeName: 'Refrigerator Drawer' },
   
   // Lighting patterns (light count)
   { pattern: /\b1[\s-]*light|single[\s-]*light/i, category: 'Lighting', typeName: '1-Light' },
