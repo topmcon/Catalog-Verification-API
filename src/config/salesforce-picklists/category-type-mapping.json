@@ -218,11 +218,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Freestanding",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Portable",
           "status": "existing",
           "primary_filter": true
