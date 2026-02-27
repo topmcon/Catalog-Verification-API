@@ -3789,7 +3789,21 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  - "Indoor / Outdoor" (BOTH mentioned) → Type: Outdoor (more versatile rating)\n\n`;
       typeSelectionGuide += `**Priority Order:** Accessory → Hugger → Outdoor → Indoor\n`;
     } else if (categoryLower.includes('refrigerator')) {
-      typeSelectionGuide += `For Refrigerators, **PRIORITIZE EXPLICIT TYPE MENTIONS** in title/description:\n`;
+      typeSelectionGuide += `For Refrigerators, **CHECK FOR ACCESSORIES FIRST**:\n\n`;
+      typeSelectionGuide += `⚠️ **ACCESSORY DETECTION (HIGHEST PRIORITY)**:\n`;
+      typeSelectionGuide += `  If ANY of these words appear in the title, Type = Accessory:\n`;
+      typeSelectionGuide += `    • "Panel Kit" / "Door Panel Kit" / "Custom Panel Kit" → Type: Accessory\n`;
+      typeSelectionGuide += `    • "Installation Kit" / "Trim Kit" / "Unification Kit" → Type: Accessory\n`;
+      typeSelectionGuide += `    • "Handle Kit" / "Door Handle" / "Handle Assembly" → Type: Accessory\n`;
+      typeSelectionGuide += `    • "Shelf" / "Shelving" / "Rack" / "Bin" / "Drawer" → Type: Accessory\n`;
+      typeSelectionGuide += `    • "Filter" / "Water Filter" / "Air Filter" → Type: Accessory\n`;
+      typeSelectionGuide += `    • "Ice Maker Kit" / "Icemaker Assembly" → Type: Accessory\n`;
+      typeSelectionGuide += `    • ANY product that is a PART or COMPONENT, not a complete refrigerator → Type: Accessory\n\n`;
+      typeSelectionGuide += `⚠️ **CRITICAL DISTINCTION**:\n`;
+      typeSelectionGuide += `    • "Panel Kit" = ACCESSORY (a kit to put panels on a refrigerator)\n`;
+      typeSelectionGuide += `    • "Panel-Ready" = REFRIGERATOR TYPE (a refrigerator that accepts custom panels)\n`;
+      typeSelectionGuide += `    If title says "Panel Kit for..." → It's an ACCESSORY, NOT Panel-Ready!\n\n`;
+      typeSelectionGuide += `**IF NOT AN ACCESSORY**, then prioritize explicit type mentions:\n`;
       typeSelectionGuide += `  - **STEP 1 - Check for Specialized Types FIRST**:\n`;
       typeSelectionGuide += `    • "Wine Cooler" / "Wine Storage" / "Wine Refrigerator" → Wine Cooler\n`;
       typeSelectionGuide += `    • "Beverage Center" / "Beverage Cooler" / "XX Can" (e.g., "140 Can") → Beverage Center\n`;
