@@ -111,13 +111,6 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'keg': { 'Refrigerator': 'Kegerator' },
   'beer dispenser': { 'Refrigerator': 'Kegerator' },
   'beer fridge': { 'Refrigerator': 'Kegerator' },
-  'counter depth': { 'Refrigerator': 'Counter Depth' },
-  'counter-depth': { 'Refrigerator': 'Counter Depth' },
-  'counterdepth': { 'Refrigerator': 'Counter Depth' },
-  'panel ready': { 'Refrigerator': 'Panel-Ready' },
-  'panel-ready': { 'Refrigerator': 'Panel-Ready' },
-  'panelready': { 'Refrigerator': 'Panel-Ready' },
-  'custom panel': { 'Refrigerator': 'Panel-Ready' },
   
   // ============================================
   // RANGE ALIASES

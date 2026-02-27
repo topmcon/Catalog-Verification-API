@@ -3800,9 +3800,9 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `    • "Ice Maker Kit" / "Icemaker Assembly" → Type: Accessory\n`;
       typeSelectionGuide += `    • ANY product that is a PART or COMPONENT, not a complete refrigerator → Type: Accessory\n\n`;
       typeSelectionGuide += `⚠️ **CRITICAL DISTINCTION**:\n`;
-      typeSelectionGuide += `    • "Panel Kit" = ACCESSORY (a kit to put panels on a refrigerator)\n`;
-      typeSelectionGuide += `    • "Panel-Ready" = REFRIGERATOR TYPE (a refrigerator that accepts custom panels)\n`;
-      typeSelectionGuide += `    If title says "Panel Kit for..." → It's an ACCESSORY, NOT Panel-Ready!\n\n`;
+      typeSelectionGuide += `    • "Panel Kit" = ACCESSORY (a kit/panels sold separately for panel-ready appliances)\n`;
+      typeSelectionGuide += `    • A refrigerator that IS panel-ready uses its door configuration as Type (French Door, Column, etc.)\n`;
+      typeSelectionGuide += `    If title says "Panel Kit for..." → It's an ACCESSORY!\n\n`;
       typeSelectionGuide += `**IF NOT AN ACCESSORY**, then prioritize explicit type mentions:\n`;
       typeSelectionGuide += `  - **STEP 1 - Check for Specialized Types FIRST**:\n`;
       typeSelectionGuide += `    • "Wine Cooler" / "Wine Storage" / "Wine Refrigerator" → Wine Cooler\n`;

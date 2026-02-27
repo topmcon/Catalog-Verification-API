@@ -472,11 +472,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Counter Depth",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Column",
           "status": "existing",
           "primary_filter": true
@@ -489,12 +484,6 @@
         {
           "type_name": "4-Door Flex",
           "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Single Door",
-          "type_group": "Door Configuration",
-          "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
@@ -516,12 +505,6 @@
         {
           "type_name": "Kegerator",
           "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Panel-Ready",
-          "type_group": "Installation",
-          "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
