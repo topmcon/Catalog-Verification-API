@@ -28,6 +28,9 @@
 | Type slot duplicate in Category (title generation) | Skip Type slot if value is substring of Category name | 29acc80 | #017 |
 | Dimension guidance not triggering (detection logic bug) | Check multiple fields with OR logic, fix regex pattern, add debug logging | 79e17c5 | #017-A |
 | OpenAI failing Stage 1/2 validation (missing attributes) | Make validation stage-aware, remove response_format optimization | TBD | #018 |
+| Placeholder SF IDs in types.json | Use PendingCreationRequest fulfillment workflow to get real IDs | c728ef0 | #019 |
+| Redundant type_id fields in category-type-mapping | Remove unused fields, update interface | c728ef0 | #019 |
+| Category ID mismatch between files | Fix via validation script check #10 | c728ef0 | #019 |
 
 ---
 
@@ -2775,6 +2778,128 @@ Create validation script that:
 
 ---
 
+## Finding #019: Data Quality Cleanup - Placeholder IDs, Redundant Fields, Dead Code
+
+**Discovered:** Feb 27, 2026  
+**Status:** ✅ FIXED  
+**Commit:** `c728ef0`  
+**Severity:** 🟡 MEDIUM (data quality, not runtime bug)  
+**Scope:** Multiple picklist JSON files + TypeScript interfaces
+
+### Discovery Context
+
+During a comprehensive dependency audit, discovered multiple data quality issues:
+
+1. **39 types with `pending_salesforce_id` placeholder** in types.json
+2. **957 redundant `type_id` fields** in category-type-mapping.json
+3. **Fire Pit ID mismatch** between categories.json and category-filter-attributes.json
+4. **Dead DEPARTMENTS code** in constants.ts (unused, AI uses categories.json)
+
+### Root Cause
+
+1. **Placeholder IDs:** Types added manually before SF provided real IDs
+2. **Redundant type_id:** Historical field never removed; code validates by NAME
+3. **Fire Pit mismatch:** Copy-paste error during manual editing
+4. **Dead code:** Architectural evolution - AI now reads dynamically
+
+### Fix Applied
+
+**1. types.json - 39 real SF IDs via fulfillment workflow:**
+```javascript
+// Tested PendingCreationRequest workflow:
+// Step 1: Added 39 types to creation request bucket
+await PendingCreationRequest.create({
+  request_type: "type",
+  requested_value: "1-Light",
+  status: "pending"
+});
+
+// Step 2: Ran fulfillment against SF sync data
+const result = await pendingCreationRequestService.tryFulfillFromSync("type", items);
+// Result: 39 fulfilled
+
+// Step 3: Updated types.json with real IDs
+"1-Light": pending_salesforce_id → a1jaZ000001lYthQAE
+// ... 39 total
+```
+
+**2. category-type-mapping.json - Removed redundant type_id:**
+```json
+// BEFORE (957 entries like this):
+{ "type_name": "French Door", "type_id": "a1jaZ000001..." }
+
+// AFTER:
+{ "type_name": "French Door" }
+```
+
+**3. category-filter-attributes.json - Fixed Fire Pit ID:**
+```json
+// BEFORE:
+"category_id": "a01aZ00000dCek7QAC"  // Wrong
+
+// AFTER:
+"category_id": "a01aZ00000dCejmQAC"  // Correct (matches categories.json)
+```
+
+**4. constants.ts - Removed dead DEPARTMENTS:**
+```typescript
+// REMOVED (lines 203-214):
+export const DEPARTMENTS = [
+  'Appliances',
+  'Bath',
+  // ...
+];
+```
+
+**5. type-config.ts - Updated interface:**
+```typescript
+// REMOVED type_id from CategoryTypeMapping interface:
+types: Array<{ type_name: string; keywords?: string[] }>;
+```
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `src/config/salesforce-picklists/types.json` | 39 placeholder IDs → real SF IDs |
+| `src/config/salesforce-picklists/category-type-mapping.json` | Removed 957 redundant `type_id` fields, version 2.1 |
+| `src/config/salesforce-picklists/category-filter-attributes.json` | Fixed Fire Pit category_id |
+| `src/config/constants.ts` | Removed DEPARTMENTS array |
+| `src/config/index.ts` | Removed DepartmentName export |
+| `src/picklist-master/03-types/type-config.ts` | Removed type_id from interface |
+| `scripts/validate-dependencies.sh` | Added 4 new checks |
+
+### Validation Enhancement
+
+Added 4 new checks to `scripts/validate-dependencies.sh`:
+
+| Check | Purpose |
+|-------|---------|
+| #10 Category ID Consistency | Compares IDs between categories.json and category-filter-attributes.json |
+| #11 Orphan Categories | Finds categories in type-mapping that don't exist in categories.json |
+| #12 Bidirectional Coverage | Lists categories without type mappings |
+| #13 Duplicate Type IDs | Detects duplicate SF IDs (excluding placeholders) |
+
+### Workflow Tested
+
+Successfully tested the PendingCreationRequest fulfillment workflow:
+1. Created 39 pending requests for types with placeholder IDs
+2. Ran `tryFulfillFromSync()` against SF sync data
+3. All 39 matched and fulfilled with real IDs
+4. Updated types.json with real IDs
+5. Rejected 5 CRITICAL pending SF syncs (preserved 338 custom fields)
+
+### Key Lesson
+
+**Pattern:** Redundant data creates maintenance burden and validation headaches.
+
+**Best Practice:**
+- If the code doesn't use a field, remove it from data files
+- Test fulfillment workflow periodically to verify it works
+- Use validation scripts to catch data inconsistencies early
+
+---
+
 ## Testing Patterns
 
 ### Pattern: Title System Changes
@@ -2868,6 +2993,7 @@ Are you adding a new slot to a title schema?
 | 31266a3 | 2026-02-26 | 🔧 FIX | Add Single Door keyword mappings for refrigerators (Finding #014 - Priority 1) |
 | e4d1dd6 | 2026-02-26 | ✨ ENHANCE | Add keyword mappings for Lighting, Toilet, Kitchen Faucet types (Finding #014 - Priority 2) |
 | 8866dc6 | 2026-02-26 | 🔧 REFACTOR | Laundry type restructure: Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes (Finding #015) |
+| c728ef0 | 2026-02-27 | 🔧 FIX | Data quality cleanup: 39 real SF IDs, removed redundant type_id fields, fixed Fire Pit ID, removed dead DEPARTMENTS (Finding #019) |
 
 ---
 
@@ -2893,6 +3019,7 @@ Are you adding a new slot to a title schema?
 | 2026-02-26 | Copilot Session | Finding #014 Priority 2: Added keywords for Lighting, Toilet, Kitchen Faucet types - Coverage 0.3% → 2.5% - Commit e4d1dd6 |
 | 2026-02-26 | Copilot Session | Added Finding #015 (Laundry type restructure) - Front Load/Top Load/Unitized as primary types; Electric/Gas as Fuel Type attributes - Commit 8866dc6 |
 | 2026-02-27 | Copilot Session | Added Finding #018 (OpenAI Stage 1/2 validation failures) - Stage-aware validation bug, response_format optimization issue - Pending implementation |
+| 2026-02-27 | Copilot Session | Added Finding #019 (Data Quality Cleanup) - 39 real SF IDs via fulfillment workflow, removed 957 redundant type_id fields, fixed Fire Pit ID, removed dead DEPARTMENTS code - Commit c728ef0 |
 
 ---
 
