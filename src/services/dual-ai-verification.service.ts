@@ -3843,6 +3843,28 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `For Door Hardware, check lock mechanism:\n`;
       typeSelectionGuide += `  - "Passage" (no lock), "Privacy" (push-button), "Entry" (keyed)\n`;
       typeSelectionGuide += `  - "Dummy" (non-functional), "Single Cylinder", "Double Cylinder"\n`;
+    } else if (categoryLower.includes('icemaker') || categoryLower.includes('ice maker')) {
+      // 🔧 NEW: Icemaker type selection guide - addresses dual-capability products
+      typeSelectionGuide += `For Icemakers, **Type = INSTALLATION METHOD** (how it's installed):\n\n`;
+      typeSelectionGuide += `⚠️ **CRITICAL**: Many ice makers support BOTH undercounter and freestanding installation.\n`;
+      typeSelectionGuide += `When BOTH are mentioned, use these rules to determine PRIMARY type:\n\n`;
+      typeSelectionGuide += `**Decision Priority Order:**\n`;
+      typeSelectionGuide += `  1. **"ADA" or "ADA Compliant" mentioned** → Type: Undercounter\n`;
+      typeSelectionGuide += `     - ADA compliance is specifically for built-in/undercounter scenarios\n`;
+      typeSelectionGuide += `  2. **"Panel Ready" or "Custom Panel" mentioned** → Type: Undercounter\n`;
+      typeSelectionGuide += `     - Panel-ready designs integrate with cabinetry (built-in)\n`;
+      typeSelectionGuide += `  3. **"Outdoor" mentioned** → Type: Undercounter (typically built into outdoor kitchens)\n`;
+      typeSelectionGuide += `  4. **"Portable" or "Countertop" mentioned** → Type: Portable\n`;
+      typeSelectionGuide += `  5. **"Built-In" or "Undercounter" appears FIRST in title** → Type: Undercounter\n`;
+      typeSelectionGuide += `  6. **"Freestanding" appears FIRST in title** → Type: Freestanding\n`;
+      typeSelectionGuide += `  7. **Both equally mentioned, no other clues** → Default to Undercounter\n`;
+      typeSelectionGuide += `     - Most high-end ice makers are designed primarily for built-in installation\n\n`;
+      typeSelectionGuide += `**Examples:**\n`;
+      typeSelectionGuide += `  • "ADA Collection 15\" Built-In / Freestanding Ice Maker" → Undercounter (ADA mentioned)\n`;
+      typeSelectionGuide += `  • "15\" Panel Ready Freestanding/Built-In Ice Maker" → Undercounter (Panel Ready)\n`;
+      typeSelectionGuide += `  • "Outdoor Undercounter/Freestanding Nugget Ice Machine" → Undercounter (Outdoor)\n`;
+      typeSelectionGuide += `  • "15\" Freestanding/Built-In Ice Maker" → Freestanding (Freestanding appears first)\n`;
+      typeSelectionGuide += `  • "Compact Countertop Ice Maker" → Portable\n`;
     } else {
       typeSelectionGuide += `Extraction strategy:\n`;
       typeSelectionGuide += `  1. Check product title for type keywords\n`;
