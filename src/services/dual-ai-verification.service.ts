@@ -94,6 +94,7 @@ import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
 import { researchAttestationService } from './research-attestation.service';
+import { pendingCreationRequestService } from './pending-creation-request.service';
 import { FIELD_STATUS_CODES, ResearchAttestation } from '../types/research-attestation.types';
 
 // Initialize OpenAI client
@@ -8822,6 +8823,19 @@ function buildFinalResponse(
     return true;
   });
 
+  // Track all creation requests for visibility and duplicate prevention
+  // Fire-and-forget: don't block the response
+  trackCreationRequests(
+    rawProduct,
+    sessionId,
+    brandRequests,
+    categoryRequests,
+    filteredStyleRequests,
+    attributeRequests
+  ).catch(err => {
+    logger.error('Failed to track creation requests', { error: err.message });
+  });
+
   // Build research transparency to show what was analyzed from each resource
   // Now includes the final web search results as well
   const researchTransparency = buildResearchTransparency(researchResult, finalSearchResult);
@@ -9656,6 +9670,123 @@ async function trackResponseQuality(
   } catch (error) {
     logger.error('[ResponseQuality] Error tracking response quality:', error);
     // Don't throw - this is non-critical tracking
+  }
+}
+
+/**
+ * Track creation requests sent to Salesforce for picklist items
+ * This enables:
+ * 1. Visibility into what's been requested from SF
+ * 2. Duplicate prevention in future jobs
+ * 3. Fulfillment matching when SF syncs back
+ */
+async function trackCreationRequests(
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string,
+  brandRequests: BrandRequest[],
+  categoryRequests: CategoryRequest[],
+  styleRequests: StyleRequest[],
+  attributeRequests: AttributeRequest[]
+): Promise<void> {
+  const jobReference = {
+    job_id: sessionId,
+    sf_catalog_id: rawProduct.SF_Catalog_Id || '',
+    model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
+    requested_at: new Date()
+  };
+  
+  // Track brand requests
+  for (const req of brandRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'brand',
+      requestedValue: req.brand_name,
+      jobReference,
+      context: {
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Brand request already pending', {
+        brand: req.brand_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track category requests
+  for (const req of categoryRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'category',
+      requestedValue: req.category_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.suggested_department,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Category request already pending', {
+        category: req.category_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track style requests
+  for (const req of styleRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'style',
+      requestedValue: req.style_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.suggested_for_category,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Style request already pending', {
+        style: req.style_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track attribute requests
+  for (const req of attributeRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'attribute',
+      requestedValue: req.attribute_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.requested_for_category,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Attribute request already pending', {
+        attribute: req.attribute_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  const totalTracked = brandRequests.length + categoryRequests.length + styleRequests.length + attributeRequests.length;
+  if (totalTracked > 0) {
+    logger.info('[CreationTracker] Tracked outbound requests', {
+      sessionId,
+      brands: brandRequests.length,
+      categories: categoryRequests.length,
+      styles: styleRequests.length,
+      attributes: attributeRequests.length
+    });
   }
 }
 

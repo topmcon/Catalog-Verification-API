@@ -676,25 +676,38 @@ When user says "Establish Connection", perform these checks and report:
      - For each pending sync, show severity and ask: "Approve, Reject, or Skip?"
      - **NEVER auto-approve CRITICAL severity syncs**
 
-7. **Picklist Sync History** (optional): If user wants to see applied syncs:
+7. **Pending Creation Requests (OUTBOUND TO SF)**: Check for items we requested SF to create:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-creation-requests.js"
+   ```
+   This shows:
+   - Count of pending requests by type (brand, category, style, type, attribute)
+   - Details of each pending request (value, when first requested, how many jobs need it)
+   - Recently fulfilled requests (last 24 hours)
+   - **Recommendations** (stale requests, high-volume items)
+   - **Report this to user** but **DO NOT auto-action** - visibility only
+   - If many requests pending for 7+ days, suggest following up with SF team
+
+8. **Picklist Sync History** (optional): If user wants to see applied syncs:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
    ```
 
-8. **Report Status Table**:
+9. **Report Status Table**:
    - Local commit
    - GitHub commit  
    - Production commit
    - Service status (running/stopped)
    - API health (healthy/unhealthy)
    - Pending syncs (count awaiting review)
+   - Pending creation requests (count sent to SF)
    - Session analytics summary (jobs processed, success rate, issues)
 
-9. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+10. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
    - Show key highlights: what was completed, current state, next steps
    - Reference the session summary file by name
 
-10. **Ask**: "Would you like to continue from where we left off?"
+11. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 
