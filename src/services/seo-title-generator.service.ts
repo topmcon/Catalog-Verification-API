@@ -432,7 +432,8 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
   // This ensures "Storage Drawer" matches before "Drawer"
   const patterns: Array<{ pattern: RegExp; displayName: string }> = [
     // --- MULTI-WORD SPECIFIC PHRASES (match these first) ---
-    // Kits
+    // Kits (including comma-separated variants like "Kit,Installation")
+    { pattern: /kit[,\s]+installation/i, displayName: 'Installation Kit' },
     { pattern: /installation\s+kit/i, displayName: 'Installation Kit' },
     { pattern: /dual\s+installation\s+kit/i, displayName: 'Installation Kit' },
     { pattern: /unification\s+kit/i, displayName: 'Unification Kit' },
@@ -447,6 +448,7 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /stacking\s+kit/i, displayName: 'Stacking Kit' },
     { pattern: /mounting\s+kit/i, displayName: 'Mounting Kit' },
     { pattern: /hardware\s+kit/i, displayName: 'Hardware Kit' },
+    { pattern: /door\s+panel\s+kit/i, displayName: 'Door Panel Kit' },
     
     // Panels  
     { pattern: /refrigerator\s+panel/i, displayName: 'Refrigerator Panel' },
@@ -455,6 +457,8 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /front\s+panel/i, displayName: 'Front Panel' },
     { pattern: /side\s+panel/i, displayName: 'Side Panel' },
     { pattern: /decorative\s+panel/i, displayName: 'Decorative Panel' },
+    { pattern: /stainless\s+(?:steel\s+)?panel/i, displayName: 'Stainless Steel Panel' },
+    { pattern: /flat\s+(?:stainless\s+)?(?:steel\s+)?panel/i, displayName: 'Panel' },
     
     // Drawers
     { pattern: /storage\s+drawer/i, displayName: 'Storage Drawer' },

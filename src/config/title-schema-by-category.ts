@@ -809,33 +809,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Configuration",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
-        "attribute": "Installation Type",
+        "attribute": "Configuration",
         "required": false
       },
       {
         "position": 6,
+        "attribute": "Installation Type",
+        "required": false
+      },
+      {
+        "position": 7,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 8,
+        "position": 9,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
+    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Configuration} {Installation Type} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 28 Cu. Ft. 36-Inch French Door Counter-Depth Refrigerator Finish - Model",
-    "seoNotes": "Lead with capacity and width (people shop by both). Configuration = door style (French Door, Side-by-Side) OR specialized type (Wine Cooler, Beverage Center, Kegerator). Installation = Built-In, Counter-Depth, Freestanding."
+    "seoNotes": "Lead with capacity and width (people shop by both). Type = product type (Accessory extracts subtype like Panel Kit, Installation Kit). Configuration = door style (French Door, Side-by-Side). Installation = Built-In, Counter-Depth, Freestanding."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",
