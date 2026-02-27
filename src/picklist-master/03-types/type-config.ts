@@ -36,7 +36,6 @@ export interface CategoryTypeMapping {
   logic: string;
   types: Array<{
     type_name: string;
-    type_id: string | null;
     status: 'existing' | 'new_needed';
     primary_filter: boolean;
   }>;

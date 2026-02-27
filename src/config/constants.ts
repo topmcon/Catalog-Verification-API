@@ -194,26 +194,6 @@ export const AI_CATEGORY_ALIASES: Record<string, string> = {
 };
 
 // ============================================
-// DEPARTMENT DEFINITIONS
-// ============================================
-
-/**
- * Department names
- */
-export const DEPARTMENTS = [
-  'Appliances',
-  'Flooring',
-  'Hardware',
-  'Heating & Cooling',
-  'Home Décor & Furniture',
-  'Lighting & Electrical',
-  'Outdoor',
-  'Plumbing & Bath'
-] as const;
-
-export type DepartmentName = typeof DEPARTMENTS[number];
-
-// ============================================
 // ATTRIBUTE FALLBACKS
 // ============================================
 

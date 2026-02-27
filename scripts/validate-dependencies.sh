@@ -224,6 +224,117 @@ else
 fi
 
 ###############################################################################
+# 10. CATEGORY ID CONSISTENCY
+###############################################################################
+echo "🔢 Checking Category ID Consistency..."
+
+# Check categories.json IDs match category-filter-attributes.json IDs
+MISMATCHED_IDS=0
+while IFS= read -r line; do
+  cat_name=$(echo "$line" | jq -r '.category_name')
+  cat_id=$(echo "$line" | jq -r '.category_id')
+  
+  # Look up in category-filter-attributes
+  attr_id=$(jq -r --arg name "$cat_name" '.categories[$name].category_id // empty' src/config/salesforce-picklists/category-filter-attributes.json 2>/dev/null)
+  
+  if [ -n "$attr_id" ] && [ "$attr_id" != "$cat_id" ]; then
+    if [ $MISMATCHED_IDS -eq 0 ]; then
+      echo "  ❌ Category IDs don't match between files:"
+    fi
+    echo "     - $cat_name: $cat_id (categories) vs $attr_id (filter-attrs)"
+    MISMATCHED_IDS=$((MISMATCHED_IDS + 1))
+  fi
+done < <(jq -c '.[]' src/config/salesforce-picklists/categories.json)
+
+if [ $MISMATCHED_IDS -eq 0 ]; then
+  echo "  ✅ Category IDs consistent across files"
+else
+  echo "  ❌ $MISMATCHED_IDS category ID mismatch(es)"
+  ERRORS=$((ERRORS + 1))
+fi
+
+###############################################################################
+# 11. ORPHAN CATEGORIES IN TYPE MAPPING
+###############################################################################
+echo "🔗 Checking for Orphan Categories in Type Mapping..."
+
+# Categories in type-mapping that don't exist in categories.json
+CATEGORIES_MASTER=$(jq -r '.[].category_name' src/config/salesforce-picklists/categories.json | sort -u)
+CATEGORIES_MAPPING=$(jq -r '.mappings[].category_name' src/config/salesforce-picklists/category-type-mapping.json | sort -u)
+
+ORPHAN_COUNT=0
+while IFS= read -r cat; do
+  if ! echo "$CATEGORIES_MASTER" | grep -qFx "$cat"; then
+    if [ $ORPHAN_COUNT -eq 0 ]; then
+      echo "  ⚠️  Categories in type-mapping but NOT in categories.json:"
+    fi
+    echo "     - $cat"
+    ORPHAN_COUNT=$((ORPHAN_COUNT + 1))
+  fi
+done <<< "$CATEGORIES_MAPPING"
+
+if [ $ORPHAN_COUNT -eq 0 ]; then
+  echo "  ✅ All mapped categories exist in master categories.json"
+else
+  echo "  ⚠️  $ORPHAN_COUNT orphan category(ies) in type-mapping"
+  WARNINGS=$((WARNINGS + 1))
+fi
+
+###############################################################################
+# 12. BIDIRECTIONAL CATEGORY COVERAGE
+###############################################################################
+echo "📋 Checking Bidirectional Category Coverage..."
+
+# Categories in categories.json that DON'T have type mappings
+MISSING_MAPPING=0
+while IFS= read -r cat; do
+  if ! echo "$CATEGORIES_MAPPING" | grep -qFx "$cat"; then
+    if [ $MISSING_MAPPING -eq 0 ]; then
+      echo "  ⚠️  Categories without type mappings (may be expected):"
+    fi
+    # Only show first 10 to avoid spam
+    if [ $MISSING_MAPPING -lt 10 ]; then
+      echo "     - $cat"
+    fi
+    MISSING_MAPPING=$((MISSING_MAPPING + 1))
+  fi
+done <<< "$CATEGORIES_MASTER"
+
+if [ $MISSING_MAPPING -eq 0 ]; then
+  echo "  ✅ All categories have type mappings"
+elif [ $MISSING_MAPPING -lt 15 ]; then
+  echo "  ⚠️  $MISSING_MAPPING category(ies) without type mappings"
+  WARNINGS=$((WARNINGS + 1))
+else
+  echo "     ...and $((MISSING_MAPPING - 10)) more"
+  echo "  ⚠️  $MISSING_MAPPING category(ies) without type mappings"
+  WARNINGS=$((WARNINGS + 1))
+fi
+
+###############################################################################
+# 13. TYPES.JSON DUPLICATE ID CHECK
+###############################################################################
+echo "🆔 Checking for Duplicate Type IDs..."
+
+# Exclude known placeholders like "pending_salesforce_id"
+DUPLICATE_IDS=$(jq -r '.[].type_id' src/config/salesforce-picklists/types.json | grep -v "pending_salesforce_id" | sort | uniq -d)
+
+if [ -z "$DUPLICATE_IDS" ]; then
+  PENDING_COUNT=$(jq '[.[] | select(.type_id == "pending_salesforce_id")] | length' src/config/salesforce-picklists/types.json)
+  if [ "$PENDING_COUNT" -gt 0 ]; then
+    echo "  ✅ No duplicate type IDs (excluding $PENDING_COUNT pending Salesforce IDs)"
+  else
+    echo "  ✅ No duplicate type IDs in types.json"
+  fi
+else
+  echo "  ❌ Duplicate type IDs found:"
+  echo "$DUPLICATE_IDS" | while read -r id; do
+    echo "     - $id"
+  done
+  ERRORS=$((ERRORS + 1))
+fi
+
+###############################################################################
 # SUMMARY
 ###############################################################################
 echo ""

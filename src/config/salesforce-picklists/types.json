@@ -1,25 +1,25 @@
 [
   {
     "type_name": "1-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYthQAE",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
     "type_name": "3-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtiQAE",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
   {
     "type_name": "3-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtjQAE",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
     "type_name": "4-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtkQAE",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
@@ -29,25 +29,25 @@
   },
   {
     "type_name": "4-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtlQAE",
     "category_usage": "Vanity Light",
     "type_group": "Light Count"
   },
   {
     "type_name": "5-Blade",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtmQAE",
     "category_usage": "Ceiling Fan",
     "type_group": "Blade Count"
   },
   {
     "type_name": "5-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtnQAE",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
   {
     "type_name": "6-Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtoQAE",
     "category_usage": "Lighting",
     "type_group": "Light Count"
   },
@@ -113,7 +113,7 @@
   },
   {
     "type_name": "Area Rug",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtpQAE",
     "category_usage": "Rug",
     "type_group": "Type"
   },
@@ -319,7 +319,7 @@
   },
   {
     "type_name": "Candelabra",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtqQAE",
     "category_usage": "Chandelier",
     "type_group": "Shape"
   },
@@ -481,7 +481,7 @@
   },
   {
     "type_name": "Comfort Height",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtrQAE",
     "category_usage": "Toilet",
     "type_group": "Height"
   },
@@ -499,7 +499,7 @@
   },
   {
     "type_name": "Commercial Style",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtsQAE",
     "category_usage": "Kitchen Faucet",
     "type_group": "Spout Style"
   },
@@ -665,7 +665,7 @@
   },
   {
     "type_name": "Dining Chair",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYttQAE",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -767,7 +767,7 @@
   },
   {
     "type_name": "Dual-Flush",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtuQAE",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
@@ -789,7 +789,7 @@
   },
   {
     "type_name": "Edge Pull",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtvQAE",
     "category_usage": "Cabinet Hardware",
     "type_group": "Type"
   },
@@ -1051,7 +1051,7 @@
   },
   {
     "type_name": "Gravity",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtxQAE",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
@@ -1077,7 +1077,7 @@
   },
   {
     "type_name": "Hand-Scraped",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtyQAE",
     "category_usage": "Hardwood Flooring",
     "type_group": "Finish"
   },
@@ -1131,7 +1131,7 @@
   },
   {
     "type_name": "High-Arc",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYtzQAE",
     "category_usage": "Faucets",
     "type_group": "Spout Style"
   },
@@ -1413,7 +1413,7 @@
   },
   {
     "type_name": "Lounge Chair",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu0QAE",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -1423,7 +1423,7 @@
   },
   {
     "type_name": "Low-Arc",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu1QAE",
     "category_usage": "Faucets",
     "type_group": "Spout Style"
   },
@@ -1457,7 +1457,7 @@
   },
   {
     "type_name": "Mini Pendant",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu2QAE",
     "category_usage": "Pendant Light",
     "type_group": "Type"
   },
@@ -1511,7 +1511,7 @@
   },
   {
     "type_name": "Nail Down",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu3QAE",
     "category_usage": "Hardwood Flooring",
     "type_group": "Installation"
   },
@@ -1581,7 +1581,7 @@
   },
   {
     "type_name": "Outdoor Rug",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu4QAE",
     "category_usage": "Rug",
     "type_group": "Type"
   },
@@ -1751,7 +1751,7 @@
   },
   {
     "type_name": "Pressure-Assisted",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu5QAE",
     "category_usage": "Toilet",
     "type_group": "Flush Type"
   },
@@ -1841,7 +1841,7 @@
   },
   {
     "type_name": "Rear Control",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu6QAE",
     "category_usage": "Range",
     "type_group": "Control Position"
   },
@@ -1895,7 +1895,7 @@
   },
   {
     "type_name": "Rigid Core",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu7QAE",
     "category_usage": "Luxury Vinyl Flooring",
     "type_group": "Core Type"
   },
@@ -1937,13 +1937,13 @@
   },
   {
     "type_name": "Round-Front",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu8QAE",
     "category_usage": "Toilet",
     "type_group": "Bowl Shape"
   },
   {
     "type_name": "Runner",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYu9QAE",
     "category_usage": "Rug",
     "type_group": "Type"
   },
@@ -2077,7 +2077,7 @@
   },
   {
     "type_name": "Single Door",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuAQAU",
     "category_usage": "Refrigerator",
     "type_group": "Door Configuration"
   },
@@ -2147,7 +2147,7 @@
   },
   {
     "type_name": "Smart/Electronic",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuBQAU",
     "category_usage": "Toilet",
     "type_group": "Configuration"
   },
@@ -2169,7 +2169,7 @@
   },
   {
     "type_name": "Sofa",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuCQAU",
     "category_usage": "Furniture",
     "type_group": "Type"
   },
@@ -2191,7 +2191,7 @@
   },
   {
     "type_name": "SPC",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuDQAU",
     "category_usage": "Luxury Vinyl Flooring",
     "type_group": "Core Type"
   },
@@ -2241,7 +2241,7 @@
   },
   {
     "type_name": "Standard Height",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuEQAU",
     "category_usage": "Toilet",
     "type_group": "Height"
   },
@@ -2451,7 +2451,7 @@
   },
   {
     "type_name": "Touch-On",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuFQAU",
     "category_usage": "Kitchen Faucet",
     "type_group": "Handle Configuration"
   },
@@ -2513,7 +2513,7 @@
   },
   {
     "type_name": "Triple Bowl",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuGQAU",
     "category_usage": "Kitchen Sink",
     "type_group": "Bowl Configuration"
   },
@@ -2575,7 +2575,7 @@
   },
   {
     "type_name": "Up/Down Light",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuHQAU",
     "category_usage": "Wall Sconce",
     "type_group": "Direction"
   },
@@ -2693,7 +2693,7 @@
   },
   {
     "type_name": "Wall-Hung",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuIQAU",
     "category_usage": "Toilet",
     "type_group": "Configuration"
   },
@@ -2771,7 +2771,7 @@
   },
   {
     "type_name": "Wire-Brushed",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuJQAU",
     "category_usage": "Hardwood Flooring",
     "type_group": "Finish"
   },
@@ -2809,7 +2809,7 @@
   },
   {
     "type_name": "WPC",
-    "type_id": "pending_salesforce_id",
+    "type_id": "a1jaZ000001lYuKQAU",
     "category_usage": "Luxury Vinyl Flooring",
     "type_group": "Core Type"
   },

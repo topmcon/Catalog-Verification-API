@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "version": "2.0",
+    "version": "2.1",
     "created": "2026-02-09",
     "purpose": "Maps functional TYPES to categories",
     "hierarchy": "Department → Family → Category → TYPE",
-    "note": "Types are category-specific configurations/functions",
-    "updated": "2026-02-12"
+    "note": "Types are category-specific configurations/functions. type_id removed (redundant - IDs come from types.json via getTypeByName())",
+    "updated": "2026-02-27"
   },
   "mappings": [
     {
@@ -18,37 +18,31 @@
       "types": [
         {
           "type_name": "Countertop",
-          "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drip",
-          "type_id": "a1jaZ000001lF5lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Espresso",
-          "type_id": "a1jaZ000001lF63QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Serve",
-          "type_id": "a1jaZ000001lFAoQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cold Brew",
-          "type_id": "a1jaZ000001lF4hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -64,37 +58,31 @@
       "types": [
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Induction",
-          "type_id": "a1jaZ000001lF7OQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Radiant",
-          "type_id": "a1jaZ000001lF9rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Downdraft",
-          "type_id": "a1jaZ000001lF5eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -110,43 +98,36 @@
       "types": [
         {
           "type_name": "Top Control",
-          "type_id": "a1jaZ000001lFC4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Front Control",
-          "type_id": "a1jaZ000001lF6iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drawer",
-          "type_id": "a1jaZ000001lF5hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Countertop",
-          "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Panel-Ready",
-          "type_id": "a1jaZ000001lF94QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -163,25 +144,21 @@
       "types": [
         {
           "type_name": "Warming",
-          "type_id": "a1jaZ000001lFD6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Storage",
-          "type_id": "a1jaZ000001lFBUQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Refrigerator Drawer",
-          "type_id": "a1jaZ000001lF9yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -197,37 +174,31 @@
       "types": [
         {
           "type_name": "Upright",
-          "type_id": "a1jaZ000001lFCcQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Chest",
-          "type_id": "a1jaZ000001lF4UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column",
-          "type_id": "a1jaZ000001lF4iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undercounter",
-          "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -243,31 +214,26 @@
       "types": [
         {
           "type_name": "Undercounter",
-          "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Outdoor",
-          "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -283,43 +249,31 @@
       "types": [
         {
           "type_name": "Over-the-Range",
-          "type_id": "a1jaZ000001lF8zQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Countertop",
-          "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drawer",
-          "type_id": "a1jaZ000001lF5hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Under Cabinet",
-          "type_id": "a1jaZ000001lFCUQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Built-In",
-          "type_id": "a1jaZ000001w6ndQAA",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
-          "status": "existing",
-          "primary_filter": false
-        },
-        {
-          "type_name": "Trim Kit",
-          "type_id": "a1jaZ000001lFCKQA2",
           "status": "existing",
           "primary_filter": false
         }
@@ -335,43 +289,36 @@
       "types": [
         {
           "type_name": "Single",
-          "type_id": "a1jaZ000001lFAjQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Wall",
-          "type_id": "a1jaZ000001lF5bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Microwave Combo",
-          "type_id": "a1jaZ000001lF8RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Steam",
-          "type_id": "a1jaZ000001lFBOQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Convection",
-          "type_id": "a1jaZ000001lF4yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Speed Oven",
-          "type_id": "a1jaZ000001lFBAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -387,43 +334,36 @@
       "types": [
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wood-Fired",
-          "type_id": "a1jaZ000001lFDSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Multi-Fuel",
-          "type_id": "a1jaZ000001lF8cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Countertop",
-          "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Outdoor",
-          "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -439,27 +379,23 @@
       "types": [
         {
           "type_name": "Pro-Style",
-          "type_id": "a1jaZ000001lF9cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Front Control",
-          "type_id": "a1jaZ000001lF62QAE",
           "type_group": "Control Position",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Rear Control",
-          "type_id": "",
           "type_group": "Control Position",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -477,43 +413,36 @@
       "types": [
         {
           "type_name": "Wall-Mounted",
-          "type_id": "a1jaZ000001lFD4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Under Cabinet",
-          "type_id": "a1jaZ000001lFCUQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Island Mount",
-          "type_id": "a1jaZ000001lF7bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Insert",
-          "type_id": "a1jaZ000001lF7SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Downdraft",
-          "type_id": "a1jaZ000001lF5eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pro-Style",
-          "type_id": "a1jaZ000001lF9cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -529,94 +458,79 @@
       "types": [
         {
           "type_name": "French Door",
-          "type_id": "a1jaZ000001lF6hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Side-by-Side",
-          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top-Freezer",
-          "type_id": "a1jaZ000001lFC6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bottom-Freezer",
-          "type_id": "a1jaZ000001lF3wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Counter Depth",
-          "type_id": "a1jaZ000001lF51QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column",
-          "type_id": "a1jaZ000001lF4iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undercounter",
-          "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "4-Door Flex",
-          "type_id": "a1jaZ000001lF33QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Door",
-          "type_id": "",
           "type_group": "Door Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF60QAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wine Cooler",
-          "type_id": "a1jaZ000001lFDJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Beverage Center",
-          "type_id": "a1jaZ000001lF3gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Kegerator",
-          "type_id": "a1jaZ000001lF7eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Panel-Ready",
-          "type_id": "",
           "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -633,31 +547,26 @@
       "types": [
         {
           "type_name": "Unitized",
-          "type_id": "a1jaZ000001lFCaQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Front Load",
-          "type_id": "a1jaZ000001lF6jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top Load",
-          "type_id": "a1jaZ000001lFC5QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ventless",
-          "type_id": "a1jaZ000001lFCkQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -673,28 +582,24 @@
       "types": [
         {
           "type_name": "Front Load",
-          "type_id": "a1jaZ000001lF6jQAE",
           "type_group": "Loading",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top Load",
-          "type_id": "a1jaZ000001lFC5QAM",
           "type_group": "Loading",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Unitized",
-          "type_id": "a1jaZ000001lFCaQAM",
           "type_group": "Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -711,19 +616,16 @@
       "types": [
         {
           "type_name": "Standalone",
-          "type_id": "a1jaZ000001lFBJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Storage Pedestal",
-          "type_id": "a1jaZ000001lFBXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -739,25 +641,21 @@
       "types": [
         {
           "type_name": "Front Load",
-          "type_id": "a1jaZ000001lF6jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top Load",
-          "type_id": "a1jaZ000001lFC5QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Unitized",
-          "type_id": "a1jaZ000001lFCaQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -774,31 +672,26 @@
       "types": [
         {
           "type_name": "Peel and Stick",
-          "type_id": "a1jaZ000001lF9CQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Modular",
-          "type_id": "a1jaZ000001lF8UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Commercial",
-          "type_id": "a1jaZ000001lF4lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Residential",
-          "type_id": "a1jaZ000001lFA4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -814,37 +707,31 @@
       "types": [
         {
           "type_name": "Paver",
-          "type_id": "a1jaZ000001lF9AQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flagstone",
-          "type_id": "a1jaZ000001lF6LQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Brick",
-          "type_id": "a1jaZ000001lF3yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gravel",
-          "type_id": "a1jaZ000001lF6wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stepping Stone",
-          "type_id": "a1jaZ000001lFBRQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -860,73 +747,62 @@
       "types": [
         {
           "type_name": "Solid",
-          "type_id": "a1jaZ000001lFB8QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Engineered",
-          "type_id": "a1jaZ000001lF61QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Prefinished",
-          "type_id": "a1jaZ000001lF9YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Unfinished",
-          "type_id": "a1jaZ000001lFCYQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Nail Down",
-          "type_id": "",
           "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Glue Down",
-          "type_id": "",
           "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Click Lock",
-          "type_id": "a1jaZ000001lF4aQAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floating",
-          "type_id": "a1jaZ000001lF5zQAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hand-Scraped",
-          "type_id": "",
           "type_group": "Finish",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Wire-Brushed",
-          "type_id": "",
           "type_group": "Finish",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -943,31 +819,26 @@
       "types": [
         {
           "type_name": "Wood Look",
-          "type_id": "a1jaZ000001lFDRQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tile Look",
-          "type_id": "a1jaZ000001lFByQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stone Look",
-          "type_id": "a1jaZ000001lFBTQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Waterproof",
-          "type_id": "a1jaZ000001lFD9QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -983,72 +854,61 @@
       "types": [
         {
           "type_name": "Plank",
-          "type_id": "a1jaZ000001lF9LQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tile",
-          "type_id": "a1jaZ000001lFBxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Click Lock",
-          "type_id": "a1jaZ000001lF4aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Glue Down",
-          "type_id": "a1jaZ000001lF6tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Loose Lay",
-          "type_id": "a1jaZ000001lF8JQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vinyl Plank",
-          "type_id": "a1jaZ000001lFCnQAM",
           "type_group": "Format",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vinyl Tile",
-          "type_id": "a1jaZ000001lFCoQAM",
           "type_group": "Format",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "WPC",
-          "type_id": "",
           "type_group": "Core Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "SPC",
-          "type_id": "",
           "type_group": "Core Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Rigid Core",
-          "type_id": "",
           "type_group": "Core Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1065,43 +925,36 @@
       "types": [
         {
           "type_name": "Ceramic",
-          "type_id": "a1jaZ000001lF4QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Porcelain",
-          "type_id": "a1jaZ000001lF9RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stone",
-          "type_id": "a1jaZ000001lFBSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Glass",
-          "type_id": "a1jaZ000001lF6qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mosaic",
-          "type_id": "a1jaZ000001lF8ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cement",
-          "type_id": "a1jaZ000001lF4MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1117,31 +970,26 @@
       "types": [
         {
           "type_name": "Vinyl Plank",
-          "type_id": "a1jaZ000001lFCnQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vinyl Tile",
-          "type_id": "a1jaZ000001lFCoQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Laminate",
-          "type_id": "a1jaZ000001lF81QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Engineered",
-          "type_id": "a1jaZ000001lF61QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1157,37 +1005,31 @@
       "types": [
         {
           "type_name": "Track Kit",
-          "type_id": "a1jaZ000001lFCGQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hanger",
-          "type_id": "a1jaZ000001lF7AQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Rail",
-          "type_id": "a1jaZ000001lF9sQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor Guide",
-          "type_id": "a1jaZ000001lF6TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1203,37 +1045,31 @@
       "types": [
         {
           "type_name": "Edge Banding",
-          "type_id": "a1jaZ000001lF5tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Molding",
-          "type_id": "a1jaZ000001lF8VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Toe Kick",
-          "type_id": "a1jaZ000001lFC0QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "End Panel",
-          "type_id": "a1jaZ000001lF60QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Crown Molding",
-          "type_id": "a1jaZ000001lF57QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1249,37 +1085,31 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hinge",
-          "type_id": "a1jaZ000001lF7EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Catch",
-          "type_id": "a1jaZ000001lF4JQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1295,37 +1125,31 @@
       "types": [
         {
           "type_name": "Pull-Out Shelf",
-          "type_id": "a1jaZ000001lF9kQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lazy Susan",
-          "type_id": "a1jaZ000001lF85QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drawer Insert",
-          "type_id": "a1jaZ000001lF5iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Door Organizer",
-          "type_id": "a1jaZ000001lF5WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Trash Pull-Out",
-          "type_id": "a1jaZ000001lFCJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1341,37 +1165,31 @@
       "types": [
         {
           "type_name": "Pocket Door Kit",
-          "type_id": "a1jaZ000001lF9PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Closet Rod",
-          "type_id": "a1jaZ000001lF4dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Track",
-          "type_id": "a1jaZ000001lFCEQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lock",
-          "type_id": "a1jaZ000001lF8FQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1387,37 +1205,31 @@
       "types": [
         {
           "type_name": "Exit Device",
-          "type_id": "a1jaZ000001lF65QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Door Closer",
-          "type_id": "a1jaZ000001lF5VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Push/Pull",
-          "type_id": "a1jaZ000001lF9pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Kick Plate",
-          "type_id": "a1jaZ000001lF7kQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mortise Lock",
-          "type_id": "a1jaZ000001lF8YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1433,25 +1245,21 @@
       "types": [
         {
           "type_name": "Designer Knob",
-          "type_id": "a1jaZ000001lF5MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Designer Pull",
-          "type_id": "a1jaZ000001lF5NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Designer Handle",
-          "type_id": "a1jaZ000001lF5LQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1467,31 +1275,26 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lever",
-          "type_id": "a1jaZ000001lF86QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deadbolt",
-          "type_id": "a1jaZ000001lF5GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handleset",
-          "type_id": "a1jaZ000001lF78QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1507,37 +1310,31 @@
       "types": [
         {
           "type_name": "Keypad",
-          "type_id": "a1jaZ000001lF7jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touchscreen",
-          "type_id": "a1jaZ000001lFCBQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart Lock",
-          "type_id": "a1jaZ000001lFAzQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Biometric",
-          "type_id": "a1jaZ000001lF3nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bluetooth",
-          "type_id": "a1jaZ000001lF3rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1553,31 +1350,26 @@
       "types": [
         {
           "type_name": "Handleset",
-          "type_id": "a1jaZ000001lF78QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lock",
-          "type_id": "a1jaZ000001lF8FQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Strike",
-          "type_id": "a1jaZ000001lFBeQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gear",
-          "type_id": "a1jaZ000001lF6pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1593,37 +1385,31 @@
       "types": [
         {
           "type_name": "Handle Set",
-          "type_id": "a1jaZ000001lF77QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Closer",
-          "type_id": "a1jaZ000001lF4cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hinge",
-          "type_id": "a1jaZ000001lF7EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Latch",
-          "type_id": "a1jaZ000001lF84QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Push Bar",
-          "type_id": "a1jaZ000001lF9lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1639,37 +1425,31 @@
       "types": [
         {
           "type_name": "Track",
-          "type_id": "a1jaZ000001lFCEQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Roller",
-          "type_id": "a1jaZ000001lFAAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lock",
-          "type_id": "a1jaZ000001lF8FQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor Guide",
-          "type_id": "a1jaZ000001lF6TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1685,25 +1465,21 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1719,37 +1495,31 @@
       "types": [
         {
           "type_name": "Rooftop Unit",
-          "type_id": "a1jaZ000001lFAEQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Split System",
-          "type_id": "a1jaZ000001lFBCQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Package Unit",
-          "type_id": "a1jaZ000001lF91QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Chiller",
-          "type_id": "a1jaZ000001lF4VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Boiler",
-          "type_id": "a1jaZ000001lF3tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1765,37 +1535,31 @@
       "types": [
         {
           "type_name": "Flexible",
-          "type_id": "a1jaZ000001lF6NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Rigid",
-          "type_id": "a1jaZ000001lFA6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Insulated",
-          "type_id": "a1jaZ000001lF7VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Connector",
-          "type_id": "a1jaZ000001lF4uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vent",
-          "type_id": "a1jaZ000001lFChQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1811,43 +1575,36 @@
       "types": [
         {
           "type_name": "Ceramic",
-          "type_id": "a1jaZ000001lF4QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Infrared",
-          "type_id": "a1jaZ000001lF7PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Oil Filled",
-          "type_id": "a1jaZ000001lF8nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Fan Forced",
-          "type_id": "a1jaZ000001lF6AQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Radiant",
-          "type_id": "a1jaZ000001lF9rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Convection",
-          "type_id": "a1jaZ000001lF4yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1863,37 +1620,31 @@
       "types": [
         {
           "type_name": "Chimney Pipe",
-          "type_id": "a1jaZ000001lF4WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stove Pipe",
-          "type_id": "a1jaZ000001lFBbQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Connector",
-          "type_id": "a1jaZ000001lF4uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cap",
-          "type_id": "a1jaZ000001lF4EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flashing",
-          "type_id": "a1jaZ000001lF6MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1909,43 +1660,36 @@
       "types": [
         {
           "type_name": "Wall Art",
-          "type_id": "a1jaZ000001lFCrQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mirror",
-          "type_id": "a1jaZ000001lF8TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Clock",
-          "type_id": "a1jaZ000001lF4bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Shelf",
-          "type_id": "a1jaZ000001lFAXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sconce",
-          "type_id": "a1jaZ000001lFAIQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tapestry",
-          "type_id": "a1jaZ000001lFBqQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -1961,37 +1705,31 @@
       "types": [
         {
           "type_name": "Pipe Cement",
-          "type_id": "a1jaZ000001lF9IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Primer",
-          "type_id": "a1jaZ000001lF9aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sealant",
-          "type_id": "a1jaZ000001lFALQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flux",
-          "type_id": "a1jaZ000001lF6aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Thread Compound",
-          "type_id": "a1jaZ000001lFBuQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2007,43 +1745,36 @@
       "types": [
         {
           "type_name": "Panel",
-          "type_id": "a1jaZ000001lF93QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Troffer",
-          "type_id": "a1jaZ000001lFCOQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "High Bay",
-          "type_id": "a1jaZ000001lF7DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Low Bay",
-          "type_id": "a1jaZ000001lF8LQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Strip Light",
-          "type_id": "a1jaZ000001lFBgQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Exit Sign",
-          "type_id": "a1jaZ000001lF66QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2059,43 +1790,36 @@
       "types": [
         {
           "type_name": "Toilet",
-          "type_id": "a1jaZ000001lFC2QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Urinal",
-          "type_id": "a1jaZ000001lFCdQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sink",
-          "type_id": "a1jaZ000001lFAsQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hand Dryer",
-          "type_id": "a1jaZ000001lF72QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dispenser",
-          "type_id": "a1jaZ000001lF5TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Partition",
-          "type_id": "a1jaZ000001lF95QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2111,37 +1835,31 @@
       "types": [
         {
           "type_name": "Floor Drain",
-          "type_id": "a1jaZ000001lF6SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Trench Drain",
-          "type_id": "a1jaZ000001lFCKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cleanout",
-          "type_id": "a1jaZ000001lF4ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Interceptor",
-          "type_id": "a1jaZ000001lF7XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vent",
-          "type_id": "a1jaZ000001lFChQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2157,31 +1875,26 @@
       "types": [
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bottle Filler",
-          "type_id": "a1jaZ000001lF3vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Outdoor",
-          "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2197,31 +1910,26 @@
       "types": [
         {
           "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bath Bar",
-          "type_id": "a1jaZ000001lF3aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sconce",
-          "type_id": "a1jaZ000001lFAIQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Globe",
-          "type_id": "a1jaZ000001lF6sQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2237,31 +1945,26 @@
       "types": [
         {
           "type_name": "Linear",
-          "type_id": "a1jaZ000001lF8DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Multi-Light",
-          "type_id": "a1jaZ000001lF8dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pendant",
-          "type_id": "a1jaZ000001lF9EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Chandelier",
-          "type_id": "a1jaZ000001lF4SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2277,31 +1980,26 @@
       "types": [
         {
           "type_name": "LED Strip",
-          "type_id": "a1jaZ000001lF7zQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED Panel",
-          "type_id": "a1jaZ000001lF7xQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED Retrofit",
-          "type_id": "a1jaZ000001lF7yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED Tube",
-          "type_id": "a1jaZ000001lF80QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2317,37 +2015,31 @@
       "types": [
         {
           "type_name": "LED",
-          "type_id": "a1jaZ000001lF7tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Incandescent",
-          "type_id": "a1jaZ000001lF7MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "CFL",
-          "type_id": "a1jaZ000001lF45QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Halogen",
-          "type_id": "a1jaZ000001lF6zQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart Bulb",
-          "type_id": "a1jaZ000001lFAwQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2363,43 +2055,36 @@
       "types": [
         {
           "type_name": "Standard Switch",
-          "type_id": "a1jaZ000001lFBLQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dimmer",
-          "type_id": "a1jaZ000001lF5QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart Switch",
-          "type_id": "a1jaZ000001lFB1QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Motion Sensor",
-          "type_id": "a1jaZ000001lF8aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Timer",
-          "type_id": "a1jaZ000001lFBzQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Fan Control",
-          "type_id": "a1jaZ000001lF69QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2415,43 +2100,36 @@
       "types": [
         {
           "type_name": "New Construction",
-          "type_id": "a1jaZ000001lF8gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Remodel",
-          "type_id": "a1jaZ000001lFA1QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Canless",
-          "type_id": "a1jaZ000001lF4BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED",
-          "type_id": "a1jaZ000001lF7tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Trim",
-          "type_id": "a1jaZ000001lFCLQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Housing",
-          "type_id": "a1jaZ000001lF7HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2467,31 +2145,26 @@
       "types": [
         {
           "type_name": "Recessed",
-          "type_id": "a1jaZ000001lF9vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Surface Mount",
-          "type_id": "a1jaZ000001lFBiQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Solar",
-          "type_id": "a1jaZ000001lFB7QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED",
-          "type_id": "a1jaZ000001lF7tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2507,37 +2180,31 @@
       "types": [
         {
           "type_name": "Track",
-          "type_id": "a1jaZ000001lFCEQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Track Head",
-          "type_id": "a1jaZ000001lFCFQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Monorail",
-          "type_id": "a1jaZ000001lF8WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Connector",
-          "type_id": "a1jaZ000001lF4uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "LED",
-          "type_id": "a1jaZ000001lF7tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2553,49 +2220,41 @@
       "types": [
         {
           "type_name": "Pendant",
-          "type_id": "a1jaZ000001lF9EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Island",
-          "type_id": "a1jaZ000001lF7aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Under Cabinet",
-          "type_id": "a1jaZ000001lFCUQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Track",
-          "type_id": "a1jaZ000001lFCEQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flush Mount",
-          "type_id": "a1jaZ000001lF6YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Recessed",
-          "type_id": "a1jaZ000001lF9vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Linear",
-          "type_id": "a1jaZ000001lF8DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2611,43 +2270,36 @@
       "types": [
         {
           "type_name": "Path Light",
-          "type_id": "a1jaZ000001lF97QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Spotlight",
-          "type_id": "a1jaZ000001lFBDQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flood Light",
-          "type_id": "a1jaZ000001lF6QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Well Light",
-          "type_id": "a1jaZ000001lFDAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck",
-          "type_id": "a1jaZ000001lF5HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bollard",
-          "type_id": "a1jaZ000001lF3uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2663,55 +2315,46 @@
       "types": [
         {
           "type_name": "Wall Lantern",
-          "type_id": "a1jaZ000001lFCvQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Post Light",
-          "type_id": "a1jaZ000001lF9TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Path Light",
-          "type_id": "a1jaZ000001lF97QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flood Light",
-          "type_id": "a1jaZ000001lF6QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Landscape",
-          "type_id": "a1jaZ000001lF82QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Security",
-          "type_id": "a1jaZ000001lFAPQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck",
-          "type_id": "a1jaZ000001lF5HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ceiling Mounted",
-          "type_id": "a1jaZ000001lF4LQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2727,43 +2370,36 @@
       "types": [
         {
           "type_name": "Planter",
-          "type_id": "a1jaZ000001lF9MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Statue",
-          "type_id": "a1jaZ000001lFBNQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Fountain",
-          "type_id": "a1jaZ000001lF6bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bird Bath",
-          "type_id": "a1jaZ000001lF3oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wind Chime",
-          "type_id": "a1jaZ000001lFDHQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Garden Stake",
-          "type_id": "a1jaZ000001lF6nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2779,25 +2415,21 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2813,49 +2445,41 @@
       "types": [
         {
           "type_name": "Towel Bar",
-          "type_id": "a1jaZ000001lFCCQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Towel Ring",
-          "type_id": "a1jaZ000001lFCDQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Robe Hook",
-          "type_id": "a1jaZ000001lFA8QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Toilet Paper Holder",
-          "type_id": "a1jaZ000001lFC3QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Shelf",
-          "type_id": "a1jaZ000001lFAXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Grab Bar",
-          "type_id": "a1jaZ000001lF6uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Set",
-          "type_id": "a1jaZ000001lFAVQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2871,37 +2495,31 @@
       "types": [
         {
           "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bath Bar",
-          "type_id": "a1jaZ000001lF3aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sconce",
-          "type_id": "a1jaZ000001lFAIQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Flush Mount",
-          "type_id": "a1jaZ000001lF6YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pendant",
-          "type_id": "a1jaZ000001lF9EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2917,37 +2535,31 @@
       "types": [
         {
           "type_name": "Toe-Touch",
-          "type_id": "a1jaZ000001lFC1QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Push-Pull",
-          "type_id": "a1jaZ000001lF9oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lift & Turn",
-          "type_id": "a1jaZ000001lF89QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Trip Lever",
-          "type_id": "a1jaZ000001lFCNQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cable Operated",
-          "type_id": "a1jaZ000001lF47QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -2963,31 +2575,26 @@
       "types": [
         {
           "type_name": "Flush Mount",
-          "type_id": "a1jaZ000001lF6YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Semi-Flush",
-          "type_id": "a1jaZ000001lFASQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drum",
-          "type_id": "a1jaZ000001lF5nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Globe",
-          "type_id": "a1jaZ000001lF6sQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3003,49 +2610,41 @@
       "types": [
         {
           "type_name": "Ceramic",
-          "type_id": "a1jaZ000001lF4QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Porcelain",
-          "type_id": "a1jaZ000001lF9RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Glass",
-          "type_id": "a1jaZ000001lF6qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stone",
-          "type_id": "a1jaZ000001lFBSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mosaic",
-          "type_id": "a1jaZ000001lF8ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Subway",
-          "type_id": "a1jaZ000001lFBhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Peel and Stick",
-          "type_id": "a1jaZ000001lF9CQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3061,43 +2660,36 @@
       "types": [
         {
           "type_name": "Kitchen Island",
-          "type_id": "a1jaZ000001lF7oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Kitchen Cart",
-          "type_id": "a1jaZ000001lF7mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bar Stool",
-          "type_id": "a1jaZ000001lF3RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bakers Rack",
-          "type_id": "a1jaZ000001lF3MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wine Rack",
-          "type_id": "a1jaZ000001lFDKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Buffet",
-          "type_id": "a1jaZ000001lF40QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3113,43 +2705,36 @@
       "types": [
         {
           "type_name": "Pull-Out Shelf",
-          "type_id": "a1jaZ000001lF9kQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lazy Susan",
-          "type_id": "a1jaZ000001lF85QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drawer Organizer",
-          "type_id": "a1jaZ000001lF5kQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Spice Rack",
-          "type_id": "a1jaZ000001lFBBQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pot Rack",
-          "type_id": "a1jaZ000001lF9WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Trash Pull-Out",
-          "type_id": "a1jaZ000001lFCJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3165,43 +2750,36 @@
       "types": [
         {
           "type_name": "Ceramic",
-          "type_id": "a1jaZ000001lF4QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Porcelain",
-          "type_id": "a1jaZ000001lF9RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Glass",
-          "type_id": "a1jaZ000001lF6qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Stone",
-          "type_id": "a1jaZ000001lFBSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mosaic",
-          "type_id": "a1jaZ000001lF8ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Subway",
-          "type_id": "a1jaZ000001lFBhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3217,43 +2795,36 @@
       "types": [
         {
           "type_name": "Under Sink",
-          "type_id": "a1jaZ000001lFCVQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Whole House",
-          "type_id": "a1jaZ000001lFDDQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Countertop",
-          "type_id": "a1jaZ000001lF52QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Faucet Mount",
-          "type_id": "a1jaZ000001lF6BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Reverse Osmosis",
-          "type_id": "a1jaZ000001lFA5QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Replacement Filter",
-          "type_id": "a1jaZ000001lFA3QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3269,25 +2840,21 @@
       "types": [
         {
           "type_name": "Indoor",
-          "type_id": "a1jaZ000001lF7NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Outdoor",
-          "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hugger",
-          "type_id": "a1jaZ000001lF7IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3303,31 +2870,26 @@
       "types": [
         {
           "type_name": "Tankless",
-          "type_id": "a1jaZ000001lFBoQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tank",
-          "type_id": "a1jaZ000001lFBmQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3343,91 +2905,77 @@
       "types": [
         {
           "type_name": "Pull-Down",
-          "type_id": "a1jaZ000001lF9iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull-Out",
-          "type_id": "a1jaZ000001lF9jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bridge",
-          "type_id": "a1jaZ000001lF3zQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pre-Rinse",
-          "type_id": "a1jaZ000001lF9XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touchless",
-          "type_id": "a1jaZ000001lFCAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Handle",
-          "type_id": "a1jaZ000001lFAmQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Commercial",
-          "type_id": "a1jaZ000001lF4lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Two Handle",
-          "type_id": "a1jaZ000001lFCRQA2",
           "type_group": "Handle Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touch-On",
-          "type_id": "",
           "type_group": "Handle Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "High-Arc",
-          "type_id": "",
           "type_group": "Spout Style",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Commercial Style",
-          "type_id": "",
           "type_group": "Spout Style",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck Mount",
-          "type_id": "a1jaZ000001lF5CQAU",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3444,78 +2992,66 @@
       "types": [
         {
           "type_name": "Centerset",
-          "type_id": "a1jaZ000001lF4OQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Widespread",
-          "type_id": "a1jaZ000001lFDGQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Hole",
-          "type_id": "a1jaZ000001lFAnQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vessel",
-          "type_id": "a1jaZ000001lFClQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touchless",
-          "type_id": "a1jaZ000001lFCAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Handle",
-          "type_id": "a1jaZ000001lFAmQAM",
           "type_group": "Handle Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Two Handle",
-          "type_id": "a1jaZ000001lFCRQA2",
           "type_group": "Handle Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "High-Arc",
-          "type_id": "",
           "type_group": "Spout Style",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Low-Arc",
-          "type_id": "",
           "type_group": "Spout Style",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Waterfall",
-          "type_id": "a1jaZ000001lFD7QAM",
           "type_group": "Spout Style",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3532,31 +3068,26 @@
       "types": [
         {
           "type_name": "Single Handle",
-          "type_id": "a1jaZ000001lFAmQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull-Down",
-          "type_id": "a1jaZ000001lF9iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull-Out",
-          "type_id": "a1jaZ000001lF9jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touchless",
-          "type_id": "a1jaZ000001lFCAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3572,37 +3103,31 @@
       "types": [
         {
           "type_name": "Roman Tub",
-          "type_id": "a1jaZ000001lFABQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck Mount",
-          "type_id": "a1jaZ000001lF5IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor Mounted Tub Filler",
-          "type_id": "a1jaZ000001lF6XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3618,43 +3143,36 @@
       "types": [
         {
           "type_name": "Thermostatic",
-          "type_id": "a1jaZ000001lFBsQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pressure Balance",
-          "type_id": "a1jaZ000001lF9ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Shower System",
-          "type_id": "a1jaZ000001lFAdQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Rain Head",
-          "type_id": "a1jaZ000001lF9uQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handheld",
-          "type_id": "a1jaZ000001lF73QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Showerhead",
-          "type_id": "a1jaZ000001lFAeQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3670,19 +3188,16 @@
       "types": [
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck Mount",
-          "type_id": "a1jaZ000001lF5IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3698,25 +3213,21 @@
       "types": [
         {
           "type_name": "Pre-Rinse",
-          "type_id": "a1jaZ000001lF9XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Commercial",
-          "type_id": "a1jaZ000001lF4lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3732,25 +3243,21 @@
       "types": [
         {
           "type_name": "Deck Mount",
-          "type_id": "a1jaZ000001lF5IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Handle",
-          "type_id": "a1jaZ000001lFAmQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3766,25 +3273,21 @@
       "types": [
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handheld",
-          "type_id": "a1jaZ000001lF73QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3800,50 +3303,42 @@
       "types": [
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Apron Front",
-          "type_id": "a1jaZ000001lF3GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Bowl",
-          "type_id": "a1jaZ000001lFAkQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Bowl",
-          "type_id": "a1jaZ000001lF5YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Workstation",
-          "type_id": "a1jaZ000001lFDTQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Triple Bowl",
-          "type_id": "",
           "type_group": "Bowl Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3860,31 +3355,26 @@
       "types": [
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Apron Front",
-          "type_id": "a1jaZ000001lF3GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Workstation",
-          "type_id": "a1jaZ000001lFDTQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3900,25 +3390,21 @@
       "types": [
         {
           "type_name": "Bar/Prep",
-          "type_id": "a1jaZ000001lF3SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3934,49 +3420,41 @@
       "types": [
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vessel",
-          "type_id": "a1jaZ000001lFClQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pedestal",
-          "type_id": "a1jaZ000001lF9BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Console",
-          "type_id": "a1jaZ000001lF4vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Semi-Recessed",
-          "type_id": "a1jaZ000001lFATQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -3992,68 +3470,57 @@
       "types": [
         {
           "type_name": "Alcove",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "type_id": "a1jaZ000001lF5mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Clawfoot",
-          "type_id": "a1jaZ000001lF4YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Whirlpool",
-          "type_id": "a1jaZ000001lFDCQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Air Bath",
-          "type_id": "a1jaZ000001lF3BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Walk-In",
-          "type_id": "a1jaZ000001lFCqQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Soaking",
-          "type_id": "a1jaZ000001lFB2QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Corner",
-          "type_id": "a1jaZ000001lF50QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4070,50 +3537,42 @@
       "types": [
         {
           "type_name": "Alcove",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Corner",
-          "type_id": "a1jaZ000001lF50QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Neo-Angle",
-          "type_id": "a1jaZ000001lF8fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Walk-In",
-          "type_id": "a1jaZ000001lFCqQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Framed",
-          "type_id": "a1jaZ000001lF6dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Frameless",
-          "type_id": "a1jaZ000001lF6eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Barrier-Free",
-          "type_id": "",
           "type_group": "Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4130,25 +3589,21 @@
       "types": [
         {
           "type_name": "Complete System",
-          "type_id": "a1jaZ000001lF4qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Steam Generator",
-          "type_id": "a1jaZ000001lFBPQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Steam Head",
-          "type_id": "a1jaZ000001lFBQQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4164,37 +3619,31 @@
       "types": [
         {
           "type_name": "Thermostatic",
-          "type_id": "a1jaZ000001lFBsQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pressure Balance",
-          "type_id": "a1jaZ000001lF9ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Diverter",
-          "type_id": "a1jaZ000001lF5UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Volume Control",
-          "type_id": "a1jaZ000001lFCpQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Transfer",
-          "type_id": "a1jaZ000001lFCHQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4210,25 +3659,21 @@
       "types": [
         {
           "type_name": "Bidet",
-          "type_id": "a1jaZ000001lF3iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Integrated",
-          "type_id": "a1jaZ000001lF7WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4244,25 +3689,21 @@
       "types": [
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Non-Electric",
-          "type_id": "a1jaZ000001lF8jQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bidet Seat",
-          "type_id": "a1jaZ000001lF3kQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4278,85 +3719,72 @@
       "types": [
         {
           "type_name": "One-Piece",
-          "type_id": "a1jaZ000001lF8oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Two-Piece",
-          "type_id": "a1jaZ000001lFCSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall-Mounted",
-          "type_id": "a1jaZ000001lFCyQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart",
-          "type_id": "a1jaZ000001lFAvQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Elongated",
-          "type_id": "a1jaZ000001lF5yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Round",
-          "type_id": "a1jaZ000001lFAFQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall-Hung",
-          "type_id": "",
           "type_group": "Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Smart/Electronic",
-          "type_id": "",
           "type_group": "Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Round-Front",
-          "type_id": "",
           "type_group": "Bowl Shape",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Dual-Flush",
-          "type_id": "",
           "type_group": "Flush Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Gravity",
-          "type_id": "",
           "type_group": "Flush Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Pressure-Assisted",
-          "type_id": "",
           "type_group": "Flush Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4373,31 +3801,26 @@
       "types": [
         {
           "type_name": "Elongated",
-          "type_id": "a1jaZ000001lF5yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Round",
-          "type_id": "a1jaZ000001lFAFQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Soft Close",
-          "type_id": "a1jaZ000001lFB6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Standard",
-          "type_id": "a1jaZ000001lFBKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4413,31 +3836,26 @@
       "types": [
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Waterless",
-          "type_id": "a1jaZ000001lFD9QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Standard",
-          "type_id": "a1jaZ000001lFBKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Urinal",
-          "type_id": "a1jaZ000001lFCdQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4453,43 +3871,36 @@
       "types": [
         {
           "type_name": "Tankless",
-          "type_id": "a1jaZ000001lFBoQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Condensing",
-          "type_id": "a1jaZ000001lF4sQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Point of Use",
-          "type_id": "a1jaZ000001lF9QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Whole House",
-          "type_id": "a1jaZ000001lFDDQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4505,61 +3916,52 @@
       "types": [
         {
           "type_name": "Flush Mount",
-          "type_id": "a1jaZ000001lF6YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Semi-Flush",
-          "type_id": "a1jaZ000001lFASQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Passage",
-          "type_id": "a1jaZ000001lF8CQAU",
           "type_group": "Function",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Privacy",
-          "type_id": "a1jaZ000001lF8XQAU",
           "type_group": "Function",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Keyed Entry",
-          "type_id": "a1jaZ000001lF6gQAE",
           "type_group": "Function",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dummy",
-          "type_id": "a1jaZ000001lF5pQAE",
           "type_group": "Function",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Cylinder",
-          "type_id": "a1jaZ000001lF9OQAU",
           "type_group": "Lock Type",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Cylinder",
-          "type_id": "",
           "type_group": "Lock Type",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4576,43 +3978,36 @@
       "types": [
         {
           "type_name": "Chandelier",
-          "type_id": "a1jaZ000001lF4SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Candle",
-          "type_id": "a1jaZ000001lF48QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Crystal",
-          "type_id": "a1jaZ000001lF58QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drum",
-          "type_id": "a1jaZ000001lF5nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Sputnik",
-          "type_id": "a1jaZ000001lFBFQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tiered",
-          "type_id": "a1jaZ000001lFBrQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4628,43 +4023,36 @@
       "types": [
         {
           "type_name": "Pendant",
-          "type_id": "a1jaZ000001lF9EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Multi-Light",
-          "type_id": "a1jaZ000001lF8dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Mini",
-          "type_id": "a1jaZ000001lF8SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drum",
-          "type_id": "a1jaZ000001lF5nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Globe",
-          "type_id": "a1jaZ000001lF6pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lantern",
-          "type_id": "a1jaZ000001lF7xQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4680,66 +4068,56 @@
       "types": [
         {
           "type_name": "Wall Sconce",
-          "type_id": "a1jaZ000001lFD2QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Swing Arm",
-          "type_id": "a1jaZ000001lFBjQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Up Light",
-          "type_id": "a1jaZ000001lFCVQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Down Light",
-          "type_id": "a1jaZ000001lF5dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bath Bar",
-          "type_id": "a1jaZ000001lF3aQAE",
           "type_group": "Type",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
           "type_group": "Type",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "1-Light",
-          "type_id": "",
           "type_group": "Light Count",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "3-Light",
-          "type_id": "",
           "type_group": "Light Count",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "4-Light",
-          "type_id": "",
           "type_group": "Light Count",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4756,31 +4134,26 @@
       "types": [
         {
           "type_name": "LED Strip",
-          "type_id": "a1jaZ000001lF7vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Puck Light",
-          "type_id": "a1jaZ000001lF9gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Light Bar",
-          "type_id": "a1jaZ000001lF89QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tape Light",
-          "type_id": "a1jaZ000001lFBlQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4796,31 +4169,26 @@
       "types": [
         {
           "type_name": "Post Mount",
-          "type_id": "a1jaZ000001lF9TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pier Mount",
-          "type_id": "a1jaZ000001lF9HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column Mount",
-          "type_id": "a1jaZ000001lF4iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lantern",
-          "type_id": "a1jaZ000001lF7xQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4836,43 +4204,36 @@
       "types": [
         {
           "type_name": "Table Lamp",
-          "type_id": "a1jaZ000001lFBpQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor Lamp",
-          "type_id": "a1jaZ000001lF6VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Desk Lamp",
-          "type_id": "a1jaZ000001lF5NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Buffet Lamp",
-          "type_id": "a1jaZ000001lF41QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Arc Lamp",
-          "type_id": "a1jaZ000001lF3HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Torchiere",
-          "type_id": "a1jaZ000001lFC3QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4888,25 +4249,21 @@
       "types": [
         {
           "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bath Bar",
-          "type_id": "a1jaZ000001lF3XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Sconce",
-          "type_id": "a1jaZ000001lFD2QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4922,31 +4279,26 @@
       "types": [
         {
           "type_name": "Wall Mirror",
-          "type_id": "a1jaZ000001lFCwQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Medicine Cabinet",
-          "type_id": "a1jaZ000001lF8PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lighted",
-          "type_id": "a1jaZ000001lF8CQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Magnifying",
-          "type_id": "a1jaZ000001lF8NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -4962,37 +4314,31 @@
       "types": [
         {
           "type_name": "Shade",
-          "type_id": "a1jaZ000001lFAGQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Downrod",
-          "type_id": "a1jaZ000001lF5eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Light Kit",
-          "type_id": "a1jaZ000001lF8DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Blade",
-          "type_id": "a1jaZ000001lF3qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Remote",
-          "type_id": "a1jaZ000001lFA2QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5008,31 +4354,26 @@
       "types": [
         {
           "type_name": "Wall Mirror",
-          "type_id": "a1jaZ000001lFCwQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor Mirror",
-          "type_id": "a1jaZ000001lF6WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Full Length",
-          "type_id": "a1jaZ000001lF6lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vanity",
-          "type_id": "a1jaZ000001lFCfQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5048,31 +4389,26 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Designer Knob",
-          "type_id": "a1jaZ000001lF5PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Crystal",
-          "type_id": "a1jaZ000001lF58QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Jeweled",
-          "type_id": "a1jaZ000001lF7cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5088,49 +4424,41 @@
       "types": [
         {
           "type_name": "Bar Pull",
-          "type_id": "a1jaZ000001lF3QQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cup Pull",
-          "type_id": "a1jaZ000001lF5AQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bin Pull",
-          "type_id": "a1jaZ000001lF3lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ring Pull",
-          "type_id": "a1jaZ000001lFA0QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Finger Pull",
-          "type_id": "a1jaZ000001lF6DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Appliance Pull",
-          "type_id": "a1jaZ000001lF3FQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Arch Pull",
-          "type_id": "a1jaZ000001lF3IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5146,37 +4474,31 @@
       "types": [
         {
           "type_name": "Overlay",
-          "type_id": "a1jaZ000001lF90QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Inset",
-          "type_id": "a1jaZ000001lF7TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Concealed",
-          "type_id": "a1jaZ000001lF4rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Soft Close",
-          "type_id": "a1jaZ000001lFB6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ball Bearing",
-          "type_id": "a1jaZ000001lF3NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5192,37 +4514,31 @@
       "types": [
         {
           "type_name": "Keyed Lock",
-          "type_id": "a1jaZ000001lF7fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cam Lock",
-          "type_id": "a1jaZ000001lF49QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drawer Lock",
-          "type_id": "a1jaZ000001lF5iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Push Lock",
-          "type_id": "a1jaZ000001lF9lQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Glass Door Lock",
-          "type_id": "a1jaZ000001lF6rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5238,37 +4554,31 @@
       "types": [
         {
           "type_name": "Magnetic",
-          "type_id": "a1jaZ000001lF8MQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ball Catch",
-          "type_id": "a1jaZ000001lF3OQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Roller",
-          "type_id": "a1jaZ000001lFAAQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Touch Latch",
-          "type_id": "a1jaZ000001lFC9QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Push to Open",
-          "type_id": "a1jaZ000001lF9nQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5284,25 +4594,21 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hinge",
-          "type_id": "a1jaZ000001lF7EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5318,19 +4624,16 @@
       "types": [
         {
           "type_name": "Knob",
-          "type_id": "a1jaZ000001lF7qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pull",
-          "type_id": "a1jaZ000001lF9hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5346,31 +4649,26 @@
       "types": [
         {
           "type_name": "Appliance Pull",
-          "type_id": "a1jaZ000001lF3FQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Refrigerator Pull",
-          "type_id": "a1jaZ000001lF9zQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dishwasher Pull",
-          "type_id": "a1jaZ000001lF5VQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Oven Pull",
-          "type_id": "a1jaZ000001lF8yQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5386,13 +4684,11 @@
       "types": [
         {
           "type_name": "Decorative",
-          "type_id": "a1jaZ000001lF5KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5408,37 +4704,31 @@
       "types": [
         {
           "type_name": "Ball Bearing",
-          "type_id": "a1jaZ000001lF3NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Side Mount",
-          "type_id": "a1jaZ000001lFAiQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Center Mount",
-          "type_id": "a1jaZ000001lF4NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Soft Close",
-          "type_id": "a1jaZ000001lFB6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undermount",
-          "type_id": "a1jaZ000001lFCXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5454,37 +4744,31 @@
       "types": [
         {
           "type_name": "Single Cylinder",
-          "type_id": "a1jaZ000001lFAlQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Cylinder",
-          "type_id": "a1jaZ000001lF5ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electronic",
-          "type_id": "a1jaZ000001lF5wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart Lock",
-          "type_id": "a1jaZ000001lFAzQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Keyless",
-          "type_id": "a1jaZ000001lF7iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5500,31 +4784,26 @@
       "types": [
         {
           "type_name": "Entry",
-          "type_id": "a1jaZ000001lF62QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Privacy",
-          "type_id": "a1jaZ000001lF9bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Passage",
-          "type_id": "a1jaZ000001lF96QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dummy",
-          "type_id": "a1jaZ000001lF5rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5540,31 +4819,26 @@
       "types": [
         {
           "type_name": "Entry",
-          "type_id": "a1jaZ000001lF62QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Privacy",
-          "type_id": "a1jaZ000001lF9bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Passage",
-          "type_id": "a1jaZ000001lF96QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dummy",
-          "type_id": "a1jaZ000001lF5rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5580,25 +4854,21 @@
       "types": [
         {
           "type_name": "Handleset",
-          "type_id": "a1jaZ000001lF77QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Knob Entry",
-          "type_id": "a1jaZ000001lF7rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lever Entry",
-          "type_id": "a1jaZ000001lF88QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5614,25 +4884,21 @@
       "types": [
         {
           "type_name": "Handleset",
-          "type_id": "a1jaZ000001lF77QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Keyed Entry",
-          "type_id": "a1jaZ000001lF7gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electronic",
-          "type_id": "a1jaZ000001lF5wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5648,19 +4914,16 @@
       "types": [
         {
           "type_name": "Handleset + Deadbolt",
-          "type_id": "a1jaZ000001lF78QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Handleset",
-          "type_id": "a1jaZ000001lF77QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5676,31 +4939,26 @@
       "types": [
         {
           "type_name": "Mortise",
-          "type_id": "a1jaZ000001lF8XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Entry",
-          "type_id": "a1jaZ000001lF62QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Passage",
-          "type_id": "a1jaZ000001lF96QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Privacy",
-          "type_id": "a1jaZ000001lF9bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5716,25 +4974,21 @@
       "types": [
         {
           "type_name": "Deadbolt",
-          "type_id": "a1jaZ000001lF5GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Knob + Deadbolt",
-          "type_id": "a1jaZ000001lF7sQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lever + Deadbolt",
-          "type_id": "a1jaZ000001lF89QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5750,31 +5004,26 @@
       "types": [
         {
           "type_name": "Handle",
-          "type_id": "a1jaZ000001lF75QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Strike Plate",
-          "type_id": "a1jaZ000001lFBdQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Latch",
-          "type_id": "a1jaZ000001lF7wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hinge",
-          "type_id": "a1jaZ000001lF7EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5790,31 +5039,26 @@
       "types": [
         {
           "type_name": "Entry",
-          "type_id": "a1jaZ000001lF62QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Privacy",
-          "type_id": "a1jaZ000001lF9bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Passage",
-          "type_id": "a1jaZ000001lF96QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Dummy",
-          "type_id": "a1jaZ000001lF5rQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5830,31 +5074,26 @@
       "types": [
         {
           "type_name": "Butt Hinge",
-          "type_id": "a1jaZ000001lF43QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ball Bearing",
-          "type_id": "a1jaZ000001lF3NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Spring Hinge",
-          "type_id": "a1jaZ000001lFBCQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Piano Hinge",
-          "type_id": "a1jaZ000001lF9HQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5870,43 +5109,36 @@
       "types": [
         {
           "type_name": "Interior",
-          "type_id": "a1jaZ000001lF7YQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Exterior",
-          "type_id": "a1jaZ000001lF68QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "French",
-          "type_id": "a1jaZ000001lF6gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Barn",
-          "type_id": "a1jaZ000001lF3TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bi-Fold",
-          "type_id": "a1jaZ000001lF3hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pocket",
-          "type_id": "a1jaZ000001lF9OQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5922,31 +5154,26 @@
       "types": [
         {
           "type_name": "Entry",
-          "type_id": "a1jaZ000001lF62QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "French",
-          "type_id": "a1jaZ000001lF6gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Storm",
-          "type_id": "a1jaZ000001lFBaQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Screen",
-          "type_id": "a1jaZ000001lFAJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -5962,31 +5189,26 @@
       "types": [
         {
           "type_name": "Safe",
-          "type_id": "a1jaZ000001lFAGQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lock Box",
-          "type_id": "a1jaZ000001lF8GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Padlock",
-          "type_id": "a1jaZ000001lF92QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Key Cabinet",
-          "type_id": "a1jaZ000001lF7eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6002,31 +5224,26 @@
       "types": [
         {
           "type_name": "Window",
-          "type_id": "a1jaZ000001lFDIQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Central",
-          "type_id": "a1jaZ000001lF4PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Through-Wall",
-          "type_id": "a1jaZ000001lFBwQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6042,31 +5259,26 @@
       "types": [
         {
           "type_name": "Single Zone",
-          "type_id": "a1jaZ000001lFApQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Multi Zone",
-          "type_id": "a1jaZ000001lF8dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ductless",
-          "type_id": "a1jaZ000001lF5qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Heat Pump",
-          "type_id": "a1jaZ000001lF7CQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6082,31 +5294,26 @@
       "types": [
         {
           "type_name": "HEPA",
-          "type_id": "a1jaZ000001lF79QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electrostatic",
-          "type_id": "a1jaZ000001lF5xQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pleated",
-          "type_id": "a1jaZ000001lF9NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Carbon",
-          "type_id": "a1jaZ000001lF49QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6122,66 +5329,56 @@
       "types": [
         {
           "type_name": "Oscillating",
-          "type_id": "a1jaZ000001lF8pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pedestal",
-          "type_id": "a1jaZ000001lF9BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Table",
-          "type_id": "a1jaZ000001lFBkQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floor",
-          "type_id": "a1jaZ000001lF6RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Sconce",
-          "type_id": "a1jaZ000001lFD2QAM",
           "type_group": "Type",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Up Light",
-          "type_id": "a1jaZ000001lFCbQAM",
           "type_group": "Direction",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Down Light",
-          "type_id": "a1jaZ000001lF5gQAE",
           "type_group": "Direction",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Up/Down Light",
-          "type_id": "",
           "type_group": "Direction",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "1-Light",
-          "type_id": "",
           "type_group": "Light Count",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6198,25 +5395,21 @@
       "types": [
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Whole House",
-          "type_id": "a1jaZ000001lFDDQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6232,19 +5425,16 @@
       "types": [
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Window",
-          "type_id": "a1jaZ000001lFDIQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6260,31 +5450,26 @@
       "types": [
         {
           "type_name": "Programmable",
-          "type_id": "a1jaZ000001lF9eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Smart",
-          "type_id": "a1jaZ000001lFAvQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Standard",
-          "type_id": "a1jaZ000001lFBKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "WiFi",
-          "type_id": "a1jaZ000001lFDOQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6300,37 +5485,31 @@
       "types": [
         {
           "type_name": "Standard",
-          "type_id": "a1jaZ000001lFBKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Humidity Sensing",
-          "type_id": "a1jaZ000001lF7KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "With Light",
-          "type_id": "a1jaZ000001lFDKQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "With Heater",
-          "type_id": "a1jaZ000001lFDJQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "With Light and Heater",
-          "type_id": "a1jaZ000001lFDLQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6346,25 +5525,21 @@
       "types": [
         {
           "type_name": "Ceiling Mount",
-          "type_id": "a1jaZ000001lF4KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Inline",
-          "type_id": "a1jaZ000001lF7SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6380,25 +5555,21 @@
       "types": [
         {
           "type_name": "Gable Mount",
-          "type_id": "a1jaZ000001lF6mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Roof Mounted Powered Attic Fan",
-          "type_id": "a1jaZ000001lFA4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Solar",
-          "type_id": "a1jaZ000001lFB4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6414,31 +5585,26 @@
       "types": [
         {
           "type_name": "Register",
-          "type_id": "a1jaZ000001lFA0QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Grille",
-          "type_id": "a1jaZ000001lF6wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vent Cover",
-          "type_id": "a1jaZ000001lFCjQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Damper",
-          "type_id": "a1jaZ000001lF5EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6454,25 +5620,21 @@
       "types": [
         {
           "type_name": "Portable",
-          "type_id": "a1jaZ000001lF9SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Standby",
-          "type_id": "a1jaZ000001lFBMQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Inverter",
-          "type_id": "a1jaZ000001lF7aQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6488,43 +5650,36 @@
       "types": [
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Charcoal",
-          "type_id": "a1jaZ000001lF4TQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pellet",
-          "type_id": "a1jaZ000001lF9DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Kamado",
-          "type_id": "a1jaZ000001lF7dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wood-Fired",
-          "type_id": "a1jaZ000001lFDSQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6540,25 +5695,21 @@
       "types": [
         {
           "type_name": "Island",
-          "type_id": "a1jaZ000001lF7bQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Modular",
-          "type_id": "a1jaZ000001lF8WQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cart",
-          "type_id": "a1jaZ000001lF4IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6574,31 +5725,26 @@
       "types": [
         {
           "type_name": "Fire Table",
-          "type_id": "a1jaZ000001lF6IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wood Burning",
-          "type_id": "a1jaZ000001lFDQQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Propane",
-          "type_id": "a1jaZ000001lF9fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6614,25 +5760,21 @@
       "types": [
         {
           "type_name": "Fire Glass",
-          "type_id": "a1jaZ000001lF6GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Log Set",
-          "type_id": "a1jaZ000001lF8IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cover",
-          "type_id": "a1jaZ000001lF53QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF39QAE",
           "status": "existing",
           "primary_filter": true
         }
@@ -6648,25 +5790,21 @@
       "types": [
         {
           "type_name": "Wood Burning",
-          "type_id": "a1jaZ000001lFDQQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Ethanol",
-          "type_id": "a1jaZ000001lF64QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6682,31 +5820,26 @@
       "types": [
         {
           "type_name": "Propane",
-          "type_id": "a1jaZ000001lF9fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Electric",
-          "type_id": "a1jaZ000001lF5vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Infrared",
-          "type_id": "a1jaZ000001lF7PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hanging",
-          "type_id": "a1jaZ000001lF76QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6722,31 +5855,26 @@
       "types": [
         {
           "type_name": "Wood Burning",
-          "type_id": "a1jaZ000001lFDQQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Gas",
-          "type_id": "a1jaZ000001lF6oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Pellet",
-          "type_id": "a1jaZ000001lF9DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Multi-Fuel",
-          "type_id": "a1jaZ000001lF8cQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6762,19 +5890,16 @@
       "types": [
         {
           "type_name": "Continuous Feed",
-          "type_id": "a1jaZ000001lF4wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Batch Feed",
-          "type_id": "a1jaZ000001lF3ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6790,25 +5915,21 @@
       "types": [
         {
           "type_name": "Instant Hot Only",
-          "type_id": "a1jaZ000001lF7UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Hot and Cold",
-          "type_id": "a1jaZ000001lF7GQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Filtered",
-          "type_id": "a1jaZ000001lF6EQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6824,25 +5945,21 @@
       "types": [
         {
           "type_name": "Sink Grid",
-          "type_id": "a1jaZ000001lFAgQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Colander",
-          "type_id": "a1jaZ000001lF4fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cutting Board",
-          "type_id": "a1jaZ000001lF5DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF39QAE",
           "status": "existing",
           "primary_filter": true
         }
@@ -6858,31 +5975,26 @@
       "types": [
         {
           "type_name": "Simplex Strainer",
-          "type_id": "a1jaZ000001lFAWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Duplex Strainer",
-          "type_id": "a1jaZ000001lF5oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Basket Strainer",
-          "type_id": "a1jaZ000001lF3XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Y Strainer",
-          "type_id": "a1jaZ000001lFDUQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6898,44 +6010,37 @@
       "types": [
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mounted",
-          "type_id": "a1jaZ000001lFCyQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Floating",
-          "type_id": "a1jaZ000001lF6PQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Sink",
-          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Double Sink",
-          "type_id": "a1jaZ000001lF5XQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Corner",
-          "type_id": "a1jaZ000001lF4lQAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6952,37 +6057,31 @@
       "types": [
         {
           "type_name": "Recessed",
-          "type_id": "a1jaZ000001lF9vQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Surface Mount",
-          "type_id": "a1jaZ000001lFBiQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Framed",
-          "type_id": "a1jaZ000001lF6dQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Frameless",
-          "type_id": "a1jaZ000001lF6eQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lighted",
-          "type_id": "a1jaZ000001lF8CQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -6998,25 +6097,21 @@
       "types": [
         {
           "type_name": "Storage Drawer",
-          "type_id": "a1jaZ000001lFBVQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Cabinet",
-          "type_id": "a1jaZ000001lF46QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Access Door",
-          "type_id": "a1jaZ000001lF32QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7032,49 +6127,41 @@
       "types": [
         {
           "type_name": "Elbow",
-          "type_id": "a1jaZ000001lF5tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tee",
-          "type_id": "a1jaZ000001lFBpQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Coupling",
-          "type_id": "a1jaZ000001lF54QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Union",
-          "type_id": "a1jaZ000001lFCcQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Nipple",
-          "type_id": "a1jaZ000001lF8gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Adapter",
-          "type_id": "a1jaZ000001lF38QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Connector",
-          "type_id": "a1jaZ000001lF4tQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7090,19 +6177,16 @@
       "types": [
         {
           "type_name": "Bladder",
-          "type_id": "a1jaZ000001lF3pQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Diaphragm",
-          "type_id": "a1jaZ000001lF5SQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7118,43 +6202,36 @@
       "types": [
         {
           "type_name": "Dining",
-          "type_id": "a1jaZ000001lF5RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accent",
-          "type_id": "a1jaZ000001lF36QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Office",
-          "type_id": "a1jaZ000001lF8mQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Lounge",
-          "type_id": "a1jaZ000001lF8KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Rocking",
-          "type_id": "a1jaZ000001lFA9QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bar Stool",
-          "type_id": "a1jaZ000001lF3RQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7170,25 +6247,21 @@
       "types": [
         {
           "type_name": "Indoor",
-          "type_id": "a1jaZ000001lF7NQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Outdoor",
-          "type_id": "a1jaZ000001lF8qQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accent",
-          "type_id": "a1jaZ000001lF36QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7204,25 +6277,21 @@
       "types": [
         {
           "type_name": "Post Mount",
-          "type_id": "a1jaZ000001lF9UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Wall Mount",
-          "type_id": "a1jaZ000001lFCxQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column Mount",
-          "type_id": "a1jaZ000001lF4gQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7238,37 +6307,31 @@
       "types": [
         {
           "type_name": "Fixed",
-          "type_id": "a1jaZ000001lF6KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vented",
-          "type_id": "a1jaZ000001lFCkQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Curb Mount",
-          "type_id": "a1jaZ000001lF5BQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Deck Mount",
-          "type_id": "a1jaZ000001lF5IQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Tubular",
-          "type_id": "a1jaZ000001lFCRQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7284,82 +6347,69 @@
       "types": [
         {
           "type_name": "French Door",
-          "type_id": "a1jaZ000001lF6hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Side-by-Side",
-          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top-Freezer",
-          "type_id": "a1jaZ000001lFC6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bottom-Freezer",
-          "type_id": "a1jaZ000001lF3wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Counter Depth",
-          "type_id": "a1jaZ000001lF51QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column",
-          "type_id": "a1jaZ000001lF4iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undercounter",
-          "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "4-Door Flex",
-          "type_id": "a1jaZ000001lF33QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Door",
-          "type_id": "",
           "type_group": "Door Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF60QAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Panel-Ready",
-          "type_id": "",
           "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
@@ -7375,82 +6425,69 @@
       "types": [
         {
           "type_name": "French Door",
-          "type_id": "a1jaZ000001lF6hQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Side-by-Side",
-          "type_id": "a1jaZ000001lFAhQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Top-Freezer",
-          "type_id": "a1jaZ000001lFC6QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Bottom-Freezer",
-          "type_id": "a1jaZ000001lF3wQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Counter Depth",
-          "type_id": "a1jaZ000001lF51QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Column",
-          "type_id": "a1jaZ000001lF4iQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undercounter",
-          "type_id": "a1jaZ000001lFCWQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "4-Door Flex",
-          "type_id": "a1jaZ000001lF33QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Compact",
-          "type_id": "a1jaZ000001lF4oQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Door",
-          "type_id": "",
           "type_group": "Door Configuration",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
-          "type_id": "a1jaZ000001lF60QAE",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Panel-Ready",
-          "type_id": "",
           "type_group": "Installation",
           "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
-          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": false
         }
