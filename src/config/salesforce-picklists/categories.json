@@ -18,14 +18,6 @@
   {
     "family": "Kitchen",
     "department": "Appliances",
-    "category_name": "Cooking",
-    "category_id": "a01aZ00000Hm4voQAB",
-    "subcategory": "Kitchen",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Appliances",
     "category_name": "Cooktop",
     "category_id": "a01Hu000010Q5EhIAK",
     "subcategory": "Kitchen Appliances",
@@ -142,14 +134,6 @@
     "category_id": "a01Hu000010Q5EsIAK",
     "subcategory": "Laundry Appliances",
     "styles_apply": false
-  },
-  {
-    "family": "General",
-    "department": "Electronics",
-    "category_name": "Home Electronics",
-    "category_id": "a01aZ00000XaZKQQA3",
-    "subcategory": "General",
-    "styles_apply": true
   },
   {
     "family": "General",
@@ -338,14 +322,6 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Designer Hardware",
-    "category_id": "a01aZ00000dC5F6QAK",
-    "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
     "category_name": "Door",
     "category_id": "a01aZ00000dCejDQAS",
     "subcategory": "Home Improvement",
@@ -418,14 +394,6 @@
   {
     "family": "Home Improvement",
     "department": "Hardware",
-    "category_name": "Home Hardware",
-    "category_id": "a01aZ00000dCejFQAS",
-    "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
     "category_name": "Keyed Hardware",
     "category_id": "a01aZ00000dCejGQAS",
     "subcategory": "Home Improvement",
@@ -444,22 +412,6 @@
     "department": "Hardware",
     "category_name": "Lock Combo Pack",
     "category_id": "a01aZ00000dCejIQAS",
-    "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
-    "category_name": "Luxury Cabinet Knob",
-    "category_id": "a01aZ00000dCejfQAC",
-    "subcategory": "Home Improvement",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Hardware",
-    "category_name": "Luxury Cabinet Pull",
-    "category_id": "a01aZ00000dCejgQAC",
     "subcategory": "Home Improvement",
     "styles_apply": true
   },
@@ -602,26 +554,10 @@
   {
     "family": "HVAC",
     "department": "Heating & Cooling",
-    "category_name": "Heating",
-    "category_id": "a01aZ00000dCek9QAC",
-    "subcategory": "HVAC",
-    "styles_apply": true
-  },
-  {
-    "family": "HVAC",
-    "department": "Heating & Cooling",
     "category_name": "HVAC Accessory",
     "category_id": "a01aZ00000fKN2RQAW",
     "subcategory": "HVAC Components",
     "styles_apply": false
-  },
-  {
-    "family": "HVAC",
-    "department": "Heating & Cooling",
-    "category_name": "Indoor Heating",
-    "category_id": "a01aZ00000dCekAQAS",
-    "subcategory": "HVAC",
-    "styles_apply": true
   },
   {
     "family": "HVAC",
@@ -685,22 +621,6 @@
     "category_name": "Chair",
     "category_id": "a01aZ00000XYWwyQAH",
     "subcategory": "Furniture",
-    "styles_apply": true
-  },
-  {
-    "family": "Furniture",
-    "department": "Home Décor & Furniture",
-    "category_name": "Outdoor and Patio Furniture",
-    "category_id": "a01aZ00000dCekPQAS",
-    "subcategory": "Furniture",
-    "styles_apply": true
-  },
-  {
-    "family": "Home Improvement",
-    "department": "Home Décor & Furniture",
-    "category_name": "Home Organization",
-    "category_id": "a01aZ00000dCekLQAS",
-    "subcategory": "Home Improvement",
     "styles_apply": true
   },
   {
@@ -1350,5 +1270,29 @@
     "category_id": "a01aZ00000dC5EJQA0",
     "subcategory": "Water Treatment",
     "styles_apply": false
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Hardware",
+    "category_name": "Cabinet Hardware",
+    "category_id": "NEEDS_SF_ID",
+    "subcategory": "Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Flooring",
+    "category_name": "Carpet",
+    "category_id": "NEEDS_SF_ID",
+    "subcategory": "Soft Surface Flooring",
+    "styles_apply": true
+  },
+  {
+    "family": "Outdoor",
+    "department": "Outdoor",
+    "category_name": "Outdoor Lighting",
+    "category_id": "NEEDS_SF_ID",
+    "subcategory": "Outdoor Lighting",
+    "styles_apply": true
   }
 ]

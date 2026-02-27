@@ -111,6 +111,13 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'keg': { 'Refrigerator': 'Kegerator' },
   'beer dispenser': { 'Refrigerator': 'Kegerator' },
   'beer fridge': { 'Refrigerator': 'Kegerator' },
+  'counter depth': { 'Refrigerator': 'Counter Depth' },
+  'counter-depth': { 'Refrigerator': 'Counter Depth' },
+  'counterdepth': { 'Refrigerator': 'Counter Depth' },
+  'panel ready': { 'Refrigerator': 'Panel-Ready' },
+  'panel-ready': { 'Refrigerator': 'Panel-Ready' },
+  'panelready': { 'Refrigerator': 'Panel-Ready' },
+  'custom panel': { 'Refrigerator': 'Panel-Ready' },
   
   // ============================================
   // RANGE ALIASES
@@ -168,6 +175,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'unitized': { 'All in One Washer / Dryer': 'Unitized', 'Dryer': 'Unitized' },
   'stacked': { 'All in One Washer / Dryer': 'Unitized' },
   'laundry center': { 'All in One Washer / Dryer': 'Unitized' },
+  'ventless': { 'All in One Washer / Dryer': 'Ventless' },
+  'vent-free': { 'All in One Washer / Dryer': 'Ventless' },
+  'condensing dryer': { 'All in One Washer / Dryer': 'Ventless' },
   
   // ============================================
   // MICROWAVE ALIASES
