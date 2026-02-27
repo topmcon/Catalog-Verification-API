@@ -418,46 +418,171 @@ export function generateSEOTitle(input: SEOTitleInput): string {
  */
 /**
  * Extract specific accessory subtype from raw title/description for better title clarity
- * Example: "36\" Bespoke 3-Door French Door Refrigerator Panel" → "Refrigerator Panel"
+ * Example: "Sub-Zero Installation Kit for Model 7003411" → "Installation Kit"
+ * Example: "Coyote 32" Single Storage Drawer" → "Storage Drawer"
+ * Example: "Monogram Unification Trim Kit" → "Trim Kit"
+ * 
+ * CRITICAL: Patterns are ordered from MOST SPECIFIC to LEAST SPECIFIC
+ * to ensure we capture multi-word descriptors like "Storage Drawer" before just "Drawer"
  */
 function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
   const rawTitle = input.rawTitle?.toLowerCase() || '';
   
-  // Common accessory patterns
-  const patterns = [
-    /panel/i,
-    /door panel/i,
-    /refrigerator panel/i,
-    /heater kit/i,
-    /heating kit/i,
-    /ice maker/i,
-    /water filter/i,
-    /shelf/i,
-    /drawer/i,
-    /rack/i,
-    /basket/i,
-    /bin/i,
-    /door/i,
-    /handle/i,
-    /knob/i,
-    /trim kit/i,
-    /conversion kit/i
+  // Patterns ordered from MOST SPECIFIC (longer phrases) to LEAST SPECIFIC (single words)
+  // This ensures "Storage Drawer" matches before "Drawer"
+  const patterns: Array<{ pattern: RegExp; displayName: string }> = [
+    // --- MULTI-WORD SPECIFIC PHRASES (match these first) ---
+    // Kits
+    { pattern: /installation\s+kit/i, displayName: 'Installation Kit' },
+    { pattern: /dual\s+installation\s+kit/i, displayName: 'Installation Kit' },
+    { pattern: /unification\s+kit/i, displayName: 'Unification Kit' },
+    { pattern: /unification\s+trim\s+kit/i, displayName: 'Trim Kit' },
+    { pattern: /panel\s+kit/i, displayName: 'Panel Kit' },
+    { pattern: /trim\s+kit/i, displayName: 'Trim Kit' },
+    { pattern: /conversion\s+kit/i, displayName: 'Conversion Kit' },
+    { pattern: /heater\s+kit/i, displayName: 'Heater Kit' },
+    { pattern: /heating\s+kit/i, displayName: 'Heating Kit' },
+    { pattern: /vent\s+kit/i, displayName: 'Vent Kit' },
+    { pattern: /duct\s+kit/i, displayName: 'Duct Kit' },
+    { pattern: /stacking\s+kit/i, displayName: 'Stacking Kit' },
+    { pattern: /mounting\s+kit/i, displayName: 'Mounting Kit' },
+    { pattern: /hardware\s+kit/i, displayName: 'Hardware Kit' },
+    
+    // Panels  
+    { pattern: /refrigerator\s+panel/i, displayName: 'Refrigerator Panel' },
+    { pattern: /door\s+panel/i, displayName: 'Door Panel' },
+    { pattern: /custom\s+panel/i, displayName: 'Custom Panel' },
+    { pattern: /front\s+panel/i, displayName: 'Front Panel' },
+    { pattern: /side\s+panel/i, displayName: 'Side Panel' },
+    { pattern: /decorative\s+panel/i, displayName: 'Decorative Panel' },
+    
+    // Drawers
+    { pattern: /storage\s+drawer/i, displayName: 'Storage Drawer' },
+    { pattern: /warming\s+drawer/i, displayName: 'Warming Drawer' },
+    { pattern: /utility\s+drawer/i, displayName: 'Utility Drawer' },
+    { pattern: /pull-?\s*out\s+drawer/i, displayName: 'Pull-Out Drawer' },
+    { pattern: /single\s+drawer/i, displayName: 'Storage Drawer' },
+    { pattern: /double\s+drawer/i, displayName: 'Double Drawer' },
+    { pattern: /triple\s+drawer/i, displayName: 'Triple Drawer' },
+    
+    // Carts & Stands
+    { pattern: /grill\s+cart/i, displayName: 'Grill Cart' },
+    { pattern: /flat\s+top\s+(?:grill\s+)?cart/i, displayName: 'Grill Cart' },
+    { pattern: /island\s+cart/i, displayName: 'Island Cart' },
+    { pattern: /cart/i, displayName: 'Cart' },
+    { pattern: /stand/i, displayName: 'Stand' },
+    
+    // Covers
+    { pattern: /grill\s+cover/i, displayName: 'Grill Cover' },
+    { pattern: /built-?\s*in\s+cover/i, displayName: 'Built-In Cover' },
+    { pattern: /smoker\s+cover/i, displayName: 'Smoker Cover' },
+    
+    // Outdoor Kitchen specific
+    { pattern: /access\s+door/i, displayName: 'Access Door' },
+    { pattern: /trash\s+(?:drawer|chute|door)/i, displayName: 'Trash Drawer' },
+    { pattern: /paper\s+towel\s+(?:holder|dispenser)/i, displayName: 'Paper Towel Holder' },
+    { pattern: /propane\s+tank\s+(?:drawer|door)/i, displayName: 'Propane Tank Drawer' },
+    { pattern: /combo\s+(?:access\s+)?drawer/i, displayName: 'Combo Drawer' },
+    
+    // Trims & Surrounds
+    { pattern: /trim\s+strip/i, displayName: 'Trim Strip' },
+    { pattern: /filler\s+strip/i, displayName: 'Filler Strip' },
+    { pattern: /surround\s+(?:kit|frame|panel)?/i, displayName: 'Surround' },
+    { pattern: /filler/i, displayName: 'Filler' },
+    
+    // Shelves & Racks
+    { pattern: /wine\s+shelf/i, displayName: 'Wine Shelf' },
+    { pattern: /glass\s+shelf/i, displayName: 'Glass Shelf' },
+    { pattern: /drying\s+rack/i, displayName: 'Drying Rack' },
+    { pattern: /wine\s+rack/i, displayName: 'Wine Rack' },
+    { pattern: /spice\s+rack/i, displayName: 'Spice Rack' },
+    { pattern: /shelf/i, displayName: 'Shelf' },
+    { pattern: /shelving/i, displayName: 'Shelving' },
+    { pattern: /rack/i, displayName: 'Rack' },
+    
+    // Kitchen accessories
+    { pattern: /sink\s+grid/i, displayName: 'Sink Grid' },
+    { pattern: /cutting\s+board/i, displayName: 'Cutting Board' },
+    { pattern: /drainboard/i, displayName: 'Drainboard' },
+    { pattern: /drain\s+board/i, displayName: 'Drain Board' },
+    { pattern: /colander/i, displayName: 'Colander' },
+    { pattern: /soap\s+dispenser/i, displayName: 'Soap Dispenser' },
+    { pattern: /roll\s+tray/i, displayName: 'Roll Tray' },
+    { pattern: /rollout\s+tray/i, displayName: 'Rollout Tray' },
+    { pattern: /roll-?\s*out\s+tray/i, displayName: 'Rollout Tray' },
+    
+    // Handles & Hardware
+    { pattern: /door\s+handle/i, displayName: 'Door Handle' },
+    { pattern: /handle\s+kit/i, displayName: 'Handle Kit' },
+    { pattern: /handle/i, displayName: 'Handle' },
+    { pattern: /knob/i, displayName: 'Knob' },
+    { pattern: /hardware/i, displayName: 'Hardware' },
+    
+    // Bins & Baskets
+    { pattern: /vegetable\s+bin/i, displayName: 'Vegetable Bin' },
+    { pattern: /crisper\s+(?:bin|drawer)/i, displayName: 'Crisper Drawer' },
+    { pattern: /storage\s+bin/i, displayName: 'Storage Bin' },
+    { pattern: /bin/i, displayName: 'Bin' },
+    { pattern: /basket/i, displayName: 'Basket' },
+    
+    // Filters & Maintenance
+    { pattern: /water\s+filter/i, displayName: 'Water Filter' },
+    { pattern: /air\s+filter/i, displayName: 'Air Filter' },
+    { pattern: /grease\s+filter/i, displayName: 'Grease Filter' },
+    { pattern: /charcoal\s+filter/i, displayName: 'Charcoal Filter' },
+    { pattern: /filter/i, displayName: 'Filter' },
+    
+    // Appliance-specific
+    { pattern: /ice\s+maker/i, displayName: 'Ice Maker' },
+    { pattern: /icemaker/i, displayName: 'Ice Maker' },
+    { pattern: /rotisserie/i, displayName: 'Rotisserie' },
+    { pattern: /warming\s+tray/i, displayName: 'Warming Tray' },
+    { pattern: /lid/i, displayName: 'Lid' },
+    { pattern: /cover/i, displayName: 'Cover' },
+    
+    // Generic fallbacks (LAST - least specific)
+    { pattern: /panel/i, displayName: 'Panel' },
+    { pattern: /drawer/i, displayName: 'Drawer' },
+    { pattern: /door/i, displayName: 'Door' },
+    { pattern: /kit/i, displayName: 'Kit' },
+    { pattern: /tray/i, displayName: 'Tray' },
   ];
   
-  for (const pattern of patterns) {
+  // Try each pattern in order (most specific first)
+  for (const { pattern, displayName } of patterns) {
     if (pattern.test(rawTitle)) {
-      // Extract the matched phrase
-      const match = rawTitle.match(pattern);
-      if (match) {
-        // Capitalize first letter of each word
-        return match[0]
-          .split(' ')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
-      }
+      logger.info('Extracted accessory subtype from raw title', {
+        rawTitle: input.rawTitle,
+        pattern: pattern.toString(),
+        extractedSubtype: displayName
+      });
+      return displayName;
     }
   }
   
+  // Fallback: Try to extract the main noun phrase from the title
+  // Pattern: Look for "Brand X <DESCRIPTOR> - Model" or similar structures
+  const descriptorMatch = rawTitle.match(/(?:inch|wide|tall|deep|\d+["'″])\s+([\w\s-]+?)(?:\s+[-–—]|\s+(?:for|with|in)\s|$)/i);
+  if (descriptorMatch && descriptorMatch[1]) {
+    const descriptor = descriptorMatch[1].trim();
+    // Ensure it's not just a single common word and looks like a descriptor
+    const words = descriptor.split(/\s+/);
+    if (words.length >= 1 && words.length <= 4 && descriptor.length > 3) {
+      const formatted = descriptor
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+      logger.info('Extracted accessory subtype via fallback pattern', {
+        rawTitle: input.rawTitle,
+        extractedSubtype: formatted
+      });
+      return formatted;
+    }
+  }
+  
+  logger.warn('Could not extract accessory subtype from title', {
+    rawTitle: input.rawTitle
+  });
   return undefined;
 }
 
