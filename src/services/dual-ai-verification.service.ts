@@ -1877,57 +1877,134 @@ export async function verifyProductWithDualAI(
     let categoryConsensus: any = null;
     
     if (salesforceCategory) {
-      // Salesforce provided category - use it as authority
-      determinedCategory = salesforceCategory;
+      // 🔧 FINDING #020: AI must INDEPENDENTLY verify SF's category, override when both AIs disagree
+      // Previously we blindly trusted SF - this caused Icemakers to be misclassified as Freezers
       
-      logger.info('✅ Using Salesforce-provided category', {
+      logger.info('🔍 Stage 2: AI independently verifying Salesforce category', {
         sessionId: verificationSessionId,
-        category: determinedCategory,
-        source: 'Salesforce (Web_Retailer_Category)'
+        salesforceCategory: salesforceCategory,
+        source: 'Salesforce (Web_Retailer_Category)',
+        note: 'AI will independently determine category and compare'
       });
       
-      // Optional: Run AI validation to flag mismatches (for monitoring, not to override)
+      // Run AI analysis - AI will independently determine category (not just validate SF)
       [openaiCategoryResult, xaiCategoryResult] = await Promise.all([
         analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
           stage: 'category-only', 
           department: determinedDepartment,
-          salesforceCategory: salesforceCategory  // Tell AI what SF said
+          salesforceCategory: salesforceCategory  // Context only - AI makes independent decision
         }),
         analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
           stage: 'category-only', 
           department: determinedDepartment,
-          salesforceCategory: salesforceCategory  // Tell AI what SF said
+          salesforceCategory: salesforceCategory  // Context only - AI makes independent decision
         })
       ]);
       
-      // Check if AI disagrees (for monitoring/alerting, not to override)
-      const aiSuggestedCategory = openaiCategoryResult.determinedCategory || xaiCategoryResult.determinedCategory;
-      if (aiSuggestedCategory && aiSuggestedCategory !== determinedCategory) {
-        logger.warn('⚠️ AI suggests different category than Salesforce (not overriding)', {
+      // Get AI determinations
+      const openaiCategory = openaiCategoryResult.determinedCategory;
+      const xaiCategory = xaiCategoryResult.determinedCategory;
+      
+      // Normalize categories for comparison (handle aliases like "FREEZERS" vs "Freezer")
+      const normalizeCategory = (cat: string | undefined): string => {
+        if (!cat) return '';
+        // Import CATEGORY_NAME_ALIASES not available here, so do basic normalization
+        const normalized = cat.trim().toUpperCase();
+        // Simple alias map for common cases
+        const aliasMap: Record<string, string> = {
+          'FREEZERS': 'FREEZER',
+          'ICEMAKERS': 'ICEMAKER',
+          'ICE MAKER': 'ICEMAKER',
+          'ICE MACHINE': 'ICEMAKER',
+          'NUGGET ICE MACHINE': 'ICEMAKER',
+          'REFRIGERATORS': 'REFRIGERATOR',
+          'DISHWASHERS': 'DISHWASHER',
+          'OVENS': 'OVEN',
+          'RANGES': 'RANGE',
+          'COOKTOPS': 'COOKTOP',
+        };
+        return aliasMap[normalized] || normalized;
+      };
+      
+      const sfNormalized = normalizeCategory(salesforceCategory);
+      const openaiNormalized = normalizeCategory(openaiCategory);
+      const xaiNormalized = normalizeCategory(xaiCategory);
+      
+      // Check if both AIs agree with each other AND disagree with SF
+      const aisAgreeWithEachOther = openaiNormalized === xaiNormalized && openaiNormalized !== '';
+      const aiMatchesSf = openaiNormalized === sfNormalized || xaiNormalized === sfNormalized;
+      const bothAisDisagreeWithSf = aisAgreeWithEachOther && !aiMatchesSf;
+      
+      if (bothAisDisagreeWithSf) {
+        // 🚨 CRITICAL: Both AIs independently determined a DIFFERENT category than SF
+        // This is a strong signal SF's category is wrong - OVERRIDE
+        const aiDeterminedCategory = openaiCategory || xaiCategory;
+        
+        logger.error('🚨 FINDING #020: OVERRIDING Salesforce category - both AIs independently disagree', {
           sessionId: verificationSessionId,
-          salesforceCategory: determinedCategory,
-          aiSuggestedCategory: aiSuggestedCategory,
-          openaiCategory: openaiCategoryResult.determinedCategory,
-          xaiCategory: xaiCategoryResult.determinedCategory,
-          note: 'Respecting Salesforce authority - AI suggestion logged for review'
+          salesforceCategory: salesforceCategory,
+          aiDeterminedCategory: aiDeterminedCategory,
+          openaiCategory: openaiCategory,
+          xaiCategory: xaiCategory,
+          reason: 'Both AIs analyzed product data and independently determined a different category',
+          action: 'Using AI-determined category instead of Salesforce',
+          productId: rawProduct.SF_Catalog_Id
         });
+        
+        // Use AI's category, not SF's
+        determinedCategory = aiDeterminedCategory!;
+        
+        categoryConsensus = { 
+          agreed: true, 
+          agreedCategory: determinedCategory, 
+          agreementReason: `AI OVERRIDE: Both AIs determined "${aiDeterminedCategory}" (SF had "${salesforceCategory}")` 
+        };
+      } else if (aiMatchesSf) {
+        // At least one AI agrees with SF - use SF's category
+        determinedCategory = salesforceCategory;
+        
+        logger.info('✅ Salesforce category validated by AI', {
+          sessionId: verificationSessionId,
+          category: determinedCategory,
+          source: 'Salesforce (validated by AI)',
+          openaiCategory: openaiCategory,
+          xaiCategory: xaiCategory
+        });
+        
+        categoryConsensus = { 
+          agreed: true, 
+          agreedCategory: determinedCategory, 
+          agreementReason: 'Salesforce category validated by AI consensus' 
+        };
+      } else {
+        // AIs don't agree with each other - use SF as tiebreaker
+        determinedCategory = salesforceCategory;
+        
+        logger.warn('⚠️ AIs disagree with each other - using Salesforce as tiebreaker', {
+          sessionId: verificationSessionId,
+          salesforceCategory: salesforceCategory,
+          openaiCategory: openaiCategory,
+          xaiCategory: xaiCategory,
+          decision: 'Using Salesforce category since AIs cannot reach consensus'
+        });
+        
+        categoryConsensus = { 
+          agreed: false, 
+          agreedCategory: determinedCategory, 
+          agreementReason: 'AIs disagreed - Salesforce used as tiebreaker' 
+        };
       }
       
-      logger.info('✅ STAGE 2 complete - Category validated', {
+      logger.info('✅ STAGE 2 complete - Category determined', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
         finalCategory: determinedCategory,
-        source: 'Salesforce',
-        aiAgreement: aiSuggestedCategory === determinedCategory,
+        source: bothAisDisagreeWithSf ? 'AI (override)' : 'Salesforce',
+        wasOverridden: bothAisDisagreeWithSf,
+        openaiCategory: openaiCategory,
+        xaiCategory: xaiCategory,
         durationMs: Date.now() - stage2StartTime
       });
-      
-      // Build consensus object for compatibility with rest of code (even though we're using SF's category)
-      categoryConsensus = { 
-        agreed: true, 
-        agreedCategory: determinedCategory, 
-        agreementReason: 'Salesforce-provided category (not AI-determined)' 
-      };
     } else {
       // Fallback: No Salesforce category provided - AI determines category
       logger.warn('⚠️ No Salesforce category provided - AI will determine category', {
@@ -3570,40 +3647,48 @@ function getCategoryOnlyPrompt(department?: string, promptOptions?: PromptOption
     ? `\n\n🚨 ${promptOptions.invalidCategoryWarning}\n`
     : '';
   
-  // 🔧 FINDING #016 FIX: If Salesforce provided category, validate instead of determine
+  // 🔧 FINDING #016 REVISED: AI must INDEPENDENTLY determine category, then we compare with SF
+  // This prevents AI from blindly accepting incorrect SF categories (e.g., Icemaker labeled as Freezer)
   if (salesforceCategory) {
     return `You are an expert product classifier specializing in appliances and home products.
 
-⚠️ CRITICAL: Salesforce has assigned this product to category: **"${salesforceCategory}"**
-
-Your ONLY task is to VALIDATE if this category assignment is correct. Do NOT override Salesforce's category.
+⚠️ CRITICAL: Determine the CORRECT category for this product based on actual product data.
 ${strictWarning}
+**Context**: Salesforce has this product labeled as "${salesforceCategory}" but your job is to INDEPENDENTLY verify if this is accurate.
+
 Your task:
-1. ANALYZE the raw product data provided
-2. VALIDATE if "${salesforceCategory}" is the correct category for this product
-3. If correct, return "${salesforceCategory}" with high confidence
-4. If incorrect, return "${salesforceCategory}" but explain why it might be wrong in reasoning
+1. ANALYZE the raw product data provided (title, description, specs, images)
+2. DETERMINE what category this product ACTUALLY belongs to
+3. Return YOUR determination (which may differ from Salesforce)
+4. If your category differs from "${salesforceCategory}", explain why in reasoning
 
 ${categoryList}
 
-**Validation Rules:**
+**Category Selection Rules:**
 - Analyze product title, model number, specifications, and images
-- Check if the product truly belongs in the "${salesforceCategory}" category
-- Consider product type, function, and installation location
-- If the category seems incorrect, note what category it SHOULD be in reasoning (but still return Salesforce's category)
-- Example: If SF says "Drawer" but product is clearly "Storage Drawer/Door" (outdoor), flag the mismatch
+- Match to the MOST SPECIFIC category available
+- Consider product type, function, and primary purpose
+- **IMPORTANT: Do NOT simply accept Salesforce's category** - verify based on evidence
+- Example: "Nugget Ice Machine" → "Icemaker" (NOT Freezer, even if mislabeled)
+- Example: "Ice Maker" producing ice → "Icemaker" category (ice production, not storage)
+- Example: "Freezer" for cold storage → "Freezer" category (food storage appliance)
 
-⚠️ **IMPORTANT**: Always return Salesforce's category ("${salesforceCategory}") as the final answer. Your role is to validate, not override.
+**⚠️ CRITICAL Product Type Distinctions:**
+- **Icemaker/Ice Machine**: Produces ice (nugget, cube, etc.). Primary function is ICE PRODUCTION.
+- **Freezer**: Stores frozen food. Primary function is COLD STORAGE.
+- These are DIFFERENT product categories. An ice machine is NOT a freezer.
+${promptOptions?.strictCategoryMode ? '\n⚠️ **STRICT MODE**: You MUST select a category from the provided list. DO NOT create new category names.' : ''}
 
 **⚠️ IMPORTANT: Stage 2 Response Format**
-This is Stage 2 (category validation mode). Return a complete JSON structure:
+This is Stage 2 (category determination with validation). Return a complete JSON structure:
 
 You must respond with valid JSON in this exact format:
 {
   "category": {
-    "name": "${salesforceCategory}",
+    "name": "Your determined category (must be from the list)",
     "confidence": 0.95,
-    "reasoning": "Validation result: Does this product belong in '${salesforceCategory}'? If not, what category should it be?"
+    "reasoning": "Why this category was chosen. If different from Salesforce's '${salesforceCategory}', explain the discrepancy.",
+    "salesforce_mismatch": true/false
   },
   "primary_attributes": {},
   "top15_filter_attributes": {},
