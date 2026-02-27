@@ -236,9 +236,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Capacity (Bottles)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch 28 Cu. Ft. Beverage Center Finish - Model",
-    "seoNotes": "Width for fit, bottle capacity for utility. Type = Built-In, Freestanding."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Capacity (Bottles)} {Model Number}",
+    "exampleTitle": "Brand 30-Inch Built-In Beverage Center Finish 28-Bottle - Model",
+    "seoNotes": "Width for fit, type for installation. Capacity at end."
   },
   "coffee_maker": {
     "categoryId": "a01Hu000011kmDGIAY",
@@ -277,9 +277,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Capacity (Cups)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Coffee Maker Finish - Model",
-    "seoNotes": "Type = Built-In, Countertop, Espresso, Pod."
+    "template": "{Brand} {Type} {Category} {Finish} {Capacity (Cups)} {Model Number}",
+    "exampleTitle": "Brand Countertop Coffee Maker Finish 12-Cup - Model",
+    "seoNotes": "Type = Built-In, Countertop, Espresso, Pod. Capacity at end."
   },
   "cooking": {
     "categoryId": "a01aZ00000Hm4voQAB",
@@ -522,9 +522,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Configuration} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. 36-Inch Upright Freezer Finish - Model",
-    "seoNotes": "Capacity and width for space planning. Configuration = Upright, Chest, Column."
+    "template": "{Brand} {Width (Inches)} {Configuration} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "Brand 36-Inch Upright Freezer Finish 28 Cu. Ft. - Model",
+    "seoNotes": "Width for space planning. Configuration = Upright, Chest, Column. Capacity at end."
   },
   "icemaker": {
     "categoryId": "a01Hu000011kFRfIAM",
@@ -610,9 +610,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 2.0 Cu. Ft. 30-Inch Over-the-Range Microwave Finish - Model",
-    "seoNotes": "Capacity and width (30\" or 36\" for OTR models to match range). Type = Over-the-Range, Countertop, Built-In, Drawer."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "Brand 30-Inch Over-the-Range Microwave Finish 2.0 Cu. Ft. - Model",
+    "seoNotes": "Width for fit (30\" or 36\" for OTR models to match range). Type = Over-the-Range, Countertop, Built-In, Drawer. Capacity at end."
   },
   "oven": {
     "categoryId": "a01Hu000010Q5EmIAK",
@@ -853,9 +853,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Installation Type} {Configuration} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. 36-Inch Built-In French Door Refrigerator Stainless Steel - Model",
-    "seoNotes": "Lead with capacity and width (people shop by both). Type = product type (Accessory extracts subtype like Panel Kit, Installation Kit). Installation = Built-In, Counter-Depth, Freestanding. Configuration = door style (French Door, Side-by-Side, Column)."
+    "template": "{Brand} {Width (Inches)} {Type} {Installation Type} {Configuration} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "Brand 36-Inch Built-In French Door Refrigerator Stainless Steel 28 Cu. Ft. - Model",
+    "seoNotes": "Width first for space planning. Type = product type (Accessory extracts subtype like Panel Kit, Installation Kit). Installation = Built-In, Counter-Depth, Freestanding. Configuration = door style (French Door, Side-by-Side, Column). Capacity at end."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",
@@ -904,9 +904,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Capacity (Bottles)} {Type} {Zone Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch 28 Cu. Ft. Wine Cooler Finish - Model",
-    "seoNotes": "Bottle capacity primary. Zone = Single, Dual, Multi."
+    "template": "{Brand} {Width (Inches)} {Type} {Zone Config} {Category} {Finish} {Capacity (Bottles)} {Model Number}",
+    "exampleTitle": "Brand 30-Inch Built-In Dual Zone Wine Cooler Finish 28-Bottle - Model",
+    "seoNotes": "Width for fit. Type and Zone for features. Capacity at end."
   },
   "all_in_one_washer_dryer": {
     "categoryId": "a01Hu000010Q5EqIAK",
@@ -951,9 +951,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. 27-Inch Unitized Electric All in One Washer / Dryer - Model",
-    "seoNotes": "Combined capacity and width for space planning. Type = Unitized, Front Load, Top Load. Fuel Type = Gas, Electric."
+    "template": "{Brand} {Width (Inches)} {Type} {Fuel Type} {Category} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "Brand 27-Inch Unitized Electric All in One Washer / Dryer 4.5 Cu. Ft. - Model",
+    "seoNotes": "Width for space planning. Type = Unitized, Front Load, Top Load. Fuel Type = Gas, Electric. Capacity at end."
   },
   "dryer": {
     "categoryId": "a01Hu000010Q5EjIAK",
@@ -998,9 +998,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Fuel Type} {Category} {Model Number}",
-    "exampleTitle": "GE 7.5 Cu. Ft. 27-Inch Front Load Electric Dryer - GTD75ECSLWS",
-    "seoNotes": "Capacity matches washer, width for space planning. Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas."
+    "template": "{Brand} {Width (Inches)} {Type} {Fuel Type} {Category} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "GE 27-Inch Front Load Electric Dryer 7.5 Cu. Ft. - GTD75ECSLWS",
+    "seoNotes": "Width for space planning. Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas. Capacity at end."
   },
   "standalone_pedestal": {
     "categoryId": "a01Hu000010Q5ErIAK",
@@ -1081,9 +1081,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Cu. Ft.)} {Width (Inches)} {Type} {Category} {Model Number}",
-    "exampleTitle": "Brand 5.0 Cu. Ft. 27-Inch Front Load Washer - Model",
-    "seoNotes": "Capacity determines load size. Type = Front Load, Top Load, Unitized."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "Brand 27-Inch Front Load Washer 5.0 Cu. Ft. - Model",
+    "seoNotes": "Width for space planning. Type = Front Load, Top Load, Unitized. Capacity at end."
   },
   "home_electronics": {
     "categoryId": "a01aZ00000XaZKQQA3",
@@ -3258,9 +3258,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Gallons)} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Water Heater Finish - Model",
-    "seoNotes": "Capacity for household size. Fuel = Gas, Electric, Hybrid."
+    "template": "{Brand} {Fuel Type} {Category} {Finish} {Capacity (Gallons)} {Model Number}",
+    "exampleTitle": "Brand Gas Water Heater Finish 50-Gallon - Model",
+    "seoNotes": "Fuel type primary. Capacity at end."
   },
   "air_conditioner": {
     "categoryId": "a01aZ00000dCek0QAC",
@@ -3427,9 +3427,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Pints)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Dehumidifier Finish - Model",
-    "seoNotes": "Pints per day for moisture removal. Type = Portable, Whole-House."
+    "template": "{Brand} {Type} {Category} {Finish} {Capacity (Pints)} {Model Number}",
+    "exampleTitle": "Brand Portable Dehumidifier Finish 50-Pint - Model",
+    "seoNotes": "Type = Portable, Whole-House. Capacity (pints/day) at end."
   },
   "ducting": {
     "categoryId": "a01aZ00000dCek4QAC",
@@ -4369,9 +4369,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Capacity (Gallons)} {AC Rating} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 28 Cu. Ft. Hydronic Expansion Tank Finish - Model",
-    "seoNotes": "Capacity matches system size."
+    "template": "{Brand} {AC Rating} {Category} {Finish} {Capacity (Gallons)} {Model Number}",
+    "exampleTitle": "Brand Hydronic Expansion Tank Finish 10-Gallon - Model",
+    "seoNotes": "AC rating for compatibility. Capacity at end."
   },
   "industrial_strainer": {
     "categoryId": "a01aZ00000dDRGuQAO",
@@ -7332,9 +7332,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Capacity (Gallons)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Hot & Cold Water Dispenser Finish - Model",
-    "seoNotes": "Type = Countertop, Under-Sink, Built-In."
+    "template": "{Brand} {Type} {Category} {Finish} {Capacity (Gallons)} {Model Number}",
+    "exampleTitle": "Brand Countertop Hot & Cold Water Dispenser Finish 5-Gallon - Model",
+    "seoNotes": "Type = Countertop, Under-Sink, Built-In. Capacity at end."
   },
   "kitchen_accessory": {
     "categoryId": "a01aZ00000dC5E8QAK",
