@@ -488,43 +488,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       {
         "position": 2,
         "attribute": "Width (Inches)",
-        "required": false,
+        "required": true,
         "format": "{value}-Inch"
       },
       {
         "position": 3,
         "attribute": "Type",
-        "required": false
+        "required": true
       },
       {
         "position": 4,
-        "attribute": "Configuration",
-        "required": false
-      },
-      {
-        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
-        "required": false
+        "required": true
+      },
+      {
+        "position": 6,
+        "attribute": "Capacity (Cu. Ft.)",
+        "required": true
       },
       {
         "position": 7,
-        "attribute": "Capacity (Cu. Ft.)",
-        "required": false
-      },
-      {
-        "position": 8,
         "attribute": "Model Number",
-        "required": false
+        "required": true
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Configuration} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
-    "exampleTitle": "Brand 36-Inch Upright Freezer Finish 28 Cu. Ft. - Model",
-    "seoNotes": "Width for space planning. Configuration = Upright, Chest, Column. Capacity at end."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "GE 36-Inch Upright Freezer Stainless Steel 28 Cu. Ft. - Model",
+    "seoNotes": "Type = Upright, Chest, Column, Undercounter, Compact. Capacity at end."
   },
   "icemaker": {
     "categoryId": "a01Hu000011kFRfIAM",
@@ -627,23 +622,18 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 2,
         "attribute": "Width (Inches)",
-        "required": false
+        "required": true
       },
       {
         "position": 3,
-        "attribute": "Configuration",
-        "required": false
+        "attribute": "Fuel Type",
+        "required": true
       },
       {
         "position": 4,
-        "attribute": "Fuel Type",
-        "required": false
+        "attribute": "Type",
+        "required": true
       },
       {
         "position": 5,
@@ -652,13 +642,18 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 6,
+        "attribute": "Finish",
+        "required": true
+      },
+      {
+        "position": 7,
         "attribute": "Model Number",
-        "required": false
+        "required": true
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Configuration} {Fuel Type} {Category} {Model Number}",
-    "exampleTitle": "GE 30-Inch Double Electric Oven - JTS3000SNSS",
-    "seoNotes": "Configuration = Single, Double, Microwave Combo. Fuel Type = Gas, Electric, Dual Fuel."
+    "template": "{Brand} {Width (Inches)} {Fuel Type} {Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "GE 30-Inch Electric Double Wall Oven Stainless Steel - JTS3000SNSS",
+    "seoNotes": "Type = Single, Double Wall, Microwave Combo, Steam, Convection, Speed Oven. Fuel Type = Gas, Electric."
   },
   "pizza_oven": {
     "categoryId": "a01aZ00000KJFrCQAX",

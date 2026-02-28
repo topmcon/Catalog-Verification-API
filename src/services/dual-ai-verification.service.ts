@@ -66,7 +66,7 @@ import {
 import { matchTypeToPicklist } from './type-matcher.service';
 import { getTypeByName, getCategoryTypeMapping, isValidTypeForCategory } from '../picklist-master/03-types/type-config';
 import { generateAttributeTable } from '../utils/html-generator';
-import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish } from '../utils/text-cleaner';
+import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish, extractWidthFromText } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 import * as lookups from '../config/lookups';
@@ -7968,18 +7968,32 @@ function buildFinalResponse(
       findAttributeInRawData(rawProduct, 'Overall Depth') ||
       ''
     ),
-    AI_Width: preferAIValue(
-      consensus.agreedPrimaryAttributes.width,
-      openaiResult.primaryAttributes.width,
-      xaiResult.primaryAttributes.width,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.Width_Web_Retailer || 
-      rawProduct.Ferguson_Width ||
-      findAttributeInRawData(rawProduct, 'Width') ||
-      findAttributeInRawData(rawProduct, 'Overall Width') ||
-      ''
-    ),
+    AI_Width: (() => {
+      let width = preferAIValue(
+        consensus.agreedPrimaryAttributes.width,
+        openaiResult.primaryAttributes.width,
+        xaiResult.primaryAttributes.width,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Width_Web_Retailer || 
+        rawProduct.Ferguson_Width ||
+        findAttributeInRawData(rawProduct, 'Width') ||
+        findAttributeInRawData(rawProduct, 'Overall Width') ||
+        ''
+      );
+      
+      // If still empty, try to extract from title/description
+      if (!width || width.trim() === '') {
+        const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
+        const extracted = extractWidthFromText(textToSearch);
+        if (extracted) {
+          width = extracted;
+          logger.info('Extracted width from text', { width, source: 'title_description_extraction', sessionId });
+        }
+      }
+      
+      return width;
+    })(),
     AI_Height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
       openaiResult.primaryAttributes.height,

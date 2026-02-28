@@ -664,6 +664,43 @@ export function cleanCustomerFacingText(
   };
 }
 
+/**
+ * Extract width measurement from text (title, description)
+ * Looks for patterns like: 30", 30-Inch, 30 Inch, 30'', 30 in, 30-in
+ * Returns just the numeric value or empty string if not found
+ */
+export function extractWidthFromText(text: string | undefined | null): string {
+  if (!text) return '';
+  
+  // Common patterns for width in product titles
+  // Priority order: match the most specific patterns first
+  const patterns = [
+    // "30-Inch" or "30 Inch" (with hyphen or space)
+    /(\d+(?:\.\d+)?)\s*[-–]?\s*[Ii]nch(?:es)?/,
+    // "30"" (inch mark)
+    /(\d+(?:\.\d+)?)\s*["″]/,
+    // "30''" (two single quotes = inch)
+    /(\d+(?:\.\d+)?)\s*''/,
+    // "30 in" or "30-in" (abbreviation)
+    /(\d+(?:\.\d+)?)\s*[-–]?\s*in\b/i,
+    // "30in" (no space)
+    /(\d+(?:\.\d+)?)in\b/i,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match && match[1]) {
+      const width = parseFloat(match[1]);
+      // Reasonable width range for appliances/fixtures: 12-72 inches
+      if (width >= 12 && width <= 72) {
+        return match[1];
+      }
+    }
+  }
+  
+  return '';
+}
+
 export default {
   cleanEncodingIssues,
   fixBrandName,
@@ -676,5 +713,6 @@ export default {
   fixGrammar,
   escapeHtml,
   extractColorFinish,
+  extractWidthFromText,
   cleanCustomerFacingText,
 };
