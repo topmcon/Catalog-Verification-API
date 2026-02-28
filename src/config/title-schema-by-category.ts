@@ -529,8 +529,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Production (lbs/day)",
-        "required": false
+        "attribute": "Width",
+        "required": false,
+        "format": "{value}-Inch"
       },
       {
         "position": 3,
@@ -553,9 +554,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Production (lbs/day)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand SpecValue Icemaker Finish - Model",
-    "seoNotes": "Production rate is sizing spec. Type = Built-In, Freestanding, Portable."
+    "template": "{Brand} {Width} {Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "U-LINE 15-Inch Undercounter Icemaker Stainless Steel - UACP115-IS01A",
+    "seoNotes": "Width is key sizing spec for undercounter icemakers. Type = Built-In, Undercounter, Freestanding, Portable."
   },
   "microwave": {
     "categoryId": "a01Hu000010Q5ElIAK",
