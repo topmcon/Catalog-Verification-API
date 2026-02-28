@@ -347,12 +347,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Fuel Type",
+        "attribute": "Installation Type",
         "required": false
       },
       {
         "position": 5,
-        "attribute": "Installation Type",
+        "attribute": "Fuel Type",
         "required": false
       },
       {
@@ -371,8 +371,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Burner Count} {Fuel Type} {Installation Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "GE 36-Inch 5-Burner Gas Built-In Cooktop - Stainless Steel - PGP966SETSS",
+    "template": "{Brand} {Width (Inches)} {Burner Count} {Installation Type} {Fuel Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "GE 36-Inch 5-Burner Built-In Gas Cooktop - Stainless Steel - PGP966SETSS",
     "seoNotes": "UPDATED v2.3: Brand, width (30\"/36\" common), burner count (4/5/6), fuel type (Gas/Electric/Induction) CRITICAL, installation type (Built-In/Drop-In). Model number at END per requirements. Matches competitor patterns."
   },
   "dishwasher": {
