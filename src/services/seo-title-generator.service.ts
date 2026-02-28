@@ -477,9 +477,30 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /stand/i, displayName: 'Stand' },
     
     // Covers
+    { pattern: /duct\s+cover\s*(?:extension|kit)?/i, displayName: 'Duct Cover' },
+    { pattern: /chimney\s+(?:hood\s+)?(?:island\s+)?(?:duct\s+)?cover/i, displayName: 'Duct Cover' },
+    { pattern: /flue\s+(?:cover|extension)/i, displayName: 'Flue Extension' },
+    { pattern: /ducted\s+flue/i, displayName: 'Flue Extension' },
+    { pattern: /ceiling\s+duct\s+cover/i, displayName: 'Duct Cover' },
     { pattern: /grill\s+cover/i, displayName: 'Grill Cover' },
     { pattern: /built-?\s*in\s+cover/i, displayName: 'Built-In Cover' },
     { pattern: /smoker\s+cover/i, displayName: 'Smoker Cover' },
+    
+    // Range Hood specific accessories
+    { pattern: /external\s+blower/i, displayName: 'External Blower' },
+    { pattern: /remote\s+blower/i, displayName: 'Remote Blower' },
+    { pattern: /in-?\s*line\s+blower/i, displayName: 'Inline Blower' },
+    { pattern: /blower\s+(?:kit|assembly|motor)/i, displayName: 'Blower' },
+    { pattern: /(?:\d+\s*cfm|cfm)\s+(?:external\s+)?blower/i, displayName: 'External Blower' },
+    { pattern: /baffle\s+filter/i, displayName: 'Baffle Filter' },
+    { pattern: /recirculation\s+(?:kit|filter)/i, displayName: 'Recirculation Kit' },
+    { pattern: /recirc(?:ulating)?\s+kit/i, displayName: 'Recirculation Kit' },
+    { pattern: /make-?\s*up\s+air\s+(?:kit|damper)/i, displayName: 'Make-Up Air Kit' },
+    { pattern: /damper/i, displayName: 'Damper' },
+    { pattern: /backsplash\s*(?:panel)?/i, displayName: 'Backsplash' },
+    { pattern: /wall\s+flue/i, displayName: 'Wall Flue' },
+    { pattern: /flue/i, displayName: 'Flue Extension' },
+    { pattern: /blower/i, displayName: 'Blower' },
     
     // Outdoor Kitchen specific
     { pattern: /access\s+door/i, displayName: 'Access Door' },
