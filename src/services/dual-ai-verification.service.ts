@@ -7807,6 +7807,33 @@ function buildFinalResponse(
     // features: cleanedText.features
   };
   
+  // ===========================================
+  // COOKTOP/RANGE FIX: Fuel type should be in fuelType, not type
+  // For cooking appliances, Gas/Electric/Induction are fuel types, not product types
+  // ===========================================
+  const FUEL_TYPE_VALUES = ['gas', 'electric', 'induction', 'dual fuel', 'propane', 'natural gas', 'lp'];
+  const FUEL_TYPE_CATEGORIES = ['cooktop', 'range', 'rangetop', 'oven', 'wall oven'];
+  
+  const currentCategory = (seoTitleInput.category || '').toLowerCase();
+  const currentType = (seoTitleInput.type || '').toLowerCase().trim();
+  
+  if (FUEL_TYPE_CATEGORIES.some(c => currentCategory.includes(c)) && 
+      FUEL_TYPE_VALUES.some(f => currentType.includes(f))) {
+    // Move fuel type from type field to fuelType field
+    if (!seoTitleInput.fuelType) {
+      seoTitleInput.fuelType = seoTitleInput.type;
+    }
+    // Clear type field so it doesn't duplicate fuel type
+    seoTitleInput.type = '';
+    
+    logger.info('Cooktop/Range fuel type correction applied', {
+      sessionId,
+      category: seoTitleInput.category,
+      movedFuelType: seoTitleInput.fuelType,
+      installationType: seoTitleInput.installationType
+    });
+  }
+  
   // Log seoTitleInput width value for debugging
   logger.info('SEO title input prepared', {
     sessionId,
@@ -7814,6 +7841,8 @@ function buildFinalResponse(
     width: seoTitleInput.width || 'NOT SET',
     placeSettings: seoTitleInput.placeSettings || 'NOT SET',
     type: seoTitleInput.type || 'NOT SET',
+    fuelType: seoTitleInput.fuelType || 'NOT SET',
+    burnerCount: seoTitleInput.burnerCount || 'NOT SET',
     installationType: seoTitleInput.installationType || 'NOT SET'
   });
   
