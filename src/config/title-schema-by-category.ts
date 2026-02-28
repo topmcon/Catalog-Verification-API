@@ -451,28 +451,23 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Height (Inches)",
-        "required": false
-      },
-      {
-        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Height (Inches)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Drawer Finish - Model",
-    "seoNotes": "Type = Drawer Box, Drawer Front. Width for fit."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "GAGGENAU 24-Inch Warming Drawer Stainless Steel - WS261710",
+    "seoNotes": "Type = Warming, Storage. Width for fit."
   },
   "freezer": {
     "categoryId": "a01Hu000010Q5EkIAK",
