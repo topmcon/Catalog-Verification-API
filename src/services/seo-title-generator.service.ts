@@ -119,6 +119,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Style': 'style',
   
   // Dimensions
+  'Width': 'width',
   'Width (Inches)': 'width',
   'Width (Inches)*': 'width',
   'Height (Inches)': 'height',
