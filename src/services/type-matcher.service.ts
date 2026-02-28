@@ -32,7 +32,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // OVEN ALIASES
   // ============================================
-  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
+  'built-in': { 'Oven': 'Single', 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter' },
   'built-in oven': { 'Oven': 'Single' },
   'built in oven': { 'Oven': 'Single' },
   'wall oven': { 'Oven': 'Single' },
@@ -93,7 +93,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'built-in refrigerator': { 'Refrigerator': 'Column' },
   'built-in microwave': { 'Microwave': 'Built-In' },
   'built in microwave': { 'Microwave': 'Built-In' },
-  'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter', 'Barbeque': 'Built-In Access Doors' },
+  'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter' },
   'column': { 'Refrigerator': 'Column', 'Freezer': 'Column' },
   'column refrigerator': { 'Refrigerator': 'Column' },
   'undercounter': { 'Refrigerator': 'Undercounter' },
@@ -463,10 +463,31 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   
   // ============================================
   // OUTDOOR/BBQ ALIASES
+  // Valid Barbeque types: Gas, Electric, Charcoal, Pellet, Kamado, Wood-Fired, Accessory
   // ============================================
-  'built-in grill': { 'Barbeque': 'Built-In Access Doors' },
-  'freestanding grill': { 'Barbeque': 'Freestanding' },
-  'portable grill': { 'Barbeque': 'Portable' },
+  'gas grill': { 'Barbeque': 'Gas' },
+  'propane grill': { 'Barbeque': 'Gas' },
+  'natural gas grill': { 'Barbeque': 'Gas' },
+  'electric grill': { 'Barbeque': 'Electric' },
+  'charcoal grill': { 'Barbeque': 'Charcoal' },
+  'pellet grill': { 'Barbeque': 'Pellet' },
+  'wood pellet': { 'Barbeque': 'Pellet' },
+  'kamado': { 'Barbeque': 'Kamado' },
+  'wood-fired': { 'Barbeque': 'Wood-Fired' },
+  'wood fired': { 'Barbeque': 'Wood-Fired' },
+  // BBQ Accessories
+  'grill cart': { 'Barbeque': 'Accessory' },
+  'flat top grill cart': { 'Barbeque': 'Accessory' },
+  'grill cover': { 'Barbeque': 'Accessory' },
+  'grill accessory': { 'Barbeque': 'Accessory' },
+  'side burner': { 'Barbeque': 'Accessory' },
+  'rotisserie': { 'Barbeque': 'Accessory' },
+  'grill mat': { 'Barbeque': 'Accessory' },
+  'grill tool': { 'Barbeque': 'Accessory' },
+  'grill brush': { 'Barbeque': 'Accessory' },
+  'smoker box': { 'Barbeque': 'Accessory' },
+  'warming rack': { 'Barbeque': 'Accessory' },
+  'griddle plate': { 'Barbeque': 'Accessory' },
   
   // ============================================
   // MISC ALIASES
@@ -572,6 +593,21 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   { pattern: /under[\s-]*cabinet.*hood/i, category: 'Range Hood', typeName: 'Under Cabinet' },
   { pattern: /island.*hood/i, category: 'Range Hood', typeName: 'Island' },
   { pattern: /downdraft/i, category: 'Range Hood', typeName: 'Downdraft' },
+  
+  // Barbeque patterns - Valid types: Gas, Electric, Charcoal, Pellet, Kamado, Wood-Fired, Accessory
+  { pattern: /gas\s*grill|propane|natural\s*gas/i, category: 'Barbeque', typeName: 'Gas' },
+  { pattern: /electric\s*grill/i, category: 'Barbeque', typeName: 'Electric' },
+  { pattern: /charcoal/i, category: 'Barbeque', typeName: 'Charcoal' },
+  { pattern: /pellet|wood\s*pellet/i, category: 'Barbeque', typeName: 'Pellet' },
+  { pattern: /kamado|ceramic\s*cooker/i, category: 'Barbeque', typeName: 'Kamado' },
+  { pattern: /wood[\s-]*fired/i, category: 'Barbeque', typeName: 'Wood-Fired' },
+  // BBQ Accessories
+  { pattern: /grill\s*cart|flat\s*top.*cart/i, category: 'Barbeque', typeName: 'Accessory' },
+  { pattern: /grill\s*cover/i, category: 'Barbeque', typeName: 'Accessory' },
+  { pattern: /side\s*burner/i, category: 'Barbeque', typeName: 'Accessory' },
+  { pattern: /rotisserie/i, category: 'Barbeque', typeName: 'Accessory' },
+  { pattern: /grill\s*mat|grill\s*tool|grill\s*brush/i, category: 'Barbeque', typeName: 'Accessory' },
+  { pattern: /smoker\s*box|warming\s*rack|griddle\s*plate/i, category: 'Barbeque', typeName: 'Accessory' },
 ];
 
 /**
