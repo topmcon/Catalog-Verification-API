@@ -384,39 +384,28 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Place Settings",
-        "required": false,
-        "format": "{value} Place Setting"
-      },
-      {
-        "position": 4,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 5,
-        "attribute": "Installation Type",
-        "required": false
-      },
-      {
-        "position": 6,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 5,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 8,
+        "position": 6,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Place Settings} {Type} {Installation Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "GE 24-Inch 16 Place Setting Front Control Built-In Dishwasher Fingerprint Resistant Slate - GDT665SSNSS",
-    "seoNotes": "UPDATED v2.5: Brand first, width (24\" standard, 18\" compact), place settings, type (Front Control/Top Control/Drawer), installation type (Built-In/Undercounter/Portable). Model number at END."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "GE 24-Inch Front Control Dishwasher Stainless Steel - GDT665SSNSS",
+    "seoNotes": "UPDATED v2.6: Removed Place Settings and Installation Type. Brand, width (24\" standard, 18\" compact), type (Front Control/Top Control/Drawer). Model number at END."
   },
   "drawer": {
     "categoryId": "a01Hu000011kpC2IAI",
