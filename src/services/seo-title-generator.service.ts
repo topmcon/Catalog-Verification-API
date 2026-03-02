@@ -693,6 +693,18 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       continue;
     }
     
+    // CHANGE 1b: Skip "Built-In" type for icemakers (not a valid Icemaker type - valid types: Undercounter, Portable, Outdoor, Accessory)
+    if (slot.attribute === 'Type' && 
+        schema.categoryName === 'Icemaker' && 
+        input.type?.toLowerCase() === 'built-in') {
+      logger.info('Skipping Built-In type for icemaker (invalid type, Panel Ready implies built-in installation)', {
+        category: schema.categoryName,
+        type: input.type,
+        panelReady: input.panelReady || 'not set'
+      });
+      continue;
+    }
+    
     // CHANGE 2: Skip "Built-In" for Beverage Center and Undercounter types
     if (slot.attribute === 'Installation Type' && 
         input.installationType?.toLowerCase() === 'built-in' &&

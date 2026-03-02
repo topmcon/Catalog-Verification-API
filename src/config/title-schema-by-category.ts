@@ -438,28 +438,33 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Panel Ready",
         "required": false
       },
       {
         "position": 4,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width} {Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "U-LINE 15-Inch Undercounter Icemaker Stainless Steel - UACP115-IS01A",
-    "seoNotes": "Width is key sizing spec for undercounter icemakers. Type = Built-In, Undercounter, Freestanding, Portable."
+    "template": "{Brand} {Width} {Panel Ready} {Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "U-LINE 15-Inch Panel Ready Icemaker Stainless Steel - UACP115-IS01A",
+    "seoNotes": "Width is key sizing spec. Panel Ready if applicable (implies built-in installation). Type = Undercounter, Portable, Outdoor, Accessory (NO 'Built-In' type exists for icemakers)."
   },
   "microwave": {
     "categoryId": "a01Hu000010Q5ElIAK",
