@@ -7729,7 +7729,12 @@ function buildFinalResponse(
       ? categoryMatch.matchedValue.category_name
       : consensus.agreedCategory || '',
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
-    rawTitle: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '', // For accessory subtype extraction
+    rawTitle: rawProduct.Product_Title_Web_Retailer || 
+              rawProduct.Ferguson_Title || 
+              consensus.agreedPrimaryAttributes.product_title || 
+              openaiResult.primaryAttributes.product_title || 
+              xaiResult.primaryAttributes.product_title || 
+              '', // For accessory subtype extraction - use AI title as fallback if raw titles empty
     
     // Dimensions
     width: widthFinal,

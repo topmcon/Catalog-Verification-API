@@ -623,18 +623,35 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   let sortedSlots = [...schema.slots].sort((a, b) => a.position - b.position);
   
   // ACCESSORY TITLE FIX: For accessory products, reorder slots for natural flow
-  // Desired order: "{Brand} {Width} {Category} {Finish} {Type/Subtype} - {Model}"
+  // Desired order: "{Brand} {Width/Size} {Category} {Finish} {Type/Subtype} - {Model}"
   // Example: "JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL"
   const isAccessory = input.type?.toLowerCase() === 'accessory';
   if (isAccessory) {
-    // Define the accessory-specific slot order
-    const accessoryOrder = ['Brand', 'Width (Inches)', 'Category', 'Finish', 'Type', 'Model Number'];
+    // Define priority order for accessories (UNIVERSAL - works for all categories)
+    // This list includes common attributes; only those present in the schema will be used
+    const accessoryPriorityOrder = [
+      'Brand',                    // Always first
+      'Width (Inches)',           // Size attributes (if category has them)
+      'Width',
+      'Wattage',
+      'Diameter (Inches)',
+      'Height (Inches)',
+      'GPM',
+      'BTU',
+      'Category',                 // Category name
+      'Finish',                   // Color/finish
+      'Color',
+      'Type',                     // Accessory subtype (will be extracted)
+      'Model Number',             // Always last
+      'Model'
+    ];
     
-    // Create new sorted array based on accessory order
+    // Create new sorted array based on priority order
     const reorderedSlots: typeof sortedSlots = [];
     const remainingSlots: typeof sortedSlots = [...sortedSlots];
     
-    for (const attrName of accessoryOrder) {
+    // Add slots in priority order (only if they exist in schema)
+    for (const attrName of accessoryPriorityOrder) {
       const idx = remainingSlots.findIndex(s => s.attribute === attrName);
       if (idx >= 0) {
         reorderedSlots.push(remainingSlots[idx]);
@@ -642,14 +659,15 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
     }
     
-    // Add any remaining slots that weren't in our order (skip them for accessories)
-    // Don't add Configuration, Installation Type, etc. for accessories
+    // Skip any remaining slots not in priority list (Installation Type, Configuration, etc.)
+    // These are typically not relevant for accessories
     sortedSlots = reorderedSlots;
     
-    logger.info('Reordered slots for accessory title', {
+    logger.info('Reordered slots for accessory title (universal)', {
       category: schema.categoryName,
       type: input.type,
-      slotOrder: sortedSlots.map(s => s.attribute).join(' → ')
+      originalSlots: schema.slots.map(s => s.attribute).join(' → '),
+      reorderedSlots: sortedSlots.map(s => s.attribute).join(' → ')
     });
   }
   

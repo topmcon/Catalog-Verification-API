@@ -1436,6 +1436,101 @@
     {
       "department_name": "Hardware",
       "family_name": "Home Improvement",
+      "category_name": "Safety & Security",
+      "category_id": "a01aZ00000dCejMQAS",
+      "filter_label": "Safety & Security Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Smoke Detector",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "CO Detector",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Security Camera",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Motion Sensor",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Safe",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Lock",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Alarm",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
+      "category_name": "Storage and Organization",
+      "category_id": "a01aZ00000dCejPQAS",
+      "filter_label": "Storage Type",
+      "logic": "Product type",
+      "types": [
+        {
+          "type_name": "Shelf",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bin",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rack",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Hook",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Drawer Organizer",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Closet System",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
+        }
+      ]
+    },
+    {
+      "department_name": "Hardware",
+      "family_name": "Home Improvement",
       "category_name": "Vanity Cabinet Hardware",
       "category_id": "a01aZ00000dCejhQAC",
       "filter_label": "Hardware Type",

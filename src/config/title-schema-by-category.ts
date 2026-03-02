@@ -194,52 +194,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand 30-Inch 50,000 BTU Barbeque Finish - Model",
     "seoNotes": "Width for space, BTU for power. Fuel = Gas, Charcoal, Electric, Pellet."
   },
-  "beverage_center": {
-    "categoryId": "NEEDS_NEW_ID",
-    "categoryName": "Beverage Center",
-    "department": "Appliances",
-    "family": "Kitchen",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 5,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Capacity (Bottles)",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Capacity (Bottles)} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Built-In Beverage Center Finish 28-Bottle - Model",
-    "seoNotes": "Width for fit, type for installation. Capacity at end."
-  },
   "coffee_maker": {
     "categoryId": "a01Hu000011kmDGIAY",
     "categoryName": "Coffee Maker",
@@ -280,42 +234,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "template": "{Brand} {Type} {Category} {Finish} {Capacity (Cups)} {Model Number}",
     "exampleTitle": "Brand Countertop Coffee Maker Finish 12-Cup - Model",
     "seoNotes": "Type = Built-In, Countertop, Espresso, Pod. Capacity at end."
-  },
-  "cooking": {
-    "categoryId": "a01aZ00000Hm4voQAB",
-    "categoryName": "Cooking",
-    "department": "Appliances",
-    "family": "Kitchen",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 4,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Cooking Finish - Model",
-    "seoNotes": "Type = Cookware, Bakeware, Utensils, Gadgets."
   },
   "cooktop": {
     "categoryId": "a01Hu000010Q5EhIAK",
@@ -837,57 +755,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "SUBZERO 36-Inch Built-In Panel Ready French Door Refrigerator - BI36UFD",
     "seoNotes": "UPDATED v2.8: Removed Type slot. Installation Type = Built-In only (omit Freestanding - implied). Depth Type = Counter-Depth only if freestanding (omit for Built-In - always counter-depth, omit for standard depth - implied). Panel Ready if applicable. Configuration = door style."
   },
-  "wine_cooler": {
-    "categoryId": "NEEDS_NEW_ID",
-    "categoryName": "Wine Cooler",
-    "department": "Appliances",
-    "family": "Kitchen",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Zone Config",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Capacity (Bottles)",
-        "required": false
-      },
-      {
-        "position": 8,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Width (Inches)} {Type} {Zone Config} {Category} {Finish} {Capacity (Bottles)} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Built-In Dual Zone Wine Cooler Finish 28-Bottle - Model",
-    "seoNotes": "Width for fit. Type and Zone for features. Capacity at end."
-  },
   "all_in_one_washer_dryer": {
     "categoryId": "a01Hu000010Q5EqIAK",
     "categoryName": "All in One Washer / Dryer",
@@ -1064,42 +931,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "template": "{Brand} {Width (Inches)} {Type} {Category} {Capacity (Cu. Ft.)} {Model Number}",
     "exampleTitle": "Brand 27-Inch Front Load Washer 5.0 Cu. Ft. - Model",
     "seoNotes": "Width for space planning. Type = Front Load, Top Load, Unitized. Capacity at end."
-  },
-  "home_electronics": {
-    "categoryId": "a01aZ00000XaZKQQA3",
-    "categoryName": "Home Electronics",
-    "department": "Electronics",
-    "family": "General",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 4,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Home Electronics Finish - Model",
-    "seoNotes": "Type = Doorbell, Camera, Smart Device, Security System."
   },
   "carpet": {
     "categoryId": "a01aZ00000dCekVQAS",
@@ -2156,47 +1987,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand TypeValue Designer Cabinet Hardware Finish - Model",
     "seoNotes": "Premium segment. Collection-driven."
   },
-  "designer_hardware": {
-    "categoryId": "a01aZ00000dC5F6QAK",
-    "categoryName": "Designer Hardware",
-    "department": "Hardware",
-    "family": "Home Improvement",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Collection",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 5,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Collection} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Designer Hardware Finish - Model",
-    "seoNotes": "Premium segment. Collection-driven."
-  },
   "door": {
     "categoryId": "a01aZ00000dCejDQAS",
     "categoryName": "Door",
@@ -2571,42 +2361,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand TypeValue Handleset Finish - Model",
     "seoNotes": "Type = Entry, Dummy. Includes exterior grip + interior lever/knob."
   },
-  "home_hardware": {
-    "categoryId": "a01aZ00000dCejFQAS",
-    "categoryName": "Home Hardware",
-    "department": "Hardware",
-    "family": "Home Improvement",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 4,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Home Hardware Finish - Model",
-    "seoNotes": "Type = Utility Hook, Bracket, Fastener, Anchor."
-  },
   "keyed_hardware": {
     "categoryId": "a01aZ00000dCejGQAS",
     "categoryName": "Keyed Hardware",
@@ -2724,108 +2478,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "template": "{Brand} {Type} {Piece Count} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand TypeValue Lock Combo Pack Finish - Model",
     "seoNotes": "Multiple locks in package. Type + count."
-  },
-  "luxury_cabinet_knob": {
-    "categoryId": "a01aZ00000dCejfQAC",
-    "categoryName": "Luxury Cabinet Knob",
-    "department": "Hardware",
-    "family": "Home Improvement",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Diameter (Inches)",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Collection",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Style",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 7,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 8,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Diameter (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Luxury Cabinet Knob Finish - Model",
-    "seoNotes": "Premium segment. Diameter + collection/style."
-  },
-  "luxury_cabinet_pull": {
-    "categoryId": "a01aZ00000dCejgQAC",
-    "categoryName": "Luxury Cabinet Pull",
-    "department": "Hardware",
-    "family": "Home Improvement",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Length (Inches)",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Collection",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Style",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 7,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 8,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Length (Inches)} {Collection} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Luxury Cabinet Pull Finish - Model",
-    "seoNotes": "Premium segment. Length + collection/style."
   },
   "mortise_lock": {
     "categoryId": "a01aZ00000dCejJQAS",
@@ -3539,52 +3191,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand 400 CFM Exhaust Fan Finish - Model",
     "seoNotes": "CFM determines air movement. Type = Wall, Ceiling, Inline."
   },
-  "heating": {
-    "categoryId": "a01aZ00000dCek9QAC",
-    "categoryName": "Heating",
-    "department": "Heating & Cooling",
-    "family": "HVAC",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "BTU",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Fuel Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {BTU} {Fuel Type} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 50,000 BTU Heating Finish - Model",
-    "seoNotes": "BTU for heat output. Fuel = Gas, Electric, Oil, Propane. Type = Furnace, Boiler, Heat Pump."
-  },
   "hvac_accessory": {
     "categoryId": "a01aZ00000fKN2RQAW",
     "categoryName": "HVAC Accessory",
@@ -3620,52 +3226,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand TypeValue HVAC Accessory Finish - Model",
     "seoNotes": "Type = Grille, Register, Diffuser, Humidistat, Control."
-  },
-  "indoor_heating": {
-    "categoryId": "a01aZ00000dCekAQAS",
-    "categoryName": "Indoor Heating",
-    "department": "Heating & Cooling",
-    "family": "HVAC",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "BTU/Watts",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Fuel Type",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {BTU/Watts} {Type} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 50,000 BTU Indoor Heating Finish - Model",
-    "seoNotes": "Type = Space Heater, Wall Heater, Baseboard, Radiant."
   },
   "mini_split_air_conditioner": {
     "categoryId": "a01aZ00000dCekBQAS",
@@ -4009,88 +3569,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "template": "{Brand} {Type} {Style} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand TypeValue Chair Finish - Model",
     "seoNotes": "Type = Dining, Accent, Office, Bar Stool, Rocking."
-  },
-  "outdoor_and_patio_furniture": {
-    "categoryId": "a01aZ00000dCekPQAS",
-    "categoryName": "Outdoor and Patio Furniture",
-    "department": "Home Décor & Furniture",
-    "family": "Furniture",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Material",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 5,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Material} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Outdoor and Patio Furniture Finish - Model",
-    "seoNotes": "Type = Dining Set, Lounge, Chair, Table. Material = Metal, Wicker, Wood."
-  },
-  "home_organization": {
-    "categoryId": "a01aZ00000dCekLQAS",
-    "categoryName": "Home Organization",
-    "department": "Home Décor & Furniture",
-    "family": "Home Improvement",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Dimensions",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 5,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Dimensions} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Home Organization Finish - Model",
-    "seoNotes": "Type = Closet Organizer, Shelf, Hook, Basket."
   },
   "mirror": {
     "categoryId": "a01aZ00000dCekJQAS",
@@ -7666,134 +7144,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand SpecValue Water Filtration Finish - Model",
     "seoNotes": "Filtration = Micron rating. Type = Under-Sink, Faucet-Mount, Whole-House, RO."
   },
-  "laundry_sink": {
-    "categoryId": "a01aZ00000dC5ESQA0",
-    "categoryName": "Laundry Sink",
-    "department": "Plumbing & Bath",
-    "family": "Laundry",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Bowl Config",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Width (Inches)} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Laundry Sink Finish - Model",
-    "seoNotes": "Type = Drop-In, Undermount, Freestanding. Bowl = Single, Double."
-  },
-  "utility_sink": {
-    "categoryId": "a01aZ00000dC5EXQA0",
-    "categoryName": "Utility Sink",
-    "department": "Plumbing & Bath",
-    "family": "Utility",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Material",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 6,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 7,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Width (Inches)} {Type} {Material} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Utility Sink Finish - Model",
-    "seoNotes": "Type = Wall-Mount, Freestanding, Drop-In."
-  },
-  "home_accents": {
-    "categoryId": "a01aZ00000dCekMQAS",
-    "categoryName": "Home Accents",
-    "department": "Home Decor",
-    "family": "Decor",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 4,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 5,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Home Accents Finish - Model",
-    "seoNotes": "Type = Vase, Candle Holder, Decorative Bowl, Sculpture."
-  }
 };
 
 /**

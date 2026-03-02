@@ -84,6 +84,12 @@
     "type_id": "a1jaZ000001lF3CQAU"
   },
   {
+    "type_name": "Alarm",
+    "type_id": "PENDING_SALESFORCE_SYNC_ALARM",
+    "category_usage": "Safety & Security",
+    "type_group": "Safety"
+  },
+  {
     "type_name": "Alcove",
     "type_id": "a1jaZ000001lF3DQAU"
   },
@@ -442,6 +448,12 @@
   {
     "type_name": "Clock",
     "type_id": "a1jaZ000001lF4bQAE"
+  },
+  {
+    "type_name": "CO Detector",
+    "type_id": "PENDING_SALESFORCE_SYNC_CO_DETECTOR",
+    "category_usage": "Safety & Security",
+    "type_group": "Safety"
   },
   {
     "type_name": "Closer",
@@ -2150,6 +2162,12 @@
     "type_id": "a1jaZ000001lYuBQAU",
     "category_usage": "Toilet",
     "type_group": "Configuration"
+  },
+  {
+    "type_name": "Smoke Detector",
+    "type_id": "PENDING_SALESFORCE_SYNC_SMOKE_DETECTOR",
+    "category_usage": "Safety & Security",
+    "type_group": "Safety"
   },
   {
     "type_name": "Soaking",
