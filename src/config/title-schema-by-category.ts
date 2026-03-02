@@ -118,6 +118,7 @@ export const FORMATTING_RULES = {
  * Attribute-to-formatter mapping
  */
 export const ATTRIBUTE_FORMATTERS: Record<string, keyof typeof FORMATTING_RULES> = {
+  'Width': 'dimension',  // Plain "Width" (used by Icemaker and others)
   'Width (Inches)': 'dimension',
   'Width (Inches)*': 'dimension',
   'Height (Inches)': 'dimension',
