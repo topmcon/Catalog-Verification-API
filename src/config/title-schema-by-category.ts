@@ -330,11 +330,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 2,
         "attribute": "Width (Inches)",
         "required": false,
         "format": "{value}-Inch"
@@ -347,33 +342,28 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
-        "attribute": "Installation Type",
-        "required": false
-      },
-      {
-        "position": 5,
         "attribute": "Fuel Type",
         "required": false
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 8,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Burner Count} {Installation Type} {Fuel Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "GE 36-Inch 5-Burner Built-In Gas Cooktop - Stainless Steel - PGP966SETSS",
-    "seoNotes": "UPDATED v2.3: Brand, width (30\"/36\" common), burner count (4/5/6), fuel type (Gas/Electric/Induction) CRITICAL, installation type (Built-In/Drop-In). Model number at END per requirements. Matches competitor patterns."
+    "template": "{Brand} {Width (Inches)} {Burner Count} {Fuel Type} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "GE 36-Inch 5-Burner Gas Cooktop Stainless Steel - PGP966SETSS",
+    "seoNotes": "UPDATED v2.4: Removed Installation Type (all cooktops are built-in). Brand, width (30\"/36\" common), burner count (4/5/6), fuel type (Gas/Electric/Induction) CRITICAL. Model number at END per requirements."
   },
   "dishwasher": {
     "categoryId": "a01Hu000010Q5EiIAK",
