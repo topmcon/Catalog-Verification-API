@@ -6056,6 +6056,7 @@ function normalizeFinish(value: string | undefined | null): string {
   
   // Extract finish from descriptive phrases by looking for keywords
   // Priority order: Check for compound finishes first, then simple ones
+  // CRITICAL: Multi-word finishes MUST be checked before single-word finishes to avoid truncation
   const finishKeywords = [
     { keywords: ['black stainless steel', 'black stainless'], finish: 'Black Stainless' },
     { keywords: ['stainless steel', 'stainless'], finish: 'Stainless Steel' },
@@ -6069,6 +6070,11 @@ function normalizeFinish(value: string | undefined | null): string {
     { keywords: ['polished brass'], finish: 'Polished Brass' },
     { keywords: ['matte black'], finish: 'Matte Black' },
     { keywords: ['matte white'], finish: 'Matte White' },
+    { keywords: ['white glass'], finish: 'White Glass' },  // Must be before 'white'
+    { keywords: ['black glass'], finish: 'Black Glass' },  // Must be before 'black'
+    { keywords: ['frosted glass'], finish: 'Frosted Glass' },
+    { keywords: ['smoked glass'], finish: 'Smoked Glass' },
+    { keywords: ['clear glass'], finish: 'Clear Glass' },
     { keywords: ['panel ready', 'panel-ready'], finish: 'Panel Ready' },
     { keywords: ['chrome', 'polished chrome'], finish: 'Chrome' },
     { keywords: ['slate'], finish: 'Slate' },
@@ -6081,7 +6087,8 @@ function normalizeFinish(value: string | undefined | null): string {
     { keywords: ['graphite'], finish: 'Graphite' },
     { keywords: ['platinum'], finish: 'Platinum' },
     { keywords: ['black'], finish: 'Black' },
-    { keywords: ['white'], finish: 'White' }
+    { keywords: ['white'], finish: 'White' },
+    { keywords: ['glass'], finish: 'Glass' }  // Catch-all for unspecified glass
   ];
   
   // Search for finish keywords in the descriptive text
