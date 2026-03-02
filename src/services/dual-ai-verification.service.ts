@@ -7658,6 +7658,60 @@ function buildFinalResponse(
     });
   }
   
+  // ===========================================
+  // REFRIGERATOR DEPTH/INSTALLATION LOGIC
+  // Built-In: always counter-depth (don't mention depth)
+  // Freestanding + Counter-Depth: show "Counter-Depth" (don't show Freestanding - implied)
+  // Freestanding + Standard Depth: show nothing (both implied)
+  // ===========================================
+  const categoryLowerForDepth = (consensus.agreedCategory || '').toLowerCase();
+  const isRefrigeratorCategory = categoryLowerForDepth.includes('refrigerator') || categoryLowerForDepth.includes('freezer');
+  
+  let depthTypeValue = '';
+  let installationTypeForTitle = '';
+  
+  if (isRefrigeratorCategory) {
+    // Detect built-in
+    const isBuiltIn = 
+      installationTypeLower.includes('built-in') ||
+      installationTypeLower.includes('built in') ||
+      combinedTextForPanelReady.includes('built-in refrigerator') ||
+      combinedTextForPanelReady.includes('built in refrigerator');
+    
+    // Detect counter-depth
+    const isCounterDepth = 
+      installationTypeLower.includes('counter-depth') ||
+      installationTypeLower.includes('counter depth') ||
+      combinedTextForPanelReady.includes('counter-depth') ||
+      combinedTextForPanelReady.includes('counter depth');
+    
+    if (isBuiltIn) {
+      // Built-in: show "Built-In", no depth (always counter-depth - implied)
+      installationTypeForTitle = 'Built-In';
+      depthTypeValue = ''; // Don't show - built-ins are always counter-depth
+      logger.info('Refrigerator detected as Built-In (depth omitted - implied counter-depth)', {
+        sessionId,
+        category: consensus.agreedCategory
+      });
+    } else if (isCounterDepth) {
+      // Freestanding + Counter-Depth: show "Counter-Depth", no "Freestanding" (implied)
+      installationTypeForTitle = ''; // Don't show Freestanding - implied
+      depthTypeValue = 'Counter-Depth';
+      logger.info('Refrigerator detected as Freestanding Counter-Depth', {
+        sessionId,
+        category: consensus.agreedCategory
+      });
+    } else {
+      // Freestanding + Standard Depth: show nothing (both implied)
+      installationTypeForTitle = '';
+      depthTypeValue = '';
+      logger.info('Refrigerator detected as Freestanding Standard Depth (both omitted - implied)', {
+        sessionId,
+        category: consensus.agreedCategory
+      });
+    }
+  }
+  
   // Build title input from all available product data
   const seoTitleInput: SEOTitleInput = {
     brand: brandMatch.matched && brandMatch.matchedValue 
@@ -7842,11 +7896,23 @@ function buildFinalResponse(
         getValidInstallationTypes() // VALIDATION-FIRST: prefer valid value over confidence
       )
     ),
+    depthType: depthTypeValue,
     panelReady: panelReadyValue
     
     // Features NOT passed to title generator (removed from titles in v2.1)
     // features: cleanedText.features
   };
+  
+  // ===========================================
+  // REFRIGERATOR FIX: Apply special installation/depth logic
+  // Built-In: show "Built-In" only, no depth
+  // Freestanding + Counter-Depth: show "Counter-Depth" only, no Freestanding
+  // Freestanding + Standard: show nothing (both implied)
+  // ===========================================
+  if (isRefrigeratorCategory) {
+    seoTitleInput.installationType = installationTypeForTitle;
+    seoTitleInput.depthType = depthTypeValue;
+  }
   
   // ===========================================
   // COOKTOP/RANGE FIX: Fuel type should be in fuelType, not type

@@ -74,6 +74,7 @@ export interface SEOTitleInput {
   type?: string;
   configuration?: string;
   installationType?: string;
+  depthType?: string; // Counter-Depth for freestanding refrigerators (omit for built-in or standard depth)
   panelReady?: string; // For panel-ready dishwashers/refrigerators
   controlType?: string; // For dishwashers (Top Control, Front Control)
   basinCount?: string; // For sinks (Single Basin, Double Basin)
@@ -173,6 +174,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Control Type': 'controlType',
   'Basin Count': 'basinCount',
   'Panel Ready': 'panelReady',
+  'Depth Type': 'depthType',
   
   // Appearance
   'Finish': 'finish',

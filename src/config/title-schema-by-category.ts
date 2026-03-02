@@ -794,43 +794,48 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 4,
         "attribute": "Installation Type",
         "required": false
       },
       {
+        "position": 4,
+        "attribute": "Depth Type",
+        "required": false
+      },
+      {
         "position": 5,
-        "attribute": "Configuration",
+        "attribute": "Panel Ready",
         "required": false
       },
       {
         "position": 6,
+        "attribute": "Configuration",
+        "required": false
+      },
+      {
+        "position": 7,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 8,
+        "position": 9,
         "attribute": "Capacity (Cu. Ft.)",
         "required": false
       },
       {
-        "position": 9,
+        "position": 10,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Installation Type} {Configuration} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
-    "exampleTitle": "Brand 36-Inch Built-In French Door Refrigerator Stainless Steel 28 Cu. Ft. - Model",
-    "seoNotes": "Width first for space planning. Type = product type (Accessory extracts subtype like Panel Kit, Installation Kit). Installation = Built-In, Counter-Depth, Freestanding. Configuration = door style (French Door, Side-by-Side, Column). Capacity at end."
+    "template": "{Brand} {Width (Inches)} {Installation Type} {Depth Type} {Panel Ready} {Configuration} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "SUBZERO 36-Inch Built-In Panel Ready French Door Refrigerator - BI36UFD",
+    "seoNotes": "UPDATED v2.8: Removed Type slot. Installation Type = Built-In only (omit Freestanding - implied). Depth Type = Counter-Depth only if freestanding (omit for Built-In - always counter-depth, omit for standard depth - implied). Panel Ready if applicable. Configuration = door style."
   },
   "wine_cooler": {
     "categoryId": "NEEDS_NEW_ID",
