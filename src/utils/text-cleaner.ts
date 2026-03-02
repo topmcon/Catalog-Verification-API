@@ -609,11 +609,19 @@ export function extractColorFinish(text: string | undefined | null): { color: st
   const lowerText = text.toLowerCase();
   
   // Common appliance materials that serve as BOTH color and finish
+  // CRITICAL: Multi-word patterns MUST be checked before single-word patterns to avoid truncation
   const materials = [
     { pattern: /black\s+stainless\s*steel/i, color: 'Black Stainless Steel', finish: 'Stainless Steel' },
     { pattern: /stainless\s*steel/i, color: 'Stainless Steel', finish: 'Stainless Steel' },
     { pattern: /brushed\s+stainless/i, color: 'Stainless Steel', finish: 'Brushed Stainless' },
     { pattern: /fingerprint\s+resistant\s+stainless/i, color: 'Stainless Steel', finish: 'Fingerprint Resistant' },
+    { pattern: /white\s+glass/i, color: 'White Glass', finish: 'White Glass' },  // Must be before 'white'
+    { pattern: /black\s+glass/i, color: 'Black Glass', finish: 'Black Glass' },  // Must be before 'black'
+    { pattern: /frosted\s+glass/i, color: 'Frosted Glass', finish: 'Frosted Glass' },
+    { pattern: /smoked\s+glass/i, color: 'Smoked Glass', finish: 'Smoked Glass' },
+    { pattern: /clear\s+glass/i, color: 'Clear Glass', finish: 'Clear Glass' },
+    { pattern: /matte\s+white/i, color: 'Matte White', finish: 'Matte White' },
+    { pattern: /matte\s+black/i, color: 'Matte Black', finish: 'Matte Black' },
     { pattern: /white/i, color: 'White', finish: 'White' },
     { pattern: /black/i, color: 'Black', finish: 'Black' },
     { pattern: /bisque/i, color: 'Bisque', finish: 'Bisque' },
