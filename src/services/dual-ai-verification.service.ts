@@ -7618,6 +7618,46 @@ function buildFinalResponse(
     });
   }
   
+  // ===========================================
+  // PANEL READY DETECTION
+  // Detect if appliance is panel-ready, integrated, or fully integrated
+  // Used for dishwashers, refrigerators, ice makers, etc.
+  // ===========================================
+  const installationTypeLower = String(
+    consensus.agreedTop15Attributes?.installation_type || 
+    openaiResult.top15Attributes?.installation_type || 
+    xaiResult.top15Attributes?.installation_type || ''
+  ).toLowerCase();
+  
+  const combinedTextForPanelReady = [
+    rawProduct.Product_Description_Web_Retailer || '',
+    rawProduct.Ferguson_Description || '',
+    rawProduct.Product_Title_Web_Retailer || '',
+    rawProduct.Ferguson_Title || '',
+    rawProduct.Features_Web_Retailer || ''
+  ].join(' ').toLowerCase();
+  
+  let panelReadyValue = '';
+  if (
+    installationTypeLower.includes('panel ready') ||
+    installationTypeLower.includes('panel-ready') ||
+    installationTypeLower.includes('integrated') ||
+    installationTypeLower.includes('fully integrated') ||
+    combinedTextForPanelReady.includes('panel ready') ||
+    combinedTextForPanelReady.includes('panel-ready') ||
+    combinedTextForPanelReady.includes('custom panel') ||
+    combinedTextForPanelReady.includes('fully integrated')
+  ) {
+    panelReadyValue = 'Panel Ready';
+    logger.info('Panel Ready detected for title', {
+      sessionId,
+      category: consensus.agreedCategory,
+      source: installationTypeLower.includes('panel') || installationTypeLower.includes('integrated') 
+        ? 'installation_type' 
+        : 'product_description'
+    });
+  }
+  
   // Build title input from all available product data
   const seoTitleInput: SEOTitleInput = {
     brand: brandMatch.matched && brandMatch.matchedValue 
@@ -7801,7 +7841,8 @@ function buildFinalResponse(
         '',
         getValidInstallationTypes() // VALIDATION-FIRST: prefer valid value over confidence
       )
-    )
+    ),
+    panelReady: panelReadyValue
     
     // Features NOT passed to title generator (removed from titles in v2.1)
     // features: cleanedText.features

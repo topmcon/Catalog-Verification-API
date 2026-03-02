@@ -389,23 +389,28 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 4,
+        "attribute": "Panel Ready",
+        "required": false
+      },
+      {
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} - {Model Number}",
-    "exampleTitle": "GE 24-Inch Front Control Dishwasher Stainless Steel - GDT665SSNSS",
-    "seoNotes": "UPDATED v2.6: Removed Place Settings and Installation Type. Brand, width (24\" standard, 18\" compact), type (Front Control/Top Control/Drawer). Model number at END."
+    "template": "{Brand} {Width (Inches)} {Type} {Panel Ready} {Category} {Finish} - {Model Number}",
+    "exampleTitle": "BOSCH 24-Inch Top Control Panel Ready Dishwasher - SHV9PT63UC",
+    "seoNotes": "UPDATED v2.7: Added Panel Ready slot before Category. For panel-ready/integrated/fully integrated dishwashers. Brand, width, type, panel ready (if applicable), category, finish, model."
   },
   "drawer": {
     "categoryId": "a01Hu000011kpC2IAI",
