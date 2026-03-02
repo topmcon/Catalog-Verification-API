@@ -682,11 +682,11 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
   }
   
   for (const slot of sortedSlots) {
-    // CHANGE 1: Skip "Freestanding" installation type for refrigerators
+    // CHANGE 1: Skip "Freestanding" installation type for refrigerators and freezers
     if (slot.attribute === 'Installation Type' && 
-        schema.categoryName === 'Refrigerator' && 
+        (schema.categoryName === 'Refrigerator' || schema.categoryName === 'Freezer') && 
         input.installationType?.toLowerCase() === 'freestanding') {
-      logger.info('Skipping Freestanding installation type for refrigerator title', {
+      logger.info('Skipping Freestanding installation type (implied default)', {
         category: schema.categoryName,
         installationType: input.installationType
       });
@@ -705,11 +705,14 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       continue;
     }
     
-    // CHANGE 2: Skip "Built-In" for Beverage Center and Undercounter types
+    // CHANGE 2: Skip "Built-In" for Beverage Center, Undercounter types, and Undercounter Freezers
     if (slot.attribute === 'Installation Type' && 
         input.installationType?.toLowerCase() === 'built-in' &&
-        (input.type?.toLowerCase() === 'beverage center' || input.type?.toLowerCase() === 'undercounter')) {
+        (input.type?.toLowerCase() === 'beverage center' || 
+         input.type?.toLowerCase() === 'undercounter' ||
+         (schema.categoryName === 'Freezer' && input.type?.toLowerCase() === 'undercounter'))) {
       logger.info('Skipping Built-In installation type for inherently built-in product', {
+        category: schema.categoryName,
         type: input.type,
         installationType: input.installationType
       });

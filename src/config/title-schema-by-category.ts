@@ -391,32 +391,42 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
+        "attribute": "Installation Type",
+        "required": false
+      },
+      {
+        "position": 4,
+        "attribute": "Panel Ready",
+        "required": false
+      },
+      {
+        "position": 5,
         "attribute": "Type",
         "required": true
       },
       {
-        "position": 4,
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 7,
         "attribute": "Finish",
         "required": true
       },
       {
-        "position": 6,
+        "position": 8,
         "attribute": "Capacity (Cu. Ft.)",
         "required": true
       },
       {
-        "position": 7,
+        "position": 9,
         "attribute": "Model Number",
         "required": true
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
-    "exampleTitle": "GE 36-Inch Upright Freezer Stainless Steel 28 Cu. Ft. - Model",
+    "template": "{Brand} {Width (Inches)} {Installation Type} {Panel Ready} {Type} {Category} {Finish} {Capacity (Cu. Ft.)} {Model Number}",
+    "exampleTitle": "SUBZERO 18-Inch Built-In Panel Ready Column Freezer Stainless Steel 8.4 Cu. Ft. - FFI7180WR21",
     "seoNotes": "Type = Upright, Chest, Column, Undercounter, Compact. Capacity at end."
   },
   "icemaker": {
