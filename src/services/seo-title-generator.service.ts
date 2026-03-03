@@ -298,8 +298,18 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   // Check for formatter
   const formatterKey = ATTRIBUTE_FORMATTERS[attribute];
   if (formatterKey && FORMATTING_RULES[formatterKey]) {
-    const formatter = FORMATTING_RULES[formatterKey] as (v: number | string) => string;
-    const formattedResult = formatter(value as number | string);
+    // 🔥 SIZE CLASS INTEGRATION: Pass category and installationType for dimension formatter
+    // This enables smart rounding (e.g., 47.25" → "48-Inch" for refrigerators)
+    let formattedResult: string;
+    if (formatterKey === 'dimension' && input) {
+      // dimension() requires category and installationType for size class lookup
+      const formatter = FORMATTING_RULES[formatterKey] as (v: number | string, cat?: string, inst?: string) => string;
+      formattedResult = formatter(value as number | string, input.category, input.installationType);
+    } else {
+      // Other formatters only need the value
+      const formatter = FORMATTING_RULES[formatterKey] as (v: number | string) => string;
+      formattedResult = formatter(value as number | string);
+    }
     
     // Debug logging for Width
     if (attribute === 'Width (Inches)') {
@@ -307,6 +317,8 @@ function formatValue(attribute: string, value: string | number | string[] | unde
         attribute,
         formatterKey,
         inputValue: value,
+        category: input?.category || 'NOT PROVIDED',
+        installationType: input?.installationType || 'NOT PROVIDED',
         formattedResult: formattedResult || 'EMPTY STRING'
       });
     }

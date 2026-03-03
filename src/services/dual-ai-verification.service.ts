@@ -69,6 +69,8 @@ import { generateAttributeTable } from '../utils/html-generator';
 import { cleanCustomerFacingText, cleanEncodingIssues, extractColorFinish, extractWidthFromText } from '../utils/text-cleaner';
 import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
+import { getSizeClassConfig } from '../config/category-size-classes';
+import { roundToStandardSize, formatSizeClass } from '../utils/size-class-rounder';
 import * as lookups from '../config/lookups';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
 
@@ -702,6 +704,7 @@ function buildDataCoherenceErrorResponse(
       AI_Width: '',
       AI_Height: '',
       AI_Weight: '',
+      AI_Product_Filter_Class: '',  // Size class for filtering (e.g., "48-Inch")
       AI_MSRP: '',
       // Market_Value fields removed - no longer sent to Salesforce
       AI_Description: '',
@@ -8169,6 +8172,80 @@ function buildFinalResponse(
       );
       // Strip unit suffixes (lbs, lb, kg, oz, etc.) and return just the number
       return weight ? String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim() : '';
+    })(),
+    AI_Product_Filter_Class: (() => {
+      // Calculate industry-standard size class for filtering
+      // Example: 47.25" refrigerator → "48-Inch" (rounded to nearest standard size)
+      // This enables Salesforce to filter products by standard size classes
+      
+      // Get the width value (same sources as AI_Width above)
+      const widthStr = preferAIValue(
+        consensus.agreedPrimaryAttributes.width,
+        openaiResult.primaryAttributes.width,
+        xaiResult.primaryAttributes.width,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Width_Web_Retailer || 
+        rawProduct.Ferguson_Width ||
+        findAttributeInRawData(rawProduct, 'Width') ||
+        findAttributeInRawData(rawProduct, 'Overall Width') ||
+        ''
+      );
+      
+      if (!widthStr || !widthStr.trim()) {
+        return '';  // No width available
+      }
+      
+      // Parse width to number
+      const widthNum = parseFloat(String(widthStr));
+      if (isNaN(widthNum) || widthNum <= 0) {
+        return '';  // Invalid width
+      }
+      
+      // Get size class configuration for this category
+      const categoryName = categoryMatch.matched && categoryMatch.matchedValue 
+        ? categoryMatch.matchedValue.category_name
+        : consensus.agreedCategory || '';
+      
+      if (!categoryName) {
+        return '';  // No category available
+      }
+      
+      const sizeClassConfig = getSizeClassConfig(categoryName);
+      
+      if (!sizeClassConfig || !sizeClassConfig.has_measurement_class) {
+        // Category doesn't have size classes - return empty
+        logger.info('Category does not use size class system', {
+          sessionId,
+          category: categoryName
+        });
+        return '';
+      }
+      
+      // Get installation type for categories with installation-dependent sizing
+      const installationType = String(
+        consensus.agreedTop15Attributes?.installation_type || 
+        openaiResult.top15Attributes?.installation_type || 
+        xaiResult.top15Attributes?.installation_type || 
+        ''
+      );
+      
+      // Round to standard size class
+      const roundedSize = roundToStandardSize(widthNum, sizeClassConfig, installationType);
+      
+      // Format as display string
+      const formatted = formatSizeClass(roundedSize, sizeClassConfig.classes);
+      
+      logger.info('Calculated Product Filter Class', {
+        sessionId,
+        category: categoryName,
+        actualWidth: widthNum,
+        roundedSize,
+        filterClass: formatted,
+        installationType: installationType || 'not specified'
+      });
+      
+      return formatted;
     })(),
     AI_MSRP: preferAIValue(
       consensus.agreedPrimaryAttributes.msrp,

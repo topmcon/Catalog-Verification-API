@@ -101,6 +101,7 @@ export function buildPrimaryAttributes(
     AI_Width: width,
     AI_Height: height,
     AI_Weight: incoming.Weight_Web_Retailer || getAttributeValue(incoming.Ferguson_Attributes, 'Product Weight'),
+    AI_Product_Filter_Class: '',  // Populated by dual-AI verification service with size class logic
     AI_MSRP: incoming.MSRP_Web_Retailer,
     // Market_Value fields removed - no longer sent to Salesforce
     AI_Description: getCorrected('description', cleanDescription(incoming.Product_Description_Web_Retailer) || incoming.Ferguson_Description),

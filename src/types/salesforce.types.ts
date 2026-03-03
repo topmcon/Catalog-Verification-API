@@ -162,6 +162,7 @@ export interface PrimaryDisplayAttributes {
   AI_Width: string;
   AI_Height: string;
   AI_Weight: string;
+  AI_Product_Filter_Class: string;  // Industry-standard size class for filtering (e.g., "48-Inch" for 47.25" refrigerator)
   AI_MSRP: string;
   AI_Description: string;
   AI_Product_Title: string;

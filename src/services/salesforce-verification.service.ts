@@ -642,6 +642,7 @@ function buildPrimaryAttributes(
     AI_Width: getConsensusValue(consensusMap, 'width') || rawProduct.Width_Web_Retailer,
     AI_Height: getConsensusValue(consensusMap, 'height') || rawProduct.Height_Web_Retailer,
     AI_Weight: getConsensusValue(consensusMap, 'weight') || rawProduct.Weight_Web_Retailer,
+    AI_Product_Filter_Class: '',  // Populated by dual-AI verification service with size class logic
     AI_MSRP: getConsensusValue(consensusMap, 'msrp') || rawProduct.MSRP_Web_Retailer,
     // Market_Value fields removed - no longer sent to Salesforce
     AI_Description: getConsensusValue(consensusMap, 'description') || rawProduct.Product_Description_Web_Retailer,
