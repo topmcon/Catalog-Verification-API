@@ -1002,14 +1002,6 @@
   {
     "family": "Bath",
     "department": "Plumbing & Bath",
-    "category_name": "Bathroom Lighting (Bathroom)",
-    "category_id": "a01aZ00000hFKH6QAO",
-    "subcategory": "Bath",
-    "styles_apply": true
-  },
-  {
-    "family": "Bath",
-    "department": "Plumbing & Bath",
     "category_name": "Bathroom Mirror",
     "category_id": "a01aZ00000dC5DhQAK",
     "subcategory": "Vanities & Mirrors",
@@ -1053,14 +1045,6 @@
     "category_name": "Bidet",
     "category_id": "a01aZ00000dC5DoQAK",
     "subcategory": "Toilets & Bidets",
-    "styles_apply": true
-  },
-  {
-    "family": "Bath",
-    "department": "Plumbing & Bath",
-    "category_name": "Bidet Faucet",
-    "category_id": "a01aZ00000dC5DmQAK",
-    "subcategory": "Bathroom Faucets",
     "styles_apply": true
   },
   {
@@ -1146,26 +1130,10 @@
   {
     "family": "General",
     "department": "Plumbing & Bath",
-    "category_name": "Drainage & Waste",
-    "category_id": "a01aZ00000dhf6HQAQ",
-    "subcategory": "Plumbing Parts & Fittings",
-    "styles_apply": false
-  },
-  {
-    "family": "General",
-    "department": "Plumbing & Bath",
     "category_name": "Pipe Fitting",
     "category_id": "a01aZ00000eF8O3QAK",
     "subcategory": "Plumbing Parts & Fittings",
     "styles_apply": false
-  },
-  {
-    "family": "Kitchen",
-    "department": "Plumbing & Bath",
-    "category_name": "Backsplash Kitchen Tile",
-    "category_id": "a01aZ00000dC5E1QAK",
-    "subcategory": "Kitchen",
-    "styles_apply": true
   },
   {
     "family": "Kitchen",
@@ -1186,25 +1154,9 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Food Service Faucet",
-    "category_id": "a01aZ00000dC5E5QAK",
-    "subcategory": "Kitchen",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Plumbing & Bath",
     "category_name": "Garbage Disposal",
     "category_id": "a01aZ00000dC5E6QAK",
     "subcategory": "Kitchen",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Plumbing & Bath",
-    "category_name": "Hot & Cold Water Dispenser",
-    "category_id": "a01aZ00000dC5E7QAK",
-    "subcategory": "Kitchen Faucets",
     "styles_apply": true
   },
   {
@@ -1242,14 +1194,6 @@
   {
     "family": "Kitchen",
     "department": "Plumbing & Bath",
-    "category_name": "Kitchen Sink Combo",
-    "category_id": "a01aZ00000dC5ECQA0",
-    "subcategory": "Kitchen",
-    "styles_apply": true
-  },
-  {
-    "family": "Kitchen",
-    "department": "Plumbing & Bath",
     "category_name": "Kitchen Storage & Organization",
     "category_id": "a01aZ00000dC5EEQA0",
     "subcategory": "Kitchen",
@@ -1275,7 +1219,7 @@
     "family": "Home Improvement",
     "department": "Hardware",
     "category_name": "Cabinet Hardware",
-    "category_id": "NEEDS_SF_ID",
+    "category_id": "a01aZ00000dC5E4QAK",
     "subcategory": "Hardware",
     "styles_apply": true
   },
@@ -1294,5 +1238,47 @@
     "category_id": "NEEDS_SF_ID",
     "subcategory": "Outdoor Lighting",
     "styles_apply": true
+  },
+  {
+    "family": "Bath",
+    "department": "Plumbing & Bath",
+    "category_name": "Bathroom Lighting",
+    "category_id": "a01aZ00000dC5DgQAK",
+    "subcategory": "Wall Lighting",
+    "styles_apply": true
+  },
+  {
+    "family": "Home Improvement",
+    "department": "Plumbing & Bath",
+    "category_name": "Cabinet Hardware",
+    "category_id": "a01aZ00000dC5E4QAK",
+    "subcategory": "Hardware",
+    "styles_apply": true
+  },
+  {
+    "family": "General",
+    "department": "Plumbing & Bath",
+    "category_name": "Tankless Water Heater",
+    "category_id": "a01aZ00000dC5DwQAK",
+    "subcategory": "Water Heaters",
+    "styles_apply": false
+  },
+  {
+    "category_id": "a01aZ00000jncNIQAY",
+    "category_name": "Pressure Valve",
+    "department": "Plumbing & Bath",
+    "family": "Plumbing & Bath"
+  },
+  {
+    "category_id": "a01aZ00000dC5DsQAK",
+    "category_name": "Shower Accessory",
+    "department": "Plumbing & Bath",
+    "family": "Plumbing & Bath"
+  },
+  {
+    "category_id": "a01aZ00000dDnKlQAK",
+    "category_name": "Tub and Shower Accessory",
+    "department": "Plumbing & Bath",
+    "family": "Plumbing & Bath"
   }
 ]
