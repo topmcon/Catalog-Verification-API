@@ -6,9 +6,16 @@
  * IMPORTANT DISTINCTIONS:
  * - Configuration/Style: French Door, Side-by-Side, Top Freezer, Bottom Freezer (door arrangement)
  * - Installation Type: Built-In, Freestanding, Counter-Depth, Under-Counter (how it's installed)
+ * 
+ * SIZE CLASS ROUNDING (as of 2026-03-03):
+ * - Uses industry-standard size classes for dimensions (e.g., refrigerator widths: 24, 28, 30, 33, 36, 42, 48)
+ * - Rounds to NEAREST standard size (47.25" → 48", 35.5" → 36")
+ * - Performance ratings (CFM, BTU, GPM) use EXACT values (no rounding)
  */
 
 import { PREMIUM_BRANDS } from '../config/category-schema';
+import { getSizeClassConfig } from '../config/category-size-classes';
+import { roundToStandardSize } from '../utils/size-class-rounder';
 
 // Refrigerator configurations (door styles) - exported for external use
 export const REFRIGERATOR_CONFIGURATIONS = [
@@ -133,14 +140,20 @@ function getFuelType(input: TitleInput, alreadyShown: string | null): string | n
 
 /**
  * Get size class string (e.g., "30-Inch", "24-Inch")
+ * 
+ * Uses smart rounding to industry-standard size classes:
+ * - Refrigerator 47.25" → "48-Inch" (rounded to nearest from [24, 28, 30, 33, 36, 42, 48])
+ * - Dishwasher 23.8" → "24-Inch" (rounded to nearest from [18, 24])
+ * - Range Hood 385 CFM → "385 CFM" (EXACT - no rounding for performance ratings)
  */
 function getSizeClass(input: TitleInput): string | null {
   // Prefer width for most appliances
   if (input.width) {
     const width = parseFloat(String(input.width));
     if (!isNaN(width) && width > 0) {
-      // Round to common sizes
-      const rounded = Math.round(width);
+      // 🔥 NEW: Smart rounding based on category size classes
+      const sizeClassConfig = getSizeClassConfig(input.category);
+      const rounded = roundToStandardSize(width, sizeClassConfig, input.installationType);
       return `${rounded}-Inch`;
     }
   }

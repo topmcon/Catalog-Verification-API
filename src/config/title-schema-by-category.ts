@@ -2,6 +2,7 @@
  * PRODUCT TITLE SCHEMA BY CATEGORY - COMPREHENSIVE
  * =================================
  * Generated: 2026-02-17T14:39:12.256Z
+ * Updated: 2026-03-03 - Added size class smart rounding
  * 
  * Formula (Option A): Brand - [PRIMARY_SPEC] - [SECONDARY_SPEC] - Category - Finish - Model
  * 
@@ -13,8 +14,15 @@
  * 5. Finish/Color - appearance descriptor (if applicable)
  * 6. Model Number - appended after dash
  * 
+ * SIZE CLASS ROUNDING (as of 2026-03-03):
+ * - Dimensions round to NEAREST standard size (47.25" → 48")
+ * - Performance ratings (CFM, BTU, GPM) use EXACT values
+ * 
  * Max title length: 60-80 chars target, 150 max
  */
+
+import { getSizeClassConfig } from './category-size-classes';
+import { roundToStandardSize } from '../utils/size-class-rounder';
 
 export interface TitleSlot {
   position: number;
@@ -36,12 +44,29 @@ export interface CategoryTitleSchema {
 
 /**
  * Formatting rules for different spec types
+ * 
+ * SIZE CLASS ROUNDING (as of 2026-03-03):
+ * - dimension() now uses smart rounding to industry-standard sizes
+ * - Example: 47.25" → "48-Inch" for refrigerators
+ * - Performance ratings (CFM, BTU, GPM) use EXACT values (no rounding)
  */
 export const FORMATTING_RULES = {
-  // Dimensions: Always use 'X-Inch' format with hyphen
-  dimension: (value: number | string): string => {
+  // Dimensions: Use smart rounding to standard size classes
+  // Example: Refrigerator 47.25" → "48-Inch" (rounded to nearest from [24, 28, 30, 33, 36, 42, 48])
+  dimension: (value: number | string, categoryIdOrName?: string, installationType?: string): string => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
     if (isNaN(num) || num <= 0) return '';
+    
+    // 🔥 NEW: Smart rounding based on category size classes
+    if (categoryIdOrName) {
+      const sizeClassConfig = getSizeClassConfig(categoryIdOrName);
+      if (sizeClassConfig && sizeClassConfig.has_measurement_class) {
+        const rounded = roundToStandardSize(num, sizeClassConfig, installationType);
+        return `${rounded}-Inch`;
+      }
+    }
+    
+    // Fallback: Mathematical rounding (for categories without size classes)
     return `${Math.round(num)}-Inch`;
   },
   
