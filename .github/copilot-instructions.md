@@ -33,6 +33,7 @@ When running commands, checking logs, testing APIs, or gathering data:
 
 **IMPORTANT**: This repository follows a strict folder structure. Always place files in the correct location:
 - Documentation → `docs/` (organized by type: guides, api, architecture, salesforce, analysis)
+- Architecture versions → `docs/architecture-versions/` (auto-generated snapshots — DO NOT edit)
 - Session notes → `session-notes/`
 - Code examples → `examples/`
 - Postman collections → `postman/`
@@ -165,6 +166,29 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - Document fixes in session summary
    
    **If NO code changes** (only docs/session notes): Skip validation, proceed to step 3
+
+2b. **📸 VERSION ARCHITECTURE DOCS** — Snapshot architecture reference documents:
+   ```bash
+   bash scripts/version-architecture-docs.sh
+   ```
+   
+   **What it does:**
+   - Snapshots `VERIFICATION-ARCHITECTURE-COMPLETE.md` and `VERIFICATION-DATA-SOURCES.md`
+   - Creates versioned copies in `docs/architecture-versions/` with rich metadata headers
+   - Each version includes: commit hash, date, system metrics (line counts, picklist sizes, AI models)
+   - Change summary vs. previous version + recent commits list
+   - Auto-rotates: keeps max 20 versions per document, deletes oldest
+   - **Skips** if document content hasn't changed since last version
+   
+   **Naming convention**: `{DOC_NAME}-v{N}-{YYYY-MM-DD}-{COMMIT}.md`
+   
+   **⚠️ IMPORTANT**: Before running this, ensure the **working copies** of both docs reflect any architectural changes made this session:
+   - New functions, prompt changes, AI model changes → update `VERIFICATION-ARCHITECTURE-COMPLETE.md`
+   - New data sources, files, MongoDB collections → update `VERIFICATION-DATA-SOURCES.md`
+   - The script versions whatever is in the working copies — if they're outdated, the version will be too
+   
+   **If NO architectural changes** this session: Still run the script (it will auto-skip if no changes)
+
 3. Check for any uncommitted changes (`git status`)
 4. Stage all changes including session summary (`git add -A`)
 5. Commit with descriptive message (ask user or auto-generate based on changed files)
@@ -772,6 +796,15 @@ When user says "Save everything", perform these actions:
    - Document fixes in session summary
    
    **If NO code changes** (only docs/session notes): Skip audit, proceed to step 3
+
+2b. **📸 VERSION ARCHITECTURE DOCS** — Snapshot architecture reference documents:
+   ```bash
+   bash scripts/version-architecture-docs.sh
+   ```
+   - Creates versioned snapshots in `docs/architecture-versions/`
+   - Before running: ensure working copies reflect any architectural changes this session
+   - See detailed instructions in the "Save everything" section above
+
 3. **Check for changes**: `git status`
 4. **Stage all changes**: `git add -A`
 5. **Commit changes**: 

@@ -1,3 +1,41 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  VERSIONED ARCHITECTURE SNAPSHOT — DO NOT EDIT                   ║
+║  This is a read-only archive. Edit the working copy instead:    ║
+║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  Version:       v1
+  Snapshot Date: 2026-03-03 21:36:58 EST
+  Commit:        61d1f37 (61d1f37d196a6bd7152ea7a81a2e1183c6fade7b)
+
+  SYSTEM METRICS AT TIME OF SNAPSHOT:
+  ─────────────────────────────────────
+  dual-ai-verification.service.ts: 11267 lines
+  title-schema-by-category.ts:     7198 lines
+  Brands:     385
+  Categories: 161
+  Styles:     30
+  Attributes: 945
+  Claude Model: claude-sonnet-4-20250514
+
+  CHANGE SUMMARY:
+  ─────────────────────────────────────
+  First version — no prior snapshot to compare.
+
+  COMMITS SINCE LAST VERSION:
+  ─────────────────────────────────────
+  (first version or previous commit unknown)
+
+  RECENT COMMITS (at snapshot time):
+  ─────────────────────────────────────
+61d1f37 docs: session summary + audit findings #024-#027 (Claude context, accessory rule, OpenAI fix, title auto-correct)
+bc3d052 fix: OpenAI Stage 1 failures - use minimal user prompt for department/category stages
+baa618f fix: restore truncated dual-ai-verification.service.ts (3009 lines were accidentally dropped in previous commit)
+fd6ea1b Enable title auto-correction + debug OpenAI Stage 1 failures
+5d8994f Give Claude Final Review full AI-equivalent context for proper auditing
+-->
+
 # Complete Verification Architecture
 
 > **Last Updated**: 2026-03-04 (EST)  
