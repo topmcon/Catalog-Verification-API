@@ -53,17 +53,23 @@ class WebhookService {
         ...(job.comparisonAnalysis && { comparisonAnalysis: job.comparisonAnalysis })
       };
       
-      // Transform field names for Salesforce compatibility
-      // Map our internal field names to Salesforce's expected field names
+      // Transform Appliance_Features: Flatten nested object to top-level SF fields
+      // Salesforce expects fields like AI_Built_In__c at top level, not nested in Appliance_Features
       if (rawPayload.data.Appliance_Features) {
         const features = rawPayload.data.Appliance_Features;
         
-        // Rename counter_depth → full_depth for SF compatibility
-        // (SF schema still uses AI_Full_Depth__c, we use counter_depth internally for clarity)
-        if ('counter_depth' in features) {
-          features.full_depth = features.counter_depth;
-          delete features.counter_depth;
-        }
+        // Map our internal field names to Salesforce's custom field API names
+        rawPayload.data.AI_Built_In__c = features.built_in;
+        rawPayload.data.AI_Panel_Ready__c = features.panel_ready;
+        rawPayload.data.AI_Full_Depth__c = features.counter_depth; // Map counter_depth → AI_Full_Depth__c
+        rawPayload.data.AI_Standard_Depth__c = features.standard_depth;
+        rawPayload.data.AI_Voltage_120V__c = features.voltage_120v;
+        rawPayload.data.AI_Voltage_240V__c = features.voltage_240v;
+        rawPayload.data.AI_Fuel_Gas__c = features.fuel_gas;
+        rawPayload.data.AI_Fuel_Electric__c = features.fuel_electric;
+        
+        // Remove the nested object (SF doesn't expect it)
+        delete rawPayload.data.Appliance_Features;
       }
       
       // Sanitize: Salesforce Apex JSON parser cannot handle null values
