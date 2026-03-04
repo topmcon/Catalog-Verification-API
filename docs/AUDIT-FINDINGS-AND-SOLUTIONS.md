@@ -40,6 +40,8 @@
 | Capacity position in titles suboptimal | Move Capacity to end of all title templates (after Finish) | 30a8b28 | #023 |
 | SF picklist sync data 75% duplicates | Implement intelligent reconciliation with de-duplication | 0745b38 | #028 |
 | 594 pending requests with 99% already in rejected sync | Reconciliation fulfills requests from rejected sync data | 0745b38 | #028 |
+| Subcategory contaminating type selection | Remove subcategory from typeCandidates, add validation | a45da77 | #029 |
+| Logic field confused as valid type values | Clarify logic is guidance, types list is constraint | 99451a5 | #030, #029 |
 
 ---
 
@@ -3634,6 +3636,322 @@ New picklist sync from SF arrives
 
 ---
 
+## Finding #029: Subcategory Contamination in Type Selection
+
+**Date Discovered:** 2026-03-04  
+**Severity:** 🔴 HIGH  
+**Status:** ✅ FIXED  
+**Commit:** `a45da77`  
+**Scope:** All categories with subcategories (type validation)
+
+### Symptom
+Barbeque products getting wrong types from **different categories**:
+- **C1FTCART** (Kenyon Grill Cart) → type="Cart" (from Outdoor Kitchen category)
+- **B70400WH** (Kenyon Electric Grill) → type="Modular" (from Outdoor Kitchen category)
+- Expected: Barbeque category with fuel-based types (Gas, Electric, Charcoal, etc.)
+
+### Root Cause
+`Web_Retailer_SubCategory` was included in `typeCandidates` array in Stage 3 prompt builder.
+
+**Problem Chain**:
+1. Product has `Web_Retailer_SubCategory = "Cart"` (subcategory label)
+2. Stage 3 includes subcategory in typeCandidates sources
+3. AI sees "Cart" as a potential type option
+4. "Cart" is valid type in **Outdoor Kitchen** category (not Barbeque)
+5. AI selects "Cart" → cross-category type contamination
+
+**Why This Happened**:
+- Subcategory is a **classification label**, not a product type dimension
+- Including it as type source allows cross-contamination
+- No validation that subcategory-derived types belong to current category
+
+### Investigation Steps
+1. User reported type errors on two Barbeque products
+2. Checked production logs → both had `Web_Retailer_SubCategory` present
+3. Traced typeCandidates array sources:
+   - `product_type` ✅ (primary)
+   - `product_subtype` ✅ (valid)
+   - `Web_Retailer_SubCategory` ❌ (CONTAMINATION SOURCE)
+4. Verified "Cart" and "Modular" are valid Outdoor Kitchen types, not Barbeque
+5. Confirmed: Subcategory should NOT be used for type matching
+
+### Fix Applied
+
+**File 1: dual-ai-verification.service.ts (Lines 7262-7270)**
+```typescript
+// BEFORE:
+const typeCandidates = [
+  rawProduct.product_type,
+  rawProduct.product_subtype,
+  rawProduct.Web_Retailer_SubCategory,  // ❌ CONTAMINATION SOURCE
+  rawProduct.Web_Retailer_Type
+].filter(Boolean);
+
+// AFTER:
+const typeCandidates = [
+  rawProduct.product_type,
+  rawProduct.product_subtype,
+  // REMOVED: Web_Retailer_SubCategory (causes cross-category contamination)
+  rawProduct.Web_Retailer_Type
+].filter(Boolean);
+```
+
+**File 2: type-matcher.service.ts (Lines 684-750)**
+Added validation logging:
+```typescript
+if (rawProduct.Web_Retailer_SubCategory) {
+  logger.warn('⚠️ SUBCATEGORY DETECTED - Not used for type matching', {
+    subcategory: rawProduct.Web_Retailer_SubCategory,
+    category: currentCategory,
+    reason: 'Subcategories can introduce cross-category type contamination'
+  });
+}
+```
+
+### Results
+- ✅ Subcategory no longer influences type selection
+- ✅ Type validation ensures type belongs to current category
+- ✅ Cross-category contamination eliminated
+- ⚠️ Revealed secondary issue: Logic field confusion (Finding #030)
+
+### Test Results (Pre-Fix)
+**B70400WH** (28 minutes after deploy):
+- OpenAI/xAI Stage 3: Changed category Barbeque → Outdoor Kitchen, type="Modular"
+- Still contaminated despite subcategory fix
+- Led to discovery of Finding #030 (logic field confusion)
+
+### Scope of Fix
+**UNIVERSAL** - All categories benefit:
+- Prevents subcategory from introducing unrelated types
+- Type validation Phase 2.5 still validates against category
+- Subcategory remains available for other uses (just not type matching)
+
+### Key Lessons Learned
+1. **Subcategory ≠ Type**: Different classification dimensions
+2. **Source Validation Critical**: Every data source must be validated against current context
+3. **Testing Reveals Cascades**: Fixing one issue exposed another (logic field)
+4. **Cross-Category Contamination**: Any shared field can leak values between categories
+
+### Related Findings
+- #030: Logic field confusion (discovered during testing of this fix)
+- #003: AI confidence without validation (similar pattern)
+
+---
+
+## Finding #030: Logic Field Confused as Valid Type Values
+
+**Date Discovered:** 2026-03-04 (during testing of Finding #029)  
+**Severity:** 🔴 HIGH  
+**Status:** ✅ FIXED  
+**Commit:** `99451a5`  
+**Scope:** All 161+ categories (AI prompt enhancement)
+
+### Symptom
+AI (especially Claude) attempting to use installation methods, door configurations, and other **descriptive guidance** as product types:
+
+**Example: B70400WH (Kenyon Electric Grill)**
+- Product description: "Built-In Electric Grill"
+- Category: Barbeque
+- Barbeque `logic`: "Fuel source and style"
+- Valid types: Gas, Electric, Charcoal, Pellet, Kamado, Wood-Fired, Accessory
+- **Claude's action**: Tried to set type="Built-In" ❌
+- **System validation**: Rejected "Built-In" as invalid for Barbeque ✅
+- **Problem**: Claude saw "Built-In" + prompt mentioned "installation method" → thought it was valid type
+
+### Root Cause
+**category-type-mapping.json structure misunderstood by AI**:
+```json
+{
+  "category_name": "Barbeque",
+  "logic": "Fuel source and style",  // ← AI confused: Guidance or values?
+  "types": [                          // ← Actual valid values
+    {"type_name": "Gas"},
+    {"type_name": "Electric"},
+    ...
+  ]
+}
+```
+
+**What AIs thought**:
+- "Logic says 'installation method' → I should look for installation methods"
+- "I found 'Built-In' → That's an installation method → Use it as type!"
+
+**What logic actually means**:
+- Describes WHAT the type dimension represents for that category
+- NOT a list of valid values
+- Just guidance about what to look for
+
+**Examples Across Categories**:
+| Category | Logic Field | AI Confusion Risk |
+|----------|-------------|-------------------|
+| Barbeque | "Fuel source and style" | Low (clear) |
+| Range Hood | "Mounting/installation type" | ⚠️ HIGH (installation IS type here) |
+| Air Conditioner | "Installation and style" | ⚠️ MEDIUM |
+| Refrigerator | "Door configuration/form factor" | LOW (clear) |
+| Dryer | "Loading configuration only. Type = physical structure..." | LOW (very explicit) |
+| Mirror | "Mount style and size" | MEDIUM |
+
+### Investigation Steps
+1. Testing Finding #029 fix with B70400WH
+2. Observed Claude trying type="Built-In" despite subcategory fix
+3. Checked Claude's reasoning: Saw "Built-In Electric Grill" + "installation method" in prompt
+4. Reviewed category-type-mapping.json structure
+5. Compared logic fields across multiple categories
+6. Identified pattern: Logic field is **descriptive**, types array is **prescriptive**
+7. No clear distinction in prompts between guidance vs. values
+
+### Fix Applied
+
+**File: dual-ai-verification.service.ts**
+
+**Change 1: Stage 3 Prompt (OpenAI/xAI) - Lines 4285-4298**
+```typescript
+// BEFORE:
+categoryTypeContext = `\n== VALID PRODUCT TYPES FOR ${category} ==\n`;
+categoryTypeContext += validTypes.map((t, idx) => `  ${idx + 1}. ${t}`).join('\n');
+categoryTypeContext += '\n\n⚠️ CRITICAL: ONLY select types from the list above.';
+
+// AFTER:
+const categoryMapping = getCategoryTypeMapping(determinedCategory);
+const logicDescription = categoryMapping?.logic || 'Product variation';
+
+categoryTypeContext = `\n== VALID PRODUCT TYPES FOR ${category} ==\n`;
+categoryTypeContext += `📋 What "Type" means for this category: "${logicDescription}"\n`;
+categoryTypeContext += `   (This describes WHAT the type field represents, not what values you can use)\n\n`;
+categoryTypeContext += `✅ ONLY THESE VALUES ARE ALLOWED (choose from this list ONLY):\n`;
+categoryTypeContext += validTypes.map((t, idx) => `  ${idx + 1}. ${t}`).join('\n');
+categoryTypeContext += '\n\n⚠️ CRITICAL RULES:\n';
+categoryTypeContext += '  • You MUST select a type from the numbered list above\n';
+categoryTypeContext += '  • Do NOT use types from other categories (e.g., "Built-In" is for Microwave, not Barbeque)\n';
+categoryTypeContext += '  • If you see relevant info that matches the logic description but is NOT in the list:\n';
+categoryTypeContext += '    → Put it in filter_attributes or appliance_features instead\n';
+categoryTypeContext += '  • Example: For Barbeque, "Built-In" installation goes in filter_attributes.installation_type, NOT product_type';
+```
+
+**Change 2: Claude Review Prompt - Lines 11333-11373**
+```typescript
+VALID TYPES FOR "${category}" (current category):
+📋 Type Logic: "${categoryMapping?.logic || 'Product variation'}"
+   (This describes WHAT type means for this category - e.g., "Fuel source" means type = Gas/Electric/etc.)
+   
+✅ ALLOWED TYPE VALUES (choose ONLY from this list):
+${validTypesForCategory.join(', ')}
+
+⚠️ CRITICAL TYPE SELECTION RULES:
+  • You MUST select from the list above - these are the ONLY valid values
+  • Do NOT use types from other categories (e.g., "Built-In" is a Microwave type, NOT valid for Barbeque)
+  • If raw data shows info that matches the logic description but is NOT in the list:
+    → Put it in filter_attributes or appliance_features, NOT in type field
+  • Example: Barbeque type logic is "Fuel source and style" → Type must be Gas/Electric/Charcoal/etc.
+  • Example: If Barbeque product is "Built-In", put in filter_attributes.installation_type, NOT type
+```
+
+### What Changed
+
+**1. Explicit Logic Field Explanation**:
+- Shows what "Type" means for this category
+- Clarifies: "This is guidance, not values"
+
+**2. Clear Value Constraint**:
+- "✅ ONLY THESE VALUES ARE ALLOWED"
+- Numbered list of valid types
+
+**3. Critical Rules Section**:
+- Must select from list (no exceptions)
+- No cross-category types
+- Where to put non-type attributes (filter_attributes, appliance_features)
+- Specific example: Barbeque Built-In goes in installation_type attribute
+
+**4. Consistent Across All AI Models**:
+- OpenAI gets same guidance as xAI (Stage 3)
+- Claude gets same guidance (Phase B)
+- All AIs understand: logic = guidance, types = values
+
+### Results
+- ✅ AIs now distinguish between what to look for (logic) vs. what to select (types)
+- ✅ Installation methods go in filter_attributes.installation_type
+- ✅ Door configurations go in filter_attributes (for categories where door config ≠ type)
+- ✅ Cross-category type contamination prevented (explicit examples)
+
+### Expected Test Results (Post-Fix)
+**B70400WH** (Kenyon Electric Grill):
+- Category: Barbeque ✅
+- Type: Electric ✅ (fuel source, matches logic)
+- filter_attributes.installation_type: "Built-In" ✅ (not in type field)
+- No retry needed, validation passes ✅
+
+### Scope of Fix
+**UNIVERSAL** - All 161+ categories benefit:
+- Any category with logic mentioning installation/mounting/configuration
+- Any category where logic describes dimension not obvious from name
+- Prevents future confusion as new categories added
+
+### Edge Cases to Monitor
+**Categories where logic description IS the type**:
+- Range Hood: `"logic": "Mounting/installation type"` → Installation IS the type (valid)
+- Air Conditioner: `"logic": "Installation and style"` → Installation + style together
+
+For these categories, the types list WILL include installation methods (Wall-Mount, Island, Portable, etc.). Fix still works because:
+- Types list explicitly includes those values
+- AI sees "Wall-Mount" in both logic AND types list → valid
+- AI sees "Built-In" for Barbeque → logic mentions fuel, types list has Gas/Electric → Built-In NOT valid
+
+### Key Lessons Learned
+
+1. **Configuration Fields Have Dual Nature**:
+   - Descriptive: Explains what field represents
+   - Prescriptive: Constrains valid values
+   - Must explicitly state which is which
+
+2. **AI Prompt Design Pattern**:
+   - Show WHAT you're looking for (logic/guidance)
+   - Show WHAT you can choose (valid values list)
+   - Show WHY distinction matters (examples of wrong choices)
+   - Show WHERE to put non-type attributes
+
+3. **Cross-Category Confusion Risk**:
+   - "Built-In" valid for: Microwave, Oven, Cooktop, Dishwasher
+   - "Built-In" NOT valid for: Barbeque, Refrigerator (installation attribute)
+   - Need explicit examples to prevent borrowing types from other categories
+
+4. **Testing One Fix Reveals Another**:
+   - Fixed subcategory contamination (Finding #029)
+   - Testing revealed logic field confusion (Finding #030)
+   - Always test after fixes to catch cascade effects
+
+5. **161 Categories = 161 Logic Variations**:
+   - Each has different logic description
+   - Some mention installation (and it IS type)
+   - Some mention installation (and it's NOT type)
+   - Universal clarification needed, not category-specific
+
+### Related Findings
+- #029: Subcategory contamination (testing this fix revealed Finding #030)
+- #003: AI confidence without validation (similar lack of constraints)
+- #015: Laundry type confusion (also about what goes in type vs. attributes)
+
+### Decision Tree: Is This Info a Type or Attribute?
+
+```
+Found relevant info in product data (e.g., "Built-In")
+├─ Check category's valid types list
+│  ├─ Is this value IN the list?
+│  │  ├─ YES → ✅ USE as type
+│  │  └─ NO → Check logic description
+│  │     ├─ Does logic mention this concept?
+│  │     │  ├─ YES → Put in filter_attributes (matches logic but not in list)
+│  │     │  └─ NO → Put in appliance_features (additional descriptor)
+│  └─ Types list empty?
+│     └─ Skip type, focus on other attributes
+└─ Example: Barbeque "Built-In"
+   ├─ Valid types: Gas, Electric, Charcoal, Pellet...
+   ├─ "Built-In" NOT in list ❌
+   ├─ Logic: "Fuel source and style" (doesn't mention installation)
+   └─ ✅ Put in filter_attributes.installation_type
+```
+
+---
+
 ## Testing Patterns
 
 ### Pattern: Title System Changes
@@ -3746,6 +4064,8 @@ Are you adding a new slot to a title schema?
 | bc3d052 | 2026-03-03 | 🔧 FIX | OpenAI Stage 1 fix — buildStagePrompt() minimal user message (Finding #026) |
 | 4b2f077 | 2026-03-03 | 🔧 FIX | Add certifications attribute alias, 237 jobs unblocked |
 | 0745b38 | 2026-03-04 | ✨ FEATURE | Intelligent picklist reconciliation system (Finding #028) |
+| a45da77 | 2026-03-04 | 🔧 FIX | Remove Web_Retailer_SubCategory from type candidates - prevents cross-category type contamination (Finding #029) |
+| 99451a5 | 2026-03-04 | 🔧 FIX | Clarify logic field is descriptive guidance, types array is prescriptive constraint (Finding #030) |
 
 ---
 
@@ -3778,6 +4098,7 @@ Are you adding a new slot to a title schema?
 | 2026-02-27 | Copilot Session | Added Finding #023 (Capacity Position) - Moved Capacity to end of all title templates - Commit 30a8b28 |
 | 2026-03-03 | Copilot Session | Added Findings #024-#027: Claude context gap fix (5d8994f), accessory override rule (8981370), OpenAI Stage 1 conflicting prompts (bc3d052), title auto-correction (fd6ea1b) |
 | 2026-03-04 | Copilot Session | Added Finding #028 (SF Picklist Sync Data Quality Crisis) - 75% duplicates, intelligent reconciliation system, 2,093 jobs unblocked, 1,214 attributes added - Commit 0745b38 |
+| 2026-03-04 | Copilot Session | Added Findings #029-#030: Subcategory contamination (a45da77), Logic field confusion (99451a5) - Cross-category type prevention, AI prompt clarification |
 
 ---
 
