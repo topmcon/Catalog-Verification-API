@@ -10576,6 +10576,7 @@ async function performClaudeReview(
 
   // ═══════════════════════════════════════════════════════════════
   // LOAD REAL SYSTEM DATA - Same schemas/picklists our AIs use
+  // Claude must have EQUIVALENT context to the primary AIs to audit effectively
   // ═══════════════════════════════════════════════════════════════
   
   // Get ALL valid categories with their departments
@@ -10595,6 +10596,26 @@ async function performClaudeReview(
   const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
   const titleSchema = getCategoryTitleSchema(category);
   
+  // NEW: Get type hierarchy explanation (same as Stage 3 AIs receive)
+  const typeHierarchy = getTypeHierarchyExplanation();
+  
+  // NEW: Get top-15 filter attributes for this category (same as Stage 3 AIs receive)
+  const categorySchema = getCategorySchema(category);
+  const top15Info = categorySchema 
+    ? categorySchema.top15FilterAttributes.map((a: any) => `  ${a.rank}. ${a.name} (key: ${a.fieldKey})`).join('\n')
+    : 'No filter attributes defined for this category';
+  
+  // NEW: Sanitize full product data (same as what primary AIs receive)
+  const cleanProductData = sanitizeProductDataForAI(rawProduct);
+  // Compact JSON: include all fields but truncate very long values
+  const productDataForClaude = Object.entries(cleanProductData)
+    .filter(([_, v]) => v !== null && v !== undefined && v !== '')
+    .map(([k, v]) => {
+      const strVal = typeof v === 'string' ? v : JSON.stringify(v);
+      // Truncate individual field values at 800 chars but keep ALL fields
+      return `${k}: ${(strVal as string).length > 800 ? (strVal as string).substring(0, 800) + '...[truncated]' : strVal}`;
+    }).join('\n');
+  
   // Build a compact category→department reference (not all 161, just relevant ones)
   const categoryDeptReference = allCategories.map((c: string) => {
     const dept = getDepartmentForCategory(c);
@@ -10605,14 +10626,53 @@ async function performClaudeReview(
   const warningsSummary = phaseAWarnings.length > 0
     ? phaseAWarnings.map(w => `⚠️  [${w.severity}] ${w.field}: ${w.issue}`).join('\n')
     : 'No automated validation warnings';
-
-  // Build spec table preview (first 500 chars)
-  const specTablePreview = (rawProduct.Specification_Table || '').substring(0, 500);
   
   // Build title schema info
   const titleSchemaInfo = titleSchema 
     ? `Template: ${titleSchema.template}\nRequired Slots: ${titleSchema.slots.filter((s: any) => s.required).map((s: any) => s.attribute).join(', ')}\nAll Slots: ${titleSchema.slots.map((s: any) => `${s.attribute}${s.required ? '*' : ''}`).join(', ')}\nExample: ${titleSchema.exampleTitle}`
     : 'No title schema found for this category';
+  
+  // NEW: Build per-category type selection guide (same logic as getCategorySpecificPrompt)
+  let typeSelectionGuide = '';
+  if (validTypesForCategory.length > 0) {
+    const categoryLower = category.toLowerCase();
+    if (categoryLower.includes('refrigerator')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR REFRIGERATOR:
+Check for ACCESSORIES FIRST (highest priority):
+  • "Panel Kit" / "Door Panel Kit" / "Custom Panel Kit" → Type: Accessory
+  • "Installation Kit" / "Trim Kit" / "Unification Kit" → Type: Accessory
+  • "Handle Kit" / "Door Handle" / "Handle Assembly" → Type: Accessory
+  • "Shelf" / "Shelving" / "Rack" / "Bin" / "Drawer" → Type: Accessory
+  • "Filter" / "Water Filter" / "Air Filter" → Type: Accessory
+  • ANY product that is a PART or COMPONENT, not a complete refrigerator → Type: Accessory
+CRITICAL: "Panel Kit" = ACCESSORY (panels sold separately for panel-ready appliances)
+IF NOT AN ACCESSORY, check specialized types first:
+  • "Wine Cooler" / "Wine Storage" → Wine Cooler
+  • "Beverage Center" / "Beverage Cooler" → Beverage Center
+  • "Kegerator" / "Keg" / "Beer Dispenser" → Kegerator
+Then check door configuration: French Door, Side-by-Side, Top-Freezer, Bottom-Freezer, Column, 4-Door Flex
+Then installation: Undercounter, Freestanding`;
+    } else if (categoryLower.includes('ceiling fan')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR CEILING FAN:
+CHECK FOR ACCESSORIES FIRST:
+  • "Downrod" / "Remote" / "Light Kit" / "Blades" / "Canopy" → Type: Accessory
+IF NOT ACCESSORY: Hugger (flush mount/low profile) → Outdoor (wet/damp rated) → Indoor
+Priority: Accessory → Hugger → Outdoor → Indoor`;
+    } else if (categoryLower.includes('dryer') || categoryLower.includes('washer')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ${category.toUpperCase()}:
+Type = LOADING CONFIGURATION ONLY:
+  • Front Load / Top Load / Unitized (Laundry Center)
+  • Gas/Electric/Heat Pump are FUEL TYPE attributes, NOT types
+  • Vented/Ventless are VENT TYPE attributes, NOT types`;
+    } else if (categoryLower.includes('oven')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR OVEN:
+Analyze cavity count and form factor: Single, Double Wall, Combination, Speed Oven`;
+    } else if (categoryLower.includes('icemaker') || categoryLower.includes('ice maker')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ICEMAKER:
+Type = Installation method. Priority: ADA → Panel Ready → Outdoor → Portable → Undercounter/Freestanding
+If dual-capable (both undercounter + freestanding), default to Undercounter`;
+    }
+  }
 
   const reviewPrompt = `You are performing a FINAL REVIEW of an AI-verified product catalog entry.
 Your job is to catch mistakes AND PROPOSE CONCRETE SOLUTIONS using our actual system data.
@@ -10627,6 +10687,12 @@ Your role: Find errors and provide EXACT corrected values from OUR picklists.
 - Every FAIL must include a complete proposed solution, not just what's wrong
 
 ═══════════════════════════════════════════════════════════════
+PRODUCT TYPE HIERARCHY (Our classification system):
+═══════════════════════════════════════════════════════════════
+
+${typeHierarchy}
+
+═══════════════════════════════════════════════════════════════
 VALID OPTIONS FROM OUR SYSTEM (Use ONLY these values):
 ═══════════════════════════════════════════════════════════════
 
@@ -10638,13 +10704,20 @@ ${categoryDeptReference}
 
 VALID TYPES FOR "${category}" (current category):
 ${validTypesForCategory.length > 0 ? validTypesForCategory.join(', ') : 'No types defined for this category'}
+${typeSelectionGuide}
 
 VALID STYLES (universal):
 ${validStyles.join(', ')}
 
 CORRECT DEPARTMENT FOR "${category}": ${correctDepartmentForCategory || 'NOT FOUND'}
 
+TOP-15 FILTER ATTRIBUTES FOR "${category}":
+${top15Info}
+
+═══════════════════════════════════════════════════════════════
 TITLE SCHEMA FOR "${category}":
+═══════════════════════════════════════════════════════════════
+
 ${titleSchemaInfo}
 
 ACCESSORY TITLE FORMAT (if Type = "Accessory"):
@@ -10656,15 +10729,21 @@ from the raw product title. The word "Accessory" NEVER appears in the generated 
 If proposing a title for an accessory, follow this pattern.
 
 ═══════════════════════════════════════════════════════════════
-RAW PRODUCT DATA (Ground Truth):
+COMPLETE RAW PRODUCT DATA (Ground Truth - ALL fields):
 ═══════════════════════════════════════════════════════════════
 
-Title: "${rawProduct.Product_Title_Web_Retailer || rawProduct.Product_Title_Legacy || ''}"
-Ferguson Title: "${rawProduct.Ferguson_Title || 'N/A'}"
-Description: "${(rawProduct.Product_Description_Web_Retailer || rawProduct.Product_Description_Legacy || '').substring(0, 400)}"
-Brand: "${rawProduct.Brand_Web_Retailer || rawProduct.Brand_Legacy || ''}"
-Model: "${rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || ''}"
-Spec Table: ${specTablePreview}
+${productDataForClaude}
+
+═══════════════════════════════════════════════════════════════
+DATA SOURCE TRUST HIERARCHY (Same rules our primary AIs use):
+═══════════════════════════════════════════════════════════════
+
+Tier 1 (MOST TRUSTED): Ferguson_Raw_Data, Ferguson_Title, Ferguson_* fields
+Tier 2: *_Web_Retailer fields (Product_Title_Web_Retailer, Brand_Web_Retailer, etc.)
+Tier 3: AI's own analysis and web data
+Tier 4 (LEAST TRUSTED): *_Legacy fields — use ONLY for directional hints, NOT as truth
+
+When sources conflict, prefer higher-tier data.
 
 ═══════════════════════════════════════════════════════════════
 AI VERIFICATION RESULTS (What both AIs agreed on):
@@ -10751,6 +10830,16 @@ RULES:
     // Initialize Anthropic client
     const anthropic = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY || ''
+    });
+
+    logger.info('🔍 FINAL REVIEW - Phase B: Sending to Claude with full context', {
+      sessionId,
+      promptLength: reviewPrompt.length,
+      productFieldCount: Object.keys(cleanProductData).filter(k => cleanProductData[k]).length,
+      hasTypeSelectionGuide: typeSelectionGuide.length > 0,
+      hasTop15Attributes: categorySchema !== null,
+      category,
+      productType
     });
 
     const response = await anthropic.messages.create({
