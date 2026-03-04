@@ -83,12 +83,23 @@ async function resendFailedWebhooks(jobIds = []) {
       if (rawPayload.data.Appliance_Features) {
         const features = rawPayload.data.Appliance_Features;
         
-        // Rename counter_depth → full_depth for SF compatibility
-        if ('counter_depth' in features) {
-          console.log(`  🔄 Mapping counter_depth (${features.counter_depth}) → full_depth`);
-          features.full_depth = features.counter_depth;
-          delete features.counter_depth;
-        }
+        // Flatten to top-level SF custom fields
+        console.log(`  🔄 Flattening Appliance_Features to SF custom field structure`);
+        rawPayload.data.AI_Built_In__c = features.built_in;
+        rawPayload.data.AI_Panel_Ready__c = features.panel_ready;
+        rawPayload.data.AI_Full_Depth__c = features.counter_depth; // Map counter_depth → AI_Full_Depth__c
+        rawPayload.data.AI_Standard_Depth__c = features.standard_depth;
+        rawPayload.data.AI_Voltage_120V__c = features.voltage_120v;
+        rawPayload.data.AI_Voltage_240V__c = features.voltage_240v;
+        rawPayload.data.AI_Fuel_Gas__c = features.fuel_gas;
+        rawPayload.data.AI_Fuel_Electric__c = features.fuel_electric;
+        
+        console.log(`     ✓ AI_Full_Depth__c: ${features.counter_depth}`);
+        console.log(`     ✓ AI_Voltage_120V__c: ${features.voltage_120v}`);
+        console.log(`     ✓ AI_Fuel_Electric__c: ${features.fuel_electric}`);
+        
+        // Remove nested object
+        delete rawPayload.data.Appliance_Features;
       }
 
       // Sanitize nulls (convert to empty strings for Salesforce)
