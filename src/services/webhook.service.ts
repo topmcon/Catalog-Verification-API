@@ -53,6 +53,19 @@ class WebhookService {
         ...(job.comparisonAnalysis && { comparisonAnalysis: job.comparisonAnalysis })
       };
       
+      // Transform field names for Salesforce compatibility
+      // Map our internal field names to Salesforce's expected field names
+      if (rawPayload.data.Appliance_Features) {
+        const features = rawPayload.data.Appliance_Features;
+        
+        // Rename counter_depth → full_depth for SF compatibility
+        // (SF schema still uses AI_Full_Depth__c, we use counter_depth internally for clarity)
+        if ('counter_depth' in features) {
+          features.full_depth = features.counter_depth;
+          delete features.counter_depth;
+        }
+      }
+      
       // Sanitize: Salesforce Apex JSON parser cannot handle null values
       const payload = sanitizeNulls(rawPayload) as WebhookPayload;
 
