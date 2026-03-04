@@ -7259,15 +7259,16 @@ async function buildFinalResponse(
     });
   };
 
-  // If direct picklist match failed, try category-aware type matching with subcategory/business-category hints
-  const subcategoryHint = rawProduct.Web_Retailer_SubCategory || rawProduct.Ferguson_Business_Category || '';
+  // If direct picklist match failed, try category-aware type matching with business-category hints
+  // NOTE: Web_Retailer_SubCategory is often a CATEGORY name, not a TYPE - do not use as type candidate
+  const subcategoryHint = rawProduct.Ferguson_Business_Category || '';
   const typeCandidates = dedupeTypeCandidates([
     normalizeTypeCandidate(determinedType),
     normalizeTypeCandidate(consensus.agreedPrimaryAttributes.product_type),
     normalizeTypeCandidate(openaiResult.primaryAttributes.product_type),
     normalizeTypeCandidate(xaiResult.primaryAttributes.product_type),
     normalizeTypeCandidate(rawProduct.Ferguson_Product_Type),
-    normalizeTypeCandidate(rawProduct.Web_Retailer_SubCategory),
+    // Web_Retailer_SubCategory REMOVED - it's a category, not a type (causes cross-contamination)
     normalizeTypeCandidate(rawProduct.Ferguson_Business_Category)
   ].filter(Boolean));
 

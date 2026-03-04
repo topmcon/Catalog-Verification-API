@@ -688,25 +688,55 @@ export function matchTypeToPicklist(
 ): TypeMatchResult {
   const originalInput = aiType || '';
   
+  // Get valid types for this category FIRST (needed for validation)
+  const categoryMapping = getCategoryTypeMapping(category);
+  if (!categoryMapping) {
+    logger.warn('No type mapping found for category', { category, aiType });
+    return {
+      matched: false,
+      matchedValue: null,
+      confidence: 0,
+      matchMethod: 'none',
+      originalInput
+    };
+  }
+  const validTypes = categoryMapping.types;
+  
   // If no type provided, try semantic extraction from subcategory hint
+  // BUT ONLY if the extracted type is valid for this category
   if (!aiType || !aiType.trim()) {
     if (subcategoryHint) {
       const semanticType = extractTypeFromSemanticContext(subcategoryHint, category);
       if (semanticType) {
-        const typePicklistItem = getTypeByName(semanticType);
-        if (typePicklistItem) {
-          logger.info('Type extracted from subcategory (no AI type provided)', {
+        // ⚠️ CRITICAL: Validate extracted type is valid for this category
+        const isValidForCategory = validTypes.some(t => 
+          t.type_name.toLowerCase() === semanticType.toLowerCase()
+        );
+        
+        if (isValidForCategory) {
+          const typePicklistItem = getTypeByName(semanticType);
+          if (typePicklistItem) {
+            logger.info('Type extracted from subcategory hint (validated for category)', {
+              subcategory: subcategoryHint,
+              extracted: semanticType,
+              category,
+              validForCategory: true
+            });
+            return {
+              matched: true,
+              matchedValue: typePicklistItem,
+              confidence: 0.85,
+              matchMethod: 'fuzzy',
+              originalInput: subcategoryHint
+            };
+          }
+        } else {
+          logger.warn('Type extracted from subcategory but NOT valid for category - ignoring', {
             subcategory: subcategoryHint,
             extracted: semanticType,
-            category
+            category,
+            validTypesForCategory: validTypes.map(t => t.type_name).slice(0, 10)
           });
-          return {
-            matched: true,
-            matchedValue: typePicklistItem,
-            confidence: 0.85,
-            matchMethod: 'fuzzy',
-            originalInput: subcategoryHint
-          };
         }
       }
     }
@@ -719,20 +749,7 @@ export function matchTypeToPicklist(
     };
   }
 
-  // Get valid types for this category
-  const categoryMapping = getCategoryTypeMapping(category);
-  if (!categoryMapping) {
-    logger.warn('No type mapping found for category', { category, aiType });
-    return {
-      matched: false,
-      matchedValue: null,
-      confidence: 0,
-      matchMethod: 'none',
-      originalInput
-    };
-  }
-
-  const validTypes = categoryMapping.types;
+  // Category mapping and validTypes already retrieved above
   const normalizedInput = normalizeTypeName(aiType);
 
   // TRY 0: Alias resolution (handles common AI descriptions like "Built-In Oven" → "Single" for Oven)
