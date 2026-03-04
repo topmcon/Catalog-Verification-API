@@ -10695,17 +10695,32 @@ RULES:
 
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 2500,
+      max_tokens: 4000,
       temperature: 0.2,
       messages: [{ role: 'user', content: reviewPrompt }]
     });
 
     const reviewText = response.content[0].type === 'text' ? response.content[0].text : '';
     
+    // Log stop reason to detect truncation
+    logger.info('🔍 FINAL REVIEW - Phase B: Claude response received', {
+      sessionId,
+      stopReason: response.stop_reason,
+      responseLength: reviewText.length,
+      inputTokens: response.usage?.input_tokens,
+      outputTokens: response.usage?.output_tokens
+    });
+    
     // Parse Claude's JSON response
     let reviewResult: ClaudeReviewResult;
     try {
-      const cleanedText = reviewText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      // Strip markdown code blocks and any text before/after JSON
+      let cleanedText = reviewText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      // Also try to extract JSON object if there's surrounding text
+      const jsonMatch = cleanedText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        cleanedText = jsonMatch[0];
+      }
       const parsed = JSON.parse(cleanedText);
       
       // Validate proposed corrections use valid picklist values
@@ -10773,8 +10788,10 @@ RULES:
     } catch (parseError) {
       logger.error('🔴 FINAL REVIEW - Phase B: Failed to parse Claude response', {
         sessionId,
-        error: parseError,
-        responseText: reviewText.substring(0, 200)
+        error: parseError instanceof Error ? parseError.message : 'Unknown parse error',
+        responseLength: reviewText.length,
+        responseFirst500: reviewText.substring(0, 500),
+        responseLast200: reviewText.substring(Math.max(0, reviewText.length - 200))
       });
       
       reviewResult = {
