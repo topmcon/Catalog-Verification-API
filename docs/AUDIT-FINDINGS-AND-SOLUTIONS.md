@@ -3203,6 +3203,161 @@ Updated 13 category title templates:
 
 ---
 
+## Finding #024: Claude Final Review Context Gap
+
+**Date Discovered:** 2026-03-03  
+**Severity:** 🔴 CRITICAL  
+**Status:** ✅ FIXED  
+**Commit:** `5d8994f`  
+**Scope:** Universal — affects ALL Final Review Stage evaluations
+
+### Symptom
+Claude Final Review Stage was overriding correct AI classifications with incorrect ones. Example: Changed `Refrigerator` → `Cabinet Finishing` for a Dacor RAC18AMLHMS (18-Inch Refrigerator Panel Kit).
+
+### Root Cause
+Comprehensive audit revealed Claude had ~5% of the context that primary AIs (OpenAI/xAI) received:
+- ❌ No raw product data (name, description, features)
+- ❌ No type hierarchy (couldn't understand Accessory → parent category)
+- ❌ No per-category type selection guides
+- ❌ No category-specific attribute lists
+- ❌ No data source trust hierarchy
+
+Claude was making classification decisions essentially blind, using only the AI results object.
+
+### Investigation Steps
+1. Ran comprehensive audit comparing Stage 1-3 AI prompts vs Claude Final Review prompt
+2. Cataloged every piece of context available to each AI
+3. Found Claude received: AI results + product title only
+4. Primary AIs received: full product data, type keywords, installation types, category schemas, etc.
+
+### Fix Applied
+Injected full equivalent context into `performClaudeReview()` (~line 10560 of `dual-ai-verification.service.ts`):
+- **Sanitized product data** (name, description, features, brand, model, UPC, dimensions)
+- **Type hierarchy** via `getTypeHierarchyExplanation()` — shows parent/child type relationships
+- **Per-category type selection guides** — explains when to pick each type
+- **Top-15 attributes** via `getCategorySchema(category)` — category-specific field definitions
+- **Data source trust hierarchy** — structured data > product name > AI extraction
+- **CRITICAL ACCESSORY RULE** (see Finding #025)
+
+### Key Lesson
+**Pattern:** Any AI reviewer must have equivalent context to the AIs it's reviewing. A review stage with less data than the primary stage will produce worse results, not better.
+
+---
+
+## Finding #025: Claude Accessory Classification Override
+
+**Date Discovered:** 2026-03-03  
+**Severity:** 🔴 HIGH  
+**Status:** ✅ FIXED  
+**Commit:** `8981370`  
+**Scope:** Products where Type=Accessory and parent category differs from surface appearance
+
+### Symptom
+Claude changed correct `Category: Refrigerator, Type: Accessory` to incorrect `Category: Cabinet Finishing` for a Dacor RAC18AMLHMS Refrigerator Panel Kit. Claude interpreted "panel kit" as cabinet-related rather than a refrigerator accessory.
+
+### Root Cause
+Claude lacked understanding of the accessory hierarchy: accessories belong to their PARENT APPLIANCE category, not to their surface appearance category. A "Refrigerator Panel Kit" is a Refrigerator accessory, not a Cabinet item.
+
+### Fix Applied
+Added CRITICAL ACCESSORY RULE to Claude's prompt in `performClaudeReview()`:
+```
+🚨 CRITICAL ACCESSORY RULE:
+If Type is "Accessory", the Category MUST be the PARENT APPLIANCE category.
+Examples:
+- Refrigerator Panel Kit → Category: Refrigerator, Type: Accessory ✅
+- Dishwasher Handle Kit → Category: Dishwasher, Type: Accessory ✅  
+- Range Knob Set → Category: Range, Type: Accessory ✅
+NEVER change Category to a non-appliance like "Cabinet Finishing" for appliance accessories.
+```
+
+### Key Lesson
+**Pattern:** Accessory classification requires domain knowledge about product hierarchies. AI models default to surface-level interpretation unless explicitly instructed about parent-child category relationships.
+
+---
+
+## Finding #026: OpenAI Stage 1 Conflicting Prompt Architecture
+
+**Date Discovered:** 2026-03-03  
+**Severity:** 🔴 CRITICAL  
+**Status:** ✅ FIXED  
+**Commit:** `bc3d052`  
+**Scope:** Universal — affected ALL OpenAI Stage 1 (department) and Stage 2 (category) calls
+
+### Symptom
+OpenAI failed ALL 3 retries on every Stage 1 (department) call across 6 live tests. Returned full product analysis instead of `{department: {...}}`. Stage 1 took 28s (3 failed retries) instead of ~9s.
+
+### Root Cause
+Both OpenAI and xAI received:
+- **System message:** Stage-specific prompt (e.g., "determine ONLY the department")
+- **User message:** `buildAnalysisPrompt()` — ~3000-word prompt with "provide a value for EVERY field" and complete field list
+
+The system and user messages **contradicted each other**:
+- System: "Return ONLY department"
+- User: "Provide a value for EVERY field: product_title, brand, category, type, style..."
+
+OpenAI with `response_format: { type: 'json_object' }` prioritized the user message and returned all fields. xAI happened to follow the system prompt.
+
+### Investigation Steps
+1. Added debug logging (commit `fd6ea1b`): `responseKeys`, `responsePreview` for OpenAI responses
+2. Captured actual response: `{product_title: "...", brand: "Dacor", category: "Refrigerator", ...}` — full analysis, not `{department: ...}`
+3. Traced prompt construction: `buildAnalysisPrompt()` was used for ALL stages, including Stage 1/2
+4. Identified the contradiction between system message and user message
+
+### Fix Applied
+Created `buildStagePrompt()` — a minimal user message for Stage 1/2:
+```typescript
+private buildStagePrompt(productData: any, stage: 'department' | 'category'): string {
+  // Only sends sanitized product data + "Follow the system instructions exactly."
+  // NO field enumeration, NO "provide EVERY field" language
+}
+```
+
+Updated `analyzeWithOpenAI()` and `analyzeWithXAI()` to use:
+- `buildStagePrompt()` for Stage 1 (department) and Stage 2 (category)
+- `buildAnalysisPrompt()` only for Stage 3 (full analysis)
+
+### Before vs After
+| Metric | Before | After |
+|--------|--------|-------|
+| OpenAI Stage 1 | ❌ Failed all 3 retries | ✅ Passed first try |
+| Stage 1 time | 28s (3 retries) | 9s (1 call) |
+| Total pipeline time | ~130s | ~105s |
+
+### Key Lesson
+**Pattern:** When using staged AI prompts, the user message must be consistent with the system message. OpenAI prioritizes user messages over system messages when they conflict. Always use stage-appropriate user messages, not a generic one.
+
+---
+
+## Finding #027: Title Auto-Correction from Claude Review
+
+**Date Discovered:** 2026-03-03  
+**Severity:** 🟡 ENHANCEMENT  
+**Status:** ✅ IMPLEMENTED  
+**Commit:** `fd6ea1b`  
+**Scope:** Products where Claude proposes a better title
+
+### Symptom
+Claude's Final Review Stage proposed improved titles (e.g., correcting width from 24-Inch to 18-Inch) but they were only flagged in `corrections.flaggedForReview`, never applied.
+
+### Root Cause
+Design choice — initial implementation was conservative, only flagging title corrections for manual review.
+
+### Fix Applied
+In `executeFinalReviewStage()` (~line 11174), changed title corrections from flag-only to auto-apply:
+```typescript
+// Before: only flagged
+corrections.flaggedForReview.push({ field: 'title', ... });
+
+// After: auto-applied
+primaryAttributes.AI_Product_Title = pc.title;
+correctionsApplied.push({ field: 'AI_Product_Title', oldValue: currentTitle, newValue: pc.title, reason: pc.reason });
+```
+
+### Key Lesson
+**Pattern:** Claude's title corrections are high-confidence (it has full product context after Finding #024 fix). Auto-applying is safe because Claude only proposes changes when it detects objective errors (wrong dimensions, missing brand, etc.).
+
+---
+
 ## Testing Patterns
 
 ### Pattern: Title System Changes
@@ -3306,6 +3461,13 @@ Are you adding a new slot to a title schema?
 | 8472c28 | 2026-02-27 | 🔧 FIX | Icemaker type guidance, accessory slot order update (Finding #020/#021) |
 | 30a8b28 | 2026-02-27 | 🔧 FIX | Move Capacity to end of all title templates (Finding #023) |
 | d4649e0 | 2026-02-27 | 🔧 FIX | Remove non-SF types: Counter Depth, Single Door, Panel-Ready (Finding #022) |
+| 804358b | 2026-03-03 | ✨ ENHANCE | Build 3-phase Final Review Stage (Phase A/B/C) |
+| 3452bd0 | 2026-03-03 | 🔧 FIX | Hotfix: Claude truncation, regex JSON extraction, max_tokens 4000 |
+| 8981370 | 2026-03-03 | 🔧 FIX | Add CRITICAL ACCESSORY RULE to Claude prompt (Finding #025) |
+| 5d8994f | 2026-03-03 | 🔧 FIX | Claude full context upgrade — inject product data, type hierarchy, guides (Finding #024) |
+| fd6ea1b | 2026-03-03 | ✨ ENHANCE | Title auto-correction + OpenAI debug logging (Finding #027) |
+| baa618f | 2026-03-03 | 🔧 FIX | Emergency: restore truncated dual-ai-verification.service.ts (11,226 lines) |
+| bc3d052 | 2026-03-03 | 🔧 FIX | OpenAI Stage 1 fix — buildStagePrompt() minimal user message (Finding #026) |
 
 ---
 
@@ -3336,6 +3498,7 @@ Are you adding a new slot to a title schema?
 | 2026-02-27 | Copilot Session | Added Finding #021 (Accessory Title Overhaul) - 120+ patterns, Type slot to 177 schemas, slot reordering, "Accessory" word skip - Multiple commits |
 | 2026-02-27 | Copilot Session | Added Finding #022 (Non-SF Types Removal) - Counter Depth, Single Door, Panel-Ready removed from Refrigerator - Commit d4649e0 |
 | 2026-02-27 | Copilot Session | Added Finding #023 (Capacity Position) - Moved Capacity to end of all title templates - Commit 30a8b28 |
+| 2026-03-03 | Copilot Session | Added Findings #024-#027: Claude context gap fix (5d8994f), accessory override rule (8981370), OpenAI Stage 1 conflicting prompts (bc3d052), title auto-correction (fd6ea1b) |
 
 ---
 
