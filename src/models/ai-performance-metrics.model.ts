@@ -129,29 +129,27 @@ const AIPerformanceMetricsSchema = new Schema<IAIPerformanceMetrics>(
         reviewStatus: { 
           type: String, 
           enum: ['PASS', 'FLAG', 'FAIL'],
-          required: true 
+          required: false 
         },
-        confidenceInResults: { type: Number, required: true },
+        confidenceInResults: { type: Number, required: false },
         proposedCorrections: {
-          type: {
-            category: { type: String, default: null },
-            department: { type: String, default: null },
-            type: { type: String, default: null },
-            style: { type: String, default: null },
-            title: { type: String, default: null }
-          },
-          default: null
+          type: Schema.Types.Mixed,
+          required: false
         },
-        issues: [
-          {
-            severity: { type: String, required: true },
-            field: { type: String, required: true },
-            currentValue: { type: String, required: true },
-            issue: { type: String, required: true },
-            suggestedFix: { type: String, required: true }
-          }
-        ]
+        issues: {
+          type: [
+            {
+              severity: { type: String, required: true },
+              field: { type: String, required: true },
+              currentValue: { type: String, required: true },
+              issue: { type: String, required: true },
+              suggestedFix: { type: String, required: true }
+            }
+          ],
+          default: []
+        }
       },
+      required: false,
       default: null
     },
     
