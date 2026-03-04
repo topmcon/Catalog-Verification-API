@@ -587,8 +587,8 @@ function buildVerificationResponse(
     Appliance_Features: {
       built_in: false,
       panel_ready: false,
+      counter_depth: false,
       standard_depth: false,
-      full_depth: false,
       voltage_120v: false,
       voltage_240v: false,
       fuel_gas: false,
@@ -928,8 +928,8 @@ function buildErrorResponse(
     Appliance_Features: {
       built_in: false,
       panel_ready: false,
+      counter_depth: false,
       standard_depth: false,
-      full_depth: false,
       voltage_120v: false,
       voltage_240v: false,
       fuel_gas: false,

@@ -725,8 +725,8 @@ function buildDataCoherenceErrorResponse(
     Appliance_Features: {
       built_in: false,
       panel_ready: false,
+      counter_depth: false,
       standard_depth: false,
-      full_depth: false,
       voltage_120v: false,
       voltage_240v: false,
       fuel_gas: false,
@@ -1674,13 +1674,13 @@ export async function verifyProductWithDualAI(
         const percentDiff = (priceDiff / fergusonPrice) * 100;
         
         if (percentDiff > 30) {
-          logger.warn('⚠️ Large MSRP difference after Canadian conversion', {
+          logger.warn('⚠️ Large MSRP difference after Canadian conversion - Claude will review', {
             sessionId: verificationSessionId,
             fergusonMSRP: `$${fergusonPrice} USD`,
             convertedWebRetailerMSRP: `$${convertedPrice} USD`,
             originalCADMSRP: `$${originalCADMSRP} CAD`,
             percentDifference: `${percentDiff.toFixed(1)}%`,
-            explanation: 'May indicate data quality issue or incorrect exchange rate'
+            explanation: 'May indicate data quality issue or incorrect exchange rate - flagged for Claude validation'
           });
         }
         
@@ -1703,13 +1703,13 @@ export async function verifyProductWithDualAI(
         const percentDiff = (weightDiff / fergusonLbs) * 100;
         
         if (percentDiff > 30) {
-          logger.warn('⚠️ Large weight difference after Canadian conversion', {
+          logger.warn('⚠️ Large weight difference after Canadian conversion - Claude will review', {
             sessionId: verificationSessionId,
             fergusonWeight: `${fergusonLbs} lbs`,
             convertedWebRetailerWeight: `${convertedLbs} lbs`,
             originalKGWeight: `${originalKGWeight} kg`,
             percentDifference: `${percentDiff.toFixed(1)}%`,
-            explanation: 'May indicate data quality issue or incorrect conversion factor'
+            explanation: 'May indicate data quality issue or incorrect conversion factor - flagged for Claude validation'
           });
         }
         
@@ -10057,8 +10057,8 @@ function buildApplianceFeatures(
     return {
       built_in: false,
       panel_ready: false,
+      counter_depth: false,
       standard_depth: false,
-      full_depth: false,
       voltage_120v: false,
       voltage_240v: false,
       fuel_gas: false,
@@ -10108,17 +10108,37 @@ function buildApplianceFeatures(
     combinedText.includes('custom panel')
   );
 
-  // Determine standard_depth (not counter-depth)
-  const is_counter_depth = (
-    installLower.includes('counter-depth') ||
-    installLower.includes('counter depth') ||
-    combinedText.includes('counter-depth') ||
-    combinedText.includes('counter depth')
-  );
-  const standard_depth = !is_counter_depth;
-
-  // Determine full_depth (same as standard_depth for most cases)
-  const full_depth = standard_depth;
+  // Determine counter_depth and standard_depth (REFRIGERATOR & FREEZER ONLY)
+  let counter_depth = false;
+  let standard_depth = false;
+  
+  const isRefrigerator = categoryLower.includes('refrigerator') || categoryLower.includes('freezer');
+  
+  if (isRefrigerator) {
+    // Check for counter-depth indicators
+    const hasCounterDepthKeywords = (
+      installLower.includes('counter-depth') ||
+      installLower.includes('counter depth') ||
+      combinedText.includes('counter-depth') ||
+      combinedText.includes('counter depth')
+    );
+    
+    // Check depth measurement if available
+    const depthStr = String(primaryAttributes.AI_Depth || rawProduct.Depth_Web_Retailer || '').toLowerCase();
+    const depthMatch = depthStr.match(/([\d.]+)/);
+    const depthInches = depthMatch ? parseFloat(depthMatch[1]) : null;
+    
+    // Counter-depth: ≤26 inches or has counter-depth keywords
+    if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 26)) {
+      counter_depth = true;
+      standard_depth = false;
+    } else {
+      // Standard depth: >26 inches or no counter-depth indicators (default)
+      counter_depth = false;
+      standard_depth = true;
+    }
+  }
+  // For non-refrigerator appliances, both remain false
 
   // Determine voltage (check attributes and specs)
   let voltage_120v = false;
@@ -10181,8 +10201,8 @@ function buildApplianceFeatures(
   return {
     built_in,
     panel_ready,
+    counter_depth,
     standard_depth,
-    full_depth,
     voltage_120v,
     voltage_240v,
     fuel_gas,
@@ -10321,8 +10341,8 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
     Appliance_Features: {
       built_in: false,
       panel_ready: false,
+      counter_depth: false,
       standard_depth: false,
-      full_depth: false,
       voltage_120v: false,
       voltage_240v: false,
       fuel_gas: false,
@@ -11046,16 +11066,107 @@ function performAutomatedValidation(
     confidenceScore -= 3;
   }
 
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 6: 🇨🇦 Canadian Data Conversion Validation
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('canadian_conversion_validation');
+  
+  const webRetailerKey = rawProduct.Web_Retailer_Key || '';
+  const isCanadianData = webRetailerKey.toUpperCase().startsWith('CA_');
+  
+  if (isCanadianData) {
+    logger.info('🇨🇦 Phase A: Canadian data detected - validating conversions', {
+      sessionId,
+      webRetailerKey
+    });
+    
+    // Check MSRP conversion against Ferguson
+    const convertedMSRP = rawProduct.MSRP_Web_Retailer;
+    const fergusonMSRP = rawProduct.Ferguson_Price;
+    
+    if (fergusonMSRP && convertedMSRP) {
+      const fergusonPrice = parseFloat(String(fergusonMSRP));
+      const convertedPrice = parseFloat(String(convertedMSRP));
+      
+      if (!isNaN(fergusonPrice) && !isNaN(convertedPrice) && fergusonPrice > 0) {
+        const priceDiff = Math.abs(fergusonPrice - convertedPrice);
+        const percentDiff = (priceDiff / fergusonPrice) * 100;
+        
+        if (percentDiff > 30) {
+          warnings.push({
+            severity: 'HIGH',
+            field: 'msrp',
+            currentValue: `$${convertedPrice} USD (converted)`,
+            issue: `Canadian MSRP conversion shows ${percentDiff.toFixed(1)}% difference from Ferguson price. May indicate conversion error or data quality issue.`,
+            evidence: `Ferguson: $${fergusonPrice} USD (US market baseline) vs Converted Web Retailer: $${convertedPrice} USD`,
+            suggestedFix: `Use Ferguson price: $${fergusonPrice} USD`,
+            ruleViolated: 'CANADIAN_CONVERSION_VALIDATION'
+          });
+          confidenceScore -= 10;
+          
+          logger.warn('⚠️ Phase A: Large MSRP discrepancy detected in Canadian conversion', {
+            sessionId,
+            fergusonPrice,
+            convertedPrice,
+            percentDiff: percentDiff.toFixed(1)
+          });
+        }
+      }
+    }
+    
+    // Check Weight conversion against Ferguson (if available)
+    const convertedWeight = rawProduct.Weight_Web_Retailer;
+    const fergusonWeightAttr = rawProduct.Ferguson_Attributes?.find(attr => 
+      attr.name?.toLowerCase().includes('weight') || attr.name?.toLowerCase().includes('shipping weight')
+    );
+    const fergusonWeight = fergusonWeightAttr?.value || null;
+    
+    if (fergusonWeight && convertedWeight) {
+      const fergusonLbs = parseFloat(String(fergusonWeight));
+      const convertedLbs = parseFloat(String(convertedWeight));
+      
+      if (!isNaN(fergusonLbs) && !isNaN(convertedLbs) && fergusonLbs > 0) {
+        const weightDiff = Math.abs(fergusonLbs - convertedLbs);
+        const percentDiff = (weightDiff / fergusonLbs) * 100;
+        
+        if (percentDiff > 30) {
+          warnings.push({
+            severity: 'MEDIUM',
+            field: 'weight',
+            currentValue: `${convertedLbs} lbs (converted)`,
+            issue: `Canadian weight conversion shows ${percentDiff.toFixed(1)}% difference from Ferguson weight. May indicate conversion error.`,
+            evidence: `Ferguson: ${fergusonLbs} lbs (US market baseline) vs Converted Web Retailer: ${convertedLbs} lbs`,
+            suggestedFix: `Use Ferguson weight: ${fergusonLbs} lbs`,
+            ruleViolated: 'CANADIAN_CONVERSION_VALIDATION'
+          });
+          confidenceScore -= 5;
+          
+          logger.warn('⚠️ Phase A: Weight discrepancy detected in Canadian conversion', {
+            sessionId,
+            fergusonLbs,
+            convertedLbs,
+            percentDiff: percentDiff.toFixed(1)
+          });
+        }
+      }
+    }
+  }
+
   // Calculate final confidence score (capped at 0-100)
   confidenceScore = Math.max(0, Math.min(100, confidenceScore));
 
   // Determine if AI review is needed
-  const requiresAIReview = (
-    confidenceScore < 90 || 
-    productType === 'Accessory' ||
-    warnings.some(w => w.severity === 'HIGH' || w.severity === 'CRITICAL') ||
-    corrections.length > 0
-  );
+  // ⚠️ CRITICAL: Claude should audit EVERYTHING - final line of defense
+  const requiresAIReview = true; // Always require Claude Final Review
+  
+  // Legacy conditions (kept for reference):
+  // - confidenceScore < 90
+  // - productType === 'Accessory'  
+  // - warnings.some(w => w.severity === 'HIGH' || w.severity === 'CRITICAL')
+  // - corrections.length > 0
+  // - disagreementCount > 3 (AI disagreements)
+  // - Canadian data conversions
+  // But Claude's purpose is to catch what automated checks miss - so audit all jobs
 
   const passed = confidenceScore >= 85 && warnings.filter(w => w.severity === 'HIGH' || w.severity === 'CRITICAL').length === 0;
 
@@ -11312,8 +11423,8 @@ PRIMARY ATTRIBUTES (28 fields):
 APPLIANCE FEATURES (if Category = Appliances):
   Built-In: ${(consensus as any).applianceFeatures?.built_in || 'false'}
   Panel Ready: ${(consensus as any).applianceFeatures?.panel_ready || 'false'}
-  Standard Depth: ${(consensus as any).applianceFeatures?.standard_depth || 'false'}
-  Full Depth: ${(consensus as any).applianceFeatures?.full_depth || 'false'}
+  Counter Depth: ${(consensus as any).applianceFeatures?.counter_depth || 'false'} (Refrigerator/Freezer only)
+  Standard Depth: ${(consensus as any).applianceFeatures?.standard_depth || 'false'} (Refrigerator/Freezer only)
   Voltage 120V: ${(consensus as any).applianceFeatures?.voltage_120v || 'false'}
   Voltage 240V: ${(consensus as any).applianceFeatures?.voltage_240v || 'false'}
   Fuel Gas: ${(consensus as any).applianceFeatures?.fuel_gas || 'false'}
@@ -11381,6 +11492,28 @@ YOUR TASK - Comprehensive Review AND Propose Solutions:
 33. **Source Consistency**: If both Ferguson + Web Retailer exist, <30% price difference?
 34. **Missing Price Detection**: Premium brands (Sub-Zero, Wolf, Miele, etc.) should NOT have $0 MSRP
 35. **Format Validation**: MSRP must be positive number, not negative, not text, not null
+
+**SECTION 6: 🇨🇦 CANADIAN DATA CONVERSION VALIDATION (CRITICAL)**
+CHECK Web_Retailer_Key field:
+  → If Web_Retailer_Key starts with "CA_" → This is CANADIAN product data
+  → Canadian data requires conversion: CAD→USD (exchange rate ~0.73), kg→lbs (factor 2.20462)
+  → The MSRP_Web_Retailer and Weight_Web_Retailer values are ALREADY CONVERTED to USD and lbs
+  
+⚠️ YOUR TASK FOR CANADIAN DATA:
+36. **Validate Conversion Against Ferguson**: Compare converted MSRP_Web_Retailer to Ferguson_Price
+    - If Ferguson_Price exists and differs by >30% from converted MSRP → FLAG as conversion error
+    - Ferguson is ALWAYS US market data (most reliable) - use it as ground truth
+    - Example: If converted MSRP = $1057 but Ferguson = $2500 → ERROR (57% difference)
+37. **Weight Validation**: If Ferguson has weight attribute, compare to converted Weight_Web_Retailer
+    - Large difference (>30%) may indicate incorrect conversion or data quality issue
+38. **Check for Missing Conversions**: If Canadian data but MSRP_Web_Retailer looks like CAD price
+    - Example: If high value like $3699 and Ferguson = $2700 → may be unconverted CAD
+39. **Flag N/A Cases**: If Canadian but MSRP_Web_Retailer is empty/N/A
+    - Should cross-reference with Ferguson_Price or mark as data gap
+40. **Always Use Ferguson When Available**: For Canadian data with Ferguson match, PRIORITIZE Ferguson values
+    - Ferguson is always US market, already in USD and lbs - no conversion needed
+
+If you detect Canadian data conversion issues, return FAIL with HIGH/CRITICAL severity.
 
 ⚠️ CRITICAL ACCESSORY RULE — READ CAREFULLY:
 If Type is "Accessory" and the product is an accessory, part, kit, panel, handle, filter, 
