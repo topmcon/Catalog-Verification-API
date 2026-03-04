@@ -167,25 +167,58 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    
    **If NO code changes** (only docs/session notes): Skip validation, proceed to step 3
 
-2b. **📸 VERSION ARCHITECTURE DOCS** — Snapshot architecture reference documents:
+2b. **📸 VERSION ARCHITECTURE DOCS (Before-After Strategy)** — Create audit trail showing session changes:
    ```bash
    bash scripts/version-architecture-docs.sh
    ```
    
    **What it does:**
-   - Snapshots `VERIFICATION-ARCHITECTURE-COMPLETE.md` and `VERIFICATION-DATA-SOURCES.md`
-   - Creates versioned copies in `docs/architecture-versions/` with rich metadata headers
-   - Each version includes: commit hash, date, system metrics (line counts, picklist sizes, AI models)
-   - Change summary vs. previous version + recent commits list
+   - Creates versioned snapshots of working copies with rich metadata headers
+   - Each version includes: commit hash, date, system metrics, change summary vs. previous version
    - Auto-rotates: keeps max 20 versions per document, deletes oldest
    - **Skips** if document content hasn't changed since last version
    
    **Naming convention**: `{DOC_NAME}-v{N}-{YYYY-MM-DD}-{COMMIT}.md`
    
-   **⚠️ IMPORTANT**: Before running this, ensure the **working copies** of both docs reflect any architectural changes made this session:
-   - New functions, prompt changes, AI model changes → update `VERIFICATION-ARCHITECTURE-COMPLETE.md`
-   - New data sources, files, MongoDB collections → update `VERIFICATION-DATA-SOURCES.md`
+   **⚠️ CRITICAL - Before-After Workflow:**
+   
+   At **START of session** (during "Establish Connection"):
+   - Latest version (e.g., v4) represents "BEFORE" state - snapshot before any work begins
+   - This v4 reflects the commit the system was at when session started
+   
+   **During session:**
+   - Update **working copies** with architectural changes as you work:
+     * New functions, prompt changes, AI model changes, verification phases → update `VERIFICATION-ARCHITECTURE-COMPLETE.md`
+     * New data sources, files, MongoDB collections, config files → update `VERIFICATION-DATA-SOURCES.md`
    - The script versions whatever is in the working copies — if they're outdated, the version will be too
+   
+   At **END of session** (during "Save everything"):
+   - Run versioning script to create next version (e.g., v5)
+   - This v5 represents "AFTER" state - snapshot including all session changes
+   - **Result**: v4 (before) → work → v5 (after) = clear diff showing session contributions
+   
+   **What to update in working copies:**
+   - ✅ New verification phases (e.g., Phase 0 Canadian detection, Phase 0.2 Ferguson priority)
+   - ✅ AI model changes (e.g., Claude 5→40 fields, GPT field expansion, new prompts)
+   - ✅ New functions/services (e.g., convertCADtoUSD, detectCanadianData, enrichWithWebSearch)
+   - ✅ New config files (e.g., exchange-rates.ts, new picklist files)
+   - ✅ New data fields (e.g., Web_Retailer_Key, Appliance_Features, filter_attributes)
+   - ✅ Changed data sources (e.g., Ferguson_Price field name corrections, new MongoDB collections)
+   - ✅ System metrics (e.g., service file line counts, picklist sizes, data source counts)
+   
+   **Before-After Audit Trail Example:**
+   ```
+   v4-2026-03-04-c0f70c9.md  ← BEFORE session (11,267 lines, 55 data sources)
+   [Session work: Add Canadian handling + Claude expansion]
+   [Update working copies with changes]
+   [Run version-architecture-docs.sh]
+   v5-2026-03-04-092296d.md  ← AFTER session (11,878 lines, 56 data sources)
+   
+   Diff v4→v5 shows exactly what this session accomplished:
+   - Canadian detection/conversion phases added
+   - Claude expanded from 5 to 40+ fields
+   - exchange-rates.ts config file added
+   ```
    
    **If NO architectural changes** this session: Still run the script (it will auto-skip if no changes)
 
