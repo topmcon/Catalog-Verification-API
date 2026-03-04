@@ -94,6 +94,7 @@ export interface SalesforceIncomingProduct {
   Product_Description_Web_Retailer: string;
   Web_Retailer_Category: string;
   Web_Retailer_SubCategory: string;
+  Web_Retailer_Key: string;  // Format: "VENDOR:MODEL" or "CA_VENDOR:MODEL" for Canadian data
   Specification_Table: string;  // HTML table
   Web_Retailer_Specs: SalesforceIncomingAttribute[];
 
@@ -487,8 +488,8 @@ export interface SalesforceVerificationResponse {
   // Top Filter Attribute IDs (Maps attribute keys to Salesforce IDs)
   Top_Filter_Attribute_Ids: TopFilterAttributeIds;
 
-  // Appliance Features (Appliances Department only)
-  Appliance_Features?: ApplianceFeatures;
+  // Appliance Features (always present, defaults to false for non-Appliances)
+  Appliance_Features: ApplianceFeatures;
 
   // Additional Attributes as HTML Table
   Additional_Attributes_HTML: string;

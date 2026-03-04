@@ -584,6 +584,16 @@ function buildVerificationResponse(
     Primary_Attributes: primaryAttributes,
     Top_Filter_Attributes: topFilterAttributes,
     Top_Filter_Attribute_Ids: {},  // Not populated in legacy verification service
+    Appliance_Features: {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    },
     Additional_Attributes_HTML: additionalAttributesHtml,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
@@ -915,6 +925,16 @@ function buildErrorResponse(
     Primary_Attributes: {} as PrimaryDisplayAttributes,
     Top_Filter_Attributes: {},
     Top_Filter_Attribute_Ids: {},
+    Appliance_Features: {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    },
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,

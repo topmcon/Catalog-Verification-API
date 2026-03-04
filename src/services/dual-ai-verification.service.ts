@@ -722,6 +722,16 @@ function buildDataCoherenceErrorResponse(
     },
     Top_Filter_Attributes: {},
     Top_Filter_Attribute_Ids: {},
+    Appliance_Features: {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    },
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,
@@ -1574,6 +1584,165 @@ export async function verifyProductWithDualAI(
     rawProduct as unknown as Record<string, unknown>
   );
   
+  // ========================================================================
+  // PHASE 0: CANADIAN DATA DETECTION & CONVERSION
+  // ========================================================================
+  // Detect Canadian product data and convert to US market standards
+  // Canadian data indicators: Web_Retailer_Key starts with "CA_"
+  // Requires conversion: MSRP (CAD→USD), Weight (kg→lbs)
+  // ========================================================================
+  const { 
+    EXCHANGE_RATES, 
+    UNIT_CONVERSIONS, 
+    convertCADtoUSD, 
+    convertKGtoLBS, 
+    checkExchangeRateStaleness 
+  } = require('../config/exchange-rates');
+  
+  const webRetailerKey = rawProduct.Web_Retailer_Key || '';
+  const isCanadianData = webRetailerKey.toUpperCase().startsWith('CA_');
+  let canadianConversionApplied = false;
+  let convertedMSRP = rawProduct.MSRP_Web_Retailer;
+  let convertedWeight = rawProduct.Weight_Web_Retailer;
+  const originalCADMSRP = isCanadianData ? rawProduct.MSRP_Web_Retailer : null;
+  const originalKGWeight = isCanadianData ? rawProduct.Weight_Web_Retailer : null;
+  
+  if (isCanadianData) {
+    // Check exchange rate staleness
+    const rateStaleness = checkExchangeRateStaleness();
+    if (rateStaleness.isStale) {
+      logger.warn('⚠️ Exchange rate config is stale - consider updating', {
+        sessionId: verificationSessionId,
+        lastUpdated: rateStaleness.lastUpdated,
+        daysSinceUpdate: rateStaleness.daysSinceUpdate,
+        currentRate: EXCHANGE_RATES.CAD_TO_USD
+      });
+    }
+    
+    // Convert MSRP (CAD → USD)
+    if (convertedMSRP && !isNaN(parseFloat(String(convertedMSRP)))) {
+      const cadPrice = parseFloat(String(convertedMSRP));
+      convertedMSRP = String(convertCADtoUSD(cadPrice));
+      canadianConversionApplied = true;
+    }
+    
+    // Convert Weight (kg → lbs)
+    if (convertedWeight && !isNaN(parseFloat(String(convertedWeight)))) {
+      const kgWeight = parseFloat(String(convertedWeight));
+      convertedWeight = String(convertKGtoLBS(kgWeight));
+      canadianConversionApplied = true;
+    }
+    
+    logger.info('🇨🇦 CANADIAN DATA DETECTED - Conversions applied', {
+      sessionId: verificationSessionId,
+      webRetailerKey,
+      conversionsApplied: canadianConversionApplied,
+      msrpConversion: convertedMSRP ? `${originalCADMSRP} CAD → ${convertedMSRP} USD` : 'N/A',
+      weightConversion: convertedWeight ? `${originalKGWeight} kg → ${convertedWeight} lbs` : 'N/A',
+      exchangeRate: EXCHANGE_RATES.CAD_TO_USD,
+      conversionFactor: UNIT_CONVERSIONS.KG_TO_LBS
+    });
+    
+    // Update raw product data with converted values
+    // Ferguson data is always US market, so only convert Web Retailer fields
+    rawProduct.MSRP_Web_Retailer = convertedMSRP;
+    rawProduct.Weight_Web_Retailer = convertedWeight;
+  }
+  
+  // ========================================================================
+  // PHASE 0.2: FERGUSON PRIORITY VALIDATION
+  // ========================================================================
+  // Ferguson data is ALWAYS US market (USD, lbs) - most reliable source
+  // If both Ferguson + Web Retailer exist, validate and prioritize Ferguson
+  // If large discrepancy after Canadian conversion, flag for review
+  // ========================================================================
+  const fergusonMSRP = rawProduct.Ferguson_Price;
+  // Extract Ferguson weight from attributes (not a dedicated field)
+  const fergusonWeightAttr = rawProduct.Ferguson_Attributes?.find(attr => 
+    attr.name?.toLowerCase().includes('weight') || attr.name?.toLowerCase().includes('shipping weight')
+  );
+  const fergusonWeight = fergusonWeightAttr?.value || null;
+  
+  if (isCanadianData && canadianConversionApplied) {
+    // Validate converted Web Retailer values against Ferguson (if exists)
+    if (fergusonMSRP && convertedMSRP) {
+      const fergusonPrice = parseFloat(String(fergusonMSRP));
+      const convertedPrice = parseFloat(String(convertedMSRP));
+      
+      if (!isNaN(fergusonPrice) && !isNaN(convertedPrice) && fergusonPrice > 0) {
+        const priceDiff = Math.abs(fergusonPrice - convertedPrice);
+        const percentDiff = (priceDiff / fergusonPrice) * 100;
+        
+        if (percentDiff > 30) {
+          logger.warn('⚠️ Large MSRP difference after Canadian conversion', {
+            sessionId: verificationSessionId,
+            fergusonMSRP: `$${fergusonPrice} USD`,
+            convertedWebRetailerMSRP: `$${convertedPrice} USD`,
+            originalCADMSRP: `$${originalCADMSRP} CAD`,
+            percentDifference: `${percentDiff.toFixed(1)}%`,
+            explanation: 'May indicate data quality issue or incorrect exchange rate'
+          });
+        }
+        
+        // PRIORITY: Always use Ferguson (most reliable, always US market)
+        logger.info('✅ Using Ferguson MSRP as primary (most reliable)', {
+          sessionId: verificationSessionId,
+          fergusonMSRP: `$${fergusonPrice} USD`,
+          webRetailerConverted: `$${convertedPrice} USD`,
+          source: 'Ferguson prioritized'
+        });
+      }
+    }
+    
+    if (fergusonWeight && convertedWeight) {
+      const fergusonLbs = parseFloat(String(fergusonWeight));
+      const convertedLbs = parseFloat(String(convertedWeight));
+      
+      if (!isNaN(fergusonLbs) && !isNaN(convertedLbs) && fergusonLbs > 0) {
+        const weightDiff = Math.abs(fergusonLbs - convertedLbs);
+        const percentDiff = (weightDiff / fergusonLbs) * 100;
+        
+        if (percentDiff > 30) {
+          logger.warn('⚠️ Large weight difference after Canadian conversion', {
+            sessionId: verificationSessionId,
+            fergusonWeight: `${fergusonLbs} lbs`,
+            convertedWebRetailerWeight: `${convertedLbs} lbs`,
+            originalKGWeight: `${originalKGWeight} kg`,
+            percentDifference: `${percentDiff.toFixed(1)}%`,
+            explanation: 'May indicate data quality issue or incorrect conversion factor'
+          });
+        }
+        
+        // PRIORITY: Always use Ferguson (most reliable, always US market)
+        logger.info('✅ Using Ferguson Weight as primary (most reliable)', {
+          sessionId: verificationSessionId,
+          fergusonWeight: `${fergusonLbs} lbs`,
+          webRetailerConverted: `${convertedLbs} lbs`,
+          source: 'Ferguson prioritized'
+        });
+      }
+    }
+  } else if (fergusonMSRP && rawProduct.MSRP_Web_Retailer) {
+    // Non-Canadian data: Still validate Ferguson vs Web Retailer for quality check
+    const fergusonPrice = parseFloat(String(fergusonMSRP));
+    const webRetailerPrice = parseFloat(String(rawProduct.MSRP_Web_Retailer));
+    
+    if (!isNaN(fergusonPrice) && !isNaN(webRetailerPrice) && fergusonPrice > 0) {
+      const priceDiff = Math.abs(fergusonPrice - webRetailerPrice);
+      const percentDiff = (priceDiff / fergusonPrice) * 100;
+      
+      if (percentDiff > 30) {
+        logger.warn('⚠️ Large MSRP difference between sources (US data)', {
+          sessionId: verificationSessionId,
+          fergusonMSRP: `$${fergusonPrice} USD`,
+          webRetailerMSRP: `$${webRetailerPrice} USD`,
+          percentDifference: `${percentDiff.toFixed(1)}%`,
+          explanation: 'May indicate pricing update, clearance, or data quality issue'
+        });
+      }
+    }
+  }
+  
   // PHASE 0: Analyze data sources to determine research strategy
   const dataSourceAnalysis = analyzeDataSources(rawProduct);
   
@@ -1822,6 +1991,15 @@ export async function verifyProductWithDualAI(
         })),
         warnings: coherenceResult.warnings,
         recommendation: coherenceResult.recommendation
+      } : undefined,
+      // Pass Canadian data context if applicable
+      canadianDataContext: canadianConversionApplied ? {
+        isCanadianData,
+        webRetailerKey,
+        msrpConversion: convertedMSRP && originalCADMSRP ? `$${originalCADMSRP} CAD → $${convertedMSRP} USD` : undefined,
+        weightConversion: convertedWeight && originalKGWeight ? `${originalKGWeight} kg → ${convertedWeight} lbs` : undefined,
+        exchangeRate: EXCHANGE_RATES.CAD_TO_USD,
+        conversionFactor: UNIT_CONVERSIONS.KG_TO_LBS
       } : undefined
     };
     
@@ -3099,6 +3277,95 @@ export async function verifyProductWithDualAI(
                 xai: d.xai
               }))
             });
+          }
+          
+          // 🇨🇦 CANADIAN SOURCE DETECTION (Phase 6 Web Search)
+          // Check if any web search sources are Canadian domains
+          const { 
+            isCanadianRetailerURL: checkCanadianURL,
+            convertCADtoUSD,
+            convertKGtoLBS,
+            checkExchangeRateStaleness,
+            EXCHANGE_RATES,
+            UNIT_CONVERSIONS
+          } = require('../config/exchange-rates');
+          const canadianSources = dualSearchResult.sources.filter(url => checkCanadianURL(url));
+          
+          if (canadianSources.length > 0) {
+            logger.info('PHASE 6: Canadian sources detected in web search', {
+              sessionId: verificationSessionId,
+              canadianSources: canadianSources.length,
+              totalSources: dualSearchResult.sources.length,
+              domains: canadianSources.map(url => {
+                try {
+                  return new URL(url).hostname;
+                } catch { return url; }
+              })
+            });
+            
+            // Check for MSRP field and convert CAD→USD
+            const msrpFields = ['msrp', 'price', 'market_value', 'retail_price'];
+            for (const msrpField of msrpFields) {
+              const spec = dualSearchResult.consensusSpecs[msrpField];
+              if (spec && typeof spec.value === 'string') {
+                const msrpValue = parseFloat(spec.value.replace(/[^0-9.]/g, ''));
+                if (!isNaN(msrpValue) && msrpValue > 0) {
+                  const convertedMSRP = convertCADtoUSD(msrpValue);
+                  const originalCAD = msrpValue;
+                  
+                  // Update the consensus spec with converted USD value
+                  dualSearchResult.consensusSpecs[msrpField].value = String(convertedMSRP);
+                  
+                  logger.info('PHASE 6: Converted Canadian MSRP to USD', {
+                    sessionId: verificationSessionId,
+                    field: msrpField,
+                    originalCAD: `$${originalCAD} CAD`,
+                    convertedUSD: `$${convertedMSRP} USD`,
+                    exchangeRate: EXCHANGE_RATES.CAD_TO_USD,
+                    sources: canadianSources
+                  });
+                }
+              }
+            }
+            
+            // Check for Weight field and convert kg→lbs
+            const weightFields = ['weight', 'shipping_weight', 'product_weight'];
+            for (const weightField of weightFields) {
+              const spec = dualSearchResult.consensusSpecs[weightField];
+              if (spec && typeof spec.value === 'string') {
+                const weightValue = parseFloat(spec.value.replace(/[^0-9.]/g, ''));
+                
+                // Detect if value is in kg (typically <50 for most products, or contains "kg")
+                const isKg = weightValue < 50 || spec.value.toLowerCase().includes('kg');
+                
+                if (!isNaN(weightValue) && weightValue > 0 && isKg) {
+                  const convertedWeight = convertKGtoLBS(weightValue);
+                  const originalKG = weightValue;
+                  
+                  // Update the consensus spec with converted lbs value
+                  dualSearchResult.consensusSpecs[weightField].value = String(convertedWeight);
+                  
+                  logger.info('PHASE 6: Converted Canadian weight to lbs', {
+                    sessionId: verificationSessionId,
+                    field: weightField,
+                    originalKG: `${originalKG} kg`,
+                    convertedLBS: `${convertedWeight} lbs`,
+                    conversionFactor: UNIT_CONVERSIONS.KG_TO_LBS,
+                    sources: canadianSources
+                  });
+                }
+              }
+            }
+            
+            // Warn if exchange rate is stale
+            const stalenessCheck = checkExchangeRateStaleness();
+            if (stalenessCheck.isStale) {
+              logger.warn('PHASE 6: Exchange rate may be stale', {
+                sessionId: verificationSessionId,
+                daysSinceUpdate: stalenessCheck.daysSinceUpdate,
+                lastUpdated: stalenessCheck.lastUpdated
+              });
+            }
           }
           
           // Merge ONLY consensus specifications into results (dual-AI validated)
@@ -4429,6 +4696,14 @@ interface PromptOptions {
     warnings: string[];
     recommendation: string;
   };
+  canadianDataContext?: {
+    isCanadianData: boolean;
+    webRetailerKey: string;
+    msrpConversion?: string;  // e.g., "$3000 CAD → $2190 USD"
+    weightConversion?: string;  // e.g., "28 kg → 61.73 lbs"
+    exchangeRate: number;
+    conversionFactor: number;
+  };
 }
 
 /**
@@ -4512,7 +4787,7 @@ function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: Pr
     ? { researchContext: options }
     : (options || {});
     
-  const { researchContext, modelMismatchWarning, externalDataTrusted = true, dataCoherenceWarnings } = opts;
+  const { researchContext, modelMismatchWarning, externalDataTrusted = true, dataCoherenceWarnings, canadianDataContext } = opts;
   
   // CRITICAL: Sanitize product data to remove AI output fields before showing to AI
   const cleanProductData = sanitizeProductDataForAI(rawProduct);
@@ -4618,6 +4893,23 @@ When Ferguson and Web_Retailer CONTRADICT each other:
 ## RAW PRODUCT DATA (UNVERIFIED - REQUIRES CONFIRMATION):
 ${JSON.stringify(cleanProductData, null, 2)}
 `;
+
+  // Add Canadian data context if applicable
+  if (canadianDataContext?.isCanadianData) {
+    prompt += `
+
+=== 🇨🇦 CANADIAN PRODUCT DATA - CONVERSIONS APPLIED ===
+Web Retailer Key: ${canadianDataContext.webRetailerKey} (Canadian source detected)
+
+**IMPORTANT: The MSRP and Weight values shown above have been CONVERTED to US market standards:**
+
+${canadianDataContext.msrpConversion ? `📊 MSRP Conversion:\n   ${canadianDataContext.msrpConversion}\n   Exchange Rate: 1 CAD = ${canadianDataContext.exchangeRate} USD\n` : ''}${canadianDataContext.weightConversion ? `⚖️  Weight Conversion:\n   ${canadianDataContext.weightConversion}\n   Conversion: 1 kg = ${canadianDataContext.conversionFactor} lbs\n` : ''}
+**The values in MSRP_Web_Retailer and Weight_Web_Retailer fields are ALREADY CONVERTED to USD and lbs.**
+**Use these converted values directly - do NOT convert them again.**
+
+${rawProduct.Ferguson_Price ? '**Ferguson data (always US market) for validation:**\n' + `   Ferguson MSRP: $${rawProduct.Ferguson_Price} USD\n` + '   → Compare converted Web Retailer values to Ferguson for quality check\n' : ''}
+=== END CANADIAN DATA CONTEXT ===\n`;
+  }
 
   // Add DATA COHERENCE WARNING if conflicts detected
   // This helps the AI reason about which data sources are correct vs wrong
@@ -9413,7 +9705,7 @@ async function buildFinalResponse(
     Primary_Attributes: sanitizedPrimaryAttributes,
     Top_Filter_Attributes: sanitizedTopFilterAttributes,
     Top_Filter_Attribute_Ids: topFilterAttributeIds,
-    ...(applianceFeatures && { Appliance_Features: applianceFeatures }),
+    Appliance_Features: applianceFeatures,  // Always included (defaults to all false for non-Appliances)
     Additional_Attributes_HTML: additionalHtml,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
@@ -9739,7 +10031,7 @@ function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
 }
 
 /**
- * Build Appliance Features section (Appliances department only)
+ * Build Appliance Features section (always returns object, defaults to false for non-Appliances)
  * Determines standard appliance features based on product data and category
  * 
  * @param department - Product department (e.g., "Appliances")
@@ -9749,7 +10041,7 @@ function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
  * @param rawProduct - Raw product data for analysis
  * @param topFilterAttributes - Top filter attributes with voltage and other specs
  * @param primaryAttributes - Primary attributes for reference
- * @returns ApplianceFeatures object or undefined if not Appliances department
+ * @returns ApplianceFeatures object (always present, all false for non-Appliances)
  */
 function buildApplianceFeatures(
   department: string | undefined,
@@ -9759,10 +10051,19 @@ function buildApplianceFeatures(
   rawProduct: SalesforceIncomingProduct,
   topFilterAttributes: TopFilterAttributes,
   primaryAttributes: PrimaryDisplayAttributes
-): import('../types/salesforce.types').ApplianceFeatures | undefined {
-  // Only for Appliances department
+): import('../types/salesforce.types').ApplianceFeatures {
+  // Return defaults (all false) for non-Appliances department
   if (!department || department.toLowerCase() !== 'appliances') {
-    return undefined;
+    return {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    };
   }
 
   const categoryLower = category?.toLowerCase() || '';
@@ -10017,6 +10318,16 @@ function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: st
     Primary_Attributes: {} as PrimaryDisplayAttributes,
     Top_Filter_Attributes: {},
     Top_Filter_Attribute_Ids: {},
+    Appliance_Features: {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    },
     Additional_Attributes_HTML: '',
     Price_Analysis: {
       msrp_web_retailer: 0,
@@ -10795,7 +11106,6 @@ async function performClaudeReview(
   const department = primaryAttributes.AI_Product_Department || '';
   const productType = primaryAttributes.AI_Type || '';
   const style = primaryAttributes.AI_Style || '';
-  const brand = primaryAttributes.AI_Brand || '';
 
   // ═══════════════════════════════════════════════════════════════
   // LOAD REAL SYSTEM DATA - Same schemas/picklists our AIs use
@@ -10972,12 +11282,50 @@ When sources conflict, prefer higher-tier data.
 AI VERIFICATION RESULTS (What both AIs agreed on):
 ═══════════════════════════════════════════════════════════════
 
-Category: ${category}
-Department: ${department}
-Type: ${productType}
-Style: ${style}
-Brand: ${brand}
-Generated Title: ${generatedTitle}
+CORE CLASSIFICATION:
+  Category: ${category}
+  Department: ${department}
+  Type: ${productType}
+  Style: ${style}
+  
+PRIMARY ATTRIBUTES (28 fields):
+  Brand: ${primaryAttributes.AI_Brand || 'N/A'}
+  Model Number: ${primaryAttributes.AI_Model_Number || 'N/A'}
+  Product Title: ${generatedTitle}
+  Description: ${primaryAttributes.AI_Description ? (primaryAttributes.AI_Description.length > 100 ? primaryAttributes.AI_Description.substring(0, 100) + '...' : primaryAttributes.AI_Description) : 'N/A'}
+  UPC/GTIN: ${primaryAttributes.AI_UPC_GTIN || 'N/A'}
+  Color: ${primaryAttributes.AI_Color || 'N/A'}
+  Finish: ${primaryAttributes.AI_Finish || 'N/A'}
+  Width: ${primaryAttributes.AI_Width || 'N/A'}
+  Height: ${primaryAttributes.AI_Height || 'N/A'}
+  Depth: ${primaryAttributes.AI_Depth || 'N/A'}
+  Weight: ${primaryAttributes.AI_Weight || 'N/A'}
+  MSRP: ${primaryAttributes.AI_MSRP || 'N/A'}
+  Product Filter Class: ${primaryAttributes.AI_Product_Filter_Class || 'N/A'}
+  Features: ${primaryAttributes.AI_Features ? (typeof primaryAttributes.AI_Features === 'string' ? (primaryAttributes.AI_Features.length > 100 ? primaryAttributes.AI_Features.substring(0, 100) + '...' : primaryAttributes.AI_Features) : 'Multiple features') : 'N/A'}
+  Model Parent: ${primaryAttributes.AI_Model_Parent || 'N/A'}
+  Model Alias: ${primaryAttributes.AI_Model_Alias || 'N/A'}
+  Model Variant: ${primaryAttributes.AI_Model_Variant_Number || 'N/A'}
+  Total Variants: ${primaryAttributes.AI_Total_Model_Variants || 'N/A'}
+  Product Family: ${primaryAttributes.AI_Product_Family || 'N/A'}
+
+APPLIANCE FEATURES (if Category = Appliances):
+  Built-In: ${(consensus as any).applianceFeatures?.built_in || 'false'}
+  Panel Ready: ${(consensus as any).applianceFeatures?.panel_ready || 'false'}
+  Standard Depth: ${(consensus as any).applianceFeatures?.standard_depth || 'false'}
+  Full Depth: ${(consensus as any).applianceFeatures?.full_depth || 'false'}
+  Voltage 120V: ${(consensus as any).applianceFeatures?.voltage_120v || 'false'}
+  Voltage 240V: ${(consensus as any).applianceFeatures?.voltage_240v || 'false'}
+  Fuel Gas: ${(consensus as any).applianceFeatures?.fuel_gas || 'false'}
+  Fuel Electric: ${(consensus as any).applianceFeatures?.fuel_electric || 'false'}
+
+TOP FILTER ATTRIBUTES (category-specific):
+${Object.entries(_topFilterAttributes || {}).slice(0, 10).map(([k, v]) => `  ${k}: ${v}`).join('\n') || '  (none defined)'}
+
+PRICE ANALYSIS:
+  Extracted MSRP: ${primaryAttributes.AI_MSRP || '$0'}
+  Ferguson Price: ${rawProduct.Ferguson_Price || 'N/A'}
+  Web Retailer MSRP: ${rawProduct.MSRP_Web_Retailer || 'N/A'}
 
 ═══════════════════════════════════════════════════════════════
 AUTOMATED VALIDATION WARNINGS (Phase A detected these):
@@ -10986,15 +11334,53 @@ AUTOMATED VALIDATION WARNINGS (Phase A detected these):
 ${warningsSummary}
 
 ═══════════════════════════════════════════════════════════════
-YOUR TASK - Review AND Propose Solutions:
+YOUR TASK - Comprehensive Review AND Propose Solutions:
 ═══════════════════════════════════════════════════════════════
 
+**SECTION 1: CORE CLASSIFICATION (highest priority)**
 1. **Category**: Does "${category}" fit the raw data? If wrong, which VALID CATEGORY from our list is correct?
 2. **Department**: Does "${department}" match? If wrong, use the CORRECT DEPARTMENT for your proposed category
 3. **Type**: Is "${productType}" valid? If wrong, pick from VALID TYPES for the correct category
 4. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
-5. **Title**: Does "${generatedTitle}" represent this product? If wrong, propose a title using the TITLE SCHEMA slots
-6. **Style**: Is "${style}" reasonable for this product?
+5. **Style**: Is "${style}" reasonable for this product?
+
+**SECTION 2: PRIMARY ATTRIBUTES (check all 28 fields)**
+6. **Brand**: Correct brand name from Ferguson_Brand or Brand_Web_Retailer?
+7. **Model Number**: Correct model from Ferguson_Model_Number or Model_Number_Web_Retailer?
+8. **Product Title**: Does "${generatedTitle}" represent this product? Check length (60-80 chars ideal), schema compliance, clarity
+9. **Description**: Quality check - descriptive, grammar correct, not just bullet points?
+10. **UPC/GTIN**: Valid 12-14 digit code from raw data?
+11. **Color**: Matches Ferguson_Color or Color_Web_Retailer? Not mixing color with finish?
+12. **Finish**: Matches Ferguson_Finish or Finish_Web_Retailer? Examples: Stainless Steel, Matte Black, Polished Chrome
+13. **Dimensions (Width/Height/Depth)**: Numeric values with units? Match raw data?
+14. **Weight**: Numeric value in lbs (not kg)? Match Weight_Web_Retailer or Ferguson weight attribute?
+15. **MSRP**: Valid price from Ferguson_Price or MSRP_Web_Retailer? Not $0 for premium brands?
+16. **Product Filter Class**: Correct tier (Premium, Mid-Tier, Budget) based on brand and price?
+17. **Features List**: Relevant features extracted from Ferguson_Raw_Data or Product_Description_Web_Retailer?
+18. **Model Parent/Alias/Variant**: Correct model hierarchy from raw data?
+19. **Product Family**: Brand's product line name (e.g., "Chef Collection", "Signature Kitchen Suite")?
+
+**SECTION 3: APPLIANCE FEATURES (if Appliances dept)**
+20. **Built-In**: Check installation_type from raw data - should be true if "Built-In" mentioned
+21. **Panel Ready**: Check if "Panel Ready" / "Custom Panel" / "requires custom panel" in raw data
+22. **Standard Depth vs Full Depth**: Check depth measurement - standard ~24-25", full/counter depth ~30-36"
+23. **Voltage**: Check specifications - 120V (small appliances), 240V (ranges, dryers, ovens)
+24. **Fuel Type**: Check fuel_type from raw data - gas vs electric (for ranges, dryers, cooktops, ovens)
+
+**SECTION 4: FILTER ATTRIBUTES (category-specific top 5-10)**
+25. **Installation Type**: For Appliances - Built-In, Freestanding, Undercounter, Column, etc.
+26. **Fuel Type**: For gas-capable categories - Natural Gas, Propane, Dual Fuel, Electric
+27. **Material**: For Plumbing/Hardware - Brass, Stainless Steel, Plastic, Bronze, etc.
+28. **Finish Type**: For visible products - Polished, Brushed, Matte, Satin, Oil-Rubbed
+29. **Connection Type**: For Plumbing - Compression, Threaded, Push-to-Connect, Solder
+30. **Other relevant filters**: Check top 5-10 attributes defined for this category
+
+**SECTION 5: PRICE VALIDATION (5 checks)**
+31. **Data Source Match**: Does extracted MSRP match Ferguson_Price or MSRP_Web_Retailer?
+32. **Price Reasonableness**: Check category benchmarks (Appliances $200-$15K, Plumbing $50-$5K, Lighting $50-$3K)
+33. **Source Consistency**: If both Ferguson + Web Retailer exist, <30% price difference?
+34. **Missing Price Detection**: Premium brands (Sub-Zero, Wolf, Miele, etc.) should NOT have $0 MSRP
+35. **Format Validation**: MSRP must be positive number, not negative, not text, not null
 
 ⚠️ CRITICAL ACCESSORY RULE — READ CAREFULLY:
 If Type is "Accessory" and the product is an accessory, part, kit, panel, handle, filter, 
@@ -11024,30 +11410,79 @@ RESPONSE FORMAT (JSON ONLY):
   "issues": [
     {
       "severity": "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
-      "field": "category" | "department" | "type" | "style" | "title",
+      "field": "category" | "department" | "type" | "style" | "title" | "brand" | "model_number" | "color" | "finish" | "width" | "height" | "depth" | "weight" | "msrp" | "description" | "features" | "upc_gtin" | "product_filter_class" | "appliance_features" | "filter_attributes" | "price_analysis",
       "currentValue": "what AI selected",
       "issue": "Clear description of the problem",
       "evidence": "Direct quote from raw data proving the error",
-      "suggestedFix": "EXACT value from our valid picklist options above"
+      "suggestedFix": "EXACT value from our valid picklist options above or corrected value from raw data"
     }
   ],
   "proposedCorrections": {
+    // CORE CLASSIFICATION (highest priority - always check)
     "category": "exact valid category name or null if correct",
     "department": "exact valid department or null if correct",
     "type": "exact valid type for the proposed category or null if correct",
     "style": "exact valid style or null if correct",
-    "title": "proposed corrected title using schema slots or null if correct"
+    
+    // PRIMARY ATTRIBUTES (set to corrected value or null if correct)
+    "brand": "corrected brand from raw data or null",
+    "model_number": "corrected model from raw data or null",
+    "title": "proposed corrected title using schema slots or null if correct",
+    "description": "improved description or null if correct",
+    "color": "corrected color from raw data or null",
+    "finish": "corrected finish from raw data or null",
+    "width": "corrected width with units or null",
+    "height": "corrected height with units or null",
+    "depth": "corrected depth with units or null",
+    "weight": "corrected weight in lbs or null",
+    "msrp": "corrected MSRP from raw data or null",
+    "product_filter_class": "Premium|Mid-Tier|Budget or null",
+    "upc_gtin": "corrected UPC from raw data or null",
+    "features": "corrected features list or null",
+    "model_parent": "corrected model parent or null",
+    "model_alias": "corrected model alias or null",
+    "model_variant_number": "corrected variant number or null",
+    "total_model_variants": "corrected total variants or null",
+    "product_family": "corrected product family or null",
+    
+    // APPLIANCE FEATURES (if Appliances dept - object with corrected booleans or null)
+    "appliance_features": {
+      "built_in": true|false|null,
+      "panel_ready": true|false|null,
+      "standard_depth": true|false|null,
+      "full_depth": true|false|null,
+      "voltage_120v": true|false|null,
+      "voltage_240v": true|false|null,
+      "fuel_gas": true|false|null,
+      "fuel_electric": true|false|null
+    } | null,
+    
+    // FILTER ATTRIBUTES (category-specific - object with corrected values or null)
+    "filter_attributes": {
+      "attribute_name": "corrected value or null"
+    } | null,
+    
+    // PRICE VALIDATION (if price issues detected)
+    "price_issues": [
+      "issue description (e.g., 'MSRP $0 for premium brand Sub-Zero')"
+    ] | null
   },
-  "reasoning": "Brief explanation of your overall assessment and WHY these corrections are needed"
+  "reasoning": "Brief explanation of your overall assessment and WHY these corrections are needed. Focus on HIGH and CRITICAL issues first."
 }
 
 RULES:
-- proposedCorrections values MUST come from the VALID OPTIONS listed above
+- proposedCorrections values MUST come from the VALID OPTIONS listed above (for category/dept/type/style)
+- For other fields, use EXACT values from raw product data (Ferguson_* or *_Web_Retailer fields)
 - If a field is correct, set it to null in proposedCorrections
 - Only flag issues with CLEAR EVIDENCE from raw data
 - If results look correct, return "PASS" with empty issues and all-null proposedCorrections
 - For FAIL: you MUST provide complete proposedCorrections - never fail without a solution
+- CRITICAL severity: Wrong category, department, type (classification errors)
+- HIGH severity: Wrong brand, model, MSRP, dimensions, appliance features
+- MEDIUM severity: Wrong color, finish, filter attributes, description quality
+- LOW severity: Missing optional fields, minor title formatting
 - Return ONLY the JSON object, no other text`;
+
 
   try {
     // Initialize Anthropic client

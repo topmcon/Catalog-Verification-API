@@ -402,6 +402,16 @@ export function buildVerificationResponse(
     Primary_Attributes: primaryAttrs,
     Top_Filter_Attributes: topFilterAttrs,
     Top_Filter_Attribute_Ids: {},  // Not populated in legacy response builder
+    Appliance_Features: {
+      built_in: false,
+      panel_ready: false,
+      standard_depth: false,
+      full_depth: false,
+      voltage_120v: false,
+      voltage_240v: false,
+      fuel_gas: false,
+      fuel_electric: false
+    },
     Additional_Attributes_HTML: additionalHTML,
     Price_Analysis: priceAnalysis,
     Media: mediaAssets,
