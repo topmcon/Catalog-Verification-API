@@ -4277,9 +4277,20 @@ ${promptOptions.invalidTypeWarning}
   // Build category-specific type list
   let categoryTypeContext = '';
   if (validTypes.length > 0) {
+    const categoryMapping = getCategoryTypeMapping(determinedCategory);
+    const logicDescription = categoryMapping?.logic || 'Product variation';
+    
     categoryTypeContext = `\n== VALID PRODUCT TYPES FOR ${determinedCategory.toUpperCase()} ==\n`;
+    categoryTypeContext += `📋 What "Type" means for this category: "${logicDescription}"\n`;
+    categoryTypeContext += `   (This describes WHAT the type field represents, not what values you can use)\n\n`;
+    categoryTypeContext += `✅ ONLY THESE VALUES ARE ALLOWED (choose from this list ONLY):\n`;
     categoryTypeContext += validTypes.map((t: string, idx: number) => `  ${idx + 1}. ${t}`).join('\n');
-    categoryTypeContext += '\n\n⚠️ CRITICAL: ONLY select types from the list above. Do NOT use types from other categories.';
+    categoryTypeContext += '\n\n⚠️ CRITICAL RULES:\n';
+    categoryTypeContext += '  • You MUST select a type from the numbered list above\n';
+    categoryTypeContext += '  • Do NOT use types from other categories (e.g., "Built-In" is for Microwave, not Barbeque)\n';
+    categoryTypeContext += '  • If you see relevant info that matches the logic description but is NOT in the list:\n';
+    categoryTypeContext += '    → Put it in filter_attributes or appliance_features instead\n';
+    categoryTypeContext += '  • Example: For Barbeque, "Built-In" installation goes in filter_attributes.installation_type, NOT product_type';
   } else {
     categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
   }
@@ -11319,6 +11330,9 @@ If dual-capable (both undercounter + freestanding), default to Undercounter`;
     }
   }
 
+  // Get category mapping for logic field
+  const categoryMapping = getCategoryTypeMapping(category);
+
   const reviewPrompt = `You are performing a FINAL REVIEW of an AI-verified product catalog entry.
 Your job is to catch mistakes AND PROPOSE CONCRETE SOLUTIONS using our actual system data.
 
@@ -11328,6 +11342,7 @@ Your role: Find errors and provide EXACT corrected values from OUR picklists.
 ⚠️ CRITICAL RULES:
 - ALL suggested fixes MUST use values from the VALID OPTIONS sections below
 - Do NOT invent categories, types, or departments - use ONLY what's listed
+- The "logic" field describes what the TYPE dimension represents, but you must ONLY choose from the actual type values listed
 - If you propose a category change, also propose the correct department and valid types
 - Every FAIL must include a complete proposed solution, not just what's wrong
 
@@ -11348,7 +11363,19 @@ VALID CATEGORIES BY DEPARTMENT:
 ${categoryDeptReference}
 
 VALID TYPES FOR "${category}" (current category):
+📋 Type Logic: "${categoryMapping?.logic || 'Product variation'}"
+   (This describes WHAT type means for this category - e.g., "Fuel source" means type = Gas/Electric/etc.)
+   
+✅ ALLOWED TYPE VALUES (choose ONLY from this list):
 ${validTypesForCategory.length > 0 ? validTypesForCategory.join(', ') : 'No types defined for this category'}
+
+⚠️ CRITICAL TYPE SELECTION RULES:
+  • You MUST select from the list above - these are the ONLY valid values
+  • Do NOT use types from other categories (e.g., "Built-In" is a Microwave type, NOT valid for Barbeque)
+  • If raw data shows info that matches the logic description but is NOT in the list:
+    → Put it in filter_attributes or appliance_features, NOT in type field
+  • Example: Barbeque type logic is "Fuel source and style" → Type must be Gas/Electric/Charcoal/etc.
+  • Example: If Barbeque product is "Built-In", put in filter_attributes.installation_type, NOT type
 ${typeSelectionGuide}
 
 VALID STYLES (universal):
