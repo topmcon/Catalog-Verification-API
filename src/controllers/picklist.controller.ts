@@ -10,6 +10,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import picklistMatcher from '../services/picklist-matcher.service';
+import { picklistReconciliation } from '../services/picklist-reconciliation.service';
 import { PicklistSyncLog } from '../models/picklist-sync-log.model';
 import { PendingPicklistSync, IPendingChange, IImpactAssessment } from '../models/pending-picklist-sync.model';
 import { catalogIndexService } from '../services/catalog-index.service';
@@ -961,23 +962,66 @@ export class PicklistController {
         return;
       }
       
-      // Now apply the sync using the original sync logic
-      const { attributes, brands, categories, styles, types, departments, families, category_filter_attributes, replace_mode } = pendingSync.incoming_data;
+      // Apply reconciliation logic instead of full replacement
+      const { attributes, categories } = pendingSync.incoming_data;
       
-      const result = await picklistMatcher.syncPicklists({
-        attributes: attributes || undefined,
-        brands: brands || undefined,
-        categories: categories || undefined,
-        styles: styles || undefined,
-        types: types || undefined,
-        departments: departments || undefined,
-        families: families || undefined,
-        category_filter_attributes: category_filter_attributes || undefined,
-        replace_mode: replace_mode ?? true
-      });
+      const reconciliationResults = [];
+      let totalExistingUpdated = 0;
+      let totalPendingAdded = 0;
+      let totalNewAdded = 0;
+      let totalDuplicatesRejected = 0;
+      let totalRequestsFulfilled = 0;
+      const reconciliationErrors: string[] = [];
+      
+      // Reconcile attributes (main focus - adds new, updates existing, marks requests fulfilled)
+      if (attributes && Array.isArray(attributes) && attributes.length > 0) {
+        const attrResult = await picklistReconciliation.reconcileAttributes(attributes);
+        reconciliationResults.push(attrResult);
+        totalExistingUpdated += attrResult.existing_updated;
+        totalPendingAdded += attrResult.pending_added;
+        totalNewAdded += attrResult.new_added;
+        totalDuplicatesRejected += attrResult.duplicates_rejected;
+        totalRequestsFulfilled += attrResult.requests_fulfilled;
+        reconciliationErrors.push(...attrResult.errors);
+        
+        logger.info('Attributes reconciled', {
+          existing_updated: attrResult.existing_updated,
+          pending_added: attrResult.pending_added,
+          new_added: attrResult.new_added,
+          duplicates_rejected: attrResult.duplicates_rejected,
+          requests_fulfilled: attrResult.requests_fulfilled
+        });
+      }
+      
+      // Reconcile categories (ID-only updates, preserves custom fields)
+      if (categories && Array.isArray(categories) && categories.length > 0) {
+        const catResult = await picklistReconciliation.reconcileCategories(categories);
+        reconciliationResults.push(catResult);
+        totalExistingUpdated += catResult.existing_updated;
+        reconciliationErrors.push(...catResult.errors);
+        
+        logger.info('Categories reconciled', {
+          existing_updated: catResult.existing_updated
+        });
+      }
+      
+      // Reload picklists in memory after file updates
+      picklistMatcher.reload();
       
       const syncId = uuidv4();
       const processingTime = Date.now() - startTime;
+      
+      const result = {
+        success: reconciliationErrors.length === 0,
+        errors: reconciliationErrors,
+        reconciliation_summary: {
+          existing_updated: totalExistingUpdated,
+          pending_added: totalPendingAdded,
+          new_added: totalNewAdded,
+          duplicates_rejected: totalDuplicatesRejected,
+          requests_fulfilled: totalRequestsFulfilled
+        }
+      };
       
       // Update pending sync status
       pendingSync.status = 'approved';
@@ -1011,13 +1055,10 @@ export class PicklistController {
       });
       await syncLog.save();
       
-      // Update catalog index if styles/categories were included
-      let catalogIndexUpdate = { styles_synced: 0, categories_synced: 0 };
+      // Update catalog index for categories if included
+      let catalogIndexUpdate = { categories_synced: 0 };
       try {
-        if (styles && Array.isArray(styles) && styles.length > 0) {
-          const styleResult = await catalogIndexService.syncSalesforceStyles(styles);
-          catalogIndexUpdate.styles_synced = styleResult.updated;
-        }
+        const { categories } = pendingSync.incoming_data;
         if (categories && Array.isArray(categories) && categories.length > 0) {
           const catResult = await catalogIndexService.syncSalesforceCategories(categories);
           catalogIndexUpdate.categories_synced = catResult.updated;
@@ -1030,16 +1071,17 @@ export class PicklistController {
         pending_id: pendingId,
         sync_id: syncId,
         reviewed_by,
+        reconciliation_summary: result.reconciliation_summary,
         processing_time_ms: processingTime
       });
       
       res.json({
         success: true,
-        message: 'Pending sync approved and applied successfully',
+        message: 'Pending sync approved and applied via reconciliation',
         pending_id: pendingId,
         sync_id: syncId,
         reviewed_by,
-        applied_changes: pendingSync.pending_changes,
+        reconciliation: result.reconciliation_summary,
         catalog_index_update: catalogIndexUpdate,
         processing_time_ms: processingTime
       });
