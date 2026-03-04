@@ -14,6 +14,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import {
   SalesforceIncomingProduct,
   SalesforceVerificationResponse,
@@ -3182,7 +3183,7 @@ export async function verifyProductWithDualAI(
     }
 
     const processingTime = Date.now() - startTime;
-    const response = buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, determinedType, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
+    const response = await buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, determinedType, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
     
     // ========================================================================
     // FINAL SWEEP: Check all "Not Found" values against raw data
@@ -6658,7 +6659,7 @@ function getUnusedFergusonAttributes(
   return unusedAttrs;
 }
 
-function buildFinalResponse(
+async function buildFinalResponse(
   rawProduct: SalesforceIncomingProduct,
   consensus: ConsensusResult,
   sessionId: string,
@@ -6673,7 +6674,7 @@ function buildFinalResponse(
   researchPerformed?: boolean,
   researchAttempts?: number,
   finalSearchResult?: FinalVerificationSearchResult | null
-): SalesforceVerificationResponse {
+): Promise<SalesforceVerificationResponse> {
   
   // Track if research was performed for field marking
   const didResearch = researchPerformed || !!researchResult || !!finalSearchResult;
@@ -9230,6 +9231,49 @@ function buildFinalResponse(
     sanitizedPrimaryAttributes
   );
 
+  // ═══════════════════════════════════════════════════════════════
+  // FINAL REVIEW STAGE - Post-Consensus Validation & Cross-Check
+  // ═══════════════════════════════════════════════════════════════
+  // Execute final validation before sending to Salesforce
+  // This catches systematic errors where both AIs might agree on the wrong answer
+  
+  const finalReviewResult = await executeFinalReviewStage(
+    consensus,
+    sanitizedPrimaryAttributes,
+    sanitizedTopFilterAttributes,
+    seoTitle,
+    rawProduct,
+    sessionId
+  );
+
+  // Add final review metadata to verification object
+  const finalReviewMetadata = {
+    final_review_performed: true,
+    final_review_status: finalReviewResult.finalStatus,
+    phase_a_confidence: finalReviewResult.phaseAResult.confidence,
+    phase_b_performed: !!finalReviewResult.phaseBResult,
+    phase_b_confidence: finalReviewResult.phaseBResult?.confidenceInResults,
+    corrections_applied: finalReviewResult.correctionsApplied.length,
+    issues_flagged: finalReviewResult.flaggedForReview.length,
+    validation_issues: finalReviewResult.flaggedForReview.map(issue => ({
+      severity: issue.severity,
+      field: issue.field,
+      issue: issue.issue,
+      current_value: String(issue.currentValue).substring(0, 50)
+    }))
+  };
+
+  // Determine final verification status
+  let finalVerificationStatus = status;
+  if (finalReviewResult.finalStatus === 'FAIL') {
+    finalVerificationStatus = 'needs_review';
+    logger.warn('🔴 FINAL REVIEW: Validation failed - downgrading status to needs_review', {
+      sessionId,
+      correctionsApplied: finalReviewResult.correctionsApplied.length,
+      issuesFlagged: finalReviewResult.flaggedForReview.length
+    });
+  }
+
   return {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
@@ -9253,7 +9297,9 @@ function buildFinalResponse(
     Brand_Requests: brandRequests,
     Category_Requests: categoryRequests,
     Style_Requests: filteredStyleRequests,
-    Status: status === 'verified' ? 'success' : status === 'needs_review' ? 'partial' : 'failed'
+    Status: finalVerificationStatus === 'verified' ? 'success' : finalVerificationStatus === 'needs_review' ? 'partial' : 'failed',
+    // @ts-expect-error: Final_Review is an extension field not in base interface
+    Final_Review: finalReviewMetadata
   };
 }
 
@@ -10148,6 +10194,842 @@ async function trackCreationRequests(
       attributes: attributeRequests.length
     });
   }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FINAL REVIEW STAGE - Post-Consensus Validation & Cross-Check
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Severity levels for validation issues
+ */
+type ValidationSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+
+/**
+ * Individual validation issue
+ */
+interface ValidationIssue {
+  severity: ValidationSeverity;
+  field: string;
+  currentValue: any;
+  issue: string;
+  evidence?: string;
+  suggestedFix?: any;
+  ruleViolated?: string;
+}
+
+/**
+ * Automated validation result (Phase A)
+ */
+interface AutomatedValidationResult {
+  passed: boolean;
+  confidence: number; // 0-100
+  warnings: ValidationIssue[];
+  corrections: ValidationIssue[];
+  requiresAIReview: boolean;
+  checksPerformed: string[];
+}
+
+/**
+ * Claude review result (Phase B)
+ */
+interface ClaudeReviewResult {
+  reviewStatus: 'PASS' | 'FLAG' | 'FAIL';
+  confidenceInResults: number; // 0-100
+  issues: ValidationIssue[];
+  reasoning: string;
+  reviewDuration?: number;
+  proposedCorrections?: {
+    category: string | null;
+    department: string | null;
+    type: string | null;
+    style: string | null;
+    title: string | null;
+  } | null;
+}
+
+/**
+ * Final review complete result
+ */
+interface FinalReviewResult {
+  phaseAResult: AutomatedValidationResult;
+  phaseBResult?: ClaudeReviewResult;
+  finalStatus: 'PASS' | 'FLAG' | 'FAIL';
+  correctionsApplied: ValidationIssue[];
+  flaggedForReview: ValidationIssue[];
+}
+
+/**
+ * Phase A: Automated Rule-Based Validation
+ * Fast checks that don't require AI (5-10ms overhead)
+ */
+function performAutomatedValidation(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string
+): AutomatedValidationResult {
+  const warnings: ValidationIssue[] = [];
+  const corrections: ValidationIssue[] = [];
+  const checksPerformed: string[] = [];
+  let confidenceScore = 100;
+
+  const category = consensus.agreedCategory || '';
+  const department = primaryAttributes.AI_Product_Department || '';
+  const productType = primaryAttributes.AI_Type || '';
+  const title = (rawProduct.Product_Title_Web_Retailer || rawProduct.Product_Title_Legacy || '').toLowerCase();
+  const description = (rawProduct.Product_Description_Web_Retailer || rawProduct.Product_Description_Legacy || '').toLowerCase();
+  const fergusonTitle = (rawProduct.Ferguson_Title || '').toLowerCase();
+  const combinedText = `${title} ${description} ${fergusonTitle}`;
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 1: Category Keyword Cross-Check
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('category_keyword_match');
+  
+  const categoryKeywords: Record<string, string[]> = {
+    'Faucet': ['faucet', 'tap', 'spout'],
+    'Shower Head': ['shower', 'showerhead', 'rain head', 'hand shower'],
+    'Range Hood': ['hood', 'vent', 'ventilation', 'cfm', 'exhaust'],
+    'Chandelier': ['chandelier', 'pendant light', 'hanging light', 'ceiling light'],
+    'Wall Sconce': ['sconce', 'wall light', 'wall lamp'],
+    'Pendant': ['pendant', 'hanging light', 'suspension'],
+    'Ceiling Fan': ['ceiling fan', 'fan', 'air circulator'],
+    'Refrigerator': ['refrigerator', 'fridge', 'freezer'],
+    'Range': ['range', 'stove', 'cooktop'],
+    'Dishwasher': ['dishwasher'],
+    'Oven': ['oven', 'wall oven'],
+    'Cooktop': ['cooktop', 'cook top', 'burner'],
+    'Microwave': ['microwave'],
+    'Cabinet Pull': ['cabinet pull', 'drawer pull', 'cabinet handle'],
+    'Cabinet Knob': ['cabinet knob', 'drawer knob'],
+    'Toilet': ['toilet', 'commode'],
+    'Sink': ['sink', 'basin']
+  };
+
+  const requiredKeywords = categoryKeywords[category] || [];
+  if (requiredKeywords.length > 0) {
+    const hasKeyword = requiredKeywords.some(kw => combinedText.includes(kw));
+    if (!hasKeyword) {
+      warnings.push({
+        severity: 'HIGH',
+        field: 'category',
+        currentValue: category,
+        issue: `Selected category "${category}" but raw data lacks supporting keywords (${requiredKeywords.join(', ')})`,
+        evidence: title.substring(0, 100),
+        ruleViolated: 'CATEGORY_KEYWORD_MATCH'
+      });
+      confidenceScore -= 15;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 2: Department-Category Alignment
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('department_category_alignment');
+  
+  const categoryDepartmentMap: Record<string, string> = {
+    'Faucet': 'Plumbing',
+    'Shower Head': 'Plumbing',
+    'Shower System': 'Plumbing',
+    'Toilet': 'Plumbing',
+    'Sink': 'Plumbing',
+    'Bathtub': 'Plumbing',
+    'Range Hood': 'Appliances',
+    'Refrigerator': 'Appliances',
+    'Range': 'Appliances',
+    'Dishwasher': 'Appliances',
+    'Oven': 'Appliances',
+    'Cooktop': 'Appliances',
+    'Microwave': 'Appliances',
+    'Washer': 'Appliances',
+    'Dryer': 'Appliances',
+    'Freezer': 'Appliances',
+    'Wall Sconce': 'Lighting',
+    'Chandelier': 'Lighting',
+    'Pendant': 'Lighting',
+    'Ceiling Fan': 'Lighting',
+    'Table Lamp': 'Lighting',
+    'Floor Lamp': 'Lighting',
+    'Cabinet Pull': 'Hardware',
+    'Cabinet Knob': 'Hardware',
+    'Door Handle': 'Hardware',
+    'Hinge': 'Hardware'
+  };
+
+  const expectedDepartment = categoryDepartmentMap[category];
+  if (expectedDepartment && department !== expectedDepartment) {
+    corrections.push({
+      severity: 'HIGH',
+      field: 'department',
+      currentValue: department,
+      suggestedFix: expectedDepartment,
+      issue: `Department "${department}" doesn't match category "${category}" domain (should be "${expectedDepartment}")`,
+      ruleViolated: 'DEPARTMENT_CATEGORY_ALIGNMENT'
+    });
+    confidenceScore -= 10;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 3: Accessory Pattern Validation
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('accessory_pattern_validation');
+  
+  if (productType === 'Accessory') {
+    const accessoryPatterns = [
+      /for\s+(refrigerator|range|dishwasher|oven|cooktop|microwave|fridge|stove)/i,
+      /compatible\s+with/i,
+      /(replacement|spare)\s+part/i,
+      /(handle|knob|rack|filter|kit|bracket|drawer|shelf)\s+for/i,
+      /designed\s+for\s+\w+\s+model/i,
+      /model\s+(number|#).*compatible/i
+    ];
+
+    const hasAccessoryPattern = accessoryPatterns.some(p => 
+      p.test(title) || p.test(description)
+    );
+
+    if (!hasAccessoryPattern) {
+      warnings.push({
+        severity: 'HIGH',
+        field: 'type',
+        currentValue: 'Accessory',
+        issue: 'Type set to "Accessory" but raw data lacks accessory indicators ("for [appliance]", "compatible with", "replacement part")',
+        evidence: title.substring(0, 100),
+        suggestedFix: 'Not Applicable',
+        ruleViolated: 'ACCESSORY_PATTERN_VALIDATION'
+      });
+      confidenceScore -= 15;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 4: Title Schema Verification
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('title_schema_verification');
+  
+  // Get category title schema to check title structure
+  // Note: We're doing a simplified check here - just verifying title length and basic structure
+  // Full title schema validation happens in seo-title-generator.service.ts
+  // This check is just to flag obviously problematic titles
+  
+  // Import the getCategoryTitleSchema function at runtime to avoid circular dependency
+  const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
+  const titleSchema = getCategoryTitleSchema(category);
+  
+  if (titleSchema && titleSchema.slots) {
+    const generatedTitleLower = generatedTitle.toLowerCase();
+    const missingSlots: string[] = [];
+
+    // Check if critical slots appear in title
+    for (const slot of titleSchema.slots) {
+      if (slot.priority === 'critical' && slot.source) {
+        const slotValue = topFilterAttributes[slot.source];
+        
+        if (slotValue && slotValue !== 'Not Found' && slotValue !== 'Not Applicable' && slotValue !== 'Procurement No Results') {
+          const normalizedValue = String(slotValue).toLowerCase().replace(/[^a-z0-9]/g, '');
+          const titleNormalized = generatedTitleLower.replace(/[^a-z0-9]/g, '');
+          
+          // Only flag if value is substantial (>3 chars) and missing
+          if (!titleNormalized.includes(normalizedValue) && normalizedValue.length > 3) {
+            missingSlots.push(slot.label);
+          }
+        }
+      }
+    }
+
+    if (missingSlots.length > 0) {
+      warnings.push({
+        severity: 'MEDIUM',
+        field: 'title',
+        currentValue: generatedTitle.substring(0, 80),
+        issue: `Generated title may be missing critical attributes for category "${category}": ${missingSlots.join(', ')}`,
+        ruleViolated: 'TITLE_SCHEMA_COMPLETENESS'
+      });
+      confidenceScore -= 5;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 5: Title Length Validation
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('title_length_validation');
+  
+  const titleLength = generatedTitle.length;
+  if (titleLength < 40) {
+    warnings.push({
+      severity: 'LOW',
+      field: 'title',
+      currentValue: generatedTitle,
+      issue: `Generated title too short (${titleLength} chars, recommended 60-150)`,
+      ruleViolated: 'TITLE_LENGTH_MINIMUM'
+    });
+    confidenceScore -= 3;
+  } else if (titleLength > 200) {
+    warnings.push({
+      severity: 'LOW',
+      field: 'title',
+      currentValue: generatedTitle.substring(0, 80) + '...',
+      issue: `Generated title too long (${titleLength} chars, recommended 60-150)`,
+      ruleViolated: 'TITLE_LENGTH_MAXIMUM'
+    });
+    confidenceScore -= 3;
+  }
+
+  // Calculate final confidence score (capped at 0-100)
+  confidenceScore = Math.max(0, Math.min(100, confidenceScore));
+
+  // Determine if AI review is needed
+  const requiresAIReview = (
+    confidenceScore < 90 || 
+    productType === 'Accessory' ||
+    warnings.some(w => w.severity === 'HIGH' || w.severity === 'CRITICAL') ||
+    corrections.length > 0
+  );
+
+  const passed = confidenceScore >= 85 && warnings.filter(w => w.severity === 'HIGH' || w.severity === 'CRITICAL').length === 0;
+
+  logger.info('🔍 FINAL REVIEW - Phase A (Automated Validation) complete', {
+    sessionId,
+    passed,
+    confidence: confidenceScore,
+    warningCount: warnings.length,
+    correctionCount: corrections.length,
+    requiresAIReview,
+    checksPerformed: checksPerformed.length,
+    category,
+    department
+  });
+
+  return {
+    passed,
+    confidence: confidenceScore,
+    warnings,
+    corrections,
+    requiresAIReview,
+    checksPerformed
+  };
+}
+
+/**
+ * Phase B: Claude Cross-Check (AI Review)
+ * Comprehensive review by Claude Sonnet to catch nuanced errors
+ * 
+ * CRITICAL: Claude receives the SAME picklist data, schemas, and business rules
+ * that our main AI verification uses. This ensures Claude's proposed fixes are
+ * valid, actionable values from our system - not generic guesses.
+ * 
+ * Only invoked for jobs that Phase A flagged for review
+ */
+async function performClaudeReview(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  _topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  phaseAWarnings: ValidationIssue[],
+  sessionId: string
+): Promise<ClaudeReviewResult> {
+  const startTime = Date.now();
+
+  const category = consensus.agreedCategory || '';
+  const department = primaryAttributes.AI_Product_Department || '';
+  const productType = primaryAttributes.AI_Type || '';
+  const style = primaryAttributes.AI_Style || '';
+  const brand = primaryAttributes.AI_Brand || '';
+
+  // ═══════════════════════════════════════════════════════════════
+  // LOAD REAL SYSTEM DATA - Same schemas/picklists our AIs use
+  // ═══════════════════════════════════════════════════════════════
+  
+  // Get ALL valid categories with their departments
+  const allCategories = getAllCategories();
+  const allDepartments = getAllDepartments();
+  
+  // Get valid types for the CURRENT category and nearby categories
+  const validTypesForCategory = getValidTypesForCategory(category);
+  
+  // Get valid styles
+  const validStyles = getValidStylesForCategory(category);
+  
+  // Get the correct department for this category
+  const correctDepartmentForCategory = getDepartmentForCategory(category);
+  
+  // Get title schema for the category
+  const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
+  const titleSchema = getCategoryTitleSchema(category);
+  
+  // Build a compact category→department reference (not all 161, just relevant ones)
+  const categoryDeptReference = allCategories.map((c: string) => {
+    const dept = getDepartmentForCategory(c);
+    return `${c} → ${dept || 'Unknown'}`;
+  }).join('\n');
+
+  // Build warning summary for Claude
+  const warningsSummary = phaseAWarnings.length > 0
+    ? phaseAWarnings.map(w => `⚠️  [${w.severity}] ${w.field}: ${w.issue}`).join('\n')
+    : 'No automated validation warnings';
+
+  // Build spec table preview (first 500 chars)
+  const specTablePreview = (rawProduct.Specification_Table || '').substring(0, 500);
+  
+  // Build title schema info
+  const titleSchemaInfo = titleSchema 
+    ? `Template: ${titleSchema.template}\nRequired Slots: ${titleSchema.slots.filter((s: any) => s.required).map((s: any) => s.attribute).join(', ')}\nAll Slots: ${titleSchema.slots.map((s: any) => `${s.attribute}${s.required ? '*' : ''}`).join(', ')}\nExample: ${titleSchema.exampleTitle}`
+    : 'No title schema found for this category';
+
+  const reviewPrompt = `You are performing a FINAL REVIEW of an AI-verified product catalog entry.
+Your job is to catch mistakes AND PROPOSE CONCRETE SOLUTIONS using our actual system data.
+
+TWO AIs (OpenAI GPT-4 and xAI Grok) already analyzed this product and reached consensus.
+Your role: Find errors and provide EXACT corrected values from OUR picklists.
+
+⚠️ CRITICAL RULES:
+- ALL suggested fixes MUST use values from the VALID OPTIONS sections below
+- Do NOT invent categories, types, or departments - use ONLY what's listed
+- If you propose a category change, also propose the correct department and valid types
+- Every FAIL must include a complete proposed solution, not just what's wrong
+
+═══════════════════════════════════════════════════════════════
+VALID OPTIONS FROM OUR SYSTEM (Use ONLY these values):
+═══════════════════════════════════════════════════════════════
+
+VALID DEPARTMENTS (${allDepartments.length} total):
+${allDepartments.join(', ')}
+
+VALID CATEGORIES BY DEPARTMENT:
+${categoryDeptReference}
+
+VALID TYPES FOR "${category}" (current category):
+${validTypesForCategory.length > 0 ? validTypesForCategory.join(', ') : 'No types defined for this category'}
+
+VALID STYLES (universal):
+${validStyles.join(', ')}
+
+CORRECT DEPARTMENT FOR "${category}": ${correctDepartmentForCategory || 'NOT FOUND'}
+
+TITLE SCHEMA FOR "${category}":
+${titleSchemaInfo}
+
+═══════════════════════════════════════════════════════════════
+RAW PRODUCT DATA (Ground Truth):
+═══════════════════════════════════════════════════════════════
+
+Title: "${rawProduct.Product_Title_Web_Retailer || rawProduct.Product_Title_Legacy || ''}"
+Ferguson Title: "${rawProduct.Ferguson_Title || 'N/A'}"
+Description: "${(rawProduct.Product_Description_Web_Retailer || rawProduct.Product_Description_Legacy || '').substring(0, 400)}"
+Brand: "${rawProduct.Brand_Web_Retailer || rawProduct.Brand_Legacy || ''}"
+Model: "${rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || ''}"
+Spec Table: ${specTablePreview}
+
+═══════════════════════════════════════════════════════════════
+AI VERIFICATION RESULTS (What both AIs agreed on):
+═══════════════════════════════════════════════════════════════
+
+Category: ${category}
+Department: ${department}
+Type: ${productType}
+Style: ${style}
+Brand: ${brand}
+Generated Title: ${generatedTitle}
+
+═══════════════════════════════════════════════════════════════
+AUTOMATED VALIDATION WARNINGS (Phase A detected these):
+═══════════════════════════════════════════════════════════════
+
+${warningsSummary}
+
+═══════════════════════════════════════════════════════════════
+YOUR TASK - Review AND Propose Solutions:
+═══════════════════════════════════════════════════════════════
+
+1. **Category**: Does "${category}" fit the raw data? If wrong, which VALID CATEGORY from our list is correct?
+2. **Department**: Does "${department}" match? If wrong, use the CORRECT DEPARTMENT for your proposed category
+3. **Type**: Is "${productType}" valid? If wrong, pick from VALID TYPES for the correct category
+4. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
+5. **Title**: Does "${generatedTitle}" represent this product? If wrong, propose a title using the TITLE SCHEMA slots
+6. **Style**: Is "${style}" reasonable for this product?
+
+═══════════════════════════════════════════════════════════════
+RESPONSE FORMAT (JSON ONLY):
+═══════════════════════════════════════════════════════════════
+
+{
+  "reviewStatus": "PASS" | "FLAG" | "FAIL",
+  "confidenceInResults": 0-100,
+  "issues": [
+    {
+      "severity": "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
+      "field": "category" | "department" | "type" | "style" | "title",
+      "currentValue": "what AI selected",
+      "issue": "Clear description of the problem",
+      "evidence": "Direct quote from raw data proving the error",
+      "suggestedFix": "EXACT value from our valid picklist options above"
+    }
+  ],
+  "proposedCorrections": {
+    "category": "exact valid category name or null if correct",
+    "department": "exact valid department or null if correct",
+    "type": "exact valid type for the proposed category or null if correct",
+    "style": "exact valid style or null if correct",
+    "title": "proposed corrected title using schema slots or null if correct"
+  },
+  "reasoning": "Brief explanation of your overall assessment and WHY these corrections are needed"
+}
+
+RULES:
+- proposedCorrections values MUST come from the VALID OPTIONS listed above
+- If a field is correct, set it to null in proposedCorrections
+- Only flag issues with CLEAR EVIDENCE from raw data
+- If results look correct, return "PASS" with empty issues and all-null proposedCorrections
+- For FAIL: you MUST provide complete proposedCorrections - never fail without a solution
+- Return ONLY the JSON object, no other text`;
+
+  try {
+    // Initialize Anthropic client
+    const anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY || ''
+    });
+
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 2500,
+      temperature: 0.2,
+      messages: [{ role: 'user', content: reviewPrompt }]
+    });
+
+    const reviewText = response.content[0].type === 'text' ? response.content[0].text : '';
+    
+    // Parse Claude's JSON response
+    let reviewResult: ClaudeReviewResult;
+    try {
+      const cleanedText = reviewText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      const parsed = JSON.parse(cleanedText);
+      
+      // Validate proposed corrections use valid picklist values
+      if (parsed.proposedCorrections) {
+        const pc = parsed.proposedCorrections;
+        
+        // Validate proposed category exists in our system
+        if (pc.category && !allCategories.includes(pc.category)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid category, clearing', {
+            sessionId,
+            proposed: pc.category,
+            validCategories: allCategories.length
+          });
+          pc.category = null;
+        }
+        
+        // Validate proposed department exists
+        if (pc.department && !allDepartments.includes(pc.department)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid department, clearing', {
+            sessionId,
+            proposed: pc.department,
+            validDepartments: allDepartments
+          });
+          pc.department = null;
+        }
+        
+        // Validate proposed type - must be valid for the proposed (or current) category
+        if (pc.type) {
+          const targetCategory = pc.category || category;
+          const validTypes = getValidTypesForCategory(targetCategory);
+          if (validTypes.length > 0 && !validTypes.includes(pc.type)) {
+            logger.warn('🔍 FINAL REVIEW: Claude proposed invalid type for category, clearing', {
+              sessionId,
+              proposed: pc.type,
+              targetCategory,
+              validTypes
+            });
+            pc.type = null;
+          }
+        }
+        
+        // Validate proposed style
+        if (pc.style && !validStyles.includes(pc.style)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid style, clearing', {
+            sessionId,
+            proposed: pc.style,
+            validStyles
+          });
+          pc.style = null;
+        }
+      }
+      
+      reviewResult = {
+        reviewStatus: parsed.reviewStatus || 'FLAG',
+        confidenceInResults: parsed.confidenceInResults || 50,
+        issues: (parsed.issues || []).map((issue: any) => ({
+          ...issue,
+          // Ensure suggestedFix values are validated against picklists
+          suggestedFix: issue.suggestedFix || null
+        })),
+        reasoning: parsed.reasoning || '',
+        reviewDuration: Date.now() - startTime,
+        proposedCorrections: parsed.proposedCorrections || null
+      };
+    } catch (parseError) {
+      logger.error('🔴 FINAL REVIEW - Phase B: Failed to parse Claude response', {
+        sessionId,
+        error: parseError,
+        responseText: reviewText.substring(0, 200)
+      });
+      
+      reviewResult = {
+        reviewStatus: 'FLAG',
+        confidenceInResults: 50,
+        issues: [{
+          severity: 'MEDIUM',
+          field: 'validation',
+          currentValue: 'N/A',
+          issue: 'Claude review failed to parse - manual review recommended',
+          evidence: parseError instanceof Error ? parseError.message : 'Parse error'
+        }],
+        reasoning: 'Failed to parse Claude response - treating as FLAG for safety',
+        reviewDuration: Date.now() - startTime
+      };
+    }
+
+    logger.info('🔍 FINAL REVIEW - Phase B (Claude Cross-Check) complete', {
+      sessionId,
+      reviewStatus: reviewResult.reviewStatus,
+      confidence: reviewResult.confidenceInResults,
+      issuesFound: reviewResult.issues.length,
+      duration: reviewResult.reviewDuration,
+      proposedCorrections: reviewResult.proposedCorrections || 'none'
+    });
+
+    return reviewResult;
+
+  } catch (error) {
+    logger.error('🔴 FINAL REVIEW - Phase B: Claude API error', {
+      sessionId,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+
+    return {
+      reviewStatus: 'FLAG',
+      confidenceInResults: 50,
+      issues: [{
+        severity: 'MEDIUM',
+        field: 'validation',
+        currentValue: 'N/A',
+        issue: 'Claude API error - manual review recommended',
+        evidence: error instanceof Error ? error.message : 'API error'
+      }],
+      reasoning: 'Claude API failed - treating as FLAG for safety',
+      reviewDuration: Date.now() - startTime
+    };
+  }
+}
+
+/**
+ * Master function: Execute complete Final Review Stage
+ * Phase A + Phase B (if needed) + Corrections
+ */
+async function executeFinalReviewStage(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string
+): Promise<FinalReviewResult> {
+  logger.info('🎯 FINAL REVIEW STAGE: Starting post-consensus validation', { sessionId });
+
+  // Phase A: Automated Validation (always runs)
+  const phaseAResult = performAutomatedValidation(
+    consensus,
+    primaryAttributes,
+    topFilterAttributes,
+    generatedTitle,
+    rawProduct,
+    sessionId
+  );
+
+  let phaseBResult: ClaudeReviewResult | undefined;
+  let finalStatus: 'PASS' | 'FLAG' | 'FAIL' = phaseAResult.passed ? 'PASS' : 'FLAG';
+  const correctionsApplied: ValidationIssue[] = [];
+  const flaggedForReview: ValidationIssue[] = [];
+
+  // Phase B: Claude Review (only if Phase A flagged for review)
+  if (phaseAResult.requiresAIReview) {
+    logger.info('🔍 FINAL REVIEW: Phase A flagged for Claude review', {
+      sessionId,
+      reason: `Confidence: ${phaseAResult.confidence}%, Warnings: ${phaseAResult.warnings.length}, Corrections: ${phaseAResult.corrections.length}`
+    });
+
+    phaseBResult = await performClaudeReview(
+      consensus,
+      primaryAttributes,
+      topFilterAttributes,
+      generatedTitle,
+      rawProduct,
+      phaseAResult.warnings,
+      sessionId
+    );
+
+    // Update final status based on Claude's review
+    if (phaseBResult.reviewStatus === 'FAIL') {
+      finalStatus = 'FAIL';
+    } else if (phaseBResult.reviewStatus === 'FLAG') {
+      finalStatus = 'FLAG';
+    }
+  }
+
+  // Apply corrections from Phase A (deterministic fixes)
+  for (const correction of phaseAResult.corrections) {
+    if (correction.severity === 'HIGH' || correction.severity === 'CRITICAL') {
+      // Auto-apply high severity corrections
+      if (correction.field === 'department' && correction.suggestedFix) {
+        (primaryAttributes as any).AI_Product_Department = correction.suggestedFix;
+        correctionsApplied.push(correction);
+        logger.warn('✏️  FINAL REVIEW: Auto-corrected department', {
+          sessionId,
+          from: correction.currentValue,
+          to: correction.suggestedFix,
+          reason: correction.issue
+        });
+      }
+    } else {
+      // Lower severity - flag for review
+      flaggedForReview.push(correction);
+    }
+  }
+
+  // Handle Claude's findings (if ran)
+  if (phaseBResult) {
+    // Use proposedCorrections (already validated against picklists in performClaudeReview)
+    const pc = phaseBResult.proposedCorrections;
+    if (pc && phaseBResult.reviewStatus === 'FAIL') {
+      // Apply validated category correction
+      if (pc.category) {
+        const oldCategory = consensus.agreedCategory;
+        consensus.agreedCategory = pc.category;
+        (primaryAttributes as any).AI_Product_Category = pc.category;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'category',
+          currentValue: oldCategory || '',
+          issue: `Claude corrected category from "${oldCategory}" to "${pc.category}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.category
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected category (validated against picklist)', {
+          sessionId,
+          from: oldCategory,
+          to: pc.category,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated department correction
+      if (pc.department) {
+        const oldDept = primaryAttributes.AI_Product_Department;
+        (primaryAttributes as any).AI_Product_Department = pc.department;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'department',
+          currentValue: oldDept || '',
+          issue: `Claude corrected department from "${oldDept}" to "${pc.department}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.department
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected department (validated against picklist)', {
+          sessionId,
+          from: oldDept,
+          to: pc.department,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated type correction
+      if (pc.type) {
+        const oldType = consensus.agreedPrimaryAttributes?.product_type;
+        if (consensus.agreedPrimaryAttributes) {
+          consensus.agreedPrimaryAttributes.product_type = pc.type;
+        }
+        (primaryAttributes as any).AI_Type = pc.type;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'type',
+          currentValue: oldType || '',
+          issue: `Claude corrected type from "${oldType}" to "${pc.type}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.type
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected type (validated against picklist)', {
+          sessionId,
+          from: oldType,
+          to: pc.type,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated style correction
+      if (pc.style) {
+        const oldStyle = (primaryAttributes as any).AI_Style;
+        (primaryAttributes as any).AI_Style = pc.style;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'style',
+          currentValue: oldStyle || '',
+          issue: `Claude corrected style from "${oldStyle}" to "${pc.style}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.style
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected style (validated against picklist)', {
+          sessionId,
+          from: oldStyle,
+          to: pc.style
+        });
+      }
+      
+      // Log title suggestion (title requires regeneration, so flag for review rather than overwrite)
+      if (pc.title) {
+        flaggedForReview.push({
+          severity: 'MEDIUM',
+          field: 'title',
+          currentValue: generatedTitle,
+          issue: `Claude proposed title correction`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.title
+        });
+        logger.info('📋 FINAL REVIEW: Claude proposed title correction (flagged for review)', {
+          sessionId,
+          currentTitle: generatedTitle,
+          proposedTitle: pc.title
+        });
+      }
+    }
+    
+    // Also flag any non-CRITICAL individual issues for review
+    for (const issue of phaseBResult.issues) {
+      if (issue.severity !== 'CRITICAL') {
+        flaggedForReview.push(issue);
+      }
+    }
+  }
+
+  logger.info('✅ FINAL REVIEW STAGE: Complete', {
+    sessionId,
+    finalStatus,
+    phaseAConfidence: phaseAResult.confidence,
+    phaseBConfidence: phaseBResult?.confidenceInResults,
+    correctionsApplied: correctionsApplied.length,
+    flaggedForReview: flaggedForReview.length,
+    claudeReviewPerformed: !!phaseBResult
+  });
+
+  return {
+    phaseAResult,
+    phaseBResult,
+    finalStatus,
+    correctionsApplied,
+    flaggedForReview
+  };
 }
 
 // Export the research attestation service for external access

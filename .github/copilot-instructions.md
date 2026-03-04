@@ -1,5 +1,14 @@
 # Copilot Instructions - Catalog Verification API
 
+## 🕐 TIMEZONE & DATE REFERENCE
+
+**User timezone: US Eastern (EST/EDT)**
+- The system-provided date is in **UTC**. ALWAYS convert to Eastern Time before displaying.
+- UTC midnight = 7:00 PM EST (previous day) or 8:00 PM EDT (previous day)
+- When the system says "March 4" but it's evening in EST, the user's date is likely **March 3**
+- **Always state dates and times in Eastern Time** unless asked otherwise
+- When naming session files (e.g., `SESSION-SUMMARY-YYYY-MM-DD`), use the **Eastern Time date**
+
 ## ⚠️ CRITICAL: PRODUCTION-FIRST OPERATIONS
 
 **ALWAYS DEFAULT TO PRODUCTION SERVER** unless explicitly told otherwise.
@@ -643,6 +652,8 @@ node scripts/audit-picklist-fields.js
 
 When user says "Establish Connection", perform these checks and report:
 
+**📋 Reference Document**: [docs/architecture/MASTER-ARCHITECTURE-VERIFICATION-CHECKLIST.md](../docs/architecture/MASTER-ARCHITECTURE-VERIFICATION-CHECKLIST.md) - Follow "Establish Connection Verification" section
+
 1. **SSH Connectivity**: `ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "echo connected"`
 
 2. **Commit Sync Check**: Compare commits across local, GitHub, and production
@@ -713,6 +724,8 @@ When user says "Establish Connection", perform these checks and report:
 
 ## Save Everything Procedure
 
+**📋 Reference Document**: [docs/architecture/MASTER-ARCHITECTURE-VERIFICATION-CHECKLIST.md](../docs/architecture/MASTER-ARCHITECTURE-VERIFICATION-CHECKLIST.md) - Follow "Save Everything Procedure" section
+
 When user says "Save everything", perform these actions:
 
 1. **Create session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
@@ -726,8 +739,14 @@ When user says "Save everything", perform these actions:
    # Check what type of changes were made
    git status --short
    
-   # ALWAYS run comprehensive dependency validator
-   bash scripts/validate-dependencies.sh
+   # ⭐ NEW (2026-03-03): Run comprehensive validator for ALL code changes
+   bash scripts/pre-deploy-validate-all.sh
+   # This replaces individual scripts - runs all 7 validation checks
+   ```
+   
+   **Legacy individual validators** (use comprehensive validator above instead):
+   ```bash
+   bash scripts/validate-dependencies.sh  # Old method
    ```
    **If changes include any of these patterns, run the corresponding audit:**
    
