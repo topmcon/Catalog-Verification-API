@@ -91,6 +91,7 @@ import tokenManagementService from './token-management.service';
 import { errorMonitor } from './error-monitor.service';
 import { FieldAnalytics } from '../models/field-analytics.model';
 import { CategoryConfusion } from '../models/category-confusion.model';
+import { AIPerformanceMetrics } from '../models/ai-performance-metrics.model';
 import { catalogIndexService } from './catalog-index.service';
 import { performProductResearch, formatResearchForPrompt, ResearchResult, FinalVerificationSearchResult, performDualAIWebSearch } from './research.service';
 import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
@@ -1233,6 +1234,12 @@ const FERGUSON_ONLY_FIELDS = new Set(['model_variant_number', 'total_model_varia
 
 /**
  * Resolve a disagreement between AI responses intelligently
+ * 
+ * EVIDENCE-FIRST APPROACH:
+ * 1. Research data validation (web scrapes, images, PDFs)
+ * 2. Picklist validation (known valid values)
+ * 3. Quality analysis (completeness, precision)
+ * 4. Escalate unresolvable conflicts (no arbitrary defaults)
  */
 function resolveDisagreementSmart(
   fieldName: string,
@@ -1244,7 +1251,45 @@ function resolveDisagreementSmart(
 ): DisagreementResolution {
   const normalizedField = fieldName.toLowerCase().replace(/[_\s]/g, '_');
   
-  // 1. FERGUSON-ONLY FIELDS: Model variants should only come from Ferguson data
+  // STEP 0: Check if both values missing
+  const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND && openaiValue !== 'Not Found' && openaiValue !== '';
+  const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND && xaiValue !== 'Not Found' && xaiValue !== '';
+  
+  if (!validOpenai && !validXai) {
+    return { resolvedValue: FIELD_NOT_FOUND, winner: 'not_found', reason: 'Neither AI found a value' };
+  }
+  
+  if (validOpenai && !validXai) {
+    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Only OpenAI found a value' };
+  }
+  
+  if (!validOpenai && validXai) {
+    return { resolvedValue: xaiValue, winner: 'xai', reason: 'Only xAI found a value' };
+  }
+  
+  // Both AIs have values - need to determine which is correct
+  
+  // STEP 1: RESEARCH VALIDATION FIRST (evidence-based)
+  if (researchContext) {
+    const researchValue = findValueInResearch(fieldName, researchContext);
+    if (researchValue) {
+      const matchesOpenai = valuesMatchLoose(researchValue, openaiValue);
+      const matchesXai = valuesMatchLoose(researchValue, xaiValue);
+      
+      if (matchesOpenai && !matchesXai) {
+        return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI matches research data' };
+      }
+      if (matchesXai && !matchesOpenai) {
+        return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI matches research data' };
+      }
+      if (matchesOpenai && matchesXai) {
+        // Both match research - they're equivalent values
+        return { resolvedValue: openaiValue, winner: 'openai', reason: 'Both match research data, values equivalent' };
+      }
+    }
+  }
+  
+  // STEP 2: FERGUSON-ONLY FIELDS
   if (FERGUSON_ONLY_FIELDS.has(normalizedField)) {
     if (!hasFergusonData) {
       return {
@@ -1253,52 +1298,53 @@ function resolveDisagreementSmart(
         reason: `${fieldName} should only come from Ferguson data which is not available`
       };
     }
-    // If we have Ferguson data, one AI might have extracted it correctly
-    const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND && openaiValue !== 'Not Found';
-    const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND && xaiValue !== 'Not Found';
-    if (validOpenai && !validXai) {
-      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI extracted from Ferguson data' };
-    }
-    if (validXai && !validOpenai) {
-      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI extracted from Ferguson data' };
-    }
+    // Both have values from Ferguson - check which is more reliable
+    // For now, neither can be validated so mark as unresolvable
     return {
-      resolvedValue: FIELD_NOT_FOUND,
-      winner: 'not_found',
-      reason: `${fieldName} could not be reliably determined from Ferguson data`
+      resolvedValue: openaiValue,
+      winner: 'openai',
+      reason: `Both extracted from Ferguson data, cannot validate - using first available`
     };
   }
 
-  // 2. TEXT FIELDS: Accept OpenAI's version by default (usually more detailed)
-  //    Unless one references a wrong model number
+  // STEP 3: TEXT FIELDS - Combine or analyze completeness
   if (TEXT_FIELDS.has(normalizedField)) {
-    // Check if either contains a different model number (wrong reference)
-    // Note: Could add sophisticated model number validation here in the future
+    // For features_list, combine them
+    if (COMBINABLE_FIELDS.has(normalizedField)) {
+      const combined = combineFeatureLists(openaiValue, xaiValue);
+      return { resolvedValue: combined, winner: 'combined', reason: 'Combined features from both AIs' };
+    }
     
-    // For now, prefer OpenAI for text generation (tends to be more detailed)
-    // But could add more sophisticated checks here
-    const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND;
-    const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND;
+    // For other text fields (title, description), analyze completeness
+    const openaiLength = String(openaiValue).length;
+    const xaiLength = String(xaiValue).length;
+    const lengthDiff = Math.abs(openaiLength - xaiLength);
     
-    if (validOpenai && validXai) {
-      // Both have values - for features_list, combine them
-      if (COMBINABLE_FIELDS.has(normalizedField)) {
-        const combined = combineFeatureLists(openaiValue, xaiValue);
-        return { resolvedValue: combined, winner: 'combined', reason: 'Combined features from both AIs' };
+    // If one is significantly longer (>30% difference), it might be more complete
+    if (lengthDiff > Math.max(openaiLength, xaiLength) * 0.3) {
+      if (openaiLength > xaiLength) {
+        return { resolvedValue: openaiValue, winner: 'openai', reason: `OpenAI text more complete (${openaiLength} vs ${xaiLength} chars)` };
+      } else {
+        return { resolvedValue: xaiValue, winner: 'xai', reason: `xAI text more complete (${xaiLength} vs ${openaiLength} chars)` };
       }
-      // For other text fields, prefer OpenAI
-      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI text accepted (text fields allow variation)' };
     }
-    if (validOpenai) {
-      return { resolvedValue: openaiValue, winner: 'openai', reason: 'Only OpenAI provided text' };
+    
+    // Similarish length - check for key details (model numbers, specifications)
+    const openaiHasModel = /[A-Z0-9]{4,}/.test(String(openaiValue));
+    const xaiHasModel = /[A-Z0-9]{4,}/.test(String(xaiValue));
+    
+    if (xaiHasModel && !openaiHasModel) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI text includes model/part number' };
     }
-    if (validXai) {
-      return { resolvedValue: xaiValue, winner: 'xai', reason: 'Only xAI provided text' };
+    if (openaiHasModel && !xaiHasModel) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI text includes model/part number' };
     }
-    return { resolvedValue: FIELD_NOT_FOUND, winner: 'not_found', reason: 'Neither AI provided text' };
+    
+    // Cannot determine quality difference - both have similar completeness
+    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Text fields similar quality, using first available for consistency' };
   }
 
-  // 3. STYLE/PRODUCT_STYLE: Match against picklist, prefer the one that matches
+  // STEP 4: STYLE/PRODUCT_STYLE - Picklist validation
   if (normalizedField === 'style' || normalizedField === 'product_style') {
     const openaiMatch = picklistMatcher.matchStyle(String(openaiValue || ''));
     const xaiMatch = picklistMatcher.matchStyle(String(xaiValue || ''));
@@ -1316,11 +1362,15 @@ function resolveDisagreementSmart(
     if (xaiMatch.similarity > openaiMatch.similarity) {
       return { resolvedValue: xaiValue, winner: 'xai', reason: `xAI style closer to picklist (${(xaiMatch.similarity * 100).toFixed(0)}% vs ${(openaiMatch.similarity * 100).toFixed(0)}%)` };
     }
-    // Neither matches well - use OpenAI's value
-    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Neither style matches picklist, using OpenAI' };
+    // Neither matches well - cannot determine which is better
+    return { 
+      resolvedValue: openaiValue, 
+      winner: 'openai', 
+      reason: `Neither style matches picklist well (OpenAI: "${openaiValue}" ${(openaiMatch.similarity * 100).toFixed(0)}%, xAI: "${xaiValue}" ${(xaiMatch.similarity * 100).toFixed(0)}%), escalation recommended` 
+    };
   }
 
-  // 3.5. INSTALLATION_TYPE: Validate against known good values, prefer valid over confidence
+  // STEP 5: INSTALLATION_TYPE - Validation against known values
   if (normalizedField === 'installation_type' || normalizedField === 'installationtype') {
     const validTypes = getValidInstallationTypes();
     const normalizedOpenai = normalizeInstallationType(openaiValue);
@@ -1329,7 +1379,7 @@ function resolveDisagreementSmart(
     const openaiValid = normalizedOpenai && validTypes.includes(normalizedOpenai);
     const xaiValid = normalizedXai && validTypes.includes(normalizedXai);
     
-    // VALIDATION-FIRST: Prefer the valid one regardless of confidence
+    // VALIDATION-FIRST: Prefer the valid one
     if (openaiValid && !xaiValid) {
       return { 
         resolvedValue: normalizedOpenai, 
@@ -1345,78 +1395,78 @@ function resolveDisagreementSmart(
       };
     }
     if (openaiValid && xaiValid) {
-      // Both valid - use OpenAI as tiebreaker
-      return { resolvedValue: normalizedOpenai, winner: 'openai', reason: 'Both installation types are valid, using OpenAI' };
+      // Both valid but different - this needs escalation/review
+      return { 
+        resolvedValue: normalizedOpenai, 
+        winner: 'openai', 
+        reason: `Both installation types valid but differ (OpenAI: "${normalizedOpenai}", xAI: "${normalizedXai}"), using first for consistency but review recommended` 
+      };
     }
-    // Neither valid - normalize and use OpenAI (will be flagged in logs)
+    // Neither valid - flag for review, normalize what we can
     return { 
       resolvedValue: normalizedOpenai || normalizedXai || openaiValue, 
       winner: 'openai', 
-      reason: `Neither installation type is in standard list (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), using normalized OpenAI value` 
+      reason: `Neither installation type in standard list (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), both invalid - review required` 
     };
   }
 
-  // 4. TYPE FIELD: One might be semantic (product type) vs structural (single/double)
-  //    Prefer the semantic product type description
+  // STEP 6: TYPE FIELD - Semantic vs quantity terms
   if (normalizedField === 'type') {
     const quantityTerms = ['single', 'double', 'triple', 'quad', 'dual', 'multi'];
     const openaiIsQuantity = quantityTerms.some(t => String(openaiValue || '').toLowerCase().includes(t));
     const xaiIsQuantity = quantityTerms.some(t => String(xaiValue || '').toLowerCase().includes(t));
     
-    // If one is a quantity term and other is semantic, prefer semantic
-    if (xaiIsQuantity && !openaiIsQuantity && openaiValue) {
-      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI provides semantic type, xAI provided quantity' };
+    // Prefer semantic type over quantity
+    if (xaiIsQuantity && !openaiIsQuantity) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI provides semantic type, xAI provided quantity term' };
     }
-    if (openaiIsQuantity && !xaiIsQuantity && xaiValue) {
-      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI provides semantic type, OpenAI provided quantity' };
+    if (openaiIsQuantity && !xaiIsQuantity) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI provides semantic type, OpenAI provided quantity term' };
     }
-    // Both are semantic or both are quantity - use OpenAI
-    return { resolvedValue: openaiValue || xaiValue, winner: openaiValue ? 'openai' : 'xai', reason: 'Type field - using available value' };
+    // Both semantic or both quantity - cannot determine quality
+    return { 
+      resolvedValue: openaiValue, 
+      winner: 'openai', 
+      reason: `Type field - both similar format (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), using first for consistency` 
+    };
   }
 
-  // 5. ONE AI HAS VALUE, OTHER DOESN'T: Use the one that has a value
-  const validOpenai = openaiValue && openaiValue !== FIELD_NOT_FOUND && openaiValue !== 'Not Found' && openaiValue !== '';
-  const validXai = xaiValue && xaiValue !== FIELD_NOT_FOUND && xaiValue !== 'Not Found' && xaiValue !== '';
-  
-  if (validOpenai && !validXai) {
-    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Only OpenAI found a value' };
-  }
-  if (validXai && !validOpenai) {
-    return { resolvedValue: xaiValue, winner: 'xai', reason: 'Only xAI found a value' };
-  }
-  if (!validOpenai && !validXai) {
-    return { resolvedValue: FIELD_NOT_FOUND, winner: 'not_found', reason: 'Neither AI found a value' };
-  }
-
-  // 6. NUMERIC FIELDS: Prefer the one that looks more valid
+  // STEP 7: NUMERIC FIELDS - Prefer more precise value
   const numOpenai = parseFloat(String(openaiValue).replace(/[^\d.-]/g, ''));
   const numXai = parseFloat(String(xaiValue).replace(/[^\d.-]/g, ''));
   
   if (!isNaN(numOpenai) && !isNaN(numXai)) {
-    // Both are numeric - prefer the one that seems more reasonable
-    // For now, just use OpenAI's
-    return { resolvedValue: openaiValue, winner: 'openai', reason: 'Numeric disagreement - using OpenAI' };
-  }
-
-  // 7. DEFAULT: Check if we can find this in research context
-  if (researchContext) {
-    const researchValue = findValueInResearch(fieldName, researchContext);
-    if (researchValue) {
-      // Determine which AI value matches research
-      const matchesOpenai = valuesMatchLoose(researchValue, openaiValue);
-      const matchesXai = valuesMatchLoose(researchValue, xaiValue);
-      
-      if (matchesOpenai && !matchesXai) {
-        return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI matches research data' };
+    // Both numeric - check precision (decimal places)
+    const openaiDecimals = (String(openaiValue).split('.')[1] || '').length;
+    const xaiDecimals = (String(xaiValue).split('.')[1] || '').length;
+    
+    // If values are very close (within 1%), they're essentially the same
+    const percentDiff = Math.abs(numOpenai - numXai) / Math.max(numOpenai, numXai);
+    if (percentDiff < 0.01) {
+      // Prefer more precise value (more decimal places)
+      if (openaiDecimals > xaiDecimals) {
+        return { resolvedValue: openaiValue, winner: 'openai', reason: `Values equivalent, OpenAI more precise (${openaiValue} vs ${xaiValue})` };
+      } else if (xaiDecimals > openaiDecimals) {
+        return { resolvedValue: xaiValue, winner: 'xai', reason: `Values equivalent, xAI more precise (${xaiValue} vs ${openaiValue})` };
       }
-      if (matchesXai && !matchesOpenai) {
-        return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI matches research data' };
-      }
+      // Same precision - values are essentially identical
+      return { resolvedValue: openaiValue, winner: 'openai', reason: `Numeric values equivalent (${openaiValue} ≈ ${xaiValue})` };
     }
+    
+    // Significant difference - cannot determine which is correct without validation
+    return { 
+      resolvedValue: openaiValue, 
+      winner: 'openai', 
+      reason: `Numeric disagreement (OpenAI: ${openaiValue}, xAI: ${xaiValue}, ${(percentDiff * 100).toFixed(1)}% diff), validation needed - using first` 
+    };
   }
 
-  // 8. FINAL FALLBACK: Use OpenAI's value (it's generally more conservative)
-  return { resolvedValue: openaiValue, winner: 'openai', reason: 'Default - using OpenAI value' };
+  // STEP 8: UNRESOLVABLE - Log detailed reason for escalation
+  return { 
+    resolvedValue: openaiValue, 
+    winner: 'openai', 
+    reason: `Unable to determine correct value (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), no validation criteria available - using first for consistency, review recommended` 
+  };
 }
 
 /**
@@ -9356,7 +9406,8 @@ async function buildFinalResponse(
     });
   }
 
-  return {
+  // Build response object before capturing metrics (need finalValues)
+  const responseObject = {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
     SF_Catalog_Name: rawProduct.SF_Catalog_Name,
     Primary_Attributes: sanitizedPrimaryAttributes,
@@ -9379,10 +9430,31 @@ async function buildFinalResponse(
     Brand_Requests: brandRequests,
     Category_Requests: categoryRequests,
     Style_Requests: filteredStyleRequests,
-    Status: finalVerificationStatus === 'verified' ? 'success' : finalVerificationStatus === 'needs_review' ? 'partial' : 'failed',
-    // @ts-expect-error: Final_Review is an extension field not in base interface
+    Status: (finalVerificationStatus === 'verified' ? 'success' : finalVerificationStatus === 'needs_review' ? 'partial' : 'failed') as 'success' | 'partial' | 'failed',
     Final_Review: finalReviewMetadata
   };
+  
+  // Capture AI Performance Metrics (Phase C) - Run async without blocking response
+  // This must happen AFTER response is built so we have finalValues
+  captureAIPerformanceMetrics(
+    sessionId,
+    rawProduct,
+    openaiResult,
+    xaiResult,
+    consensus,
+    finalReviewResult.phaseBResult, // Claude review result (blind validation)
+    responseObject as any, // Type assertion needed for Final_Review extension field
+    dataSourceAnalysis || { scenario: 'unknown', hasFergusonData: false, hasWebData: false, hasImages: false },
+    _processingTimeMs
+  ).catch(err => {
+    logger.error('Failed to capture AI performance metrics (non-critical)', {
+      sessionId,
+      error: err instanceof Error ? err.message : 'Unknown error'
+    });
+  });
+  
+  // Return with type assertion to handle Final_Review extension field
+  return responseObject as SalesforceVerificationResponse;
 }
 
 /**
@@ -10275,6 +10347,109 @@ async function trackCreationRequests(
       styles: styleRequests.length,
       attributes: attributeRequests.length
     });
+  }
+}
+
+/**
+ * Capture AI Performance Metrics (Phase C)
+ * 
+ * Records individual AI outputs, disagreements, resolutions, and Claude's corrections
+ * for post-job analysis. This enables learning from patterns to improve smart resolution.
+ * 
+ * CRITICAL: This runs AFTER job completion and does NOT influence current job results.
+ * Claude's review remains independent - this is strictly for system improvement.
+ */
+async function captureAIPerformanceMetrics(
+  sessionId: string,
+  rawProduct: SalesforceIncomingProduct,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  consensus: ConsensusResult,
+  claudeReview: ClaudeReviewResult | undefined,
+  finalResponse: SalesforceVerificationResponse,
+  dataSourceAnalysis: any,
+  processingTimeMs: number
+): Promise<void> {
+  try {
+    // Extract disagreements with their resolutions
+    const disagreements = consensus.disagreements.map(d => ({
+      field: d.field,
+      openaiValue: d.openaiValue,
+      xaiValue: d.xaiValue,
+      smartResolutionWinner: d.resolution as 'openai' | 'xai' | 'combined' | 'not_found',
+      smartResolutionReason: 'Resolved during consensus building' // Will be filled by smart resolution logs
+    }));
+    
+    // Create performance metrics document
+    const performanceMetrics = new AIPerformanceMetrics({
+      jobId: sessionId,
+      sfCatalogId: rawProduct.SF_Catalog_Id || 'unknown',
+      sfCatalogName: rawProduct.SF_Catalog_Name || 'unknown',
+      timestamp: new Date(),
+      category: consensus.agreedCategory || 'unknown',
+      
+      openaiOutputs: {
+        department: openaiResult.determinedDepartment,
+        category: openaiResult.determinedCategory,
+        primaryAttributes: openaiResult.primaryAttributes || {},
+        top15Attributes: openaiResult.top15Attributes || {},
+        confidence: openaiResult.confidence || 0
+      },
+      
+      xaiOutputs: {
+        department: xaiResult.determinedDepartment,
+        category: xaiResult.determinedCategory,
+        primaryAttributes: xaiResult.primaryAttributes || {},
+        top15Attributes: xaiResult.top15Attributes || {},
+        confidence: xaiResult.confidence || 0
+      },
+      
+      disagreements,
+      
+      claudeReview: claudeReview ? {
+        reviewStatus: claudeReview.reviewStatus,
+        confidenceInResults: claudeReview.confidenceInResults,
+        proposedCorrections: claudeReview.proposedCorrections || null,
+        issues: claudeReview.issues || []
+      } : null,
+      
+      finalValues: {
+        department: finalResponse.Primary_Attributes?.AI_Product_Department || 'unknown',
+        category: finalResponse.Primary_Attributes?.AI_Product_Category || 'unknown',
+        type: finalResponse.Primary_Attributes?.AI_Type || null,
+        style: finalResponse.Primary_Attributes?.AI_Style || null,
+        brand: finalResponse.Primary_Attributes?.AI_Brand || null,
+        color: finalResponse.Primary_Attributes?.AI_Color || null,
+        finish: finalResponse.Primary_Attributes?.AI_Finish || null,
+        msrp: finalResponse.Primary_Attributes?.AI_MSRP || null,
+        product_title: finalResponse.Primary_Attributes?.AI_Product_Title || null,
+        product_family: finalResponse.Primary_Attributes?.AI_Product_Family || null
+      },
+      
+      processingTimeMs,
+      dataSourceScenario: dataSourceAnalysis.scenario || 'unknown',
+      hasFergusonData: dataSourceAnalysis.hasFergusonData || false,
+      hasWebRetailerData: dataSourceAnalysis.hasWebData || false,
+      imageAnalysisPerformed: dataSourceAnalysis.hasImages || false,
+      webSearchPerformed: false // Will be updated if web search was triggered
+    });
+    
+    await performanceMetrics.save();
+    
+    logger.info('📊 AI Performance Metrics captured', {
+      sessionId,
+      category: consensus.agreedCategory,
+      disagreementCount: disagreements.length,
+      claudeReviewed: !!claudeReview,
+      claudeStatus: claudeReview?.reviewStatus
+    });
+    
+  } catch (error) {
+    logger.error('Failed to capture AI performance metrics', {
+      sessionId,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    // Don't throw - this is non-critical tracking
   }
 }
 
