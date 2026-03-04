@@ -8215,4 +8215,3012 @@ async function buildFinalResponse(
       // Strip unit suffixes (lbs, lb, kg, oz, etc.) and return just the number
       return weight ? String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim() : '';
     })(),
-    AI_
+    AI_Product_Filter_Class: (() => {
+      // Calculate industry-standard size class for filtering
+      // Example: 47.25" refrigerator → "48-Inch" (rounded to nearest standard size)
+      // This enables Salesforce to filter products by standard size classes
+      
+      // Get the width value (same sources as AI_Width above)
+      const widthStr = preferAIValue(
+        consensus.agreedPrimaryAttributes.width,
+        openaiResult.primaryAttributes.width,
+        xaiResult.primaryAttributes.width,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        rawProduct.Width_Web_Retailer || 
+        rawProduct.Ferguson_Width ||
+        findAttributeInRawData(rawProduct, 'Width') ||
+        findAttributeInRawData(rawProduct, 'Overall Width') ||
+        ''
+      );
+      
+      if (!widthStr || !widthStr.trim()) {
+        return '';  // No width available
+      }
+      
+      // Parse width to number
+      const widthNum = parseFloat(String(widthStr));
+      if (isNaN(widthNum) || widthNum <= 0) {
+        return '';  // Invalid width
+      }
+      
+      // Get size class configuration for this category
+      const categoryName = categoryMatch.matched && categoryMatch.matchedValue 
+        ? categoryMatch.matchedValue.category_name
+        : consensus.agreedCategory || '';
+      
+      if (!categoryName) {
+        return '';  // No category available
+      }
+      
+      const sizeClassConfig = getSizeClassConfig(categoryName);
+      
+      if (!sizeClassConfig || !sizeClassConfig.has_measurement_class) {
+        // Category doesn't have size classes - return empty
+        logger.info('Category does not use size class system', {
+          sessionId,
+          category: categoryName
+        });
+        return '';
+      }
+      
+      // Get installation type for categories with installation-dependent sizing
+      const installationType = String(
+        consensus.agreedTop15Attributes?.installation_type || 
+        openaiResult.top15Attributes?.installation_type || 
+        xaiResult.top15Attributes?.installation_type || 
+        ''
+      );
+      
+      // Round to standard size class
+      const roundedSize = roundToStandardSize(widthNum, sizeClassConfig, installationType);
+      
+      // Format as display string
+      const formatted = formatSizeClass(roundedSize, sizeClassConfig.classes);
+      
+      logger.info('Calculated Product Filter Class', {
+        sessionId,
+        category: categoryName,
+        actualWidth: widthNum,
+        roundedSize,
+        filterClass: formatted,
+        installationType: installationType || 'not specified'
+      });
+      
+      return formatted;
+    })(),
+    AI_MSRP: preferAIValue(
+      consensus.agreedPrimaryAttributes.msrp,
+      openaiResult.primaryAttributes.msrp,
+      xaiResult.primaryAttributes.msrp,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      rawProduct.MSRP_Web_Retailer || 
+      rawProduct.Ferguson_Price ||  // Use Ferguson price as MSRP fallback
+      findAttributeInRawData(rawProduct, 'MSRP') ||
+      findAttributeInRawData(rawProduct, 'List Price') ||
+      ''
+    ),
+    // Market_Value fields removed - no longer sent to Salesforce
+    AI_Description: cleanedText.description,
+    AI_Product_Title: seoTitle,  // Use SEO-optimized title
+    // Details_Verified field removed - no longer sent to Salesforce
+    AI_Features: cleanedText.featuresHtml,
+    AI_UPC_GTIN: (() => {
+      // Try AI-determined UPC first
+      const aiUPC = preferAIValue(
+        consensus.agreedPrimaryAttributes.upc_gtin,
+        openaiResult.primaryAttributes.upc_gtin,
+        xaiResult.primaryAttributes.upc_gtin,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      
+      // If UPC found and valid, use it
+      if (aiUPC && aiUPC.trim() && aiUPC.toLowerCase() !== 'not found' && aiUPC.length >= 8) {
+        return aiUPC;
+      }
+      
+      // DEFAULT UPC when not found via any method
+      // This placeholder indicates "UPC lookup required" for downstream systems
+      logger.info('UPC not found - using default placeholder', {
+        sessionId,
+        modelNumber: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer,
+        aiUPC
+      });
+      return '741360976603'; // Default UPC placeholder
+    })(),
+    AI_Model_Number: (() => {
+      // NEW PRIORITY: 1) AI consensus/smart resolution (researched & validated), 2) Ferguson, 3) Web Retailer, 4) SF_Catalog_Name (fallback only)
+      // AI often finds the complete model number (e.g., "K-26568-CP") while SF may have partial (e.g., "26568-BL")
+      const aiModel = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_number,
+        openaiResult.primaryAttributes.model_number,
+        xaiResult.primaryAttributes.model_number,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        null
+      )?.trim();
+      
+      // Only use AI model if it's a real value (not "Not Found" markers)
+      if (aiModel && !aiModel.includes('Not Found') && !aiModel.includes('FIELD_NOT_FOUND')) {
+        logger.info('Model number from AI consensus', { aiModel, sessionId });
+        return aiModel;
+      }
+      
+      const fergModel = rawProduct.Ferguson_Model_Number?.trim();
+      if (fergModel) return fergModel;
+      
+      const wrModel = rawProduct.Model_Number_Web_Retailer?.trim();
+      if (wrModel) return wrModel;
+      
+      // SF_Catalog_Name as last resort fallback
+      const sfModel = rawProduct.SF_Catalog_Name?.trim();
+      return sfModel || '';
+    })(),
+    AI_Model_Alias: (() => {
+      const primary = rawProduct.SF_Catalog_Name || consensus.agreedPrimaryAttributes.model_number || rawProduct.Model_Number_Web_Retailer || '';
+      // Remove special characters for alias
+      return primary.replace(/[\/\-\s]/g, '');
+    })(),
+    AI_Model_Parent: (() => {
+      // First try AI consensus
+      const aiValue = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_parent,
+        openaiResult.primaryAttributes.model_parent,
+        xaiResult.primaryAttributes.model_parent,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      if (aiValue && aiValue !== 'Not Found' && aiValue !== 'N/A' && aiValue !== '') {
+        return aiValue;
+      }
+      
+      // Fall back to Ferguson parent_model_number
+      const fergusonParent = (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number;
+      if (fergusonParent) {
+        return fergusonParent;
+      }
+      
+      return 'None Identified';
+    })(),
+    AI_Model_Variant_Number: (() => {
+      // First try to get from AI
+      const aiValue = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_variant_number,
+        openaiResult.primaryAttributes.model_variant_number,
+        xaiResult.primaryAttributes.model_variant_number,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+      if (aiValue && aiValue !== 'Not Found' && aiValue !== 'N/A' && aiValue !== '') {
+        return aiValue;
+      }
+      
+      // Extract from Ferguson variants if available
+      const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
+      const currentModel = rawProduct.Ferguson_Model_Number || rawProduct.SF_Catalog_Name;
+      if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0 && currentModel) {
+        // Find the variant suffix (e.g., "BK" from "356BK")
+        const parentModel = (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number;
+        if (parentModel && currentModel.startsWith(parentModel)) {
+          const suffix = currentModel.substring(parentModel.length);
+          if (suffix) return suffix;
+        }
+      }
+      
+      return 'None Identified';
+    })(),
+    AI_Total_Model_Variants: (() => {
+      // First try to get from AI
+      let value = cleanEncodingIssues(
+        preferAIValue(
+          consensus.agreedPrimaryAttributes.total_model_variants,
+          openaiResult.primaryAttributes.total_model_variants,
+          xaiResult.primaryAttributes.total_model_variants,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          ''
+        )
+      );
+      
+      // If AI didn't find variants, extract from Ferguson_Raw_Data
+      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
+        const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
+        if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0) {
+          // Extract model numbers from Ferguson variants
+          const variantModels = fergusonVariants
+            .map((v: any) => v.model_number || v.modelNumber)
+            .filter((m: string) => m);
+          if (variantModels.length > 0) {
+            value = variantModels.join(', ');
+            logger.info('Extracted variants from Ferguson_Raw_Data', {
+              variantCount: variantModels.length,
+              variants: variantModels.slice(0, 5)
+            });
+          }
+        }
+      }
+      
+      // If still no variants found
+      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
+        return 'None Identified';
+      }
+      
+      // Extract only variant suffixes to save space (SF field limit: 255 chars)
+      // Get the model parent to strip from each variant
+      const modelParent = preferAIValue(
+        consensus.agreedPrimaryAttributes.model_parent,
+        openaiResult.primaryAttributes.model_parent,
+        xaiResult.primaryAttributes.model_parent,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      ) || (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number || '';
+      
+      if (modelParent && modelParent !== 'Not Found' && modelParent !== 'None Identified') {
+        // Split variants and extract only the suffix portion
+        // E.g., "2400-4273-034, 2400-4273/65" with parent "2400-4273" → "034, 65"
+        const variants = value.split(/,\s*/);
+        const suffixes = variants.map(variant => {
+          const trimmed = variant.trim();
+          // Simple approach: if variant starts with parent, extract suffix
+          if (trimmed.startsWith(modelParent)) {
+            let suffix = trimmed.substring(modelParent.length);
+            // Remove leading separator (- or /)
+            if (suffix.startsWith('-') || suffix.startsWith('/')) {
+              suffix = suffix.substring(1);
+            }
+            return suffix || trimmed;
+          }
+          return trimmed;
+        });
+        
+        const result = suffixes.join(', ');
+        logger.info('Total_Model_Variants extracted suffixes only', {
+          originalLength: value.length,
+          resultLength: result.length,
+          modelParent,
+          sampleSuffixes: suffixes.slice(0, 5).join(', ')
+        });
+        
+        // If still too long, truncate with indicator
+        if (result.length > 250) {
+          const truncated = result.substring(0, 245) + '...';
+          return truncated;
+        }
+        return result;
+      }
+      
+      // No parent to strip, just truncate if needed
+      if (value.length > 250) {
+        return value.substring(0, 245) + '...';
+      }
+      return value;
+    })()
+  };
+
+  // Clean top filter attributes and build attribute ID lookups
+  const topFilterAttributes: TopFilterAttributes = {};
+  const topFilterAttributeIds: TopFilterAttributeIds = {};
+  const attributeRequests: AttributeRequest[] = [];  // Track attributes not in Salesforce picklist
+  
+  // Get the category schema to map field keys to attribute names
+  // Use context-aware lookup to refine generic categories (e.g., "Decorative Lighting #" -> "Pendants #")
+  const productContext = {
+    title: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '',
+    description: rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '',
+    attributes: [
+      ...(rawProduct.Ferguson_Attributes || []),
+      ...(rawProduct.Web_Retailer_Specs || [])
+    ],
+    productType: rawProduct.Ferguson_Product_Type || ''
+  };
+  
+  const categorySchema = consensus.agreedCategory 
+    ? getCategorySchemaWithContext(consensus.agreedCategory, productContext) 
+    : null;
+  
+  // Create set of PRIMARY field keys (normalized) to filter out from Top 15
+  const primaryFieldKeysSet = new Set(
+    PRIMARY_ATTRIBUTE_FIELD_KEYS.map(key => key.toLowerCase().replace(/[^a-z0-9]/g, ''))
+  );
+  
+  // Log schema retrieval for debugging
+  logger.info('Category schema lookup for attribute ID mapping', {
+    originalCategory: consensus.agreedCategory || 'unknown',
+    resolvedCategory: categorySchema?.categoryName || 'unknown',
+    schemaFound: !!categorySchema,
+    attributeCount: categorySchema?.top15FilterAttributes?.length || 0,
+    wasRefined: categorySchema?.categoryName !== consensus.agreedCategory
+  });
+  
+  // Map to track which attributes we've already processed as requests (avoid duplicates)
+  const requestedAttributeNames = new Set<string>();
+  
+  // Build complete Top 15 attribute set - include AI-extracted AND raw data fallback
+  const completeTop15: Record<string, any> = {};
+  
+  // First, normalize AI-extracted attributes to use ONLY field keys (deduplicate)
+  const normalizedAITop15: Record<string, any> = {};
+  if (categorySchema?.top15FilterAttributes) {
+    // Create lookup: attribute name -> field key
+    const nameToFieldKey = new Map<string, string>();
+    for (const attrDef of categorySchema.top15FilterAttributes) {
+      nameToFieldKey.set(attrDef.name.toLowerCase().replace(/[^a-z0-9]/g, ''), attrDef.fieldKey);
+    }
+    
+    // Normalize all AI keys to field keys
+    for (const [key, value] of Object.entries(consensus.agreedTop15Attributes)) {
+      const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const fieldKey = nameToFieldKey.get(normalizedKey) || key;
+      
+      // Only keep first value if duplicate (prefer what's already there)
+      if (!normalizedAITop15[fieldKey]) {
+        normalizedAITop15[fieldKey] = value;
+      }
+    }
+  } else {
+    // No schema available, use AI keys as-is
+    Object.assign(normalizedAITop15, consensus.agreedTop15Attributes);
+  }
+  
+  Object.assign(completeTop15, normalizedAITop15);
+  
+  // For attributes AI didn't extract, try to find them in raw data arrays
+  // Use the category-aware findTop15AttributeValue function
+  if (categorySchema?.top15FilterAttributes) {
+    for (const attrDef of categorySchema.top15FilterAttributes) {
+      const key = attrDef.fieldKey;
+      const name = attrDef.name;
+      
+      // If AI didn't provide this attribute, search raw data using category-aware matching
+      if (completeTop15[key] === undefined || completeTop15[key] === null || completeTop15[key] === '') {
+        const result = findTop15AttributeValue(rawProduct, key, name);
+        if (result.value) {
+          completeTop15[key] = result.value;
+          logger.info('Filled missing Top 15 attribute from raw data (category-aware)', {
+            fieldKey: key,
+            attributeName: name,
+            value: result.value,
+            matchedFrom: result.matchedFrom,
+            source: 'raw_data_fallback'
+          });
+        }
+      }
+    }
+  }
+  
+  // =========================================
+  // SMART FIELD INFERENCE - Fill remaining gaps using common sense
+  // =========================================
+  if (categorySchema?.top15FilterAttributes) {
+    // Get list of still-missing field keys
+    const missingFieldKeys = categorySchema.top15FilterAttributes
+      .map(attr => attr.fieldKey)
+      .filter(key => completeTop15[key] === undefined || completeTop15[key] === null || completeTop15[key] === '');
+    
+    if (missingFieldKeys.length > 0) {
+      logger.info('Running smart field inference for missing attributes', {
+        missingCount: missingFieldKeys.length,
+        missingFields: missingFieldKeys,
+        category: consensus.agreedCategory
+      });
+      
+      // Combine all raw specs for inference
+      const allSpecs = [
+        ...(rawProduct.Ferguson_Attributes || []),
+        ...(rawProduct.Web_Retailer_Specs || [])
+      ];
+      
+      // Get features text from cleaned output
+      const featuresText = cleanedText.featuresHtml || '';
+      
+      // Combine descriptions
+      const descriptionText = [
+        rawProduct.Product_Description_Web_Retailer,
+        rawProduct.Ferguson_Description
+      ].filter(Boolean).join(' ');
+      
+      // Run smart inference
+      const inferredValues = inferMissingFields(
+        allSpecs,
+        featuresText,
+        descriptionText,
+        missingFieldKeys,
+        consensus.agreedCategory || undefined
+      );
+      
+      // Apply inferred values to completeTop15
+      for (const [fieldKey, extracted] of Object.entries(inferredValues)) {
+        if (completeTop15[fieldKey] === undefined || completeTop15[fieldKey] === null || completeTop15[fieldKey] === '') {
+          completeTop15[fieldKey] = extracted.value;
+          logger.info('Filled attribute from smart inference', {
+            fieldKey,
+            value: extracted.value,
+            confidence: extracted.confidence,
+            source: extracted.source
+          });
+        }
+      }
+    }
+  }
+  
+  // ⚠️ CRITICAL: Only iterate through SCHEMA-DEFINED Top 15 attributes for this category
+  // Do NOT send all attributes AI found - only send the ranked Top 15 from category schema
+  const schemaDefinedTop15 = categorySchema?.top15FilterAttributes || [];
+  
+  for (const attrDef of schemaDefinedTop15) {
+    const key = attrDef.fieldKey;
+    const value = completeTop15[key];
+    
+    // ⚠️ CRITICAL FILTER: Exclude PRIMARY_ATTRIBUTE field keys from Top_Filter_Attributes
+    // Primary attributes (brand, description, product_style, etc.) should NEVER appear in Top 15
+    const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (primaryFieldKeysSet.has(normalizedKey)) {
+      logger.warn('Filtered PRIMARY attribute from Top_Filter_Attributes', {
+        fieldKey: key,
+        value: value,
+        reason: 'PRIMARY attributes should only appear in Primary_Attributes section'
+      });
+      continue;  // Skip this attribute - it belongs in Primary_Attributes only
+    }
+    
+    // ⚠️ CRITICAL: ALWAYS include ALL Top 15 attributes, even if not found
+    // If no value found, mark with "Procurement No Results" to indicate research was completed
+    let finalValue: any;
+    if (value === null || value === undefined || value === '') {
+      finalValue = FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS;
+      logger.info('Top 15 attribute not found - marking as Procurement No Results', {
+        fieldKey: key,
+        attributeName: attrDef.name,
+        rank: attrDef.rank,
+        category: consensus.agreedCategory
+      });
+    } else {
+      finalValue = typeof value === 'string' ? cleanEncodingIssues(value) : value;
+    }
+    
+    // We already have attrDef from the loop - use it directly
+    const attributeName = attrDef.name;
+      
+    // For enum types with allowedValues, validate and match against exact allowed values
+    if (attrDef.type === 'enum' && attrDef.allowedValues && finalValue) {
+      const normalizedValue = String(finalValue).toLowerCase().trim();
+      
+      // Try exact match first
+      let matchedValue = attrDef.allowedValues.find((av: string) => 
+        av.toLowerCase() === normalizedValue
+      );
+      
+      // If no exact match, try fuzzy match
+      if (!matchedValue) {
+        matchedValue = attrDef.allowedValues.find((av: string) => 
+          av.toLowerCase().includes(normalizedValue) || normalizedValue.includes(av.toLowerCase())
+        );
+      }
+      
+      // Use exact Salesforce allowed value if matched
+      if (matchedValue) {
+        finalValue = matchedValue;
+        logger.info('Standardized attribute value to exact schema allowed value', {
+          fieldKey: key,
+          originalValue: value,
+          standardizedValue: matchedValue
+        });
+      } else {
+        logger.warn('Attribute value does not match allowed values in schema', {
+          fieldKey: key,
+          value: finalValue,
+          allowedValues: attrDef.allowedValues
+        });
+      }
+    }
+    
+    topFilterAttributes[key] = finalValue;
+    
+    // Look up the attribute ID from category-specific filter attributes
+    // This ensures we get the CORRECT ID for the category, not a fuzzy match from all attributes
+    // RULE: Use category-filter-attributes.json as source of truth for Top 15 IDs
+    if (attributeName) {
+      // First, try category-specific lookup (most accurate)
+      const categoryAttrIdMap = lookups.getAttributeNameToSfIdMap(consensus.agreedCategory || '');
+      let attributeId: string | null = null;
+      
+      // Try exact match, case-insensitive, and snake_case variations
+      attributeId = categoryAttrIdMap[attributeName] || 
+                   categoryAttrIdMap[attributeName.toLowerCase()] || 
+                   categoryAttrIdMap[attributeName.toLowerCase().replace(/\s+/g, '_')] ||
+                   null;
+      
+      if (attributeId) {
+        // Found in category-filter-attributes.json - use this ID
+        topFilterAttributeIds[key] = attributeId;
+        logger.debug('Top 15 attribute matched to category-specific SF ID', {
+          fieldKey: key,
+          attributeName,
+          category: consensus.agreedCategory,
+          attribute_id: attributeId
+        });
+      } else {
+        // Not in category config - try fuzzy match as fallback (with warning)
+        const attrMatch = picklistMatcher.matchAttribute(attributeName, { forceIdLookup: true });
+        
+        if (attrMatch.matched && attrMatch.matchedValue) {
+          // Found via fuzzy match - use with caution
+          const safeAttributeId = getSafeId(attrMatch.matchedValue.attribute_id);  // Filter out placeholder IDs
+          topFilterAttributeIds[key] = safeAttributeId;
+          logger.warn('Top 15 attribute NOT in category config - used fuzzy match (may be incorrect)', {
+            fieldKey: key,
+            attributeName,
+            category: consensus.agreedCategory,
+            fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
+            attribute_id: safeAttributeId,
+            similarity: attrMatch.similarity,
+            warning: 'This attribute should be added to category-filter-attributes.json with correct SF ID'
+          });
+        } else {
+          // No match found at all - set ID to null AND generate an Attribute_Request
+          topFilterAttributeIds[key] = null;
+        
+          // No match found at all - set ID to null AND generate an Attribute_Request
+          topFilterAttributeIds[key] = null;
+          
+          // Only generate request if we haven't already requested this attribute
+          if (!requestedAttributeNames.has(attributeName.toLowerCase())) {
+            attributeRequests.push({
+              attribute_name: attributeName,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              source: 'top_15_filter',
+              reason: `Top 15 Filter Attribute "${attributeName}" (key: ${key}) not found in category-filter-attributes.json or SF attributes picklist. Value: "${finalValue}". Closest matches: ${attrMatch.suggestions?.slice(0, 3).map(s => s.attribute_name).join(', ') || 'none'}. Please create this attribute in Salesforce.`
+            });
+            requestedAttributeNames.add(attributeName.toLowerCase());
+            
+            logger.info('Attribute Request generated for unmatched Top 15 attribute', {
+              fieldKey: key,
+              attributeName,
+              value: finalValue,
+              category: consensus.agreedCategory || 'Unknown',
+              similarity: attrMatch.similarity,
+              suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+            });
+            
+            // Log failed Top 15 attribute match for auditing
+            failedMatchLogger.logFailedMatch({
+              matchType: 'attribute',
+              attemptedValue: attributeName,
+              similarity: attrMatch.similarity,
+              closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+                value: s.attribute_name,
+                id: s.attribute_id,
+                similarity: attrMatch.similarity
+              })) || [],
+              matchThreshold: 0.6,
+              source: 'top_15_filter',
+              fieldKey: key,
+              productContext: {
+                sf_catalog_id: rawProduct.SF_Catalog_Id,
+                sf_catalog_name: rawProduct.SF_Catalog_Name,
+                model_number: rawProduct.Model_Number_Web_Retailer || "",
+                brand: cleanedText.brand,
+                category: consensus.agreedCategory,
+                session_id: sessionId,
+              },
+              aiContext: {
+                openai_value: String(openaiResult.top15Attributes[key] || ''),
+                xai_value: String(xaiResult.top15Attributes[key] || ''),
+                consensus_value: String(finalValue || ''),
+              },
+              rawDataContext: {
+                original_attribute_name: attributeName,
+              },
+              requestGenerated: true,
+              requestDetails: {
+                attribute_name: attributeName,
+                requested_for_category: consensus.agreedCategory || 'Unknown',
+                reason: `Top 15 attribute "${attributeName}" not found in SF picklist`,
+              },
+            });
+          }
+        }
+      }
+    } else {
+      // Fallback: No attributeName available - try using field key with category lookup first
+      const categoryAttrIdMap = lookups.getAttributeNameToSfIdMap(consensus.agreedCategory || '');
+      const readableName = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+      
+      // Try category-specific lookup with field key variations
+      let attributeId: string | null = categoryAttrIdMap[key] || 
+                                        categoryAttrIdMap[readableName] ||
+                                        categoryAttrIdMap[readableName.toLowerCase()] ||
+                                        null;
+      
+      if (attributeId) {
+        // Found in category config
+        topFilterAttributeIds[key] = attributeId;
+        logger.debug('Top 15 attribute (by key) matched to category-specific SF ID', {
+          fieldKey: key,
+          readableName,
+          category: consensus.agreedCategory,
+          attribute_id: attributeId
+        });
+      } else {
+        // Not in category config - try fuzzy match as last resort
+        const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
+        
+        if (attrMatch.matched && attrMatch.matchedValue) {
+          const safeAttributeId = getSafeId(attrMatch.matchedValue.attribute_id);  // Filter out placeholder IDs
+          topFilterAttributeIds[key] = safeAttributeId;
+          logger.warn('Top 15 attribute (by key) NOT in category config - used fuzzy match', {
+            fieldKey: key,
+            readableName,
+            category: consensus.agreedCategory,
+            fuzzyMatchedTo: attrMatch.matchedValue.attribute_name,
+            attribute_id: safeAttributeId,
+            similarity: attrMatch.similarity,
+            warning: 'This attribute should be added to category-filter-attributes.json'
+          });
+        } else {
+          // No match - set null AND generate request
+          topFilterAttributeIds[key] = null;
+          // No match - set null AND generate request
+          topFilterAttributeIds[key] = null;
+          
+          // Convert field_key to human-readable name for the request
+          const readableNameFinal = key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+          
+          if (!requestedAttributeNames.has(key.toLowerCase())) {
+            attributeRequests.push({
+              attribute_name: readableNameFinal,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              source: 'top_15_filter',
+              reason: `Top 15 Filter Attribute "${readableNameFinal}" (key: ${key}) not found in category-filter-attributes.json or SF attributes picklist. Value: "${finalValue}". Please create this attribute in Salesforce.`
+            });
+            requestedAttributeNames.add(key.toLowerCase());
+            
+            logger.info('Attribute Request generated for unmatched Top 15 attribute (by key)', {
+              fieldKey: key,
+              readableName: readableNameFinal,
+              value: finalValue,
+              category: consensus.agreedCategory || 'Unknown',
+              similarity: attrMatch.similarity
+            });
+            
+            // Log failed Top 15 attribute match (by key) for auditing
+            failedMatchLogger.logFailedMatch({
+              matchType: 'attribute',
+              attemptedValue: key,
+              similarity: attrMatch.similarity,
+              closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+                value: s.attribute_name,
+                id: s.attribute_id,
+                similarity: attrMatch.similarity
+              })) || [],
+              matchThreshold: 0.6,
+              source: 'top_15_filter',
+              fieldKey: key,
+              productContext: {
+                sf_catalog_id: rawProduct.SF_Catalog_Id,
+                sf_catalog_name: rawProduct.SF_Catalog_Name,
+                model_number: rawProduct.Model_Number_Web_Retailer || "",
+                brand: cleanedText.brand,
+                category: consensus.agreedCategory,
+                session_id: sessionId,
+              },
+              aiContext: {
+                openai_value: String(openaiResult.top15Attributes[key] || ''),
+                xai_value: String(xaiResult.top15Attributes[key] || ''),
+                consensus_value: String(finalValue || ''),
+              },
+              rawDataContext: {
+                original_attribute_name: readableNameFinal,
+              },
+              requestGenerated: true,
+              requestDetails: {
+                attribute_name: readableNameFinal,
+                requested_for_category: consensus.agreedCategory || 'Unknown',
+                reason: `Top 15 attribute (by key) "${key}" not found in SF picklist`,
+              },
+            });
+          }
+        }
+      }
+    }
+  }
+  
+  // Process HTML Table Attributes (Additional Attributes)
+  // These are attributes beyond the Top 15 that AI extracted
+  // Match them against SF picklist and generate requests for unmatched ones
+  if (consensus.agreedAdditionalAttributes && Object.keys(consensus.agreedAdditionalAttributes).length > 0) {
+    logger.info('Processing HTML table attributes for SF picklist matching', {
+      count: Object.keys(consensus.agreedAdditionalAttributes).length,
+      attributes: Object.keys(consensus.agreedAdditionalAttributes)
+    });
+    
+    for (const [attrName, attrValue] of Object.entries(consensus.agreedAdditionalAttributes)) {
+      if (!attrValue || attrValue === '' || isNAValue(attrValue)) {
+        // Skip empty or N/A values
+        continue;
+      }
+      
+      // Skip if this attribute name looks like a value, not an attribute name
+      if (picklistMatcher.isAttributeValue(attrName)) {
+        logger.info('Skipping attribute - appears to be a value not a name', { attrName });
+        continue;
+      }
+      
+      // Skip if this is a primary attribute (already handled separately)
+      if (picklistMatcher.isPrimaryAttribute(attrName)) {
+        logger.info('Skipping attribute - is a primary attribute (handled separately)', { attrName });
+        continue;
+      }
+      
+      // Try to match against SF picklist
+      const attrMatch = picklistMatcher.matchAttribute(attrName);
+      
+      if (attrMatch.matched && attrMatch.matchedValue) {
+        // Attribute exists in SF - log for tracking
+        logger.info('HTML table attribute matched to SF picklist', {
+          attrName,
+          attribute_id: attrMatch.matchedValue.attribute_id,
+          similarity: attrMatch.similarity
+        });
+      } else {
+        // Attribute NOT in SF picklist - generate request for creation
+        // Check if we've already created a request for this exact attribute name (avoid duplicates)
+        if (!requestedAttributeNames.has(attrName.toLowerCase())) {
+          attributeRequests.push({
+            attribute_name: attrName,
+            requested_for_category: consensus.agreedCategory || 'Unknown',
+            source: 'ai_analysis',
+            reason: `Attribute "${attrName}" detected in AI analysis with value "${attrValue}" but not found in Salesforce picklist (similarity: ${(attrMatch.similarity * 100).toFixed(0)}%). Please create this attribute so future products can map values to it.`
+          });
+          
+          requestedAttributeNames.add(attrName.toLowerCase());
+          
+          logger.info('Attribute request generated for Salesforce creation', {
+            attrName,
+            value: attrValue,
+            category: consensus.agreedCategory,
+            similarity: attrMatch.similarity,
+            suggestions: attrMatch.suggestions?.map(s => s.attribute_name)
+          });
+          
+          // Log failed additional/HTML table attribute match for auditing
+          failedMatchLogger.logFailedMatch({
+            matchType: 'attribute',
+            attemptedValue: attrName,
+            similarity: attrMatch.similarity,
+            closestMatches: attrMatch.suggestions?.slice(0, 5).map(s => ({
+              value: s.attribute_name,
+              id: s.attribute_id,
+              similarity: attrMatch.similarity
+            })) || [],
+            matchThreshold: 0.6,
+            source: 'html_table',
+            productContext: {
+              sf_catalog_id: rawProduct.SF_Catalog_Id,
+              sf_catalog_name: rawProduct.SF_Catalog_Name,
+              model_number: rawProduct.Model_Number_Web_Retailer || "",
+              brand: cleanedText.brand,
+              category: consensus.agreedCategory,
+              session_id: sessionId,
+            },
+            aiContext: {
+              openai_value: String(openaiResult.additionalAttributes[attrName] || ''),
+              xai_value: String(xaiResult.additionalAttributes[attrName] || ''),
+              consensus_value: String(attrValue || ''),
+            },
+            rawDataContext: {
+              original_attribute_name: attrName,
+            },
+            requestGenerated: true,
+            requestDetails: {
+              attribute_name: attrName,
+              requested_for_category: consensus.agreedCategory || 'Unknown',
+              reason: `Additional attribute "${attrName}" with value "${attrValue}" not found in SF picklist`,
+            },
+          });
+        }
+      }
+    }
+  }
+  
+  // Log attribute requests summary if any
+  if (attributeRequests.length > 0) {
+    logger.info('Attribute requests generated for Salesforce picklist update', {
+      count: attributeRequests.length,
+      attributes: attributeRequests.map(ar => ar.attribute_name)
+    });
+  }
+  
+  // Get unused Ferguson attributes that should be included in Additional HTML
+  // These include: Collection, Theme, Country, Location Rating, Warranties, etc.
+  const unusedFergusonAttrs = getUnusedFergusonAttributes(rawProduct, topFilterAttributes);
+  
+  // Merge AI's additional attributes with unused Ferguson attributes
+  // Ferguson attributes take precedence as they are authoritative data
+  const mergedAdditionalAttributes = {
+    ...consensus.agreedAdditionalAttributes,
+    ...unusedFergusonAttrs  // Ferguson data comes last to override AI if both exist
+  };
+  
+  const additionalHtml = generateAttributeTable(mergedAdditionalAttributes);
+  
+  // Log what Ferguson attributes were added to HTML
+  if (Object.keys(unusedFergusonAttrs).length > 0) {
+    logger.info('Ferguson attributes added to Additional_Attributes_HTML', {
+      count: Object.keys(unusedFergusonAttrs).length,
+      attributes: Object.keys(unusedFergusonAttrs)
+    });
+  }
+  
+  const priceAnalysis = buildPriceAnalysis(rawProduct);
+  const status = determineStatus(consensus, openaiResult, xaiResult);
+  const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];
+
+  // Build new sections for media, links, and documents
+  const mediaAssets = buildMediaAssets(rawProduct, openaiResult, xaiResult);
+  const referenceLinks = buildReferenceLinks(rawProduct);
+  const documentsSection = buildDocumentsSection(rawProduct, openaiResult, xaiResult);
+
+  // Build AI Review Status (summary)
+  const aiReview = buildAIReviewStatus(openaiResult, xaiResult, consensus);
+
+  // Build per-field AI reviews for trend analysis
+  const fieldAIReviews = buildFieldAIReviews(openaiResult, xaiResult, consensus);
+
+  // Calculate score breakdown for transparency
+  // Exclude generated text fields from the disagreement count (they naturally differ)
+  const generatedTextFields = new Set([
+    'description', 'product_title', 'details', 'features_list', 
+    'category_subcategory', 'material'
+  ]);
+  
+  const totalAgreedFields = Object.keys(consensus.agreedPrimaryAttributes).length + 
+    Object.keys(consensus.agreedTop15Attributes).length + 
+    Object.keys(consensus.agreedAdditionalAttributes).length;
+  
+  const factualDisagreements = consensus.disagreements.filter(d => 
+    !generatedTextFields.has(d.field.toLowerCase())
+  );
+  const unresolvedCount = factualDisagreements.filter(d => d.resolution === 'unresolved').length;
+  const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
+  
+  // Category bonus applies if we have a final agreed category (even after cross-validation)
+  const hasFinalCategory = consensus.agreedCategory && consensus.agreedCategory.length > 0;
+
+  // Build data sources list based on what was actually used
+  const dataSources: string[] = ['OpenAI', 'xAI'];
+  if (dataSourceAnalysis?.hasWebRetailerData) dataSources.push('Web_Retailer');
+  if (dataSourceAnalysis?.hasFergusonData) dataSources.push('Ferguson');
+  if (didResearch) dataSources.push('External_Research');
+
+  // Check if model mismatch was detected - this is a critical data quality indicator
+  const modelMismatchDetected = dataSourceAnalysis?.modelValidation && !dataSourceAnalysis.modelValidation.isExactMatch;
+  const modelMismatchWarning = modelMismatchDetected ? {
+    warning: 'MODEL_NUMBER_MISMATCH',
+    requested_model: dataSourceAnalysis.modelValidation?.requestedModel,
+    found_model: dataSourceAnalysis.modelValidation?.foundModel,
+    reason: dataSourceAnalysis.modelValidation?.mismatchReason,
+    impact: 'External data may be from a different product variant. Color, finish, and variant-specific attributes may be inaccurate.'
+  } : undefined;
+
+  const verification: VerificationMetadata = {
+    verification_timestamp: new Date().toISOString(),
+    verification_session_id: sessionId,
+    verification_score: Math.round(consensus.overallConfidence * 100),
+    verification_status: status,
+    data_sources_used: dataSources,
+    corrections_made: corrections,
+    missing_fields: consensus.needsResearch.map(field => 
+      didResearch ? `${field} (researched - ${FIELD_NOT_FOUND})` : field
+    ),
+    confidence_scores: {
+      openai: openaiResult.confidence,
+      xai: xaiResult.confidence,
+      consensus: consensus.overallConfidence,
+      category: Math.max(openaiResult.categoryConfidence, xaiResult.categoryConfidence)
+    },
+    score_breakdown: {
+      ai_confidence_component: Math.round(((openaiResult.confidence + xaiResult.confidence) / 2) * 50),
+      agreement_component: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 40),
+      category_bonus: hasFinalCategory ? 10 : 0,
+      fields_agreed: totalAgreedFields,
+      fields_disagreed: unresolvedCount,
+      total_fields: totalFieldsAnalyzed,
+      agreement_percentage: Math.round((totalAgreedFields / Math.max(1, totalFieldsAnalyzed)) * 100),
+      text_fields_excluded: consensus.disagreements.length - factualDisagreements.length,
+      disagreement_details: factualDisagreements.slice(0, 5).map(d => ({
+        field: d.field,
+        openai: String(d.openaiValue).substring(0, 50),
+        xai: String(d.xaiValue).substring(0, 50)
+      })),
+      // New: Data source analysis info
+      data_source_scenario: dataSourceAnalysis?.scenario || 'unknown',
+      research_performed: didResearch,
+      research_attempts: researchAttempts || 0,
+      urls_scraped: dataSourceAnalysis?.availableUrls.length || 0,
+      documents_analyzed: dataSourceAnalysis?.availableDocuments.length || 0,
+      images_analyzed: dataSourceAnalysis?.availableImages.length || 0,
+      // Model match validation
+      external_data_trusted: dataSourceAnalysis?.externalDataTrusted ?? true,
+      model_mismatch_warning: modelMismatchWarning
+    }
+  };
+
+  // Log model mismatch warning if detected
+  if (modelMismatchDetected) {
+    logger.warn('RESPONSE INCLUDES MODEL MISMATCH WARNING', {
+      sessionId,
+      ...modelMismatchWarning,
+      sf_catalog_id: rawProduct.SF_Catalog_Id
+    });
+  }
+
+  // Log picklist requests summary
+  const totalPicklistRequests = attributeRequests.length + brandRequests.length + categoryRequests.length + styleRequests.length;
+  if (totalPicklistRequests > 0) {
+    logger.info('Picklist requests generated for Salesforce', {
+      total: totalPicklistRequests,
+      attributes: attributeRequests.length,
+      brands: brandRequests.length,
+      categories: categoryRequests.length,
+      styles: styleRequests.length
+    });
+  }
+
+  // Record to Catalog Intelligence Index (async, don't wait)
+  catalogIndexService.recordVerification({
+    sf_catalog_id: rawProduct.SF_Catalog_Id,
+    model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
+    brand: primaryAttributes.AI_Brand || '',
+    brand_id: getSafeId(primaryAttributes.AI_Brand_Lookup),  // Filter out placeholder IDs
+    category: primaryAttributes.AI_Product_Category || '',
+    category_id: getSafeId(primaryAttributes.AI_Product_Category_Lookup),  // Filter out placeholder IDs
+    department: primaryAttributes.AI_Product_Department || '',
+    family: primaryAttributes.AI_Product_Family || '',
+    // subcategory removed - was redundant with category
+    style: primaryAttributes.AI_Style || '',
+    style_id: getSafeId(primaryAttributes.AI_Style_Lookup),  // Filter out placeholder IDs
+    attributes: {
+      ...topFilterAttributes,
+      color: primaryAttributes.AI_Color,
+      width: primaryAttributes.AI_Width,
+      height: primaryAttributes.AI_Height,
+      depth: primaryAttributes.AI_Depth
+    },
+    confidence_score: consensus.overallConfidence,
+    openai_category: openaiResult.primaryAttributes?.category || '',
+    openai_style: openaiResult.primaryAttributes?.product_style || '',
+    xai_category: xaiResult.primaryAttributes?.category || '',
+    xai_style: xaiResult.primaryAttributes?.product_style || ''
+  }).catch(err => {
+    logger.error('Failed to record to catalog index', { error: err });
+  });
+
+  // Sanitize all attribute objects to prevent SF JSON parsing errors
+  // SF Apex deserializer fails on "N/A (Regulation does not apply)" type values
+  const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
+  const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
+  
+  // Filter out any Style_Requests with N/A values AND styles that already exist in picklist
+  // This prevents duplicate style creation in Salesforce
+  const filteredStyleRequests = styleRequests.filter(req => {
+    // Skip N/A values
+    if (!req.style_name || isNAValue(req.style_name)) {
+      return false;
+    }
+    // Skip if style already exists in picklist (final safety check)
+    if (picklistMatcher.styleExistsByName(req.style_name)) {
+      logger.info('Filtering out style request - style already exists in picklist', {
+        style: req.style_name,
+        category: req.suggested_for_category
+      });
+      return false;
+    }
+    return true;
+  });
+
+  // Track all creation requests for visibility and duplicate prevention
+  // Fire-and-forget: don't block the response
+  trackCreationRequests(
+    rawProduct,
+    sessionId,
+    brandRequests,
+    categoryRequests,
+    filteredStyleRequests,
+    attributeRequests
+  ).catch(err => {
+    logger.error('Failed to track creation requests', { error: err.message });
+  });
+
+  // Build research transparency to show what was analyzed from each resource
+  // Now includes the final web search results as well
+  const researchTransparency = buildResearchTransparency(researchResult, finalSearchResult);
+
+  // Build Research Attestation Summary - tracks "Procurement No Results" usage
+  const researchAttestationSummary = buildResearchAttestationSummary(
+    topFilterAttributes,
+    sanitizedPrimaryAttributes,
+    didResearch,
+    openaiResult,
+    xaiResult,
+    researchResult,
+    finalSearchResult
+  );
+
+  // Build Received Attributes Confirmation - Track all incoming attributes from Salesforce
+  // This shows SF which attributes we received, processed, and where they ended up in the response
+  const receivedAttributesConfirmation = buildReceivedAttributesConfirmation(
+    rawProduct,
+    topFilterAttributes,
+    consensus.agreedAdditionalAttributes
+  );
+
+  // Build Appliance Features (Appliances department only)
+  const applianceFeatures = buildApplianceFeatures(
+    sanitizedPrimaryAttributes.AI_Product_Department,
+    consensus.agreedCategory,
+    String(topFilterAttributes['installation_type'] || topFilterAttributes['Installation_Type'] || ''),
+    String(topFilterAttributes['fuel_type'] || topFilterAttributes['Fuel_Type'] || ''),
+    rawProduct,
+    topFilterAttributes,
+    sanitizedPrimaryAttributes
+  );
+
+  // ═══════════════════════════════════════════════════════════════
+  // FINAL REVIEW STAGE - Post-Consensus Validation & Cross-Check
+  // ═══════════════════════════════════════════════════════════════
+  // Execute final validation before sending to Salesforce
+  // This catches systematic errors where both AIs might agree on the wrong answer
+  
+  const finalReviewResult = await executeFinalReviewStage(
+    consensus,
+    sanitizedPrimaryAttributes,
+    sanitizedTopFilterAttributes,
+    seoTitle,
+    rawProduct,
+    sessionId
+  );
+
+  // Add final review metadata to verification object
+  const finalReviewMetadata = {
+    final_review_performed: true,
+    final_review_status: finalReviewResult.finalStatus,
+    phase_a_confidence: finalReviewResult.phaseAResult.confidence,
+    phase_b_performed: !!finalReviewResult.phaseBResult,
+    phase_b_confidence: finalReviewResult.phaseBResult?.confidenceInResults,
+    corrections_applied: finalReviewResult.correctionsApplied.length,
+    issues_flagged: finalReviewResult.flaggedForReview.length,
+    validation_issues: finalReviewResult.flaggedForReview.map(issue => ({
+      severity: issue.severity,
+      field: issue.field,
+      issue: issue.issue,
+      current_value: String(issue.currentValue).substring(0, 50)
+    }))
+  };
+
+  // Determine final verification status
+  let finalVerificationStatus = status;
+  if (finalReviewResult.finalStatus === 'FAIL') {
+    finalVerificationStatus = 'needs_review';
+    logger.warn('🔴 FINAL REVIEW: Validation failed - downgrading status to needs_review', {
+      sessionId,
+      correctionsApplied: finalReviewResult.correctionsApplied.length,
+      issuesFlagged: finalReviewResult.flaggedForReview.length
+    });
+  }
+
+  return {
+    SF_Catalog_Id: rawProduct.SF_Catalog_Id,
+    SF_Catalog_Name: rawProduct.SF_Catalog_Name,
+    Primary_Attributes: sanitizedPrimaryAttributes,
+    Top_Filter_Attributes: sanitizedTopFilterAttributes,
+    Top_Filter_Attribute_Ids: topFilterAttributeIds,
+    ...(applianceFeatures && { Appliance_Features: applianceFeatures }),
+    Additional_Attributes_HTML: additionalHtml,
+    Price_Analysis: priceAnalysis,
+    Media: mediaAssets,
+    Reference_Links: referenceLinks,
+    Documents: documentsSection,
+    Research_Analysis: researchTransparency,
+    Research_Attestation: researchAttestationSummary,
+    Received_Attributes_Confirmation: receivedAttributesConfirmation,
+    Field_AI_Reviews: fieldAIReviews,
+    AI_Review: aiReview,
+    Verification: verification,
+    // Picklist Requests - SF adds these options then calls /api/picklists/sync to update us
+    Attribute_Requests: attributeRequests,
+    Brand_Requests: brandRequests,
+    Category_Requests: categoryRequests,
+    Style_Requests: filteredStyleRequests,
+    Status: finalVerificationStatus === 'verified' ? 'success' : finalVerificationStatus === 'needs_review' ? 'partial' : 'failed',
+    // @ts-expect-error: Final_Review is an extension field not in base interface
+    Final_Review: finalReviewMetadata
+  };
+}
+
+/**
+ * Build AI Review Status showing each AI's review and consensus
+ */
+function buildAIReviewStatus(
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  consensus: ConsensusResult
+): AIReviewStatus {
+  // Determine OpenAI result
+  const openaiReview: AIProviderReview = {
+    reviewed: openaiResult.success,
+    result: !openaiResult.success ? 'error' : 
+            consensus.overallConfidence >= 0.85 ? 'agreed' :
+            consensus.overallConfidence >= 0.6 ? 'partial' : 'disagreed',
+    confidence: Math.round(openaiResult.confidence * 100),
+    fields_verified: Object.keys(openaiResult.primaryAttributes || {}).length + 
+                     Object.keys(openaiResult.top15Attributes || {}).length,
+    fields_corrected: openaiResult.corrections.length,
+    error_message: openaiResult.success ? undefined : 'AI analysis failed'
+  };
+
+  // Determine xAI result
+  const xaiReview: AIProviderReview = {
+    reviewed: xaiResult.success,
+    result: !xaiResult.success ? 'error' :
+            consensus.overallConfidence >= 0.85 ? 'agreed' :
+            consensus.overallConfidence >= 0.6 ? 'partial' : 'disagreed',
+    confidence: Math.round(xaiResult.confidence * 100),
+    fields_verified: Object.keys(xaiResult.primaryAttributes || {}).length + 
+                     Object.keys(xaiResult.top15Attributes || {}).length,
+    fields_corrected: xaiResult.corrections.length,
+    error_message: xaiResult.success ? undefined : 'AI analysis failed'
+  };
+
+  // Determine consensus status
+  const bothReviewed = openaiResult.success && xaiResult.success;
+  let agreementStatus: 'full_agreement' | 'partial_agreement' | 'disagreement' | 'single_source' | 'no_review';
+  let finalArbiter: 'openai' | 'xai' | 'consensus' | 'manual_review_needed' | undefined;
+
+  if (!openaiResult.success && !xaiResult.success) {
+    agreementStatus = 'no_review';
+    finalArbiter = 'manual_review_needed';
+  } else if (!bothReviewed) {
+    agreementStatus = 'single_source';
+    finalArbiter = openaiResult.success ? 'openai' : 'xai';
+  } else if (consensus.overallConfidence >= 0.85) {
+    agreementStatus = 'full_agreement';
+    finalArbiter = 'consensus';
+  } else if (consensus.overallConfidence >= 0.6) {
+    agreementStatus = 'partial_agreement';
+    finalArbiter = 'consensus';
+  } else {
+    agreementStatus = 'disagreement';
+    finalArbiter = 'manual_review_needed';
+  }
+
+  return {
+    openai: openaiReview,
+    xai: xaiReview,
+    consensus: {
+      both_reviewed: bothReviewed,
+      agreement_status: agreementStatus,
+      agreement_percentage: Math.round(consensus.overallConfidence * 100),
+      final_arbiter: finalArbiter
+    }
+  };
+}
+
+/**
+ * Build per-field AI reviews for tracking individual field success
+ */
+function buildFieldAIReviews(
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult,
+  consensus: ConsensusResult
+): FieldAIReviews {
+  const fieldReviews: FieldAIReviews = {};
+
+  // Helper to compare values and determine consensus
+  const buildFieldReview = (
+    _fieldName: string,
+    openaiValue: any,
+    xaiValue: any,
+    finalValue: any
+  ): FieldAIReview => {
+    const openaiHasValue = openaiValue !== null && openaiValue !== undefined && openaiValue !== '';
+    const xaiHasValue = xaiValue !== null && xaiValue !== undefined && xaiValue !== '';
+    
+    // Normalize for comparison
+    const normalizeValue = (v: any) => String(v || '').toLowerCase().trim();
+    const valuesMatch = normalizeValue(openaiValue) === normalizeValue(xaiValue);
+    
+    let consensusStatus: 'agreed' | 'partial' | 'disagreed' | 'single_source';
+    let source: 'both_agreed' | 'openai_selected' | 'xai_selected' | 'averaged' | 'manual_needed';
+    
+    if (openaiHasValue && xaiHasValue) {
+      if (valuesMatch) {
+        consensusStatus = 'agreed';
+        source = 'both_agreed';
+      } else {
+        // Check if final value matches either
+        const finalNorm = normalizeValue(finalValue);
+        if (finalNorm === normalizeValue(openaiValue)) {
+          consensusStatus = 'partial';
+          source = 'openai_selected';
+        } else if (finalNorm === normalizeValue(xaiValue)) {
+          consensusStatus = 'partial';
+          source = 'xai_selected';
+        } else {
+          consensusStatus = 'disagreed';
+          source = 'manual_needed';
+        }
+      }
+    } else if (openaiHasValue) {
+      consensusStatus = 'single_source';
+      source = 'openai_selected';
+    } else if (xaiHasValue) {
+      consensusStatus = 'single_source';
+      source = 'xai_selected';
+    } else {
+      consensusStatus = 'disagreed';
+      source = 'manual_needed';
+    }
+
+    return {
+      openai: {
+        value: openaiValue ?? null,
+        agreed: valuesMatch || !xaiHasValue,
+        confidence: openaiHasValue ? Math.round(openaiResult.confidence * 100) : 0
+      },
+      xai: {
+        value: xaiValue ?? null,
+        agreed: valuesMatch || !openaiHasValue,
+        confidence: xaiHasValue ? Math.round(xaiResult.confidence * 100) : 0
+      },
+      consensus: consensusStatus,
+      source: source,
+      final_value: finalValue ?? null
+    };
+  };
+
+  // Build reviews for primary attributes
+  const primaryFields = Object.keys(consensus.agreedPrimaryAttributes);
+  for (const field of primaryFields) {
+    fieldReviews[field] = buildFieldReview(
+      field,
+      openaiResult.primaryAttributes?.[field],
+      xaiResult.primaryAttributes?.[field],
+      consensus.agreedPrimaryAttributes[field]
+    );
+  }
+
+  // Build reviews for top 15 attributes
+  const top15Fields = Object.keys(consensus.agreedTop15Attributes);
+  for (const field of top15Fields) {
+    fieldReviews[field] = buildFieldReview(
+      field,
+      openaiResult.top15Attributes?.[field],
+      xaiResult.top15Attributes?.[field],
+      consensus.agreedTop15Attributes[field]
+    );
+  }
+
+  // Add category as a tracked field
+  fieldReviews['category'] = buildFieldReview(
+    'category',
+    openaiResult.determinedCategory,
+    xaiResult.determinedCategory,
+    consensus.agreedCategory
+  );
+
+  return fieldReviews;
+}
+
+function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysis {
+  const parsePrice = (val: string | number | undefined | null): number => {
+    if (val === null || val === undefined) return 0;
+    if (typeof val === 'number') return val;
+    return parseFloat(String(val).replace(/[^0-9.]/g, '')) || 0;
+  };
+
+  return {
+    msrp_web_retailer: parsePrice(rawProduct.MSRP_Web_Retailer),
+    msrp_ferguson: parsePrice(rawProduct.Ferguson_Price),
+  };
+}
+
+function determineStatus(consensus: ConsensusResult, openaiResult: AIAnalysisResult, xaiResult: AIAnalysisResult): 'verified' | 'needs_review' | 'failed' {
+  if (!openaiResult.success && !xaiResult.success) return 'failed';
+  if (consensus.overallConfidence >= 0.85) return 'verified';  // 85%+ confidence = verified (even with minor disagreements)
+  if (consensus.overallConfidence >= 0.6) return 'needs_review';
+  return 'failed';
+}
+
+/**
+ * Build Media Assets section from incoming product images
+ * Uses AI recommendation for primary image if available
+ */
+function buildMediaAssets(
+  rawProduct: SalesforceIncomingProduct,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): {
+  Primary_Image_URL: string;
+  All_Image_URLs: string[];
+  Image_Count: number;
+  AI_Recommended_Primary?: number;
+  Recommendation_Reason?: string;
+} {
+  const stockImages = rawProduct.Stock_Images || [];
+  const imageUrls = stockImages.map(img => img.url).filter(url => url && url.trim() !== '');
+  
+  // Use AI-recommended primary image if both AIs agree, or use higher confidence recommendation
+  let primaryIndex = 0; // Default to first image
+  let recommendationReason: string | undefined;
+  
+  const openaiIndex = openaiResult.primaryImageIndex;
+  const xaiIndex = xaiResult.primaryImageIndex;
+  
+  if (openaiIndex !== undefined && xaiIndex !== undefined) {
+    if (openaiIndex === xaiIndex) {
+      // Both AIs agree - use their recommendation
+      primaryIndex = openaiIndex;
+      recommendationReason = openaiResult.primaryImageReason || xaiResult.primaryImageReason || 'Both AIs agreed';
+      logger.info('Using AI-recommended primary image (consensus)', { 
+        index: primaryIndex, 
+        reason: recommendationReason 
+      });
+    } else {
+      // AIs disagree - use higher confidence AI's recommendation
+      primaryIndex = openaiResult.confidence >= xaiResult.confidence ? openaiIndex : xaiIndex;
+      recommendationReason = openaiResult.confidence >= xaiResult.confidence 
+        ? openaiResult.primaryImageReason 
+        : xaiResult.primaryImageReason;
+      logger.info('Using AI-recommended primary image (higher confidence)', { 
+        index: primaryIndex, 
+        selectedAI: openaiResult.confidence >= xaiResult.confidence ? 'OpenAI' : 'xAI',
+        reason: recommendationReason 
+      });
+    }
+  } else if (openaiIndex !== undefined) {
+    primaryIndex = openaiIndex;
+    recommendationReason = openaiResult.primaryImageReason;
+  } else if (xaiIndex !== undefined) {
+    primaryIndex = xaiIndex;
+    recommendationReason = xaiResult.primaryImageReason;
+  }
+  
+  // Validate index is within bounds
+  if (primaryIndex < 0 || primaryIndex >= imageUrls.length) {
+    logger.warn('AI-recommended image index out of bounds, using first image', {
+      recommendedIndex: primaryIndex,
+      availableImages: imageUrls.length
+    });
+    primaryIndex = 0;
+  }
+  
+  return {
+    Primary_Image_URL: imageUrls.length > 0 ? imageUrls[primaryIndex] : '',
+    All_Image_URLs: imageUrls,
+    Image_Count: imageUrls.length,
+    AI_Recommended_Primary: (openaiIndex !== undefined || xaiIndex !== undefined) ? primaryIndex : undefined,
+    Recommendation_Reason: recommendationReason,
+  };
+}
+
+/**
+ * Build Reference Links section from incoming product URLs
+ */
+function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
+  Ferguson_URL: string;
+  Web_Retailer_URL: string;
+  Manufacturer_URL: string;
+} {
+  return {
+    Ferguson_URL: rawProduct.Ferguson_URL || '',
+    Web_Retailer_URL: rawProduct.Reference_URL || '',
+    Manufacturer_URL: '', // Could be extracted from documents
+  };
+}
+
+/**
+ * Build Appliance Features section (Appliances department only)
+ * Determines standard appliance features based on product data and category
+ * 
+ * @param department - Product department (e.g., "Appliances")
+ * @param category - Product category (e.g., "Oven", "Refrigerator")
+ * @param installationType - Installation type from attributes
+ * @param fuelType - Fuel type from attributes (for fuel_gas/fuel_electric)
+ * @param rawProduct - Raw product data for analysis
+ * @param topFilterAttributes - Top filter attributes with voltage and other specs
+ * @param primaryAttributes - Primary attributes for reference
+ * @returns ApplianceFeatures object or undefined if not Appliances department
+ */
+function buildApplianceFeatures(
+  department: string | undefined,
+  category: string | null | undefined,
+  installationType: string | undefined,
+  fuelType: string | undefined,
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes,
+  primaryAttributes: PrimaryDisplayAttributes
+): import('../types/salesforce.types').ApplianceFeatures | undefined {
+  // Only for Appliances department
+  if (!department || department.toLowerCase() !== 'appliances') {
+    return undefined;
+  }
+
+  const categoryLower = category?.toLowerCase() || '';
+  const installLower = installationType?.toLowerCase() || '';
+  const fuelLower = fuelType?.toLowerCase() || '';
+  
+  // Combine title and description for analysis
+  const combinedText = (
+    (primaryAttributes.AI_Product_Title || '') + ' ' +
+    (rawProduct.Product_Title_Web_Retailer || '') + ' ' +
+    (rawProduct.Product_Description_Web_Retailer || '') + ' ' +
+    (rawProduct.Ferguson_Description || '')
+  ).toLowerCase();
+
+  // Determine built_in (ONLY for Oven and Refrigerator categories)
+  let built_in = false;
+  if (categoryLower === 'oven') {
+    built_in = (
+      installLower.includes('built-in') ||
+      installLower.includes('built in') ||
+      installLower.includes('wall') ||
+      combinedText.includes('built-in') ||
+      combinedText.includes('built in oven') ||
+      combinedText.includes('wall oven')
+    );
+  } else if (categoryLower === 'refrigerator') {
+    built_in = (
+      installLower.includes('built-in') ||
+      installLower.includes('built in') ||
+      combinedText.includes('built-in refrigerator') ||
+      combinedText.includes('built in refrigerator')
+    );
+  }
+  // For all other categories (range, dishwasher, etc.), built_in remains false
+
+  // Determine panel_ready
+  const panel_ready = (
+    installLower.includes('panel ready') ||
+    installLower.includes('panel-ready') ||
+    combinedText.includes('panel ready') ||
+    combinedText.includes('panel-ready') ||
+    combinedText.includes('custom panel')
+  );
+
+  // Determine standard_depth (not counter-depth)
+  const is_counter_depth = (
+    installLower.includes('counter-depth') ||
+    installLower.includes('counter depth') ||
+    combinedText.includes('counter-depth') ||
+    combinedText.includes('counter depth')
+  );
+  const standard_depth = !is_counter_depth;
+
+  // Determine full_depth (same as standard_depth for most cases)
+  const full_depth = standard_depth;
+
+  // Determine voltage (check attributes and specs)
+  let voltage_120v = false;
+  let voltage_240v = false;
+  
+  // Check top filter attributes for voltage
+  const voltageAttr = String(topFilterAttributes['voltage'] || topFilterAttributes['volts'] || '').toLowerCase();
+  if (voltageAttr.includes('120') || voltageAttr.includes('115')) {
+    voltage_120v = true;
+  }
+  if (voltageAttr.includes('240') || voltageAttr.includes('220') || voltageAttr.includes('230')) {
+    voltage_240v = true;
+  }
+  
+  // Check in combined text
+  if (combinedText.includes('120v') || combinedText.includes('120 v') || combinedText.includes('115v')) {
+    voltage_120v = true;
+  }
+  if (combinedText.includes('240v') || combinedText.includes('240 v') || combinedText.includes('220v') || combinedText.includes('230v')) {
+    voltage_240v = true;
+  }
+  
+  // Default voltage assumptions by category if not specified
+  if (!voltage_120v && !voltage_240v) {
+    // High-power appliances typically use 240V
+    if (['range', 'oven', 'cooktop', 'dryer', 'water heater'].includes(categoryLower)) {
+      voltage_240v = true;
+    }
+    // Lower-power appliances typically use 120V
+    else if (['dishwasher', 'microwave', 'freezer', 'refrigerator', 'washer'].includes(categoryLower)) {
+      voltage_120v = true;
+    }
+  }
+
+  // Determine fuel type
+  let fuel_gas = false;
+  let fuel_electric = false;
+  
+  if (fuelLower.includes('gas') || fuelLower.includes('natural gas') || fuelLower.includes('propane')) {
+    fuel_gas = true;
+  }
+  if (fuelLower.includes('electric') || fuelLower.includes('induction')) {
+    fuel_electric = true;
+  }
+  if (fuelLower.includes('dual fuel') || fuelLower.includes('dual-fuel')) {
+    fuel_gas = true;
+    fuel_electric = true;
+  }
+  
+  // Check in combined text if not determined from fuel type
+  if (!fuel_gas && !fuel_electric) {
+    if (combinedText.includes('gas range') || combinedText.includes('gas cooktop') || combinedText.includes('gas oven')) {
+      fuel_gas = true;
+    }
+    if (combinedText.includes('electric range') || combinedText.includes('electric cooktop') || combinedText.includes('electric oven') || combinedText.includes('induction')) {
+      fuel_electric = true;
+    }
+  }
+
+  return {
+    built_in,
+    panel_ready,
+    standard_depth,
+    full_depth,
+    voltage_120v,
+    voltage_240v,
+    fuel_gas,
+    fuel_electric
+  };
+}
+
+/**
+ * Build Documents Section using AI evaluations from both providers
+ * Merges OpenAI and xAI document evaluations, preferring consensus or higher confidence
+ */
+function buildDocumentsSection(
+  rawProduct: SalesforceIncomingProduct,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): {
+  total_count: number;
+  recommended_count: number;
+  documents: Array<{
+    url: string;
+    name?: string;
+    type?: string;
+    ai_recommendation: 'use' | 'skip' | 'review';
+    relevance_score: number;
+    reason: string;
+    extracted_info?: string;
+    openai_eval?: { recommendation: string; score: number; reason: string };
+    xai_eval?: { recommendation: string; score: number; reason: string };
+  }>;
+} {
+  const incomingDocs = rawProduct.Documents || [];
+  const openaiEvals = openaiResult.documentEvaluations || [];
+  const xaiEvals = xaiResult.documentEvaluations || [];
+  
+  // Build lookup maps by URL
+  const openaiMap = new Map(openaiEvals.map(e => [e.url, e]));
+  const xaiMap = new Map(xaiEvals.map(e => [e.url, e]));
+  
+  const documents = incomingDocs.map(doc => {
+    const openaiEval = openaiMap.get(doc.url);
+    const xaiEval = xaiMap.get(doc.url);
+    
+    // If neither AI evaluated this document, mark as review
+    if (!openaiEval && !xaiEval) {
+      return {
+        url: doc.url,
+        name: doc.name,
+        type: doc.type,
+        ai_recommendation: 'review' as const,
+        relevance_score: 0,
+        reason: 'Not evaluated by AI',
+        extracted_info: undefined,
+      };
+    }
+    
+    // If both AIs evaluated, use consensus or higher confidence
+    let finalRecommendation: 'use' | 'skip' | 'review';
+    let finalScore: number;
+    let finalReason: string;
+    let extractedInfo: string[] = [];
+    
+    if (openaiEval && xaiEval) {
+      // Both evaluated - check for consensus
+      if (openaiEval.recommendation === xaiEval.recommendation) {
+        finalRecommendation = openaiEval.recommendation;
+        finalScore = Math.max(openaiEval.relevanceScore, xaiEval.relevanceScore);
+        finalReason = `Both AIs agree: ${openaiEval.reason}`;
+        extractedInfo = [...(openaiEval.extractedInfo || []), ...(xaiEval.extractedInfo || [])];
+      } else {
+        // Disagreement - use higher scoring evaluation
+        const useOpenAI = openaiEval.relevanceScore >= xaiEval.relevanceScore;
+        finalRecommendation = useOpenAI ? openaiEval.recommendation : xaiEval.recommendation;
+        finalScore = Math.max(openaiEval.relevanceScore, xaiEval.relevanceScore);
+        finalReason = useOpenAI 
+          ? `OpenAI (${openaiEval.relevanceScore}): ${openaiEval.reason}` 
+          : `xAI (${xaiEval.relevanceScore}): ${xaiEval.reason}`;
+        extractedInfo = useOpenAI 
+          ? (openaiEval.extractedInfo || []) 
+          : (xaiEval.extractedInfo || []);
+      }
+    } else {
+      // Only one AI evaluated
+      const singleEval = openaiEval || xaiEval!;
+      finalRecommendation = singleEval.recommendation;
+      finalScore = singleEval.relevanceScore;
+      finalReason = singleEval.reason;
+      extractedInfo = singleEval.extractedInfo || [];
+    }
+    
+    return {
+      url: doc.url,
+      name: doc.name,
+      type: doc.type,
+      ai_recommendation: finalRecommendation,
+      relevance_score: finalScore,
+      reason: finalReason,
+      extracted_info: extractedInfo.length > 0 ? extractedInfo.join('; ') : undefined,
+      openai_eval: openaiEval ? {
+        recommendation: openaiEval.recommendation,
+        score: openaiEval.relevanceScore,
+        reason: openaiEval.reason
+      } : undefined,
+      xai_eval: xaiEval ? {
+        recommendation: xaiEval.recommendation,
+        score: xaiEval.relevanceScore,
+        reason: xaiEval.reason
+      } : undefined,
+    };
+  });
+  
+  const recommendedCount = documents.filter(d => d.ai_recommendation === 'use').length;
+  
+  logger.info('Document evaluation summary', {
+    totalDocuments: documents.length,
+    recommendedCount,
+    skippedCount: documents.filter(d => d.ai_recommendation === 'skip').length,
+    reviewCount: documents.filter(d => d.ai_recommendation === 'review').length,
+  });
+  
+  return {
+    total_count: documents.length,
+    recommended_count: recommendedCount,
+    documents,
+  };
+}
+
+function buildErrorResponse(rawProduct: SalesforceIncomingProduct, sessionId: string, error: unknown): SalesforceVerificationResponse {
+  const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+  return {
+    SF_Catalog_Id: rawProduct.SF_Catalog_Id,
+    SF_Catalog_Name: rawProduct.SF_Catalog_Name,
+    Primary_Attributes: {} as PrimaryDisplayAttributes,
+    Top_Filter_Attributes: {},
+    Top_Filter_Attribute_Ids: {},
+    Additional_Attributes_HTML: '',
+    Price_Analysis: {
+      msrp_web_retailer: 0,
+      msrp_ferguson: 0,
+    },
+    Media: {
+      Primary_Image_URL: '',
+      All_Image_URLs: [],
+      Image_Count: 0,
+    },
+    Reference_Links: {
+      Ferguson_URL: '',
+      Web_Retailer_URL: '',
+      Manufacturer_URL: '',
+    },
+    Documents: {
+      total_count: 0,
+      recommended_count: 0,
+      documents: [],
+    },
+    Field_AI_Reviews: {},
+    AI_Review: {
+      openai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      xai: {
+        reviewed: false,
+        result: 'error',
+        confidence: 0,
+        fields_verified: 0,
+        fields_corrected: 0,
+        error_message: errorMessage
+      },
+      consensus: {
+        both_reviewed: false,
+        agreement_status: 'no_review',
+        agreement_percentage: 0,
+        final_arbiter: 'manual_review_needed'
+      }
+    },
+    Verification: {
+      verification_timestamp: new Date().toISOString(),
+      verification_session_id: sessionId,
+      verification_score: 0,
+      verification_status: 'failed',
+      data_sources_used: [],
+      corrections_made: [],
+      missing_fields: [],
+      confidence_scores: {}
+    },
+    Attribute_Requests: [],
+    Brand_Requests: [],
+    Category_Requests: [],
+    Style_Requests: [],
+    Status: 'failed',
+    Error_Message: errorMessage
+  };
+}
+
+/**
+ * Track field population rates for analytics
+ */
+async function trackFieldPopulation(
+  finalResponse: SalesforceVerificationResponse,
+  category: string,
+  openaiResult: AIAnalysisResult,
+  xaiResult: AIAnalysisResult
+): Promise<void> {
+  try {
+    // Track primary attributes
+    for (const [field, value] of Object.entries(finalResponse.Primary_Attributes)) {
+      const aiProvided = !!(openaiResult.primaryAttributes[field] || xaiResult.primaryAttributes[field]);
+      const populated = !!(value && value !== '' && value !== null);
+      
+      await FieldAnalytics.updateOne(
+        { field_name: field, category, field_type: 'primary' },
+        {
+          $inc: {
+            total_calls: 1,
+            populated_count: populated ? 1 : 0,
+            ai_provided_count: aiProvided ? 1 : 0,
+            fallback_used_count: (populated && !aiProvided) ? 1 : 0,
+            missing_count: populated ? 0 : 1
+          }
+        },
+        { upsert: true }
+      );
+    }
+    
+    // Track top filter attributes
+    for (const [field, value] of Object.entries(finalResponse.Top_Filter_Attributes)) {
+      const aiProvided = !!(openaiResult.top15Attributes[field] || xaiResult.top15Attributes[field]);
+      const populated = !!(value && value !== '' && value !== null);
+      
+      await FieldAnalytics.updateOne(
+        { field_name: field, category, field_type: 'top_filter' },
+        {
+          $inc: {
+            total_calls: 1,
+            populated_count: populated ? 1 : 0,
+            ai_provided_count: aiProvided ? 1 : 0,
+            fallback_used_count: (populated && !aiProvided) ? 1 : 0,
+            missing_count: populated ? 0 : 1
+          }
+        },
+        { upsert: true }
+      );
+    }
+    
+    logger.debug('Field population tracked', { category, fields: Object.keys(finalResponse.Primary_Attributes).length });
+  } catch (error) {
+    logger.error('Failed to track field population', { error });
+  }
+}
+
+/**
+ * Track response quality for all fields to identify inconclusive responses
+ */
+async function trackResponseQuality(
+  sessionId: string,
+  rawProduct: SalesforceIncomingProduct,
+  category: string,
+  openaiResult: any,
+  xaiResult: any,
+  consensus: any,
+  dataSourceAnalysis: any
+): Promise<void> {
+  try {
+    // Determine what data sources were available
+    const dataSourcesAvailable: string[] = [];
+    if (dataSourceAnalysis.hasFergusonData) dataSourcesAvailable.push('ferguson');
+    if (dataSourceAnalysis.hasWebData) dataSourcesAvailable.push('web_retailer');
+    if (dataSourceAnalysis.hasDocuments) dataSourcesAvailable.push('documents');
+    if (dataSourceAnalysis.hasImages) dataSourcesAvailable.push('images');
+    
+    const promptIncludedResearch = dataSourceAnalysis.recommendResearch;
+    
+    // Track primary attributes
+    if (openaiResult.primaryAttributes || xaiResult.primaryAttributes) {
+      const allPrimaryFields = new Set([
+        ...Object.keys(openaiResult.primaryAttributes || {}),
+        ...Object.keys(xaiResult.primaryAttributes || {})
+      ]);
+      
+      for (const fieldName of allPrimaryFields) {
+        const openaiValue = openaiResult.primaryAttributes?.[fieldName];
+        const xaiValue = xaiResult.primaryAttributes?.[fieldName];
+        const consensusValue = consensus.agreedPrimaryAttributes?.[fieldName];
+        
+        await responseQualityService.trackFieldResponse({
+          sessionId,
+          verificationJobId: sessionId,
+          productId: rawProduct.SF_Catalog_Id || 'unknown',
+          sfCatalogId: rawProduct.SF_Catalog_Id,
+          category,
+          productStyle: undefined, // Determined by AI, not in source data
+          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
+          fieldName,
+          fieldType: 'primary',
+          expectedSource: 'free_text',
+          openaiValue: String(openaiValue || ''),
+          xaiValue: String(xaiValue || ''),
+          consensusValue: String(consensusValue || ''),
+          consensusReached: openaiValue === xaiValue,
+          promptIncludedResearch,
+          dataSourcesAvailable
+        });
+      }
+    }
+    
+    // Track top 15 filter attributes
+    if (openaiResult.top15Attributes || xaiResult.top15Attributes) {
+      const allFilterFields = new Set([
+        ...Object.keys(openaiResult.top15Attributes || {}),
+        ...Object.keys(xaiResult.top15Attributes || {})
+      ]);
+      
+      for (const fieldName of allFilterFields) {
+        const openaiValue = openaiResult.top15Attributes?.[fieldName];
+        const xaiValue = xaiResult.top15Attributes?.[fieldName];
+        const consensusValue = consensus.agreedTop15Attributes?.[fieldName];
+        
+        await responseQualityService.trackFieldResponse({
+          sessionId,
+          verificationJobId: sessionId,
+          productId: rawProduct.SF_Catalog_Id || 'unknown',
+          sfCatalogId: rawProduct.SF_Catalog_Id,
+          category,
+          productStyle: undefined, // Determined by AI, not in source data
+          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
+          fieldName,
+          fieldType: 'top_filter',
+          expectedSource: 'picklist',
+          openaiValue: String(openaiValue || ''),
+          xaiValue: String(xaiValue || ''),
+          consensusValue: String(consensusValue || ''),
+          consensusReached: openaiValue === xaiValue,
+          promptIncludedResearch,
+          dataSourcesAvailable
+        });
+      }
+    }
+    
+  } catch (error) {
+    logger.error('[ResponseQuality] Error tracking response quality:', error);
+    // Don't throw - this is non-critical tracking
+  }
+}
+
+/**
+ * Track creation requests sent to Salesforce for picklist items
+ * This enables:
+ * 1. Visibility into what's been requested from SF
+ * 2. Duplicate prevention in future jobs
+ * 3. Fulfillment matching when SF syncs back
+ */
+async function trackCreationRequests(
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string,
+  brandRequests: BrandRequest[],
+  categoryRequests: CategoryRequest[],
+  styleRequests: StyleRequest[],
+  attributeRequests: AttributeRequest[]
+): Promise<void> {
+  const jobReference = {
+    job_id: sessionId,
+    sf_catalog_id: rawProduct.SF_Catalog_Id || '',
+    model_number: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name || '',
+    requested_at: new Date()
+  };
+  
+  // Track brand requests
+  for (const req of brandRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'brand',
+      requestedValue: req.brand_name,
+      jobReference,
+      context: {
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Brand request already pending', {
+        brand: req.brand_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track category requests
+  for (const req of categoryRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'category',
+      requestedValue: req.category_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.suggested_department,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Category request already pending', {
+        category: req.category_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track style requests
+  for (const req of styleRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'style',
+      requestedValue: req.style_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.suggested_for_category,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Style request already pending', {
+        style: req.style_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  // Track attribute requests
+  for (const req of attributeRequests) {
+    const result = await pendingCreationRequestService.checkAndCreateRequest({
+      requestType: 'attribute',
+      requestedValue: req.attribute_name,
+      jobReference,
+      context: {
+        suggested_for_category: req.requested_for_category,
+        source: req.source,
+        reason: req.reason
+      }
+    });
+    
+    if (!result.shouldSendToSF) {
+      logger.info('[CreationTracker] Attribute request already pending', {
+        attribute: req.attribute_name,
+        existingRequestId: result.request?.request_id
+      });
+    }
+  }
+  
+  const totalTracked = brandRequests.length + categoryRequests.length + styleRequests.length + attributeRequests.length;
+  if (totalTracked > 0) {
+    logger.info('[CreationTracker] Tracked outbound requests', {
+      sessionId,
+      brands: brandRequests.length,
+      categories: categoryRequests.length,
+      styles: styleRequests.length,
+      attributes: attributeRequests.length
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FINAL REVIEW STAGE - Post-Consensus Validation & Cross-Check
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Severity levels for validation issues
+ */
+type ValidationSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+
+/**
+ * Individual validation issue
+ */
+interface ValidationIssue {
+  severity: ValidationSeverity;
+  field: string;
+  currentValue: any;
+  issue: string;
+  evidence?: string;
+  suggestedFix?: any;
+  ruleViolated?: string;
+}
+
+/**
+ * Automated validation result (Phase A)
+ */
+interface AutomatedValidationResult {
+  passed: boolean;
+  confidence: number; // 0-100
+  warnings: ValidationIssue[];
+  corrections: ValidationIssue[];
+  requiresAIReview: boolean;
+  checksPerformed: string[];
+}
+
+/**
+ * Claude review result (Phase B)
+ */
+interface ClaudeReviewResult {
+  reviewStatus: 'PASS' | 'FLAG' | 'FAIL';
+  confidenceInResults: number; // 0-100
+  issues: ValidationIssue[];
+  reasoning: string;
+  reviewDuration?: number;
+  proposedCorrections?: {
+    category: string | null;
+    department: string | null;
+    type: string | null;
+    style: string | null;
+    title: string | null;
+  } | null;
+}
+
+/**
+ * Final review complete result
+ */
+interface FinalReviewResult {
+  phaseAResult: AutomatedValidationResult;
+  phaseBResult?: ClaudeReviewResult;
+  finalStatus: 'PASS' | 'FLAG' | 'FAIL';
+  correctionsApplied: ValidationIssue[];
+  flaggedForReview: ValidationIssue[];
+}
+
+/**
+ * Phase A: Automated Rule-Based Validation
+ * Fast checks that don't require AI (5-10ms overhead)
+ */
+function performAutomatedValidation(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string
+): AutomatedValidationResult {
+  const warnings: ValidationIssue[] = [];
+  const corrections: ValidationIssue[] = [];
+  const checksPerformed: string[] = [];
+  let confidenceScore = 100;
+
+  const category = consensus.agreedCategory || '';
+  const department = primaryAttributes.AI_Product_Department || '';
+  const productType = primaryAttributes.AI_Type || '';
+  const title = (rawProduct.Product_Title_Web_Retailer || rawProduct.Product_Title_Legacy || '').toLowerCase();
+  const description = (rawProduct.Product_Description_Web_Retailer || rawProduct.Product_Description_Legacy || '').toLowerCase();
+  const fergusonTitle = (rawProduct.Ferguson_Title || '').toLowerCase();
+  const combinedText = `${title} ${description} ${fergusonTitle}`;
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 1: Category Keyword Cross-Check
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('category_keyword_match');
+  
+  const categoryKeywords: Record<string, string[]> = {
+    'Faucet': ['faucet', 'tap', 'spout'],
+    'Shower Head': ['shower', 'showerhead', 'rain head', 'hand shower'],
+    'Range Hood': ['hood', 'vent', 'ventilation', 'cfm', 'exhaust'],
+    'Chandelier': ['chandelier', 'pendant light', 'hanging light', 'ceiling light'],
+    'Wall Sconce': ['sconce', 'wall light', 'wall lamp'],
+    'Pendant': ['pendant', 'hanging light', 'suspension'],
+    'Ceiling Fan': ['ceiling fan', 'fan', 'air circulator'],
+    'Refrigerator': ['refrigerator', 'fridge', 'freezer'],
+    'Range': ['range', 'stove', 'cooktop'],
+    'Dishwasher': ['dishwasher'],
+    'Oven': ['oven', 'wall oven'],
+    'Cooktop': ['cooktop', 'cook top', 'burner'],
+    'Microwave': ['microwave'],
+    'Cabinet Pull': ['cabinet pull', 'drawer pull', 'cabinet handle'],
+    'Cabinet Knob': ['cabinet knob', 'drawer knob'],
+    'Toilet': ['toilet', 'commode'],
+    'Sink': ['sink', 'basin']
+  };
+
+  const requiredKeywords = categoryKeywords[category] || [];
+  if (requiredKeywords.length > 0) {
+    const hasKeyword = requiredKeywords.some(kw => combinedText.includes(kw));
+    if (!hasKeyword) {
+      warnings.push({
+        severity: 'HIGH',
+        field: 'category',
+        currentValue: category,
+        issue: `Selected category "${category}" but raw data lacks supporting keywords (${requiredKeywords.join(', ')})`,
+        evidence: title.substring(0, 100),
+        ruleViolated: 'CATEGORY_KEYWORD_MATCH'
+      });
+      confidenceScore -= 15;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 2: Department-Category Alignment
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('department_category_alignment');
+  
+  const categoryDepartmentMap: Record<string, string> = {
+    'Faucet': 'Plumbing',
+    'Shower Head': 'Plumbing',
+    'Shower System': 'Plumbing',
+    'Toilet': 'Plumbing',
+    'Sink': 'Plumbing',
+    'Bathtub': 'Plumbing',
+    'Range Hood': 'Appliances',
+    'Refrigerator': 'Appliances',
+    'Range': 'Appliances',
+    'Dishwasher': 'Appliances',
+    'Oven': 'Appliances',
+    'Cooktop': 'Appliances',
+    'Microwave': 'Appliances',
+    'Washer': 'Appliances',
+    'Dryer': 'Appliances',
+    'Freezer': 'Appliances',
+    'Wall Sconce': 'Lighting',
+    'Chandelier': 'Lighting',
+    'Pendant': 'Lighting',
+    'Ceiling Fan': 'Lighting',
+    'Table Lamp': 'Lighting',
+    'Floor Lamp': 'Lighting',
+    'Cabinet Pull': 'Hardware',
+    'Cabinet Knob': 'Hardware',
+    'Door Handle': 'Hardware',
+    'Hinge': 'Hardware'
+  };
+
+  const expectedDepartment = categoryDepartmentMap[category];
+  if (expectedDepartment && department !== expectedDepartment) {
+    corrections.push({
+      severity: 'HIGH',
+      field: 'department',
+      currentValue: department,
+      suggestedFix: expectedDepartment,
+      issue: `Department "${department}" doesn't match category "${category}" domain (should be "${expectedDepartment}")`,
+      ruleViolated: 'DEPARTMENT_CATEGORY_ALIGNMENT'
+    });
+    confidenceScore -= 10;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 3: Accessory Pattern Validation
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('accessory_pattern_validation');
+  
+  if (productType === 'Accessory') {
+    const accessoryPatterns = [
+      /for\s+(refrigerator|range|dishwasher|oven|cooktop|microwave|fridge|stove)/i,
+      /compatible\s+with/i,
+      /(replacement|spare)\s+part/i,
+      /(handle|knob|rack|filter|kit|bracket|drawer|shelf)\s+for/i,
+      /designed\s+for\s+\w+\s+model/i,
+      /model\s+(number|#).*compatible/i
+    ];
+
+    const hasAccessoryPattern = accessoryPatterns.some(p => 
+      p.test(title) || p.test(description)
+    );
+
+    if (!hasAccessoryPattern) {
+      warnings.push({
+        severity: 'HIGH',
+        field: 'type',
+        currentValue: 'Accessory',
+        issue: 'Type set to "Accessory" but raw data lacks accessory indicators ("for [appliance]", "compatible with", "replacement part")',
+        evidence: title.substring(0, 100),
+        suggestedFix: 'Not Applicable',
+        ruleViolated: 'ACCESSORY_PATTERN_VALIDATION'
+      });
+      confidenceScore -= 15;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 4: Title Schema Verification
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('title_schema_verification');
+  
+  // Get category title schema to check title structure
+  // Note: We're doing a simplified check here - just verifying title length and basic structure
+  // Full title schema validation happens in seo-title-generator.service.ts
+  // This check is just to flag obviously problematic titles
+  
+  // Import the getCategoryTitleSchema function at runtime to avoid circular dependency
+  const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
+  const titleSchema = getCategoryTitleSchema(category);
+  
+  if (titleSchema && titleSchema.slots) {
+    const generatedTitleLower = generatedTitle.toLowerCase();
+    const missingSlots: string[] = [];
+
+    // Check if critical slots appear in title
+    for (const slot of titleSchema.slots) {
+      if (slot.priority === 'critical' && slot.source) {
+        const slotValue = topFilterAttributes[slot.source];
+        
+        if (slotValue && slotValue !== 'Not Found' && slotValue !== 'Not Applicable' && slotValue !== 'Procurement No Results') {
+          const normalizedValue = String(slotValue).toLowerCase().replace(/[^a-z0-9]/g, '');
+          const titleNormalized = generatedTitleLower.replace(/[^a-z0-9]/g, '');
+          
+          // Only flag if value is substantial (>3 chars) and missing
+          if (!titleNormalized.includes(normalizedValue) && normalizedValue.length > 3) {
+            missingSlots.push(slot.label);
+          }
+        }
+      }
+    }
+
+    if (missingSlots.length > 0) {
+      warnings.push({
+        severity: 'MEDIUM',
+        field: 'title',
+        currentValue: generatedTitle.substring(0, 80),
+        issue: `Generated title may be missing critical attributes for category "${category}": ${missingSlots.join(', ')}`,
+        ruleViolated: 'TITLE_SCHEMA_COMPLETENESS'
+      });
+      confidenceScore -= 5;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHECK 5: Title Length Validation
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('title_length_validation');
+  
+  const titleLength = generatedTitle.length;
+  if (titleLength < 40) {
+    warnings.push({
+      severity: 'LOW',
+      field: 'title',
+      currentValue: generatedTitle,
+      issue: `Generated title too short (${titleLength} chars, recommended 60-150)`,
+      ruleViolated: 'TITLE_LENGTH_MINIMUM'
+    });
+    confidenceScore -= 3;
+  } else if (titleLength > 200) {
+    warnings.push({
+      severity: 'LOW',
+      field: 'title',
+      currentValue: generatedTitle.substring(0, 80) + '...',
+      issue: `Generated title too long (${titleLength} chars, recommended 60-150)`,
+      ruleViolated: 'TITLE_LENGTH_MAXIMUM'
+    });
+    confidenceScore -= 3;
+  }
+
+  // Calculate final confidence score (capped at 0-100)
+  confidenceScore = Math.max(0, Math.min(100, confidenceScore));
+
+  // Determine if AI review is needed
+  const requiresAIReview = (
+    confidenceScore < 90 || 
+    productType === 'Accessory' ||
+    warnings.some(w => w.severity === 'HIGH' || w.severity === 'CRITICAL') ||
+    corrections.length > 0
+  );
+
+  const passed = confidenceScore >= 85 && warnings.filter(w => w.severity === 'HIGH' || w.severity === 'CRITICAL').length === 0;
+
+  logger.info('🔍 FINAL REVIEW - Phase A (Automated Validation) complete', {
+    sessionId,
+    passed,
+    confidence: confidenceScore,
+    warningCount: warnings.length,
+    correctionCount: corrections.length,
+    requiresAIReview,
+    checksPerformed: checksPerformed.length,
+    category,
+    department
+  });
+
+  return {
+    passed,
+    confidence: confidenceScore,
+    warnings,
+    corrections,
+    requiresAIReview,
+    checksPerformed
+  };
+}
+
+/**
+ * Phase B: Claude Cross-Check (AI Review)
+ * Comprehensive review by Claude Sonnet to catch nuanced errors
+ * 
+ * CRITICAL: Claude receives the SAME picklist data, schemas, and business rules
+ * that our main AI verification uses. This ensures Claude's proposed fixes are
+ * valid, actionable values from our system - not generic guesses.
+ * 
+ * Only invoked for jobs that Phase A flagged for review
+ */
+async function performClaudeReview(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  _topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  phaseAWarnings: ValidationIssue[],
+  sessionId: string
+): Promise<ClaudeReviewResult> {
+  const startTime = Date.now();
+
+  const category = consensus.agreedCategory || '';
+  const department = primaryAttributes.AI_Product_Department || '';
+  const productType = primaryAttributes.AI_Type || '';
+  const style = primaryAttributes.AI_Style || '';
+  const brand = primaryAttributes.AI_Brand || '';
+
+  // ═══════════════════════════════════════════════════════════════
+  // LOAD REAL SYSTEM DATA - Same schemas/picklists our AIs use
+  // Claude must have EQUIVALENT context to the primary AIs to audit effectively
+  // ═══════════════════════════════════════════════════════════════
+  
+  // Get ALL valid categories with their departments
+  const allCategories = getAllCategories();
+  const allDepartments = getAllDepartments();
+  
+  // Get valid types for the CURRENT category and nearby categories
+  const validTypesForCategory = getValidTypesForCategory(category);
+  
+  // Get valid styles
+  const validStyles = getValidStylesForCategory(category);
+  
+  // Get the correct department for this category
+  const correctDepartmentForCategory = getDepartmentForCategory(category);
+  
+  // Get title schema for the category
+  const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
+  const titleSchema = getCategoryTitleSchema(category);
+  
+  // NEW: Get type hierarchy explanation (same as Stage 3 AIs receive)
+  const typeHierarchy = getTypeHierarchyExplanation();
+  
+  // NEW: Get top-15 filter attributes for this category (same as Stage 3 AIs receive)
+  const categorySchema = getCategorySchema(category);
+  const top15Info = categorySchema 
+    ? categorySchema.top15FilterAttributes.map((a: any) => `  ${a.rank}. ${a.name} (key: ${a.fieldKey})`).join('\n')
+    : 'No filter attributes defined for this category';
+  
+  // NEW: Sanitize full product data (same as what primary AIs receive)
+  const cleanProductData = sanitizeProductDataForAI(rawProduct);
+  // Compact JSON: include all fields but truncate very long values
+  const productDataForClaude = Object.entries(cleanProductData)
+    .filter(([_, v]) => v !== null && v !== undefined && v !== '')
+    .map(([k, v]) => {
+      const strVal = typeof v === 'string' ? v : JSON.stringify(v);
+      // Truncate individual field values at 800 chars but keep ALL fields
+      return `${k}: ${(strVal as string).length > 800 ? (strVal as string).substring(0, 800) + '...[truncated]' : strVal}`;
+    }).join('\n');
+  
+  // Build a compact category→department reference (not all 161, just relevant ones)
+  const categoryDeptReference = allCategories.map((c: string) => {
+    const dept = getDepartmentForCategory(c);
+    return `${c} → ${dept || 'Unknown'}`;
+  }).join('\n');
+
+  // Build warning summary for Claude
+  const warningsSummary = phaseAWarnings.length > 0
+    ? phaseAWarnings.map(w => `⚠️  [${w.severity}] ${w.field}: ${w.issue}`).join('\n')
+    : 'No automated validation warnings';
+  
+  // Build title schema info
+  const titleSchemaInfo = titleSchema 
+    ? `Template: ${titleSchema.template}\nRequired Slots: ${titleSchema.slots.filter((s: any) => s.required).map((s: any) => s.attribute).join(', ')}\nAll Slots: ${titleSchema.slots.map((s: any) => `${s.attribute}${s.required ? '*' : ''}`).join(', ')}\nExample: ${titleSchema.exampleTitle}`
+    : 'No title schema found for this category';
+  
+  // NEW: Build per-category type selection guide (same logic as getCategorySpecificPrompt)
+  let typeSelectionGuide = '';
+  if (validTypesForCategory.length > 0) {
+    const categoryLower = category.toLowerCase();
+    if (categoryLower.includes('refrigerator')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR REFRIGERATOR:
+Check for ACCESSORIES FIRST (highest priority):
+  • "Panel Kit" / "Door Panel Kit" / "Custom Panel Kit" → Type: Accessory
+  • "Installation Kit" / "Trim Kit" / "Unification Kit" → Type: Accessory
+  • "Handle Kit" / "Door Handle" / "Handle Assembly" → Type: Accessory
+  • "Shelf" / "Shelving" / "Rack" / "Bin" / "Drawer" → Type: Accessory
+  • "Filter" / "Water Filter" / "Air Filter" → Type: Accessory
+  • ANY product that is a PART or COMPONENT, not a complete refrigerator → Type: Accessory
+CRITICAL: "Panel Kit" = ACCESSORY (panels sold separately for panel-ready appliances)
+IF NOT AN ACCESSORY, check specialized types first:
+  • "Wine Cooler" / "Wine Storage" → Wine Cooler
+  • "Beverage Center" / "Beverage Cooler" → Beverage Center
+  • "Kegerator" / "Keg" / "Beer Dispenser" → Kegerator
+Then check door configuration: French Door, Side-by-Side, Top-Freezer, Bottom-Freezer, Column, 4-Door Flex
+Then installation: Undercounter, Freestanding`;
+    } else if (categoryLower.includes('ceiling fan')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR CEILING FAN:
+CHECK FOR ACCESSORIES FIRST:
+  • "Downrod" / "Remote" / "Light Kit" / "Blades" / "Canopy" → Type: Accessory
+IF NOT ACCESSORY: Hugger (flush mount/low profile) → Outdoor (wet/damp rated) → Indoor
+Priority: Accessory → Hugger → Outdoor → Indoor`;
+    } else if (categoryLower.includes('dryer') || categoryLower.includes('washer')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ${category.toUpperCase()}:
+Type = LOADING CONFIGURATION ONLY:
+  • Front Load / Top Load / Unitized (Laundry Center)
+  • Gas/Electric/Heat Pump are FUEL TYPE attributes, NOT types
+  • Vented/Ventless are VENT TYPE attributes, NOT types`;
+    } else if (categoryLower.includes('oven')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR OVEN:
+Analyze cavity count and form factor: Single, Double Wall, Combination, Speed Oven`;
+    } else if (categoryLower.includes('icemaker') || categoryLower.includes('ice maker')) {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ICEMAKER:
+Type = Installation method. Priority: ADA → Panel Ready → Outdoor → Portable → Undercounter/Freestanding
+If dual-capable (both undercounter + freestanding), default to Undercounter`;
+    }
+  }
+
+  const reviewPrompt = `You are performing a FINAL REVIEW of an AI-verified product catalog entry.
+Your job is to catch mistakes AND PROPOSE CONCRETE SOLUTIONS using our actual system data.
+
+TWO AIs (OpenAI GPT-4 and xAI Grok) already analyzed this product and reached consensus.
+Your role: Find errors and provide EXACT corrected values from OUR picklists.
+
+⚠️ CRITICAL RULES:
+- ALL suggested fixes MUST use values from the VALID OPTIONS sections below
+- Do NOT invent categories, types, or departments - use ONLY what's listed
+- If you propose a category change, also propose the correct department and valid types
+- Every FAIL must include a complete proposed solution, not just what's wrong
+
+═══════════════════════════════════════════════════════════════
+PRODUCT TYPE HIERARCHY (Our classification system):
+═══════════════════════════════════════════════════════════════
+
+${typeHierarchy}
+
+═══════════════════════════════════════════════════════════════
+VALID OPTIONS FROM OUR SYSTEM (Use ONLY these values):
+═══════════════════════════════════════════════════════════════
+
+VALID DEPARTMENTS (${allDepartments.length} total):
+${allDepartments.join(', ')}
+
+VALID CATEGORIES BY DEPARTMENT:
+${categoryDeptReference}
+
+VALID TYPES FOR "${category}" (current category):
+${validTypesForCategory.length > 0 ? validTypesForCategory.join(', ') : 'No types defined for this category'}
+${typeSelectionGuide}
+
+VALID STYLES (universal):
+${validStyles.join(', ')}
+
+CORRECT DEPARTMENT FOR "${category}": ${correctDepartmentForCategory || 'NOT FOUND'}
+
+TOP-15 FILTER ATTRIBUTES FOR "${category}":
+${top15Info}
+
+═══════════════════════════════════════════════════════════════
+TITLE SCHEMA FOR "${category}":
+═══════════════════════════════════════════════════════════════
+
+${titleSchemaInfo}
+
+ACCESSORY TITLE FORMAT (if Type = "Accessory"):
+For accessories, our title system automatically reorders slots to:
+  {Brand} {Width} {Category} {Finish} {Specific Subtype} - {Model}
+  Example: "JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL"
+The specific subtype (e.g., "Panel Kit", "Handle Kit", "Water Filter") is extracted 
+from the raw product title. The word "Accessory" NEVER appears in the generated title.
+If proposing a title for an accessory, follow this pattern.
+
+═══════════════════════════════════════════════════════════════
+COMPLETE RAW PRODUCT DATA (Ground Truth - ALL fields):
+═══════════════════════════════════════════════════════════════
+
+${productDataForClaude}
+
+═══════════════════════════════════════════════════════════════
+DATA SOURCE TRUST HIERARCHY (Same rules our primary AIs use):
+═══════════════════════════════════════════════════════════════
+
+Tier 1 (MOST TRUSTED): Ferguson_Raw_Data, Ferguson_Title, Ferguson_* fields
+Tier 2: *_Web_Retailer fields (Product_Title_Web_Retailer, Brand_Web_Retailer, etc.)
+Tier 3: AI's own analysis and web data
+Tier 4 (LEAST TRUSTED): *_Legacy fields — use ONLY for directional hints, NOT as truth
+
+When sources conflict, prefer higher-tier data.
+
+═══════════════════════════════════════════════════════════════
+AI VERIFICATION RESULTS (What both AIs agreed on):
+═══════════════════════════════════════════════════════════════
+
+Category: ${category}
+Department: ${department}
+Type: ${productType}
+Style: ${style}
+Brand: ${brand}
+Generated Title: ${generatedTitle}
+
+═══════════════════════════════════════════════════════════════
+AUTOMATED VALIDATION WARNINGS (Phase A detected these):
+═══════════════════════════════════════════════════════════════
+
+${warningsSummary}
+
+═══════════════════════════════════════════════════════════════
+YOUR TASK - Review AND Propose Solutions:
+═══════════════════════════════════════════════════════════════
+
+1. **Category**: Does "${category}" fit the raw data? If wrong, which VALID CATEGORY from our list is correct?
+2. **Department**: Does "${department}" match? If wrong, use the CORRECT DEPARTMENT for your proposed category
+3. **Type**: Is "${productType}" valid? If wrong, pick from VALID TYPES for the correct category
+4. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
+5. **Title**: Does "${generatedTitle}" represent this product? If wrong, propose a title using the TITLE SCHEMA slots
+6. **Style**: Is "${style}" reasonable for this product?
+
+⚠️ CRITICAL ACCESSORY RULE — READ CAREFULLY:
+If Type is "Accessory" and the product is an accessory, part, kit, panel, handle, filter, 
+shelf, or component FOR a product in the current category, then:
+  ✅ The current CATEGORY IS CORRECT — it stays as the parent product's category
+  ✅ The current DEPARTMENT IS CORRECT — accessories inherit the parent category's department
+  ✅ Type "Accessory" IS CORRECT — it's listed as a valid type for this category
+  ❌ Do NOT re-categorize accessories to a different category (e.g., "Cabinet Finishing", "Hardware")
+  ❌ Do NOT change the department away from the parent product's department
+
+Examples:
+  - "Refrigerator Panel Kit" → Category: Refrigerator, Type: Accessory, Dept: Appliances ✅
+  - "Dishwasher Handle Kit" → Category: Dishwasher, Type: Accessory, Dept: Appliances ✅
+  - "Range Hood Blower" → Category: Range Hood, Type: Accessory, Dept: Appliances ✅
+  - "Ceiling Fan Remote Control" → Category: Ceiling Fan, Type: Accessory, Dept: Lighting ✅
+  The product is FOR that category — it belongs IN that category as an Accessory type.
+
+"Accessory" is in the VALID TYPES list above for "${category}". Respect the hierarchy.
+
+═══════════════════════════════════════════════════════════════
+RESPONSE FORMAT (JSON ONLY):
+═══════════════════════════════════════════════════════════════
+
+{
+  "reviewStatus": "PASS" | "FLAG" | "FAIL",
+  "confidenceInResults": 0-100,
+  "issues": [
+    {
+      "severity": "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
+      "field": "category" | "department" | "type" | "style" | "title",
+      "currentValue": "what AI selected",
+      "issue": "Clear description of the problem",
+      "evidence": "Direct quote from raw data proving the error",
+      "suggestedFix": "EXACT value from our valid picklist options above"
+    }
+  ],
+  "proposedCorrections": {
+    "category": "exact valid category name or null if correct",
+    "department": "exact valid department or null if correct",
+    "type": "exact valid type for the proposed category or null if correct",
+    "style": "exact valid style or null if correct",
+    "title": "proposed corrected title using schema slots or null if correct"
+  },
+  "reasoning": "Brief explanation of your overall assessment and WHY these corrections are needed"
+}
+
+RULES:
+- proposedCorrections values MUST come from the VALID OPTIONS listed above
+- If a field is correct, set it to null in proposedCorrections
+- Only flag issues with CLEAR EVIDENCE from raw data
+- If results look correct, return "PASS" with empty issues and all-null proposedCorrections
+- For FAIL: you MUST provide complete proposedCorrections - never fail without a solution
+- Return ONLY the JSON object, no other text`;
+
+  try {
+    // Initialize Anthropic client
+    const anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY || ''
+    });
+
+    logger.info('🔍 FINAL REVIEW - Phase B: Sending to Claude with full context', {
+      sessionId,
+      promptLength: reviewPrompt.length,
+      productFieldCount: Object.keys(cleanProductData).filter(k => cleanProductData[k]).length,
+      hasTypeSelectionGuide: typeSelectionGuide.length > 0,
+      hasTop15Attributes: categorySchema !== null,
+      category,
+      productType
+    });
+
+    const response = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 4000,
+      temperature: 0.2,
+      messages: [{ role: 'user', content: reviewPrompt }]
+    });
+
+    const reviewText = response.content[0].type === 'text' ? response.content[0].text : '';
+    
+    // Log stop reason to detect truncation
+    logger.info('🔍 FINAL REVIEW - Phase B: Claude response received', {
+      sessionId,
+      stopReason: response.stop_reason,
+      responseLength: reviewText.length,
+      inputTokens: response.usage?.input_tokens,
+      outputTokens: response.usage?.output_tokens
+    });
+    
+    // Check for truncation before parsing
+    if (response.stop_reason !== 'end_turn') {
+      logger.warn('⚠️ FINAL REVIEW - Phase B: Claude response may be truncated', {
+        sessionId,
+        stopReason: response.stop_reason,
+        outputTokens: response.usage?.output_tokens,
+        maxTokens: 4000
+      });
+    }
+
+    // Parse Claude's JSON response
+    let reviewResult: ClaudeReviewResult;
+    try {
+      // Strip markdown code blocks and any text before/after JSON
+      let cleanedText = reviewText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      // Also try to extract JSON object if there's surrounding text
+      const jsonMatch = cleanedText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        cleanedText = jsonMatch[0];
+      }
+      const parsed = JSON.parse(cleanedText);
+      
+      // Validate proposed corrections use valid picklist values
+      if (parsed.proposedCorrections) {
+        const pc = parsed.proposedCorrections;
+        
+        // Validate proposed category exists in our system
+        if (pc.category && !allCategories.includes(pc.category)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid category, clearing', {
+            sessionId,
+            proposed: pc.category,
+            validCategories: allCategories.length
+          });
+          pc.category = null;
+        }
+        
+        // Validate proposed department exists
+        if (pc.department && !allDepartments.includes(pc.department)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid department, clearing', {
+            sessionId,
+            proposed: pc.department,
+            validDepartments: allDepartments
+          });
+          pc.department = null;
+        }
+        
+        // Validate proposed type - must be valid for the proposed (or current) category
+        if (pc.type) {
+          const targetCategory = pc.category || category;
+          const validTypes = getValidTypesForCategory(targetCategory);
+          if (validTypes.length > 0 && !validTypes.includes(pc.type)) {
+            logger.warn('🔍 FINAL REVIEW: Claude proposed invalid type for category, clearing', {
+              sessionId,
+              proposed: pc.type,
+              targetCategory,
+              validTypes
+            });
+            pc.type = null;
+          }
+        }
+        
+        // Validate proposed style
+        if (pc.style && !validStyles.includes(pc.style)) {
+          logger.warn('🔍 FINAL REVIEW: Claude proposed invalid style, clearing', {
+            sessionId,
+            proposed: pc.style,
+            validStyles
+          });
+          pc.style = null;
+        }
+      }
+      
+      reviewResult = {
+        reviewStatus: parsed.reviewStatus || 'FLAG',
+        confidenceInResults: parsed.confidenceInResults || 50,
+        issues: (parsed.issues || []).map((issue: any) => ({
+          ...issue,
+          // Ensure suggestedFix values are validated against picklists
+          suggestedFix: issue.suggestedFix || null
+        })),
+        reasoning: parsed.reasoning || '',
+        reviewDuration: Date.now() - startTime,
+        proposedCorrections: parsed.proposedCorrections || null
+      };
+    } catch (parseError) {
+      logger.error('🔴 FINAL REVIEW - Phase B: Failed to parse Claude response', {
+        sessionId,
+        error: parseError instanceof Error ? parseError.message : 'Unknown parse error',
+        responseLength: reviewText.length,
+        responseFirst500: reviewText.substring(0, 500),
+        responseLast200: reviewText.substring(Math.max(0, reviewText.length - 200))
+      });
+      
+      reviewResult = {
+        reviewStatus: 'FLAG',
+        confidenceInResults: 50,
+        issues: [{
+          severity: 'MEDIUM',
+          field: 'validation',
+          currentValue: 'N/A',
+          issue: 'Claude review failed to parse - manual review recommended',
+          evidence: parseError instanceof Error ? parseError.message : 'Parse error'
+        }],
+        reasoning: 'Failed to parse Claude response - treating as FLAG for safety',
+        reviewDuration: Date.now() - startTime
+      };
+    }
+
+    logger.info('🔍 FINAL REVIEW - Phase B (Claude Cross-Check) complete', {
+      sessionId,
+      reviewStatus: reviewResult.reviewStatus,
+      confidence: reviewResult.confidenceInResults,
+      issuesFound: reviewResult.issues.length,
+      duration: reviewResult.reviewDuration,
+      proposedCorrections: reviewResult.proposedCorrections || 'none'
+    });
+
+    return reviewResult;
+
+  } catch (error) {
+    logger.error('🔴 FINAL REVIEW - Phase B: Claude API error', {
+      sessionId,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+
+    return {
+      reviewStatus: 'FLAG',
+      confidenceInResults: 50,
+      issues: [{
+        severity: 'MEDIUM',
+        field: 'validation',
+        currentValue: 'N/A',
+        issue: 'Claude API error - manual review recommended',
+        evidence: error instanceof Error ? error.message : 'API error'
+      }],
+      reasoning: 'Claude API failed - treating as FLAG for safety',
+      reviewDuration: Date.now() - startTime
+    };
+  }
+}
+
+/**
+ * Master function: Execute complete Final Review Stage
+ * Phase A + Phase B (if needed) + Corrections
+ */
+async function executeFinalReviewStage(
+  consensus: ConsensusResult,
+  primaryAttributes: PrimaryDisplayAttributes,
+  topFilterAttributes: TopFilterAttributes,
+  generatedTitle: string,
+  rawProduct: SalesforceIncomingProduct,
+  sessionId: string
+): Promise<FinalReviewResult> {
+  logger.info('🎯 FINAL REVIEW STAGE: Starting post-consensus validation', { sessionId });
+
+  // Phase A: Automated Validation (always runs)
+  const phaseAResult = performAutomatedValidation(
+    consensus,
+    primaryAttributes,
+    topFilterAttributes,
+    generatedTitle,
+    rawProduct,
+    sessionId
+  );
+
+  let phaseBResult: ClaudeReviewResult | undefined;
+  let finalStatus: 'PASS' | 'FLAG' | 'FAIL' = phaseAResult.passed ? 'PASS' : 'FLAG';
+  const correctionsApplied: ValidationIssue[] = [];
+  const flaggedForReview: ValidationIssue[] = [];
+
+  // Phase B: Claude Review (only if Phase A flagged for review)
+  if (phaseAResult.requiresAIReview) {
+    logger.info('🔍 FINAL REVIEW: Phase A flagged for Claude review', {
+      sessionId,
+      reason: `Confidence: ${phaseAResult.confidence}%, Warnings: ${phaseAResult.warnings.length}, Corrections: ${phaseAResult.corrections.length}`
+    });
+
+    phaseBResult = await performClaudeReview(
+      consensus,
+      primaryAttributes,
+      topFilterAttributes,
+      generatedTitle,
+      rawProduct,
+      phaseAResult.warnings,
+      sessionId
+    );
+
+    // Update final status based on Claude's review
+    if (phaseBResult.reviewStatus === 'FAIL') {
+      finalStatus = 'FAIL';
+    } else if (phaseBResult.reviewStatus === 'FLAG') {
+      finalStatus = 'FLAG';
+    }
+  }
+
+  // Apply corrections from Phase A (deterministic fixes)
+  for (const correction of phaseAResult.corrections) {
+    if (correction.severity === 'HIGH' || correction.severity === 'CRITICAL') {
+      // Auto-apply high severity corrections
+      if (correction.field === 'department' && correction.suggestedFix) {
+        (primaryAttributes as any).AI_Product_Department = correction.suggestedFix;
+        correctionsApplied.push(correction);
+        logger.warn('✏️  FINAL REVIEW: Auto-corrected department', {
+          sessionId,
+          from: correction.currentValue,
+          to: correction.suggestedFix,
+          reason: correction.issue
+        });
+      }
+    } else {
+      // Lower severity - flag for review
+      flaggedForReview.push(correction);
+    }
+  }
+
+  // Handle Claude's findings (if ran)
+  if (phaseBResult) {
+    // Use proposedCorrections (already validated against picklists in performClaudeReview)
+    const pc = phaseBResult.proposedCorrections;
+    if (pc && phaseBResult.reviewStatus === 'FAIL') {
+      // Apply validated category correction
+      if (pc.category) {
+        const oldCategory = consensus.agreedCategory;
+        consensus.agreedCategory = pc.category;
+        (primaryAttributes as any).AI_Product_Category = pc.category;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'category',
+          currentValue: oldCategory || '',
+          issue: `Claude corrected category from "${oldCategory}" to "${pc.category}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.category
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected category (validated against picklist)', {
+          sessionId,
+          from: oldCategory,
+          to: pc.category,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated department correction
+      if (pc.department) {
+        const oldDept = primaryAttributes.AI_Product_Department;
+        (primaryAttributes as any).AI_Product_Department = pc.department;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'department',
+          currentValue: oldDept || '',
+          issue: `Claude corrected department from "${oldDept}" to "${pc.department}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.department
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected department (validated against picklist)', {
+          sessionId,
+          from: oldDept,
+          to: pc.department,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated type correction
+      if (pc.type) {
+        const oldType = consensus.agreedPrimaryAttributes?.product_type;
+        if (consensus.agreedPrimaryAttributes) {
+          consensus.agreedPrimaryAttributes.product_type = pc.type;
+        }
+        (primaryAttributes as any).AI_Type = pc.type;
+        correctionsApplied.push({
+          severity: 'CRITICAL',
+          field: 'type',
+          currentValue: oldType || '',
+          issue: `Claude corrected type from "${oldType}" to "${pc.type}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.type
+        });
+        logger.error('🔴 FINAL REVIEW: Claude corrected type (validated against picklist)', {
+          sessionId,
+          from: oldType,
+          to: pc.type,
+          reasoning: phaseBResult.reasoning
+        });
+      }
+      
+      // Apply validated style correction
+      if (pc.style) {
+        const oldStyle = (primaryAttributes as any).AI_Style;
+        (primaryAttributes as any).AI_Style = pc.style;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'style',
+          currentValue: oldStyle || '',
+          issue: `Claude corrected style from "${oldStyle}" to "${pc.style}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.style
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected style (validated against picklist)', {
+          sessionId,
+          from: oldStyle,
+          to: pc.style
+        });
+      }
+      
+      // Apply validated title correction
+      // Claude has full context (title schema, accessory format, raw product data)
+      // and proposes titles using our exact schema rules — safe to auto-apply
+      if (pc.title) {
+        const oldTitle = primaryAttributes.AI_Product_Title || generatedTitle;
+        primaryAttributes.AI_Product_Title = pc.title;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'title',
+          currentValue: oldTitle,
+          issue: `Claude corrected title from "${oldTitle}" to "${pc.title}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.title
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected title (auto-applied)', {
+          sessionId,
+          from: oldTitle,
+          to: pc.title
+        });
+      }
+    }
+    
+    // Also flag any non-CRITICAL individual issues for review
+    for (const issue of phaseBResult.issues) {
+      if (issue.severity !== 'CRITICAL') {
+        flaggedForReview.push(issue);
+      }
+    }
+  }
+
+  logger.info('✅ FINAL REVIEW STAGE: Complete', {
+    sessionId,
+    finalStatus,
+    phaseAConfidence: phaseAResult.confidence,
+    phaseBConfidence: phaseBResult?.confidenceInResults,
+    correctionsApplied: correctionsApplied.length,
+    flaggedForReview: flaggedForReview.length,
+    claudeReviewPerformed: !!phaseBResult
+  });
+
+  return {
+    phaseAResult,
+    phaseBResult,
+    finalStatus,
+    correctionsApplied,
+    flaggedForReview
+  };
+}
+
+// Export the research attestation service for external access
+export { researchAttestationService };
+
+export default { verifyProductWithDualAI };
+export const dualAIVerificationService = { verifyProductWithDualAI };
