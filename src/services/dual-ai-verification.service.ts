@@ -10647,6 +10647,14 @@ CORRECT DEPARTMENT FOR "${category}": ${correctDepartmentForCategory || 'NOT FOU
 TITLE SCHEMA FOR "${category}":
 ${titleSchemaInfo}
 
+ACCESSORY TITLE FORMAT (if Type = "Accessory"):
+For accessories, our title system automatically reorders slots to:
+  {Brand} {Width} {Category} {Finish} {Specific Subtype} - {Model}
+  Example: "JENNAIR 18-Inch Refrigerator Stainless Steel Panel Kit - JKCPR181GL"
+The specific subtype (e.g., "Panel Kit", "Handle Kit", "Water Filter") is extracted 
+from the raw product title. The word "Accessory" NEVER appears in the generated title.
+If proposing a title for an accessory, follow this pattern.
+
 ═══════════════════════════════════════════════════════════════
 RAW PRODUCT DATA (Ground Truth):
 ═══════════════════════════════════════════════════════════════
@@ -10685,6 +10693,24 @@ YOUR TASK - Review AND Propose Solutions:
 4. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
 5. **Title**: Does "${generatedTitle}" represent this product? If wrong, propose a title using the TITLE SCHEMA slots
 6. **Style**: Is "${style}" reasonable for this product?
+
+⚠️ CRITICAL ACCESSORY RULE — READ CAREFULLY:
+If Type is "Accessory" and the product is an accessory, part, kit, panel, handle, filter, 
+shelf, or component FOR a product in the current category, then:
+  ✅ The current CATEGORY IS CORRECT — it stays as the parent product's category
+  ✅ The current DEPARTMENT IS CORRECT — accessories inherit the parent category's department
+  ✅ Type "Accessory" IS CORRECT — it's listed as a valid type for this category
+  ❌ Do NOT re-categorize accessories to a different category (e.g., "Cabinet Finishing", "Hardware")
+  ❌ Do NOT change the department away from the parent product's department
+
+Examples:
+  - "Refrigerator Panel Kit" → Category: Refrigerator, Type: Accessory, Dept: Appliances ✅
+  - "Dishwasher Handle Kit" → Category: Dishwasher, Type: Accessory, Dept: Appliances ✅
+  - "Range Hood Blower" → Category: Range Hood, Type: Accessory, Dept: Appliances ✅
+  - "Ceiling Fan Remote Control" → Category: Ceiling Fan, Type: Accessory, Dept: Lighting ✅
+  The product is FOR that category — it belongs IN that category as an Accessory type.
+
+"Accessory" is in the VALID TYPES list above for "${category}". Respect the hierarchy.
 
 ═══════════════════════════════════════════════════════════════
 RESPONSE FORMAT (JSON ONLY):
