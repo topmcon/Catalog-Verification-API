@@ -3292,7 +3292,10 @@ async function analyzeWithOpenAI(
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
-    const prompt = buildAnalysisPrompt(rawProduct, promptOptions);
+    // Use minimal prompt for Stage 1/2 to prevent OpenAI from ignoring system prompt
+    const prompt = (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
+      ? buildStagePrompt(rawProduct, stageConfig.stage)
+      : buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -3433,7 +3436,10 @@ async function analyzeWithXAI(
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
-    const prompt = buildAnalysisPrompt(rawProduct, promptOptions);
+    // Use minimal prompt for Stage 1/2 to prevent conflicting instructions
+    const prompt = (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
+      ? buildStagePrompt(rawProduct, stageConfig.stage)
+      : buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -4413,6 +4419,41 @@ function sanitizeProductDataForAI(rawProduct: SalesforceIncomingProduct): any {
   }
   
   return sanitized;
+}
+
+/**
+ * Build a MINIMAL user message for Stage 1 (department) and Stage 2 (category) prompts.
+ * 
+ * ROOT CAUSE FIX: OpenAI was ignoring the department-only system prompt because
+ * buildAnalysisPrompt() sends a massive user message starting with "You are a product
+ * data VERIFICATION specialist... provide a value for EVERY field..." which OpenAI
+ * prioritizes over the system prompt. This caused OpenAI to return full product analysis
+ * (product_title, brand, category, type, etc.) instead of just {department: {...}}.
+ * 
+ * xAI/Grok followed the system prompt correctly, but OpenAI consistently failed all 3 retries.
+ * 
+ * This function sends ONLY the sanitized product data with a brief instruction,
+ * letting the system prompt control the response format.
+ */
+function buildStagePrompt(rawProduct: SalesforceIncomingProduct, stage: 'department-only' | 'category-only'): string {
+  const cleanProductData = sanitizeProductDataForAI(rawProduct);
+  
+  // Truncate very long field values to reduce token waste on early stages
+  const trimmedData: any = {};
+  for (const [key, value] of Object.entries(cleanProductData)) {
+    if (typeof value === 'string' && value.length > 500) {
+      trimmedData[key] = (value as string).substring(0, 500) + '...[truncated]';
+    } else {
+      trimmedData[key] = value;
+    }
+  }
+  
+  const stageLabel = stage === 'department-only' ? 'DEPARTMENT' : 'CATEGORY';
+  
+  return `Analyze this product and determine its ${stageLabel}. Follow the system instructions exactly.
+
+RAW PRODUCT DATA:
+${JSON.stringify(trimmedData, null, 2)}`;
 }
 
 function buildAnalysisPrompt(rawProduct: SalesforceIncomingProduct, options?: PromptOptions | string): string {
