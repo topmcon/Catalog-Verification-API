@@ -190,11 +190,13 @@ const ATTRIBUTE_ALIASES: Record<string, string> = {
   'damp rated': 'dry/damp rated',
   'wet rated': 'dry/damp rated',
   'location rating': 'dry/damp rated',
-  'ul listed': 'etl/ul listed',
-  'etl listed': 'etl/ul listed',
-  'certifications': 'etl/ul listed',
-  'certification': 'etl/ul listed',
-  'safety listing': 'etl/ul listed',
+  // REMOVED BROKEN ALIASES - "etl/ul listed" doesn't exist in SF picklist
+  // 'ul listed': 'etl/ul listed',
+  // 'etl listed': 'etl/ul listed',
+  // FIXED: "certifications" exists in SF picklist (a1aaZ000009X61eQAC) - removed alias that was blocking 186 jobs
+  // 'certifications': 'etl/ul listed',
+  'certification': 'certifications',  // Map singular to existing plural form
+  // 'safety listing': 'etl/ul listed',
   // Finish equivalents
   'color': 'finish',
   'finish color': 'finish',
