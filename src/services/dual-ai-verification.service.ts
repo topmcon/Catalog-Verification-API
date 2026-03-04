@@ -3341,8 +3341,26 @@ async function analyzeWithOpenAI(
         throw new Error('Failed to parse OpenAI response');
       }
 
-      if (!validateAIResponse(parsed, 'openai')) {
-        throw new Error('Invalid OpenAI response structure');
+      // Stage-aware validation: department-only and category-only stages
+      // don't need full field validation (category, primary_attributes, etc.)
+      if (stageConfig?.stage === 'department-only') {
+        // For department-only, we just need the department field
+        const dept = (parsed as any).department;
+        if (!dept) {
+          throw new Error('Invalid OpenAI department-only response: missing department field');
+        }
+        logger.info('✅ OpenAI department-only validation passed', { sessionId, department: typeof dept === 'object' ? dept.name : dept });
+      } else if (stageConfig?.stage === 'category-only') {
+        // For category-only, we just need the category field
+        if (!parsed.category) {
+          throw new Error('Invalid OpenAI category-only response: missing category field');
+        }
+        logger.info('✅ OpenAI category-only validation passed', { sessionId, category: typeof parsed.category === 'object' ? (parsed.category as any).name : parsed.category });
+      } else {
+        // Full validation for Stage 3 (category-specific) and legacy prompts
+        if (!validateAIResponse(parsed, 'openai')) {
+          throw new Error('Invalid OpenAI response structure');
+        }
       }
 
       const result = parseAIResponse(parsed, 'openai');
@@ -3376,7 +3394,7 @@ async function analyzeWithOpenAI(
         errorMessage: error instanceof Error ? error.message : 'Unknown error',
       });
 
-      logger.error(`OpenAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
+      logger.error(`OpenAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, errorMessage: error instanceof Error ? error.message : String(error) });
       
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
@@ -3456,8 +3474,24 @@ async function analyzeWithXAI(
         throw new Error('Failed to parse xAI response');
       }
 
-      if (!validateAIResponse(parsed, 'xai')) {
-        throw new Error('Invalid xAI response structure');
+      // Stage-aware validation: department-only and category-only stages
+      // don't need full field validation (category, primary_attributes, etc.)
+      if (stageConfig?.stage === 'department-only') {
+        const dept = (parsed as any).department;
+        if (!dept) {
+          throw new Error('Invalid xAI department-only response: missing department field');
+        }
+        logger.info('✅ xAI department-only validation passed', { sessionId, department: typeof dept === 'object' ? dept.name : dept });
+      } else if (stageConfig?.stage === 'category-only') {
+        if (!parsed.category) {
+          throw new Error('Invalid xAI category-only response: missing category field');
+        }
+        logger.info('✅ xAI category-only validation passed', { sessionId, category: typeof parsed.category === 'object' ? (parsed.category as any).name : parsed.category });
+      } else {
+        // Full validation for Stage 3 (category-specific) and legacy prompts
+        if (!validateAIResponse(parsed, 'xai')) {
+          throw new Error('Invalid xAI response structure');
+        }
       }
 
       const result = parseAIResponse(parsed, 'xai');
@@ -3491,7 +3525,7 @@ async function analyzeWithXAI(
         errorMessage: error instanceof Error ? error.message : 'Unknown error',
       });
 
-      logger.error(`xAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, error });
+      logger.error(`xAI analysis attempt ${attempt}/${maxRetries} failed`, { sessionId, errorMessage: error instanceof Error ? error.message : String(error) });
       
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
@@ -10711,6 +10745,16 @@ RULES:
       outputTokens: response.usage?.output_tokens
     });
     
+    // Check for truncation before parsing
+    if (response.stop_reason !== 'end_turn') {
+      logger.warn('⚠️ FINAL REVIEW - Phase B: Claude response may be truncated', {
+        sessionId,
+        stopReason: response.stop_reason,
+        outputTokens: response.usage?.output_tokens,
+        maxTokens: 4000
+      });
+    }
+
     // Parse Claude's JSON response
     let reviewResult: ClaudeReviewResult;
     try {

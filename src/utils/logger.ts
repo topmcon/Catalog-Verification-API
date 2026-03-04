@@ -31,9 +31,13 @@ const logFormat = winston.format.combine(
     let log = `${timestamp} [${level.toUpperCase()}]: ${message}`;
     if (Object.keys(meta).length > 0) {
       try {
-        // Safe stringify with circular reference handling
+        // Safe stringify with circular reference handling and Error serialization
         const safeMeta = JSON.stringify(meta, (_key, value) => {
-          // Skip circular references
+          // Properly serialize Error objects (message/stack/name are non-enumerable)
+          if (value instanceof Error) {
+            return { message: value.message, name: value.name, stack: value.stack?.split('\n').slice(0, 3).join('\n') };
+          }
+          // Skip circular references from HTTP objects
           if (value && typeof value === 'object') {
             if (value.constructor?.name === 'ClientRequest' || 
                 value.constructor?.name === 'IncomingMessage' ||
