@@ -11,6 +11,7 @@ import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import picklistMatcher from '../services/picklist-matcher.service';
 import { picklistReconciliation } from '../services/picklist-reconciliation.service';
+import { pendingCreationRequestService } from '../services/pending-creation-request.service';
 import { PicklistSyncLog } from '../models/picklist-sync-log.model';
 import { PendingPicklistSync, IPendingChange, IImpactAssessment } from '../models/pending-picklist-sync.model';
 import { catalogIndexService } from '../services/catalog-index.service';
@@ -815,6 +816,53 @@ export class PicklistController {
       
       await pendingSync.save();
       
+      // ============================================================
+      // PENDING CREATION REQUEST FULFILLMENT (ID-only, no file writes)
+      // Even though the full sync is held, we can still match SF IDs
+      // against our pending creation requests. This only updates the
+      // request status in MongoDB — no picklist files are modified.
+      // ============================================================
+      let totalRequestsFulfilled = 0;
+      const fulfilledSummary: Array<{ type: string; items: string[] }> = [];
+      
+      try {
+        const fulfillmentChecks: Array<{ type: 'attribute' | 'brand' | 'category' | 'style' | 'type'; data: any[] | undefined; nameField: string; idField: string }> = [
+          { type: 'attribute', data: attributes, nameField: 'attribute_name', idField: 'attribute_id' },
+          { type: 'brand', data: brands, nameField: 'brand_name', idField: 'brand_id' },
+          { type: 'category', data: categories, nameField: 'category_name', idField: 'category_id' },
+          { type: 'style', data: styles, nameField: 'style_name', idField: 'style_id' },
+          { type: 'type', data: types, nameField: 'type_name', idField: 'type_id' }
+        ];
+        
+        for (const check of fulfillmentChecks) {
+          if (check.data && Array.isArray(check.data) && check.data.length > 0) {
+            const items = check.data.map((item: any) => ({
+              name: item[check.nameField] || '',
+              id: item[check.idField] || ''
+            })).filter(item => item.name && item.id);
+            
+            const result = await pendingCreationRequestService.tryFulfillFromSync(check.type, items);
+            if (result.fulfilled > 0) {
+              totalRequestsFulfilled += result.fulfilled;
+              fulfilledSummary.push({ type: check.type, items: result.items });
+            }
+          }
+        }
+        
+        if (totalRequestsFulfilled > 0) {
+          logger.info('Pending creation requests fulfilled from held sync (ID-only, no file changes)', {
+            pending_id: syncId,
+            total_fulfilled: totalRequestsFulfilled,
+            details: fulfilledSummary
+          });
+        }
+      } catch (fulfillError) {
+        logger.warn('Failed to check pending creation requests against held sync', {
+          pending_id: syncId,
+          error: fulfillError instanceof Error ? fulfillError.message : String(fulfillError)
+        });
+      }
+      
       const processingTime = Date.now() - startTime;
       
       logger.info('Picklist sync HELD for review', {
@@ -823,6 +871,7 @@ export class PicklistController {
         total_additions: totalAdditions,
         total_removals: totalRemovals,
         custom_fields_at_risk: customFieldsAtRisk,
+        requests_fulfilled: totalRequestsFulfilled,
         processing_time_ms: processingTime
       });
       
@@ -835,6 +884,11 @@ export class PicklistController {
         expires_at: expiresAt.toISOString(),
         impact_assessment: impactAssessment,
         pending_changes: pendingChanges,
+        creation_requests_fulfilled: totalRequestsFulfilled > 0 ? {
+          total: totalRequestsFulfilled,
+          details: fulfilledSummary,
+          note: 'These pending creation requests were matched by SF ID only — no picklist files were modified.'
+        } : undefined,
         review_url: `/api/picklists/sync/pending/${syncId}`,
         approve_url: `/api/picklists/sync/pending/${syncId}/approve`,
         reject_url: `/api/picklists/sync/pending/${syncId}/reject`,

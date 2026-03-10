@@ -10,9 +10,14 @@
  */
 
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/catalog-verification';
+
+// Reuse the same timestamp file as show-session-analytics.js
+const LAST_CONNECTION_FILE = '/tmp/last_establish_connection.timestamp';
+const DEFAULT_LOOKBACK_DAYS = 7;
 
 // Model schema (replicated for standalone script)
 const JobReferenceSchema = new mongoose.Schema({
@@ -158,21 +163,98 @@ async function main() {
       }
     }
     
-    // Show recently fulfilled for context
+    // Determine lookback window (since last session or default)
+    let sinceTime;
+    let timeWindowLabel;
+    
+    if (fs.existsSync(LAST_CONNECTION_FILE)) {
+      const lastTimestamp = fs.readFileSync(LAST_CONNECTION_FILE, 'utf8').trim();
+      const lastDate = new Date(lastTimestamp);
+      if (!isNaN(lastDate.getTime())) {
+        sinceTime = lastDate;
+        const hoursAgo = Math.round((Date.now() - lastDate.getTime()) / (1000 * 60 * 60));
+        const daysAgo = Math.floor(hoursAgo / 24);
+        timeWindowLabel = daysAgo > 0 
+          ? `${daysAgo} day${daysAgo > 1 ? 's' : ''} (since last session: ${lastDate.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })} EST)`
+          : `${hoursAgo} hour${hoursAgo > 1 ? 's' : ''} (since last session)`;
+      }
+    }
+    
+    if (!sinceTime) {
+      sinceTime = new Date(Date.now() - DEFAULT_LOOKBACK_DAYS * 24 * 60 * 60 * 1000);
+      timeWindowLabel = `${DEFAULT_LOOKBACK_DAYS} days (no previous session found)`;
+    }
+    
+    // Get ALL fulfilled requests since last session
     const recentlyFulfilled = await PendingCreationRequest.find({
       status: 'fulfilled',
-      fulfilled_at: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
-    }).sort({ fulfilled_at: -1 }).limit(5).lean();
+      fulfilled_at: { $gte: sinceTime }
+    }).sort({ fulfilled_at: -1 }).lean();
     
+    console.log('───────────────────────────────────────────────────────────────');
     if (recentlyFulfilled.length > 0) {
+      console.log(`✅ RECONCILED / FULFILLED SINCE LAST SESSION (${timeWindowLabel})`);
       console.log('───────────────────────────────────────────────────────────────');
-      console.log('RECENTLY FULFILLED (Last 24 hours)');
-      console.log('───────────────────────────────────────────────────────────────');
+      console.log(`  ${recentlyFulfilled.length} request(s) were matched when SF sent picklist syncs back`);
+      console.log('');
       
+      // Group by type
+      const fulfilledByType = {};
       for (const req of recentlyFulfilled) {
-        console.log(`  ✅ "${req.requested_value}" (${req.request_type})`);
-        console.log(`     SF ID: ${req.sf_id_received}`);
-        console.log(`     Fulfilled: ${formatTimeAgo(req.fulfilled_at)}`);
+        if (!fulfilledByType[req.request_type]) fulfilledByType[req.request_type] = [];
+        fulfilledByType[req.request_type].push(req);
+      }
+      
+      let totalJobsUnblocked = 0;
+      
+      for (const [type, requests] of Object.entries(fulfilledByType)) {
+        const emoji = {
+          brand: '🏷️',
+          category: '📁',
+          style: '🎨',
+          type: '📋',
+          attribute: '🔧'
+        }[type] || '❓';
+        
+        console.log(`  ${emoji} ${type.toUpperCase()} (${requests.length} fulfilled):`);
+        
+        for (const req of requests) {
+          const jobCount = req.requested_by_jobs?.length || req.request_count || 1;
+          totalJobsUnblocked += jobCount;
+          const fulfilledDate = new Date(req.fulfilled_at).toLocaleString('en-US', { 
+            timeZone: 'America/New_York', 
+            month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' 
+          });
+          console.log(`    ✅ "${req.requested_value}" → SF ID: ${req.sf_id_received || 'N/A'}`);
+          console.log(`       Fulfilled: ${fulfilledDate} EST | Was pending: ${formatTimeAgo(req.created_at)} | Unblocked ${jobCount} job${jobCount > 1 ? 's' : ''}`);
+          if (req.context?.suggested_for_category) {
+            console.log(`       Category: ${req.context.suggested_for_category}`);
+          }
+        }
+        console.log('');
+      }
+      
+      console.log(`  📊 Summary: ${recentlyFulfilled.length} items reconciled, ${totalJobsUnblocked} jobs unblocked`);
+      console.log('');
+    } else {
+      console.log(`📭 NO RECONCILIATIONS SINCE LAST SESSION (${timeWindowLabel})`);
+      console.log('───────────────────────────────────────────────────────────────');
+      console.log('  No pending requests were matched/fulfilled by SF picklist syncs.');
+      console.log('');
+    }
+    
+    // Also show lifetime fulfilled stats
+    const totalFulfilledAllTime = counts.fulfilled || 0;
+    if (totalFulfilledAllTime > 0) {
+      const oldestFulfilled = await PendingCreationRequest.findOne({ status: 'fulfilled' })
+        .sort({ fulfilled_at: 1 }).lean();
+      const newestFulfilled = await PendingCreationRequest.findOne({ status: 'fulfilled' })
+        .sort({ fulfilled_at: -1 }).lean();
+      
+      if (oldestFulfilled && newestFulfilled) {
+        const oldestDate = new Date(oldestFulfilled.fulfilled_at).toLocaleDateString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric' });
+        const newestDate = new Date(newestFulfilled.fulfilled_at).toLocaleDateString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric' });
+        console.log(`  📈 Lifetime: ${totalFulfilledAllTime} total items reconciled (${oldestDate} – ${newestDate})`);
         console.log('');
       }
     }
