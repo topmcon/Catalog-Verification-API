@@ -8070,6 +8070,64 @@ async function buildFinalResponse(
     const match = text.match(/([\d,]+)\s*BTU/i);
     return match ? match[1].replace(/,/g, '') : ''; // Remove commas
   };
+
+  /**
+   * Extract hole configuration from multiple sources with fallbacks
+   * Priority: AI attributes → Ferguson title text → Type field inference
+   */
+  const extractHoleConfigForTitle = (
+    topFilterAttributes: any,
+    primaryAttributes: any,
+    rawProduct: SalesforceIncomingProduct
+  ): string => {
+    // Check AI-extracted attributes (multiple field name variations)
+    const aiHoleConfig = 
+      topFilterAttributes.faucet_holes ||
+      topFilterAttributes.number_of_faucet_holes ||
+      topFilterAttributes.faucet_hole_size ||
+      topFilterAttributes.hole_count ||
+      topFilterAttributes.holes ||
+      '';
+    
+    if (aiHoleConfig && aiHoleConfig !== 'N/A' && aiHoleConfig !== 'Not Found') {
+      return String(aiHoleConfig);
+    }
+
+    // Extract from Ferguson title text (e.g., "Single Hole", "3-Hole", "3 Hole")
+    const fergusonTitle = rawProduct.Ferguson_Title || '';
+    const webRetailerTitle = rawProduct.Product_Title_Web_Retailer || '';
+    
+    const holePatterns = [
+      /\b(Single)\s+Hole\b/i,
+      /\b(1)[\s-]?Hole\b/i,
+      /\b(2)[\s-]?Hole\b/i,
+      /\b(3)[\s-]?Hole\b/i,
+      /\b(4)[\s-]?Hole\b/i,
+      /\b(5)[\s-]?Hole\b/i,
+    ];
+
+    for (const pattern of holePatterns) {
+      const fergusonMatch = fergusonTitle.match(pattern);
+      if (fergusonMatch) {
+        const num = fergusonMatch[1];
+        return num.toLowerCase() === 'single' || num === '1' ? 'Single Hole' : `${num}-Hole`;
+      }
+      
+      const webMatch = webRetailerTitle.match(pattern);
+      if (webMatch) {
+        const num = webMatch[1];
+        return num.toLowerCase() === 'single' || num === '1' ? 'Single Hole' : `${num}-Hole`;
+      }
+    }
+
+    // Infer from Type field: "Single Handle" → "Single Hole"
+    const productType = primaryAttributes.AI_Type || '';
+    if (productType.toLowerCase().includes('single handle')) {
+      return 'Single Hole';
+    }
+
+    return '';
+  };
   
   const placeSettingsFinal = preferAIValue(
     consensus.agreedTop15Attributes?.place_settings,
@@ -9804,7 +9862,7 @@ async function buildFinalResponse(
     configuration: String(sanitizedTopFilterAttributes.configuration || ''),
     controlType: String(sanitizedTopFilterAttributes.control_type || ''),
     depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
-    holeConfig: String(sanitizedTopFilterAttributes.faucet_holes || sanitizedTopFilterAttributes.number_of_faucet_holes || ''),
+    holeConfig: extractHoleConfigForTitle(sanitizedTopFilterAttributes, sanitizedPrimaryAttributes, rawProduct),
     mountType: String(sanitizedTopFilterAttributes.mounting_type || sanitizedTopFilterAttributes.installation_type || ''),
   };
 
