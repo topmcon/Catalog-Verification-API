@@ -387,6 +387,59 @@ function enforceModelAtEnd(title: string, modelNumber?: string): string {
  * Uses category-specific schema to determine slot order and formatting.
  * Falls back to generic formula if no schema exists.
  */
+/**
+ * Convert string to Title Case with smart handling of special cases
+ * 
+ * Rules:
+ * - First letter of each word capitalized
+ * - Small words (and, of, for, in, with, the) lowercase unless first/last word
+ * - All-caps short words (2-5 letters) preserved as acronyms (KWC, DXV, GPM, CFM, BTU)
+ * - Model numbers with special characters preserved as-is
+ * - Brand names: first letter capitalized, rest lowercase (DELTA → Delta)
+ * 
+ * Examples:
+ * - "DELTA Kitchen Faucet" → "Delta Kitchen Faucet"
+ * - "KWC Wall Mount Faucet" → "KWC Wall Mount Faucet" (acronym preserved)
+ * - "hansgrohe 1.2 GPM Faucet" → "Hansgrohe 1.2 GPM Faucet"
+ * - "Product For The Kitchen" → "Product for the Kitchen"
+ */
+function toTitleCase(str: string): string {
+  if (!str) return '';
+
+  // Small words that should be lowercase (unless first/last word)
+  const smallWords = new Set(['and', 'or', 'but', 'for', 'in', 'of', 'on', 'the', 'to', 'with', 'a', 'an']);
+  
+  // Split on spaces and process each word
+  const words = str.split(/\s+/);
+  
+  return words.map((word, index) => {
+    if (!word) return word;
+    
+    // Preserve model numbers with special characters or numbers at start
+    // Examples: "K-304-SL", "71734821", "G-6810-LM47B-PN"
+    if (/^[\dA-Z][-\dA-Z.#]+$/i.test(word) && (word.includes('-') || word.includes('.') || word.includes('#') || /^\d/.test(word))) {
+      return word;
+    }
+    
+    // Preserve all-caps acronyms (2-5 letters, all uppercase)
+    // Examples: "KWC", "DXV", "GPM", "CFM", "BTU", "BTU/H"
+    if (/^[A-Z]{2,5}(\/[A-Z]+)?$/.test(word)) {
+      return word;
+    }
+    
+    // Convert word to lowercase first
+    const lowerWord = word.toLowerCase();
+    
+    // Small words: lowercase unless first or last word
+    if (index !== 0 && index !== words.length - 1 && smallWords.has(lowerWord)) {
+      return lowerWord;
+    }
+    
+    // Standard title case: capitalize first letter
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
+}
+
 export function generateSEOTitle(input: SEOTitleInput): string {
   const categoryName = input.category || '';
   const schema = getCategoryTitleSchema(categoryName);
@@ -405,6 +458,10 @@ export function generateSEOTitle(input: SEOTitleInput): string {
     .replace(/\s*-\s*$/, '')
     .replace(/\s*\(\s*\)\s*$/, '') // Remove empty parentheses
     .trim();
+  
+  // Apply title case formatting to entire title
+  // This ensures consistent capitalization: "DELTA" → "Delta", "hansgrohe" → "Hansgrohe"
+  title = toTitleCase(title);
   
   // Enforce max length (150 chars absolute max)
   if (title.length > 150) {
