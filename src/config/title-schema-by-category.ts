@@ -2856,11 +2856,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       },
       {
-        "position": 2,
-        "attribute": "GPM/BTU",
-        "required": false
-      },
-      {
         "position": 3,
         "attribute": "Fuel Type",
         "required": false
@@ -2877,12 +2872,17 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 6,
+        "attribute": "GPM/BTU",
+        "required": false
+      },
+      {
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {GPM/BTU} {Fuel Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 50,000 BTU Tankless Water Heater Finish - Model",
+    "template": "{Brand} {Type} {Fuel Type} {Category} {Finish} {GPM/BTU} {Model Number}",
+    "exampleTitle": "Brand TypeValue Fuel Tankless Water Heater Finish 50,000 BTU - Model",
     "seoNotes": "GPM determines flow rate. Fuel = Gas, Electric."
   },
   "water_heater": {
@@ -5631,34 +5631,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 7,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 8,
@@ -5666,8 +5666,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {GPM} {Type} {Hole Config} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 1.2 GPM TypeValue Bathroom Faucet Finish - Model",
+    "template": "{Brand} {Type} {Hole Config} {Mount} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Bathroom Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount. Hole = Single, 3-Hole, 4-Hole."
   },
   "bathroom_hardware_and_accessories": {
@@ -6221,29 +6221,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Function",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -6251,8 +6251,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {GPM} {Type} {Function} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 1.2 GPM TypeValue Shower Faucet Finish - Model",
+    "template": "{Brand} {Type} {Function} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Shower Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter."
   },
   "steam_shower": {
@@ -6396,29 +6396,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -6426,8 +6426,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {GPM} {Type} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 1.2 GPM TypeValue Tub Faucet Finish - Model",
+    "template": "{Brand} {Type} {Mount} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Tub Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Roman Tub, Deck-Mount, Floor-Mount, Wall-Mount."
   },
   "urinal": {
@@ -6663,29 +6663,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -6693,8 +6693,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {GPM} {Type} {Hole Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 1.2 GPM TypeValue Bar Faucet Finish - Model",
+    "template": "{Brand} {Type} {Hole Config} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Bar Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Single-Handle, Pull-Down. Usually single-hole."
   },
   "food_service_faucet": {
@@ -6710,29 +6710,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -6740,8 +6740,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Food Service Faucet Finish - Model",
+    "template": "{Brand} {Type} {Mount} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Food Service Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Pot Filler, Pre-Rinse, Commercial. Mount = Deck, Wall."
   },
   "garbage_disposal": {
@@ -6880,29 +6880,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Hole Config",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -6910,8 +6910,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Hole Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Kitchen Faucet Finish - Model",
+    "template": "{Brand} {Type} {Hole Config} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Kitchen Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Pull-Down, Pull-Out, High-Arc, Commercial, Bridge. Hole = Single, 3-Hole, Widespread."
   },
   "kitchen_furniture_and_decor": {
@@ -7106,29 +7106,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "GPM",
-        "required": false,
-        "format": "{value} GPM"
-      },
-      {
-        "position": 3,
         "attribute": "Type",
         "required": false
       },
       {
-        "position": 4,
+        "position": 3,
         "attribute": "Mount",
         "required": false
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
       },
       {
         "position": 7,
@@ -7136,8 +7136,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Pot Filler Faucet Finish - Model",
+    "template": "{Brand} {Type} {Mount} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Pot Filler Faucet Finish 1.2 GPM - Model",
     "seoNotes": "Type = Deck-Mount, Wall-Mount. Always near range."
   },
   "water_filtration": {
