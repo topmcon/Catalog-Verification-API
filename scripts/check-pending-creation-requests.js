@@ -55,6 +55,13 @@ const PendingCreationRequestSchema = new mongoose.Schema({
 
 const PendingCreationRequest = mongoose.model('PendingCreationRequest', PendingCreationRequestSchema);
 
+// Schema for held picklist syncs (to cross-reference SF data)
+const PendingPicklistSyncSchema = new mongoose.Schema({}, { 
+  strict: false, 
+  collection: 'pending_picklist_syncs' 
+});
+const PendingPicklistSync = mongoose.model('PendingPicklistSync', PendingPicklistSyncSchema);
+
 function formatTimeAgo(date) {
   if (!date) return 'unknown';
   const now = new Date();
@@ -161,6 +168,122 @@ async function main() {
         }
         console.log('');
       }
+    }
+    
+    // ============================================================
+    // CROSS-REFERENCE: Check held SF syncs for matching items
+    // Report only — nothing is auto-applied
+    // ============================================================
+    const latestSync = await PendingPicklistSync.findOne({ status: 'pending' })
+      .sort({ created_at: -1 }).lean();
+    
+    if (latestSync && pendingRequests.length > 0) {
+      const incomingData = latestSync.incoming_data || {};
+      
+      // Build lookup maps from SF sync data
+      const sfLookup = {
+        attribute: new Map(),
+        brand: new Map(),
+        category: new Map(),
+        style: new Map(),
+        type: new Map()
+      };
+      
+      const fieldMap = {
+        attribute: { arr: incomingData.attributes, nameField: 'attribute_name', idField: 'attribute_id' },
+        brand:     { arr: incomingData.brands,     nameField: 'brand_name',     idField: 'brand_id' },
+        category:  { arr: incomingData.categories,  nameField: 'category_name',  idField: 'category_id' },
+        style:     { arr: incomingData.styles,      nameField: 'style_name',     idField: 'style_id' },
+        type:      { arr: incomingData.types,       nameField: 'type_name',      idField: 'type_id' }
+      };
+      
+      for (const [type, config] of Object.entries(fieldMap)) {
+        if (Array.isArray(config.arr)) {
+          for (const item of config.arr) {
+            const name = (item[config.nameField] || '').toLowerCase().trim();
+            const nameUnderscored = name.replace(/\s+/g, '_');
+            if (name && item[config.idField]) {
+              sfLookup[type].set(name, { name: item[config.nameField], id: item[config.idField] });
+              if (nameUnderscored !== name) {
+                sfLookup[type].set(nameUnderscored, { name: item[config.nameField], id: item[config.idField] });
+              }
+            }
+          }
+        }
+      }
+      
+      // Find matches
+      const matchedRequests = [];
+      const unmatchedRequests = [];
+      
+      for (const req of pendingRequests) {
+        const val = (req.requested_value || '').toLowerCase().trim();
+        const valSpaced = val.replace(/_/g, ' ');
+        const lookup = sfLookup[req.request_type];
+        
+        const match = lookup?.get(val) || lookup?.get(valSpaced);
+        
+        if (match) {
+          matchedRequests.push({ request: req, sfName: match.name, sfId: match.id });
+        } else {
+          unmatchedRequests.push(req);
+        }
+      }
+      
+      const syncDate = latestSync.created_at 
+        ? new Date(latestSync.created_at).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+        : 'unknown';
+      
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('  🔍 SF SYNC CROSS-REFERENCE (Latest held sync: ' + syncDate + ' EST)');
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('');
+      
+      if (matchedRequests.length > 0) {
+        let totalJobsToUnblock = 0;
+        
+        console.log(`  🟢 ${matchedRequests.length} MATCH(ES) FOUND — SF has created these items`);
+        console.log('     These can be fulfilled (SF ID updated) pending your confirmation.');
+        console.log('');
+        
+        for (const { request: req, sfName, sfId } of matchedRequests) {
+          const jobs = req.requested_by_jobs?.length || req.request_count || 1;
+          totalJobsToUnblock += jobs;
+          const cat = req.context?.suggested_for_category || 'N/A';
+          console.log(`    ✅ "${req.requested_value}" (${req.request_type})`);
+          console.log(`       SF ID: ${sfId} | Category: ${cat} | ${jobs} job${jobs > 1 ? 's' : ''} waiting`);
+          console.log(`       Pending since: ${formatTimeAgo(req.created_at)}`);
+        }
+        console.log('');
+        console.log(`    📊 Total: ${matchedRequests.length} items ready to fulfill, ${totalJobsToUnblock} jobs to unblock`);
+        console.log('');
+        console.log('    ⏳ ACTION REQUIRED: Confirm to fulfill these matched requests.');
+        console.log('       Run: node scripts/fulfill-matched-creation-requests.js');
+        console.log('');
+      }
+      
+      if (unmatchedRequests.length > 0) {
+        console.log(`  🔴 ${unmatchedRequests.length} UNMATCHED — SF has NOT created these yet`);
+        console.log('');
+        for (const req of unmatchedRequests) {
+          const jobs = req.requested_by_jobs?.length || req.request_count || 1;
+          const cat = req.context?.suggested_for_category || 'N/A';
+          console.log(`    ❌ "${req.requested_value}" (${req.request_type})`);
+          console.log(`       Category: ${cat} | ${jobs} job${jobs > 1 ? 's' : ''} waiting | Pending: ${formatTimeAgo(req.created_at)}`);
+        }
+        console.log('');
+      }
+      
+      if (matchedRequests.length === 0 && unmatchedRequests.length === 0) {
+        console.log('  No pending requests to cross-reference.');
+        console.log('');
+      }
+    } else if (pendingRequests.length > 0) {
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('  🔍 SF SYNC CROSS-REFERENCE');
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('  No held SF syncs available to cross-reference against.');
+      console.log('');
     }
     
     // Determine lookback window (since last session or default)
@@ -292,7 +415,7 @@ async function main() {
       console.log('   These items were sent via webhook and should appear in SF queue.');
       console.log('');
       console.log('🔄 When SF creates items and sends picklist sync:');
-      console.log('   System will automatically match and mark requests as fulfilled.');
+      console.log('   Matches will be reported during "Establish Connection" for your confirmation.');
       console.log('');
     }
     
