@@ -141,6 +141,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'BTU/Watts': 'btu',
   'Tonnage/BTU': 'btu',
   'CFM': 'cfm',
+  'GPM': 'gpm',
   'GPM/BTU': 'gpm',
   'dBA Level': 'dbaLevel',
   'Wattage': 'wattage',

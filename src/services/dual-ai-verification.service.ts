@@ -8029,6 +8029,27 @@ async function buildFinalResponse(
     const match = text.match(/(\d{1,2})\s+Place\s+Setting/i);
     return match ? match[1] : '';
   };
+
+  // Extract GPM (Gallons Per Minute) from title text
+  const extractGPMFromText = (text?: string): string => {
+    if (!text) return '';
+    const match = text.match(/(\d+\.?\d*)\s*GPM/i);
+    return match ? match[1] : '';
+  };
+
+  // Extract CFM (Cubic Feet per Minute) from title text
+  const extractCFMFromText = (text?: string): string => {
+    if (!text) return '';
+    const match = text.match(/(\d+)\s*CFM/i);
+    return match ? match[1] : '';
+  };
+
+  // Extract BTU (British Thermal Units) from title text
+  const extractBTUFromText = (text?: string): string => {
+    if (!text) return '';
+    const match = text.match(/([\d,]+)\s*BTU/i);
+    return match ? match[1].replace(/,/g, '') : ''; // Remove commas
+  };
   
   const placeSettingsFinal = preferAIValue(
     consensus.agreedTop15Attributes?.place_settings,
@@ -8041,6 +8062,45 @@ async function buildFinalResponse(
   extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
   extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
   '';
+
+  // Extract GPM from raw Ferguson/Web Retailer titles (more reliable than AI top15)
+  const gpmFinal = preferAIValue(
+    consensus.agreedTop15Attributes?.gpm,
+    openaiResult.top15Attributes?.gpm,
+    xaiResult.top15Attributes?.gpm,
+    openaiResult.confidence,
+    xaiResult.confidence,
+    ''
+  ) ||
+  extractGPMFromText(rawProduct.Ferguson_Title) ||
+  extractGPMFromText(rawProduct.Product_Title_Web_Retailer) ||
+  rawProduct.GPM || '';
+
+  // Extract CFM from raw Ferguson/Web Retailer titles
+  const cfmFinal = preferAIValue(
+    consensus.agreedTop15Attributes?.cfm,
+    openaiResult.top15Attributes?.cfm,
+    xaiResult.top15Attributes?.cfm,
+    openaiResult.confidence,
+    xaiResult.confidence,
+    ''
+  ) ||
+  extractCFMFromText(rawProduct.Ferguson_Title) ||
+  extractCFMFromText(rawProduct.Product_Title_Web_Retailer) ||
+  rawProduct.CFM || '';
+
+  // Extract BTU from raw Ferguson/Web Retailer titles
+  const btuFinal = preferAIValue(
+    consensus.agreedTop15Attributes?.btu,
+    openaiResult.top15Attributes?.btu,
+    xaiResult.top15Attributes?.btu,
+    openaiResult.confidence,
+    xaiResult.confidence,
+    ''
+  ) ||
+  extractBTUFromText(rawProduct.Ferguson_Title) ||
+  extractBTUFromText(rawProduct.Product_Title_Web_Retailer) ||
+  rawProduct.BTU || '';
   
   // Log width source for debugging
   if (widthFinal) {
@@ -8287,31 +8347,10 @@ async function buildFinalResponse(
       ''
     ),
     
-    // Critical attributes often missing from AI extraction
-    cfm: preferAIValue(
-      consensus.agreedTop15Attributes?.cfm,
-      openaiResult.top15Attributes?.cfm,
-      xaiResult.top15Attributes?.cfm,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.CFM || ''
-    ),
-    gpm: preferAIValue(
-      consensus.agreedTop15Attributes?.gpm,
-      openaiResult.top15Attributes?.gpm,
-      xaiResult.top15Attributes?.gpm,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.GPM || ''
-    ),
-    btu: preferAIValue(
-      consensus.agreedTop15Attributes?.btu,
-      openaiResult.top15Attributes?.btu,
-      xaiResult.top15Attributes?.btu,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      rawProduct.BTU || ''
-    ),
+    // Critical attributes - extracted from raw Ferguson/Web Retailer data
+    cfm: cfmFinal,
+    gpm: gpmFinal,
+    btu: btuFinal,
     placeSettings: placeSettingsFinal,
     controlType: preferAIValue(
       consensus.agreedTop15Attributes?.control_type,

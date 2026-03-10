@@ -157,6 +157,7 @@ export const ATTRIBUTE_FORMATTERS: Record<string, keyof typeof FORMATTING_RULES>
   'BTU/Watts': 'btu',
   'Tonnage/BTU': 'btu',
   'CFM': 'cfm',
+  'GPM': 'gpm',
   'GPM/BTU': 'gpm',
   'dBA Level': 'dba',
   'Power (kW)': 'kw',
@@ -5665,8 +5666,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Hole Config} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Bathroom Faucet Finish - Model",
+    "template": "{Brand} {GPM} {Type} {Hole Config} {Mount} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 1.2 GPM TypeValue Bathroom Faucet Finish - Model",
     "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount. Hole = Single, 3-Hole, 4-Hole."
   },
   "bathroom_hardware_and_accessories": {
@@ -6250,8 +6251,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Function} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Shower Faucet Finish - Model",
+    "template": "{Brand} {GPM} {Type} {Function} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 1.2 GPM TypeValue Shower Faucet Finish - Model",
     "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter."
   },
   "steam_shower": {
@@ -6425,8 +6426,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Mount} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Tub Faucet Finish - Model",
+    "template": "{Brand} {GPM} {Type} {Mount} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 1.2 GPM TypeValue Tub Faucet Finish - Model",
     "seoNotes": "Type = Roman Tub, Deck-Mount, Floor-Mount, Wall-Mount."
   },
   "urinal": {
@@ -6692,8 +6693,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Hole Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Bar Faucet Finish - Model",
+    "template": "{Brand} {GPM} {Type} {Hole Config} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 1.2 GPM TypeValue Bar Faucet Finish - Model",
     "seoNotes": "Type = Single-Handle, Pull-Down. Usually single-hole."
   },
   "food_service_faucet": {
