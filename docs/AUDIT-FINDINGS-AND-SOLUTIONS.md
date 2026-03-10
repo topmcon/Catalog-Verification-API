@@ -4099,6 +4099,56 @@ Are you adding a new slot to a title schema?
 | 2026-03-03 | Copilot Session | Added Findings #024-#027: Claude context gap fix (5d8994f), accessory override rule (8981370), OpenAI Stage 1 conflicting prompts (bc3d052), title auto-correction (fd6ea1b) |
 | 2026-03-04 | Copilot Session | Added Finding #028 (SF Picklist Sync Data Quality Crisis) - 75% duplicates, intelligent reconciliation system, 2,093 jobs unblocked, 1,214 attributes added - Commit 0745b38 |
 | 2026-03-04 | Copilot Session | Added Findings #029-#030: Subcategory contamination (a45da77), Logic field confusion (99451a5) - Cross-category type prevention, AI prompt clarification |
+| 2026-03-10 | Copilot Session | Added Finding #031: Creation request fulfillment invisible during establish connection - Enhanced report with cross-reference, manual confirmation script - Commits 88e2d27, 1fdd0ca |
+
+---
+
+## Finding #031: Creation Request Fulfillment Invisible During Establish Connection
+
+**Date Found**: 2026-03-10  
+**Severity**: 🟡 MEDIUM  
+**Category**: Reporting Gap / Feedback Loop  
+**Commit**: `88e2d27`, `1fdd0ca`
+
+### Symptom
+During "Establish Connection", the pending creation requests report showed 23 pending items. However, SF had already created 14 of those — the matching SF IDs were sitting in the held sync data. The report had no way to cross-reference held syncs against pending requests.
+
+### Root Cause
+Two issues in `scripts/check-pending-creation-requests.js`:
+1. **"Recently Fulfilled" section** used 24-hour lookback with 5-item cap — missed fulfillments from previous sessions
+2. **No cross-reference logic** — script only queried `PendingCreationRequest` collection, never checked `PendingPicklistSync` for matching SF IDs
+
+The reconciliation service (`tryFulfillFromSync`) was designed to run during sync approval, but since all syncs were held (CRITICAL: custom field overwrite risk), the fulfillment path was never triggered.
+
+### Investigation Steps
+1. Read `pending-creation-request.service.ts` — found `tryFulfillFromSync()` exists but only runs on sync approval
+2. Read `picklist-reconciliation.service.ts` — confirmed `reconcileAttributes()` only called from `approvePendingSync()`
+3. Ran ad-hoc cross-reference script on production — found 14/23 matches (61%)
+4. Initially added auto-fulfillment to sync handler → **User rejected** (violates no-auto-execution principle)
+5. Reverted auto-fulfillment, implemented report-only approach
+
+### Fix Applied
+
+**Enhanced report** (`scripts/check-pending-creation-requests.js`):
+- Changed lookback to "since last session" using shared timestamp file
+- Removed 5-item cap on fulfilled display
+- Added `PendingPicklistSync` model import
+- Added cross-reference section comparing pending requests vs held sync data
+- Reports matches as "READY TO FULFILL — AWAITING CONFIRMATION"
+
+**New confirmation script** (`scripts/fulfill-matched-creation-requests.js`):
+- Interactive script — presents matches, asks yes/no before each action
+- Updates SF ID on request record only after explicit confirmation
+- Does NOT modify picklist files or trigger any writes
+
+**Key design principle enforced**: Nothing auto-executes. All reconciliation must be reported and confirmed manually.
+
+### Scope
+- **Universal**: Affects all creation request reconciliation workflows
+- **Pattern**: Same as hold bucket philosophy — analyze → report → confirm → execute
+
+### Related Findings
+- **Finding #028**: SF Picklist Sync Data Quality Crisis (created the hold bucket that caused this gap)
 
 ---
 
