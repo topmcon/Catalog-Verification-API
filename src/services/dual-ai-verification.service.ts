@@ -218,6 +218,35 @@ function getCategoryDomain(category: string | null | undefined): string | null {
 }
 
 /**
+ * Check if a category belongs to the Appliances department
+ * Appliances use Web Retailer as primary data source; all others use Ferguson
+ */
+function isAppliancesCategory(categoryName: string | null | undefined): boolean {
+  if (!categoryName) return false;
+  const dept = getDepartmentForCategory(categoryName);
+  return dept === 'Appliances';
+}
+
+/**
+ * Get field value with category-dependent source priority
+ * Appliances: Web Retailer first, Ferguson second
+ * All others: Ferguson first, Web Retailer second
+ */
+function getFieldByPriority(
+  categoryName: string | null | undefined,
+  webRetailerValue: any,
+  fergusonValue: any,
+  fallback: any = ''
+): any {
+  const isAppliance = isAppliancesCategory(categoryName);
+  if (isAppliance) {
+    return webRetailerValue || fergusonValue || fallback;
+  } else {
+    return fergusonValue || webRetailerValue || fallback;
+  }
+}
+
+/**
  * Validate that input data sources are coherent (describe the same product)
  * Run this BEFORE expensive AI processing to catch garbage-in scenarios
  * 
@@ -6248,8 +6277,8 @@ async function researchMissingData(rawProduct: SalesforceIncomingProduct, missin
   const client = provider === 'openai' ? openai : xai;
   const model = provider === 'openai' ? (config.openai?.model || 'gpt-4o-mini') : (config.xai?.model || 'grok-3-mini');
 
-  const brand = rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || 'Unknown';
-  const modelNum = rawProduct.Model_Number_Web_Retailer || rawProduct.Ferguson_Model_Number || 'Unknown';
+  const brand = getFieldByPriority(category, rawProduct.Brand_Web_Retailer, rawProduct.Ferguson_Brand, 'Unknown');
+  const modelNum = getFieldByPriority(category, rawProduct.Model_Number_Web_Retailer, rawProduct.Ferguson_Model_Number, 'Unknown');
 
   let prompt = `You need to research and find the following missing product specifications:
 
@@ -7135,7 +7164,7 @@ async function buildFinalResponse(
   const didResearch = researchPerformed || !!researchResult || !!finalSearchResult;
   
   // Get raw values for customer-facing text
-  const rawBrand = consensus.agreedPrimaryAttributes.brand || rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand || '';
+  const rawBrand = consensus.agreedPrimaryAttributes.brand || getFieldByPriority(consensus.agreedCategory, rawProduct.Brand_Web_Retailer, rawProduct.Ferguson_Brand, '');
   
   // For title: Prefer AI-improved version over raw source data
   let rawTitle = consensus.agreedPrimaryAttributes.product_title;
@@ -7181,7 +7210,7 @@ async function buildFinalResponse(
       logger.info('Using xAI-improved description');
     } else {
       // Fall back to raw source data only if no AI provided improved version
-      rawDescription = rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '';
+      rawDescription = getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Description_Web_Retailer, rawProduct.Ferguson_Description, '');
       logger.info('Using raw source description (no AI improvements)');
     }
   }
@@ -8040,7 +8069,7 @@ async function buildFinalResponse(
     xaiResult.primaryAttributes.width,
     openaiResult.confidence,
     xaiResult.confidence,
-    rawProduct.Width_Web_Retailer || rawProduct.Ferguson_Width || ''
+    getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
   );
   
   // Get place settings from AI or text extraction (no structured field exists for this)
@@ -8329,7 +8358,7 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.height,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Height_Web_Retailer || rawProduct.Ferguson_Height || ''
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Height_Web_Retailer, rawProduct.Ferguson_Height, '')
     ),
     depth: preferAIValue(
       consensus.agreedPrimaryAttributes.depth,
@@ -8337,7 +8366,7 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.depth,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Depth_Web_Retailer || rawProduct.Ferguson_Depth || ''
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth, '')
     ),
     
     // Style/Type
@@ -9024,8 +9053,8 @@ async function buildFinalResponse(
   // Get the category schema to map field keys to attribute names
   // Use context-aware lookup to refine generic categories (e.g., "Decorative Lighting #" -> "Pendants #")
   const productContext = {
-    title: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '',
-    description: rawProduct.Product_Description_Web_Retailer || rawProduct.Ferguson_Description || '',
+    title: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
+    description: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Description_Web_Retailer, rawProduct.Ferguson_Description, ''),
     attributes: [
       ...(rawProduct.Ferguson_Attributes || []),
       ...(rawProduct.Web_Retailer_Specs || [])
@@ -9841,7 +9870,7 @@ async function buildFinalResponse(
     modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || '',
     category: sanitizedPrimaryAttributes.AI_Product_Category,
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
-    rawTitle: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '',
+    rawTitle: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
     style: sanitizedPrimaryAttributes.AI_Style,
     type: sanitizedPrimaryAttributes.AI_Type,
     finish: sanitizedPrimaryAttributes.AI_Finish,
@@ -10704,7 +10733,7 @@ async function trackResponseQuality(
           sfCatalogId: rawProduct.SF_Catalog_Id,
           category,
           productStyle: undefined, // Determined by AI, not in source data
-          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          manufacturer: getFieldByPriority(category, rawProduct.Brand_Web_Retailer, rawProduct.Ferguson_Brand),
           modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
           fieldName,
           fieldType: 'primary',
@@ -10738,7 +10767,7 @@ async function trackResponseQuality(
           sfCatalogId: rawProduct.SF_Catalog_Id,
           category,
           productStyle: undefined, // Determined by AI, not in source data
-          manufacturer: rawProduct.Brand_Web_Retailer || rawProduct.Ferguson_Brand,
+          manufacturer: getFieldByPriority(category, rawProduct.Brand_Web_Retailer, rawProduct.Ferguson_Brand),
           modelNumber: rawProduct.Model_Number_Web_Retailer || rawProduct.SF_Catalog_Name,
           fieldName,
           fieldType: 'top_filter',

@@ -349,8 +349,40 @@ CONTEXT INJECTED INTO performClaudeReview():
 ├─ Type Selection Guides: Per-category guidance on when to pick each type
 ├─ Category Schema: getCategorySchema(category) — top-15 attributes
 ├─ Trust Hierarchy: structured data > product name > AI extraction
+├─ Data Source Priority: Category-dependent (see below)
 ├─ CRITICAL ACCESSORY RULE: Accessories belong to parent appliance category
 └─ Valid Picklist Values: For corrections validation
+```
+
+**Data Source Priority by Category (2026-03-10)**:
+```
+CATEGORY-DEPENDENT SOURCE PRIORITY:
+├─ Appliances Department (17 categories):
+│  └─ Web_Retailer → Ferguson → fallback
+│     (Web Retailer provides better appliance specs)
+│
+└─ All Other Departments (144+ categories):
+   └─ Ferguson → Web_Retailer → fallback
+      (Ferguson is primary for lighting, plumbing, hardware, etc.)
+
+IMPLEMENTATION:
+├─ isAppliancesCategory(categoryName): Checks getDepartmentForCategory()
+├─ getFieldByPriority(category, webRetailerValue, fergusonValue, fallback)
+└─ Applied to 12 locations:
+   ├─ Brand (4x): AI research, customer text, tracking
+   ├─ Model Number (1x): AI research prompts
+   ├─ Title (2x): Category schema lookup, SEO title
+   ├─ Description (2x): Customer text, category context
+   └─ Dimensions (3x): Width, Height, Depth for title generation
+
+FIELDS AFFECTED:
+- Brand_Web_Retailer vs Ferguson_Brand
+- Model_Number_Web_Retailer vs Ferguson_Model_Number
+- Product_Title_Web_Retailer vs Ferguson_Title
+- Product_Description_Web_Retailer vs Ferguson_Description
+- Width_Web_Retailer vs Ferguson_Width
+- Height_Web_Retailer vs Ferguson_Height
+- Depth_Web_Retailer vs Ferguson_Depth
 ```
 
 ---
@@ -373,6 +405,8 @@ CONTEXT INJECTED INTO performClaudeReview():
 | `performClaudeReview()` | ~10608 | Claude Final Review with full context |
 | `executeFinalReviewStage()` | ~11056 | Orchestrates Phase A/B/C of Final Review |
 | `getTypeHierarchyExplanation()` | ~8500 | Type parent/child relationships for Claude |
+| `isAppliancesCategory()` | ~220 | Check if category is in Appliances department |
+| `getFieldByPriority()` | ~230 | Get field with category-dependent source priority |
 | `getCategorySchema()` | imported | Top-15 attributes per category |
 
 ---
