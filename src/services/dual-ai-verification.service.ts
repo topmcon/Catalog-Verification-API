@@ -4041,6 +4041,16 @@ ${categoryList}
 - Example: "Ice Maker" producing ice → "Icemaker" category (ice production, not storage)
 - Example: "Freezer" for cold storage → "Freezer" category (food storage appliance)
 
+**⚠️ CRITICAL: TRUST SOURCE TITLES FOR CATEGORY DISAMBIGUATION**
+- **When Ferguson_Title or Product_Title_Web_Retailer explicitly mentions a category name, TRUST it.**
+- The Ferguson title clearly says 'Bar Faucet' which should be definitive.
+- Example: Ferguson title contains "Bar Faucet" → Use "Bar Faucet" category (NOT "Kitchen Faucet")
+- Example: Ferguson title contains "Kitchen Faucet" → Use "Kitchen Faucet" category (NOT "Bar Faucet")
+- **Bar Faucet vs Kitchen Faucet disambiguation:** These categories are structurally similar but distinct:
+  * Bar Faucet: Smaller faucets for bar/prep sinks (compact, bar prep areas)
+  * Kitchen Faucet: Standard faucets for main kitchen sinks
+  * If source title says "Bar Faucet", use Bar Faucet category regardless of other similarities
+
 **⚠️ CRITICAL Product Type Distinctions:**
 - **Icemaker/Ice Machine**: Produces ice (nugget, cube, etc.). Primary function is ICE PRODUCTION.
 - **Freezer**: Stores frozen food. Primary function is COLD STORAGE.
@@ -4086,6 +4096,16 @@ ${categoryList}
 - Example: "Ceiling Fan with Light" → select "Ceiling Fan" (not generic "Lighting")
 - Example: "Built-In Oven" → select "Oven" (specific appliance)
 - Example: "Pull-Down Kitchen Faucet" → select "Kitchen Faucet" (not generic "Faucet")
+
+**⚠️ CRITICAL: TRUST SOURCE TITLES FOR CATEGORY DISAMBIGUATION**
+- **When Ferguson_Title or Product_Title_Web_Retailer explicitly mentions a category name, TRUST it.**
+- The Ferguson title clearly says 'Bar Faucet' which should be definitive.
+- Example: Ferguson title contains "Bar Faucet" → Use "Bar Faucet" category (NOT "Kitchen Faucet")
+- Example: Ferguson title contains "Kitchen Faucet" → Use "Kitchen Faucet" category (NOT "Bar Faucet")
+- **Bar Faucet vs Kitchen Faucet disambiguation:** These categories are structurally similar but distinct:
+  * Bar Faucet: Smaller faucets for bar/prep sinks (compact, bar prep areas)
+  * Kitchen Faucet: Standard faucets for main kitchen sinks
+  * If source title says "Bar Faucet", use Bar Faucet category regardless of other similarities
 ${promptOptions?.strictCategoryMode ? '\n⚠️ **STRICT MODE**: You MUST select a category from the provided list. DO NOT create new category names.' : ''}
 
 **⚠️ IMPORTANT: Stage 2 Response Format**
