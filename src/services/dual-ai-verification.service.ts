@@ -8444,11 +8444,12 @@ async function buildFinalResponse(
     installationType: seoTitleInput.installationType || 'NOT SET'
   });
   
-  // Generate SEO-optimized title
-  const seoTitle = generateSEOTitle(seoTitleInput);
-  logger.info('SEO title generated', {
+  // Generate PRELIMINARY title for Final Review validation
+  // This will be regenerated AFTER Final Review uses corrected data
+  const preliminarySeoTitle = generateSEOTitle(seoTitleInput);
+  logger.info('Preliminary SEO title generated (will regenerate after Final Review)', {
     sessionId,
-    seoTitle: seoTitle.substring(0, 80),
+    preliminarySeoTitle: preliminarySeoTitle.substring(0, 80),
     originalTitle: cleanedText.title?.substring(0, 80),
     category: seoTitleInput.category,
     brand: seoTitleInput.brand
@@ -8737,7 +8738,7 @@ async function buildFinalResponse(
     ),
     // Market_Value fields removed - no longer sent to Salesforce
     AI_Description: cleanedText.description,
-    AI_Product_Title: seoTitle,  // Use SEO-optimized title
+    AI_Product_Title: preliminarySeoTitle,  // Preliminary title (will regenerate after Final Review)
     // Details_Verified field removed - no longer sent to Salesforce
     AI_Features: cleanedText.featuresHtml,
     AI_UPC_GTIN: (() => {
@@ -9716,7 +9717,7 @@ async function buildFinalResponse(
     consensus,
     sanitizedPrimaryAttributes,
     sanitizedTopFilterAttributes,
-    seoTitle,
+    preliminarySeoTitle,
     rawProduct,
     sessionId
   );
@@ -9746,6 +9747,71 @@ async function buildFinalResponse(
       sessionId,
       correctionsApplied: finalReviewResult.correctionsApplied.length,
       issuesFlagged: finalReviewResult.flaggedForReview.length
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // REGENERATE TITLE - After Final Review with Corrected Data
+  // ═══════════════════════════════════════════════════════════════
+  // Now that Final Review has applied corrections to brand, type, finish, etc.,
+  // regenerate the title to ensure it reflects the most accurate data.
+  // If Claude already corrected the title during Final Review, this will use those corrections.
+  
+  // Build seoTitleInput from CORRECTED attributes
+  const finalSeoTitleInput: SEOTitleInput = {
+    brand: sanitizedPrimaryAttributes.AI_Brand,
+    modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || '',
+    category: sanitizedPrimaryAttributes.AI_Product_Category,
+    subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
+    rawTitle: rawProduct.Product_Title_Web_Retailer || rawProduct.Ferguson_Title || '',
+    style: sanitizedPrimaryAttributes.AI_Style,
+    type: sanitizedPrimaryAttributes.AI_Type,
+    finish: sanitizedPrimaryAttributes.AI_Finish,
+    color: sanitizedPrimaryAttributes.AI_Color,
+    width: sanitizedPrimaryAttributes.AI_Width,
+    height: sanitizedPrimaryAttributes.AI_Height,
+    depth: sanitizedPrimaryAttributes.AI_Depth,
+    // Extract specs from corrected topFilterAttributes
+    gpm: String(sanitizedTopFilterAttributes.flow_rate_gpm || gpmFinal || ''),
+    cfm: String(sanitizedTopFilterAttributes.cfm || cfmFinal || ''),
+    btu: String(sanitizedTopFilterAttributes.btu || btuFinal || ''),
+    totalCapacity: String(sanitizedTopFilterAttributes.total_capacity || sanitizedTopFilterAttributes.capacity || ''),
+    numberOfLights: String(sanitizedTopFilterAttributes.number_of_lights || ''),
+    numberOfBurners: String(sanitizedTopFilterAttributes.number_of_burners || ''),
+    placeSettings: String(sanitizedTopFilterAttributes.place_settings || ''),
+    installationType: String(sanitizedTopFilterAttributes.installation_type || ''),
+    fuelType: String(sanitizedTopFilterAttributes.fuel_type || ''),
+    configuration: String(sanitizedTopFilterAttributes.configuration || ''),
+    controlType: String(sanitizedTopFilterAttributes.control_type || ''),
+    depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
+    holeConfig: String(sanitizedTopFilterAttributes.faucet_holes || sanitizedTopFilterAttributes.number_of_faucet_holes || ''),
+    mountType: String(sanitizedTopFilterAttributes.mounting_type || sanitizedTopFilterAttributes.installation_type || ''),
+  };
+
+  // Generate final title using corrected data
+  const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
+  
+  // If Claude already corrected the title during Final Review, use that instead
+  // (Claude's correction would be in sanitizedPrimaryAttributes.AI_Product_Title)
+  const titleWasCorrectedByClaude = finalReviewResult.correctionsApplied.some(
+    correction => correction.field === 'title'
+  );
+  
+  if (!titleWasCorrectedByClaude) {
+    // Use our regenerated title (it benefits from Claude's field corrections)
+    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
+    logger.info('📝 FINAL TITLE: Regenerated after Final Review using corrected data', {
+      sessionId,
+      preliminaryTitle: preliminarySeoTitle.substring(0, 80),
+      finalTitle: finalSeoTitle.substring(0, 80),
+      brandCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'brand'),
+      typeCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'type'),
+      finishCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'finish')
+    });
+  } else {
+    logger.info('📝 FINAL TITLE: Using Claude\'s corrected title from Final Review', {
+      sessionId,
+      claudeTitle: sanitizedPrimaryAttributes.AI_Product_Title?.substring(0, 80)
     });
   }
 
