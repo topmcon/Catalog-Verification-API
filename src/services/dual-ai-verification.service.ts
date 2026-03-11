@@ -147,6 +147,7 @@ interface ConsensusResult {
   agreed: boolean;
   agreedDepartment: string | null;  // Consensus on department
   agreedCategory: string | null;
+  categoryAgreed: boolean;  // True when both AIs independently picked the same category
   agreedPrimaryAttributes: Record<string, any>;
   agreedTop15Attributes: Record<string, any>;
   agreedAdditionalAttributes: Record<string, any>;
@@ -5431,6 +5432,7 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
     agreed: categoriesMatch && disagreements.filter(d => d.resolution === 'unresolved').length === 0,
     agreedDepartment,
    agreedCategory,
+    categoryAgreed: categoriesMatch,
     agreedPrimaryAttributes: agreedPrimary,
     agreedTop15Attributes: agreedTop15,
     agreedAdditionalAttributes: agreedAdditional,
@@ -12165,25 +12167,44 @@ async function executeFinalReviewStage(
     // Use proposedCorrections (already validated against picklists in performClaudeReview)
     const pc = phaseBResult.proposedCorrections;
     if (pc && phaseBResult.reviewStatus === 'FAIL') {
-      // Apply validated category correction
+      // Apply validated category correction — but BLOCK if both AIs agreed (Option A guard)
       if (pc.category) {
-        const oldCategory = consensus.agreedCategory;
-        consensus.agreedCategory = pc.category;
-        (primaryAttributes as any).AI_Product_Category = pc.category;
-        correctionsApplied.push({
-          severity: 'CRITICAL',
-          field: 'category',
-          currentValue: oldCategory || '',
-          issue: `Claude corrected category from "${oldCategory}" to "${pc.category}"`,
-          evidence: phaseBResult.reasoning,
-          suggestedFix: pc.category
-        });
-        logger.error('🔴 FINAL REVIEW: Claude corrected category (validated against picklist)', {
-          sessionId,
-          from: oldCategory,
-          to: pc.category,
-          reasoning: phaseBResult.reasoning
-        });
+        if (consensus.categoryAgreed && pc.category !== consensus.agreedCategory) {
+          // Both primary AIs independently agreed on the same category.
+          // Claude's override is blocked — log as flag only, do NOT apply.
+          flaggedForReview.push({
+            severity: 'HIGH',
+            field: 'category',
+            currentValue: consensus.agreedCategory || '',
+            issue: `Claude wanted to change category from "${consensus.agreedCategory}" to "${pc.category}" but BLOCKED — both AIs agreed on "${consensus.agreedCategory}"`,
+            evidence: phaseBResult.reasoning,
+            suggestedFix: pc.category
+          });
+          logger.warn('🛡️ FINAL REVIEW: Claude category override BLOCKED — both AIs agreed', {
+            sessionId,
+            agreedCategory: consensus.agreedCategory,
+            claudeWanted: pc.category,
+            reasoning: phaseBResult.reasoning
+          });
+        } else {
+          const oldCategory = consensus.agreedCategory;
+          consensus.agreedCategory = pc.category;
+          (primaryAttributes as any).AI_Product_Category = pc.category;
+          correctionsApplied.push({
+            severity: 'CRITICAL',
+            field: 'category',
+            currentValue: oldCategory || '',
+            issue: `Claude corrected category from "${oldCategory}" to "${pc.category}"`,
+            evidence: phaseBResult.reasoning,
+            suggestedFix: pc.category
+          });
+          logger.error('🔴 FINAL REVIEW: Claude corrected category (validated against picklist)', {
+            sessionId,
+            from: oldCategory,
+            to: pc.category,
+            reasoning: phaseBResult.reasoning
+          });
+        }
       }
       
       // Apply validated department correction
