@@ -4841,6 +4841,37 @@ interface PromptOptions {
 function sanitizeProductDataForAI(rawProduct: SalesforceIncomingProduct): any {
   const sanitized: any = {};
   
+  // FILTER 0: Detect Web Retailer brand mismatch (data collision).
+  // If Web Retailer brand is completely different from Ferguson brand,
+  // the Web Retailer data is likely for a different product (key collision).
+  // Example: SONNEMAN 3834.16 → Web_Retailer_Key CHELSEA:383416 → Palm Leaf Vase
+  let webRetailerDataUnreliable = false;
+  const fergusonBrand = (rawProduct as any).Ferguson_Brand || (rawProduct as any).Brand_Legacy || '';
+  const webRetailerBrand = (rawProduct as any).Brand_Web_Retailer || '';
+  if (fergusonBrand && webRetailerBrand) {
+    const normFerguson = fergusonBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const normWebRetailer = webRetailerBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+    // Check if brands share any meaningful overlap (at least 3 consecutive chars)
+    const shorter = normFerguson.length <= normWebRetailer.length ? normFerguson : normWebRetailer;
+    const longer = normFerguson.length > normWebRetailer.length ? normFerguson : normWebRetailer;
+    let hasOverlap = false;
+    for (let i = 0; i <= shorter.length - 3; i++) {
+      if (longer.includes(shorter.substring(i, i + 3))) {
+        hasOverlap = true;
+        break;
+      }
+    }
+    if (!hasOverlap && normFerguson.length >= 3 && normWebRetailer.length >= 3) {
+      webRetailerDataUnreliable = true;
+      logger.warn('⚠️ WEB RETAILER BRAND MISMATCH: Data may be for a different product', {
+        fergusonBrand,
+        webRetailerBrand,
+        webRetailerKey: (rawProduct as any).Web_Retailer_Key || 'N/A',
+        action: 'Marking Web Retailer fields as unreliable'
+      });
+    }
+  }
+  
   for (const [key, value] of Object.entries(rawProduct)) {
     // FILTER 1: Remove Prior_Response_Data entirely
     if (key === 'Prior_Response_Data') {
@@ -4855,6 +4886,12 @@ function sanitizeProductDataForAI(rawProduct: SalesforceIncomingProduct): any {
     // FILTER 3: Remove any _Verified or _Lookup suffix fields (also our outputs)
     if (key.endsWith('_Verified') || key.endsWith('_Lookup')) {
       continue; // Skip - these are computed fields
+    }
+    
+    // FILTER 4: If Web Retailer brand mismatch detected, annotate those fields
+    if (webRetailerDataUnreliable && key.includes('Web_Retailer') && value) {
+      sanitized[key] = `⚠️ UNRELIABLE (brand mismatch: Ferguson="${fergusonBrand}" vs WebRetailer="${webRetailerBrand}" — likely different product): ${value}`;
+      continue;
     }
     
     // Keep all legitimate input data (Ferguson, Web_Retailer, Legacy, etc.)
@@ -12226,25 +12263,88 @@ async function executeFinalReviewStage(
         });
       }
       
-      // Apply validated title correction
-      // Claude has full context (title schema, accessory format, raw product data)
-      // and proposes titles using our exact schema rules — safe to auto-apply
+      // Apply validated title correction — but ONLY if it doesn't contradict
+      // the verified brand or category. Claude sometimes smuggles category
+      // disagreements into the title text (e.g., replacing "Wall Sconce" with
+      // "Post Light" in the title even though category is locked).
       if (pc.title) {
         const oldTitle = primaryAttributes.AI_Product_Title || generatedTitle;
-        primaryAttributes.AI_Product_Title = pc.title;
-        correctionsApplied.push({
-          severity: 'HIGH',
-          field: 'title',
-          currentValue: oldTitle,
-          issue: `Claude corrected title from "${oldTitle}" to "${pc.title}"`,
-          evidence: phaseBResult.reasoning,
-          suggestedFix: pc.title
-        });
-        logger.warn('✏️  FINAL REVIEW: Claude corrected title (auto-applied)', {
-          sessionId,
-          from: oldTitle,
-          to: pc.title
-        });
+        const verifiedCategory = (primaryAttributes as any).AI_Product_Category || consensus.agreedCategory || '';
+        const verifiedBrand = primaryAttributes.AI_Brand || '';
+        const proposedTitleLower = pc.title.toLowerCase();
+        
+        // Check if Claude's title contains a DIFFERENT category name than the verified one
+        // Common category names that appear in titles and indicate Claude disagreement
+        const categoryTerms: Record<string, string[]> = {
+          'wall sconce': ['post light', 'ceiling light', 'chandelier', 'pendant', 'flush mount'],
+          'pendant': ['post light', 'chandelier', 'flush mount', 'wall sconce'],
+          'chandelier': ['pendant', 'post light', 'flush mount'],
+          'bathroom lighting': ['wall decor', 'bathtub', 'waste & overflow', 'drain'],
+          'vanity lighting': ['wall decor', 'bathtub', 'waste & overflow', 'drain'],
+          'recessed lighting': ['flush mount', 'surface mount'],
+          'landscape lighting': ['wall sconce', 'post light'],
+        };
+        
+        const verifiedCatLower = verifiedCategory.toLowerCase();
+        const conflictingTerms = categoryTerms[verifiedCatLower] || [];
+        const hasConflictingCategory = conflictingTerms.some(term => proposedTitleLower.includes(term));
+        
+        // Check if Claude used a different brand in the title
+        const verifiedBrandLower = verifiedBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const titleBrandArea = proposedTitleLower.split(/\d/)[0]; // Text before first digit is usually brand area
+        const hasBrandMismatch = verifiedBrandLower.length > 2 && 
+          !titleBrandArea.toLowerCase().replace(/[^a-z0-9]/g, '').includes(verifiedBrandLower);
+        
+        if (hasConflictingCategory) {
+          // REJECT: Claude's title contradicts the verified category
+          logger.warn('🛡️ FINAL REVIEW: Rejecting Claude title — contains conflicting category term', {
+            sessionId,
+            verifiedCategory,
+            proposedTitle: pc.title,
+            conflictingTermFound: conflictingTerms.find(term => proposedTitleLower.includes(term)),
+            reason: 'Title contradicts 2-AI consensus category'
+          });
+          flaggedForReview.push({
+            severity: 'HIGH',
+            field: 'title',
+            currentValue: oldTitle,
+            issue: `Claude proposed title with conflicting category (rejected): "${pc.title}"`,
+            evidence: phaseBResult.reasoning,
+            suggestedFix: oldTitle
+          });
+        } else if (hasBrandMismatch) {
+          // REJECT: Claude used a different brand in the title
+          logger.warn('🛡️ FINAL REVIEW: Rejecting Claude title — brand mismatch', {
+            sessionId,
+            verifiedBrand,
+            proposedTitle: pc.title,
+            reason: 'Title uses different brand than verified'
+          });
+          flaggedForReview.push({
+            severity: 'HIGH',
+            field: 'title',
+            currentValue: oldTitle,
+            issue: `Claude proposed title with different brand (rejected): "${pc.title}"`,
+            evidence: phaseBResult.reasoning,
+            suggestedFix: oldTitle
+          });
+        } else {
+          // ACCEPT: Title correction is consistent with verified data
+          primaryAttributes.AI_Product_Title = pc.title;
+          correctionsApplied.push({
+            severity: 'HIGH',
+            field: 'title',
+            currentValue: oldTitle,
+            issue: `Claude corrected title from "${oldTitle}" to "${pc.title}"`,
+            evidence: phaseBResult.reasoning,
+            suggestedFix: pc.title
+          });
+          logger.warn('✏️  FINAL REVIEW: Claude corrected title (validated & applied)', {
+            sessionId,
+            from: oldTitle,
+            to: pc.title
+          });
+        }
       }
     }
     

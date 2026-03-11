@@ -789,8 +789,32 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       continue;
     }
     
-    const rawValue = getInputValue(input, slot.attribute);
-    let formattedValue = formatValue(slot.attribute, rawValue, input);
+    // DIMENSION SWAP: For Bathroom Lighting / Vanity Lighting sconces, use height
+    // instead of width when the product is a tall/slim wall-mounted sconce.
+    // Width gives misleading tiny values like "3-Inch" when height is 13".
+    let effectiveAttribute = slot.attribute;
+    if (slot.attribute === 'Width (Inches)' && input.height && input.width) {
+      const w = parseFloat(String(input.width));
+      const h = parseFloat(String(input.height));
+      const catLower = (input.category || '').toLowerCase();
+      const typeLower = (input.type || '').toLowerCase();
+      const isSconceLike = typeLower === 'sconce' || typeLower === 'wall sconce';
+      const isLightingCat = catLower.includes('bathroom lighting') || catLower.includes('vanity lighting');
+      // If height is at least 2x width and it's a sconce-type product, prefer height
+      if (isLightingCat && isSconceLike && !isNaN(w) && !isNaN(h) && h > w * 2) {
+        effectiveAttribute = 'Height (Inches)';
+        logger.info('📐 DIMENSION SWAP: Using height instead of width for sconce title', {
+          category: input.category,
+          type: input.type,
+          width: w,
+          height: h,
+          reason: 'Sconce is taller than wide — height is the primary dimension'
+        });
+      }
+    }
+    
+    const rawValue = getInputValue(input, effectiveAttribute);
+    let formattedValue = formatValue(effectiveAttribute, rawValue, input);
     
     // CHANGE 4: For Accessory type, use specific subtype instead of generic "Accessory"
     if (slot.attribute === 'Type' && rawValue?.toString().toLowerCase() === 'accessory') {
