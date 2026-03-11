@@ -42,6 +42,9 @@
 | 594 pending requests with 99% already in rejected sync | Reconciliation fulfills requests from rejected sync data | 0745b38 | #028 |
 | Subcategory contaminating type selection | Remove subcategory from typeCandidates, add validation | a45da77 | #029 |
 | Logic field confused as valid type values | Clarify logic is guidance, types list is constraint | 99451a5 | #030, #029 |
+| Claude smuggling category into title text | Validate title against category terms + brand before accepting | e96878b | #032, #027, #016 |
+| Wrong dimension in sconce titles (width vs height) | Dimension swap when Height > 2× Width for sconce types | e96878b | #033 |
+| Web retailer data collision (brand mismatch) | Brand overlap check → UNRELIABLE annotation on all web fields | e96878b | #034 |
 
 ---
 
@@ -4149,6 +4152,136 @@ The reconciliation service (`tryFulfillFromSync`) was designed to run during syn
 
 ### Related Findings
 - **Finding #028**: SF Picklist Sync Data Quality Crisis (created the hold bucket that caused this gap)
+
+---
+
+## Finding #032: Claude Title Correction Bypasses Category Protection
+
+**Date Discovered:** 2026-03-10
+**Severity:** 🔴 HIGH
+**Status:** ✅ FIXED (commit e96878b)
+
+### Symptom
+After removing category/department from Claude's Final Review scope (commit b5e7d4a), Claude was still effectively overriding categories — not by changing the category field, but by rewriting title text to reflect its preferred category. Example: Wall Sconce product P5755108 got title changed to include "Post Light" because Claude believed it should be a Post Light.
+
+### Root Cause
+The title correction block at ~line 12232 in `dual-ai-verification.service.ts` blindly applied any title Claude suggested (`pc.title`). Claude's review prompt still included the product data and images, so it would "disagree" with category by writing a title that described a different product type.
+
+### Investigation Steps
+1. Analyzed 73-item batch from Salesforce — found 5 items with wrong category terms in titles
+2. Queried production MongoDB for `Final_Review` data on affected items
+3. Found Claude's `corrected_fields` contained title changes with conflicting category terms
+4. Traced code path: `pc.title` was applied without any validation against verified category
+
+### Fix Applied
+Replaced blind `pc.title` application with two-stage validation:
+1. **Category term check**: Built `categoryTerms` lookup table mapping categories to conflicting terms (e.g., `'wall sconce': ['post light', 'ceiling light', 'chandelier', 'pendant', 'flush mount']`). Rejects title if it contains terms from a different category.
+2. **Brand check**: Extracts brand area from title (first word or two), rejects if it doesn't match the verified brand.
+
+Rejected titles are logged as `🛡️ FINAL REVIEW: Rejecting Claude title` and flagged for manual review. Accepted titles logged as `✏️ FINAL REVIEW: Claude corrected title (validated & applied)`.
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts` (~line 12232): Title correction validation block
+
+### Affected Products (from 73-item batch)
+- P5755108 (Progress Lighting) — Claude wanted "Post Light", verified as "Wall Sconce"
+- 2220-BN (DERA) — Claude wanted "Bathtub Waste and Overflow Drain", verified as "Bathtub Drain"
+- 62/5945 (ELK) — Claude wanted "Chandelier", verified as "Pendant"
+- 700BCBND13BLED930 (Tech Lighting) — Claude rewrote title with wrong product type
+- One additional item with brand mismatch in title
+
+### Scope
+- **Universal**: Affects all products going through Claude Final Review Phase B
+- **Pattern**: Same as #016 and #027 — Claude attempting to impose its own classification
+
+### Related Findings
+- **Finding #016**: AI re-categorizing instead of validating (original category lock)
+- **Finding #027**: Title auto-correction from Claude review (first title protection attempt)
+- **Finding #025**: Claude accessory classification override (similar override pattern)
+
+---
+
+## Finding #033: Wrong Dimension Selected for Sconce Titles (Width vs Height)
+
+**Date Discovered:** 2026-03-10
+**Severity:** 🟡 MEDIUM
+**Status:** ✅ FIXED (commit e96878b)
+
+### Symptom
+Sconce-type products under Bathroom Lighting and Vanity Lighting showed "3-Inch" in titles when the sconce was actually 13 inches tall. The title used width (3.1") instead of the more meaningful height (13").
+
+### Root Cause
+The `bathroom_lighting` and `vanity_lighting` title schemas use `Width (Inches)` in position 2 because most bathroom fixtures are measured by width. However, sconces are tall and narrow — height is the meaningful dimension. The schema had no awareness of product type when selecting which dimension to use.
+
+### Investigation Steps
+1. Identified 700BCBND13BLED930 (Tech Lighting BANDA 13) with "3-Inch" in title
+2. Checked `title-schema-by-category.ts` — `bathroom_lighting` schema uses `Width (Inches)` at slot 2
+3. Product dimensions: Width=3.1", Height=13" — width was nonsensically small for a title
+4. Determined that height > 2× width is a reliable signal for sconce-type products
+
+### Fix Applied
+In `seo-title-generator.service.ts` `generateFromSchema()` (~line 792):
+- Before calling `getInputValue()`, checks if slot attribute is `Width (Inches)`
+- AND category is `Bathroom Lighting` or `Vanity Lighting` 
+- AND type contains "Sconce"
+- AND height > 2× width
+- If all conditions met, swaps to `Height (Inches)` attribute
+- Logs `📐 DIMENSION SWAP: Using height instead of width for sconce title`
+
+### Files Modified
+- `src/services/seo-title-generator.service.ts` (~line 792): Dimension swap logic in `generateFromSchema()`
+
+### Affected Products
+- 700BCBND13BLED930 (Tech Lighting BANDA 13) — Width=3.1", Height=13", title showed "3-Inch"
+- Any sconce-type bathroom/vanity lighting product where height significantly exceeds width
+
+### Scope
+- **Limited**: Only affects Bathroom Lighting and Vanity Lighting categories with Sconce type
+- **Pattern**: Schema design assumed uniform product shape within category
+
+### Related Findings
+- **Finding #017**: Cutout vs nominal dimension confusion (different dimension selection issue)
+
+---
+
+## Finding #034: Web Retailer Data Collision — Brand Mismatch from Key Collision
+
+**Date Discovered:** 2026-03-10
+**Severity:** 🟡 MEDIUM
+**Status:** ✅ FIXED (commit e96878b)
+
+### Symptom
+SONNEMAN product 3834.16 (Suspenders 36" Chandelier) was getting web retailer data from a Chelsea House product (Palm Leaf Vase). AI was confused by contradictory product descriptions from two different brands.
+
+### Root Cause
+The `Web_Retailer_Key` field (CHELSEA:383416) pointed to a different brand's product. The key format `BRAND_PREFIX:MODEL_NUMBER` had a collision — "CHELSEA" was the retailer prefix, not the brand "Chelsea House", but the underlying data was for a completely different product. The system had no mechanism to detect that web retailer data belonged to a different brand than the Ferguson product being verified.
+
+### Investigation Steps
+1. Found SONNEMAN 3834.16 was getting "vase" and "Chelsea House" descriptions in AI context
+2. Checked `rawPayload.Web_Retailer_Key` = "CHELSEA:383416"
+3. Checked `rawPayload.Brand_Web_Retailer` = "Chelsea House" vs Ferguson brand = "SONNEMAN"
+4. Confirmed web retailer data was for completely different product
+
+### Fix Applied
+In `dual-ai-verification.service.ts` `sanitizeProductDataForAI()` (~line 4841):
+- Added brand mismatch detection comparing Ferguson brand vs `Brand_Web_Retailer`
+- Uses 3-character substring overlap check between the two brands (case-insensitive)
+- When mismatch detected, ALL `*_Web_Retailer` fields get prefixed with `⚠️ UNRELIABLE (brand mismatch: Ferguson="X" vs WebRetailer="Y" — likely different product): {value}`
+- Logs `⚠️ WEB RETAILER BRAND MISMATCH` for monitoring
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts` (~line 4841): Brand mismatch detection in `sanitizeProductDataForAI()`
+
+### Affected Products
+- SONNEMAN 3834.16 — Web Retailer Key collision with Chelsea House product
+- Any product where `Web_Retailer_Key` points to a different brand's data
+
+### Scope
+- **Universal**: Affects all products with web retailer data
+- **Pattern**: External data source reliability — data from third parties must be validated before trusting
+
+### Related Findings
+- **Finding #024**: Claude Final Review context gap (similar issue of misleading context passed to AI)
 
 ---
 
