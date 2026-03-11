@@ -46,21 +46,6 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Lamp': ['Lamps', 'Table Lamps', 'Desk Lamps', 'Floor Lamps'],
   'Lighting Accessory': ['Lighting Accessories', 'Lighting Accessories and Parts', 'Lighting Accessory and Parts'],
   'Recessed Lighting': ['Recessed Lights', 'Can Lights', 'Downlights'],
-  'Under Cabinet Light': [
-    'Under Cabinet Lights',
-    'Under Cabinet Lighting',
-    'Undercabinet Light',
-    'Undercabinet Lighting',
-    'Cabinet Lighting',
-    'Task Light',
-    'Task Lighting',
-    'Picture Light',
-    'Picture Lights',
-    'Picture Lighting',
-    'Art Light',
-    'Art Lighting',
-    'Display Lighting'
-  ],
   'Ceiling Fan': ['Ceiling Fans', 'Fan', 'Fans', 'Ventilation Fans'],
   // NOTE: 'Outdoor Lighting' removed - not a valid SF category (use specific types)
 
@@ -78,17 +63,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Shower Faucet': ['Shower Faucets', 'Shower Accessories', 'Shower Components'],
   'Tub Faucet': ['Tub Faucets', 'Bathtub Faucet', 'Bathtub Faucets', 'Bath Tub Faucet', 'Roman Tub Faucet'],
   'Toilet': ['Toilets', 'Commode', 'Commodes', 'Water Closet', 'Water Closets'],
-  'Medicine Cabinet': [
-    'Bathroom Medicine Cabinets', 
-    'Bathroom Medicine Cabinet', 
-    'Medicine Cabinets',
-    'LED Medicine Cabinet',
-    'Lighted Medicine Cabinet',
-    'Mirrored Medicine Cabinet',
-    'Cabinet with Mirror',
-    'Bathroom Cabinet with Lighting',
-    'Bathroom Storage Cabinet'
-  ],
+  'Medicine Cabinet': ['Bathroom Medicine Cabinets'],
 
   // ============================================
   // HARDWARE (keys approximate — many subcategories in categories.json)
@@ -159,54 +134,9 @@ export function normalizeCategoryName(category: string): string {
     }
   }
 
-  // PRIORITY MATCHING: Check for high-confidence functional categories FIRST
-  // Prevents "Wall Decor" from matching functional storage/lighting
-  const priorityCategories = [
-    'Medicine Cabinet',
-    'Under Cabinet Light',
-    'Bathroom Cabinet Hardware',
-    'Kitchen Storage & Organization',
-    'Lighting Accessory'
-  ];
-
-  const lowerTrimmed = trimmed.toLowerCase();
-  for (const priorityCat of priorityCategories) {
-    // If input contains category name or any of its aliases, match it
-    if (lowerTrimmed.includes(priorityCat.toLowerCase())) {
-      logger.debug(`Category normalized (priority): "${trimmed}" → "${priorityCat}"`);
-      return priorityCat;
-    }
-    const aliases = CATEGORY_ALIASES[priorityCat] || [];
-    for (const alias of aliases) {
-      if (lowerTrimmed.includes(alias.toLowerCase())) {
-        logger.debug(`Category normalized (priority alias): "${trimmed}" → "${priorityCat}"`);
-        return priorityCat;
-      }
-    }
-  }
-
-  // EXCLUSION LOGIC: Prevent "Wall Decor" from matching functional items
-  // Keywords that indicate functional lighting, storage, or fixtures
-  const functionalKeywords = [
-    'cabinet', 'light', 'lighting', 'led', 'vanity', 'mirror',
-    'storage', 'fixture', 'lamp', 'sconce', 'task', 'picture light',
-    'under cabinet', 'medicine', 'bathroom storage', 'lighted'
-  ];
-
-  const isFunctional = functionalKeywords.some(keyword => 
-    lowerTrimmed.includes(keyword)
-  );
-
   // Check for partial matches (e.g., "Wall Sconces (Lighting)" contains "Wall Sconce")
-  // But skip "Wall Decor" if item is functional
   for (const [primary] of Object.entries(CATEGORY_ALIASES)) {
     if (trimmed.toLowerCase().includes(primary.toLowerCase())) {
-      // Skip "Wall Decor" for functional items
-      if (primary === 'Wall Decor' && isFunctional) {
-        logger.debug(`Category "Wall Decor" skipped for functional item: "${trimmed}"`);
-        continue;
-      }
-      
       logger.debug(`Category normalized (partial): "${trimmed}" → "${primary}"`);
       return primary;
     }
