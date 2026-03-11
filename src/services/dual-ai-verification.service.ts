@@ -11744,12 +11744,11 @@ ${warningsSummary}
 YOUR TASK - Comprehensive Review AND Propose Solutions:
 ═══════════════════════════════════════════════════════════════
 
-**SECTION 1: CORE CLASSIFICATION (highest priority)**
-1. **Category**: Does "${category}" fit the raw data? If wrong, which VALID CATEGORY from our list is correct?
-2. **Department**: Does "${department}" match? If wrong, use the CORRECT DEPARTMENT for your proposed category
-3. **Type**: Is "${productType}" valid? If wrong, pick from VALID TYPES for the correct category
-4. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
-5. **Style**: Is "${style}" reasonable for this product?
+**SECTION 1: CORE CLASSIFICATION**
+⚠️ Category ("${category}") and Department ("${department}") have already been determined by TWO independent AIs with consensus. DO NOT review or propose changes to category or department — those are locked.
+1. **Type**: Is "${productType}" valid? If wrong, pick from VALID TYPES for the category "${category}"
+2. **Accessory Detection**: If raw data shows "for [appliance]", "replacement", "compatible with" → Type should be "Accessory"
+3. **Style**: Is "${style}" reasonable for this product?
 
 **SECTION 2: PRIMARY ATTRIBUTES (check all 28 fields)**
 6. **Brand**: Correct brand name from Ferguson_Brand or Brand_Web_Retailer?
@@ -11847,10 +11846,10 @@ RESPONSE FORMAT (JSON ONLY):
     }
   ],
   "proposedCorrections": {
-    // CORE CLASSIFICATION (highest priority - always check)
-    "category": "exact valid category name or null if correct",
-    "department": "exact valid department or null if correct",
-    "type": "exact valid type for the proposed category or null if correct",
+    // CORE CLASSIFICATION (category and department are LOCKED — do not propose changes)
+    "category": null,
+    "department": null,
+    "type": "exact valid type for ${category} or null if correct",
     "style": "exact valid style or null if correct",
     
     // PRIMARY ATTRIBUTES (set to corrected value or null if correct)
@@ -11900,13 +11899,14 @@ RESPONSE FORMAT (JSON ONLY):
 }
 
 RULES:
-- proposedCorrections values MUST come from the VALID OPTIONS listed above (for category/dept/type/style)
+- Category and department are LOCKED by 2-AI consensus. Always set "category": null and "department": null in proposedCorrections.
+- proposedCorrections values MUST come from the VALID OPTIONS listed above (for type/style)
 - For other fields, use EXACT values from raw product data (Ferguson_* or *_Web_Retailer fields)
 - If a field is correct, set it to null in proposedCorrections
 - Only flag issues with CLEAR EVIDENCE from raw data
 - If results look correct, return "PASS" with empty issues and all-null proposedCorrections
 - For FAIL: you MUST provide complete proposedCorrections - never fail without a solution
-- CRITICAL severity: Wrong category, department, type (classification errors)
+- CRITICAL severity: Wrong type (classification errors)
 - HIGH severity: Wrong brand, model, MSRP, dimensions, appliance features
 - MEDIUM severity: Wrong color, finish, filter attributes, description quality
 - LOW severity: Missing optional fields, minor title formatting
@@ -12167,63 +12167,20 @@ async function executeFinalReviewStage(
     // Use proposedCorrections (already validated against picklists in performClaudeReview)
     const pc = phaseBResult.proposedCorrections;
     if (pc && phaseBResult.reviewStatus === 'FAIL') {
-      // Apply validated category correction — but BLOCK if both AIs agreed (Option A guard)
+      // Category and department are LOCKED — handled by 2-AI consensus.
+      // Claude is told not to propose changes, but if it does, we ignore them.
       if (pc.category) {
-        if (consensus.categoryAgreed && pc.category !== consensus.agreedCategory) {
-          // Both primary AIs independently agreed on the same category.
-          // Claude's override is blocked — log as flag only, do NOT apply.
-          flaggedForReview.push({
-            severity: 'HIGH',
-            field: 'category',
-            currentValue: consensus.agreedCategory || '',
-            issue: `Claude wanted to change category from "${consensus.agreedCategory}" to "${pc.category}" but BLOCKED — both AIs agreed on "${consensus.agreedCategory}"`,
-            evidence: phaseBResult.reasoning,
-            suggestedFix: pc.category
-          });
-          logger.warn('🛡️ FINAL REVIEW: Claude category override BLOCKED — both AIs agreed', {
-            sessionId,
-            agreedCategory: consensus.agreedCategory,
-            claudeWanted: pc.category,
-            reasoning: phaseBResult.reasoning
-          });
-        } else {
-          const oldCategory = consensus.agreedCategory;
-          consensus.agreedCategory = pc.category;
-          (primaryAttributes as any).AI_Product_Category = pc.category;
-          correctionsApplied.push({
-            severity: 'CRITICAL',
-            field: 'category',
-            currentValue: oldCategory || '',
-            issue: `Claude corrected category from "${oldCategory}" to "${pc.category}"`,
-            evidence: phaseBResult.reasoning,
-            suggestedFix: pc.category
-          });
-          logger.error('🔴 FINAL REVIEW: Claude corrected category (validated against picklist)', {
-            sessionId,
-            from: oldCategory,
-            to: pc.category,
-            reasoning: phaseBResult.reasoning
-          });
-        }
-      }
-      
-      // Apply validated department correction
-      if (pc.department) {
-        const oldDept = primaryAttributes.AI_Product_Department;
-        (primaryAttributes as any).AI_Product_Department = pc.department;
-        correctionsApplied.push({
-          severity: 'CRITICAL',
-          field: 'department',
-          currentValue: oldDept || '',
-          issue: `Claude corrected department from "${oldDept}" to "${pc.department}"`,
-          evidence: phaseBResult.reasoning,
-          suggestedFix: pc.department
-        });
-        logger.error('🔴 FINAL REVIEW: Claude corrected department (validated against picklist)', {
+        logger.info('ℹ️ FINAL REVIEW: Ignoring Claude category suggestion (category is locked by AI consensus)', {
           sessionId,
-          from: oldDept,
-          to: pc.department,
-          reasoning: phaseBResult.reasoning
+          agreedCategory: consensus.agreedCategory,
+          claudeSuggested: pc.category
+        });
+      }
+      if (pc.department) {
+        logger.info('ℹ️ FINAL REVIEW: Ignoring Claude department suggestion (department is locked by AI consensus)', {
+          sessionId,
+          currentDepartment: primaryAttributes.AI_Product_Department,
+          claudeSuggested: pc.department
         });
       }
       
