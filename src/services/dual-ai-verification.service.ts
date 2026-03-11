@@ -8697,8 +8697,7 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.depth_length,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Depth_Web_Retailer || 
-      rawProduct.Ferguson_Depth ||
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
       findAttributeInRawData(rawProduct, 'Depth') ||
       findAttributeInRawData(rawProduct, 'Overall Depth') ||
       ''
@@ -8710,8 +8709,7 @@ async function buildFinalResponse(
         xaiResult.primaryAttributes.width,
         openaiResult.confidence,
         xaiResult.confidence,
-        rawProduct.Width_Web_Retailer || 
-        rawProduct.Ferguson_Width ||
+        getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width) ||
         findAttributeInRawData(rawProduct, 'Width') ||
         findAttributeInRawData(rawProduct, 'Overall Width') ||
         ''
@@ -8735,8 +8733,7 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.height,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Height_Web_Retailer || 
-      rawProduct.Ferguson_Height ||
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Height_Web_Retailer, rawProduct.Ferguson_Height) ||
       findAttributeInRawData(rawProduct, 'Height') ||
       findAttributeInRawData(rawProduct, 'Overall Height') ||
       ''
