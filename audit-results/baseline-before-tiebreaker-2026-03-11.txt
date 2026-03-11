@@ -1,0 +1,77 @@
+# | SF_ID | Name | Category | Dept | Type | FergusonTitle | WR_Category
+---|---|---|---|---|---|---|---
+1 | a03aZ00000bCy3vQAC | SLOWS30130B | Post Light | Outdoor | Wall Sconce |  | HOME ACCENTS
+2 | a03aZ00000ipebtQAA | SLOWS30230B | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+3 | a03aZ00000ipebrQAA | 700BCBND13BLED930 | Vanity Lighting | Plumbing & Bath | Sconce |  | HOME ACCENTS
+4 | a03aZ00000ipebsQAA | KWBA27527N | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+5 | a03aZ00000gQL5YQAW | ML3540ILSFMRDV | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+6 | a03aZ00000ipebyQAA | FMC022436L | Medicine Cabinet | Plumbing & Bath | Lighted |  | BATHROOM FURNITURE
+7 | a03aZ00000e5N8FQAU | RGM2CCWH | Recessed Lighting | Lighting & Electrical | LED |  | 
+8 | a03aZ00000ipebvQAA | VSW24CCBK | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+9 | a03aZ00000bCy3zQAC | 31768-SC01-CPL | Bathroom Lighting | Plumbing & Bath | Sconce |  | 
+10 | a03aZ00000VZHWFQA5 | 1333-91 | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+11 | a03aZ00000ZQL5EQAX | 6163WPNG51 | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+12 | a03aZ00000dFjyKQAS | 1939-3V-CH | Bathroom Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+13 | a03aZ00000dFjyIQAS | 5553CMCL | Bathroom Lighting | Plumbing & Bath | Bath Bar |  | HOME ACCENTS
+14 | a03aZ00000URIChQAP | 1639SK-LED | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+15 | a03aZ00000VZHW2QAP | 306425-1004 | Wall Sconce | Lighting | Wall Sconce |  | 
+16 | a03aZ00000ZQL5sQAH | RL2782NB | Under Cabinet Light | Lighting & Electrical | Down Light |  | HOME ACCENTS
+17 | a03aZ00000URICiQAP | R4ERDR-W9CS-WT | Recessed Lighting | Lighting & Electrical | LED |  | HOME ACCENTS
+18 | a03aZ00000bCy3BQAS | 3434VPN | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+19 | a03aZ00000bCy3XQAS | 16040Z | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+20 | a03aZ00000bCy3uQAC | 700OWASP93026DBUNVS | Wall Sconce | Lighting | Wall Sconce |  | HOME ACCENTS
+21 | a03aZ00000URICoQAP | WP-LED430-30-AWT | Landscape Lighting | Outdoor | Flood Light |  | HOME ACCENTS
+22 | a03aZ00000bCy3UQAS | WS-69815-CH | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+23 | a03aZ00000URICkQAP | WS-W220208-30-BK | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+24 | a03aZ00000VZHWDQA5 | P5753-108 | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+25 | a03aZ00000VZHWYQA5 | E30192-93BK | Wall Sconce | Lighting | 1-Light |  | HOME ACCENTS
+26 | a03aZ00000URICpQAP | WP-LED430-50-AWT | Post Light | Outdoor | Wall Sconce |  | HOME ACCENTS
+27 | a03aZ00000VZHWCQA5 | P5755108 | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+28 | a03aZ00000VZHWWQA5 | KSW1071PNGW | Bathroom Lighting | Plumbing & Bath | Sconce |  | HOME ACCENTS
+29 | a03aZ00000ZQL5cQAH | 466323 | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+30 | a03aZ00000URICnQAP | MS-120-WT | Lighting Accessory | Lighting & Electrical | Remote |  | ACCESSORIES
+31 | a03aZ00000VZHVmQAP | P5443-077-L | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+32 | a03aZ00000URICgQAP | JT4-WT | Track and Rail Lighting | Lighting & Electrical | Accessory |  | HOME ACCENTS
+33 | a03aZ00000URICVQA5 | 3834.16 | Bathroom Lighting | Plumbing & Bath | Sconce |  | HOME ACCENTS
+34 | a03aZ00000TdGr7QAF | WS-W37916-BK | Wall Sconce | Outdoor | Wall Lantern |  | 
+35 | a03aZ00000TdGrEQAV | WS-W5620-BZ | Wall Sconce | Outdoor | Wall Lantern |  | 
+36 | a03aZ00000URICcQAP | DEVN8624MBK | Bathroom Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+37 | a03aZ00000URICeQAP | 1661BZ | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+38 | a03aZ00000QLsEfQAL | 2221-MG | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+39 | a03aZ00000URICfQAP | HFC-WT | Lighting Accessory | Lighting & Electrical | Accessory |  | ACCESSORIES
+40 | a03aZ00000TdGqqQAF | 52006BK | Vanity Lighting | Plumbing & Bath | Vanity |  | BATHROOM FURNITURE
+41 | a03aZ00000QLsEkQAL | 87002-WI | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+42 | a03aZ00000QKdJYQA1 | GWS13476BRZ | Wall Sconce | Outdoor | Wall Lantern |  | 
+43 | a03aZ00000RRou1QAD | 579CHB-BK | Pendant | Outdoor | Ceiling Mounted |  | 
+44 | a03aZ00000TdGrCQAV | 090222-052-FR001 | Wall Sconce | Outdoor | Wall Lantern |  | 
+45 | a03aZ00000QLsEnQAL | 9536BK | Lighting Accessory | Lighting & Electrical | Accessory |  | HOME ACCENTS
+46 | a03aZ00000QKdJVQA1 | 861499 | Recessed Lighting | Lighting & Electrical | Canless |  | 
+47 | a03aZ00000QKdJNQA1 | 148821AD-542 | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+48 | a03aZ00000QKdJOQA1 | 6347900 | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+49 | a03aZ00000QKdJMQA1 | 62/5945 | Post Light | Outdoor | Wall Sconce |  | 
+50 | a03aZ00000QK6TiQAL | 45502CH | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+51 | a03aZ00000QKdJTQA1 | 45885NI | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+52 | a03aZ00000QKdJLQA1 | 2232-66A | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+53 | a03aZ00000QKdJWQA1 | 5LCS-16-5CCT-WH | Under Cabinet Light | Lighting & Electrical | LED Strip |  | 
+54 | a03aZ00000QLsEdQAL | P300133-020 | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+55 | a03aZ00000QKdJQQA1 | 736-3V-CH | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+56 | a03aZ00000QLsEYQA1 | 2915OZ | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+57 | a03aZ00000QKdJRQA1 | P3163-15 | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+58 | a03aZ00000QK6TqQAL | 8606-BA3 PW-CLR | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+59 | a03aZ00000QKdJHQA1 | 2806OZ-LL | Wall Sconce | Outdoor | Wall Lantern |  | 
+60 | a03aZ00000P4vSuQAJ | 50263LCB | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+61 | a03aZ00000P4vT8QAJ | WS-3226-BN | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+62 | a03aZ00000QKdJgQAL | SH1963 | Lighting Accessory | Lighting & Electrical | Shade |  | HOME ACCENTS
+63 | a03aZ00000QKdJUQA1 | 2220-BN | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+64 | a03aZ00000Nk22DQAR | WS-W32516-BZ | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS
+65 | a03aZ00000QK6ThQAL | 119321MB-674 | Vanity Lighting | Plumbing & Bath | Vanity |  | 
+66 | a03aZ00000P1vXOQAZ | 5006-24BK-LED | Wall Sconce | Outdoor | Wall Lantern |  | 
+67 | a03aZ00000KV1ADQA1 | KSV1013PNGW | Vanity Lighting | Plumbing & Bath | Bath Bar |  | HOME ACCENTS
+68 | a03aZ00000P28KrQAJ | 1010-25W-BN-LED | Bathroom Lighting | Plumbing & Bath | Vanity |  | 
+69 | a03aZ00000Nk22PQAR | WL-LED140-C-WT | Step Lighting | Outdoor | Path Light |  | HOME ACCENTS
+70 | a03aZ00000P4vSvQAJ | 52094CM | Bathroom Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+71 | a03aZ00000Nk227QAB | 2154LNSN | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+72 | a03aZ00000P4vTGQAZ | 700BCELI36C-LED930 | Bathroom Lighting | Plumbing & Bath | Bath Bar |  | 
+73 | a03aZ00000Nk21pQAB | 20020SW-LL | Post Light | Outdoor | Wall Sconce |  | HOME ACCENTS
+74 | a03aZ00000ipebsQAA | KWBA27527N | Vanity Lighting | Plumbing & Bath | Vanity |  | HOME ACCENTS
+75 | a03aZ00000ipebtQAA | SLOWS30230B | Wall Sconce | Outdoor | Wall Lantern |  | HOME ACCENTS

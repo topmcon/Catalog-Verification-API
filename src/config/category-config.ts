@@ -7,6 +7,7 @@
 
 import categoryFilterAttributesData from './salesforce-picklists/category-filter-attributes.json';
 import categoriesData from './salesforce-picklists/categories.json';
+import { NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS } from './category-title-keywords';
 
 // Type-safe interface for category filter attributes
 interface CategoryFilterConfig {
@@ -607,4 +608,41 @@ export function getCategoryConfigMetadata() {
     total_categories: categoryFilterAttributes.total_categories,
     source: 'category-filter-attributes.json (Salesforce Picklist)'
   };
+}
+
+/**
+ * Resolve category disagreement by checking product title for distinctive keywords.
+ * Only used as a tiebreaker when two AIs disagree on non-appliance categories.
+ * 
+ * @returns The winning candidate with matched keywords, or null if inconclusive
+ */
+export function resolveCategoryDisagreementByTitle(
+  productTitle: string,
+  candidateA: string,
+  candidateB: string
+): { winner: string; loser: string; matchedKeywords: string[] } | null {
+  if (!productTitle || !candidateA || !candidateB) return null;
+
+  const titleLower = productTitle.toLowerCase();
+
+  const keywordsA = NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS[candidateA] || [];
+  const keywordsB = NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS[candidateB] || [];
+
+  // Score each candidate by how many of its keywords appear in the title
+  const matchedA = keywordsA.filter(kw => titleLower.includes(kw));
+  const matchedB = keywordsB.filter(kw => titleLower.includes(kw));
+
+  const scoreA = matchedA.length;
+  const scoreB = matchedB.length;
+
+  // Only return a winner if one clearly beats the other
+  // If tied (including 0-0), return null to let existing logic handle it
+  if (scoreA > scoreB) {
+    return { winner: candidateA, loser: candidateB, matchedKeywords: matchedA };
+  }
+  if (scoreB > scoreA) {
+    return { winner: candidateB, loser: candidateA, matchedKeywords: matchedB };
+  }
+
+  return null;
 }

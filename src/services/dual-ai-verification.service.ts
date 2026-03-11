@@ -45,7 +45,8 @@ import {
   getAllDepartments,
   getCategoriesForDepartment,
   getDepartmentForCategory,
-  PRIMARY_ATTRIBUTE_FIELD_KEYS
+  PRIMARY_ATTRIBUTE_FIELD_KEYS,
+  resolveCategoryDisagreementByTitle
 } from '../config/category-config';
 import { getCategorySchema as getCategoryAttributeSchema } from '../config/category-attributes';
 import { 
@@ -2131,7 +2132,7 @@ export async function verifyProductWithDualAI(
     });
     
     // Declare variables that will be used later (scoped at this level)
-    let determinedCategory: string;
+    let determinedCategory: string = undefined as unknown as string;
     const stage2StartTime = Date.now();
     let openaiCategoryResult: AIAnalysisResult;
     let xaiCategoryResult: AIAnalysisResult;
@@ -2238,22 +2239,51 @@ export async function verifyProductWithDualAI(
           agreementReason: 'Salesforce category validated by AI consensus' 
         };
       } else {
-        // AIs don't agree with each other - use SF as tiebreaker
-        determinedCategory = salesforceCategory;
-        
-        logger.warn('⚠️ AIs disagree with each other - using Salesforce as tiebreaker', {
-          sessionId: verificationSessionId,
-          salesforceCategory: salesforceCategory,
-          openaiCategory: openaiCategory,
-          xaiCategory: xaiCategory,
-          decision: 'Using Salesforce category since AIs cannot reach consensus'
-        });
-        
-        categoryConsensus = { 
-          agreed: false, 
-          agreedCategory: determinedCategory, 
-          agreementReason: 'AIs disagreed - Salesforce used as tiebreaker' 
-        };
+        // AIs don't agree with each other
+        // 🎯 Title-based tiebreaker for non-appliance categories (before SF fallback)
+        let titleTiebreakUsed = false;
+        if (!isAppliancesCategory(openaiCategory) && !isAppliancesCategory(xaiCategory)) {
+          const titleForTiebreak = rawProduct.Ferguson_Title || rawProduct.Product_Title_Web_Retailer || '';
+          const tiebreak = resolveCategoryDisagreementByTitle(titleForTiebreak, openaiCategory || '', xaiCategory || '');
+          if (tiebreak) {
+            determinedCategory = tiebreak.winner;
+            titleTiebreakUsed = true;
+            logger.info('🎯 Title tiebreaker resolved AI disagreement (SF path)', {
+              sessionId: verificationSessionId,
+              winner: tiebreak.winner,
+              loser: tiebreak.loser,
+              matchedKeywords: tiebreak.matchedKeywords,
+              salesforceCategory: salesforceCategory,
+              openaiCategory: openaiCategory,
+              xaiCategory: xaiCategory,
+              titleUsed: titleForTiebreak.substring(0, 80),
+              productId: rawProduct.SF_Catalog_Id
+            });
+            categoryConsensus = {
+              agreed: false,
+              agreedCategory: determinedCategory,
+              agreementReason: `Title tiebreaker: "${tiebreak.matchedKeywords.join(', ')}" matched ${tiebreak.winner} (SF had ${salesforceCategory})`
+            };
+          }
+        }
+        if (!titleTiebreakUsed) {
+          // Fallback: use SF as tiebreaker (existing behavior)
+          determinedCategory = salesforceCategory;
+          
+          logger.warn('⚠️ AIs disagree with each other - using Salesforce as tiebreaker', {
+            sessionId: verificationSessionId,
+            salesforceCategory: salesforceCategory,
+            openaiCategory: openaiCategory,
+            xaiCategory: xaiCategory,
+            decision: 'Using Salesforce category since AIs cannot reach consensus'
+          });
+          
+          categoryConsensus = { 
+            agreed: false, 
+            agreedCategory: determinedCategory, 
+            agreementReason: 'AIs disagreed - Salesforce used as tiebreaker' 
+          };
+        }
       }
       
       logger.info('✅ STAGE 2 complete - Category determined', {
@@ -2307,6 +2337,33 @@ export async function verifyProductWithDualAI(
           xaiError: xaiCategoryResult.error
         });
         throw new Error('Category determination failed - both AIs returned no category');
+      }
+      
+      // 🎯 Title-based tiebreaker when AIs disagreed on non-appliance category
+      if (!areCategoriesEquivalent(openaiCategoryResult.determinedCategory, xaiCategoryResult.determinedCategory)
+          && determinedCategory
+          && !isAppliancesCategory(determinedCategory)) {
+        const titleForTiebreak = rawProduct.Ferguson_Title || rawProduct.Product_Title_Web_Retailer || '';
+        const tiebreak = resolveCategoryDisagreementByTitle(
+          titleForTiebreak,
+          openaiCategoryResult.determinedCategory,
+          xaiCategoryResult.determinedCategory
+        );
+        if (tiebreak) {
+          logger.info('🎯 Title tiebreaker resolved AI disagreement (no-SF path)', {
+            sessionId: verificationSessionId,
+            winner: tiebreak.winner,
+            loser: tiebreak.loser,
+            matchedKeywords: tiebreak.matchedKeywords,
+            previousPick: determinedCategory,
+            openaiCategory: openaiCategoryResult.determinedCategory,
+            xaiCategory: xaiCategoryResult.determinedCategory,
+            titleUsed: titleForTiebreak.substring(0, 80),
+            productId: rawProduct.SF_Catalog_Id
+          });
+          determinedCategory = tiebreak.winner;
+          Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+        }
       }
       
       logger.info('🎯 Category consensus reached (AI-determined)', {
