@@ -27,20 +27,20 @@ async function approveMatches() {
   let best = null;
   let maxAttrs = 0;
   for (const s of syncs) {
-    const attrCount = s.data?.attributes?.length || 0;
+    const attrCount = s.incoming_data?.attributes?.length || 0;
     if (attrCount > maxAttrs) {
       maxAttrs = attrCount;
       best = s;
     }
   }
   
-  if (!best || !best.data?.attributes) {
+  if (!best || !best.incoming_data?.attributes) {
     console.log('No sync has attributes data!');
     await client.close();
     return;
   }
   
-  const sfAttrs = best.data.attributes;
+  const sfAttrs = best.incoming_data.attributes;
   console.log(`Using sync with ${sfAttrs.length} attributes`);
 
   // Get pending requests
