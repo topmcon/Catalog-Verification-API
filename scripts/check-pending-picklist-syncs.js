@@ -75,16 +75,27 @@ const PendingPicklistSyncSchema = new mongoose.Schema({
   reviewed_by: String
 }, { collection: 'pending_picklist_syncs' });
 
+// Pending creation request schema (for MongoDB queries)
+const PendingCreationRequestSchema = new mongoose.Schema({
+  request_type: String,
+  requested_value: String,
+  requested_value_normalized: String,
+  status: String,
+  sf_id_received: String
+}, { collection: 'pending_creation_requests' });
+
 /**
- * Analyze incoming SF attributes against our NEEDS_SF_ID entries
- * Returns match analysis showing what matches pending requests vs what's new
+ * Analyze incoming SF attributes against:
+ * 1. NEEDS_SF_ID entries in attributes.json
+ * 2. Pending attribute requests in MongoDB
+ * Returns combined match analysis
  */
-function analyzeAttributeMatches(incomingAttributes) {
+async function analyzeAttributeMatches(incomingAttributes, db) {
   try {
     const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
     const existingAttributes = JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
 
-    // Build maps
+    // Build maps from attributes.json
     const existingByName = new Map();
     const needsSfIdByName = new Map();
     
@@ -96,9 +107,25 @@ function analyzeAttributeMatches(incomingAttributes) {
       }
     }
 
-    const matchesPending = [];
-    const newAttributes = [];
+    // Get pending attribute requests from MongoDB
+    const pendingRequests = await db.collection('pending_creation_requests')
+      .find({ request_type: 'attribute', status: 'pending' }).toArray();
+    
+    const pendingByName = new Map();
+    for (const req of pendingRequests) {
+      pendingByName.set(req.requested_value.toLowerCase().trim(), req);
+    }
+
+    const matchesNeedsSfId = [];      // Match NEEDS_SF_ID in JSON
+    const matchesPendingRequest = []; // Match pending request in MongoDB
+    const newAttributes = [];          // Completely new
     let alreadyHasId = 0;
+
+    // Build SF lookup map
+    const sfMap = new Map();
+    for (const attr of incomingAttributes || []) {
+      sfMap.set(attr.attribute_name.toLowerCase().trim(), attr);
+    }
 
     // De-duplicate incoming
     const seenNames = new Set();
@@ -107,15 +134,22 @@ function analyzeAttributeMatches(incomingAttributes) {
       if (seenNames.has(nameLower)) continue;
       seenNames.add(nameLower);
 
-      const existing = existingByName.get(nameLower);
+      const existingInJson = existingByName.get(nameLower);
+      const hasPendingRequest = pendingByName.has(nameLower);
       
       if (needsSfIdByName.has(nameLower)) {
-        // Matches a NEEDS_SF_ID entry - ready for ID update!
-        matchesPending.push({
+        // Matches a NEEDS_SF_ID entry in JSON
+        matchesNeedsSfId.push({
           name: attr.attribute_name,
           incomingId: attr.attribute_id
         });
-      } else if (existing) {
+      } else if (hasPendingRequest && !existingInJson) {
+        // Matches pending request in MongoDB (not yet in JSON)
+        matchesPendingRequest.push({
+          name: attr.attribute_name,
+          incomingId: attr.attribute_id
+        });
+      } else if (existingInJson) {
         // Already exists with an ID
         alreadyHasId++;
       } else {
@@ -130,7 +164,9 @@ function analyzeAttributeMatches(incomingAttributes) {
     return {
       totalIncoming: seenNames.size,
       needsSfIdCount: needsSfIdByName.size,
-      matchesPending,
+      pendingRequestCount: pendingRequests.length,
+      matchesNeedsSfId,
+      matchesPendingRequest,
       newAttributes,
       alreadyHasId
     };
@@ -140,7 +176,9 @@ function analyzeAttributeMatches(incomingAttributes) {
     return {
       totalIncoming: 0,
       needsSfIdCount: 0,
-      matchesPending: [],
+      pendingRequestCount: 0,
+      matchesNeedsSfId: [],
+      matchesPendingRequest: [],
       newAttributes: [],
       alreadyHasId: 0
     };
@@ -156,6 +194,7 @@ async function checkPendingSyncs() {
     await mongoose.connect(MONGODB_URI);
     
     const PendingSync = mongoose.model('PendingPicklistSync', PendingPicklistSyncSchema);
+    const db = mongoose.connection.db;
     
     // Get counts
     const pendingCount = await PendingSync.countDocuments({ status: 'pending' });
@@ -258,23 +297,45 @@ async function checkPendingSyncs() {
       
       // ATTRIBUTE MATCH ANALYSIS - Show what matches pending requests vs new
       if (sync.incoming_data && sync.incoming_data.attributes) {
-        const analysis = analyzeAttributeMatches(sync.incoming_data.attributes);
+        const analysis = await analyzeAttributeMatches(sync.incoming_data.attributes, db);
         
         if (analysis.totalIncoming > 0) {
           console.log(`${colors.bold}📊 ATTRIBUTE MATCH ANALYSIS:${colors.reset}`);
           console.log(`  Total SF Attributes in Sync: ${colors.cyan}${analysis.totalIncoming}${colors.reset}`);
-          console.log(`  Pending with NEEDS_SF_ID:    ${colors.yellow}${analysis.needsSfIdCount}${colors.reset}`);
+          console.log(`  With NEEDS_SF_ID in JSON:    ${colors.yellow}${analysis.needsSfIdCount}${colors.reset}`);
+          console.log(`  Pending Requests (MongoDB):  ${colors.yellow}${analysis.pendingRequestCount}${colors.reset}`);
           console.log('');
           
-          if (analysis.matchesPending.length > 0) {
-            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES PENDING REQUESTS: ${analysis.matchesPending.length} ${colors.reset}`);
-            console.log(`  ${colors.green}These attributes can have their IDs updated:${colors.reset}`);
-            for (const match of analysis.matchesPending.slice(0, 10)) {
+          // Matches for NEEDS_SF_ID entries (in attributes.json)
+          if (analysis.matchesNeedsSfId.length > 0) {
+            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES NEEDS_SF_ID IN JSON: ${analysis.matchesNeedsSfId.length} ${colors.reset}`);
+            console.log(`  ${colors.green}These can have IDs updated via /update-attribute-ids:${colors.reset}`);
+            for (const match of analysis.matchesNeedsSfId.slice(0, 5)) {
               console.log(`    • ${match.name} → ${match.incomingId}`);
             }
-            if (analysis.matchesPending.length > 10) {
-              console.log(`    ... and ${analysis.matchesPending.length - 10} more`);
+            if (analysis.matchesNeedsSfId.length > 5) {
+              console.log(`    ... and ${analysis.matchesNeedsSfId.length - 5} more`);
             }
+            console.log('');
+          }
+          
+          // Matches for pending requests in MongoDB (legacy - not yet in JSON)
+          if (analysis.matchesPendingRequest.length > 0) {
+            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES PENDING REQUESTS (MongoDB): ${analysis.matchesPendingRequest.length} ${colors.reset}`);
+            console.log(`  ${colors.green}SF sent IDs for attributes we requested (need to add to JSON):${colors.reset}`);
+            for (const match of analysis.matchesPendingRequest.slice(0, 10)) {
+              console.log(`    • ${match.name} → ${match.incomingId}`);
+            }
+            if (analysis.matchesPendingRequest.length > 10) {
+              console.log(`    ... and ${analysis.matchesPendingRequest.length - 10} more`);
+            }
+            console.log('');
+          }
+          
+          // Summary of actionable matches
+          const totalMatches = analysis.matchesNeedsSfId.length + analysis.matchesPendingRequest.length;
+          if (totalMatches > 0) {
+            console.log(`  ${colors.bgGreen}${colors.bold}${colors.white} TOTAL ACTIONABLE MATCHES: ${totalMatches} ${colors.reset}`);
             console.log('');
           }
           
