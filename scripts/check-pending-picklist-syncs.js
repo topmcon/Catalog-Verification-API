@@ -299,13 +299,13 @@ async function checkPendingSyncs() {
       if (sync.incoming_data && sync.incoming_data.attributes) {
         const analysis = await analyzeAttributeMatches(sync.incoming_data.attributes, db);
         const totalMatches = analysis.matchesNeedsSfId.length + analysis.matchesPendingRequest.length;
+        const totalNew = totalMatches + analysis.newAttributes.length;
         
         console.log(`${colors.bold}📊 ATTRIBUTE SUMMARY:${colors.reset}`);
-        console.log(`  Total SF Attributes Received:    ${colors.cyan}${analysis.totalIncoming}${colors.reset}`);
+        console.log(`  New SF Attributes Received:      ${colors.cyan}${totalNew}${colors.reset}`);
         console.log(`  Our Pending Requests:            ${colors.yellow}${analysis.pendingRequestCount}${colors.reset}`);
         console.log(`  ${colors.green}✅ Match Our Requests:           ${colors.bold}${totalMatches}${colors.reset}`);
         console.log(`  ${colors.yellow}🆕 Do Not Match (new):           ${analysis.newAttributes.length}${colors.reset}`);
-        console.log(`  Already Have ID:                 ${analysis.alreadyHasId}`);
         console.log('');
       }
     }
