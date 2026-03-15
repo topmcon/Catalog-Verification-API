@@ -8190,14 +8190,41 @@ async function buildFinalResponse(
     return '';
   };
   
-  // Get width: For sinks, prioritize "Overall Width" from Ferguson_Attributes
+  // Helper to extract dimension from HTML Specification_Table (for sinks)
+  // SF often sends specs as HTML instead of structured Ferguson_Attributes
+  const extractDimensionFromSpecTable = (specTable?: string, dimensionName: string = 'Overall Width'): string => {
+    if (!specTable) return '';
+    
+    // Try multiple dimension names in order of preference for sink width
+    const dimensionPriority = dimensionName === 'Overall Width' 
+      ? ['Overall Width', 'Width', 'Length'] // Length is often the "long" dimension for sinks
+      : [dimensionName];
+    
+    for (const dimName of dimensionPriority) {
+      // Pattern: <span...>Overall Width</span>...</td><td...>32 in.</td>
+      // The HTML structure has the label in a span, then value in next td
+      const pattern = new RegExp(
+        `<span[^>]*>\\s*${dimName}\\s*</span>.*?</td>\\s*<td[^>]*>\\s*([\\d.]+)\\s*(?:in\\.?|inches)?`,
+        'i'
+      );
+      const match = specTable.match(pattern);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+    return '';
+  };
+  
+  // Get width: For sinks, prioritize "Overall Width" from multiple sources
   let widthFinal: string;
   if (isSinkCategory) {
-    // Priority 1: Ferguson_Attributes "Overall Width" (most reliable for sinks)
-    const overallWidth = findAttributeInRawData(rawProduct, 'Overall Width');
-    // Priority 2: Extract from Ferguson title
+    // Priority 1: Ferguson_Attributes "Overall Width" (structured data - most reliable)
+    const overallWidthFromAttrs = findAttributeInRawData(rawProduct, 'Overall Width');
+    // Priority 2: Parse "Overall Width" from HTML Specification_Table
+    const overallWidthFromSpecTable = extractDimensionFromSpecTable(rawProduct.Specification_Table, 'Overall Width');
+    // Priority 3: Extract from Ferguson title
     const titleWidth = extractDimensionFromFergusonTitle(rawProduct.Ferguson_Title);
-    // Priority 3: AI-extracted width (may be bowl width - less reliable for sinks)
+    // Priority 4: AI-extracted width (may be bowl/basin width - less reliable for marketing)
     const aiWidth = preferAIValue(
       consensus.agreedPrimaryAttributes.width,
       openaiResult.primaryAttributes.width,
@@ -8207,18 +8234,21 @@ async function buildFinalResponse(
       getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
     );
     
-    widthFinal = (overallWidth && overallWidth !== 'N/A' ? String(overallWidth) : '') 
+    widthFinal = (overallWidthFromAttrs && overallWidthFromAttrs !== 'N/A' ? String(overallWidthFromAttrs) : '') 
+              || overallWidthFromSpecTable
               || titleWidth 
               || aiWidth;
     
     logger.info('Sink width extraction (Overall Width priority)', {
       sessionId,
       category: consensus.agreedCategory,
-      overallWidthFromAttrs: overallWidth || 'not found',
+      overallWidthFromAttrs: overallWidthFromAttrs || 'not found',
+      overallWidthFromSpecTable: overallWidthFromSpecTable || 'not found',
       titleWidth: titleWidth || 'not found',
       aiWidth: aiWidth || 'not found',
       finalWidth: widthFinal,
-      fergusonTitle: rawProduct.Ferguson_Title
+      fergusonTitle: rawProduct.Ferguson_Title,
+      hasSpecTable: !!rawProduct.Specification_Table
     });
   } else {
     // Non-sink categories: use existing AI-first logic
