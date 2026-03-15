@@ -8881,24 +8881,78 @@ async function buildFinalResponse(
       const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
       if (sinkCats.includes(consensus.agreedCategory || '')) {
         const frd = (rawProduct as any).Ferguson_Raw_Data;
-        // Prefer structured Ferguson name; fall back to flat Ferguson_Title for "no_sources" products
-        const fergusonName = (frd?.product?.name as string) || (rawProduct.Ferguson_Title as string) || '';
-        const dimMatch = fergusonName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
-        if (dimMatch) {
-          const whole = parseInt(dimMatch[1]);
-          const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
-          const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
-          const dimValue = whole + fracNum / fracDen;
-          // Sanity check: reasonable sink dimension (8–80 inches)
-          if (dimValue >= 8 && dimValue <= 80) {
-            const dimStr = String(Math.round(dimValue));
-            logger.info('Sink: using Ferguson name dimension as marketing width for title', {
-              sessionId, category: consensus.agreedCategory,
-              fergusonName: fergusonName.substring(0, 70),
-              extractedDimension: dimStr, previousAiWidth: width
-            });
-            width = dimStr;
+        const fergusonSpecs = frd?.product?.specifications;
+        const isKitchenOrBar = consensus.agreedCategory !== 'Bathroom Sink';
+
+        // Plausibility guard: skip Ferguson dimension if the Ferguson-matched product is clearly
+        // a different product type (door lever, drinking fountain, etc.)
+        const fergusonBizCat = ((frd?.search_meta_data?.business_category as string) || '').toLowerCase();
+        const dimSkipKeywords = ['door', 'drawer', 'lever', 'handle', 'fountain', 'hardware', 'cooling', 'refriger'];
+        const fergusonDataIsSuspect = fergusonBizCat.length > 0 && dimSkipKeywords.some(kw => fergusonBizCat.includes(kw));
+
+        if (!fergusonDataIsSuspect) {
+          let sinkWidthFound = false;
+
+          // 1. Primary: nominal dimension from Ferguson specs
+          //    These are Ferguson's industry-standard catalog sizes (typically whole integers).
+          //    Kitchen/Bar sinks: the cabinet-width dimension is stored as "length" (longer L-R dim).
+          //    Bathroom sinks: the marketing dimension is "width" (L-R front-facing dim).
+          if (fergusonSpecs) {
+            const nomDim = isKitchenOrBar
+              ? (fergusonSpecs.nominal_length?.value || fergusonSpecs.sink_length?.value)
+              : (fergusonSpecs.nominal_width?.value || fergusonSpecs.nominal_length?.value);
+
+            if (nomDim) {
+              const nomStr = String(nomDim).trim();
+              // Handle whole number "32" or fractional form "37-1/2"
+              const fracMatch = nomStr.match(/^(\d+)-(\d+)\/(\d+)$/);
+              const numMatch = nomStr.match(/^(\d+(?:\.\d+)?)$/);
+              let nomValue: number | null = null;
+              if (fracMatch) {
+                nomValue = parseInt(fracMatch[1]) + parseInt(fracMatch[2]) / parseInt(fracMatch[3]);
+              } else if (numMatch) {
+                nomValue = parseFloat(numMatch[1]);
+              }
+              if (nomValue !== null && nomValue >= 8 && nomValue <= 80) {
+                width = String(Math.round(nomValue));
+                sinkWidthFound = true;
+                logger.info('Sink: using Ferguson nominal spec dimension for title', {
+                  sessionId, category: consensus.agreedCategory,
+                  specField: isKitchenOrBar ? 'nominal_length/sink_length' : 'nominal_width',
+                  nominalValue: nomDim, resolvedWidth: width
+                });
+              }
+            }
           }
+
+          // 2. Fallback: extract dimension from Ferguson product name via regex
+          //    Handles cases where nominal spec fields are absent.
+          if (!sinkWidthFound) {
+            // Prefer structured Ferguson name; fall back to flat Ferguson_Title for "no_sources" products
+            const fergusonName = (frd?.product?.name as string) || (rawProduct.Ferguson_Title as string) || '';
+            const dimMatch = fergusonName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
+            if (dimMatch) {
+              const whole = parseInt(dimMatch[1]);
+              const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
+              const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
+              const dimValue = whole + fracNum / fracDen;
+              // Sanity check: reasonable sink dimension (8–80 inches)
+              if (dimValue >= 8 && dimValue <= 80) {
+                const dimStr = String(Math.round(dimValue));
+                logger.info('Sink: using Ferguson name dimension as marketing width for title', {
+                  sessionId, category: consensus.agreedCategory,
+                  fergusonName: fergusonName.substring(0, 70),
+                  extractedDimension: dimStr, previousAiWidth: width
+                });
+                width = dimStr;
+              }
+            }
+          }
+        } else {
+          logger.warn('Sink: Ferguson data appears to be for wrong product type, skipping dimension override', {
+            sessionId, category: consensus.agreedCategory,
+            fergusonBizCat, retainingAiWidth: width
+          });
         }
       }
 
