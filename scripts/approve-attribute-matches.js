@@ -15,8 +15,33 @@ async function approveMatches() {
 
   // Get sync with most attributes
   const syncs = await db.collection('pending_picklist_syncs').find({ status: 'pending' }).toArray();
-  const best = syncs.reduce((a, b) => (a.data?.attributes?.length || 0) > (b.data?.attributes?.length || 0) ? a : b);
+  console.log(`Found ${syncs.length} pending syncs`);
+  
+  if (syncs.length === 0) {
+    console.log('No pending syncs found!');
+    await client.close();
+    return;
+  }
+  
+  // Find sync with most attributes
+  let best = null;
+  let maxAttrs = 0;
+  for (const s of syncs) {
+    const attrCount = s.data?.attributes?.length || 0;
+    if (attrCount > maxAttrs) {
+      maxAttrs = attrCount;
+      best = s;
+    }
+  }
+  
+  if (!best || !best.data?.attributes) {
+    console.log('No sync has attributes data!');
+    await client.close();
+    return;
+  }
+  
   const sfAttrs = best.data.attributes;
+  console.log(`Using sync with ${sfAttrs.length} attributes`);
 
   // Get pending requests
   const pending = await db.collection('pending_creation_requests')
