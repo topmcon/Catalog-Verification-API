@@ -8571,6 +8571,14 @@ async function buildFinalResponse(
       xaiResult.confidence,
       ''
     ),
+    sinkShape: preferAIValue(
+      consensus.agreedTop15Attributes?.sink_shape,
+      openaiResult.top15Attributes?.sink_shape,
+      xaiResult.top15Attributes?.sink_shape,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''
+    ),
     collection: preferAIValue(
       consensus.agreedTop15Attributes?.collection,
       openaiResult.top15Attributes?.collection,
@@ -10016,6 +10024,8 @@ async function buildFinalResponse(
     depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
     holeConfig: extractHoleConfigForTitle(sanitizedTopFilterAttributes, sanitizedPrimaryAttributes, rawProduct),
     mountType: String(sanitizedTopFilterAttributes.mounting_type || sanitizedTopFilterAttributes.installation_type || ''),
+    basinCount: String(sanitizedTopFilterAttributes.basin_count || sanitizedTopFilterAttributes.number_of_basins || ''),
+    sinkShape: String(sanitizedTopFilterAttributes.sink_shape || ''),
   };
 
   // Generate final title using corrected data

@@ -78,6 +78,7 @@ export interface SEOTitleInput {
   panelReady?: string; // For panel-ready dishwashers/refrigerators
   controlType?: string; // For dishwashers (Top Control, Front Control)
   basinCount?: string; // For sinks (Single Basin, Double Basin)
+  sinkShape?: string; // For sinks (Rectangular, Round, Oval, etc.)
   mountType?: string;
   holeConfig?: string;
   bowlConfig?: string;
@@ -166,6 +167,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Hole Config': 'holeConfig',
   'Bowl Config': 'bowlConfig',
   'Bowl Shape': 'bowlShape',
+  'Sink Shape': 'sinkShape',
   'Flush Type': 'flushType',
   'Feed Type': 'feedType',
   'Fuel Type': 'fuelType',
