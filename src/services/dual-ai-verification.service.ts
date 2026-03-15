@@ -8174,13 +8174,22 @@ async function buildFinalResponse(
   
   // Helper to extract primary dimension from Ferguson title (e.g., "32"" or "32 x 19")
   const extractDimensionFromFergusonTitle = (title?: string): string => {
-    if (!title) return '';
+    if (!title) {
+      logger.debug('🚿 extractDimensionFromFergusonTitle: No title provided');
+      return '';
+    }
     
     // Normalize various quote characters to standard double quote
     // Handles: " (straight), " " (curly), ″ (double prime), '' (two singles), ʺ (modifier letter)
     const normalizedTitle = title
       .replace(/[""″ʺ]/g, '"')
       .replace(/''/g, '"');
+    
+    logger.debug('🚿 extractDimensionFromFergusonTitle: Normalized title', {
+      original: title,
+      normalized: normalizedTitle,
+      hasDimension: /\d{1,3}/.test(normalizedTitle)
+    });
     
     // Match patterns - order matters (most specific first)
     const patterns = [
@@ -8199,10 +8208,20 @@ async function buildFinalResponse(
     for (const pattern of patterns) {
       const match = normalizedTitle.match(pattern);
       if (match && match[1]) {
+        logger.info('🚿 extractDimensionFromFergusonTitle: MATCH FOUND', {
+          title,
+          pattern: pattern.source,
+          extracted: match[1]
+        });
         // For fractions, just return the whole number part
         return match[1];
       }
     }
+    
+    logger.info('🚿 extractDimensionFromFergusonTitle: NO MATCH', {
+      title,
+      normalized: normalizedTitle
+    });
     return '';
   };
   
@@ -8239,6 +8258,11 @@ async function buildFinalResponse(
   if (isSinkCategory) {
     // PRIORITY 1: Ferguson Title dimension (e.g., "15"" from "Lustertone 15" Drop In...")
     // This IS the marketing width Ferguson displays - most reliable source
+    logger.info('🚿 SINK: Ferguson_Title input for dimension extraction', {
+      sessionId, 
+      Ferguson_Title: rawProduct.Ferguson_Title || 'NOT PROVIDED',
+      hasTitle: !!rawProduct.Ferguson_Title
+    });
     const titleWidth = extractDimensionFromFergusonTitle(rawProduct.Ferguson_Title);
     
     // PRIORITY 2: Ferguson_Attributes "Overall Width" (structured data)
