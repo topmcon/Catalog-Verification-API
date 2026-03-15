@@ -45,6 +45,8 @@
 | Claude smuggling category into title text | Validate title against category terms + brand before accepting | e96878b | #032, #027, #016 |
 | Wrong dimension in sconce titles (width vs height) | Dimension swap when Height > 2× Width for sconce types | e96878b | #033 |
 | Web retailer data collision (brand mismatch) | Brand overlap check → UNRELIABLE annotation on all web fields | e96878b | #034 |
+| Sink title using specs.width (front-to-back) instead of name dimension | Block Claude Final Review title override for sink categories | a78be0e | #035 |
+| Ferguson nested specs not searched in attribute fill fallback | Add Ferguson_Raw_Data.product.specifications + feature_groups to findTop15AttributeValue | 161850a | #036 |
 
 ---
 
@@ -4282,6 +4284,134 @@ In `dual-ai-verification.service.ts` `sanitizeProductDataForAI()` (~line 4841):
 
 ### Related Findings
 - **Finding #024**: Claude Final Review context gap (similar issue of misleading context passed to AI)
+
+---
+
+## Finding #035: Sink Title Using specs.width Instead of Marketing Dimension
+
+**Date Discovered:** 2026-03-15  
+**Severity:** 🔴 CRITICAL  
+**Status:** ✅ FIXED (commits `a78be0e`, `17e3f5a`)  
+
+### Symptom
+ELKAY LRAD1517601 (Bar & Prep Sink) showing `"ELKAY 17.5-Inch Drop-In Kitchen Sink"` even though:
+- Ferguson product name = `"Lustertone 15\" Drop In Single Basin Stainless Steel Bar Sink"` (marketing dimension is 15")
+- `AI_Width` was correctly overridden to `"15"` by our Ferguson name extraction logic
+- `finalSeoTitle` was correctly generated as `"ELKAY 15-Inch..."`
+
+### Root Cause
+Complex 3-layer interaction:
+1. `widthFinal = 17.5` (from AI consensus — incorrect, from specs.width which is front-to-back measurement)
+2. Preliminary title used 17.5 → Claude Final Review sees specs.width=17.5 in product data
+3. Claude proposal included "17.5-Inch" in its suggested title
+4. `titleWasCorrectedByClaude = true` → Claude's title was used OVER the correctly-regenerated `finalSeoTitle` (which had AI_Width=15)
+
+Ferguson's `specifications.width` is the **front-to-back** measurement (counter-depth), NOT the marketing sink width used in product names.
+
+### Investigation Steps
+1. User provided complete raw payload — confirmed `Ferguson_Raw_Data` WAS present (contrary to earlier log showing `hasFergusonData: false`)
+2. Traced: `AI_Width = "15"` ✅ stored correctly via Ferguson name extraction
+3. Traced: `finalSeoTitle = "ELKAY 15-Inch..."` ✅ correctly generated
+4. Found: `titleWasCorrectedByClaude = true` causes Claude's 17.5-Inch title to WIN over our correct regenerated title
+5. Root: Claude sees `specifications.width: 17.5` and "helpfully" corrects our 15-Inch to match specs
+
+### Fix Applied
+**Commit `a78be0e`** — Post-Final-Review override for sink categories:
+```typescript
+const sinkCategoriesToOverride = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
+if (sinkCategoriesToOverride.includes(sanitizedPrimaryAttributes.AI_Product_Category || '')) {
+  sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
+  // logs claudeWouldHaveUsed: 'yes - overridden' when blocked
+}
+```
+
+**Commit `17e3f5a`** — Also fixed:
+- Added `sinkShape` to `SEOTitleInput` interface
+- Added `'Sink Shape': 'sinkShape'` to `ATTRIBUTE_TO_FIELD` mapping
+- Populated `sinkShape` in both `seoTitleInput` and `finalSeoTitleInput`
+- Fixed `basinCount` missing from `finalSeoTitleInput`
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts`: Post-Final-Review sink title override block
+- `src/services/seo-title-generator.service.ts`: Added sinkShape to interface + ATTRIBUTE_TO_FIELD
+- `src/services/dual-ai-verification.service.ts`: sinkShape population in both seoTitleInput objects
+
+### Scope
+- **Sink-specific**: Kitchen Sink, Bathroom Sink, Bar & Prep Sink categories get Claude override blocked
+- **Pattern**: When AI has access to raw specs alongside the AI-overridden field, it will "correct back" from spec values — need category-aware Claude blocking for any field where we override from non-spec source
+
+### Related Findings
+- **Finding #027**: Title Auto-Correction from Claude Review (same Claude override mechanism)
+- **Finding #036**: Ferguson nested specs not in attribute fill pipeline (companion fix for sink shape)
+
+---
+
+## Finding #036: Ferguson_Raw_Data Nested Specs Not Searched in Attribute Fill Pipeline
+
+**Date Discovered:** 2026-03-15  
+**Severity:** 🟡 MEDIUM (data completeness)  
+**Status:** ✅ FIXED (commit `161850a`)  
+
+### Symptom
+Sink titles missing `Sink Shape` (e.g., "Rectangular") and `Bowl Config` (e.g., "Single Bowl") even after adding those fields to the title schema and input builder. Blanco 441297 had `sink_shape: "Rectangular"` confirmed in the raw payload but it wasn't flowing into the title.
+
+### Root Cause
+The attribute fill fallback pipeline (`findTop15AttributeValue()`) only searched two flat arrays:
+- `rawProduct.Ferguson_Attributes[]` — name/value pairs (may not exist for all products)
+- `rawProduct.Web_Retailer_Specs[]` — name/value pairs
+
+It did NOT search:
+- `Ferguson_Raw_Data.product.specifications` — rich nested object with all product specs, each as `{ value, description, units }`
+- `Ferguson_Raw_Data.product.feature_groups[].features[]` — same data organized by group
+
+For Blanco 441297, there is **no `Ferguson_Attributes[]` flat array** in the payload — all specification data lives in the nested `Ferguson_Raw_Data.product.specifications` object. So the fallback found nothing and `sink_shape` remained empty → title got no Sink Shape.
+
+### Data Available But Not Searched
+In Blanco 441297 payload:
+```json
+"specifications": {
+  "sink_shape": { "value": "Rectangular", "description": "The constructed shape of this sink." },
+  "installation_type": { "value": "Undermount" },
+  "number_of_basins": { "value": "1" },
+  "material": { "value": "Granite Composite" }
+  // ... 40+ more fields
+}
+```
+Also in `feature_groups[2].features[10]`: `{ "name": "Sink Shape", "value": "Rectangular" }`
+
+### Fix Applied
+**Commit `161850a`** — Extended `findTop15AttributeValue()` with two new fallback stages:
+
+**Stage 3: `Ferguson_Raw_Data.product.specifications`**
+- Iterates spec object keys, normalizes key names
+- Matches against `normalizedFieldKey`, `normalizedFieldKeySpaced`, `normalizeAttrName(attributeName)`, and `normalizedAliases`
+- Returns `{ value, matchedFrom: 'FergusonSpecs:specKey' }`
+
+**Stage 4: `Ferguson_Raw_Data.product.feature_groups`**
+- Converts each group's features array to `{name, value}` format
+- Runs through same `findInArray()` fuzzy matcher (exact → alias → contains with 70% threshold)
+- Returns `{ value, matchedFrom: 'FergusonFeatureGroup:groupName:...' }`
+
+Also added direct Ferguson specs fallback to `finalSeoTitleInput` for `sinkShape` and `basinCount` as belt-and-suspenders.
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts`
+  - `findTop15AttributeValue()` (~line 6118): Added Stage 3 (specifications) + Stage 4 (feature_groups) fallback
+  - `finalSeoTitleInput` (~line 10028): Added Ferguson specs fallback for `sinkShape` and `basinCount`
+
+### Impact
+Universal improvement for ALL categories, not just sinks. Any product where `Ferguson_Attributes[]` is absent/empty but `Ferguson_Raw_Data.product.specifications` has the answer will now get correct attribute values. Most impacted attributes:
+- `sink_shape`, `number_of_basins`, `installation_type`, `material`
+- `faucet_holes`, `drain_placement`, `sound_dampening`, `ada`
+- Any structured Ferguson spec field
+
+### Scope
+- **Universal**: All products with `Ferguson_Raw_Data` but no flat `Ferguson_Attributes[]`
+- **Pattern**: When normalizing external data into flat arrays, confirm the normalization step is actually happening for all products — if it can be skipped, always have a direct-source fallback
+
+### Related Findings
+- **Finding #035**: Sink title dimension fix (same product investigation that revealed this gap)
+- **Finding #001**: Schema vs input builder gap (same class of "data exists but not wired up")
 
 ---
 
