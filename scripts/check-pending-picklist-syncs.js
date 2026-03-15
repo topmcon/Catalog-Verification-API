@@ -5,14 +5,22 @@
  * Script to check for pending Salesforce picklist syncs awaiting review.
  * Used during "Establish Connection" to notify about held syncs.
  * 
+ * Now also shows ATTRIBUTE MATCH ANALYSIS:
+ * - How many SF attributes match our NEEDS_SF_ID entries (ready for ID update)
+ * - How many are completely new (require review)
+ * 
  * Usage: node scripts/check-pending-picklist-syncs.js
  */
 
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs');
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/catalog-verification';
+
+// Placeholder constant
+const NEEDS_SF_ID = 'NEEDS_SF_ID';
 
 // Colors for terminal output
 const colors = {
@@ -37,6 +45,16 @@ const PendingPicklistSyncSchema = new mongoose.Schema({
   expires_at: Date,
   source_ip: String,
   status: String,
+  incoming_data: {
+    attributes: [{
+      attribute_id: String,
+      attribute_name: String
+    }],
+    categories: [{
+      category_id: String,
+      category_name: String
+    }]
+  },
   pending_changes: [{
     type: String,
     current_count: Number,
@@ -56,6 +74,78 @@ const PendingPicklistSyncSchema = new mongoose.Schema({
   reviewed_at: Date,
   reviewed_by: String
 }, { collection: 'pending_picklist_syncs' });
+
+/**
+ * Analyze incoming SF attributes against our NEEDS_SF_ID entries
+ * Returns match analysis showing what matches pending requests vs what's new
+ */
+function analyzeAttributeMatches(incomingAttributes) {
+  try {
+    const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
+    const existingAttributes = JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
+
+    // Build maps
+    const existingByName = new Map();
+    const needsSfIdByName = new Map();
+    
+    for (const attr of existingAttributes) {
+      const nameLower = attr.attribute_name.toLowerCase().trim();
+      existingByName.set(nameLower, attr);
+      if (attr.attribute_id === NEEDS_SF_ID) {
+        needsSfIdByName.set(nameLower, attr);
+      }
+    }
+
+    const matchesPending = [];
+    const newAttributes = [];
+    let alreadyHasId = 0;
+
+    // De-duplicate incoming
+    const seenNames = new Set();
+    for (const attr of incomingAttributes || []) {
+      const nameLower = attr.attribute_name.toLowerCase().trim();
+      if (seenNames.has(nameLower)) continue;
+      seenNames.add(nameLower);
+
+      const existing = existingByName.get(nameLower);
+      
+      if (needsSfIdByName.has(nameLower)) {
+        // Matches a NEEDS_SF_ID entry - ready for ID update!
+        matchesPending.push({
+          name: attr.attribute_name,
+          incomingId: attr.attribute_id
+        });
+      } else if (existing) {
+        // Already exists with an ID
+        alreadyHasId++;
+      } else {
+        // Completely new attribute
+        newAttributes.push({
+          name: attr.attribute_name,
+          incomingId: attr.attribute_id
+        });
+      }
+    }
+
+    return {
+      totalIncoming: seenNames.size,
+      needsSfIdCount: needsSfIdByName.size,
+      matchesPending,
+      newAttributes,
+      alreadyHasId
+    };
+
+  } catch (error) {
+    console.error('Error analyzing attributes:', error.message);
+    return {
+      totalIncoming: 0,
+      needsSfIdCount: 0,
+      matchesPending: [],
+      newAttributes: [],
+      alreadyHasId: 0
+    };
+  }
+}
 
 async function checkPendingSyncs() {
   console.log(`\n${colors.bold}═══════════════════════════════════════════════════════════════${colors.reset}`);
@@ -165,24 +255,75 @@ async function checkPendingSyncs() {
         }
       }
       console.log('');
+      
+      // ATTRIBUTE MATCH ANALYSIS - Show what matches pending requests vs new
+      if (sync.incoming_data && sync.incoming_data.attributes) {
+        const analysis = analyzeAttributeMatches(sync.incoming_data.attributes);
+        
+        if (analysis.totalIncoming > 0) {
+          console.log(`${colors.bold}📊 ATTRIBUTE MATCH ANALYSIS:${colors.reset}`);
+          console.log(`  Total SF Attributes in Sync: ${colors.cyan}${analysis.totalIncoming}${colors.reset}`);
+          console.log(`  Pending with NEEDS_SF_ID:    ${colors.yellow}${analysis.needsSfIdCount}${colors.reset}`);
+          console.log('');
+          
+          if (analysis.matchesPending.length > 0) {
+            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES PENDING REQUESTS: ${analysis.matchesPending.length} ${colors.reset}`);
+            console.log(`  ${colors.green}These attributes can have their IDs updated:${colors.reset}`);
+            for (const match of analysis.matchesPending.slice(0, 10)) {
+              console.log(`    • ${match.name} → ${match.incomingId}`);
+            }
+            if (analysis.matchesPending.length > 10) {
+              console.log(`    ... and ${analysis.matchesPending.length - 10} more`);
+            }
+            console.log('');
+          }
+          
+          if (analysis.newAttributes.length > 0) {
+            console.log(`  ${colors.bgYellow}${colors.bold} 🆕 NEW ATTRIBUTES (not requested): ${analysis.newAttributes.length} ${colors.reset}`);
+            console.log(`  ${colors.yellow}These are completely new (not in our system):${colors.reset}`);
+            for (const newAttr of analysis.newAttributes.slice(0, 5)) {
+              console.log(`    • ${newAttr.name}`);
+            }
+            if (analysis.newAttributes.length > 5) {
+              console.log(`    ... and ${analysis.newAttributes.length - 5} more`);
+            }
+            console.log('');
+          }
+          
+          if (analysis.alreadyHasId > 0) {
+            console.log(`  Already have ID: ${colors.green}${analysis.alreadyHasId}${colors.reset} (no action needed)`);
+            console.log('');
+          }
+        }
+      }
     }
     
     console.log(`${colors.bold}───────────────────────────────────────────────────────────────${colors.reset}`);
     console.log('');
-    console.log(`${colors.bold}Actions Required:${colors.reset}`);
-    console.log(`  To approve a sync: POST /api/picklists/sync/pending/{pending_id}/approve`);
-    console.log(`  To reject a sync:  POST /api/picklists/sync/pending/{pending_id}/reject`);
+    console.log(`${colors.bold}Actions Available:${colors.reset}`);
     console.log('');
-    console.log(`  ${colors.cyan}Or use curl:${colors.reset}`);
-    console.log(`  curl -X POST https://verify.cxc-ai.com/api/picklists/sync/pending/{pending_id}/approve`);
+    console.log(`  ${colors.cyan}1. Update Attribute IDs Only (RECOMMENDED):${colors.reset}`);
+    console.log(`     Updates NEEDS_SF_ID entries with real SF IDs. Nothing else changes.`);
+    console.log(`     POST /api/picklists/sync/pending/{pending_id}/update-attribute-ids`);
+    console.log('');
+    console.log(`  ${colors.cyan}2. Approve Full Sync:${colors.reset}`);
+    console.log(`     Applies ALL changes including categories. ⚠️ May overwrite custom fields.`);
+    console.log(`     POST /api/picklists/sync/pending/{pending_id}/approve`);
+    console.log('');
+    console.log(`  ${colors.cyan}3. Reject Sync:${colors.reset}`);
+    console.log(`     Discards sync completely. No changes made.`);
+    console.log(`     POST /api/picklists/sync/pending/{pending_id}/reject`);
+    console.log('');
+    console.log(`  ${colors.green}Curl examples:${colors.reset}`);
+    console.log(`  curl -X POST https://verify.cxc-ai.com/api/picklists/sync/pending/{pending_id}/update-attribute-ids`);
     console.log(`  curl -X POST https://verify.cxc-ai.com/api/picklists/sync/pending/{pending_id}/reject`);
     console.log('');
     
     if (pendingSyncs.some(s => s.impact_assessment.severity === 'critical')) {
       console.log(`${colors.bgRed}${colors.white}${colors.bold}`);
       console.log(` ⚠️  CRITICAL: Some pending syncs would OVERWRITE custom fields!          `);
-      console.log(` Review carefully before approving. Consider rejecting if custom fields    `);
-      console.log(` like 'subcategory' and 'styles_apply' would be lost.                      `);
+      console.log(` Use "update-attribute-ids" to only update NEEDS_SF_ID entries.           `);
+      console.log(` Do NOT use "approve" unless you want category changes too.               `);
       console.log(`${colors.reset}`);
       console.log('');
     }

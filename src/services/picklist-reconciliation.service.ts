@@ -268,7 +268,177 @@ export async function reconcileCategories(
 // Similar functions for brands, styles, types would go here...
 // For now, focusing on attributes (the main issue) and categories
 
+// Placeholder constant
+const NEEDS_SF_ID = 'NEEDS_SF_ID';
+
+/**
+ * Analyze incoming SF attributes against our NEEDS_SF_ID entries
+ * Returns match analysis without making any changes
+ */
+export function analyzeAttributeMatches(
+  incomingAttributes: AttributeItem[]
+): {
+  totalIncoming: number;
+  matchesPending: Array<{ name: string; incomingId: string }>;
+  newAttributes: Array<{ name: string; incomingId: string }>;
+  alreadyHasId: number;
+} {
+  try {
+    const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
+    const existingAttributes: AttributeItem[] = JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
+
+    // Build maps
+    const existingByName = new Map<string, AttributeItem>();
+    const needsSfIdByName = new Map<string, AttributeItem>();
+    
+    for (const attr of existingAttributes) {
+      const nameLower = attr.attribute_name.toLowerCase().trim();
+      existingByName.set(nameLower, attr);
+      if (attr.attribute_id === NEEDS_SF_ID) {
+        needsSfIdByName.set(nameLower, attr);
+      }
+    }
+
+    const matchesPending: Array<{ name: string; incomingId: string }> = [];
+    const newAttributes: Array<{ name: string; incomingId: string }> = [];
+    let alreadyHasId = 0;
+
+    // De-duplicate incoming
+    const seenNames = new Set<string>();
+    for (const attr of incomingAttributes) {
+      const nameLower = attr.attribute_name.toLowerCase().trim();
+      if (seenNames.has(nameLower)) continue;
+      seenNames.add(nameLower);
+
+      const existing = existingByName.get(nameLower);
+      
+      if (needsSfIdByName.has(nameLower)) {
+        // Matches a NEEDS_SF_ID entry - this is what we want!
+        matchesPending.push({
+          name: attr.attribute_name,
+          incomingId: attr.attribute_id
+        });
+      } else if (existing) {
+        // Already exists with an ID
+        alreadyHasId++;
+      } else {
+        // Completely new attribute
+        newAttributes.push({
+          name: attr.attribute_name,
+          incomingId: attr.attribute_id
+        });
+      }
+    }
+
+    return {
+      totalIncoming: seenNames.size,
+      matchesPending,
+      newAttributes,
+      alreadyHasId
+    };
+
+  } catch (error) {
+    logger.error('Failed to analyze attribute matches', { error });
+    return {
+      totalIncoming: 0,
+      matchesPending: [],
+      newAttributes: [],
+      alreadyHasId: 0
+    };
+  }
+}
+
+/**
+ * Update ONLY the NEEDS_SF_ID entries with real SF IDs
+ * Does NOT add any new entries - only updates existing placeholders
+ * Used when user confirms the attribute ID updates
+ */
+export async function updatePendingAttributeIds(
+  incomingAttributes: AttributeItem[]
+): Promise<{
+  success: boolean;
+  updated: number;
+  updatedNames: string[];
+  errors: string[];
+}> {
+  const result = {
+    success: false,
+    updated: 0,
+    updatedNames: [] as string[],
+    errors: [] as string[]
+  };
+
+  try {
+    const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
+    const existingAttributes: AttributeItem[] = JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
+
+    // Build map of incoming SF IDs by name
+    const incomingByName = new Map<string, string>();
+    for (const attr of incomingAttributes) {
+      incomingByName.set(attr.attribute_name.toLowerCase().trim(), attr.attribute_id);
+    }
+
+    // Update ONLY entries with NEEDS_SF_ID
+    const updatedAttributes = existingAttributes.map(attr => {
+      if (attr.attribute_id !== NEEDS_SF_ID) {
+        return attr;
+      }
+
+      const nameLower = attr.attribute_name.toLowerCase().trim();
+      const newId = incomingByName.get(nameLower);
+
+      if (newId) {
+        result.updated++;
+        result.updatedNames.push(attr.attribute_name);
+        
+        // Mark corresponding pending request as fulfilled
+        PendingCreationRequest.findOneAndUpdate(
+          {
+            request_type: 'attribute',
+            requested_value_normalized: nameLower,
+            status: 'pending'
+          },
+          {
+            $set: {
+              status: 'fulfilled',
+              fulfilled_at: new Date(),
+              sf_id_received: newId,
+              updated_at: new Date()
+            }
+          }
+        ).exec().catch(err => {
+          logger.error('Failed to mark request as fulfilled', { name: attr.attribute_name, err });
+        });
+
+        return {
+          ...attr,
+          attribute_id: newId
+        };
+      }
+
+      return attr;
+    });
+
+    // Write back
+    fs.writeFileSync(attributesPath, JSON.stringify(updatedAttributes, null, 2), 'utf8');
+
+    logger.info(`Updated ${result.updated} attribute IDs from NEEDS_SF_ID to real SF IDs`, {
+      updatedNames: result.updatedNames
+    });
+
+    result.success = true;
+    return result;
+
+  } catch (error) {
+    result.errors.push(error instanceof Error ? error.message : String(error));
+    logger.error('Failed to update pending attribute IDs', { error });
+    return result;
+  }
+}
+
 export const picklistReconciliation = {
   reconcileAttributes,
-  reconcileCategories
+  reconcileCategories,
+  analyzeAttributeMatches,
+  updatePendingAttributeIds
 };

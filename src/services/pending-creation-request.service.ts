@@ -1,4 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
+import * as fs from 'fs';
+import * as path from 'path';
 import { 
   PendingCreationRequest, 
   IPendingCreationRequest, 
@@ -7,6 +9,9 @@ import {
   IRequestContext 
 } from '../models/pending-creation-request.model';
 import logger from '../utils/logger';
+
+// Placeholder constant for attributes awaiting SF ID
+const NEEDS_SF_ID = 'NEEDS_SF_ID';
 
 /**
  * Pending Creation Request Service
@@ -152,19 +157,26 @@ class PendingCreationRequestService {
       
       await newRequest.save();
       
+      // For ATTRIBUTES: Also add to attributes.json with NEEDS_SF_ID placeholder
+      // This allows the attribute to be used immediately while awaiting SF ID
+      if (requestType === 'attribute') {
+        await this.addAttributeWithPlaceholder(requestedValue);
+      }
+      
       logger.info(`[PendingCreationRequest] New request created`, {
         requestId: newRequest.request_id,
         requestType,
         requestedValue,
         jobId: jobReference.job_id,
-        expiresAt
+        expiresAt,
+        addedToJson: requestType === 'attribute'
       });
       
       return {
         exists: false,
         request: newRequest,
         shouldSendToSF: true,
-        message: `New request created for ${requestType} "${requestedValue}"`
+        message: `New request created for ${requestType} "${requestedValue}"${requestType === 'attribute' ? ' (added to JSON with NEEDS_SF_ID)' : ''}`
       };
       
     } catch (error) {
@@ -398,6 +410,80 @@ class PendingCreationRequestService {
     }
     
     return { fulfilled, items: fulfilledItems };
+  }
+  
+  /**
+   * Add an attribute to attributes.json with NEEDS_SF_ID placeholder
+   * This allows the attribute to be used in verification while awaiting the real SF ID
+   */
+  private async addAttributeWithPlaceholder(attributeName: string): Promise<boolean> {
+    try {
+      const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
+      
+      // Read existing attributes
+      const existingAttributes: Array<{ attribute_id: string; attribute_name: string }> = 
+        JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
+      
+      // Check if already exists (case-insensitive)
+      const normalizedName = attributeName.toLowerCase().trim();
+      const exists = existingAttributes.some(
+        attr => attr.attribute_name.toLowerCase().trim() === normalizedName
+      );
+      
+      if (exists) {
+        logger.info(`[PendingCreationRequest] Attribute already exists in JSON, skipping`, {
+          attributeName
+        });
+        return false;
+      }
+      
+      // Add new attribute with NEEDS_SF_ID placeholder
+      existingAttributes.push({
+        attribute_id: NEEDS_SF_ID,
+        attribute_name: attributeName
+      });
+      
+      // Sort alphabetically
+      existingAttributes.sort((a, b) => a.attribute_name.localeCompare(b.attribute_name));
+      
+      // Write back
+      fs.writeFileSync(attributesPath, JSON.stringify(existingAttributes, null, 2), 'utf8');
+      
+      logger.info(`[PendingCreationRequest] Added attribute to JSON with NEEDS_SF_ID`, {
+        attributeName,
+        totalAttributes: existingAttributes.length
+      });
+      
+      return true;
+      
+    } catch (error) {
+      logger.error(`[PendingCreationRequest] Failed to add attribute to JSON`, {
+        attributeName,
+        error: error instanceof Error ? error.message : String(error)
+      });
+      return false;
+    }
+  }
+  
+  /**
+   * Get count of attributes with NEEDS_SF_ID placeholder
+   */
+  async getAttributesPendingSfId(): Promise<{ count: number; attributes: string[] }> {
+    try {
+      const attributesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/attributes.json');
+      const attributes: Array<{ attribute_id: string; attribute_name: string }> = 
+        JSON.parse(fs.readFileSync(attributesPath, 'utf8'));
+      
+      const pending = attributes.filter(attr => attr.attribute_id === NEEDS_SF_ID);
+      
+      return {
+        count: pending.length,
+        attributes: pending.map(attr => attr.attribute_name)
+      };
+    } catch (error) {
+      logger.error('Failed to get attributes pending SF ID', { error });
+      return { count: 0, attributes: [] };
+    }
   }
 }
 

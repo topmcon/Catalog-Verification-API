@@ -55,6 +55,12 @@ router.post('/sync/pending/:pendingId/approve', picklistController.approvePendin
 // Body: { reviewed_by?: string, notes?: string }
 router.post('/sync/pending/:pendingId/reject', picklistController.rejectPendingSync.bind(picklistController));
 
+// Update ONLY attribute IDs (NEEDS_SF_ID → real SF IDs) - RECOMMENDED action
+// POST /api/picklists/sync/pending/:pendingId/update-attribute-ids
+// Body: { reviewed_by?: string, notes?: string }
+// This is the safest action - only updates existing NEEDS_SF_ID entries
+router.post('/sync/pending/:pendingId/update-attribute-ids', picklistController.updateAttributeIds.bind(picklistController));
+
 // Sync audit logs - view history of all applied sync operations
 router.get('/sync/logs', picklistController.getSyncLogs.bind(picklistController));
 router.get('/sync/logs/:syncId', picklistController.getSyncLogById.bind(picklistController));

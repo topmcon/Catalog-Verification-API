@@ -1096,16 +1096,12 @@ export class PicklistController {
    * POST /api/picklists/sync/pending/:pendingId/reject
    * Reject a pending picklist sync (discard without applying)
    * 
-   * IMPORTANT: Even when rejecting (to protect categories), we still:
-   * 1. Extract ATTRIBUTES from the sync
-   * 2. Add any that match our pending creation requests to attributes.json
-   * 3. Mark those pending requests as fulfilled
-   * 
-   * This ensures we don't lose the SF IDs for attributes we requested.
+   * This simply marks the sync as rejected. No changes are made.
+   * Use "update-attribute-ids" endpoint if you want to update NEEDS_SF_ID entries.
    */
   async rejectPendingSync(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { pendingId } = req.params;
-    const { reviewed_by = 'copilot-session', notes, skip_attribute_extraction = false } = req.body;
+    const { reviewed_by = 'copilot-session', notes } = req.body;
     
     try {
       const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId });
@@ -1128,67 +1124,137 @@ export class PicklistController {
         return;
       }
       
-      // Update status to rejected
+      // Update status to rejected - NO auto-extraction
       pendingSync.status = 'rejected';
       pendingSync.reviewed_at = new Date();
       pendingSync.reviewed_by = reviewed_by;
-      pendingSync.review_notes = notes || 'Rejected to prevent overwrite of custom fields';
+      pendingSync.review_notes = notes || 'Rejected - no changes applied';
       await pendingSync.save();
       
-      // STILL extract and reconcile attributes even when rejecting
-      // This preserves SF IDs for attributes we requested while protecting categories
-      let attributeReconciliation = null;
-      
-      if (!skip_attribute_extraction) {
-        const { attributes } = pendingSync.incoming_data || {};
-        
-        if (attributes && Array.isArray(attributes) && attributes.length > 0) {
-          try {
-            attributeReconciliation = await picklistReconciliation.reconcileAttributes(attributes);
-            
-            if (attributeReconciliation.requests_fulfilled > 0) {
-              // Reload picklists in memory after file updates
-              picklistMatcher.reload();
-              
-              logger.info('Attributes extracted from rejected sync', {
-                pending_id: pendingId,
-                pending_added: attributeReconciliation.pending_added,
-                requests_fulfilled: attributeReconciliation.requests_fulfilled
-              });
-            }
-          } catch (attrError) {
-            logger.error('Failed to extract attributes from rejected sync', { 
-              pending_id: pendingId, 
-              error: attrError 
-            });
-            // Continue with rejection - don't fail the whole operation
-          }
-        }
-      }
-      
-      logger.info('Pending picklist sync REJECTED (attributes still extracted)', {
+      logger.info('Pending picklist sync REJECTED (no changes applied)', {
         pending_id: pendingId,
         reviewed_by,
-        notes,
-        attributes_extracted: attributeReconciliation?.requests_fulfilled || 0
+        notes
       });
       
       res.json({
         success: true,
-        message: 'Pending sync rejected (categories protected, attributes extracted)',
+        message: 'Pending sync rejected - no changes applied',
         pending_id: pendingId,
         reviewed_by,
         rejected_changes: pendingSync.pending_changes,
-        attribute_extraction: attributeReconciliation ? {
-          pending_added: attributeReconciliation.pending_added,
-          new_added: attributeReconciliation.new_added,
-          requests_fulfilled: attributeReconciliation.requests_fulfilled,
-          duplicates_rejected: attributeReconciliation.duplicates_rejected
-        } : null
+        hint: 'Use /update-attribute-ids endpoint to update NEEDS_SF_ID entries without applying other changes'
       });
       
     } catch (error) {
       logger.error('Failed to reject pending sync', { pending_id: pendingId, error });
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/picklists/sync/pending/:pendingId/update-attribute-ids
+   * Update ONLY attributes with NEEDS_SF_ID placeholder
+   * 
+   * This is the RECOMMENDED action for most syncs:
+   * - Updates NEEDS_SF_ID entries with real SF IDs
+   * - Does NOT add new attributes
+   * - Does NOT touch categories
+   * - Marks pending creation requests as fulfilled
+   */
+  async updateAttributeIds(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { pendingId } = req.params;
+    const { reviewed_by = 'copilot-session', notes } = req.body;
+    
+    try {
+      const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId });
+      
+      if (!pendingSync) {
+        res.status(404).json({
+          success: false,
+          error: 'Pending sync not found',
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      if (pendingSync.status !== 'pending') {
+        res.status(400).json({
+          success: false,
+          error: `Sync is not pending (status: ${pendingSync.status})`,
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      const { attributes } = pendingSync.incoming_data || {};
+      
+      if (!attributes || !Array.isArray(attributes) || attributes.length === 0) {
+        res.status(400).json({
+          success: false,
+          error: 'No attributes in this sync',
+          pending_id: pendingId
+        });
+        return;
+      }
+      
+      // First, analyze what will be updated
+      const analysis = picklistReconciliation.analyzeAttributeMatches(attributes);
+      
+      if (analysis.matchesPending.length === 0) {
+        res.json({
+          success: true,
+          message: 'No NEEDS_SF_ID entries match incoming attributes - nothing to update',
+          pending_id: pendingId,
+          analysis: {
+            totalIncoming: analysis.totalIncoming,
+            matchesPending: 0,
+            alreadyHasId: analysis.alreadyHasId,
+            newAttributes: analysis.newAttributes.length
+          }
+        });
+        return;
+      }
+      
+      // Update ONLY the NEEDS_SF_ID entries
+      const updateResult = await picklistReconciliation.updatePendingAttributeIds(attributes);
+      
+      if (updateResult.success && updateResult.updated > 0) {
+        // Reload picklists in memory
+        picklistMatcher.reload();
+      }
+      
+      // Mark sync as processed (but NOT fully approved since we didn't apply all changes)
+      pendingSync.status = 'approved';
+      pendingSync.reviewed_at = new Date();
+      pendingSync.reviewed_by = reviewed_by;
+      pendingSync.review_notes = notes || `Attribute IDs updated only (${updateResult.updated} entries)`;
+      await pendingSync.save();
+      
+      logger.info('Attribute IDs updated from pending sync', {
+        pending_id: pendingId,
+        reviewed_by,
+        updated: updateResult.updated,
+        updatedNames: updateResult.updatedNames
+      });
+      
+      res.json({
+        success: true,
+        message: `Updated ${updateResult.updated} attribute IDs (NEEDS_SF_ID → real SF IDs)`,
+        pending_id: pendingId,
+        reviewed_by,
+        updated: updateResult.updated,
+        updatedNames: updateResult.updatedNames,
+        analysis: {
+          totalIncoming: analysis.totalIncoming,
+          matchesPending: analysis.matchesPending.length,
+          alreadyHasId: analysis.alreadyHasId,
+          newAttributes: analysis.newAttributes.length
+        }
+      });
+      
+    } catch (error) {
+      logger.error('Failed to update attribute IDs', { pending_id: pendingId, error });
       next(error);
     }
   }
