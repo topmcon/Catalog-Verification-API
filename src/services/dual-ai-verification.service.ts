@@ -10045,6 +10045,23 @@ async function buildFinalResponse(
     });
   }
 
+  // SINK MARKETING DIMENSION OVERRIDE
+  // Ferguson's specifications.width is the front-to-back measurement, NOT the marketing dimension.
+  // The marketing width (e.g. "15-Inch" for LRAD1517601) comes from Ferguson's product.name
+  // (already extracted into AI_Width by our sink override earlier in this function).
+  // Claude doesn't know about this axis swap and "corrects" the title back to 17.5-Inch.
+  // Force-regenerate the title from AI_Width for all sink categories.
+  const sinkCategoriesToOverride = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
+  if (sinkCategoriesToOverride.includes(sanitizedPrimaryAttributes.AI_Product_Category || '')) {
+    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
+    logger.info('📝 SINK TITLE OVERRIDE: Regenerated from AI_Width (ignores Claude width "correction")', {
+      sessionId,
+      finalTitle: finalSeoTitle.substring(0, 80),
+      aiWidth: sanitizedPrimaryAttributes.AI_Width,
+      claudeWouldHaveUsed: titleWasCorrectedByClaude ? 'yes - overridden' : 'no - was already using regenerated'
+    });
+  }
+
   // Build response object before capturing metrics (need finalValues)
   const responseObject = {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
