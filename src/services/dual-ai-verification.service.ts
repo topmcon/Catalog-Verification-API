@@ -10125,7 +10125,80 @@ async function buildFinalResponse(
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.number_of_basins?.value || ''),
     sinkShape: String(sanitizedTopFilterAttributes.sink_shape ||
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''),
+    // function field: populated by shower post-processing below; initialised empty here
+    function: '',
   };
+
+  // ── SHOWER TITLE POST-PROCESSING ────────────────────────────────────────────
+  // Applied BEFORE title generation so the schema renders correctly.
+  const fergusonProductName: string = (rawProduct as any).Ferguson_Raw_Data?.product?.name ||
+    (rawProduct.Ferguson_Title as string) || '';
+
+  // 1. SHOWER FAUCET — separate Function value from Type value.
+  //    The AI often puts Thermostatic / Pressure-Balance / Diverter in the Type slot
+  //    because the {Function} schema slot had no backing field.  Now that we have
+  //    finalSeoTitleInput.function, move those values to the right slot and infer
+  //    a proper structural Type (Trim Kit / Complete System / Valve).
+  const SHOWER_FUNCTION_VALUES = ['Thermostatic', 'Pressure Balance', 'Pressure-Balance',
+    'Pressure Balanced', 'Diverter', 'Volume Control', 'Transfer'];
+  if (finalSeoTitleInput.category === 'Shower Faucet' &&
+      SHOWER_FUNCTION_VALUES.some(fn => finalSeoTitleInput.type === fn ||
+        finalSeoTitleInput.type?.toLowerCase() === fn.toLowerCase())) {
+    const detectedFunction = finalSeoTitleInput.type || '';
+    // Derive structural type from Ferguson product name keywords
+    const fNameLower = fergusonProductName.toLowerCase();
+    let structuralType = 'Trim Kit'; // safe default
+    if (/complete system|shower system|shower only trim package/i.test(fNameLower)) {
+      structuralType = 'Complete System';
+    } else if (/rough.in valve|rough in valve|\bvalve only\b/i.test(fNameLower)) {
+      structuralType = 'Valve';
+    }
+    finalSeoTitleInput.type = structuralType;
+    finalSeoTitleInput.function = detectedFunction;
+    logger.info('Shower Faucet: moved function value from type slot to function slot', {
+      sessionId, detectedFunction, structuralType, fergusonName: fergusonProductName.substring(0, 70)
+    });
+  }
+
+  // 2. SHOWER — replace "Walk-In" type with the actual component type.
+  //    "Walk-In" is a Bathtub type and should never appear on Shower products.
+  if (finalSeoTitleInput.category === 'Shower' &&
+      finalSeoTitleInput.type?.toLowerCase() === 'walk-in') {
+    const fNameLower = fergusonProductName.toLowerCase();
+    let showerComponentType = '';
+    if (/linear\s*drain|shower\s*drain/i.test(fNameLower)) {
+      showerComponentType = 'Linear Drain';
+    } else if (/rain.*shower\s*head|rain.*head/i.test(fNameLower)) {
+      showerComponentType = 'Rain Shower Head';
+    } else if (/hand\s*shower|handshower/i.test(fNameLower)) {
+      showerComponentType = 'Hand Shower';
+    } else if (/body\s*spray/i.test(fNameLower)) {
+      showerComponentType = 'Body Spray';
+    } else if (/shower\s*arm|ceiling.*arm|wall.*arm/i.test(fNameLower)) {
+      showerComponentType = 'Shower Arm';
+    } else if (/slide\s*bar/i.test(fNameLower)) {
+      showerComponentType = 'Slide Bar';
+    } else if (/shower\s*head|showerhead/i.test(fNameLower)) {
+      showerComponentType = 'Shower Head';
+    } else if (/shower\s*system|complete/i.test(fNameLower)) {
+      showerComponentType = 'Shower System';
+    } else if (/shower\s*panel/i.test(fNameLower)) {
+      showerComponentType = 'Shower Panel';
+    }
+    // Only replace if we derived something — otherwise leave blank rather than "Walk-In"
+    if (showerComponentType) {
+      finalSeoTitleInput.type = showerComponentType;
+      logger.info('Shower: replaced Walk-In type with component type', {
+        sessionId, showerComponentType, fergusonName: fergusonProductName.substring(0, 70)
+      });
+    } else {
+      finalSeoTitleInput.type = '';
+      logger.info('Shower: cleared Walk-In type (no component match found)', {
+        sessionId, fergusonName: fergusonProductName.substring(0, 70)
+      });
+    }
+  }
+  // ── END SHOWER TITLE POST-PROCESSING ────────────────────────────────────────
 
   // Generate final title using corrected data
   const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);

@@ -79,6 +79,7 @@ export interface SEOTitleInput {
   controlType?: string; // For dishwashers (Top Control, Front Control)
   basinCount?: string; // For sinks (Single Basin, Double Basin)
   sinkShape?: string; // For sinks (Rectangular, Round, Oval, etc.)
+  function?: string; // For Shower Faucet: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
   mountType?: string;
   holeConfig?: string;
   bowlConfig?: string;
@@ -160,6 +161,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   // Type/Configuration
   'Type': 'type',
   'Type/Size': 'type',
+  'Function': 'function',
   'Configuration': 'configuration',
   'Installation Type': 'installationType',
   'Mount': 'mountType',

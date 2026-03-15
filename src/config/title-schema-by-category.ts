@@ -6190,13 +6190,13 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Category",
-        "required": true
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 3,
-        "attribute": "Type",
-        "required": false
+        "attribute": "Category",
+        "required": true
       },
       {
         "position": 4,
@@ -6205,13 +6205,19 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 5,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 6,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Category} {Type} {Finish} {Model Number}",
-    "exampleTitle": "Moen Rain Shower Head Brushed Nickel - Model",
-    "seoNotes": "Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column, Body Spray."
+    "template": "{Brand} {Type} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand TypeValue Shower Finish 1.8 GPM - Model",
+    "seoNotes": "Type = Shower System, Shower Head, Rain Shower Head, Hand Shower, Body Spray, Linear Drain, Shower Arm, Slide Bar, Shower Panel, Shower Column. GPM included for heads/bodies. Never use Walk-In (bathtub type)."
   },
   "shower_faucet": {
     "categoryId": "a01aZ00000dC5DtQAK",
