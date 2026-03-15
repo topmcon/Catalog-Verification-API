@@ -8175,15 +8175,31 @@ async function buildFinalResponse(
   // Helper to extract primary dimension from Ferguson title (e.g., "32"" or "32 x 19")
   const extractDimensionFromFergusonTitle = (title?: string): string => {
     if (!title) return '';
-    // Match patterns like: 32", 32'', 32 x 19, Performa 32 Inch
+    
+    // Normalize various quote characters to standard double quote
+    // Handles: " (straight), " " (curly), ″ (double prime), '' (two singles), ʺ (modifier letter)
+    const normalizedTitle = title
+      .replace(/[""″ʺ]/g, '"')
+      .replace(/''/g, '"');
+    
+    // Match patterns - order matters (most specific first)
     const patterns = [
-      /(\d{1,3})(?:"|''|[\s-]*[Ii]nch)/,           // 32" or 32'' or 32 Inch or 32-Inch
-      /(\d{1,3})\s*x\s*\d{1,3}/,                    // 32 x 19 - first dimension is width
-      /\b(\d{2})\b(?=.*(?:sink|bowl|basin))/i,     // Standalone 2-digit number before sink/bowl/basin
+      // Fractions with quotes: 15-3/4", 20 7/8", 15 3/4"
+      /(\d{1,3})[\s-]*\d+\/\d+\s*(?:"|''|[\s-]*[Ii]nch)/,
+      // Simple with quote: 32", 15", etc.
+      /(\d{1,3})\s*(?:"|'')/,
+      // With "-Inch" or " Inch": 32-Inch, 32 Inch
+      /(\d{1,3})[\s-]*[Ii]nch/,
+      // Dimensions format: 32 x 19 - first dimension is width
+      /(\d{1,3})\s*x\s*\d{1,3}/,
+      // Standalone 2-digit number followed by sink/bowl/basin keywords
+      /\b(\d{2})\b(?=.*(?:sink|bowl|basin|bar|prep))/i,
     ];
+    
     for (const pattern of patterns) {
-      const match = title.match(pattern);
-      if (match) {
+      const match = normalizedTitle.match(pattern);
+      if (match && match[1]) {
+        // For fractions, just return the whole number part
         return match[1];
       }
     }
