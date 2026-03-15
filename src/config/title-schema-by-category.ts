@@ -6190,13 +6190,13 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
-        "required": false
+        "attribute": "Category",
+        "required": true
       },
       {
         "position": 3,
-        "attribute": "Category",
-        "required": true
+        "attribute": "Type",
+        "required": false
       },
       {
         "position": 4,
@@ -6209,8 +6209,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Shower Finish - Model",
+    "template": "{Brand} {Category} {Type} {Finish} {Model Number}",
+    "exampleTitle": "Moen Rain Shower Head Brushed Nickel - Model",
     "seoNotes": "Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column, Body Spray."
   },
   "shower_faucet": {
