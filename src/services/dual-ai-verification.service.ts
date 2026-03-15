@@ -6120,6 +6120,49 @@ function findTop15AttributeValue(
     result = findInArray(rawProduct.Web_Retailer_Specs, 'WebRetailer');
   }
   
+  // Fallback: Search Ferguson_Raw_Data.product.specifications (nested object)
+  // This catches cases where Ferguson_Attributes flat array doesn't exist but
+  // the rich Ferguson_Raw_Data payload has the value in its specifications object
+  if (result.value === null && (rawProduct as any).Ferguson_Raw_Data?.product?.specifications) {
+    const specs = (rawProduct as any).Ferguson_Raw_Data.product.specifications;
+    for (const [specKey, specObj] of Object.entries(specs)) {
+      if (!specObj || typeof specObj !== 'object') continue;
+      const specValue = (specObj as any).value;
+      if (!specValue || String(specValue).trim() === '') continue;
+      
+      const normalizedSpecKey = specKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const normalizedSpecKeySpaced = specKey.toLowerCase().replace(/_/g, ' ').trim();
+      
+      if (normalizedSpecKey === normalizedFieldKey ||
+          normalizedSpecKeySpaced === normalizedFieldKeySpaced ||
+          normalizedSpecKey === normalizeAttrName(attributeName) ||
+          normalizedAliases.includes(normalizedSpecKeySpaced) ||
+          normalizedAliases.includes(normalizedSpecKey)) {
+        result = { value: String(specValue).trim(), matchedFrom: `FergusonSpecs:${specKey}` };
+        logger.debug('Top15 found in Ferguson_Raw_Data.product.specifications', {
+          fieldKey, specKey, value: specValue
+        });
+        break;
+      }
+    }
+  }
+  
+  // Fallback: Search Ferguson_Raw_Data.product.feature_groups
+  if (result.value === null && (rawProduct as any).Ferguson_Raw_Data?.product?.feature_groups) {
+    const featureGroups = (rawProduct as any).Ferguson_Raw_Data.product.feature_groups;
+    for (const group of featureGroups) {
+      if (!group.features || !Array.isArray(group.features)) continue;
+      const converted = group.features
+        .filter((f: any) => f.name && f.value)
+        .map((f: any) => ({ name: f.name, value: String(f.value) }));
+      const groupResult = findInArray(converted, `FergusonFeatureGroup:${group.name}`);
+      if (groupResult.value !== null) {
+        result = groupResult;
+        break;
+      }
+    }
+  }
+  
   return result;
 }
 
@@ -10024,8 +10067,10 @@ async function buildFinalResponse(
     depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
     holeConfig: extractHoleConfigForTitle(sanitizedTopFilterAttributes, sanitizedPrimaryAttributes, rawProduct),
     mountType: String(sanitizedTopFilterAttributes.mounting_type || sanitizedTopFilterAttributes.installation_type || ''),
-    basinCount: String(sanitizedTopFilterAttributes.basin_count || sanitizedTopFilterAttributes.number_of_basins || ''),
-    sinkShape: String(sanitizedTopFilterAttributes.sink_shape || ''),
+    basinCount: String(sanitizedTopFilterAttributes.basin_count || sanitizedTopFilterAttributes.number_of_basins ||
+      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.number_of_basins?.value || ''),
+    sinkShape: String(sanitizedTopFilterAttributes.sink_shape ||
+      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''),
   };
 
   // Generate final title using corrected data
