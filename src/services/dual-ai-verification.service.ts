@@ -8158,15 +8158,79 @@ async function buildFinalResponse(
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
   
-  // Get width from AI or Salesforce structured fields ONLY (no text parsing)
-  const widthFinal = preferAIValue(
-    consensus.agreedPrimaryAttributes.width,
-    openaiResult.primaryAttributes.width,
-    xaiResult.primaryAttributes.width,
-    openaiResult.confidence,
-    xaiResult.confidence,
-    getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+  // Sink categories need special width handling - use "Overall Width" from Ferguson_Attributes
+  // because AI often picks "Bowl Width" instead of marketing-relevant "Overall Width"
+  const SINK_CATEGORIES = [
+    'kitchen sink', 'farmhouse sink', 'apron sink', 'undermount kitchen sink', 
+    'drop-in kitchen sink', 'bar & prep sink', 'bar sink', 'prep sink',
+    'bathroom sink', 'vessel sink', 'pedestal sink', 'undermount bathroom sink',
+    'wall mount sink', 'console sink', 'kitchen sink combo'
+  ];
+  
+  const isSinkCategory = SINK_CATEGORIES.some(sc => 
+    (consensus.agreedCategory || '').toLowerCase().includes(sc) || 
+    sc.includes((consensus.agreedCategory || '').toLowerCase())
   );
+  
+  // Helper to extract primary dimension from Ferguson title (e.g., "32"" or "32 x 19")
+  const extractDimensionFromFergusonTitle = (title?: string): string => {
+    if (!title) return '';
+    // Match patterns like: 32", 32'', 32 x 19, Performa 32 Inch
+    const patterns = [
+      /(\d{1,3})(?:"|''|[\s-]*[Ii]nch)/,           // 32" or 32'' or 32 Inch or 32-Inch
+      /(\d{1,3})\s*x\s*\d{1,3}/,                    // 32 x 19 - first dimension is width
+      /\b(\d{2})\b(?=.*(?:sink|bowl|basin))/i,     // Standalone 2-digit number before sink/bowl/basin
+    ];
+    for (const pattern of patterns) {
+      const match = title.match(pattern);
+      if (match) {
+        return match[1];
+      }
+    }
+    return '';
+  };
+  
+  // Get width: For sinks, prioritize "Overall Width" from Ferguson_Attributes
+  let widthFinal: string;
+  if (isSinkCategory) {
+    // Priority 1: Ferguson_Attributes "Overall Width" (most reliable for sinks)
+    const overallWidth = findAttributeInRawData(rawProduct, 'Overall Width');
+    // Priority 2: Extract from Ferguson title
+    const titleWidth = extractDimensionFromFergusonTitle(rawProduct.Ferguson_Title);
+    // Priority 3: AI-extracted width (may be bowl width - less reliable for sinks)
+    const aiWidth = preferAIValue(
+      consensus.agreedPrimaryAttributes.width,
+      openaiResult.primaryAttributes.width,
+      xaiResult.primaryAttributes.width,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+    );
+    
+    widthFinal = (overallWidth && overallWidth !== 'N/A' ? String(overallWidth) : '') 
+              || titleWidth 
+              || aiWidth;
+    
+    logger.info('Sink width extraction (Overall Width priority)', {
+      sessionId,
+      category: consensus.agreedCategory,
+      overallWidthFromAttrs: overallWidth || 'not found',
+      titleWidth: titleWidth || 'not found',
+      aiWidth: aiWidth || 'not found',
+      finalWidth: widthFinal,
+      fergusonTitle: rawProduct.Ferguson_Title
+    });
+  } else {
+    // Non-sink categories: use existing AI-first logic
+    widthFinal = preferAIValue(
+      consensus.agreedPrimaryAttributes.width,
+      openaiResult.primaryAttributes.width,
+      xaiResult.primaryAttributes.width,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+    );
+  }
   
   // Get place settings from AI or text extraction (no structured field exists for this)
   const extractPlaceSettingsFromText = (text?: string): string => {
