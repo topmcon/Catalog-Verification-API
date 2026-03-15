@@ -295,67 +295,18 @@ async function checkPendingSyncs() {
       }
       console.log('');
       
-      // ATTRIBUTE MATCH ANALYSIS - Show what matches pending requests vs new
+      // ATTRIBUTE MATCH ANALYSIS - Simplified view
       if (sync.incoming_data && sync.incoming_data.attributes) {
         const analysis = await analyzeAttributeMatches(sync.incoming_data.attributes, db);
+        const totalMatches = analysis.matchesNeedsSfId.length + analysis.matchesPendingRequest.length;
         
-        if (analysis.totalIncoming > 0) {
-          console.log(`${colors.bold}📊 ATTRIBUTE MATCH ANALYSIS:${colors.reset}`);
-          console.log(`  Total SF Attributes in Sync: ${colors.cyan}${analysis.totalIncoming}${colors.reset}`);
-          console.log(`  With NEEDS_SF_ID in JSON:    ${colors.yellow}${analysis.needsSfIdCount}${colors.reset}`);
-          console.log(`  Pending Requests (MongoDB):  ${colors.yellow}${analysis.pendingRequestCount}${colors.reset}`);
-          console.log('');
-          
-          // Matches for NEEDS_SF_ID entries (in attributes.json)
-          if (analysis.matchesNeedsSfId.length > 0) {
-            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES NEEDS_SF_ID IN JSON: ${analysis.matchesNeedsSfId.length} ${colors.reset}`);
-            console.log(`  ${colors.green}These can have IDs updated via /update-attribute-ids:${colors.reset}`);
-            for (const match of analysis.matchesNeedsSfId.slice(0, 5)) {
-              console.log(`    • ${match.name} → ${match.incomingId}`);
-            }
-            if (analysis.matchesNeedsSfId.length > 5) {
-              console.log(`    ... and ${analysis.matchesNeedsSfId.length - 5} more`);
-            }
-            console.log('');
-          }
-          
-          // Matches for pending requests in MongoDB (legacy - not yet in JSON)
-          if (analysis.matchesPendingRequest.length > 0) {
-            console.log(`  ${colors.bgGreen}${colors.white} ✅ MATCHES PENDING REQUESTS (MongoDB): ${analysis.matchesPendingRequest.length} ${colors.reset}`);
-            console.log(`  ${colors.green}SF sent IDs for attributes we requested (need to add to JSON):${colors.reset}`);
-            for (const match of analysis.matchesPendingRequest.slice(0, 10)) {
-              console.log(`    • ${match.name} → ${match.incomingId}`);
-            }
-            if (analysis.matchesPendingRequest.length > 10) {
-              console.log(`    ... and ${analysis.matchesPendingRequest.length - 10} more`);
-            }
-            console.log('');
-          }
-          
-          // Summary of actionable matches
-          const totalMatches = analysis.matchesNeedsSfId.length + analysis.matchesPendingRequest.length;
-          if (totalMatches > 0) {
-            console.log(`  ${colors.bgGreen}${colors.bold}${colors.white} TOTAL ACTIONABLE MATCHES: ${totalMatches} ${colors.reset}`);
-            console.log('');
-          }
-          
-          if (analysis.newAttributes.length > 0) {
-            console.log(`  ${colors.bgYellow}${colors.bold} 🆕 NEW ATTRIBUTES (not requested): ${analysis.newAttributes.length} ${colors.reset}`);
-            console.log(`  ${colors.yellow}These are completely new (not in our system):${colors.reset}`);
-            for (const newAttr of analysis.newAttributes.slice(0, 5)) {
-              console.log(`    • ${newAttr.name}`);
-            }
-            if (analysis.newAttributes.length > 5) {
-              console.log(`    ... and ${analysis.newAttributes.length - 5} more`);
-            }
-            console.log('');
-          }
-          
-          if (analysis.alreadyHasId > 0) {
-            console.log(`  Already have ID: ${colors.green}${analysis.alreadyHasId}${colors.reset} (no action needed)`);
-            console.log('');
-          }
-        }
+        console.log(`${colors.bold}📊 ATTRIBUTE SUMMARY:${colors.reset}`);
+        console.log(`  Total SF Attributes Received:    ${colors.cyan}${analysis.totalIncoming}${colors.reset}`);
+        console.log(`  Our Pending Requests:            ${colors.yellow}${analysis.pendingRequestCount}${colors.reset}`);
+        console.log(`  ${colors.green}✅ Match Our Requests:           ${colors.bold}${totalMatches}${colors.reset}`);
+        console.log(`  ${colors.yellow}🆕 Do Not Match (new):           ${analysis.newAttributes.length}${colors.reset}`);
+        console.log(`  Already Have ID:                 ${analysis.alreadyHasId}`);
+        console.log('');
       }
     }
     
