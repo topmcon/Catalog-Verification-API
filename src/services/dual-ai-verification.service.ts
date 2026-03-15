@@ -8787,17 +8787,33 @@ async function buildFinalResponse(
       
       return finish;
     })(),
-    AI_Depth: preferAIValue(
-      consensus.agreedPrimaryAttributes.depth_length,
-      openaiResult.primaryAttributes.depth_length,
-      xaiResult.primaryAttributes.depth_length,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
-      findAttributeInRawData(rawProduct, 'Depth') ||
-      findAttributeInRawData(rawProduct, 'Overall Depth') ||
-      ''
-    ),
+    AI_Depth: (() => {
+      let depth = preferAIValue(
+        consensus.agreedPrimaryAttributes.depth_length,
+        openaiResult.primaryAttributes.depth_length,
+        xaiResult.primaryAttributes.depth_length,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
+        findAttributeInRawData(rawProduct, 'Depth') ||
+        findAttributeInRawData(rawProduct, 'Overall Depth') ||
+        ''
+      );
+
+      // For sinks, Ferguson's "width" field = front-to-back dimension (true depth)
+      // e.g., Ferguson specs: width=14.38 (front-to-back), length=20.88 (left-to-right)
+      const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
+      if (sinkCats.includes(consensus.agreedCategory || '')) {
+        const frd = (rawProduct as any).Ferguson_Raw_Data;
+        const fWidth = frd?.product?.specifications?.width?.value ||
+                       (frd?.product?.dimensions?.width || '').replace(/\s*(in\.?|inches?)\s*/gi, '').trim();
+        if (fWidth && !isNaN(parseFloat(fWidth))) {
+          depth = String(parseFloat(fWidth));
+        }
+      }
+
+      return depth;
+    })(),
     AI_Width: (() => {
       let width = preferAIValue(
         consensus.agreedPrimaryAttributes.width,
@@ -8820,7 +8836,23 @@ async function buildFinalResponse(
           logger.info('Extracted width from text', { width, source: 'title_description_extraction', sessionId });
         }
       }
-      
+
+      // For sinks, Ferguson's "length" field = left-to-right = the marketing dimension used in titles
+      // e.g., "Elavo 20-7/8\" Ceramic Undermount Bathroom Sink" - 20-7/8" is Ferguson's length field
+      // Override AI width (which picks up Ferguson's front-to-back "width" field) with the correct dimension
+      const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
+      if (sinkCats.includes(consensus.agreedCategory || '')) {
+        const frd = (rawProduct as any).Ferguson_Raw_Data;
+        const fLength = frd?.product?.specifications?.length?.value ||
+                        (frd?.product?.dimensions?.length || '').replace(/\s*(in\.?|inches?)\s*/gi, '').trim();
+        if (fLength && !isNaN(parseFloat(fLength))) {
+          logger.info('Sink: using Ferguson length as marketing width for title', {
+            sessionId, category: consensus.agreedCategory, fergusonLength: fLength, previousAiWidth: width
+          });
+          width = String(parseFloat(fLength));
+        }
+      }
+
       return width;
     })(),
     AI_Height: preferAIValue(
