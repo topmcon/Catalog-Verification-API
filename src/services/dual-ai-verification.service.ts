@@ -8787,33 +8787,17 @@ async function buildFinalResponse(
       
       return finish;
     })(),
-    AI_Depth: (() => {
-      let depth = preferAIValue(
-        consensus.agreedPrimaryAttributes.depth_length,
-        openaiResult.primaryAttributes.depth_length,
-        xaiResult.primaryAttributes.depth_length,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
-        findAttributeInRawData(rawProduct, 'Depth') ||
-        findAttributeInRawData(rawProduct, 'Overall Depth') ||
-        ''
-      );
-
-      // For sinks, Ferguson's "width" field = front-to-back dimension (true depth)
-      // e.g., Ferguson specs: width=14.38 (front-to-back), length=20.88 (left-to-right)
-      const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
-      if (sinkCats.includes(consensus.agreedCategory || '')) {
-        const frd = (rawProduct as any).Ferguson_Raw_Data;
-        const fWidth = frd?.product?.specifications?.width?.value ||
-                       (frd?.product?.dimensions?.width || '').replace(/\s*(in\.?|inches?)\s*/gi, '').trim();
-        if (fWidth && !isNaN(parseFloat(fWidth))) {
-          depth = String(parseFloat(fWidth));
-        }
-      }
-
-      return depth;
-    })(),
+    AI_Depth: preferAIValue(
+      consensus.agreedPrimaryAttributes.depth_length,
+      openaiResult.primaryAttributes.depth_length,
+      xaiResult.primaryAttributes.depth_length,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
+      findAttributeInRawData(rawProduct, 'Depth') ||
+      findAttributeInRawData(rawProduct, 'Overall Depth') ||
+      ''
+    ),
     AI_Width: (() => {
       let width = preferAIValue(
         consensus.agreedPrimaryAttributes.width,
@@ -8837,19 +8821,32 @@ async function buildFinalResponse(
         }
       }
 
-      // For sinks, Ferguson's "length" field = left-to-right = the marketing dimension used in titles
-      // e.g., "Elavo 20-7/8\" Ceramic Undermount Bathroom Sink" - 20-7/8" is Ferguson's length field
-      // Override AI width (which picks up Ferguson's front-to-back "width" field) with the correct dimension
+      // For sinks, extract the primary marketing dimension from Ferguson's product name.
+      // This is more reliable than guessing which specs axis (length vs width) is the marketing dimension,
+      // since Ferguson's axis convention varies by product.
+      // e.g., "Elavo 20-7/8\" Ceramic Undermount..." → 20.875 → "21"
+      // e.g., "Mojito 13\" Drop-In Single Basin..." → 13 → "13"
+      // e.g., "Atherton™ 18-3/8\" Vitreous China..." → 18.375 → "18"
       const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
       if (sinkCats.includes(consensus.agreedCategory || '')) {
         const frd = (rawProduct as any).Ferguson_Raw_Data;
-        const fLength = frd?.product?.specifications?.length?.value ||
-                        (frd?.product?.dimensions?.length || '').replace(/\s*(in\.?|inches?)\s*/gi, '').trim();
-        if (fLength && !isNaN(parseFloat(fLength))) {
-          logger.info('Sink: using Ferguson length as marketing width for title', {
-            sessionId, category: consensus.agreedCategory, fergusonLength: fLength, previousAiWidth: width
-          });
-          width = String(parseFloat(fLength));
+        const fergusonName = (frd?.product?.name as string) || '';
+        const dimMatch = fergusonName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
+        if (dimMatch) {
+          const whole = parseInt(dimMatch[1]);
+          const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
+          const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
+          const dimValue = whole + fracNum / fracDen;
+          // Sanity check: reasonable sink dimension (8–80 inches)
+          if (dimValue >= 8 && dimValue <= 80) {
+            const dimStr = String(Math.round(dimValue));
+            logger.info('Sink: using Ferguson name dimension as marketing width for title', {
+              sessionId, category: consensus.agreedCategory,
+              fergusonName: fergusonName.substring(0, 70),
+              extractedDimension: dimStr, previousAiWidth: width
+            });
+            width = dimStr;
+          }
         }
       }
 
