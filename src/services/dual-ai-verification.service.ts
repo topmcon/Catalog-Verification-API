@@ -8830,7 +8830,8 @@ async function buildFinalResponse(
       const sinkCats = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
       if (sinkCats.includes(consensus.agreedCategory || '')) {
         const frd = (rawProduct as any).Ferguson_Raw_Data;
-        const fergusonName = (frd?.product?.name as string) || '';
+        // Prefer structured Ferguson name; fall back to flat Ferguson_Title for "no_sources" products
+        const fergusonName = (frd?.product?.name as string) || (rawProduct.Ferguson_Title as string) || '';
         const dimMatch = fergusonName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
         if (dimMatch) {
           const whole = parseInt(dimMatch[1]);
