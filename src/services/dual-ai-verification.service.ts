@@ -8215,40 +8215,76 @@ async function buildFinalResponse(
     return '';
   };
   
-  // Get width: For sinks, prioritize "Overall Width" from multiple sources
+  // Get width: For sinks, prioritize Ferguson title dimension (the marketing width they actually use)
+  // Ferguson uses non-standard terminology: Ferguson "Length" = actual width (left-to-right)
   let widthFinal: string;
+  let depthFinal: string = '';
+  
   if (isSinkCategory) {
-    // Priority 1: Ferguson_Attributes "Overall Width" (structured data - most reliable)
-    const overallWidthFromAttrs = findAttributeInRawData(rawProduct, 'Overall Width');
-    // Priority 2: Parse "Overall Width" from HTML Specification_Table
-    const overallWidthFromSpecTable = extractDimensionFromSpecTable(rawProduct.Specification_Table, 'Overall Width');
-    // Priority 3: Extract from Ferguson title
+    // PRIORITY 1: Ferguson Title dimension (e.g., "15"" from "Lustertone 15" Drop In...")
+    // This IS the marketing width Ferguson displays - most reliable source
     const titleWidth = extractDimensionFromFergusonTitle(rawProduct.Ferguson_Title);
-    // Priority 4: AI-extracted width (may be bowl/basin width - less reliable for marketing)
+    
+    // PRIORITY 2: Ferguson_Attributes "Overall Width" (structured data)
+    const overallWidthFromAttrs = findAttributeInRawData(rawProduct, 'Overall Width');
+    
+    // PRIORITY 3: Parse from HTML Specification_Table
+    const overallWidthFromSpecTable = extractDimensionFromSpecTable(rawProduct.Specification_Table, 'Overall Width');
+    
+    // PRIORITY 4: Ferguson's "Length" field (Ferguson calls left-to-right "Length" for sinks)
+    const frdAny = rawProduct as any;  // Ferguson_Raw_Data may not be in type definition
+    const fergusonLength = frdAny.Ferguson_Raw_Data?.dimensions?.length || 
+                           frdAny.Ferguson_Raw_Data?.specifications?.length?.value ||
+                           '';
+    const fergusonLengthClean = fergusonLength ? String(fergusonLength).replace(/\s*(in\.?|inches?)\s*/gi, '').trim() : '';
+    
+    // PRIORITY 5: AI-extracted width (may pick bowl width - less reliable)
     const aiWidth = preferAIValue(
       consensus.agreedPrimaryAttributes.width,
       openaiResult.primaryAttributes.width,
       xaiResult.primaryAttributes.width,
       openaiResult.confidence,
       xaiResult.confidence,
-      getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+      ''
     );
     
-    widthFinal = (overallWidthFromAttrs && overallWidthFromAttrs !== 'N/A' ? String(overallWidthFromAttrs) : '') 
+    widthFinal = titleWidth 
+              || (overallWidthFromAttrs && overallWidthFromAttrs !== 'N/A' ? String(overallWidthFromAttrs) : '')
               || overallWidthFromSpecTable
-              || titleWidth 
+              || fergusonLengthClean
               || aiWidth;
     
-    logger.info('Sink width extraction (Overall Width priority)', {
+    // DEPTH for sinks: Ferguson's "Width" field IS the front-to-back measurement
+    const fergusonWidthForDepth = frdAny.Ferguson_Raw_Data?.dimensions?.width || 
+                                  frdAny.Ferguson_Raw_Data?.specifications?.width?.value ||
+                                  '';
+    depthFinal = fergusonWidthForDepth ? String(fergusonWidthForDepth).replace(/\s*(in\.?|inches?)\s*/gi, '').trim() : '';
+    
+    // Fallback to AI depth if Ferguson doesn't provide
+    if (!depthFinal) {
+      depthFinal = preferAIValue(
+        consensus.agreedPrimaryAttributes.depth_length || consensus.agreedPrimaryAttributes.depth,
+        openaiResult.primaryAttributes.depth_length || openaiResult.primaryAttributes.depth,
+        xaiResult.primaryAttributes.depth_length || xaiResult.primaryAttributes.depth,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        ''
+      );
+    }
+    
+    logger.info('Sink dimension extraction (Ferguson title priority)', {
       sessionId,
       category: consensus.agreedCategory,
+      titleWidth: titleWidth || 'not found',
       overallWidthFromAttrs: overallWidthFromAttrs || 'not found',
       overallWidthFromSpecTable: overallWidthFromSpecTable || 'not found',
-      titleWidth: titleWidth || 'not found',
+      fergusonLengthClean: fergusonLengthClean || 'not found',
       aiWidth: aiWidth || 'not found',
       finalWidth: widthFinal,
+      fergusonWidthForDepth: fergusonWidthForDepth || 'not found',
+      finalDepth: depthFinal,
       fergusonTitle: rawProduct.Ferguson_Title,
-      hasSpecTable: !!rawProduct.Specification_Table
+      note: 'Ferguson terminology: Length=width (left-to-right), Width=depth (front-to-back)'
     });
   } else {
     // Non-sink categories: use existing AI-first logic
@@ -8881,42 +8917,48 @@ async function buildFinalResponse(
       
       return finish;
     })(),
-    AI_Depth: preferAIValue(
-      consensus.agreedPrimaryAttributes.depth_length,
-      openaiResult.primaryAttributes.depth_length,
-      xaiResult.primaryAttributes.depth_length,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
-      findAttributeInRawData(rawProduct, 'Depth') ||
-      findAttributeInRawData(rawProduct, 'Overall Depth') ||
-      ''
-    ),
-    AI_Width: (() => {
-      let width = preferAIValue(
-        consensus.agreedPrimaryAttributes.width,
-        openaiResult.primaryAttributes.width,
-        xaiResult.primaryAttributes.width,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width) ||
-        findAttributeInRawData(rawProduct, 'Width') ||
-        findAttributeInRawData(rawProduct, 'Overall Width') ||
-        ''
-      );
-      
-      // If still empty, try to extract from title/description
-      if (!width || width.trim() === '') {
-        const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
-        const extracted = extractWidthFromText(textToSearch);
-        if (extracted) {
-          width = extracted;
-          logger.info('Extracted width from text', { width, source: 'title_description_extraction', sessionId });
-        }
-      }
-      
-      return width;
-    })(),
+    // AI_Depth: For sinks, use depthFinal (Ferguson "Width" = front-to-back depth)
+    AI_Depth: isSinkCategory && depthFinal 
+      ? depthFinal 
+      : preferAIValue(
+          consensus.agreedPrimaryAttributes.depth_length,
+          openaiResult.primaryAttributes.depth_length,
+          xaiResult.primaryAttributes.depth_length,
+          openaiResult.confidence,
+          xaiResult.confidence,
+          getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth) ||
+          findAttributeInRawData(rawProduct, 'Depth') ||
+          findAttributeInRawData(rawProduct, 'Overall Depth') ||
+          ''
+        ),
+    // AI_Width: For sinks, use widthFinal (Ferguson title dimension or Ferguson "Length")
+    AI_Width: isSinkCategory 
+      ? widthFinal 
+      : (() => {
+          let width = preferAIValue(
+            consensus.agreedPrimaryAttributes.width,
+            openaiResult.primaryAttributes.width,
+            xaiResult.primaryAttributes.width,
+            openaiResult.confidence,
+            xaiResult.confidence,
+            getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width) ||
+            findAttributeInRawData(rawProduct, 'Width') ||
+            findAttributeInRawData(rawProduct, 'Overall Width') ||
+            ''
+          );
+          
+          // If still empty, try to extract from title/description
+          if (!width || width.trim() === '') {
+            const textToSearch = `${rawProduct.Product_Title_Web_Retailer || ''} ${rawProduct.Ferguson_Title || ''} ${rawProduct.Product_Description_Web_Retailer || ''} ${rawProduct.Ferguson_Description || ''}`;
+            const extracted = extractWidthFromText(textToSearch);
+            if (extracted) {
+              width = extracted;
+              logger.info('Extracted width from text', { width, source: 'title_description_extraction', sessionId });
+            }
+          }
+          
+          return width;
+        })(),
     AI_Height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
       openaiResult.primaryAttributes.height,
