@@ -6968,22 +6968,17 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 2,
         "attribute": "Width (Inches)",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Bowl Config",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Material",
+        "attribute": "Bowl Config",
         "required": false
       },
       {
@@ -7002,9 +6997,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Bowl Config} {Material} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Kitchen Sink Finish - Model",
-    "seoNotes": "Width for fit. Bowl = Single, Double, Triple. Material = Stainless, Cast Iron, Composite."
+    "template": "{Brand} {Width (Inches)} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 30-Inch Undermount Single Bowl Kitchen Sink Stainless Steel - Model",
+    "seoNotes": "Width for fit. Type = Undermount, Drop-In, Farmhouse, etc. Bowl = Single, Double, Triple."
   },
   "kitchen_sink_combo": {
     "categoryId": "a01aZ00000dC5ECQA0",
