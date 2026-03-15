@@ -1095,10 +1095,17 @@ export class PicklistController {
   /**
    * POST /api/picklists/sync/pending/:pendingId/reject
    * Reject a pending picklist sync (discard without applying)
+   * 
+   * IMPORTANT: Even when rejecting (to protect categories), we still:
+   * 1. Extract ATTRIBUTES from the sync
+   * 2. Add any that match our pending creation requests to attributes.json
+   * 3. Mark those pending requests as fulfilled
+   * 
+   * This ensures we don't lose the SF IDs for attributes we requested.
    */
   async rejectPendingSync(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { pendingId } = req.params;
-    const { reviewed_by = 'copilot-session', notes } = req.body;
+    const { reviewed_by = 'copilot-session', notes, skip_attribute_extraction = false } = req.body;
     
     try {
       const pendingSync = await PendingPicklistSync.findOne({ pending_id: pendingId });
@@ -1128,18 +1135,56 @@ export class PicklistController {
       pendingSync.review_notes = notes || 'Rejected to prevent overwrite of custom fields';
       await pendingSync.save();
       
-      logger.info('Pending picklist sync REJECTED', {
+      // STILL extract and reconcile attributes even when rejecting
+      // This preserves SF IDs for attributes we requested while protecting categories
+      let attributeReconciliation = null;
+      
+      if (!skip_attribute_extraction) {
+        const { attributes } = pendingSync.incoming_data || {};
+        
+        if (attributes && Array.isArray(attributes) && attributes.length > 0) {
+          try {
+            attributeReconciliation = await picklistReconciliation.reconcileAttributes(attributes);
+            
+            if (attributeReconciliation.requests_fulfilled > 0) {
+              // Reload picklists in memory after file updates
+              picklistMatcher.reload();
+              
+              logger.info('Attributes extracted from rejected sync', {
+                pending_id: pendingId,
+                pending_added: attributeReconciliation.pending_added,
+                requests_fulfilled: attributeReconciliation.requests_fulfilled
+              });
+            }
+          } catch (attrError) {
+            logger.error('Failed to extract attributes from rejected sync', { 
+              pending_id: pendingId, 
+              error: attrError 
+            });
+            // Continue with rejection - don't fail the whole operation
+          }
+        }
+      }
+      
+      logger.info('Pending picklist sync REJECTED (attributes still extracted)', {
         pending_id: pendingId,
         reviewed_by,
-        notes
+        notes,
+        attributes_extracted: attributeReconciliation?.requests_fulfilled || 0
       });
       
       res.json({
         success: true,
-        message: 'Pending sync rejected and discarded',
+        message: 'Pending sync rejected (categories protected, attributes extracted)',
         pending_id: pendingId,
         reviewed_by,
-        rejected_changes: pendingSync.pending_changes
+        rejected_changes: pendingSync.pending_changes,
+        attribute_extraction: attributeReconciliation ? {
+          pending_added: attributeReconciliation.pending_added,
+          new_added: attributeReconciliation.new_added,
+          requests_fulfilled: attributeReconciliation.requests_fulfilled,
+          duplicates_rejected: attributeReconciliation.duplicates_rejected
+        } : null
       });
       
     } catch (error) {
