@@ -43,9 +43,10 @@ async function approveMatches() {
   const sfAttrs = best.incoming_data.attributes;
   console.log(`Using sync with ${sfAttrs.length} attributes`);
 
-  // Get pending requests
+  // Get pending requests (correct field names: request_type, requested_value)
   const pending = await db.collection('pending_creation_requests')
-    .find({ type: 'attribute', status: 'pending' }).toArray();
+    .find({ request_type: 'attribute', status: 'pending' }).toArray();
+  console.log(`Found ${pending.length} pending attribute requests`);
 
   // Build SF lookup
   const sfLookup = {};
@@ -54,7 +55,7 @@ async function approveMatches() {
   // Find matches
   const matches = [];
   for (const p of pending) {
-    const sfAttr = sfLookup[p.value.toLowerCase()];
+    const sfAttr = sfLookup[p.requested_value.toLowerCase()];
     if (sfAttr) matches.push({ pending: p, sf: sfAttr });
   }
 
@@ -67,11 +68,11 @@ async function approveMatches() {
   let updated = 0;
   for (const m of matches) {
     // Update JSON
-    const idx = attrs.findIndex(a => a.attribute_name.toLowerCase() === m.pending.value.toLowerCase());
+    const idx = attrs.findIndex(a => a.attribute_name.toLowerCase() === m.pending.requested_value.toLowerCase());
     if (idx >= 0 && attrs[idx].attribute_id === 'NEEDS_SF_ID') {
       attrs[idx].attribute_id = m.sf.attribute_id;
       updated++;
-      console.log(`✅ ${m.pending.value} → ${m.sf.attribute_id}`);
+      console.log(`✅ ${m.pending.requested_value} → ${m.sf.attribute_id}`);
     }
     // Mark MongoDB as fulfilled
     await db.collection('pending_creation_requests').updateOne(
