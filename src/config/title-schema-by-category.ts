@@ -5821,33 +5821,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Sink Shape",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Bowl Config",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Bowl Config",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Bathroom Sink Finish - Model",
-    "seoNotes": "Type = Undermount, Vessel, Drop-In, Wall-Mount, Pedestal."
+    "template": "{Brand} {Width (Inches)} {Sink Shape} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 21-Inch Rectangular Undermount Bathroom Sink White - Model",
+    "seoNotes": "Sink Shape = Rectangular, Round, Oval, Square. Type = Undermount, Vessel, Drop-In, Wall-Mount, Pedestal."
   },
   "bathroom_vanity": {
     "categoryId": "a01aZ00000dC5DjQAK",
@@ -6612,22 +6617,22 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
         "attribute": "Width (Inches)",
         "required": false
       },
       {
+        "position": 3,
+        "attribute": "Sink Shape",
+        "required": false
+      },
+      {
         "position": 4,
-        "attribute": "Bowl Config",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
-        "attribute": "Material",
+        "attribute": "Bowl Config",
         "required": false
       },
       {
@@ -6646,9 +6651,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Width (Inches)} {Bowl Config} {Material} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Bar & Prep Sink Finish - Model",
-    "seoNotes": "Smaller than kitchen sink. Bowl = Single, Double."
+    "template": "{Brand} {Width (Inches)} {Sink Shape} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 13-Inch Rectangular Drop-In Bar & Prep Sink Brushed Nickel - Model",
+    "seoNotes": "Smaller than kitchen sink. Sink Shape = Rectangular, Round, etc. Bowl = Single, Double."
   },
   "bar_faucet": {
     "categoryId": "a01aZ00000dC5E3QAK",
@@ -6973,33 +6978,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Sink Shape",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Bowl Config",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Bowl Config",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width (Inches)} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Undermount Single Bowl Kitchen Sink Stainless Steel - Model",
-    "seoNotes": "Width for fit. Type = Undermount, Drop-In, Farmhouse, etc. Bowl = Single, Double, Triple."
+    "template": "{Brand} {Width (Inches)} {Sink Shape} {Type} {Bowl Config} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 32-Inch Single Bowl Undermount Kitchen Sink Stainless Steel - Model",
+    "seoNotes": "Width for fit. Sink Shape = Rectangular, Round, etc. Type = Undermount, Drop-In, Farmhouse, etc. Bowl = Single, Double, Triple."
   },
   "kitchen_sink_combo": {
     "categoryId": "a01aZ00000dC5ECQA0",
