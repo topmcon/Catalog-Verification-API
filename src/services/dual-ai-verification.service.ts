@@ -2599,7 +2599,43 @@ export async function verifyProductWithDualAI(
         validCategory: determinedCategory
       });
     }
-    
+
+    // ===============================================
+    // 🪞 LIGHTED MIRROR CORRECTION (POST-STAGE 2)
+    // ===============================================
+    // Products that are mirrors with integrated LED/lighting are MIRRORS first,
+    // not lighting fixtures.  ET2 and similar brands make lighted mirrors that
+    // get classified into Lighting & Electrical because of the brand/URL — but
+    // the correct category is Bathroom Mirror (Plumbing & Bath department).
+    // Trigger: AI landed in a lighting category AND title contains "mirror".
+    const LIGHTING_CATEGORIES_THAT_COULD_BE_MIRRORS = new Set([
+      'Bathroom Lighting', 'Vanity Lighting', 'Wall Sconce',
+      'Wall Lights', 'Sconces', 'Bath Lighting'
+    ]);
+    const titlesForMirrorCheck = [
+      rawProduct.Product_Title_Web_Retailer,
+      rawProduct.Ferguson_Title,
+      rawProduct.SF_Catalog_Name,
+    ].filter(Boolean).join(' ');
+    const LIGHTED_MIRROR_REGEX = /\b(?:bathroom|vanity|lighted|led)[\s-]*(?:wall\s+)?mirror\b|\bmirror\s+with\s+(?:led|light)/i;
+
+    if (LIGHTING_CATEGORIES_THAT_COULD_BE_MIRRORS.has(determinedCategory) && LIGHTED_MIRROR_REGEX.test(titlesForMirrorCheck)) {
+      logger.warn('🪞 LIGHTED MIRROR CORRECTION: Title contains "mirror" — overriding lighting category to Bathroom Mirror', {
+        sessionId: verificationSessionId,
+        fromCategory: determinedCategory,
+        fromDepartment: determinedDepartment,
+        toCategory: 'Bathroom Mirror',
+        toDepartment: 'Plumbing & Bath',
+        matchedTitle: titlesForMirrorCheck.substring(0, 120),
+        reason: 'Product is a mirror with integrated lighting — primary function is mirror, not light fixture'
+      });
+      determinedCategory = 'Bathroom Mirror';
+      determinedDepartment = 'Plumbing & Bath';
+      validCategoriesForDept = getCategoriesForDepartment('Plumbing & Bath');
+      Object.assign(categoryConsensus, { agreedCategory: 'Bathroom Mirror', agreementReason: 'Lighted mirror correction: title contains "mirror" with lighting features' });
+      Object.assign(departmentConsensus, { agreedDepartment: 'Plumbing & Bath' });
+    }
+
     // ===============================================
     // 🎯 STAGE 3: DETAILED ANALYSIS (CATEGORY-SPECIFIC)
     // ===============================================
