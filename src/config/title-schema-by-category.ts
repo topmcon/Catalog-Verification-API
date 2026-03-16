@@ -6113,28 +6113,33 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Installation Type",
         "required": false
       },
       {
         "position": 4,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width×Height} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Medicine Cabinet Finish - Model",
-    "seoNotes": "Type = Recessed, Surface-Mount. Dimensions for bathroom fit."
+    "template": "{Brand} {Width×Height} {Installation Type} {Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Robern 20×40 Recessed Frameless Lighted Medicine Cabinet Polished Edge - Model",
+    "seoNotes": "Installation Type = Recessed, Surface-Mount. Type = Frameless, Framed, Lighted. Dimensions for bathroom fit."
   },
   "rough-in_valve": {
     "categoryId": "a01aZ00000dC5DrQAK",

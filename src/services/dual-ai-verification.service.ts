@@ -10625,6 +10625,41 @@ async function buildFinalResponse(
   }
   // ── END SHOWER TITLE POST-PROCESSING ────────────────────────────────────────
 
+  // ── MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────────
+  if (finalSeoTitleInput.category === 'Medicine Cabinet') {
+    // 1. Installation Type: use only the first value for the title
+    //    "Recessed, Surface" → "Recessed"  |  "Surface, Recessed" → "Surface Mount"
+    const rawInstall = (finalSeoTitleInput.installationType || '').trim();
+    if (rawInstall) {
+      const primaryInstall = rawInstall.split(/[,;]/)[0].trim();
+      // Normalize "Surface" → "Surface Mount" for readability
+      finalSeoTitleInput.installationType = primaryInstall.toLowerCase() === 'surface'
+        ? 'Surface Mount' : primaryInstall;
+    }
+
+    // 2. Lighted detection: if source data mentions interior light / LED / lighted,
+    //    prepend "Lighted" to the Type (e.g., "Frameless" → "Lighted Frameless")
+    const lightedSources = [
+      (rawProduct as any).Product_Title_Legacy || '',
+      (rawProduct as any).Product_Title_Web_Retailer || '',
+      (rawProduct as any).Ferguson_Raw_Data?.product?.name || '',
+      (rawProduct as any).Ferguson_Title || '',
+    ].join(' ').toLowerCase();
+    const hasLighted = /\b(lighted|interior light|led light|nightlight|light.*defogger|illuminat)/i.test(lightedSources);
+    if (hasLighted) {
+      const currentType = (finalSeoTitleInput.type || '').trim();
+      if (currentType && !currentType.toLowerCase().includes('lighted')) {
+        finalSeoTitleInput.type = `Lighted ${currentType}`;
+      } else if (!currentType) {
+        finalSeoTitleInput.type = 'Lighted';
+      }
+      logger.info('Medicine Cabinet: detected lighted features, updated type for title', {
+        sessionId, type: finalSeoTitleInput.type, installationType: finalSeoTitleInput.installationType
+      });
+    }
+  }
+  // ── END MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────
+
   // Generate final title using corrected data
   const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
   
