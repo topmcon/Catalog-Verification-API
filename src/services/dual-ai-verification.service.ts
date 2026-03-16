@@ -10669,6 +10669,20 @@ async function buildFinalResponse(
     });
   }
 
+  // MIRROR TITLE OVERRIDE
+  // Claude's Final Review re-introduces "Wall Mirror Bathroom Mirror" redundancy
+  // because it doesn't understand our merge logic (Bathroom + Wall Mirror → "Bathroom Wall Mirror").
+  // Always use our schema-generated title for mirror categories.
+  const mirrorCategoriesToOverride = ['Bathroom Mirror', 'Mirror', 'Medicine Cabinet'];
+  if (mirrorCategoriesToOverride.includes(sanitizedPrimaryAttributes.AI_Product_Category || '')) {
+    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
+    logger.info('📝 MIRROR TITLE OVERRIDE: Using schema title (prevents Claude redundancy)', {
+      sessionId,
+      finalTitle: finalSeoTitle.substring(0, 80),
+      claudeWouldHaveUsed: titleWasCorrectedByClaude ? 'yes - overridden' : 'no - was already using regenerated'
+    });
+  }
+
   // Build response object before capturing metrics (need finalValues)
   const responseObject = {
     SF_Catalog_Id: rawProduct.SF_Catalog_Id,
