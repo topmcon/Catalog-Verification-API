@@ -52,6 +52,9 @@
 | Missing dimensions when structured fields empty but raw titles have data | Extract W×H×D from raw titles as last-resort fallback + Legacy fields in chain | 4ec2596 | #039, #038 |
 | Verified data hierarchy not followed in fallback chains | Dept-aware source ordering, universal text extractors, bridge finalSeoTitleInput | ca540e2 | #040, #039 |
 | Mirror (Home Décor) misclassification when source signals say bathroom | Source-signal override checks Legacy/WR category for bathroom keywords + FRD product name in deptTitles + style-in-finish blocklist | a4fcb45 | #041, #037, #040 |
+| Bathroom Mirror merge creates "Wall Mirror Bathroom Mirror" redundancy + composite dimension handler unreachable | Fix merge to use `.includes('mirror')`, move dimension handler before undefined check, add `roundDimensionsInTitle()` | 196aa08 | #042, #007, #039 |
+| Claude Final Review rewrites title string, bypassing ALL formatting rules | Universal: ALWAYS use schema-generated title, never Claude's title string rewrite | 4730d9c | #043, #035, #032 |
+| Medicine Cabinet missing Installation Type and Lighted indicator in titles | Add Installation Type slot to schema + normalization + lighted detection from source data | e78781f | #044, #037, #041 |
 
 ---
 
@@ -4738,3 +4741,190 @@ if (styleNotFinish.has(normalized)) return '';
 - #037: Lighted mirror detection (this finding covers cases where detection fires but gets undone by category mismatch)
 - #040: Verified data hierarchy (FRD product name gap was a hierarchy violation)
 - #009: Finish normalization (style blocklist extends the original finish normalization)
+
+---
+
+## Finding #042: Bathroom Mirror Title Merge Redundancy + Composite Dimension Handler Unreachable
+
+### Symptom
+Multiple title formatting issues found after re-verifying 15 mirror products:
+1. **"Wall Mirror Bathroom Mirror" redundancy** — 7 products had duplicate mirror text in titles
+2. **Missing dimensions** — ET2 had `{Width×Height}` slot in schema but dimensions were empty
+3. **Unrounded fractional dimensions** — Titles showed "15-1/2" and "23.5" instead of rounded whole numbers
+
+### Root Cause (3 interrelated issues)
+
+**1. Exact string match in merge logic:**
+Bathroom Mirror title generation merges Category ("Bathroom Mirror") with Type ("Wall Mirror") by finding the Type part and replacing it with "Bathroom Wall Mirror". The `findIndex` used exact string match (`=== input.type`) which failed when parts were cased differently or split differently, causing both Type and full Category to appear.
+
+**2. Composite dimension handler below undefined check:**
+`formatValue()` had `if (value === undefined) return ''` BEFORE the special `Dimensions (W×H)` / `Width×Height` handler. Since `getInputValue()` returns undefined for composite attributes (no single field maps to them), the special handler that composes width+height was unreachable.
+
+**3. No dimension rounding in title pipeline:**
+Fractions (`15-1/2`) and decimals (`23.5`) passed through to titles without rounding. Users expect whole numbers in SEO titles.
+
+### Investigation Steps
+1. Re-verified 15 mirror products after commit `a4fcb45` — 12/15 reclassified correctly but 6 new title issues
+2. Traced Bathroom Mirror merge logic in `generateSEOTitle()` — found exact match condition
+3. Traced `formatValue()` execution order — discovered unreachable handler
+4. Reviewed title output patterns — found fractional/decimal dimensions in multiple titles
+
+### Fix Applied
+**Commit**: `196aa08`
+**Files**: `src/services/seo-title-generator.service.ts`
+
+**Fix 1 — Loose merge matching** (~line 932):
+```typescript
+// BEFORE:
+parts.findIndex(p => p.toLowerCase() === (input.type || '').toLowerCase())
+
+// AFTER:
+parts.findIndex(p => p.toLowerCase().includes('mirror'))
+// With fallback: if no mirror part found, push full category
+```
+
+**Fix 2 — Move composite handler before undefined check** (`formatValue()`):
+```typescript
+// BEFORE: Handler was AFTER undefined check → never reached
+// AFTER: Composite Dimensions (W×H) and Width×Height handlers are FIRST in function
+if (attributeName === 'Dimensions (W×H)' || attributeName === 'Width×Height') {
+  const w = getInputValue(input, 'Width') || input.width;
+  const h = getInputValue(input, 'Height') || input.height;
+  if (w && h) return `${w}×${h}`;
+}
+```
+
+**Fix 3 — `roundDimensionsInTitle()` post-processor** (lines 389-418):
+```typescript
+// Rounds fractions: "15-1/2" → "16", "23-3/4" → "24"
+// Rounds decimals near ×: "23.5×29.5" → "24×30"
+// Rounds decimals before -Inch: "23.5-Inch" → "24-Inch"
+// Applied after toTitleCase(), before length check
+// Title-only: does NOT modify verified data fields
+```
+
+Also added `'Width×Height': 'dimensionsWxH'` to `ATTRIBUTE_TO_FIELD` mapping.
+
+### Scope
+- **Merge fix**: Bathroom Mirror category titles only
+- **Dimension handler**: ALL categories using composite dimension slots
+- **Rounding**: Universal — all title output
+
+### Related Findings
+- #007: Duplicate values in titles (merge logic is another source of title duplicates)
+- #039: Missing dimensions from empty structured fields (this is a different missing dimension path)
+
+---
+
+## Finding #043: Claude Final Review Rewrites Title String, Bypassing ALL Formatting Rules
+
+### Symptom
+After fixing the Bathroom Mirror merge logic (Finding #042), production logs showed schema-generated titles were CORRECT for all products, but the final output still had wrong titles. Claude's Final Review was rewriting the title string, re-introducing redundancy and formatting errors.
+
+**Example — AM3036P-CH:**
+- Schema generated: `"CRAFT + MAIN Rectangular Bathroom Wall Mirror Chrome AM3036P-CH"` ✅
+- Claude rewrote to: `"CRAFT + MAIN 30×36 Rectangular Wall Mirror Bathroom Mirror Chrome AM3036P-CH"` ❌
+
+### Root Cause
+The title pipeline had a branch: if Claude's Final Review corrected the title, use Claude's version; otherwise use the schema-generated title. This meant Claude could bypass ALL formatting rules:
+- Merge logic (Finding #042)
+- Duplicate prevention (Finding #007)
+- Category-Type overlap suppression (Finding #017)
+- Dimension rounding (Finding #042)
+- Model number enforcement
+- Length constraints
+
+Previously, per-category overrides were added for sinks (Finding #035) and mirrors (commit `fab2b00`) to block Claude's rewrite for those specific categories. But this was whack-a-mole — the same problem existed for ALL categories.
+
+### Investigation Steps
+1. After commit `196aa08`, queried production logs for 7 mirror products
+2. Compared `seoTitle` (schema output) vs `correctedTitle` (Claude output) for each
+3. Found schema was correct for ALL 7 — Claude was the source of every remaining title bug
+4. Realized per-category overrides (sink, mirror) were treating symptoms, not cause
+5. Confirmed Claude's field corrections still flow through `finalSeoTitleInput` → schema uses them
+
+### Fix Applied
+**Commit**: `4730d9c` (supersedes `fab2b00`)
+**Files**: `src/services/dual-ai-verification.service.ts`
+
+**Universal rule** — ALWAYS use schema-generated title:
+```typescript
+// BEFORE (3 paths):
+if (!titleWasCorrectedByClaude) { use schema title }
+else if (category is sink) { use schema title }  // Finding #035
+else if (category is mirror) { use schema title }  // fab2b00
+else { use Claude's title }
+
+// AFTER (1 path, net -22 lines):
+sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;  // ALWAYS schema
+```
+
+Claude's field corrections (Brand, Type, Finish, etc.) still flow through `finalSeoTitleInput` into the schema generator. Only the title STRING rewrite is prevented.
+
+### Scope
+- **Universal** — affects ALL categories, ALL products
+- Removed per-category overrides for sinks (#035) and mirrors as redundant
+- Net reduction of 22 lines of code
+
+### Related Findings
+- #035: Sink title using specs.width (this was the first per-category override; now redundant)
+- #032: Claude smuggling category into title (symptom of same root cause)
+- #042: Bathroom Mirror merge redundancy (correct fix was being undone by Claude)
+
+---
+
+## Finding #044: Medicine Cabinet Missing Installation Type and Lighted Indicator
+
+### Symptom
+Medicine cabinet products had incorrect Type values in titles:
+- **MC1640D4FPRE4**: Type=Frameless in data, but title said "Framed" (old Claude rewrite)
+- **MC2040D4FPLE4**: Type=Frameless in data, but title said "Lighted" (old Claude rewrite)
+
+After commit `4730d9c` (universal schema title), the schema uses the actual Type field. But the Medicine Cabinet schema lacked Installation Type and Lighted information, which are important product differentiators.
+
+### Root Cause
+Medicine Cabinet title schema only had: `{Brand} {Width×Height} {Type} {Category} {Finish} {Model Number}`. It was missing:
+1. **Installation Type** — Many MCs are specifically Recessed OR Surface Mount, which is a key buying decision
+2. **Lighted indicator** — Some MCs have built-in lighting, which should appear in the title
+
+### Investigation Steps
+1. Queried production MongoDB for MC1640D4FPRE4 and MC2040D4FPLE4
+2. Found `installation_type: "Recessed, Surface"` and lighted features in source text
+3. User confirmed both Installation Type AND Lighted should appear if relevant
+4. Checked existing lighted detection pattern from Bathroom Mirror — works well, needs Medicine Cabinet adaptation
+
+### Fix Applied
+**Commit**: `e78781f`
+**Files**: `src/config/title-schema-by-category.ts`, `src/services/dual-ai-verification.service.ts`
+
+**Fix 1 — Schema update** (`title-schema-by-category.ts`):
+```typescript
+// BEFORE:
+'{Brand} {Width×Height} {Type} {Category} {Finish} {Model Number}'
+
+// AFTER:
+'{Brand} {Width×Height} {Installation Type} {Type} {Category} {Finish} {Model Number}'
+```
+
+**Fix 2 — Installation Type normalization** (pre-`generateSEOTitle()` block):
+```typescript
+// "Recessed, Surface" → "Recessed" (take first CSV value)
+// "Surface" → "Surface Mount" (normalize)
+```
+
+**Fix 3 — Lighted detection** (pre-`generateSEOTitle()` block):
+```typescript
+const lightedRegex = /lighted|interior light|led light|nightlight|light.*defogger|illuminat/i;
+// Searches: deptTitles + deptFeatures + Ferguson specs
+// If found and Type doesn't already include "Lighted":
+//   prepends "Lighted" to Type → "Frameless" becomes "Lighted Frameless"
+```
+
+### Scope
+- **Medicine Cabinet category only** — post-processing block gated by `category === 'Medicine Cabinet'`
+- Installation Type normalization is defensive (handles multi-value CSV)
+- Lighted detection uses same proven regex pattern from lighted mirror detection
+
+### Related Findings
+- #037: Lighted mirror detection (same regex pattern, different category)
+- #041: Mirror misclassification (this session's earlier fix — exposed the Medicine Cabinet gap)
