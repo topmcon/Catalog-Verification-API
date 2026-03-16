@@ -7673,7 +7673,48 @@ async function buildFinalResponse(
     matchedTo: typeMatchResult.matchedValue?.type_name || null,
     similarity: typeMatchResult.similarity
   });
-  
+
+  // ──────────────────────────────────────────────────────────────────────
+  // LIGHTED MIRROR SOURCE-TITLE OVERRIDE (Bathroom Mirror only)
+  // ──────────────────────────────────────────────────────────────────────
+  // The AI often defaults to "Wall Mirror" even when source titles explicitly
+  // say "with LED Lighting", "with Light", "Lighted Mirror", etc.
+  // Scan source titles here and upgrade to "Lighted" when any signal is found.
+  // This runs AFTER normal type resolution so it only corrects, never downgrades.
+  if (verifiedCategory === 'Bathroom Mirror') {
+    const lightedMirrorPattern = /lighted\s+(?:wall\s+|bathroom\s+|vanity\s+)?mirror|led\s+(?:wall\s+|bathroom\s+|vanity\s+)?mirror|mirror\s+with\s+(?:led|integrated\s+led|built[\s-]+in\s+led)|mirror\s+with\s+(?:led\s+)?light(?:ing)?\b|(?:led|integrated|built[\s-]+in)\s+light(?:ing)?\s+(?:mirror|bathroom|vanity)|illuminated\s+mirror|backlit\s+mirror|back-lit\s+mirror|mirror\s+defog(?:ger)?/i;
+    const sourceTitles = [
+      rawProduct.Ferguson_Title,
+      rawProduct.Product_Title_Web_Retailer,
+      (rawProduct as any).Product_Description_Web_Retailer,
+    ].filter(Boolean).join(' ');
+    const currentType = typeMatchResult.matchedValue?.type_name || aiProductType || '';
+    const isNotAlreadyLighted = !/lighted/i.test(currentType);
+    if (isNotAlreadyLighted && lightedMirrorPattern.test(sourceTitles)) {
+      const lightedType = getTypeByName('Lighted');
+      if (lightedType) {
+        const previousType = currentType;
+        typeMatchResult = {
+          matched: true,
+          original: aiProductType,
+          matchedValue: { type_id: lightedType.type_id, type_name: lightedType.type_name },
+          similarity: 0.95
+        };
+        aiProductType = 'Lighted';
+        logger.info('🔦 LIGHTED MIRROR OVERRIDE: source title signals LED/light — upgrading type to Lighted', {
+          sessionId,
+          verifiedCategory,
+          previousType,
+          newType: 'Lighted',
+          matchedPattern: 'source title lighted mirror detector',
+          sourceTitleSample: sourceTitles.substring(0, 120),
+          productId: rawProduct.SF_Catalog_Id
+        });
+      }
+    }
+  }
+  // ── end lighted mirror override ──────────────────────────────────────
+
   // ✅ USER DIRECTIVE: Image analysis and semantic extraction are ADVISORY ONLY
   // They CANNOT define or overwrite the Type field - only Phase 2.5 validated AI types are authoritative
   // Image findings are stored in metadata for reference but have no authority

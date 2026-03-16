@@ -379,7 +379,17 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'wall mirror': { 'Medicine Cabinet': 'Wall Mirror', 'Bathroom Mirror': 'Wall Mirror' },
   'vanity mirror': { 'Medicine Cabinet': 'Vanity Mirror', 'Bathroom Mirror': 'Vanity Mirror' },
   'lighted mirror': { 'Bathroom Mirror': 'Lighted' },
-  'led mirror': { 'Bathroom Mirror': 'LED' },
+  'led mirror': { 'Bathroom Mirror': 'Lighted' }, // 'LED' is not a valid type — map to 'Lighted'
+  'led bathroom mirror': { 'Bathroom Mirror': 'Lighted' },
+  'lighted bathroom mirror': { 'Bathroom Mirror': 'Lighted' },
+  'mirror with led': { 'Bathroom Mirror': 'Lighted' },
+  'mirror with light': { 'Bathroom Mirror': 'Lighted' },
+  'mirror with lighting': { 'Bathroom Mirror': 'Lighted' },
+  'backlit mirror': { 'Bathroom Mirror': 'Lighted' },
+  'back-lit mirror': { 'Bathroom Mirror': 'Lighted' },
+  'illuminated mirror': { 'Bathroom Mirror': 'Lighted' },
+  'vanity lighted mirror': { 'Bathroom Mirror': 'Lighted' },
+  'lighted wall mirror': { 'Bathroom Mirror': 'Lighted' },
   
   // ============================================
   // CEILING FAN ALIASES
@@ -566,6 +576,16 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   { pattern: /storage.*drawer/i, category: 'Drawer', typeName: 'Storage' },
   { pattern: /refrigerat.*drawer/i, category: 'Drawer', typeName: 'Refrigerator Drawer' },
   
+  // Bathroom Mirror — lighted detection
+  // These patterns fire on Ferguson_Title, Web_Retailer title, or any hint text describing a mirror
+  // that has integrated LED / light features.  Must come BEFORE generic lighting patterns.
+  { pattern: /lighted\s+(?:wall\s+|vanity\s+|bathroom\s+)?mirror|illuminated\s+mirror|backlit\s+mirror|back-lit\s+mirror/i, category: 'Bathroom Mirror', typeName: 'Lighted' },
+  { pattern: /led\s+(?:wall\s+|vanity\s+|bathroom\s+)?mirror|mirror\s+with\s+(?:led|integrated\s+led|built(?:-|\s)in\s+led)/i, category: 'Bathroom Mirror', typeName: 'Lighted' },
+  { pattern: /mirror\s+with\s+(?:led\s+)?light(?:ing)?\b/i, category: 'Bathroom Mirror', typeName: 'Lighted' },
+  { pattern: /(?:led|integrated|built(?:-|\s)in)\s+light(?:ing)?\s+(?:mirror|bathroom|vanity)/i, category: 'Bathroom Mirror', typeName: 'Lighted' },
+  // mirror defogger almost always means built-in light
+  { pattern: /mirror\s+defog(?:ger)?/i, category: 'Bathroom Mirror', typeName: 'Lighted' },
+
   // Lighting patterns (light count)
   { pattern: /\b1[\s-]*light|single[\s-]*light/i, category: 'Lighting', typeName: '1-Light' },
   { pattern: /\b3[\s-]*light|three[\s-]*light/i, category: 'Lighting', typeName: '3-Light' },
