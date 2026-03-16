@@ -2128,8 +2128,12 @@ export async function verifyProductWithDualAI(
     // the two AIs agree on a category via consensus; if they disagree the title tiebreaker
     // resolves it.  We log the available signals for observability but do NOT pick a winner
     // to anchor the AI against.
-    const legacyCategory    = (rawProduct as any).Category_Legacy?.trim()   || null;
-    const webRetailerCategory = rawProduct.Web_Retailer_Category?.trim()    || null;
+    const legacyCategory      = (rawProduct as any).Category_Legacy?.trim()  || null;
+    const webRetailerCategory  = rawProduct.Web_Retailer_Category?.trim()     || null;
+    // Ferguson's own catalog category fields: most reliable for plumbing/lighting/hardware
+    const fergusonCategory     = rawProduct.Ferguson_Base_Category?.trim()
+                               || rawProduct.Ferguson_Product_Type?.trim()
+                               || null;
     // salesforceCategory intentionally left null so the AI-determines-independently path runs.
     const salesforceCategory: string | null = null;
 
@@ -2137,10 +2141,14 @@ export async function verifyProductWithDualAI(
       sessionId: verificationSessionId,
       department: determinedDepartment,
       availableSignals: {
-        Category_Legacy: legacyCategory   || '(none)',
+        Category_Legacy:       legacyCategory      || '(none)',
         Web_Retailer_Category: webRetailerCategory || '(none)',
+        Ferguson_Category:     fergusonCategory    || '(none)',
       },
-      note: 'No category pre-selected — AI consensus decides',
+      departmentTiebreakPreference: determinedDepartment === 'Appliances'
+        ? 'Web_Retailer_Category (appliance retailer data is most reliable for appliances)'
+        : 'Ferguson_Category (Ferguson catalog is most reliable for plumbing/lighting/hardware)',
+      note: 'No category pre-selected — AI consensus decides; department-aware signal used as last-resort tiebreaker',
       productId: rawProduct.SF_Catalog_Id
     });
     
@@ -2317,8 +2325,11 @@ export async function verifyProductWithDualAI(
       logger.info('🔍 Stage 2: AI determining category from all available raw data (no anchor)', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
-        legacyCategorySignal: legacyCategory    || '(none)',
-        webRetailerCategorySignal: webRetailerCategory || '(none)',
+        availableSignals: {
+          Category_Legacy:       legacyCategory      || '(none)',
+          Web_Retailer_Category: webRetailerCategory || '(none)',
+          Ferguson_Category:     fergusonCategory    || '(none)',
+        },
         productId: rawProduct.SF_Catalog_Id
       });
       
@@ -2357,10 +2368,18 @@ export async function verifyProductWithDualAI(
         throw new Error('Category determination failed - both AIs returned no category');
       }
       
-      // 🎯 Title-based tiebreaker when AIs disagreed on non-appliance category
-      if (!areCategoriesEquivalent(openaiCategoryResult.determinedCategory, xaiCategoryResult.determinedCategory)
-          && determinedCategory
-          && !isAppliancesCategory(determinedCategory)) {
+      // 🎯 Tiebreaker cascade when AIs originally disagree:
+      //   Step 1 — Title keyword match (non-appliances only)
+      //   Step 2 — Department-aware raw signal:
+      //              Appliances    → Web_Retailer_Category (major appliance retailer data is reliable)
+      //              Non-Appliances → Ferguson_Category   (Ferguson catalog is authoritative for plumbing/lighting/hardware)
+      const aisOriginallyDisagreed = !areCategoriesEquivalent(
+        openaiCategoryResult.determinedCategory, xaiCategoryResult.determinedCategory
+      );
+      let tiebreakApplied = false;
+
+      // Step 1: Title tiebreaker (non-appliances only)
+      if (aisOriginallyDisagreed && determinedCategory && !isAppliancesCategory(determinedCategory)) {
         const titleForTiebreak = rawProduct.Ferguson_Title || rawProduct.Product_Title_Web_Retailer || '';
         const tiebreak = resolveCategoryDisagreementByTitle(
           titleForTiebreak,
@@ -2368,7 +2387,7 @@ export async function verifyProductWithDualAI(
           xaiCategoryResult.determinedCategory
         );
         if (tiebreak) {
-          logger.info('🎯 Title tiebreaker resolved AI disagreement (no-SF path)', {
+          logger.info('🎯 Step 1 tiebreaker (title keywords) resolved AI disagreement', {
             sessionId: verificationSessionId,
             winner: tiebreak.winner,
             loser: tiebreak.loser,
@@ -2380,22 +2399,71 @@ export async function verifyProductWithDualAI(
             productId: rawProduct.SF_Catalog_Id
           });
           determinedCategory = tiebreak.winner;
-          Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+          tiebreakApplied = true;
+          Object.assign(categoryConsensus, { 
+            agreedCategory: determinedCategory,
+            agreementReason: `Title tiebreaker: "${tiebreak.matchedKeywords.join(', ')}" matched ${tiebreak.winner}`
+          });
         }
       }
-      
+
+      // Step 2: Department-aware raw signal tiebreaker
+      if (aisOriginallyDisagreed && !tiebreakApplied) {
+        const isAppliancesDept = determinedDepartment === 'Appliances';
+        const signalValue      = isAppliancesDept ? webRetailerCategory : fergusonCategory;
+        const signalSource     = isAppliancesDept ? 'Web_Retailer_Category' : 'Ferguson_Category';
+
+        if (signalValue) {
+          const normalizedSignal = normalizeCategoryName(signalValue);
+          const allCats = getAllCategories();
+          const signalIsKnown = allCats.some(
+            c => normalizeCategoryName(c).toLowerCase() === normalizedSignal.toLowerCase()
+          );
+          if (signalIsKnown) {
+            const openaiMatch = areCategoriesEquivalent(openaiCategoryResult.determinedCategory, normalizedSignal);
+            const xaiMatch    = areCategoriesEquivalent(xaiCategoryResult.determinedCategory,   normalizedSignal);
+            if (openaiMatch || xaiMatch) {
+              const previousPick = determinedCategory;
+              determinedCategory = normalizedSignal;
+              tiebreakApplied    = true;
+              logger.info('🎯 Step 2 tiebreaker (department-aware signal) resolved AI disagreement', {
+                sessionId: verificationSessionId,
+                signalSource,
+                signalValue,
+                normalizedSignal,
+                department: determinedDepartment,
+                previousPick,
+                winner: determinedCategory,
+                openaiCategory: openaiCategoryResult.determinedCategory,
+                xaiCategory: xaiCategoryResult.determinedCategory,
+                productId: rawProduct.SF_Catalog_Id
+              });
+              Object.assign(categoryConsensus, {
+                agreed: false,
+                agreedCategory: determinedCategory,
+                agreementReason: `${signalSource} signal confirmed one AI's pick (${determinedCategory})`
+              });
+            }
+          }
+        }
+      }
+
       logger.info('🎯 Category consensus reached (AI-determined)', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
         agreedCategory: determinedCategory,
+        aisAgreed: !aisOriginallyDisagreed,
+        tiebreakApplied,
         source: 'AI Consensus (unbiased)',
         categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence),
         signalComparison: {
-          aiDetermined: determinedCategory,
-          Category_Legacy: legacyCategory    || '(none)',
+          aiDetermined:          determinedCategory,
+          Category_Legacy:       legacyCategory      || '(none)',
           Web_Retailer_Category: webRetailerCategory || '(none)',
-          matchesLegacy: legacyCategory    ? determinedCategory.toLowerCase() === legacyCategory.toLowerCase()    : null,
-          matchesWebRetailer: webRetailerCategory ? determinedCategory.toLowerCase() === webRetailerCategory.toLowerCase() : null,
+          Ferguson_Category:     fergusonCategory    || '(none)',
+          matchesLegacy:         legacyCategory      ? determinedCategory.toLowerCase() === legacyCategory.toLowerCase()      : null,
+          matchesWebRetailer:    webRetailerCategory ? determinedCategory.toLowerCase() === webRetailerCategory.toLowerCase() : null,
+          matchesFerguson:       fergusonCategory    ? determinedCategory.toLowerCase() === fergusonCategory.toLowerCase()    : null,
         }
       });
     }
