@@ -8623,9 +8623,9 @@ async function buildFinalResponse(
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''
     ),
     shape: preferAIValue(
-      consensus.agreedTop15Attributes?.shape,
-      openaiResult.top15Attributes?.shape,
-      xaiResult.top15Attributes?.shape,
+      consensus.agreedTop15Attributes?.mirror_shape || consensus.agreedTop15Attributes?.shape,
+      openaiResult.top15Attributes?.mirror_shape || openaiResult.top15Attributes?.shape,
+      xaiResult.top15Attributes?.mirror_shape || xaiResult.top15Attributes?.shape,
       openaiResult.confidence,
       xaiResult.confidence,
       ''

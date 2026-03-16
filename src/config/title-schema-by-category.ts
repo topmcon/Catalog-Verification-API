@@ -3620,7 +3620,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Width×Height",
+        "attribute": "Dimensions (W×H)",
         "required": false
       },
       {
@@ -3654,8 +3654,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width×Height} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30x40 Rectangular Wall Mirror Modern Mirror Black - Model",
+    "template": "{Brand} {Dimensions (W×H)} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 30×40 Rectangular Wall Mirror Modern Mirror Black - Model",
     "seoNotes": "Shape = Rectangular, Round, Oval, Arch, Square. Type = Wall Mirror, Floor Mirror, Full Length, Vanity."
   },
   "rug": {
@@ -5775,7 +5775,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Width×Height",
+        "attribute": "Dimensions (W×H)",
         "required": false
       },
       {
@@ -5809,8 +5809,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Width×Height} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30x36 Rectangular Wall Mirror Modern Bathroom Mirror Chrome - Model",
+    "template": "{Brand} {Dimensions (W×H)} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 30×36 Rectangular Wall Mirror Modern Bathroom Mirror Chrome - Model",
     "seoNotes": "Shape = Rectangular, Round, Oval, Arch, Square. Type = Wall Mirror, Lighted, Medicine Cabinet, Magnifying."
   },
   "bathroom_sink": {
