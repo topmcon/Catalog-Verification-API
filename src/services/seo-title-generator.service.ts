@@ -886,16 +886,33 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
     }
     
-    // Skip Category when Type already contains "Mirror" to avoid "Wall Mirror Mirror" redundancy
-    // Example: Type="Wall Mirror" + Category="Mirror" → skip Category
+    // Handle "Bathroom Mirror" category + Type containing "Mirror":
+    //   Instead of skipping Category entirely (losing the word "Bathroom"), merge
+    //   "Bathroom" into the Type value.  E.g. Type="Wall Mirror" + Category="Bathroom Mirror"
+    //   → output "Bathroom Wall Mirror" ("Bathroom" prefixed onto Type, Category slot skipped).
+    // For plain "Mirror" category, skip entirely to avoid "Wall Mirror Mirror".
     if (formattedValue && slot.attribute === 'Category') {
       const typeVal = (input.type || '').toLowerCase();
       if (typeVal.includes('mirror') && formattedValue.toLowerCase().includes('mirror')) {
-        logger.info('Skipping redundant Category slot - Type already contains Mirror', {
-          type: input.type,
-          category: formattedValue,
-          reason: 'Type already includes Mirror keyword'
-        });
+        const isBathroomMirror = formattedValue.toLowerCase().includes('bathroom');
+        if (isBathroomMirror) {
+          // Inject "Bathroom" before the Type value that was already pushed
+          const typeIndex = parts.findIndex(p => p.toLowerCase() === (input.type || '').toLowerCase());
+          if (typeIndex >= 0) {
+            parts[typeIndex] = `Bathroom ${parts[typeIndex]}`;
+            logger.info('Merged "Bathroom" into Type for Bathroom Mirror title', {
+              type: input.type,
+              category: formattedValue,
+              mergedPart: parts[typeIndex]
+            });
+          }
+        } else {
+          logger.info('Skipping redundant Category slot - Type already contains Mirror', {
+            type: input.type,
+            category: formattedValue,
+            reason: 'Type already includes Mirror keyword'
+          });
+        }
         continue;
       }
     }

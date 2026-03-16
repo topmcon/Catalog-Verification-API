@@ -2487,6 +2487,25 @@ export async function verifyProductWithDualAI(
       Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
     }
 
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // DEPARTMENT-AWARE CATEGORY CORRECTION: "Mirror" → "Bathroom Mirror"
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // "Mirror" = Home Décor category (decorative, accent, floor mirrors)
+    // "Bathroom Mirror" = Plumbing & Bath category (vanity/LED/wall mirrors in bathrooms)
+    // When the validated department is Plumbing & Bath but the AI picked generic "Mirror",
+    // correct to "Bathroom Mirror" since that's the Plumbing category for mirrors.
+    if (determinedCategory === 'Mirror' && determinedDepartment === 'Plumbing & Bath') {
+      logger.warn('🪞 CATEGORY CORRECTION: "Mirror" → "Bathroom Mirror" (department is Plumbing & Bath)', {
+        sessionId: verificationSessionId,
+        originalCategory: determinedCategory,
+        correctedCategory: 'Bathroom Mirror',
+        department: determinedDepartment,
+        reason: 'Generic "Mirror" belongs to Home Décor; Plumbing & Bath mirror category is "Bathroom Mirror"'
+      });
+      determinedCategory = 'Bathroom Mirror';
+      Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
+    }
+
     // If category is valid but in a different department, auto-correct department
     const categoryDepartment = getDepartmentForCategory(determinedCategory);
     if (categoryDepartment && categoryDepartment !== determinedDepartment) {
@@ -7681,7 +7700,7 @@ async function buildFinalResponse(
   // say "with LED Lighting", "with Light", "Lighted Mirror", etc.
   // Scan source titles here and upgrade to "Lighted" when any signal is found.
   // This runs AFTER normal type resolution so it only corrects, never downgrades.
-  if (verifiedCategory === 'Bathroom Mirror') {
+  if (verifiedCategory === 'Bathroom Mirror' || verifiedCategory === 'Mirror') {
     const lightedMirrorPattern = /lighted\s+(?:wall\s+|bathroom\s+|vanity\s+)?mirror|led\s+(?:wall\s+|bathroom\s+|vanity\s+)?mirror|mirror\s+with\s+(?:led|integrated\s+led|built[\s-]+in\s+led)|mirror\s+with\s+(?:led\s+)?light(?:ing)?\b|(?:led|integrated|built[\s-]+in)\s+light(?:ing)?\s+(?:mirror|bathroom|vanity)|illuminated\s+mirror|backlit\s+mirror|back-lit\s+mirror|mirror\s+defog(?:ger)?/i;
     const sourceTitles = [
       rawProduct.Ferguson_Title,
