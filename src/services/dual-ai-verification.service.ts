@@ -8393,9 +8393,136 @@ async function buildFinalResponse(
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // VERIFIED DATA HIERARCHY — Department-Aware Source Ordering
+  // ═══════════════════════════════════════════════════════════════════════
+  // Priority: Titles (dept-aware) → Descriptions/Features (dept-aware) → Structured → Legacy
+  // Appliances dept: Web Retailer first, Ferguson second
+  // All other depts: Ferguson first, Web Retailer second
+  // ═══════════════════════════════════════════════════════════════════════
+
+  const isApplianceDept = isAppliancesCategory(consensus.agreedCategory);
+
+  // Strip HTML tags to plain text for regex searching
+  const stripHtml = (html: string | undefined | null): string => {
+    if (!html) return '';
+    return html.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+  };
+
+  // Titles in department-priority order (raw text, no HTML)
+  const deptTitles: string[] = isApplianceDept
+    ? [rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title].filter(Boolean) as string[]
+    : [rawProduct.Ferguson_Title, rawProduct.Product_Title_Web_Retailer].filter(Boolean) as string[];
+
+  // Descriptions in department-priority order (HTML stripped)
+  const deptDescriptions: string[] = isApplianceDept
+    ? [stripHtml(rawProduct.Product_Description_Web_Retailer), stripHtml(rawProduct.Ferguson_Description)].filter(Boolean)
+    : [stripHtml(rawProduct.Ferguson_Description), stripHtml(rawProduct.Product_Description_Web_Retailer)].filter(Boolean);
+
+  // Features in department-priority order (HTML stripped)
+  const deptFeatures: string[] = isApplianceDept
+    ? [stripHtml(rawProduct.Features_Web_Retailer), stripHtml(rawProduct.Features_Legacy)].filter(Boolean)
+    : [stripHtml(rawProduct.Features_Legacy), stripHtml(rawProduct.Features_Web_Retailer)].filter(Boolean);
+
+  // Legacy titles — absolute last resort
+  const legacyTitles: string[] = [rawProduct.Product_Title_Legacy].filter(Boolean) as string[];
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // UNIVERSAL TEXT EXTRACTORS
+  // Search raw titles/descriptions/features for known values
+  // ═══════════════════════════════════════════════════════════════════════
+
+  /**
+   * Search an array of texts for the first match from a list of known values.
+   * Returns the canonical value (from knownValues) on match, or '' if not found.
+   * Multi-word patterns are checked before single-word to avoid truncation.
+   */
+  const extractKnownValueFromTexts = (texts: string[], knownValues: string[]): string => {
+    // Sort by length descending so "Brushed Nickel" matches before "Nickel"
+    const sorted = [...knownValues].sort((a, b) => b.length - a.length);
+    for (const text of texts) {
+      if (!text) continue;
+      const lower = text.toLowerCase();
+      for (const val of sorted) {
+        if (lower.includes(val.toLowerCase())) {
+          return val;
+        }
+      }
+    }
+    return '';
+  };
+
+  /** Extract finish from texts using known picklist values + normalizeFinish keywords */
+  const extractFinishFromTexts = (texts: string[]): string => {
+    // Use the full normalizeFinish keyword set (broader than getValidFinishes)
+    const finishValues = [
+      'Black Stainless', 'Stainless Steel', 'Oil Rubbed Bronze', 'Venetian Bronze',
+      'Champagne Bronze', 'Brushed Nickel', 'Polished Nickel', 'Satin Nickel',
+      'Brushed Gold', 'Polished Brass', 'Matte Black', 'Matte White',
+      'Panel Ready', 'Chrome', 'Slate', 'Bisque', 'Copper', 'Pewter',
+      'Silver', 'Bronze', 'Gold', 'Graphite', 'Platinum', 'Black', 'White'
+    ];
+    return extractKnownValueFromTexts(texts, finishValues);
+  };
+
+  /** Extract installation type from texts using known picklist values */
+  const extractInstallationFromTexts = (texts: string[]): string => {
+    return extractKnownValueFromTexts(texts, getValidInstallationTypes());
+  };
+
+  /** Extract material from texts using known material values */
+  const extractMaterialFromTexts = (texts: string[]): string => {
+    const materials = [
+      'Stainless Steel', 'Cast Iron', 'Fireclay', 'Vitreous China',
+      'Porcelain', 'Ceramic', 'Composite', 'Granite Composite',
+      'Acrylic', 'Solid Surface', 'Natural Stone', 'Marble', 'Quartz',
+      'Copper', 'Brass', 'Glass', 'Wood', 'Bamboo', 'Zinc',
+      'Aluminum', 'Iron', 'Steel', 'Plastic', 'Resin', 'Crystal'
+    ];
+    return extractKnownValueFromTexts(texts, materials);
+  };
+
+  /** Extract shape from texts using known shape values */
+  const extractShapeFromTexts = (texts: string[]): string => {
+    const shapes = [
+      'Rectangular', 'Oval', 'Round', 'Square', 'D-Shape', 'D-Shaped',
+      'Octagonal', 'Hexagonal', 'Arch', 'Arched'
+    ];
+    return extractKnownValueFromTexts(texts, shapes);
+  };
+
+  /** Extract configuration from texts using known configuration values */
+  const extractConfigurationFromTexts = (texts: string[]): string => {
+    const configs = [
+      'French Door', 'Side-by-Side', 'Side by Side', 'Top Freezer', 'Bottom Freezer',
+      'Single Door', 'Double Door', 'Triple Door', 'Quad Door',
+      'Single Oven', 'Double Oven', 'Combination', 'Convertible'
+    ];
+    return extractKnownValueFromTexts(texts, configs);
+  };
+
+  /** Extract fuel type from texts using known fuel type values */
+  const extractFuelTypeFromTexts = (texts: string[]): string => {
+    const fuelTypes = [
+      'Dual Fuel', 'Natural Gas', 'Liquid Propane', 'LP Gas',
+      'Gas', 'Electric', 'Induction', 'Propane'
+    ];
+    return extractKnownValueFromTexts(texts, fuelTypes);
+  };
+
+  /** Extract capacity from texts (e.g., "5.0 cu. ft.", "25.6 cu ft") */
+  const extractCapacityFromTexts = (texts: string[]): string => {
+    for (const text of texts) {
+      if (!text) continue;
+      const match = text.match(/(\d+(?:\.\d+)?)\s*(?:cu\.?\s*ft\.?|cubic\s*feet?)/i);
+      if (match) return match[1];
+    }
+    return '';
+  };
+
   // ── Dimension extraction from raw titles/descriptions ──────────────────
   // Raw titles often contain precise dimensions (e.g. '24" x 40"', '36" X 30"')
-  // Extract as last-resort fallback when structured fields are empty/null.
+  // Uses department-aware ordering: dept titles first, then descriptions, then legacy
   const extractDimensionsFromText = (texts: (string | undefined)[]): { width: string; height: string; depth: string } => {
     for (const text of texts) {
       if (!text) continue;
@@ -8406,22 +8533,24 @@ async function buildFinalResponse(
     return { width: '', height: '', depth: '' };
   };
 
+  // Department-aware dimension extraction: dept titles → dept descriptions → legacy
   const titleDims = extractDimensionsFromText([
-    rawProduct.Product_Title_Web_Retailer,
-    rawProduct.Ferguson_Title,
-    rawProduct.Product_Title_Legacy,
+    ...deptTitles,
+    ...deptDescriptions,
+    ...legacyTitles,
   ]);
 
-  // Get width from AI or Salesforce structured fields
-  // Fallback chain: AI consensus → OpenAI → XAI → Ferguson/Web → Legacy → Title parse
+  // Get width from AI or verified sources
+  // Fallback chain: AI → Title parse (dept-aware) → Structured (dept-aware) → Legacy
   const widthFinal = preferAIValue(
     consensus.agreedPrimaryAttributes.width,
     openaiResult.primaryAttributes.width,
     xaiResult.primaryAttributes.width,
     openaiResult.confidence,
     xaiResult.confidence,
-    getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
-      || rawProduct.Width_Legacy || titleDims.width || ''
+    titleDims.width
+      || getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+      || rawProduct.Width_Legacy || ''
   );
   
   // Get place settings from AI or text extraction (no structured field exists for this)
@@ -8510,6 +8639,7 @@ async function buildFinalResponse(
     return '';
   };
   
+  // Place settings: AI → dept titles → dept descriptions → legacy
   const placeSettingsFinal = preferAIValue(
     consensus.agreedTop15Attributes?.place_settings,
     openaiResult.top15Attributes?.place_settings,
@@ -8518,11 +8648,11 @@ async function buildFinalResponse(
     xaiResult.confidence,
     ''
   ) || 
-  extractPlaceSettingsFromText(rawProduct.Ferguson_Title) ||
-  extractPlaceSettingsFromText(rawProduct.Product_Title_Web_Retailer) ||
+  (() => { for (const t of deptTitles) { const v = extractPlaceSettingsFromText(t); if (v) return v; } return ''; })() ||
+  (() => { for (const t of deptDescriptions) { const v = extractPlaceSettingsFromText(t); if (v) return v; } return ''; })() ||
   '';
 
-  // Extract GPM from raw Ferguson/Web Retailer titles (more reliable than AI top15)
+  // GPM: AI → dept titles → dept descriptions → structured
   const gpmFinal = preferAIValue(
     consensus.agreedTop15Attributes?.gpm,
     openaiResult.top15Attributes?.gpm,
@@ -8531,11 +8661,11 @@ async function buildFinalResponse(
     xaiResult.confidence,
     ''
   ) ||
-  extractGPMFromText(rawProduct.Ferguson_Title) ||
-  extractGPMFromText(rawProduct.Product_Title_Web_Retailer) ||
+  (() => { for (const t of deptTitles) { const v = extractGPMFromText(t); if (v) return v; } return ''; })() ||
+  (() => { for (const t of deptDescriptions) { const v = extractGPMFromText(t); if (v) return v; } return ''; })() ||
   rawProduct.GPM || '';
 
-  // Extract CFM from raw Ferguson/Web Retailer titles
+  // CFM: AI → dept titles → dept descriptions → structured
   const cfmFinal = preferAIValue(
     consensus.agreedTop15Attributes?.cfm,
     openaiResult.top15Attributes?.cfm,
@@ -8544,11 +8674,11 @@ async function buildFinalResponse(
     xaiResult.confidence,
     ''
   ) ||
-  extractCFMFromText(rawProduct.Ferguson_Title) ||
-  extractCFMFromText(rawProduct.Product_Title_Web_Retailer) ||
+  (() => { for (const t of deptTitles) { const v = extractCFMFromText(t); if (v) return v; } return ''; })() ||
+  (() => { for (const t of deptDescriptions) { const v = extractCFMFromText(t); if (v) return v; } return ''; })() ||
   rawProduct.CFM || '';
 
-  // Extract BTU from raw Ferguson/Web Retailer titles
+  // BTU: AI → dept titles → dept descriptions → structured
   const btuFinal = preferAIValue(
     consensus.agreedTop15Attributes?.btu,
     openaiResult.top15Attributes?.btu,
@@ -8557,8 +8687,8 @@ async function buildFinalResponse(
     xaiResult.confidence,
     ''
   ) ||
-  extractBTUFromText(rawProduct.Ferguson_Title) ||
-  extractBTUFromText(rawProduct.Product_Title_Web_Retailer) ||
+  (() => { for (const t of deptTitles) { const v = extractBTUFromText(t); if (v) return v; } return ''; })() ||
+  (() => { for (const t of deptDescriptions) { const v = extractBTUFromText(t); if (v) return v; } return ''; })() ||
   rawProduct.BTU || '';
   
   // Log width source for debugging
@@ -8702,7 +8832,7 @@ async function buildFinalResponse(
               xaiResult.primaryAttributes.product_title || 
               '', // For accessory subtype extraction - use AI title as fallback if raw titles empty
     
-    // Dimensions
+    // Dimensions — AI → Title parse (dept-aware) → Structured (dept-aware) → Legacy
     width: widthFinal,
     height: preferAIValue(
       consensus.agreedPrimaryAttributes.height,
@@ -8710,8 +8840,9 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.height,
       openaiResult.confidence,
       xaiResult.confidence,
-      getFieldByPriority(consensus.agreedCategory, rawProduct.Height_Web_Retailer, rawProduct.Ferguson_Height, '')
-        || rawProduct.Height_Legacy || titleDims.height || ''
+      titleDims.height
+        || getFieldByPriority(consensus.agreedCategory, rawProduct.Height_Web_Retailer, rawProduct.Ferguson_Height, '')
+        || rawProduct.Height_Legacy || ''
     ),
     depth: preferAIValue(
       consensus.agreedPrimaryAttributes.depth,
@@ -8719,8 +8850,9 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.depth,
       openaiResult.confidence,
       xaiResult.confidence,
-      getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth, '')
-        || rawProduct.Depth_Legacy || titleDims.depth || ''
+      titleDims.depth
+        || getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth, '')
+        || rawProduct.Depth_Legacy || ''
     ),
     
     // Style/Type
@@ -8734,10 +8866,11 @@ async function buildFinalResponse(
       xaiResult.top15Attributes?.configuration || xaiResult.primaryAttributes.configuration,
       openaiResult.confidence,
       xaiResult.confidence,
-      ''
+      // Fallback: titles → descriptions/features → ''
+      extractConfigurationFromTexts(deptTitles) || extractConfigurationFromTexts(deptDescriptions) || extractConfigurationFromTexts(deptFeatures) || ''
     ),
     
-    // Appearance
+    // Appearance — AI → Title extract (dept-aware) → Desc/Features extract → Structured → ''
     finish: normalizeFinish(
       smartPreferAIValue(
         consensus.agreedPrimaryAttributes.finish,
@@ -8745,7 +8878,9 @@ async function buildFinalResponse(
         xaiResult.primaryAttributes.finish,
         openaiResult.confidence,
         xaiResult.confidence,
-        rawProduct.Ferguson_Finish || '',
+        // Fallback: titles → descriptions/features → Ferguson_Finish structured field
+        extractFinishFromTexts(deptTitles) || extractFinishFromTexts(deptDescriptions) || extractFinishFromTexts(deptFeatures)
+          || rawProduct.Ferguson_Finish || '',
         getValidFinishes()
       )
     ),
@@ -8755,7 +8890,9 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.color,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Ferguson_Color || ''
+      // Fallback: titles → descriptions/features → Ferguson_Color structured field
+      extractFinishFromTexts(deptTitles) || extractFinishFromTexts(deptDescriptions) || extractFinishFromTexts(deptFeatures)
+        || rawProduct.Ferguson_Color || ''
     ),
     material: preferAIValue(
       consensus.agreedPrimaryAttributes.material,
@@ -8763,17 +8900,19 @@ async function buildFinalResponse(
       xaiResult.primaryAttributes.material,
       openaiResult.confidence,
       xaiResult.confidence,
-      ''
+      // Fallback: titles → descriptions/features → ''
+      extractMaterialFromTexts(deptTitles) || extractMaterialFromTexts(deptDescriptions) || extractMaterialFromTexts(deptFeatures) || ''
     ),
     
-    // Category-specific attributes
+    // Category-specific attributes — AI → Title extract → Desc/Features extract → Structured → ''
     fuelType: preferAIValue(
       consensus.agreedTop15Attributes?.fuel_type,
       openaiResult.top15Attributes?.fuel_type,
       xaiResult.top15Attributes?.fuel_type,
       openaiResult.confidence,
       xaiResult.confidence,
-      ''
+      // Fallback: titles → descriptions/features → ''
+      extractFuelTypeFromTexts(deptTitles) || extractFuelTypeFromTexts(deptDescriptions) || extractFuelTypeFromTexts(deptFeatures) || ''
     ),
     totalCapacity: preferAIValue(
       consensus.agreedTop15Attributes?.total_capacity || consensus.agreedPrimaryAttributes.total_capacity,
@@ -8781,7 +8920,9 @@ async function buildFinalResponse(
       xaiResult.top15Attributes?.total_capacity || xaiResult.primaryAttributes.total_capacity,
       openaiResult.confidence,
       xaiResult.confidence,
-      rawProduct.Capacity_Web_Retailer || ''
+      // Fallback: titles → descriptions/features → structured → ''
+      extractCapacityFromTexts(deptTitles) || extractCapacityFromTexts(deptDescriptions) || extractCapacityFromTexts(deptFeatures)
+        || rawProduct.Capacity_Web_Retailer || ''
     ),
     numberOfLights: preferAIValue(
       consensus.agreedPrimaryAttributes.number_of_lights,
@@ -8835,7 +8976,9 @@ async function buildFinalResponse(
       xaiResult.top15Attributes?.sink_shape,
       openaiResult.confidence,
       xaiResult.confidence,
-      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''
+      // Fallback: titles → descriptions → structured spec
+      extractShapeFromTexts(deptTitles) || extractShapeFromTexts(deptDescriptions)
+        || (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''
     ),
     shape: preferAIValue(
       consensus.agreedTop15Attributes?.mirror_shape || consensus.agreedTop15Attributes?.shape,
@@ -8843,7 +8986,8 @@ async function buildFinalResponse(
       xaiResult.top15Attributes?.mirror_shape || xaiResult.top15Attributes?.shape,
       openaiResult.confidence,
       xaiResult.confidence,
-      ''
+      // Fallback: titles → descriptions/features → ''
+      extractShapeFromTexts(deptTitles) || extractShapeFromTexts(deptDescriptions) || extractShapeFromTexts(deptFeatures) || ''
     ),
     collection: preferAIValue(
       consensus.agreedTop15Attributes?.collection,
@@ -8860,7 +9004,8 @@ async function buildFinalResponse(
         xaiResult.top15Attributes?.installation_type || xaiResult.primaryAttributes.installation_type,
         openaiResult.confidence,
         xaiResult.confidence,
-        '',
+        // Fallback: titles → descriptions/features → ''
+        extractInstallationFromTexts(deptTitles) || extractInstallationFromTexts(deptDescriptions) || extractInstallationFromTexts(deptFeatures) || '',
         getValidInstallationTypes() // VALIDATION-FIRST: prefer valid value over confidence
       )
     ),
@@ -10318,39 +10463,40 @@ async function buildFinalResponse(
   // If Claude already corrected the title during Final Review, this will use those corrections.
   
   // Build seoTitleInput from CORRECTED attributes
+  // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
   const finalSeoTitleInput: SEOTitleInput = {
-    brand: sanitizedPrimaryAttributes.AI_Brand,
-    modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || '',
-    category: sanitizedPrimaryAttributes.AI_Product_Category,
+    brand: sanitizedPrimaryAttributes.AI_Brand || seoTitleInput.brand,
+    modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
+    category: sanitizedPrimaryAttributes.AI_Product_Category || seoTitleInput.category,
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
     rawTitle: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
-    style: sanitizedPrimaryAttributes.AI_Style,
-    type: sanitizedPrimaryAttributes.AI_Type,
-    finish: sanitizedPrimaryAttributes.AI_Finish,
-    color: sanitizedPrimaryAttributes.AI_Color,
-    width: sanitizedPrimaryAttributes.AI_Width,
-    height: sanitizedPrimaryAttributes.AI_Height,
-    depth: sanitizedPrimaryAttributes.AI_Depth,
-    // Extract specs from corrected topFilterAttributes
+    style: sanitizedPrimaryAttributes.AI_Style || seoTitleInput.style,
+    type: sanitizedPrimaryAttributes.AI_Type || seoTitleInput.type,
+    finish: sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish,
+    color: sanitizedPrimaryAttributes.AI_Color || seoTitleInput.color,
+    width: sanitizedPrimaryAttributes.AI_Width || seoTitleInput.width,
+    height: sanitizedPrimaryAttributes.AI_Height || seoTitleInput.height,
+    depth: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth,
+    // Extract specs from corrected topFilterAttributes, fall back to preliminary values
     gpm: String(sanitizedTopFilterAttributes.flow_rate_gpm || gpmFinal || ''),
     cfm: String(sanitizedTopFilterAttributes.cfm || cfmFinal || ''),
     btu: String(sanitizedTopFilterAttributes.btu || btuFinal || ''),
-    totalCapacity: String(sanitizedTopFilterAttributes.total_capacity || sanitizedTopFilterAttributes.capacity || ''),
-    numberOfLights: String(sanitizedTopFilterAttributes.number_of_lights || ''),
-    numberOfBurners: String(sanitizedTopFilterAttributes.number_of_burners || ''),
-    placeSettings: String(sanitizedTopFilterAttributes.place_settings || ''),
-    installationType: String(sanitizedTopFilterAttributes.installation_type || ''),
-    fuelType: String(sanitizedTopFilterAttributes.fuel_type || ''),
-    configuration: String(sanitizedTopFilterAttributes.configuration || ''),
-    controlType: String(sanitizedTopFilterAttributes.control_type || ''),
+    totalCapacity: String(sanitizedTopFilterAttributes.total_capacity || sanitizedTopFilterAttributes.capacity || seoTitleInput.totalCapacity || ''),
+    numberOfLights: String(sanitizedTopFilterAttributes.number_of_lights || seoTitleInput.numberOfLights || ''),
+    numberOfBurners: String(sanitizedTopFilterAttributes.number_of_burners || seoTitleInput.numberOfBurners || ''),
+    placeSettings: String(sanitizedTopFilterAttributes.place_settings || seoTitleInput.placeSettings || ''),
+    installationType: String(sanitizedTopFilterAttributes.installation_type || seoTitleInput.installationType || ''),
+    fuelType: String(sanitizedTopFilterAttributes.fuel_type || seoTitleInput.fuelType || ''),
+    configuration: String(sanitizedTopFilterAttributes.configuration || seoTitleInput.configuration || ''),
+    controlType: String(sanitizedTopFilterAttributes.control_type || seoTitleInput.controlType || ''),
     depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
     holeConfig: extractHoleConfigForTitle(sanitizedTopFilterAttributes, sanitizedPrimaryAttributes, rawProduct),
     mountType: String(sanitizedTopFilterAttributes.mounting_type || sanitizedTopFilterAttributes.installation_type || ''),
     basinCount: String(sanitizedTopFilterAttributes.basin_count || sanitizedTopFilterAttributes.number_of_basins ||
-      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.number_of_basins?.value || ''),
+      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.number_of_basins?.value || seoTitleInput.basinCount || ''),
     sinkShape: String(sanitizedTopFilterAttributes.sink_shape ||
-      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''),
-    shape: String(sanitizedTopFilterAttributes.mirror_shape || sanitizedTopFilterAttributes.shape || ''),
+      (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || seoTitleInput.sinkShape || ''),
+    shape: String(sanitizedTopFilterAttributes.mirror_shape || sanitizedTopFilterAttributes.shape || seoTitleInput.shape || ''),
     // function field: populated by shower post-processing below; initialised empty here
     function: '',
   };

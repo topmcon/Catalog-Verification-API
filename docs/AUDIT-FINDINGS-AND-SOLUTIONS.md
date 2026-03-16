@@ -4593,3 +4593,80 @@ Re-verified YM2440RIFPD4 on production:
 - #038: String "null" passing as truthy (prerequisite bug)
 - #036: Ferguson nested specs gap (same "structured data missing" theme)
 - #035: Sink dimension confusion (dimension accuracy theme)
+
+---
+
+## Finding #040: Verified Data Hierarchy Not Followed — Titles/Descriptions Skipped in Fallback Chains
+
+**Date:** 2026-03-15  
+**Severity:** 🔴 HIGH  
+**Category:** Architecture / Title Generation  
+
+### Symptom
+When AI consensus returned empty values for fields like finish, color, material, shape, configuration, fuel type, and installation type, the title generation system had no fallback data source for most fields. The title would ship to Salesforce with missing attributes even though raw titles, descriptions, and features contained the information.
+
+### Root Cause
+The `seoTitleInput` builder used `preferAIValue()` with empty string fallbacks for most fields:
+```typescript
+// BEFORE: No fallback beyond AI
+material: preferAIValue(AI..., ''),
+configuration: preferAIValue(AI..., ''),
+fuelType: preferAIValue(AI..., ''),
+shape: preferAIValue(AI..., ''),
+```
+
+Additionally, `finalSeoTitleInput` (the title that ships to Salesforce) used sanitized attributes with ZERO fallback:
+```typescript
+// BEFORE: No safety net whatsoever
+width: sanitizedPrimaryAttributes.AI_Width,  // empty = lost
+finish: sanitizedPrimaryAttributes.AI_Finish, // empty = lost
+```
+
+### Investigation Steps
+1. Mapped every field in `seoTitleInput` — found 12+ fields with no title/description extraction
+2. Mapped every field in `finalSeoTitleInput` — found ZERO fallback for any field
+3. Identified that only dimensions, GPM, CFM, BTU, and place settings had any text extraction
+4. Found dimension extraction was not department-aware (fixed order, not dept priority)
+5. Found descriptions/features (HTML content) were never searched for any title data
+6. Confirmed user's desired hierarchy: AI → Titles → Desc/Features → Structured → Legacy
+
+### Fix Applied
+**Commit:** TBD (this session)
+
+**4-part implementation in `src/services/dual-ai-verification.service.ts`:**
+
+1. **Department-aware source ordering** (~line 8395):
+   - `deptTitles[]`, `deptDescriptions[]`, `deptFeatures[]` — ordered by department
+   - `stripHtml()` — strips HTML from descriptions/features for regex matching
+   - Appliances: Web Retailer first; All others: Ferguson first
+
+2. **8 universal text extractors** (~line 8440):
+   - `extractKnownValueFromTexts()` — generic longest-match-first searcher
+   - Field-specific: `extractFinishFromTexts()`, `extractInstallationFromTexts()`, `extractMaterialFromTexts()`, `extractShapeFromTexts()`, `extractConfigurationFromTexts()`, `extractFuelTypeFromTexts()`, `extractCapacityFromTexts()`
+
+3. **Restructured ALL `seoTitleInput` fallback chains** (~line 8815):
+   ```typescript
+   // AFTER: Full hierarchy
+   material: preferAIValue(AI..., 
+     extractMaterialFromTexts(deptTitles) || extractMaterialFromTexts(deptDescriptions) || ''),
+   finish: smartPreferAIValue(AI...,
+     extractFinishFromTexts(deptTitles) || extractFinishFromTexts(deptDescriptions) || Ferguson_Finish || '',
+     getValidFinishes()),
+   ```
+
+4. **Bridged `finalSeoTitleInput` to `seoTitleInput`** (~line 10475):
+   ```typescript
+   // AFTER: Falls back to preliminary title data
+   width: sanitizedPrimaryAttributes.AI_Width || seoTitleInput.width,
+   finish: sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish,
+   ```
+
+### Scope
+- **Universal**: All 177 categories benefit from richer fallback chains
+- **Most impacted**: Products where AI misses attributes but raw data contains them
+- **Highest impact**: `finalSeoTitleInput` bridge — prevents data loss at the last stage
+
+### Related Findings
+- #039: Missing dimensions (this finding generalizes the pattern to ALL fields)
+- #038: String "null" (prerequisite — "null" sanitization still applies)
+- #036: Ferguson nested specs gap (same theme of unreliable structured data)
