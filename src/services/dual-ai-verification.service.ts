@@ -2120,27 +2120,27 @@ export async function verifyProductWithDualAI(
     }
     
     // ===============================================
-    // 🔍 STAGE 2: CATEGORY VALIDATION (RESPECT SALESFORCE'S ASSIGNMENT)
+    // 🔍 STAGE 2: CATEGORY DETERMINATION (UNBIASED — AI DECIDES FROM RAW DATA)
     // ===============================================
-    // 🔧 FINDING #016 FIX: Always use Salesforce's category, AI validates (doesn't override)
-    //
-    // CATEGORY SOURCE PRIORITY (most → least reliable):
-    //  1. Category_Legacy  — the CURRENT SF catalog category for this record (most authoritative)
-    //  2. Web_Retailer_Category — the external retailer's label (can be garbage, e.g. "DINING ROOM FURNITURE")
-    //
-    // Using Web_Retailer_Category alone caused E42036-GLBK (lighted mirror) to be reclassified from
-    // "Bathroom Mirror" to "Bathroom Lighting" because the retailer miscategorised it.
-    const legacyCategory = (rawProduct as any).Category_Legacy?.trim() || null;
-    const webRetailerCategory = rawProduct.Web_Retailer_Category?.trim() || null;
-    const salesforceCategory = legacyCategory || webRetailerCategory || null;
+    // Both AI models receive the complete raw product payload (including Category_Legacy,
+    // Web_Retailer_Category, Ferguson fields, title, description, specs, URLs, etc.) and
+    // make an INDEPENDENT determination.  No single input field is treated as authoritative —
+    // the two AIs agree on a category via consensus; if they disagree the title tiebreaker
+    // resolves it.  We log the available signals for observability but do NOT pick a winner
+    // to anchor the AI against.
+    const legacyCategory    = (rawProduct as any).Category_Legacy?.trim()   || null;
+    const webRetailerCategory = rawProduct.Web_Retailer_Category?.trim()    || null;
+    // salesforceCategory intentionally left null so the AI-determines-independently path runs.
+    const salesforceCategory: string | null = null;
 
-    logger.info('🔍 STAGE 2 (Hierarchical): Validating Salesforce category assignment', {
+    logger.info('🔍 STAGE 2 (Hierarchical): AI determining category from raw data (unbiased)', {
       sessionId: verificationSessionId,
       department: determinedDepartment,
-      salesforceCategory: salesforceCategory,
-      salesforceCategorySource: legacyCategory ? 'Category_Legacy' : webRetailerCategory ? 'Web_Retailer_Category' : 'none',
-      legacyCategory,
-      webRetailerCategory,
+      availableSignals: {
+        Category_Legacy: legacyCategory   || '(none)',
+        Web_Retailer_Category: webRetailerCategory || '(none)',
+      },
+      note: 'No category pre-selected — AI consensus decides',
       productId: rawProduct.SF_Catalog_Id
     });
     
@@ -2310,10 +2310,15 @@ export async function verifyProductWithDualAI(
         durationMs: Date.now() - stage2StartTime
       });
     } else {
-      // Fallback: No Salesforce category provided - AI determines category
-      logger.warn('⚠️ No Salesforce category provided - AI will determine category', {
+      // Primary path: AI determines category from raw product data without any pre-selected anchor.
+      // Available signals (Category_Legacy, Web_Retailer_Category, Ferguson fields, titles, etc.)
+      // are all present in the raw product payload the AI receives — they are treated as evidence,
+      // not as authoritative sources.
+      logger.info('🔍 Stage 2: AI determining category from all available raw data (no anchor)', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
+        legacyCategorySignal: legacyCategory    || '(none)',
+        webRetailerCategorySignal: webRetailerCategory || '(none)',
         productId: rawProduct.SF_Catalog_Id
       });
       
@@ -2383,8 +2388,15 @@ export async function verifyProductWithDualAI(
         sessionId: verificationSessionId,
         department: determinedDepartment,
         agreedCategory: determinedCategory,
-        source: 'AI Consensus',
-        categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence)
+        source: 'AI Consensus (unbiased)',
+        categoryConfidence: Math.max(openaiCategoryResult.categoryConfidence, xaiCategoryResult.categoryConfidence),
+        signalComparison: {
+          aiDetermined: determinedCategory,
+          Category_Legacy: legacyCategory    || '(none)',
+          Web_Retailer_Category: webRetailerCategory || '(none)',
+          matchesLegacy: legacyCategory    ? determinedCategory.toLowerCase() === legacyCategory.toLowerCase()    : null,
+          matchesWebRetailer: webRetailerCategory ? determinedCategory.toLowerCase() === webRetailerCategory.toLowerCase() : null,
+        }
       });
     }
     
