@@ -50,6 +50,8 @@
 | Lighted mirror classified as Bathroom Lighting | Multi-layer fix: unbiased AI, dept-aware tiebreaker, lighted mirror type detection | 1847eff, bedbbb8, baf41fe, 1c4596f, 233f174 | #037, #020 |
 | String "null" from Salesforce passing as truthy | Sanitize "null"/"undefined"/"N/A" strings in getFieldByPriority() | 4ec2596 | #038, #036 |
 | Missing dimensions when structured fields empty but raw titles have data | Extract W×H×D from raw titles as last-resort fallback + Legacy fields in chain | 4ec2596 | #039, #038 |
+| Verified data hierarchy not followed in fallback chains | Dept-aware source ordering, universal text extractors, bridge finalSeoTitleInput | ca540e2 | #040, #039 |
+| Mirror (Home Décor) misclassification when source signals say bathroom | Source-signal override checks Legacy/WR category for bathroom keywords + FRD product name in deptTitles + style-in-finish blocklist | a4fcb45 | #041, #037, #040 |
 
 ---
 
@@ -4670,3 +4672,69 @@ finish: sanitizedPrimaryAttributes.AI_Finish, // empty = lost
 - #039: Missing dimensions (this finding generalizes the pattern to ALL fields)
 - #038: String "null" (prerequisite — "null" sanitization still applies)
 - #036: Ferguson nested specs gap (same theme of unreliable structured data)
+
+## Finding #041: Mirror Misclassified as Home Décor When Source Data Says Bathroom
+
+### Symptom
+Products like Robern lighted mirrors and Jensen medicine cabinets are classified as "Mirror" (Home Décor & Furniture) instead of "Bathroom Mirror" (Plumbing & Bath), resulting in:
+- Wrong department and category
+- "Lighted" type being downgraded by Claude Final Review (not valid for Mirror schema)
+- Style values ("Modern") appearing in Finish field
+- Missing product attributes from empty `Ferguson_Title` field
+
+### Root Cause (3 interrelated issues)
+
+**1. No source-signal correction for Mirror category:**
+Both AIs agree on "Mirror" (Home Décor) even when `Category_Legacy: "Bathroom Mirror"` and `Web_Retailer_Category: "BATHROOM FURNITURE"`. The existing Mirror→Bathroom Mirror correction at line 2501 only fires when `determinedDepartment === 'Plumbing & Bath'` — but the department was already set to Home Décor by Stage 1.
+
+**2. `Ferguson_Raw_Data.product.name` not in text extraction pipeline:**
+`Ferguson_Title` (flat Salesforce field) is often empty. The rich `Ferguson_Raw_Data.product.name` (from URL scraping) contains the actual product name but was NOT included in `deptTitles[]`. This means text extractors couldn't find "Lighted", "Frameless", dimensions, etc. from the best available title.
+
+**3. Style values accepted as finish:**
+`normalizeFinish()` had no blocklist for style values. When AI returned "Modern" as a finish, it passed through the keyword search without matching any finish keyword, hit the final `return value.trim()` and was accepted as-is.
+
+### Investigation Steps
+1. Queried production MongoDB for 3 products (868M22XWHZ, YM3630RIFPD3, MC1640D4FPRE4)
+2. Examined raw payload data, Ferguson_Raw_Data, and result fields
+3. Traced processing logs — found Claude Final Review was UNDOING the lighted override
+4. Read title schemas — confirmed "Lighted" is valid for Bathroom Mirror but NOT for Mirror
+5. Traced category determination — both AIs chose Home Décor despite all source signals saying bathroom
+
+### Fix Applied
+**Commit**: `a4fcb45`
+**Files**: `src/services/dual-ai-verification.service.ts` (+55 lines)
+
+**Fix 1 — Source-signal override** (~line 2513):
+```typescript
+if (determinedCategory === 'Mirror' && determinedDepartment !== 'Plumbing & Bath') {
+  const bathroomSignals = /\b(?:bathroom|bath\b|vanity|medicine\s*cabinet|lighted\s*mirror|led\s*mirror|lavatory)\b/i;
+  if (bathroomSignals.test(legacyCat) || bathroomSignals.test(wrCat) || bathroomSignals.test(wrSubCat)) {
+    determinedCategory = 'Bathroom Mirror';
+    determinedDepartment = 'Plumbing & Bath';
+  }
+}
+```
+
+**Fix 2 — FRD product name in deptTitles[]** (~line 8417):
+```typescript
+const frdProductName = (!rawProduct.Ferguson_Title && (rawProduct as any).Ferguson_Raw_Data?.product?.name)
+  ? String((rawProduct as any).Ferguson_Raw_Data.product.name).trim() : null;
+const deptTitles = [rawProduct.Ferguson_Title || frdProductName, rawProduct.Product_Title_Web_Retailer]...;
+```
+Also added to both lighted mirror detection source arrays.
+
+**Fix 3 — Style-in-finish blocklist** (~line 6880):
+```typescript
+const styleNotFinish = new Set(['modern', 'contemporary', 'traditional', 'transitional', ...]);
+if (styleNotFinish.has(normalized)) return '';
+```
+
+### Scope
+- **Source-signal override**: All products where AI picks "Mirror" but source data says bathroom/plumbing
+- **FRD product name**: All products where `Ferguson_Title` is empty but `Ferguson_Raw_Data.product.name` exists
+- **Style blocklist**: Universal — prevents style contamination in finish field for ALL categories
+
+### Related Findings
+- #037: Lighted mirror detection (this finding covers cases where detection fires but gets undone by category mismatch)
+- #040: Verified data hierarchy (FRD product name gap was a hierarchy violation)
+- #009: Finish normalization (style blocklist extends the original finish normalization)
