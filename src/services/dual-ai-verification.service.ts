@@ -2510,6 +2510,41 @@ export async function verifyProductWithDualAI(
       Object.assign(categoryConsensus, { agreedCategory: determinedCategory });
     }
 
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SOURCE-SIGNAL OVERRIDE: "Mirror" (Home Décor) → "Bathroom Mirror"
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // When AI picks generic "Mirror" under Home Décor but source signals
+    // (Legacy category, Web Retailer category, or product titles) indicate
+    // a bathroom/plumbing product, override to "Bathroom Mirror".
+    // This catches cases where both AIs agree on "Mirror" but all source
+    // data says "Bathroom Mirror", "BATHROOM FURNITURE", "Medicine Cabinet", etc.
+    if (determinedCategory === 'Mirror' && determinedDepartment !== 'Plumbing & Bath') {
+      const legacyCat = ((rawProduct as any).Category_Legacy || '').toLowerCase();
+      const wrCat = (rawProduct.Web_Retailer_Category || '').toLowerCase();
+      const wrSubCat = (rawProduct.Web_Retailer_SubCategory || '').toLowerCase();
+      const bathroomSignals = /\b(?:bathroom|bath\b|vanity|medicine\s*cabinet|lighted\s*mirror|led\s*mirror|lavatory)\b/i;
+      const hasBathroomSignal = bathroomSignals.test(legacyCat)
+        || bathroomSignals.test(wrCat)
+        || bathroomSignals.test(wrSubCat);
+
+      if (hasBathroomSignal) {
+        logger.warn('🪞 SOURCE-SIGNAL OVERRIDE: "Mirror" → "Bathroom Mirror" (source data indicates bathroom product)', {
+          sessionId: verificationSessionId,
+          originalCategory: determinedCategory,
+          originalDepartment: determinedDepartment,
+          correctedCategory: 'Bathroom Mirror',
+          correctedDepartment: 'Plumbing & Bath',
+          signals: { legacyCat, wrCat, wrSubCat },
+          reason: 'Source signals indicate bathroom/plumbing product — overriding to Bathroom Mirror'
+        });
+        determinedCategory = 'Bathroom Mirror';
+        determinedDepartment = 'Plumbing & Bath';
+        validCategoriesForDept = getCategoriesForDepartment('Plumbing & Bath');
+        Object.assign(categoryConsensus, { agreedCategory: 'Bathroom Mirror', agreementReason: 'Source-signal override: source data says bathroom product' });
+        Object.assign(departmentConsensus, { agreedDepartment: 'Plumbing & Bath' });
+      }
+    }
+
     // If category is valid but in a different department, auto-correct department
     const categoryDepartment = getDepartmentForCategory(determinedCategory);
     if (categoryDepartment && categoryDepartment !== determinedDepartment) {
@@ -2730,6 +2765,7 @@ export async function verifyProductWithDualAI(
     const titlesForMirrorCheck = [
       rawProduct.Product_Title_Web_Retailer,
       rawProduct.Ferguson_Title,
+      (rawProduct as any).Ferguson_Raw_Data?.product?.name,
       rawProduct.SF_Catalog_Name,
     ].filter(Boolean).join(' ');
     const LIGHTED_MIRROR_REGEX = /\b(?:bathroom|vanity|lighted|led)[\s-]*(?:wall\s+)?mirror\b|\bmirror\s+with\s+(?:led|light)/i;
@@ -6878,6 +6914,16 @@ function normalizeFinish(value: string | undefined | null): string {
     }
   }
   
+  // Reject style values that are NOT finishes (AI sometimes confuses style/finish)
+  const styleNotFinish = new Set([
+    'modern', 'contemporary', 'traditional', 'transitional', 'industrial',
+    'rustic', 'farmhouse', 'mid-century', 'minimalist', 'bohemian',
+    'coastal', 'craftsman', 'art deco', 'victorian', 'scandinavian'
+  ]);
+  if (styleNotFinish.has(normalized)) {
+    return '';
+  }
+
   // If no keywords found, return original trimmed value (fallback)
   return value.trim();
 }
@@ -7709,6 +7755,7 @@ async function buildFinalResponse(
     const sourceTitles = [
       rawProduct.Ferguson_Title,
       rawProduct.Product_Title_Web_Retailer,
+      (rawProduct as any).Ferguson_Raw_Data?.product?.name,
       (rawProduct as any).Product_Description_Web_Retailer,
     ].filter(Boolean).join(' ');
     const currentType = typeMatchResult.matchedValue?.type_name || aiProductType || '';
@@ -8409,10 +8456,16 @@ async function buildFinalResponse(
     return html.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
   };
 
+  // Ferguson_Raw_Data.product.name — rich product name from Ferguson API scraping
+  // Used when Ferguson_Title (flat field from Salesforce) is empty
+  const frdProductName = (!rawProduct.Ferguson_Title && (rawProduct as any).Ferguson_Raw_Data?.product?.name)
+    ? String((rawProduct as any).Ferguson_Raw_Data.product.name).trim()
+    : null;
+
   // Titles in department-priority order (raw text, no HTML)
   const deptTitles: string[] = isApplianceDept
-    ? [rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title].filter(Boolean) as string[]
-    : [rawProduct.Ferguson_Title, rawProduct.Product_Title_Web_Retailer].filter(Boolean) as string[];
+    ? [rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title || frdProductName].filter(Boolean) as string[]
+    : [rawProduct.Ferguson_Title || frdProductName, rawProduct.Product_Title_Web_Retailer].filter(Boolean) as string[];
 
   // Descriptions in department-priority order (HTML stripped)
   const deptDescriptions: string[] = isApplianceDept
