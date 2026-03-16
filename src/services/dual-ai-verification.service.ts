@@ -240,11 +240,15 @@ function getFieldByPriority(
   fergusonValue: any,
   fallback: any = ''
 ): any {
+  // Sanitize string "null"/"undefined" values that Salesforce sometimes sends
+  const clean = (v: any) => (typeof v === 'string' && (v === 'null' || v === 'undefined' || v === 'N/A')) ? '' : v;
+  const web = clean(webRetailerValue);
+  const ferg = clean(fergusonValue);
   const isAppliance = isAppliancesCategory(categoryName);
   if (isAppliance) {
-    return webRetailerValue || fergusonValue || fallback;
+    return web || ferg || fallback;
   } else {
-    return fergusonValue || webRetailerValue || fallback;
+    return ferg || web || fallback;
   }
 }
 
@@ -8388,8 +8392,28 @@ async function buildFinalResponse(
   // ============================================
   // GENERATE SEO-OPTIMIZED TITLE
   // ============================================
-  
-  // Get width from AI or Salesforce structured fields ONLY (no text parsing)
+
+  // ── Dimension extraction from raw titles/descriptions ──────────────────
+  // Raw titles often contain precise dimensions (e.g. '24" x 40"', '36" X 30"')
+  // Extract as last-resort fallback when structured fields are empty/null.
+  const extractDimensionsFromText = (texts: (string | undefined)[]): { width: string; height: string; depth: string } => {
+    for (const text of texts) {
+      if (!text) continue;
+      // Match patterns like: 24" x 40" x 1-3/4", 36" X 30", 24 x 30
+      const m = text.match(/(\d+(?:[- ]\d+\/\d+)?(?:\.\d+)?)\s*"?\s*[xX×]\s*(\d+(?:[- ]\d+\/\d+)?(?:\.\d+)?)\s*"?(?:\s*[xX×]\s*(\d+(?:[- ]\d+\/\d+)?(?:\.\d+)?)\s*"?)?/);
+      if (m) return { width: m[1].trim(), height: m[2].trim(), depth: m[3]?.trim() || '' };
+    }
+    return { width: '', height: '', depth: '' };
+  };
+
+  const titleDims = extractDimensionsFromText([
+    rawProduct.Product_Title_Web_Retailer,
+    rawProduct.Ferguson_Title,
+    rawProduct.Product_Title_Legacy,
+  ]);
+
+  // Get width from AI or Salesforce structured fields
+  // Fallback chain: AI consensus → OpenAI → XAI → Ferguson/Web → Legacy → Title parse
   const widthFinal = preferAIValue(
     consensus.agreedPrimaryAttributes.width,
     openaiResult.primaryAttributes.width,
@@ -8397,6 +8421,7 @@ async function buildFinalResponse(
     openaiResult.confidence,
     xaiResult.confidence,
     getFieldByPriority(consensus.agreedCategory, rawProduct.Width_Web_Retailer, rawProduct.Ferguson_Width, '')
+      || rawProduct.Width_Legacy || titleDims.width || ''
   );
   
   // Get place settings from AI or text extraction (no structured field exists for this)
@@ -8686,6 +8711,7 @@ async function buildFinalResponse(
       openaiResult.confidence,
       xaiResult.confidence,
       getFieldByPriority(consensus.agreedCategory, rawProduct.Height_Web_Retailer, rawProduct.Ferguson_Height, '')
+        || rawProduct.Height_Legacy || titleDims.height || ''
     ),
     depth: preferAIValue(
       consensus.agreedPrimaryAttributes.depth,
@@ -8694,6 +8720,7 @@ async function buildFinalResponse(
       openaiResult.confidence,
       xaiResult.confidence,
       getFieldByPriority(consensus.agreedCategory, rawProduct.Depth_Web_Retailer, rawProduct.Ferguson_Depth, '')
+        || rawProduct.Depth_Legacy || titleDims.depth || ''
     ),
     
     // Style/Type
@@ -8882,11 +8909,13 @@ async function buildFinalResponse(
     });
   }
   
-  // Log seoTitleInput width value for debugging
+  // Log seoTitleInput width/height values for debugging
   logger.info('SEO title input prepared', {
     sessionId,
     category: seoTitleInput.category,
     width: seoTitleInput.width || 'NOT SET',
+    height: seoTitleInput.height || 'NOT SET',
+    titleDimsUsed: (!seoTitleInput.width || seoTitleInput.width === titleDims.width) ? titleDims : 'not needed',
     placeSettings: seoTitleInput.placeSettings || 'NOT SET',
     type: seoTitleInput.type || 'NOT SET',
     fuelType: seoTitleInput.fuelType || 'NOT SET',
