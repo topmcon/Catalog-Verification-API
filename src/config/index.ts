@@ -79,7 +79,7 @@ const config: Config = {
 
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
-    model: process.env.OPENAI_MODEL || 'gpt-4o-mini', // Upgraded to gpt-4o-mini (58x cheaper, same quality)
+    model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', // GPT-4.1 mini — faster, better instruction following
     maxTokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4096', 10),
     visionModel: process.env.OPENAI_VISION_MODEL || 'gpt-4o', // Vision still needs gpt-4o
     searchModel: process.env.OPENAI_SEARCH_MODEL || 'gpt-4o-mini-search-preview', // For real web search
@@ -88,7 +88,7 @@ const config: Config = {
   xai: {
     apiKey: process.env.XAI_API_KEY || '',
     apiUrl: process.env.XAI_API_URL || 'https://api.x.ai/v1',
-    model: process.env.XAI_MODEL || 'grok-3', // Upgraded from grok-beta (faster, better)
+    model: process.env.XAI_MODEL || 'grok-4-fast-non-reasoning', // Upgraded from grok-3
     visionModel: process.env.XAI_VISION_MODEL || 'grok-3', // Multimodal model (grok-2-vision-1212 deprecated)
   },
 

@@ -18,6 +18,7 @@ export const MODEL_PRICING: Record<string, { input: number; output: number }> = 
   'gpt-4o': { input: 2.50, output: 10.00 },
   'gpt-4o-2024-11-20': { input: 2.50, output: 10.00 },
   'gpt-4o-mini': { input: 0.15, output: 0.60 },
+  'gpt-4.1-mini': { input: 0.40, output: 1.60 },
   'gpt-4o-mini-2024-07-18': { input: 0.15, output: 0.60 },
   'gpt-4o-search-preview': { input: 2.50, output: 10.00 },
   'gpt-4o-mini-search-preview': { input: 0.15, output: 0.60 },
@@ -43,6 +44,7 @@ export const MODEL_PRICING: Record<string, { input: number; output: number }> = 
   'grok-3': { input: 3.00, output: 15.00 }, // multimodal (text + vision)
   'grok-3-mini': { input: 0.30, output: 0.50 },
   'grok-4': { input: 5.00, output: 20.00 }, // Estimated
+  'grok-4-fast-non-reasoning': { input: 3.00, output: 15.00 }, // Non-reasoning variant
 };
 
 export type AIProvider = 'openai' | 'xai';

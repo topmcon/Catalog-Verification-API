@@ -270,7 +270,7 @@ Respond with JSON:
 
     try {
       const response = await this.anthropic.messages.create({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         messages: [
           {
@@ -432,7 +432,7 @@ Respond with JSON:
     const prompt = this.buildDiagnosticPrompt(issue, context, 'openai');
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [
         {
           role: 'system',
@@ -576,7 +576,7 @@ Return JSON:
 }`;
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [{ role: 'user', content: reviewPrompt }],
       temperature: 0.3,
       response_format: { type: 'json_object' }

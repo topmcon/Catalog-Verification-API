@@ -352,7 +352,7 @@ ${JSON.stringify(expectedFix, null, 2)}
 }`;
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [{ role: 'user', content: validationPrompt }],
       temperature: 0.2,
       response_format: { type: 'json_object' }
@@ -549,7 +549,7 @@ Generate an IMPROVED fix that addresses all the concerns and suggestions.
 }`;
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [{ role: 'user', content: improvePrompt }],
       temperature: 0.4, // Slightly higher for creative improvements
       response_format: { type: 'json_object' }
@@ -703,7 +703,7 @@ Respond with JSON:
 }`;
 
       const response = await this.anthropic.messages.create({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 2048,
         messages: [{ role: 'user', content: prompt }]
       });

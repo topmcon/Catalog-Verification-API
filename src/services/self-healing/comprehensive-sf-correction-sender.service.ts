@@ -256,7 +256,7 @@ Give your FINAL approval or rejection.
 }`;
 
     const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4.1',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.1, // Very low - we want conservative approval
       response_format: { type: 'json_object' }
