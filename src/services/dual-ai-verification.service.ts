@@ -10628,15 +10628,29 @@ async function buildFinalResponse(
   // Generate final title using corrected data
   const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
   
-  // If Claude already corrected the title during Final Review, use that instead
-  // (Claude's correction would be in sanitizedPrimaryAttributes.AI_Product_Title)
+  // ALWAYS use our schema-generated title.
+  // Claude's field corrections (brand, type, finish, width, etc.) already flow into
+  // finalSeoTitleInput, so the schema title benefits from ALL of Claude's corrections.
+  // Letting Claude also rewrite the title STRING bypasses our formatting rules:
+  //   - Bathroom Mirror merge logic (prevents "Wall Mirror Bathroom Mirror")
+  //   - Dimension rounding (fractions → whole numbers)
+  //   - Accessory title reordering
+  //   - Redundancy dedup (Type substring of Category)
+  //   - Model number enforcement
+  // Previously we had per-category overrides (sinks, mirrors) to undo Claude's rewrites,
+  // but the correct fix is to never let Claude override the title at all.
   const titleWasCorrectedByClaude = finalReviewResult.correctionsApplied.some(
     correction => correction.field === 'title'
   );
+  sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
   
-  if (!titleWasCorrectedByClaude) {
-    // Use our regenerated title (it benefits from Claude's field corrections)
-    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
+  if (titleWasCorrectedByClaude) {
+    logger.info('📝 FINAL TITLE: Claude corrected title but using schema-generated version (preserves formatting rules)', {
+      sessionId,
+      claudeTitle: (finalReviewResult.correctionsApplied.find(c => c.field === 'title')?.suggestedFix || '').toString().substring(0, 80),
+      schemaTitle: finalSeoTitle.substring(0, 80),
+    });
+  } else {
     logger.info('📝 FINAL TITLE: Regenerated after Final Review using corrected data', {
       sessionId,
       preliminaryTitle: preliminarySeoTitle.substring(0, 80),
@@ -10644,42 +10658,6 @@ async function buildFinalResponse(
       brandCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'brand'),
       typeCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'type'),
       finishCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'finish')
-    });
-  } else {
-    logger.info('📝 FINAL TITLE: Using Claude\'s corrected title from Final Review', {
-      sessionId,
-      claudeTitle: sanitizedPrimaryAttributes.AI_Product_Title?.substring(0, 80)
-    });
-  }
-
-  // SINK MARKETING DIMENSION OVERRIDE
-  // Ferguson's specifications.width is the front-to-back measurement, NOT the marketing dimension.
-  // The marketing width (e.g. "15-Inch" for LRAD1517601) comes from Ferguson's product.name
-  // (already extracted into AI_Width by our sink override earlier in this function).
-  // Claude doesn't know about this axis swap and "corrects" the title back to 17.5-Inch.
-  // Force-regenerate the title from AI_Width for all sink categories.
-  const sinkCategoriesToOverride = ['Kitchen Sink', 'Bathroom Sink', 'Bar & Prep Sink'];
-  if (sinkCategoriesToOverride.includes(sanitizedPrimaryAttributes.AI_Product_Category || '')) {
-    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
-    logger.info('📝 SINK TITLE OVERRIDE: Regenerated from AI_Width (ignores Claude width "correction")', {
-      sessionId,
-      finalTitle: finalSeoTitle.substring(0, 80),
-      aiWidth: sanitizedPrimaryAttributes.AI_Width,
-      claudeWouldHaveUsed: titleWasCorrectedByClaude ? 'yes - overridden' : 'no - was already using regenerated'
-    });
-  }
-
-  // MIRROR TITLE OVERRIDE
-  // Claude's Final Review re-introduces "Wall Mirror Bathroom Mirror" redundancy
-  // because it doesn't understand our merge logic (Bathroom + Wall Mirror → "Bathroom Wall Mirror").
-  // Always use our schema-generated title for mirror categories.
-  const mirrorCategoriesToOverride = ['Bathroom Mirror', 'Mirror', 'Medicine Cabinet'];
-  if (mirrorCategoriesToOverride.includes(sanitizedPrimaryAttributes.AI_Product_Category || '')) {
-    sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle;
-    logger.info('📝 MIRROR TITLE OVERRIDE: Using schema title (prevents Claude redundancy)', {
-      sessionId,
-      finalTitle: finalSeoTitle.substring(0, 80),
-      claudeWouldHaveUsed: titleWasCorrectedByClaude ? 'yes - overridden' : 'no - was already using regenerated'
     });
   }
 
