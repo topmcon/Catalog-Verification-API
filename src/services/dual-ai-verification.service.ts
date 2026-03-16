@@ -6852,7 +6852,7 @@ function buildResearchTransparency(
   const images = researchResult?.images.map(img => ({
     url: img.url,
     success: img.success,
-    model_used: 'grok-2-vision-1212', // Current model used
+    model_used: config.xai?.visionModel || 'grok-3', // Current model used
     color_detected: img.detectedColor || undefined,
     finish_detected: img.detectedFinish || undefined,
     product_type: img.productType || undefined,

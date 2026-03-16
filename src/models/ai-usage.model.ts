@@ -39,8 +39,8 @@ export const MODEL_PRICING: Record<string, { input: number; output: number }> = 
   'grok-2': { input: 2.00, output: 10.00 },
   'grok-2-latest': { input: 2.00, output: 10.00 },
   'grok-2-1212': { input: 2.00, output: 10.00 },
-  'grok-2-vision-1212': { input: 2.00, output: 10.00 },
-  'grok-3': { input: 3.00, output: 15.00 }, // Estimated
+  'grok-2-vision-1212': { input: 2.00, output: 10.00 }, // deprecated
+  'grok-3': { input: 3.00, output: 15.00 }, // multimodal (text + vision)
   'grok-3-mini': { input: 0.30, output: 0.50 },
   'grok-4': { input: 5.00, output: 20.00 }, // Estimated
 };

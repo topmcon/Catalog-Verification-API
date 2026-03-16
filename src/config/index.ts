@@ -23,7 +23,7 @@ export interface Config {
     apiKey: string;
     apiUrl: string;
     model: string;
-    visionModel: string; // For vision with grok-2-vision
+    visionModel: string; // For vision (grok-3 is multimodal)
   };
   research: {
     enabled: boolean;
@@ -89,7 +89,7 @@ const config: Config = {
     apiKey: process.env.XAI_API_KEY || '',
     apiUrl: process.env.XAI_API_URL || 'https://api.x.ai/v1',
     model: process.env.XAI_MODEL || 'grok-3', // Upgraded from grok-beta (faster, better)
-    visionModel: process.env.XAI_VISION_MODEL || 'grok-2-vision-1212', // Fastest vision model
+    visionModel: process.env.XAI_VISION_MODEL || 'grok-3', // Multimodal model (grok-2-vision-1212 deprecated)
   },
 
   research: {
