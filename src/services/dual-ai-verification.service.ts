@@ -2123,12 +2123,24 @@ export async function verifyProductWithDualAI(
     // 🔍 STAGE 2: CATEGORY VALIDATION (RESPECT SALESFORCE'S ASSIGNMENT)
     // ===============================================
     // 🔧 FINDING #016 FIX: Always use Salesforce's category, AI validates (doesn't override)
-    const salesforceCategory = rawProduct.Web_Retailer_Category?.trim() || null;
-    
+    //
+    // CATEGORY SOURCE PRIORITY (most → least reliable):
+    //  1. Category_Legacy  — the CURRENT SF catalog category for this record (most authoritative)
+    //  2. Web_Retailer_Category — the external retailer's label (can be garbage, e.g. "DINING ROOM FURNITURE")
+    //
+    // Using Web_Retailer_Category alone caused E42036-GLBK (lighted mirror) to be reclassified from
+    // "Bathroom Mirror" to "Bathroom Lighting" because the retailer miscategorised it.
+    const legacyCategory = (rawProduct as any).Category_Legacy?.trim() || null;
+    const webRetailerCategory = rawProduct.Web_Retailer_Category?.trim() || null;
+    const salesforceCategory = legacyCategory || webRetailerCategory || null;
+
     logger.info('🔍 STAGE 2 (Hierarchical): Validating Salesforce category assignment', {
       sessionId: verificationSessionId,
       department: determinedDepartment,
       salesforceCategory: salesforceCategory,
+      salesforceCategorySource: legacyCategory ? 'Category_Legacy' : webRetailerCategory ? 'Web_Retailer_Category' : 'none',
+      legacyCategory,
+      webRetailerCategory,
       productId: rawProduct.SF_Catalog_Id
     });
     
