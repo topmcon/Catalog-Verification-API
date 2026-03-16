@@ -8563,6 +8563,30 @@ async function buildFinalResponse(
     return extractKnownValueFromTexts(texts, fuelTypes);
   };
 
+  /** Extract bowl shape from texts (Toilet / Toilet Seat) */
+  const extractBowlShapeFromTexts = (texts: string[]): string => {
+    const shapes = ['Elongated', 'Round-Front', 'Round Front', 'Round'];
+    return extractKnownValueFromTexts(texts, shapes);
+  };
+
+  /** Extract flush type from texts (Toilet) */
+  const extractFlushTypeFromTexts = (texts: string[]): string => {
+    const flushTypes = [
+      'Dual Flush', 'Dual-Flush', 'Single Flush', 'Pressure-Assisted',
+      'Pressure Assisted', 'Gravity'
+    ];
+    return extractKnownValueFromTexts(texts, flushTypes);
+  };
+
+  /** Extract toilet seat feature type from texts */
+  const extractToiletSeatTypeFromTexts = (texts: string[]): string => {
+    const seatTypes = [
+      'Soft Close', 'Soft-Close', 'Slow Close', 'Slow-Close', 'SoftClose',
+      'Heated', 'Bidet', 'Quick Release'
+    ];
+    return extractKnownValueFromTexts(texts, seatTypes);
+  };
+
   /** Extract capacity from texts (e.g., "5.0 cu. ft.", "25.6 cu ft") */
   const extractCapacityFromTexts = (texts: string[]): string => {
     for (const text of texts) {
@@ -9063,7 +9087,23 @@ async function buildFinalResponse(
       )
     ),
     depthType: depthTypeValue,
-    panelReady: panelReadyValue
+    panelReady: panelReadyValue,
+    bowlShape: preferAIValue(
+      consensus.agreedTop15Attributes?.bowl_shape,
+      openaiResult.top15Attributes?.bowl_shape,
+      xaiResult.top15Attributes?.bowl_shape,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      extractBowlShapeFromTexts(deptTitles) || extractBowlShapeFromTexts(deptDescriptions) || extractBowlShapeFromTexts(deptFeatures) || ''
+    ),
+    flushType: preferAIValue(
+      consensus.agreedTop15Attributes?.flush_type,
+      openaiResult.top15Attributes?.flush_type,
+      xaiResult.top15Attributes?.flush_type,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      extractFlushTypeFromTexts(deptTitles) || extractFlushTypeFromTexts(deptDescriptions) || extractFlushTypeFromTexts(deptFeatures) || ''
+    )
     
     // Features NOT passed to title generator (removed from titles in v2.1)
     // features: cleanedText.features
@@ -10550,6 +10590,8 @@ async function buildFinalResponse(
     sinkShape: String(sanitizedTopFilterAttributes.sink_shape ||
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || seoTitleInput.sinkShape || ''),
     shape: String(sanitizedTopFilterAttributes.mirror_shape || sanitizedTopFilterAttributes.shape || seoTitleInput.shape || ''),
+    bowlShape: String(sanitizedTopFilterAttributes.bowl_shape || seoTitleInput.bowlShape || ''),
+    flushType: String(sanitizedTopFilterAttributes.flush_type || seoTitleInput.flushType || ''),
     // function field: populated by shower post-processing below; initialised empty here
     function: '',
   };
@@ -10659,6 +10701,150 @@ async function buildFinalResponse(
     }
   }
   // ── END MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────
+
+  // ── TOILET TITLE POST-PROCESSING ────────────────────────────────────────────
+  // Fix slot confusion: AI often puts bowl shape (Elongated/Round) in Type slot
+  // and misses flush type (Dual Flush) and bowl shape entirely.
+  const TOILET_BOWL_SHAPES = ['elongated', 'round', 'round-front', 'round front'];
+  const TOILET_FLUSH_TYPES = ['dual flush', 'dual-flush', 'single flush', 'pressure-assisted', 'pressure assisted', 'gravity'];
+
+  if (finalSeoTitleInput.category === 'Toilet') {
+    const currentType = (finalSeoTitleInput.type || '').trim();
+    const typeLower = currentType.toLowerCase();
+
+    // If AI put a bowl shape in the Type slot, move it to bowlShape
+    if (TOILET_BOWL_SHAPES.includes(typeLower)) {
+      if (!finalSeoTitleInput.bowlShape) {
+        finalSeoTitleInput.bowlShape = currentType;
+      }
+      finalSeoTitleInput.type = ''; // Clear — will try to detect real type below
+      logger.info('Toilet: moved bowl shape from type slot to bowlShape', {
+        sessionId, bowlShape: currentType
+      });
+    }
+
+    // If AI put a flush type in the Type slot, move it to flushType
+    if (TOILET_FLUSH_TYPES.includes(typeLower)) {
+      if (!finalSeoTitleInput.flushType) {
+        finalSeoTitleInput.flushType = currentType;
+      }
+      finalSeoTitleInput.type = '';
+      logger.info('Toilet: moved flush type from type slot to flushType', {
+        sessionId, flushType: currentType
+      });
+    }
+
+    // If bowlShape still empty, extract from source data
+    if (!finalSeoTitleInput.bowlShape) {
+      const extracted = extractBowlShapeFromTexts([
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+        ((rawProduct as any).Ferguson_Description as string) || '',
+      ]);
+      if (extracted) {
+        finalSeoTitleInput.bowlShape = extracted;
+        logger.info('Toilet: extracted bowl shape from source data', {
+          sessionId, bowlShape: extracted
+        });
+      }
+    }
+
+    // If flushType still empty, extract from source data
+    if (!finalSeoTitleInput.flushType) {
+      const extracted = extractFlushTypeFromTexts([
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+        ((rawProduct as any).Ferguson_Description as string) || '',
+      ]);
+      if (extracted) {
+        // Normalize "Dual-Flush" → "Dual Flush"
+        finalSeoTitleInput.flushType = extracted.replace(/-/g, ' ');
+        logger.info('Toilet: extracted flush type from source data', {
+          sessionId, flushType: finalSeoTitleInput.flushType
+        });
+      }
+    }
+
+    // If type is empty after moving bowl/flush out, try to detect construction type
+    if (!finalSeoTitleInput.type) {
+      const sourceTexts = [
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+      ].join(' ').toLowerCase();
+      if (/\bone[- ]piece\b/i.test(sourceTexts)) {
+        finalSeoTitleInput.type = 'One-Piece';
+      } else if (/\btwo[- ]piece\b/i.test(sourceTexts)) {
+        finalSeoTitleInput.type = 'Two-Piece';
+      } else if (/\bwall[- ](?:hung|mount)\b/i.test(sourceTexts)) {
+        finalSeoTitleInput.type = 'Wall-Mounted';
+      } else if (/\b(?:smart|electronic|intelligent|bidet seat included)\b/i.test(sourceTexts)) {
+        finalSeoTitleInput.type = 'Smart';
+      }
+      if (finalSeoTitleInput.type) {
+        logger.info('Toilet: detected construction type from source data', {
+          sessionId, type: finalSeoTitleInput.type
+        });
+      }
+    }
+  }
+  // ── END TOILET TITLE POST-PROCESSING ─────────────────────────────────────────
+
+  // ── TOILET SEAT TITLE POST-PROCESSING ───────────────────────────────────────
+  if (finalSeoTitleInput.category === 'Toilet Seat') {
+    const currentType = (finalSeoTitleInput.type || '').trim();
+    const typeLower = currentType.toLowerCase();
+
+    // If AI put a bowl shape in the Type slot, move it to shape
+    if (TOILET_BOWL_SHAPES.includes(typeLower)) {
+      if (!finalSeoTitleInput.shape) {
+        finalSeoTitleInput.shape = currentType;
+      }
+      finalSeoTitleInput.type = ''; // Clear — will detect feature type below
+      logger.info('Toilet Seat: moved bowl shape from type slot to shape', {
+        sessionId, shape: currentType
+      });
+    }
+
+    // If shape still empty, extract from source data
+    if (!finalSeoTitleInput.shape) {
+      const extracted = extractBowlShapeFromTexts([
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+        ((rawProduct as any).Ferguson_Description as string) || '',
+      ]);
+      if (extracted) {
+        finalSeoTitleInput.shape = extracted;
+        logger.info('Toilet Seat: extracted shape from source data', {
+          sessionId, shape: extracted
+        });
+      }
+    }
+
+    // Detect feature type (Soft Close, Heated, Bidet) from source data
+    // Only override type if it's empty or was a bowl shape we already moved
+    if (!finalSeoTitleInput.type) {
+      const extracted = extractToiletSeatTypeFromTexts([
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+        ((rawProduct as any).Ferguson_Description as string) || '',
+      ]);
+      if (extracted) {
+        // Normalize variants: "SoftClose" → "Soft Close", "Slow-Close" → "Slow Close"
+        finalSeoTitleInput.type = extracted
+          .replace(/SoftClose/i, 'Soft Close')
+          .replace(/-/g, ' ');
+        logger.info('Toilet Seat: extracted feature type from source data', {
+          sessionId, type: finalSeoTitleInput.type
+        });
+      }
+    }
+  }
+  // ── END TOILET SEAT TITLE POST-PROCESSING ────────────────────────────────────
 
   // Generate final title using corrected data
   const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
