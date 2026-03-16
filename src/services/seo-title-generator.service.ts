@@ -137,6 +137,7 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Length (Feet)': 'length',
   'Track Length (Feet)': 'length',
   'Dimensions (W×H)': 'dimensionsWxH', // Special handling
+  'Width×Height': 'dimensionsWxH', // Special handling (Medicine Cabinet)
   
   // Specs
   'Capacity (Cu. Ft.)': 'totalCapacity',
@@ -249,6 +250,17 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
  * Format a value according to its attribute type
  */
 function formatValue(attribute: string, value: string | number | string[] | undefined, input?: SEOTitleInput): string {
+  // Handle composite dimension attributes FIRST (before undefined check)
+  // These compose from separate width + height fields, not a single value
+  if ((attribute === 'Dimensions (W×H)' || attribute === 'Width×Height') && input) {
+    const width = input.width;
+    const height = input.height;
+    if (width && height) {
+      return FORMATTING_RULES.dimensionsWxH(width, height);
+    }
+    return '';
+  }
+
   if (value === undefined || value === null) {
     // Debug logging for Width
     if (attribute === 'Width (Inches)') {
@@ -276,16 +288,6 @@ function formatValue(attribute: string, value: string | number | string[] | unde
       .filter(f => f && typeof f === 'string' && f.toLowerCase() !== 'not found')
       .slice(0, 3);
     return filtered.length > 0 ? `(${filtered.join(', ')})` : '';
-  }
-  
-  // Handle Dimensions (W×H) specially
-  if (attribute === 'Dimensions (W×H)' && input) {
-    const width = input.width;
-    const height = input.height;
-    if (width && height) {
-      return FORMATTING_RULES.dimensionsWxH(width, height);
-    }
-    return '';
   }
   
   // Handle Tile Size specially
@@ -388,6 +390,36 @@ function enforceModelAtEnd(title: string, modelNumber?: string): string {
 }
 
 /**
+ * Round fractional and decimal dimensions in a title string.
+ * Converts "15-1/2" → "16", "39-3/8" → "39", "23.5×29.5" → "24×30", etc.
+ * Only targets dimension patterns — does NOT touch performance specs like "1.5 GPM".
+ */
+function roundDimensionsInTitle(title: string): string {
+  // Round fraction notation: "15-1/2" → "16", "39-3/8" → "39"
+  title = title.replace(/(\d+)-(\d+)\/(\d+)/g, (_match, whole, num, den) => {
+    const value = parseInt(whole) + parseInt(num) / parseInt(den);
+    return String(Math.round(value));
+  });
+
+  // Round decimal dimensions near dimension separators (× or x)
+  // "23.5×29.5" → "24×30"
+  title = title.replace(/(\d+\.\d+)(\s*[×x]\s*)/gi, (_match, num, sep) => {
+    return String(Math.round(parseFloat(num))) + sep;
+  });
+  title = title.replace(/([×x]\s*)(\d+\.\d+)/gi, (_match, sep, num) => {
+    return sep + String(Math.round(parseFloat(num)));
+  });
+
+  // Round decimal dimensions followed by dimension indicators
+  // "23.5-Inch" → "24-Inch", "23.5 in." → "24 in."
+  title = title.replace(/(\d+\.\d+)(-Inch|"\s|\s+in\.)/gi, (_match, num, suffix) => {
+    return String(Math.round(parseFloat(num))) + suffix;
+  });
+
+  return title;
+}
+
+/**
  * MAIN FUNCTION: Generate SEO-optimized product title
  * 
  * Uses category-specific schema to determine slot order and formatting.
@@ -468,6 +500,10 @@ export function generateSEOTitle(input: SEOTitleInput): string {
   // Apply title case formatting to entire title
   // This ensures consistent capitalization: "DELTA" → "Delta", "hansgrohe" → "Hansgrohe"
   title = toTitleCase(title);
+  
+  // Round any fractional/decimal dimensions in the title (title-only, not verified data)
+  // "15-1/2 x 39-3/8" → "16 x 39", "23.5-Inch" → "24-Inch"
+  title = roundDimensionsInTitle(title);
   
   // Enforce max length (150 chars absolute max)
   if (title.length > 150) {
@@ -896,15 +932,18 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       if (typeVal.includes('mirror') && formattedValue.toLowerCase().includes('mirror')) {
         const isBathroomMirror = formattedValue.toLowerCase().includes('bathroom');
         if (isBathroomMirror) {
-          // Inject "Bathroom" before the Type value that was already pushed
-          const typeIndex = parts.findIndex(p => p.toLowerCase() === (input.type || '').toLowerCase());
-          if (typeIndex >= 0) {
+          // Inject "Bathroom" before the Type part that contains "mirror"
+          const typeIndex = parts.findIndex(p => p.toLowerCase().includes('mirror'));
+          if (typeIndex >= 0 && !parts[typeIndex].toLowerCase().startsWith('bathroom')) {
             parts[typeIndex] = `Bathroom ${parts[typeIndex]}`;
             logger.info('Merged "Bathroom" into Type for Bathroom Mirror title', {
               type: input.type,
               category: formattedValue,
               mergedPart: parts[typeIndex]
             });
+          } else if (typeIndex < 0) {
+            // Type with Mirror not found in parts — push full category
+            parts.push(formattedValue);
           }
         } else {
           logger.info('Skipping redundant Category slot - Type already contains Mirror', {
