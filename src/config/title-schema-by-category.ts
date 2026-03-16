@@ -3625,33 +3625,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Shape",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Style",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Style",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width×Height} {Type} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Mirror Finish - Model",
-    "seoNotes": "Dimensions for space. Type = Wall, Floor, Vanity."
+    "template": "{Brand} {Width×Height} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 30x40 Rectangular Wall Mirror Modern Mirror Black - Model",
+    "seoNotes": "Shape = Rectangular, Round, Oval, Arch, Square. Type = Wall Mirror, Floor Mirror, Full Length, Vanity."
   },
   "rug": {
     "categoryId": "a01aZ00000dCekNQAS",
@@ -5775,33 +5780,38 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Shape",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Style",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 5,
+        "attribute": "Style",
+        "required": false
+      },
+      {
+        "position": 6,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 8,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Width×Height} {Type} {Style} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand 30-Inch Bathroom Mirror Finish - Model",
-    "seoNotes": "Dimensions for fit. Type = Framed, Frameless, Medicine Cabinet."
+    "template": "{Brand} {Width×Height} {Shape} {Type} {Style} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand 30x36 Rectangular Wall Mirror Modern Bathroom Mirror Chrome - Model",
+    "seoNotes": "Shape = Rectangular, Round, Oval, Arch, Square. Type = Wall Mirror, Lighted, Medicine Cabinet, Magnifying."
   },
   "bathroom_sink": {
     "categoryId": "a01aZ00000dC5DiQAK",

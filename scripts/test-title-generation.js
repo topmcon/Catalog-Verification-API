@@ -63,11 +63,11 @@ categoryNames.forEach(categoryName => {
       throw new Error(`Generated title too short: "${title}"`);
     }
     
-    // Test 3: Required fields present
-    if (!title.includes(testInput.brand)) {
+    // Test 3: Required fields present (case-insensitive — generator applies toTitleCase)
+    if (!title.toLowerCase().includes(testInput.brand.toLowerCase())) {
       throw new Error(`Brand missing from title: "${title}"`);
     }
-    if (!title.includes(categoryName)) {
+    if (!title.toLowerCase().includes(categoryName.toLowerCase())) {
       throw new Error(`Category missing from title: "${title}"`);
     }
     

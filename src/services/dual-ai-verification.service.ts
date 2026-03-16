@@ -8622,6 +8622,14 @@ async function buildFinalResponse(
       xaiResult.confidence,
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''
     ),
+    shape: preferAIValue(
+      consensus.agreedTop15Attributes?.shape,
+      openaiResult.top15Attributes?.shape,
+      xaiResult.top15Attributes?.shape,
+      openaiResult.confidence,
+      xaiResult.confidence,
+      ''
+    ),
     collection: preferAIValue(
       consensus.agreedTop15Attributes?.collection,
       openaiResult.top15Attributes?.collection,

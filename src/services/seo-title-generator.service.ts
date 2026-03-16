@@ -79,6 +79,7 @@ export interface SEOTitleInput {
   controlType?: string; // For dishwashers (Top Control, Front Control)
   basinCount?: string; // For sinks (Single Basin, Double Basin)
   sinkShape?: string; // For sinks (Rectangular, Round, Oval, etc.)
+  shape?: string; // Generic shape (Rectangular, Round, Oval, Arch, Square) — for mirrors, etc.
   function?: string; // For Shower Faucet: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
   mountType?: string;
   holeConfig?: string;
@@ -175,7 +176,8 @@ const ATTRIBUTE_TO_FIELD: Record<string, keyof SEOTitleInput | string> = {
   'Fuel Type': 'fuelType',
   'Connection Size': 'connectionSize',
   'Filtration Level': 'filtrationLevel',
-  'Shape': 'bowlShape',
+  'Shape': 'shape',          // Generic shape → mirrors, etc.
+  'Mirror Shape': 'shape',   // Explicit mirror alias
   'Control Type': 'controlType',
   'Basin Count': 'basinCount',
   'Panel Ready': 'panelReady',
