@@ -886,6 +886,20 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
     }
     
+    // Skip Category when Type already contains "Mirror" to avoid "Wall Mirror Mirror" redundancy
+    // Example: Type="Wall Mirror" + Category="Mirror" → skip Category
+    if (formattedValue && slot.attribute === 'Category') {
+      const typeVal = (input.type || '').toLowerCase();
+      if (typeVal.includes('mirror') && formattedValue.toLowerCase().includes('mirror')) {
+        logger.info('Skipping redundant Category slot - Type already contains Mirror', {
+          type: input.type,
+          category: formattedValue,
+          reason: 'Type already includes Mirror keyword'
+        });
+        continue;
+      }
+    }
+
     // Skip if value already exists in parts (prevents duplicates like "Undercounter Undercounter")
     // Example: type="Undercounter" and installationType="Undercounter" should only appear once
     if (formattedValue && !parts.includes(formattedValue)) {
