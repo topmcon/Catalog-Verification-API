@@ -47,6 +47,9 @@
 | Web retailer data collision (brand mismatch) | Brand overlap check → UNRELIABLE annotation on all web fields | e96878b | #034 |
 | Sink title using specs.width (front-to-back) instead of name dimension | Block Claude Final Review title override for sink categories | a78be0e | #035 |
 | Ferguson nested specs not searched in attribute fill fallback | Add Ferguson_Raw_Data.product.specifications + feature_groups to findTop15AttributeValue | 161850a | #036 |
+| Lighted mirror classified as Bathroom Lighting | Multi-layer fix: unbiased AI, dept-aware tiebreaker, lighted mirror type detection | 1847eff, bedbbb8, baf41fe, 1c4596f, 233f174 | #037, #020 |
+| String "null" from Salesforce passing as truthy | Sanitize "null"/"undefined"/"N/A" strings in getFieldByPriority() | 4ec2596 | #038, #036 |
+| Missing dimensions when structured fields empty but raw titles have data | Extract W×H×D from raw titles as last-resort fallback + Legacy fields in chain | 4ec2596 | #039, #038 |
 
 ---
 
@@ -4436,3 +4439,157 @@ Universal improvement for ALL categories, not just sinks. Any product where `Fer
 ---
 
 **Remember:** This document should be updated EVERY TIME we discover a new issue or apply a fix. It's our institutional memory and troubleshooting playbook.
+
+---
+
+## Finding #037: Lighted Mirror Classified as Bathroom Lighting
+
+**Discovered:** 2026-03-15  
+**Severity:** 🔴 HIGH — Products completely miscategorized, wrong title, wrong type  
+**Category:** AI Classification / Category Determination  
+
+### Symptom
+ET2 product E42036-GLBK (a lighted mirror with LED features) was classified as "Bathroom Lighting" instead of "Bathroom Mirror". AI models focused on the LED/lighting aspects over the mirror aspect.
+
+### Root Cause
+1. AI stage used `Web_Retailer_Category` as a category hint — often generic/wrong
+2. No mechanism to correct "Lighting" → "Mirror" when title/description clearly says "mirror"
+3. The AI was biased by the initial category suggestion
+4. Type resolution had no aliases for "led mirror" → "Lighted Mirror"
+
+### Investigation Steps
+1. Checked AI consensus output — both AIs chose "Bathroom Lighting"
+2. Examined `Web_Retailer_Category` — was a generic retailer category, not authoritative
+3. Analyzed product data — title, description, features all mentioned "mirror" prominently
+4. Identified that `Category_Legacy` (from Salesforce) was more reliable than `Web_Retailer_Category`
+
+### Fix Applied (5 commits)
+
+**Commit `0bb073d`**: Use `Category_Legacy` over `Web_Retailer_Category` for initial signal  
+**Commit `bedbbb8`**: Remove all category hints — set `salesforceCategory = null` so AI is fully unbiased  
+**Commit `baf41fe`**: Add department-aware tiebreaker — when AIs disagree, use Ferguson/Web Retailer category as a signal based on department (Appliances→Web, others→Ferguson)  
+**Commit `1c4596f`**: Three-layer lighted mirror detection:
+- `TYPE_ALIASES` in type-matcher: `"led mirror"→"Lighted Mirror"`, `"lighted"→"Lighted Mirror"`
+- `SEMANTIC_TYPE_PATTERNS`: regex for `led|lighted|illuminated` + `mirror`
+- Post-type-resolution override: scan source titles for lighted patterns
+
+**Commit `233f174`**: Department-aware category correction:
+- `"Mirror"` + dept `"Plumbing & Bath"` → `"Bathroom Mirror"`
+- Title generation merges "Bathroom" into Type instead of dropping Category
+- Guard expansion for lighted override to also check `'Mirror'` category
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts` — Category determination, tiebreaker, post-determination corrections
+- `src/services/type-matcher.service.ts` — TYPE_ALIASES, SEMANTIC_TYPE_PATTERNS
+- `src/services/seo-title-generator.service.ts` — Title skip-category logic for "Bathroom Mirror"
+
+### Scope
+- **Direct**: Mirror and Bathroom Mirror categories (lighted products)
+- **Broad**: Unbiased AI category determination benefits ALL categories
+- **Pattern**: When AI misclassifies products with dual-nature features (e.g., lighted + mirror), need multi-signal correction
+
+### Related Findings
+- #020: Icemaker miscategorized as Freezer (same AI override pattern)
+- #016: AI re-categorizing instead of validating (related to AI authority debate)
+
+---
+
+## Finding #038: String "null" from Salesforce Passing as Truthy Value
+
+**Discovered:** 2026-03-15  
+**Severity:** 🔴 HIGH — Dimension fields silently contain fake "null" data, blocking fallback chain  
+**Category:** Data Quality / Input Sanitization  
+
+### Symptom
+Mirror products had `Width_Web_Retailer: "null"` and `Height_Web_Retailer: "null"` — the string literal `"null"`, NOT actual null/undefined. Since JS treats non-empty strings as truthy, `getFieldByPriority()` returned `"null"` as a valid width value, which then failed silently in the title generator when `parseFloat("null")` returned `NaN`.
+
+### Root Cause
+Salesforce sends the string `"null"` for empty fields in some cases instead of actual null, empty string, or omitting the field entirely. The `getFieldByPriority()` function had no sanitization for these sentinel string values.
+
+### Investigation Steps
+1. Queried production DB for mirror product YM2440RIFPD4
+2. Found `Width_Web_Retailer: "null"` (string!), not `null` (actual null)
+3. Traced through `getFieldByPriority()` — `"null"` is truthy, returned as valid value
+4. Confirmed `parseFloat("null")` returns `NaN`, causing `dimensionsWxH` formatter to return empty string
+
+### Fix Applied
+**Commit `4ec2596`** — Added `clean()` sanitizer in `getFieldByPriority()`:
+```typescript
+const clean = (v: any) => (typeof v === 'string' && 
+  (v === 'null' || v === 'undefined' || v === 'N/A')) ? '' : v;
+```
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts` — `getFieldByPriority()` (~line 242)
+
+### Scope
+- **Universal**: Affects ALL fields that go through `getFieldByPriority()` — not just dimensions
+- **Known affected**: Width, Height, Depth, Weight, Capacity, Color, Finish, MSRP for mirror products
+- **Limitation**: Only catches exact matches `"null"`, `"undefined"`, `"N/A"`. Does NOT catch `"NULL"`, `"none"`, `"n/a"` (lowercase). May need case-insensitive extension later.
+
+### Related Findings
+- #036: Ferguson nested specs not searched (same data quality theme)
+- #039: Missing dimensions (downstream effect of this bug)
+
+---
+
+## Finding #039: Missing Dimensions When Structured Fields Empty But Raw Titles Have Data
+
+**Discovered:** 2026-03-15  
+**Severity:** 🟡 MEDIUM — Dimensions missing from titles, but AI extraction often catches it  
+**Category:** Data Pipeline / Fallback Chain  
+
+### Symptom
+Mirror product YM2440RIFPD4 with Web Retailer title `"Vitality Mirrors 24" x 40" x 1-3/4" Inset"` was generating titles without dimensions. The structured dimension fields were either `"null"` (string) or undefined, and Legacy fields weren't in the fallback chain.
+
+### Root Cause
+Three gaps in the dimension fallback chain:
+1. **String "null" blocker** (#038) — `"null"` string from Salesforce treated as valid value
+2. **Legacy fields missing** — `Width_Legacy`/`Height_Legacy`/`Depth_Legacy` had valid values but weren't included in the fallback chain
+3. **No title parsing** — Raw titles contain exact dimensions in human-readable format (`24" x 40"`) but were never parsed
+
+### Investigation Steps
+1. Checked production DB: `Width_Legacy: "24"`, `Height_Legacy: "40"` — valid!
+2. Confirmed `Width_Web_Retailer: "null"` (string) and `Ferguson_Width: undefined`
+3. Analyzed raw titles: all 3 test products had exact dimensions in Web Retailer title
+4. Determined no title-parsing code existed for dimensions
+
+### Fix Applied
+**Commit `4ec2596`** — Three-part fix:
+
+1. **`extractDimensionsFromText()` function** — Parses W×H×D patterns from raw product titles:
+   - Handles: `24" x 40"`, `36" X 30"`, `24 x 30`, `24" x 40" x 1-3/4"`
+   - Handles fractional dimensions: `1-3/4`, `23 3/4`
+   - Applied to: `Product_Title_Web_Retailer`, `Ferguson_Title`, `Product_Title_Legacy`
+
+2. **Legacy fields in fallback chain** — Added `Width_Legacy`, `Height_Legacy`, `Depth_Legacy` as additional fallbacks after structured web/Ferguson fields
+
+3. **Extended fallback chains**:
+   ```
+   BEFORE: AI → structured → empty
+   AFTER:  AI → structured (sanitized) → Legacy → title-parsed → empty
+   ```
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts`
+  - `extractDimensionsFromText()` (~line 8398): New function
+  - `widthFinal` (~line 8421): `+ || rawProduct.Width_Legacy || titleDims.width || ''`
+  - `seoTitleInput.height` (~line 8711): `+ || rawProduct.Height_Legacy || titleDims.height || ''`
+  - `seoTitleInput.depth` (~line 8720): `+ || rawProduct.Depth_Legacy || titleDims.depth || ''`
+  - SEO title debug logging: Added height + titleDims info
+
+### Verification Result
+Re-verified YM2440RIFPD4 on production:
+- Width: 24 ✅ (was missing before)
+- Height: 40 ✅ (was missing before)
+- Depth: 1.75 ✅ (NEW — from `1-3/4"` in title)
+
+### Scope
+- **Universal**: All products benefit from extended fallback chain
+- **Most impacted**: Products with empty Ferguson data + "null" string web retailer data (mirrors, some legacy products)
+- **Pattern**: Always include raw title parsing as a last-resort fallback — structured fields can be unreliable
+
+### Related Findings
+- #038: String "null" passing as truthy (prerequisite bug)
+- #036: Ferguson nested specs gap (same "structured data missing" theme)
+- #035: Sink dimension confusion (dimension accuracy theme)
