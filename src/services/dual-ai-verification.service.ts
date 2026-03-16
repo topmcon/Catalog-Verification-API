@@ -10133,6 +10133,7 @@ async function buildFinalResponse(
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.number_of_basins?.value || ''),
     sinkShape: String(sanitizedTopFilterAttributes.sink_shape ||
       (rawProduct as any).Ferguson_Raw_Data?.product?.specifications?.sink_shape?.value || ''),
+    shape: String(sanitizedTopFilterAttributes.mirror_shape || sanitizedTopFilterAttributes.shape || ''),
     // function field: populated by shower post-processing below; initialised empty here
     function: '',
   };
@@ -12585,6 +12586,54 @@ async function executeFinalReviewStage(
       }
     }
     
+    // Apply Claude's title correction even on FLAG status — title corrections are safe
+    // (they don't touch locked category/brand fields) and improve quality.
+    // The FAIL block above already handles title for FAIL status.
+    if (pc && phaseBResult.reviewStatus === 'FLAG' && pc.title) {
+      const oldTitle = primaryAttributes.AI_Product_Title || generatedTitle;
+      const verifiedCategory = (primaryAttributes as any).AI_Product_Category || consensus.agreedCategory || '';
+      const verifiedBrand = primaryAttributes.AI_Brand || '';
+      const proposedTitleLower = pc.title.toLowerCase();
+      const categoryTerms: Record<string, string[]> = {
+        'wall sconce': ['post light', 'ceiling light', 'chandelier', 'pendant', 'flush mount'],
+        'pendant': ['post light', 'chandelier', 'flush mount', 'wall sconce'],
+        'chandelier': ['pendant', 'post light', 'flush mount'],
+        'bathroom lighting': ['wall decor', 'bathtub', 'waste & overflow', 'drain'],
+        'vanity lighting': ['wall decor', 'bathtub', 'waste & overflow', 'drain'],
+        'recessed lighting': ['flush mount', 'surface mount'],
+        'landscape lighting': ['wall sconce', 'post light'],
+      };
+      const verifiedCatLower = verifiedCategory.toLowerCase();
+      const conflictingTerms = categoryTerms[verifiedCatLower] || [];
+      const hasConflictingCategory = conflictingTerms.some(term => proposedTitleLower.includes(term));
+      const verifiedBrandLower = verifiedBrand.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const titleBrandArea = proposedTitleLower.split(/\d/)[0];
+      const hasBrandMismatch = verifiedBrandLower.length > 2 &&
+        !titleBrandArea.toLowerCase().replace(/[^a-z0-9]/g, '').includes(verifiedBrandLower);
+      if (!hasConflictingCategory && !hasBrandMismatch) {
+        primaryAttributes.AI_Product_Title = pc.title;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'title',
+          currentValue: oldTitle,
+          issue: `Claude corrected title from "${oldTitle}" to "${pc.title}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.title
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected title on FLAG (validated & applied)', {
+          sessionId,
+          from: oldTitle,
+          to: pc.title
+        });
+      } else {
+        logger.warn('🛡️ FINAL REVIEW: Rejecting Claude FLAG title — conflicting category or brand mismatch', {
+          sessionId,
+          verifiedCategory,
+          proposedTitle: pc.title
+        });
+      }
+    }
+
     // Also flag any non-CRITICAL individual issues for review
     for (const issue of phaseBResult.issues) {
       if (issue.severity !== 'CRITICAL') {
