@@ -339,9 +339,11 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   const strValue = String(value).trim();
   
   // Skip invalid values
-  if (strValue.toLowerCase() === 'not found' || 
-      strValue.toLowerCase() === 'n/a' ||
-      strValue.toLowerCase() === 'not applicable' ||
+  const lowerValue = strValue.toLowerCase();
+  if (lowerValue === 'not found' || 
+      lowerValue === 'n/a' ||
+      lowerValue === 'not applicable' ||
+      lowerValue.startsWith('not specified') ||
       strValue === '' ||
       strValue === 'undefined') {
     return '';
@@ -618,6 +620,29 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /wall\s+flue/i, displayName: 'Wall Flue' },
     { pattern: /flue/i, displayName: 'Flue Extension' },
     { pattern: /blower/i, displayName: 'Blower' },
+    
+    // Toilet / Plumbing specific
+    { pattern: /toilet\s+seat\s+cover\s+dispenser/i, displayName: 'Toilet Seat Cover Dispenser' },
+    { pattern: /toilet\s+seat\s+cover/i, displayName: 'Toilet Seat Cover' },
+    { pattern: /toilet\s+seat/i, displayName: 'Toilet Seat' },
+    { pattern: /toilet\s+tank\s+(?:trip\s+)?lever/i, displayName: 'Toilet Tank Lever' },
+    { pattern: /tank\s+trip\s+lever/i, displayName: 'Toilet Tank Lever' },
+    { pattern: /trip\s+lever/i, displayName: 'Trip Lever' },
+    { pattern: /toilet\s+tank\s+only/i, displayName: 'Toilet Tank' },
+    { pattern: /tank\s+only/i, displayName: 'Toilet Tank' },
+    { pattern: /toilet\s+tank\s+lid/i, displayName: 'Toilet Tank Lid' },
+    { pattern: /toilet\s+tank/i, displayName: 'Toilet Tank' },
+    { pattern: /toilet\s+bowl\s+only/i, displayName: 'Toilet Bowl' },
+    { pattern: /toilet\s+lid/i, displayName: 'Toilet Lid' },
+    { pattern: /toilet\s+paper\s+holder/i, displayName: 'Toilet Paper Holder' },
+    { pattern: /toilet\s+brush/i, displayName: 'Toilet Brush' },
+    { pattern: /bidet\s+seat/i, displayName: 'Bidet Seat' },
+    { pattern: /flush\s+valve/i, displayName: 'Flush Valve' },
+    { pattern: /fill\s+valve/i, displayName: 'Fill Valve' },
+    { pattern: /wax\s+ring/i, displayName: 'Wax Ring' },
+    { pattern: /flapper/i, displayName: 'Flapper' },
+    { pattern: /supply\s+line/i, displayName: 'Supply Line' },
+    { pattern: /seat\s+cover\s+dispenser/i, displayName: 'Seat Cover Dispenser' },
     
     // Outdoor Kitchen specific
     { pattern: /access\s+door/i, displayName: 'Access Door' },
@@ -1012,7 +1037,7 @@ function isValidValue(value: unknown): boolean {
   if (value === undefined || value === null) return false;
   const str = String(value).toLowerCase().trim();
   // Exclude invalid placeholders
-  if (str === '' || str === 'not found' || str === 'n/a' || str === 'not applicable' || str === 'undefined') {
+  if (str === '' || str === 'not found' || str === 'n/a' || str === 'not applicable' || str === 'undefined' || str.startsWith('not specified')) {
     return false;
   }
   // Exclude values that look like variant lists (e.g., "Available in multiple finishes...")

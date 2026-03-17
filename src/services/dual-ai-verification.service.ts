@@ -10702,11 +10702,59 @@ async function buildFinalResponse(
   }
   // ── END MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────
 
+  // ── TOILET → TOILET SEAT RECLASSIFICATION ────────────────────────────────────
+  // AI often classifies toilet seats, seat covers, and toilet accessories as generic "Toilet"
+  // with Type="Accessory". Detect these and reclassify to "Toilet Seat" so the correct
+  // title schema is used ({Brand} {Shape} {Type} Toilet Seat {Finish} - {Model}).
+  const TOILET_BOWL_SHAPES = ['elongated', 'round', 'round-front', 'round front'];
+  const TOILET_FLUSH_TYPES = ['dual flush', 'dual-flush', 'single flush', 'pressure-assisted', 'pressure assisted', 'gravity'];
+
+  if (finalSeoTitleInput.category === 'Toilet' && 
+      (finalSeoTitleInput.type || '').toLowerCase() === 'accessory') {
+    const toiletSourceTexts = [
+      fergusonProductName,
+      (rawProduct.Ferguson_Title as string) || '',
+      (rawProduct.Product_Title_Web_Retailer as string) || '',
+      ((rawProduct as any).Ferguson_Description as string) || '',
+    ].join(' ').toLowerCase();
+
+    // Check if source data indicates this is a toilet seat
+    const isToiletSeat = /\btoilet\s+seat\b/i.test(toiletSourceTexts) ||
+      /\bseat\s+(?:cover|lid|only)\b/i.test(toiletSourceTexts) ||
+      /\bclosed[- ]front\b/i.test(toiletSourceTexts) ||
+      /\bsoft\s*close\b/i.test(toiletSourceTexts) ||
+      /\bslow[- ]close\b/i.test(toiletSourceTexts);
+
+    if (isToiletSeat) {
+      logger.warn('🚽 CATEGORY RECLASSIFICATION: "Toilet" (Accessory) → "Toilet Seat"', {
+        sessionId,
+        originalCategory: 'Toilet',
+        correctedCategory: 'Toilet Seat',
+        type: finalSeoTitleInput.type,
+        reason: 'Source data describes a toilet seat product, not a full toilet'
+      });
+      finalSeoTitleInput.category = 'Toilet Seat';
+      finalSeoTitleInput.type = ''; // Clear "Accessory" — Toilet Seat post-processing will detect real type
+
+      // Extract shape from source if available
+      const extracted = extractBowlShapeFromTexts([
+        fergusonProductName,
+        (rawProduct.Ferguson_Title as string) || '',
+        (rawProduct.Product_Title_Web_Retailer as string) || '',
+        ((rawProduct as any).Ferguson_Description as string) || '',
+      ]);
+      if (extracted) {
+        finalSeoTitleInput.shape = extracted;
+      }
+      // Update sanitized attributes so SF gets corrected category
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Toilet Seat';
+      sanitizedPrimaryAttributes.AI_Type = ''; // Will be populated by Toilet Seat post-processing
+    }
+  }
+
   // ── TOILET TITLE POST-PROCESSING ────────────────────────────────────────────
   // Fix slot confusion: AI often puts bowl shape (Elongated/Round) in Type slot
   // and misses flush type (Dual Flush) and bowl shape entirely.
-  const TOILET_BOWL_SHAPES = ['elongated', 'round', 'round-front', 'round front'];
-  const TOILET_FLUSH_TYPES = ['dual flush', 'dual-flush', 'single flush', 'pressure-assisted', 'pressure assisted', 'gravity'];
 
   if (finalSeoTitleInput.category === 'Toilet') {
     const currentType = (finalSeoTitleInput.type || '').trim();
@@ -10845,6 +10893,11 @@ async function buildFinalResponse(
     }
   }
   // ── END TOILET SEAT TITLE POST-PROCESSING ────────────────────────────────────
+
+  // If reclassified from Toilet → Toilet Seat, sync the detected type back to sanitized attributes
+  if (sanitizedPrimaryAttributes.AI_Product_Category === 'Toilet Seat' && finalSeoTitleInput.type && !sanitizedPrimaryAttributes.AI_Type) {
+    sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
+  }
 
   // Generate final title using corrected data
   const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
