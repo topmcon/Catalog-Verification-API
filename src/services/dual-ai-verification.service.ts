@@ -10777,6 +10777,7 @@ async function buildFinalResponse(
       (rawProduct.Ferguson_Title as string) || '',
       (rawProduct.Product_Title_Web_Retailer as string) || '',
       ((rawProduct as any).Ferguson_Description as string) || '',
+      (rawProduct.Product_Title_Legacy as string) || '', // Include legacy title (V91053 case)
     ].join(' ').toLowerCase();
 
     // Toilet paper holders are "Bathroom Hardware and Accessories", not "Bathroom Cabinet Hardware"
