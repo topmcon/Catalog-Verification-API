@@ -6229,6 +6229,53 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "GRAFF 20-Inch Rain Head Shower Polished Stainless Steel 1.8 GPM - G-8230-SP",
     "seoNotes": "Type = Shower System, Shower Head, Rain Shower Head, Hand Shower, Body Spray, Linear Drain, Shower Arm, Slide Bar, Shower Panel, Shower Column. Width from Ferguson name for sized components (drains, showerheads, arms). Never use Walk-In (bathtub type)."
   },
+  "shower_accessory": {
+    "categoryId": "a01aZ00000dC5DsQAK",
+    "categoryName": "Shower Accessory",
+    "department": "Plumbing & Bath",
+    "family": "Bath",
+    "slots": [
+      {
+        "position": 1,
+        "attribute": "Brand",
+        "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Width (Inches)",
+        "required": false
+      },
+      {
+        "position": 3,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 4,
+        "attribute": "Category",
+        "required": true
+      },
+      {
+        "position": 5,
+        "attribute": "Finish",
+        "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 7,
+        "attribute": "Model Number",
+        "required": false
+      }
+    ],
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "GRAFF 18-Inch Ceiling Shower Arm Shower Accessory Brushed Brass - G-8546-BB",
+    "seoNotes": "Type = Shower Arm, Ceiling Shower Arm, Wall Shower Arm, Slide Bar, Hand Shower Holder, Linear Drain, Shower Door Handle, Transfer Handle, Valve Extension Kit. Width from Ferguson name. GPM for hand shower kits."
+  },
   "shower_faucet": {
     "categoryId": "a01aZ00000dC5DtQAK",
     "categoryName": "Shower Faucet",
@@ -6315,7 +6362,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Type} {Power (kW)} {Category} {Finish} {Model Number}",
     "exampleTitle": "MR. STEAM Steam Generator 24 kW Steam Shower Stainless Steel - MX5EC1",
-    "seoNotes": "Type = Steam Generator, Complete System, Steam Head, Controller. Power (kW) determines room size coverage."
+    "seoNotes": "Type = Steam Generator, Complete System, Steam Head, Control Panel. Power (kW) determines room size coverage."
   },
   "toilet": {
     "categoryId": "a01aZ00000dC5DyQAK",

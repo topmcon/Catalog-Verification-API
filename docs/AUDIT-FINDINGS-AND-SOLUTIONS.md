@@ -53,6 +53,11 @@
 | Web Retailer specs only captured via AI extraction | Add direct extraction function for Web_Retailer_Specs | (pending) | #037 |
 | Specification_Table HTML not parsed independently | Parse with 3 regex patterns (dt/strong, tr/td, plain text) | (pending) | #037 |
 | Hardcoded merge priority regardless of department | Department-aware: Appliances=Web Retailer priority, Non-Appliances=Ferguson priority | (pending) | #037 |
+| Shower products mistyped as Accessory catch-all | Expand hierarchy + reclassification logic using existing SF IDs | (pending) | #039 |
+| Shower Faucet conflates Type and Function | Type=Trim Kit/Complete System, Function=Thermostatic/Pressure Balance | (pending) | #039 |
+| Shower Accessory had no type mapping or title schema | Add 14-type mapping + title schema using existing SF IDs | (pending) | #039 |
+| Steam Shower Controller not a valid SF type | Map to Control Panel (existing SF ID a1jaZ000001lF4xQAE) | (pending) | #039 |
+| Rough-In Valve miscategorized as Shower Faucet | Add section 1b detection for rough-in patterns | (pending) | #039 |
 
 ---
 
@@ -4492,6 +4497,56 @@ node scripts/analyze-attribute-catalog.js --category "Refrigerator"
 # Custom thresholds:
 node scripts/analyze-attribute-catalog.js --threshold 20 --promotion-threshold 70
 ```
+
+---
+
+## Finding #039: Shower Category/Type Hierarchy Deficiencies
+
+**Date Discovered**: March 18, 2026
+**Severity**: 🔴 HIGH — 65% of shower products had incorrect type/category
+**Status**: ✅ FIXED
+
+### Symptom
+62 shower product verifications revealed systemic issues:
+- 34% typed as generic "Accessory" catch-all (no specific types defined)
+- "Thermostatic" used as Type instead of Function
+- Steam generators typed "Accessory" instead of "Steam Generator"
+- Rough-In Valve body miscategorized as "Shower Faucet"
+- No distinction between Rain Head, Showerhead, Handheld
+- Shower Accessory category had zero type mapping and no title schema
+
+### Root Cause
+1. **Missing hierarchy**: Shower Accessory had no entry in `category-type-mapping.json`
+2. **Type/Function conflation**: Shower Faucet types list mixed product forms (Showerhead, Handheld) with valve technologies (Thermostatic, Pressure Balance)
+3. **No reclassification path**: Products entering as "Shower" or "Shower Faucet" couldn't be routed to "Shower Accessory" or "Rough-In Valve"
+4. **Non-existent SF type used**: "Controller" in Steam Shower detection had no matching SF ID
+
+### Fix Applied
+
+**Configuration Changes**:
+- `category-type-mapping.json`: NEW Shower Accessory entry (14 types), +2 Shower types, +5 Shower Faucet types, +1 Steam Shower type
+- `title-schema-by-category.ts`: NEW Shower Accessory schema, Steam Shower seoNotes fix
+
+**Detection Logic** (`dual-ai-verification.service.ts`):
+- Section 1b: Shower Faucet → Rough-In Valve reclassification
+- Section 1c: Shower/Shower Faucet → Shower Accessory reclassification (arms, drains, handles, bars, holders, extensions)
+- Section 1d: Shower Faucet type refinement (Showerhead→Rain Head, Showerhead→Handheld, Thermostatic→Thermostatic Valve Trim)
+- Section 2d: Updated type names to match SF picklists (Rain Head, Handheld, Trench Drain, Alcove)
+- Section 2g: Controller → Control Panel
+- Section 2h: NEW Shower Accessory dimension + GPM extraction
+- GPM types expanded, Shower Accessory added to sync list
+
+**Key Design Decision**: ALL fixes use existing SF IDs only — zero new Salesforce picklist entries needed.
+
+### Scope
+- **Universal**: Affects ALL shower family products going forward
+- **Categories impacted**: Shower, Shower Faucet, Shower Accessory, Steam Shower, Rough-In Valve
+
+### Related Findings
+- #008 (multi-keyword category conflicts)
+- #013 (Accessory titles too vague)
+- #021 (Accessory type expansion)
+- #022 (Non-SF types in selection lists)
 
 ---
 

@@ -11146,6 +11146,115 @@ async function buildFinalResponse(
     });
   }
 
+  // 1b. SHOWER FAUCET → ROUGH-IN VALVE reclassification
+  //     Products like DELTA R10000-UNWSHF are rough-in valve bodies, not shower faucets.
+  //     Detect from Ferguson keywords and reclassify.
+  if (finalSeoTitleInput.category === 'Shower Faucet' &&
+      (/\brough[\s-]?in\s+valve\b/i.test(showerSourceLower) ||
+       /\bmixing\s+rough[\s-]?in\b/i.test(showerSourceLower) ||
+       /\buniversal\s+mixing\s+rough/i.test(showerSourceLower)) &&
+      !/\btrim\b/i.test(showerSourceLower)) {
+    finalSeoTitleInput.category = 'Rough-In Valve';
+    sanitizedPrimaryAttributes.AI_Product_Category = 'Rough-In Valve';
+    // Derive rough-in type
+    if (/\bthermostatic\b/i.test(showerSourceLower)) {
+      finalSeoTitleInput.type = 'Thermostatic';
+    } else if (/\bpressure\s+balanc/i.test(showerSourceLower)) {
+      finalSeoTitleInput.type = 'Pressure Balance';
+    } else if (/\bdiverter\b/i.test(showerSourceLower)) {
+      finalSeoTitleInput.type = 'Diverter';
+    } else {
+      finalSeoTitleInput.type = 'Thermostatic'; // safe default for mixing valves
+    }
+    logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower Faucet" → "Rough-In Valve"', {
+      sessionId, type: finalSeoTitleInput.type,
+      reason: 'Source data describes a rough-in valve body, not a shower faucet'
+    });
+  }
+
+  // 1c. SHOWER ACCESSORY reclassification
+  //     Products that AI puts in "Shower" or "Shower Faucet" but are really accessories:
+  //     shower arms, linear drains, slide bars, door handles, valve handles, holders, etc.
+  //     Reclassify to "Shower Accessory" with specific type from existing SF types.
+  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Shower Faucet') {
+    const fNameLower = fergusonProductName.toLowerCase();
+    let accessoryType = '';
+
+    // Shower arms (ceiling or wall mounted)
+    if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+        /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+        /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
+      accessoryType = 'Accessory';
+    }
+    // Linear/shower drains → Trench Drain (existing SF type)
+    else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
+             /\btrench\s*drain\b/i.test(fNameLower)) {
+      accessoryType = 'Trench Drain';
+    }
+    // Shower door handles → Shower Door
+    else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
+      accessoryType = 'Shower Door';
+    }
+    // Slide bars / slide bar kits → Shower Rod (existing SF type)
+    else if (/\bslide\s*bar\b/i.test(fNameLower) || (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower))) {
+      accessoryType = 'Shower Rod';
+    }
+    // Transfer valve handles → Handle (existing SF type)
+    else if (/\btransfer\s+(?:valve\s+)?handle\b/i.test(fNameLower) || /\bshower\s+transfer\s+handle\b/i.test(fNameLower)) {
+      accessoryType = 'Handle';
+    }
+    // Hand shower holder / outlet with volume control
+    else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
+             /\bhandshower\s+(?:set|outlet)\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower)) {
+      accessoryType = 'Accessory';
+    }
+    // Valve extension kits → Accessory
+    else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
+      accessoryType = 'Accessory';
+    }
+
+    // Only reclassify if we found an accessory pattern
+    if (accessoryType) {
+      const oldCategory = finalSeoTitleInput.category;
+      finalSeoTitleInput.category = 'Shower Accessory';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+      finalSeoTitleInput.type = accessoryType;
+      sanitizedPrimaryAttributes.AI_Type = accessoryType;
+      logger.warn(`🚿 CATEGORY RECLASSIFICATION: "${oldCategory}" → "Shower Accessory"`, {
+        sessionId, type: accessoryType,
+        reason: 'Source data describes a shower accessory component',
+        fergusonName: fergusonProductName.substring(0, 80)
+      });
+    }
+  }
+
+  // 1d. SHOWER FAUCET TYPE REFINEMENT
+  //     When AI types a Shower Faucet product as "Showerhead" but Ferguson data says
+  //     "Rain" → refine to "Rain Head". Also detect hand showers typed as showerheads.
+  if (finalSeoTitleInput.category === 'Shower Faucet') {
+    const fNameLower = fergusonProductName.toLowerCase();
+    const currentType = (finalSeoTitleInput.type || '').toLowerCase();
+
+    // Showerhead → Rain Head if Ferguson says "rain"
+    if (currentType === 'showerhead' && (/\brain\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(showerSourceLower))) {
+      finalSeoTitleInput.type = 'Rain Head';
+      sanitizedPrimaryAttributes.AI_Type = 'Rain Head';
+      logger.info('🚿 Shower Faucet: refined Showerhead → Rain Head from Ferguson data', { sessionId });
+    }
+    // Showerhead → Handheld if Ferguson says "hand shower" / "handshower"
+    else if (currentType === 'showerhead' && (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower))) {
+      finalSeoTitleInput.type = 'Handheld';
+      sanitizedPrimaryAttributes.AI_Type = 'Handheld';
+      logger.info('🚿 Shower Faucet: refined Showerhead → Handheld from Ferguson data', { sessionId });
+    }
+    // Thermostatic + "valve trim" in Ferguson → Thermostatic Valve Trim
+    else if (currentType === 'thermostatic' && /\bvalve\s+trim\b/i.test(fNameLower)) {
+      finalSeoTitleInput.type = 'Thermostatic Valve Trim';
+      sanitizedPrimaryAttributes.AI_Type = 'Thermostatic Valve Trim';
+      logger.info('🚿 Shower Faucet: refined Thermostatic → Thermostatic Valve Trim', { sessionId });
+    }
+  }
+
   // ── SHOWER RECLASSIFICATION CHAIN ──────────────────────────────────────────
   // AI dumps many products into "Shower" that belong in more specific categories.
   // Rules ordered from most specific to least specific, like the Toilet chain.
@@ -11163,7 +11272,7 @@ async function buildFinalResponse(
       if (/\bgenerator\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Generator';
       } else if (/\bcontrol/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Controller';
+        finalSeoTitleInput.type = 'Control Panel';
       } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Head';
       } else {
@@ -11245,9 +11354,12 @@ async function buildFinalResponse(
         const fNameLower = fergusonProductName.toLowerCase();
         let derivedType = '';
 
-        // --- Shower door HANDLES / KNOBS (must check before shower door) ---
+        // --- Shower door HANDLES / KNOBS → reclassify to Shower Accessory ---
         if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+(?:handle|knob)\b/i.test(fNameLower)) {
-          derivedType = 'Shower Door Handle';
+          // Should have been caught by 1c, but just in case
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Shower Door';
         }
         // --- Shower enclosures / doors (keep structural types) ---
         else if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
@@ -11261,10 +11373,10 @@ async function buildFinalResponse(
             derivedType = 'Shower Door';
           }
         }
-        // --- Shower base / pan ---
+        // --- Shower base / pan → Alcove (most common shower base type) ---
         else if (/\bshower\s+base\b/i.test(fNameLower) || /\bshower\s+pan\b/i.test(fNameLower) ||
                  /\bshower\s+receptor\b/i.test(fNameLower)) {
-          derivedType = 'Shower Base';
+          derivedType = 'Alcove';
         }
         // --- Shower systems (exposed, complete) ---
         else if (/\bshower\s+system\b/i.test(fNameLower) || /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower)) {
@@ -11278,14 +11390,17 @@ async function buildFinalResponse(
         else if (/\bshower\s+column\b/i.test(fNameLower)) {
           derivedType = 'Shower Column';
         }
-        // --- Linear drain ---
+        // --- Linear drain (should be caught by 1c, but fallback) ---
         else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower)) {
-          derivedType = 'Linear Drain';
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Trench Drain';
         }
-        // --- Rain shower head ---
+        // --- Rain shower head → Rain Head (SF picklist type) ---
         else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
-                 (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower))) {
-          derivedType = 'Rain Shower Head';
+                 (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower)) ||
+                 /\brain\s+shower\b/i.test(fNameLower)) {
+          derivedType = 'Rain Head';
         }
         // --- Body spray ---
         else if (/\bbody\s*spray\b/i.test(fNameLower) || /\bbodyspray\b/i.test(fNameLower)) {
@@ -11293,39 +11408,52 @@ async function buildFinalResponse(
         }
         // --- Hand shower ---
         else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
-          derivedType = 'Hand Shower';
+          derivedType = 'Handheld';
         }
-        // --- Slide bar ---
+        // --- Slide bar (should be caught by 1c, but fallback) ---
         else if (/\bslide\s*bar\b/i.test(fNameLower)) {
-          derivedType = 'Slide Bar';
+          // Reclassify to Shower Accessory since slide bars are accessories
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Shower Rod';
         }
-        // --- Shower arm ---
+        // --- Shower arm (should be caught by 1c, but fallback) ---
         else if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
                  /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
-          derivedType = 'Shower Arm';
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Accessory';
         }
         // --- Generic showerhead ---
         else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
           derivedType = 'Showerhead';
         }
-        // --- Slide bar KIT (hand shower kit with slide bar) ---
+        // --- Slide bar KIT (hand shower kit with slide bar) → Shower Accessory ---
         else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower)) {
-          derivedType = 'Slide Bar';
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Shower Rod';
         }
         // --- Fallback: check broader source texts for additional matches ---
         else {
           if (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower)) {
-            derivedType = 'Shower Arm';
+            finalSeoTitleInput.category = 'Shower Accessory';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+            derivedType = 'Accessory';
           } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
-            derivedType = 'Hand Shower';
+            derivedType = 'Handheld';
           } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
             derivedType = 'Showerhead';
           } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
-            derivedType = 'Rain Shower Head';
+            derivedType = 'Rain Head';
           } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
-            derivedType = 'Linear Drain';
+            finalSeoTitleInput.category = 'Shower Accessory';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+            derivedType = 'Trench Drain';
           } else if (/\bslide\s*bar\b/i.test(showerSourceLower)) {
-            derivedType = 'Slide Bar';
+            finalSeoTitleInput.category = 'Shower Accessory';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+            derivedType = 'Shower Rod';
           } else if (/\bshower\s+system\b/i.test(showerSourceLower)) {
             derivedType = 'Shower System';
           }
@@ -11407,7 +11535,7 @@ async function buildFinalResponse(
 
       // 2f. SHOWER GPM EXTRACTION
       //     Extract GPM from Ferguson data for showerheads, hand showers, body sprays
-      const gpmTypes = ['showerhead', 'shower head', 'rain shower head', 'hand shower', 'body spray', 'shower system', 'shower panel'];
+      const gpmTypes = ['showerhead', 'shower head', 'rain head', 'handheld', 'hand shower', 'body spray', 'shower system', 'shower panel'];
       if (gpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
           (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
         const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
@@ -11432,11 +11560,11 @@ async function buildFinalResponse(
     }
     // Derive type if Walk-In or missing
     const steamTypeLower = (finalSeoTitleInput.type || '').toLowerCase();
-    if (steamTypeLower === 'walk-in' || steamTypeLower === '' || steamTypeLower === 'accessory') {
+    if (steamTypeLower === 'walk-in' || steamTypeLower === '' || steamTypeLower === 'accessory' || steamTypeLower === 'controller') {
       if (/\bgenerator\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Generator';
       } else if (/\bcontrol/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Controller';
+        finalSeoTitleInput.type = 'Control Panel';
       } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Head';
       } else {
@@ -11447,6 +11575,45 @@ async function buildFinalResponse(
       });
     }
   }
+
+  // 2h. SHOWER ACCESSORY DIMENSION + GPM EXTRACTION
+  //     Shower accessories use the same schema as Shower (Width + Type + GPM).
+  //     Extract dimensions from Ferguson data for arms, drains, etc.
+  if (finalSeoTitleInput.category === 'Shower Accessory') {
+    // Dimension extraction
+    let accessoryDim: number | null = null;
+    const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
+    if (dimMatch) {
+      const dim = parseFloat(dimMatch[1]);
+      if (dim >= 1 && dim <= 60) {
+        accessoryDim = dim;
+      }
+    }
+    if (!accessoryDim) {
+      const srcMatch = showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
+      if (srcMatch) {
+        const dim = parseFloat(srcMatch[1]);
+        if (dim >= 1 && dim <= 60) {
+          accessoryDim = dim;
+        }
+      }
+    }
+    if (accessoryDim) {
+      finalSeoTitleInput.width = String(accessoryDim);
+      sanitizedPrimaryAttributes.AI_Width = String(accessoryDim);
+    }
+
+    // GPM extraction for hand shower kits, slide bar kits
+    const accessoryGpmTypes = ['handheld', 'shower rod', 'accessory'];
+    if (accessoryGpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
+        (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
+      const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
+      if (gpmMatch) {
+        finalSeoTitleInput.gpm = gpmMatch[1];
+      }
+    }
+  }
+
   // ── END SHOWER TITLE POST-PROCESSING ────────────────────────────────────────
 
   // ── BATHTUB DIMENSION OVERRIDE ──────────────────────────────────────────────
@@ -11861,7 +12028,7 @@ async function buildFinalResponse(
   // Sync Shower/Steam/Tub/Rough-In post-processing changes back to sanitized attributes
   // Post-processing modifies finalSeoTitleInput (used for title gen), but the webhook
   // response is built from sanitizedPrimaryAttributes. Must keep them in sync.
-  const showerSyncCategories = ['Shower', 'Steam Shower', 'Tub Faucet', 'Rough-In Valve'];
+  const showerSyncCategories = ['Shower', 'Shower Accessory', 'Steam Shower', 'Tub Faucet', 'Rough-In Valve'];
   if (showerSyncCategories.includes(finalSeoTitleInput.category || '')) {
     if (finalSeoTitleInput.type) {
       sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;

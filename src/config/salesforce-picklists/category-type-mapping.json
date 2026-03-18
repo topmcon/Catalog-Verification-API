@@ -3245,6 +3245,31 @@
           "primary_filter": true
         },
         {
+          "type_name": "Thermostatic Valve Trim",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trim",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Body Spray",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Diverter",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Volume Control",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -3645,12 +3670,102 @@
           "primary_filter": true
         },
         {
+          "type_name": "Shower Door",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shower Panel",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
         }
       ],
       "styles_apply": true
+    },
+    {
+      "department_name": "Plumbing & Bath",
+      "family_name": "Showers",
+      "category_name": "Shower Accessory",
+      "category_id": "a01aZ00000dC5DsQAK",
+      "filter_label": "Shower Accessory Type",
+      "logic": "Component type for shower accessories (arms, drains, handles, slide bars)",
+      "types": [
+        {
+          "type_name": "Showerhead",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rain Head",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handheld",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shower Rod",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handle",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shower Door",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trench Drain",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Floor Drain",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Body Spray",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Diverter",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Volume Control",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Transfer",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trim",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
+        }
+      ]
     },
     {
       "department_name": "Plumbing & Bath",
@@ -3672,6 +3787,11 @@
         },
         {
           "type_name": "Steam Head",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Control Panel",
           "status": "existing",
           "primary_filter": true
         },
