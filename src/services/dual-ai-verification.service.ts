@@ -11218,6 +11218,48 @@ async function buildFinalResponse(
     }
   }
 
+  // ── TUB FAUCET TYPE/MOUNT SPLITTING ───────────────────────────────────────
+  // AI and picklist both return combined types like "Floor Mounted Tub Filler".
+  // The title schema has separate {Type} and {Mount} slots — split them to avoid
+  // titles like "ROHL Floor Mounted Tub Filler Floor Mounted Tub Faucet".
+  if (finalSeoTitleInput.category === 'Tub Faucet') {
+    const tubType = (finalSeoTitleInput.type || '').toLowerCase();
+    if (/floor\s+mounted?\s+tub\s+filler/i.test(tubType)) {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Floor Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    } else if (/wall\s+mounted?\s+tub\s+filler/i.test(tubType)) {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Wall Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    } else if (/deck\s+mounted?\s+tub\s+filler/i.test(tubType)) {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Deck Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    } else if (tubType === 'wall mount' || tubType === 'wall mounted') {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Wall Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    } else if (tubType === 'floor mount' || tubType === 'floor mounted') {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Floor Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    } else if (tubType === 'deck mount' || tubType === 'deck mounted') {
+      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.mountType = 'Deck Mounted';
+      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    }
+    if (finalSeoTitleInput.type !== (sanitizedPrimaryAttributes.AI_Type || '').replace(/^(Floor|Wall|Deck)\s+Mounted?\s+/i, '')) {
+      logger.info('🛁 Tub Faucet: split combined type into Type + Mount', {
+        sessionId,
+        originalType: sanitizedPrimaryAttributes.AI_Type,
+        newType: finalSeoTitleInput.type,
+        mount: finalSeoTitleInput.mountType
+      });
+    }
+  }
+  // ── END TUB FAUCET TYPE/MOUNT SPLITTING ───────────────────────────────────
+
   // Generate final title using corrected data
   let finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
   
