@@ -1004,6 +1004,20 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         }
         continue;
       }
+
+      // Skip redundant Category when Type already contains the category keyword "Shower"
+      // Examples: Type="Shower Arm" + Category="Shower" → just "Shower Arm"
+      //           Type="Showerhead" + Category="Shower Faucet" → just "Showerhead"
+      //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
+      // Non-matches kept: Type="Thermostatic" + Category="Shower Faucet" → "Thermostatic Shower Faucet"
+      if (typeVal.includes('shower') && formattedValue.toLowerCase().includes('shower')) {
+        logger.info('Skipping redundant Category slot - Type already contains Shower keyword', {
+          type: input.type,
+          category: formattedValue,
+          reason: 'Type already includes Shower keyword'
+        });
+        continue;
+      }
     }
 
     // Skip if value already exists in parts (prevents duplicates like "Undercounter Undercounter")
