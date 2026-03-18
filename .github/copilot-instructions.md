@@ -130,6 +130,7 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    | 5 | Title Generation | Sample data validation | 🔴 CRITICAL |
    | 6 | Picklist Fields | Field name correctness | 🟡 WARNING |
    | 7 | Hardcoded Lists | Sync with JSON picklists | 🟡 WARNING |
+   | 8 | Field Mapping Reference | FIELD_ALIASES, extractors, output fields in sync with docs/RAW-FIELD-MAPPING-REFERENCE.md | 🟡 WARNING |
    
    **What this PREVENTS** (lessons learned from Feb 25 2026 title system failures):
    - ✅ Regex typos (e.g., `/s+/g` vs `/\s+/g`) - **Check #4 catches**
@@ -158,6 +159,9 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    
    # Hardcoded lists sync check
    node scripts/regenerate-hardcoded-lists.js --check
+   
+   # Field mapping reference sync check
+   node scripts/audit-field-mapping-reference.js --check
    ```
    
    **If validation fails:**

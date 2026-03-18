@@ -108,6 +108,13 @@ run_check "Hardcoded Lists Sync Check" \
   "false"  # Non-critical
 
 # ============================================================================
+# CHECK 8: Field Mapping Reference Sync
+# ============================================================================
+run_check "Field Mapping Reference Sync" \
+  "node scripts/audit-field-mapping-reference.js --check" \
+  "false"  # Non-critical — doc out of sync is a warning, not a blocker
+
+# ============================================================================
 # FINAL SUMMARY
 # ============================================================================
 echo ""

@@ -100,6 +100,7 @@ import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
 import { researchAttestationService } from './research-attestation.service';
 import { pendingCreationRequestService } from './pending-creation-request.service';
+import { logAttributeCatalog, AttributeSourceMap } from './attribute-catalog.service';
 import { FIELD_STATUS_CODES, ResearchAttestation } from '../types/research-attestation.types';
 
 // Initialize OpenAI client
@@ -7633,14 +7634,10 @@ function getUnusedFergusonAttributes(
     return false;
   };
 
-  // Attributes we specifically want to include in HTML (valuable metadata)
-  const valuableAttributes = new Set([
-    'collection', 'theme', 'country of origin', 'made in america', 'location rating',
-    'manufacturer warranty', 'commercial warranty', 'certifications', 'ul', 'etl', 
-    'energy star', 'ada compliant', 'bulb base', 'bulb type', 'light direction',
-    'reversible mounting', 'approved for commercial use', 'watts per bulb',
-    'fixture shape', 'glass features', 'shade color', 'shade shape', 'power source',
-    'cutout depth', 'cutout height', 'cutout width', 'installation type'
+  // Only skip primary dimension fields that are already captured in dedicated output fields
+  const skipPrimaryFields = new Set([
+    'height', 'width', 'depth', 'weight', 'product weight', 'nominal width', 'nominal height',
+    'overall height', 'overall width', 'overall depth', 'shipping weight'
   ]);
 
   for (const attr of rawProduct.Ferguson_Attributes) {
@@ -7650,26 +7647,249 @@ function getUnusedFergusonAttributes(
     // Skip if already used in Top Filter
     if (isUsedInTopFilters(attr.name)) continue;
     
-    // Skip dimensions we already capture in Primary Attributes (Height, Width, Depth, Weight)
-    const skipPrimary = ['height', 'width', 'depth', 'product weight', 'nominal width', 'nominal height'];
-    if (skipPrimary.some(s => attr.name.toLowerCase().includes(s))) continue;
-    
-    // Include if it's a valuable attribute OR if we want to capture all unused
+    // Skip dimension/weight fields already captured in Primary Attributes
     const normalizedName = attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-    if (valuableAttributes.has(normalizedName) || 
-        attr.name.toLowerCase().includes('warranty') ||
-        attr.name.toLowerCase().includes('collection') ||
-        attr.name.toLowerCase().includes('country') ||
-        attr.name.toLowerCase().includes('location') ||
-        attr.name.toLowerCase().includes('made in') ||
-        attr.name.toLowerCase().includes('certified') ||
-        attr.name.toLowerCase().includes('rating') ||
-        attr.name.toLowerCase().includes('theme')) {
-      unusedAttrs[attr.name] = attr.value;
-    }
+    if (skipPrimaryFields.has(normalizedName)) continue;
+    
+    // Include ALL remaining attributes — no allowlist restriction
+    unusedAttrs[attr.name] = attr.value;
   }
 
   return unusedAttrs;
+}
+
+/**
+ * Extract ALL attributes from Ferguson_Raw_Data nested structures (specifications + feature_groups)
+ * that are not already captured in primary attributes, top 15, or Ferguson_Attributes flat array.
+ * These get merged into the HTML additional attributes table.
+ */
+function extractNestedFergusonAttributes(
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes
+): Record<string, string> {
+  const nestedAttrs: Record<string, string> = {};
+  const frd = (rawProduct as any).Ferguson_Raw_Data;
+  
+  if (!frd?.product) return nestedAttrs;
+  
+  const p = frd.product;
+  const specs = p.specifications || {};
+  const featureGroups: any[] = p.feature_groups || [];
+
+  // Build a set of attribute names already captured in Ferguson_Attributes flat array
+  // so we don't duplicate them
+  const flatAttrNames = new Set<string>();
+  if (rawProduct.Ferguson_Attributes && Array.isArray(rawProduct.Ferguson_Attributes)) {
+    for (const attr of rawProduct.Ferguson_Attributes) {
+      if (attr.name) {
+        flatAttrNames.add(attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim());
+      }
+    }
+  }
+  
+  // Skip primary dimension/identification fields already captured in dedicated output fields
+  const skipFields = new Set([
+    'height', 'width', 'depth', 'weight', 'product weight', 'nominal width', 'nominal height',
+    'overall height', 'overall width', 'overall depth', 'shipping weight', 'length',
+    'extension', 'diameter', 'brand', 'model number', 'name', 'price', 'description',
+    'url', 'image', 'upc', 'gtin'
+  ]);
+  
+  // Helper to check if attribute is already in Top 15
+  const isUsedInTopFilters = (attrName: string): boolean => {
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    for (const [key, value] of Object.entries(topFilterAttributes)) {
+      if (value && value !== '' && value !== 'Not Found') {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+  
+  // Helper: format spec key to readable name (snake_case → Title Case)
+  const formatSpecKey = (key: string): string => {
+    return key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+  };
+  
+  // --- Extract from specifications object ---
+  for (const [specKey, specObj] of Object.entries(specs)) {
+    if (!specObj || typeof specObj !== 'object') continue;
+    const specValue = (specObj as any).value;
+    if (!specValue || String(specValue).trim() === '') continue;
+    
+    const normalizedKey = specKey.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/_/g, ' ').trim();
+    
+    // Skip if it's a primary field, already in flat array, or used in top 15
+    if (skipFields.has(normalizedKey)) continue;
+    if (flatAttrNames.has(normalizedKey)) continue;
+    if (isUsedInTopFilters(specKey.replace(/_/g, ' '))) continue;
+    
+    const units = (specObj as any).units ? ` ${(specObj as any).units}` : '';
+    const displayName = formatSpecKey(specKey);
+    nestedAttrs[displayName] = `${String(specValue).trim()}${units}`.trim();
+  }
+  
+  // --- Extract from feature_groups ---
+  for (const group of featureGroups) {
+    if (!group.features || !Array.isArray(group.features)) continue;
+    for (const feat of group.features) {
+      if (!feat.name || !feat.value || String(feat.value).trim() === '') continue;
+      
+      const normalizedName = feat.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+      
+      // Skip if primary field, already in flat array, or used in top 15
+      if (skipFields.has(normalizedName)) continue;
+      if (flatAttrNames.has(normalizedName)) continue;
+      if (isUsedInTopFilters(feat.name)) continue;
+      
+      // Don't overwrite if already extracted from specifications
+      if (!nestedAttrs[feat.name]) {
+        nestedAttrs[feat.name] = String(feat.value).trim();
+      }
+    }
+  }
+  
+  return nestedAttrs;
+}
+
+/**
+ * Get ALL unused Web Retailer attributes that are not already captured
+ * in primary attributes or top 15 filter attributes.
+ * Mirrors getUnusedFergusonAttributes but for Web_Retailer_Specs.
+ */
+function getUnusedWebRetailerAttributes(
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes
+): Record<string, string> {
+  const unusedAttrs: Record<string, string> = {};
+  
+  if (!rawProduct.Web_Retailer_Specs || !Array.isArray(rawProduct.Web_Retailer_Specs)) {
+    return unusedAttrs;
+  }
+
+  // Helper to check if attribute is used in Top Filter Attributes
+  const isUsedInTopFilters = (attrName: string): boolean => {
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    
+    for (const [key, value] of Object.entries(topFilterAttributes)) {
+      if (value && value !== '' && value !== 'Not Found') {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        
+        if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  // Skip primary dimension fields already captured in dedicated output fields
+  const skipPrimaryFields = new Set([
+    'height', 'width', 'depth', 'weight', 'product weight', 'nominal width', 'nominal height',
+    'overall height', 'overall width', 'overall depth', 'shipping weight'
+  ]);
+
+  for (const attr of rawProduct.Web_Retailer_Specs) {
+    if (!attr.value || attr.value.trim() === '') continue;
+    if (isUsedInTopFilters(attr.name)) continue;
+    
+    const normalizedName = attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    if (skipPrimaryFields.has(normalizedName)) continue;
+    
+    // Include ALL remaining attributes
+    unusedAttrs[attr.name] = attr.value;
+  }
+
+  return unusedAttrs;
+}
+
+/**
+ * Extract key-value pairs from the Specification_Table HTML.
+ * This HTML table from Salesforce contains manufacturer specs that may not
+ * appear in Web_Retailer_Specs or Ferguson_Attributes arrays.
+ * Returns attributes not already captured in primary or top 15.
+ */
+function extractSpecificationTableAttributes(
+  rawProduct: SalesforceIncomingProduct,
+  topFilterAttributes: TopFilterAttributes
+): Record<string, string> {
+  const specAttrs: Record<string, string> = {};
+  
+  const htmlTable = rawProduct.Specification_Table;
+  if (!htmlTable || htmlTable.trim() === '') return specAttrs;
+  
+  // Build set of already-known attribute names from Web_Retailer_Specs + Ferguson_Attributes
+  const knownAttrNames = new Set<string>();
+  if (rawProduct.Web_Retailer_Specs && Array.isArray(rawProduct.Web_Retailer_Specs)) {
+    for (const attr of rawProduct.Web_Retailer_Specs) {
+      if (attr.name) knownAttrNames.add(attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim());
+    }
+  }
+  if (rawProduct.Ferguson_Attributes && Array.isArray(rawProduct.Ferguson_Attributes)) {
+    for (const attr of rawProduct.Ferguson_Attributes) {
+      if (attr.name) knownAttrNames.add(attr.name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim());
+    }
+  }
+  
+  const skipFields = new Set([
+    'height', 'width', 'depth', 'weight', 'product weight', 'nominal width', 'nominal height',
+    'overall height', 'overall width', 'overall depth', 'shipping weight', 'brand', 'model number',
+    'upc', 'gtin', 'price', 'msrp'
+  ]);
+  
+  const isUsedInTopFilters = (attrName: string): boolean => {
+    const normalizedSearch = attrName.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    for (const [key, value] of Object.entries(topFilterAttributes)) {
+      if (value && value !== '' && value !== 'Not Found') {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+        if (normalizedKey.includes(normalizedSearch) || normalizedSearch.includes(normalizedKey)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+  
+  const addSpec = (key: string, value: string): void => {
+    if (!key || !value) return;
+    const normalizedKey = key.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    if (skipFields.has(normalizedKey)) return;
+    if (knownAttrNames.has(normalizedKey)) return;
+    if (isUsedInTopFilters(key)) return;
+    if (!specAttrs[key]) {
+      specAttrs[key] = value;
+    }
+  };
+  
+  try {
+    // Pattern 1: <dt><strong>Label:</strong> Value</dt>
+    const dtPattern = /<dt>\s*<strong>([^<]+):<\/strong>\s*([^<]*)<\/dt>/gi;
+    let match;
+    while ((match = dtPattern.exec(htmlTable)) !== null) {
+      addSpec(match[1].trim(), match[2].trim());
+    }
+    
+    // Pattern 2: <tr><td>Label</td><td>Value</td></tr>
+    const trPattern = /<tr[^>]*>\s*<td[^>]*>([^<]+)<\/td>\s*<td[^>]*>([^<]+)<\/td>\s*<\/tr>/gi;
+    while ((match = trPattern.exec(htmlTable)) !== null) {
+      const key = match[1].replace(/<[^>]+>/g, '').trim();
+      const value = match[2].replace(/<[^>]+>/g, '').trim();
+      addSpec(key, value);
+    }
+    
+    // Pattern 3: Label: Value (plain text with colon separator)
+    const plainPattern = /(?:^|>)([A-Z][^:<>\n]{2,30}):\s*([^<>\n]{1,100})(?:<|$)/gim;
+    while ((match = plainPattern.exec(htmlTable)) !== null) {
+      addSpec(match[1].trim(), match[2].trim());
+    }
+  } catch {
+    // If parsing fails, return what we have so far
+  }
+  
+  return specAttrs;
 }
 
 async function buildFinalResponse(
@@ -10468,27 +10688,97 @@ async function buildFinalResponse(
     });
   }
   
-  // Get unused Ferguson attributes that should be included in Additional HTML
-  // These include: Collection, Theme, Country, Location Rating, Warranties, etc.
+  // Get ALL unused attributes from both data sources (no allowlist — everything not in primary/top15)
   const unusedFergusonAttrs = getUnusedFergusonAttributes(rawProduct, topFilterAttributes);
+  const unusedWebRetailerAttrs = getUnusedWebRetailerAttributes(rawProduct, topFilterAttributes);
   
-  // Merge AI's additional attributes with unused Ferguson attributes
-  // Ferguson attributes take precedence as they are authoritative data
-  const mergedAdditionalAttributes = {
-    ...consensus.agreedAdditionalAttributes,
-    ...unusedFergusonAttrs  // Ferguson data comes last to override AI if both exist
-  };
+  // Extract ALL nested Ferguson_Raw_Data specs/features not already in flat array or top 15
+  const nestedFergusonAttrs = extractNestedFergusonAttributes(rawProduct, topFilterAttributes);
+  
+  // Extract specs from Specification_Table HTML not already in other sources
+  const specTableAttrs = extractSpecificationTableAttributes(rawProduct, topFilterAttributes);
+  
+  // Merge all five sources — department-aware priority (same logic as getFieldByPriority)
+  // Appliances: Web Retailer > Ferguson (web retail is source of record)
+  // Non-Appliances: Ferguson > Web Retailer (Ferguson is more authoritative)
+  // AI sits in the middle; later spread overrides earlier for duplicate keys
+  const isAppliance = isAppliancesCategory(determinedCategory);
+  
+  const mergedAdditionalAttributes = isAppliance
+    ? {
+        // APPLIANCES: Ferguson base, Web Retailer overrides
+        ...nestedFergusonAttrs,                     // Nested Ferguson specs/features (base)
+        ...unusedFergusonAttrs,                      // Flat Ferguson attributes
+        ...consensus.agreedAdditionalAttributes,    // AI-extracted additional attributes
+        ...specTableAttrs,                          // Specification_Table HTML
+        ...unusedWebRetailerAttrs                   // Web Retailer specs (most authoritative for appliances)
+      }
+    : {
+        // NON-APPLIANCES: Web Retailer base, Ferguson overrides
+        ...specTableAttrs,                          // Specification_Table HTML (base)
+        ...unusedWebRetailerAttrs,                  // Web Retailer specs
+        ...consensus.agreedAdditionalAttributes,    // AI-extracted additional attributes
+        ...nestedFergusonAttrs,                     // Nested Ferguson specs/features
+        ...unusedFergusonAttrs                      // Flat Ferguson attributes (most authoritative for non-appliances)
+      };
   
   const additionalHtml = generateAttributeTable(mergedAdditionalAttributes);
   
-  // Log what Ferguson attributes were added to HTML
-  if (Object.keys(unusedFergusonAttrs).length > 0) {
-    logger.info('Ferguson attributes added to Additional_Attributes_HTML', {
-      count: Object.keys(unusedFergusonAttrs).length,
-      attributes: Object.keys(unusedFergusonAttrs)
+  // Log what raw data attributes were added to HTML
+  const fergusonFlatCount = Object.keys(unusedFergusonAttrs).length;
+  const fergusonNestedCount = Object.keys(nestedFergusonAttrs).length;
+  const webRetailerCount = Object.keys(unusedWebRetailerAttrs).length;
+  const specTableCount = Object.keys(specTableAttrs).length;
+  if (fergusonFlatCount > 0 || fergusonNestedCount > 0 || webRetailerCount > 0 || specTableCount > 0) {
+    logger.info('Raw data attributes added to Additional_Attributes_HTML', {
+      specTableCount,
+      specTableAttributes: Object.keys(specTableAttrs),
+      webRetailerCount,
+      webRetailerAttributes: Object.keys(unusedWebRetailerAttrs),
+      fergusonFlatCount,
+      fergusonFlatAttributes: Object.keys(unusedFergusonAttrs),
+      fergusonNestedCount,
+      fergusonNestedAttributes: Object.keys(nestedFergusonAttrs),
+      totalMerged: Object.keys(mergedAdditionalAttributes).length
     });
   }
   
+  // --- Attribute Catalog Logging (fire-and-forget) ---
+  // Log all found/not-found attributes per category/type for trend analysis
+  const top15SchemaAttrNames = categorySchema?.top15FilterAttributes?.map(
+    (attr: any) => typeof attr === 'string' ? attr : (attr.name || attr.fieldKey || '')
+  ).filter(Boolean) || [];
+  
+  const hasFergusonData = !!(rawProduct.Ferguson_Attributes?.length || (rawProduct as any).Ferguson_Raw_Data?.product);
+  const hasWebRetailerData = !!(rawProduct.Web_Retailer_Specs?.length);
+  const hasSpecTable = !!(rawProduct.Specification_Table && rawProduct.Specification_Table.trim() !== '');
+  const hasNestedFerguson = !!(rawProduct as any).Ferguson_Raw_Data?.product?.specifications || !!(rawProduct as any).Ferguson_Raw_Data?.product?.feature_groups;
+  
+  const catalogSourceMap: AttributeSourceMap = {
+    availableSources: {
+      ferguson: hasFergusonData,
+      webRetailer: hasWebRetailerData,
+      specTable: hasSpecTable,
+      nestedFerguson: hasNestedFerguson,
+      ai: true  // AI is always available
+    },
+    fergusonAttrs: unusedFergusonAttrs,
+    webRetailerAttrs: unusedWebRetailerAttrs,
+    specTableAttrs,
+    nestedFergusonAttrs,
+    aiAttrs: consensus.agreedAdditionalAttributes || {}
+  };
+  
+  // Fire-and-forget — never blocks verification
+  void logAttributeCatalog(
+    determinedCategory,
+    determinedType || '',
+    top15SchemaAttrNames,
+    [...PRIMARY_ATTRIBUTE_FIELD_KEYS],
+    mergedAdditionalAttributes,
+    catalogSourceMap
+  );
+
   const priceAnalysis = buildPriceAnalysis(rawProduct);
   const status = determineStatus(consensus, openaiResult, xaiResult);
   const corrections: CorrectionRecord[] = [...openaiResult.corrections, ...xaiResult.corrections, ...textCorrections];

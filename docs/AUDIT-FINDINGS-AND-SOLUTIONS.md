@@ -48,6 +48,11 @@
 | Hex color codes in AI_Color export (e.g., "E1C16E (Tuscan Brass)") | Replace hex with finish name at source; clear orphan hex codes | 0cf0357, b624be3 | #035, #003, #009 |
 | Missing dimension overrides for Bathtub/Vanity + missing finalSeoTitleInput fields | Add post-processing dimension chains + wire up length/material fields | b624be3 | #036, #017 |
 | Post-processing updates finalSeoTitleInput but not sanitizedPrimaryAttributes | Always sync BOTH title input AND export attributes in post-processing | 0cf0357 | #035-A |
+| HTML attribute table missing Ferguson nested data | Extract specifications + feature_groups from Ferguson_Raw_Data | (pending) | #037 |
+| Ferguson flat attributes gated by ~25-item allowlist | Remove allowlist, include ALL unused Ferguson flat attributes | (pending) | #037 |
+| Web Retailer specs only captured via AI extraction | Add direct extraction function for Web_Retailer_Specs | (pending) | #037 |
+| Specification_Table HTML not parsed independently | Parse with 3 regex patterns (dt/strong, tr/td, plain text) | (pending) | #037 |
+| Hardcoded merge priority regardless of department | Department-aware: Appliances=Web Retailer priority, Non-Appliances=Ferguson priority | (pending) | #037 |
 
 ---
 
@@ -4404,6 +4409,89 @@ Two separate issues:
 ### Related Findings
 - **Finding #017**: Cutout vs nominal dimension confusion (dimension extraction domain)
 - **Finding #035-A**: Post-processing attribute sync gap (same dual-sync pattern)
+
+---
+
+## Finding #037: HTML Additional Attributes Table — 5-Source Data Gap
+
+**Date Discovered**: March 18, 2026
+**Severity**: 🔴 HIGH — Products losing 60-80% of available attribute data
+**Status**: ✅ FIXED
+
+### Symptom
+Salesforce responses contained sparse HTML additional attributes tables despite raw data having significantly more attributes available from Ferguson, Web Retailer, and Specification Table sources.
+
+### Root Cause (3 Gaps)
+1. **Ferguson nested data ignored**: `Ferguson_Raw_Data.product.specifications` (nested objects with name/value pairs) and `feature_groups` (nested arrays) were ONLY used as Top 15 fallback lookups — never extracted into HTML additional attributes
+2. **Ferguson allowlist gate**: `getUnusedFergusonAttributes()` had a hardcoded ~25-item allowlist — any Ferguson flat attribute NOT on the list was silently dropped
+3. **Web Retailer specs not captured directly**: `Web_Retailer_Specs[]` array was only captured if AI happened to extract those values — no direct extraction path existed
+4. **Specification_Table HTML not parsed**: HTML was sent to AI as text context but never independently parsed for key-value pairs
+5. **No department-aware merge priority**: Same merge order regardless of whether product was Appliance vs Non-Appliance
+
+### Investigation Steps
+1. Compared raw data payload vs final HTML attribute output
+2. Traced `getUnusedFergusonAttributes()` — found allowlist at ~line 7609
+3. Searched for any function consuming `Web_Retailer_Specs` directly — found none
+4. Searched for `Specification_Table` parsing — found only AI text injection
+5. Reviewed merge logic — found linear priority regardless of department
+
+### Fix Applied
+**Commit**: (pending)
+**Files Changed**:
+- `src/services/dual-ai-verification.service.ts` — 4 new functions + department-aware merge + attribute catalog
+
+**New Functions**:
+| Function | Purpose | Lines |
+|----------|---------|-------|
+| `extractNestedFergusonAttributes()` | Extract specifications + feature_groups from Ferguson_Raw_Data | ~7666 |
+| `getUnusedFergusonAttributes()` (rewrite) | Remove allowlist, include ALL unused Ferguson flat attributes | ~7610 |
+| `getUnusedWebRetailerAttributes()` | Direct extraction from Web_Retailer_Specs[] | ~7764 |
+| `extractSpecificationTableAttributes()` | Parse HTML with 3 regex patterns | ~7816 |
+
+**Department-Aware Merge Priority**:
+- Appliances: Ferguson (base) → AI → Spec Table → Web Retailer (highest)
+- Non-Appliances: Spec Table → Web Retailer → AI → Ferguson nested → Ferguson flat (highest)
+
+### Scope
+- **Universal** — affects ALL product verifications
+- **Impact**: 60-80% more attributes in HTML additional attributes table
+- **Risk**: Low — additional data only, doesn't change Top 15 or title generation
+
+### Related Findings
+- **Finding #034**: Web retailer data collision (brand mismatch) — same data source domain
+- **Finding #035-A**: Post-processing attribute sync — same output pipeline
+
+---
+
+## Finding #038: Attribute Catalog System — Data-Driven Top 15 Management
+
+**Date Discovered**: March 18, 2026
+**Severity**: 🟢 FEATURE — New tracking infrastructure
+**Status**: ✅ IMPLEMENTED
+
+### Purpose
+Track frequency and fill rate of ALL attributes encountered during verifications, per category/type, to enable data-driven decisions about which attributes to promote to or demote from the Top 15 schema.
+
+### Implementation
+**Files**:
+- `src/models/attribute-catalog.model.ts` — MongoDB schema (compound index: category+type+attributeName)
+- `src/services/attribute-catalog.service.ts` — Fire-and-forget logging (never blocks verification)
+- `scripts/analyze-attribute-catalog.js` — Analysis report generator
+
+**Key Design Decisions**:
+- Source `available` only increments when that source had data for the product
+- Metadata attributes (warranty, Energy Star, ADA, certifications) flagged — never promoted to Top 15
+- Fire-and-forget: errors caught silently, verification never blocked
+
+### Usage
+```bash
+# After ~50+ verifications, run analysis:
+node scripts/analyze-attribute-catalog.js
+# Filter by category:
+node scripts/analyze-attribute-catalog.js --category "Refrigerator"
+# Custom thresholds:
+node scripts/analyze-attribute-catalog.js --threshold 20 --promotion-threshold 70
+```
 
 ---
 

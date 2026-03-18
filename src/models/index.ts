@@ -84,3 +84,9 @@ export {
   ScrapeFailure,
   IScrapeFailure
 } from './scrape-failure.model';
+
+// Attribute Catalog Model (category/type attribute frequency tracking)
+export {
+  AttributeCatalog,
+  IAttributeCatalog
+} from './attribute-catalog.model';
