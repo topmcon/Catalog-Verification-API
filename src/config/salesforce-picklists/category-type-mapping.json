@@ -3788,7 +3788,7 @@
       "category_name": "Toilet",
       "category_id": "a01aZ00000dC5DyQAK",
       "filter_label": "Toilet Type",
-      "logic": "Construction and bowl shape",
+      "logic": "Construction type only (bowl shape and flush type are separate title slots)",
       "types": [
         {
           "type_name": "One-Piece",
@@ -3811,52 +3811,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Elongated",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Round",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Wall-Hung",
-          "type_group": "Configuration",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Smart/Electronic",
-          "type_group": "Configuration",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Round-Front",
-          "type_group": "Bowl Shape",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Dual-Flush",
-          "type_group": "Flush Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Gravity",
-          "type_group": "Flush Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Pressure-Assisted",
-          "type_group": "Flush Type",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -3870,18 +3824,8 @@
       "category_name": "Toilet Seat",
       "category_id": "a01aZ00000dC5DxQAK",
       "filter_label": "Toilet Seat Type",
-      "logic": "Bowl shape and features",
+      "logic": "Seat feature type only (shape is a separate title slot)",
       "types": [
-        {
-          "type_name": "Elongated",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Round",
-          "status": "existing",
-          "primary_filter": true
-        },
         {
           "type_name": "Soft Close",
           "status": "existing",
@@ -3890,6 +3834,21 @@
         {
           "type_name": "Standard",
           "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Heated",
+          "status": "pending_salesforce_id",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Bidet",
+          "status": "pending_salesforce_id",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Quick Release",
+          "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {

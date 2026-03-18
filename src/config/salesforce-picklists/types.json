@@ -1134,6 +1134,10 @@
     "type_id": "a1jaZ000001lF7CQAU"
   },
   {
+    "type_name": "Heated",
+    "type_id": "PENDING_SF_HEATED"
+  },
+  {
     "type_name": "HEPA",
     "type_id": "a1jaZ000001lF6yQAE"
   },
@@ -1830,6 +1834,10 @@
   {
     "type_name": "Push/Pull",
     "type_id": "a1jaZ000001lF9pQAE"
+  },
+  {
+    "type_name": "Quick Release",
+    "type_id": "PENDING_SF_QUICK_RELEASE"
   },
   {
     "type_name": "Rack",

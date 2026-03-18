@@ -10555,6 +10555,18 @@ async function buildFinalResponse(
   // regenerate the title to ensure it reflects the most accurate data.
   // If Claude already corrected the title during Final Review, this will use those corrections.
   
+  // Smart color/finish merge for title generation:
+  // - Prefer Color when it's a real color name
+  // - Use Finish only if it looks like a color (not a material/coating)
+  // - Filter out material/coating names that aren't useful in titles
+  const MATERIAL_COATING_PATTERNS = /^(hygieneglaze|cefiontect|sanagloss|everclean|ceramic|porcelain|vitreous\s+china|plastic|fiberglass|acrylic|cast\s+iron|stainless\s+steel|enameled\s+steel|granite|quartz|composite|solid\s+surface)$/i;
+  const rawFinish = sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish || '';
+  const rawColor = sanitizedPrimaryAttributes.AI_Color || seoTitleInput.color || '';
+  // Use color if available and not a material; fall back to finish if finish isn't a material
+  const smartAppearance = (rawColor && !MATERIAL_COATING_PATTERNS.test(rawColor.trim()))
+    ? rawColor
+    : (rawFinish && !MATERIAL_COATING_PATTERNS.test(rawFinish.trim()) ? rawFinish : '');
+
   // Build seoTitleInput from CORRECTED attributes
   // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
   const finalSeoTitleInput: SEOTitleInput = {
@@ -10565,8 +10577,8 @@ async function buildFinalResponse(
     rawTitle: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
     style: sanitizedPrimaryAttributes.AI_Style || seoTitleInput.style,
     type: sanitizedPrimaryAttributes.AI_Type || seoTitleInput.type,
-    finish: sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish,
-    color: sanitizedPrimaryAttributes.AI_Color || seoTitleInput.color,
+    finish: smartAppearance,
+    color: smartAppearance,
     width: sanitizedPrimaryAttributes.AI_Width || seoTitleInput.width,
     height: sanitizedPrimaryAttributes.AI_Height || seoTitleInput.height,
     depth: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth,
@@ -10900,7 +10912,56 @@ async function buildFinalResponse(
   }
 
   // Generate final title using corrected data
-  const finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
+  let finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
+  
+  // ACCESSORY FALLBACK: When type is "Accessory" and the schema title is thin
+  // (just brand + category + model), use cleaned raw title to preserve product identity.
+  // Example: "JACLO Toilet Polished Gold - 9231-PG" → "Jaclo Toilet Tank Trip Lever Polished Gold - 9231-PG"
+  if (finalSeoTitleInput.type === 'Accessory') {
+    // Count meaningful words (exclude brand, category, model, and appearance)
+    const titleWords = finalSeoTitle.replace(/\s*-\s*\S+$/, '').split(/\s+/); // strip model suffix
+    const brandWords = (finalSeoTitleInput.brand || '').split(/\s+/).length;
+    const categoryWords = (finalSeoTitleInput.category || '').split(/\s+/).length;
+    const meaningfulWords = titleWords.length - brandWords - categoryWords;
+    
+    if (meaningfulWords <= 2) {
+      // Title is thin — try to get a descriptive name from raw sources
+      const rawSources = [
+        rawProduct.Product_Title_Web_Retailer,
+        rawProduct.Ferguson_Title,
+        (rawProduct as any).Ferguson_Raw_Data?.product?.name,
+      ].filter(Boolean) as string[];
+      
+      if (rawSources.length > 0) {
+        // Pick the longest raw title for max info
+        const bestRaw = rawSources.sort((a, b) => b.length - a.length)[0];
+        // Clean: strip brand prefix, model number suffix, normalize whitespace
+        const brandRegex = new RegExp(`^${(finalSeoTitleInput.brand || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*`, 'i');
+        const modelRegex = new RegExp(`\\s*[-–]?\\s*${(finalSeoTitleInput.modelNumber || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'i');
+        let cleanedRaw = bestRaw
+          .replace(brandRegex, '')
+          .replace(modelRegex, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        
+        if (cleanedRaw.length > 10) {
+          // Rebuild: Brand + cleanedRaw + Appearance + "- Model"
+          const parts = [finalSeoTitleInput.brand, cleanedRaw];
+          if (smartAppearance) parts.push(smartAppearance);
+          if (finalSeoTitleInput.modelNumber) parts.push(`- ${finalSeoTitleInput.modelNumber}`);
+          const accessoryTitle = parts.join(' ');
+          
+          logger.info('🔧 ACCESSORY FALLBACK: Schema title was thin, using enriched raw title', {
+            sessionId,
+            schemaTitle: finalSeoTitle.substring(0, 80),
+            accessoryTitle: accessoryTitle.substring(0, 80),
+            source: bestRaw.substring(0, 80),
+          });
+          finalSeoTitle = accessoryTitle;
+        }
+      }
+    }
+  }
   
   // ALWAYS use our schema-generated title.
   // Claude's field corrections (brand, type, finish, width, etc.) already flow into
@@ -12070,6 +12131,10 @@ interface ClaudeReviewResult {
     type: string | null;
     style: string | null;
     title: string | null;
+    finish: string | null;
+    color: string | null;
+    brand: string | null;
+    model_number: string | null;
   } | null;
 }
 
@@ -13183,6 +13248,74 @@ async function executeFinalReviewStage(
         });
       }
       
+      // Apply finish correction (no picklist — free text from raw data)
+      if (pc.finish) {
+        const oldFinish = (primaryAttributes as any).AI_Finish;
+        (primaryAttributes as any).AI_Finish = pc.finish;
+        correctionsApplied.push({
+          severity: 'MEDIUM',
+          field: 'finish',
+          currentValue: oldFinish || '',
+          issue: `Claude corrected finish from "${oldFinish}" to "${pc.finish}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.finish
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected finish', {
+          sessionId, from: oldFinish, to: pc.finish
+        });
+      }
+
+      // Apply color correction (no picklist — free text from raw data)
+      if (pc.color) {
+        const oldColor = (primaryAttributes as any).AI_Color;
+        (primaryAttributes as any).AI_Color = pc.color;
+        correctionsApplied.push({
+          severity: 'MEDIUM',
+          field: 'color',
+          currentValue: oldColor || '',
+          issue: `Claude corrected color from "${oldColor}" to "${pc.color}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.color
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected color', {
+          sessionId, from: oldColor, to: pc.color
+        });
+      }
+
+      // Apply brand correction (validate against brands picklist)
+      if (pc.brand) {
+        const oldBrand = primaryAttributes.AI_Brand;
+        primaryAttributes.AI_Brand = pc.brand;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'brand',
+          currentValue: oldBrand || '',
+          issue: `Claude corrected brand from "${oldBrand}" to "${pc.brand}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.brand
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected brand', {
+          sessionId, from: oldBrand, to: pc.brand
+        });
+      }
+
+      // Apply model number correction
+      if (pc.model_number) {
+        const oldModel = (primaryAttributes as any).AI_Model_Number;
+        (primaryAttributes as any).AI_Model_Number = pc.model_number;
+        correctionsApplied.push({
+          severity: 'HIGH',
+          field: 'model_number',
+          currentValue: oldModel || '',
+          issue: `Claude corrected model number from "${oldModel}" to "${pc.model_number}"`,
+          evidence: phaseBResult.reasoning,
+          suggestedFix: pc.model_number
+        });
+        logger.warn('✏️  FINAL REVIEW: Claude corrected model number', {
+          sessionId, from: oldModel, to: pc.model_number
+        });
+      }
+
       // Apply validated title correction — but ONLY if it doesn't contradict
       // the verified brand or category. Claude sometimes smuggles category
       // disagreements into the title text (e.g., replacing "Wall Sconce" with

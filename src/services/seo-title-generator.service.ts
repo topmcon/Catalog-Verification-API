@@ -593,7 +593,7 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /flat\s+top\s+(?:grill\s+)?cart/i, displayName: 'Grill Cart' },
     { pattern: /island\s+cart/i, displayName: 'Island Cart' },
     { pattern: /cart/i, displayName: 'Cart' },
-    { pattern: /stand/i, displayName: 'Stand' },
+    { pattern: /\bstand\b/i, displayName: 'Stand' },
     
     // Covers
     { pattern: /duct\s+cover\s*(?:extension|kit)?/i, displayName: 'Duct Cover' },
