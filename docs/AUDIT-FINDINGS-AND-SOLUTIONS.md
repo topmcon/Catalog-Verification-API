@@ -4547,6 +4547,83 @@ node scripts/analyze-attribute-catalog.js --threshold 20 --promotion-threshold 7
 - #013 (Accessory titles too vague)
 - #021 (Accessory type expansion)
 - #022 (Non-SF types in selection lists)
+- #040 (category rename to Showerheads & Hand Showers)
+- #041 (AI type guidance gap — Thermostatic vs Shower System)
+
+---
+
+## Finding #040: Category Rename — "Shower Faucet" → "Showerheads & Hand Showers"
+
+**Date Discovered**: March 18, 2026  
+**Severity**: 🟡 MEDIUM — Naming alignment with industry standards  
+**Status**: ✅ FIXED  
+**Commits**: `e3c759e`
+
+### Symptom
+"Shower Faucet" is not an industry-standard category name. Major retailers use different terminology (Kohler: "Showering", Ferguson: "Shower Fixtures", Home Depot: "Showerheads & Hand Showers").
+
+### Root Cause
+Original category name was chosen without aligning to industry conventions. Caused potential confusion for customers and data analysts.
+
+### Fix Applied
+Comprehensive rename across 16 files:
+- 4 picklist JSONs (categories, type-mapping, style-mapping, filter-attributes)
+- 6 config TS files (title-schema, master-schema-map, aliases, config, keywords, consolidation)
+- 4 service files (dual-ai-verification: 12 refs, type-matcher: 6 keys, seo-title-generator, style-validator)
+- 2 scripts (generate-comprehensive-title-schemas, test-title-generation)
+
+**Backward compatibility**: "Shower Faucet" added as alias in `category-aliases.ts`.  
+**Title length solution**: Added `titleDisplayName: "Shower"` to prevent "Thermostatic Showerheads & Hand Showers" → outputs "Thermostatic Shower" instead.  
+**Category ID unchanged**: `a01aZ00000dC5DtQAK`
+
+### Scope
+- **Universal**: All products in this category
+- **NOT changed**: "Outdoor Shower Faucet" (different category), "Shower Faucet" type in types.json, "Shower Faucet Type" attribute
+
+### Related Findings
+- #039 (shower hierarchy deficiencies)
+- #041 (AI type guidance gap)
+
+---
+
+## Finding #041: AI Type Guidance Gap — "Thermostatic" Misclassified as Product Type
+
+**Date Discovered**: March 18, 2026  
+**Severity**: 🔴 HIGH — Multi-component shower products mistyped  
+**Status**: ✅ FIXED  
+**Commits**: `d6c369e`
+
+### Symptom
+3 shower products (Items 56-58) returned Type: "Thermostatic" instead of "Shower System":
+- U.KIT1NL-PN: "Exposed Thermostatic **Shower System** with Head, Hand Shower, Slide Bar" → got Thermostatic
+- AX46140331: "Thermostatic Valve Trim with Diverter for **2 Shower Applications**" → got Thermostatic
+- T60461-NKBL: "Thermostatic **Trim Package** with Shower Head, Volume Control" → got Thermostatic
+
+### Root Cause
+`getCategorySpecificPrompt()` in `dual-ai-verification.service.ts` had category-specific type guidance for Ceiling Fan, Refrigerator, Oven, Faucet, Washer/Dryer, Chandelier, Door Hardware, and Icemaker — but **NOT** for Showerheads & Hand Showers. The category fell through to generic "check title for type keywords" fallback. AI picked "Thermostatic" (the most prominent keyword) instead of understanding it's a valve technology, not a product assembly type.
+
+### Fix Applied
+Added shower-specific type guidance to **two** prompt locations:
+1. **`getCategorySpecificPrompt()`** (~L4755): Full decision priority with examples
+2. **Claude final review prompt** (~L13900): Compact version
+
+**Decision priority taught to AI:**
+1. System/Kit/Package with multiple components → Shower System
+2. Single head → Rain Head / Showerhead / Handheld
+3. Single valve trim → Trim / Thermostatic Valve Trim
+4. Body spray / Diverter / Volume Control → respective types
+5. Standalone valve body only → Thermostatic / Pressure Balance
+
+### Scope
+- **Category-specific**: Showerheads & Hand Showers only
+- **Pattern**: Same as other category-specific guidance (Ceiling Fan, Refrigerator, etc.)
+
+### Lessons Learned
+When adding a new category or significantly expanding types, **always check** if `getCategorySpecificPrompt()` needs category-specific guidance. The generic fallback often picks the wrong attribute as the type.
+
+### Related Findings
+- #039 (shower hierarchy)
+- #040 (category rename)
 
 ---
 

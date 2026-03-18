@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v1
-  Snapshot Date: 2026-03-03 21:36:58 EST
-  Commit:        61d1f37 (61d1f37d196a6bd7152ea7a81a2e1183c6fade7b)
+  Version:       v21
+  Snapshot Date: 2026-03-18 16:40:57 EDT
+  Commit:        d6c369e (d6c369eaea39774363005267cfccd40fe1400f8e)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 11267 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 14773 lines
+  title-schema-by-category.ts:     7269 lines
   Brands:     385
   Categories: 161
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  First version — no prior snapshot to compare.
+  Lines added: ~0, Lines removed: ~38 (vs v20)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,27 +29,28 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-61d1f37 docs: session summary + audit findings #024-#027 (Claude context, accessory rule, OpenAI fix, title auto-correct)
-bc3d052 fix: OpenAI Stage 1 failures - use minimal user prompt for department/category stages
-baa618f fix: restore truncated dual-ai-verification.service.ts (3009 lines were accidentally dropped in previous commit)
-fd6ea1b Enable title auto-correction + debug OpenAI Stage 1 failures
-5d8994f Give Claude Final Review full AI-equivalent context for proper auditing
+d6c369e Add Showerheads & Hand Showers type selection guidance to AI prompts
+e3c759e Rename 'Shower Faucet' category to 'Showerheads & Hand Showers'
+5244fee fix: universal picklist ID resolution + multi-component product guards
+a37ddf4 fix: shower category/type hierarchy refinement — Shower Accessory routing, Rain Head/Handheld detection, Control Panel type
+0e5f02c feat: HTML attribute 5-source merge + attribute catalog system
 -->
 
 # Verification Data Sources - Complete Inventory
 
 > **Last Updated**: 2026-03-04 (EST)  
-> **Commit**: 61d1f37
+> **Commit**: 092296d  
+> **New**: Canadian data config (exchange-rates.ts), Web_Retailer_Key field for CA detection
 
 ## 📊 Complete Data Source Count
 
-**Total Data Sources**: 55+
+**Total Data Sources**: 56+
 
 | Type | Count | Examples |
 |------|-------|----------|
 | **Dynamic JSON Picklists** | 5 | brands.json, categories.json, styles.json, attributes.json, category-filter-attributes.json |
 | **Static JSON Files** | 3 | category-type-style-mapping.json, complete-category-data.json, sf-clean-attributes.json |
-| **Mapping/Config TS Files** | 15+ | category-style-mapping.ts, family-category-mapping.ts, category-consolidation-mapping.ts, etc. |
+| **Mapping/Config TS Files** | 16+ | exchange-rates.ts, category-style-mapping.ts, family-category-mapping.ts, etc. |
 | **Schema TS Files** | 10+ | category-attributes.ts, plumbing-schemas.ts, lighting-schemas.ts, etc. |
 | **Hardcoded Lists** | 10+ | PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, ATTRIBUTE_ALIASES, BRAND_CORRECTIONS, etc. |
 | **Service Logic Files** | 6+ | picklist-matcher.service.ts, category-matcher.service.ts, dual-ai-verification.service.ts, etc. |
@@ -530,6 +531,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy
@@ -592,6 +594,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy
