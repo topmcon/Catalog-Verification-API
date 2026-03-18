@@ -10667,7 +10667,7 @@ async function buildFinalResponse(
       if (/\bgenerator\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Generator';
       } else if (/\bcontrol/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Accessory';
+        finalSeoTitleInput.type = 'Controller';
       } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
         finalSeoTitleInput.type = 'Steam Head';
       } else {
@@ -10694,15 +10694,15 @@ async function buildFinalResponse(
              /\bdeck\s+mounted\s+tub\b/i.test(showerSourceLower)) {
       finalSeoTitleInput.category = 'Tub Faucet';
       sanitizedPrimaryAttributes.AI_Product_Category = 'Tub Faucet';
-      // Derive tub faucet type
+      // Derive tub faucet type and mount separately to avoid duplication
+      // Template: {Brand} {Type} {Mount} {Category} — so Type and Mount must not overlap
+      finalSeoTitleInput.type = 'Tub Filler';
       if (/\bfloor\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Floor Mounted Tub Filler';
+        finalSeoTitleInput.mountType = 'Floor Mounted';
       } else if (/\bwall\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Wall Mounted';
+        finalSeoTitleInput.mountType = 'Wall Mounted';
       } else if (/\bdeck\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Deck Mounted';
-      } else {
-        finalSeoTitleInput.type = 'Tub Filler';
+        finalSeoTitleInput.mountType = 'Deck Mounted';
       }
       logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Tub Faucet"', {
         sessionId, type: finalSeoTitleInput.type,
@@ -11203,6 +11203,19 @@ async function buildFinalResponse(
   // If reclassified from Toilet → Toilet Seat, sync the detected type back to sanitized attributes
   if (sanitizedPrimaryAttributes.AI_Product_Category === 'Toilet Seat' && finalSeoTitleInput.type && !sanitizedPrimaryAttributes.AI_Type) {
     sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
+  }
+
+  // Sync Shower/Steam/Tub/Rough-In post-processing changes back to sanitized attributes
+  // Post-processing modifies finalSeoTitleInput (used for title gen), but the webhook
+  // response is built from sanitizedPrimaryAttributes. Must keep them in sync.
+  const showerSyncCategories = ['Shower', 'Steam Shower', 'Tub Faucet', 'Rough-In Valve'];
+  if (showerSyncCategories.includes(finalSeoTitleInput.category || '')) {
+    if (finalSeoTitleInput.type) {
+      sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
+    }
+    if (finalSeoTitleInput.category !== sanitizedPrimaryAttributes.AI_Product_Category) {
+      sanitizedPrimaryAttributes.AI_Product_Category = finalSeoTitleInput.category || '';
+    }
   }
 
   // Generate final title using corrected data
