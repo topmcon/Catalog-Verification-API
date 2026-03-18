@@ -10755,9 +10755,15 @@ async function buildFinalResponse(
   const MATERIAL_COATING_PATTERNS = /^(hygieneglaze|cefiontect|sanagloss|everclean|ceramic|porcelain|vitreous\s+china|plastic|fiberglass|acrylic|cast\s+iron|stainless\s+steel|enameled\s+steel|granite|quartz|composite|solid\s+surface)$/i;
   const rawFinish = sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish || '';
   const rawColor = sanitizedPrimaryAttributes.AI_Color || seoTitleInput.color || '';
+  // Strip hex color code prefix from AI_Color (e.g., "E1C16E (Tuscan Brass)" → "Tuscan Brass")
+  let cleanColor = rawColor;
+  const hexColorMatch = cleanColor.match(/^[0-9a-f]{6}\s*\((.+)\)$/i);
+  if (hexColorMatch) {
+    cleanColor = hexColorMatch[1].trim();
+  }
   // Use color if available and not a material; fall back to finish if finish isn't a material
-  const smartAppearance = (rawColor && !MATERIAL_COATING_PATTERNS.test(rawColor.trim()))
-    ? rawColor
+  const smartAppearance = (cleanColor && !MATERIAL_COATING_PATTERNS.test(cleanColor.trim()))
+    ? cleanColor
     : (rawFinish && !MATERIAL_COATING_PATTERNS.test(rawFinish.trim()) ? rawFinish : '');
 
   // Build seoTitleInput from CORRECTED attributes
@@ -11031,12 +11037,14 @@ async function buildFinalResponse(
         if (derivedType) {
           const oldType = finalSeoTitleInput.type || '(empty)';
           finalSeoTitleInput.type = derivedType;
+          sanitizedPrimaryAttributes.AI_Type = derivedType;
           logger.info('🚿 Shower: derived component type from source data', {
             sessionId, oldType, derivedType, fergusonName: fergusonProductName.substring(0, 80)
           });
         } else {
           // No component type derived — set to "Accessory" so fallback fires
           finalSeoTitleInput.type = 'Accessory';
+          sanitizedPrimaryAttributes.AI_Type = 'Accessory';
           logger.info('🚿 Shower: no component type derived, set to Accessory for fallback', {
             sessionId, originalType: typeLower, fergusonName: fergusonProductName.substring(0, 80)
           });
@@ -11091,6 +11099,7 @@ async function buildFinalResponse(
         if (fergusonDim) {
           const oldWidth = finalSeoTitleInput.width || '(empty)';
           finalSeoTitleInput.width = String(fergusonDim);
+          sanitizedPrimaryAttributes.AI_Width = String(fergusonDim);
           if (oldWidth !== String(fergusonDim)) {
             logger.info('🚿 Shower: overriding width with Ferguson dimension', {
               sessionId, oldWidth, newWidth: fergusonDim, source: fergusonDimSource
