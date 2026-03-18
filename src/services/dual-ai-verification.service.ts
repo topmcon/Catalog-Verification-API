@@ -11176,42 +11176,62 @@ async function buildFinalResponse(
   //     Products that AI puts in "Shower" or "Shower Faucet" but are really accessories:
   //     shower arms, linear drains, slide bars, door handles, valve handles, holders, etc.
   //     Reclassify to "Shower Accessory" with specific type from existing SF types.
+  //
+  //     GUARD: Multi-component products (shower systems, trim packages, hand shower kits)
+  //     that merely INCLUDE a slide bar or arm as a component must NOT be reclassified.
   if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Shower Faucet') {
     const fNameLower = fergusonProductName.toLowerCase();
+
+    // Multi-component product guard: these are SYSTEMS that include accessories as components
+    const isMultiComponentProduct =
+      /\bshower\s+system\b/i.test(fNameLower) ||
+      /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower) ||
+      /\btrim\s+package\b/i.test(fNameLower) ||
+      /\bhand\s*shower\s+(?:package|kit|set)\b/i.test(fNameLower) ||
+      /\bhandshower\s+(?:set|kit)\b/i.test(fNameLower) ||
+      /\b(?:includes|with)\s+hand\s*shower\b/i.test(fNameLower) ||
+      /\bslide\s*bar\s*(?:and|&|,|with)\s+/i.test(fNameLower) && /\bhand\s*shower\b/i.test(fNameLower) ||
+      /\bhand\s*shower.*\bslide\s*bar\b/i.test(fNameLower) ||
+      /\bslide\s*bar.*\bhand\s*shower\b/i.test(fNameLower) ||
+      /\b(?:includes|with)\s+(?:shower\s+)?(?:arm|hose|slide\s*bar)\b/i.test(fNameLower);
+
     let accessoryType = '';
 
-    // Shower arms (ceiling or wall mounted)
-    if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-        /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-        /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
-      accessoryType = 'Accessory';
-    }
-    // Linear/shower drains → Trench Drain (existing SF type)
-    else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
-             /\btrench\s*drain\b/i.test(fNameLower)) {
-      accessoryType = 'Trench Drain';
-    }
-    // Shower door handles → Shower Door
-    else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
-      accessoryType = 'Shower Door';
-    }
-    // Slide bars / slide bar kits → Shower Rod (existing SF type)
-    else if (/\bslide\s*bar\b/i.test(fNameLower) || (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower))) {
-      accessoryType = 'Shower Rod';
-    }
-    // Transfer valve handles → Handle (existing SF type)
-    else if (/\btransfer\s+(?:valve\s+)?handle\b/i.test(fNameLower) || /\bshower\s+transfer\s+handle\b/i.test(fNameLower)) {
-      accessoryType = 'Handle';
-    }
-    // Hand shower holder / outlet with volume control
-    else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
-             /\bhandshower\s+(?:set|outlet)\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower)) {
-      accessoryType = 'Accessory';
-    }
-    // Valve extension kits → Accessory
-    else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
-      accessoryType = 'Accessory';
-    }
+    // Only detect accessories for STANDALONE products (not multi-component systems)
+    if (!isMultiComponentProduct) {
+      // Shower arms (ceiling or wall mounted)
+      if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+          /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+          /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
+        accessoryType = 'Accessory';
+      }
+      // Linear/shower drains → Trench Drain (existing SF type)
+      else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
+               /\btrench\s*drain\b/i.test(fNameLower)) {
+        accessoryType = 'Trench Drain';
+      }
+      // Shower door handles → Shower Door
+      else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
+        accessoryType = 'Shower Door';
+      }
+      // Slide bars (STANDALONE ONLY — not part of hand shower kits) → Shower Rod
+      else if (/\bslide\s*bar\b/i.test(fNameLower) && !/\bhand\s*shower\b/i.test(fNameLower)) {
+        accessoryType = 'Shower Rod';
+      }
+      // Transfer valve handles → Handle (existing SF type)
+      else if (/\btransfer\s+(?:valve\s+)?handle\b/i.test(fNameLower) || /\bshower\s+transfer\s+handle\b/i.test(fNameLower)) {
+        accessoryType = 'Handle';
+      }
+      // Hand shower holder / outlet with volume control (STANDALONE holders only)
+      else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
+               (/\bhandshower\s+outlet\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower))) {
+        accessoryType = 'Accessory';
+      }
+      // Valve extension kits → Accessory
+      else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
+        accessoryType = 'Accessory';
+      }
+    } // end !isMultiComponentProduct
 
     // Only reclassify if we found an accessory pattern
     if (accessoryType) {
@@ -11428,15 +11448,23 @@ async function buildFinalResponse(
         else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
           derivedType = 'Showerhead';
         }
-        // --- Slide bar KIT (hand shower kit with slide bar) → Shower Accessory ---
-        else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower)) {
+        // --- Slide bar KIT (STANDALONE slide bar kit, NOT a hand shower kit with slide bar) ---
+        else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower) &&
+                 !/\bhand\s*shower\b/i.test(fNameLower) && !/\bhandshower\b/i.test(fNameLower) &&
+                 !/\bshower\s+system\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Shower Rod';
         }
         // --- Fallback: check broader source texts for additional matches ---
         else {
-          if (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower)) {
+          // Guard: don't reclassify multi-component products as accessories from broad source text
+          const isMultiComp2d = /\bshower\s+system\b/i.test(fNameLower) ||
+            /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower) ||
+            /\btrim\s+package\b/i.test(fNameLower) ||
+            /\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower);
+
+          if (!isMultiComp2d && (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower))) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
             derivedType = 'Accessory';
@@ -11450,7 +11478,7 @@ async function buildFinalResponse(
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
             derivedType = 'Trench Drain';
-          } else if (/\bslide\s*bar\b/i.test(showerSourceLower)) {
+          } else if (!isMultiComp2d && /\bslide\s*bar\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
             derivedType = 'Shower Rod';
@@ -12035,6 +12063,53 @@ async function buildFinalResponse(
     }
     if (finalSeoTitleInput.category !== sanitizedPrimaryAttributes.AI_Product_Category) {
       sanitizedPrimaryAttributes.AI_Product_Category = finalSeoTitleInput.category || '';
+    }
+  }
+
+  // ── UNIVERSAL PICKLIST ID RESOLUTION ────────────────────────────────────────
+  // Post-processing reclassifies categories and types (Shower→Steam Shower,
+  // Toilet→Toilet Seat, Shower Faucet→Shower Accessory, etc.) but only updates
+  // the TEXT fields (AI_Product_Category, AI_Type). The LOOKUP/ID fields
+  // (AI_Product_Category_Lookup, AI_Type_Id) still point to the original pre-
+  // reclassification values, causing Salesforce to display wrong categories.
+  //
+  // This checkpoint re-resolves IDs from current text values AFTER all
+  // reclassification is complete. Covers ALL categories universally.
+  {
+    const currentCategory = sanitizedPrimaryAttributes.AI_Product_Category || '';
+    const currentType = sanitizedPrimaryAttributes.AI_Type || '';
+
+    // Re-resolve category ID if category was reclassified
+    const reclassifiedCategoryMatch = picklistMatcher.matchCategory(currentCategory);
+    if (reclassifiedCategoryMatch.matched && reclassifiedCategoryMatch.matchedValue) {
+      const newCategoryId = getSafeId(reclassifiedCategoryMatch.matchedValue.category_id);
+      if (newCategoryId !== sanitizedPrimaryAttributes.AI_Product_Category_Lookup) {
+        logger.info('🔗 ID RESOLUTION: Updated category lookup ID after reclassification', {
+          sessionId,
+          category: currentCategory,
+          oldId: sanitizedPrimaryAttributes.AI_Product_Category_Lookup,
+          newId: newCategoryId,
+        });
+        sanitizedPrimaryAttributes.AI_Product_Category_Lookup = newCategoryId;
+      }
+    }
+
+    // Re-resolve type ID if type was changed
+    if (currentType) {
+      const reclassifiedTypeObj = getTypeByName(currentType);
+      if (reclassifiedTypeObj) {
+        const newTypeId = getSafeId(reclassifiedTypeObj.type_id);
+        if (newTypeId !== sanitizedPrimaryAttributes.AI_Type_Id) {
+          logger.info('🔗 ID RESOLUTION: Updated type ID after reclassification', {
+            sessionId,
+            type: currentType,
+            category: currentCategory,
+            oldId: sanitizedPrimaryAttributes.AI_Type_Id,
+            newId: newTypeId,
+          });
+          sanitizedPrimaryAttributes.AI_Type_Id = newTypeId;
+        }
+      }
     }
   }
 
