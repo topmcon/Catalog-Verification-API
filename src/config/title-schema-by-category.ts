@@ -6195,34 +6195,39 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
+        "attribute": "Width (Inches)",
         "required": false
       },
       {
         "position": 3,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "GPM",
         "required": false,
         "format": "{value} GPM"
       },
       {
-        "position": 6,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Shower Finish 1.8 GPM - Model",
-    "seoNotes": "Type = Shower System, Shower Head, Rain Shower Head, Hand Shower, Body Spray, Linear Drain, Shower Arm, Slide Bar, Shower Panel, Shower Column. GPM included for heads/bodies. Never use Walk-In (bathtub type)."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "GRAFF 20-Inch Rain Head Shower Polished Stainless Steel 1.8 GPM - G-8230-SP",
+    "seoNotes": "Type = Shower System, Shower Head, Rain Shower Head, Hand Shower, Body Spray, Linear Drain, Shower Arm, Slide Bar, Shower Panel, Shower Column. Width from Ferguson name for sized components (drains, showerheads, arms). Never use Walk-In (bathtub type)."
   },
   "shower_faucet": {
     "categoryId": "a01aZ00000dC5DtQAK",
@@ -6288,29 +6293,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       },
       {
-        "position": 2,
+        "position": 3,
         "attribute": "Power (kW)",
         "required": false
       },
       {
-        "position": 3,
+        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 4,
+        "position": 5,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 5,
+        "position": 6,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Power (kW)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand SpecValue Steam Shower Finish - Model",
-    "seoNotes": "Power determines room size coverage."
+    "template": "{Brand} {Type} {Power (kW)} {Category} {Finish} {Model Number}",
+    "exampleTitle": "MR. STEAM Steam Generator 24 kW Steam Shower Stainless Steel - MX5EC1",
+    "seoNotes": "Type = Steam Generator, Complete System, Steam Head, Controller. Power (kW) determines room size coverage."
   },
   "toilet": {
     "categoryId": "a01aZ00000dC5DyQAK",

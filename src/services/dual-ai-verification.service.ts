@@ -10610,8 +10610,19 @@ async function buildFinalResponse(
 
   // ── SHOWER TITLE POST-PROCESSING ────────────────────────────────────────────
   // Applied BEFORE title generation so the schema renders correctly.
+  // Follows same reclassification pattern as Toilet → Toilet Seat.
   const fergusonProductName: string = (rawProduct as any).Ferguson_Raw_Data?.product?.name ||
     (rawProduct.Ferguson_Title as string) || '';
+
+  // Shared source texts for all shower reclassification checks
+  const showerSourceTexts = [
+    fergusonProductName,
+    (rawProduct.Ferguson_Title as string) || '',
+    (rawProduct.Product_Title_Web_Retailer as string) || '',
+    ((rawProduct as any).Ferguson_Description as string) || '',
+    (rawProduct.Product_Title_Legacy as string) || '',
+  ].join(' ');
+  const showerSourceLower = showerSourceTexts.toLowerCase();
 
   // 1. SHOWER FAUCET — separate Function value from Type value.
   //    The AI often puts Thermostatic / Pressure-Balance / Diverter in the Type slot
@@ -10639,41 +10650,261 @@ async function buildFinalResponse(
     });
   }
 
-  // 2. SHOWER — replace "Walk-In" type with the actual component type.
-  //    "Walk-In" is a Bathtub type and should never appear on Shower products.
-  if (finalSeoTitleInput.category === 'Shower' &&
-      finalSeoTitleInput.type?.toLowerCase() === 'walk-in') {
-    const fNameLower = fergusonProductName.toLowerCase();
-    let showerComponentType = '';
-    if (/linear\s*drain|shower\s*drain/i.test(fNameLower)) {
-      showerComponentType = 'Linear Drain';
-    } else if (/rain.*shower\s*head|rain.*head/i.test(fNameLower)) {
-      showerComponentType = 'Rain Shower Head';
-    } else if (/hand\s*shower|handshower/i.test(fNameLower)) {
-      showerComponentType = 'Hand Shower';
-    } else if (/body\s*spray/i.test(fNameLower)) {
-      showerComponentType = 'Body Spray';
-    } else if (/shower\s*arm|ceiling.*arm|wall.*arm/i.test(fNameLower)) {
-      showerComponentType = 'Shower Arm';
-    } else if (/slide\s*bar/i.test(fNameLower)) {
-      showerComponentType = 'Slide Bar';
-    } else if (/shower\s*head|showerhead/i.test(fNameLower)) {
-      showerComponentType = 'Shower Head';
-    } else if (/shower\s*system|complete/i.test(fNameLower)) {
-      showerComponentType = 'Shower System';
-    } else if (/shower\s*panel/i.test(fNameLower)) {
-      showerComponentType = 'Shower Panel';
-    }
-    // Only replace if we derived something — otherwise leave blank rather than "Walk-In"
-    if (showerComponentType) {
-      finalSeoTitleInput.type = showerComponentType;
-      logger.info('Shower: replaced Walk-In type with component type', {
-        sessionId, showerComponentType, fergusonName: fergusonProductName.substring(0, 70)
+  // ── SHOWER RECLASSIFICATION CHAIN ──────────────────────────────────────────
+  // AI dumps many products into "Shower" that belong in more specific categories.
+  // Rules ordered from most specific to least specific, like the Toilet chain.
+  if (finalSeoTitleInput.category === 'Shower') {
+
+    // 2a. STEAM SHOWER reclassification
+    //     "steam generator", "steam shower generator", "kW" → Steam Shower
+    const isSteam = /\bsteam\s*(shower\s+)?generator\b/i.test(showerSourceLower) ||
+      /\bsteam\s+shower\b/i.test(showerSourceLower) ||
+      (/\bsteam\b/i.test(showerSourceLower) && /\b\d+\s*kw\b/i.test(showerSourceLower));
+    if (isSteam) {
+      finalSeoTitleInput.category = 'Steam Shower';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Steam Shower';
+      // Derive steam type
+      if (/\bgenerator\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Steam Generator';
+      } else if (/\bcontrol/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Accessory';
+      } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Steam Head';
+      } else {
+        finalSeoTitleInput.type = 'Complete System';
+      }
+      // Extract kW power from source
+      const kwMatch = showerSourceTexts.match(/(\d+)\s*kW/i);
+      if (kwMatch) {
+        finalSeoTitleInput.powerKw = kwMatch[1];
+      }
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Steam Shower"', {
+        sessionId, type: finalSeoTitleInput.type,
+        powerKw: finalSeoTitleInput.powerKw || 'none',
+        reason: 'Source data describes a steam shower product'
       });
-    } else {
-      finalSeoTitleInput.type = '';
-      logger.info('Shower: cleared Walk-In type (no component match found)', {
-        sessionId, fergusonName: fergusonProductName.substring(0, 70)
+    }
+
+    // 2b. TUB FAUCET reclassification
+    //     "tub filler", "tub faucet", "floor mounted tub", "wall mounted tub" → Tub Faucet
+    else if (/\btub\s+filler\b/i.test(showerSourceLower) ||
+             /\btub\s+faucet\b/i.test(showerSourceLower) ||
+             /\bfloor\s+mounted\s+tub\b/i.test(showerSourceLower) ||
+             /\bwall\s+mounted\s+tub\b/i.test(showerSourceLower) ||
+             /\bdeck\s+mounted\s+tub\b/i.test(showerSourceLower)) {
+      finalSeoTitleInput.category = 'Tub Faucet';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Tub Faucet';
+      // Derive tub faucet type
+      if (/\bfloor\s+mounted\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Floor Mounted Tub Filler';
+      } else if (/\bwall\s+mounted\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Wall Mounted';
+      } else if (/\bdeck\s+mounted\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Deck Mounted';
+      } else {
+        finalSeoTitleInput.type = 'Tub Filler';
+      }
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Tub Faucet"', {
+        sessionId, type: finalSeoTitleInput.type,
+        reason: 'Source data describes a tub filler/faucet'
+      });
+    }
+
+    // 2c. ROUGH-IN VALVE reclassification
+    //     "rough-in valve", "rough in valve", "mixing valve" (without "trim") → Rough-In Valve
+    else if ((/\brough[\s-]?in\s+valve\b/i.test(showerSourceLower) ||
+              /\bmixing\s+(?:rough[\s-]?in\s+)?valve\b/i.test(showerSourceLower)) &&
+             !/\btrim\b/i.test(showerSourceLower)) {
+      finalSeoTitleInput.category = 'Rough-In Valve';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Rough-In Valve';
+      // Derive rough-in type
+      if (/\bthermostatic\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Thermostatic';
+      } else if (/\btub\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Tub/Shower';
+      } else {
+        finalSeoTitleInput.type = 'Shower';
+      }
+      // Extract connection size
+      const connMatch = showerSourceTexts.match(/(\d\/\d)["″'']\s*/);
+      if (connMatch) {
+        finalSeoTitleInput.connectionSize = connMatch[1] + '"';
+      }
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Rough-In Valve"', {
+        sessionId, type: finalSeoTitleInput.type,
+        reason: 'Source data describes a rough-in valve'
+      });
+    }
+
+    // 2d. SHOWER COMPONENT TYPE DERIVATION (comprehensive replacement for Walk-In logic)
+    //     For products staying in "Shower" category, derive the correct component type
+    //     from Ferguson data. Ordered most-specific to least-specific.
+    else {
+      const typeLower = (finalSeoTitleInput.type || '').toLowerCase();
+      // Only derive if type is Walk-In, Accessory, Frameless (misassigned), Framed (misassigned), or empty
+      const needsTypeDerivation = typeLower === 'walk-in' || typeLower === 'accessory' ||
+        typeLower === '' || typeLower === 'frameless' || typeLower === 'framed';
+
+      if (needsTypeDerivation) {
+        const fNameLower = fergusonProductName.toLowerCase();
+        let derivedType = '';
+
+        // --- Shower enclosures / doors (keep structural types) ---
+        if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
+          if (typeLower === 'frameless' || /\bframeless\b/i.test(fNameLower)) {
+            derivedType = 'Frameless';
+          } else if (typeLower === 'framed' || /\bframed\b/i.test(fNameLower)) {
+            derivedType = 'Framed';
+          } else if (/\bneo[\s-]?angle\b/i.test(fNameLower)) {
+            derivedType = 'Neo-Angle';
+          } else {
+            derivedType = 'Shower Door';
+          }
+        }
+        // --- Shower base / pan ---
+        else if (/\bshower\s+base\b/i.test(fNameLower) || /\bshower\s+pan\b/i.test(fNameLower) ||
+                 /\bshower\s+receptor\b/i.test(fNameLower)) {
+          derivedType = 'Shower Base';
+        }
+        // --- Shower systems (exposed, complete) ---
+        else if (/\bshower\s+system\b/i.test(fNameLower) || /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower)) {
+          derivedType = 'Shower System';
+        }
+        // --- Shower panels ---
+        else if (/\bshower\s+panel\b/i.test(fNameLower) || /\bjet\s+(?:shower|retrofit)\b/i.test(fNameLower)) {
+          derivedType = 'Shower Panel';
+        }
+        // --- Shower column ---
+        else if (/\bshower\s+column\b/i.test(fNameLower)) {
+          derivedType = 'Shower Column';
+        }
+        // --- Linear drain ---
+        else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower)) {
+          derivedType = 'Linear Drain';
+        }
+        // --- Rain shower head ---
+        else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
+                 (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower))) {
+          derivedType = 'Rain Shower Head';
+        }
+        // --- Body spray ---
+        else if (/\bbody\s*spray\b/i.test(fNameLower) || /\bbodyspray\b/i.test(fNameLower)) {
+          derivedType = 'Body Spray';
+        }
+        // --- Hand shower ---
+        else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
+          derivedType = 'Hand Shower';
+        }
+        // --- Slide bar ---
+        else if (/\bslide\s*bar\b/i.test(fNameLower)) {
+          derivedType = 'Slide Bar';
+        }
+        // --- Shower arm ---
+        else if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+                 /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
+          derivedType = 'Shower Arm';
+        }
+        // --- Generic showerhead ---
+        else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
+          derivedType = 'Showerhead';
+        }
+        // --- Slide bar KIT (hand shower kit with slide bar) ---
+        else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower)) {
+          derivedType = 'Slide Bar';
+        }
+        // --- Fallback: check broader source texts for additional matches ---
+        else {
+          if (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower)) {
+            derivedType = 'Shower Arm';
+          } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
+            derivedType = 'Hand Shower';
+          } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
+            derivedType = 'Showerhead';
+          } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
+            derivedType = 'Rain Shower Head';
+          } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
+            derivedType = 'Linear Drain';
+          } else if (/\bslide\s*bar\b/i.test(showerSourceLower)) {
+            derivedType = 'Slide Bar';
+          } else if (/\bshower\s+system\b/i.test(showerSourceLower)) {
+            derivedType = 'Shower System';
+          }
+        }
+
+        if (derivedType) {
+          const oldType = finalSeoTitleInput.type || '(empty)';
+          finalSeoTitleInput.type = derivedType;
+          logger.info('🚿 Shower: derived component type from source data', {
+            sessionId, oldType, derivedType, fergusonName: fergusonProductName.substring(0, 80)
+          });
+        } else {
+          // No component type derived — set to "Accessory" so fallback fires
+          finalSeoTitleInput.type = 'Accessory';
+          logger.info('🚿 Shower: no component type derived, set to Accessory for fallback', {
+            sessionId, originalType: typeLower, fergusonName: fergusonProductName.substring(0, 80)
+          });
+        }
+      }
+
+      // 2e. SHOWER DIMENSION EXTRACTION
+      //     Extract size from Ferguson product name for the Width schema slot.
+      //     Examples: "20'' Square Ceiling-Mounted Showerhead" → 20
+      //              "30" Tile Insert Linear Shower Drain" → 30
+      //              "6" Brass Shower Arm" → 6
+      if (!finalSeoTitleInput.width || finalSeoTitleInput.width === '' || finalSeoTitleInput.width === '0') {
+        const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i) ||
+          showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
+        if (dimMatch) {
+          const dim = parseFloat(dimMatch[1]);
+          // Sanity: shower component sizes typically 1-60 inches
+          if (dim >= 1 && dim <= 60) {
+            finalSeoTitleInput.width = String(dim);
+            logger.info('🚿 Shower: extracted dimension from source data', {
+              sessionId, width: dim, source: dimMatch[0].trim()
+            });
+          }
+        }
+      }
+
+      // 2f. SHOWER GPM EXTRACTION
+      //     Extract GPM from Ferguson data for showerheads, hand showers, body sprays
+      const gpmTypes = ['showerhead', 'shower head', 'rain shower head', 'hand shower', 'body spray', 'shower system', 'shower panel'];
+      if (gpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
+          (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
+        const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
+        if (gpmMatch) {
+          finalSeoTitleInput.gpm = gpmMatch[1];
+          logger.info('🚿 Shower: extracted GPM from source data', {
+            sessionId, gpm: gpmMatch[1], type: finalSeoTitleInput.type
+          });
+        }
+      }
+    }
+  }
+
+  // 2g. STEAM SHOWER POST-PROCESSING (for items already correctly categorized as Steam Shower)
+  if (finalSeoTitleInput.category === 'Steam Shower') {
+    // Extract kW power if not already set
+    if (!finalSeoTitleInput.powerKw || finalSeoTitleInput.powerKw === '' || finalSeoTitleInput.powerKw === '0') {
+      const kwMatch = showerSourceTexts.match(/(\d+)\s*kW/i);
+      if (kwMatch) {
+        finalSeoTitleInput.powerKw = kwMatch[1];
+      }
+    }
+    // Derive type if Walk-In or missing
+    const steamTypeLower = (finalSeoTitleInput.type || '').toLowerCase();
+    if (steamTypeLower === 'walk-in' || steamTypeLower === '' || steamTypeLower === 'accessory') {
+      if (/\bgenerator\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Steam Generator';
+      } else if (/\bcontrol/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Controller';
+      } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Steam Head';
+      } else {
+        finalSeoTitleInput.type = 'Complete System';
+      }
+      logger.info('🚿 Steam Shower: derived type from source data', {
+        sessionId, type: finalSeoTitleInput.type
       });
     }
   }
