@@ -10989,7 +10989,9 @@ async function buildFinalResponse(
     
     if (meaningfulWords <= 2) {
       // Title is thin — try to get a descriptive name from raw sources
+      // Include Legacy title as it's often the only reliable source for accessories
       const rawSources = [
+        rawProduct.Product_Title_Legacy,
         rawProduct.Product_Title_Web_Retailer,
         rawProduct.Ferguson_Title,
         (rawProduct as any).Ferguson_Raw_Data?.product?.name,
