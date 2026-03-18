@@ -10768,6 +10768,36 @@ async function buildFinalResponse(
     }
   }
 
+  // ── TOILET SEAT → TOILET REVERSE CHECK (Dispenser Detection) ────────────────
+  // AI sometimes classifies dispensers as "Toilet Seat" because legacy data or titles contain
+  // "Toilet Seat Cover Dispenser". Detect these and reclassify back to "Toilet".
+  
+  if (finalSeoTitleInput.category === 'Toilet Seat') {
+    const toiletSeatSourceTexts = [
+      fergusonProductName,
+      (rawProduct.Ferguson_Title as string) || '',
+      (rawProduct.Product_Title_Web_Retailer as string) || '',
+      ((rawProduct as any).Ferguson_Description as string) || '',
+      (rawProduct.Product_Title_Legacy as string) || '', // Include legacy title
+    ].join(' ').toLowerCase();
+
+    // Check if this is actually a dispenser, not a toilet seat
+    const isDispenser = /\bdispenser\b/i.test(toiletSeatSourceTexts);
+
+    if (isDispenser) {
+      logger.warn('🔧 CATEGORY REVERSE CORRECTION: "Toilet Seat" → "Toilet" (Dispenser detected)', {
+        sessionId,
+        originalCategory: 'Toilet Seat',
+        correctedCategory: 'Toilet',
+        reason: 'Product is a dispenser (e.g., seat cover dispenser), not an actual toilet seat'
+      });
+      finalSeoTitleInput.category = 'Toilet';
+      finalSeoTitleInput.type = 'Accessory'; // Mark as accessory since it's a dispenser
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Toilet';
+      sanitizedPrimaryAttributes.AI_Type = 'Accessory';
+    }
+  }
+
   // ── BATHROOM HARDWARE CATEGORY CORRECTIONS ──────────────────────────────────
   // Fix similar category name confusion: "Bathroom Cabinet Hardware" vs "Bathroom Hardware and Accessories"
   
