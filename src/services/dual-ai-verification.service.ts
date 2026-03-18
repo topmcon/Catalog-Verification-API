@@ -9448,10 +9448,15 @@ async function buildFinalResponse(
         )
       );
       
-      // If color is a hex code (6 chars, all hex) and we have a finish name, format as "hexcode (Name)"
+      // If color is a hex code (6 chars, all hex) and we have a finish name, use the finish name directly
+      // Hex codes add no value for Salesforce — export the human-readable name instead
       if (color && /^[0-9a-fA-F]{6}$/.test(color.trim()) && finishName && finishName.trim()) {
-        color = `${color} (${finishName})`;
-        logger.info('Formatted color with finish name', { color, sessionId });
+        logger.info('Replaced hex color with finish name', { hexColor: color, finishName, sessionId });
+        color = finishName.trim();
+      } else if (color && /^[0-9a-fA-F]{6}$/.test(color.trim())) {
+        // Hex code with no finish name — clear it rather than export a raw hex code
+        logger.info('Cleared orphan hex color code', { hexColor: color, sessionId });
+        color = '';
       }
       
       return color;
@@ -10781,6 +10786,8 @@ async function buildFinalResponse(
     width: sanitizedPrimaryAttributes.AI_Width || seoTitleInput.width,
     height: sanitizedPrimaryAttributes.AI_Height || seoTitleInput.height,
     depth: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth,
+    length: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth, // For bathtubs: depth_length IS the marketing length
+    material: seoTitleInput.material || '',
     // Extract specs from corrected topFilterAttributes, fall back to preliminary values
     gpm: String(sanitizedTopFilterAttributes.flow_rate_gpm || gpmFinal || ''),
     cfm: String(sanitizedTopFilterAttributes.cfm || cfmFinal || ''),
@@ -11151,6 +11158,120 @@ async function buildFinalResponse(
     }
   }
   // ── END SHOWER TITLE POST-PROCESSING ────────────────────────────────────────
+
+  // ── BATHTUB DIMENSION OVERRIDE ──────────────────────────────────────────────
+  // Bathtub schema uses {Length (Inches)} — extract authoritative length from Ferguson.
+  // Ferguson product names: "60\" x 32\" Alcove Bathtub...", "67\" Freestanding Soaking Tub..."
+  // AI depth_length is often unreliable (contaminated or swapped axes).
+  if (finalSeoTitleInput.category === 'Bathtub') {
+    const frd = (rawProduct as any).Ferguson_Raw_Data;
+    const fergusonSpecs = frd?.product?.specifications;
+    let bathtubLength: number | null = null;
+    let bathtubLengthSource = '';
+
+    // Priority 1: Ferguson nominal_length spec (most reliable catalog value)
+    if (fergusonSpecs) {
+      const nomLen = fergusonSpecs.nominal_length?.value || fergusonSpecs.tub_length?.value;
+      if (nomLen) {
+        const nomStr = String(nomLen).trim();
+        const fracMatch = nomStr.match(/^(\d+)-(\d+)\/(\d+)$/);
+        const numMatch = nomStr.match(/^(\d+(?:\.\d+)?)$/);
+        let val: number | null = null;
+        if (fracMatch) {
+          val = parseInt(fracMatch[1]) + parseInt(fracMatch[2]) / parseInt(fracMatch[3]);
+        } else if (numMatch) {
+          val = parseFloat(numMatch[1]);
+        }
+        if (val !== null && val >= 30 && val <= 84) {
+          bathtubLength = Math.round(val);
+          bathtubLengthSource = `Ferguson spec nominal_length: ${nomLen}`;
+        }
+      }
+    }
+
+    // Priority 2: Extract from Ferguson product name (e.g., '60" x 32"' → 60)
+    if (!bathtubLength) {
+      const dimMatch = fergusonProductName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
+      if (dimMatch) {
+        const whole = parseInt(dimMatch[1]);
+        const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
+        const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
+        const val = whole + fracNum / fracDen;
+        if (val >= 30 && val <= 84) {
+          bathtubLength = Math.round(val);
+          bathtubLengthSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
+        }
+      }
+    }
+
+    if (bathtubLength) {
+      const oldLength = finalSeoTitleInput.length || '(empty)';
+      finalSeoTitleInput.length = String(bathtubLength);
+      sanitizedPrimaryAttributes.AI_Depth = String(bathtubLength);
+      if (oldLength !== String(bathtubLength)) {
+        logger.info('🛁 Bathtub: overriding length with Ferguson dimension', {
+          sessionId, oldLength, newLength: bathtubLength, source: bathtubLengthSource
+        });
+      }
+    }
+  }
+
+  // ── VANITY DIMENSION OVERRIDE ───────────────────────────────────────────────
+  // Vanity schema uses {Width (Inches)} — extract authoritative width from Ferguson.
+  // Ferguson product names: "36\" Single Sink Vanity...", "60\" Double Sink Freestanding Vanity..."
+  if (finalSeoTitleInput.category === 'Bathroom Vanity') {
+    const frd = (rawProduct as any).Ferguson_Raw_Data;
+    const fergusonSpecs = frd?.product?.specifications;
+    let vanityWidth: number | null = null;
+    let vanityWidthSource = '';
+
+    // Priority 1: Ferguson nominal_width spec
+    if (fergusonSpecs) {
+      const nomWidth = fergusonSpecs.nominal_width?.value || fergusonSpecs.vanity_width?.value
+        || fergusonSpecs.cabinet_width?.value;
+      if (nomWidth) {
+        const nomStr = String(nomWidth).trim();
+        const fracMatch = nomStr.match(/^(\d+)-(\d+)\/(\d+)$/);
+        const numMatch = nomStr.match(/^(\d+(?:\.\d+)?)$/);
+        let val: number | null = null;
+        if (fracMatch) {
+          val = parseInt(fracMatch[1]) + parseInt(fracMatch[2]) / parseInt(fracMatch[3]);
+        } else if (numMatch) {
+          val = parseFloat(numMatch[1]);
+        }
+        if (val !== null && val >= 12 && val <= 96) {
+          vanityWidth = Math.round(val);
+          vanityWidthSource = `Ferguson spec nominal_width: ${nomWidth}`;
+        }
+      }
+    }
+
+    // Priority 2: Extract from Ferguson product name (e.g., '36"' → 36)
+    if (!vanityWidth) {
+      const dimMatch = fergusonProductName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
+      if (dimMatch) {
+        const whole = parseInt(dimMatch[1]);
+        const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
+        const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
+        const val = whole + fracNum / fracDen;
+        if (val >= 12 && val <= 96) {
+          vanityWidth = Math.round(val);
+          vanityWidthSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
+        }
+      }
+    }
+
+    if (vanityWidth) {
+      const oldWidth = finalSeoTitleInput.width || '(empty)';
+      finalSeoTitleInput.width = String(vanityWidth);
+      sanitizedPrimaryAttributes.AI_Width = String(vanityWidth);
+      if (oldWidth !== String(vanityWidth)) {
+        logger.info('🪞 Vanity: overriding width with Ferguson dimension', {
+          sessionId, oldWidth, newWidth: vanityWidth, source: vanityWidthSource
+        });
+      }
+    }
+  }
 
   // ── MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────────
   if (finalSeoTitleInput.category === 'Medicine Cabinet') {
