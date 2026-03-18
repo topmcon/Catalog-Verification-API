@@ -10749,8 +10749,12 @@ async function buildFinalResponse(
         const fNameLower = fergusonProductName.toLowerCase();
         let derivedType = '';
 
+        // --- Shower door HANDLES / KNOBS (must check before shower door) ---
+        if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+(?:handle|knob)\b/i.test(fNameLower)) {
+          derivedType = 'Shower Door Handle';
+        }
         // --- Shower enclosures / doors (keep structural types) ---
-        if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
+        else if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
           if (typeLower === 'frameless' || /\bframeless\b/i.test(fNameLower)) {
             derivedType = 'Frameless';
           } else if (typeLower === 'framed' || /\bframed\b/i.test(fNameLower)) {
@@ -10846,21 +10850,57 @@ async function buildFinalResponse(
         }
       }
 
-      // 2e. SHOWER DIMENSION EXTRACTION
-      //     Extract size from Ferguson product name for the Width schema slot.
-      //     Examples: "20'' Square Ceiling-Mounted Showerhead" → 20
-      //              "30" Tile Insert Linear Shower Drain" → 30
-      //              "6" Brass Shower Arm" → 6
-      if (!finalSeoTitleInput.width || finalSeoTitleInput.width === '' || finalSeoTitleInput.width === '0') {
-        const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i) ||
-          showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
+      // 2e. SHOWER DIMENSION EXTRACTION — ALWAYS OVERRIDE AI WIDTH
+      //     AI width for shower components is unreliable — often contaminated by
+      //     Legacy data (e.g., "1" from Product_Title_Legacy "1\" Contemporary...")
+      //     or body dimensions (height/length mistaken for width).
+      //     Ferguson product name is authoritative: "18" Ceiling Shower Arm" → 18
+      //     Also check Ferguson Extension attribute for shower arms.
+      {
+        let fergusonDim: number | null = null;
+        let fergusonDimSource = '';
+
+        // Priority 1: Dimension from Ferguson product name (most reliable)
+        const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
         if (dimMatch) {
           const dim = parseFloat(dimMatch[1]);
-          // Sanity: shower component sizes typically 1-60 inches
           if (dim >= 1 && dim <= 60) {
-            finalSeoTitleInput.width = String(dim);
-            logger.info('🚿 Shower: extracted dimension from source data', {
-              sessionId, width: dim, source: dimMatch[0].trim()
+            fergusonDim = dim;
+            fergusonDimSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
+          }
+        }
+
+        // Priority 2: Ferguson Extension attribute (shower arms have extension, not width)
+        if (!fergusonDim) {
+          const frdSpecs = (rawProduct as any).Ferguson_Raw_Data?.product?.specifications;
+          const extensionVal = frdSpecs?.extension?.value;
+          if (extensionVal) {
+            const ext = parseFloat(String(extensionVal));
+            if (ext >= 1 && ext <= 60) {
+              fergusonDim = ext;
+              fergusonDimSource = `Ferguson Extension attribute: ${extensionVal}`;
+            }
+          }
+        }
+
+        // Priority 3: Fallback to broader source texts (only if no Ferguson dimension)
+        if (!fergusonDim) {
+          const srcMatch = showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
+          if (srcMatch) {
+            const dim = parseFloat(srcMatch[1]);
+            if (dim >= 1 && dim <= 60) {
+              fergusonDim = dim;
+              fergusonDimSource = `source texts: "${srcMatch[0].trim()}"`;
+            }
+          }
+        }
+
+        if (fergusonDim) {
+          const oldWidth = finalSeoTitleInput.width || '(empty)';
+          finalSeoTitleInput.width = String(fergusonDim);
+          if (oldWidth !== String(fergusonDim)) {
+            logger.info('🚿 Shower: overriding width with Ferguson dimension', {
+              sessionId, oldWidth, newWidth: fergusonDim, source: fergusonDimSource
             });
           }
         }
