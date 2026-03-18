@@ -10731,11 +10731,15 @@ async function buildFinalResponse(
     ].join(' ').toLowerCase();
 
     // Check if source data indicates this is a toilet seat
-    const isToiletSeat = /\btoilet\s+seat\b/i.test(toiletSourceTexts) ||
+    // BUT exclude dispensers (e.g., "Toilet Seat Cover Dispenser")
+    const hasDispenserKeyword = /\bdispenser\b/i.test(toiletSourceTexts);
+    const isToiletSeat = !hasDispenserKeyword && (
+      /\btoilet\s+seat\b/i.test(toiletSourceTexts) ||
       /\bseat\s+(?:cover|lid|only)\b/i.test(toiletSourceTexts) ||
       /\bclosed[- ]front\b/i.test(toiletSourceTexts) ||
       /\bsoft\s*close\b/i.test(toiletSourceTexts) ||
-      /\bslow[- ]close\b/i.test(toiletSourceTexts);
+      /\bslow[- ]close\b/i.test(toiletSourceTexts)
+    );
 
     if (isToiletSeat) {
       logger.warn('🚽 CATEGORY RECLASSIFICATION: "Toilet" (Accessory) → "Toilet Seat"', {
@@ -10761,6 +10765,33 @@ async function buildFinalResponse(
       // Update sanitized attributes so SF gets corrected category
       sanitizedPrimaryAttributes.AI_Product_Category = 'Toilet Seat';
       sanitizedPrimaryAttributes.AI_Type = ''; // Will be populated by Toilet Seat post-processing
+    }
+  }
+
+  // ── BATHROOM HARDWARE CATEGORY CORRECTIONS ──────────────────────────────────
+  // Fix similar category name confusion: "Bathroom Cabinet Hardware" vs "Bathroom Hardware and Accessories"
+  
+  if (finalSeoTitleInput.category === 'Bathroom Cabinet Hardware') {
+    const hardwareSourceTexts = [
+      fergusonProductName,
+      (rawProduct.Ferguson_Title as string) || '',
+      (rawProduct.Product_Title_Web_Retailer as string) || '',
+      ((rawProduct as any).Ferguson_Description as string) || '',
+    ].join(' ').toLowerCase();
+
+    // Toilet paper holders are "Bathroom Hardware and Accessories", not "Bathroom Cabinet Hardware"
+    const isToiletPaperHolder = /\btoilet\s+paper\s+holder\b/i.test(hardwareSourceTexts) ||
+      /\btp\s+holder\b/i.test(hardwareSourceTexts);
+
+    if (isToiletPaperHolder) {
+      logger.warn('🔧 CATEGORY CORRECTION: "Bathroom Cabinet Hardware" → "Bathroom Hardware and Accessories"', {
+        sessionId,
+        originalCategory: 'Bathroom Cabinet Hardware',
+        correctedCategory: 'Bathroom Hardware and Accessories',
+        reason: 'Product is a toilet paper holder (similar category names confused AI)'
+      });
+      finalSeoTitleInput.category = 'Bathroom Hardware and Accessories';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Bathroom Hardware and Accessories';
     }
   }
 
@@ -10892,6 +10923,7 @@ async function buildFinalResponse(
         (rawProduct.Ferguson_Title as string) || '',
         (rawProduct.Product_Title_Web_Retailer as string) || '',
         ((rawProduct as any).Ferguson_Description as string) || '',
+        (rawProduct.Product_Title_Legacy as string) || '',  // Add legacy titles
       ]);
       if (extracted) {
         // Normalize variants: "SoftClose" → "Soft Close", "Slow-Close" → "Slow Close"
