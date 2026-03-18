@@ -157,7 +157,7 @@ export function validateStyleForCategory(
 
 /**
  * Validate and correct product style for shower/plumbing categories
- * Corrects invalid styles like "Shower Faucet" to valid picklist values like "Rain Head"
+ * Corrects invalid styles like "Showerheads & Hand Showers" to valid picklist values like "Rain Head"
  */
 export function validateAndCorrectShowerStyle(
   style: string,

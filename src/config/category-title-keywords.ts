@@ -56,7 +56,7 @@ export const NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS: Record<string, string[]> = {
   'Bar Faucet': ['bar faucet', 'prep faucet', 'bar sink faucet'],
   'Pot Filler Faucet': ['pot filler', 'pot filler faucet'],
   'Tub Faucet': ['tub faucet', 'roman tub', 'tub filler', 'bathtub faucet', 'deck mount tub'],
-  'Shower Faucet': ['shower faucet', 'shower trim', 'shower valve', 'shower system', 'shower head', 'showerhead', 'rain shower', 'hand shower', 'shower combo'],
+  'Showerheads & Hand Showers': ['shower faucet', 'shower trim', 'shower valve', 'shower system', 'shower head', 'showerhead', 'rain shower', 'hand shower', 'shower combo'],
   'Shower Accessory': ['shower door', 'shower curtain rod', 'shower shelf', 'shower bench', 'shower seat', 'shower caddy'],
   'Toilet': ['toilet', 'elongated toilet', 'round toilet', 'one piece toilet', 'two piece toilet', 'commode', 'water closet'],
   'Toilet Seat': ['toilet seat', 'bidet seat', 'slow close seat'],

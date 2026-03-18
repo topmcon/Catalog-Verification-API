@@ -67,7 +67,9 @@ categoryNames.forEach(categoryName => {
     if (!title.toLowerCase().includes(testInput.brand.toLowerCase())) {
       throw new Error(`Brand missing from title: "${title}"`);
     }
-    if (!title.toLowerCase().includes(categoryName.toLowerCase())) {
+    // If schema has titleDisplayName, check for that instead of full categoryName
+    const expectedCategoryInTitle = (schema.titleDisplayName || categoryName).toLowerCase();
+    if (!title.toLowerCase().includes(expectedCategoryInTitle)) {
       throw new Error(`Category missing from title: "${title}"`);
     }
     

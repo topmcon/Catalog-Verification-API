@@ -80,7 +80,7 @@ export interface SEOTitleInput {
   basinCount?: string; // For sinks (Single Basin, Double Basin)
   sinkShape?: string; // For sinks (Rectangular, Round, Oval, etc.)
   shape?: string; // Generic shape (Rectangular, Round, Oval, Arch, Square) — for mirrors, etc.
-  function?: string; // For Shower Faucet: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
+  function?: string; // For Showerheads & Hand Showers: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
   mountType?: string;
   holeConfig?: string;
   bowlConfig?: string;
@@ -978,6 +978,10 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     //   → output "Bathroom Wall Mirror" ("Bathroom" prefixed onto Type, Category slot skipped).
     // For plain "Mirror" category, skip entirely to avoid "Wall Mirror Mirror".
     if (formattedValue && slot.attribute === 'Category') {
+      // Use titleDisplayName for categories with long names (e.g., "Showerheads & Hand Showers" → "Shower")
+      if (schema.titleDisplayName) {
+        formattedValue = schema.titleDisplayName;
+      }
       const typeVal = (input.type || '').toLowerCase();
       if (typeVal.includes('mirror') && formattedValue.toLowerCase().includes('mirror')) {
         const isBathroomMirror = formattedValue.toLowerCase().includes('bathroom');
@@ -1007,9 +1011,9 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
 
       // Skip redundant Category when Type already contains the category keyword "Shower"
       // Examples: Type="Shower Arm" + Category="Shower" → just "Shower Arm"
-      //           Type="Showerhead" + Category="Shower Faucet" → just "Showerhead"
+      //           Type="Showerhead" + Category="Showerheads & Hand Showers" → just "Showerhead"
       //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
-      // Non-matches kept: Type="Thermostatic" + Category="Shower Faucet" → "Thermostatic Shower Faucet"
+      // Non-matches kept: Type="Thermostatic" + Category="Shower" → "Thermostatic Shower"
       if (typeVal.includes('shower') && formattedValue.toLowerCase().includes('shower')) {
         logger.info('Skipping redundant Category slot - Type already contains Shower keyword', {
           type: input.type,

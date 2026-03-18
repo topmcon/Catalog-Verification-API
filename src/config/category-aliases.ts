@@ -60,7 +60,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Bathroom Cabinet Hardware': ['Bathroom Hardware and Accessories', 'Bathroom Accessories', 'Bath Hardware', 'Bath Accessories', 'BATHROOM HARDWARE', 'BATHROOM ACCESSORIES', 'Towel Warmer', 'Towel Warmers', 'Bathroom Towel Warmer'],
   'Bathtub': ['Bathtubs', 'Tub', 'Tubs', 'Soaking Tub', 'Bath Tubs', 'Soaking Tubs'],
   'Shower': ['Showers', 'Shower Systems', 'Shower Units', 'Shower Accessory', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
-  'Shower Faucet': ['Shower Faucets', 'Shower Accessories', 'Shower Components'],
+  'Showerheads & Hand Showers': ['Shower Faucet', 'Shower Faucets', 'Shower Accessories', 'Shower Components'],
   'Tub Faucet': ['Tub Faucets', 'Bathtub Faucet', 'Bathtub Faucets', 'Bath Tub Faucet', 'Roman Tub Faucet'],
   'Toilet': ['Toilets', 'Commode', 'Commodes', 'Water Closet', 'Water Closets'],
   'Medicine Cabinet': ['Bathroom Medicine Cabinets'],

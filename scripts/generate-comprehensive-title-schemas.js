@@ -47,7 +47,7 @@ const CATEGORY_SPECS = {
   'Bathtub': { primary: 'Length (Inches)', secondary: 'Type, Material', seoNotes: 'Length is primary dimension. Type = Freestanding, Alcove, Drop-In, Corner, Walk-In.' },
   'Bathtub Waste & Overflow': { primary: 'Type', secondary: '', seoNotes: 'Type = Standard, Cable-Operated, Push-Button.' },
   'Shower': { primary: 'Type', secondary: '', seoNotes: 'Type = Shower System, Shower Head, Shower Panel, Hand Shower, Shower Column, Body Spray.' },
-  'Shower Faucet': { primary: 'Type', secondary: 'Function', seoNotes: 'Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter.' },
+  'Showerheads & Hand Showers': { primary: 'Type', secondary: 'Function', seoNotes: 'Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter.' },
   'Outdoor Shower Faucet': { primary: 'Type', secondary: 'Mount', seoNotes: 'Type = Wall-Mount, Post-Mount, Freestanding.' },
   'Tub Faucet': { primary: 'Type', secondary: 'Mount', seoNotes: 'Type = Roman Tub, Deck-Mount, Floor-Mount, Wall-Mount.' },
   'Steam Shower': { primary: 'Power (kW)', secondary: '', seoNotes: 'Power determines room size coverage.' },

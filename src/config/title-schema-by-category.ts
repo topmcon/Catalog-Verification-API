@@ -34,6 +34,7 @@ export interface TitleSlot {
 export interface CategoryTitleSchema {
   categoryId: string;
   categoryName: string;
+  titleDisplayName?: string;
   department: string;
   family: string;
   slots: TitleSlot[];
@@ -6276,9 +6277,10 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "GRAFF 18-Inch Ceiling Shower Arm Shower Accessory Brushed Brass - G-8546-BB",
     "seoNotes": "Type = Shower Arm, Ceiling Shower Arm, Wall Shower Arm, Slide Bar, Hand Shower Holder, Linear Drain, Shower Door Handle, Transfer Handle, Valve Extension Kit. Width from Ferguson name. GPM for hand shower kits."
   },
-  "shower_faucet": {
+  "showerheads_hand_showers": {
     "categoryId": "a01aZ00000dC5DtQAK",
-    "categoryName": "Shower Faucet",
+    "categoryName": "Showerheads & Hand Showers",
+    "titleDisplayName": "Shower",
     "department": "Plumbing & Bath",
     "family": "Bath",
     "slots": [
@@ -6320,8 +6322,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       }
     ],
     "template": "{Brand} {Type} {Function} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Shower Faucet Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter."
+    "exampleTitle": "Brand TypeValue Showerheads & Hand Showers Finish 1.2 GPM - Model",
+    "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter. titleDisplayName=Shower used in titles."
   },
   "steam_shower": {
     "categoryId": "a01aZ00000dC5DvQAK",

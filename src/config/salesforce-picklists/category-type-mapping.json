@@ -3209,9 +3209,9 @@
     {
       "department_name": "Plumbing & Bath",
       "family_name": "Faucets",
-      "category_name": "Shower Faucet",
+      "category_name": "Showerheads & Hand Showers",
       "category_id": "a01aZ00000dC5DtQAK",
-      "filter_label": "Shower Faucet Type",
+      "filter_label": "Showerheads & Hand Showers Type",
       "logic": "Valve type and shower configuration",
       "types": [
         {
