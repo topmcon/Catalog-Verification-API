@@ -1685,6 +1685,199 @@ export async function verifyProductWithDualAI(
   }
   
   // ========================================================================
+  // PHASE 0.1A: UNIVERSAL RAW DATA EXTRACTION
+  // ========================================================================
+  // When Salesforce sends Ferguson_Raw_Data (the full nested API response),
+  // flat fields like Ferguson_Title, Ferguson_Width etc. may be EMPTY.
+  // This phase extracts nested data into flat fields so ALL downstream code
+  // (AI prompt builder, dimension extraction, post-processing) gets full data.
+  // Only populates fields that are currently empty — never overwrites existing values.
+  // ========================================================================
+  const frd = (rawProduct as any).Ferguson_Raw_Data;
+  if (frd?.product) {
+    const p = frd.product;
+    const specs = p.specifications || {};
+    const featureGroups: any[] = p.feature_groups || [];
+    
+    // Helper: find a specification value from feature_groups by name
+    const findFeatureValue = (name: string): string => {
+      for (const group of featureGroups) {
+        for (const feat of (group.features || [])) {
+          if (feat.name?.toLowerCase() === name.toLowerCase()) {
+            return feat.value || '';
+          }
+        }
+      }
+      return '';
+    };
+    
+    // Helper: find matched variant for this specific model number
+    const matchedVariant = (p.variants || []).find(
+      (v: any) => v.model_number === (frd.model_number || rawProduct.SF_Catalog_Name)
+    );
+    
+    let extractedCount = 0;
+    
+    // --- Core identification ---
+    if (!rawProduct.Ferguson_Title && p.name) {
+      rawProduct.Ferguson_Title = p.name;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Brand && p.brand) {
+      rawProduct.Ferguson_Brand = p.brand;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Model_Number && (p.model_number || frd.model_number)) {
+      rawProduct.Ferguson_Model_Number = p.model_number || frd.model_number;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_URL && (p.url || frd.variant_url)) {
+      rawProduct.Ferguson_URL = frd.variant_url || p.url;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Description && p.description) {
+      rawProduct.Ferguson_Description = p.description;
+      extractedCount++;
+    }
+    
+    // --- Pricing ---
+    if (!rawProduct.Ferguson_Price && p.price != null) {
+      rawProduct.Ferguson_Price = String(p.price);
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Min_Price && p.price_min != null) {
+      rawProduct.Ferguson_Min_Price = String(p.price_min);
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Max_Price && p.price_max != null) {
+      rawProduct.Ferguson_Max_Price = String(p.price_max);
+      extractedCount++;
+    }
+    
+    // --- Classification ---
+    if (!rawProduct.Ferguson_Base_Type && p.base_type) {
+      rawProduct.Ferguson_Base_Type = p.base_type;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Product_Type && p.product_type) {
+      rawProduct.Ferguson_Product_Type = p.product_type;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Base_Category && p.base_category) {
+      rawProduct.Ferguson_Base_Category = p.base_category;
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Business_Category && p.business_category) {
+      rawProduct.Ferguson_Business_Category = p.business_category;
+      extractedCount++;
+    }
+    
+    // --- Dimensions from specifications ---
+    // Width: check specs for "width" first, then "extension" (common for shower arms, faucets)
+    if (!rawProduct.Ferguson_Width) {
+      const widthVal = specs.width?.value || specs.extension?.value || findFeatureValue('Width') || findFeatureValue('Extension');
+      if (widthVal) {
+        rawProduct.Ferguson_Width = widthVal;
+        extractedCount++;
+      }
+    }
+    if (!rawProduct.Ferguson_Height) {
+      const heightVal = specs.height?.value || findFeatureValue('Height');
+      if (heightVal) {
+        rawProduct.Ferguson_Height = heightVal;
+        extractedCount++;
+      }
+    }
+    if (!rawProduct.Ferguson_Depth) {
+      const depthVal = specs.depth?.value || specs.length?.value || findFeatureValue('Depth') || findFeatureValue('Length');
+      if (depthVal) {
+        rawProduct.Ferguson_Depth = depthVal;
+        extractedCount++;
+      }
+    }
+    if (!rawProduct.Ferguson_Diameter) {
+      const diameterVal = specs.diameter?.value || findFeatureValue('Diameter');
+      if (diameterVal) {
+        rawProduct.Ferguson_Diameter = diameterVal;
+        extractedCount++;
+      }
+    }
+    
+    // --- Appearance: extract from matched variant ---
+    if (!rawProduct.Ferguson_Finish && matchedVariant?.name) {
+      rawProduct.Ferguson_Finish = matchedVariant.name; // e.g. "Brushed Brass PVD"
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Color && matchedVariant?.color) {
+      rawProduct.Ferguson_Color = matchedVariant.color; // Hex code e.g. "E1C16E"
+      extractedCount++;
+    }
+    
+    // --- Categories ---
+    if (!rawProduct.Ferguson_Categories && p.categories?.length) {
+      rawProduct.Ferguson_Categories = p.categories.map((c: any) => c.name).join('\n');
+      extractedCount++;
+    }
+    if (!rawProduct.Ferguson_Related_Categories && p.related_categories?.length) {
+      rawProduct.Ferguson_Related_Categories = p.related_categories.map((c: any) => c.name).join('\n');
+      extractedCount++;
+    }
+    
+    // --- Warranty, Collection, Certifications ---
+    if (!rawProduct.Ferguson_Manufacturer_Warranty) {
+      const warrantyVal = specs.manufacturer_warranty?.value || p.manufacturer_warranty || findFeatureValue('Manufacturer Warranty');
+      if (warrantyVal) {
+        rawProduct.Ferguson_Manufacturer_Warranty = warrantyVal;
+        extractedCount++;
+      }
+    }
+    if (!rawProduct.Ferguson_Collection) {
+      const collectionVal = specs.collection?.value || p.collection?.name || findFeatureValue('Collection');
+      if (collectionVal) {
+        rawProduct.Ferguson_Collection = collectionVal;
+        extractedCount++;
+      }
+    }
+    if (!rawProduct.Ferguson_Certifications && p.certifications?.length) {
+      rawProduct.Ferguson_Certifications = p.certifications.join(', ');
+      extractedCount++;
+    }
+    
+    // --- Ferguson_Attributes: extract from specifications + feature_groups ---
+    if (!rawProduct.Ferguson_Attributes || rawProduct.Ferguson_Attributes.length === 0) {
+      const extractedAttrs: { name: string; value: string }[] = [];
+      // From specifications object
+      for (const [key, spec] of Object.entries(specs)) {
+        if (spec && typeof spec === 'object' && (spec as any).value != null) {
+          const units = (spec as any).units ? ` ${(spec as any).units}` : '';
+          extractedAttrs.push({
+            name: key.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
+            value: `${(spec as any).value}${units}`.trim()
+          });
+        }
+      }
+      if (extractedAttrs.length > 0) {
+        rawProduct.Ferguson_Attributes = extractedAttrs;
+        extractedCount++;
+      }
+    }
+    
+    if (extractedCount > 0) {
+      logger.info(`✅ PHASE 0.1A: Extracted ${extractedCount} Ferguson fields from Ferguson_Raw_Data`, {
+        sessionId: verificationSessionId,
+        modelNumber: rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer,
+        extractedFields: extractedCount,
+        fergusonTitle: rawProduct.Ferguson_Title?.substring(0, 60) || '(empty)',
+        fergusonWidth: rawProduct.Ferguson_Width || '(empty)',
+        fergusonHeight: rawProduct.Ferguson_Height || '(empty)',
+        fergusonPrice: rawProduct.Ferguson_Price || '(empty)',
+        fergusonBrand: rawProduct.Ferguson_Brand || '(empty)',
+        fergusonAttributeCount: rawProduct.Ferguson_Attributes?.length || 0
+      });
+    }
+  }
+  
+  // ========================================================================
   // PHASE 0.2: FERGUSON PRIORITY VALIDATION
   // ========================================================================
   // Ferguson data is ALWAYS US market (USD, lbs) - most reliable source
