@@ -10981,11 +10981,12 @@ async function buildFinalResponse(
   // (just brand + category + model), use cleaned raw title to preserve product identity.
   // Example: "JACLO Toilet Polished Gold - 9231-PG" → "Jaclo Toilet Tank Trip Lever Polished Gold - 9231-PG"
   if (finalSeoTitleInput.type === 'Accessory') {
-    // Count meaningful words (exclude brand, category, model, and appearance)
+    // Count meaningful words (exclude brand, category, model, and appearance/finish)
     const titleWords = finalSeoTitle.replace(/\s*-\s*\S+$/, '').split(/\s+/); // strip model suffix
     const brandWords = (finalSeoTitleInput.brand || '').split(/\s+/).length;
     const categoryWords = (finalSeoTitleInput.category || '').split(/\s+/).length;
-    const meaningfulWords = titleWords.length - brandWords - categoryWords;
+    const appearanceWords = (smartAppearance || '').split(/\s+/).filter(Boolean).length;
+    const meaningfulWords = titleWords.length - brandWords - categoryWords - appearanceWords;
     
     if (meaningfulWords <= 2) {
       // Title is thin — try to get a descriptive name from raw sources
