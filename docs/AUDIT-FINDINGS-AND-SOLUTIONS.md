@@ -45,6 +45,9 @@
 | Claude smuggling category into title text | Validate title against category terms + brand before accepting | e96878b | #032, #027, #016 |
 | Wrong dimension in sconce titles (width vs height) | Dimension swap when Height > 2× Width for sconce types | e96878b | #033 |
 | Web retailer data collision (brand mismatch) | Brand overlap check → UNRELIABLE annotation on all web fields | e96878b | #034 |
+| Hex color codes in AI_Color export (e.g., "E1C16E (Tuscan Brass)") | Replace hex with finish name at source; clear orphan hex codes | 0cf0357, b624be3 | #035, #003, #009 |
+| Missing dimension overrides for Bathtub/Vanity + missing finalSeoTitleInput fields | Add post-processing dimension chains + wire up length/material fields | b624be3 | #036, #017 |
+| Post-processing updates finalSeoTitleInput but not sanitizedPrimaryAttributes | Always sync BOTH title input AND export attributes in post-processing | 0cf0357 | #035-A |
 
 ---
 
@@ -4282,6 +4285,125 @@ In `dual-ai-verification.service.ts` `sanitizeProductDataForAI()` (~line 4841):
 
 ### Related Findings
 - **Finding #024**: Claude Final Review context gap (similar issue of misleading context passed to AI)
+
+---
+
+## Finding #035: Hex Color Codes in AI_Color Export + Title Contamination
+
+**Date:** 2026-03-18 | **Severity:** Medium | **Status:** FIXED
+
+### Symptom
+Product titles in Salesforce contained hex color codes like `"E1c16e (tuscan Brass)"` instead of clean finish names. AI_Color exported to Salesforce also contained hex format `"E1C16E (Tuscan Brass)"`.
+
+### Root Cause
+The AI_Color IIFE (line ~9452) intentionally formatted hex colors as `"hexcode (FinishName)"` when the AI returned a raw hex code and a finish name was available. This was originally designed for internal tracking but leaked into both:
+1. **Titles** — via `smartAppearance` logic which used AI_Color as input
+2. **Salesforce export** — AI_Color sent directly to SF webhook payload
+
+### Investigation Steps
+1. User provided 50-item Salesforce output showing hex in Product Title (Verified) column
+2. Queried production MongoDB (`verification_jobs` collection) to confirm AI_Color stored hex format
+3. Traced code path: AI_Color IIFE creates hex format → sanitizedPrimaryAttributes.AI_Color → smartAppearance → title
+4. Found smartAppearance did NOT strip hex codes (no hex-aware logic existed)
+
+### Fix Applied (Two Commits)
+
+**Commit `0cf0357`:** Title-side fix
+- Added hex stripping regex in `smartAppearance` (line ~10764): `cleanColor.match(/^[0-9a-f]{6}\s*\((.+)\)$/i)` extracts the name from parentheses
+- This prevented hex from reaching title generation
+
+**Commit `b624be3`:** Source-side fix
+- Changed AI_Color IIFE (line ~9452) to use finish name directly instead of creating hex format:
+  - Before: `color = \`${color} (${finishName})\``
+  - After: `color = finishName.trim()`
+- Added orphan hex handling: hex codes with no finish name are cleared to empty string
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts`: Lines ~9452 (AI_Color IIFE) and ~10764 (smartAppearance)
+
+### Scope
+- **Universal**: Affects all products where AI returns hex color codes
+- **Pattern**: Internal data formatting leaking into external exports
+
+### Related Findings
+- **Finding #003**: AI confidence-first without validation (similar data quality issue)
+- **Finding #009**: AI extracting descriptive phrases for finish (same color/finish domain)
+
+---
+
+## Finding #035-A: Post-Processing Attribute Sync Gap (AI_Width, AI_Type)
+
+**Date:** 2026-03-18 | **Severity:** High | **Status:** FIXED
+
+### Symptom
+Shower products had correct widths in generated titles but wrong AI_Width values exported to Salesforce. For example, an 18" shower arm would show correct "18-Inch" in title but "2.38" (pipe diameter) in AI_Width.
+
+### Root Cause
+Shower post-processing Step 2d (type derivation) and Step 2e (dimension extraction) updated `finalSeoTitleInput` used for title generation but did NOT update `sanitizedPrimaryAttributes` used for Salesforce export. The two data paths diverged after post-processing.
+
+### Fix Applied
+**Commit `0cf0357`:**
+- Step 2d: After setting `finalSeoTitleInput.type`, also set `sanitizedPrimaryAttributes.AI_Type`
+- Step 2e: After setting `finalSeoTitleInput.width`, also set `sanitizedPrimaryAttributes.AI_Width`
+
+### Design Rule
+**All post-processing that modifies `finalSeoTitleInput` MUST also sync the corresponding `sanitizedPrimaryAttributes` field.** This ensures titles and exported attributes are always consistent.
+
+### Scope
+- **Universal**: Affects all category post-processing chains
+- **Pattern**: Dual data path divergence — title input vs export attributes
+
+### Related Findings
+- **Finding #017**: Cutout vs nominal dimension confusion (same dimension domain)
+
+---
+
+## Finding #036: Missing Dimension Overrides for Bathtub/Vanity + Missing finalSeoTitleInput Fields
+
+**Date:** 2026-03-18 | **Severity:** Medium | **Status:** FIXED
+
+### Symptom
+1. Bathtub titles missing length dimension — `{Length (Inches)}` slot always rendered empty
+2. Bathtub titles missing material — `{Material}` slot always rendered empty
+3. Vanity titles had unreliable width values from AI (not from authoritative Ferguson data)
+
+### Root Cause
+Two separate issues:
+1. **Missing `finalSeoTitleInput` fields**: The `length` and `material` properties were never wired from `sanitizedPrimaryAttributes` to `finalSeoTitleInput`. The Bathtub schema uses `{Length (Inches)}` (maps to `length` field) and `{Material}` (maps to `material` field), but these were undefined.
+2. **No Ferguson dimension override**: Unlike Shower (Step 2e) and Sinks (AI_Width IIFE), Bathtub and Vanity categories had no post-processing to extract authoritative dimensions from Ferguson product names or specifications.
+
+### Fix Applied
+**Commit `b624be3`:**
+
+1. Added `length` and `material` to `finalSeoTitleInput` (line ~10788):
+   ```typescript
+   length: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth,
+   material: seoTitleInput.material || '',
+   ```
+
+2. Added Bathtub dimension override chain:
+   - Priority 1: Ferguson specs (`nominal_length`, `tub_length`)
+   - Priority 2: Regex from product name (e.g., `60" x 32"` → 60)
+   - Range: 30–84 inches
+   - Syncs both `finalSeoTitleInput.length` AND `sanitizedPrimaryAttributes.AI_Depth`
+
+3. Added Vanity dimension override chain:
+   - Priority 1: Ferguson specs (`nominal_width`, `vanity_width`, `cabinet_width`)
+   - Priority 2: Regex from product name (e.g., `36"` → 36)
+   - Range: 12–96 inches
+   - Syncs both `finalSeoTitleInput.width` AND `sanitizedPrimaryAttributes.AI_Width`
+
+### Files Modified
+- `src/services/dual-ai-verification.service.ts`: Lines ~10788 (finalSeoTitleInput fields), ~11161-11218 (Bathtub chain), ~11220-11275 (Vanity chain)
+
+### Scope
+- **Bathtub**: ~5% of products — now get authoritative length in titles
+- **Vanity**: ~3% of products — now get authoritative width from Ferguson
+- **Pattern**: Schema slots require matching fields in title input AND authoritative data source extraction
+
+### Related Findings
+- **Finding #017**: Cutout vs nominal dimension confusion (dimension extraction domain)
+- **Finding #035-A**: Post-processing attribute sync gap (same dual-sync pattern)
 
 ---
 
