@@ -9896,7 +9896,13 @@ async function buildFinalResponse(
         ''
       );
       // Strip unit suffixes (lbs, lb, kg, oz, etc.) and return just the number
-      return weight ? String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim() : '';
+      // Also reject non-numeric values like "Yes", "Not Found", "N/A"
+      if (!weight) return '';
+      const cleaned = String(weight).replace(/\s*(lbs?\.?|pounds?|kg|oz|ounces?)\s*$/i, '').trim();
+      // Verify the result is actually numeric
+      const parsed = parseFloat(cleaned);
+      if (isNaN(parsed) || parsed <= 0) return '';
+      return cleaned;
     })(),
     AI_Product_Filter_Class: (() => {
       // Calculate industry-standard size class for filtering
@@ -11231,13 +11237,18 @@ async function buildFinalResponse(
 
     // Only detect accessories for STANDALONE products (not multi-component systems)
     if (!isMultiComponentProduct) {
-      // Shower arms (ceiling or wall mounted)
-      if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-          /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+      // Shower arms (ceiling or wall mounted) — derive specific arm type for better titles
+      if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
           /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
-        accessoryType = 'Accessory';
+        accessoryType = 'Ceiling Shower Arm';
       }
-      // Linear/shower drains → Trench Drain (existing SF type)
+      else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
+        accessoryType = 'Wall Shower Arm';
+      }
+      else if (/\bshower\s*arm\b/i.test(fNameLower)) {
+        accessoryType = 'Shower Arm';
+      }
+      // Linear/shower drains → Trench Drain (SF type) but title will use "Linear Drain"
       else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
                /\btrench\s*drain\b/i.test(fNameLower)) {
         accessoryType = 'Trench Drain';
@@ -11257,11 +11268,11 @@ async function buildFinalResponse(
       // Hand shower holder / outlet with volume control (STANDALONE holders only)
       else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
                (/\bhandshower\s+outlet\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower))) {
-        accessoryType = 'Accessory';
+        accessoryType = 'Hand Shower Holder';
       }
-      // Valve extension kits → Accessory
+      // Valve extension kits
       else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
-        accessoryType = 'Accessory';
+        accessoryType = 'Valve Extension Kit';
       }
     } // end !isMultiComponentProduct
 
@@ -11283,6 +11294,7 @@ async function buildFinalResponse(
   // 1d. SHOWERHEADS & HAND SHOWERS TYPE REFINEMENT
   //     When AI types a Showerheads & Hand Showers product as "Showerhead" but Ferguson data says
   //     "Rain" → refine to "Rain Head". Also detect hand showers typed as showerheads.
+  //     Also: when Type is empty/missing, derive from Ferguson product name.
   if (finalSeoTitleInput.category === 'Showerheads & Hand Showers') {
     const fNameLower = fergusonProductName.toLowerCase();
     const currentType = (finalSeoTitleInput.type || '').toLowerCase();
@@ -11304,6 +11316,26 @@ async function buildFinalResponse(
       finalSeoTitleInput.type = 'Thermostatic Valve Trim';
       sanitizedPrimaryAttributes.AI_Type = 'Thermostatic Valve Trim';
       logger.info('🚿 Showerheads & Hand Showers: refined Thermostatic → Thermostatic Valve Trim', { sessionId });
+    }
+    // Empty/missing Type → derive from Ferguson product name so titles always have a product descriptor
+    else if (!currentType || currentType === 'not found' || currentType === 'n/a') {
+      let derivedShowerType = '';
+      if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(fNameLower)) {
+        derivedShowerType = 'Rain Head';
+      } else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
+        derivedShowerType = 'Handheld';
+      } else if (/\bbody\s*spray\b/i.test(fNameLower)) {
+        derivedShowerType = 'Body Spray';
+      } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
+        derivedShowerType = 'Showerhead';
+      } else {
+        derivedShowerType = 'Showerhead'; // safe default for Showerheads & Hand Showers category
+      }
+      finalSeoTitleInput.type = derivedShowerType;
+      sanitizedPrimaryAttributes.AI_Type = derivedShowerType;
+      logger.info('🚿 Showerheads & Hand Showers: derived missing Type from Ferguson data', {
+        sessionId, derivedType: derivedShowerType, fergusonName: fergusonProductName.substring(0, 80)
+      });
     }
   }
 
@@ -11448,18 +11480,24 @@ async function buildFinalResponse(
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Trench Drain';
         }
-        // --- Rain shower head → Rain Head (SF picklist type) ---
+        // --- Rain shower head → Rain Head (SF picklist type) → Showerheads & Hand Showers category ---
         else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
                  (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower)) ||
                  /\brain\s+shower\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
           derivedType = 'Rain Head';
         }
-        // --- Body spray ---
+        // --- Body spray → Showerheads & Hand Showers category ---
         else if (/\bbody\s*spray\b/i.test(fNameLower) || /\bbodyspray\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
           derivedType = 'Body Spray';
         }
-        // --- Hand shower ---
+        // --- Hand shower → Showerheads & Hand Showers category ---
         else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
           derivedType = 'Handheld';
         }
         // --- Slide bar (should be caught by 1c, but fallback) ---
@@ -11469,15 +11507,27 @@ async function buildFinalResponse(
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Shower Rod';
         }
-        // --- Shower arm (should be caught by 1c, but fallback) ---
-        else if (/\bshower\s*arm\b/i.test(fNameLower) || /\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-                 /\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
+        // --- Shower arm (should be caught by 1c, but fallback) — derive specific arm type ---
+        else if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
+                 /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Accessory';
+          derivedType = 'Ceiling Shower Arm';
         }
-        // --- Generic showerhead ---
+        else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Wall Shower Arm';
+        }
+        else if (/\bshower\s*arm\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Shower Arm';
+        }
+        // --- Generic showerhead → Showerheads & Hand Showers category ---
         else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
           derivedType = 'Showerhead';
         }
         // --- Slide bar KIT (STANDALONE slide bar kit, NOT a hand shower kit with slide bar) ---
@@ -11499,12 +11549,24 @@ async function buildFinalResponse(
           if (!isMultiComp2d && (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower))) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            derivedType = 'Accessory';
+            if (/\bceiling/i.test(showerSourceLower)) {
+              derivedType = 'Ceiling Shower Arm';
+            } else if (/\bwall/i.test(showerSourceLower)) {
+              derivedType = 'Wall Shower Arm';
+            } else {
+              derivedType = 'Shower Arm';
+            }
           } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
+            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
             derivedType = 'Handheld';
           } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
+            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
             derivedType = 'Showerhead';
           } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
+            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
             derivedType = 'Rain Head';
           } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Shower Accessory';
@@ -11542,18 +11604,29 @@ async function buildFinalResponse(
       //     or body dimensions (height/length mistaken for width).
       //     Ferguson product name is authoritative: "18" Ceiling Shower Arm" → 18
       //     Also check Ferguson Extension attribute for shower arms.
+      //     When multiple dimensions exist (e.g., "4" x 18" Arm"), prefer the LARGEST
+      //     as it's typically the product's primary dimension (length/width), not a
+      //     connection size or tube diameter.
       {
         let fergusonDim: number | null = null;
         let fergusonDimSource = '';
 
         // Priority 1: Dimension from Ferguson product name (most reliable)
-        const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
-        if (dimMatch) {
-          const dim = parseFloat(dimMatch[1]);
-          if (dim >= 1 && dim <= 60) {
-            fergusonDim = dim;
-            fergusonDimSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
+        // Find ALL dimensions and pick the largest (avoid connection sizes like 1/2", 3/4")
+        const dimRegex = /\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/gi;
+        let match: RegExpExecArray | null;
+        let bestDim = 0;
+        let bestMatch = '';
+        while ((match = dimRegex.exec(fergusonProductName)) !== null) {
+          const dim = parseFloat(match[1]);
+          if (dim >= 3 && dim <= 60 && dim > bestDim) {
+            bestDim = dim;
+            bestMatch = match[0].trim();
           }
+        }
+        if (bestDim > 0) {
+          fergusonDim = bestDim;
+          fergusonDimSource = `Ferguson product name: "${bestMatch}"`;
         }
 
         // Priority 2: Ferguson Extension attribute (shower arms have extension, not width)
@@ -11562,7 +11635,7 @@ async function buildFinalResponse(
           const extensionVal = frdSpecs?.extension?.value;
           if (extensionVal) {
             const ext = parseFloat(String(extensionVal));
-            if (ext >= 1 && ext <= 60) {
+            if (ext >= 3 && ext <= 60) {
               fergusonDim = ext;
               fergusonDimSource = `Ferguson Extension attribute: ${extensionVal}`;
             }
@@ -11571,13 +11644,20 @@ async function buildFinalResponse(
 
         // Priority 3: Fallback to broader source texts (only if no Ferguson dimension)
         if (!fergusonDim) {
-          const srcMatch = showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
-          if (srcMatch) {
+          const srcDimRegex = /\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/gi;
+          let srcMatch: RegExpExecArray | null;
+          let srcBestDim = 0;
+          let srcBestMatch = '';
+          while ((srcMatch = srcDimRegex.exec(showerSourceTexts)) !== null) {
             const dim = parseFloat(srcMatch[1]);
-            if (dim >= 1 && dim <= 60) {
-              fergusonDim = dim;
-              fergusonDimSource = `source texts: "${srcMatch[0].trim()}"`;
+            if (dim >= 3 && dim <= 60 && dim > srcBestDim) {
+              srcBestDim = dim;
+              srcBestMatch = srcMatch[0].trim();
             }
+          }
+          if (srcBestDim > 0) {
+            fergusonDim = srcBestDim;
+            fergusonDimSource = `source texts: "${srcBestMatch}"`;
           }
         }
 

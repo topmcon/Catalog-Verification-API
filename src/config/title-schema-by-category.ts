@@ -93,11 +93,15 @@ export const FORMATTING_RULES = {
     return `${Math.round(num)} CFM`;
   },
   
-  // GPM
+  // GPM — preserve manufacturer-specified precision (1.75, 2.5, etc.)
+  // Standard GPM values: 0.5, 1.0, 1.2, 1.5, 1.75, 1.8, 2.0, 2.2, 2.5, 3.0, etc.
   gpm: (value: number | string): string => {
     const num = typeof value === 'string' ? parseFloat(value) : value;
     if (isNaN(num) || num <= 0) return '';
-    return `${num.toFixed(1)} GPM`;
+    // If value has meaningful hundredths (e.g., 1.75, 2.25), keep 2 decimal places
+    // Otherwise use 1 decimal (e.g., 1.5, 2.0)
+    const hasHundredths = Math.round(num * 100) % 10 !== 0;
+    return `${hasHundredths ? num.toFixed(2) : num.toFixed(1)} GPM`;
   },
   
   // dBA Level
@@ -6233,6 +6237,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
   "shower_accessory": {
     "categoryId": "a01aZ00000dC5DsQAK",
     "categoryName": "Shower Accessory",
+    "titleDisplayName": "Shower",
     "department": "Plumbing & Bath",
     "family": "Bath",
     "slots": [

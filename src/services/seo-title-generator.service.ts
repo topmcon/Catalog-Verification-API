@@ -449,6 +449,10 @@ function toTitleCase(str: string): string {
   // Small words that should be lowercase (unless first/last word)
   const smallWords = new Set(['and', 'or', 'but', 'for', 'in', 'of', 'on', 'the', 'to', 'with', 'a', 'an']);
   
+  // Words that LOOK like acronyms (all caps, 2-5 letters) but are actually normal words.
+  // These should be title-cased, NOT preserved as all-caps.
+  const notAcronyms = new Set(['BRASS', 'DERA', 'FLUSH', 'STONE', 'CHINA', 'PEARL', 'CRAFT', 'SHORE', 'STEEL', 'BLACK', 'WHITE', 'VALVE', 'DRAIN']);
+  
   // Split on spaces and process each word
   const words = str.split(/\s+/);
   
@@ -463,7 +467,8 @@ function toTitleCase(str: string): string {
     
     // Preserve all-caps acronyms (2-5 letters, all uppercase)
     // Examples: "KWC", "DXV", "GPM", "CFM", "BTU", "BTU/H"
-    if (/^[A-Z]{2,5}(\/[A-Z]+)?$/.test(word)) {
+    // But NOT brand-related words like "BRASS" which should be title-cased.
+    if (/^[A-Z]{2,5}(\/[A-Z]+)?$/.test(word) && !notAcronyms.has(word)) {
       return word;
     }
     
@@ -932,6 +937,18 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       continue;
     }
     
+    // TITLE-FRIENDLY TYPE NAMES: Some SF picklist types have consumer-unfriendly names.
+    // Replace for titles only (verified data fields keep the SF picklist value).
+    if (slot.attribute === 'Type' && formattedValue) {
+      const typeDisplayMap: Record<string, string> = {
+        'Trench Drain': 'Linear Drain',   // "Trench Drain" is industry jargon; "Linear Drain" is SEO-friendly  
+        'Shower Rod': 'Slide Bar',         // "Shower Rod" is SF type; "Slide Bar" is what consumers search
+      };
+      if (typeDisplayMap[formattedValue]) {
+        formattedValue = typeDisplayMap[formattedValue];
+      }
+    }
+    
     // Apply slot format template if specified AND no ATTRIBUTE_FORMATTERS entry exists
     // (if ATTRIBUTE_FORMATTERS exists, formatValue already applied formatting)
     // Examples: "{value} Place Setting", "{value} CFM"
@@ -1013,6 +1030,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       // Examples: Type="Shower Arm" + Category="Shower" → just "Shower Arm"
       //           Type="Showerhead" + Category="Showerheads & Hand Showers" → just "Showerhead"
       //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
+      //           Type="Steam Generator" + Category="Steam Shower" → just "Steam Generator"  
       // Non-matches kept: Type="Thermostatic" + Category="Shower" → "Thermostatic Shower"
       if (typeVal.includes('shower') && formattedValue.toLowerCase().includes('shower')) {
         logger.info('Skipping redundant Category slot - Type already contains Shower keyword', {
@@ -1021,6 +1039,18 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
           reason: 'Type already includes Shower keyword'
         });
         continue;
+      }
+      // Cross-slot Steam deduplication: when Type has "Steam" (e.g., "Steam Generator"),
+      // drop "Steam" from Category to avoid "Steam Generator Steam Shower".
+      // Result: "MR. STEAM Steam Generator Shower Chrome" instead of 3x "Steam".
+      if (typeVal.includes('steam') && formattedValue.toLowerCase().includes('steam')) {
+        formattedValue = formattedValue.replace(/\bSteam\s*/i, '').trim();
+        logger.info('Removed redundant "Steam" from Category - already in Type', {
+          type: input.type,
+          originalCategory: input.category,
+          displayCategory: formattedValue
+        });
+        if (!formattedValue) continue; // skip if nothing left
       }
     }
 
