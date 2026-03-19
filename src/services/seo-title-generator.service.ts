@@ -80,7 +80,7 @@ export interface SEOTitleInput {
   basinCount?: string; // For sinks (Single Basin, Double Basin)
   sinkShape?: string; // For sinks (Rectangular, Round, Oval, etc.)
   shape?: string; // Generic shape (Rectangular, Round, Oval, Arch, Square) — for mirrors, etc.
-  function?: string; // For Showerheads & Hand Showers: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
+  function?: string; // For Showerheads & Accessories: Thermostatic, Pressure-Balance, Diverter (distinct from 'type')
   mountType?: string;
   holeConfig?: string;
   bowlConfig?: string;
@@ -995,7 +995,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     //   → output "Bathroom Wall Mirror" ("Bathroom" prefixed onto Type, Category slot skipped).
     // For plain "Mirror" category, skip entirely to avoid "Wall Mirror Mirror".
     if (formattedValue && slot.attribute === 'Category') {
-      // Use titleDisplayName for categories with long names (e.g., "Showerheads & Hand Showers" → "Shower")
+      // Use titleDisplayName for categories with long names (e.g., "Showerheads & Accessories" → "Shower")
       if (schema.titleDisplayName) {
         formattedValue = schema.titleDisplayName;
       }
@@ -1028,7 +1028,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
 
       // Skip redundant Category when Type already contains the category keyword "Shower"
       // Examples: Type="Shower Arm" + Category="Shower" → just "Shower Arm"
-      //           Type="Showerhead" + Category="Showerheads & Hand Showers" → just "Showerhead"
+      //           Type="Showerhead" + Category="Showerheads & Accessories" → just "Showerhead"
       //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
       //           Type="Steam Generator" + Category="Steam Shower" → just "Steam Generator"  
       // Non-matches kept: Type="Thermostatic" + Category="Shower" → "Thermostatic Shower"

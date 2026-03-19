@@ -338,7 +338,7 @@ const CATEGORY_CLARIFICATIONS: Record<string, string> = {
   
   // Clarify: Control mechanisms vs. fixtures
   'Bathtub Faucet': '(Controls/faucets FOR bathtubs - NOT the tub itself)',
-  'Showerheads & Hand Showers': '(Shower fixtures: showerheads, hand showers, valves, trims - NOT the shower enclosure)',
+  'Showerheads & Accessories': '(Shower fixtures: showerheads, hand showers, valves, trims, and accessories - NOT the shower enclosure)',
   'Kitchen Faucet': '(Faucets FOR kitchen sinks - NOT the sink itself)',
   'Bathroom Faucet': '(Faucets FOR bathroom sinks - NOT the sink itself)',
   

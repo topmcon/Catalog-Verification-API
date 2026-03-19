@@ -6282,9 +6282,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "GRAFF 18-Inch Ceiling Shower Arm Shower Accessory Brushed Brass - G-8546-BB",
     "seoNotes": "Type = Shower Arm, Ceiling Shower Arm, Wall Shower Arm, Slide Bar, Hand Shower Holder, Linear Drain, Shower Door Handle, Transfer Handle, Valve Extension Kit. Width from Ferguson name. GPM for hand shower kits."
   },
-  "showerheads_hand_showers": {
+  "showerheads_accessories": {
     "categoryId": "a01aZ00000dC5DtQAK",
-    "categoryName": "Showerheads & Hand Showers",
+    "categoryName": "Showerheads & Accessories",
     "titleDisplayName": "Shower",
     "department": "Plumbing & Bath",
     "family": "Bath",
@@ -6327,7 +6327,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       }
     ],
     "template": "{Brand} {Type} {Function} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Showerheads & Hand Showers Finish 1.2 GPM - Model",
+    "exampleTitle": "Brand TypeValue Showerheads & Accessories Finish 1.2 GPM - Model",
     "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter. titleDisplayName=Shower used in titles."
   },
   "steam_shower": {

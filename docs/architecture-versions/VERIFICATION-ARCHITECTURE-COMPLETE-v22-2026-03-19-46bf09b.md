@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v2
-  Snapshot Date: 2026-03-03 21:41:46 EST
-  Commit:        bb0b4eb (bb0b4ebac1ed200f95f79e7bbf66262ce0e13282)
+  Version:       v22
+  Snapshot Date: 2026-03-19 19:44:13 EDT
+  Commit:        46bf09b (46bf09b3a5dfe9bfeaa3a44284765396d6271cc4)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 11267 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 14853 lines
+  title-schema-by-category.ts:     7274 lines
   Brands:     385
   Categories: 161
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v1)
+  Lines added: ~0, Lines removed: ~38 (vs v21)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,20 +29,21 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-bb0b4eb feat: architecture doc versioning system + update both docs to current state
-61d1f37 docs: session summary + audit findings #024-#027 (Claude context, accessory rule, OpenAI fix, title auto-correct)
-bc3d052 fix: OpenAI Stage 1 failures - use minimal user prompt for department/category stages
-baa618f fix: restore truncated dual-ai-verification.service.ts (3009 lines were accidentally dropped in previous commit)
-fd6ea1b Enable title auto-correction + debug OpenAI Stage 1 failures
+46bf09b fix: comprehensive shower title quality improvements (10 fixes)
+1f11fe3 docs: Session summary, audit findings (#040/#041), architecture versions v21-v22
+d6c369e Add Showerheads & Hand Showers type selection guidance to AI prompts
+e3c759e Rename 'Shower Faucet' category to 'Showerheads & Hand Showers'
+5244fee fix: universal picklist ID resolution + multi-component product guards
 -->
 
 # Complete Verification Architecture
 
 > **Last Updated**: 2026-03-04 (EST)  
-> **Commit**: 61d1f37  
-> **Service File**: `dual-ai-verification.service.ts` — 11,267 lines  
+> **Commit**: 092296d  
+> **Service File**: `dual-ai-verification.service.ts` — 11,878 lines (+611)  
 > **Title Schemas**: `title-schema-by-category.ts` — 7,198 lines  
-> **Picklists**: 385 brands, 161 categories, 30 styles, 945 attributes
+> **Picklists**: 385 brands, 161 categories, 30 styles, 945 attributes  
+> **New**: Canadian data handling, Claude validates 40+ fields, Appliance_Features required
 
 ---
 
@@ -79,7 +80,37 @@ This document is the canonical reference for how the verification pipeline opera
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│               STEP 2: Pre-Analysis Data Enrichment                          │
+│        STEP 2: Canadian Data Detection & Conversion (Phase 0)               │
+│  File: src/services/dual-ai-verification.service.ts (lines 1588-1745)      │
+│  Config: src/config/exchange-rates.ts                                      │
+│                                                                              │
+│  🇨🇦 CANADIAN DATA DETECTION:                                               │
+│  - Check Web_Retailer_Key for 'CA_' prefix                                 │
+│  - If Canadian: Convert BEFORE AI analysis                                  │
+│                                                                              │
+│  PHASE 0.1: CONVERSION                                                      │
+│  - MSRP: CAD → USD (multiply by 0.73)                                      │
+│  - Weight: kg → lbs (multiply by 2.20462)                                  │
+│  - Update rawProduct fields IN-PLACE                                        │
+│  - Store original values for context                                        │
+│                                                                              │
+│  PHASE 0.2: FERGUSON PRIORITY VALIDATION                                    │
+│  - Ferguson data = always US market (USD, lbs)                             │
+│  - Compare converted Web Retailer vs Ferguson                              │
+│  - Warn if >30% price/weight difference                                    │
+│  - Always prioritize Ferguson when both exist                              │
+│                                                                              │
+│  EXCHANGE RATE CONFIG:                                                      │
+│  - CAD_TO_USD: 0.73 (static market pricing ratio)                         │
+│  - KG_TO_LBS: 2.20462 (exact conversion)                                  │
+│  - LAST_UPDATED: 2026-03-04                                                │
+│  - Staleness check: warns if >90 days old                                  │
+│  - 12 Canadian retailer domains tracked                                     │
+└────────────────────────────┬────────────────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│               STEP 3: Pre-Analysis Data Enrichment                          │
 │  Files: src/services/pre-research-workflow.service.ts                      │
 │         src/services/web-scraper.service.ts                                │
 │         src/services/pdf-parser.service.ts                                 │
@@ -91,8 +122,18 @@ This document is the canonical reference for how the verification pipeline opera
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│           STEP 3: Three-Stage Hierarchical AI Analysis                      │
+│           STEP 4: Three-Stage Hierarchical AI Analysis                      │
 │  File: src/services/dual-ai-verification.service.ts                        │
+│                                                                              │
+│  🇨🇦 CANADIAN CONTEXT INJECTION (Phase 3):                                 │
+│  - AI prompts include Canadian data section if applicable                   │
+│  - Shows:
+│    * Original CAD/kg values
+│    * Converted USD/lbs values
+│    * Exchange rate (0.73) and conversion factor (2.20462)
+│    * Ferguson comparison for quality check
+│    * Warning: "Do NOT convert again - already converted"
+│  - Both OpenAI and xAI receive full context via buildAnalysisPrompt()      │
 │                                                                              │
 │  ┌────────────────────────────────────────────────────────────────────┐   │
 │  │  STAGE 1: Department Determination                                  │   │
@@ -209,12 +250,62 @@ This document is the canonical reference for how the verification pipeline opera
 │  │  ├─ CRITICAL ACCESSORY RULE (parent appliance category)            │   │
 │  │  └─ Valid picklist values for corrections                           │   │
 │  │                                                                      │   │
-│  │  Claude evaluates:                                                  │   │
-│  │  ├─ Is category correct for this product?                          │   │
-│  │  ├─ Is type correct for this category?                              │   │
-│  │  ├─ Is style appropriate?                                           │   │
-│  │  ├─ Is the title accurate and well-formed?                         │   │
-│  │  └─ Any proposed corrections (validated against picklists)         │   │
+│  │  Claude validates 40+ FIELDS (expanded from 5):                    │   │
+│  │                                                                      │   │
+│  │  SECTION 1: CORE CLASSIFICATION (5 fields)                         │   │
+│  │  ├─ Category (correct for raw data?)                               │   │
+│  │  ├─ Department (matches category?)                                 │   │
+│  │  ├─ Type (valid for category, accessory detection?)                │   │
+│  │  ├─ Style (appropriate?)                                           │   │
+│  │  └─ Title (60-80 chars, schema compliance, clarity)                │   │
+│  │                                                                      │   │
+│  │  SECTION 2: PRIMARY ATTRIBUTES (19 fields)                         │   │
+│  │  ├─ Brand, Model Number, Description, UPC/GTIN                    │   │
+│  │  ├─ Color, Finish (not mixed)                                      │   │
+│  │  ├─ Dimensions: Width, Height, Depth (units, match data)          │   │
+│  │  ├─ Weight (lbs not kg, matches Weight_Web_Retailer/Ferguson)     │   │
+│  │  ├─ MSRP (Ferguson_Price or MSRP_Web_Retailer, not $0 premium)    │   │
+│  │  ├─ Product Filter Class (Premium/Mid-Tier/Budget)                │   │
+│  │  ├─ Features (relevant, from raw data)                             │   │
+│  │  ├─ Model hierarchy: Parent, Alias, Variant, Total Variants       │   │
+│  │  └─ Product Family (brand's product line)                          │   │
+│  │                                                                      │   │
+│  │  SECTION 3: APPLIANCE FEATURES (8 booleans - if Appliances)       │   │
+│  │  ├─ Built-In (check installation_type)                            │   │
+│  │  ├─ Panel Ready (check for "Panel Ready" mentions)                │   │
+│  │  ├─ Standard Depth vs Full Depth (24-25" vs 30-36")              │   │
+│  │  ├─ Voltage: 120V (small), 240V (ranges/dryers/ovens)             │   │
+│  │  └─ Fuel Type: Gas vs Electric                                     │   │
+│  │                                                                      │   │
+│  │  SECTION 4: FILTER ATTRIBUTES (top 5-10 category-specific)        │   │
+│  │  ├─ Installation Type (Built-In, Freestanding, Undercounter)      │   │
+│  │  ├─ Fuel Type (Natural Gas, Propane, Dual Fuel, Electric)         │   │
+│  │  ├─ Material (Brass, Stainless Steel, Plastic, Bronze)            │   │
+│  │  ├─ Finish Type (Polished, Brushed, Matte, Satin)                 │   │
+│  │  ├─ Connection Type (Compression, Threaded, Push-to-Connect)      │   │
+│  │  └─ Other relevant top-ranked attributes for category              │   │
+│  │                                                                      │   │
+│  │  SECTION 5: PRICE VALIDATION (5 checks)                            │   │
+│  │  ├─ Data Source Match (MSRP matches Ferguson_Price/Web Retailer)  │   │
+│  │  ├─ Price Reasonableness (category benchmarks)                     │   │
+│  │  │   • Appliances: $200-$15K                                       │   │
+│  │  │   • Plumbing: $50-$5K                                           │   │
+│  │  │   • Lighting: $50-$3K                                           │   │
+│  │  ├─ Source Consistency (<30% difference if both sources exist)     │   │
+│  │  ├─ Missing Price Detection (premium brands NOT $0)                │   │
+│  │  └─ Format Validation (positive number, not negative/text/null)    │   │
+│  │                                                                      │   │
+│  │  SEVERITY MAPPING:                                                  │   │
+│  │  - CRITICAL: Wrong category, department, type                      │   │
+│  │  - HIGH: Wrong brand, model, MSRP, dimensions, appliance features  │   │
+│  │  - MEDIUM: Wrong color, finish, filter attributes, description     │   │
+│  │  - LOW: Missing optional fields, minor title formatting            │   │
+│  │                                                                      │   │
+│  │  RESPONSE FORMAT INCLUDES:                                          │   │
+│  │  - proposedCorrections for ALL 40+ fields                          │   │
+│  │  - appliance_features object (8 booleans)                          │   │
+│  │  - filter_attributes object (category-specific)                    │   │
+│  │  - price_issues array                                              │   │
 │  └────────────────────────────┬───────────────────────────────────────┘   │
 │                               ▼                                             │
 │  ┌────────────────────────────────────────────────────────────────────┐   │
@@ -296,8 +387,40 @@ CONTEXT INJECTED INTO performClaudeReview():
 ├─ Type Selection Guides: Per-category guidance on when to pick each type
 ├─ Category Schema: getCategorySchema(category) — top-15 attributes
 ├─ Trust Hierarchy: structured data > product name > AI extraction
+├─ Data Source Priority: Category-dependent (see below)
 ├─ CRITICAL ACCESSORY RULE: Accessories belong to parent appliance category
 └─ Valid Picklist Values: For corrections validation
+```
+
+**Data Source Priority by Category (2026-03-10)**:
+```
+CATEGORY-DEPENDENT SOURCE PRIORITY:
+├─ Appliances Department (17 categories):
+│  └─ Web_Retailer → Ferguson → fallback
+│     (Web Retailer provides better appliance specs)
+│
+└─ All Other Departments (144+ categories):
+   └─ Ferguson → Web_Retailer → fallback
+      (Ferguson is primary for lighting, plumbing, hardware, etc.)
+
+IMPLEMENTATION:
+├─ isAppliancesCategory(categoryName): Checks getDepartmentForCategory()
+├─ getFieldByPriority(category, webRetailerValue, fergusonValue, fallback)
+└─ Applied to 12 locations:
+   ├─ Brand (4x): AI research, customer text, tracking
+   ├─ Model Number (1x): AI research prompts
+   ├─ Title (2x): Category schema lookup, SEO title
+   ├─ Description (2x): Customer text, category context
+   └─ Dimensions (3x): Width, Height, Depth for title generation
+
+FIELDS AFFECTED:
+- Brand_Web_Retailer vs Ferguson_Brand
+- Model_Number_Web_Retailer vs Ferguson_Model_Number
+- Product_Title_Web_Retailer vs Ferguson_Title
+- Product_Description_Web_Retailer vs Ferguson_Description
+- Width_Web_Retailer vs Ferguson_Width
+- Height_Web_Retailer vs Ferguson_Height
+- Depth_Web_Retailer vs Ferguson_Depth
 ```
 
 ---
@@ -320,6 +443,8 @@ CONTEXT INJECTED INTO performClaudeReview():
 | `performClaudeReview()` | ~10608 | Claude Final Review with full context |
 | `executeFinalReviewStage()` | ~11056 | Orchestrates Phase A/B/C of Final Review |
 | `getTypeHierarchyExplanation()` | ~8500 | Type parent/child relationships for Claude |
+| `isAppliancesCategory()` | ~220 | Check if category is in Appliances department |
+| `getFieldByPriority()` | ~230 | Get field with category-dependent source priority |
 | `getCategorySchema()` | imported | Top-15 attributes per category |
 
 ---

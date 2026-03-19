@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v3
-  Snapshot Date: 2026-03-03 23:45:19 EST
-  Commit:        0745b38 (0745b3896a4948ac07f90dae0286e1400895238f)
+  Version:       v23
+  Snapshot Date: 2026-03-19 19:44:13 EDT
+  Commit:        46bf09b (46bf09b3a5dfe9bfeaa3a44284765396d6271cc4)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 11267 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 14853 lines
+  title-schema-by-category.ts:     7274 lines
   Brands:     385
   Categories: 161
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v2)
+  Lines added: ~0, Lines removed: ~38 (vs v22)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,27 +29,28 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-0745b38 feat: Implement intelligent picklist reconciliation system
-1b5cfa9 docs: Add session summary for certifications bug fix
-4b2f077 FIX: Remove broken certifications attribute alias
-8f4ac0d feat: add bulk reject script for pending picklist syncs
-6503fe8 docs: session summary + architecture version v2 snapshots
+46bf09b fix: comprehensive shower title quality improvements (10 fixes)
+1f11fe3 docs: Session summary, audit findings (#040/#041), architecture versions v21-v22
+d6c369e Add Showerheads & Hand Showers type selection guidance to AI prompts
+e3c759e Rename 'Shower Faucet' category to 'Showerheads & Hand Showers'
+5244fee fix: universal picklist ID resolution + multi-component product guards
 -->
 
 # Verification Data Sources - Complete Inventory
 
 > **Last Updated**: 2026-03-04 (EST)  
-> **Commit**: 61d1f37
+> **Commit**: 092296d  
+> **New**: Canadian data config (exchange-rates.ts), Web_Retailer_Key field for CA detection
 
 ## 📊 Complete Data Source Count
 
-**Total Data Sources**: 55+
+**Total Data Sources**: 56+
 
 | Type | Count | Examples |
 |------|-------|----------|
 | **Dynamic JSON Picklists** | 5 | brands.json, categories.json, styles.json, attributes.json, category-filter-attributes.json |
 | **Static JSON Files** | 3 | category-type-style-mapping.json, complete-category-data.json, sf-clean-attributes.json |
-| **Mapping/Config TS Files** | 15+ | category-style-mapping.ts, family-category-mapping.ts, category-consolidation-mapping.ts, etc. |
+| **Mapping/Config TS Files** | 16+ | exchange-rates.ts, category-style-mapping.ts, family-category-mapping.ts, etc. |
 | **Schema TS Files** | 10+ | category-attributes.ts, plumbing-schemas.ts, lighting-schemas.ts, etc. |
 | **Hardcoded Lists** | 10+ | PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, ATTRIBUTE_ALIASES, BRAND_CORRECTIONS, etc. |
 | **Service Logic Files** | 6+ | picklist-matcher.service.ts, category-matcher.service.ts, dual-ai-verification.service.ts, etc. |
@@ -530,6 +531,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy
@@ -592,6 +594,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy

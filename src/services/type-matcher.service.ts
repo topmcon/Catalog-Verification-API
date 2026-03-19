@@ -282,12 +282,12 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'tub filler': { 'Tub Faucet': 'Freestanding', 'Pot Filler Faucet': 'Wall Mount' },
   'freestanding tub filler': { 'Tub Faucet': 'Freestanding' },
   'freestanding tub faucet': { 'Tub Faucet': 'Freestanding' },
-  'thermostatic': { 'Showerheads & Hand Showers': 'Thermostatic' },
-  'pressure balance': { 'Showerheads & Hand Showers': 'Pressure Balance' },
-  'shower system': { 'Showerheads & Hand Showers': 'Shower System', 'Shower': 'Shower System' },
-  'shower tower': { 'Showerheads & Hand Showers': 'Shower System', 'Shower': 'Shower System' },
-  'rain shower': { 'Showerheads & Hand Showers': 'Rain' },
-  'body spray': { 'Showerheads & Hand Showers': 'Body Spray' },
+  'thermostatic': { 'Showerheads & Accessories': 'Thermostatic' },
+  'pressure balance': { 'Showerheads & Accessories': 'Pressure Balance' },
+  'shower system': { 'Showerheads & Accessories': 'Shower System', 'Shower': 'Shower System' },
+  'shower tower': { 'Showerheads & Accessories': 'Shower System', 'Shower': 'Shower System' },
+  'rain shower': { 'Showerheads & Accessories': 'Rain' },
+  'body spray': { 'Showerheads & Accessories': 'Body Spray' },
   
   // ============================================
   // PLUMBING ALIASES - Sinks & Bathtubs

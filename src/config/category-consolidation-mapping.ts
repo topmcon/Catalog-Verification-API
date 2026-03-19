@@ -31,7 +31,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
 
   // ===== BATH & PLUMBING - FAUCETS =====
   // ⚠️ "Bidet Faucet" is VALID (ID: a01aZ00000dC5DmQAK) - DO NOT REMAP
-  // ⚠️ "Showerheads & Hand Showers" is VALID (ID: a01aZ00000dC5DtQAK) - DO NOT REMAP (renamed from "Shower Faucet")
+  // ⚠️ "Showerheads & Accessories" is VALID (ID: a01aZ00000dC5DtQAK) - DO NOT REMAP (renamed from "Shower Faucet" then "Showerheads & Hand Showers")
   // ⚠️ "Tub Faucet" is VALID (ID: a01aZ00000dC5DzQAK) - DO NOT REMAP
   'Bathtub Faucets': {
     removedCategory: 'Bathtub Faucets',

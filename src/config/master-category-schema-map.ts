@@ -421,7 +421,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Hand Shower': SHOWER_SCHEMA,
   'Rain Shower': SHOWER_SCHEMA,
   'Shower Faucet': SHOWER_SCHEMA,
-  'Showerheads & Hand Showers': SHOWER_SCHEMA,
+  'Showerheads & Accessories': SHOWER_SCHEMA,
   'Shower Trim': SHOWER_SCHEMA,
   
   // Bathroom Hardware

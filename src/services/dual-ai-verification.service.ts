@@ -2673,7 +2673,7 @@ export async function verifyProductWithDualAI(
     const allValidCategories = getAllCategories();
     
     // 🔧 CRITICAL: Apply category name normalization BEFORE validation
-    // This resolves aliases (e.g., "Shower Accessories" → "Showerheads & Hand Showers")
+    // This resolves aliases (e.g., "Shower Accessories" → "Showerheads & Accessories")
     const normalizedCategory = normalizeCategoryName(determinedCategory);
     if (normalizedCategory !== determinedCategory) {
       logger.info('✅ Category alias resolved', {
@@ -4735,9 +4735,9 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  • "Outdoor Undercounter/Freestanding Nugget Ice Machine" → Undercounter (Outdoor)\n`;
       typeSelectionGuide += `  • "15\" Freestanding/Built-In Ice Maker" → Freestanding (Freestanding appears first)\n`;
       typeSelectionGuide += `  • "Compact Countertop Ice Maker" → Portable\n`;
-    } else if (categoryLower.includes('showerhead') || categoryLower === 'showerheads & hand showers') {
-      // 🔧 Showerheads & Hand Showers type selection guide
-      typeSelectionGuide += `For Showerheads & Hand Showers, **Type = PRODUCT ASSEMBLY TYPE** (what the complete product is):\n\n`;
+    } else if (categoryLower.includes('showerhead') || categoryLower === 'showerheads & accessories') {
+      // 🔧 Showerheads & Accessories type selection guide
+      typeSelectionGuide += `For Showerheads & Accessories, **Type = PRODUCT ASSEMBLY TYPE** (what the complete product is):\n\n`;
       typeSelectionGuide += `⚠️ **CRITICAL DISTINCTION — "Thermostatic" is a VALVE TECHNOLOGY, not a product type!**\n`;
       typeSelectionGuide += `  • "Thermostatic" = describes HOW the valve controls temperature (attribute)\n`;
       typeSelectionGuide += `  • "Pressure Balance" = describes HOW the valve maintains pressure (attribute)\n`;
@@ -11158,14 +11158,14 @@ async function buildFinalResponse(
   ].join(' ');
   const showerSourceLower = showerSourceTexts.toLowerCase();
 
-  // 1. SHOWERHEADS & HAND SHOWERS — separate Function value from Type value.
+  // 1. SHOWERHEADS & ACCESSORIES — separate Function value from Type value.
   //    The AI often puts Thermostatic / Pressure-Balance / Diverter in the Type slot
   //    because the {Function} schema slot had no backing field.  Now that we have
   //    finalSeoTitleInput.function, move those values to the right slot and infer
   //    a proper structural Type (Trim Kit / Complete System / Valve).
   const SHOWER_FUNCTION_VALUES = ['Thermostatic', 'Pressure Balance', 'Pressure-Balance',
     'Pressure Balanced', 'Diverter', 'Volume Control', 'Transfer'];
-  if (finalSeoTitleInput.category === 'Showerheads & Hand Showers' &&
+  if (finalSeoTitleInput.category === 'Showerheads & Accessories' &&
       SHOWER_FUNCTION_VALUES.some(fn => finalSeoTitleInput.type === fn ||
         finalSeoTitleInput.type?.toLowerCase() === fn.toLowerCase())) {
     const detectedFunction = finalSeoTitleInput.type || '';
@@ -11179,15 +11179,15 @@ async function buildFinalResponse(
     }
     finalSeoTitleInput.type = structuralType;
     finalSeoTitleInput.function = detectedFunction;
-    logger.info('Showerheads & Hand Showers: moved function value from type slot to function slot', {
+    logger.info('Showerheads & Accessories: moved function value from type slot to function slot', {
       sessionId, detectedFunction, structuralType, fergusonName: fergusonProductName.substring(0, 70)
     });
   }
 
-  // 1b. SHOWERHEADS & HAND SHOWERS → ROUGH-IN VALVE reclassification
+  // 1b. SHOWERHEADS & ACCESSORIES → ROUGH-IN VALVE reclassification
   //     Products like DELTA R10000-UNWSHF are rough-in valve bodies, not showerheads.
   //     Detect from Ferguson keywords and reclassify.
-  if (finalSeoTitleInput.category === 'Showerheads & Hand Showers' &&
+  if (finalSeoTitleInput.category === 'Showerheads & Accessories' &&
       (/\brough[\s-]?in\s+valve\b/i.test(showerSourceLower) ||
        /\bmixing\s+rough[\s-]?in\b/i.test(showerSourceLower) ||
        /\buniversal\s+mixing\s+rough/i.test(showerSourceLower)) &&
@@ -11204,20 +11204,20 @@ async function buildFinalResponse(
     } else {
       finalSeoTitleInput.type = 'Thermostatic'; // safe default for mixing valves
     }
-    logger.warn('🚿 CATEGORY RECLASSIFICATION: "Showerheads & Hand Showers" → "Rough-In Valve"', {
+    logger.warn('🚿 CATEGORY RECLASSIFICATION: "Showerheads & Accessories" → "Rough-In Valve"', {
       sessionId, type: finalSeoTitleInput.type,
       reason: 'Source data describes a rough-in valve body, not a showerhead/hand shower'
     });
   }
 
   // 1c. SHOWER ACCESSORY reclassification
-  //     Products that AI puts in "Shower" or "Showerheads & Hand Showers" but are really accessories:
+  //     Products that AI puts in "Shower" or "Showerheads & Accessories" but are really accessories:
   //     shower arms, linear drains, slide bars, door handles, valve handles, holders, etc.
   //     Reclassify to "Shower Accessory" with specific type from existing SF types.
   //
   //     GUARD: Multi-component products (shower systems, trim packages, hand shower kits)
   //     that merely INCLUDE a slide bar or arm as a component must NOT be reclassified.
-  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Showerheads & Hand Showers') {
+  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Showerheads & Accessories') {
     const fNameLower = fergusonProductName.toLowerCase();
 
     // Multi-component product guard: these are SYSTEMS that include accessories as components
@@ -11291,11 +11291,11 @@ async function buildFinalResponse(
     }
   }
 
-  // 1d. SHOWERHEADS & HAND SHOWERS TYPE REFINEMENT
-  //     When AI types a Showerheads & Hand Showers product as "Showerhead" but Ferguson data says
+  // 1d. SHOWERHEADS & ACCESSORIES TYPE REFINEMENT
+  //     When AI types a Showerheads & Accessories product as "Showerhead" but Ferguson data says
   //     "Rain" → refine to "Rain Head". Also detect hand showers typed as showerheads.
   //     Also: when Type is empty/missing, derive from Ferguson product name.
-  if (finalSeoTitleInput.category === 'Showerheads & Hand Showers') {
+  if (finalSeoTitleInput.category === 'Showerheads & Accessories') {
     const fNameLower = fergusonProductName.toLowerCase();
     const currentType = (finalSeoTitleInput.type || '').toLowerCase();
 
@@ -11303,19 +11303,19 @@ async function buildFinalResponse(
     if (currentType === 'showerhead' && (/\brain\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(showerSourceLower))) {
       finalSeoTitleInput.type = 'Rain Head';
       sanitizedPrimaryAttributes.AI_Type = 'Rain Head';
-      logger.info('🚿 Showerheads & Hand Showers: refined Showerhead → Rain Head from Ferguson data', { sessionId });
+      logger.info('🚿 Showerheads & Accessories: refined Showerhead → Rain Head from Ferguson data', { sessionId });
     }
     // Showerhead → Handheld if Ferguson says "hand shower" / "handshower"
     else if (currentType === 'showerhead' && (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower))) {
       finalSeoTitleInput.type = 'Handheld';
       sanitizedPrimaryAttributes.AI_Type = 'Handheld';
-      logger.info('🚿 Showerheads & Hand Showers: refined Showerhead → Handheld from Ferguson data', { sessionId });
+      logger.info('🚿 Showerheads & Accessories: refined Showerhead → Handheld from Ferguson data', { sessionId });
     }
     // Thermostatic + "valve trim" in Ferguson → Thermostatic Valve Trim
     else if (currentType === 'thermostatic' && /\bvalve\s+trim\b/i.test(fNameLower)) {
       finalSeoTitleInput.type = 'Thermostatic Valve Trim';
       sanitizedPrimaryAttributes.AI_Type = 'Thermostatic Valve Trim';
-      logger.info('🚿 Showerheads & Hand Showers: refined Thermostatic → Thermostatic Valve Trim', { sessionId });
+      logger.info('🚿 Showerheads & Accessories: refined Thermostatic → Thermostatic Valve Trim', { sessionId });
     }
     // Empty/missing Type → derive from Ferguson product name so titles always have a product descriptor
     else if (!currentType || currentType === 'not found' || currentType === 'n/a') {
@@ -11329,11 +11329,11 @@ async function buildFinalResponse(
       } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
         derivedShowerType = 'Showerhead';
       } else {
-        derivedShowerType = 'Showerhead'; // safe default for Showerheads & Hand Showers category
+        derivedShowerType = 'Showerhead'; // safe default for Showerheads & Accessories category
       }
       finalSeoTitleInput.type = derivedShowerType;
       sanitizedPrimaryAttributes.AI_Type = derivedShowerType;
-      logger.info('🚿 Showerheads & Hand Showers: derived missing Type from Ferguson data', {
+      logger.info('🚿 Showerheads & Accessories: derived missing Type from Ferguson data', {
         sessionId, derivedType: derivedShowerType, fergusonName: fergusonProductName.substring(0, 80)
       });
     }
@@ -11480,24 +11480,24 @@ async function buildFinalResponse(
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Trench Drain';
         }
-        // --- Rain shower head → Rain Head (SF picklist type) → Showerheads & Hand Showers category ---
+        // --- Rain shower head → Rain Head (SF picklist type) → Showerheads & Accessories category ---
         else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
                  (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower)) ||
                  /\brain\s+shower\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
           derivedType = 'Rain Head';
         }
-        // --- Body spray → Showerheads & Hand Showers category ---
+        // --- Body spray → Showerheads & Accessories category ---
         else if (/\bbody\s*spray\b/i.test(fNameLower) || /\bbodyspray\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
           derivedType = 'Body Spray';
         }
-        // --- Hand shower → Showerheads & Hand Showers category ---
+        // --- Hand shower → Showerheads & Accessories category ---
         else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
           derivedType = 'Handheld';
         }
         // --- Slide bar (should be caught by 1c, but fallback) ---
@@ -11524,10 +11524,10 @@ async function buildFinalResponse(
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Shower Arm';
         }
-        // --- Generic showerhead → Showerheads & Hand Showers category ---
+        // --- Generic showerhead → Showerheads & Accessories category ---
         else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
           derivedType = 'Showerhead';
         }
         // --- Slide bar KIT (STANDALONE slide bar kit, NOT a hand shower kit with slide bar) ---
@@ -11557,16 +11557,16 @@ async function buildFinalResponse(
               derivedType = 'Shower Arm';
             }
           } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+            finalSeoTitleInput.category = 'Showerheads & Accessories';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
             derivedType = 'Handheld';
           } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+            finalSeoTitleInput.category = 'Showerheads & Accessories';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
             derivedType = 'Showerhead';
           } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Hand Showers';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Hand Showers';
+            finalSeoTitleInput.category = 'Showerheads & Accessories';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
             derivedType = 'Rain Head';
           } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Shower Accessory';
@@ -12180,7 +12180,7 @@ async function buildFinalResponse(
 
   // ── UNIVERSAL PICKLIST ID RESOLUTION ────────────────────────────────────────
   // Post-processing reclassifies categories and types (Shower→Steam Shower,
-  // Toilet→Toilet Seat, Showerheads & Hand Showers→Shower Accessory, etc.) but only updates
+  // Toilet→Toilet Seat, Showerheads & Accessories→Shower Accessory, etc.) but only updates
   // the TEXT fields (AI_Product_Category, AI_Type). The LOOKUP/ID fields
   // (AI_Product_Category_Lookup, AI_Type_Id) still point to the original pre-
   // reclassification values, causing Salesforce to display wrong categories.
@@ -13976,8 +13976,8 @@ Analyze cavity count and form factor: Single, Double Wall, Combination, Speed Ov
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ICEMAKER:
 Type = Installation method. Priority: ADA → Panel Ready → Outdoor → Portable → Undercounter/Freestanding
 If dual-capable (both undercounter + freestanding), default to Undercounter`;
-    } else if (categoryLower.includes('showerhead') || categoryLower === 'showerheads & hand showers') {
-      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR SHOWERHEADS & HAND SHOWERS:
+    } else if (categoryLower.includes('showerhead') || categoryLower === 'showerheads & accessories') {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR SHOWERHEADS & ACCESSORIES:
 ⚠️ CRITICAL: "Thermostatic" and "Pressure Balance" are VALVE TECHNOLOGIES, not product types!
 Type = PRODUCT ASSEMBLY TYPE (what the complete product is):
   1. System/Kit/Package with MULTIPLE components → Shower System
