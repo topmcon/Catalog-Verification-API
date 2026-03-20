@@ -10966,6 +10966,22 @@ async function buildFinalResponse(
   const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
   const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
   
+  // ⚠️ CRITICAL: Normalize installation_type BEFORE it's used in title generation
+  // March 16 hierarchy redesign prioritizes sanitizedTopFilterAttributes.installation_type,
+  // but normalization was only applied to seoTitleInput.installationType
+  // This caused titles to show "Built-In, Free Standing" instead of "Built-In"
+  if (sanitizedTopFilterAttributes.installation_type) {
+    sanitizedTopFilterAttributes.installation_type = normalizeInstallationType(
+      String(sanitizedTopFilterAttributes.installation_type)
+    );
+    logger.info('Applied installation type normalization to filter attributes', {
+      sessionId,
+      category: consensus.agreedCategory,
+      before: topFilterAttributes.installation_type,
+      after: sanitizedTopFilterAttributes.installation_type
+    });
+  }
+  
   // Filter out any Style_Requests with N/A values AND styles that already exist in picklist
   // This prevents duplicate style creation in Salesforce
   const filteredStyleRequests = styleRequests.filter(req => {
