@@ -431,9 +431,9 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Length",
         "measurement_unit": "inches",
-        "classes": ["48", "54", "60", "66", "67", "72"],
+        "classes": ["48", "54", "60", "66", "67", "70", "72", "73", "74", "75", "76", "78"],
         "rounding_method": "NEAREST" as const,
-        "notes": "Alcove standard is 60\"; freestanding ranges 54-72\""
+        "notes": "Alcove standard is 60\"; freestanding ranges 54-78\"; common sizes: 60, 66, 67, 70, 72, 73, 74, 75, 76, 78"
       }
     ]
   }
