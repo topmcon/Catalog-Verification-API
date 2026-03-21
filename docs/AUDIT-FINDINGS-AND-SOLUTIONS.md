@@ -48,6 +48,7 @@
 | Hex color codes in AI_Color export (e.g., "E1C16E (Tuscan Brass)") | Replace hex with finish name at source; clear orphan hex codes | 0cf0357, b624be3 | #035, #003, #009 |
 | Missing dimension overrides for Bathtub/Vanity + missing finalSeoTitleInput fields | Add post-processing dimension chains + wire up length/material fields | b624be3 | #036, #017 |
 | Post-processing updates finalSeoTitleInput but not sanitizedPrimaryAttributes | Always sync BOTH title input AND export attributes in post-processing | 0cf0357 | #035-A |
+| Appliance titles broken by cumulative non-appliance changes | PATH B: Isolate appliance AI logic (SF-anchored, full prompt, skip Claude) + pipeline architecture | 2a7dfef | #042, #016, #010, #017 |
 | HTML attribute table missing Ferguson nested data | Extract specifications + feature_groups from Ferguson_Raw_Data | (pending) | #037 |
 | Ferguson flat attributes gated by ~25-item allowlist | Remove allowlist, include ALL unused Ferguson flat attributes | (pending) | #037 |
 | Web Retailer specs only captured via AI extraction | Add direct extraction function for Web_Retailer_Specs | (pending) | #037 |
@@ -4624,6 +4625,61 @@ When adding a new category or significantly expanding types, **always check** if
 ### Related Findings
 - #039 (shower hierarchy)
 - #040 (category rename)
+
+---
+
+## Finding #042: Appliance Titles Broken by Cumulative Non-Appliance Changes (PATH B)
+
+### Symptom
+After commit `ca540e2` (March 16), appliance titles missing installation type, depth type, and showing incorrect brand (e.g., "GE" instead of "GE Profile"). 83 of 104 refrigerator calls returned results but with degraded quality: Counter-Depth missing, STRING_TOO_LONG Salesforce rejections.
+
+### Root Cause (Multi-Layered)
+**Not a single bug** — 8 categories of changes accumulated across 37+ commits since `926ad6b` (March 2, last known-good):
+1. **Stage 2 Unbiased Category** (`salesforceCategory = null`) — Appliances need SF-anchored category
+2. **Stage 1/2 Minimal Prompts** (`buildStagePrompt`) — Appliances need full context (`buildAnalysisPrompt`)
+3. **Claude Final Review Phase B** (new post-926ad6b) — May alter appliance results in untested ways
+4. **finalSeoTitleInput two-stage construction** — Hotfix `d8108cd` partially addressed
+5. Phase 0.1A Ferguson Extraction (additive, low impact)
+6. `getFieldByPriority` department-aware (low impact)
+7. AI Vision model change (low impact)
+8. Department-aware tiebreaker cascade (medium impact)
+
+### Investigation Steps
+1. Hotfix `d8108cd`: Normalize `sanitizedTopFilterAttributes.installation_type` → fixed immediate symptom only
+2. Live production monitoring → observed GE Profile → "GE", Counter-Depth missing, STRING_TOO_LONG
+3. Full diff: `git diff --stat 926ad6b..HEAD` → 5,844 insertions, 1,055 deletions
+4. Line-by-line comparison of old vs new service → identified 8 change categories
+5. User chose PATH B (surgical revert for appliances only)
+
+### Fix Applied
+**Commit**: `2a7dfef` — "PATH B: Full appliance verification restore to 926ad6b behavior"
+
+**3 surgical changes:**
+
+| Change | File | Lines | Before | After |
+|--------|------|-------|--------|-------|
+| Stage 2 SF-anchored | `dual-ai-verification.service.ts` | 2335-2351 | `salesforceCategory = null` for all | `Web_Retailer_Category` for Appliances, `null` for others |
+| Full prompt | Lines 2381-2394, 4078-4091, 4226-4241 | `buildStagePrompt()` for Stage 2 | `useFullPrompt: isAppliancesDepartment` → `buildAnalysisPrompt()` for Appliances |
+| Claude skip | Lines 13231-13284 | Phase B runs for all | `if (!isAppliancesDept)` skips Phase B for Appliances |
+
+**Pipeline architecture**: Created 3 new files isolating appliance vs non-appliance post-processing:
+- `src/services/pipelines/shared-pipeline-types.ts` (75 lines)
+- `src/services/pipelines/appliance-pipeline.ts` (245 lines)
+- `src/services/pipelines/non-appliance-pipeline.ts` (879 lines)
+
+### Scope
+**DEPARTMENT-SPECIFIC**: Only Appliances department affected by PATH B changes. All non-appliance logic preserved as-is.
+
+### Lessons Learned
+1. **Cumulative non-appliance changes can break appliances**: Changes intended for shower/toilet/lighting categories affected Stage 2 prompt, category determination, and Claude review — all of which are shared code paths
+2. **Department isolation is essential**: Pipeline architecture prevents future cross-contamination
+3. **Single hotfix may not be sufficient**: When multiple independent changes accumulate, a single-point fix may address symptoms without resolving root cause
+4. **Full diff audit reveals hidden regressions**: Line-by-line comparison against known-good commit exposed 7 additional change categories beyond the initial hotfix target
+
+### Related Findings
+- #016 (AI re-categorizing instead of validating SF categories) — Stage 2 unbiased mode was an extension of #016's fix
+- #010 (Freestanding shown in refrigerator titles) — Refrigerator depth/installation logic preserved
+- #017 (AI extracting cutout dimensions) — Dimension handling preserved in appliance pipeline
 
 ---
 

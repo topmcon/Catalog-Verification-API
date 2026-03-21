@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v4
-  Snapshot Date: 2026-03-04 11:43:17 EST
-  Commit:        c0f70c9 (c0f70c9c97f39c127cbc9e74d77bc36a5344a390)
+  Version:       v24
+  Snapshot Date: 2026-03-20 21:01:04 EDT
+  Commit:        2a7dfef (2a7dfef7e2fced29074dff681bce30b0ae4bb0e6)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 11877 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 13608 lines
+  title-schema-by-category.ts:     7274 lines
   Brands:     385
   Categories: 161
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v3)
+  Lines added: ~0, Lines removed: ~38 (vs v23)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,27 +29,28 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-c0f70c9 docs: Add comprehensive session summary for AI bias elimination
-e946cf6 fix: Correct MongoDB schema for AIPerformanceMetrics
-a87aa69 feat: Eliminate AI bias and implement Phase C learning system
-2f2b4f4 docs: Session summary and audit findings for intelligent picklist reconciliation
-0745b38 feat: Implement intelligent picklist reconciliation system
+2a7dfef PATH B: Full appliance verification restore to 926ad6b behavior
+d8108cd fix(appliances): Apply installation type normalization to filter attributes
+cf15e61 fix(bathtub): Add missing size classes to prevent dimension downrounding
+3faa36a Rename category 'Showerheads & Hand Showers' to 'Showerheads & Accessories'
+46bf09b fix: comprehensive shower title quality improvements (10 fixes)
 -->
 
 # Verification Data Sources - Complete Inventory
 
 > **Last Updated**: 2026-03-04 (EST)  
-> **Commit**: 61d1f37
+> **Commit**: 092296d  
+> **New**: Canadian data config (exchange-rates.ts), Web_Retailer_Key field for CA detection
 
 ## 📊 Complete Data Source Count
 
-**Total Data Sources**: 55+
+**Total Data Sources**: 56+
 
 | Type | Count | Examples |
 |------|-------|----------|
 | **Dynamic JSON Picklists** | 5 | brands.json, categories.json, styles.json, attributes.json, category-filter-attributes.json |
 | **Static JSON Files** | 3 | category-type-style-mapping.json, complete-category-data.json, sf-clean-attributes.json |
-| **Mapping/Config TS Files** | 15+ | category-style-mapping.ts, family-category-mapping.ts, category-consolidation-mapping.ts, etc. |
+| **Mapping/Config TS Files** | 16+ | exchange-rates.ts, category-style-mapping.ts, family-category-mapping.ts, etc. |
 | **Schema TS Files** | 10+ | category-attributes.ts, plumbing-schemas.ts, lighting-schemas.ts, etc. |
 | **Hardcoded Lists** | 10+ | PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, ATTRIBUTE_ALIASES, BRAND_CORRECTIONS, etc. |
 | **Service Logic Files** | 6+ | picklist-matcher.service.ts, category-matcher.service.ts, dual-ai-verification.service.ts, etc. |
@@ -530,6 +531,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy
@@ -592,6 +594,7 @@ src/config/:
 ```
 src/config/
 ├── constants.ts                    PREMIUM_BRANDS, CATEGORY_NAME_ALIASES, AI_FALLBACK_ATTRIBUTES
+├── exchange-rates.ts               Canadian data conversion (CAD→USD 0.73, kg→lbs 2.20462, CA domains)
 ├── category-style-mapping.ts       Generated from category-type-style-mapping.json
 ├── category-consolidation-mapping.ts  Deprecated→parent category mappings
 ├── family-category-mapping.ts      Department→Family→Category hierarchy
