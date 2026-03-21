@@ -909,7 +909,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Height (Inches)",
+        "attribute": "Width (Inches)",
         "required": false
       },
       {
@@ -928,9 +928,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Height (Inches)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Standalone Pedestal Finish - Model",
-    "seoNotes": "Type = Sink Pedestal, Pedestal Leg. Height for sink."
+    "template": "{Brand} {Type} {Width (Inches)} {Category} {Finish} {Model Number}",
+    "exampleTitle": "Brand TypeValue 27-Inch Standalone Pedestal Finish - Model",
+    "seoNotes": "Type = Storage Pedestal, Standalone. Width matches washer/dryer width (27 or 29)."
   },
   "washer": {
     "categoryId": "a01Hu000010Q5EsIAK",

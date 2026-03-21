@@ -976,6 +976,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     
     // FINDING #017 FIX: Skip redundant Type if it's a substring of Category
     // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
+    // FINDING #046: Also applies to "Standalone" in "Standalone Pedestal" (no / or & required)
     if (formattedValue && slot.attribute === 'Type') {
       const categorySlot = sortedSlots.find(s => s.attribute === 'Category');
       if (categorySlot) {
@@ -983,7 +984,6 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         const formattedCategory = formatValue(categorySlot.attribute, categoryValue, input);
         
         if (formattedCategory && 
-            (formattedCategory.includes('/') || formattedCategory.includes('&')) &&
             formattedCategory.toLowerCase().includes(formattedValue.toLowerCase())) {
           logger.info('Skipping redundant Type slot - value is substring of Category', {
             type: formattedValue,
