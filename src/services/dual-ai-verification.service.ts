@@ -3410,6 +3410,9 @@ export async function verifyProductWithDualAI(
         // Override product_type if validation specified
         if (validation.correctedType) {
           consensus.agreedPrimaryAttributes.product_type = validation.correctedType;
+          // Also override AI results so determinedType (typeCandidates[0]) picks up the correction
+          openaiResult.primaryAttributes.product_type = validation.correctedType;
+          xaiResult.primaryAttributes.product_type = validation.correctedType;
         }
         
         // Reload category schema for corrected category (if not null)
@@ -3459,6 +3462,9 @@ export async function verifyProductWithDualAI(
           consensus.agreedCategory = validationAfterCrossCheck.correctedCategory!;
           if (validationAfterCrossCheck.correctedType) {
             consensus.agreedPrimaryAttributes.product_type = validationAfterCrossCheck.correctedType;
+            // Also override AI results so determinedType (typeCandidates[0]) picks up the correction
+            openaiResult.primaryAttributes.product_type = validationAfterCrossCheck.correctedType;
+            xaiResult.primaryAttributes.product_type = validationAfterCrossCheck.correctedType;
           }
           if (consensus.agreedCategory) {
             void getCategorySchema(consensus.agreedCategory);
@@ -4751,6 +4757,22 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `For Door Hardware, check lock mechanism:\n`;
       typeSelectionGuide += `  - "Passage" (no lock), "Privacy" (push-button), "Entry" (keyed)\n`;
       typeSelectionGuide += `  - "Dummy" (non-functional), "Single Cylinder", "Double Cylinder"\n`;
+    } else if (categoryLower === 'cooktop') {
+      typeSelectionGuide += `For Cooktops, **Type = INSTALLATION CONTEXT first, then heat source**:\n\n`;
+      typeSelectionGuide += `⚠️ **CRITICAL PRIORITY ORDER** — check in this order:\n\n`;
+      typeSelectionGuide += `  1. **Outdoor context wins** (highest priority):\n`;
+      typeSelectionGuide += `     - Product is for outdoor kitchens / outdoor use → Type: **Outdoor**\n`;
+      typeSelectionGuide += `     - Keywords: "outdoor", "outdoor kitchen", "drop-in", "drop in", "side burner", "single side burner"\n`;
+      typeSelectionGuide += `     - NOTE: Even if it uses gas fuel, an outdoor side burner = Type: Outdoor (not Gas)\n`;
+      typeSelectionGuide += `     - Example: "Drop-In Single Side Burner" → Type: Outdoor\n\n`;
+      typeSelectionGuide += `  2. **If NOT outdoor**, use heat source:\n`;
+      typeSelectionGuide += `     - Gas burners / natural gas / LP / propane → Type: Gas\n`;
+      typeSelectionGuide += `     - Electric coil / radiant electric → Type: Electric\n`;
+      typeSelectionGuide += `     - Induction → Type: Induction\n`;
+      typeSelectionGuide += `     - Radiant (smooth-top electric) → Type: Radiant\n`;
+      typeSelectionGuide += `     - Built-in downdraft ventilation → Type: Downdraft\n\n`;
+      typeSelectionGuide += `  3. **Accessory** (lowest priority):\n`;
+      typeSelectionGuide += `     - Replacement grate, burner cap, trim kit, etc. → Type: Accessory\n`;
     } else if (categoryLower.includes('icemaker') || categoryLower.includes('ice maker')) {
       // 🔧 NEW: Icemaker type selection guide - addresses dual-capability products
       typeSelectionGuide += `For Icemakers, **Type = INSTALLATION METHOD** (how it's installed):\n\n`;
@@ -5940,6 +5962,27 @@ function validateConsensusCategory(
         correctedType: 'Gas',
         reason: 'Product is an outdoor gas cooking burner (side/drop-in burner), not a fire pit accessory. Gas cooking appliances = Cooktop.',
         violatedRule: 'OUTDOOR_COOKTOP_VS_FIRE_PIT_ACCESSORY'
+      };
+    }
+  }
+
+  // RULE 3: Cooktop category with outdoor side burner context → Type must be Outdoor not Gas
+  if (normalizedCategory === 'cooktop') {
+    const outdoorBurnerPatterns = [
+      /side.?burner/i,
+      /drop.?in.*burner/i,
+      /outdoor.*burner/i,
+    ];
+    const combinedText3 = `${title} ${description}`.toLowerCase();
+    const isOutdoorBurner = outdoorBurnerPatterns.some(p => p.test(combinedText3));
+    const currentType = (agreedPrimaryAttributes.product_type || agreedPrimaryAttributes.type || '').toLowerCase();
+    if (isOutdoorBurner && currentType !== 'outdoor') {
+      return {
+        isValid: false,
+        correctedCategory: 'Cooktop',
+        correctedType: 'Outdoor',
+        reason: 'Outdoor side/drop-in burner → Type must be Outdoor (installation context beats heat source for outdoor cooktops).',
+        violatedRule: 'COOKTOP_OUTDOOR_TYPE_PRIORITY'
       };
     }
   }

@@ -960,7 +960,12 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     // Examples: "{value} Place Setting", "{value} CFM"
     const hasAttributeFormatter = !!ATTRIBUTE_FORMATTERS[slot.attribute];
     if (formattedValue && slot.format && slot.format.includes('{value}') && !hasAttributeFormatter) {
-      formattedValue = slot.format.replace('{value}', formattedValue);
+      // Guard: Burner Count must be numeric (e.g. 1,2,4,5,6) — reject 'Yes','No','N/A' etc.
+      if (slot.attribute === 'Burner Count' && isNaN(Number(String(formattedValue).trim()))) {
+        formattedValue = '';
+      } else {
+        formattedValue = slot.format.replace('{value}', formattedValue);
+      }
     }
     
     // Debug logging for dishwasher width slot
