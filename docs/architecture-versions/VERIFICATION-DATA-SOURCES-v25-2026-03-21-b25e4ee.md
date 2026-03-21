@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v5
-  Snapshot Date: 2026-03-04 12:45:51 EST
-  Commit:        092296d (092296d54df4bea4b2a01683237f09a812238005)
+  Version:       v25
+  Snapshot Date: 2026-03-21 00:37:42 EDT
+  Commit:        b25e4ee (b25e4eedbe686cbeeb1fcdcbfd2b25d6165242a8)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 11877 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 13785 lines
+  title-schema-by-category.ts:     7274 lines
   Brands:     385
   Categories: 161
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~6, Lines removed: ~41 (vs v4)
+  Lines added: ~0, Lines removed: ~38 (vs v24)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-092296d feat: Canadian data handling + Claude expansion + Appliance_Features required
-c0f70c9 docs: Add comprehensive session summary for AI bias elimination
-e946cf6 fix: Correct MongoDB schema for AIPerformanceMetrics
-a87aa69 feat: Eliminate AI bias and implement Phase C learning system
-2f2b4f4 docs: Session summary and audit findings for intelligent picklist reconciliation
+b25e4ee Remove Compact from Freezer types; map to Undercounter instead
+eaa5cdd Add Freezer type clarification to prevent installation_type/panel_ready/type confusion
+4dace16 Add washer/dryer type clarifications to prevent attribute confusion
+10fdc40 Add dishwasher type clarification to prevent Panel-Ready confusion
+bd02636 Add Range Hood type clarification to AI prompt
 -->
 
 # Verification Data Sources - Complete Inventory

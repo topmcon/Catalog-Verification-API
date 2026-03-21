@@ -59,6 +59,9 @@
 | Shower Accessory had no type mapping or title schema | Add 14-type mapping + title schema using existing SF IDs | (pending) | #039 |
 | Steam Shower Controller not a valid SF type | Map to Control Panel (existing SF ID a1jaZ000001lF4xQAE) | (pending) | #039 |
 | Rough-In Valve miscategorized as Shower Faucet | Add section 1b detection for rough-in patterns | (pending) | #039 |
+| Freezer type/installation_type/panel_ready confusion | Add explicit AI clarification block separating 3 fields | eaa5cdd, b25e4ee | #043, #030, #015 |
+| CI/CD double-restart kills in-flight jobs | Disable deploy-production CI/CD job (or add graceful shutdown) | (pending) | #044 |
+| Compact Freezer type ambiguity | Remove Compact, default to Undercounter | b25e4ee | #045, #043 |
 
 ---
 
@@ -4700,6 +4703,109 @@ After commit `ca540e2` (March 16), appliance titles missing installation type, d
 2. Check if previous fix patterns apply
 3. Document new findings even if not immediately fixed
 4. Update Quick Reference Index when adding new findings
+
+---
+
+## Finding #043: Freezer Type Confusion — installation_type/panel_ready/product_type Overlap
+
+**Date:** 2026-03-20
+**Severity:** Medium
+**Category:** AI Type Extraction
+**Status:** ✅ Fixed
+
+### Symptom
+Freezer products had 3 confusable fields that AIs could mix up:
+- `product_type` (form factor): Upright, Chest, Column, Undercounter, Accessory
+- `installation_type`: Built-In, Freestanding
+- `panel_ready`: Yes, No
+
+"Undercounter" appeared across schema fields, causing AIs to potentially put installation concepts in the type field.
+
+### Root Cause
+Standard AI prompting didn't distinguish between these three closely related Freezer attributes. Without explicit guidance, AIs could extract "Built-In" or "Freestanding" as product_type instead of installation_type.
+
+### Fix Applied
+- **Commit:** `eaa5cdd` (initial clarification), `b25e4ee` (Compact removal)
+- **Files:** `src/services/dual-ai-verification.service.ts` (~line 4920), `src/config/salesforce-picklists/category-type-mapping.json` (~line 170)
+- Added 19-line Freezer-specific clarification block to AI prompting
+- Explicitly separates: "product_type = FORM FACTOR (Upright/Chest/Column/Undercounter)" vs "installation_type = PLACEMENT METHOD (Built-In/Freestanding)" vs "panel_ready = APPEARANCE FLAG (Yes/No)"
+- Added warning: "Compact is NOT a valid type"
+
+### Test Results
+- First batch (9 items): All valid form factor types assigned, ZERO wrong-field confusion
+- 6/9 consensus, 3/9 tiebreaker — all correct types
+
+### Scope
+Limited to Freezer category. Same pattern exists for Range Hood, Dishwasher, Dryer, Washer (all fixed in commit 4dace16).
+
+### Related Findings
+- #003 (AI extracting wrong semantic values)
+- #015 (Electric/Gas incorrectly as dryer Types)
+- #030 (Logic field confused as valid type values)
+
+---
+
+## Finding #044: CI/CD Double-Restart Killing In-Flight Jobs
+
+**Date:** 2026-03-20
+**Severity:** High
+**Category:** Infrastructure / Deployment
+**Status:** ⚠️ Identified, NOT YET FIXED
+
+### Symptom
+After deploying code changes, 13 verification jobs were stuck in "Requested" status — accepted by API (202 response) but never processed to completion.
+
+### Root Cause
+Two service restarts occur ~70 seconds apart during deployment:
+1. **Manual deploy**: `systemctl restart catalog-verification` (immediate)
+2. **GitHub Actions CI/CD**: `.github/workflows/ci-cd.yml` `deploy-production` job triggers another `systemctl restart` ~70s later
+
+The second restart kills any jobs that started processing after the first restart. Jobs receive HTTP 202 immediately but the async processing is terminated by SIGTERM.
+
+### Investigation Steps
+1. Noticed 13 jobs stuck as "Requested" after deploy
+2. Checked service logs — saw SIGTERM signals
+3. Traced timeline: manual deploy at T+0, CI/CD deploy at T+70s
+4. Confirmed `.github/workflows/ci-cd.yml` has `deploy-production` job that SSHes to server and restarts
+
+### Recommended Fix (Not Yet Applied)
+Option A: Disable `deploy-production` job in CI/CD workflow (simplest)
+Option B: Add graceful shutdown — drain in-flight jobs before exiting on SIGTERM
+Option C: Change CI/CD to only run tests/lint, not deploy
+
+### Scope
+Affects ALL deployments that push to `main` branch. Every manual deploy is followed by a CI/CD deploy ~70s later.
+
+### Related Findings
+- New pattern — no prior findings on deployment infrastructure
+
+---
+
+## Finding #045: Compact Freezer Type Ambiguity → Default to Undercounter
+
+**Date:** 2026-03-20
+**Severity:** Low
+**Category:** Picklist Configuration
+**Status:** ✅ Fixed
+
+### Symptom
+"Compact" was listed as a valid Freezer type, but compact freezers are physically the same as undercounter freezers. This created ambiguity for AI type selection.
+
+### Root Cause
+"Compact" describes size, not form factor. All compact freezers fit the Undercounter form factor category.
+
+### Fix Applied
+- **Commit:** `b25e4ee`
+- **Files:** `src/config/salesforce-picklists/category-type-mapping.json`, `src/services/dual-ai-verification.service.ts`
+- Removed "Compact" from valid Freezer types
+- Updated AI clarification to explicitly state: "Compact is NOT a valid Freezer type — classify compact freezers as Undercounter"
+- Valid types now: Upright, Chest, Column, Undercounter, Accessory
+
+### Scope
+Limited to Freezer category only.
+
+### Related Findings
+- #043 (Freezer type confusion — same session fix)
 
 ---
 
