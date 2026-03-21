@@ -313,26 +313,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Steam",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Convection",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Speed Oven",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Outdoor",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
