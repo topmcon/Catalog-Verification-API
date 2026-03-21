@@ -9166,6 +9166,7 @@ async function buildFinalResponse(
   /** Extract configuration from texts using known configuration values */
   const extractConfigurationFromTexts = (texts: string[]): string => {
     const configs = [
+      'Wine Column',  // Must be before 'Column' — most specific first
       'French Door', 'Side-by-Side', 'Side by Side', 'Top Freezer', 'Bottom Freezer',
       'Single Door', 'Double Door', 'Triple Door', 'Quad Door',
       'Single Oven', 'Double Oven', 'Combination', 'Convertible'

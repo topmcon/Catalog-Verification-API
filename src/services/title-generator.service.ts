@@ -21,7 +21,7 @@ import { roundToStandardSize } from '../utils/size-class-rounder';
 export const REFRIGERATOR_CONFIGURATIONS = [
   'French Door', 'Side-by-Side', 'Side by Side',
   'Top Freezer', 'Bottom Freezer', 'Top Mount', 'Bottom Mount',
-  'Single Door', 'Column', 'All Refrigerator', 'All Freezer',
+  'Single Door', 'Column', 'Wine Column', 'All Refrigerator', 'All Freezer',
   'Wine Cooler', 'Beverage Center', 'Kegerator', 'Undercounter'
 ];
 
@@ -212,6 +212,9 @@ function normalizeConfiguration(value: string): string | null {
   
   // Bottom Freezer variations
   if ((lower.includes('bottom') && lower.includes('freez')) || lower.includes('bottom mount')) return 'Bottom Freezer';
+  
+  // Wine Column — check before plain 'column' (most specific first)
+  if (lower.includes('wine') && lower.includes('column')) return 'Wine Column';
   
   // Column refrigerators
   if (lower.includes('column')) return 'Column';
