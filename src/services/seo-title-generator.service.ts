@@ -976,7 +976,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     
     // FINDING #017 FIX: Skip redundant Type if it's a substring of Category
     // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
-    // FINDING #046: Also applies to "Standalone" in "Laundry Pedestal" (no / or & required)
+    // FINDING #046: Applies to Laundry Pedestal types (Storage, Functional, Riser, Accessory)
     if (formattedValue && slot.attribute === 'Type') {
       const categorySlot = sortedSlots.find(s => s.attribute === 'Category');
       if (categorySlot) {

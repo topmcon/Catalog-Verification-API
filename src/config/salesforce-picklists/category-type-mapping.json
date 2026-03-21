@@ -588,19 +588,24 @@
       "logic": "Primarily for matching washer/dryer",
       "types": [
         {
-          "type_name": "Standalone",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Storage Pedestal",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
+        },
+        {
+          "type_name": "Functional",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Riser",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Storage",
+          "status": "existing",
+          "primary_filter": true
         }
       ]
     },

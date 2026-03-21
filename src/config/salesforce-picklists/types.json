@@ -1018,6 +1018,10 @@
     "type_id": "a1jaZ000001lF6lQAE"
   },
   {
+    "type_name": "Functional",
+    "type_id": "a1jaZ00000243e5QAA"
+  },
+  {
     "type_name": "Gable Mount",
     "type_id": "a1jaZ000001lF6mQAE"
   },
@@ -1960,6 +1964,10 @@
     "type_id": "a1jaZ000001lYu8QAE",
     "category_usage": "Toilet",
     "type_group": "Bowl Shape"
+  },
+  {
+    "type_name": "Riser",
+    "type_id": "a1jaZ00000243cTQAQ"
   },
   {
     "type_name": "Runner",

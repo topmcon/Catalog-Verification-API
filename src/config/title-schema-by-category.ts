@@ -929,8 +929,8 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       }
     ],
     "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
-    "exampleTitle": "LG 27-Inch Storage Pedestal Laundry Pedestal Graphite Steel - WDP5V",
-    "seoNotes": "Width first for space planning. Type = Storage Pedestal, Standalone. Width matches washer/dryer width (27 or 29)."
+    "exampleTitle": "LG 27-Inch Storage Laundry Pedestal Graphite Steel - WDP5V",
+    "seoNotes": "Width first for space planning. Type = Storage, Functional, Riser, Accessory. Width matches washer/dryer width (27 or 29)."
   },
   "washer": {
     "categoryId": "a01Hu000010Q5EsIAK",
