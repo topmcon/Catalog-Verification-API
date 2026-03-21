@@ -193,11 +193,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Compact",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
