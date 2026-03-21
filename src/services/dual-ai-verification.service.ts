@@ -2413,6 +2413,9 @@ export async function verifyProductWithDualAI(
           'OVENS': 'OVEN',
           'RANGES': 'RANGE',
           'COOKTOPS': 'COOKTOP',
+          // Drawer variants - AIs sometimes say "Warming Drawer" instead of the valid category "Drawer"
+          'WARMING DRAWER': 'DRAWER',
+          'WARMING DRAWERS': 'DRAWER',
         };
         return aliasMap[normalized] || normalized;
       };
@@ -2429,7 +2432,14 @@ export async function verifyProductWithDualAI(
       if (bothAisDisagreeWithSf) {
         // 🚨 CRITICAL: Both AIs independently determined a DIFFERENT category than SF
         // This is a strong signal SF's category is wrong - OVERRIDE
-        const aiDeterminedCategory = openaiCategory || xaiCategory;
+        // Prefer whichever AI gave the canonical valid category name (e.g. xAI says "Drawer",
+        // OpenAI says "Warming Drawer" — prefer "Drawer" since it exists in the picklist)
+        const _allCatsForOverride = getAllCategories();
+        const aiDeterminedCategory = (xaiCategory && _allCatsForOverride.includes(xaiCategory))
+          ? xaiCategory
+          : (openaiCategory && _allCatsForOverride.includes(openaiCategory))
+            ? openaiCategory
+            : openaiCategory || xaiCategory;
         
         logger.error('🚨 FINDING #020: OVERRIDING Salesforce category - both AIs independently disagree', {
           sessionId: verificationSessionId,
