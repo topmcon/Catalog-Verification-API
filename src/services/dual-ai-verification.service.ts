@@ -10748,26 +10748,64 @@ async function buildFinalResponse(
   // Merge all five sources — department-aware priority (same logic as getFieldByPriority)
   // Appliances: Web Retailer > Ferguson (web retail is source of record)
   // Non-Appliances: Ferguson > Web Retailer (Ferguson is more authoritative)
-  // AI sits in the middle; later spread overrides earlier for duplicate keys
+  // Uses smart deduplication: normalized key matching across sources prevents duplicates
+  // while preserving highest-priority source's value for each unique attribute
   const isAppliance = isAppliancesCategory(determinedCategory);
   
-  const mergedAdditionalAttributes = isAppliance
-    ? {
-        // APPLIANCES: Ferguson base, Web Retailer overrides
-        ...nestedFergusonAttrs,                     // Nested Ferguson specs/features (base)
-        ...unusedFergusonAttrs,                      // Flat Ferguson attributes
-        ...consensus.agreedAdditionalAttributes,    // AI-extracted additional attributes
-        ...specTableAttrs,                          // Specification_Table HTML
-        ...unusedWebRetailerAttrs                   // Web Retailer specs (most authoritative for appliances)
+  // Smart deduplication: merge sources in priority order (lowest → highest)
+  // Higher-priority sources override lower ones for the same normalized key
+  // This prevents duplicate attributes like "Ice Maker" appearing from both Ferguson and Web Retailer
+  const normalizeAttrKey = (key: string): string =>
+    key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    
+  const sourcesInPriorityOrder: Array<{ attrs: Record<string, unknown>; source: string }> = isAppliance
+    ? [
+        { attrs: nestedFergusonAttrs, source: 'Ferguson_Nested' },
+        { attrs: unusedFergusonAttrs, source: 'Ferguson_Flat' },
+        { attrs: consensus.agreedAdditionalAttributes || {}, source: 'AI_Consensus' },
+        { attrs: specTableAttrs, source: 'Spec_Table' },
+        { attrs: unusedWebRetailerAttrs, source: 'Web_Retailer' },  // Highest priority for appliances
+      ]
+    : [
+        { attrs: specTableAttrs, source: 'Spec_Table' },
+        { attrs: unusedWebRetailerAttrs, source: 'Web_Retailer' },
+        { attrs: consensus.agreedAdditionalAttributes || {}, source: 'AI_Consensus' },
+        { attrs: nestedFergusonAttrs, source: 'Ferguson_Nested' },
+        { attrs: unusedFergusonAttrs, source: 'Ferguson_Flat' },  // Highest priority for non-appliances
+      ];
+
+  // Track which normalized keys we've seen — higher-priority sources override lower ones
+  const seenNormalizedKeys = new Map<string, string>(); // normalizedKey → originalKey from winning source
+  const mergedAdditionalAttributes: Record<string, string> = {};
+  let duplicatesRemoved = 0;
+  
+  for (const { attrs } of sourcesInPriorityOrder) {
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value === null || value === undefined || value === '') continue;
+      const normalized = normalizeAttrKey(key);
+      if (!normalized) continue;
+      
+      if (seenNormalizedKeys.has(normalized)) {
+        // Duplicate — higher priority source overrides: remove old key, use this one
+        const oldKey = seenNormalizedKeys.get(normalized)!;
+        if (oldKey !== key) {
+          delete mergedAdditionalAttributes[oldKey];
+        }
+        duplicatesRemoved++;
       }
-    : {
-        // NON-APPLIANCES: Web Retailer base, Ferguson overrides
-        ...specTableAttrs,                          // Specification_Table HTML (base)
-        ...unusedWebRetailerAttrs,                  // Web Retailer specs
-        ...consensus.agreedAdditionalAttributes,    // AI-extracted additional attributes
-        ...nestedFergusonAttrs,                     // Nested Ferguson specs/features
-        ...unusedFergusonAttrs                      // Flat Ferguson attributes (most authoritative for non-appliances)
-      };
+      seenNormalizedKeys.set(normalized, key);
+      mergedAdditionalAttributes[key] = String(value);
+    }
+  }
+  
+  if (duplicatesRemoved > 0) {
+    logger.info('🔄 Deduplicated additional attributes across sources', {
+      sessionId,
+      duplicatesRemoved,
+      uniqueAttributes: Object.keys(mergedAdditionalAttributes).length,
+      totalBeforeDedup: duplicatesRemoved + Object.keys(mergedAdditionalAttributes).length,
+    });
+  }
   
   const additionalHtml = generateAttributeTable(mergedAdditionalAttributes);
   
