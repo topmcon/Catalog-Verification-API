@@ -158,7 +158,6 @@ export const NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS: Record<string, string[]> = {
   'Fire Pit': ['fire pit', 'fire bowl', 'fire ring', 'fire table'],
   'Fire Pit Accessory': ['fire pit cover', 'fire glass', 'fire pit grate', 'fire pit screen'],
   'Outdoor Fireplace': ['outdoor fireplace', 'patio fireplace'],
-  'Outdoor Kitchen': ['outdoor kitchen', 'outdoor cabinet', 'outdoor island'],
   'Garden Decor': ['garden decor', 'garden statue', 'bird bath', 'garden fountain', 'planter'],
   'Mail Box': ['mailbox', 'mail box', 'post mount mailbox', 'wall mount mailbox'],
   'Generator': ['generator', 'portable generator', 'inverter generator', 'standby generator'],

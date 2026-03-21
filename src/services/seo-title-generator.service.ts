@@ -680,7 +680,7 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /steam\s+(?:shower\s+)?controller/i, displayName: 'Steam Controller' },
     { pattern: /steam\s+(?:shower\s+)?generator/i, displayName: 'Steam Generator' },
     
-    // Outdoor Kitchen specific
+    // Outdoor appliance components (previously Outdoor Kitchen specific)
     { pattern: /access\s+door/i, displayName: 'Access Door' },
     { pattern: /trash\s+(?:drawer|chute|door)/i, displayName: 'Trash Drawer' },
     { pattern: /paper\s+towel\s+(?:holder|dispenser)/i, displayName: 'Paper Towel Holder' },

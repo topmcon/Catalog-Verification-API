@@ -86,7 +86,6 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   // OUTDOOR
   // ============================================
   'Barbeque': ['Grills', 'BBQ Grills', 'Outdoor Grills', 'Barbecue Grills', 'BBQ', 'Barbecues', 'Gas Grills', 'Charcoal Grills', 'Electric Grills', 'Pellet Grills', 'Smokers', 'Grill Carts'],
-  'Outdoor Kitchen': ['Outdoor Kitchen Islands', 'Outdoor Cabinets', 'Outdoor Kitchen Components'],
 
   // ============================================
   // FLOORING & SURFACES
