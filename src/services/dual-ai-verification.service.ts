@@ -4469,6 +4469,8 @@ When you find MULTIPLE category keywords pointing to DIFFERENT departments:
   • "Ceiling Fan with Light" → Lighting & Electrical (primary function: cooling/circulation)
   • "Portable Air Conditioner" → Heating & Cooling (primary function: cooling)
   • "Outdoor Patio Heater" → Outdoor (primary function: outdoor heating)
+  • **"Drop-In Side Burner" / "Single Side Burner" / "Outdoor Side Burner"** → **Appliances, Cooktop** (primary function: GAS COOKING - it is a gas cooking appliance, NOT a fire pit accessory)
+  • **"Fire Pit Accessory"** is for: log sets, spark screens, grates, covers, pokers — decorative/safety items FOR fire pits. NEVER for cooking burners or gas cooking appliances.
   • **"Refrigerator/Freezer Heater Kit"** → **Appliances** (keywords: refrigerator ✓, freezer ✓, heater ✗)
     - Appliances has Refrigerator + Freezer categories (2 matches)
     - Heating & Cooling has NO Refrigerator or Freezer categories (0 matches)
@@ -5917,10 +5919,31 @@ function validateConsensusCategory(
     };
   }
   
-  // RULE 2: Could add more validation rules here in the future
-  // Example: Validate that category matches Web_Retailer_Category domain
-  // Example: Check for category/type mismatches
-  
+  // RULE 2: Outdoor cooking burner misclassified as Fire Pit Accessory
+  // Drop-in/single/side burners are gas cooking appliances → Cooktop, NOT Fire Pit Accessory
+  if (normalizedCategory === 'fire pit accessory') {
+    const cookingBurnerPatterns = [
+      /side.?burner/i,
+      /single.?burner/i,
+      /drop.?in.*burner/i,
+      /outdoor.*cooktop/i,
+      /grill.*burner/i,
+      /sear.?burner/i,
+      /infrared.?burner/i,
+    ];
+    const combinedText2 = `${title} ${description}`.toLowerCase();
+    const isOutdoorCookingBurner = cookingBurnerPatterns.some(p => p.test(combinedText2));
+    if (isOutdoorCookingBurner) {
+      return {
+        isValid: false,
+        correctedCategory: 'Cooktop',
+        correctedType: 'Gas',
+        reason: 'Product is an outdoor gas cooking burner (side/drop-in burner), not a fire pit accessory. Gas cooking appliances = Cooktop.',
+        violatedRule: 'OUTDOOR_COOKTOP_VS_FIRE_PIT_ACCESSORY'
+      };
+    }
+  }
+
   return { isValid: true };
 }
 
@@ -12490,7 +12513,7 @@ function performAutomatedValidation(
     'Range': ['range', 'stove', 'cooktop'],
     'Dishwasher': ['dishwasher'],
     'Oven': ['oven', 'wall oven'],
-    'Cooktop': ['cooktop', 'cook top', 'burner'],
+    'Cooktop': ['cooktop', 'cook top', 'burner', 'side burner', 'drop-in burner'],
     'Microwave': ['microwave'],
     'Cabinet Pull': ['cabinet pull', 'drawer pull', 'cabinet handle'],
     'Cabinet Knob': ['cabinet knob', 'drawer knob'],
