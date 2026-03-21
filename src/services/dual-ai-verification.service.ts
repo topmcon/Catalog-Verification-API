@@ -98,6 +98,9 @@ import { performProductResearch, formatResearchForPrompt, ResearchResult, FinalV
 import { generateSEOTitle, SEOTitleInput } from './seo-title-generator.service';
 import { failedMatchLogger } from './failed-match-logger.service';
 import { inferMissingFields, FIELD_ALIASES, finalSweepTopFilterAttributes } from './smart-field-inference.service';
+import { applyAppliancePipeline } from './pipelines/appliance-pipeline';
+import { applyNonAppliancePipeline } from './pipelines/non-appliance-pipeline';
+import { PipelineContext, defaultApplianceFeatures } from './pipelines/shared-pipeline-types';
 import { researchAttestationService } from './research-attestation.service';
 import { pendingCreationRequestService } from './pending-creation-request.service';
 import { logAttributeCatalog, AttributeSourceMap } from './attribute-catalog.service';
@@ -2332,21 +2335,26 @@ export async function verifyProductWithDualAI(
     const fergusonCategory     = rawProduct.Ferguson_Base_Category?.trim()
                                || rawProduct.Ferguson_Product_Type?.trim()
                                || null;
-    // salesforceCategory intentionally left null so the AI-determines-independently path runs.
-    const salesforceCategory: string | null = null;
+    // PATH B: Appliances use SF-anchored category (restore 926ad6b behavior);
+    // Non-appliances use unbiased AI determination.
+    const isAppliancesDepartment = determinedDepartment === 'Appliances';
+    const salesforceCategory: string | null = isAppliancesDepartment
+      ? (rawProduct.Web_Retailer_Category?.trim() || null)
+      : null;
 
-    logger.info('🔍 STAGE 2 (Hierarchical): AI determining category from raw data (unbiased)', {
+    logger.info(`🔍 STAGE 2 (Hierarchical): ${isAppliancesDepartment ? 'SF-anchored category validation (Appliances)' : 'AI determining category from raw data (unbiased)'}`, {
       sessionId: verificationSessionId,
       department: determinedDepartment,
+      salesforceCategory: salesforceCategory || '(none — AI decides)',
       availableSignals: {
         Category_Legacy:       legacyCategory      || '(none)',
         Web_Retailer_Category: webRetailerCategory || '(none)',
         Ferguson_Category:     fergusonCategory    || '(none)',
       },
-      departmentTiebreakPreference: determinedDepartment === 'Appliances'
-        ? 'Web_Retailer_Category (appliance retailer data is most reliable for appliances)'
-        : 'Ferguson_Category (Ferguson catalog is most reliable for plumbing/lighting/hardware)',
-      note: 'No category pre-selected — AI consensus decides; department-aware signal used as last-resort tiebreaker',
+      mode: isAppliancesDepartment ? 'SF-anchored (926ad6b restore)' : 'unbiased',
+      note: isAppliancesDepartment
+        ? 'Appliances: SF Web_Retailer_Category used as anchor; AI validates independently'
+        : 'Non-appliances: AI consensus decides; department-aware signal used as last-resort tiebreaker',
       productId: rawProduct.SF_Catalog_Id
     });
     
@@ -2373,12 +2381,14 @@ export async function verifyProductWithDualAI(
         analyzeWithOpenAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
           stage: 'category-only', 
           department: determinedDepartment,
-          salesforceCategory: salesforceCategory  // Context only - AI makes independent decision
+          salesforceCategory: salesforceCategory,  // Context only - AI makes independent decision
+          useFullPrompt: isAppliancesDepartment     // PATH B: Appliances get full prompt (926ad6b)
         }),
         analyzeWithXAI(processedProduct, verificationSessionId, promptOptions, trackingId, { 
           stage: 'category-only', 
           department: determinedDepartment,
-          salesforceCategory: salesforceCategory  // Context only - AI makes independent decision
+          salesforceCategory: salesforceCategory,  // Context only - AI makes independent decision
+          useFullPrompt: isAppliancesDepartment     // PATH B: Appliances get full prompt (926ad6b)
         })
       ]);
       
@@ -4068,7 +4078,8 @@ async function analyzeWithOpenAI(
     stage: 'department-only' | 'category-only' | 'category-specific', 
     department?: string,
     category?: string,
-    salesforceCategory?: string  // Finding #016: SF's category for validation
+    salesforceCategory?: string,  // Finding #016: SF's category for validation
+    useFullPrompt?: boolean       // PATH B: Appliances use full prompt for Stage 2 (926ad6b restore)
   }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
@@ -4078,9 +4089,12 @@ async function analyzeWithOpenAI(
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
     // Use minimal prompt for Stage 1/2 to prevent OpenAI from ignoring system prompt
-    const prompt = (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
-      ? buildStagePrompt(rawProduct, stageConfig.stage)
-      : buildAnalysisPrompt(rawProduct, promptOptions);
+    // PATH B: Appliances Stage 2 uses full prompt (926ad6b behavior) for richer context
+    const prompt = stageConfig?.useFullPrompt
+      ? buildAnalysisPrompt(rawProduct, promptOptions)
+      : (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
+        ? buildStagePrompt(rawProduct, stageConfig.stage)
+        : buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -4212,7 +4226,8 @@ async function analyzeWithXAI(
     stage: 'department-only' | 'category-only' | 'category-specific', 
     department?: string,
     category?: string,
-    salesforceCategory?: string  // Finding #016: SF's category for validation
+    salesforceCategory?: string,  // Finding #016: SF's category for validation
+    useFullPrompt?: boolean       // PATH B: Appliances use full prompt for Stage 2 (926ad6b restore)
   }
 ): Promise<AIAnalysisResult> {
   const maxRetries = 3;
@@ -4222,9 +4237,12 @@ async function analyzeWithXAI(
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // Start AI usage tracking
     // Use minimal prompt for Stage 1/2 to prevent conflicting instructions
-    const prompt = (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
-      ? buildStagePrompt(rawProduct, stageConfig.stage)
-      : buildAnalysisPrompt(rawProduct, promptOptions);
+    // PATH B: Appliances Stage 2 uses full prompt (926ad6b behavior) for richer context
+    const prompt = stageConfig?.useFullPrompt
+      ? buildAnalysisPrompt(rawProduct, promptOptions)
+      : (stageConfig?.stage === 'department-only' || stageConfig?.stage === 'category-only')
+        ? buildStagePrompt(rawProduct, stageConfig.stage)
+        : buildAnalysisPrompt(rawProduct, promptOptions);
     const usageId = aiUsageTracker.startAICall({
       sessionId,
       trackingId,
@@ -9023,15 +9041,6 @@ async function buildFinalResponse(
     return extractKnownValueFromTexts(texts, flushTypes);
   };
 
-  /** Extract toilet seat feature type from texts */
-  const extractToiletSeatTypeFromTexts = (texts: string[]): string => {
-    const seatTypes = [
-      'Soft Close', 'Soft-Close', 'Slow Close', 'Slow-Close', 'SoftClose',
-      'Heated', 'Bidet', 'Quick Release'
-    ];
-    return extractKnownValueFromTexts(texts, seatTypes);
-  };
-
   /** Extract capacity from texts (e.g., "5.0 cu. ft.", "25.6 cu ft") */
   const extractCapacityFromTexts = (texts: string[]): string => {
     for (const text of texts) {
@@ -11036,16 +11045,9 @@ async function buildFinalResponse(
     consensus.agreedAdditionalAttributes
   );
 
-  // Build Appliance Features (Appliances department only)
-  const applianceFeatures = buildApplianceFeatures(
-    sanitizedPrimaryAttributes.AI_Product_Department,
-    consensus.agreedCategory,
-    String(topFilterAttributes['installation_type'] || topFilterAttributes['Installation_Type'] || ''),
-    String(topFilterAttributes['fuel_type'] || topFilterAttributes['Fuel_Type'] || ''),
-    rawProduct,
-    topFilterAttributes,
-    sanitizedPrimaryAttributes
-  );
+  // Build Appliance Features — handled by department pipeline after Final Review
+  // Pipeline uses sanitized (post-Final Review) attributes for more accurate features
+  let applianceFeatures = defaultApplianceFeatures();
 
   // ═══════════════════════════════════════════════════════════════
   // FINAL REVIEW STAGE - Post-Consensus Validation & Cross-Check
@@ -11059,7 +11061,8 @@ async function buildFinalResponse(
     sanitizedTopFilterAttributes,
     preliminarySeoTitle,
     rawProduct,
-    sessionId
+    sessionId,
+    determinedDepartment
   );
 
   // Add final review metadata to verification object
@@ -11164,1124 +11167,29 @@ async function buildFinalResponse(
   const fergusonProductName: string = (rawProduct as any).Ferguson_Raw_Data?.product?.name ||
     (rawProduct.Ferguson_Title as string) || '';
 
-  // Shared source texts for all shower reclassification checks
-  const showerSourceTexts = [
-    fergusonProductName,
-    (rawProduct.Ferguson_Title as string) || '',
-    (rawProduct.Product_Title_Web_Retailer as string) || '',
-    ((rawProduct as any).Ferguson_Description as string) || '',
-    (rawProduct.Product_Title_Legacy as string) || '',
-  ].join(' ');
-  const showerSourceLower = showerSourceTexts.toLowerCase();
-
-  // 1. SHOWERHEADS & ACCESSORIES — separate Function value from Type value.
-  //    The AI often puts Thermostatic / Pressure-Balance / Diverter in the Type slot
-  //    because the {Function} schema slot had no backing field.  Now that we have
-  //    finalSeoTitleInput.function, move those values to the right slot and infer
-  //    a proper structural Type (Trim Kit / Complete System / Valve).
-  const SHOWER_FUNCTION_VALUES = ['Thermostatic', 'Pressure Balance', 'Pressure-Balance',
-    'Pressure Balanced', 'Diverter', 'Volume Control', 'Transfer'];
-  if (finalSeoTitleInput.category === 'Showerheads & Accessories' &&
-      SHOWER_FUNCTION_VALUES.some(fn => finalSeoTitleInput.type === fn ||
-        finalSeoTitleInput.type?.toLowerCase() === fn.toLowerCase())) {
-    const detectedFunction = finalSeoTitleInput.type || '';
-    // Derive structural type from Ferguson product name keywords
-    const fNameLower = fergusonProductName.toLowerCase();
-    let structuralType = 'Trim Kit'; // safe default
-    if (/complete system|shower system|shower only trim package/i.test(fNameLower)) {
-      structuralType = 'Complete System';
-    } else if (/rough.in valve|rough in valve|\bvalve only\b/i.test(fNameLower)) {
-      structuralType = 'Valve';
-    }
-    finalSeoTitleInput.type = structuralType;
-    finalSeoTitleInput.function = detectedFunction;
-    logger.info('Showerheads & Accessories: moved function value from type slot to function slot', {
-      sessionId, detectedFunction, structuralType, fergusonName: fergusonProductName.substring(0, 70)
-    });
-  }
-
-  // 1b. SHOWERHEADS & ACCESSORIES → ROUGH-IN VALVE reclassification
-  //     Products like DELTA R10000-UNWSHF are rough-in valve bodies, not showerheads.
-  //     Detect from Ferguson keywords and reclassify.
-  if (finalSeoTitleInput.category === 'Showerheads & Accessories' &&
-      (/\brough[\s-]?in\s+valve\b/i.test(showerSourceLower) ||
-       /\bmixing\s+rough[\s-]?in\b/i.test(showerSourceLower) ||
-       /\buniversal\s+mixing\s+rough/i.test(showerSourceLower)) &&
-      !/\btrim\b/i.test(showerSourceLower)) {
-    finalSeoTitleInput.category = 'Rough-In Valve';
-    sanitizedPrimaryAttributes.AI_Product_Category = 'Rough-In Valve';
-    // Derive rough-in type
-    if (/\bthermostatic\b/i.test(showerSourceLower)) {
-      finalSeoTitleInput.type = 'Thermostatic';
-    } else if (/\bpressure\s+balanc/i.test(showerSourceLower)) {
-      finalSeoTitleInput.type = 'Pressure Balance';
-    } else if (/\bdiverter\b/i.test(showerSourceLower)) {
-      finalSeoTitleInput.type = 'Diverter';
-    } else {
-      finalSeoTitleInput.type = 'Thermostatic'; // safe default for mixing valves
-    }
-    logger.warn('🚿 CATEGORY RECLASSIFICATION: "Showerheads & Accessories" → "Rough-In Valve"', {
-      sessionId, type: finalSeoTitleInput.type,
-      reason: 'Source data describes a rough-in valve body, not a showerhead/hand shower'
-    });
-  }
-
-  // 1c. SHOWER ACCESSORY reclassification
-  //     Products that AI puts in "Shower" or "Showerheads & Accessories" but are really accessories:
-  //     shower arms, linear drains, slide bars, door handles, valve handles, holders, etc.
-  //     Reclassify to "Shower Accessory" with specific type from existing SF types.
-  //
-  //     GUARD: Multi-component products (shower systems, trim packages, hand shower kits)
-  //     that merely INCLUDE a slide bar or arm as a component must NOT be reclassified.
-  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Showerheads & Accessories') {
-    const fNameLower = fergusonProductName.toLowerCase();
-
-    // Multi-component product guard: these are SYSTEMS that include accessories as components
-    const isMultiComponentProduct =
-      /\bshower\s+system\b/i.test(fNameLower) ||
-      /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower) ||
-      /\btrim\s+package\b/i.test(fNameLower) ||
-      /\bhand\s*shower\s+(?:package|kit|set)\b/i.test(fNameLower) ||
-      /\bhandshower\s+(?:set|kit)\b/i.test(fNameLower) ||
-      /\b(?:includes|with)\s+hand\s*shower\b/i.test(fNameLower) ||
-      /\bslide\s*bar\s*(?:and|&|,|with)\s+/i.test(fNameLower) && /\bhand\s*shower\b/i.test(fNameLower) ||
-      /\bhand\s*shower.*\bslide\s*bar\b/i.test(fNameLower) ||
-      /\bslide\s*bar.*\bhand\s*shower\b/i.test(fNameLower) ||
-      /\b(?:includes|with)\s+(?:shower\s+)?(?:arm|hose|slide\s*bar)\b/i.test(fNameLower);
-
-    let accessoryType = '';
-
-    // Only detect accessories for STANDALONE products (not multi-component systems)
-    if (!isMultiComponentProduct) {
-      // Shower arms (ceiling or wall mounted) — derive specific arm type for better titles
-      if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-          /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
-        accessoryType = 'Ceiling Shower Arm';
-      }
-      else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
-        accessoryType = 'Wall Shower Arm';
-      }
-      else if (/\bshower\s*arm\b/i.test(fNameLower)) {
-        accessoryType = 'Shower Arm';
-      }
-      // Linear/shower drains → Trench Drain (SF type) but title will use "Linear Drain"
-      else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
-               /\btrench\s*drain\b/i.test(fNameLower)) {
-        accessoryType = 'Trench Drain';
-      }
-      // Shower door handles → Shower Door
-      else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
-        accessoryType = 'Shower Door';
-      }
-      // Slide bars (STANDALONE ONLY — not part of hand shower kits) → Shower Rod
-      else if (/\bslide\s*bar\b/i.test(fNameLower) && !/\bhand\s*shower\b/i.test(fNameLower)) {
-        accessoryType = 'Shower Rod';
-      }
-      // Transfer valve handles → Handle (existing SF type)
-      else if (/\btransfer\s+(?:valve\s+)?handle\b/i.test(fNameLower) || /\bshower\s+transfer\s+handle\b/i.test(fNameLower)) {
-        accessoryType = 'Handle';
-      }
-      // Hand shower holder / outlet with volume control (STANDALONE holders only)
-      else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
-               (/\bhandshower\s+outlet\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower))) {
-        accessoryType = 'Hand Shower Holder';
-      }
-      // Valve extension kits
-      else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
-        accessoryType = 'Valve Extension Kit';
-      }
-    } // end !isMultiComponentProduct
-
-    // Only reclassify if we found an accessory pattern
-    if (accessoryType) {
-      const oldCategory = finalSeoTitleInput.category;
-      finalSeoTitleInput.category = 'Shower Accessory';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-      finalSeoTitleInput.type = accessoryType;
-      sanitizedPrimaryAttributes.AI_Type = accessoryType;
-      logger.warn(`🚿 CATEGORY RECLASSIFICATION: "${oldCategory}" → "Shower Accessory"`, {
-        sessionId, type: accessoryType,
-        reason: 'Source data describes a shower accessory component',
-        fergusonName: fergusonProductName.substring(0, 80)
-      });
-    }
-  }
-
-  // 1d. SHOWERHEADS & ACCESSORIES TYPE REFINEMENT
-  //     When AI types a Showerheads & Accessories product as "Showerhead" but Ferguson data says
-  //     "Rain" → refine to "Rain Head". Also detect hand showers typed as showerheads.
-  //     Also: when Type is empty/missing, derive from Ferguson product name.
-  if (finalSeoTitleInput.category === 'Showerheads & Accessories') {
-    const fNameLower = fergusonProductName.toLowerCase();
-    const currentType = (finalSeoTitleInput.type || '').toLowerCase();
-
-    // Showerhead → Rain Head if Ferguson says "rain"
-    if (currentType === 'showerhead' && (/\brain\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(showerSourceLower))) {
-      finalSeoTitleInput.type = 'Rain Head';
-      sanitizedPrimaryAttributes.AI_Type = 'Rain Head';
-      logger.info('🚿 Showerheads & Accessories: refined Showerhead → Rain Head from Ferguson data', { sessionId });
-    }
-    // Showerhead → Handheld if Ferguson says "hand shower" / "handshower"
-    else if (currentType === 'showerhead' && (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower))) {
-      finalSeoTitleInput.type = 'Handheld';
-      sanitizedPrimaryAttributes.AI_Type = 'Handheld';
-      logger.info('🚿 Showerheads & Accessories: refined Showerhead → Handheld from Ferguson data', { sessionId });
-    }
-    // Thermostatic + "valve trim" in Ferguson → Thermostatic Valve Trim
-    else if (currentType === 'thermostatic' && /\bvalve\s+trim\b/i.test(fNameLower)) {
-      finalSeoTitleInput.type = 'Thermostatic Valve Trim';
-      sanitizedPrimaryAttributes.AI_Type = 'Thermostatic Valve Trim';
-      logger.info('🚿 Showerheads & Accessories: refined Thermostatic → Thermostatic Valve Trim', { sessionId });
-    }
-    // Empty/missing Type → derive from Ferguson product name so titles always have a product descriptor
-    else if (!currentType || currentType === 'not found' || currentType === 'n/a') {
-      let derivedShowerType = '';
-      if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(fNameLower)) {
-        derivedShowerType = 'Rain Head';
-      } else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
-        derivedShowerType = 'Handheld';
-      } else if (/\bbody\s*spray\b/i.test(fNameLower)) {
-        derivedShowerType = 'Body Spray';
-      } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
-        derivedShowerType = 'Showerhead';
-      } else {
-        derivedShowerType = 'Showerhead'; // safe default for Showerheads & Accessories category
-      }
-      finalSeoTitleInput.type = derivedShowerType;
-      sanitizedPrimaryAttributes.AI_Type = derivedShowerType;
-      logger.info('🚿 Showerheads & Accessories: derived missing Type from Ferguson data', {
-        sessionId, derivedType: derivedShowerType, fergusonName: fergusonProductName.substring(0, 80)
-      });
-    }
-  }
-
-  // ── SHOWER RECLASSIFICATION CHAIN ──────────────────────────────────────────
-  // AI dumps many products into "Shower" that belong in more specific categories.
-  // Rules ordered from most specific to least specific, like the Toilet chain.
-  if (finalSeoTitleInput.category === 'Shower') {
-
-    // 2a. STEAM SHOWER reclassification
-    //     "steam generator", "steam shower generator", "kW" → Steam Shower
-    const isSteam = /\bsteam\s*(shower\s+)?generator\b/i.test(showerSourceLower) ||
-      /\bsteam\s+shower\b/i.test(showerSourceLower) ||
-      (/\bsteam\b/i.test(showerSourceLower) && /\b\d+\s*kw\b/i.test(showerSourceLower));
-    if (isSteam) {
-      finalSeoTitleInput.category = 'Steam Shower';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Steam Shower';
-      // Derive steam type
-      if (/\bgenerator\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Steam Generator';
-      } else if (/\bcontrol/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Control Panel';
-      } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Steam Head';
-      } else {
-        finalSeoTitleInput.type = 'Complete System';
-      }
-      // Extract kW power from source
-      const kwMatch = showerSourceTexts.match(/(\d+)\s*kW/i);
-      if (kwMatch) {
-        finalSeoTitleInput.powerKw = kwMatch[1];
-      }
-      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Steam Shower"', {
-        sessionId, type: finalSeoTitleInput.type,
-        powerKw: finalSeoTitleInput.powerKw || 'none',
-        reason: 'Source data describes a steam shower product'
-      });
-    }
-
-    // 2b. TUB FAUCET reclassification
-    //     "tub filler", "tub faucet", "floor mounted tub", "wall mounted tub" → Tub Faucet
-    else if (/\btub\s+filler\b/i.test(showerSourceLower) ||
-             /\btub\s+faucet\b/i.test(showerSourceLower) ||
-             /\bfloor\s+mounted\s+tub\b/i.test(showerSourceLower) ||
-             /\bwall\s+mounted\s+tub\b/i.test(showerSourceLower) ||
-             /\bdeck\s+mounted\s+tub\b/i.test(showerSourceLower)) {
-      finalSeoTitleInput.category = 'Tub Faucet';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Tub Faucet';
-      // Derive tub faucet type and mount separately to avoid duplication
-      // Template: {Brand} {Type} {Mount} {Category} — so Type and Mount must not overlap
-      finalSeoTitleInput.type = 'Tub Filler';
-      if (/\bfloor\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Floor Mounted';
-      } else if (/\bwall\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Wall Mounted';
-      } else if (/\bdeck\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Deck Mounted';
-      }
-      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Tub Faucet"', {
-        sessionId, type: finalSeoTitleInput.type,
-        reason: 'Source data describes a tub filler/faucet'
-      });
-    }
-
-    // 2c. ROUGH-IN VALVE reclassification
-    //     "rough-in valve", "rough in valve", "mixing valve" (without "trim") → Rough-In Valve
-    else if ((/\brough[\s-]?in\s+valve\b/i.test(showerSourceLower) ||
-              /\bmixing\s+(?:rough[\s-]?in\s+)?valve\b/i.test(showerSourceLower)) &&
-             !/\btrim\b/i.test(showerSourceLower)) {
-      finalSeoTitleInput.category = 'Rough-In Valve';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Rough-In Valve';
-      // Derive rough-in type
-      if (/\bthermostatic\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Thermostatic';
-      } else if (/\btub\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Tub/Shower';
-      } else {
-        finalSeoTitleInput.type = 'Shower';
-      }
-      // Extract connection size
-      const connMatch = showerSourceTexts.match(/(\d\/\d)["″'']\s*/);
-      if (connMatch) {
-        finalSeoTitleInput.connectionSize = connMatch[1] + '"';
-      }
-      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Rough-In Valve"', {
-        sessionId, type: finalSeoTitleInput.type,
-        reason: 'Source data describes a rough-in valve'
-      });
-    }
-
-    // 2d. SHOWER COMPONENT TYPE DERIVATION (comprehensive replacement for Walk-In logic)
-    //     For products staying in "Shower" category, derive the correct component type
-    //     from Ferguson data. Ordered most-specific to least-specific.
-    else {
-      const typeLower = (finalSeoTitleInput.type || '').toLowerCase();
-      // Only derive if type is Walk-In, Accessory, Frameless (misassigned), Framed (misassigned), or empty
-      const needsTypeDerivation = typeLower === 'walk-in' || typeLower === 'accessory' ||
-        typeLower === '' || typeLower === 'frameless' || typeLower === 'framed';
-
-      if (needsTypeDerivation) {
-        const fNameLower = fergusonProductName.toLowerCase();
-        let derivedType = '';
-
-        // --- Shower door HANDLES / KNOBS → reclassify to Shower Accessory ---
-        if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+(?:handle|knob)\b/i.test(fNameLower)) {
-          // Should have been caught by 1c, but just in case
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Door';
-        }
-        // --- Shower enclosures / doors (keep structural types) ---
-        else if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
-          if (typeLower === 'frameless' || /\bframeless\b/i.test(fNameLower)) {
-            derivedType = 'Frameless';
-          } else if (typeLower === 'framed' || /\bframed\b/i.test(fNameLower)) {
-            derivedType = 'Framed';
-          } else if (/\bneo[\s-]?angle\b/i.test(fNameLower)) {
-            derivedType = 'Neo-Angle';
-          } else {
-            derivedType = 'Shower Door';
-          }
-        }
-        // --- Shower base / pan → Alcove (most common shower base type) ---
-        else if (/\bshower\s+base\b/i.test(fNameLower) || /\bshower\s+pan\b/i.test(fNameLower) ||
-                 /\bshower\s+receptor\b/i.test(fNameLower)) {
-          derivedType = 'Alcove';
-        }
-        // --- Shower systems (exposed, complete) ---
-        else if (/\bshower\s+system\b/i.test(fNameLower) || /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower)) {
-          derivedType = 'Shower System';
-        }
-        // --- Shower panels ---
-        else if (/\bshower\s+panel\b/i.test(fNameLower) || /\bjet\s+(?:shower|retrofit)\b/i.test(fNameLower)) {
-          derivedType = 'Shower Panel';
-        }
-        // --- Shower column ---
-        else if (/\bshower\s+column\b/i.test(fNameLower)) {
-          derivedType = 'Shower Column';
-        }
-        // --- Linear drain (should be caught by 1c, but fallback) ---
-        else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Trench Drain';
-        }
-        // --- Rain shower head → Rain Head (SF picklist type) → Showerheads & Accessories category ---
-        else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
-                 (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower)) ||
-                 /\brain\s+shower\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Accessories';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-          derivedType = 'Rain Head';
-        }
-        // --- Body spray → Showerheads & Accessories category ---
-        else if (/\bbody\s*spray\b/i.test(fNameLower) || /\bbodyspray\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Accessories';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-          derivedType = 'Body Spray';
-        }
-        // --- Hand shower → Showerheads & Accessories category ---
-        else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Accessories';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-          derivedType = 'Handheld';
-        }
-        // --- Slide bar (should be caught by 1c, but fallback) ---
-        else if (/\bslide\s*bar\b/i.test(fNameLower)) {
-          // Reclassify to Shower Accessory since slide bars are accessories
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Rod';
-        }
-        // --- Shower arm (should be caught by 1c, but fallback) — derive specific arm type ---
-        else if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
-                 /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Ceiling Shower Arm';
-        }
-        else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Wall Shower Arm';
-        }
-        else if (/\bshower\s*arm\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Arm';
-        }
-        // --- Generic showerhead → Showerheads & Accessories category ---
-        else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Showerheads & Accessories';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-          derivedType = 'Showerhead';
-        }
-        // --- Slide bar KIT (STANDALONE slide bar kit, NOT a hand shower kit with slide bar) ---
-        else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower) &&
-                 !/\bhand\s*shower\b/i.test(fNameLower) && !/\bhandshower\b/i.test(fNameLower) &&
-                 !/\bshower\s+system\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Rod';
-        }
-        // --- Fallback: check broader source texts for additional matches ---
-        else {
-          // Guard: don't reclassify multi-component products as accessories from broad source text
-          const isMultiComp2d = /\bshower\s+system\b/i.test(fNameLower) ||
-            /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower) ||
-            /\btrim\s+package\b/i.test(fNameLower) ||
-            /\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower);
-
-          if (!isMultiComp2d && (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower))) {
-            finalSeoTitleInput.category = 'Shower Accessory';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            if (/\bceiling/i.test(showerSourceLower)) {
-              derivedType = 'Ceiling Shower Arm';
-            } else if (/\bwall/i.test(showerSourceLower)) {
-              derivedType = 'Wall Shower Arm';
-            } else {
-              derivedType = 'Shower Arm';
-            }
-          } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Accessories';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-            derivedType = 'Handheld';
-          } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Accessories';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-            derivedType = 'Showerhead';
-          } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Showerheads & Accessories';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-            derivedType = 'Rain Head';
-          } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Shower Accessory';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            derivedType = 'Trench Drain';
-          } else if (!isMultiComp2d && /\bslide\s*bar\b/i.test(showerSourceLower)) {
-            finalSeoTitleInput.category = 'Shower Accessory';
-            sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            derivedType = 'Shower Rod';
-          } else if (/\bshower\s+system\b/i.test(showerSourceLower)) {
-            derivedType = 'Shower System';
-          }
-        }
-
-        if (derivedType) {
-          const oldType = finalSeoTitleInput.type || '(empty)';
-          finalSeoTitleInput.type = derivedType;
-          sanitizedPrimaryAttributes.AI_Type = derivedType;
-          logger.info('🚿 Shower: derived component type from source data', {
-            sessionId, oldType, derivedType, fergusonName: fergusonProductName.substring(0, 80)
-          });
-        } else {
-          // No component type derived — set to "Accessory" so fallback fires
-          finalSeoTitleInput.type = 'Accessory';
-          sanitizedPrimaryAttributes.AI_Type = 'Accessory';
-          logger.info('🚿 Shower: no component type derived, set to Accessory for fallback', {
-            sessionId, originalType: typeLower, fergusonName: fergusonProductName.substring(0, 80)
-          });
-        }
-      }
-
-      // 2e. SHOWER DIMENSION EXTRACTION — ALWAYS OVERRIDE AI WIDTH
-      //     AI width for shower components is unreliable — often contaminated by
-      //     Legacy data (e.g., "1" from Product_Title_Legacy "1\" Contemporary...")
-      //     or body dimensions (height/length mistaken for width).
-      //     Ferguson product name is authoritative: "18" Ceiling Shower Arm" → 18
-      //     Also check Ferguson Extension attribute for shower arms.
-      //     When multiple dimensions exist (e.g., "4" x 18" Arm"), prefer the LARGEST
-      //     as it's typically the product's primary dimension (length/width), not a
-      //     connection size or tube diameter.
-      {
-        let fergusonDim: number | null = null;
-        let fergusonDimSource = '';
-
-        // Priority 1: Dimension from Ferguson product name (most reliable)
-        // Find ALL dimensions and pick the largest (avoid connection sizes like 1/2", 3/4")
-        const dimRegex = /\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/gi;
-        let match: RegExpExecArray | null;
-        let bestDim = 0;
-        let bestMatch = '';
-        while ((match = dimRegex.exec(fergusonProductName)) !== null) {
-          const dim = parseFloat(match[1]);
-          if (dim >= 3 && dim <= 60 && dim > bestDim) {
-            bestDim = dim;
-            bestMatch = match[0].trim();
-          }
-        }
-        if (bestDim > 0) {
-          fergusonDim = bestDim;
-          fergusonDimSource = `Ferguson product name: "${bestMatch}"`;
-        }
-
-        // Priority 2: Ferguson Extension attribute (shower arms have extension, not width)
-        if (!fergusonDim) {
-          const frdSpecs = (rawProduct as any).Ferguson_Raw_Data?.product?.specifications;
-          const extensionVal = frdSpecs?.extension?.value;
-          if (extensionVal) {
-            const ext = parseFloat(String(extensionVal));
-            if (ext >= 3 && ext <= 60) {
-              fergusonDim = ext;
-              fergusonDimSource = `Ferguson Extension attribute: ${extensionVal}`;
-            }
-          }
-        }
-
-        // Priority 3: Fallback to broader source texts (only if no Ferguson dimension)
-        if (!fergusonDim) {
-          const srcDimRegex = /\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/gi;
-          let srcMatch: RegExpExecArray | null;
-          let srcBestDim = 0;
-          let srcBestMatch = '';
-          while ((srcMatch = srcDimRegex.exec(showerSourceTexts)) !== null) {
-            const dim = parseFloat(srcMatch[1]);
-            if (dim >= 3 && dim <= 60 && dim > srcBestDim) {
-              srcBestDim = dim;
-              srcBestMatch = srcMatch[0].trim();
-            }
-          }
-          if (srcBestDim > 0) {
-            fergusonDim = srcBestDim;
-            fergusonDimSource = `source texts: "${srcBestMatch}"`;
-          }
-        }
-
-        if (fergusonDim) {
-          const oldWidth = finalSeoTitleInput.width || '(empty)';
-          finalSeoTitleInput.width = String(fergusonDim);
-          sanitizedPrimaryAttributes.AI_Width = String(fergusonDim);
-          if (oldWidth !== String(fergusonDim)) {
-            logger.info('🚿 Shower: overriding width with Ferguson dimension', {
-              sessionId, oldWidth, newWidth: fergusonDim, source: fergusonDimSource
-            });
-          }
-        }
-      }
-
-      // 2f. SHOWER GPM EXTRACTION
-      //     Extract GPM from Ferguson data for showerheads, hand showers, body sprays
-      const gpmTypes = ['showerhead', 'shower head', 'rain head', 'handheld', 'hand shower', 'body spray', 'shower system', 'shower panel'];
-      if (gpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
-          (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
-        const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
-        if (gpmMatch) {
-          finalSeoTitleInput.gpm = gpmMatch[1];
-          logger.info('🚿 Shower: extracted GPM from source data', {
-            sessionId, gpm: gpmMatch[1], type: finalSeoTitleInput.type
-          });
-        }
-      }
-    }
-  }
-
-  // 2g. STEAM SHOWER POST-PROCESSING (for items already correctly categorized as Steam Shower)
-  if (finalSeoTitleInput.category === 'Steam Shower') {
-    // Extract kW power if not already set
-    if (!finalSeoTitleInput.powerKw || finalSeoTitleInput.powerKw === '' || finalSeoTitleInput.powerKw === '0') {
-      const kwMatch = showerSourceTexts.match(/(\d+)\s*kW/i);
-      if (kwMatch) {
-        finalSeoTitleInput.powerKw = kwMatch[1];
-      }
-    }
-    // Derive type if Walk-In or missing
-    const steamTypeLower = (finalSeoTitleInput.type || '').toLowerCase();
-    if (steamTypeLower === 'walk-in' || steamTypeLower === '' || steamTypeLower === 'accessory' || steamTypeLower === 'controller') {
-      if (/\bgenerator\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Steam Generator';
-      } else if (/\bcontrol/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Control Panel';
-      } else if (/\bsteam\s+head\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.type = 'Steam Head';
-      } else {
-        finalSeoTitleInput.type = 'Complete System';
-      }
-      logger.info('🚿 Steam Shower: derived type from source data', {
-        sessionId, type: finalSeoTitleInput.type
-      });
-    }
-  }
-
-  // 2h. SHOWER ACCESSORY DIMENSION + GPM EXTRACTION
-  //     Shower accessories use the same schema as Shower (Width + Type + GPM).
-  //     Extract dimensions from Ferguson data for arms, drains, etc.
-  if (finalSeoTitleInput.category === 'Shower Accessory') {
-    // Dimension extraction
-    let accessoryDim: number | null = null;
-    const dimMatch = fergusonProductName.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
-    if (dimMatch) {
-      const dim = parseFloat(dimMatch[1]);
-      if (dim >= 1 && dim <= 60) {
-        accessoryDim = dim;
-      }
-    }
-    if (!accessoryDim) {
-      const srcMatch = showerSourceTexts.match(/\b(\d+(?:\.\d+)?)\s*(?:["″'']\s*|[- ]?(?:inch|in\.?\b))/i);
-      if (srcMatch) {
-        const dim = parseFloat(srcMatch[1]);
-        if (dim >= 1 && dim <= 60) {
-          accessoryDim = dim;
-        }
-      }
-    }
-    if (accessoryDim) {
-      finalSeoTitleInput.width = String(accessoryDim);
-      sanitizedPrimaryAttributes.AI_Width = String(accessoryDim);
-    }
-
-    // GPM extraction for hand shower kits, slide bar kits
-    const accessoryGpmTypes = ['handheld', 'shower rod', 'accessory'];
-    if (accessoryGpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
-        (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
-      const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
-      if (gpmMatch) {
-        finalSeoTitleInput.gpm = gpmMatch[1];
-      }
-    }
-  }
-
-  // ── END SHOWER TITLE POST-PROCESSING ────────────────────────────────────────
-
-  // ── BATHTUB DIMENSION OVERRIDE ──────────────────────────────────────────────
-  // Bathtub schema uses {Length (Inches)} — extract authoritative length from Ferguson.
-  // Ferguson product names: "60\" x 32\" Alcove Bathtub...", "67\" Freestanding Soaking Tub..."
-  // AI depth_length is often unreliable (contaminated or swapped axes).
-  if (finalSeoTitleInput.category === 'Bathtub') {
-    const frd = (rawProduct as any).Ferguson_Raw_Data;
-    const fergusonSpecs = frd?.product?.specifications;
-    let bathtubLength: number | null = null;
-    let bathtubLengthSource = '';
-
-    // Priority 1: Ferguson nominal_length spec (most reliable catalog value)
-    if (fergusonSpecs) {
-      const nomLen = fergusonSpecs.nominal_length?.value || fergusonSpecs.tub_length?.value;
-      if (nomLen) {
-        const nomStr = String(nomLen).trim();
-        const fracMatch = nomStr.match(/^(\d+)-(\d+)\/(\d+)$/);
-        const numMatch = nomStr.match(/^(\d+(?:\.\d+)?)$/);
-        let val: number | null = null;
-        if (fracMatch) {
-          val = parseInt(fracMatch[1]) + parseInt(fracMatch[2]) / parseInt(fracMatch[3]);
-        } else if (numMatch) {
-          val = parseFloat(numMatch[1]);
-        }
-        if (val !== null && val >= 30 && val <= 84) {
-          bathtubLength = Math.round(val);
-          bathtubLengthSource = `Ferguson spec nominal_length: ${nomLen}`;
-        }
-      }
-    }
-
-    // Priority 2: Extract from Ferguson product name (e.g., '60" x 32"' → 60)
-    if (!bathtubLength) {
-      const dimMatch = fergusonProductName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
-      if (dimMatch) {
-        const whole = parseInt(dimMatch[1]);
-        const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
-        const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
-        const val = whole + fracNum / fracDen;
-        if (val >= 30 && val <= 84) {
-          bathtubLength = Math.round(val);
-          bathtubLengthSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
-        }
-      }
-    }
-
-    if (bathtubLength) {
-      const oldLength = finalSeoTitleInput.length || '(empty)';
-      finalSeoTitleInput.length = String(bathtubLength);
-      sanitizedPrimaryAttributes.AI_Depth = String(bathtubLength);
-      if (oldLength !== String(bathtubLength)) {
-        logger.info('🛁 Bathtub: overriding length with Ferguson dimension', {
-          sessionId, oldLength, newLength: bathtubLength, source: bathtubLengthSource
-        });
-      }
-    }
-  }
-
-  // ── VANITY DIMENSION OVERRIDE ───────────────────────────────────────────────
-  // Vanity schema uses {Width (Inches)} — extract authoritative width from Ferguson.
-  // Ferguson product names: "36\" Single Sink Vanity...", "60\" Double Sink Freestanding Vanity..."
-  if (finalSeoTitleInput.category === 'Bathroom Vanity') {
-    const frd = (rawProduct as any).Ferguson_Raw_Data;
-    const fergusonSpecs = frd?.product?.specifications;
-    let vanityWidth: number | null = null;
-    let vanityWidthSource = '';
-
-    // Priority 1: Ferguson nominal_width spec
-    if (fergusonSpecs) {
-      const nomWidth = fergusonSpecs.nominal_width?.value || fergusonSpecs.vanity_width?.value
-        || fergusonSpecs.cabinet_width?.value;
-      if (nomWidth) {
-        const nomStr = String(nomWidth).trim();
-        const fracMatch = nomStr.match(/^(\d+)-(\d+)\/(\d+)$/);
-        const numMatch = nomStr.match(/^(\d+(?:\.\d+)?)$/);
-        let val: number | null = null;
-        if (fracMatch) {
-          val = parseInt(fracMatch[1]) + parseInt(fracMatch[2]) / parseInt(fracMatch[3]);
-        } else if (numMatch) {
-          val = parseFloat(numMatch[1]);
-        }
-        if (val !== null && val >= 12 && val <= 96) {
-          vanityWidth = Math.round(val);
-          vanityWidthSource = `Ferguson spec nominal_width: ${nomWidth}`;
-        }
-      }
-    }
-
-    // Priority 2: Extract from Ferguson product name (e.g., '36"' → 36)
-    if (!vanityWidth) {
-      const dimMatch = fergusonProductName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
-      if (dimMatch) {
-        const whole = parseInt(dimMatch[1]);
-        const fracNum = dimMatch[2] ? parseInt(dimMatch[2]) : 0;
-        const fracDen = dimMatch[3] ? parseInt(dimMatch[3]) : 1;
-        const val = whole + fracNum / fracDen;
-        if (val >= 12 && val <= 96) {
-          vanityWidth = Math.round(val);
-          vanityWidthSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
-        }
-      }
-    }
-
-    if (vanityWidth) {
-      const oldWidth = finalSeoTitleInput.width || '(empty)';
-      finalSeoTitleInput.width = String(vanityWidth);
-      sanitizedPrimaryAttributes.AI_Width = String(vanityWidth);
-      if (oldWidth !== String(vanityWidth)) {
-        logger.info('🪞 Vanity: overriding width with Ferguson dimension', {
-          sessionId, oldWidth, newWidth: vanityWidth, source: vanityWidthSource
-        });
-      }
-    }
-  }
-
-  // ── MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────────
-  if (finalSeoTitleInput.category === 'Medicine Cabinet') {
-    // 1. Installation Type: use only the first value for the title
-    //    "Recessed, Surface" → "Recessed"  |  "Surface, Recessed" → "Surface Mount"
-    const rawInstall = (finalSeoTitleInput.installationType || '').trim();
-    if (rawInstall) {
-      const primaryInstall = rawInstall.split(/[,;]/)[0].trim();
-      // Normalize "Surface" → "Surface Mount" for readability
-      finalSeoTitleInput.installationType = primaryInstall.toLowerCase() === 'surface'
-        ? 'Surface Mount' : primaryInstall;
-    }
-
-    // 2. Lighted detection: if source data mentions interior light / LED / lighted,
-    //    prepend "Lighted" to the Type (e.g., "Frameless" → "Lighted Frameless")
-    const lightedSources = [
-      (rawProduct as any).Product_Title_Legacy || '',
-      (rawProduct as any).Product_Title_Web_Retailer || '',
-      (rawProduct as any).Ferguson_Raw_Data?.product?.name || '',
-      (rawProduct as any).Ferguson_Title || '',
-    ].join(' ').toLowerCase();
-    const hasLighted = /\b(lighted|interior light|led light|nightlight|light.*defogger|illuminat)/i.test(lightedSources);
-    if (hasLighted) {
-      const currentType = (finalSeoTitleInput.type || '').trim();
-      if (currentType && !currentType.toLowerCase().includes('lighted')) {
-        finalSeoTitleInput.type = `Lighted ${currentType}`;
-      } else if (!currentType) {
-        finalSeoTitleInput.type = 'Lighted';
-      }
-      logger.info('Medicine Cabinet: detected lighted features, updated type for title', {
-        sessionId, type: finalSeoTitleInput.type, installationType: finalSeoTitleInput.installationType
-      });
-    }
-  }
-  // ── END MEDICINE CABINET TITLE POST-PROCESSING ──────────────────────────────
-
-  // ── TOILET → TOILET SEAT RECLASSIFICATION ────────────────────────────────────
-  // AI often classifies toilet seats, seat covers, and toilet accessories as generic "Toilet"
-  // with Type="Accessory". Detect these and reclassify to "Toilet Seat" so the correct
-  // title schema is used ({Brand} {Shape} {Type} Toilet Seat {Finish} - {Model}).
-  const TOILET_BOWL_SHAPES = ['elongated', 'round', 'round-front', 'round front'];
-  const TOILET_FLUSH_TYPES = ['dual flush', 'dual-flush', 'single flush', 'pressure-assisted', 'pressure assisted', 'gravity'];
-
-  if (finalSeoTitleInput.category === 'Toilet' && 
-      (finalSeoTitleInput.type || '').toLowerCase() === 'accessory') {
-    const toiletSourceTexts = [
-      fergusonProductName,
-      (rawProduct.Ferguson_Title as string) || '',
-      (rawProduct.Product_Title_Web_Retailer as string) || '',
-      ((rawProduct as any).Ferguson_Description as string) || '',
-    ].join(' ').toLowerCase();
-
-    // Check if source data indicates this is a toilet seat
-    // BUT exclude dispensers (e.g., "Toilet Seat Cover Dispenser")
-    const hasDispenserKeyword = /\bdispenser\b/i.test(toiletSourceTexts);
-    const isToiletSeat = !hasDispenserKeyword && (
-      /\btoilet\s+seat\b/i.test(toiletSourceTexts) ||
-      /\bseat\s+(?:cover|lid|only)\b/i.test(toiletSourceTexts) ||
-      /\bclosed[- ]front\b/i.test(toiletSourceTexts) ||
-      /\bsoft\s*close\b/i.test(toiletSourceTexts) ||
-      /\bslow[- ]close\b/i.test(toiletSourceTexts)
-    );
-
-    if (isToiletSeat) {
-      logger.warn('🚽 CATEGORY RECLASSIFICATION: "Toilet" (Accessory) → "Toilet Seat"', {
-        sessionId,
-        originalCategory: 'Toilet',
-        correctedCategory: 'Toilet Seat',
-        type: finalSeoTitleInput.type,
-        reason: 'Source data describes a toilet seat product, not a full toilet'
-      });
-      finalSeoTitleInput.category = 'Toilet Seat';
-      finalSeoTitleInput.type = ''; // Clear "Accessory" — Toilet Seat post-processing will detect real type
-
-      // Extract shape from source if available
-      const extracted = extractBowlShapeFromTexts([
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-        ((rawProduct as any).Ferguson_Description as string) || '',
-      ]);
-      if (extracted) {
-        finalSeoTitleInput.shape = extracted;
-      }
-      // Update sanitized attributes so SF gets corrected category
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Toilet Seat';
-      sanitizedPrimaryAttributes.AI_Type = ''; // Will be populated by Toilet Seat post-processing
-    }
-  }
-
-  // ── TOILET SEAT → TOILET REVERSE CHECK (Dispenser Detection) ────────────────
-  // AI sometimes classifies dispensers as "Toilet Seat" because legacy data or titles contain
-  // "Toilet Seat Cover Dispenser". Detect these and reclassify back to "Toilet".
-  
-  if (finalSeoTitleInput.category === 'Toilet Seat') {
-    const toiletSeatSourceTexts = [
-      fergusonProductName,
-      (rawProduct.Ferguson_Title as string) || '',
-      (rawProduct.Product_Title_Web_Retailer as string) || '',
-      ((rawProduct as any).Ferguson_Description as string) || '',
-      (rawProduct.Product_Title_Legacy as string) || '', // Include legacy title
-    ].join(' ').toLowerCase();
-
-    // Check if this is actually a dispenser, not a toilet seat
-    const isDispenser = /\bdispenser\b/i.test(toiletSeatSourceTexts);
-
-    if (isDispenser) {
-      logger.warn('🔧 CATEGORY REVERSE CORRECTION: "Toilet Seat" → "Toilet" (Dispenser detected)', {
-        sessionId,
-        originalCategory: 'Toilet Seat',
-        correctedCategory: 'Toilet',
-        reason: 'Product is a dispenser (e.g., seat cover dispenser), not an actual toilet seat'
-      });
-      finalSeoTitleInput.category = 'Toilet';
-      finalSeoTitleInput.type = 'Accessory'; // Mark as accessory since it's a dispenser
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Toilet';
-      sanitizedPrimaryAttributes.AI_Type = 'Accessory';
-    }
-  }
-
-  // ── BATHROOM HARDWARE CATEGORY CORRECTIONS ──────────────────────────────────
-  // Fix similar category name confusion: "Bathroom Cabinet Hardware" vs "Bathroom Hardware and Accessories"
-  
-  if (finalSeoTitleInput.category === 'Bathroom Cabinet Hardware') {
-    const hardwareSourceTexts = [
-      fergusonProductName,
-      (rawProduct.Ferguson_Title as string) || '',
-      (rawProduct.Product_Title_Web_Retailer as string) || '',
-      ((rawProduct as any).Ferguson_Description as string) || '',
-      (rawProduct.Product_Title_Legacy as string) || '', // Include legacy title (V91053 case)
-    ].join(' ').toLowerCase();
-
-    // Toilet paper holders are "Bathroom Hardware and Accessories", not "Bathroom Cabinet Hardware"
-    const isToiletPaperHolder = /\btoilet\s+paper\s+holder\b/i.test(hardwareSourceTexts) ||
-      /\btp\s+holder\b/i.test(hardwareSourceTexts);
-
-    if (isToiletPaperHolder) {
-      logger.warn('🔧 CATEGORY CORRECTION: "Bathroom Cabinet Hardware" → "Bathroom Hardware and Accessories"', {
-        sessionId,
-        originalCategory: 'Bathroom Cabinet Hardware',
-        correctedCategory: 'Bathroom Hardware and Accessories',
-        reason: 'Product is a toilet paper holder (similar category names confused AI)'
-      });
-      finalSeoTitleInput.category = 'Bathroom Hardware and Accessories';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Bathroom Hardware and Accessories';
-    }
-  }
-
-  // ── TOILET TITLE POST-PROCESSING ────────────────────────────────────────────
-  // Fix slot confusion: AI often puts bowl shape (Elongated/Round) in Type slot
-  // and misses flush type (Dual Flush) and bowl shape entirely.
-
-  if (finalSeoTitleInput.category === 'Toilet') {
-    const currentType = (finalSeoTitleInput.type || '').trim();
-    const typeLower = currentType.toLowerCase();
-
-    // If AI put a bowl shape in the Type slot, move it to bowlShape
-    if (TOILET_BOWL_SHAPES.includes(typeLower)) {
-      if (!finalSeoTitleInput.bowlShape) {
-        finalSeoTitleInput.bowlShape = currentType;
-      }
-      finalSeoTitleInput.type = ''; // Clear — will try to detect real type below
-      logger.info('Toilet: moved bowl shape from type slot to bowlShape', {
-        sessionId, bowlShape: currentType
-      });
-    }
-
-    // If AI put a flush type in the Type slot, move it to flushType
-    if (TOILET_FLUSH_TYPES.includes(typeLower)) {
-      if (!finalSeoTitleInput.flushType) {
-        finalSeoTitleInput.flushType = currentType;
-      }
-      finalSeoTitleInput.type = '';
-      logger.info('Toilet: moved flush type from type slot to flushType', {
-        sessionId, flushType: currentType
-      });
-    }
-
-    // If bowlShape still empty, extract from source data
-    if (!finalSeoTitleInput.bowlShape) {
-      const extracted = extractBowlShapeFromTexts([
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-        ((rawProduct as any).Ferguson_Description as string) || '',
-      ]);
-      if (extracted) {
-        finalSeoTitleInput.bowlShape = extracted;
-        logger.info('Toilet: extracted bowl shape from source data', {
-          sessionId, bowlShape: extracted
-        });
-      }
-    }
-
-    // If flushType still empty, extract from source data
-    if (!finalSeoTitleInput.flushType) {
-      const extracted = extractFlushTypeFromTexts([
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-        ((rawProduct as any).Ferguson_Description as string) || '',
-      ]);
-      if (extracted) {
-        // Normalize "Dual-Flush" → "Dual Flush"
-        finalSeoTitleInput.flushType = extracted.replace(/-/g, ' ');
-        logger.info('Toilet: extracted flush type from source data', {
-          sessionId, flushType: finalSeoTitleInput.flushType
-        });
-      }
-    }
-
-    // If type is empty after moving bowl/flush out, try to detect construction type
-    if (!finalSeoTitleInput.type) {
-      const sourceTexts = [
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-      ].join(' ').toLowerCase();
-      if (/\bone[- ]piece\b/i.test(sourceTexts)) {
-        finalSeoTitleInput.type = 'One-Piece';
-      } else if (/\btwo[- ]piece\b/i.test(sourceTexts)) {
-        finalSeoTitleInput.type = 'Two-Piece';
-      } else if (/\bwall[- ](?:hung|mount)\b/i.test(sourceTexts)) {
-        finalSeoTitleInput.type = 'Wall-Mounted';
-      } else if (/\b(?:smart|electronic|intelligent|bidet seat included)\b/i.test(sourceTexts)) {
-        finalSeoTitleInput.type = 'Smart';
-      }
-      if (finalSeoTitleInput.type) {
-        logger.info('Toilet: detected construction type from source data', {
-          sessionId, type: finalSeoTitleInput.type
-        });
-      }
-    }
-  }
-  // ── END TOILET TITLE POST-PROCESSING ─────────────────────────────────────────
-
-  // ── TOILET SEAT TITLE POST-PROCESSING ───────────────────────────────────────
-  if (finalSeoTitleInput.category === 'Toilet Seat') {
-    const currentType = (finalSeoTitleInput.type || '').trim();
-    const typeLower = currentType.toLowerCase();
-
-    // If AI put a bowl shape in the Type slot, move it to shape
-    if (TOILET_BOWL_SHAPES.includes(typeLower)) {
-      if (!finalSeoTitleInput.shape) {
-        finalSeoTitleInput.shape = currentType;
-      }
-      finalSeoTitleInput.type = ''; // Clear — will detect feature type below
-      logger.info('Toilet Seat: moved bowl shape from type slot to shape', {
-        sessionId, shape: currentType
-      });
-    }
-
-    // If shape still empty, extract from source data
-    if (!finalSeoTitleInput.shape) {
-      const extracted = extractBowlShapeFromTexts([
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-        ((rawProduct as any).Ferguson_Description as string) || '',
-      ]);
-      if (extracted) {
-        finalSeoTitleInput.shape = extracted;
-        logger.info('Toilet Seat: extracted shape from source data', {
-          sessionId, shape: extracted
-        });
-      }
-    }
-
-    // Detect feature type (Soft Close, Heated, Bidet) from source data
-    // Only override type if it's empty or was a bowl shape we already moved
-    if (!finalSeoTitleInput.type) {
-      const extracted = extractToiletSeatTypeFromTexts([
-        fergusonProductName,
-        (rawProduct.Ferguson_Title as string) || '',
-        (rawProduct.Product_Title_Web_Retailer as string) || '',
-        ((rawProduct as any).Ferguson_Description as string) || '',
-        (rawProduct.Product_Title_Legacy as string) || '',  // Add legacy titles
-      ]);
-      if (extracted) {
-        // Normalize variants: "SoftClose" → "Soft Close", "Slow-Close" → "Slow Close"
-        finalSeoTitleInput.type = extracted
-          .replace(/SoftClose/i, 'Soft Close')
-          .replace(/-/g, ' ');
-        logger.info('Toilet Seat: extracted feature type from source data', {
-          sessionId, type: finalSeoTitleInput.type
-        });
-      }
-    }
-  }
-  // ── END TOILET SEAT TITLE POST-PROCESSING ────────────────────────────────────
-
-  // If reclassified from Toilet → Toilet Seat, sync the detected type back to sanitized attributes
-  if (sanitizedPrimaryAttributes.AI_Product_Category === 'Toilet Seat' && finalSeoTitleInput.type && !sanitizedPrimaryAttributes.AI_Type) {
-    sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
-  }
-
-  // Sync Shower/Steam/Tub/Rough-In post-processing changes back to sanitized attributes
-  // Post-processing modifies finalSeoTitleInput (used for title gen), but the webhook
-  // response is built from sanitizedPrimaryAttributes. Must keep them in sync.
-  const showerSyncCategories = ['Shower', 'Shower Accessory', 'Steam Shower', 'Tub Faucet', 'Rough-In Valve'];
-  if (showerSyncCategories.includes(finalSeoTitleInput.category || '')) {
-    if (finalSeoTitleInput.type) {
-      sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
-    }
-    if (finalSeoTitleInput.category !== sanitizedPrimaryAttributes.AI_Product_Category) {
-      sanitizedPrimaryAttributes.AI_Product_Category = finalSeoTitleInput.category || '';
-    }
-  }
-
-  // ── UNIVERSAL PICKLIST ID RESOLUTION ────────────────────────────────────────
-  // Post-processing reclassifies categories and types (Shower→Steam Shower,
-  // Toilet→Toilet Seat, Showerheads & Accessories→Shower Accessory, etc.) but only updates
-  // the TEXT fields (AI_Product_Category, AI_Type). The LOOKUP/ID fields
-  // (AI_Product_Category_Lookup, AI_Type_Id) still point to the original pre-
-  // reclassification values, causing Salesforce to display wrong categories.
-  //
-  // This checkpoint re-resolves IDs from current text values AFTER all
-  // reclassification is complete. Covers ALL categories universally.
+  // ═══════════════════════════════════════════════════════════════
+  // DEPARTMENT PIPELINE ROUTING
+  // Appliance vs Non-Appliance post-processing is completely isolated.
+  // See src/services/pipelines/ for department-specific logic.
+  // ═══════════════════════════════════════════════════════════════
   {
-    const currentCategory = sanitizedPrimaryAttributes.AI_Product_Category || '';
-    const currentType = sanitizedPrimaryAttributes.AI_Type || '';
+    const pipelineCtx: PipelineContext = {
+      finalSeoTitleInput,
+      sanitizedPrimaryAttributes,
+      sanitizedTopFilterAttributes,
+      rawProduct,
+      determinedDepartment: sanitizedPrimaryAttributes.AI_Product_Department || '',
+      agreedCategory: consensus.agreedCategory || '',
+      sessionId,
+      fergusonProductName,
+    };
 
-    // Re-resolve category ID if category was reclassified
-    const reclassifiedCategoryMatch = picklistMatcher.matchCategory(currentCategory);
-    if (reclassifiedCategoryMatch.matched && reclassifiedCategoryMatch.matchedValue) {
-      const newCategoryId = getSafeId(reclassifiedCategoryMatch.matchedValue.category_id);
-      if (newCategoryId !== sanitizedPrimaryAttributes.AI_Product_Category_Lookup) {
-        logger.info('🔗 ID RESOLUTION: Updated category lookup ID after reclassification', {
-          sessionId,
-          category: currentCategory,
-          oldId: sanitizedPrimaryAttributes.AI_Product_Category_Lookup,
-          newId: newCategoryId,
-        });
-        sanitizedPrimaryAttributes.AI_Product_Category_Lookup = newCategoryId;
-      }
-    }
+    const pipelineResult = (sanitizedPrimaryAttributes.AI_Product_Department || '').toLowerCase() === 'appliances'
+      ? applyAppliancePipeline(pipelineCtx)
+      : applyNonAppliancePipeline(pipelineCtx);
 
-    // Re-resolve type ID if type was changed
-    if (currentType) {
-      const reclassifiedTypeObj = getTypeByName(currentType);
-      if (reclassifiedTypeObj) {
-        const newTypeId = getSafeId(reclassifiedTypeObj.type_id);
-        if (newTypeId !== sanitizedPrimaryAttributes.AI_Type_Id) {
-          logger.info('🔗 ID RESOLUTION: Updated type ID after reclassification', {
-            sessionId,
-            type: currentType,
-            category: currentCategory,
-            oldId: sanitizedPrimaryAttributes.AI_Type_Id,
-            newId: newTypeId,
-          });
-          sanitizedPrimaryAttributes.AI_Type_Id = newTypeId;
-        }
-      }
-    }
+    applianceFeatures = pipelineResult.applianceFeatures;
   }
-
-  // ── TUB FAUCET TYPE/MOUNT SPLITTING ───────────────────────────────────────
-  // AI and picklist both return combined types like "Floor Mounted Tub Filler".
-  // The title schema has separate {Type} and {Mount} slots — split them to avoid
-  // titles like "ROHL Floor Mounted Tub Filler Floor Mounted Tub Faucet".
-  if (finalSeoTitleInput.category === 'Tub Faucet') {
-    const tubType = (finalSeoTitleInput.type || '').toLowerCase();
-    if (/floor\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Floor Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (/wall\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Wall Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (/deck\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Deck Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'wall mount' || tubType === 'wall mounted') {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Wall Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'floor mount' || tubType === 'floor mounted') {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Floor Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'deck mount' || tubType === 'deck mounted') {
-      finalSeoTitleInput.type = 'Tub Filler';
-      finalSeoTitleInput.mountType = 'Deck Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    }
-    if (finalSeoTitleInput.type !== (sanitizedPrimaryAttributes.AI_Type || '').replace(/^(Floor|Wall|Deck)\s+Mounted?\s+/i, '')) {
-      logger.info('🛁 Tub Faucet: split combined type into Type + Mount', {
-        sessionId,
-        originalType: sanitizedPrimaryAttributes.AI_Type,
-        newType: finalSeoTitleInput.type,
-        mount: finalSeoTitleInput.mountType
-      });
-    }
-  }
-  // ── END TUB FAUCET TYPE/MOUNT SPLITTING ───────────────────────────────────
 
   // Generate final title using corrected data
   let finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
@@ -12700,186 +11608,6 @@ function buildReferenceLinks(rawProduct: SalesforceIncomingProduct): {
     Ferguson_URL: rawProduct.Ferguson_URL || '',
     Web_Retailer_URL: rawProduct.Reference_URL || '',
     Manufacturer_URL: '', // Could be extracted from documents
-  };
-}
-
-/**
- * Build Appliance Features section (always returns object, defaults to false for non-Appliances)
- * Determines standard appliance features based on product data and category
- * 
- * @param department - Product department (e.g., "Appliances")
- * @param category - Product category (e.g., "Oven", "Refrigerator")
- * @param installationType - Installation type from attributes
- * @param fuelType - Fuel type from attributes (for fuel_gas/fuel_electric)
- * @param rawProduct - Raw product data for analysis
- * @param topFilterAttributes - Top filter attributes with voltage and other specs
- * @param primaryAttributes - Primary attributes for reference
- * @returns ApplianceFeatures object (always present, all false for non-Appliances)
- */
-function buildApplianceFeatures(
-  department: string | undefined,
-  category: string | null | undefined,
-  installationType: string | undefined,
-  fuelType: string | undefined,
-  rawProduct: SalesforceIncomingProduct,
-  topFilterAttributes: TopFilterAttributes,
-  primaryAttributes: PrimaryDisplayAttributes
-): import('../types/salesforce.types').ApplianceFeatures {
-  // Return defaults (all false) for non-Appliances department
-  if (!department || department.toLowerCase() !== 'appliances') {
-    return {
-      built_in: false,
-      panel_ready: false,
-      counter_depth: false,
-      standard_depth: false,
-      voltage_120v: false,
-      voltage_240v: false,
-      fuel_gas: false,
-      fuel_electric: false
-    };
-  }
-
-  const categoryLower = category?.toLowerCase() || '';
-  const installLower = installationType?.toLowerCase() || '';
-  const fuelLower = fuelType?.toLowerCase() || '';
-  
-  // Combine title and description for analysis
-  const combinedText = (
-    (primaryAttributes.AI_Product_Title || '') + ' ' +
-    (rawProduct.Product_Title_Web_Retailer || '') + ' ' +
-    (rawProduct.Product_Description_Web_Retailer || '') + ' ' +
-    (rawProduct.Ferguson_Description || '')
-  ).toLowerCase();
-
-  // Determine built_in (ONLY for Oven and Refrigerator categories)
-  let built_in = false;
-  if (categoryLower === 'oven') {
-    built_in = (
-      installLower.includes('built-in') ||
-      installLower.includes('built in') ||
-      installLower.includes('wall') ||
-      combinedText.includes('built-in') ||
-      combinedText.includes('built in oven') ||
-      combinedText.includes('wall oven')
-    );
-  } else if (categoryLower === 'refrigerator') {
-    built_in = (
-      installLower.includes('built-in') ||
-      installLower.includes('built in') ||
-      combinedText.includes('built-in refrigerator') ||
-      combinedText.includes('built in refrigerator')
-    );
-  }
-  // For all other categories (range, dishwasher, etc.), built_in remains false
-
-  // Determine panel_ready
-  const panel_ready = (
-    installLower.includes('panel ready') ||
-    installLower.includes('panel-ready') ||
-    combinedText.includes('panel ready') ||
-    combinedText.includes('panel-ready') ||
-    combinedText.includes('custom panel')
-  );
-
-  // Determine counter_depth and standard_depth (REFRIGERATOR & FREEZER ONLY)
-  let counter_depth = false;
-  let standard_depth = false;
-  
-  const isRefrigerator = categoryLower.includes('refrigerator') || categoryLower.includes('freezer');
-  
-  if (isRefrigerator) {
-    // Check for counter-depth indicators
-    const hasCounterDepthKeywords = (
-      installLower.includes('counter-depth') ||
-      installLower.includes('counter depth') ||
-      combinedText.includes('counter-depth') ||
-      combinedText.includes('counter depth')
-    );
-    
-    // Check depth measurement if available
-    const depthStr = String(primaryAttributes.AI_Depth || rawProduct.Depth_Web_Retailer || '').toLowerCase();
-    const depthMatch = depthStr.match(/([\d.]+)/);
-    const depthInches = depthMatch ? parseFloat(depthMatch[1]) : null;
-    
-    // Counter-depth: ≤26 inches or has counter-depth keywords
-    if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 26)) {
-      counter_depth = true;
-      standard_depth = false;
-    } else {
-      // Standard depth: >26 inches or no counter-depth indicators (default)
-      counter_depth = false;
-      standard_depth = true;
-    }
-  }
-  // For non-refrigerator appliances, both remain false
-
-  // Determine voltage (check attributes and specs)
-  let voltage_120v = false;
-  let voltage_240v = false;
-  
-  // Check top filter attributes for voltage
-  const voltageAttr = String(topFilterAttributes['voltage'] || topFilterAttributes['volts'] || '').toLowerCase();
-  if (voltageAttr.includes('120') || voltageAttr.includes('115')) {
-    voltage_120v = true;
-  }
-  if (voltageAttr.includes('240') || voltageAttr.includes('220') || voltageAttr.includes('230')) {
-    voltage_240v = true;
-  }
-  
-  // Check in combined text
-  if (combinedText.includes('120v') || combinedText.includes('120 v') || combinedText.includes('115v')) {
-    voltage_120v = true;
-  }
-  if (combinedText.includes('240v') || combinedText.includes('240 v') || combinedText.includes('220v') || combinedText.includes('230v')) {
-    voltage_240v = true;
-  }
-  
-  // Default voltage assumptions by category if not specified
-  if (!voltage_120v && !voltage_240v) {
-    // High-power appliances typically use 240V
-    if (['range', 'oven', 'cooktop', 'dryer', 'water heater'].includes(categoryLower)) {
-      voltage_240v = true;
-    }
-    // Lower-power appliances typically use 120V
-    else if (['dishwasher', 'microwave', 'freezer', 'refrigerator', 'washer'].includes(categoryLower)) {
-      voltage_120v = true;
-    }
-  }
-
-  // Determine fuel type
-  let fuel_gas = false;
-  let fuel_electric = false;
-  
-  if (fuelLower.includes('gas') || fuelLower.includes('natural gas') || fuelLower.includes('propane')) {
-    fuel_gas = true;
-  }
-  if (fuelLower.includes('electric') || fuelLower.includes('induction')) {
-    fuel_electric = true;
-  }
-  if (fuelLower.includes('dual fuel') || fuelLower.includes('dual-fuel')) {
-    fuel_gas = true;
-    fuel_electric = true;
-  }
-  
-  // Check in combined text if not determined from fuel type
-  if (!fuel_gas && !fuel_electric) {
-    if (combinedText.includes('gas range') || combinedText.includes('gas cooktop') || combinedText.includes('gas oven')) {
-      fuel_gas = true;
-    }
-    if (combinedText.includes('electric range') || combinedText.includes('electric cooktop') || combinedText.includes('electric oven') || combinedText.includes('induction')) {
-      fuel_electric = true;
-    }
-  }
-
-  return {
-    built_in,
-    panel_ready,
-    counter_depth,
-    standard_depth,
-    voltage_120v,
-    voltage_240v,
-    fuel_gas,
-    fuel_electric
   };
 }
 
@@ -14506,9 +13234,10 @@ async function executeFinalReviewStage(
   topFilterAttributes: TopFilterAttributes,
   generatedTitle: string,
   rawProduct: SalesforceIncomingProduct,
-  sessionId: string
+  sessionId: string,
+  department?: string
 ): Promise<FinalReviewResult> {
-  logger.info('🎯 FINAL REVIEW STAGE: Starting post-consensus validation', { sessionId });
+  logger.info('🎯 FINAL REVIEW STAGE: Starting post-consensus validation', { sessionId, department });
 
   // Phase A: Automated Validation (always runs)
   const phaseAResult = performAutomatedValidation(
@@ -14525,8 +13254,11 @@ async function executeFinalReviewStage(
   const correctionsApplied: ValidationIssue[] = [];
   const flaggedForReview: ValidationIssue[] = [];
 
-  // Phase B: Claude Review (only if Phase A flagged for review)
-  if (phaseAResult.requiresAIReview) {
+  // PATH B: Skip Claude Phase B for Appliances (restores 926ad6b behavior — no Claude existed then)
+  const isAppliancesDept = department === 'Appliances';
+
+  // Phase B: Claude Review (only if Phase A flagged for review AND not Appliances)
+  if (phaseAResult.requiresAIReview && !isAppliancesDept) {
     logger.info('🔍 FINAL REVIEW: Phase A flagged for Claude review', {
       sessionId,
       reason: `Confidence: ${phaseAResult.confidence}%, Warnings: ${phaseAResult.warnings.length}, Corrections: ${phaseAResult.corrections.length}`
@@ -14548,6 +13280,13 @@ async function executeFinalReviewStage(
     } else if (phaseBResult.reviewStatus === 'FLAG') {
       finalStatus = 'FLAG';
     }
+  } else if (phaseAResult.requiresAIReview && isAppliancesDept) {
+    logger.info('⏭️ FINAL REVIEW: Skipping Claude Phase B for Appliances (PATH B — 926ad6b restore)', {
+      sessionId,
+      department,
+      phaseAConfidence: phaseAResult.confidence,
+      reason: 'Appliances use pre-Claude verification logic'
+    });
   }
 
   // Apply corrections from Phase A (deterministic fixes)
