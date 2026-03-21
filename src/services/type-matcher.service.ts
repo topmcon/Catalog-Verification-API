@@ -96,6 +96,13 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'built in': { 'Refrigerator': 'Column', 'Dishwasher': 'Drawer', 'Microwave': 'Built-In', 'Icemaker': 'Undercounter' },
   'column': { 'Refrigerator': 'Column', 'Freezer': 'Column' },
   'column refrigerator': { 'Refrigerator': 'Column' },
+  'column freezer': { 'Freezer': 'Column' },
+  // Wine COLUMN aliases — full-height (84") integrated wine units are Column, not Wine Cooler
+  'wine column': { 'Refrigerator': 'Column' },
+  'wine columns': { 'Refrigerator': 'Column' },
+  'integrated wine column': { 'Refrigerator': 'Column' },
+  'wine storage column': { 'Refrigerator': 'Column' },
+  'integrated wine': { 'Refrigerator': 'Column' },
   'undercounter': { 'Refrigerator': 'Undercounter' },
   'under counter': { 'Refrigerator': 'Undercounter' },
   'under-counter': { 'Refrigerator': 'Undercounter' },
