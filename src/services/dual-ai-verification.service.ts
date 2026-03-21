@@ -4951,7 +4951,7 @@ ${promptOptions.invalidTypeWarning}
   }
   
   // Build category-specific style list
-  const categoryStyleContext = `\n== VALID DESIGN STYLES ==\nUniversal design styles (apply to all categories):\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
+  const categoryStyleContext = `\n== VALID STYLES FOR ${determinedCategory.toUpperCase()} ==\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
   
   // Build category-specific top15 attributes
   let categoryTop15Context = '';
@@ -13001,7 +13001,7 @@ ${validTypesForCategory.length > 0 ? validTypesForCategory.join(', ') : 'No type
   • Example: If Barbeque product is "Built-In", put in filter_attributes.installation_type, NOT type
 ${typeSelectionGuide}
 
-VALID STYLES (universal):
+VALID STYLES FOR "${category}":
 ${validStyles.join(', ')}
 
 CORRECT DEPARTMENT FOR "${category}": ${correctDepartmentForCategory || 'NOT FOUND'}
