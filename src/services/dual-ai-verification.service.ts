@@ -4846,6 +4846,24 @@ ${promptOptions.invalidTypeWarning}
       categoryTypeContext += '  ❌ Seeing "under cabinet" mounting and choosing "Under Cabinet" for Insert hood\n';
       categoryTypeContext += '\n  KEY: Look for hood STYLE first (Insert/Liner, Under Cabinet, Wall Mount, Island), not mounting method!';
     }
+    
+    // ⚠️ SPECIAL CASE: Dishwasher type clarification (prevents confusion with Panel Ready attribute)
+    if (determinedCategory === 'Dishwasher') {
+      categoryTypeContext += '\n\n🔍 DISHWASHER TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes CONTROL LOCATION or INSTALLATION TYPE (Top Control, Front Control, Drawer, Portable, Countertop)\n';
+      categoryTypeContext += '  • "Panel-Ready" as a TYPE means control panel integration (different from control location)\n';
+      categoryTypeContext += '  • "Panel Ready" as title attribute (position 4) describes cabinet integration style\n';
+      categoryTypeContext += '  • These are DIFFERENT fields - do not confuse or duplicate them!\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ "Top Control Panel Ready Dishwasher" → product_type: "Top Control" (Panel Ready goes in separate attribute)\n';
+      categoryTypeContext += '  ✅ "Front Control Dishwasher" → product_type: "Front Control"\n';
+      categoryTypeContext += '  ✅ "Drawer Dishwasher" → product_type: "Drawer"\n';
+      categoryTypeContext += '  ✅ "Panel-Ready Dishwasher" → product_type: "Panel-Ready" (when it\'s the TYPE, not just panel-ready finish)\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Setting product_type: "Panel-Ready" when it should be "Top Control" with panel-ready FINISH\n';
+      categoryTypeContext += '  ❌ Duplicating "Panel Ready" in both type and title attribute fields\n';
+      categoryTypeContext += '\n  KEY: Look for CONTROL TYPE first (Top/Front Control, Drawer), not finish/integration style!';
+    }
   } else {
     categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
   }
