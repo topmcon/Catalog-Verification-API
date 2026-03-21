@@ -53,12 +53,6 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'combo wall oven': { 'Oven': 'Microwave Combo' },
   'oven microwave combo': { 'Oven': 'Microwave Combo' },
   'oven microwave combination': { 'Oven': 'Microwave Combo' },
-  'speed cook': { 'Oven': 'Speed Oven' },
-  'speed oven': { 'Oven': 'Speed Oven' },
-  'steam oven': { 'Oven': 'Steam' },
-  'steam': { 'Oven': 'Steam' },
-  'convection oven': { 'Oven': 'Convection' },
-  'convection': { 'Oven': 'Convection' },
   
   // ============================================
   // REFRIGERATOR ALIASES
@@ -547,9 +541,6 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   { pattern: /double.*wall.*oven|double.*oven/i, category: 'Oven', typeName: 'Double Wall' },
   { pattern: /combination.*wall.*oven|combination.*oven|combo.*wall.*oven/i, category: 'Oven', typeName: 'Microwave Combo' },
   { pattern: /microwave.*combo|combo.*microwave|oven.*microwave.*combo/i, category: 'Oven', typeName: 'Microwave Combo' },
-  { pattern: /speed.*oven/i, category: 'Oven', typeName: 'Speed Oven' },
-  { pattern: /steam.*oven/i, category: 'Oven', typeName: 'Steam' },
-  
   // Microwave patterns  
   { pattern: /trim.*kit|installation.*kit|built.*in.*kit/i, category: 'Microwave', typeName: 'Trim Kit' },
   { pattern: /over[\s-]*the[\s-]*range.*microwave|otr.*microwave/i, category: 'Microwave', typeName: 'Over-the-Range' },

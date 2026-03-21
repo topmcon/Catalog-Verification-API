@@ -12934,7 +12934,7 @@ Type = LOADING CONFIGURATION ONLY:
   • Vented/Ventless are VENT TYPE attributes, NOT types`;
     } else if (categoryLower.includes('oven')) {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR OVEN:
-Analyze cavity count and form factor: Single, Double Wall, Combination, Speed Oven`;
+Analyze cavity count and form factor: Single, Double Wall, Microwave Combo`;
     } else if (categoryLower.includes('icemaker') || categoryLower.includes('ice maker')) {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR ICEMAKER:
 Type = Installation method. Priority: ADA → Panel Ready → Outdoor → Portable → Undercounter/Freestanding

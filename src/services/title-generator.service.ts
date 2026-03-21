@@ -238,12 +238,6 @@ function normalizeConfiguration(value: string): string | null {
   if (lower.includes('combo') || lower.includes('combination')) return 'Combination';
   if (lower.includes('microwave') && lower.includes('oven')) return 'Microwave Combo';
   
-  // Speed Oven
-  if (lower.includes('speed')) return 'Speed';
-  
-  // Steam Oven
-  if (lower.includes('steam') && lower.includes('oven')) return 'Steam';
-  
   // === WASHER/DRYER CONFIGURATIONS ===
   // Front Load
   if (lower.includes('front') && lower.includes('load')) return 'Front Load';

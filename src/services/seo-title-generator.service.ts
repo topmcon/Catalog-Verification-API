@@ -1175,7 +1175,7 @@ export function getSEOKeywordsForCategory(category: string): string[] {
     // Appliances
     'refrigerator': ['Energy Star', 'Smart', 'Counter Depth', 'French Door', 'Stainless Steel'],
     'range': ['Gas', 'Electric', 'Dual Fuel', 'Convection', 'Self-Cleaning'],
-    'oven': ['Wall Oven', 'Convection', 'Smart', 'Double', 'Steam'],
+    'oven': ['Wall Oven', 'Smart', 'Double'],
     'dishwasher': ['Quiet', 'Energy Star', 'Third Rack', 'Built-In', 'Smart'],
     'microwave': ['Over-the-Range', 'Countertop', 'Built-In', 'Convection', 'Smart'],
     'washer': ['Front Load', 'Top Load', 'Steam', 'Smart', 'Large Capacity'],
