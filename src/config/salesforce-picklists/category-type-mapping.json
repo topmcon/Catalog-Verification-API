@@ -82,6 +82,11 @@
           "primary_filter": true
         },
         {
+          "type_name": "Outdoor",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -127,6 +132,11 @@
           "primary_filter": true
         },
         {
+          "type_name": "Outdoor",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -154,6 +164,11 @@
         },
         {
           "type_name": "Refrigerated",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
           "status": "existing",
           "primary_filter": true
         },
@@ -189,6 +204,11 @@
         },
         {
           "type_name": "Undercounter",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
           "status": "existing",
           "primary_filter": true
         },
@@ -308,6 +328,11 @@
           "primary_filter": true
         },
         {
+          "type_name": "Outdoor",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -385,6 +410,11 @@
           "primary_filter": true
         },
         {
+          "type_name": "Outdoor",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
@@ -428,6 +458,11 @@
         },
         {
           "type_name": "Pro-Style",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
           "status": "existing",
           "primary_filter": true
         },
@@ -499,6 +534,11 @@
         },
         {
           "type_name": "Kegerator",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
           "status": "existing",
           "primary_filter": true
         },
@@ -5827,6 +5867,11 @@
         },
         {
           "type_name": "Wood-Fired",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Outdoor",
           "status": "existing",
           "primary_filter": true
         },
