@@ -962,16 +962,6 @@
   {
     "family": "Outdoor",
     "department": "Outdoor",
-    "category_name": "Outdoor Kitchen",
-    "category_id": "a01aZ00000dCejuQAC",
-    "subcategory": "Outdoor",
-    "styles_apply": true,
-    "deprecated": true,
-    "deprecation_note": "Use actual appliance category (Refrigerator, Range, Cooktop, etc.) with Type='Outdoor' instead. Added 2026-03-21."
-  },
-  {
-    "family": "Outdoor",
-    "department": "Outdoor",
     "category_name": "Outdoor Shower Faucet",
     "category_id": "a01aZ00000dCejwQAC",
     "subcategory": "Outdoor",

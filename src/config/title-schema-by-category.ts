@@ -5500,50 +5500,6 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand 50,000 BTU Outdoor Fireplace Finish - Model",
     "seoNotes": "Type = Built-In, Freestanding, Chiminea. Fuel = Gas, Wood."
   },
-  // ⚠️ DEPRECATED 2026-03-21: Use functional appliance categories (Refrigerator, Range, Cooktop, etc.) with Type="Outdoor" instead.
-  // This maintains appliance-specific classification while indicating outdoor-rated status.
-  // Schema kept for backward compatibility with existing products.
-  "outdoor_kitchen": {
-    "categoryId": "a01aZ00000dCejuQAC",
-    "categoryName": "Outdoor Kitchen",
-    "department": "Outdoor",
-    "family": "Outdoor",
-    "slots": [
-      {
-        "position": 1,
-        "attribute": "Brand",
-        "required": true
-      },
-      {
-        "position": 2,
-        "attribute": "Type",
-        "required": false
-      },
-      {
-        "position": 3,
-        "attribute": "Width (Inches)",
-        "required": false
-      },
-      {
-        "position": 4,
-        "attribute": "Category",
-        "required": true
-      },
-      {
-        "position": 5,
-        "attribute": "Finish",
-        "required": false
-      },
-      {
-        "position": 6,
-        "attribute": "Model Number",
-        "required": false
-      }
-    ],
-    "template": "{Brand} {Type} {Width (Inches)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue Outdoor Kitchen Finish - Model",
-    "seoNotes": "Type = Island, Cabinet, Cart, Grill Station."
-  },
   "outdoor_shower_faucet": {
     "categoryId": "a01aZ00000dCejwQAC",
     "categoryName": "Outdoor Shower Faucet",
