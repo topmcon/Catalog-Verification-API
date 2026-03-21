@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v6
-  Snapshot Date: 2026-03-04 13:52:52 EST
-  Commit:        5f11286 (5f1128623be8d03e1a4cb6f1b40a7e9cbf3d1f7e)
+  Version:       v26
+  Snapshot Date: 2026-03-21 19:17:59 EDT
+  Commit:        38747d0 (38747d076677e692ac10d802e6cde50e5e7cb8bb)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12010 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 13827 lines
+  title-schema-by-category.ts:     7233 lines
   Brands:     385
-  Categories: 161
+  Categories: 160
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v5)
+  Lines added: ~0, Lines removed: ~38 (vs v25)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-5f11286 fix: Make Claude review mandatory for all jobs + Canadian validation + depth fields
-3d9d4d5 docs: Update 'Save everything' procedure with before-after versioning workflow
-ab37208 docs: Update architecture docs with Canadian handling and Claude expansion (v5)
-092296d feat: Canadian data handling + Claude expansion + Appliance_Features required
-c0f70c9 docs: Add comprehensive session summary for AI bias elimination
+38747d0 Revert "Refrigerator: installation-based styles, remove Freestanding type, wire category-specific style lookup"
+af5e775 Fix AI prompt: use category-specific style labels instead of hardcoded Universal
+e3a7cd9 Refrigerator: installation-based styles, remove Freestanding type, wire category-specific style lookup
+bbbeff4 Remove Steam/Convection/Speed Oven/Outdoor Oven type refs from all verification files
+ded2f32 Remove Steam, Convection, Speed Oven, Outdoor from Oven type list
 -->
 
 # Verification Data Sources - Complete Inventory
