@@ -4864,6 +4864,45 @@ ${promptOptions.invalidTypeWarning}
       categoryTypeContext += '  ❌ Duplicating "Panel Ready" in both type and title attribute fields\n';
       categoryTypeContext += '\n  KEY: Look for CONTROL TYPE first (Top/Front Control, Drawer), not finish/integration style!';
     }
+    
+    // ⚠️ SPECIAL CASE: Dryer type clarification (prevents confusion with fuel type)
+    if (determinedCategory === 'Dryer') {
+      categoryTypeContext += '\n\n🔍 DRYER TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes LOADING CONFIGURATION (Front Load, Top Load, Unitized)\n';
+      categoryTypeContext += '  • fuel_type describes POWER SOURCE (Electric, Gas, Heat Pump) - separate schema attribute at position 4\n';
+      categoryTypeContext += '  • vent_type describes VENTING METHOD (Vented, Ventless) - separate attribute\n';
+      categoryTypeContext += '  • These are DIFFERENT fields - do not confuse them!\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ "Electric Dryer" → product_type: "Front Load" (or Top Load), fuel_type: "Electric"\n';
+      categoryTypeContext += '  ✅ "Gas Dryer" → product_type: "Front Load" (or Top Load), fuel_type: "Gas"\n';
+      categoryTypeContext += '  ✅ "Ventless Electric Dryer" → product_type: "Front Load", fuel_type: "Electric", vent_type: "Ventless"\n';
+      categoryTypeContext += '  ✅ "Unitized Dryer" → product_type: "Unitized"\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Seeing "Electric Dryer" and setting product_type: "Electric" (should be "Front Load" or "Top Load")\n';
+      categoryTypeContext += '  ❌ Seeing "Gas Dryer" and setting product_type: "Gas" (should be loading type, fuel goes in fuel_type)\n';
+      categoryTypeContext += '  ❌ Seeing "Ventless" and setting product_type: "Ventless" (should be vent_type attribute)\n';
+      categoryTypeContext += '\n  KEY: Look for LOADING TYPE first (Front Load, Top Load, Unitized), not power source or venting!';
+    }
+    
+    // ⚠️ SPECIAL CASE: Washer type clarification (prevents confusion with size/feature attributes)
+    if (determinedCategory === 'Washer') {
+      categoryTypeContext += '\n\n🔍 WASHER TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes LOADING CONFIGURATION ONLY (Front Load, Top Load, Unitized)\n';
+      categoryTypeContext += '  • "Stackable" is NOT a type - it\'s a feature/attribute\n';
+      categoryTypeContext += '  • "Compact" is NOT a type - captured by Width attribute (e.g., 24-Inch)\n';
+      categoryTypeContext += '  • "Portable" is NOT a type - it\'s an attribute\n';
+      categoryTypeContext += '  • These size/feature terms go in attributes, NOT product_type!\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ "Compact Front Load Washer" → product_type: "Front Load", width: 24 (Compact via width, not type)\n';
+      categoryTypeContext += '  ✅ "Stackable Top Load Washer" → product_type: "Top Load" (Stackable is feature attribute)\n';
+      categoryTypeContext += '  ✅ "Portable Washer" → product_type: "Top Load" (Portable is attribute)\n';
+      categoryTypeContext += '  ✅ "Unitized Washer" → product_type: "Unitized"\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Seeing "Compact Washer" and setting product_type: "Compact" (should use loading type + width)\n';
+      categoryTypeContext += '  ❌ Seeing "Stackable Washer" and setting product_type: "Stackable" (stackable is feature, not type)\n';
+      categoryTypeContext += '  ❌ Seeing "Portable Washer" and setting product_type: "Portable" (loading type + portable attribute)\n';
+      categoryTypeContext += '\n  KEY: Look for LOADING TYPE first (Front Load, Top Load, Unitized), not size or features!';
+    }
   } else {
     categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
   }
