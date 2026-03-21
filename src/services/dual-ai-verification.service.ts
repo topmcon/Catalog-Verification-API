@@ -4829,6 +4829,23 @@ ${promptOptions.invalidTypeWarning}
     categoryTypeContext += '  • If you see relevant info that matches the logic description but is NOT in the list:\n';
     categoryTypeContext += '    → Put it in filter_attributes or appliance_features instead\n';
     categoryTypeContext += '  • Example: For Barbeque, "Built-In" installation goes in filter_attributes.installation_type, NOT product_type';
+    
+    // ⚠️ SPECIAL CASE: Range Hood type clarification (prevents confusion with installation method)
+    if (determinedCategory === 'Range Hood') {
+      categoryTypeContext += '\n\n🔍 RANGE HOOD TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes the HOOD STYLE (Insert, Wall Mount, Under Cabinet, Island Mount, Pro-Style)\n';
+      categoryTypeContext += '  • installation_type describes HOW it mounts (e.g., "Wall-Mounted", "Built-In")\n';
+      categoryTypeContext += '  • These are DIFFERENT fields - do not confuse them!\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ "Custom Insert Hood" → product_type: "Insert" (not "Wall Mount" even if it mounts on wall)\n';
+      categoryTypeContext += '  ✅ "Undercabinet Hood" → product_type: "Under Cabinet" (not "Wall-Mounted")\n';
+      categoryTypeContext += '  ✅ "Wall Mount Hood" → product_type: "Wall Mount"\n';
+      categoryTypeContext += '  ✅ "Island Hood" → product_type: "Island Mount"\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Seeing "wall-mounted installation" in description and choosing "Wall Mount" for Insert hood\n';
+      categoryTypeContext += '  ❌ Seeing "under cabinet" mounting and choosing "Under Cabinet" for Insert hood\n';
+      categoryTypeContext += '\n  KEY: Look for hood STYLE first (Insert/Liner, Under Cabinet, Wall Mount, Island), not mounting method!';
+    }
   } else {
     categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
   }
