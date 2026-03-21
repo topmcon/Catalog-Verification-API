@@ -230,6 +230,12 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
     return input.configuration || input.type;
   }
   
+  // Special case for Burner Count - try burnerCount first, then numberOfBurners
+  // finalSeoTitleInput populates numberOfBurners, but the schema attribute maps to burnerCount
+  if (attribute === 'Burner Count' || attribute === 'Number of Burners') {
+    return input.burnerCount || input.numberOfBurners;
+  }
+  
   const value = (input as unknown as Record<string, unknown>)[fieldName] as string | number | string[] | undefined;
   
   // Debug logging for Width attribute

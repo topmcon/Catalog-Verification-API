@@ -11183,7 +11183,8 @@ async function buildFinalResponse(
   // - Prefer Color when it's a real color name
   // - Use Finish only if it looks like a color (not a material/coating)
   // - Filter out material/coating names that aren't useful in titles
-  const MATERIAL_COATING_PATTERNS = /^(hygieneglaze|cefiontect|sanagloss|everclean|ceramic|porcelain|vitreous\s+china|plastic|fiberglass|acrylic|cast\s+iron|stainless\s+steel|enameled\s+steel|granite|quartz|composite|solid\s+surface)$/i;
+  // NOTE: "stainless steel" removed from exclusions - it's a critical appliance finish for SEO
+  const MATERIAL_COATING_PATTERNS = /^(hygieneglaze|cefiontect|sanagloss|everclean|ceramic|porcelain|vitreous\s+china|plastic|fiberglass|acrylic|cast\s+iron|enameled\s+steel|granite|quartz|composite|solid\s+surface)$/i;
   const rawFinish = sanitizedPrimaryAttributes.AI_Finish || seoTitleInput.finish || '';
   const rawColor = sanitizedPrimaryAttributes.AI_Color || seoTitleInput.color || '';
   // Strip hex color code prefix from AI_Color (e.g., "E1C16E (Tuscan Brass)" → "Tuscan Brass")

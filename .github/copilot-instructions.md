@@ -2,12 +2,21 @@
 
 ## 🕐 TIMEZONE & DATE REFERENCE
 
-**User timezone: US Eastern (EST/EDT)**
-- The system-provided date is in **UTC**. ALWAYS convert to Eastern Time before displaying.
-- UTC midnight = 7:00 PM EST (previous day) or 8:00 PM EDT (previous day)
-- When the system says "March 4" but it's evening in EST, the user's date is likely **March 3**
+**⚠️ CRITICAL: User timezone is US Eastern (EST/EDT) - NOT UTC!**
+- The system-provided date/time is in **UTC**. ALWAYS convert to Eastern Time before displaying or interpreting.
+- **Conversion**: UTC - 5 hours = EST (winter) | UTC - 4 hours = EDT (summer)
+- UTC midnight (00:00) = 7:00 PM EST previous day OR 8:00 PM EDT previous day
+- **When the system says "March 21, 2026 02:06 UTC", user's local time is "March 20, 2026 10:06 PM EST"**
 - **Always state dates and times in Eastern Time** unless asked otherwise
 - When naming session files (e.g., `SESSION-SUMMARY-YYYY-MM-DD`), use the **Eastern Time date**
+- **Log timestamps**: Production logs show EST/EDT times, but system date string is UTC
+
+**Examples:**
+- System says: "March 21, 2026" → User's date: "March 20, 2026" (if evening)
+- Log shows: "3/20/2026, 10:01 PM" → This is EST time (just happened)
+- System date: "March 21, 2026 02:01 UTC" → EST: "March 20, 2026 10:01 PM"
+
+**Rule of thumb**: If user says "now" or "just happened", check their EST time, not system UTC time!
 
 ## ⚠️ CRITICAL: PRODUCTION-FIRST OPERATIONS
 
