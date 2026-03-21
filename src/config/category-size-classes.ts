@@ -223,7 +223,7 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "notes": "24\" compact, 27\" standard, 29\" large capacity"
       },
       {
-        "category_name": "Standalone Pedestal",
+        "category_name": "Laundry Pedestal",
         "category_id": "a01Hu000010Q5ErIAK",
         "department": "Appliances",
         "has_measurement_class": true,

@@ -172,7 +172,7 @@ export const DRAWER_SCHEMA: CategoryAttributeConfig = {
 };
 
 export const PEDESTAL_SCHEMA: CategoryAttributeConfig = {
-  categoryName: 'Standalone Pedestal',
+  categoryName: 'Laundry Pedestal',
   department: 'Appliances',
   top15FilterAttributes: [
     'Brand',
@@ -209,5 +209,5 @@ export const HOME_DECOR_HVAC_SCHEMAS = {
   'Air Conditioners #': AIR_CONDITIONER_SCHEMA,
   'Range Hood Insert/Liner': RANGE_HOOD_LINER_SCHEMA,
   'Drawer': DRAWER_SCHEMA,
-  'Standalone Pedestal': PEDESTAL_SCHEMA,
+  'Laundry Pedestal': PEDESTAL_SCHEMA,
 };

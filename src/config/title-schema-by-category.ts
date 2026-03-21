@@ -891,9 +891,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "GE 27-Inch Front Load Electric Dryer 7.5 Cu. Ft. - GTD75ECSLWS",
     "seoNotes": "Width for space planning. Type = Front Load, Top Load, Unitized. Fuel Type = Electric, Gas. Capacity at end."
   },
-  "standalone_pedestal": {
+  "laundry_pedestal": {
     "categoryId": "a01Hu000010Q5ErIAK",
-    "categoryName": "Standalone Pedestal",
+    "categoryName": "Laundry Pedestal",
     "department": "Appliances",
     "family": "Laundry",
     "slots": [
@@ -904,12 +904,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
+        "attribute": "Width (Inches)",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Width (Inches)",
+        "attribute": "Type",
         "required": false
       },
       {
@@ -928,9 +928,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Width (Inches)} {Category} {Finish} {Model Number}",
-    "exampleTitle": "Brand TypeValue 27-Inch Standalone Pedestal Finish - Model",
-    "seoNotes": "Type = Storage Pedestal, Standalone. Width matches washer/dryer width (27 or 29)."
+    "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {Model Number}",
+    "exampleTitle": "LG 27-Inch Storage Pedestal Laundry Pedestal Graphite Steel - WDP5V",
+    "seoNotes": "Width first for space planning. Type = Storage Pedestal, Standalone. Width matches washer/dryer width (27 or 29)."
   },
   "washer": {
     "categoryId": "a01Hu000010Q5EsIAK",

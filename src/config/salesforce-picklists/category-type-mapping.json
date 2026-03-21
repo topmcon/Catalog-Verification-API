@@ -582,7 +582,7 @@
     {
       "department_name": "Appliances",
       "family_name": "Laundry",
-      "category_name": "Standalone Pedestal",
+      "category_name": "Laundry Pedestal",
       "category_id": "a01Hu000010Q5ErIAK",
       "filter_label": "Pedestal Type",
       "logic": "Primarily for matching washer/dryer",

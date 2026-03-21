@@ -55,7 +55,7 @@ export const FAMILY_CATEGORY_MAPPINGS: FamilyCategoryMapping[] = [
     categories: [
       'All in One Washer / Dryer',
       'Dryer',
-      'Standalone Pedestal',
+      'Laundry Pedestal',
       'Washer'
     ]
   }

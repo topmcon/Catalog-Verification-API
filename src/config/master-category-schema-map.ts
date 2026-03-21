@@ -278,10 +278,9 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Laundry Center': ALL_IN_ONE_WASHER_DRYER_SCHEMA,
   
   // Pedestal
-  'Standalone Pedestal': PEDESTAL_SCHEMA,
+  'Laundry Pedestal': PEDESTAL_SCHEMA,
   'Pedestal': PEDESTAL_SCHEMA,
   'Pedestals': PEDESTAL_SCHEMA,
-  'Laundry Pedestal': PEDESTAL_SCHEMA,
   
   // ============================================
   // APPLIANCES - SPECIALTY
