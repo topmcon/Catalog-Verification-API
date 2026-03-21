@@ -401,7 +401,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} - {Model Number}",
     "exampleTitle": "GAGGENAU 24-Inch Warming Drawer Stainless Steel - WS261710",
-    "seoNotes": "Type = Warming, Storage. Width for fit."
+    "seoNotes": "Type = Warming, Storage, Refrigerated. Width for fit."
   },
   "freezer": {
     "categoryId": "a01Hu000010Q5EkIAK",

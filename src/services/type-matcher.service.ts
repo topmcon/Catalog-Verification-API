@@ -574,7 +574,7 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   // Drawer patterns (standalone drawer appliances)
   { pattern: /warming.*drawer/i, category: 'Drawer', typeName: 'Warming' },
   { pattern: /storage.*drawer/i, category: 'Drawer', typeName: 'Storage' },
-  { pattern: /refrigerat.*drawer/i, category: 'Drawer', typeName: 'Refrigerator Drawer' },
+  { pattern: /refrigerat.*drawer/i, category: 'Drawer', typeName: 'Refrigerated' },
   
   // Bathroom Mirror — lighted detection
   // These patterns fire on Ferguson_Title, Web_Retailer title, or any hint text describing a mirror

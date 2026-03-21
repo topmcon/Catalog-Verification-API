@@ -303,7 +303,7 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   
   // Drawer (Refrigerator/Freezer)
   'Drawer': DRAWER_SCHEMA,
-  'Refrigerator Drawer': DRAWER_SCHEMA,
+  'Refrigerated': DRAWER_SCHEMA,
   'Freezer Drawer': DRAWER_SCHEMA,
   
   // Outdoor

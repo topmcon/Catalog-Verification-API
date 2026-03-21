@@ -1906,6 +1906,10 @@
     "type_id": "a1jaZ000001lFA3QAM"
   },
   {
+    "type_name": "Refrigerated",
+    "type_id": "a1jaZ00000243ivQAA"
+  },
+  {
     "type_name": "Residential",
     "type_id": "a1jaZ000001lFA4QAM"
   },
