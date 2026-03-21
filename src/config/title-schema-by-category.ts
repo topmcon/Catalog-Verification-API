@@ -5500,6 +5500,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     "exampleTitle": "Brand 50,000 BTU Outdoor Fireplace Finish - Model",
     "seoNotes": "Type = Built-In, Freestanding, Chiminea. Fuel = Gas, Wood."
   },
+  // ⚠️ DEPRECATED 2026-03-21: Use functional appliance categories (Refrigerator, Range, Cooktop, etc.) with Type="Outdoor" instead.
+  // This maintains appliance-specific classification while indicating outdoor-rated status.
+  // Schema kept for backward compatibility with existing products.
   "outdoor_kitchen": {
     "categoryId": "a01aZ00000dCejuQAC",
     "categoryName": "Outdoor Kitchen",

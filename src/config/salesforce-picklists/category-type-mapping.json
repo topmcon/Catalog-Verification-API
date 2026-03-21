@@ -5889,6 +5889,8 @@
       "category_id": "a01aZ00000dCejuQAC",
       "filter_label": "Outdoor Kitchen Type",
       "logic": "Configuration style",
+      "deprecated": true,
+      "deprecation_note": "LEGACY CATEGORY - Use functional appliance categories (Refrigerator, Range, Cooktop, Dishwasher, Drawer, Freezer, Oven, Range Hood, Barbeque, Pizza Oven) with Type='Outdoor' instead. This maintains appliance-specific classification while indicating outdoor-rated status. Existing products will continue to work. Added 2026-03-21.",
       "types": [
         {
           "type_name": "Island",
