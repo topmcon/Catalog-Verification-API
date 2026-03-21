@@ -144,7 +144,7 @@ export const DRAWER_SCHEMA: CategoryAttributeConfig = {
   department: 'Appliances',
   top15FilterAttributes: [
     'Brand',
-    'Type (Refrigerator Drawer, Freezer Drawer, Microwave Drawer)',
+    'Type (Warming, Storage, Refrigerated, Accessory)',
     'Width',
     'Installation Type (Built-In, Under Counter)',
     'Capacity',
