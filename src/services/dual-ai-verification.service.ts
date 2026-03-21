@@ -4885,6 +4885,47 @@ You MUST extract these attributes from product descriptions based on category:
 **HEATING/COOKING**:
 - BTU: British Thermal Units for heating capacity
 
+⚠️ ⚠️ ⚠️  CRITICAL: TITLE FORMAT BY CATEGORY  ⚠️ ⚠️ ⚠️
+
+**COOKTOP**: "Brand Width-Inch Burner_Count-Burner Fuel_Type Category Finish - Model"
+  Example: "GE 36-Inch 5-Burner Gas Cooktop Stainless Steel - PGP966SETSS"
+  MUST INCLUDE: Brand, Width (30/36"), Burner Count (4/5/6), Fuel Type (Gas/Electric/Induction), Finish, Model
+
+**RANGE**: "Brand Width-Inch Burner_Count-Burner Fuel_Type Installation_Type Category Finish - Model"
+  Example: "GE 30-Inch 5-Burner Dual Fuel Freestanding Range Stainless Steel - PGB911SEJSS"
+  MUST INCLUDE: Brand, Width, Burner Count, Fuel Type, Installation Type (Freestanding/Slide-In), Finish, Model
+
+**OVEN**: "Brand Width-Inch Type Category Finish - Model"
+  Example: "GE 30-Inch Single Wall Oven Stainless Steel - JTS3000SNSS"
+  MUST INCLUDE: Brand, Width, Type (Single/Double Wall), Finish, Model
+
+**REFRIGERATOR**: "Brand Width-Inch Type Category Finish - Model"
+  Example: "Whirlpool 36-Inch French Door Refrigerator Stainless Steel - WRF555SDFZ"
+  MUST INCLUDE: Brand, Width, Type (French Door/Side-by-Side/etc.), Finish, Model
+
+**DISHWASHER**: "Brand Width-Inch PlaceSettings-Place-Setting Control_Type Category Finish - Model"
+  Example: "Bosch 24-Inch 16-Place-Setting Top Control Dishwasher Stainless Steel - SHPM88Z75N"
+  MUST INCLUDE: Brand, Width (18/24"), Place Settings, Control Type (Top/Front), Finish, Model
+
+**RANGE HOOD**: "Brand Width-Inch CFM_Value-CFM Installation_Type Category Finish - Model"
+  Example: "Broan 36-Inch 400-CFM Under Cabinet Range Hood Stainless Steel - 413604"
+  MUST INCLUDE: Brand, Width, CFM (airflow), Installation Type (Wall Mount/Under Cabinet/Island), Finish, Model
+
+**WASHER/DRYER**: "Brand Width-Inch Capacity-Cu.-Ft. Type Fuel_Type Category Finish - Model"
+  Example: "LG 27-Inch 4.5-Cu.-Ft. Front Load Gas Dryer Stainless Steel - DLGX4501V"
+  MUST INCLUDE: Brand, Width, Capacity, Type (Front Load/Top Load), Fuel Type (for dryers), Finish, Model
+
+**FAUCET**: "Brand Collection Handle_Config Pull_Type Category Finish - Model"
+  Example: "Delta Trinsic Single Handle Pull-Down Kitchen Faucet Matte Black - 9159-BL-DST"
+  MUST INCLUDE: Brand, Collection (if luxury), Handle Config (Single/Two Handle), Pull Type (Pull-Down/Pull-Out), Finish, Model
+
+**GENERAL TITLE RULES**:
+1. NO parentheses or marketing features like "(Touch2O Technology)" - just specs!
+2. Model number ALWAYS at the END after a dash
+3. Format dimensions as "36-Inch", "4.5-Cu.-Ft.", "400-CFM" with hyphens
+4. Include ALL critical spec fields even if title gets long (60-80 chars is OK)
+5. Order: Brand → Size → Capacity/Performance → Configuration/Type → Fuel/Control → Category → Finish → Model
+
 Your task is to:
 1. ANALYZE the raw product data provided
 2. DETERMINE the product's TYPE (functional variation within ${determinedCategory} category)
@@ -4892,7 +4933,7 @@ Your task is to:
 4. **EXTRACT all critical attributes listed above** from product titles, descriptions, specifications
 5. VERIFY and CLEAN the data (fix obvious errors, standardize formats)
 6. IDENTIFY any missing required fields
-7. GENERATE high-quality, customer-facing text for title, description, and features
+7. **GENERATE product_title following the category-specific format above**
 
 ${typeHierarchy}
 ${typeSelectionGuide}
@@ -4924,7 +4965,7 @@ You must respond with valid JSON in this exact format:
     "weight": "numeric value in lbs",
     "msrp": "Manufacturer's Suggested Retail Price (NOT current sale price)",
     "description": "Enhanced customer-ready description (max 500 chars)",
-    "product_title": "BRAND + SPEC + TYPE + CATEGORY + FINISH + MODEL",
+    "product_title": "⚠️ CRITICAL: Follow the TITLE FORMAT BY CATEGORY examples above for ${determinedCategory}. Include ALL critical specs (width, burner count, fuel type, etc.). NO features/parentheses. Model at END after dash.",
     "details": "additional details",
     "features_list": "HTML <ul><li> format",
     "upc_gtin": "value",
