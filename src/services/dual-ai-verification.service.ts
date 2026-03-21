@@ -4903,6 +4903,25 @@ ${promptOptions.invalidTypeWarning}
       categoryTypeContext += '  ❌ Seeing "Portable Washer" and setting product_type: "Portable" (loading type + portable attribute)\n';
       categoryTypeContext += '\n  KEY: Look for LOADING TYPE first (Front Load, Top Load, Unitized), not size or features!';
     }
+
+    // ⚠️ SPECIAL CASE: Freezer type clarification (installation_type, panel_ready, AND type are three separate fields)
+    if (determinedCategory === 'Freezer') {
+      categoryTypeContext += '\n\n🔍 FREEZER TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes FORM FACTOR (Upright, Chest, Column, Undercounter, Compact)\n';
+      categoryTypeContext += '  • installation_type describes HOW IT INSTALLS (Built-In, Freestanding) - SEPARATE field!\n';
+      categoryTypeContext += '  • panel_ready describes INTEGRATION STYLE (Yes/No) - SEPARATE field!\n';
+      categoryTypeContext += '  • These are THREE DIFFERENT fields — do NOT conflate them!\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ "Built-In Column Freezer" → installation_type: "Built-In", product_type: "Column"\n';
+      categoryTypeContext += '  ✅ "Freestanding Chest Freezer" → installation_type: "Freestanding", product_type: "Chest"\n';
+      categoryTypeContext += '  ✅ "Built-In Panel Ready Column" → installation_type: "Built-In", panel_ready: "Panel Ready", product_type: "Column"\n';
+      categoryTypeContext += '  ✅ "Undercounter Freezer" → product_type: "Undercounter" (form factor), installation_type: "Built-In" or "Freestanding"\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Setting product_type: "Built-In" (that is installation_type, not form factor)\n';
+      categoryTypeContext += '  ❌ Setting product_type: "Freestanding" (that is installation_type)\n';
+      categoryTypeContext += '  ❌ Setting product_type: "Panel Ready" (that is a separate panel_ready attribute)\n';
+      categoryTypeContext += '\n  KEY: product_type = physical shape/size (Upright/Chest/Column/Undercounter/Compact), NOT how it installs!';
+    }
   } else {
     categoryTypeContext = `\n== PRODUCT TYPE ==\nThis category does not have type variations. Use "Not Applicable" for product_type field.`;
   }
