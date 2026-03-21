@@ -1494,19 +1494,27 @@
     {
       "category_name": "Refrigerator",
       "category_id": "a01Hu000010Q5EpIAK",
-      "style_type": "aesthetic",
+      "style_type": "installation",
       "styles": [
         {
-          "style_name": "Contemporary",
-          "style_id": "a1IaZ000001TVZJUA4"
+          "style_name": "Freestanding",
+          "style_id": "a1IaZ000001SWnZUAW"
         },
         {
-          "style_name": "Modern",
-          "style_id": "a1IaZ000001TWAPUA4"
+          "style_name": "Counter Depth",
+          "style_id": "a1IaZ000001SRSvUAO"
         },
         {
-          "style_name": "Traditional",
-          "style_id": "a1IaZ000001TLjdUAG"
+          "style_name": "Built-In",
+          "style_id": "a1IaZ000001S90MUAS"
+        },
+        {
+          "style_name": "Undercounter",
+          "style_id": "a1IaZ0000019zrhUAA"
+        },
+        {
+          "style_name": "Full Depth",
+          "style_id": "a1IaZ000001VCNhUAO"
         }
       ]
     },

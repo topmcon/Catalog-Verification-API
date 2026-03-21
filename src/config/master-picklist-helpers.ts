@@ -23,8 +23,12 @@ export const UNIVERSAL_DESIGN_STYLES = categoryStyleMapping.universal_styles.map
  * @param _categoryName - The category to get styles for (currently unused - all styles are universal)
  * @returns Array of valid style names
  */
-export function getValidStylesForCategory(_categoryName?: string): string[] {
-  // All categories can use universal design styles
+export function getValidStylesForCategory(categoryName?: string): string[] {
+  if (categoryName) {
+    const specific = (categoryStyleMapping.category_specific_mappings as Array<{category_name: string, styles: Array<{style_name: string}>}>)
+      .find(m => m.category_name.toLowerCase() === categoryName.toLowerCase());
+    if (specific) return specific.styles.map(s => s.style_name);
+  }
   return UNIVERSAL_DESIGN_STYLES;
 }
 

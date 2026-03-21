@@ -497,12 +497,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Freestanding",
-          "type_group": "Installation",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Wine Cooler",
           "status": "existing",
           "primary_filter": true
