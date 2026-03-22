@@ -3494,6 +3494,70 @@ export async function verifyProductWithDualAI(
         }
       }
     }
+
+    // POST-CONSENSUS: Weak type quality check
+    // When both AIs agree on a generic/weak type (e.g., "Deck Mount", "Single Handle"),
+    // scan product data for evidence of a more specific type and upgrade if found.
+    const agreedType = consensus.agreedPrimaryAttributes?.product_type;
+    if (agreedType && consensus.agreedCategory) {
+      const WEAK_CONSENSUS_TYPES: Record<string, { weakTypes: string[], keywordMap: [string, string][] }> = {
+        'kitchen faucet': {
+          weakTypes: ['deck mount', 'single handle'],
+          // Ordered by TYPE_PRIORITY (highest first) — first match wins
+          keywordMap: [
+            ['pull-down', 'Pull-Down'], ['pull down', 'Pull-Down'], ['pulldown', 'Pull-Down'],
+            ['pull-out', 'Pull-Out'], ['pull out', 'Pull-Out'], ['pullout', 'Pull-Out'],
+            ['bridge', 'Bridge'],
+            ['pre-rinse', 'Pre-Rinse'], ['pre rinse', 'Pre-Rinse'], ['prerinse', 'Pre-Rinse'],
+            ['touchless', 'Touchless'], ['touch-free', 'Touchless'], ['motionsense', 'Touchless'],
+            ['commercial', 'Commercial'],
+            ['wall mount', 'Wall Mount'], ['wall-mount', 'Wall Mount'], ['wallmount', 'Wall Mount'],
+            ['widespread', 'Two Handle'],
+          ]
+        },
+        'bathroom faucet': {
+          weakTypes: ['single handle', 'two handle'],
+          keywordMap: [
+            ['wall mount', 'Wall Mount'], ['wall-mount', 'Wall Mount'], ['wallmount', 'Wall Mount'],
+            ['vessel', 'Vessel'],
+            ['touchless', 'Touchless'], ['touch-free', 'Touchless'],
+          ]
+        }
+      };
+
+      const categoryLower = consensus.agreedCategory.toLowerCase();
+      const weakConfig = WEAK_CONSENSUS_TYPES[categoryLower];
+      if (weakConfig && weakConfig.weakTypes.includes(agreedType.toLowerCase())) {
+        const searchText = [
+          rawProduct.Ferguson_Title,
+          rawProduct.Ferguson_Base_Category,
+          rawProduct.Product_Title_Web_Retailer
+        ].filter(Boolean).join(' ').toLowerCase();
+
+        let bestUpgrade: string | null = null;
+        for (const [keyword, typeName] of weakConfig.keywordMap) {
+          if (searchText.includes(keyword)) {
+            const matchResult = matchTypeToPicklist(typeName, consensus.agreedCategory);
+            if (matchResult.matched) {
+              bestUpgrade = matchResult.matchedValue!.type_name;
+              break; // First match = highest priority
+            }
+          }
+        }
+
+        if (bestUpgrade) {
+          logger.warn('⚡ WEAK TYPE OVERRIDE: Both AIs agreed on generic type, upgrading from product data', {
+            sessionId: verificationSessionId,
+            category: consensus.agreedCategory,
+            weakType: agreedType,
+            upgradedTo: bestUpgrade,
+            fergusonTitle: rawProduct.Ferguson_Title,
+            product: rawProduct.SF_Catalog_Name
+          });
+          consensus.agreedPrimaryAttributes.product_type = bestUpgrade;
+        }
+      }
+    }
     
     let crossValidationPerformed = false;
     let researchPhaseTriggered = !!preResearchResult; // Already triggered if pre-research was done
