@@ -4854,11 +4854,21 @@ ${promptOptions.invalidTypeWarning}
         typeSelectionGuide += `    4. Centerset / Widespread / Single Hole (mounting configuration)\n`;
         typeSelectionGuide += `    5. Single Handle / Two Handle (handle count — use ONLY if no other type applies)\n\n`;
       } else if (categoryLower === 'kitchen faucet') {
-        typeSelectionGuide += `  🔍 **KITCHEN FAUCET Type Priority**:\n`;
-        typeSelectionGuide += `    1. Pull-Down / Pull-Out (spray function — most common kitchen types)\n`;
-        typeSelectionGuide += `    2. Bridge / Pre-Rinse / Touchless / Commercial (specialized types)\n`;
-        typeSelectionGuide += `    3. Wall Mount / Deck Mount (installation types)\n`;
-        typeSelectionGuide += `    4. Single Handle / Two Handle (use ONLY if no other type applies)\n\n`;
+        typeSelectionGuide += `  🔍 **KITCHEN FAUCET Type Priority** (choose the HIGHEST applicable):\n`;
+        typeSelectionGuide += `    1. Pull-Down / Pull-Out (spray mechanism — most common kitchen types)\n`;
+        typeSelectionGuide += `    2. Bridge (two handles with exposed connector tube between them)\n`;
+        typeSelectionGuide += `    3. Pre-Rinse (commercial-style spring coil with spray head)\n`;
+        typeSelectionGuide += `    4. Touchless / Commercial (sensor-activated or commercial-grade)\n`;
+        typeSelectionGuide += `    5. Wall Mount (mounted to wall, NOT to deck/countertop)\n`;
+        typeSelectionGuide += `    6. Two Handle (two separate handles, NO spray function, NOT a bridge)\n`;
+        typeSelectionGuide += `    7. Deck Mount (ONLY if no other type applies — this just means countertop-mounted)\n`;
+        typeSelectionGuide += `    8. Single Handle (LAST RESORT — nearly all faucets have a handle)\n\n`;
+        typeSelectionGuide += `  ⚠️ **COMMON MISTAKES TO AVOID**:\n`;
+        typeSelectionGuide += `    • "Deck Mount" is NOT a useful type — it just means mounted to a sink/counter (most faucets are). Look harder for a functional type.\n`;
+        typeSelectionGuide += `    • "Single Handle" is NOT descriptive — it describes handle COUNT, not function. A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Handle".\n`;
+        typeSelectionGuide += `    • Ferguson "Widespread Kitchen Faucet" → This means TWO handles with wide spacing → Type = "Two Handle" or "Bridge"\n`;
+        typeSelectionGuide += `    • If Ferguson says "Pull Down" in the title → Type = "Pull-Down" (trust Ferguson's description)\n`;
+        typeSelectionGuide += `    • "Cold Water Dispenser" or "Filter Faucet" are specialized single-handle faucets → Type = "Single Handle"\n\n`;
       } else if (categoryLower === 'tub faucet') {
         typeSelectionGuide += `  🔍 **TUB FAUCET Type Priority**:\n`;
         typeSelectionGuide += `    1. Roman Tub (deck-mounted with two handles for tub)\n`;
@@ -13169,6 +13179,32 @@ Type = PRODUCT ASSEMBLY TYPE (what the complete product is):
   3. Single valve trim only (no head): Trim or Thermostatic Valve Trim
   4. Body spray, Diverter, Volume Control → use those types
   5. Use "Thermostatic" ONLY for standalone valve bodies/cartridges with NO other components`;
+    } else if (categoryLower === 'kitchen faucet') {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR KITCHEN FAUCET:
+⚠️ Choose the HIGHEST applicable type from this priority list:
+  1. Pull-Down / Pull-Out (spray mechanism — most common kitchen types)
+  2. Bridge (two handles with exposed connector tube between them)
+  3. Pre-Rinse (commercial-style spring coil with spray head)
+  4. Touchless / Commercial (sensor-activated or commercial-grade)
+  5. Wall Mount (mounted to wall, NOT to deck/countertop)
+  6. Two Handle (two separate handles, NO spray function, NOT a bridge)
+  7. Deck Mount (ONLY if no other type applies — just means countertop-mounted)
+  8. Single Handle (LAST RESORT — nearly all faucets have a handle)
+
+COMMON MISTAKES TO AVOID:
+  • "Deck Mount" is NOT useful — it just means mounted to a sink/counter (most faucets are). Look harder for a functional type.
+  • "Single Handle" is NOT descriptive — it describes handle COUNT, not function. A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Handle".
+  • Ferguson "Widespread Kitchen Faucet" → Two handles with wide spacing → Type = "Two Handle" or "Bridge"
+  • If Ferguson says "Pull Down" in product title → Type = "Pull-Down" (trust Ferguson)
+  • "Cold Water Dispenser" or "Filter Faucet" are specialized single-handle faucets → Type = "Single Handle"`;
+    } else if (categoryLower === 'bathroom faucet') {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR BATHROOM FAUCET:
+⚠️ Choose the HIGHEST applicable type from this priority list:
+  1. Wall Mount (if wall-mounted, this always wins as Type)
+  2. Vessel (if designed for vessel/raised bowl sinks — tall spout design)
+  3. Touchless (if motion-sensor activated)
+  4. Widespread / Centerset / Single Hole (mounting configuration)
+  5. Single Handle / Two Handle (handle count — ONLY if no other type applies)`;
     }
   }
 

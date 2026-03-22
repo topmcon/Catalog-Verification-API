@@ -253,11 +253,18 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'touch on': { 'Kitchen Faucet': 'Touch-On' },
   'touch-on': { 'Kitchen Faucet': 'Touch-On' },
   'touch activated': { 'Kitchen Faucet': 'Touch-On' },
+  'widespread': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
+  'widespread kitchen': { 'Kitchen Faucet': 'Two Handle' },
+  'filter faucet': { 'Kitchen Faucet': 'Single Handle' },
+  'cold water dispenser': { 'Kitchen Faucet': 'Single Handle' },
+  'water dispenser': { 'Kitchen Faucet': 'Single Handle' },
+  'high-arc': { 'Kitchen Faucet': 'High-Arc' },
+  'high arc': { 'Kitchen Faucet': 'High-Arc' },
+  'gooseneck': { 'Kitchen Faucet': 'High-Arc' },
   
   // ============================================
   // PLUMBINGALIASES - Bathroom Faucets
   // ============================================
-  'widespread': { 'Bathroom Faucet': 'Widespread' },
   'centerset': { 'Bathroom Faucet': 'Centerset' },
   'single hole': { 'Bathroom Faucet': 'Single Hole' },
   'monoblock': { 'Bathroom Faucet': 'Single Hole' },

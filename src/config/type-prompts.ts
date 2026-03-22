@@ -120,13 +120,18 @@ export function getTypeHierarchyExplanation(): string {
 
 The product hierarchy is: Department → Family → Category → **TYPE** → Style
 
-**TYPE** represents functional variations or configurations within a category.
+**TYPE** represents the primary functional variation or mechanism within a category.
 - Example: Refrigerator → "4-Door Flex" (Type) → "French Door" (Style)
-- Example: Kitchen Faucet → "Single Handle" (Type) → "Pull-Down" (Style)
+- Example: Kitchen Faucet → "Pull-Down" (Type) → "Contemporary" (Style)
 - Example: Bathtub → "Freestanding" (Type) → "Clawfoot" (Style)
 
-TYPE focuses on HOW the product functions or is configured.
-STYLE focuses on the specific design/installation method.
+TYPE focuses on the product's PRIMARY FUNCTION or mechanism (e.g., Pull-Down, Bridge, Pre-Rinse).
+STYLE focuses on the aesthetic design language (e.g., Contemporary, Traditional, Farmhouse).
+
+⚠️ IMPORTANT for Faucets:
+- "Deck Mount" and "Single Handle" describe INSTALLATION/CONFIGURATION, not the faucet's primary function.
+- PREFER functional types: Pull-Down, Pull-Out, Bridge, Pre-Rinse, Touchless, Commercial.
+- Only use "Deck Mount", "Single Handle", or "Two Handle" when no functional type applies.
 
 For product_type in your response:
 1. Determine the category first
