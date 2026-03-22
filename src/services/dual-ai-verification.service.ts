@@ -11389,6 +11389,40 @@ async function buildFinalResponse(
     determinedDepartment
   );
 
+  // ═══════════════════════════════════════════════════════════════
+  // APPLY CORRECTIONS TO sanitizedPrimaryAttributes
+  // ═══════════════════════════════════════════════════════════════
+  // executeFinalReviewStage() mutates a copy of primaryAttributes,
+  // but doesn't return the corrected object. We need to manually
+  // apply corrections back to sanitizedPrimaryAttributes so that
+  // title regeneration uses the corrected values.
+  for (const correction of finalReviewResult.correctionsApplied) {
+    const field = correction.field;
+    const correctedValue = correction.suggestedFix;
+    
+    // Map correction field names to primaryAttributes field names
+    const fieldMapping: Record<string, string> = {
+      'type': 'AI_Type',
+      'style': 'AI_Style',
+      'finish': 'AI_Finish',
+      'color': 'AI_Color',
+      'brand': 'AI_Brand',
+      'model_number': 'AI_Model_Number',
+      'title': 'AI_Product_Title'
+    };
+    
+    const targetField = fieldMapping[field];
+    if (targetField && correctedValue) {
+      (sanitizedPrimaryAttributes as any)[targetField] = correctedValue;
+      logger.info('🔄 CORRECTION APPLIED: Updated sanitizedPrimaryAttributes after Final Review', {
+        sessionId,
+        field,
+        targetField,
+        correctedValue: String(correctedValue).substring(0, 50)
+      });
+    }
+  }
+
   // Add final review metadata to verification object
   const finalReviewMetadata = {
     final_review_performed: true,
