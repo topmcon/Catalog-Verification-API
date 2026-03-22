@@ -351,7 +351,11 @@ function formatValue(attribute: string, value: string | number | string[] | unde
       lowerValue === 'not applicable' ||
       lowerValue.startsWith('not specified') ||
       strValue === '' ||
-      strValue === 'undefined') {
+      strValue === 'undefined' ||
+      lowerValue === 'yes' ||
+      lowerValue === 'no' ||
+      lowerValue === 'true' ||
+      lowerValue === 'false') {
     return '';
   }
   

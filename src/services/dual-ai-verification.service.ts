@@ -4541,13 +4541,20 @@ ${categoryList}
 
 **⚠️ CRITICAL: TRUST SOURCE TITLES FOR CATEGORY DISAMBIGUATION**
 - **When Ferguson_Title or Product_Title_Web_Retailer explicitly mentions a category name, TRUST it.**
-- The Ferguson title clearly says 'Bar Faucet' which should be definitive.
 - Example: Ferguson title contains "Bar Faucet" → Use "Bar Faucet" category (NOT "Kitchen Faucet")
 - Example: Ferguson title contains "Kitchen Faucet" → Use "Kitchen Faucet" category (NOT "Bar Faucet")
-- **Bar Faucet vs Kitchen Faucet disambiguation:** These categories are structurally similar but distinct:
-  * Bar Faucet: Smaller faucets for bar/prep sinks (compact, bar prep areas)
-  * Kitchen Faucet: Standard faucets for main kitchen sinks
-  * If source title says "Bar Faucet", use Bar Faucet category regardless of other similarities
+- Example: Ferguson title contains "Roman Tub" or "Tub Filler" → Use "Tub Faucet" category (NOT "Bathroom Faucet")
+- Example: Ferguson title contains "Thermostatic Valve" or "Shower Trim" → Use "Showerheads & Accessories" (NOT "Bathroom Faucet")
+
+**⚠️ FAUCET CATEGORY DISAMBIGUATION (5 distinct categories — do NOT confuse):**
+- **Bathroom Faucet**: Faucets for bathroom SINKS only (lavatory, vanity). Keywords: widespread, centerset, single hole, vessel.
+- **Kitchen Faucet**: Faucets for kitchen sinks. Keywords: pull-down, pull-out, kitchen.
+- **Bar Faucet**: Smaller faucets for bar/prep sinks. Keywords: bar faucet, prep faucet.
+- **Tub Faucet**: Controls/fillers for BATHTUBS. Keywords: roman tub, tub filler, bath faucet (with tub context), deck mount bath, floor mount tub, freestanding tub faucet.
+- **Showerheads & Accessories**: Shower fixtures. Keywords: thermostatic, shower valve, shower trim, pressure balance, hand shower, showerhead.
+- ⚠️ "Bath Faucet" is AMBIGUOUS — check context: if for a sink → Bathroom Faucet; if for a tub → Tub Faucet.
+- ⚠️ "Floor Mount" or "Freestanding" faucet with tub context → Tub Faucet, NOT Bathroom Faucet.
+- ⚠️ "Thermostatic" or "Valve Trim" → Showerheads & Accessories, NOT Bathroom Faucet.
 
 **⚠️ CRITICAL Product Type Distinctions:**
 - **Icemaker/Ice Machine**: Produces ice (nugget, cube, etc.). Primary function is ICE PRODUCTION.
@@ -4597,13 +4604,20 @@ ${categoryList}
 
 **⚠️ CRITICAL: TRUST SOURCE TITLES FOR CATEGORY DISAMBIGUATION**
 - **When Ferguson_Title or Product_Title_Web_Retailer explicitly mentions a category name, TRUST it.**
-- The Ferguson title clearly says 'Bar Faucet' which should be definitive.
 - Example: Ferguson title contains "Bar Faucet" → Use "Bar Faucet" category (NOT "Kitchen Faucet")
 - Example: Ferguson title contains "Kitchen Faucet" → Use "Kitchen Faucet" category (NOT "Bar Faucet")
-- **Bar Faucet vs Kitchen Faucet disambiguation:** These categories are structurally similar but distinct:
-  * Bar Faucet: Smaller faucets for bar/prep sinks (compact, bar prep areas)
-  * Kitchen Faucet: Standard faucets for main kitchen sinks
-  * If source title says "Bar Faucet", use Bar Faucet category regardless of other similarities
+- Example: Ferguson title contains "Roman Tub" or "Tub Filler" → Use "Tub Faucet" category (NOT "Bathroom Faucet")
+- Example: Ferguson title contains "Thermostatic Valve" or "Shower Trim" → Use "Showerheads & Accessories" (NOT "Bathroom Faucet")
+
+**⚠️ FAUCET CATEGORY DISAMBIGUATION (5 distinct categories — do NOT confuse):**
+- **Bathroom Faucet**: Faucets for bathroom SINKS only (lavatory, vanity). Keywords: widespread, centerset, single hole, vessel.
+- **Kitchen Faucet**: Faucets for kitchen sinks. Keywords: pull-down, pull-out, kitchen.
+- **Bar Faucet**: Smaller faucets for bar/prep sinks. Keywords: bar faucet, prep faucet.
+- **Tub Faucet**: Controls/fillers for BATHTUBS. Keywords: roman tub, tub filler, bath faucet (with tub context), deck mount bath, floor mount tub, freestanding tub faucet.
+- **Showerheads & Accessories**: Shower fixtures. Keywords: thermostatic, shower valve, shower trim, pressure balance, hand shower, showerhead.
+- ⚠️ "Bath Faucet" is AMBIGUOUS — check context: if for a sink → Bathroom Faucet; if for a tub → Tub Faucet.
+- ⚠️ "Floor Mount" or "Freestanding" faucet with tub context → Tub Faucet, NOT Bathroom Faucet.
+- ⚠️ "Thermostatic" or "Valve Trim" → Showerheads & Accessories, NOT Bathroom Faucet.
 ${promptOptions?.strictCategoryMode ? '\n⚠️ **STRICT MODE**: You MUST select a category from the provided list. DO NOT create new category names.' : ''}
 
 **⚠️ IMPORTANT: Stage 2 Response Format**
@@ -4717,9 +4731,44 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  - Check specs for "single cavity" vs "double cavity"\n`;
       typeSelectionGuide += `  - Look for "Single", "Double Wall", "Combination" in title\n`;
     } else if (categoryLower.includes('faucet')) {
-      typeSelectionGuide += `For Faucets, check handle count and spray type:\n`;
-      typeSelectionGuide += `  - Look for "Single Handle", "Two Handle", "Widespread"\n`;
-      typeSelectionGuide += `  - Check for "Pull-Down", "Pull-Out" spray configurations\n`;
+      typeSelectionGuide += `For ${determinedCategory}, select Type from the valid types list above.\n`;
+      typeSelectionGuide += `  ⚠️ **Type vs Hole Config vs Mount — THESE ARE DIFFERENT FIELDS:**\n`;
+      typeSelectionGuide += `    • **Type** = Primary product classification from the valid types list\n`;
+      typeSelectionGuide += `    • **Hole Config** = Number of mounting holes (e.g., "Single Hole", "3-Hole")\n`;
+      typeSelectionGuide += `    • **Mount** = Installation method (e.g., "Deck Mount", "Wall Mount")\n\n`;
+      typeSelectionGuide += `  ⚠️ **"Wall Mounted Widespread" faucets:**\n`;
+      typeSelectionGuide += `    • Type = "Wall Mount" (the installation method is the defining characteristic)\n`;
+      typeSelectionGuide += `    • "Widespread" describes hole SPACING (8"+ centers), put in Hole Config as "Widespread"\n`;
+      typeSelectionGuide += `    • Do NOT swap them — Wall Mount is always the Type for wall-mounted products\n\n`;
+      typeSelectionGuide += `  ⚠️ **"Vessel" faucets (tall faucets for raised bowl sinks):**\n`;
+      typeSelectionGuide += `    • Type = "Vessel" (the product design purpose, NOT the hole count)\n`;
+      typeSelectionGuide += `    • Most vessel faucets are single-hole, but "Single Hole" goes in Hole Config\n`;
+      typeSelectionGuide += `    • Vessel describes the FAUCET DESIGN, Single Hole describes the MOUNTING\n\n`;
+
+      // Sub-scoped rules for specific faucet categories
+      if (categoryLower === 'bathroom faucet') {
+        typeSelectionGuide += `  🔍 **BATHROOM FAUCET Type Priority** (when multiple apply):\n`;
+        typeSelectionGuide += `    1. Wall Mount (if wall-mounted, this always wins as Type)\n`;
+        typeSelectionGuide += `    2. Vessel (if designed for vessel/raised bowl sinks)\n`;
+        typeSelectionGuide += `    3. Touchless (if motion-sensor activated)\n`;
+        typeSelectionGuide += `    4. Centerset / Widespread / Single Hole (mounting configuration)\n`;
+        typeSelectionGuide += `    5. Single Handle / Two Handle (handle count — use ONLY if no other type applies)\n\n`;
+      } else if (categoryLower === 'kitchen faucet') {
+        typeSelectionGuide += `  🔍 **KITCHEN FAUCET Type Priority**:\n`;
+        typeSelectionGuide += `    1. Pull-Down / Pull-Out (spray function — most common kitchen types)\n`;
+        typeSelectionGuide += `    2. Bridge / Pre-Rinse / Touchless / Commercial (specialized types)\n`;
+        typeSelectionGuide += `    3. Wall Mount / Deck Mount (installation types)\n`;
+        typeSelectionGuide += `    4. Single Handle / Two Handle (use ONLY if no other type applies)\n\n`;
+      } else if (categoryLower === 'tub faucet') {
+        typeSelectionGuide += `  🔍 **TUB FAUCET Type Priority**:\n`;
+        typeSelectionGuide += `    1. Roman Tub (deck-mounted with two handles for tub)\n`;
+        typeSelectionGuide += `    2. Freestanding (floor-mounted for freestanding tubs)\n`;
+        typeSelectionGuide += `    3. Deck Mount / Wall Mount (installation types)\n\n`;
+      } else if (categoryLower === 'bar faucet') {
+        typeSelectionGuide += `  🔍 **BAR FAUCET Type Priority**:\n`;
+        typeSelectionGuide += `    1. Pull-Down (spray function)\n`;
+        typeSelectionGuide += `    2. Single Handle / Two Handle (handle configuration)\n\n`;
+      }
     } else if (categoryLower.includes('dryer') || categoryLower.includes('washer')) {
       typeSelectionGuide += `For ${determinedCategory}, **Type = LOADING CONFIGURATION ONLY** (how you load clothes):\n`;
       typeSelectionGuide += `  ⚠️ **CRITICAL DISTINCTION**:\n`;
@@ -9311,7 +9360,19 @@ async function buildFinalResponse(
       '';
     
     if (aiHoleConfig && aiHoleConfig !== 'N/A' && aiHoleConfig !== 'Not Found') {
-      return String(aiHoleConfig);
+      const holeStr = String(aiHoleConfig).trim().toLowerCase();
+      // Filter out boolean-like values ("Yes", "No", "true", "false")
+      if (holeStr === 'yes' || holeStr === 'no' || holeStr === 'true' || holeStr === 'false') {
+        // Skip — boolean leaked into hole config field
+      } else {
+        // Format bare numbers to proper hole config display ("3" → "3-Hole", "1" → "Single Hole")
+        const numericMatch = holeStr.match(/^(\d+)$/);
+        if (numericMatch) {
+          const num = numericMatch[1];
+          return num === '1' ? 'Single Hole' : `${num}-Hole`;
+        }
+        return String(aiHoleConfig);
+      }
     }
 
     // Extract from Ferguson title text (e.g., "Single Hole", "3-Hole", "3 Hole")
