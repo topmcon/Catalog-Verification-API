@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v7
-  Snapshot Date: 2026-03-10 15:37:17 EDT
-  Commit:        b34d814 (b34d81478f445ff5e1c8cbc3e5b8f1a8661b6947)
+  Version:       v27
+  Snapshot Date: 2026-03-21 21:43:03 EDT
+  Commit:        f0aab63 (f0aab63b4127b2b05b97fb234f42b7815588b569)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12221 lines
-  title-schema-by-category.ts:     7199 lines
+  dual-ai-verification.service.ts: 14001 lines
+  title-schema-by-category.ts:     7233 lines
   Brands:     385
-  Categories: 161
+  Categories: 160
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v6)
+  Lines added: ~0, Lines removed: ~38 (vs v26)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-b34d814 fix: comprehensive hole config extraction for faucet titles
-d2bcc30 feat: enhance AI category prompt to trust Ferguson titles for disambiguation
-50913c2 Move GPM to second-to-last position in all faucet titles
-ad7dea5 Add title case formatting to all product titles
-6fd8da2 Move title generation AFTER Final Review to use corrected data
+f0aab63 fix: Apply Claude Type corrections back to sanitizedPrimaryAttributes for title regeneration
+514d14e debug: Add title regeneration diagnostics - trace Type value flow after Claude corrections
+0ed1fc9 fix: Add Type validation to category corrections - prevent cross-category Type contamination
+d91de3d fix: Bathroom Faucet title/category quality - 5 fixes
+e594925 Session summary: Revert refrigerator category-specific styles + architecture versions
 -->
 
 # Verification Data Sources - Complete Inventory

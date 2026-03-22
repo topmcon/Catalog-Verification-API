@@ -1480,6 +1480,18 @@ function resolveDisagreementSmart(
     const categoryLower = (_category || '').toLowerCase().trim();
     const priorityList = TYPE_PRIORITY[categoryLower];
 
+    // DEBUG: Log category lookup
+    logger.info('🔍 Type priority lookup', {
+      _category,
+      categoryLower,
+      openaiValue,
+      openaiLower,
+      xaiValue,
+      xaiLower,
+      priorityListFound: !!priorityList,
+      availableCategories: Object.keys(TYPE_PRIORITY)
+    });
+
     if (priorityList) {
       const openaiPriority = priorityList.findIndex(t => t === openaiLower);
       const xaiPriority = priorityList.findIndex(t => t === xaiLower);

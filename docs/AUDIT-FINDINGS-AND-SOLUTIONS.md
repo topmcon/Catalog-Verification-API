@@ -62,6 +62,7 @@
 | Freezer type/installation_type/panel_ready confusion | Add explicit AI clarification block separating 3 fields | eaa5cdd, b25e4ee | #043, #030, #015 |
 | CI/CD double-restart kills in-flight jobs | Disable deploy-production CI/CD job (or add graceful shutdown) | (pending) | #044 |
 | Compact Freezer type ambiguity | Remove Compact, default to Undercounter | b25e4ee | #045, #043 |
+| Claude corrections not propagating to title regeneration | Manually apply corrections from metadata back to sanitizedPrimaryAttributes | f0aab63 | #046, #001, #002, #027 |
 
 ---
 
@@ -4806,6 +4807,148 @@ Limited to Freezer category only.
 
 ### Related Findings
 - #043 (Freezer type confusion — same session fix)
+
+---
+
+## Finding #046: Title Regeneration Stale Copy Bug — Claude Corrections Not Propagating
+
+**Date:** 2026-03-21-22
+**Severity:** 🔴 CRITICAL
+**Category:** Title System / Data Flow Architecture
+**Status:** ✅ Fixed
+
+### Symptom
+After Claude Final Review corrected product Type (e.g., "Single Hole" → "Vessel"), the corrected value appeared in the webhook payload (`AI_Type="Vessel"`) BUT the regenerated title still showed the OLD incorrect value ("Single Hole").
+
+**Example**: G-3625-LM36N-MBK-T (Graff floor-mounted vessel filler)
+- OpenAI extracted Type: "Single Hole" (wrong — this is hole configuration)
+- xAI extracted Type: "Vessel" (correct)
+- Arbiter selected: "Single Hole" (OpenAI had higher confidence 90% vs 85%)
+- Claude Final Review corrected: "Vessel" ✓
+- **Result in webhook**: `AI_Type="Vessel"` ✓ CORRECT
+- **Result in title**: "Graff **Single Hole** Bathroom Faucet..." ❌ STALE VALUE
+
+### Root Cause
+**Data Flow Architecture Bug**: `sanitizedPrimaryAttributes` object used for title generation was never updated with Claude's corrections.
+
+**Execution Flow**:
+1. **Line 11299**: `sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes)` — creates COPY of primaryAttributes
+2. **Line 11382**: `executeFinalReviewStage(sanitizedPrimaryAttributes)` called
+3. **Inside executeFinalReviewStage** (~line 13707): `primaryAttributes.AI_Type = "Vessel"` — correction applied to the COPY
+4. **Function returns** (line 13960): Returns only METADATA (`{correctionsApplied: [...], flaggedForReview: []}`) — **NOT the corrected object itself**
+5. **Line 11465**: Title regeneration uses `sanitizedPrimaryAttributes.AI_Type` — **STALE VALUE** (still "Single Hole")
+6. **Line 11800**: Webhook delivery flattens `primaryAttributes` (which HAS the correction) → `AI_Type="Vessel"` sent to Salesforce ✓
+
+**The Gap**: Corrections applied inside `executeFinalReviewStage()` to the copy never propagated back to the `sanitizedPrimaryAttributes` variable used by title generation.
+
+### Investigation Steps
+1. User posted test results showing apparent Type regression ("Vessel" → "Single Hole")
+2. SSH checked production logs — no debug output (terminal timeout)
+3. Analyzed raw JSON webhook payload — found `AI_Type="Vessel"` (correct!)
+4. Discovered "Single Hole" in title is NOT the Type — it's the Hole Config slot
+5. **Deep dive revealed**: Type correct in webhook, but title missing corrected value
+6. Used subagent to trace code execution order
+7. Found sanitizedPrimaryAttributes created before corrections
+8. Found executeFinalReviewStage returns metadata, not corrected object
+9. Confirmed title regeneration uses stale copy
+
+### Fix Applied
+**Commit:** `f0aab63`
+**Files:** `src/services/dual-ai-verification.service.ts`
+**Location:** Lines 11390-11424 (inserted after line 11389)
+
+**Solution**: After `executeFinalReviewStage()` returns, manually propagate all corrections from `finalReviewResult.correctionsApplied` back to `sanitizedPrimaryAttributes`.
+
+**Code Added**:
+```typescript
+// ═══════════════════════════════════════════════════════════════
+// APPLY CORRECTIONS TO sanitizedPrimaryAttributes
+// ═══════════════════════════════════════════════════════════════
+// executeFinalReviewStage() mutates a copy of primaryAttributes,
+// but doesn't return the corrected object. We need to manually
+// apply corrections back to sanitizedPrimaryAttributes so that
+// title regeneration uses the corrected values.
+for (const correction of finalReviewResult.correctionsApplied) {
+  const field = correction.field;
+  const correctedValue = correction.suggestedFix;
+  
+  // Map correction field names to primaryAttributes field names
+  const fieldMapping: Record<string, string> = {
+    'type': 'AI_Type',
+    'style': 'AI_Style',
+    'finish': 'AI_Finish',
+    'color': 'AI_Color',
+    'brand': 'AI_Brand',
+    'model_number': 'AI_Model_Number',
+    'title': 'AI_Product_Title'
+  };
+  
+  const targetField = fieldMapping[field];
+  if (targetField && correctedValue) {
+    (sanitizedPrimaryAttributes as any)[targetField] = correctedValue;
+    logger.info('🔄 CORRECTION APPLIED: Updated sanitizedPrimaryAttributes after Final Review', {
+      sessionId,
+      field,
+      targetField,
+      correctedValue: String(correctedValue).substring(0, 50)
+    });
+  }
+}
+```
+
+**Impact**:
+- Title now includes corrected Type value from Claude: "Graff **Vessel** Single Hole Bathroom Faucet..."
+- Applies to ALL fields Claude corrects: Type, Style, Finish, Color, Brand, Model Number
+- Ensures title regeneration (line 11465) uses fresh corrected data instead of stale initial consensus
+- Fixes ALL categories where Claude makes corrections (not just Bathroom Faucet)
+
+### Test Results
+**Planned**: Re-test G-3625-LM36N-MBK-T after deployment
+- Expected Type: "Vessel" ✓
+- Expected Title: "Graff Vessel Single Hole Floor Mount Bathroom Faucet Matte Black 1.2 GPM - G-3625-LM36N-MBK-T" ✓
+- Monitor for debug log: `🔄 CORRECTION APPLIED: Updated sanitizedPrimaryAttributes after Final Review`
+
+### Scope
+✅ **UNIVERSAL** — Affects all categories where Claude Final Review applies corrections. Fixes:
+- Type corrections (Finding #046 symptom)
+- Style corrections
+- Finish corrections
+- Color corrections
+- Brand corrections
+- Model Number corrections
+- Auto-title corrections (Finding #027)
+
+### Related Findings
+- #001, #002, #004 (Schema vs. input mismatch pattern — similar architectural gap)
+- #027 (Title auto-correction from Claude — now properly incorporated in regenerated title)
+- #042 (PATH B Appliance verification — Appliances skip Claude Phase B, so not affected by this bug for Type)
+
+### Critical Lessons Learned
+
+**Lesson #4: Object Mutation in Async Functions Requires Explicit Return or Propagation**
+
+When a function mutates a copy of an object but doesn't return the mutated object:
+- Callers using the original object won't see changes
+- Must either: (a) Return the mutated object, OR (b) Propagate changes via metadata
+
+**Bad Pattern (Before Fix)**:
+```typescript
+const copy = { ...original };
+executeFinalReviewStage(copy);  // Mutates copy, returns metadata only
+useValue(copy.field);  // ❌ STILL has stale value
+```
+
+**Good Pattern (After Fix)**:
+```typescript
+const copy = { ...original };
+const result = executeFinalReviewStage(copy);  // Returns corrections metadata
+for (const correction of result.correctionsApplied) {
+  copy[correction.targetField] = correction.suggestedFix;  // Propagate manually
+}
+useValue(copy.field);  // ✓ Uses corrected value
+```
+
+**Apply this pattern to**: Any function that mutates copies but the caller needs to see changes
 
 ---
 

@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v6
-  Snapshot Date: 2026-03-04 13:52:52 EST
-  Commit:        5f11286 (5f1128623be8d03e1a4cb6f1b40a7e9cbf3d1f7e)
+  Version:       v26
+  Snapshot Date: 2026-03-21 21:43:03 EDT
+  Commit:        f0aab63 (f0aab63b4127b2b05b97fb234f42b7815588b569)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12010 lines
-  title-schema-by-category.ts:     7198 lines
+  dual-ai-verification.service.ts: 14001 lines
+  title-schema-by-category.ts:     7233 lines
   Brands:     385
-  Categories: 161
+  Categories: 160
   Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v5)
+  Lines added: ~0, Lines removed: ~38 (vs v25)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-5f11286 fix: Make Claude review mandatory for all jobs + Canadian validation + depth fields
-3d9d4d5 docs: Update 'Save everything' procedure with before-after versioning workflow
-ab37208 docs: Update architecture docs with Canadian handling and Claude expansion (v5)
-092296d feat: Canadian data handling + Claude expansion + Appliance_Features required
-c0f70c9 docs: Add comprehensive session summary for AI bias elimination
+f0aab63 fix: Apply Claude Type corrections back to sanitizedPrimaryAttributes for title regeneration
+514d14e debug: Add title regeneration diagnostics - trace Type value flow after Claude corrections
+0ed1fc9 fix: Add Type validation to category corrections - prevent cross-category Type contamination
+d91de3d fix: Bathroom Faucet title/category quality - 5 fixes
+e594925 Session summary: Revert refrigerator category-specific styles + architecture versions
 -->
 
 # Complete Verification Architecture
@@ -387,8 +387,40 @@ CONTEXT INJECTED INTO performClaudeReview():
 ├─ Type Selection Guides: Per-category guidance on when to pick each type
 ├─ Category Schema: getCategorySchema(category) — top-15 attributes
 ├─ Trust Hierarchy: structured data > product name > AI extraction
+├─ Data Source Priority: Category-dependent (see below)
 ├─ CRITICAL ACCESSORY RULE: Accessories belong to parent appliance category
 └─ Valid Picklist Values: For corrections validation
+```
+
+**Data Source Priority by Category (2026-03-10)**:
+```
+CATEGORY-DEPENDENT SOURCE PRIORITY:
+├─ Appliances Department (17 categories):
+│  └─ Web_Retailer → Ferguson → fallback
+│     (Web Retailer provides better appliance specs)
+│
+└─ All Other Departments (144+ categories):
+   └─ Ferguson → Web_Retailer → fallback
+      (Ferguson is primary for lighting, plumbing, hardware, etc.)
+
+IMPLEMENTATION:
+├─ isAppliancesCategory(categoryName): Checks getDepartmentForCategory()
+├─ getFieldByPriority(category, webRetailerValue, fergusonValue, fallback)
+└─ Applied to 12 locations:
+   ├─ Brand (4x): AI research, customer text, tracking
+   ├─ Model Number (1x): AI research prompts
+   ├─ Title (2x): Category schema lookup, SEO title
+   ├─ Description (2x): Customer text, category context
+   └─ Dimensions (3x): Width, Height, Depth for title generation
+
+FIELDS AFFECTED:
+- Brand_Web_Retailer vs Ferguson_Brand
+- Model_Number_Web_Retailer vs Ferguson_Model_Number
+- Product_Title_Web_Retailer vs Ferguson_Title
+- Product_Description_Web_Retailer vs Ferguson_Description
+- Width_Web_Retailer vs Ferguson_Width
+- Height_Web_Retailer vs Ferguson_Height
+- Depth_Web_Retailer vs Ferguson_Depth
 ```
 
 ---
@@ -411,6 +443,8 @@ CONTEXT INJECTED INTO performClaudeReview():
 | `performClaudeReview()` | ~10608 | Claude Final Review with full context |
 | `executeFinalReviewStage()` | ~11056 | Orchestrates Phase A/B/C of Final Review |
 | `getTypeHierarchyExplanation()` | ~8500 | Type parent/child relationships for Claude |
+| `isAppliancesCategory()` | ~220 | Check if category is in Appliances department |
+| `getFieldByPriority()` | ~230 | Get field with category-dependent source priority |
 | `getCategorySchema()` | imported | Top-15 attributes per category |
 
 ---
