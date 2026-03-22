@@ -3407,9 +3407,30 @@ export async function verifyProductWithDualAI(
         // Override with corrected category
         consensus.agreedCategory = validation.correctedCategory!;
         
-        // Override product_type if validation specified
+        // Override product_type if validation specified AND valid for corrected category
         if (validation.correctedType) {
-          consensus.agreedPrimaryAttributes.product_type = validation.correctedType;
+          // 🛡️ Validate corrected type is valid for the CORRECTED category
+          const isValid = isValidTypeForCategory(
+            validation.correctedType,
+            validation.correctedCategory!
+          );
+          
+          if (isValid) {
+            consensus.agreedPrimaryAttributes.product_type = validation.correctedType;
+            logger.info('✅ Category correction applied validated type', {
+              correctedCategory: validation.correctedCategory,
+              correctedType: validation.correctedType,
+              rule: validation.violatedRule
+            });
+          } else {
+            logger.warn('🛡️ VALIDATION: Rejecting corrected type — not valid for corrected category', {
+              correctedCategory: validation.correctedCategory,
+              attemptedType: validation.correctedType,
+              rule: validation.violatedRule,
+              reason: 'Type not in category\'s valid types list - will be determined downstream'
+            });
+            // Don't set invalid type - let consensus or downstream logic handle it
+          }
         }
         
         // Reload category schema for corrected category (if not null)
@@ -3457,9 +3478,33 @@ export async function verifyProductWithDualAI(
           });
           
           consensus.agreedCategory = validationAfterCrossCheck.correctedCategory!;
+          
+          // Override product_type if validation specified AND valid for corrected category
           if (validationAfterCrossCheck.correctedType) {
-            consensus.agreedPrimaryAttributes.product_type = validationAfterCrossCheck.correctedType;
+            // 🛡️ Validate corrected type is valid for the CORRECTED category
+            const isValid = isValidTypeForCategory(
+              validationAfterCrossCheck.correctedType,
+              validationAfterCrossCheck.correctedCategory!
+            );
+            
+            if (isValid) {
+              consensus.agreedPrimaryAttributes.product_type = validationAfterCrossCheck.correctedType;
+              logger.info('✅ Cross-check category correction applied validated type', {
+                correctedCategory: validationAfterCrossCheck.correctedCategory,
+                correctedType: validationAfterCrossCheck.correctedType,
+                rule: validationAfterCrossCheck.violatedRule
+              });
+            } else {
+              logger.warn('🛡️ VALIDATION: Rejecting cross-check corrected type — not valid for corrected category', {
+                correctedCategory: validationAfterCrossCheck.correctedCategory,
+                attemptedType: validationAfterCrossCheck.correctedType,
+                rule: validationAfterCrossCheck.violatedRule,
+                reason: 'Type not in category\'s valid types list - will be determined downstream'
+              });
+              // Don't set invalid type - let consensus or downstream logic handle it
+            }
           }
+          
           if (consensus.agreedCategory) {
             void getCategorySchema(consensus.agreedCategory);
           }
