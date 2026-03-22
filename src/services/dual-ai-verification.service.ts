@@ -1319,7 +1319,10 @@ function resolveDisagreementSmart(
   // Both AIs have values - need to determine which is correct
   
   // STEP 1: RESEARCH VALIDATION FIRST (evidence-based)
-  if (researchContext) {
+  // Skip research validation for product_type — research text often contains incidental
+  // mounting terms (e.g., "single-hole" in URLs) that override the correct semantic type.
+  // Type disagreements are better resolved by the category-specific priority hierarchy in STEP 6.
+  if (researchContext && normalizedField !== 'type') {
     const researchValue = findValueInResearch(fieldName, researchContext);
     if (researchValue) {
       const matchesOpenai = valuesMatchLoose(researchValue, openaiValue);
@@ -1459,13 +1462,51 @@ function resolveDisagreementSmart(
     };
   }
 
-  // STEP 6: TYPE FIELD - Semantic vs quantity terms
+  // STEP 6: TYPE FIELD - Use category-specific type priority hierarchy
   if (normalizedField === 'type') {
+    const openaiLower = String(openaiValue || '').toLowerCase().trim();
+    const xaiLower = String(xaiValue || '').toLowerCase().trim();
+
+    // STEP 6a: Category-specific type priority hierarchy
+    // These match the priority guides sent to AIs in the prompts.
+    // Higher index = lower priority. When both AIs pick valid types, prefer the higher-priority one.
+    const TYPE_PRIORITY: Record<string, string[]> = {
+      'bathroom faucet': ['wall mount', 'vessel', 'touchless', 'centerset', 'widespread', 'single hole'],
+      'kitchen faucet':  ['pull-down', 'pull-out', 'bridge', 'pre-rinse', 'touchless', 'commercial', 'wall mount', 'deck mount', 'single handle', 'two handle'],
+      'tub faucet':      ['roman tub', 'freestanding', 'deck mount', 'wall mount'],
+      'bar faucet':      ['pull-down', 'single handle', 'two handle'],
+    };
+
+    const categoryLower = (_category || '').toLowerCase().trim();
+    const priorityList = TYPE_PRIORITY[categoryLower];
+
+    if (priorityList) {
+      const openaiPriority = priorityList.findIndex(t => t === openaiLower);
+      const xaiPriority = priorityList.findIndex(t => t === xaiLower);
+      const openaiInList = openaiPriority !== -1;
+      const xaiInList = xaiPriority !== -1;
+
+      if (openaiInList && xaiInList && openaiPriority !== xaiPriority) {
+        // Both are valid types — pick the higher-priority one (lower index)
+        if (openaiPriority < xaiPriority) {
+          return { resolvedValue: openaiValue, winner: 'openai', reason: `Type priority: "${openaiValue}" (priority ${openaiPriority + 1}) outranks "${xaiValue}" (priority ${xaiPriority + 1}) for ${_category}` };
+        } else {
+          return { resolvedValue: xaiValue, winner: 'xai', reason: `Type priority: "${xaiValue}" (priority ${xaiPriority + 1}) outranks "${openaiValue}" (priority ${openaiPriority + 1}) for ${_category}` };
+        }
+      }
+      if (openaiInList && !xaiInList) {
+        return { resolvedValue: openaiValue, winner: 'openai', reason: `OpenAI type "${openaiValue}" is a valid ${_category} type, xAI "${xaiValue}" is not in valid list` };
+      }
+      if (xaiInList && !openaiInList) {
+        return { resolvedValue: xaiValue, winner: 'xai', reason: `xAI type "${xaiValue}" is a valid ${_category} type, OpenAI "${openaiValue}" is not in valid list` };
+      }
+    }
+
+    // STEP 6b: Fallback — Prefer semantic type over quantity term
     const quantityTerms = ['single', 'double', 'triple', 'quad', 'dual', 'multi'];
-    const openaiIsQuantity = quantityTerms.some(t => String(openaiValue || '').toLowerCase().includes(t));
-    const xaiIsQuantity = quantityTerms.some(t => String(xaiValue || '').toLowerCase().includes(t));
+    const openaiIsQuantity = quantityTerms.some(t => openaiLower.includes(t));
+    const xaiIsQuantity = quantityTerms.some(t => xaiLower.includes(t));
     
-    // Prefer semantic type over quantity
     if (xaiIsQuantity && !openaiIsQuantity) {
       return { resolvedValue: openaiValue, winner: 'openai', reason: 'OpenAI provides semantic type, xAI provided quantity term' };
     }
