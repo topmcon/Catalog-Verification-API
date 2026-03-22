@@ -1322,7 +1322,8 @@ function resolveDisagreementSmart(
   // Skip research validation for product_type — research text often contains incidental
   // mounting terms (e.g., "single-hole" in URLs) that override the correct semantic type.
   // Type disagreements are better resolved by the category-specific priority hierarchy in STEP 6.
-  if (researchContext && normalizedField !== 'type') {
+  const isTypeField = normalizedField === 'type' || normalizedField === 'product_type';
+  if (researchContext && !isTypeField) {
     const researchValue = findValueInResearch(fieldName, researchContext);
     if (researchValue) {
       const matchesOpenai = valuesMatchLoose(researchValue, openaiValue);
@@ -1463,7 +1464,8 @@ function resolveDisagreementSmart(
   }
 
   // STEP 6: TYPE FIELD - Use category-specific type priority hierarchy
-  if (normalizedField === 'type') {
+  // Field comes in as either 'type' or 'product_type' depending on the caller
+  if (isTypeField) {
     const openaiLower = String(openaiValue || '').toLowerCase().trim();
     const xaiLower = String(xaiValue || '').toLowerCase().trim();
 
