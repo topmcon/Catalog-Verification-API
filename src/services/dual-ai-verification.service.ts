@@ -11445,6 +11445,18 @@ async function buildFinalResponse(
 
   // Build seoTitleInput from CORRECTED attributes
   // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
+  
+  // DEBUG: Log Type value sources before building finalSeoTitleInput
+  logger.info('🔍 TITLE REGENERATION DEBUG: Type value sources', {
+    sessionId,
+    sanitizedPrimaryAttributes_AI_Type: sanitizedPrimaryAttributes.AI_Type,
+    sanitizedPrimaryAttributes_AI_Type_type: typeof sanitizedPrimaryAttributes.AI_Type,
+    seoTitleInput_type: seoTitleInput.type,
+    consensus_product_type: consensus.agreedPrimaryAttributes?.product_type,
+    typeCorrectedByClaude: finalReviewResult.correctionsApplied.some(c => c.field === 'type'),
+    typeCorrection: finalReviewResult.correctionsApplied.find(c => c.field === 'type')?.suggestedFix
+  });
+  
   const finalSeoTitleInput: SEOTitleInput = {
     brand: sanitizedPrimaryAttributes.AI_Brand || seoTitleInput.brand,
     modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
@@ -11518,6 +11530,18 @@ async function buildFinalResponse(
 
   // Generate final title using corrected data
   let finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
+  
+  // DEBUG: Log title regeneration results
+  logger.info('📝 TITLE REGENERATION DEBUG: Title regeneration results', {
+    sessionId,
+    preliminaryTitle: preliminarySeoTitle.substring(0, 100),
+    finalTitle: finalSeoTitle.substring(0, 100),
+    titleChanged: preliminarySeoTitle !== finalSeoTitle,
+    finalSeoTitleInput_type: finalSeoTitleInput.type,
+    finalSeoTitleInput_brand: finalSeoTitleInput.brand,
+    finalSeoTitleInput_finish: finalSeoTitleInput.finish,
+    finalSeoTitleInput_color: finalSeoTitleInput.color
+  });
   
   // ACCESSORY FALLBACK: When type is "Accessory" and the schema title is thin
   // (just brand + category + model), use cleaned raw title to preserve product identity.
@@ -13676,6 +13700,16 @@ async function executeFinalReviewStage(
           from: oldType,
           to: pc.type,
           reasoning: phaseBResult.reasoning
+        });
+        
+        // DEBUG: Verify correction was applied to object
+        logger.error('🔍 FINAL REVIEW DEBUG: Type correction verification', {
+          sessionId,
+          correctedValue: pc.type,
+          primaryAttributes_AI_Type: primaryAttributes.AI_Type,
+          primaryAttributes_AI_Type_type: typeof primaryAttributes.AI_Type,
+          consensus_product_type: consensus.agreedPrimaryAttributes?.product_type,
+          objectModified: primaryAttributes.AI_Type === pc.type
         });
       }
       
