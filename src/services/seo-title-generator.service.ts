@@ -1062,6 +1062,28 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         });
         if (!formattedValue) continue; // skip if nothing left
       }
+
+      // Cross-slot word-level deduplication for Tub Faucet:
+      // Prevents "Roman Tub Tub Faucet" → "Roman Tub Faucet"
+      // Prevents "Floor Mounted Tub Filler Tub Faucet" → "Floor Mounted Tub Filler"
+      // Logic: When Category slot contains words already in preceding parts, remove them.
+      if (schema.categoryName === 'Tub Faucet' && formattedValue) {
+        const existingWords = parts.join(' ').toLowerCase().split(/\s+/);
+        const categoryWords = formattedValue.split(/\s+/);
+        const dedupedWords = categoryWords.filter(
+          word => !existingWords.includes(word.toLowerCase())
+        );
+        if (dedupedWords.length < categoryWords.length) {
+          const original = formattedValue;
+          formattedValue = dedupedWords.join(' ').trim();
+          logger.info('Removed redundant words from Tub Faucet Category slot', {
+            original,
+            deduped: formattedValue || '(all words removed)',
+            existingParts: parts.join(' ')
+          });
+          if (!formattedValue) continue; // all words already present
+        }
+      }
     }
 
     // Skip if value already exists in parts (prevents duplicates like "Undercounter Undercounter")

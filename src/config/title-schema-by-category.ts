@@ -6430,12 +6430,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Type",
+        "attribute": "Mount",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Mount",
+        "attribute": "Type",
         "required": false
       },
       {
@@ -6460,9 +6460,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Mount} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Tub Faucet Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Roman Tub, Deck-Mount, Floor-Mount, Wall-Mount."
+    "template": "{Brand} {Mount} {Type} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand Deck Mount Tub Faucet Finish 1.2 GPM - Model",
+    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mount, Floor Mounted Tub Filler."
   },
   "urinal": {
     "categoryId": "a01aZ00000dC5E0QAK",
