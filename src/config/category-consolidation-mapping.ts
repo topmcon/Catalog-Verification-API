@@ -47,18 +47,8 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
 
   // ===== BATH & PLUMBING - ACCESSORIES =====
-  'Shower Accessory': {
-    removedCategory: 'Shower Accessory',
-    parentCategory: 'Bathroom Cabinet Hardware',
-    reason: 'Redundant subcategory',
-    suggestedType: 'Shower'
-  },
-  'Tub and Shower Accessory': {
-    removedCategory: 'Tub and Shower Accessory',
-    parentCategory: 'Bathroom Cabinet Hardware',
-    reason: 'Redundant subcategory',
-    suggestedType: 'Tub/Shower'
-  },
+  // ⚠️ "Shower Accessory" is VALID (ID: a01aZ00000dC5DsQAK) - DO NOT REMAP
+  // ⚠️ "Tub and Shower Accessory" is VALID (ID: a01aZ00000dDnKlQAK) - DO NOT REMAP
   // ===== BATH & PLUMBING - TYPOS/DUPLICATES =====
   'conbaucets': {
     removedCategory: 'conbaucets',
@@ -210,7 +200,7 @@ export const CATEGORY_REMAPPING: Record<string, CategoryRemapping> = {
   },
   'Shower Accessories (Plumbing & Bath)': {
     removedCategory: 'Shower Accessories (Plumbing & Bath)',
-    parentCategory: 'Bathroom Cabinet Hardware',
+    parentCategory: 'Shower Accessory',
     reason: 'AI variation with department suffix',
     suggestedType: 'Shower'
   },

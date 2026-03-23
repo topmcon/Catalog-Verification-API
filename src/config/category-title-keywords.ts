@@ -71,7 +71,7 @@ export const NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS: Record<string, string[]> = {
   'Bar & Prep Sink': ['bar sink', 'prep sink', 'bar basin'],
   'Bathroom Vanity': ['bathroom vanity', 'vanity cabinet', 'vanity set', 'vanity combo', 'bath vanity'],
   'Bathroom Mirror': ['bathroom mirror', 'vanity mirror', 'lighted mirror', 'led mirror'],
-  'Bathroom Hardware and Accessories': ['towel bar', 'towel ring', 'robe hook', 'toilet paper holder', 'towel rack', 'bath accessory', 'towel warmer'],
+  'Bathroom Hardware and Accessories': ['towel bar', 'towel ring', 'robe hook', 'toilet paper holder', 'towel rack', 'bath accessory', 'towel warmer', 'grab bar', 'soap dish', 'shower shelf'],
   'Bath Fan': ['bath fan', 'bathroom fan', 'exhaust fan', 'ventilation fan', 'bath exhaust'],
   'Rough-In Valve': ['rough-in valve', 'rough in valve', 'shower rough', 'valve body'],
   'Pressure Valve': ['pressure valve', 'pressure balance', 'thermostatic valve'],

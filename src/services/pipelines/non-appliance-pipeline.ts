@@ -951,6 +951,8 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
   }
 
   // BATHROOM HARDWARE CATEGORY CORRECTIONS
+  // "Bathroom Cabinet Hardware" is for cabinet knobs/pulls etc. — bath accessories
+  // like grab bars, towel bars, robe hooks belong in "Bathroom Hardware and Accessories"
   if (finalSeoTitleInput.category === 'Bathroom Cabinet Hardware') {
     const hardwareSourceTexts = [
       fergusonProductName,
@@ -960,9 +962,20 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       (rawProduct.Product_Title_Legacy as string) || '',
     ].join(' ').toLowerCase();
 
-    if (/\btoilet\s+paper\s+holder\b/i.test(hardwareSourceTexts) ||
-        /\btp\s+holder\b/i.test(hardwareSourceTexts)) {
-      logger.warn('🔧 CATEGORY CORRECTION: "Bathroom Cabinet Hardware" → "Bathroom Hardware and Accessories"', { sessionId });
+    if (/\bgrab\s*bar\b/i.test(hardwareSourceTexts) ||
+        /\btowel\s+bar\b/i.test(hardwareSourceTexts) ||
+        /\btowel\s+ring\b/i.test(hardwareSourceTexts) ||
+        /\btowel\s+rack\b/i.test(hardwareSourceTexts) ||
+        /\btowel\s+warm/i.test(hardwareSourceTexts) ||
+        /\brobe\s+hook\b/i.test(hardwareSourceTexts) ||
+        /\btoilet\s+paper\s+holder\b/i.test(hardwareSourceTexts) ||
+        /\btp\s+holder\b/i.test(hardwareSourceTexts) ||
+        /\bsoap\s+dish\b/i.test(hardwareSourceTexts) ||
+        /\bshower\s+shelf\b/i.test(hardwareSourceTexts)) {
+      logger.warn('🔧 CATEGORY CORRECTION: "Bathroom Cabinet Hardware" → "Bathroom Hardware and Accessories"', {
+        sessionId,
+        matchedText: hardwareSourceTexts.substring(0, 200),
+      });
       finalSeoTitleInput.category = 'Bathroom Hardware and Accessories';
       sanitizedPrimaryAttributes.AI_Product_Category = 'Bathroom Hardware and Accessories';
     }

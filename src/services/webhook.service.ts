@@ -7,7 +7,16 @@ import axios from 'axios';
 import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
 import { sanitizeNulls } from '../utils/sanitization.utils';
+import { getDepartmentForCategory } from '../config/category-config';
 // Self-healing disabled - removed import
+
+// Departments the Salesforce integration user can write Category Lookup IDs for.
+// Products classified into other departments will have their Category Lookup cleared
+// and be flagged for manual review to prevent INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY errors.
+const SF_WRITABLE_DEPARTMENTS = new Set([
+  'Plumbing & Bath',
+  'Appliances',
+]);
 
 interface WebhookPayload {
   success: boolean;
@@ -71,7 +80,37 @@ class WebhookService {
         // Remove the nested object (SF doesn't expect it)
         delete rawPayload.data.Appliance_Features;
       }
-      
+
+      // ═══════════════════════════════════════════════════════════════════════
+      // CROSS-DEPARTMENT GUARD
+      // If AI classified the product into a department the SF integration user
+      // cannot write to, clear the Category Lookup to prevent
+      // INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY errors.
+      // The category name is kept for reference; only the lookup ID is cleared.
+      // ═══════════════════════════════════════════════════════════════════════
+      const verifiedCategory = rawPayload.data?.Primary_Attributes?.AI_Product_Category;
+      if (verifiedCategory) {
+        const department = getDepartmentForCategory(verifiedCategory);
+        if (department && !SF_WRITABLE_DEPARTMENTS.has(department)) {
+          logger.warn('⚠️ CROSS-DEPARTMENT GUARD: Non-writable department detected — clearing Category Lookup to prevent SF access error', {
+            jobId,
+            sfCatalogId: job.sfCatalogId,
+            verifiedCategory,
+            department,
+            blockedLookupId: rawPayload.data?.Primary_Attributes?.AI_Product_Category_Lookup,
+            reason: `Non-plumbing product detected — ${verifiedCategory} (${department}) requires manual department reassignment`,
+          });
+          // Clear lookup IDs that would cause SF cross-reference errors
+          if (rawPayload.data.Primary_Attributes) {
+            rawPayload.data.Primary_Attributes.AI_Product_Category_Lookup = '';
+            rawPayload.data.Primary_Attributes.AI_SubCategory_Lookup = '';
+          }
+          // Flag for manual review
+          rawPayload.data.Verification_Status = 'Manual Review Required';
+          rawPayload.data.Verification_Notes = `Non-plumbing product detected — ${verifiedCategory} (${department}) requires manual department reassignment.`;
+        }
+      }
+
       // Sanitize: Salesforce Apex JSON parser cannot handle null values
       const payload = sanitizeNulls(rawPayload) as WebhookPayload;
 
