@@ -1003,21 +1003,21 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
     }
 
-    // FINDING #017 FIX: Skip redundant Type if it's a substring of Category
-    // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
-    // FINDING #046: Applies to Laundry Pedestal types (Storage, Functional, Riser, Accessory)
-    if (formattedValue && slot.attribute === 'Type') {
-      const categorySlot = sortedSlots.find(s => s.attribute === 'Category');
-      if (categorySlot) {
-        const categoryValue = getInputValue(input, categorySlot.attribute);
-        const formattedCategory = formatValue(categorySlot.attribute, categoryValue, input);
+    // FINDING #017 FIX: Skip redundant Category if Type value is a substring of Category
+    // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Category (Type already conveys it)
+    // The Type slot always renders; only the Category slot is suppressed when redundant.
+    if (formattedValue && slot.attribute === 'Category') {
+      const typeSlot = sortedSlots.find(s => s.attribute === 'Type');
+      if (typeSlot) {
+        const typeValue = getInputValue(input, typeSlot.attribute);
+        const formattedType = formatValue(typeSlot.attribute, typeValue, input);
         
-        if (formattedCategory && 
-            formattedCategory.toLowerCase().includes(formattedValue.toLowerCase())) {
-          logger.info('Skipping redundant Type slot - value is substring of Category', {
-            type: formattedValue,
-            category: formattedCategory,
-            reason: 'Type text already present in Category name'
+        if (formattedType && 
+            formattedValue.toLowerCase().includes(formattedType.toLowerCase())) {
+          logger.info('Skipping redundant Category slot - Type is substring of Category', {
+            category: formattedValue,
+            type: formattedType,
+            reason: 'Type value already present in Category name'
           });
           continue; // Skip this slot entirely
         }

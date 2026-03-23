@@ -11737,10 +11737,11 @@ async function buildFinalResponse(
   if (hexColorMatch) {
     cleanColor = hexColorMatch[1].trim();
   }
-  // Use color if available and not a material; fall back to finish if finish isn't a material
-  const smartAppearance = (cleanColor && !MATERIAL_COATING_PATTERNS.test(cleanColor.trim()))
-    ? cleanColor
-    : (rawFinish && !MATERIAL_COATING_PATTERNS.test(rawFinish.trim()) ? rawFinish : '');
+  // Use finish if available and not a material; fall back to color if color isn't a material
+  // Finish is preferred because it preserves qualifiers (e.g., "Brushed Brass PVD" vs color "Brass")
+  const smartAppearance = (rawFinish && !MATERIAL_COATING_PATTERNS.test(rawFinish.trim()))
+    ? rawFinish
+    : (cleanColor && !MATERIAL_COATING_PATTERNS.test(cleanColor.trim()) ? cleanColor : '');
 
   // Build seoTitleInput from CORRECTED attributes
   // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
