@@ -4933,11 +4933,11 @@ ${promptOptions.invalidTypeWarning}
         typeSelectionGuide += `    • Ferguson "Widespread Kitchen Faucet" → This means TWO handles with wide spacing → Type = "Two Handle" or "Bridge"\n`;
         typeSelectionGuide += `    • If Ferguson says "Pull Down" in the title → Type = "Pull-Down" (trust Ferguson's description)\n`;
         typeSelectionGuide += `    • "Cold Water Dispenser" or "Filter Faucet" are specialized single-handle faucets → Type = "Single Handle"\n\n`;
-      } else if (categoryLower === 'tub faucet') {
-        typeSelectionGuide += `  🔍 **TUB FAUCET Type Priority**:\n`;
+      } else if (categoryLower === 'tub filler' || categoryLower === 'tub faucet') {
+        typeSelectionGuide += `  🔍 **TUB FILLER Type Priority**:\n`;
         typeSelectionGuide += `    1. Roman Tub (deck-mounted with two handles for tub)\n`;
         typeSelectionGuide += `    2. Freestanding (floor-mounted for freestanding tubs)\n`;
-        typeSelectionGuide += `    3. Deck Mount / Wall Mount (installation types)\n\n`;
+        typeSelectionGuide += `    3. Wall Mounted / Floor Mounted / Deck Mount (installation types)\n\n`;
       } else if (categoryLower === 'bar faucet') {
         typeSelectionGuide += `  🔍 **BAR FAUCET Type Priority**:\n`;
         typeSelectionGuide += `    1. Pull-Down (spray function)\n`;

@@ -19,12 +19,21 @@ export const UNIVERSAL_DESIGN_STYLES = categoryStyleMapping.universal_styles.map
 
 /**
  * Get all valid styles for a category
- * For now, returns universal styles (all categories can use any design style)
- * @param _categoryName - The category to get styles for (currently unused - all styles are universal)
+ * Most categories use universal design styles. Tub Filler uses configuration styles.
+ * @param categoryName - The category to get styles for
  * @returns Array of valid style names
  */
-export function getValidStylesForCategory(_categoryName?: string): string[] {
-  // All categories can use universal design styles
+export function getValidStylesForCategory(categoryName?: string): string[] {
+  // Tub Filler uses configuration styles instead of design aesthetics
+  if (categoryName && (categoryName.toLowerCase() === 'tub filler' || categoryName.toLowerCase() === 'tub faucet')) {
+    const mapping = (categoryStyleMapping.category_specific_mappings as any[]).find(
+      (c: any) => c.category_name === 'Tub Filler'
+    );
+    if (mapping) {
+      return mapping.styles.map((s: any) => s.style_name);
+    }
+  }
+  // All other categories use universal design styles
   return UNIVERSAL_DESIGN_STYLES;
 }
 
@@ -169,17 +178,19 @@ export function isValidShowerStyleFromMaster(styleName: string): boolean {
 // ============================================
 
 /**
- * Match a style to a category (styles are universal, so always valid)
+ * Match a style to a category
+ * Uses category-specific styles for Tub Filler, universal styles for all others
  * @param styleName - Style to match
- * @param _categoryName - Category to match against (currently unused - all styles are universal)
+ * @param categoryName - Category to match against
  * @returns The style name if valid, or null
  */
-export function matchStyleToCategory(styleName: string, _categoryName?: string): string | null {
-  const isValidStyle = UNIVERSAL_DESIGN_STYLES.some(
+export function matchStyleToCategory(styleName: string, categoryName?: string): string | null {
+  const validStyles = getValidStylesForCategory(categoryName);
+  const matched = validStyles.find(
     s => s.toLowerCase() === styleName.toLowerCase()
   );
   
-  return isValidStyle ? styleName : null;
+  return matched || null;
 }
 
 /**

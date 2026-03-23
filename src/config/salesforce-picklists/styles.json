@@ -148,5 +148,35 @@
     "style_name": "Vintage",
     "style_id": "a1IaZ000001TW2LUAW",
     "description": "Retro designs inspired by past eras with nostalgic elements"
+  },
+  {
+    "style_name": "1 Hole",
+    "style_id": "a1IaZ000001kQJtUAM",
+    "description": "Single hole configuration for tub fillers"
+  },
+  {
+    "style_name": "2 Hole",
+    "style_id": "a1IaZ000001kQLVUA2",
+    "description": "Two hole configuration for tub fillers"
+  },
+  {
+    "style_name": "3 Hole",
+    "style_id": "a1IaZ000001kQN7UAM",
+    "description": "Three hole configuration for tub fillers"
+  },
+  {
+    "style_name": "4 Hole",
+    "style_id": "a1IaZ000001kQOjUAM",
+    "description": "Four hole configuration for tub fillers"
+  },
+  {
+    "style_name": "Wall Mounted",
+    "style_id": "a1IaZ000000nyELUAY",
+    "description": "Wall mounted configuration for tub fillers"
+  },
+  {
+    "style_name": "Floor Mounted",
+    "style_id": "a1IaZ000001UwcHUAS",
+    "description": "Floor mounted configuration for tub fillers"
   }
 ]

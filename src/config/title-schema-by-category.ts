@@ -6430,12 +6430,12 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 2,
-        "attribute": "Mount",
+        "attribute": "Type",
         "required": false
       },
       {
         "position": 3,
-        "attribute": "Type",
+        "attribute": "Style",
         "required": false
       },
       {
@@ -6460,9 +6460,57 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Mount} {Type} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand Deck Mount Tub Filler Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mounted, Floor Mounted."
+    "template": "{Brand} {Type} {Style} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand Wall Mounted Tub Filler Brushed Nickel 1.2 GPM - Model",
+    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mounted, Floor Mounted. Style = 1 Hole, 2 Hole, 3 Hole, 4 Hole, Wall Mounted, Floor Mounted (configuration styles)."
+  },
+  // Alias: "Tub Filler" normalizes to "tub_filler" but original schema key is "tub_faucet"
+  "tub_filler": {
+    "categoryId": "a01aZ00000dC5DzQAK",
+    "categoryName": "Tub Filler",
+    "department": "Plumbing & Bath",
+    "family": "Bath",
+    "slots": [
+      {
+        "position": 1,
+        "attribute": "Brand",
+        "required": true
+      },
+      {
+        "position": 2,
+        "attribute": "Type",
+        "required": false
+      },
+      {
+        "position": 3,
+        "attribute": "Style",
+        "required": false
+      },
+      {
+        "position": 4,
+        "attribute": "Category",
+        "required": true
+      },
+      {
+        "position": 5,
+        "attribute": "Finish",
+        "required": false
+      },
+      {
+        "position": 6,
+        "attribute": "GPM",
+        "required": false,
+        "format": "{value} GPM"
+      },
+      {
+        "position": 7,
+        "attribute": "Model Number",
+        "required": false
+      }
+    ],
+    "template": "{Brand} {Type} {Style} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Brand Wall Mounted Tub Filler Brushed Nickel 1.2 GPM - Model",
+    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mounted, Floor Mounted. Style = 1 Hole, 2 Hole, 3 Hole, 4 Hole, Wall Mounted, Floor Mounted (configuration styles)."
   },
   "urinal": {
     "categoryId": "a01aZ00000dC5E0QAK",

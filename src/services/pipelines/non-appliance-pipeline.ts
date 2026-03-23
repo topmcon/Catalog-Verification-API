@@ -251,23 +251,28 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       });
     }
 
-    // 2b. TUB FAUCET reclassification
+    // 2b. TUB FILLER reclassification
     else if (/\btub\s+filler\b/i.test(showerSourceLower) ||
              /\btub\s+faucet\b/i.test(showerSourceLower) ||
              /\bfloor\s+mounted\s+tub\b/i.test(showerSourceLower) ||
              /\bwall\s+mounted\s+tub\b/i.test(showerSourceLower) ||
              /\bdeck\s+mounted\s+tub\b/i.test(showerSourceLower)) {
-      finalSeoTitleInput.category = 'Tub Faucet';
-      sanitizedPrimaryAttributes.AI_Product_Category = 'Tub Faucet';
-      finalSeoTitleInput.type = 'Tub Filler';
+      finalSeoTitleInput.category = 'Tub Filler';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Tub Filler';
+      // Derive type from source data instead of defaulting to "Tub Filler"
       if (/\bfloor\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Floor Mounted';
+        finalSeoTitleInput.type = 'Floor Mounted';
+        finalSeoTitleInput.style = 'Floor Mounted';
       } else if (/\bwall\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Wall Mounted';
+        finalSeoTitleInput.type = 'Wall Mounted';
+        finalSeoTitleInput.style = 'Wall Mounted';
       } else if (/\bdeck\s+mounted\b/i.test(showerSourceLower)) {
-        finalSeoTitleInput.mountType = 'Deck Mounted';
+        finalSeoTitleInput.type = 'Deck Mount';
+      } else if (/\bfreestanding\b/i.test(showerSourceLower)) {
+        finalSeoTitleInput.type = 'Freestanding';
+        finalSeoTitleInput.style = 'Floor Mounted';
       }
-      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Tub Faucet"', {
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower" → "Tub Filler"', {
         sessionId, type: finalSeoTitleInput.type,
         reason: 'Source data describes a tub filler/faucet'
       });
@@ -837,7 +842,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
   }
 
   // Sync Shower/Steam/Tub/Rough-In post-processing changes back to sanitized attributes
-  const showerSyncCategories = ['Shower', 'Shower Accessory', 'Steam Shower', 'Tub Faucet', 'Rough-In Valve'];
+  const showerSyncCategories = ['Shower', 'Shower Accessory', 'Steam Shower', 'Tub Filler', 'Tub Faucet', 'Rough-In Valve'];
   if (showerSyncCategories.includes(finalSeoTitleInput.category || '')) {
     if (finalSeoTitleInput.type) sanitizedPrimaryAttributes.AI_Type = finalSeoTitleInput.type;
     if (finalSeoTitleInput.category !== sanitizedPrimaryAttributes.AI_Product_Category) {
@@ -846,28 +851,41 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // TUB FILLER TYPE/MOUNT SPLITTING
+  // TUB FILLER TYPE → STYLE AUTO-MAPPING
+  // Keep AI-determined type as-is, derive configuration style from type
   // ═══════════════════════════════════════════════════════════════════════════
   if (finalSeoTitleInput.category === 'Tub Filler' || finalSeoTitleInput.category === 'Tub Faucet') {
-    const tubType = (finalSeoTitleInput.type || '').toLowerCase();
-    if (/floor\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Floor Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (/wall\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Wall Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (/deck\s+mounted?\s+tub\s+filler/i.test(tubType)) {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Deck Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'wall mount' || tubType === 'wall mounted') {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Wall Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'floor mount' || tubType === 'floor mounted') {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Floor Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
-    } else if (tubType === 'deck mount' || tubType === 'deck mounted') {
-      finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Deck Mounted';
-      sanitizedPrimaryAttributes.AI_Type = 'Tub Filler';
+    const tubType = (finalSeoTitleInput.type || '').toLowerCase().trim();
+    let derivedStyle = '';
+
+    // Extract mount type from compound AI type values like "Floor Mounted Tub Filler"
+    if (/floor\s+mounted/i.test(tubType)) {
+      derivedStyle = 'Floor Mounted';
+      // If AI returned compound type like "Floor Mounted Tub Filler", normalize to "Floor Mounted"
+      if (tubType !== 'floor mounted') {
+        finalSeoTitleInput.type = 'Floor Mounted';
+        sanitizedPrimaryAttributes.AI_Type = 'Floor Mounted';
+      }
+    } else if (/wall\s+mounted/i.test(tubType)) {
+      derivedStyle = 'Wall Mounted';
+      if (tubType !== 'wall mounted') {
+        finalSeoTitleInput.type = 'Wall Mounted';
+        sanitizedPrimaryAttributes.AI_Type = 'Wall Mounted';
+      }
+    } else if (/deck\s+mount/i.test(tubType)) {
+      // Deck mount — style comes from hole count, not mount type
+      if (tubType !== 'deck mount') {
+        finalSeoTitleInput.type = 'Deck Mount';
+        sanitizedPrimaryAttributes.AI_Type = 'Deck Mount';
+      }
+    } else if (tubType === 'freestanding') {
+      derivedStyle = 'Floor Mounted';
+    }
+
+    // Set AI_Style from derived style if we have one and style isn't already set
+    if (derivedStyle && !sanitizedPrimaryAttributes.AI_Style) {
+      sanitizedPrimaryAttributes.AI_Style = derivedStyle;
+      finalSeoTitleInput.style = derivedStyle;
     }
   }
 
