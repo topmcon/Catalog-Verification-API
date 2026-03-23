@@ -277,6 +277,73 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
+When the user says **"Run live logger"** or **"Start live logger"**, execute these steps:
+
+1. **Start a background SSH session** streaming filtered production logs:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "tail -f /opt/catalog-verification-api/logs/combined.log" 
+   ```
+   Run this as a **background terminal** (`isBackground: true`).
+
+2. **Filter mode** — Determine what mode to use based on user context:
+   - **Default (full pipeline)**: Show all verification events, filter out health checks, startup, picklist syncs
+   - **"Run live logger errors only"**: Only show WARN and ERROR level entries
+   - **"Run live logger for [Category]"**: Filter to specific category (e.g., "Tub Filler")
+   - **"Run live logger titles"**: Focus on title generation, comparison, and correction events
+
+3. **Active monitoring loop** — After starting, periodically check the terminal output using `get_terminal_output` and analyze what's coming in. For each verification call observed, report:
+
+   **INCOMING CALL:**
+   - SF Catalog ID, Brand, Category, Type
+   
+   **PIPELINE DECISIONS:**
+   - Preliminary title generated
+   - Type/Style values and how they were determined
+   - Any pipeline auto-mappings applied
+   
+   **CLAUDE REVIEW:**
+   - Review status (PASS / FLAG / FAIL)
+   - Confidence score
+   - Issues found count
+   - Corrections proposed (type, style, title, finish, etc.)
+   
+   **FINAL OUTPUT:**
+   - Schema title vs Claude title (highlight differences)
+   - Final corrections applied (from → to)
+   - Model match status (MATCH vs MISMATCH ⚠️)
+   - Processing time
+   - Webhook delivery status
+
+4. **Proactive alerting** — Flag these issues immediately when spotted:
+   - 🔴 **Title duplication** (e.g., "Tub Filler Tub Filler", "Roman Tub Tub Filler")
+   - 🔴 **FAIL review status** — Claude found critical issues
+   - 🔴 **Webhook delivery failure** — SF didn't receive results
+   - 🟡 **MISMATCH** between schema title and Claude title — may indicate schema/pipeline bug
+   - 🟡 **Type/Style corrections by Claude** — may indicate AI prompt or pipeline logic needs fixing
+   - 🟡 **Unusually long processing time** (>300 seconds)
+   - 🟢 **Clean PASS** — everything worked as expected
+
+5. **Report format** — Present each observed call in a compact summary block:
+   ```
+   ━━━ LIVE: [Brand] [Category] ([SF Catalog ID]) ━━━
+   Type: [value] | Style: [value] | Finish: [value]
+   Schema Title: [title]
+   Claude Title:  [title]  ← [PASS/FLAG/FAIL] (confidence: X%)
+   Corrections: [list or "None"]
+   Time: [Xms] | Webhook: ✅/❌
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ```
+
+6. **Continue monitoring** until user says "stop logger" or moves to another task.
+
+**Key filtering patterns** to exclude noise:
+- `GET /health` — health checks (every few seconds)
+- `SIGTERM` / `Server started` / `MongoDB connected` — service restarts
+- `Picklists loaded` / `Puppeteer` — startup initialization
+- `POST /api/picklists/sync` — picklist syncs (separate concern)
+
+---
+
 When the user says **"API Accuracy Report"** or **"Run API Accuracy Report"**, execute these steps:
 1. Run the Verification API Accuracy Audit script on production:
    ```bash

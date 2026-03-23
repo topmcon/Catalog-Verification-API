@@ -3440,7 +3440,25 @@ export async function verifyProductWithDualAI(
     });
     
     let consensus = buildConsensus(openaiResult, xaiResult);
-    
+
+    // 📊 LIVE LOGGER: Full consensus snapshot after dual-AI agreement
+    logger.info('📊 CONSENSUS SNAPSHOT — Agreed Primary & Top 15 Attributes', {
+      sessionId: verificationSessionId,
+      sfCatalogId: rawProduct.SF_Catalog_Id,
+      category: consensus.agreedCategory,
+      department: determinedDepartment,
+      confidence: consensus.overallConfidence,
+      agreedPrimaryAttributes: consensus.agreedPrimaryAttributes,
+      agreedTop15Attributes: consensus.agreedTop15Attributes,
+      disagreements: consensus.disagreements?.map((d: any) => ({
+        field: d.field,
+        openai: d.openaiValue,
+        xai: d.xaiValue,
+        winner: d.resolvedBy
+      })),
+      additionalAttributeCount: Object.keys(consensus.agreedAdditionalAttributes || {}).length
+    });
+
     // POST-CONSENSUS VALIDATION: Enforce critical business rules (only if category determined)
     if (consensus.agreedCategory) {
       const validation = validateConsensusCategory(
@@ -11243,7 +11261,18 @@ async function buildFinalResponse(
   }
   
   const additionalHtml = generateAttributeTable(mergedAdditionalAttributes);
-  
+
+  // 📊 LIVE LOGGER: HTML additional attributes snapshot (all remaining raw data not in Primary/Top 15)
+  logger.info('📊 HTML ATTRIBUTES — Additional Attributes Not in Primary or Top 15', {
+    sessionId,
+    sfCatalogId: rawProduct.SF_Catalog_Id,
+    category: consensus.agreedCategory,
+    totalHtmlAttributes: Object.keys(mergedAdditionalAttributes).length,
+    htmlAttributeNames: Object.keys(mergedAdditionalAttributes),
+    htmlAttributeValues: mergedAdditionalAttributes,
+    htmlLength: additionalHtml?.length || 0
+  });
+
   // Log what raw data attributes were added to HTML
   const fergusonFlatCount = Object.keys(unusedFergusonAttrs).length;
   const fergusonNestedCount = Object.keys(nestedFergusonAttrs).length;
@@ -11447,7 +11476,18 @@ async function buildFinalResponse(
   // SF Apex deserializer fails on "N/A (Regulation does not apply)" type values
   const sanitizedPrimaryAttributes = sanitizeObjectForSalesforce(primaryAttributes);
   const sanitizedTopFilterAttributes = sanitizeObjectForSalesforce(topFilterAttributes);
-  
+
+  // 📊 LIVE LOGGER: Full enriched attributes snapshot (after all fills, before title gen)
+  logger.info('📊 ENRICHED ATTRIBUTES — Primary + Top 15 After All Enrichment', {
+    sessionId,
+    sfCatalogId: rawProduct.SF_Catalog_Id,
+    category: consensus.agreedCategory,
+    primaryAttributes: sanitizedPrimaryAttributes,
+    primaryFieldCount: Object.keys(sanitizedPrimaryAttributes).filter(k => (sanitizedPrimaryAttributes as any)[k] && (sanitizedPrimaryAttributes as any)[k] !== 'NOT SET').length,
+    topFilterAttributes: sanitizedTopFilterAttributes,
+    topFilterFieldCount: Object.keys(sanitizedTopFilterAttributes).filter(k => sanitizedTopFilterAttributes[k] && sanitizedTopFilterAttributes[k] !== 'NOT SET').length
+  });
+
   // ⚠️ CRITICAL: Normalize installation_type BEFORE it's used in title generation
   // March 16 hierarchy redesign prioritizes sanitizedTopFilterAttributes.installation_type,
   // but normalization was only applied to seoTitleInput.installationType
@@ -11838,7 +11878,31 @@ async function buildFinalResponse(
     Status: (finalVerificationStatus === 'verified' ? 'success' : finalVerificationStatus === 'needs_review' ? 'partial' : 'failed') as 'success' | 'partial' | 'failed',
     Final_Review: finalReviewMetadata
   };
-  
+
+  // 📊 LIVE LOGGER: Complete response snapshot before sending to Salesforce
+  logger.info('📊 FINAL RESPONSE — Complete Verification Result for Salesforce', {
+    sessionId,
+    sfCatalogId: rawProduct.SF_Catalog_Id,
+    sfCatalogName: rawProduct.SF_Catalog_Name,
+    status: responseObject.Status,
+    category: responseObject.Primary_Attributes?.AI_Product_Category,
+    brand: responseObject.Primary_Attributes?.AI_Brand,
+    type: responseObject.Primary_Attributes?.AI_Type,
+    style: responseObject.Primary_Attributes?.AI_Style,
+    finish: responseObject.Primary_Attributes?.AI_Finish,
+    title: responseObject.Primary_Attributes?.AI_Product_Title,
+    primaryAttributeCount: Object.keys(responseObject.Primary_Attributes || {}).length,
+    topFilterAttributeCount: Object.keys(responseObject.Top_Filter_Attributes || {}).length,
+    htmlAttributeLength: responseObject.Additional_Attributes_HTML?.length || 0,
+    attributeRequests: responseObject.Attribute_Requests?.length || 0,
+    brandRequests: responseObject.Brand_Requests?.length || 0,
+    categoryRequests: responseObject.Category_Requests?.length || 0,
+    styleRequests: responseObject.Style_Requests?.length || 0,
+    processingTimeMs: _processingTimeMs,
+    finalReviewStatus: finalReviewMetadata?.final_review_status,
+    finalReviewConfidence: finalReviewMetadata?.phase_b_confidence
+  });
+
   // Capture AI Performance Metrics (Phase C) - Run async without blocking response
   // This must happen AFTER response is built so we have finalValues
   captureAIPerformanceMetrics(
