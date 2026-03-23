@@ -124,7 +124,7 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 
 2. **⚠️ COMPREHENSIVE PRE-DEPLOYMENT VALIDATION** - MANDATORY for ALL code changes:
    ```bash
-   # Run comprehensive validation suite (7 checks)
+   # Run comprehensive validation suite (9 checks)
    bash scripts/pre-deploy-validate-all.sh
    ```
    
@@ -140,6 +140,7 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    | 6 | Picklist Fields | Field name correctness | 🟡 WARNING |
    | 7 | Hardcoded Lists | Sync with JSON picklists | 🟡 WARNING |
    | 8 | Field Mapping Reference | FIELD_ALIASES, extractors, output fields in sync with docs/RAW-FIELD-MAPPING-REFERENCE.md | 🟡 WARNING |
+   | 9 | Style Cross-Reference | All styles in category-style-mapping.json exist in styles.json (picklist matcher source) | 🔴 CRITICAL |
    
    **What this PREVENTS** (lessons learned from Feb 25 2026 title system failures):
    - ✅ Regex typos (e.g., `/s+/g` vs `/\s+/g`) - **Check #4 catches**
@@ -148,6 +149,7 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - ✅ Format template bugs - **Check #5 catches with sample data**
    - ✅ Data structure mismatches - **Check #2 catches**
    - ✅ Hardcoded lists out of sync - **Check #7 catches**
+   - ✅ Category-specific styles missing from picklist matcher - **Check #9 catches**
    
    **Individual validation scripts** (if you need to run specific checks):
    ```bash
@@ -171,6 +173,9 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    
    # Field mapping reference sync check
    node scripts/audit-field-mapping-reference.js --check
+   
+   # Style cross-reference (category-style-mapping vs styles.json)
+   node scripts/audit-style-crossref.js
    ```
    
    **If validation fails:**
@@ -811,7 +816,7 @@ When user says "Save everything", perform these actions:
    
    # ⭐ NEW (2026-03-03): Run comprehensive validator for ALL code changes
    bash scripts/pre-deploy-validate-all.sh
-   # This replaces individual scripts - runs all 7 validation checks
+   # This replaces individual scripts - runs all 9 validation checks
    ```
    
    **Legacy individual validators** (use comprehensive validator above instead):
@@ -826,6 +831,7 @@ When user says "Save everything", perform these actions:
    | `title-schema-by-category.ts` | `bash scripts/quick-pre-deploy-check.sh` | Schema coverage, title generator imports, enrichment service alignment |
    | `*-matcher.service.ts` or `dual-ai-verification.service.ts` | `node scripts/regenerate-hardcoded-lists.js --check` | Hardcoded lists sync with JSON picklists |
    | `src/config/salesforce-picklists/*.json` | `node scripts/audit-picklist-fields.js` | Correct field names, structure validation |
+   | `category-style-mapping.json` or `styles.json` | `node scripts/audit-style-crossref.js` | All category styles exist in global styles.json picklist |
    | Service files (`*.service.ts`) | `npm run build` | TypeScript compilation, no errors |
    | Any `.ts` files | `npm run lint` (if available) | Code quality, imports valid |
    

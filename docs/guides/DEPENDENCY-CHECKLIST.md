@@ -14,9 +14,10 @@ This document ensures that when you modify picklists, schemas, or core logic, AL
 |--------------|------------------|-----|
 | `categories.json` | • `title-schema-by-category.ts`<br>• `master-category-schema-map.ts`<br>• `category-aliases.ts`<br>• Run: `regenerate-hardcoded-lists.js` | Categories drive title generation, schema mapping, and hardcoded category lists |
 | `types.json` | • `category-type-mapping.json`<br>• `type-matcher.service.ts` (if new keywords)<br>• `dual-ai-verification.service.ts` (AI prompts)<br>• `title-generator.service.ts` (if refrigerator/range/fan types) | Types must be mapped to categories and AI needs prompt examples |
-| `styles.json` | • `dual-ai-verification.service.ts` (AI prompts)<br>• `style-validator.service.ts` (if validation rules)<br>• Run: `regenerate-hardcoded-lists.js` | Styles need validation rules and may need prompt examples |
+| `styles.json` | • `dual-ai-verification.service.ts` (AI prompts)<br>• `style-validator.service.ts` (if validation rules)<br>• `category-style-mapping.json` (must be in sync)<br>• Run: `regenerate-hardcoded-lists.js`<br>• Run: `audit-style-crossref.js` | Styles need validation rules, must exist in picklist matcher source, and may need prompt examples |
 | `brands.json` | • Run: `regenerate-hardcoded-lists.js` | Brand lists regenerated automatically |
 | `category-type-mapping.json` | • `type-matcher.service.ts` (keyword mappings)<br>• `dual-ai-verification.service.ts` (AI type guides)<br>• `title-generator.service.ts` (configurations list)<br>• `category-attributes.ts` (filter descriptions) | Adding types requires keywords, AI guidance, and title templates |
+| `category-style-mapping.json` | • `styles.json` (all referenced styles must exist here)<br>• `master-picklist-helpers.ts` (getValidStylesForCategory)<br>• `dual-ai-verification.service.ts` (AI style prompts must match style_type: configuration vs aesthetic)<br>• Run: `audit-style-crossref.js` | Category-specific styles MUST exist in global styles.json or picklist matcher won't find them |
 
 ---
 
@@ -58,7 +59,7 @@ This document ensures that when you modify picklists, schemas, or core logic, AL
 | Change Type | Must Also Update | How to Sync |
 |-------------|------------------|-------------|
 | Category lists | Run: `regenerate-hardcoded-lists.js` | Auto-regenerates from categories.json |
-| Style lists | Run: `regenerate-hardcoded-lists.js` | Auto-regenerates from styles.json |
+| Style lists | Run: `regenerate-hardcoded-lists.js`<br>Run: `audit-style-crossref.js` | Auto-regenerates from styles.json + cross-references with category-style-mapping.json |
 | Type lists | • `title-generator.service.ts` (REFRIGERATOR_CONFIGURATIONS, etc.)<br>• `category-attributes.ts` (configuration examples) | Manual updates - no auto-regen script yet |
 
 ---
@@ -79,6 +80,9 @@ bash scripts/quick-pre-deploy-check.sh
 
 # 4. Run dependency validator (comprehensive check)
 bash scripts/validate-dependencies.sh
+
+# 5. Validate style cross-references
+node scripts/audit-style-crossref.js
 ```
 
 ### After Picklist Changes:

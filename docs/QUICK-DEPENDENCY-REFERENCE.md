@@ -90,6 +90,23 @@ node scripts/regenerate-hardcoded-lists.js
 bash scripts/validate-dependencies.sh
 ```
 
+### Adding/Changing Category-Specific Styles
+
+**Example**: Adding configuration styles (1 Hole, Wall Mounted) to a category
+
+```
+✅ Must Update (up to 5 files):
+1. category-style-mapping.json ........ Add styles under category entry
+2. styles.json ........................ Add styles to global picklist (CRITICAL!)
+3. master-picklist-helpers.ts ......... Update getValidStylesForCategory() if needed
+4. dual-ai-verification.service.ts .... Update AI prompt for configuration vs aesthetic
+5. non-appliance-pipeline.ts .......... Add auto-mapping logic (type → style)
+
+✅ Validation:
+node scripts/audit-style-crossref.js
+bash scripts/pre-deploy-validate-all.sh
+```
+
 ---
 
 ## 🤖 COPILOT COMMAND PHRASES
@@ -127,6 +144,9 @@ bash scripts/quick-pre-deploy-check.sh
 # Picklist field names audit
 node scripts/audit-picklist-fields.js
 
+# Style cross-reference (category-style-mapping vs styles.json)
+node scripts/audit-style-crossref.js
+
 # Build verification
 npm run build
 ```
@@ -147,6 +167,9 @@ node scripts/audit-picklist-fields.js
 
 # 4. If service logic changes:
 node scripts/regenerate-hardcoded-lists.js --check
+
+# 4b. If style or category-style-mapping changes:
+node scripts/audit-style-crossref.js
 
 # 5. If schema changes:
 bash scripts/quick-pre-deploy-check.sh
