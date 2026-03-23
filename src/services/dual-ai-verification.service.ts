@@ -11828,6 +11828,90 @@ async function buildFinalResponse(
     applianceFeatures = pipelineResult.applianceFeatures;
   }
 
+  // ═══════════════════════════════════════════════════════════════
+  // POST-PIPELINE SYNC — Ensure title input matches pipeline-resolved values
+  // The pipeline may reclassify category/type (e.g., "Shower"→"Shower Accessory",
+  // "Freestanding"→"Ceiling Mount"). Explicitly sync so title generation and
+  // filter attributes use the corrected values, not stale AI consensus.
+  // ═══════════════════════════════════════════════════════════════
+  const prePipelineCategory = consensus.agreedCategory || '';
+  const postPipelineCategory = sanitizedPrimaryAttributes.AI_Product_Category || '';
+  const categoryChangedByPipeline = prePipelineCategory !== postPipelineCategory;
+
+  // Sync title input from pipeline-resolved primary attributes
+  finalSeoTitleInput.type = sanitizedPrimaryAttributes.AI_Type || finalSeoTitleInput.type;
+  finalSeoTitleInput.category = sanitizedPrimaryAttributes.AI_Product_Category || finalSeoTitleInput.category;
+
+  if (categoryChangedByPipeline) {
+    logger.info('🔄 POST-PIPELINE SYNC: Category changed — title input updated', {
+      sessionId,
+      prePipelineCategory,
+      postPipelineCategory,
+      resolvedType: finalSeoTitleInput.type,
+      resolvedCategoryLookup: sanitizedPrimaryAttributes.AI_Product_Category_Lookup,
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // FILTER ATTRIBUTE RELOAD — Rebuild for the new category schema
+    // The original filter attributes were loaded for prePipelineCategory.
+    // After reclassification we must reload the correct schema so the
+    // response sends the RIGHT attributes (and Salesforce IDs) for the
+    // new category.
+    // ═══════════════════════════════════════════════════════════════
+    const newCategorySchema = getCategorySchemaWithContext(postPipelineCategory, {
+      title: getFieldByPriority(postPipelineCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
+      description: getFieldByPriority(postPipelineCategory, rawProduct.Product_Description_Web_Retailer, rawProduct.Ferguson_Description, ''),
+      attributes: [
+        ...(rawProduct.Ferguson_Attributes || []),
+        ...(rawProduct.Web_Retailer_Specs || []),
+      ],
+      productType: rawProduct.Ferguson_Product_Type || '',
+    });
+
+    if (newCategorySchema?.top15FilterAttributes) {
+      // Clear stale filter attributes and IDs
+      for (const k of Object.keys(topFilterAttributes)) delete topFilterAttributes[k];
+      for (const k of Object.keys(topFilterAttributeIds)) delete topFilterAttributeIds[k];
+
+      const newCategoryAttrIdMap = lookups.getAttributeNameToSfIdMap(postPipelineCategory);
+
+      for (const attrDef of newCategorySchema.top15FilterAttributes) {
+        const key = attrDef.fieldKey;
+        // Carry over any AI-extracted value that matches the new schema's field keys
+        const aiValue = consensus.agreedTop15Attributes[key];
+        topFilterAttributes[key] = (aiValue !== undefined && aiValue !== null && aiValue !== '')
+          ? (typeof aiValue === 'string' ? cleanEncodingIssues(aiValue) : aiValue)
+          : FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS;
+
+        // Look up SF attribute ID for the new category
+        const attrId = newCategoryAttrIdMap[attrDef.name] ||
+                       newCategoryAttrIdMap[attrDef.name.toLowerCase()] ||
+                       newCategoryAttrIdMap[attrDef.name.toLowerCase().replace(/\s+/g, '_')] ||
+                       null;
+        if (attrId) {
+          topFilterAttributeIds[key] = attrId;
+        } else {
+          const attrMatch = picklistMatcher.matchAttribute(attrDef.name, { forceIdLookup: true });
+          topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue
+            ? getSafeId(attrMatch.matchedValue.attribute_id) : null;
+        }
+      }
+
+      // Re-sanitize filter attributes into the existing object (mutate in-place)
+      const refreshed = sanitizeObjectForSalesforce(topFilterAttributes);
+      for (const k of Object.keys(sanitizedTopFilterAttributes)) delete (sanitizedTopFilterAttributes as any)[k];
+      Object.assign(sanitizedTopFilterAttributes, refreshed);
+
+      logger.info('🔄 FILTER ATTRIBUTES RELOADED for new category', {
+        sessionId,
+        oldCategory: prePipelineCategory,
+        newCategory: postPipelineCategory,
+        newSchemaAttributes: newCategorySchema.top15FilterAttributes.length,
+        populatedCount: Object.values(topFilterAttributes).filter(v => v !== FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS).length,
+      });
+    }
+  }
+
   // Generate final title using corrected data
   let finalSeoTitle = generateSEOTitle(finalSeoTitleInput);
   

@@ -25,6 +25,23 @@
 import logger from '../../utils/logger';
 import { PipelineContext, PipelineResult, defaultApplianceFeatures } from './shared-pipeline-types';
 
+// ── Category Salesforce ID Lookup ─────────────────────────────────────────────
+// When the pipeline reclassifies a product's category, we must also update
+// AI_Product_Category_Lookup (the Salesforce record ID) to match the new name.
+// This map is updated at the END of the pipeline to catch ALL reclassification paths.
+const CATEGORY_SF_IDS: Record<string, string> = {
+  'Bathroom Hardware and Accessories': 'a01aZ00000dC5DfQAK',
+  'Rough-In Valve': 'a01aZ00000dC5DrQAK',
+  'Shower': 'a01aZ00000dC5DuQAK',
+  'Shower Accessory': 'a01aZ00000dC5DsQAK',
+  'Showerheads & Accessories': 'a01aZ00000dC5DtQAK',
+  'Steam Shower': 'a01aZ00000dC5DvQAK',
+  'Toilet': 'a01aZ00000dC5DyQAK',
+  'Toilet Seat': 'a01aZ00000dC5DxQAK',
+  'Tub Filler': 'a01aZ00000dC5DzQAK',
+  'Tub and Shower Accessory': 'a01aZ00000dDnKlQAK',
+};
+
 // ── Text extraction helpers (self-contained for pipeline isolation) ────────
 
 function extractKnownValueFromTexts(texts: string[], knownValues: string[]): string {
@@ -1151,6 +1168,30 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     if (derivedStyle && !sanitizedPrimaryAttributes.AI_Style) {
       sanitizedPrimaryAttributes.AI_Style = derivedStyle;
       finalSeoTitleInput.style = derivedStyle;
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CATEGORY LOOKUP ID SYNC — Ensure SF ID always matches category name
+  // ═══════════════════════════════════════════════════════════════════════════
+  // If any reclassification block above changed the category, update the SF lookup ID.
+  const currentCategory = sanitizedPrimaryAttributes.AI_Product_Category || '';
+  if (currentCategory !== ctx.agreedCategory) {
+    const newCategoryId = CATEGORY_SF_IDS[currentCategory];
+    if (newCategoryId) {
+      sanitizedPrimaryAttributes.AI_Product_Category_Lookup = newCategoryId;
+      logger.info('🔗 CATEGORY LOOKUP ID UPDATED after reclassification', {
+        sessionId,
+        oldCategory: ctx.agreedCategory,
+        newCategory: currentCategory,
+        newCategoryId,
+      });
+    } else {
+      logger.warn('⚠️ CATEGORY LOOKUP ID: No SF ID found for reclassified category', {
+        sessionId,
+        newCategory: currentCategory,
+        availableCategories: Object.keys(CATEGORY_SF_IDS),
+      });
     }
   }
 
