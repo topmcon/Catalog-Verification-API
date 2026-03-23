@@ -978,6 +978,32 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       });
     }
     
+    // CONFIG-STYLE REDUNDANCY: Skip Style slot when its meaning is already conveyed by Type.
+    // Prevents: "Single Hole 1 Hole Kitchen Faucet" → "Single Hole Kitchen Faucet"
+    //           "Wall Mount Wall Mounted Kitchen Faucet" → "Wall Mount Kitchen Faucet"
+    //           "Wall Mounted Wall Mounted Bathroom Faucet" → "Wall Mounted Bathroom Faucet"
+    //           "Floor Mounted Floor Mounted Tub Filler" → "Floor Mounted Tub Filler"
+    // Non-redundant combos kept: "Pull-Down 1 Hole", "Bridge 3 Hole", "Two Handle 3 Hole"
+    if (formattedValue && slot.attribute === 'Style') {
+      const typeVal = (input.type || '').toLowerCase().trim();
+      const styleVal = formattedValue.toLowerCase().trim();
+      const redundantPairs: Record<string, string[]> = {
+        '1 hole': ['single hole'],
+        'wall mounted': ['wall mount', 'wall mounted'],
+        'floor mounted': ['floor mounted'],
+      };
+      const styleKey = styleVal;
+      if (redundantPairs[styleKey]?.some(t => typeVal === t)) {
+        logger.info('Skipping redundant Style slot - meaning already conveyed by Type', {
+          type: input.type,
+          style: formattedValue,
+          category: schema.categoryName,
+          reason: 'Type and Style convey same mounting information'
+        });
+        continue;
+      }
+    }
+
     // FINDING #017 FIX: Skip redundant Type if it's a substring of Category
     // Example: Type="Storage Drawer" + Category="Storage Drawer/Door" → Skip Type
     // FINDING #046: Applies to Laundry Pedestal types (Storage, Functional, Riser, Accessory)
