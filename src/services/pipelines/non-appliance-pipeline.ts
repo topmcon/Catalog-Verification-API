@@ -89,6 +89,71 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
   // SHOWER TITLE POST-PROCESSING
   // ═══════════════════════════════════════════════════════════════════════════
 
+  // 0a. WRONG DEPARTMENT PRE-FILTER — flag obviously non-shower products
+  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Showerheads & Accessories' ||
+      finalSeoTitleInput.category === 'Shower Accessory') {
+    const fNameCheck = fergusonProductName.toLowerCase();
+    if (/\bled\b/i.test(fNameCheck) && /\b(?:ceiling|fixture|flush\s*mount|drum|light)\b/i.test(fNameCheck) ||
+        /\battic\s*fan\b/i.test(fNameCheck) ||
+        /\bflush\s*mount\s*drum\b/i.test(fNameCheck) ||
+        /\bceiling\s*fixture\b/i.test(fNameCheck) ||
+        /\bpowered\s*attic\s*fan\b/i.test(fNameCheck)) {
+      logger.warn('🚫 NON-SHOWER PRODUCT DETECTED — flagging for manual review', {
+        sessionId, fergusonName: fergusonProductName.substring(0, 80),
+        originalCategory: finalSeoTitleInput.category,
+        reason: 'Ferguson title indicates non-shower product (LED fixture, attic fan, etc.)'
+      });
+      // Keep category but flag — let Claude Final Review handle reclassification
+      sanitizedPrimaryAttributes.AI_Product_Filter_Class = 'Manual Review Required';
+    }
+  }
+
+  // 0b. STEAM SHOWER ROUTING — detect steam products before general shower logic
+  if (finalSeoTitleInput.category === 'Shower' || finalSeoTitleInput.category === 'Showerheads & Accessories') {
+    const fNameSteam = fergusonProductName.toLowerCase();
+    if (/\bsteam\s*head\b/i.test(fNameSteam) || /\bsteamvection\b/i.test(fNameSteam)) {
+      finalSeoTitleInput.category = 'Steam Shower';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Steam Shower';
+      finalSeoTitleInput.type = 'Steam Head';
+      sanitizedPrimaryAttributes.AI_Type = 'Steam Head';
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: → "Steam Shower" / "Steam Head"', {
+        sessionId, fergusonName: fergusonProductName.substring(0, 80),
+        reason: 'Ferguson title describes a steam shower head'
+      });
+    } else if (/\bthermasol\b/i.test(((rawProduct as any).Brand_Name as string || fergusonProductName).toLowerCase()) &&
+               (/\brough\s*in\b/i.test(fNameSteam) || /\bmounting\s*kit\b/i.test(fNameSteam))) {
+      finalSeoTitleInput.category = 'Steam Shower';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Steam Shower';
+      finalSeoTitleInput.type = 'Accessory';
+      sanitizedPrimaryAttributes.AI_Type = 'Accessory';
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: → "Steam Shower" / "Accessory"', {
+        sessionId, fergusonName: fergusonProductName.substring(0, 80),
+        reason: 'ThermaSOL rough-in / mounting kit belongs in Steam Shower'
+      });
+    }
+  }
+
+  // 0c. SHOWER BASE/PAN REVERSE RECLASSIFICATION — Shower Accessory → Shower
+  if (finalSeoTitleInput.category === 'Shower Accessory') {
+    const fNameBase = fergusonProductName.toLowerCase();
+    if (/\bshower\s*base\b/i.test(fNameBase) || /\bshower\s*pan\b/i.test(fNameBase) ||
+        /\brectangular\s*shower\s*base\b/i.test(fNameBase) || /\bshower\s*receptor\b/i.test(fNameBase)) {
+      finalSeoTitleInput.category = 'Shower';
+      sanitizedPrimaryAttributes.AI_Product_Category = 'Shower';
+      let baseType = 'Alcove';
+      if (/\bcorner\b/i.test(fNameBase)) baseType = 'Corner';
+      else if (/\bneo[\s-]?angle\b/i.test(fNameBase)) baseType = 'Neo-Angle';
+      else if (/\bwalk[\s-]?in\b/i.test(fNameBase) || /\bcurbless\b/i.test(fNameBase) || /\bbarrier[\s-]?free\b/i.test(fNameBase)) baseType = 'Walk-In';
+      finalSeoTitleInput.type = baseType;
+      sanitizedPrimaryAttributes.AI_Type = baseType;
+      logger.warn('🚿 CATEGORY RECLASSIFICATION: "Shower Accessory" → "Shower"', {
+        sessionId, type: baseType,
+        reason: 'Shower base/pan belongs in Shower category, not Shower Accessory',
+        fergusonName: fergusonProductName.substring(0, 80)
+      });
+    }
+  }
+
   // 1. SHOWERHEADS & ACCESSORIES — separate Function value from Type value.
   const SHOWER_FUNCTION_VALUES = ['Thermostatic', 'Pressure Balance', 'Pressure-Balance',
     'Pressure Balanced', 'Diverter', 'Volume Control', 'Transfer'];
@@ -184,7 +249,8 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
         accessoryType = 'Floor Drain';
       } else if (/\briser\b/i.test(fNameLower) && /\bshower\b/i.test(fNameLower)) {
         accessoryType = 'Riser';
-      } else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
+      } else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower) ||
+                 /\bdoor\s+pull\b/i.test(fNameLower)) {
         accessoryType = 'Escutcheon';
       }
     }

@@ -3701,12 +3701,6 @@
           "primary_filter": true
         },
         {
-          "type_name": "Diverter",
-          "type_id": "a1jaZ000001lF5UQAU",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Elbow",
           "type_id": "a1jaZ000001lF5uQAE",
           "status": "existing",

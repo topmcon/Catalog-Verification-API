@@ -5082,7 +5082,7 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  2. **Shower Arm** → wall-mounted pipe that connects showerhead to plumbing\n`;
       typeSelectionGuide += `  3. **Linear** → linear drain / trench drain / channel drain\n`;
       typeSelectionGuide += `  4. **Slide Bar** → adjustable slide bar / glide bar / hand shower bar\n`;
-      typeSelectionGuide += `  5. **Transfer** → transfer valve, diverter valve body\n`;
+      typeSelectionGuide += `  5. **Transfer** → transfer valve, transfer handle\n`;
       typeSelectionGuide += `  6. **Valve Extension** → valve stem extension, deep wall extension kit\n`;
       typeSelectionGuide += `  7. **Grab Bar** → safety grab bar / ADA bar\n`;
       typeSelectionGuide += `  8. **Niche** → recessed shower niche / shelf insert\n`;
@@ -13447,7 +13447,7 @@ Type = SPECIFIC COMPONENT TYPE:
   2. Shower Arm → wall-mounted pipe connecting showerhead to plumbing
   3. Linear → linear drain / trench drain / channel drain
   4. Slide Bar → adjustable slide bar / glide bar
-  5. Transfer → transfer valve, diverter valve body
+  5. Transfer → transfer valve, transfer handle
   6. Valve Extension → valve stem extension, deep wall extension kit
   7. Grab Bar → safety grab bar / ADA bar
   8. Niche → recessed shower niche / shelf insert
