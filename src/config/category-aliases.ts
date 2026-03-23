@@ -61,7 +61,7 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
   'Bathtub': ['Bathtubs', 'Tub', 'Tubs', 'Soaking Tub', 'Bath Tubs', 'Soaking Tubs'],
   'Shower': ['Showers', 'Shower Systems', 'Shower Units', 'Shower Accessory', 'Showerheads', 'Shower Fixtures', 'Shower Heads'],
   'Showerheads & Accessories': ['Shower Faucet', 'Shower Faucets', 'Showerheads & Hand Showers', 'Shower Components'],
-  'Tub Faucet': ['Tub Faucets', 'Bathtub Faucet', 'Bathtub Faucets', 'Bath Tub Faucet', 'Roman Tub Faucet'],
+  'Tub Filler': ['Tub Faucet', 'Tub Faucets', 'Bathtub Faucet', 'Bathtub Faucets', 'Bath Tub Faucet', 'Roman Tub Faucet', 'Tub Fillers'],
   'Toilet': ['Toilets', 'Commode', 'Commodes', 'Water Closet', 'Water Closets'],
   'Medicine Cabinet': ['Bathroom Medicine Cabinets'],
 

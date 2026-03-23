@@ -1063,11 +1063,11 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         if (!formattedValue) continue; // skip if nothing left
       }
 
-      // Cross-slot word-level deduplication for Tub Faucet:
-      // Prevents "Roman Tub Tub Faucet" → "Roman Tub Faucet"
-      // Prevents "Floor Mounted Tub Filler Tub Faucet" → "Floor Mounted Tub Filler"
+      // Cross-slot word-level deduplication for Tub Filler:
+      // Prevents "Roman Tub Tub Filler" → "Roman Tub Filler"
+      // Prevents "Floor Mounted Tub Filler Tub Filler" → "Floor Mounted Tub Filler"
       // Logic: When Category slot contains words already in preceding parts, remove them.
-      if (schema.categoryName === 'Tub Faucet' && formattedValue) {
+      if (schema.categoryName === 'Tub Filler' && formattedValue) {
         const existingWords = parts.join(' ').toLowerCase().split(/\s+/);
         const categoryWords = formattedValue.split(/\s+/);
         const dedupedWords = categoryWords.filter(
@@ -1076,7 +1076,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         if (dedupedWords.length < categoryWords.length) {
           const original = formattedValue;
           formattedValue = dedupedWords.join(' ').trim();
-          logger.info('Removed redundant words from Tub Faucet Category slot', {
+          logger.info('Removed redundant words from Tub Filler Category slot', {
             original,
             deduped: formattedValue || '(all words removed)',
             existingParts: parts.join(' ')

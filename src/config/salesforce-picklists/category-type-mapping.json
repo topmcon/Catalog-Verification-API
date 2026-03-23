@@ -3189,9 +3189,9 @@
     {
       "department_name": "Plumbing & Bath",
       "family_name": "Faucets",
-      "category_name": "Tub Faucet",
+      "category_name": "Tub Filler",
       "category_id": "a01aZ00000dC5DzQAK",
-      "filter_label": "Tub Faucet Type",
+      "filter_label": "Tub Filler Type",
       "logic": "Mount location and configuration",
       "types": [
         {

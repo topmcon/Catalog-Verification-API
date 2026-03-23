@@ -403,13 +403,13 @@ export const MASTER_CATEGORY_SCHEMA_MAP: Record<string, CategoryAttributeConfig>
   'Air Tub': BATHTUB_SCHEMA,
   'Walk-In Tub': BATHTUB_SCHEMA,
   
-  // Tub Faucets
+  // Tub Fillers
+  'Tub Filler': TUB_FAUCET_SCHEMA,
   'Tub Faucet': TUB_FAUCET_SCHEMA,
   'Tub Faucets #': TUB_FAUCET_SCHEMA,
   'TUB FAUCETS': TUB_FAUCET_SCHEMA,
   'Roman Tub Faucet': TUB_FAUCET_SCHEMA,
   'Freestanding Tub Faucet': TUB_FAUCET_SCHEMA,
-  'Tub Filler': TUB_FAUCET_SCHEMA,
   
   // Showers
   'Shower': SHOWER_SCHEMA,

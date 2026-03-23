@@ -55,7 +55,7 @@ export const NON_APPLIANCE_CATEGORY_TITLE_KEYWORDS: Record<string, string[]> = {
   'Bathroom Faucet': ['bathroom faucet', 'lavatory faucet', 'widespread faucet', 'centerset faucet', 'lav faucet', 'widespread bathroom', 'centerset bathroom', 'single hole bathroom faucet', 'vessel bathroom faucet'],
   'Bar Faucet': ['bar faucet', 'prep faucet', 'bar sink faucet', 'bar prep faucet'],
   'Pot Filler Faucet': ['pot filler', 'pot filler faucet'],
-  'Tub Faucet': ['tub faucet', 'roman tub', 'tub filler', 'bathtub faucet', 'deck mount tub', 'deck mounted roman', 'floor mount tub', 'freestanding tub faucet', 'bath faucet'],
+  'Tub Filler': ['tub filler', 'tub faucet', 'roman tub', 'bathtub faucet', 'deck mount tub', 'deck mounted roman', 'floor mount tub', 'freestanding tub faucet', 'bath faucet'],
   'Showerheads & Accessories': ['shower faucet', 'shower trim', 'shower valve', 'shower system', 'shower head', 'showerhead', 'rain shower', 'hand shower', 'shower combo', 'shower accessory', 'thermostatic valve', 'thermostatic trim', 'pressure balance valve', 'pressure balance trim'],
   'Shower Accessory': ['shower door', 'shower curtain rod', 'shower shelf', 'shower bench', 'shower seat', 'shower caddy'],
   'Toilet': ['toilet', 'elongated toilet', 'round toilet', 'one piece toilet', 'two piece toilet', 'commode', 'water closet'],
