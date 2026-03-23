@@ -951,7 +951,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     if (slot.attribute === 'Type' && formattedValue) {
       const typeDisplayMap: Record<string, string> = {
         'Linear': 'Linear Drain',          // "Linear" is SF type; "Linear Drain" is SEO-friendly for titles
-        'Single Function': 'Showerhead',   // "Single Function" is SF type; "Showerhead" is consumer-friendly
+        'Rain Head': 'Rain',                // "Rain Head" + Category "Shower Head" → "Rain Shower Head" (natural reading)
       };
       if (typeDisplayMap[formattedValue]) {
         formattedValue = typeDisplayMap[formattedValue];
@@ -1062,11 +1062,10 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
 
       // Skip redundant Category when Type already contains the category keyword "Shower"
-      // Examples: Type="Shower Arm" + Category="Shower" → just "Shower Arm"
-      //           Type="Showerhead" + Category="Showerheads & Accessories" → just "Showerhead"
-      //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
+      // Examples: Type="Shower Arm" + Category="Shower Accessory" → just "Shower Arm"
+      //           Type="Hand Shower" + Category="Shower Head" → just "Hand Shower"
       //           Type="Steam Generator" + Category="Steam Shower" → just "Steam Generator"  
-      // Non-matches kept: Type="Thermostatic" + Category="Shower" → "Thermostatic Shower"
+      // Non-matches kept: Type="Thermostatic" + Category="Shower Head" → "Thermostatic Shower Head"
       if (typeVal.includes('shower') && formattedValue.toLowerCase().includes('shower')) {
         logger.info('Skipping redundant Category slot - Type already contains Shower keyword', {
           type: input.type,
@@ -1075,6 +1074,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
         });
         continue;
       }
+
       // Cross-slot Steam deduplication: when Type has "Steam" (e.g., "Steam Generator"),
       // drop "Steam" from Category to avoid "Steam Generator Steam Shower".
       // Result: "MR. STEAM Steam Generator Shower Chrome" instead of 3x "Steam".

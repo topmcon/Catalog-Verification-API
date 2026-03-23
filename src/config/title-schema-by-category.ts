@@ -6191,7 +6191,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
   "shower_accessory": {
     "categoryId": "a01aZ00000dC5DsQAK",
     "categoryName": "Shower Accessory",
-    "titleDisplayName": "Shower",
+    "titleDisplayName": "Shower Accessory",
     "department": "Plumbing & Bath",
     "family": "Bath",
     "slots": [
@@ -6233,13 +6233,13 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       }
     ],
     "template": "{Brand} {Width (Inches)} {Type} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "GRAFF 18-Inch Ceiling Shower Arm Shower Accessory Brushed Brass - G-8546-BB",
-    "seoNotes": "Type = Shower Arm, Ceiling Shower Arm, Wall Shower Arm, Slide Bar, Hand Shower Holder, Linear Drain, Shower Door Handle, Transfer Handle, Valve Extension Kit. Width from Ferguson name. GPM for hand shower kits."
+    "exampleTitle": "GRAFF 18-Inch Ceiling Mount Shower Accessory Brushed Brass - G-8546-BB",
+    "seoNotes": "Type = Shower Arm, Ceiling Shower Arm, Wall Shower Arm, Slide Bar, Hand Shower Holder, Linear Drain, Shower Door Handle, Transfer Handle, Valve Extension Kit. Width from Ferguson name. GPM for hand shower kits. titleDisplayName=Shower Accessory used in titles."
   },
   "showerheads_accessories": {
     "categoryId": "a01aZ00000dC5DtQAK",
     "categoryName": "Showerheads & Accessories",
-    "titleDisplayName": "Shower",
+    "titleDisplayName": "Shower Head",
     "department": "Plumbing & Bath",
     "family": "Bath",
     "slots": [
@@ -6255,34 +6255,29 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Function",
-        "required": false
-      },
-      {
-        "position": 4,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 5,
+        "position": 4,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "GPM",
         "required": false,
         "format": "{value} GPM"
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Function} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Showerheads & Accessories Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Valve, Trim Kit, Complete System. Function = Thermostatic, Pressure-Balance, Diverter. titleDisplayName=Shower used in titles."
+    "template": "{Brand} {Type} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "GRAFF Single Function Shower Head Polished Chrome 1.8 GPM - G-XXXX-PC",
+    "seoNotes": "Type = System, Single Function, Handheld, Trim Only, Body Spray, Rain Head, etc. titleDisplayName=Shower Head used in titles. Function slot removed (never populated by AI)."
   },
   "steam_shower": {
     "categoryId": "a01aZ00000dC5DvQAK",
