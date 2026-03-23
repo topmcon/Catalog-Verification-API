@@ -152,25 +152,40 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     if (!isMultiComponentProduct) {
       if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
           /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
-        accessoryType = 'Ceiling Shower Arm';
+        accessoryType = 'Ceiling Mount';
       } else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
-        accessoryType = 'Wall Shower Arm';
+        accessoryType = 'Shower Arm';
       } else if (/\bshower\s*arm\b/i.test(fNameLower)) {
         accessoryType = 'Shower Arm';
       } else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
                  /\btrench\s*drain\b/i.test(fNameLower)) {
-        accessoryType = 'Trench Drain';
-      } else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
-        accessoryType = 'Shower Door';
+        accessoryType = 'Linear';
       } else if (/\bslide\s*bar\b/i.test(fNameLower) && !/\bhand\s*shower\b/i.test(fNameLower)) {
-        accessoryType = 'Shower Rod';
+        accessoryType = 'Slide Bar';
       } else if (/\btransfer\s+(?:valve\s+)?handle\b/i.test(fNameLower) || /\bshower\s+transfer\s+handle\b/i.test(fNameLower)) {
-        accessoryType = 'Handle';
-      } else if (/\bhand\s*shower\s+(?:holder|outlet|bracket)\b/i.test(fNameLower) ||
-                 (/\bhandshower\s+outlet\b/i.test(fNameLower) && /\bvolume\s+control\b/i.test(fNameLower))) {
-        accessoryType = 'Hand Shower Holder';
+        accessoryType = 'Transfer';
       } else if (/\bvalve\s+extension\s+kit\b/i.test(fNameLower) || /\bextension\s+kit\b.*\bvalve\b/i.test(fNameLower)) {
-        accessoryType = 'Valve Extension Kit';
+        accessoryType = 'Valve Extension';
+      } else if (/\bescutcheon\b/i.test(fNameLower) && /\bshower\b/i.test(fNameLower)) {
+        accessoryType = 'Escutcheon';
+      } else if (/\bshower\s+hose\b/i.test(fNameLower) || (/\bhose\b/i.test(fNameLower) && /\bhand\s*shower\b/i.test(fNameLower))) {
+        accessoryType = 'Hose';
+      } else if (/\bsupply\s+elbow\b/i.test(fNameLower) || /\bwall\s+elbow\b/i.test(fNameLower)) {
+        accessoryType = 'Elbow';
+      } else if (/\bshower\s+shelf\b/i.test(fNameLower) || (/\bshelf\b/i.test(fNameLower) && /\bshower\b/i.test(fNameLower))) {
+        accessoryType = 'Shelf';
+      } else if (/\bgrab\s+bar\b/i.test(fNameLower)) {
+        accessoryType = 'Grab Bar';
+      } else if (/\bshower\s+niche\b/i.test(fNameLower) || /\bniche\b/i.test(fNameLower)) {
+        accessoryType = 'Niche';
+      } else if (/\bshower\s+seat\b/i.test(fNameLower) || /\bshower\s+bench\b/i.test(fNameLower)) {
+        accessoryType = 'Seat';
+      } else if (/\bfloor\s+drain\b/i.test(fNameLower)) {
+        accessoryType = 'Floor Drain';
+      } else if (/\briser\b/i.test(fNameLower) && /\bshower\b/i.test(fNameLower)) {
+        accessoryType = 'Riser';
+      } else if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+handle\b/i.test(fNameLower)) {
+        accessoryType = 'Escutcheon';
       }
     }
 
@@ -201,6 +216,35 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       finalSeoTitleInput.type = 'Handheld';
       sanitizedPrimaryAttributes.AI_Type = 'Handheld';
       logger.info('🚿 Showerheads & Accessories: refined Showerhead → Handheld from Ferguson data', { sessionId });
+    } else if (currentType === 'showerhead') {
+      finalSeoTitleInput.type = 'Single Function';
+      sanitizedPrimaryAttributes.AI_Type = 'Single Function';
+      logger.info('🚿 Showerheads & Accessories: Showerhead → Single Function', { sessionId });
+    } else if (currentType === 'shower system') {
+      finalSeoTitleInput.type = 'System';
+      sanitizedPrimaryAttributes.AI_Type = 'System';
+      logger.info('🚿 Showerheads & Accessories: Shower System → System', { sessionId });
+    } else if (currentType === 'trim') {
+      finalSeoTitleInput.type = 'Trim Only';
+      sanitizedPrimaryAttributes.AI_Type = 'Trim Only';
+      logger.info('🚿 Showerheads & Accessories: Trim → Trim Only', { sessionId });
+    } else if (currentType === 'accessory') {
+      // Accessory is retired — try to derive specific type
+      let derivedFromAccessory = '';
+      if (/\brain[\s-]*head\b/i.test(fNameLower) || /\brain\s+shower\b/i.test(fNameLower)) {
+        derivedFromAccessory = 'Rain Head';
+      } else if (/\bhand\s*shower\b/i.test(fNameLower) || /\bhandshower\b/i.test(fNameLower)) {
+        derivedFromAccessory = 'Handheld';
+      } else if (/\bbody\s*spray\b/i.test(fNameLower)) {
+        derivedFromAccessory = 'Body Spray';
+      } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
+        derivedFromAccessory = 'Single Function';
+      } else {
+        derivedFromAccessory = 'Single Function';
+      }
+      finalSeoTitleInput.type = derivedFromAccessory;
+      sanitizedPrimaryAttributes.AI_Type = derivedFromAccessory;
+      logger.info('🚿 Showerheads & Accessories: Accessory → specific type', { sessionId, derivedType: derivedFromAccessory });
     } else if (currentType === 'thermostatic' && /\bvalve\s+trim\b/i.test(fNameLower)) {
       finalSeoTitleInput.type = 'Thermostatic Valve Trim';
       sanitizedPrimaryAttributes.AI_Type = 'Thermostatic Valve Trim';
@@ -214,9 +258,9 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       } else if (/\bbody\s*spray\b/i.test(fNameLower)) {
         derivedShowerType = 'Body Spray';
       } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
-        derivedShowerType = 'Showerhead';
+        derivedShowerType = 'Single Function';
       } else {
-        derivedShowerType = 'Showerhead';
+        derivedShowerType = 'Single Function';
       }
       finalSeoTitleInput.type = derivedShowerType;
       sanitizedPrimaryAttributes.AI_Type = derivedShowerType;
@@ -304,34 +348,53 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     else {
       const typeLower = (finalSeoTitleInput.type || '').toLowerCase();
       const needsTypeDerivation = typeLower === 'walk-in' || typeLower === 'accessory' ||
-        typeLower === '' || typeLower === 'frameless' || typeLower === 'framed';
+        typeLower === '' || typeLower === 'frameless' || typeLower === 'framed' ||
+        typeLower === 'shower door' || typeLower === 'shower panel' ||
+        typeLower === 'shower system' || typeLower === 'showerhead' || typeLower === 'trim';
 
       if (needsTypeDerivation) {
         const fNameLower = fergusonProductName.toLowerCase();
         let derivedType = '';
 
-        if (/\bshower\s+door\s+handle\b/i.test(fNameLower) || /\bdoor\s+(?:handle|knob)\b/i.test(fNameLower)) {
-          finalSeoTitleInput.category = 'Shower Accessory';
-          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Door';
-        } else if (/\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
-          if (typeLower === 'frameless' || /\bframeless\b/i.test(fNameLower)) derivedType = 'Frameless';
-          else if (typeLower === 'framed' || /\bframed\b/i.test(fNameLower)) derivedType = 'Framed';
-          else if (/\bneo[\s-]?angle\b/i.test(fNameLower)) derivedType = 'Neo-Angle';
-          else derivedType = 'Shower Door';
-        } else if (/\bshower\s+base\b/i.test(fNameLower) || /\bshower\s+pan\b/i.test(fNameLower) ||
+        // SHOWER DOOR ROUTING: Shower Door is not a valid type — route to Framed/Frameless
+        if (typeLower === 'shower door' || /\bshower\s+door\b/i.test(fNameLower) || /\bshower\s+enclosure\b/i.test(fNameLower)) {
+          if (/\bframeless\b/i.test(fNameLower) || /\bframeless\b/i.test(showerSourceLower)) {
+            derivedType = 'Frameless';
+          } else if (/\bframed\b/i.test(fNameLower) || /\bframed\b/i.test(showerSourceLower)) {
+            derivedType = 'Framed';
+          } else {
+            // Default to Frameless when framing cannot be determined
+            derivedType = 'Frameless';
+          }
+          if (/\bneo[\s-]?angle\b/i.test(fNameLower)) derivedType = 'Neo-Angle';
+          logger.info('🚿 Shower Door routing: Shower Door → ' + derivedType, { sessionId });
+        }
+        // SHOWER PANEL → reclassify to Shower Accessory as Shelf (panel-like accessory)
+        else if (typeLower === 'shower panel' || /\bshower\s+panel\b/i.test(fNameLower) || /\bjet\s+(?:shower|retrofit)\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
+          derivedType = 'System';
+        }
+        else if (/\bshower\s+base\b/i.test(fNameLower) || /\bshower\s+pan\b/i.test(fNameLower) ||
                    /\bshower\s+receptor\b/i.test(fNameLower)) {
           derivedType = 'Alcove';
         } else if (/\bshower\s+system\b/i.test(fNameLower) || /\bexposed\s+(?:thermostatic\s+)?shower\b/i.test(fNameLower)) {
-          derivedType = 'Shower System';
-        } else if (/\bshower\s+panel\b/i.test(fNameLower) || /\bjet\s+(?:shower|retrofit)\b/i.test(fNameLower)) {
-          derivedType = 'Shower Panel';
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
+          derivedType = 'System';
         } else if (/\bshower\s+column\b/i.test(fNameLower)) {
-          derivedType = 'Shower Column';
-        } else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Showerheads & Accessories';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
+          derivedType = 'System';
+        } else if (/\blinear\s*drain\b/i.test(fNameLower) || /\bshower\s*drain\b/i.test(fNameLower) ||
+                   /\btrench\s*drain\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Trench Drain';
+          derivedType = 'Linear';
+        } else if (/\bfloor\s*drain\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Floor Drain';
         } else if (/\brain[\s-]*(fall\s+)?shower\s*head\b/i.test(fNameLower) || /\brain[\s-]*head\b/i.test(fNameLower) ||
                    (/\brainfall\b/i.test(fNameLower) && /\bhead\b/i.test(fNameLower)) ||
                    /\brain\s+shower\b/i.test(fNameLower)) {
@@ -346,33 +409,49 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
           finalSeoTitleInput.category = 'Showerheads & Accessories';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
           derivedType = 'Handheld';
-        } else if (/\bslide\s*bar\b/i.test(fNameLower)) {
+        } else if (/\bslide\s*bar\b/i.test(fNameLower) && !/\bhand\s*shower\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Rod';
+          derivedType = 'Slide Bar';
         } else if (/\bceiling[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower) ||
                    /\bceiling\s+shower\s+arm\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Ceiling Shower Arm';
+          derivedType = 'Ceiling Mount';
         } else if (/\bwall[\s-]*(?:mounted\s+)?(?:shower\s+)?arm\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Wall Shower Arm';
+          derivedType = 'Shower Arm';
         } else if (/\bshower\s*arm\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
           derivedType = 'Shower Arm';
+        } else if (/\bescutcheon\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Escutcheon';
+        } else if (/\bgrab\s+bar\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Grab Bar';
+        } else if (/\bshower\s+niche\b/i.test(fNameLower) || /\bniche\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Niche';
+        } else if (/\bshower\s+seat\b/i.test(fNameLower) || /\bshower\s+bench\b/i.test(fNameLower)) {
+          finalSeoTitleInput.category = 'Shower Accessory';
+          sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
+          derivedType = 'Seat';
         } else if (/\bshower\s*head\b/i.test(fNameLower) || /\bshowerhead\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Showerheads & Accessories';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-          derivedType = 'Showerhead';
+          derivedType = 'Single Function';
         } else if (/\bslide\s*bar\b/i.test(showerSourceLower) && /\bkit\b/i.test(showerSourceLower) &&
                    !/\bhand\s*shower\b/i.test(fNameLower) && !/\bhandshower\b/i.test(fNameLower) &&
                    !/\bshower\s+system\b/i.test(fNameLower)) {
           finalSeoTitleInput.category = 'Shower Accessory';
           sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-          derivedType = 'Shower Rod';
+          derivedType = 'Slide Bar';
         } else {
           // Fallback: broader source text analysis
           const isMultiComp2d = /\bshower\s+system\b/i.test(fNameLower) ||
@@ -383,8 +462,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
           if (!isMultiComp2d && (/\bshower\s*arm\b/i.test(showerSourceLower) || /\bceiling\s*(mounted\s+)?arm\b/i.test(showerSourceLower))) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            if (/\bceiling/i.test(showerSourceLower)) derivedType = 'Ceiling Shower Arm';
-            else if (/\bwall/i.test(showerSourceLower)) derivedType = 'Wall Shower Arm';
+            if (/\bceiling/i.test(showerSourceLower)) derivedType = 'Ceiling Mount';
             else derivedType = 'Shower Arm';
           } else if (/\bhand\s*shower\b/i.test(showerSourceLower) || /\bhandshower\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Showerheads & Accessories';
@@ -393,7 +471,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
           } else if (/\bshower\s*head\b/i.test(showerSourceLower) || /\bshowerhead\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Showerheads & Accessories';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
-            derivedType = 'Showerhead';
+            derivedType = 'Single Function';
           } else if (/\brain\b/i.test(showerSourceLower) && /\bhead\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Showerheads & Accessories';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
@@ -401,13 +479,15 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
           } else if (/\blinear\s*drain\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            derivedType = 'Trench Drain';
+            derivedType = 'Linear';
           } else if (!isMultiComp2d && /\bslide\s*bar\b/i.test(showerSourceLower)) {
             finalSeoTitleInput.category = 'Shower Accessory';
             sanitizedPrimaryAttributes.AI_Product_Category = 'Shower Accessory';
-            derivedType = 'Shower Rod';
+            derivedType = 'Slide Bar';
           } else if (/\bshower\s+system\b/i.test(showerSourceLower)) {
-            derivedType = 'Shower System';
+            finalSeoTitleInput.category = 'Showerheads & Accessories';
+            sanitizedPrimaryAttributes.AI_Product_Category = 'Showerheads & Accessories';
+            derivedType = 'System';
           }
         }
 
@@ -418,9 +498,10 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
             sessionId, derivedType, fergusonName: fergusonProductName.substring(0, 80)
           });
         } else {
-          finalSeoTitleInput.type = 'Accessory';
-          sanitizedPrimaryAttributes.AI_Type = 'Accessory';
-          logger.info('🚿 Shower: no component type derived, set to Accessory for fallback', { sessionId });
+          // No Accessory fallback — attempt to keep in Shower with Alcove default
+          finalSeoTitleInput.type = 'Alcove';
+          sanitizedPrimaryAttributes.AI_Type = 'Alcove';
+          logger.info('🚿 Shower: no component type derived, defaulting to Alcove', { sessionId });
         }
       }
 
@@ -472,7 +553,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       }
 
       // 2f. SHOWER GPM EXTRACTION
-      const gpmTypes = ['showerhead', 'shower head', 'rain head', 'handheld', 'hand shower', 'body spray', 'shower system', 'shower panel'];
+      const gpmTypes = ['single function', 'rain head', 'handheld', 'hand shower', 'body spray', 'system', 'exposed', 'waterfall'];
       if (gpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
           (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
         const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);
@@ -519,7 +600,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       finalSeoTitleInput.width = String(accessoryDim);
       sanitizedPrimaryAttributes.AI_Width = String(accessoryDim);
     }
-    const accessoryGpmTypes = ['handheld', 'shower rod', 'accessory'];
+    const accessoryGpmTypes = ['handheld', 'slide bar'];
     if (accessoryGpmTypes.includes((finalSeoTitleInput.type || '').toLowerCase()) &&
         (!finalSeoTitleInput.gpm || finalSeoTitleInput.gpm === '' || finalSeoTitleInput.gpm === '0')) {
       const gpmMatch = showerSourceTexts.match(/(\d+(?:\.\d+)?)\s*GPM/i);

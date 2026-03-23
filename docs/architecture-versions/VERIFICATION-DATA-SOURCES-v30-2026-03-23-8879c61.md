@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v9
-  Snapshot Date: 2026-03-15 02:54:44 EDT
-  Commit:        161850a (161850af090e65298dd1f53d2962b7bc4ddaa73b)
+  Version:       v30
+  Snapshot Date: 2026-03-23 09:28:42 EDT
+  Commit:        8879c61 (8879c6163f178c812c4f4cf6dae9cdd168842b4f)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12484 lines
-  title-schema-by-category.ts:     7204 lines
+  dual-ai-verification.service.ts: 14284 lines
+  title-schema-by-category.ts:     7276 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
+  Categories: 160
+  Styles:     36
   Attributes: 1534
-  Claude Model: claude-sonnet-4-20250514
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v8)
+  Lines added: ~0, Lines removed: ~38 (vs v29)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-161850a Add Ferguson_Raw_Data.product.specifications + feature_groups as fallback sources for Top 15 attribute fill
-17e3f5a Add Sink Shape to title schema pipeline + fix basinCount in finalSeoTitleInput
-a78be0e Fix sink title: block Claude from overriding Ferguson name dimension with specs.width
-2ff34a1 Sink width: fall back to Ferguson_Title for dimension extraction when no Ferguson_Raw_Data
-5340dec Align all three sink schemas: add Sink Shape slot, uniform order Brand/Width/SinkShape/Type/BowlConfig/Category/Finish/Model
+8879c61 Fix Bathtub length: add 5 fallback sources, prevent soaking depth rounding
+3571579 Bathtub type update: reduce 11→8 types, add SF type IDs, expand type-matcher keywords
+75ccc09 Fix redundant config-style titles: suppress Style slot when Type already conveys same meaning (Single Hole/1 Hole, Wall Mount/Wall Mounted, Floor Mounted/Floor Mounted)
+bee2a94 Kitchen Faucet overhaul: 8 types, 5 config styles, new schema
+e1009ea Add session summary + version architecture docs (v27-v29)
 -->
 
 # Verification Data Sources - Complete Inventory

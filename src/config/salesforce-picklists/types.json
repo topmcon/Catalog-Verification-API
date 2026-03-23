@@ -842,6 +842,10 @@
     "type_id": "a1jaZ000001lF62QAE"
   },
   {
+    "type_name": "Escutcheon",
+    "type_id": "a1jaZ0000024ACXQA2"
+  },
+  {
     "type_name": "Espresso",
     "type_id": "a1jaZ000001lF63QAE"
   },
@@ -1162,6 +1166,10 @@
   {
     "type_name": "Hook",
     "type_id": "a1jaZ000001lF7FQAU"
+  },
+  {
+    "type_name": "Hose",
+    "type_id": "a1jaZ0000024AFlQAM"
   },
   {
     "type_name": "Hot and Cold",
@@ -2056,6 +2064,10 @@
     "type_id": "a1jaZ000001lFAYQA2"
   },
   {
+    "type_name": "Shower Arm",
+    "type_id": "a1jaZ0000024A9JQAU"
+  },
+  {
     "type_name": "Shower Door",
     "type_id": "a1jaZ000001lFAZQA2"
   },
@@ -2070,10 +2082,6 @@
   {
     "type_name": "Shower Rod",
     "type_id": "a1jaZ000001lFAcQAM"
-  },
-  {
-    "type_name": "Shower System",
-    "type_id": "a1jaZ000001lFAdQAM"
   },
   {
     "type_name": "Showerhead",
@@ -2114,6 +2122,10 @@
     "type_group": "Door Configuration"
   },
   {
+    "type_name": "Single Function",
+    "type_id": "a1jaZ0000024AIzQAM"
+  },
+  {
     "type_name": "Single Handle",
     "type_id": "a1jaZ000001lFAmQAM"
   },
@@ -2144,6 +2156,10 @@
   {
     "type_name": "Sink Grid",
     "type_id": "a1jaZ000001lFAtQAM"
+  },
+  {
+    "type_name": "Slide Bar",
+    "type_id": "a1jaZ0000024AAvQAM"
   },
   {
     "type_name": "Slide-In",
@@ -2382,6 +2398,10 @@
   {
     "type_name": "Swing Arm",
     "type_id": "a1jaZ000001lFBjQAM"
+  },
+  {
+    "type_name": "System",
+    "type_id": "a1jaZ000001lFAdQAM"
   },
   {
     "type_name": "Table",
@@ -2628,6 +2648,10 @@
   {
     "type_name": "Utility",
     "type_id": "a1jaZ000001lFCeQAM"
+  },
+  {
+    "type_name": "Valve Extension",
+    "type_id": "a1jaZ0000024AHNQA2"
   },
   {
     "type_name": "Vanity",

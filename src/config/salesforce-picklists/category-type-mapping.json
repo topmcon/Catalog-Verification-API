@@ -3170,64 +3170,82 @@
       "logic": "Valve type and shower configuration",
       "types": [
         {
-          "type_name": "Thermostatic",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
           "type_name": "Pressure Balance",
+          "type_id": "a1jaZ000001lF9ZQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Shower System",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Rain Head",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Handheld",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Showerhead",
+          "type_name": "Thermostatic",
+          "type_id": "a1jaZ000001lFBsQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Thermostatic Valve Trim",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Trim",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Body Spray",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Diverter",
+          "type_id": "a1jaZ000001lFBtQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Volume Control",
+          "type_id": "a1jaZ000001lFCpQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Accessory",
+          "type_name": "Diverter",
+          "type_id": "a1jaZ000001lF5UQAU",
           "status": "existing",
-          "primary_filter": false
+          "primary_filter": true
+        },
+        {
+          "type_name": "Trim Only",
+          "type_id": "a1jaZ000001lFCMQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Single Function",
+          "type_id": "a1jaZ0000024AIzQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Rain Head",
+          "type_id": "a1jaZ000001lF9uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Handheld",
+          "type_id": "a1jaZ000001lF73QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Body Spray",
+          "type_id": "a1jaZ000001lF3sQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "System",
+          "type_id": "a1jaZ000001lFAdQAM",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Exposed",
+          "type_id": "a1jaZ000001lF67QAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Waterfall",
+          "type_id": "a1jaZ000001lFD7QAM",
+          "status": "existing",
+          "primary_filter": true
         }
       ]
     },
@@ -3583,54 +3601,51 @@
       "types": [
         {
           "type_name": "Alcove",
+          "type_id": "a1jaZ000001lF3DQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Corner",
+          "type_id": "a1jaZ000001lF50QAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Neo-Angle",
+          "type_id": "a1jaZ000001lF8fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Walk-In",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Framed",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Frameless",
+          "type_id": "a1jaZ000001lFCqQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Barrier-Free",
-          "type_group": "Configuration",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Shower Door",
+          "type_id": "a1jaZ000001lF3UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Shower Panel",
+          "type_name": "Freestanding",
+          "type_id": "a1jaZ000001lF6fQAE",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Accessory",
+          "type_name": "Frameless",
+          "type_id": "a1jaZ000001lF6eQAE",
           "status": "existing",
-          "primary_filter": false
+          "primary_filter": true
+        },
+        {
+          "type_name": "Framed",
+          "type_id": "a1jaZ000001lF6dQAE",
+          "status": "existing",
+          "primary_filter": true
         }
       ],
       "styles_apply": true
@@ -3641,77 +3656,103 @@
       "category_name": "Shower Accessory",
       "category_id": "a01aZ00000dC5DsQAK",
       "filter_label": "Shower Accessory Type",
-      "logic": "Component type for shower accessories (arms, drains, handles, slide bars)",
+      "logic": "Component type for shower hardware, arms, drains, and true accessory components",
       "types": [
         {
-          "type_name": "Showerhead",
+          "type_name": "Shower Arm",
+          "type_id": "a1jaZ0000024A9JQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Rain Head",
+          "type_name": "Ceiling Mount",
+          "type_id": "a1jaZ000001lF4KQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Handheld",
+          "type_name": "Slide Bar",
+          "type_id": "a1jaZ0000024AAvQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Shower Rod",
+          "type_name": "Escutcheon",
+          "type_id": "a1jaZ0000024ACXQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Handle",
+          "type_name": "Hose",
+          "type_id": "a1jaZ0000024AFlQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Shower Door",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Trench Drain",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Floor Drain",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Body Spray",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Diverter",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Volume Control",
+          "type_name": "Valve Extension",
+          "type_id": "a1jaZ0000024AHNQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Transfer",
+          "type_id": "a1jaZ000001lFCHQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Trim",
+          "type_name": "Diverter",
+          "type_id": "a1jaZ000001lF5UQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Accessory",
+          "type_name": "Elbow",
+          "type_id": "a1jaZ000001lF5uQAE",
           "status": "existing",
-          "primary_filter": false
+          "primary_filter": true
+        },
+        {
+          "type_name": "Shelf",
+          "type_id": "a1jaZ000001lFAXQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Grab Bar",
+          "type_id": "a1jaZ000001lF6uQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Linear",
+          "type_id": "a1jaZ000001lF8DQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Floor Drain",
+          "type_id": "a1jaZ000001lF6SQAU",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Niche",
+          "type_id": "a1jaZ000001lF8hQAE",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Seat",
+          "type_id": "a1jaZ000001lFAMQA2",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Riser",
+          "type_id": "a1jaZ00000243cTQAQ",
+          "status": "existing",
+          "primary_filter": true
         }
       ]
     },

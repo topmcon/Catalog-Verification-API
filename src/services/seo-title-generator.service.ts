@@ -660,11 +660,10 @@ function extractAccessorySubtype(input: SEOTitleInput): string | undefined {
     { pattern: /seat\s+cover\s+dispenser/i, displayName: 'Seat Cover Dispenser' },
     
     // Shower / Bath specific
-    { pattern: /ceiling[\s-]*(?:mounted\s+)?shower\s*arm/i, displayName: 'Ceiling Shower Arm' },
-    { pattern: /wall[\s-]*(?:mounted\s+)?shower\s*arm/i, displayName: 'Wall Shower Arm' },
+    { pattern: /ceiling[\s-]*(?:mounted\s+)?shower\s*arm/i, displayName: 'Ceiling Mount' },
+    { pattern: /wall[\s-]*(?:mounted\s+)?shower\s*arm/i, displayName: 'Shower Arm' },
     { pattern: /shower\s*arm/i, displayName: 'Shower Arm' },
-    { pattern: /shower\s*door\s*handle/i, displayName: 'Shower Door Handle' },
-    { pattern: /hand\s*shower\s*holder/i, displayName: 'Hand Shower Holder' },
+    { pattern: /escutcheon/i, displayName: 'Escutcheon' },
     { pattern: /handshower\s*(?:set|kit)/i, displayName: 'Handshower Kit' },
     { pattern: /slide\s*bar\s*(?:hand\s*shower|kit)/i, displayName: 'Slide Bar Kit' },
     { pattern: /slide\s*bar/i, displayName: 'Slide Bar' },
@@ -951,8 +950,8 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     // Replace for titles only (verified data fields keep the SF picklist value).
     if (slot.attribute === 'Type' && formattedValue) {
       const typeDisplayMap: Record<string, string> = {
-        'Trench Drain': 'Linear Drain',   // "Trench Drain" is industry jargon; "Linear Drain" is SEO-friendly  
-        'Shower Rod': 'Slide Bar',         // "Shower Rod" is SF type; "Slide Bar" is what consumers search
+        'Linear': 'Linear Drain',          // "Linear" is SF type; "Linear Drain" is SEO-friendly for titles
+        'Single Function': 'Showerhead',   // "Single Function" is SF type; "Showerhead" is consumer-friendly
       };
       if (typeDisplayMap[formattedValue]) {
         formattedValue = typeDisplayMap[formattedValue];

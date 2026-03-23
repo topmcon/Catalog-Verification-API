@@ -5021,30 +5021,38 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  • "Pressure Balance" = describes HOW the valve maintains pressure (attribute)\n`;
       typeSelectionGuide += `  • These are VALVE TECHNOLOGIES, NOT the product assembly type!\n\n`;
       typeSelectionGuide += `**Decision Priority Order:**\n`;
-      typeSelectionGuide += `  1. **"System" / "Kit" / "Set" / "Package" with MULTIPLE components** → Type: Shower System\n`;
+      typeSelectionGuide += `  1. **"System" / "Kit" / "Set" / "Package" with MULTIPLE components** → Type: System\n`;
       typeSelectionGuide += `     - Includes: shower head + valve + trim, or head + hand shower + bar\n`;
-      typeSelectionGuide += `     - "Trim Package with Shower Head" = Shower System (multiple parts)\n`;
-      typeSelectionGuide += `     - "Valve Trim with Diverter for Hand Shower and 2 Applications" = Shower System (controls multiple outputs)\n`;
-      typeSelectionGuide += `  2. **Just a shower head (single component):**\n`;
+      typeSelectionGuide += `     - "Trim Package with Shower Head" = System (multiple parts)\n`;
+      typeSelectionGuide += `     - "Valve Trim with Diverter for Hand Shower and 2 Applications" = System (controls multiple outputs)\n`;
+      typeSelectionGuide += `  2. **Exposed shower systems** → Type: Exposed\n`;
+      typeSelectionGuide += `     - "Exposed Thermostatic Shower" / exposed pipe systems\n`;
+      typeSelectionGuide += `  3. **Waterfall showerheads** → Type: Waterfall\n`;
+      typeSelectionGuide += `  4. **Just a shower head (single component):**\n`;
       typeSelectionGuide += `     - "Rain Shower Head" / "Rainfall" / "Overhead" → Type: Rain Head\n`;
-      typeSelectionGuide += `     - "Showerhead" / "Shower Head" (standard, not rain) → Type: Showerhead\n`;
-      typeSelectionGuide += `  3. **Just a hand shower (single component):**\n`;
+      typeSelectionGuide += `     - "Showerhead" / "Shower Head" (standard, not rain) → Type: Single Function\n`;
+      typeSelectionGuide += `  5. **Just a hand shower (single component):**\n`;
       typeSelectionGuide += `     - "Hand Shower" / "Handshower" / "Hand Held" → Type: Handheld\n`;
-      typeSelectionGuide += `  4. **Just a body spray:** → Type: Body Spray\n`;
-      typeSelectionGuide += `  5. **Just a valve trim (NO shower head included):**\n`;
-      typeSelectionGuide += `     - "Valve Trim" / "Trim Only" (single valve control only) → Type: Trim\n`;
+      typeSelectionGuide += `  6. **Just a body spray:** → Type: Body Spray\n`;
+      typeSelectionGuide += `  7. **Just a valve trim (NO shower head included):**\n`;
+      typeSelectionGuide += `     - "Valve Trim" / "Trim Only" (single valve control only) → Type: Trim Only\n`;
       typeSelectionGuide += `     - "Thermostatic Valve Trim" (single valve, no multi-output) → Type: Thermostatic Valve Trim\n`;
-      typeSelectionGuide += `  6. **Diverter or volume control only:** → Type: Diverter or Volume Control\n`;
-      typeSelectionGuide += `  7. **Use "Thermostatic" or "Pressure Balance" as Type ONLY when:**\n`;
+      typeSelectionGuide += `  8. **Diverter or volume control only:** → Type: Diverter or Volume Control\n`;
+      typeSelectionGuide += `  9. **Use "Thermostatic" or "Pressure Balance" as Type ONLY when:**\n`;
       typeSelectionGuide += `     - Product is a standalone valve body/cartridge with NO other components\n`;
       typeSelectionGuide += `     - NOT a system, NOT a trim kit, NOT a shower head\n\n`;
+      typeSelectionGuide += `**RETIRED TYPE NAMES (do NOT use these):**\n`;
+      typeSelectionGuide += `  • "Shower System" → use "System" instead\n`;
+      typeSelectionGuide += `  • "Showerhead" → use "Single Function" instead\n`;
+      typeSelectionGuide += `  • "Trim" → use "Trim Only" instead\n`;
+      typeSelectionGuide += `  • "Shower Door" → NOT a valid type (use Framed or Frameless in Shower category)\n\n`;
       typeSelectionGuide += `**Examples:**\n`;
-      typeSelectionGuide += `  • "Exposed Thermostatic Shower System with Head, Hand Shower, Slide Bar" → Type: Shower System\n`;
-      typeSelectionGuide += `  • "Thermostatic Tub/Shower Trim Package with Shower Head and Volume Control" → Type: Shower System\n`;
-      typeSelectionGuide += `  • "Thermostatic Valve Trim with Diverter for 2 Shower Applications" → Type: Shower System\n`;
+      typeSelectionGuide += `  • "Exposed Thermostatic Shower System with Head, Hand Shower, Slide Bar" → Type: System\n`;
+      typeSelectionGuide += `  • "Thermostatic Tub/Shower Trim Package with Shower Head and Volume Control" → Type: System\n`;
+      typeSelectionGuide += `  • "Thermostatic Valve Trim with Diverter for 2 Shower Applications" → Type: System\n`;
       typeSelectionGuide += `  • "8\" Rain Shower Head with Arm" → Type: Rain Head\n`;
       typeSelectionGuide += `  • "Thermostatic Rough-In Valve Body" → Type: Thermostatic\n`;
-      typeSelectionGuide += `  • "Single Function Valve Trim Only" → Type: Trim\n`;
+      typeSelectionGuide += `  • "Single Function Valve Trim Only" → Type: Trim Only\n`;
     } else {
       typeSelectionGuide += `Extraction strategy:\n`;
       typeSelectionGuide += `  1. Check product title for type keywords\n`;
@@ -12902,7 +12910,9 @@ function performAutomatedValidation(
   
   const categoryKeywords: Record<string, string[]> = {
     'Faucet': ['faucet', 'tap', 'spout'],
-    'Shower Head': ['shower', 'showerhead', 'rain head', 'hand shower'],
+    'Showerheads & Accessories': ['shower', 'showerhead', 'rain head', 'hand shower', 'thermostatic', 'valve trim'],
+    'Shower': ['shower', 'shower door', 'shower enclosure', 'shower base', 'shower pan'],
+    'Shower Accessory': ['shower', 'arm', 'slide bar', 'escutcheon', 'drain', 'grab bar', 'niche', 'seat'],
     'Range Hood': ['hood', 'vent', 'ventilation', 'cfm', 'exhaust'],
     'Chandelier': ['chandelier', 'pendant light', 'hanging light', 'ceiling light'],
     'Wall Sconce': ['sconce', 'wall light', 'wall lamp'],
@@ -12943,8 +12953,11 @@ function performAutomatedValidation(
   
   const categoryDepartmentMap: Record<string, string> = {
     'Faucet': 'Plumbing',
-    'Shower Head': 'Plumbing',
-    'Shower System': 'Plumbing',
+    'Showerheads & Accessories': 'Plumbing',
+    'Shower': 'Plumbing',
+    'Shower Accessory': 'Plumbing',
+    'Steam Shower': 'Plumbing',
+    'Outdoor Shower Faucet': 'Plumbing',
     'Toilet': 'Plumbing',
     'Sink': 'Plumbing',
     'Bathtub': 'Plumbing',
@@ -13342,13 +13355,21 @@ If dual-capable (both undercounter + freestanding), default to Undercounter`;
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR SHOWERHEADS & ACCESSORIES:
 ⚠️ CRITICAL: "Thermostatic" and "Pressure Balance" are VALVE TECHNOLOGIES, not product types!
 Type = PRODUCT ASSEMBLY TYPE (what the complete product is):
-  1. System/Kit/Package with MULTIPLE components → Shower System
-     - "Trim Package with Shower Head" = Shower System
-     - "Valve Trim with Diverter for multiple outputs" = Shower System
-  2. Single shower head: Rain Head, Showerhead, or Handheld
-  3. Single valve trim only (no head): Trim or Thermostatic Valve Trim
-  4. Body spray, Diverter, Volume Control → use those types
-  5. Use "Thermostatic" ONLY for standalone valve bodies/cartridges with NO other components`;
+  1. System/Kit/Package with MULTIPLE components → System
+     - "Trim Package with Shower Head" = System
+     - "Valve Trim with Diverter for multiple outputs" = System
+  2. Exposed shower pipe systems → Exposed
+  3. Waterfall showerheads → Waterfall
+  4. Single shower head: Rain Head, Single Function, or Handheld
+     - "Showerhead" / "Shower Head" (standard) → Single Function
+  5. Single valve trim only (no head): Trim Only or Thermostatic Valve Trim
+  6. Body Spray, Diverter, Volume Control → use those types
+  7. Use "Thermostatic" ONLY for standalone valve bodies/cartridges with NO other components
+  
+RETIRED TYPE NAMES (do NOT use):
+  • "Shower System" → use "System"
+  • "Showerhead" → use "Single Function"
+  • "Trim" → use "Trim Only"`;
     } else if (categoryLower === 'kitchen faucet') {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR KITCHEN FAUCET:
 ⚠️ Choose the HIGHEST applicable type from this priority list:

@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v8
-  Snapshot Date: 2026-03-10 23:32:41 EDT
-  Commit:        e96878b (e96878bd1f3fdca57c0fa1f7cc0782f51b304fa5)
+  Version:       v28
+  Snapshot Date: 2026-03-23 09:28:42 EDT
+  Commit:        8879c61 (8879c6163f178c812c4f4cf6dae9cdd168842b4f)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12382 lines
-  title-schema-by-category.ts:     7199 lines
+  dual-ai-verification.service.ts: 14284 lines
+  title-schema-by-category.ts:     7276 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Categories: 160
+  Styles:     36
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~34, Lines removed: ~38 (vs v7)
+  Lines added: ~0, Lines removed: ~38 (vs v27)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-e96878b Fix 3 title bugs: validate Claude titles, dimension swap for sconces, web retailer brand mismatch
-b5e7d4a Remove category/department from Claude's review scope entirely
-c66a2dc Block Claude category override when both AIs agreed (Option A)
-dfa681f feat: Add title-based tiebreaker for non-appliance category disagreements
-efe5f68 Revert "fix: Improve category matching for Medicine Cabinet and Picture Light"
+8879c61 Fix Bathtub length: add 5 fallback sources, prevent soaking depth rounding
+3571579 Bathtub type update: reduce 11→8 types, add SF type IDs, expand type-matcher keywords
+75ccc09 Fix redundant config-style titles: suppress Style slot when Type already conveys same meaning (Single Hole/1 Hole, Wall Mount/Wall Mounted, Floor Mounted/Floor Mounted)
+bee2a94 Kitchen Faucet overhaul: 8 types, 5 config styles, new schema
+e1009ea Add session summary + version architecture docs (v27-v29)
 -->
 
 # Complete Verification Architecture
