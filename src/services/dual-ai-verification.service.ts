@@ -5053,6 +5053,53 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  • "8\" Rain Shower Head with Arm" → Type: Rain Head\n`;
       typeSelectionGuide += `  • "Thermostatic Rough-In Valve Body" → Type: Thermostatic\n`;
       typeSelectionGuide += `  • "Single Function Valve Trim Only" → Type: Trim Only\n`;
+    } else if (categoryLower === 'shower') {
+      typeSelectionGuide += `**TYPE SELECTION GUIDE FOR SHOWER (Enclosures, Doors, Bases, Pans):**\n\n`;
+      typeSelectionGuide += `Type = ENCLOSURE/DOOR CONFIGURATION:\n`;
+      typeSelectionGuide += `  1. **Alcove** → 3-wall recess shower (most common residential)\n`;
+      typeSelectionGuide += `  2. **Corner** → fits in a corner, typically neo-angle or square\n`;
+      typeSelectionGuide += `  3. **Neo-Angle** → diamond-shaped corner shower with angled door\n`;
+      typeSelectionGuide += `  4. **Walk-In** → open entry, no door, curbless or low-threshold\n`;
+      typeSelectionGuide += `  5. **Barrier-Free** → ADA/accessible, zero-threshold entry\n`;
+      typeSelectionGuide += `  6. **Freestanding** → standalone shower unit, not built into walls\n`;
+      typeSelectionGuide += `  7. **Frameless** → glass door/panel with NO metal frame\n`;
+      typeSelectionGuide += `  8. **Framed** → glass door/panel WITH metal frame\n\n`;
+      typeSelectionGuide += `**⚠️ "Shower Door" is NOT a valid type!** Route as follows:\n`;
+      typeSelectionGuide += `  • Shower door + frameless glass → Type: Frameless\n`;
+      typeSelectionGuide += `  • Shower door + framed/metal frame → Type: Framed\n`;
+      typeSelectionGuide += `  • Shower door + unknown frame → Default: Frameless\n\n`;
+      typeSelectionGuide += `**Shower bases/pans** → Determine by shape and installation:\n`;
+      typeSelectionGuide += `  • Rectangular base for 3-wall recess → Type: Alcove\n`;
+      typeSelectionGuide += `  • Corner/neo-angle base → Type: Corner or Neo-Angle\n`;
+      typeSelectionGuide += `  • Low-profile/curbless base → Type: Walk-In or Barrier-Free\n\n`;
+      typeSelectionGuide += `**Note:** Linear drains, slide bars, shower arms, grab bars, etc. belong in\n`;
+      typeSelectionGuide += `"Shower Accessory" category, NOT here. If the product is a component/accessory,\n`;
+      typeSelectionGuide += `flag that the category should be "Shower Accessory" instead.\n`;
+    } else if (categoryLower === 'shower accessory') {
+      typeSelectionGuide += `**TYPE SELECTION GUIDE FOR SHOWER ACCESSORY (Hardware & Components):**\n\n`;
+      typeSelectionGuide += `Type = SPECIFIC COMPONENT TYPE:\n`;
+      typeSelectionGuide += `  1. **Ceiling Mount** → ceiling-mounted shower arm or bracket\n`;
+      typeSelectionGuide += `  2. **Shower Arm** → wall-mounted pipe that connects showerhead to plumbing\n`;
+      typeSelectionGuide += `  3. **Linear** → linear drain / trench drain / channel drain\n`;
+      typeSelectionGuide += `  4. **Slide Bar** → adjustable slide bar / glide bar / hand shower bar\n`;
+      typeSelectionGuide += `  5. **Transfer** → transfer valve, diverter valve body\n`;
+      typeSelectionGuide += `  6. **Valve Extension** → valve stem extension, deep wall extension kit\n`;
+      typeSelectionGuide += `  7. **Grab Bar** → safety grab bar / ADA bar\n`;
+      typeSelectionGuide += `  8. **Niche** → recessed shower niche / shelf insert\n`;
+      typeSelectionGuide += `  9. **Seat** → shower bench / fold-down seat / corner seat\n`;
+      typeSelectionGuide += `  10. **Escutcheon** → decorative cover plate / flange\n`;
+      typeSelectionGuide += `  11. **Hose** → shower hose / flexible connector\n`;
+      typeSelectionGuide += `  12. **Soap Dish** → soap holder / soap tray\n`;
+      typeSelectionGuide += `  13. **Shelf** → floating shelf / shower caddy / corner shelf\n`;
+      typeSelectionGuide += `  14. **Elbow** → shower arm elbow / wall elbow connector\n`;
+      typeSelectionGuide += `  15. **Mounting Bracket** → shower head holder / bracket / hook\n`;
+      typeSelectionGuide += `  16. **Flange** → shower drain flange / base flange\n\n`;
+      typeSelectionGuide += `**RETIRED TYPE NAMES (do NOT use these):**\n`;
+      typeSelectionGuide += `  • "Trench Drain" → use "Linear" instead\n`;
+      typeSelectionGuide += `  • "Accessory" → use the specific component type above\n`;
+      typeSelectionGuide += `  • "Shower Rod" → use "Slide Bar" instead\n\n`;
+      typeSelectionGuide += `**Key distinction:** Shower Accessory = individual hardware components.\n`;
+      typeSelectionGuide += `Complete showerheads, valve trims, and systems belong in "Showerheads & Accessories".\n`;
     } else {
       typeSelectionGuide += `Extraction strategy:\n`;
       typeSelectionGuide += `  1. Check product title for type keywords\n`;
@@ -13370,6 +13417,55 @@ RETIRED TYPE NAMES (do NOT use):
   • "Shower System" → use "System"
   • "Showerhead" → use "Single Function"
   • "Trim" → use "Trim Only"`;
+    } else if (categoryLower === 'shower') {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR SHOWER (Enclosures, Doors, Bases, Pans):
+Type = ENCLOSURE/DOOR CONFIGURATION:
+  1. Alcove → 3-wall recess shower (most common residential)
+  2. Corner → fits in a corner, typically neo-angle or square
+  3. Neo-Angle → diamond-shaped corner shower with angled door
+  4. Walk-In → open entry, no door, curbless or low-threshold
+  5. Barrier-Free → ADA/accessible, zero-threshold entry
+  6. Freestanding → standalone shower unit, not built into walls
+  7. Frameless → glass door/panel with NO metal frame
+  8. Framed → glass door/panel WITH metal frame
+
+⚠️ "Shower Door" is NOT a valid type! Route as follows:
+  • Shower door + frameless glass → Type: Frameless
+  • Shower door + framed/metal frame → Type: Framed
+  • Shower door + unknown frame → Default: Frameless
+
+Shower bases/pans → Determine by shape and installation:
+  • Rectangular base for 3-wall recess → Type: Alcove
+  • Corner/neo-angle base → Type: Corner or Neo-Angle
+  • Low-profile/curbless base → Type: Walk-In or Barrier-Free
+
+Note: Linear drains, slide bars, shower arms, grab bars belong in "Shower Accessory" — flag for reclassification if product is a component.`;
+    } else if (categoryLower === 'shower accessory') {
+      typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR SHOWER ACCESSORY (Hardware & Components):
+Type = SPECIFIC COMPONENT TYPE:
+  1. Ceiling Mount → ceiling-mounted shower arm or bracket
+  2. Shower Arm → wall-mounted pipe connecting showerhead to plumbing
+  3. Linear → linear drain / trench drain / channel drain
+  4. Slide Bar → adjustable slide bar / glide bar
+  5. Transfer → transfer valve, diverter valve body
+  6. Valve Extension → valve stem extension, deep wall extension kit
+  7. Grab Bar → safety grab bar / ADA bar
+  8. Niche → recessed shower niche / shelf insert
+  9. Seat → shower bench / fold-down seat
+  10. Escutcheon → decorative cover plate / flange
+  11. Hose → shower hose / flexible connector
+  12. Soap Dish → soap holder / soap tray
+  13. Shelf → floating shelf / shower caddy
+  14. Elbow → shower arm elbow / wall elbow connector
+  15. Mounting Bracket → shower head holder / bracket / hook
+  16. Flange → shower drain flange / base flange
+
+RETIRED TYPE NAMES (do NOT use):
+  • "Trench Drain" → use "Linear"
+  • "Accessory" → use the specific component type above
+  • "Shower Rod" → use "Slide Bar"
+
+Key distinction: Shower Accessory = individual hardware components. Complete showerheads, valve trims, and systems belong in "Showerheads & Accessories".`;
     } else if (categoryLower === 'kitchen faucet') {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR KITCHEN FAUCET:
 ⚠️ Choose the HIGHEST applicable type from this priority list:
