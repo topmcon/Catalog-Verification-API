@@ -3523,57 +3523,50 @@
       "types": [
         {
           "type_name": "Alcove",
+          "type_id": "a1IaZ000001S92cUAC",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Freestanding",
+          "type_id": "a1IaZ000001SWnZUAW",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Drop-In",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Clawfoot",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Whirlpool",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Air Bath",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Walk-In",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Soaking",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Corner",
+          "type_id": "a1IaZ000001S93QUAS",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Undermount",
+          "type_id": "a1IaZ000001S93PUAS",
           "type_group": "Installation",
           "status": "existing",
           "primary_filter": true
         },
         {
+          "type_name": "Corner",
+          "type_id": "a1IaZ000001S931UAC",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Walk-In",
+          "type_id": "a1IaZ000001S92eUAC",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Clawfoot",
+          "type_id": "a1IaZ000001S92YUAS",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Accessory",
+          "type_id": "a1IaZ0000019zbZUAQ",
           "status": "existing",
           "primary_filter": false
         }

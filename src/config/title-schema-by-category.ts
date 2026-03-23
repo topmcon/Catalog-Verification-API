@@ -5898,7 +5898,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Length (Inches)} {Type} {Material} {Category} {Finish} {Model Number}",
     "exampleTitle": "Brand 30-Inch Bathtub Finish - Model",
-    "seoNotes": "Length is primary dimension. Type = Freestanding, Alcove, Drop-In, Corner, Walk-In."
+    "seoNotes": "Length is primary dimension. Type = Alcove, Freestanding, Drop-In, Undermount, Corner, Walk-In, Clawfoot, Accessory."
   },
   "bathtub_waste_overflow": {
     "categoryId": "a01aZ00000dC5DkQAK",

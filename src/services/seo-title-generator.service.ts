@@ -1247,7 +1247,7 @@ export function getSEOKeywordsForCategory(category: string): string[] {
     'toilet': ['Dual Flush', 'One Piece', 'Elongated', 'Comfort Height', 'Water Saving'],
     'sink': ['Undermount', 'Farmhouse', 'Double Bowl', 'Stainless Steel', 'Granite'],
     'shower': ['Rain', 'Handheld', 'Dual', 'Thermostatic', 'Body Spray'],
-    'bathtub': ['Freestanding', 'Soaking', 'Whirlpool', 'Alcove', 'Drop-In'],
+    'bathtub': ['Freestanding', 'Alcove', 'Drop-In', 'Clawfoot', 'Walk-In'],
     
     // HVAC
     'air conditioner': ['Portable', 'Window', 'Mini Split', 'Smart', 'Energy Star'],
