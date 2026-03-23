@@ -5600,39 +5600,34 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Hole Config",
+        "attribute": "Style",
         "required": false
       },
       {
         "position": 4,
-        "attribute": "Mount",
-        "required": false
-      },
-      {
-        "position": 5,
         "attribute": "Category",
         "required": true
       },
       {
-        "position": 6,
+        "position": 5,
         "attribute": "Finish",
         "required": false
       },
       {
-        "position": 7,
+        "position": 6,
         "attribute": "GPM",
         "required": false,
         "format": "{value} GPM"
       },
       {
-        "position": 8,
+        "position": 7,
         "attribute": "Model Number",
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Hole Config} {Mount} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Bathroom Faucet Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Single-Handle, Widespread, Centerset, Wall-Mount. Hole = Single, 3-Hole, 4-Hole."
+    "template": "{Brand} {Type} {Style} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Delta Widespread 3 Hole Bathroom Faucet Chrome 1.2 GPM - 3538-MPU-DST",
+    "seoNotes": "Type = Centerset, Widespread, Single Hole, Vessel, Wall Mounted. Style = 1 Hole, 2 Hole, 3 Hole, 4 Hole, Wall Mounted (configuration)."
   },
   "bathroom_hardware_and_accessories": {
     "categoryId": "a01aZ00000dC5DfQAK",

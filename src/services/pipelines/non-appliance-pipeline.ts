@@ -889,6 +889,33 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     }
   }
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BATHROOM FAUCET TYPE → STYLE AUTO-MAPPING
+  // Derive configuration style (hole count) from faucet type
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (finalSeoTitleInput.category === 'Bathroom Faucet') {
+    const faucetType = (finalSeoTitleInput.type || '').toLowerCase().trim();
+    let derivedStyle = '';
+
+    if (faucetType === 'wall mounted') {
+      derivedStyle = 'Wall Mounted';
+    } else if (faucetType === 'centerset') {
+      derivedStyle = '3 Hole';
+    } else if (faucetType === 'widespread') {
+      derivedStyle = '3 Hole';
+    } else if (faucetType === 'single hole') {
+      derivedStyle = '1 Hole';
+    } else if (faucetType === 'vessel') {
+      derivedStyle = '1 Hole';
+    }
+    // Accessory — no style auto-mapping
+
+    if (derivedStyle && !sanitizedPrimaryAttributes.AI_Style) {
+      sanitizedPrimaryAttributes.AI_Style = derivedStyle;
+      finalSeoTitleInput.style = derivedStyle;
+    }
+  }
+
   return {
     finalSeoTitleInput,
     sanitizedPrimaryAttributes,

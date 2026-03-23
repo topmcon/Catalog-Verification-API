@@ -3085,66 +3085,37 @@
       "types": [
         {
           "type_name": "Centerset",
+          "type_id": "a1jaZ000001lF4OQAU",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Widespread",
+          "type_id": "a1jaZ000001lFDGQA2",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Single Hole",
+          "type_id": "a1jaZ000001lFAnQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Vessel",
+          "type_id": "a1jaZ000001lFClQAM",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Touchless",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Single Handle",
-          "type_group": "Handle Configuration",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Two Handle",
-          "type_group": "Handle Configuration",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "High-Arc",
-          "type_group": "Spout Style",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Low-Arc",
-          "type_group": "Spout Style",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Waterfall",
-          "type_group": "Spout Style",
+          "type_name": "Wall Mounted",
+          "type_id": "a1jaZ000001lFD4QAM",
           "status": "existing",
           "primary_filter": true
         },
         {
           "type_name": "Accessory",
+          "type_id": "a1jaZ000001lF39QAE",
           "status": "existing",
           "primary_filter": false
         }

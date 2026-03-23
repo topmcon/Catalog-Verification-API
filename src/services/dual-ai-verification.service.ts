@@ -1473,7 +1473,7 @@ function resolveDisagreementSmart(
     // These match the priority guides sent to AIs in the prompts.
     // Higher index = lower priority. When both AIs pick valid types, prefer the higher-priority one.
     const TYPE_PRIORITY: Record<string, string[]> = {
-      'bathroom faucet': ['wall mount', 'vessel', 'touchless', 'centerset', 'widespread', 'single hole'],
+      'bathroom faucet': ['wall mounted', 'vessel', 'centerset', 'widespread', 'single hole'],
       'kitchen faucet':  ['pull-down', 'pull-out', 'bridge', 'pre-rinse', 'touchless', 'commercial', 'wall mount', 'deck mount', 'single handle', 'two handle'],
       'tub filler':      ['roman tub', 'freestanding', 'deck mount', 'wall mounted', 'floor mounted'],
       'bar faucet':      ['pull-down', 'single handle', 'two handle'],
@@ -3534,11 +3534,10 @@ export async function verifyProductWithDualAI(
           ]
         },
         'bathroom faucet': {
-          weakTypes: ['single handle', 'two handle'],
+          weakTypes: [],
           keywordMap: [
-            ['wall mount', 'Wall Mount'], ['wall-mount', 'Wall Mount'], ['wallmount', 'Wall Mount'],
+            ['wall mount', 'Wall Mounted'], ['wall-mount', 'Wall Mounted'], ['wallmount', 'Wall Mounted'],
             ['vessel', 'Vessel'],
-            ['touchless', 'Touchless'], ['touch-free', 'Touchless'],
           ]
         }
       };
@@ -4930,11 +4929,12 @@ ${promptOptions.invalidTypeWarning}
       // Sub-scoped rules for specific faucet categories
       if (categoryLower === 'bathroom faucet') {
         typeSelectionGuide += `  🔍 **BATHROOM FAUCET Type Priority** (when multiple apply):\n`;
-        typeSelectionGuide += `    1. Wall Mount (if wall-mounted, this always wins as Type)\n`;
+        typeSelectionGuide += `    1. Wall Mounted (if wall-mounted, this always wins as Type)\n`;
         typeSelectionGuide += `    2. Vessel (if designed for vessel/raised bowl sinks)\n`;
-        typeSelectionGuide += `    3. Touchless (if motion-sensor activated)\n`;
-        typeSelectionGuide += `    4. Centerset / Widespread / Single Hole (mounting configuration)\n`;
-        typeSelectionGuide += `    5. Single Handle / Two Handle (handle count — use ONLY if no other type applies)\n\n`;
+        typeSelectionGuide += `    3. Centerset (4" center-to-center hole spacing, typically 3-hole)\n`;
+        typeSelectionGuide += `    4. Widespread (8"+ center-to-center hole spacing, typically 3-hole)\n`;
+        typeSelectionGuide += `    5. Single Hole (single mounting hole)\n`;
+        typeSelectionGuide += `    6. Accessory (soap dispensers, drain assemblies, other accessories)\n\n`;
       } else if (categoryLower === 'kitchen faucet') {
         typeSelectionGuide += `  🔍 **KITCHEN FAUCET Type Priority** (choose the HIGHEST applicable):\n`;
         typeSelectionGuide += `    1. Pull-Down / Pull-Out (spray mechanism — most common kitchen types)\n`;
@@ -5205,6 +5205,18 @@ ${promptOptions.invalidTypeWarning}
     categoryStyleContext += `  • Deck mounted tub fillers → Count the holes: "1 Hole", "2 Hole", "3 Hole", or "4 Hole"\n`;
     categoryStyleContext += `  • Roman Tub fillers are typically deck-mounted → Check specs for hole count (usually 3 Hole or 4 Hole)\n`;
     categoryStyleContext += `  • Look for "faucet holes", "hole configuration", or mounting specs in product data\n`;
+  } else if (categoryLowerForStyle === 'bathroom faucet') {
+    categoryStyleContext = `\n== VALID CONFIGURATION STYLES FOR BATHROOM FAUCET ==\n`;
+    categoryStyleContext += `⚠️ For Bathroom Faucets, product_style is a CONFIGURATION style (hole count or mount type), NOT a design aesthetic.\n`;
+    categoryStyleContext += `Select based on the product's mounting configuration:\n`;
+    categoryStyleContext += validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n');
+    categoryStyleContext += `\n\n🔍 HOW TO DETERMINE STYLE:\n`;
+    categoryStyleContext += `  • Wall Mounted faucets → Style: "Wall Mounted"\n`;
+    categoryStyleContext += `  • Centerset faucets → Style: "3 Hole" (standard 4" spacing, 3 holes)\n`;
+    categoryStyleContext += `  • Widespread faucets → Usually "3 Hole" (8"+ spacing, 3 holes)\n`;
+    categoryStyleContext += `  • Single Hole faucets → Style: "1 Hole"\n`;
+    categoryStyleContext += `  • Vessel faucets → Usually "1 Hole" unless otherwise specified\n`;
+    categoryStyleContext += `  • Check product specs for "faucet holes", "hole configuration", or mounting requirements\n`;
   } else {
     categoryStyleContext = `\n== VALID STYLES FOR ${determinedCategory.toUpperCase()} ==\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
   }
@@ -5222,8 +5234,8 @@ ${promptOptions.invalidTypeWarning}
   }
   
   // Build category-specific product_style instruction for JSON response format
-  const productStyleInstruction = (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet')
-    ? `⚠️ MANDATORY: Select CONFIGURATION STYLE from the valid styles list above. For Tub Fillers this is the hole count (1 Hole, 2 Hole, 3 Hole, 4 Hole) or mount config (Wall Mounted, Floor Mounted). Check product specs for faucet holes or mounting type.`
+  const productStyleInstruction = (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet' || categoryLowerForStyle === 'bathroom faucet')
+    ? `⚠️ MANDATORY: Select CONFIGURATION STYLE from the valid styles list above. This is the hole count (1 Hole, 2 Hole, 3 Hole, 4 Hole) or mount config (Wall Mounted). Check product specs for faucet holes or mounting type.`
     : `⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.`;
 
   return `You are an expert product data analyst specializing in appliances and home products.
@@ -13348,11 +13360,12 @@ COMMON MISTAKES TO AVOID:
     } else if (categoryLower === 'bathroom faucet') {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR BATHROOM FAUCET:
 ⚠️ Choose the HIGHEST applicable type from this priority list:
-  1. Wall Mount (if wall-mounted, this always wins as Type)
+  1. Wall Mounted (if wall-mounted, this always wins as Type)
   2. Vessel (if designed for vessel/raised bowl sinks — tall spout design)
-  3. Touchless (if motion-sensor activated)
-  4. Widespread / Centerset / Single Hole (mounting configuration)
-  5. Single Handle / Two Handle (handle count — ONLY if no other type applies)`;
+  3. Centerset (4" center-to-center hole spacing, typically 3-hole)
+  4. Widespread (8"+ center-to-center hole spacing, typically 3-hole)
+  5. Single Hole (single mounting hole)
+  6. Accessory (soap dispensers, drain assemblies, other accessories)`;
     }
   }
 

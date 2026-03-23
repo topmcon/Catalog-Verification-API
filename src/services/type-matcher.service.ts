@@ -277,11 +277,9 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'vessel sink faucet': { 'Bathroom Faucet': 'Vessel' },
   'floor mounted vessel': { 'Bathroom Faucet': 'Vessel' },
   'floormounted vessel': { 'Bathroom Faucet': 'Vessel' },
-  'wall mount faucet': { 'Bathroom Faucet': 'Wall Mount' },
-  'wall mounted faucet': { 'Bathroom Faucet': 'Wall Mount' },
-  'touchless': { 'Bathroom Faucet': 'Touchless', 'Kitchen Faucet': 'Touchless' },
-  'sensor faucet': { 'Bathroom Faucet': 'Touchless', 'Kitchen Faucet': 'Touchless' },
-  'wall mount bathroom': { 'Bathroom Faucet': 'Wall Mount' },
+  'wall mount faucet': { 'Bathroom Faucet': 'Wall Mounted' },
+  'wall mounted faucet': { 'Bathroom Faucet': 'Wall Mounted' },
+  'wall mount bathroom': { 'Bathroom Faucet': 'Wall Mounted' },
   
   // ============================================
   // PLUMBING ALIASES - Tub & Shower Faucets
