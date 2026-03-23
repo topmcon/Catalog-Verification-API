@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v7
-  Snapshot Date: 2026-03-10 15:37:17 EDT
-  Commit:        b34d814 (b34d81478f445ff5e1c8cbc3e5b8f1a8661b6947)
+  Version:       v27
+  Snapshot Date: 2026-03-22 22:49:22 EDT
+  Commit:        bd4b7ca (bd4b7cae7aabe8579d9cd3085598d8f076a04afb)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12221 lines
-  title-schema-by-category.ts:     7199 lines
+  dual-ai-verification.service.ts: 14253 lines
+  title-schema-by-category.ts:     7276 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Categories: 160
+  Styles:     36
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v6)
+  Lines added: ~0, Lines removed: ~38 (vs v26)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-b34d814 fix: comprehensive hole config extraction for faucet titles
-d2bcc30 feat: enhance AI category prompt to trust Ferguson titles for disambiguation
-50913c2 Move GPM to second-to-last position in all faucet titles
-ad7dea5 Add title case formatting to all product titles
-6fd8da2 Move title generation AFTER Final Review to use corrected data
+bd4b7ca Bathroom Faucet overhaul: 6 types, 5 config styles, new schema
+c5ee7a5 Add 4 strategic pipeline logging points + live logger trigger command
+e341802 Add Check #9 (Style Cross-Reference) to all dependency verification docs
+e63a70d Fix Tub Filler AI prompt for config styles + add style cross-ref validator
+7fc38ae Fix Tub Filler: schema lookup, title template, type/style auto-mapping, config styles
 -->
 
 # Complete Verification Architecture
@@ -387,8 +387,40 @@ CONTEXT INJECTED INTO performClaudeReview():
 ├─ Type Selection Guides: Per-category guidance on when to pick each type
 ├─ Category Schema: getCategorySchema(category) — top-15 attributes
 ├─ Trust Hierarchy: structured data > product name > AI extraction
+├─ Data Source Priority: Category-dependent (see below)
 ├─ CRITICAL ACCESSORY RULE: Accessories belong to parent appliance category
 └─ Valid Picklist Values: For corrections validation
+```
+
+**Data Source Priority by Category (2026-03-10)**:
+```
+CATEGORY-DEPENDENT SOURCE PRIORITY:
+├─ Appliances Department (17 categories):
+│  └─ Web_Retailer → Ferguson → fallback
+│     (Web Retailer provides better appliance specs)
+│
+└─ All Other Departments (144+ categories):
+   └─ Ferguson → Web_Retailer → fallback
+      (Ferguson is primary for lighting, plumbing, hardware, etc.)
+
+IMPLEMENTATION:
+├─ isAppliancesCategory(categoryName): Checks getDepartmentForCategory()
+├─ getFieldByPriority(category, webRetailerValue, fergusonValue, fallback)
+└─ Applied to 12 locations:
+   ├─ Brand (4x): AI research, customer text, tracking
+   ├─ Model Number (1x): AI research prompts
+   ├─ Title (2x): Category schema lookup, SEO title
+   ├─ Description (2x): Customer text, category context
+   └─ Dimensions (3x): Width, Height, Depth for title generation
+
+FIELDS AFFECTED:
+- Brand_Web_Retailer vs Ferguson_Brand
+- Model_Number_Web_Retailer vs Ferguson_Model_Number
+- Product_Title_Web_Retailer vs Ferguson_Title
+- Product_Description_Web_Retailer vs Ferguson_Description
+- Width_Web_Retailer vs Ferguson_Width
+- Height_Web_Retailer vs Ferguson_Height
+- Depth_Web_Retailer vs Ferguson_Depth
 ```
 
 ---
@@ -411,6 +443,8 @@ CONTEXT INJECTED INTO performClaudeReview():
 | `performClaudeReview()` | ~10608 | Claude Final Review with full context |
 | `executeFinalReviewStage()` | ~11056 | Orchestrates Phase A/B/C of Final Review |
 | `getTypeHierarchyExplanation()` | ~8500 | Type parent/child relationships for Claude |
+| `isAppliancesCategory()` | ~220 | Check if category is in Appliances department |
+| `getFieldByPriority()` | ~230 | Get field with category-dependent source priority |
 | `getCategorySchema()` | imported | Top-15 attributes per category |
 
 ---

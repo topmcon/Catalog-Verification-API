@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v8
-  Snapshot Date: 2026-03-10 23:32:41 EDT
-  Commit:        e96878b (e96878bd1f3fdca57c0fa1f7cc0782f51b304fa5)
+  Version:       v29
+  Snapshot Date: 2026-03-22 22:49:25 EDT
+  Commit:        bd4b7ca (bd4b7cae7aabe8579d9cd3085598d8f076a04afb)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12382 lines
-  title-schema-by-category.ts:     7199 lines
+  dual-ai-verification.service.ts: 14253 lines
+  title-schema-by-category.ts:     7276 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 945
-  Claude Model: claude-sonnet-4-20250514
+  Categories: 160
+  Styles:     36
+  Attributes: 1534
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v7)
+  Lines added: ~0, Lines removed: ~38 (vs v28)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-e96878b Fix 3 title bugs: validate Claude titles, dimension swap for sconces, web retailer brand mismatch
-b5e7d4a Remove category/department from Claude's review scope entirely
-c66a2dc Block Claude category override when both AIs agreed (Option A)
-dfa681f feat: Add title-based tiebreaker for non-appliance category disagreements
-efe5f68 Revert "fix: Improve category matching for Medicine Cabinet and Picture Light"
+bd4b7ca Bathroom Faucet overhaul: 6 types, 5 config styles, new schema
+c5ee7a5 Add 4 strategic pipeline logging points + live logger trigger command
+e341802 Add Check #9 (Style Cross-Reference) to all dependency verification docs
+e63a70d Fix Tub Filler AI prompt for config styles + add style cross-ref validator
+7fc38ae Fix Tub Filler: schema lookup, title template, type/style auto-mapping, config styles
 -->
 
 # Verification Data Sources - Complete Inventory
