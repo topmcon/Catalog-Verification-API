@@ -72,6 +72,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     rawProduct,
     sessionId,
     fergusonProductName,
+    consensusProductTitle,
   } = ctx;
 
   // ── SHARED SOURCE TEXTS ─────────────────────────────────────────────────────
@@ -528,6 +529,16 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
 
   // ═══════════════════════════════════════════════════════════════════════════
   // BATHTUB DIMENSION OVERRIDE
+  // For bathtubs, the AI's depth_length field is AMBIGUOUS:
+  //   - For freestanding/drop-in/undermount: depth_length = marketing length (correct)
+  //   - For alcove: depth_length = soaking depth (WRONG for title)
+  // We extract the marketing length from multiple sources with priority:
+  //   1. Ferguson specs (nominal_length, tub_length)
+  //   2. Ferguson product name with inch marks (e.g., 72")
+  //   3. Ferguson product name with "NNxNN" format (e.g., "72 x 36")
+  //   4. Ferguson HTML attributes (Nominal Length, Length)
+  //   5. AI consensus title (e.g., "72-Inch" in product_title)
+  // If AI_Depth < 30, it's clearly soaking depth, not marketing length.
   // ═══════════════════════════════════════════════════════════════════════════
   if (finalSeoTitleInput.category === 'Bathtub') {
     const frd = (rawProduct as any).Ferguson_Raw_Data;
@@ -535,6 +546,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     let bathtubLength: number | null = null;
     let bathtubLengthSource = '';
 
+    // Source 1: Ferguson specs nominal_length / tub_length
     if (fergusonSpecs) {
       const nomLen = fergusonSpecs.nominal_length?.value || fergusonSpecs.tub_length?.value;
       if (nomLen) {
@@ -551,6 +563,7 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
       }
     }
 
+    // Source 2: Ferguson product name with inch marks (e.g., 72" or 72-1/2")
     if (!bathtubLength) {
       const dimMatch = fergusonProductName.match(/(\d+)(?:-(\d+)\/(\d+))?\s*"/);
       if (dimMatch) {
@@ -560,7 +573,49 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
         const val = whole + fracNum / fracDen;
         if (val >= 30 && val <= 84) {
           bathtubLength = Math.round(val);
-          bathtubLengthSource = `Ferguson product name: "${dimMatch[0].trim()}"`;
+          bathtubLengthSource = `Ferguson product name inch mark: "${dimMatch[0].trim()}"`;
+        }
+      }
+    }
+
+    // Source 3: Ferguson product name with "NNxNN" or "NN x NN" format (e.g., "72 x 36")
+    // Takes the larger dimension as marketing length
+    if (!bathtubLength) {
+      const dimMatch2 = fergusonProductName.match(/(\d+)\s*(?:x|×)\s*(\d+)/i);
+      if (dimMatch2) {
+        const dim1 = parseInt(dimMatch2[1]);
+        const dim2 = parseInt(dimMatch2[2]);
+        const maxDim = Math.max(dim1, dim2);
+        if (maxDim >= 30 && maxDim <= 84) {
+          bathtubLength = maxDim;
+          bathtubLengthSource = `Ferguson product name dimension: "${dimMatch2[0]}"`;
+        }
+      }
+    }
+
+    // Source 4: Ferguson HTML attributes (Nominal Length, Length, nominal_length)
+    if (!bathtubLength && frd?.product?.htmlAttributes) {
+      const htmlAttrs = frd.product.htmlAttributes;
+      const lengthAttr = htmlAttrs['nominal_length'] || htmlAttrs['Nominal Length'] || htmlAttrs['Length'];
+      if (lengthAttr) {
+        const parsed = parseFloat(String(lengthAttr).replace(/\s*in\.?\s*$/i, '').trim());
+        if (!isNaN(parsed) && parsed >= 30 && parsed <= 84) {
+          bathtubLength = Math.round(parsed);
+          bathtubLengthSource = `Ferguson HTML attribute: "${lengthAttr}"`;
+        }
+      }
+    }
+
+    // Source 5: AI consensus product title (e.g., "Kohler 72-Inch Alcove Bathtub")
+    // The AI often correctly identifies the marketing length in its title
+    if (!bathtubLength) {
+      const consensusTitle = consensusProductTitle || finalSeoTitleInput.rawTitle || '';
+      const titleInchMatch = consensusTitle.match(/(\d+)-Inch/i);
+      if (titleInchMatch) {
+        const val = parseInt(titleInchMatch[1]);
+        if (val >= 30 && val <= 84) {
+          bathtubLength = val;
+          bathtubLengthSource = `AI/raw title: "${titleInchMatch[0]}"`;
         }
       }
     }
@@ -573,6 +628,16 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
         logger.info('🛁 Bathtub: overriding length with Ferguson dimension', {
           sessionId, oldLength, newLength: bathtubLength, source: bathtubLengthSource
         });
+      }
+    } else {
+      // Sanity check: if AI_Depth < 30 for Bathtub, it's soaking depth, not marketing length
+      // Size class rounding would map it to nonsensical values (e.g., 18.94 → 48)
+      const currentLength = parseFloat(String(finalSeoTitleInput.length || '0'));
+      if (currentLength > 0 && currentLength < 30) {
+        logger.warn('🛁 Bathtub: AI_Depth appears to be soaking depth, not marketing length — clearing from title', {
+          sessionId, clearedValue: finalSeoTitleInput.length
+        });
+        finalSeoTitleInput.length = '';
       }
     }
   }

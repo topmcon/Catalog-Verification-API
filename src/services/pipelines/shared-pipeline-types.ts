@@ -41,6 +41,9 @@ export interface PipelineContext {
 
   /** Ferguson product name — frequently used for reclassification and dimension extraction */
   fergusonProductName: string;
+
+  /** AI consensus product title — used for dimension extraction fallback (e.g., "72-Inch" in Bathtub titles) */
+  consensusProductTitle?: string;
 }
 
 /**

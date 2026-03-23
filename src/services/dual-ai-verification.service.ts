@@ -11763,6 +11763,7 @@ async function buildFinalResponse(
       agreedCategory: consensus.agreedCategory || '',
       sessionId,
       fergusonProductName,
+      consensusProductTitle: consensus.agreedPrimaryAttributes.product_title || '',
     };
 
     const pipelineResult = (sanitizedPrimaryAttributes.AI_Product_Department || '').toLowerCase() === 'appliances'
