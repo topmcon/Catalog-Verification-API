@@ -5174,7 +5174,22 @@ ${promptOptions.invalidTypeWarning}
   }
   
   // Build category-specific style list
-  const categoryStyleContext = `\n== VALID STYLES FOR ${determinedCategory.toUpperCase()} ==\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
+  const categoryLowerForStyle = determinedCategory.toLowerCase();
+  let categoryStyleContext: string;
+  if (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet') {
+    categoryStyleContext = `\n== VALID CONFIGURATION STYLES FOR ${determinedCategory.toUpperCase()} ==\n`;
+    categoryStyleContext += `⚠️ For Tub Fillers, product_style is a CONFIGURATION style (hole count or mount type), NOT a design aesthetic.\n`;
+    categoryStyleContext += `Select based on the product's mounting configuration:\n`;
+    categoryStyleContext += validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n');
+    categoryStyleContext += `\n\n🔍 HOW TO DETERMINE STYLE:\n`;
+    categoryStyleContext += `  • Wall Mounted tub fillers → Style: "Wall Mounted"\n`;
+    categoryStyleContext += `  • Floor Mounted / Freestanding tub fillers → Style: "Floor Mounted"\n`;
+    categoryStyleContext += `  • Deck mounted tub fillers → Count the holes: "1 Hole", "2 Hole", "3 Hole", or "4 Hole"\n`;
+    categoryStyleContext += `  • Roman Tub fillers are typically deck-mounted → Check specs for hole count (usually 3 Hole or 4 Hole)\n`;
+    categoryStyleContext += `  • Look for "faucet holes", "hole configuration", or mounting specs in product data\n`;
+  } else {
+    categoryStyleContext = `\n== VALID STYLES FOR ${determinedCategory.toUpperCase()} ==\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
+  }
   
   // Build category-specific top15 attributes
   let categoryTop15Context = '';
@@ -5188,6 +5203,11 @@ ${promptOptions.invalidTypeWarning}
     categoryTop15Context = `\n== TOP 15 FILTER ATTRIBUTES ==\nNo specific filter attributes defined for this category.`;
   }
   
+  // Build category-specific product_style instruction for JSON response format
+  const productStyleInstruction = (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet')
+    ? `⚠️ MANDATORY: Select CONFIGURATION STYLE from the valid styles list above. For Tub Fillers this is the hole count (1 Hole, 2 Hole, 3 Hole, 4 Hole) or mount config (Wall Mounted, Floor Mounted). Check product specs for faucet holes or mounting type.`
+    : `⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.`;
+
   return `You are an expert product data analyst specializing in appliances and home products.
 
 ⚠️ CATEGORY CONTEXT: This product has been determined to be in the "${determinedCategory}" category.
@@ -5298,7 +5318,7 @@ You must respond with valid JSON in this exact format:
     "category_subcategory": "${determinedCategory}",
     "product_family": "value",
     "product_type": "⚠️ MANDATORY: Select from the VALID PRODUCT TYPES list above. This is the FUNCTIONAL variation (e.g., 'Indoor' for ceiling fans, 'Single' vs 'Double Wall' for ovens). ALWAYS choose your BEST match - NEVER return 'Not Found'.",
-    "product_style": "⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.",
+    "product_style": "${productStyleInstruction}",
     "depth_length": "numeric value only (depth OR length)",
     "width": "numeric value only",
     "height": "numeric value only",

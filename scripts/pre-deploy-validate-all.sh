@@ -115,6 +115,13 @@ run_check "Field Mapping Reference Sync" \
   "false"  # Non-critical — doc out of sync is a warning, not a blocker
 
 # ============================================================================
+# CHECK 9: Style Cross-Reference (category-style-mapping vs styles.json)
+# ============================================================================
+run_check "Style Cross-Reference (Mapping vs Picklist)" \
+  "node scripts/audit-style-crossref.js" \
+  "true"  # Critical — missing styles break picklist matcher
+
+# ============================================================================
 # FINAL SUMMARY
 # ============================================================================
 echo ""
