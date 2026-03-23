@@ -234,7 +234,7 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'six light': { 'Lighting': '6-Light', 'Vanity Light': '6-Light' },
   
   // ============================================
-  // PLUMBING ALASES - Kitchen Faucets
+  // PLUMBING ALIASES - Kitchen Faucets
   // ============================================
   'pull-down': { 'Kitchen Faucet': 'Pull-Down' },
   'pull down': { 'Kitchen Faucet': 'Pull-Down' },
@@ -242,28 +242,26 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'pull-out': { 'Kitchen Faucet': 'Pull-Out' },
   'pull out': { 'Kitchen Faucet': 'Pull-Out' },
   'pullout': { 'Kitchen Faucet': 'Pull-Out' },
-  'single handle': { 'Kitchen Faucet': 'Single Handle', 'Bathroom Faucet': 'Single Hole' },
+  'single handle': { 'Kitchen Faucet': 'Single Hole', 'Bathroom Faucet': 'Single Hole' },
   'double handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'two handle': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'pot filler': { 'Kitchen Faucet': 'Pot Filler', 'Pot Filler Faucet': 'Wall Mount' },
-  'bar faucet': { 'Kitchen Faucet': 'Bar Prep', 'Bar Faucet': 'Single Hole' },
-  'commercial style': { 'Kitchen Faucet': 'Commercial Style' },
-  'commercial kitchen': { 'Kitchen Faucet': 'Commercial Style' },
-  'pro style': { 'Kitchen Faucet': 'Commercial Style' },
-  'touch on': { 'Kitchen Faucet': 'Touch-On' },
-  'touch-on': { 'Kitchen Faucet': 'Touch-On' },
-  'touch activated': { 'Kitchen Faucet': 'Touch-On' },
+  'bar faucet': { 'Bar Faucet': 'Single Hole' },
+  'commercial style': { 'Kitchen Faucet': 'Commercial' },
+  'commercial kitchen': { 'Kitchen Faucet': 'Commercial' },
+  'pro style': { 'Kitchen Faucet': 'Commercial' },
+  'pre-rinse': { 'Kitchen Faucet': 'Commercial' },
+  'pre rinse': { 'Kitchen Faucet': 'Commercial' },
+  'prerinse': { 'Kitchen Faucet': 'Commercial' },
   'widespread': { 'Kitchen Faucet': 'Two Handle', 'Bathroom Faucet': 'Widespread' },
   'widespread kitchen': { 'Kitchen Faucet': 'Two Handle' },
-  'filter faucet': { 'Kitchen Faucet': 'Single Handle' },
-  'cold water dispenser': { 'Kitchen Faucet': 'Single Handle' },
-  'water dispenser': { 'Kitchen Faucet': 'Single Handle' },
-  'high-arc': { 'Kitchen Faucet': 'High-Arc' },
-  'high arc': { 'Kitchen Faucet': 'High-Arc' },
-  'gooseneck': { 'Kitchen Faucet': 'High-Arc' },
+  'filter faucet': { 'Kitchen Faucet': 'Single Hole' },
+  'cold water dispenser': { 'Kitchen Faucet': 'Single Hole' },
+  'water dispenser': { 'Kitchen Faucet': 'Single Hole' },
+  'gooseneck': { 'Kitchen Faucet': 'Pull-Down' },
   
   // ============================================
-  // PLUMBINGALIASES - Bathroom Faucets
+  // PLUMBING ALIASES - Bathroom Faucets
   // ============================================
   'centerset': { 'Bathroom Faucet': 'Centerset' },
   'single hole': { 'Bathroom Faucet': 'Single Hole' },
@@ -285,8 +283,8 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // PLUMBING ALIASES - Tub & Shower Faucets
   // ============================================
   'roman tub': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
-  'deck mount': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
-  'deck mounted': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
+  'deck mount': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
+  'deck mounted': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
   'roman tub faucet': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
   'deck mount tub': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
   'tub filler': { 'Tub Filler': 'Freestanding', 'Tub Faucet': 'Freestanding', 'Pot Filler Faucet': 'Wall Mount' },

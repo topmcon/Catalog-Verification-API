@@ -1474,7 +1474,7 @@ function resolveDisagreementSmart(
     // Higher index = lower priority. When both AIs pick valid types, prefer the higher-priority one.
     const TYPE_PRIORITY: Record<string, string[]> = {
       'bathroom faucet': ['wall mounted', 'vessel', 'centerset', 'widespread', 'single hole'],
-      'kitchen faucet':  ['pull-down', 'pull-out', 'bridge', 'pre-rinse', 'touchless', 'commercial', 'wall mount', 'deck mount', 'single handle', 'two handle'],
+      'kitchen faucet':  ['pull-down', 'pull-out', 'single hole', 'wall mount', 'bridge', 'commercial', 'two handle', 'pot filler'],
       'tub filler':      ['roman tub', 'freestanding', 'deck mount', 'wall mounted', 'floor mounted'],
       'bar faucet':      ['pull-down', 'single handle', 'two handle'],
     };
@@ -3520,17 +3520,16 @@ export async function verifyProductWithDualAI(
     if (agreedType && consensus.agreedCategory) {
       const WEAK_CONSENSUS_TYPES: Record<string, { weakTypes: string[], keywordMap: [string, string][] }> = {
         'kitchen faucet': {
-          weakTypes: ['deck mount', 'single handle'],
+          weakTypes: ['single hole'],
           // Ordered by TYPE_PRIORITY (highest first) — first match wins
           keywordMap: [
             ['pull-down', 'Pull-Down'], ['pull down', 'Pull-Down'], ['pulldown', 'Pull-Down'],
             ['pull-out', 'Pull-Out'], ['pull out', 'Pull-Out'], ['pullout', 'Pull-Out'],
             ['bridge', 'Bridge'],
-            ['pre-rinse', 'Pre-Rinse'], ['pre rinse', 'Pre-Rinse'], ['prerinse', 'Pre-Rinse'],
-            ['touchless', 'Touchless'], ['touch-free', 'Touchless'], ['motionsense', 'Touchless'],
+            ['pot filler', 'Pot Filler'],
             ['commercial', 'Commercial'],
             ['wall mount', 'Wall Mount'], ['wall-mount', 'Wall Mount'], ['wallmount', 'Wall Mount'],
-            ['widespread', 'Two Handle'],
+            ['two handle', 'Two Handle'], ['widespread', 'Two Handle'],
           ]
         },
         'bathroom faucet': {
@@ -4937,20 +4936,20 @@ ${promptOptions.invalidTypeWarning}
         typeSelectionGuide += `    6. Accessory (soap dispensers, drain assemblies, other accessories)\n\n`;
       } else if (categoryLower === 'kitchen faucet') {
         typeSelectionGuide += `  🔍 **KITCHEN FAUCET Type Priority** (choose the HIGHEST applicable):\n`;
-        typeSelectionGuide += `    1. Pull-Down / Pull-Out (spray mechanism — most common kitchen types)\n`;
-        typeSelectionGuide += `    2. Bridge (two handles with exposed connector tube between them)\n`;
-        typeSelectionGuide += `    3. Pre-Rinse (commercial-style spring coil with spray head)\n`;
-        typeSelectionGuide += `    4. Touchless / Commercial (sensor-activated or commercial-grade)\n`;
-        typeSelectionGuide += `    5. Wall Mount (mounted to wall, NOT to deck/countertop)\n`;
-        typeSelectionGuide += `    6. Two Handle (two separate handles, NO spray function, NOT a bridge)\n`;
-        typeSelectionGuide += `    7. Deck Mount (ONLY if no other type applies — this just means countertop-mounted)\n`;
-        typeSelectionGuide += `    8. Single Handle (LAST RESORT — nearly all faucets have a handle)\n\n`;
+        typeSelectionGuide += `    1. Pull-Down (retractable spray head pulls down — most common kitchen type)\n`;
+        typeSelectionGuide += `    2. Pull-Out (spray head pulls out toward you)\n`;
+        typeSelectionGuide += `    3. Pot Filler (wall-mounted swing arm for filling pots — typically near stove)\n`;
+        typeSelectionGuide += `    4. Bridge (two handles with exposed connector tube between them)\n`;
+        typeSelectionGuide += `    5. Wall Mount (mounted to wall, NOT to deck/countertop — NOT a pot filler)\n`;
+        typeSelectionGuide += `    6. Commercial (commercial-grade, spring coil, pre-rinse style)\n`;
+        typeSelectionGuide += `    7. Two Handle (two separate handles, NO spray function, NOT a bridge)\n`;
+        typeSelectionGuide += `    8. Single Hole (ONLY if no other functional type applies — basic single-hole mount faucet)\n\n`;
         typeSelectionGuide += `  ⚠️ **COMMON MISTAKES TO AVOID**:\n`;
-        typeSelectionGuide += `    • "Deck Mount" is NOT a useful type — it just means mounted to a sink/counter (most faucets are). Look harder for a functional type.\n`;
-        typeSelectionGuide += `    • "Single Handle" is NOT descriptive — it describes handle COUNT, not function. A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Handle".\n`;
+        typeSelectionGuide += `    • A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Hole"\n`;
         typeSelectionGuide += `    • Ferguson "Widespread Kitchen Faucet" → This means TWO handles with wide spacing → Type = "Two Handle" or "Bridge"\n`;
         typeSelectionGuide += `    • If Ferguson says "Pull Down" in the title → Type = "Pull-Down" (trust Ferguson's description)\n`;
-        typeSelectionGuide += `    • "Cold Water Dispenser" or "Filter Faucet" are specialized single-handle faucets → Type = "Single Handle"\n\n`;
+        typeSelectionGuide += `    • "Pre-Rinse" style faucets → Type = "Commercial"\n`;
+        typeSelectionGuide += `    • Pot Fillers are always wall-mounted but use Type = "Pot Filler" (NOT "Wall Mount")\n\n`;
       } else if (categoryLower === 'tub filler' || categoryLower === 'tub faucet') {
         typeSelectionGuide += `  🔍 **TUB FILLER Type Priority**:\n`;
         typeSelectionGuide += `    1. Roman Tub (deck-mounted with two handles for tub)\n`;
@@ -5217,6 +5216,16 @@ ${promptOptions.invalidTypeWarning}
     categoryStyleContext += `  • Single Hole faucets → Style: "1 Hole"\n`;
     categoryStyleContext += `  • Vessel faucets → Usually "1 Hole" unless otherwise specified\n`;
     categoryStyleContext += `  • Check product specs for "faucet holes", "hole configuration", or mounting requirements\n`;
+  } else if (categoryLowerForStyle === 'kitchen faucet') {
+    categoryStyleContext = `\n== VALID CONFIGURATION STYLES FOR KITCHEN FAUCET ==\n`;
+    categoryStyleContext += `⚠️ For Kitchen Faucets, product_style is a CONFIGURATION style (hole count or mount type), NOT a design aesthetic.\n`;
+    categoryStyleContext += `Select based on the product's mounting configuration:\n`;
+    categoryStyleContext += validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n');
+    categoryStyleContext += `\n\n🔍 HOW TO DETERMINE STYLE:\n`;
+    categoryStyleContext += `  • Wall Mount / Pot Filler → Style: "Wall Mounted"\n`;
+    categoryStyleContext += `  • Pull-Down / Pull-Out / Single Hole / Commercial → Style: "1 Hole"\n`;
+    categoryStyleContext += `  • Bridge / Two Handle faucets → Style: "3 Hole" (two handles + spout)\n`;
+    categoryStyleContext += `  • Check product specs for "faucet holes", "hole configuration", or mounting requirements\n`;
   } else {
     categoryStyleContext = `\n== VALID STYLES FOR ${determinedCategory.toUpperCase()} ==\n${validStyles.map((s: string, idx: number) => `  ${idx + 1}. ${s}`).join('\n')}`;
   }
@@ -5234,7 +5243,7 @@ ${promptOptions.invalidTypeWarning}
   }
   
   // Build category-specific product_style instruction for JSON response format
-  const productStyleInstruction = (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet' || categoryLowerForStyle === 'bathroom faucet')
+  const productStyleInstruction = (categoryLowerForStyle === 'tub filler' || categoryLowerForStyle === 'tub faucet' || categoryLowerForStyle === 'bathroom faucet' || categoryLowerForStyle === 'kitchen faucet')
     ? `⚠️ MANDATORY: Select CONFIGURATION STYLE from the valid styles list above. This is the hole count (1 Hole, 2 Hole, 3 Hole, 4 Hole) or mount config (Wall Mounted). Check product specs for faucet holes or mounting type.`
     : `⚠️ MANDATORY: Select DESIGN AESTHETIC from VALID DESIGN STYLES (e.g., Contemporary, Modern, Traditional). DO NOT put functional types here.`;
 
@@ -13342,21 +13351,21 @@ Type = PRODUCT ASSEMBLY TYPE (what the complete product is):
     } else if (categoryLower === 'kitchen faucet') {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR KITCHEN FAUCET:
 ⚠️ Choose the HIGHEST applicable type from this priority list:
-  1. Pull-Down / Pull-Out (spray mechanism — most common kitchen types)
-  2. Bridge (two handles with exposed connector tube between them)
-  3. Pre-Rinse (commercial-style spring coil with spray head)
-  4. Touchless / Commercial (sensor-activated or commercial-grade)
-  5. Wall Mount (mounted to wall, NOT to deck/countertop)
-  6. Two Handle (two separate handles, NO spray function, NOT a bridge)
-  7. Deck Mount (ONLY if no other type applies — just means countertop-mounted)
-  8. Single Handle (LAST RESORT — nearly all faucets have a handle)
+  1. Pull-Down (retractable spray head pulls down — most common kitchen type)
+  2. Pull-Out (spray head pulls out toward you)
+  3. Pot Filler (wall-mounted swing arm for filling pots — typically near stove)
+  4. Bridge (two handles with exposed connector tube between them)
+  5. Wall Mount (mounted to wall, NOT to deck/countertop — NOT a pot filler)
+  6. Commercial (commercial-grade, spring coil, pre-rinse style)
+  7. Two Handle (two separate handles, NO spray function, NOT a bridge)
+  8. Single Hole (ONLY if no other functional type applies — basic single-hole faucet)
 
 COMMON MISTAKES TO AVOID:
-  • "Deck Mount" is NOT useful — it just means mounted to a sink/counter (most faucets are). Look harder for a functional type.
-  • "Single Handle" is NOT descriptive — it describes handle COUNT, not function. A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Handle".
+  • A Pull-Down faucet with one handle = Type "Pull-Down", NOT "Single Hole"
   • Ferguson "Widespread Kitchen Faucet" → Two handles with wide spacing → Type = "Two Handle" or "Bridge"
   • If Ferguson says "Pull Down" in product title → Type = "Pull-Down" (trust Ferguson)
-  • "Cold Water Dispenser" or "Filter Faucet" are specialized single-handle faucets → Type = "Single Handle"`;
+  • "Pre-Rinse" style faucets → Type = "Commercial"
+  • Pot Fillers are always wall-mounted but use Type = "Pot Filler" (NOT "Wall Mount")`;
     } else if (categoryLower === 'bathroom faucet') {
       typeSelectionGuide = `\nTYPE SELECTION GUIDE FOR BATHROOM FAUCET:
 ⚠️ Choose the HIGHEST applicable type from this priority list:

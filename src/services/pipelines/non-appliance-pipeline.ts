@@ -916,6 +916,32 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
     }
   }
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // KITCHEN FAUCET TYPE → STYLE AUTO-MAPPING
+  // Derive configuration style (hole count) from faucet type
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (finalSeoTitleInput.category === 'Kitchen Faucet') {
+    const faucetType = (finalSeoTitleInput.type || '').toLowerCase().trim();
+    let derivedStyle = '';
+
+    if (faucetType === 'wall mount') {
+      derivedStyle = 'Wall Mounted';
+    } else if (faucetType === 'pot filler') {
+      derivedStyle = 'Wall Mounted';
+    } else if (faucetType === 'bridge') {
+      derivedStyle = '3 Hole';
+    } else if (faucetType === 'two handle') {
+      derivedStyle = '3 Hole';
+    } else if (faucetType === 'pull-down' || faucetType === 'pull-out' || faucetType === 'single hole' || faucetType === 'commercial') {
+      derivedStyle = '1 Hole';
+    }
+
+    if (derivedStyle && !sanitizedPrimaryAttributes.AI_Style) {
+      sanitizedPrimaryAttributes.AI_Style = derivedStyle;
+      finalSeoTitleInput.style = derivedStyle;
+    }
+  }
+
   return {
     finalSeoTitleInput,
     sanitizedPrimaryAttributes,

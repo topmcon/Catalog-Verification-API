@@ -6962,7 +6962,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
       },
       {
         "position": 3,
-        "attribute": "Hole Config",
+        "attribute": "Style",
         "required": false
       },
       {
@@ -6987,9 +6987,9 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
         "required": false
       }
     ],
-    "template": "{Brand} {Type} {Hole Config} {Category} {Finish} {GPM} {Model Number}",
-    "exampleTitle": "Brand TypeValue Kitchen Faucet Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Pull-Down, Pull-Out, High-Arc, Commercial, Bridge. Hole = Single, 3-Hole, Widespread."
+    "template": "{Brand} {Type} {Style} {Category} {Finish} {GPM} {Model Number}",
+    "exampleTitle": "Delta Pull-Down 1 Hole Kitchen Faucet Chrome 1.8 GPM - 9159-DST",
+    "seoNotes": "Type = Pull-Down, Pull-Out, Single Hole, Wall Mount, Bridge, Commercial, Two Handle, Pot Filler. Style = 1 Hole, 2 Hole, 3 Hole, 4 Hole, Wall Mounted (configuration)."
   },
   "kitchen_furniture_and_decor": {
     "categoryId": "a01aZ00000dC5EAQA0",

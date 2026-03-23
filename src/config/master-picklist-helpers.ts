@@ -24,11 +24,11 @@ export const UNIVERSAL_DESIGN_STYLES = categoryStyleMapping.universal_styles.map
  * @returns Array of valid style names
  */
 export function getValidStylesForCategory(categoryName?: string): string[] {
-  // Tub Filler and Bathroom Faucet use configuration styles instead of design aesthetics
+  // Tub Filler, Bathroom Faucet, and Kitchen Faucet use configuration styles instead of design aesthetics
   if (categoryName) {
     const catLower = categoryName.toLowerCase();
-    if (catLower === 'tub filler' || catLower === 'tub faucet' || catLower === 'bathroom faucet') {
-      const lookupName = (catLower === 'tub filler' || catLower === 'tub faucet') ? 'Tub Filler' : 'Bathroom Faucet';
+    if (catLower === 'tub filler' || catLower === 'tub faucet' || catLower === 'bathroom faucet' || catLower === 'kitchen faucet') {
+      const lookupName = (catLower === 'tub filler' || catLower === 'tub faucet') ? 'Tub Filler' : (catLower === 'bathroom faucet' ? 'Bathroom Faucet' : 'Kitchen Faucet');
       const mapping = (categoryStyleMapping.category_specific_mappings as any[]).find(
         (c: any) => c.category_name === lookupName
       );

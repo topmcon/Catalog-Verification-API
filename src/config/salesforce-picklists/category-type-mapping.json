@@ -2994,7 +2994,7 @@
       "category_name": "Kitchen Faucet",
       "category_id": "a01aZ00000dC5E9QAK",
       "filter_label": "Kitchen Faucet Type",
-      "logic": "Spout function and operation style",
+      "logic": "Spout function and installation configuration",
       "types": [
         {
           "type_name": "Pull-Down",
@@ -3007,22 +3007,17 @@
           "primary_filter": true
         },
         {
+          "type_name": "Single Hole",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Wall Mount",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Bridge",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Pre-Rinse",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Touchless",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Single Handle",
           "status": "existing",
           "primary_filter": true
         },
@@ -3033,44 +3028,13 @@
         },
         {
           "type_name": "Two Handle",
-          "type_group": "Handle Configuration",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Touch-On",
-          "type_group": "Handle Configuration",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "High-Arc",
-          "type_group": "Spout Style",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Commercial Style",
-          "type_group": "Spout Style",
-          "status": "pending_salesforce_id",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Wall Mount",
-          "type_group": "Installation",
+          "type_name": "Pot Filler",
           "status": "existing",
           "primary_filter": true
-        },
-        {
-          "type_name": "Deck Mount",
-          "type_group": "Installation",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Accessory",
-          "status": "existing",
-          "primary_filter": false
         }
       ],
       "styles_apply": true
