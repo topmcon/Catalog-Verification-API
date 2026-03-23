@@ -286,14 +286,14 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   // ============================================
   // PLUMBING ALIASES - Tub & Shower Faucets
   // ============================================
-  'roman tub': { 'Tub Faucet': 'Deck Mount' },
-  'deck mount': { 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
-  'deck mounted': { 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
-  'roman tub faucet': { 'Tub Faucet': 'Deck Mount' },
-  'deck mount tub': { 'Tub Faucet': 'Deck Mount' },
-  'tub filler': { 'Tub Faucet': 'Freestanding', 'Pot Filler Faucet': 'Wall Mount' },
-  'freestanding tub filler': { 'Tub Faucet': 'Freestanding' },
-  'freestanding tub faucet': { 'Tub Faucet': 'Freestanding' },
+  'roman tub': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
+  'deck mount': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
+  'deck mounted': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount', 'Kitchen Faucet': 'Deck Mount' },
+  'roman tub faucet': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
+  'deck mount tub': { 'Tub Filler': 'Deck Mount', 'Tub Faucet': 'Deck Mount' },
+  'tub filler': { 'Tub Filler': 'Freestanding', 'Tub Faucet': 'Freestanding', 'Pot Filler Faucet': 'Wall Mount' },
+  'freestanding tub filler': { 'Tub Filler': 'Freestanding', 'Tub Faucet': 'Freestanding' },
+  'freestanding tub faucet': { 'Tub Filler': 'Freestanding', 'Tub Faucet': 'Freestanding' },
   'thermostatic': { 'Showerheads & Accessories': 'Thermostatic' },
   'pressure balance': { 'Showerheads & Accessories': 'Pressure Balance' },
   'shower system': { 'Showerheads & Accessories': 'Shower System', 'Shower': 'Shower System' },

@@ -3205,7 +3205,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3215,7 +3215,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Floor Mounted Tub Filler",
+          "type_name": "Floor Mounted",
           "status": "existing",
           "primary_filter": true
         },

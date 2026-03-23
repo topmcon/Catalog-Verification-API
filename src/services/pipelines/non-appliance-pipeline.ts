@@ -846,9 +846,9 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // TUB FAUCET TYPE/MOUNT SPLITTING
+  // TUB FILLER TYPE/MOUNT SPLITTING
   // ═══════════════════════════════════════════════════════════════════════════
-  if (finalSeoTitleInput.category === 'Tub Faucet') {
+  if (finalSeoTitleInput.category === 'Tub Filler' || finalSeoTitleInput.category === 'Tub Faucet') {
     const tubType = (finalSeoTitleInput.type || '').toLowerCase();
     if (/floor\s+mounted?\s+tub\s+filler/i.test(tubType)) {
       finalSeoTitleInput.type = 'Tub Filler'; finalSeoTitleInput.mountType = 'Floor Mounted';

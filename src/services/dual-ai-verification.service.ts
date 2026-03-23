@@ -1475,7 +1475,7 @@ function resolveDisagreementSmart(
     const TYPE_PRIORITY: Record<string, string[]> = {
       'bathroom faucet': ['wall mount', 'vessel', 'touchless', 'centerset', 'widespread', 'single hole'],
       'kitchen faucet':  ['pull-down', 'pull-out', 'bridge', 'pre-rinse', 'touchless', 'commercial', 'wall mount', 'deck mount', 'single handle', 'two handle'],
-      'tub filler':      ['roman tub', 'freestanding', 'deck mount', 'wall mount'],
+      'tub filler':      ['roman tub', 'freestanding', 'deck mount', 'wall mounted', 'floor mounted'],
       'bar faucet':      ['pull-down', 'single handle', 'two handle'],
     };
 

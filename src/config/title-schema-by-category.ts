@@ -6462,7 +6462,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Mount} {Type} {Category} {Finish} {GPM} {Model Number}",
     "exampleTitle": "Brand Deck Mount Tub Filler Finish 1.2 GPM - Model",
-    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mount, Floor Mounted Tub Filler."
+    "seoNotes": "Type = Roman Tub, Freestanding, Deck Mount, Wall Mounted, Floor Mounted."
   },
   "urinal": {
     "categoryId": "a01aZ00000dC5E0QAK",

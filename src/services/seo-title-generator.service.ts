@@ -1065,7 +1065,7 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
 
       // Cross-slot word-level deduplication for Tub Filler:
       // Prevents "Roman Tub Tub Filler" → "Roman Tub Filler"
-      // Prevents "Floor Mounted Tub Filler Tub Filler" → "Floor Mounted Tub Filler"
+      // Prevents "Floor Mounted Tub Filler" → "Floor Mounted Tub Filler" (dedup removes redundant words)
       // Logic: When Category slot contains words already in preceding parts, remove them.
       if (schema.categoryName === 'Tub Filler' && formattedValue) {
         const existingWords = parts.join(' ').toLowerCase().split(/\s+/);
