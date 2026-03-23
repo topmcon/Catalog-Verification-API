@@ -24,6 +24,8 @@
 
 import logger from '../../utils/logger';
 import { PipelineContext, PipelineResult, defaultApplianceFeatures } from './shared-pipeline-types';
+import { isValidTypeForCategory, getTypeByName } from '../../picklist-master/03-types/type-config';
+import { matchTypeToPicklist } from '../type-matcher.service';
 
 // ── Category Salesforce ID Lookup ─────────────────────────────────────────────
 // When the pipeline reclassifies a product's category, we must also update
@@ -1205,6 +1207,53 @@ export function applyNonAppliancePipeline(ctx: PipelineContext): PipelineResult 
         newCategory: currentCategory,
         availableCategories: Object.keys(CATEGORY_SF_IDS),
       });
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // POST-RECLASSIFICATION TYPE VALIDATION
+  // ═══════════════════════════════════════════════════════════════════════════
+  // When the pipeline reclassifies a product's category (e.g., Shower → Shower Accessory),
+  // the AI-assigned type may be invalid for the new category (e.g., "Alcove" or "Freestanding"
+  // are Shower enclosure types that don't exist in Shower Accessory).
+  // Validate the type against the new category's valid type list, and re-derive if invalid.
+  if (currentCategory !== ctx.agreedCategory) {
+    const currentType = sanitizedPrimaryAttributes.AI_Type || '';
+    if (currentType && !isValidTypeForCategory(currentType, currentCategory)) {
+      const fergusonName = ctx.fergusonProductName || '';
+      // Try keyword detection from Ferguson product name against the new category
+      const reMatch = matchTypeToPicklist(fergusonName, currentCategory);
+      if (reMatch.matched && reMatch.matchedValue) {
+        sanitizedPrimaryAttributes.AI_Type = reMatch.matchedValue.type_name;
+        sanitizedPrimaryAttributes.AI_Type_Id = reMatch.matchedValue.type_id || null;
+        finalSeoTitleInput.type = reMatch.matchedValue.type_name;
+        logger.warn('🔄 POST-RECLASSIFICATION: Type re-derived for new category', {
+          sessionId,
+          oldType: currentType,
+          newType: reMatch.matchedValue.type_name,
+          newCategory: currentCategory,
+          matchMethod: reMatch.matchMethod,
+          confidence: reMatch.confidence,
+          source: 'Ferguson product name keyword detection',
+        });
+      } else {
+        // No valid type found — clear rather than leave invalid value
+        sanitizedPrimaryAttributes.AI_Type = '';
+        sanitizedPrimaryAttributes.AI_Type_Id = null;
+        finalSeoTitleInput.type = '';
+        logger.warn('🔄 POST-RECLASSIFICATION: Type cleared — invalid for new category and no keyword match', {
+          sessionId,
+          invalidType: currentType,
+          newCategory: currentCategory,
+          fergusonName: fergusonName.substring(0, 80),
+        });
+      }
+    } else if (currentType) {
+      // Type is valid for new category — update the type ID to match
+      const typeInfo = getTypeByName(currentType);
+      if (typeInfo?.type_id) {
+        sanitizedPrimaryAttributes.AI_Type_Id = typeInfo.type_id;
+      }
     }
   }
 
