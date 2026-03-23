@@ -6239,7 +6239,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
   "showerheads_accessories": {
     "categoryId": "a01aZ00000dC5DtQAK",
     "categoryName": "Showerheads & Accessories",
-    "titleDisplayName": "Shower Head",
+    "titleDisplayName": "Shower",
     "department": "Plumbing & Bath",
     "family": "Bath",
     "slots": [
@@ -6277,7 +6277,7 @@ export const CATEGORY_TITLE_SCHEMAS: Record<string, CategoryTitleSchema> = {
     ],
     "template": "{Brand} {Type} {Category} {Finish} {GPM} {Model Number}",
     "exampleTitle": "GRAFF Single Function Shower Head Polished Chrome 1.8 GPM - G-XXXX-PC",
-    "seoNotes": "Type = System, Single Function, Handheld, Trim Only, Body Spray, Rain Head, etc. titleDisplayName=Shower Head used in titles. Function slot removed (never populated by AI)."
+    "seoNotes": "Type = System, Single Function, Handheld, Trim Only, Body Spray, Rain Head, etc. titleDisplayName=Shower. Single Function and Rain Head mapped to SEO-friendly names via typeDisplayMap. Function slot removed (never populated by AI)."
   },
   "steam_shower": {
     "categoryId": "a01aZ00000dC5DvQAK",

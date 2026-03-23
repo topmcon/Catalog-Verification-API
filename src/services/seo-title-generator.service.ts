@@ -951,7 +951,8 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
     if (slot.attribute === 'Type' && formattedValue) {
       const typeDisplayMap: Record<string, string> = {
         'Linear': 'Linear Drain',          // "Linear" is SF type; "Linear Drain" is SEO-friendly for titles
-        'Rain Head': 'Rain',                // "Rain Head" + Category "Shower Head" → "Rain Shower Head" (natural reading)
+        'Single Function': 'Single Function Shower Head',  // Renders as "Single Function Shower Head" instead of "Single Function Shower"
+        'Rain Head': 'Rain Shower Head',    // Renders as "Rain Shower Head" instead of "Rain Head Shower"
       };
       if (typeDisplayMap[formattedValue]) {
         formattedValue = typeDisplayMap[formattedValue];
@@ -1062,11 +1063,15 @@ function generateFromSchema(input: SEOTitleInput, schema: CategoryTitleSchema): 
       }
 
       // Skip redundant Category when Type already contains the category keyword "Shower"
+      // Check both the original type name AND the rendered parts (typeDisplayMap may have
+      // injected "Shower Head" — e.g., "Single Function" → "Single Function Shower Head")
       // Examples: Type="Shower Arm" + Category="Shower Accessory" → just "Shower Arm"
-      //           Type="Hand Shower" + Category="Shower Head" → just "Hand Shower"
-      //           Type="Steam Generator" + Category="Steam Shower" → just "Steam Generator"  
-      // Non-matches kept: Type="Thermostatic" + Category="Shower Head" → "Thermostatic Shower Head"
-      if (typeVal.includes('shower') && formattedValue.toLowerCase().includes('shower')) {
+      //           Type="Hand Shower" + Category="Shower" → just "Hand Shower"
+      //           typeDisplayMap "Single Function Shower Head" + Category="Shower" → skip Category
+      //           typeDisplayMap "Rain Shower Head" + Category="Shower" → skip Category
+      // Non-matches kept: Type="Thermostatic" + Category="Shower" → "Thermostatic Shower"
+      const renderedSoFar = parts.join(' ').toLowerCase();
+      if ((typeVal.includes('shower') || renderedSoFar.includes('shower')) && formattedValue.toLowerCase().includes('shower')) {
         logger.info('Skipping redundant Category slot - Type already contains Shower keyword', {
           type: input.type,
           category: formattedValue,
