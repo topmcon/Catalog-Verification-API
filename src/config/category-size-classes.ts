@@ -218,9 +218,9 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["24", "27", "29"],
+        "classes": ["24", "27", "28", "29"],
         "rounding_method": "NEAREST" as const,
-        "notes": "24\" compact, 27\" standard, 29\" large capacity"
+        "notes": "24\" compact, 27\" standard, 28\" full-size (GE, etc.), 29\" large capacity"
       },
       {
         "category_name": "Laundry Pedestal",
@@ -229,7 +229,7 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["27", "29"],
+        "classes": ["27", "28", "29"],
         "rounding_method": "NEAREST" as const,
         "notes": "Must match washer/dryer width"
       },
@@ -240,9 +240,9 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["24", "27", "29"],
+        "classes": ["24", "27", "28", "29"],
         "rounding_method": "NEAREST" as const,
-        "notes": "24\" compact, 27\" standard, 29\" large capacity"
+        "notes": "24\" compact, 27\" standard, 28\" full-size (GE, etc.), 29\" large capacity"
       }
     ]
   },
