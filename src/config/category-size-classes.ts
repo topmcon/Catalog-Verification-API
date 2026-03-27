@@ -137,10 +137,10 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["24", "27", "30"],
+        "classes": ["22", "24", "27", "30"],
         "rounding_method": "NEAREST" as const,
         "installation_dependent": true,
-        "notes": "Over-the-range and built-in width; 30\" is most common"
+        "notes": "22\" compact countertop, 24\" built-in, 27\" mid-size, 30\" standard OTR"
       },
       {
         "category_name": "Oven",
@@ -207,9 +207,9 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["24", "27"],
+        "classes": ["24", "27", "28"],
         "rounding_method": "NEAREST" as const,
-        "notes": "24\" compact/ventless, 27\" standard"
+        "notes": "24\" compact/ventless, 27\" standard, 28\" full-size"
       },
       {
         "category_name": "Dryer",
