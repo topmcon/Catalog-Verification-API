@@ -9793,8 +9793,16 @@ async function buildFinalResponse(
     rawProduct.Features_Web_Retailer || ''
   ].join(' ').toLowerCase();
   
+  // Also check AI consensus panel_ready attribute (AIs may detect panel-ready even when raw text lacks keywords)
+  const aiConsensusPanelReady = String(
+    consensus.agreedTop15Attributes?.panel_ready ||
+    openaiResult.top15Attributes?.panel_ready ||
+    xaiResult.top15Attributes?.panel_ready || ''
+  ).toLowerCase() === 'yes';
+
   let panelReadyValue = '';
   if (
+    aiConsensusPanelReady ||
     installationTypeLower.includes('panel ready') ||
     installationTypeLower.includes('panel-ready') ||
     installationTypeLower.includes('integrated') ||
@@ -9808,9 +9816,11 @@ async function buildFinalResponse(
     logger.info('Panel Ready detected for title', {
       sessionId,
       category: consensus.agreedCategory,
-      source: installationTypeLower.includes('panel') || installationTypeLower.includes('integrated') 
-        ? 'installation_type' 
-        : 'product_description'
+      source: aiConsensusPanelReady
+        ? 'ai_consensus_panel_ready'
+        : installationTypeLower.includes('panel') || installationTypeLower.includes('integrated') 
+          ? 'installation_type' 
+          : 'product_description'
     });
   }
   
@@ -11776,8 +11786,8 @@ async function buildFinalResponse(
     rawTitle: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),
     style: sanitizedPrimaryAttributes.AI_Style || seoTitleInput.style,
     type: sanitizedPrimaryAttributes.AI_Type || seoTitleInput.type,
-    finish: smartAppearance,
-    color: smartAppearance,
+    finish: panelReadyValue === 'Panel Ready' ? '' : smartAppearance,
+    color: panelReadyValue === 'Panel Ready' ? '' : smartAppearance,
     width: sanitizedPrimaryAttributes.AI_Width || seoTitleInput.width,
     height: sanitizedPrimaryAttributes.AI_Height || seoTitleInput.height,
     depth: sanitizedPrimaryAttributes.AI_Depth || seoTitleInput.depth,
@@ -11805,6 +11815,7 @@ async function buildFinalResponse(
     shape: String(sanitizedTopFilterAttributes.mirror_shape || sanitizedTopFilterAttributes.shape || seoTitleInput.shape || ''),
     bowlShape: String(sanitizedTopFilterAttributes.bowl_shape || seoTitleInput.bowlShape || ''),
     flushType: String(sanitizedTopFilterAttributes.flush_type || seoTitleInput.flushType || ''),
+    panelReady: panelReadyValue,
     // function field: populated by shower post-processing below; initialised empty here
     function: '',
   };
