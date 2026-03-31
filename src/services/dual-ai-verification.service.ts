@@ -9931,7 +9931,8 @@ async function buildFinalResponse(
     ),
     
     // Appearance — AI → Title extract (dept-aware) → Desc/Features extract → Structured → ''
-    finish: normalizeFinish(
+    // Panel-ready: omit finish from title (Panel Ready is in its own slot, don't duplicate)
+    finish: panelReadyValue === 'Panel Ready' ? '' : normalizeFinish(
       smartPreferAIValue(
         consensus.agreedPrimaryAttributes.finish,
         openaiResult.primaryAttributes.finish,
@@ -9944,7 +9945,7 @@ async function buildFinalResponse(
         getValidFinishes()
       )
     ),
-    color: preferAIValue(
+    color: panelReadyValue === 'Panel Ready' ? '' : preferAIValue(
       consensus.agreedPrimaryAttributes.color,
       openaiResult.primaryAttributes.color,
       xaiResult.primaryAttributes.color,
@@ -10186,6 +10187,11 @@ async function buildFinalResponse(
       ? getSafeId(styleMatch.matchedValue.style_id)  // Filter out placeholder IDs
       : null,
     AI_Color: (() => {
+      // Panel-ready appliances have no visible finish — don't extract metallic colors from accessories/legacy titles
+      if (panelReadyValue === 'Panel Ready') {
+        logger.info('Panel Ready detected — setting color to Panel Ready (not extracting from text)', { sessionId, category: consensus.agreedCategory });
+        return 'Panel Ready';
+      }
       let color = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.color,
@@ -10252,6 +10258,11 @@ async function buildFinalResponse(
       return color;
     })(),
     AI_Finish: (() => {
+      // Panel-ready appliances have no visible finish — don't extract metallic finishes from accessories/legacy titles
+      if (panelReadyValue === 'Panel Ready') {
+        logger.info('Panel Ready detected — setting finish to Panel Ready (not extracting from text)', { sessionId, category: consensus.agreedCategory });
+        return 'Panel Ready';
+      }
       let finish = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.finish,
