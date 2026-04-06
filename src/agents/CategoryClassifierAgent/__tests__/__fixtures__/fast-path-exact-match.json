@@ -1,0 +1,47 @@
+{
+  "description": "Fast-path happy path - both sources normalize to identical picklist entry",
+  "input": {
+    "fergusonCategory": "Refrigerator",
+    "fergusonProductType": "French Door",
+    "fergusonTitle": "36-Inch French Door Refrigerator with Ice Maker",
+    "fergusonBusinessCategory": "Kitchen Appliances",
+    "fergusonURL": "https://www.ferguson.com/product/whirlpool-refrigerator",
+    "webRetailerCategory": "Refrigerator",
+    "webRetailerSubCategory": "French Door Refrigerators",
+    "webRetailerTitle": "Whirlpool 36\" French Door Refrigerator - Stainless Steel",
+    "webRetailerURL": "https://www.homedepot.com/p/Whirlpool-36-French-Door-Refrigerator",
+    "webRetailerDescription": "Energy-efficient French door refrigerator with ice maker and water dispenser",
+    "sfCatalogId": "TEST-FP-001",
+    "sfCatalogName": "Whirlpool French Door Refrigerator"
+  },
+  "mockedAIResponses": null,
+  "expected": {
+    "fastPathResult": {
+      "success": true,
+      "output": {
+        "department": "Appliances",
+        "family": "Kitchen",
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "confidence": 92,
+        "locked": false,
+        "reasoning": {
+          "step1Department": "",
+          "step2Family": "",
+          "step3Category": "",
+          "fastPathUsed": true
+        },
+        "provider": "openai"
+      }
+    },
+    "chainResult": null,
+    "consensusResult": null
+  },
+  "metadata": {
+    "scenario": "fast-path-exact-match",
+    "primaryAssertion": "Fast-path should return success with 92% confidence when both sources normalize to same category",
+    "edgeCaseCovered": "Common case optimization - skips expensive AI chain for 60-70% of products",
+    "aiCallsExpected": 0,
+    "processingTimeExpected": "<10ms"
+  }
+}

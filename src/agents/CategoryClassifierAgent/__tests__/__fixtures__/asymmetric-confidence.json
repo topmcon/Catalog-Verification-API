@@ -1,0 +1,125 @@
+{
+  "description": "Asymmetric confidence - both AIs agree on category but high confidence disparity",
+  "input": {
+    "fergusonCategory": "Wine & Beverage Coolers",
+    "fergusonProductType": "Wine Cooler",
+    "fergusonTitle": "24-Inch Undercounter Wine Refrigerator",
+    "fergusonBusinessCategory": "Kitchen Appliances",
+    "fergusonURL": "https://www.ferguson.com/product/uline-wine-cooler",
+    "webRetailerCategory": "Small Appliances",
+    "webRetailerSubCategory": "Wine & Beverage Refrigerators",
+    "webRetailerTitle": "U-Line 24\" Built-In Wine Captain - Stainless Steel Frame",
+    "webRetailerURL": "https://www.homedepot.com/p/U-Line-Wine-Cooler",
+    "webRetailerDescription": "Dual-zone wine refrigeration with digital controls and LED lighting",
+    "legacyCategory": "Refrigerator",
+    "sfCatalogId": "TEST-ASYM-001",
+    "sfCatalogName": "U-Line Wine Cooler"
+  },
+  "mockedAIResponses": {
+    "step1Department": {
+      "openai": {
+        "department": "Appliances",
+        "reasoning": "Wine cooler is a kitchen refrigeration appliance. Ferguson categorizes as 'Wine & Beverage Coolers' under Kitchen Appliances. Undercounter-built-in design is typical of appliance installation.",
+        "confidence": 96
+      },
+      "xai": {
+        "department": "Appliances",
+        "reasoning": "This is refrigeration equipment, clearly an appliance. Web retailer lists under 'Small Appliances'. Could potentially be Kitchen or Laundry department within Appliances, but definitely appliance category.",
+        "confidence": 88
+      }
+    },
+    "step2Family": {
+      "openai": {
+        "family": "Kitchen",
+        "reasoning": "Wine coolers belong to Kitchen family within Appliances. This is kitchen refrigeration equipment, similar to refrigerators, freezers, and ice makers.",
+        "confidence": 94
+      },
+      "xai": {
+        "family": "Kitchen",
+        "reasoning": "Beverage refrigeration is kitchen equipment. 24-inch undercounter dimension is standard kitchen appliance sizing.",
+        "confidence": 70
+      }
+    },
+    "step3Category": {
+      "openai": {
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "reasoning": "Wine coolers are a type of specialized refrigerator. Ferguson explicitly calls this 'Wine Refrigerator' in the title. The product provides refrigeration functionality. While 'Wine & Beverage Coolers' is the specific subtype, the broader category classification is 'Refrigerator'.",
+        "confidence": 94
+      },
+      "xai": {
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "reasoning": "Categorizing this is ambiguous. It's specifically a wine cooler, but I don't see 'Wine Cooler' as a standalone category in the picklist. 'Refrigerator' is the closest match since wine coolers are refrigeration appliances. However, there might be a more specific category I'm missing. The legacy category field also suggests 'Refrigerator', which supports this choice but I'm not fully confident.",
+        "confidence": 50
+      }
+    }
+  },
+  "expected": {
+    "fastPathResult": {
+      "success": false,
+      "reason": "Different category strings (Wine & Beverage Coolers vs Small Appliances)"
+    },
+    "chainResult": {
+      "department": "Appliances",
+      "family": "Kitchen",
+      "category": "Refrigerator",
+      "categoryId": "a01Hu000010Q5EpIAK",
+      "confidence": 89,
+      "locked": false,
+      "reasoning": {
+        "step1Department": "Wine cooler is a kitchen refrigeration appliance.",
+        "step2Family": "Wine coolers belong to Kitchen family within Appliances.",
+        "step3Category": "Wine coolers are a type of specialized refrigerator. Ferguson explicitly calls this 'Wine Refrigerator'.",
+        "fastPathUsed": false
+      },
+      "provider": "openai"
+    },
+    "consensusResult": {
+      "agreed": true,
+      "agreementScore": 85,
+      "value": {
+        "department": "Appliances",
+        "family": "Kitchen",
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "confidence": 84,
+        "locked": false,
+        "reasoning": {
+          "step1Department": "Wine cooler is a kitchen refrigeration appliance.",
+          "step2Family": "Wine coolers belong to Kitchen family within Appliances.",
+          "step3Category": "Wine coolers are specialized refrigeration appliances.",
+          "fastPathUsed": false
+        },
+        "provider": "openai"
+      },
+      "discrepancies": [
+        {
+          "field": "confidence",
+          "openaiValue": 94,
+          "xaiValue": 61,
+          "severity": "low",
+          "resolution": "High disparity detected. Applied 10-point penalty. One AI is uncertain."
+        }
+      ],
+      "retryAllowed": true,
+      "source": "partial-consensus"
+    }
+  },
+  "metadata": {
+    "scenario": "asymmetric-confidence",
+    "primaryAssertion": "Consensus should flag weakConsensus when confidence disparity > 25 points",
+    "edgeCaseCovered": "Products that match category but one AI is uncertain (missing picklist value, ambiguous classification)",
+    "aiCallsExpected": 6,
+    "processingTimeExpected": "600-1800ms",
+    "confidenceCalculation": {
+      "openaiWeighted": "(96*0.2 + 94*0.3 + 94*0.5) = 94.2%",
+      "xaiWeighted": "(88*0.2 + 85*0.3 + 61*0.5) = 73.5%",
+      "disparity": "|94 - 61| = 33 > 25",
+      "penalizedConfidence": "max(94, 61) - 10 = 84%",
+      "agreementScore": 85
+    },
+    "weakConsensusSignal": "Both agreed on 'Refrigerator' but one AI wasn't sure - downstream soft-lock should know this",
+    "productionValue": "Analytics can track weak consensus rate to identify categories needing picklist expansion"
+  }
+}

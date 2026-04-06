@@ -1,0 +1,117 @@
+{
+  "description": "Cross-department conflict where both AIs agree - Ferguson=Lighting, WebRetailer=Plumbing",
+  "input": {
+    "fergusonCategory": "Lighting Fixtures",
+    "fergusonProductType": "Vanity Light",
+    "fergusonTitle": "5-Light Bathroom Vanity Fixture - Brushed Nickel",
+    "fergusonBusinessCategory": "Lighting",
+    "fergusonURL": "https://www.ferguson.com/product/progress-lighting-vanity-fixture",
+    "webRetailerCategory": "Bathroom Accessories",
+    "webRetailerSubCategory": "Bathroom Hardware",
+    "webRetailerTitle": "Progress Lighting 5-Light Brushed Nickel Bathroom Vanity Light Bar",
+    "webRetailerURL": "https://www.lowes.com/pd/Progress-Lighting-Vanity-Light",
+    "webRetailerDescription": "Contemporary bathroom lighting fixture with frosted glass shades",
+    "sfCatalogId": "TEST-CROSS-001",
+    "sfCatalogName": "Progress Lighting Vanity Fixture"
+  },
+  "mockedAIResponses": {
+    "step1Department": {
+      "openai": {
+        "department": "Lighting & Electrical",
+        "reasoning": "This is a lighting fixture. Ferguson categorizes it as 'Lighting Fixtures' and product type is 'Vanity Light'. While web retailer lists it under 'Bathroom Accessories', the product function is to provide illumination, which is the primary characteristic. CROSS-DEPARTMENT CONFLICT DETECTED: Ferguson=Lighting, WebRetailer=Plumbing/Bath. Trust Ferguson as lighting specialist for fixture products.",
+        "confidence": 88,
+        "departmentMismatch": true,
+        "conflictResolution": "Chose Lighting & Electrical because Ferguson (specialist distributor) explicitly categorizes as lighting fixture, and product's primary function is illumination"
+      },
+      "xai": {
+        "department": "Lighting & Electrical",
+        "reasoning": "Despite web retailer listing under bathroom accessories, this is fundamentally a lighting product. '5-Light Bathroom Vanity Fixture' and 'Vanity Light Bar' clearly indicate electrical lighting fixture. Bathroom is the installation location, not the product category.",
+        "confidence": 92,
+        "departmentMismatch": true,
+        "conflictResolution": "Product function (lighting) takes precedence over installation location (bathroom)"
+      }
+    },
+    "step2Family": {
+      "openai": {
+        "family": "Bath",
+        "reasoning": "Within Lighting & Electrical department, this is Bath family lighting. Vanity lighting is a specialized Bath subfamily for bathroom illumination.",
+        "confidence": 94
+      },
+      "xai": {
+        "family": "Bath",
+        "reasoning": "Bathroom vanity lighting falls under Bath family within the Lighting & Electrical department. Specific to bath/bathroom installation.",
+        "confidence": 91
+      }
+    },
+    "step3Category": {
+      "openai": {
+        "category": "Vanity Lighting",
+        "categoryId": "a01aZ00000dC5EdQAK",
+        "reasoning": "This is specifically a vanity lighting fixture designed for bathroom installation. The 5-light bar design and bathroom vanity application matches 'Vanity Lighting' category exactly.",
+        "confidence": 96
+      },
+      "xai": {
+        "category": "Vanity Lighting",
+        "categoryId": "a01aZ00000dC5EdQAK",
+        "reasoning": "'Vanity Light Bar' and 'Bathroom Vanity Fixture' are textbook Vanity Lighting products. This is a lighting fixture, not hardware or accessories.",
+        "confidence": 94
+      }
+    }
+  },
+  "expected": {
+    "fastPathResult": {
+      "success": false,
+      "reason": "Cross-department conflict: Ferguson=Lighting vs WebRetailer=Plumbing/Bath"
+    },
+    "chainResult": {
+      "department": "Lighting & Electrical",
+      "family": "Bath",
+      "category": "Vanity Lighting",
+      "categoryId": "a01aZ00000dC5EdQAK",
+      "confidence": 91,
+      "locked": false,
+      "reasoning": {
+        "step1Department": "This is a lighting fixture. Ferguson categorizes it as 'Lighting Fixtures' and product type is 'Vanity Light'. CROSS-DEPARTMENT CONFLICT DETECTED.",
+        "step2Family": "Within Lighting & Electrical department, this is Bath family lighting.",
+        "step3Category": "This is specifically a vanity lighting fixture designed for bathroom installation.",
+        "departmentMismatch": true,
+        "conflictResolution": "Chose Lighting & Electrical because Ferguson (specialist distributor) explicitly categorizes as lighting fixture, and product's primary function is illumination",
+        "fastPathUsed": false
+      },
+      "provider": "openai"
+    },
+    "consensusResult": {
+      "agreed": true,
+      "agreementScore": 100,
+      "value": {
+        "department": "Lighting & Electrical",
+        "family": "Bath",
+        "category": "Vanity Lighting",
+        "categoryId": "a01aZ00000dC5EdQAK",
+        "confidence": 94,
+        "locked": false,
+        "reasoning": {
+          "step1Department": "This is a lighting fixture. CROSS-DEPARTMENT CONFLICT DETECTED.",
+          "step2Family": "Within Lighting & Electrical department, this is Bath family lighting.",
+          "step3Category": "This is specifically a vanity lighting fixture designed for bathroom installation.",
+          "departmentMismatch": true,
+          "conflictResolution": "Chose Lighting & Electrical because Ferguson (specialist distributor) explicitly categorizes as lighting fixture",
+          "fastPathUsed": false
+        },
+        "provider": "openai"
+      },
+      "discrepancies": [],
+      "retryAllowed": false,
+      "source": "consensus"
+    }
+  },
+  "metadata": {
+    "scenario": "cross-dept-conflict-ais-agree",
+    "primaryAssertion": "Both AIs should detect cross-department conflict and agree on Lighting & Electrical",
+    "edgeCaseCovered": "Bathroom lighting products often miscategorized as plumbing/bath accessories by web retailers",
+    "aiCallsExpected": 6,
+    "processingTimeExpected": "600-1800ms",
+    "confidenceCalculation": "Confidence slightly reduced (88-92% vs typical 95%+) due to source disagreement",
+    "productionPattern": "Documented in Architecture docs - Phase 0.2 Ferguson Priority logic for cross-department conflicts"
+  }
+}

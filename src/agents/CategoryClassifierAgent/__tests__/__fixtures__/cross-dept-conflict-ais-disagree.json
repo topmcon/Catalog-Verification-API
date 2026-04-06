@@ -1,0 +1,105 @@
+{
+  "description": "Cross-department conflict where AIs disagree - Ambiguous product (LED Mirror)",
+  "input": {
+    "fergusonCategory": "Mirrors",
+    "fergusonProductType": "Illuminated Mirror",
+    "fergusonTitle": "42-Inch LED Bathroom Mirror with Built-In Lighting",
+    "fergusonBusinessCategory": "Bath Fixtures",
+    "fergusonURL": "https://www.ferguson.com/product/keonjinn-led-mirror",
+    "webRetailerCategory": "Lighting & Ceiling Fans",
+    "webRetailerSubCategory": "LED Mirrors",
+    "webRetailerTitle": "Keonjinn 42\" LED Lighted Bathroom Vanity Mirror with Dimmer",
+    "webRetailerURL": "https://www.homedepot.com/p/Keonjinn-LED-Mirror",
+    "webRetailerDescription": "Smart LED mirror with adjustable brightness, touch controls, and anti-fog technology",
+    "sfCatalogId": "TEST-CROSS-002",
+    "sfCatalogName": "Keonjinn LED Bathroom Mirror"
+  },
+  "mockedAIResponses": {
+    "step1Department": {
+      "openai": {
+        "department": "Plumbing & Bath",
+        "reasoning": "While this product has LED lighting, its primary function is as a bathroom mirror. Ferguson categorizes it as 'Mirrors' under 'Bath Fixtures'. The lighting is a feature enhancement, not the primary purpose. Similar to a refrigerator with ice maker - it's still a refrigerator, not an ice machine.",
+        "confidence": 72,
+        "departmentMismatch": true,
+        "conflictResolution": "Chose Plumbing & Bath because mirror is the primary product, LED is secondary feature"
+      },
+      "xai": {
+        "department": "Lighting & Electrical",
+        "reasoning": "This is marketed and sold as an LED lighting product. Web retailer places it in 'Lighting & Ceiling Fans' category. The product name emphasizes 'LED Lighted' and features dimmer controls, touch controls for brightness - these are lighting control features. Built-in lighting is integral, not accessory.",
+        "confidence": 68,
+        "departmentMismatch": true,
+        "conflictResolution": "Chose Lighting & Electrical because product emphasizes LED functionality and lighting controls"
+      }
+    },
+    "step2Family": {
+      "openai": {
+        "family": "Bath",
+        "reasoning": "Bathroom mirror belongs to Bath family. Installation location and primary use case is bathroom vanity.",
+        "confidence": 85
+      },
+      "xai": {
+        "family": "Bath",
+        "reasoning": "LED mirrors are categorized under Bath family within Lighting & Electrical. These are bathroom-specific lighting products.",
+        "confidence": 80
+      }
+    },
+    "step3Category": {
+      "openai": {
+        "category": "Bathroom Mirror",
+        "categoryId": "a01aZ00000dC5DhQAK",
+        "reasoning": "Despite LED features, this is fundamentally a mirror product for bathroom use. 'Bathroom Mirror' category includes illuminated/LED mirrors as feature variations.",
+        "confidence": 76
+      },
+      "xai": {
+        "category": "Vanity Lighting",
+        "categoryId": "a01aZ00000dC5EdQAK",
+        "reasoning": "LED vanity lighting includes integrated mirror products. The dimmer and touch controls indicate this is primarily a lighting fixture with mirror surface.",
+        "confidence": 71
+      }
+    }
+  },
+  "expected": {
+    "fastPathResult": {
+      "success": false,
+      "reason": "Cross-department conflict and category string mismatch"
+    },
+    "chainResult": null,
+    "consensusResult": {
+      "agreed": false,
+      "agreementScore": 0,
+      "discrepancies": [
+        {
+          "field": "department",
+          "openaiValue": "Plumbing & Bath",
+          "xaiValue": "Lighting & Electrical",
+          "severity": "critical"
+        }
+      ],
+      "retryAllowed": true,
+      "retryContext": {
+        "attempt": 1,
+        "message": "You determined this is a Plumbing & Bath product with 72% confidence. However, another analysis determined this is Lighting & Electrical with 68% confidence. \n\nProduct context:\nFerguson Category: \"Mirrors\"\nWeb Retailer Category: \"Lighting & Ceiling Fans\"\n\nPlease reconsider: Which department is correct? Provide your reasoning.",
+        "previousResults": {
+          "openai": {
+            "department": "Plumbing & Bath",
+            "confidence": 72
+          },
+          "xai": {
+            "department": "Lighting & Electrical",
+            "confidence": 68
+          }
+        }
+      }
+    }
+  },
+  "metadata": {
+    "scenario": "cross-dept-conflict-ais-disagree",
+    "primaryAssertion": "Consensus should fail with critical severity when AIs disagree on department",
+    "edgeCaseCovered": "Ambiguous products with dual functionality (mirror with integrated lighting)",
+    "aiCallsExpected": 6,
+    "processingTimeExpected": "600-1800ms",
+    "confidenceNote": "Both AIs have lower confidence (68-72%) indicating genuine ambiguity",
+    "retryExpectation": "Retry should provide cross-context enrichment with both perspectives and source data",
+    "productionRarity": "Rare edge case (~1-2% of products) but important for system robustness"
+  }
+}

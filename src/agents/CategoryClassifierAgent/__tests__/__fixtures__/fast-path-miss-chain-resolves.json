@@ -1,0 +1,108 @@
+{
+  "description": "Fast-path miss, chain resolves - different source strings require 3-step AI chain",
+  "input": {
+    "fergusonCategory": "REFRIGERATORS",
+    "fergusonProductType": "Counter Depth",
+    "fergusonTitle": "Counter Depth Refrigerator 42-Inch",
+    "fergusonBusinessCategory": "Major Kitchen Appliances",
+    "fergusonURL": "https://www.ferguson.com/product/sub-zero-refrigerator",
+    "webRetailerCategory": "French Door Refrigerators",
+    "webRetailerSubCategory": "Counter Depth Models",
+    "webRetailerTitle": "Sub-Zero 42\" Built-In French Door Refrigerator - Panel Ready",
+    "webRetailerURL": "https://www.homedepot.com/p/Sub-Zero-French-Door-Refrigerator",
+    "webRetailerDescription": "Luxury built-in refrigeration with dual compressors and air purification system",
+    "sfCatalogId": "TEST-FP-002",
+    "sfCatalogName": "Sub-Zero Counter Depth Refrigerator"
+  },
+  "mockedAIResponses": {
+    "step1Department": {
+      "openai": {
+        "department": "Appliances",
+        "reasoning": "Both sources clearly indicate kitchen refrigeration appliances. Ferguson category 'REFRIGERATORS' and web retailer 'French Door Refrigerators' are unambiguously appliances.",
+        "confidence": 95
+      },
+      "xai": {
+        "department": "Appliances",
+        "reasoning": "Refrigerator is a kitchen appliance. Counter depth and French door are appliance-specific features.",
+        "confidence": 98
+      }
+    },
+    "step2Family": {
+      "openai": {
+        "family": "Kitchen",
+        "reasoning": "Refrigerators belong to Kitchen family within Appliances department. Product type 'Counter Depth' and 'French Door' are kitchen refrigeration features.",
+        "confidence": 92
+      },
+      "xai": {
+        "family": "Kitchen",
+        "reasoning": "This is kitchen refrigeration equipment. The 42-inch built-in design indicates high-end kitchen integration.",
+        "confidence": 90
+      }
+    },
+    "step3Category": {
+      "openai": {
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "reasoning": "Both sources describe refrigeration products. Ferguson 'REFRIGERATORS' (plural) and web retailer 'French Door Refrigerators' map to singular category 'Refrigerator'.",
+        "confidence": 88
+      },
+      "xai": {
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "reasoning": "Product is a refrigerator. Counter depth and French door are style variations, not different categories.",
+        "confidence": 91
+      }
+    }
+  },
+  "expected": {
+    "fastPathResult": {
+      "success": false,
+      "reason": "No exact picklist match after normalization (REFRIGERATORS vs French Door Refrigerators)"
+    },
+    "chainResult": {
+      "department": "Appliances",
+      "family": "Kitchen",
+      "category": "Refrigerator",
+      "categoryId": "a01Hu000010Q5EpIAK",
+      "confidence": 90,
+      "locked": false,
+      "reasoning": {
+        "step1Department": "Both sources clearly indicate kitchen refrigeration appliances.",
+        "step2Family": "Refrigerators belong to Kitchen family within Appliances department.",
+        "step3Category": "Both sources describe refrigeration products. Ferguson 'REFRIGERATORS' (plural) and web retailer 'French Door Refrigerators' map to singular category 'Refrigerator'.",
+        "fastPathUsed": false
+      },
+      "provider": "openai"
+    },
+    "consensusResult": {
+      "agreed": true,
+      "agreementScore": 100,
+      "value": {
+        "department": "Appliances",
+        "family": "Kitchen",
+        "category": "Refrigerator",
+        "categoryId": "a01Hu000010Q5EpIAK",
+        "confidence": 91,
+        "locked": false,
+        "reasoning": {
+          "step1Department": "Both sources clearly indicate kitchen refrigeration appliances.",
+          "step2Family": "Refrigerators belong to Kitchen family within Appliances department.",
+          "step3Category": "Both sources describe refrigeration products.",
+          "fastPathUsed": false
+        },
+        "provider": "openai"
+      },
+      "discrepancies": [],
+      "retryAllowed": false,
+      "source": "consensus"
+    }
+  },
+  "metadata": {
+    "scenario": "fast-path-miss-chain-resolves",
+    "primaryAssertion": "Chain should execute all 3 steps and both AIs should agree on final category",
+    "edgeCaseCovered": "Verbose/marketing-heavy category names that don't match picklist exactly",
+    "aiCallsExpected": 6,
+    "processingTimeExpected": "500-1500ms",
+    "confidenceCalculation": "Weighted: (95*0.2 + 92*0.3 + 91*0.5) ≈ 91%"
+  }
+}

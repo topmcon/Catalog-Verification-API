@@ -1661,10 +1661,23 @@ function valuesMatchLoose(a: any, b: any): boolean {
 export async function verifyProductWithDualAI(
   rawProduct: SalesforceIncomingProduct,
   sessionId?: string,
-  requestContext?: { endpoint: string; method: string; ipAddress: string; userAgent: string; apiKey?: string }
+  requestContext?: { endpoint: string; method: string; ipAddress: string; userAgent: string; apiKey?: string },
+  hints?: { categoryHint?: { value: string; categoryId: string; department: string; family: string; confidence: number; source: string } }
 ): Promise<SalesforceVerificationResponse> {
   const verificationSessionId = sessionId || uuidv4();
   const startTime = Date.now();
+
+  // Log orchestrator hints for dual-path comparison analytics
+  if (hints?.categoryHint) {
+    logger.info('Monolith received category hint from orchestrator', {
+      sessionId: verificationSessionId,
+      sfCatalogId: rawProduct.SF_Catalog_Id,
+      hintCategory: hints.categoryHint.value,
+      hintDepartment: hints.categoryHint.department,
+      hintConfidence: hints.categoryHint.confidence,
+      hintSource: hints.categoryHint.source,
+    });
+  }
   
   // Start tracking
   const trackingId = await trackingService.startTracking(
@@ -4170,6 +4183,45 @@ export async function verifyProductWithDualAI(
     const processingTime = Date.now() - startTime;
     const response = await buildFinalResponse(rawProduct, consensus, verificationSessionId, processingTime, openaiResult, xaiResult, determinedDepartment, determinedCategory, determinedType, researchResult, dataSourceAnalysis, researchPhaseTriggered, retryCount, finalSearchResult);
     
+    // ========================================================================
+    // DUAL-PATH COMPARISON: Agent vs Monolith category classification
+    // Records comparison data for Phase 1 validation analytics
+    // ========================================================================
+    if (hints?.categoryHint) {
+      const monolithCategory = response.Primary_Attributes?.AI_Product_Category || determinedCategory;
+      const matched = hints.categoryHint.value === monolithCategory;
+
+      logger.info('Pipeline comparison: Agent vs Monolith category', {
+        sessionId: verificationSessionId,
+        sfCatalogId: rawProduct.SF_Catalog_Id,
+        agentCategory: hints.categoryHint.value,
+        monolithCategory,
+        matched,
+        agentConfidence: hints.categoryHint.confidence,
+      });
+
+      // Async write — don't block the response pipeline
+      try {
+        const { PipelineComparison } = require('../models/pipeline-comparison.model');
+        PipelineComparison.create({
+          sessionId: verificationSessionId,
+          sfCatalogId: rawProduct.SF_Catalog_Id,
+          agentCategory: hints.categoryHint.value,
+          agentCategoryId: hints.categoryHint.categoryId,
+          agentDepartment: hints.categoryHint.department,
+          agentFamily: hints.categoryHint.family,
+          agentConfidence: hints.categoryHint.confidence,
+          agentSource: hints.categoryHint.source,
+          monolithCategory,
+          matched,
+        }).catch((err: any) => {
+          logger.warn('Failed to write pipeline comparison log', { error: err.message });
+        });
+      } catch (err: any) {
+        logger.warn('Failed to import pipeline comparison model', { error: err.message });
+      }
+    }
+
     // ========================================================================
     // FINAL SWEEP: Check all "Not Found" values against raw data
     // This catches anything the AI missed that exists in Ferguson/Web data
