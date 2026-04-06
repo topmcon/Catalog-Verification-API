@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v9
-  Snapshot Date: 2026-03-15 02:54:44 EDT
-  Commit:        161850a (161850af090e65298dd1f53d2962b7bc4ddaa73b)
+  Version:       v29
+  Snapshot Date: 2026-04-06 12:38:39 EDT
+  Commit:        e3a6abd (e3a6abdea84c90f4e1f18b702fc13961d01b7fac)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12484 lines
-  title-schema-by-category.ts:     7204 lines
+  dual-ai-verification.service.ts: 14539 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
-  Claude Model: claude-sonnet-4-20250514
+  Categories: 160
+  Styles:     36
+  Attributes: 1646
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v8)
+  Lines added: ~0, Lines removed: ~38 (vs v28)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-161850a Add Ferguson_Raw_Data.product.specifications + feature_groups as fallback sources for Top 15 attribute fill
-17e3f5a Add Sink Shape to title schema pipeline + fix basinCount in finalSeoTitleInput
-a78be0e Fix sink title: block Claude from overriding Ferguson name dimension with specs.width
-2ff34a1 Sink width: fall back to Ferguson_Title for dimension extraction when no Ferguson_Raw_Data
-5340dec Align all three sink schemas: add Sink Shape slot, uniform order Brand/Width/SinkShape/Type/BowlConfig/Category/Finish/Model
+e3a6abd feat: Wire VerificationOrchestrator into async processor request path
+b3fdd5b feat: Agent architecture Phase 1 — CategoryClassifierAgent + orchestrator + debug logger
+248e762 Fix panel-ready detection: use AI consensus + fix title regeneration path
+3924d50 Fix panel-ready appliances incorrectly showing Stainless Steel color/finish
+98c17ac Add 112 matched attributes from SF creation requests to attributes.json picklist
 -->
 
 # Complete Verification Architecture

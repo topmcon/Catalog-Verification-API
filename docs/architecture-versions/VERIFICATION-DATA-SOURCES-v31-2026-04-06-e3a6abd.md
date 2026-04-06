@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v11
-  Snapshot Date: 2026-03-16 00:07:03 EDT
-  Commit:        4ec2596 (4ec2596043d94dda82c355c2e75493145d442806)
+  Version:       v31
+  Snapshot Date: 2026-04-06 12:38:39 EDT
+  Commit:        e3a6abd (e3a6abdea84c90f4e1f18b702fc13961d01b7fac)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12885 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14539 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     36
+  Attributes: 1646
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v10)
+  Lines added: ~0, Lines removed: ~38 (vs v30)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
-1c4596f feat: lighted mirror detection — 3-layer fix for Bathroom Mirror Type
-baf41fe feat: Stage 2 includes Ferguson signal + department-aware tiebreaker
-bedbbb8 refactor: Stage 2 category determination is now fully unbiased — AI decides from raw data
+e3a6abd feat: Wire VerificationOrchestrator into async processor request path
+b3fdd5b feat: Agent architecture Phase 1 — CategoryClassifierAgent + orchestrator + debug logger
+248e762 Fix panel-ready detection: use AI consensus + fix title regeneration path
+3924d50 Fix panel-ready appliances incorrectly showing Stainless Steel color/finish
+98c17ac Add 112 matched attributes from SF creation requests to attributes.json picklist
 -->
 
 # Verification Data Sources - Complete Inventory
