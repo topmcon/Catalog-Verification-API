@@ -192,7 +192,7 @@ export interface TopFilterAttributeIds {
 export interface ApplianceFeatures {
   built_in: boolean;          // Built-in installation (OVEN & REFRIGERATOR ONLY)
   panel_ready: boolean;       // Accepts custom panels
-  counter_depth: boolean;     // Counter-depth (REFRIGERATOR & FREEZER ONLY - aligns flush with counters ~24-25")
+  counter_depth: boolean;     // Counter-depth (REFRIGERATOR & FREEZER ONLY - ≤24" depth, aligns flush with counters)
   standard_depth: boolean;    // Standard depth (REFRIGERATOR & FREEZER ONLY - deeper ~30-36", more capacity)
   voltage_120v: boolean;      // Requires 120V power
   voltage_240v: boolean;      // Requires 240V power

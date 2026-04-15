@@ -203,7 +203,8 @@ function buildApplianceFeatures(
     const depthMatch = depthStr.match(/([\d.]+)/);
     const depthInches = depthMatch ? parseFloat(depthMatch[1]) : null;
 
-    if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 26)) {
+    // Counter-depth: ≤24 inches (flush with counters), Standard: >24 inches (protrudes from counters)
+    if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 24)) {
       counter_depth = true;
     } else {
       standard_depth = true;
