@@ -62,11 +62,35 @@ export function applyAppliancePipeline(ctx: PipelineContext): PipelineResult {
       combinedTextForPanelReady.includes('built-in refrigerator') ||
       combinedTextForPanelReady.includes('built in refrigerator');
 
-    const isCounterDepth =
+    // Counter-Depth detection with measurement override
+    // CRITICAL: Keywords alone are NOT sufficient - must verify measurement
+    const hasCounterDepthKeywords =
       installationTypeLower.includes('counter-depth') ||
       installationTypeLower.includes('counter depth') ||
       combinedTextForPanelReady.includes('counter-depth') ||
       combinedTextForPanelReady.includes('counter depth');
+
+    // Extract depth measurement
+    const depthStr = String(
+      sanitizedPrimaryAttributes.AI_Depth ||
+      rawProduct.Depth_Web_Retailer ||
+      ''
+    ).toLowerCase();
+    const depthMatch = depthStr.match(/([\d.]+)/);
+    const depthInches = depthMatch ? parseFloat(depthMatch[1]) : null;
+
+    // Apply measurement override logic (same as Appliance Features below)
+    let isCounterDepth = false;
+    if (depthInches !== null && depthInches > 24) {
+      // Measurement >24" proves standard-depth - keywords are misleading
+      isCounterDepth = false;
+    } else if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 24)) {
+      // Counter-depth if: keywords present (no contradicting measurement) OR measured ≤24"
+      isCounterDepth = true;
+    } else {
+      // Default: standard-depth
+      isCounterDepth = false;
+    }
 
     if (isBuiltIn) {
       finalSeoTitleInput.installationType = 'Built-In';
