@@ -6582,5 +6582,25 @@
   {
     "attribute_name": "zone_booster",
     "attribute_id": "a1aaZ00000Ae8XTQAZ"
+  },
+  {
+    "attribute_id": "temp_motion_activated_illumination",
+    "attribute_name": "motion_activated_illumination"
+  },
+  {
+    "attribute_id": "temp_is_discontinued",
+    "attribute_name": "is_discontinued"
+  },
+  {
+    "attribute_id": "temp_cu_pc_certified",
+    "attribute_name": "cu_pc_certified"
+  },
+  {
+    "attribute_id": "temp_forced_air_cooling",
+    "attribute_name": "forced_air_cooling"
+  },
+  {
+    "attribute_id": "temp_warning_signal",
+    "attribute_name": "warning_signal"
   }
 ]

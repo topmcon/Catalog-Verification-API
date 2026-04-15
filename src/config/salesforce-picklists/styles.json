@@ -178,5 +178,21 @@
     "style_name": "Floor Mounted",
     "style_id": "a1IaZ000001UwcHUAS",
     "description": "Floor mounted configuration for tub fillers"
+  },
+  {
+    "style_id": "temp_not_applicable",
+    "style_name": "Not Applicable"
+  },
+  {
+    "style_id": "temp_freestanding",
+    "style_name": "Freestanding"
+  },
+  {
+    "style_id": "temp_counter_depth",
+    "style_name": "Counter Depth"
+  },
+  {
+    "style_id": "temp_showerhead",
+    "style_name": "Showerhead"
   }
 ]
