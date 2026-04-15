@@ -13826,7 +13826,7 @@ YOUR TASK - Comprehensive Review AND Propose Solutions:
 **SECTION 3: APPLIANCE FEATURES (if Appliances dept)**
 20. **Built-In**: Check installation_type from raw data - should be true if "Built-In" mentioned
 21. **Panel Ready**: Check if "Panel Ready" / "Custom Panel" / "requires custom panel" in raw data
-22. **Counter-Depth vs Standard-Depth**: Check depth measurement - counter-depth ≤24" (flush with counters), standard-depth >24" (protrudes from counters)
+22. **Counter-Depth vs Standard-Depth**: CRITICAL - if measured depth >24", it's standard-depth regardless of keywords. Counter-depth only if: keywords present AND (no measurement OR ≤24"), OR measured ≤24"
 23. **Voltage**: Check specifications - 120V (small appliances), 240V (ranges, dryers, ovens)
 24. **Fuel Type**: Check fuel_type from raw data - gas vs electric (for ranges, dryers, cooktops, ovens)
 

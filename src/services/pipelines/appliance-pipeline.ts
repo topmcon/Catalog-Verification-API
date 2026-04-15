@@ -203,10 +203,19 @@ function buildApplianceFeatures(
     const depthMatch = depthStr.match(/([\d.]+)/);
     const depthInches = depthMatch ? parseFloat(depthMatch[1]) : null;
 
-    // Counter-depth: ≤24 inches (flush with counters), Standard: >24 inches (protrudes from counters)
-    if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 24)) {
+    // CRITICAL: Measurement >24 inches overrides keywords - cannot be counter-depth
+    // Counter-depth ONLY if: (keywords OR measurement ≤24) AND measurement is NOT >24
+    if (depthInches !== null && depthInches > 24) {
+      // Measurement proves it's standard depth - keywords are misleading/incorrect
+      counter_depth = false;
+      standard_depth = true;
+    } else if (hasCounterDepthKeywords || (depthInches !== null && depthInches <= 24)) {
+      // Counter-depth: keywords present (with no contradicting measurement) OR measured ≤24"
       counter_depth = true;
+      standard_depth = false;
     } else {
+      // Default: standard depth (no keywords, no valid measurement)
+      counter_depth = false;
       standard_depth = true;
     }
   }
