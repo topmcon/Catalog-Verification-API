@@ -6,11 +6,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import logger from '../utils/logger';
 import { VerificationJob } from '../models/verification-job.model';
-import { SalesforceIncomingProduct } from '../types/salesforce.types';
+import { verifyProductWithDualAI } from './dual-ai-verification.service';
 import webhookService from './webhook.service';
+import { SalesforceIncomingProduct } from '../types/salesforce.types';
 import { compareResponses, ComparisonResult } from './response-comparison.service';
-import { VerificationOrchestrator } from '../agents/orchestrator/VerificationOrchestrator';
-import { AgentDebugLogger } from '../agents/debug/AgentDebugLogger';
 
 class AsyncVerificationProcessor {
   private activeJobs: Set<string> = new Set(); // Track active job IDs
@@ -233,11 +232,7 @@ class AsyncVerificationProcessor {
   }
 
   /**
-   * Execute the actual verification using the agent orchestrator.
-   * 
-   * The orchestrator runs CategoryClassifierAgent first, then hands off
-   * to the monolith (verifyProductWithDualAI) with a category hint attached.
-   * The pipeline_comparisons collection tracks agent vs monolith agreement.
+   * Execute the actual verification using existing consensus service
    */
   private async executeVerification(rawPayload: any): Promise<any> {
     const sessionId = uuidv4();
@@ -245,32 +240,15 @@ class AsyncVerificationProcessor {
     // Convert raw payload to expected format
     const product: SalesforceIncomingProduct = rawPayload;
 
-    logger.info('STEP 5: Starting AI verification engines (Orchestrator → OpenAI + Anthropic)', {
+    logger.info('STEP 5: Starting AI verification engines (OpenAI + Anthropic)', {
       sessionId,
       modelNumber: product.Model_Number_Web_Retailer || product.SF_Catalog_Name
     });
 
-    // Create orchestrator and optional debug logger
-    const orchestrator = new VerificationOrchestrator();
-    const debugLogger = process.env.AGENT_DEBUG === 'true'
-      ? AgentDebugLogger.create(sessionId, product, {})
-      : undefined;
+    // Use existing dual-AI verification service
+    const result = await verifyProductWithDualAI(product, sessionId);
 
-    const orchestratorResult = await orchestrator.verify(
-      product,
-      sessionId,
-      { debugLogger: debugLogger ?? undefined },
-    );
-
-    // If orchestrator aborted before monolith handoff, throw so caller handles it
-    if (!orchestratorResult.success || !orchestratorResult.verificationResponse) {
-      throw new Error(
-        orchestratorResult.abortReason || 'Orchestrator failed to produce verification response'
-      );
-    }
-
-    // Return the monolith's response (same shape as before)
-    return orchestratorResult.verificationResponse;
+    return result;
   }
 
   /**
