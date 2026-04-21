@@ -63,6 +63,7 @@
 | CI/CD double-restart kills in-flight jobs | Disable deploy-production CI/CD job (or add graceful shutdown) | (pending) | #044 |
 | Compact Freezer type ambiguity | Remove Compact, default to Undercounter | b25e4ee | #045, #043 |
 | Claude corrections not propagating to title regeneration | Manually apply corrections from metadata back to sanitizedPrimaryAttributes | f0aab63 | #046, #001, #002, #027 |
+| Agent orchestrator abort gate (65.7% failure rate) | Surgical revert of orchestrator wiring — restore direct monolith calls | d5f215e | #047, #044 |
 
 ---
 
@@ -4949,6 +4950,157 @@ useValue(copy.field);  // ✓ Uses corrected value
 ```
 
 **Apply this pattern to**: Any function that mutates copies but the caller needs to see changes
+
+---
+
+## Finding #047: Agent Architecture Abort Gate — 65.7% Production Failure Rate
+**Date:** 2026-04-20  
+**Severity:** 🔴 CRITICAL — PRODUCTION OUTAGE  
+**Category:** Agent Architecture / Orchestration  
+**Affects:** ALL verification jobs when orchestrator is in request path (Apr 8-20)
+
+### Symptom
+- 65.7% failure rate at peak (70 of 107 jobs failed on Apr 20)
+- All failures: "CategoryClassifier failed to reach consensus after retries"
+- Jobs aborted within seconds, never reached monolith pipeline
+- **Zero actual data quality issues** — jobs that failed would have succeeded in pre-agent monolith
+
+### Root Cause
+April 6 deployment (commit `e3a6abd`) wired `VerificationOrchestrator` into async request path, creating an **abort gate** instead of an observability layer.
+
+**The Broken Logic:**
+```typescript
+// src/agents/orchestrator/VerificationOrchestrator.ts (handleAgentFailure)
+if (!consensus.value) {
+  logger.error(`Orchestrator: ${agentName} failed — no value produced`);
+  return 'abort';  // ❌ KILLS JOB BEFORE MONOLITH RUNS
+}
+
+// src/agents/CategoryClassifierAgent/consensus.ts (buildCategoryConsensus)
+if (!familyMatch) {
+  return {
+    agreed: false,
+    agreementScore: 30,
+    value: undefined,  // ❌ NO VALUE WHEN AIS DISAGREE ON FAMILY
+    discrepancies: [{ field: 'family', severity: 'medium' }],
+    retryAllowed: true
+  };
+}
+```
+
+**The Failure Sequence:**
+1. `CategoryClassifierAgent` runs dual-AI classification (OpenAI + xAI)
+2. AIs disagree on "family" field (e.g., "Bathtub family" vs "Faucet family")
+3. `buildCategoryConsensus()` returns `agreementScore: 30, value: undefined`
+4. After 2 retries, still no agreement → consensus returns with no value
+5. `handleAgentFailure()` sees `!consensus.value` → returns `'abort'`
+6. `VerificationOrchestrator.verify()` short-circuits: `if (categoryDecision === 'abort') { return failure }`
+7. **Job marked failed BEFORE `verifyProductWithDualAI()` is called**
+8. Monolith never gets a chance to handle the edge case it was designed for
+
+### Why Family Disagreements Are Common
+Categories like "Tub Filler" vs "Bathroom Faucet", "Shower Faucet" vs "Showerhead" are genuinely ambiguous. OpenAI and xAI often pick different families for edge cases. **The V1 monolith was already handling these** with fuzzy matching, hierarchical fallbacks, and contextual logic.
+
+### Timeline
+| Date | Event | Failure Rate |
+|------|-------|--------------|
+| Apr 4 | Last healthy day at volume | 0% (20 jobs, all succeeded) |
+| Apr 6 | `e3a6abd` deployed | 0% (2 jobs, lucky small sample) |
+| Apr 8 12:34 PM EDT | **First failure** | 40.7% (11 of 27 jobs) |
+| Apr 14-17 | Sporadic failures | 2.5-42.9% |
+| **Apr 20** | **Peak failure** | **65.7%** (70 of 107 jobs) |
+| Apr 20-21 8:46 PM EDT | Emergency revert deployed | **0%** (216 jobs tested, 100% success) |
+
+**Total Jobs Lost:** 88 jobs (Apr 8-20), all aborted at orchestrator gate
+
+### Investigation Steps
+1. Queried MongoDB for daily success rates (last 30 days) → cliff on Apr 8
+2. Found first CategoryClassifier failure: Apr 8 12:34 PM EDT (job `0da5d8a8...`, SF Catalog `a03aZ00000AsOWOQA3`)
+3. Analyzed production logs → all failures showed `agreementScore: 30, discrepancies: [family]`
+4. Traced code path: consensus builder → handleAgentFailure → verify() abort
+5. Confirmed: monolith never ran for failed jobs (no Phase 5/6 logs)
+6. Reviewed April 6 session notes: "non-breaking integration" design intent NOT implemented correctly
+
+### Fix Applied
+**Surgical revert** of orchestrator wiring only:
+- **Commit:** `d5f215e` (revert of `e3a6abd`)
+- **File:** `src/services/async-verification-processor.service.ts`
+- **Changes:** 7 additions, 29 deletions
+- **Before:** `orchestrator.verify(product, sessionId)` → agent gate → monolith
+- **After:** `verifyProductWithDualAI(product, sessionId)` → direct monolith call
+- **Agent code preserved:** All of `src/agents/` remains in repo for future Phase 2 work
+
+### Post-Revert Validation
+| Metric | Before Revert (6h) | After Revert (216 jobs) |
+|--------|-------------------|------------------------|
+| Total | 108 | 216 |
+| Completed | 37 (34.3%) | 129 (100%) |
+| Failed | 71 (65.7%) | **0 (0%)** |
+| Processing | 0 | 87 |
+| **Success Rate** | **34.3%** 🔴 | **100%** 🟢 |
+
+**Zero CategoryClassifier errors** after revert. All jobs flowed through monolith pipeline (Phase 5, Phase 6, Final Review A/B).
+
+### Scope
+✅ **UNIVERSAL REVERT** — All categories affected by orchestrator gate, all categories fixed by removing it.
+
+### Design Intent vs. Implementation Reality
+**April 6 Session Notes (Original Intent):**
+> "non-breaking integration — monolith runs unchanged. Agent layer wraps it via orchestrator."
+
+**What Was Built:**
+- Agent as **blocking gate** — if agent fails, job aborted
+- No fallback to monolith when agent cannot produce value
+- `handleAgentFailure()` logic treated `!consensus.value` as terminal
+
+**What Should Have Been Built:**
+- Agent as **observability layer** — if agent fails, continue to monolith with no hint
+- Orchestrator always calls monolith regardless of agent outcome
+- Agent hints are optional enrichment, never required for job completion
+
+### Related Findings
+- #044 (CI/CD double-restart) — Both discovered during April 20 emergency investigation
+- Pattern: "Fail-closed" architecture creates cascading failures when edge cases hit
+
+### Critical Lessons Learned
+
+**Lesson #5: Agents Must Fail Open, Never Fail Closed**
+
+When designing agent architectures:
+- **Fail open**: If agent cannot produce a result, pipeline continues without it (degraded but functional)
+- **Fail closed**: If agent cannot produce a result, pipeline aborts (total failure)
+
+**The V2 Architectural Principle:**
+> **"Agents are observability layers. Never gates."**
+> 
+> Every agent in V2 must fail open. This is **not a policy we add to each agent** — it is **enforced at the orchestrator level** so no agent can ever create this failure mode again.
+
+**Implementation Pattern for V2:**
+```typescript
+// ✅ CORRECT: Fail-open orchestrator (V2 design)
+const agentHint = await this.runAgent(categoryAgent, input);
+// Regardless of agentHint success/failure, ALWAYS proceed:
+const monolithResult = await verifyProductWithDualAI(product, sessionId, agentHint);
+
+// ❌ WRONG: Fail-closed orchestrator (V1 bug)
+if (categoryDecision === 'abort') {
+  return { success: false, abortReason: '...' };  // Never reaches monolith
+}
+```
+
+**Why This Matters:**
+This bug cost 88 production jobs over 12 days. The failure mode was invisible until traffic ramped up. An agent disagreeing on classification (a **data quality signal**, not a blocker) became a **hard failure** that killed jobs the monolith could have successfully processed.
+
+### Testing Gaps That Allowed This Bug
+1. **No load testing** — Only 2 jobs tested on Apr 6, both succeeded (lucky sample)
+2. **No monitoring post-deploy** — Session ended with "wait for first live call" but no alert when failures started Apr 8
+3. **No fail-closed detection** — Unit tests checked happy path, didn't validate orchestrator behavior when agent failed
+
+### Prevention for Future Agent Work
+1. **Architectural constraint**: Orchestrator must structurally prevent agents from aborting jobs
+2. **Load testing**: Minimum 100-job sample across diverse categories before production
+3. **Post-deploy monitoring**: Automated alerts if failure rate >10% within 24h of deployment
+4. **Integration tests**: Explicitly test "agent fails, job still succeeds" scenario
 
 ---
 
