@@ -3851,10 +3851,45 @@ export async function verifyProductWithDualAI(
     // fields that STILL have "Not Found", empty, or missing values after all processing
     const stillMissingFields: string[] = [];
     const notFoundIndicators = ['not found', 'unknown', 'n/a', 'not available', 'not specified', ''];
-    
+
+    // PHASE 6 GATE FIX (2026-04-21): Trust SF data when present.
+    // Previously this loop only inspected AI consensus output, causing PHASE 6 web
+    // search to fire on ~100% of jobs even when Salesforce already supplied the
+    // critical fields. Map canonical field keys to the SF rawProduct field names
+    // that may carry the same value, and skip the "missing" check when SF has it.
+    // product_style is intentionally omitted — it is AI-derived and never sent by SF.
+    const SF_CANONICAL_MAP: Record<string, string[]> = {
+      brand:    ['Brand_Legacy', 'Brand_Web_Retailer', 'Ferguson_Brand'],
+      msrp:     ['MSRP_Legacy', 'MSRP_Web_Retailer', 'Ferguson_Price'],
+      weight:   ['Weight_Legacy', 'Weight_Web_Retailer'],
+      upc_gtin: ['UPC_Legacy'],
+      color:    ['Color_Finish_Legacy', 'Color_Finish_Web_Retailer'],
+      finish:   ['Color_Finish_Legacy', 'Color_Finish_Web_Retailer'],
+    };
+    const sfHasField = (canonical: string): { present: boolean; source?: string } => {
+      const sfFields = SF_CANONICAL_MAP[canonical] || [];
+      for (const f of sfFields) {
+        const v = (rawProduct as any)[f];
+        if (v !== null && v !== undefined && String(v).trim() &&
+            String(v).trim().toLowerCase() !== 'not found') {
+          return { present: true, source: f };
+        }
+      }
+      return { present: false };
+    };
+
     // Check primary attributes for missing values
     const criticalPrimaryFields = ['brand', 'msrp', 'weight', 'upc_gtin', 'product_style', 'color', 'finish'];
     for (const field of criticalPrimaryFields) {
+      const sfCheck = sfHasField(field);
+      if (sfCheck.present) {
+        logger.debug(`PHASE6_GATE: skipping field ${field} — SF provided value via ${sfCheck.source}`, {
+          sessionId: verificationSessionId,
+          field,
+          source: sfCheck.source
+        });
+        continue;
+      }
       const value = consensus.agreedPrimaryAttributes[field];
       if (!value || notFoundIndicators.includes(String(value).toLowerCase().trim())) {
         stillMissingFields.push(field);
