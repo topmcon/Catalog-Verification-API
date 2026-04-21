@@ -79,7 +79,7 @@ const config: Config = {
 
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
-    model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', // GPT-4.1 mini — faster, better instruction following
+    model: process.env.OPENAI_MODEL || 'gpt-4o-mini', // Production default (ENV override in production)
     maxTokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4096', 10),
     visionModel: process.env.OPENAI_VISION_MODEL || 'gpt-4o', // Vision still needs gpt-4o
     searchModel: process.env.OPENAI_SEARCH_MODEL || 'gpt-4o-mini-search-preview', // For real web search
