@@ -1,6 +1,20 @@
 /**
  * DUAL AI VERIFICATION SERVICE
  * =============================
+ *
+ * ⚠️ THIS IS THE ACTIVE PRODUCTION VERIFICATION ENGINE for POST /api/verify/salesforce.
+ *    If you are investigating or modifying verification behavior, edit THIS file.
+ *    Do NOT edit anything in archive/dead-code-2026-04-22/agents/ — that is unwired
+ *    Phase 1 scaffolding (see SESSION-SUMMARY-2026-04-06-AGENT-ARCHITECTURE-PHASE1.md).
+ *
+ * Request flow:
+ *   POST /api/verify/salesforce
+ *     → routes/salesforce-async-verification.routes.ts
+ *     → controllers/salesforce-async-verification.controller.ts (enqueues job)
+ *     → services/async-verification-processor.service.ts (worker)
+ *     → THIS FILE: verifyProductWithDualAI()
+ *     → response-builder.service.ts → webhook back to Salesforce
+ *
  * Workflow:
  * 1. Raw Salesforce data comes in
  * 2. Send to BOTH AIs (OpenAI AND xAI) independently
@@ -4711,11 +4725,11 @@ ${departmentList}
 
 == DEPARTMENT-CATEGORY RELATIONSHIPS ==
 Each department contains specific categories. When multiple keywords suggest different departments:
-- **Appliances**: Refrigerator, Freezer, Dishwasher, Range, Oven, Cooktop, Microwave, Wine Cooler, Ice Maker, Washer, Dryer, etc.
+- **Appliances**: Refrigerator, Freezer, Dishwasher, Range, Oven, Cooktop, Microwave, **Range Hood (including outdoor kitchen / BBQ hoods)**, Wine Cooler, Ice Maker, Washer, Dryer, etc.
 - **Heating & Cooling**: Furnace, Boiler, Heat Pump, Air Conditioner, Thermostat, Humidifier, Dehumidifier, Air Purifier, etc.
 - **Plumbing & Bath**: Faucet, Sink, Toilet, Shower, Tub, Water Heater, Pump, Softener, etc.
 - **Lighting & Electrical**: Chandelier, Pendant, Sconce, Ceiling Fan, Switch, Outlet, Generator, etc.
-- **Outdoor**: Grill, Fire Pit, Patio Heater, Outdoor Furniture, Pergola, etc.
+- **Outdoor**: Grill (BBQ), Fire Pit, Fire Pit Accessory, Outdoor Fireplace, Patio Heater, Outdoor Furniture, Pergola, Storage Drawer/Door, etc. **(NOTE: Outdoor does NOT contain ventilation hoods — even hoods designed for outdoor kitchens belong to Appliances → Range Hood)**
 - **Hardware**: Door Handle, Lock, Hinge, Cabinet Hardware, etc.
 
 **🔍 MULTI-KEYWORD DETECTION RULES (CRITICAL):**
@@ -4762,6 +4776,7 @@ When you find MULTIPLE category keywords pointing to DIFFERENT departments:
   • "Outdoor Patio Heater" → Outdoor (primary function: outdoor heating)
   • **"Drop-In Side Burner" / "Single Side Burner" / "Outdoor Side Burner"** → **Appliances, Cooktop** (primary function: GAS COOKING - it is a gas cooking appliance, NOT a fire pit accessory)
   • **"Fire Pit Accessory"** is for: log sets, spark screens, grates, covers, pokers — decorative/safety items FOR fire pits. NEVER for cooking burners or gas cooking appliances.
+  • **"Outdoor Range Hood" / "BBQ Hood" / "Outdoor Kitchen Hood" / "Ducted Hood" (any brand including HEAT, Cambridge, Vent-A-Hood, etc.)** → **Appliances, Range Hood** (primary function: VENTILATION). Even when the brand name includes "Grills" or "BBQ" and the description repeats "outdoor kitchen", a hood is still a Range Hood. **Outdoor department does NOT contain hoods.** Keywords like CFM, blower, baffle filter, ducted, capture area confirm Range Hood.
   • **"Refrigerator/Freezer Heater Kit"** → **Appliances** (keywords: refrigerator ✓, freezer ✓, heater ✗)
     - Appliances has Refrigerator + Freezer categories (2 matches)
     - Heating & Cooling has NO Refrigerator or Freezer categories (0 matches)

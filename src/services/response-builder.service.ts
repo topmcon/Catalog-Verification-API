@@ -654,6 +654,8 @@ export function mapToVerifiedCategory(webCategory: string, fergusonCategory: str
     'RANGE HOOD': 'Range Hood',
     'HOODS': 'Range Hood',
     'HOOD': 'Range Hood',
+    'DUCTED HOOD': 'Range Hood',
+    'DUCTED HOODS': 'Range Hood',
     'VENTILATION': 'Range Hood',
     'VENT HOODS': 'Range Hood',
     'KITCHEN VENTILATION': 'Range Hood',
