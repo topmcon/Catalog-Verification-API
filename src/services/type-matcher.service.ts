@@ -53,6 +53,12 @@ const TYPE_ALIASES: Record<string, Record<string, string>> = {
   'combo wall oven': { 'Oven': 'Microwave Combo' },
   'oven microwave combo': { 'Oven': 'Microwave Combo' },
   'oven microwave combination': { 'Oven': 'Microwave Combo' },
+  // ⚠️ EXCEPTION: "Combi Microwave" is a COOKING METHOD (single cavity), NOT a product type
+  // Map to 'Single' to prevent misclassification of compact ovens (e.g., SMEG SFU4104MCS)
+  // See: docs/AUDIT-FINDINGS-AND-SOLUTIONS.md - Combi Microwave misclassification fix
+  'combi microwave': { 'Oven': 'Single' },
+  'combi-microwave': { 'Oven': 'Single' },
+  'combination microwave oven': { 'Oven': 'Single' },  // single cavity with microwave heating mode
   
   // ============================================
   // REFRIGERATOR ALIASES
@@ -596,6 +602,9 @@ const SEMANTIC_TYPE_PATTERNS: Array<{
   { pattern: /dual[\s-]*fuel/i, category: 'Range', typeName: 'Dual Fuel' },
   
   // Oven patterns
+  // ⚠️ ORDER MATTERS: "Combi Microwave" exclusion MUST come before generic combo patterns
+  // "Combi Microwave" = single-cavity cooking method (not a 2-unit combo product)
+  { pattern: /\bcombi[\s-]*microwave\b/i, category: 'Oven', typeName: 'Single' },
   { pattern: /single.*wall.*oven|single.*oven/i, category: 'Oven', typeName: 'Single' },
   { pattern: /double.*wall.*oven|double.*oven/i, category: 'Oven', typeName: 'Double Wall' },
   { pattern: /combination.*wall.*oven|combination.*oven|combo.*wall.*oven/i, category: 'Oven', typeName: 'Microwave Combo' },
