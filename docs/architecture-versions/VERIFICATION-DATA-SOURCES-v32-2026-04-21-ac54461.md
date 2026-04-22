@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v12
-  Snapshot Date: 2026-03-16 01:17:10 EDT
-  Commit:        09e4d44 (09e4d4442882915bf17eccb92bd752e200639110)
+  Version:       v32
+  Snapshot Date: 2026-04-21 22:50:12 EDT
+  Commit:        ac54461 (ac54461b435a4ee46137f6ffd1ba7cbb16d11c56)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 13031 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14515 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v11)
+  Lines added: ~0, Lines removed: ~38 (vs v31)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-09e4d44 Session docs: mirror category + dimension extraction fixes, audit findings #037-#039, architecture v11
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
-1c4596f feat: lighted mirror detection — 3-layer fix for Bathroom Mirror Type
-baf41fe feat: Stage 2 includes Ferguson signal + department-aware tiebreaker
+ac54461 feat: 15-min SF response watch + out-of-order retry trigger
+f8bafb3 feat: request-only picklist reconciliation + auto-apply on sync receipt
+a31a098 docs: session summaries + async processor recovery changes
+ce48d68 fix(phase6): SF-aware web search gate — trust SF data when present
+5037837 docs: Add AI cost audit framework + cosmetic cleanup
 -->
 
 # Verification Data Sources - Complete Inventory

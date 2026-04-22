@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v10
-  Snapshot Date: 2026-03-15 02:54:51 EDT
-  Commit:        161850a (161850af090e65298dd1f53d2962b7bc4ddaa73b)
+  Version:       v30
+  Snapshot Date: 2026-04-21 22:50:12 EDT
+  Commit:        ac54461 (ac54461b435a4ee46137f6ffd1ba7cbb16d11c56)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12484 lines
-  title-schema-by-category.ts:     7204 lines
+  dual-ai-verification.service.ts: 14515 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
-  Claude Model: claude-sonnet-4-20250514
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
+  Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v9)
+  Lines added: ~0, Lines removed: ~38 (vs v29)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-161850a Add Ferguson_Raw_Data.product.specifications + feature_groups as fallback sources for Top 15 attribute fill
-17e3f5a Add Sink Shape to title schema pipeline + fix basinCount in finalSeoTitleInput
-a78be0e Fix sink title: block Claude from overriding Ferguson name dimension with specs.width
-2ff34a1 Sink width: fall back to Ferguson_Title for dimension extraction when no Ferguson_Raw_Data
-5340dec Align all three sink schemas: add Sink Shape slot, uniform order Brand/Width/SinkShape/Type/BowlConfig/Category/Finish/Model
+ac54461 feat: 15-min SF response watch + out-of-order retry trigger
+f8bafb3 feat: request-only picklist reconciliation + auto-apply on sync receipt
+a31a098 docs: session summaries + async processor recovery changes
+ce48d68 fix(phase6): SF-aware web search gate — trust SF data when present
+5037837 docs: Add AI cost audit framework + cosmetic cleanup
 -->
 
 # Complete Verification Architecture
