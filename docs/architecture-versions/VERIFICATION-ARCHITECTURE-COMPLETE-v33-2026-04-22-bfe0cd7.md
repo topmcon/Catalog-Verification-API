@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v13
-  Snapshot Date: 2026-03-16 08:10:19 EDT
-  Commit:        a4fcb45 (a4fcb45d96df4cc0d16df12a2ce1633d91f1c763)
+  Version:       v33
+  Snapshot Date: 2026-04-22 09:11:31 EDT
+  Commit:        bfe0cd7 (bfe0cd79f42cd0064ad6a5ee2fbd886b982fd3b3)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 13084 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14622 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v12)
+  Lines added: ~0, Lines removed: ~38 (vs v32)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-a4fcb45 Fix Mirror→Bathroom Mirror misclassification, add FRD product name to deptTitles, block style values in finish field
-ca540e2 Verified data hierarchy redesign: dept-aware fallback chains for all title fields
-09e4d44 Session docs: mirror category + dimension extraction fixes, audit findings #037-#039, architecture v11
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
+bfe0cd7 fix(ai-prompt): decode 'TOP LOAD MATCHING' as Front Load dryer; standalone dryers default to Front Load
+b715e3e Fix: Remove Stacked trigger word causing Front Load dryers to be misclassified as Unitized
+9def5a1 docs: session summary + audit finding #048 + architecture v31/v33 snapshot
+0564955 fix(ai-prompt): clarify Oven type selection by cavity count, not cooking method
+638b31a fix(type-matcher): exclude 'Combi Microwave' cooking method from Microwave Combo type
 -->
 
 # Complete Verification Architecture
