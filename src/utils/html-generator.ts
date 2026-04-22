@@ -73,9 +73,23 @@ export function generateAttributeTable(
 ): string {
   const opts = { ...defaultOptions, ...options };
   
-  const entries = Object.entries(attributes).filter(
+  const rawEntries = Object.entries(attributes).filter(
     ([_, value]) => value !== null && value !== undefined && value !== ''
   );
+
+  // Dedupe by formatted display name (case-insensitive). Multiple upstream sources
+  // (Ferguson_Raw_Data nested specs, Web_Retailer_Specs, Specification_Table HTML, AI consensus)
+  // can each produce the same logical attribute under slightly different keys
+  // (e.g. "cutout_width" vs "Cutout Width" vs "cutoutWidth"). Without this guard
+  // the rendered HTML shows the same row 2-3 times.
+  const seenDisplayNames = new Set<string>();
+  const entries: [string, unknown][] = [];
+  for (const [key, value] of rawEntries) {
+    const displayKey = formatAttributeName(key).toLowerCase().trim();
+    if (!displayKey || seenDisplayNames.has(displayKey)) continue;
+    seenDisplayNames.add(displayKey);
+    entries.push([key, value]);
+  }
 
   if (entries.length === 0) {
     return `<p style="color: #666; font-style: italic; padding: 10px;">${opts.emptyMessage}</p>`;

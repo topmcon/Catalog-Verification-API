@@ -413,10 +413,21 @@ class PicklistMatcherService {
     }
     
     // Additional fallback: partial match (one contains the other)
-    const partialMatch = this.brands.find(b =>
-      b.brand_name.toLowerCase().includes(brandName.toLowerCase()) ||
-      brandName.toLowerCase().includes(b.brand_name.toLowerCase())
-    );
+    // ⚠️ Only allow partial when the picklist brand is the LONGER (or equal) side.
+    // Otherwise inputs like "GE Profile" get wrongly demoted to "GE" because
+    // "GE Profile".includes("GE") is true. Demoting longer, more specific brand
+    // names destroys information.
+    const inputLower = brandName.toLowerCase().trim();
+    const partialMatch = this.brands.find(b => {
+      const pl = b.brand_name.toLowerCase().trim();
+      if (pl === inputLower) return true;
+      // Picklist contains input (input is shorter/equal): safe — input is just a fragment
+      if (pl.includes(inputLower) && inputLower.length >= 3) return true;
+      // Input contains picklist: only allow when picklist is at least 80% of input length
+      // (prevents "GE Profile" from being matched to "GE")
+      if (inputLower.includes(pl) && pl.length >= 3 && pl.length / inputLower.length >= 0.8) return true;
+      return false;
+    });
     if (partialMatch) {
       return {
         matched: true,

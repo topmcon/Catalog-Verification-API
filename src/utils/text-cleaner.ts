@@ -521,12 +521,23 @@ export function generateFeaturesHtml(features: string[]): string {
  * Convert text to proper title case
  */
 export function toTitleCase(text: string): string {
-  return text.replace(/\b\w+/g, (word, index) => {
+  return text.replace(/\b[\w-]+\b/g, (word, index) => {
     const lower = word.toLowerCase();
     
     // Always uppercase certain abbreviations
     if (UPPERCASE_WORDS.has(lower)) {
       return word.toUpperCase();
+    }
+    
+    // Preserve model numbers and SKUs: any word containing a digit
+    // (e.g. "SFU4104MCS", "PT7800SHSS", "K30-100-SL")
+    if (/\d/.test(word)) {
+      return word;
+    }
+    
+    // Preserve already ALL-CAPS acronyms / brands of length >= 2 (e.g. "GE", "LG", "USA")
+    if (word.length >= 2 && word === word.toUpperCase() && /[A-Z]/.test(word)) {
+      return word;
     }
     
     // Keep lowercase articles/prepositions unless first word

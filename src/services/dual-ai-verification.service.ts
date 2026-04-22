@@ -1714,7 +1714,31 @@ export async function verifyProductWithDualAI(
   const originalCADMSRP = isCanadianData ? rawProduct.MSRP_Web_Retailer : null;
   const originalKGWeight = isCanadianData ? rawProduct.Weight_Web_Retailer : null;
   
+  // Guard against false-positive Canadian flagging: a CA_ prefix on Web_Retailer_Key
+  // is sometimes attached to records that actually carry US-market values (USD pricing,
+  // 240V, weight already in lbs). Converting those again produces garbage (e.g. 205 lb→451 lb).
+  // Heuristic: if Ferguson_Price (always USD) is within 20% of Web Retailer MSRP, the
+  // Web Retailer values are already USD/lbs and should NOT be re-converted.
+  let canadianGuardTripped = false;
   if (isCanadianData) {
+    const fergPrice = parseFloat(String(rawProduct.Ferguson_Price ?? ''));
+    const webPrice = parseFloat(String(rawProduct.MSRP_Web_Retailer ?? ''));
+    if (!isNaN(fergPrice) && fergPrice > 0 && !isNaN(webPrice) && webPrice > 0) {
+      const ratio = Math.max(fergPrice, webPrice) / Math.min(fergPrice, webPrice);
+      if (ratio < 1.2) {
+        canadianGuardTripped = true;
+        logger.warn('🇨🇦⚠️ Canadian prefix detected but Web Retailer prices already match Ferguson (USD). Skipping CAD→USD / kg→lbs conversion.', {
+          sessionId: verificationSessionId,
+          webRetailerKey,
+          fergusonPrice: fergPrice,
+          webRetailerMSRP: webPrice,
+          ratio: ratio.toFixed(3)
+        });
+      }
+    }
+  }
+  
+  if (isCanadianData && !canadianGuardTripped) {
     // Check exchange rate staleness
     const rateStaleness = checkExchangeRateStaleness();
     if (rateStaleness.isStale) {
@@ -8049,13 +8073,22 @@ function buildResearchAttestationSummary(
   }
 
   // Build research steps completed summary
+  // ⚠️ Each step is "completed" only when it actually SUCCEEDED — having attempted resources
+  //    that all failed (e.g. PDFs that pdf-parse couldn't read, images grok-3 rejected) does NOT count.
+  const webPagesAttempted = researchResult?.webPages || [];
+  const documentsAttempted = researchResult?.documents || [];
+  const imagesAttempted = researchResult?.images || [];
+  const webPagesSucceeded = webPagesAttempted.some(p => p.success);
+  const documentsSucceeded = documentsAttempted.some(d => d.success);
+  const imagesSucceeded = imagesAttempted.some(i => i.success);
+
   const researchStepsCompleted = {
     raw_sf_data_review: true, // Always done
-    url_scraping: !!researchResult?.webPages?.length || !!finalSearchResult,
+    url_scraping: webPagesSucceeded || !!finalSearchResult,
     openai_analysis: openaiResult.success,
     xai_analysis: xaiResult.success,
     smart_inference: true, // Always attempted
-    image_analysis: !!researchResult?.images?.length,
+    image_analysis: imagesSucceeded || documentsSucceeded, // count PDF success too — both are "external resource analysis"
     cross_reference: openaiResult.success && xaiResult.success,
     final_verification: true // Always done
   };
@@ -8129,9 +8162,19 @@ function buildReceivedAttributesConfirmation(
         }
         
         // Check FIELD_ALIASES - does any alias for this key match the search term?
+        // ⚠️ Aliases shorter than 3 chars (e.g. 'v', 'w') ONLY allowed as exact whole-word/key match.
+        // Otherwise they false-match anything containing that letter (e.g. 'v' in "Cavity Material").
         const aliases = FIELD_ALIASES[key] || FIELD_ALIASES[normalizedKey.replace(/\s/g, '_')] || [];
         for (const alias of aliases) {
           const normalizedAlias = alias.toLowerCase().replace(/_/g, ' ').replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+          if (!normalizedAlias) continue;
+          if (normalizedAlias.length < 3) {
+            // Short alias: require exact match against search term or its compact key
+            if (normalizedAlias === normalizedSearch || normalizedAlias === normalizedSearchKey) {
+              return key;
+            }
+            continue;
+          }
           if (normalizedAlias.includes(normalizedSearch) || 
               normalizedSearch.includes(normalizedAlias) ||
               normalizedAlias === normalizedSearchKey ||
@@ -8142,9 +8185,14 @@ function buildReceivedAttributesConfirmation(
         
         // Check if the search term is an alias for this field key
         // e.g., attrName="Installation Type" should match key="type" because "installation type" is in type's aliases
+        // ⚠️ Same min-length 3 guard against tiny aliases like 'v'.
         const searchAliases = FIELD_ALIASES[normalizedSearchKey] || [];
         if (searchAliases.some(alias => {
           const normalizedAlias = alias.toLowerCase().replace(/[^a-z0-9]/g, '');
+          if (!normalizedAlias) return false;
+          if (normalizedAlias.length < 3) {
+            return normalizedAlias === normalizedKey.replace(/\s/g, '');
+          }
           return normalizedAlias === normalizedKey.replace(/\s/g, '') || normalizedKey.includes(normalizedAlias);
         })) {
           return key;
@@ -10691,8 +10739,29 @@ async function buildFinalResponse(
       return 'None Identified';
     })(),
     AI_Total_Model_Variants: (() => {
-      // First try to get from AI
-      let value = cleanEncodingIssues(
+      // Field semantics: integer COUNT of distinct model variants (not a SKU or list).
+      // Source priority:
+      //   1. Ferguson_Raw_Data.product.variants array length (authoritative when present)
+      //   2. AI value if it parses as a positive integer
+      //   3. AI value if it's a comma-separated list (count the items)
+      //   4. Fallback: "0"
+
+      const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
+      if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0) {
+        const distinct = new Set(
+          fergusonVariants
+            .map((v: any) => (v?.model_number || v?.modelNumber || '').trim())
+            .filter((m: string) => m)
+        );
+        const count = distinct.size || fergusonVariants.length;
+        logger.info('Total_Model_Variants computed from Ferguson_Raw_Data', {
+          variantCount: count,
+          sampleVariants: Array.from(distinct).slice(0, 5)
+        });
+        return String(count);
+      }
+
+      const aiValueRaw = cleanEncodingIssues(
         preferAIValue(
           consensus.agreedPrimaryAttributes.total_model_variants,
           openaiResult.primaryAttributes.total_model_variants,
@@ -10702,80 +10771,25 @@ async function buildFinalResponse(
           ''
         )
       );
-      
-      // If AI didn't find variants, extract from Ferguson_Raw_Data
-      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
-        const fergusonVariants = (rawProduct as any).Ferguson_Raw_Data?.product?.variants;
-        if (Array.isArray(fergusonVariants) && fergusonVariants.length > 0) {
-          // Extract model numbers from Ferguson variants
-          const variantModels = fergusonVariants
-            .map((v: any) => v.model_number || v.modelNumber)
-            .filter((m: string) => m);
-          if (variantModels.length > 0) {
-            value = variantModels.join(', ');
-            logger.info('Extracted variants from Ferguson_Raw_Data', {
-              variantCount: variantModels.length,
-              variants: variantModels.slice(0, 5)
-            });
-          }
-        }
+
+      if (!aiValueRaw || aiValueRaw === 'Not Found' || aiValueRaw === 'N/A') {
+        return '0';
       }
-      
-      // If still no variants found
-      if (!value || value === 'Not Found' || value === 'N/A' || value === '') {
-        return 'None Identified';
+
+      // If AI returned an integer
+      const asInt = parseInt(aiValueRaw, 10);
+      if (!isNaN(asInt) && String(asInt) === aiValueRaw.trim()) {
+        return String(Math.max(0, asInt));
       }
-      
-      // Extract only variant suffixes to save space (SF field limit: 255 chars)
-      // Get the model parent to strip from each variant
-      const modelParent = preferAIValue(
-        consensus.agreedPrimaryAttributes.model_parent,
-        openaiResult.primaryAttributes.model_parent,
-        xaiResult.primaryAttributes.model_parent,
-        openaiResult.confidence,
-        xaiResult.confidence,
-        ''
-      ) || (rawProduct as any).Ferguson_Raw_Data?.product?.parent_model_number || '';
-      
-      if (modelParent && modelParent !== 'Not Found' && modelParent !== 'None Identified') {
-        // Split variants and extract only the suffix portion
-        // E.g., "2400-4273-034, 2400-4273/65" with parent "2400-4273" → "034, 65"
-        const variants = value.split(/,\s*/);
-        const suffixes = variants.map(variant => {
-          const trimmed = variant.trim();
-          // Simple approach: if variant starts with parent, extract suffix
-          if (trimmed.startsWith(modelParent)) {
-            let suffix = trimmed.substring(modelParent.length);
-            // Remove leading separator (- or /)
-            if (suffix.startsWith('-') || suffix.startsWith('/')) {
-              suffix = suffix.substring(1);
-            }
-            return suffix || trimmed;
-          }
-          return trimmed;
-        });
-        
-        const result = suffixes.join(', ');
-        logger.info('Total_Model_Variants extracted suffixes only', {
-          originalLength: value.length,
-          resultLength: result.length,
-          modelParent,
-          sampleSuffixes: suffixes.slice(0, 5).join(', ')
-        });
-        
-        // If still too long, truncate with indicator
-        if (result.length > 250) {
-          const truncated = result.substring(0, 245) + '...';
-          return truncated;
-        }
-        return result;
+
+      // If AI returned a comma-separated list, count items
+      if (aiValueRaw.includes(',')) {
+        const items = aiValueRaw.split(',').map(s => s.trim()).filter(Boolean);
+        return String(items.length);
       }
-      
-      // No parent to strip, just truncate if needed
-      if (value.length > 250) {
-        return value.substring(0, 245) + '...';
-      }
-      return value;
+
+      // Single non-numeric token (e.g. a SKU like "PT7800SHSS") → cannot be a count, treat as 1
+      return '1';
     })()
   };
 
@@ -12061,6 +12075,50 @@ async function buildFinalResponse(
       typeCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'type'),
       finishCorrected: finalReviewResult.correctionsApplied.some(c => c.field === 'finish')
     });
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SYNC Field_AI_Reviews.final_value with what we ACTUALLY ship.
+  // fieldAIReviews was built from pre-Final-Review consensus values; corrections
+  // applied in Final Review and the appliance/non-appliance pipelines may have
+  // overridden Primary_Attributes downstream. Re-derive final_value + source for
+  // primary fields so the audit trail matches the response.
+  // ═══════════════════════════════════════════════════════════════
+  const primaryFinalValueMap: Record<string, any> = {
+    brand: sanitizedPrimaryAttributes.AI_Brand,
+    product_type: sanitizedPrimaryAttributes.AI_Type,
+    product_style: sanitizedPrimaryAttributes.AI_Style,
+    product_title: sanitizedPrimaryAttributes.AI_Product_Title,
+    finish: sanitizedPrimaryAttributes.AI_Finish,
+    color: sanitizedPrimaryAttributes.AI_Color,
+    model_number: sanitizedPrimaryAttributes.AI_Model_Number,
+    description: sanitizedPrimaryAttributes.AI_Description,
+    product_family: sanitizedPrimaryAttributes.AI_Product_Family,
+    subcategory: (sanitizedPrimaryAttributes as any).AI_SubCategory,
+  };
+  for (const [field, shippedValue] of Object.entries(primaryFinalValueMap)) {
+    const review = fieldAIReviews[field];
+    if (!review) continue;
+    if (shippedValue === undefined || shippedValue === null) continue;
+    const norm = (v: any) => String(v ?? '').toLowerCase().trim();
+    const shippedNorm = norm(shippedValue);
+    if (shippedNorm === norm(review.final_value)) continue; // already in sync
+    review.final_value = shippedValue;
+    // Re-derive source label so the audit reflects what won
+    if (norm(review.openai?.value) === shippedNorm && norm(review.xai?.value) === shippedNorm) {
+      review.source = 'both_agreed';
+      review.consensus = 'agreed';
+    } else if (norm(review.openai?.value) === shippedNorm) {
+      review.source = 'openai_selected';
+      review.consensus = 'partial';
+    } else if (norm(review.xai?.value) === shippedNorm) {
+      review.source = 'xai_selected';
+      review.consensus = 'partial';
+    } else {
+      // Neither AI matched — value came from Final Review / pipeline / picklist matching
+      review.source = 'manual_needed';
+      review.consensus = 'disagreed';
+    }
   }
 
   // Build response object before capturing metrics (need finalValues)
