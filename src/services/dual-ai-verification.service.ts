@@ -5090,15 +5090,25 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `    • **Fuel Type** = Power source: Gas, Electric, Heat Pump (THIS IS AN ATTRIBUTE, NOT A TYPE!)\n`;
       typeSelectionGuide += `    • **Vent Type** = Venting: Vented, Ventless (THIS IS AN ATTRIBUTE, NOT A TYPE!)\n`;
       typeSelectionGuide += `    • **Size** = Compact, Stackable (THESE ARE ATTRIBUTES, NOT TYPES!)\n\n`;
+      typeSelectionGuide += `  ⚠️ **CRITICAL — UNITIZED RULE**:\n`;
+      typeSelectionGuide += `    • "Unitized" means ONE PHYSICAL UNIT containing BOTH a washer AND a dryer integrated together\n`;
+      typeSelectionGuide += `      (e.g., LG WashTower, Samsung Laundry Hub, GE Unitized Spacemaker, stacked laundry center)\n`;
+      typeSelectionGuide += `    • If the product category is "${determinedCategory}" (a standalone ${categoryLower.includes('dryer') ? 'dryer' : 'washer'} only),\n`;
+      typeSelectionGuide += `      Type is ALMOST CERTAINLY "Front Load" or "Top Load" — NOT "Unitized"\n`;
+      typeSelectionGuide += `    • A "stackable" or "stack-ready" or "stacking kit compatible" ${categoryLower.includes('dryer') ? 'dryer' : 'washer'}\n`;
+      typeSelectionGuide += `      is NOT Unitized — it's a standalone unit that CAN be stacked. Type = Front Load (typical).\n`;
+      typeSelectionGuide += `    • Unitized products almost always live in the "All in One Washer / Dryer" category, not "${determinedCategory}".\n\n`;
       typeSelectionGuide += `  **Decision Process**:\n`;
-      typeSelectionGuide += `    1. Look for loading configuration keywords:\n`;
+      typeSelectionGuide += `    1. Look for loading configuration keywords IN THE PRODUCT TITLE/DESCRIPTION:\n`;
       typeSelectionGuide += `       - "Front Load" / "Front Loading" → Front Load\n`;
       typeSelectionGuide += `       - "Top Load" / "Top Loading" → Top Load\n`;
-      typeSelectionGuide += `       - "Unitized" / "Laundry Center" / "Stacked" / "All-in-One" → Unitized\n`;
-      typeSelectionGuide += `    2. **IGNORE these when selecting Type** (they are separate attributes):\n`;
+      typeSelectionGuide += `       - "Laundry Center" / "WashTower" / "All-in-One" / "integrated washer-dryer" → Unitized\n`;
+      typeSelectionGuide += `         (ONLY if the unit physically contains both washer + dryer)\n`;
+      typeSelectionGuide += `    2. **IGNORE these when selecting Type** (they are separate attributes, NOT type signals):\n`;
       typeSelectionGuide += `       - ❌ "Gas" / "Electric" / "Heat Pump" → DO NOT use as Type\n`;
       typeSelectionGuide += `       - ❌ "Vented" / "Ventless" / "Condenser" → DO NOT use as Type\n`;
-      typeSelectionGuide += `       - ❌ "Compact" / "Stackable" / "Portable" → DO NOT use as Type\n`;
+      typeSelectionGuide += `       - ❌ "Compact" / "Stackable" / "Stack-Ready" / "Stacking Kit" / "Portable" → DO NOT use as Type\n`;
+      typeSelectionGuide += `       - ❌ "Stacked" / "Stack" → DO NOT trigger Unitized — these refer to installation/feature, not product structure\n`;
       typeSelectionGuide += `    3. If loading configuration not explicitly stated:\n`;
       typeSelectionGuide += `       - Check dimensions: Wide/standard = Front Load, Narrow/tall = Top Load\n`;
       typeSelectionGuide += `       - Default to Front Load for modern appliances if unclear\n\n`;
@@ -5106,6 +5116,8 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `    • "27-Inch Gas Front Load Dryer" → Type: Front Load, Fuel Type: Gas (attribute)\n`;
       typeSelectionGuide += `    • "Top Load Electric Washer" → Type: Top Load, Fuel Type: Electric (attribute)\n`;
       typeSelectionGuide += `    • "Ventless Heat Pump Dryer" → Type: Front Load, Vent Type: Ventless (attribute)\n`;
+      typeSelectionGuide += `    • "7.4 cu. ft. Stackable Smart Gas Dryer" → Type: Front Load (stackable is feature, NOT Unitized)\n`;
+      typeSelectionGuide += `    • "LG WashTower 5.2/7.4 cu ft Single Unit" → Type: Unitized (one physical unit, both washer + dryer)\n`;
     } else if (categoryLower.includes('chandelier')) {
       typeSelectionGuide += `For Chandeliers, look for structural indicators:\n`;
       typeSelectionGuide += `  - "Tier" / "Tiered" / number of tiers\n`;
