@@ -14068,6 +14068,19 @@ RULES:
 - Return ONLY the JSON object, no other text`;
 
 
+  // ─────────────────────────────────────────────────────────────────
+  // AI USAGE TRACKING (observability only - does not affect behavior)
+  // ─────────────────────────────────────────────────────────────────
+  const claudeUsageId = aiUsageTracker.startAICall({
+    sessionId,
+    productId: rawProduct?.SF_Catalog_Id,
+    provider: 'claude',
+    model: 'claude-sonnet-4-6',
+    taskType: 'final-review',
+    prompt: reviewPrompt,
+    tags: ['phase-b', 'claude-review'],
+  });
+
   try {
     // Initialize Anthropic client
     const anthropic = new Anthropic({
@@ -14219,6 +14232,17 @@ RULES:
       proposedCorrections: reviewResult.proposedCorrections || 'none'
     });
 
+    // Record successful Claude usage (observability only - does not affect return value)
+    await aiUsageTracker.completeAICall(claudeUsageId, {
+      response: reviewText,
+      promptTokens: response.usage?.input_tokens || 0,
+      completionTokens: response.usage?.output_tokens || 0,
+      outcome: 'success',
+      jsonValid: true,
+      confidenceScore: reviewResult.confidenceInResults,
+      categoryDetermined: category,
+    }).catch((trackErr) => logger.warn('AI usage tracking failed (non-blocking)', { trackErr, claudeUsageId }));
+
     return reviewResult;
 
   } catch (error) {
@@ -14226,6 +14250,16 @@ RULES:
       sessionId,
       error: error instanceof Error ? error.message : 'Unknown error'
     });
+
+    // Record failed Claude usage (observability only - does not affect return value)
+    await aiUsageTracker.completeAICall(claudeUsageId, {
+      response: '',
+      promptTokens: 0,
+      completionTokens: 0,
+      outcome: 'failed',
+      jsonValid: false,
+      errorMessage: error instanceof Error ? error.message : 'Unknown error',
+    }).catch((trackErr) => logger.warn('AI usage tracking failed (non-blocking)', { trackErr, claudeUsageId }));
 
     return {
       reviewStatus: 'FLAG',

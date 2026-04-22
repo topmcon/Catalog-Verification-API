@@ -45,9 +45,16 @@ export const MODEL_PRICING: Record<string, { input: number; output: number }> = 
   'grok-3-mini': { input: 0.30, output: 0.50 },
   'grok-4': { input: 5.00, output: 20.00 }, // Estimated
   'grok-4-fast-non-reasoning': { input: 3.00, output: 15.00 }, // Non-reasoning variant
+
+  // Anthropic Claude family
+  'claude-3-5-sonnet-20241022': { input: 3.00, output: 15.00 },
+  'claude-3-5-sonnet-latest': { input: 3.00, output: 15.00 },
+  'claude-3-5-haiku-20241022': { input: 0.80, output: 4.00 },
+  'claude-3-opus-20240229': { input: 15.00, output: 75.00 },
+  'claude-sonnet-4-6': { input: 3.00, output: 15.00 }, // Used for Phase B Final Review
 };
 
-export type AIProvider = 'openai' | 'xai';
+export type AIProvider = 'openai' | 'xai' | 'claude';
 export type TaskType = 
   | 'verification'      // Main product verification
   | 'cross-validation'  // Second pass after disagreement
@@ -59,7 +66,8 @@ export type TaskType =
   | 'consensus-resolution'  // Resolving AI disagreements
   | 'enrichment'        // Product enrichment
   | 'categorization'    // Category-only determination
-  | 'attribute-extraction'; // Attribute extraction only
+  | 'attribute-extraction'  // Attribute extraction only
+  | 'final-review';     // Phase B Claude final adjudication review
 
 export type TaskOutcome = 
   | 'success'           // Completed successfully
@@ -159,7 +167,7 @@ const AIUsageSchema = new Schema<IAIUsage>(
     // Request Details
     provider: {
       type: String,
-      enum: ['openai', 'xai'],
+      enum: ['openai', 'xai', 'claude'],
       required: true,
       index: true,
     },
@@ -172,7 +180,8 @@ const AIUsageSchema = new Schema<IAIUsage>(
       type: String,
       enum: ['verification', 'cross-validation', 'research', 'image-analysis', 
              'consensus-resolution', 'enrichment', 'categorization', 'attribute-extraction',
-             'final-verification-search', 'dual-web-search-openai', 'dual-web-search-xai'],
+             'final-verification-search', 'dual-web-search-openai', 'dual-web-search-xai',
+             'final-review'],
       required: true,
       index: true,
     },

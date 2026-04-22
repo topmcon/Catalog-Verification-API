@@ -192,7 +192,7 @@ function analyzeJob(job) {
 
 // ───────────────────────────── cost lookup ─────────────────────────────
 async function getCostsForJobs(AIUsage, jobs) {
-  if (!jobs.length) return { totalCost: 0, byProvider: {}, byTask: {}, byJob: {}, totalCalls: 0 };
+  if (!jobs.length) return { totalCost: 0, byProvider: {}, byTask: {}, byJob: {}, totalCalls: 0, raw: [] };
 
   const earliest = jobs.reduce((min, j) => {
     const t = new Date(j.createdAt);
@@ -209,7 +209,7 @@ async function getCostsForJobs(AIUsage, jobs) {
     productId: { $in: productIds },
   }).lean();
 
-  const totals = { totalCost: 0, byProvider: {}, byTask: {}, byJob: {}, totalCalls: usage.length };
+  const totals = { totalCost: 0, byProvider: {}, byTask: {}, byJob: {}, totalCalls: usage.length, raw: usage };
   for (const u of usage) {
     totals.totalCost += u.totalCost || 0;
     totals.byProvider[u.provider] = (totals.byProvider[u.provider] || 0) + (u.totalCost || 0);
@@ -354,6 +354,143 @@ function printCosts(costs, jobs) {
   }
 }
 
+// ───────────────────────── consensus & per-field analytics ─────────────────────────
+function printConsensusMetrics(jobs) {
+  header('🤝 AI CONSENSUS (OpenAI vs xAI per-field)');
+  const completed = jobs.filter((j) => j.status === 'completed' && j.result && j.result.Field_AI_Reviews);
+  if (!completed.length) { console.log('  No Field_AI_Reviews data available.'); return; }
+
+  const fieldStats = {};      // field -> { agreed, disagreed, sources: {...} }
+  let totalFields = 0, agreedFields = 0;
+  const sourceCounts = {};    // source -> count (e.g. both_agreed, openai_only, xai_only, tiebreaker, claude_review)
+  const overrules = { openai: 0, xai: 0 }; // times this AI's value was NOT the final value
+
+  for (const j of completed) {
+    const fr = j.result.Field_AI_Reviews;
+    for (const [field, data] of Object.entries(fr)) {
+      if (!data || typeof data !== 'object') continue;
+      totalFields++;
+      const agreed = data.consensus === 'agreed';
+      if (agreed) agreedFields++;
+
+      if (!fieldStats[field]) fieldStats[field] = { agreed: 0, total: 0 };
+      fieldStats[field].total++;
+      if (agreed) fieldStats[field].agreed++;
+
+      const src = data.source || 'unknown';
+      sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+
+      // Overrule detection: AI provided a value but final_value differs (case-insensitive)
+      const finalVal = (data.final_value || '').toString().toLowerCase().trim();
+      for (const provider of ['openai', 'xai']) {
+        const aiVal = (data[provider] && data[provider].value || '').toString().toLowerCase().trim();
+        if (aiVal && finalVal && aiVal !== finalVal) overrules[provider]++;
+      }
+    }
+  }
+
+  console.log(`  Field-decisions analyzed:  ${totalFields} (across ${completed.length} jobs)`);
+  const overallPct = fmtPct(agreedFields, totalFields);
+  const color = agreedFields / Math.max(totalFields, 1) >= 0.85 ? 'green' :
+                agreedFields / Math.max(totalFields, 1) >= 0.70 ? 'yellow' : 'red';
+  console.log(`  Overall agreement rate:    ${c(color, overallPct)} (${agreedFields}/${totalFields})`);
+
+  console.log('\n  ' + c('bold', 'Resolution Source (how each field was decided):'));
+  const totalDecisions = Object.values(sourceCounts).reduce((a, b) => a + b, 0);
+  for (const [src, n] of Object.entries(sourceCounts).sort((a, b) => b[1] - a[1])) {
+    console.log(`    ${src.padEnd(20)} ${n.toString().padStart(5)} (${fmtPct(n, totalDecisions)})`);
+  }
+
+  console.log('\n  ' + c('bold', 'Per-AI Overrule Count (AI value differed from final):'));
+  console.log(`    OpenAI overruled:  ${overrules.openai}`);
+  console.log(`    xAI overruled:     ${overrules.xai}`);
+
+  console.log('\n  ' + c('bold', 'Bottom 5 Fields by Agreement (weakest):'));
+  const ranked = Object.entries(fieldStats)
+    .filter(([, s]) => s.total >= Math.max(3, completed.length * 0.3))  // significant sample only
+    .map(([f, s]) => ({ field: f, pct: s.agreed / s.total, agreed: s.agreed, total: s.total }))
+    .sort((a, b) => a.pct - b.pct)
+    .slice(0, 5);
+  if (!ranked.length) {
+    console.log('    (insufficient sample size for per-field ranking)');
+  } else {
+    for (const r of ranked) {
+      const fieldColor = r.pct >= 0.85 ? 'green' : r.pct >= 0.70 ? 'yellow' : 'red';
+      console.log(`    ${r.field.padEnd(30)} ${c(fieldColor, (r.pct * 100).toFixed(0).padStart(3) + '%')}  (${r.agreed}/${r.total})`);
+    }
+  }
+}
+
+function printFinalReviewMetrics(jobs) {
+  header('🎯 PHASE B FINAL REVIEW (Claude adjudication)');
+  const completed = jobs.filter((j) => j.status === 'completed' && j.result);
+  if (!completed.length) { console.log('  No completed jobs.'); return; }
+
+  let phaseBPerformed = 0, phaseBPass = 0, phaseBFlag = 0, phaseBFail = 0;
+  let totalCorrectionsApplied = 0, jobsWithCorrections = 0;
+  let phaseAConfSum = 0, phaseAConfCount = 0;
+  let finalScoreSum = 0, finalScoreCount = 0;
+
+  for (const j of completed) {
+    const fr = j.result.Final_Review || {};
+    const v = j.result.Verification || {};
+    if (fr.phase_b_performed) {
+      phaseBPerformed++;
+      if (fr.final_review_status === 'PASS') phaseBPass++;
+      else if (fr.final_review_status === 'FAIL') phaseBFail++;
+      else phaseBFlag++;
+
+      const corrCount = Array.isArray(fr.corrections_applied) ? fr.corrections_applied.length : 0;
+      if (corrCount > 0) { jobsWithCorrections++; totalCorrectionsApplied += corrCount; }
+
+      if (typeof fr.phase_a_confidence === 'number') { phaseAConfSum += fr.phase_a_confidence; phaseAConfCount++; }
+    }
+    if (typeof v.verification_score === 'number') { finalScoreSum += v.verification_score; finalScoreCount++; }
+  }
+
+  console.log(`  Phase B invoked:          ${phaseBPerformed} / ${completed.length} (${fmtPct(phaseBPerformed, completed.length)})`);
+  if (phaseBPerformed > 0) {
+    console.log(`    PASS:                   ${phaseBPass} (${fmtPct(phaseBPass, phaseBPerformed)})`);
+    console.log(`    FLAG:                   ${phaseBFlag} (${fmtPct(phaseBFlag, phaseBPerformed)})`);
+    console.log(`    FAIL:                   ${phaseBFail} (${fmtPct(phaseBFail, phaseBPerformed)})`);
+    console.log(`  Jobs with corrections:    ${jobsWithCorrections} (${fmtPct(jobsWithCorrections, phaseBPerformed)})`);
+    console.log(`  Total corrections applied: ${totalCorrectionsApplied}`);
+    if (phaseAConfCount) console.log(`  Avg Phase A confidence:   ${(phaseAConfSum / phaseAConfCount).toFixed(1)}`);
+    if (finalScoreCount)  console.log(`  Avg final score:          ${(finalScoreSum / finalScoreCount).toFixed(1)}`);
+  }
+}
+
+function printLatencyAndRetry(usage) {
+  header('⏱️  AI LATENCY & RETRIES (per model)');
+  if (!usage.length) { console.log('  No ai_usage records.'); return; }
+
+  const byModel = {};
+  let retries = 0, failed = 0, jsonInvalid = 0;
+  for (const u of usage) {
+    const key = `${u.provider}/${u.aiModel}`;
+    if (!byModel[key]) byModel[key] = [];
+    byModel[key].push(u.latencyMs || 0);
+    if ((u.retryAttempt || 0) > 0) retries++;
+    if (u.outcome && u.outcome !== 'success') failed++;
+    if (u.jsonValid === false) jsonInvalid++;
+  }
+
+  const pct = (arr, p) => {
+    const sorted = [...arr].sort((a, b) => a - b);
+    return sorted[Math.floor(sorted.length * p)] || 0;
+  };
+  console.log('  ' + c('bold', 'Latency by Model (ms):'));
+  console.log('    ' + 'model'.padEnd(36) + 'calls   p50    p95    p99    avg');
+  for (const [k, arr] of Object.entries(byModel).sort((a, b) => b[1].length - a[1].length)) {
+    const avg = arr.reduce((a, b) => a + b, 0) / arr.length;
+    console.log(`    ${k.padEnd(36)}${arr.length.toString().padStart(5)}  ${pct(arr, 0.5).toString().padStart(5)}  ${pct(arr, 0.95).toString().padStart(5)}  ${pct(arr, 0.99).toString().padStart(5)}  ${Math.round(avg).toString().padStart(5)}`);
+  }
+  console.log('');
+  console.log(`  Retries:        ${retries} call(s)  ${retries > 0 ? c('yellow', '⚠️') : c('green', '✓')}`);
+  console.log(`  Non-success:    ${failed} call(s)  ${failed > 0 ? c('red', '⚠️') : c('green', '✓')}`);
+  console.log(`  JSON invalid:   ${jsonInvalid} call(s)  ${jsonInvalid > 0 ? c('red', '⚠️') : c('green', '✓')}`);
+}
+
 async function printSelfHealing(SelfHealingLog, jobs) {
   if (!jobs.length) return;
   header('🔧 SELF-HEALING IN BATCH WINDOW');
@@ -415,6 +552,9 @@ function printRecommendations(jobs, costs) {
     printQualityMetrics(jobs);
     const costs = await getCostsForJobs(AIUsage, jobs);
     printCosts(costs, jobs);
+    printConsensusMetrics(jobs);
+    printFinalReviewMetrics(jobs);
+    printLatencyAndRetry(costs.raw || []);
     await printSelfHealing(SelfHealingLog, jobs);
     printIssues(jobs);
     printRecommendations(jobs, costs);
