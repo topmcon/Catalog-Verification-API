@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v13
-  Snapshot Date: 2026-03-16 08:10:19 EDT
-  Commit:        a4fcb45 (a4fcb45d96df4cc0d16df12a2ce1633d91f1c763)
+  Version:       v33
+  Snapshot Date: 2026-04-22 00:45:48 EDT
+  Commit:        0564955 (05649556e2e324f6254d0575ec1551519b3dce3a)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 13084 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14585 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v12)
+  Lines added: ~0, Lines removed: ~38 (vs v32)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-a4fcb45 Fix Mirror→Bathroom Mirror misclassification, add FRD product name to deptTitles, block style values in finish field
-ca540e2 Verified data hierarchy redesign: dept-aware fallback chains for all title fields
-09e4d44 Session docs: mirror category + dimension extraction fixes, audit findings #037-#039, architecture v11
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
+0564955 fix(ai-prompt): clarify Oven type selection by cavity count, not cooking method
+638b31a fix(type-matcher): exclude 'Combi Microwave' cooking method from Microwave Combo type
+f5d7082 fix(verification): 8 verification API output bugs
+199cd8b docs: session summary Apr 21 SF response watch + versioned architecture snapshots
+ac54461 feat: 15-min SF response watch + out-of-order retry trigger
 -->
 
 # Verification Data Sources - Complete Inventory

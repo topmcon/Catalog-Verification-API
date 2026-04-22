@@ -64,6 +64,7 @@
 | Compact Freezer type ambiguity | Remove Compact, default to Undercounter | b25e4ee | #045, #043 |
 | Claude corrections not propagating to title regeneration | Manually apply corrections from metadata back to sanitizedPrimaryAttributes | f0aab63 | #046, #001, #002, #027 |
 | Agent orchestrator abort gate (65.7% failure rate) | Surgical revert of orchestrator wiring — restore direct monolith calls | d5f215e | #047, #044 |
+| Single-cavity oven misclassified as Microwave Combo | Two-layer fix: AI prompt cavity-count rule + type-matcher `combi microwave` → Single alias | 638b31a, 0564955 | #048, #003, #015 |
 
 ---
 
@@ -5105,3 +5106,81 @@ This bug cost 88 production jobs over 12 days. The failure mode was invisible un
 ---
 
 **Remember:** This document should be updated EVERY TIME we discover a new issue or apply a fix. It's our institutional memory and troubleshooting playbook.
+
+---
+
+## Finding #048: Single-Cavity Ovens Misclassified as "Microwave Combo"
+
+**Date Discovered:** 2026-04-22
+**Reported By:** User (production data review)
+**Severity:** Medium — affects compact European-style ovens (SMEG, Bertazzoni, etc.)
+**Commits:** `638b31a`, `0564955`
+
+### Symptom
+SMEG SFU4104MCS (a 24" single-cavity 1.41 cu ft compact oven) was classified as Type `Microwave Combo`. "Microwave Combo" should denote TWO stacked cavities (separate microwave + oven), not a single cavity that happens to use microwave heating modes.
+
+Validated comparison case: Samsung NQ70CG700DMTAA was correctly classified as `Microwave Combo` (genuine 2-cavity 30" wall oven: 1.9 cu ft microwave + 5.1 cu ft oven).
+
+### Root Cause Analysis
+
+Two-layer failure:
+
+1. **AI prompt was vague** — `dual-ai-verification.service.ts` line ~5020 had only 4 lines of guidance for Ovens, with no rule disambiguating cavity count from cooking method. Both OpenAI and xAI directly output the literal Salesforce picklist value `"Microwave Combo"` because the source title from AJ Madison was *"SMEG 24-Inch Microwave Combo Oven Silver - SFU4104MCS"*.
+
+2. **Type matcher had no exclusion** — `type-matcher.service.ts` had 9 broad aliases mapping any "combo/combination" oven phrasing to `Microwave Combo`. Even if it had run, it would have confirmed the bad value.
+
+### Investigation Steps
+
+1. Reviewed `category-type-mapping.json` line 295 — confirmed valid Oven types: `Single`, `Double Wall`, `Microwave Combo`, `Accessory`
+2. Checked `type-matcher.service.ts` lines 47-55 + line 601 — found 6 broad combination patterns
+3. **Critical audit step**: Grepped production logs for AI output frequencies before removing aliases:
+   - `combo-wall-oven`: 199 occurrences
+   - `Combination Oven`: 190
+   - `microwave-combination`: 120
+   - `Combination Wall Oven`: 104
+   - `microwave combo`: 90
+   - `combo oven`: 68
+   - `Microwave Combination`: 62
+   - `Combi Microwave` (the bug): only ~12
+4. Realized broad removal would break **833+ legitimate matches** to fix 12 false positives — reverted aggressive approach
+5. Test call with type-matcher fix only still returned `Microwave Combo` — proved AI was bypassing the matcher by outputting literal picklist values
+6. Read AI prompt builder, found vague Oven guidance — replaced with explicit cavity-count decision rule
+
+### Fix Applied
+
+**Layer 1 — AI Prompt** (`dual-ai-verification.service.ts` lines 5018-5040, commit `0564955`):
+- Replaced 4-line vague guidance with 16-line cavity-count decision rule
+- Explicit definitions: "Microwave Combo" = 2 cavities; "Single" = 1 cavity (even if marketed as Combi)
+- Decision rule: count cavities in spec table FIRST, then assign type
+- Warning: do NOT trust source titles alone
+
+**Layer 2 — Type Matcher** (`type-matcher.service.ts`, commit `638b31a`):
+- Added 3 new TYPE_ALIASES: `combi microwave`, `combi-microwave`, `combination microwave oven` → `Single`
+- Added regex `/\bcombi[\s-]*microwave\b/i` → `Single` placed **before** generic combination patterns (order matters — first match wins)
+- Preserved all 9 original Microwave Combo aliases (833+ legitimate matches unaffected)
+
+### Scope
+
+**Universal** — applies to ALL Oven category products. Specifically protects:
+- European compact ovens (SMEG, Bertazzoni, Miele 24" single-cavity)
+- Any oven where source title contains "Combo" or "Combination" but only has 1 cavity
+- Any product where AI receives "Combi Microwave" cooking-mode terminology
+
+### Related Findings
+
+- **#003** — AI extracting wrong semantic values (this is a category-specific instance)
+- **#015** — Electric/Gas as Types vs attributes (similar conflation of attribute with type)
+- **#016** — AI re-categorizing instead of validating (this involves type, not category, but same pattern)
+
+### Lessons Learned
+
+1. **Always audit production frequency before removing aliases** — what looks like a bug pattern may be supporting hundreds of legitimate matches
+2. **Two-layer defense for AI output** — prompt teaches correct classification; matcher catches edge cases. Don't rely on matcher alone if AI outputs literal picklist values verbatim
+3. **Marketing terminology ≠ technical type** — "Microwave Combo Oven" in a product title can mean either configuration; only cavity count is authoritative
+4. **Test the fix end-to-end** — fix #1 looked correct on paper but didn't help because AI bypassed the matcher. Production test call exposed this in minutes.
+
+### Prevention
+
+- AI prompt now explicitly enumerates valid types AND provides decision rule (not just keyword hints)
+- Future Type-related issues should check AI prompt completeness FIRST, then matcher logic
+- Consider adding post-AI guard: if `category === Oven` AND total capacity < 3 cu ft AND type === "Microwave Combo" → flag for review

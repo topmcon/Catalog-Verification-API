@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v11
-  Snapshot Date: 2026-03-16 00:07:03 EDT
-  Commit:        4ec2596 (4ec2596043d94dda82c355c2e75493145d442806)
+  Version:       v31
+  Snapshot Date: 2026-04-22 00:45:48 EDT
+  Commit:        0564955 (05649556e2e324f6254d0575ec1551519b3dce3a)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 12885 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14585 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v10)
+  Lines added: ~0, Lines removed: ~38 (vs v30)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
-1c4596f feat: lighted mirror detection — 3-layer fix for Bathroom Mirror Type
-baf41fe feat: Stage 2 includes Ferguson signal + department-aware tiebreaker
-bedbbb8 refactor: Stage 2 category determination is now fully unbiased — AI decides from raw data
+0564955 fix(ai-prompt): clarify Oven type selection by cavity count, not cooking method
+638b31a fix(type-matcher): exclude 'Combi Microwave' cooking method from Microwave Combo type
+f5d7082 fix(verification): 8 verification API output bugs
+199cd8b docs: session summary Apr 21 SF response watch + versioned architecture snapshots
+ac54461 feat: 15-min SF response watch + out-of-order retry trigger
 -->
 
 # Complete Verification Architecture
