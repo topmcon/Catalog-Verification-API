@@ -5109,8 +5109,30 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `       - ❌ "Vented" / "Ventless" / "Condenser" → DO NOT use as Type\n`;
       typeSelectionGuide += `       - ❌ "Compact" / "Stackable" / "Stack-Ready" / "Stacking Kit" / "Portable" → DO NOT use as Type\n`;
       typeSelectionGuide += `       - ❌ "Stacked" / "Stack" → DO NOT trigger Unitized — these refer to installation/feature, not product structure\n`;
-      typeSelectionGuide += `    3. If loading configuration not explicitly stated:\n`;
-      typeSelectionGuide += `       - Check dimensions: Wide/standard = Front Load, Narrow/tall = Top Load\n`;
+      typeSelectionGuide += `\n  ⚠️ **CRITICAL — RETAIL "MATCHING" CATEGORIES ARE NOT TYPES**:\n`;
+      typeSelectionGuide += `    Web Retailer category strings often include MERCHANDISING terms that describe what the\n`;
+      typeSelectionGuide += `    product is designed to PAIR WITH, not its own loading configuration. Decode them carefully:\n`;
+      typeSelectionGuide += `    • "TOP LOAD MATCHING DRYER" / "TOP LOAD MATCHING GAS DRYER" / "TOP LOAD MATCHING ELECTRIC DRYER"\n`;
+      typeSelectionGuide += `      → This is a FRONT LOAD DRYER styled to visually match a Top Load WASHER. Type = **Front Load**.\n`;
+      typeSelectionGuide += `      → The phrase means "matches a top-load washer's appearance", NOT "loads from the top".\n`;
+      typeSelectionGuide += `    • "FRONT LOAD MATCHING DRYER" → Front Load dryer styled to pair with front-load washer. Type = Front Load.\n`;
+      typeSelectionGuide += `    • Categories like "LAUNDRY | TOP LOAD MATCHING GAS DRYER" → IGNORE the "TOP LOAD" prefix; use Front Load.\n`;
+      typeSelectionGuide += `\n  ${categoryLower.includes('dryer') ? '⚠️ **DRYER LOADING CONFIG REALITY**' : '⚠️ **WASHER LOADING CONFIG REALITY**'}:\n`;
+      if (categoryLower.includes('dryer')) {
+        typeSelectionGuide += `    • Nearly ALL modern standalone dryers are physically Front Load (door on the front of the unit).\n`;
+        typeSelectionGuide += `    • "Top Load" Type for a dryer is RARE — only for legacy/portable/compact units where the door is\n`;
+        typeSelectionGuide += `      physically on top of the dryer (uncommon in 21st-century products).\n`;
+        typeSelectionGuide += `    • If a standalone dryer has typical dimensions (~27" wide, 38-46" tall, 30-32" deep), it is Front Load.\n`;
+        typeSelectionGuide += `    • DO NOT pick "Top Load" just because the dryer matches/pairs with a top-load washer set.\n`;
+        typeSelectionGuide += `    • DO NOT pick "Top Load" just because a previous title incorrectly said "Top Load" — re-evaluate from raw data.\n`;
+        typeSelectionGuide += `    • If you cannot find a clear physical loading-door description, **default to Front Load** for dryers.\n`;
+      } else {
+        typeSelectionGuide += `    • Top Load washers have door on top of unit; Front Load washers have door on the front.\n`;
+        typeSelectionGuide += `    • Use the explicit loading description from manufacturer specs, not retail merchandising categories.\n`;
+      }
+      typeSelectionGuide += `\n    3. If loading configuration not explicitly stated by manufacturer:\n`;
+      typeSelectionGuide += `       - Check dimensions: standard 27" wide × 38-46" tall = Front Load (typical modern unit)\n`;
+      typeSelectionGuide += `       - Truly compact/portable units (~24" wide, lid on top) may be Top Load\n`;
       typeSelectionGuide += `       - Default to Front Load for modern appliances if unclear\n\n`;
       typeSelectionGuide += `  **Example Mappings**:\n`;
       typeSelectionGuide += `    • "27-Inch Gas Front Load Dryer" → Type: Front Load, Fuel Type: Gas (attribute)\n`;
@@ -5118,6 +5140,9 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `    • "Ventless Heat Pump Dryer" → Type: Front Load, Vent Type: Ventless (attribute)\n`;
       typeSelectionGuide += `    • "7.4 cu. ft. Stackable Smart Gas Dryer" → Type: Front Load (stackable is feature, NOT Unitized)\n`;
       typeSelectionGuide += `    • "LG WashTower 5.2/7.4 cu ft Single Unit" → Type: Unitized (one physical unit, both washer + dryer)\n`;
+      typeSelectionGuide += `    • Web SubCategory "TOP LOAD MATCHING GAS DRYER" + 27" wide standalone dryer → Type: **Front Load**\n`;
+      typeSelectionGuide += `      (the "TOP LOAD MATCHING" describes the washer it pairs with, not the dryer's loading)\n`;
+      typeSelectionGuide += `    • Samsung DVG52A5500V 27"×44.6"×30.2" gas dryer in "TOP LOAD MATCHING" retail category → Front Load\n`;
     } else if (categoryLower.includes('chandelier')) {
       typeSelectionGuide += `For Chandeliers, look for structural indicators:\n`;
       typeSelectionGuide += `  - "Tier" / "Tiered" / number of tiers\n`;
