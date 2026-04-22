@@ -5017,10 +5017,22 @@ ${promptOptions.invalidTypeWarning}
       typeSelectionGuide += `  ⚠️ **4-Door Flex vs French Door**: "French Door" takes priority if both could apply\n`;
       typeSelectionGuide += `  ⚠️ **Wine Column example**: Monogram ZIW241NBWII = 84" tall integrated wine column → Type: Column (NOT Wine Cooler)\n`;
     } else if (categoryLower.includes('oven')) {
-      typeSelectionGuide += `For Ovens, analyze model number and cavity count:\n`;
-      typeSelectionGuide += `  - Model with "30" or "OB30" → 30" built-in\n`;
-      typeSelectionGuide += `  - Check specs for "single cavity" vs "double cavity"\n`;
-      typeSelectionGuide += `  - Look for "Single", "Double Wall", "Combination" in title\n`;
+      typeSelectionGuide += `For Ovens, the Type is determined by CAVITY COUNT and CAVITY CONFIGURATION (NOT cooking method):\n`;
+      typeSelectionGuide += `  Valid types: "Single", "Double Wall", "Microwave Combo", "Accessory"\n\n`;
+      typeSelectionGuide += `  ⚠️ **CRITICAL DISAMBIGUATION**:\n`;
+      typeSelectionGuide += `    • **"Microwave Combo"** = TWO SEPARATE CAVITIES stacked (one microwave + one oven), typically 30" wall oven\n`;
+      typeSelectionGuide += `      - REQUIRED: Spec must show 2 distinct cavities with separate capacities (e.g., "1.9 cu ft microwave + 5.1 cu ft oven")\n`;
+      typeSelectionGuide += `      - Total combined height usually 40"+ (two units stacked)\n`;
+      typeSelectionGuide += `    • **"Single"** = ONE CAVITY oven, regardless of cooking methods inside it\n`;
+      typeSelectionGuide += `      - Includes "Combi Microwave" (single cavity with microwave + convection heating modes)\n`;
+      typeSelectionGuide += `      - Includes "Combination Oven" / "Combi Oven" when only ONE cavity exists\n`;
+      typeSelectionGuide += `      - Includes 24" compact built-in ovens with multi-mode cooking\n`;
+      typeSelectionGuide += `    • **"Double Wall"** = TWO IDENTICAL OVEN CAVITIES (no microwave), typically 30" wall oven\n\n`;
+      typeSelectionGuide += `  🔍 **DECISION RULE**: Count the cavities in the spec table FIRST, then assign type:\n`;
+      typeSelectionGuide += `    - 1 cavity → "Single" (even if marketed as "Microwave Combo Oven" or "Combi")\n`;
+      typeSelectionGuide += `    - 2 cavities, one is microwave → "Microwave Combo"\n`;
+      typeSelectionGuide += `    - 2 cavities, both are ovens → "Double Wall"\n\n`;
+      typeSelectionGuide += `  ⚠️ **DO NOT trust the source title alone** — many compact ovens are marketed with "Combo" or "Combination" terminology referring to cooking METHODS, not separate cavities. Verify cavity count in specs.\n`;
     } else if (categoryLower.includes('faucet')) {
       typeSelectionGuide += `For ${determinedCategory}, select Type from the valid types list above.\n`;
       typeSelectionGuide += `  ⚠️ **Type vs Hole Config vs Mount — THESE ARE DIFFERENT FIELDS:**\n`;
