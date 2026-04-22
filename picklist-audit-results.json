@@ -27,7 +27,7 @@
         "style_id",
         "description"
       ],
-      "count": 36
+      "count": 40
     },
     {
       "file": "attributes.json",
@@ -35,7 +35,7 @@
         "attribute_name",
         "attribute_id"
       ],
-      "count": 1646
+      "count": 1651
     },
     {
       "file": "category-filter-attributes.json",

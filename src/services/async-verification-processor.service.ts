@@ -19,7 +19,7 @@ class AsyncVerificationProcessor {
   /**
    * Start the background job processor
    */
-  start(intervalMs: number = 5000, maxConcurrent: number = 5): void {
+  async start(intervalMs: number = 5000, maxConcurrent: number = 5): Promise<void> {
     if (this.processingInterval) {
       logger.warn('Async processor already running');
       return;
@@ -32,12 +32,50 @@ class AsyncVerificationProcessor {
       maxConcurrentJobs: this.maxConcurrentJobs 
     });
 
+    // CRITICAL: Recover any stale jobs on startup (e.g., orphaned by service restart)
+    await this.recoverStaleJobs();
+
     this.processingInterval = setInterval(async () => {
       await this.processNextJob();
     }, intervalMs);
 
     // Process immediately on start
     this.processNextJob();
+  }
+
+  /**
+   * Recover stale "processing" jobs orphaned by service restart
+   * Jobs stuck in "processing" for >10 minutes are reset to "pending"
+   */
+  private async recoverStaleJobs(): Promise<void> {
+    try {
+      const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+      
+      const result = await VerificationJob.updateMany(
+        { 
+          status: 'processing',
+          startedAt: { $lt: tenMinutesAgo }
+        },
+        {
+          $set: { status: 'pending' },
+          $unset: { startedAt: '' }
+        }
+      );
+
+      if (result.modifiedCount > 0) {
+        logger.warn('🔄 Recovered stale jobs orphaned by service restart', {
+          recoveredCount: result.modifiedCount,
+          reason: 'Jobs stuck in processing >10 minutes reset to pending',
+          action: 'Jobs will be reprocessed'
+        });
+      } else {
+        logger.info('✅ No stale jobs to recover');
+      }
+    } catch (error) {
+      logger.error('Failed to recover stale jobs', {
+        error: error instanceof Error ? error.message : String(error)
+      });
+    }
   }
 
   /**
