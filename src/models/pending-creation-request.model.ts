@@ -57,6 +57,10 @@ export interface IPendingCreationRequest extends Document {
   // Webhook tracking
   sent_to_sf_count: number;  // How many times we actually sent this to SF (should be 1)
   last_sent_at?: Date;
+  
+  // Attention flags (for stale requests)
+  needs_attention?: boolean;
+  attention_reason?: string;
 }
 
 const JobReferenceSchema = new Schema({
@@ -140,7 +144,14 @@ const PendingCreationRequestSchema = new Schema<IPendingCreationRequest>({
     type: Number, 
     default: 1 
   },
-  last_sent_at: { type: Date }
+  last_sent_at: { type: Date },
+  
+  needs_attention: { 
+    type: Boolean, 
+    default: false,
+    index: true
+  },
+  attention_reason: { type: String }
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   collection: 'pending_creation_requests'

@@ -16,6 +16,7 @@ interface ReconciliationResult {
   pending_added: number;
   new_added: number;
   duplicates_rejected: number;
+  unrequested_rejected: number;  // NEW: Items SF sent that we didn't request
   requests_fulfilled: number;
   errors: string[];
 }
@@ -34,6 +35,17 @@ interface CategoryItem {
   styles_apply?: boolean;
 }
 
+interface BrandItem {
+  brand_id: string;
+  brand_name: string;
+}
+
+interface StyleItem {
+  style_id: string;
+  style_name: string;
+  description?: string;
+}
+
 /**
  * Reconcile attributes from SF sync with our existing list and pending requests
  */
@@ -47,6 +59,7 @@ export async function reconcileAttributes(
     pending_added: 0,
     new_added: 0,
     duplicates_rejected: 0,
+    unrequested_rejected: 0,
     requests_fulfilled: 0,
     errors: []
   };
@@ -115,13 +128,13 @@ export async function reconcileAttributes(
           result.existing_updated++;
         }
       } else {
-        // New item to add
-        toAdd.push(sfAttr);
-        
+        // REQUEST-ONLY MODE: Only add items that match our pending requests
         if (pending) {
+          toAdd.push(sfAttr);
           result.pending_added++;
         } else {
-          result.new_added++;
+          // Track unrequested items that were rejected
+          result.unrequested_rejected++;
         }
       }
     }
@@ -162,7 +175,7 @@ export async function reconcileAttributes(
     logger.info(`Updated attributes.json: ${existingAttributes.length} → ${finalAttributes.length}`, {
       existing_updated: result.existing_updated,
       pending_added: result.pending_added,
-      new_added: result.new_added
+      unrequested_rejected: result.unrequested_rejected
     });
 
     // Mark pending requests as fulfilled
@@ -203,6 +216,7 @@ export async function reconcileCategories(
     pending_added: 0,
     new_added: 0,
     duplicates_rejected: 0,
+    unrequested_rejected: 0,
     requests_fulfilled: 0,
     errors: []
   };
@@ -265,7 +279,320 @@ export async function reconcileCategories(
   }
 }
 
-// Similar functions for brands, styles, types would go here...
+/**
+ * Reconcile brands from SF sync with our existing list and pending requests
+ * REQUEST-ONLY MODE: Only adds brands that match pending requests
+ */
+export async function reconcileBrands(
+  incomingBrands: BrandItem[]
+): Promise<ReconciliationResult> {
+  const result: ReconciliationResult = {
+    success: false,
+    type: 'brands',
+    existing_updated: 0,
+    pending_added: 0,
+    new_added: 0,
+    duplicates_rejected: 0,
+    unrequested_rejected: 0,
+    requests_fulfilled: 0,
+    errors: []
+  };
+
+  try {
+    // Load existing brands.json
+    const brandsPath = path.join(process.cwd(), 'src/config/salesforce-picklists/brands.json');
+    const existingBrands: BrandItem[] = JSON.parse(fs.readFileSync(brandsPath, 'utf8'));
+
+    // De-duplicate SF data (keep first occurrence per unique name)
+    const uniqueSfBrands = new Map<string, BrandItem>();
+    const seenIds = new Set<string>();
+    
+    for (const brand of incomingBrands) {
+      const nameLower = brand.brand_name.toLowerCase().trim();
+      const id = brand.brand_id;
+      
+      // Skip if duplicate name or duplicate ID
+      if (uniqueSfBrands.has(nameLower) || seenIds.has(id)) {
+        result.duplicates_rejected++;
+        continue;
+      }
+      
+      uniqueSfBrands.set(nameLower, brand);
+      seenIds.add(id);
+    }
+
+    logger.info(`De-duplicated ${incomingBrands.length} SF brands → ${uniqueSfBrands.size} unique`, {
+      duplicates_rejected: result.duplicates_rejected
+    });
+
+    // Load pending brand requests
+    const pendingRequests = await PendingCreationRequest.find({
+      request_type: 'brand',
+      status: 'pending'
+    });
+
+    const pendingMap = new Map<string, any>();
+    for (const req of pendingRequests) {
+      pendingMap.set(req.requested_value_normalized, req);
+    }
+
+    logger.info(`Found ${pendingMap.size} pending brand requests`);
+
+    // Build existing brand map
+    const existingMap = new Map<string, BrandItem>();
+    existingBrands.forEach(brand => {
+      existingMap.set(brand.brand_name.toLowerCase().trim(), brand);
+    });
+
+    // Categorize SF data
+    const toUpdate: BrandItem[] = [];  // Existing items to update IDs
+    const toAdd: BrandItem[] = [];     // New items to add
+
+    for (const [nameLower, sfBrand] of uniqueSfBrands) {
+      const existing = existingMap.get(nameLower);
+      const pending = pendingMap.get(nameLower);
+
+      if (existing) {
+        // Update existing item (preserve our name, update ID if changed)
+        if (existing.brand_id !== sfBrand.brand_id) {
+          toUpdate.push({
+            brand_id: sfBrand.brand_id,
+            brand_name: existing.brand_name  // Keep our capitalization
+          });
+          result.existing_updated++;
+        }
+      } else {
+        // REQUEST-ONLY MODE: Only add items that match our pending requests
+        if (pending) {
+          toAdd.push(sfBrand);
+          result.pending_added++;
+        } else {
+          // Track unrequested items that were rejected
+          result.unrequested_rejected++;
+        }
+      }
+    }
+
+    // Build final list: updated existing + new items
+    const finalBrands: BrandItem[] = [];
+    const processedNames = new Set<string>();
+
+    // Add/update existing items
+    for (const existing of existingBrands) {
+      const nameLower = existing.brand_name.toLowerCase().trim();
+      const updated = toUpdate.find(u => u.brand_name.toLowerCase().trim() === nameLower);
+      
+      if (updated) {
+        finalBrands.push(updated);
+      } else {
+        finalBrands.push(existing);
+      }
+      processedNames.add(nameLower);
+    }
+
+    // Add truly new items (only matched requests)
+    for (const newBrand of toAdd) {
+      const nameLower = newBrand.brand_name.toLowerCase().trim();
+      if (!processedNames.has(nameLower)) {
+        finalBrands.push(newBrand);
+        processedNames.add(nameLower);
+      }
+    }
+
+    // Sort alphabetically
+    finalBrands.sort((a, b) => a.brand_name.localeCompare(b.brand_name));
+
+    // Write back to file
+    fs.writeFileSync(brandsPath, JSON.stringify(finalBrands, null, 2), 'utf8');
+
+    logger.info(`Updated brands.json: ${existingBrands.length} → ${finalBrands.length}`, {
+      existing_updated: result.existing_updated,
+      pending_added: result.pending_added,
+      unrequested_rejected: result.unrequested_rejected
+    });
+
+    // Mark pending requests as fulfilled
+    for (const [nameLower, pending] of pendingMap) {
+      const sfBrand = uniqueSfBrands.get(nameLower);
+      if (sfBrand) {
+        pending.status = 'fulfilled';
+        pending.fulfilled_at = new Date();
+        pending.sf_id_received = sfBrand.brand_id;
+        await pending.save();
+        result.requests_fulfilled++;
+      }
+    }
+
+    logger.info(`Marked ${result.requests_fulfilled} pending brand requests as fulfilled`);
+
+    result.success = true;
+    return result;
+
+  } catch (error) {
+    result.errors.push(error instanceof Error ? error.message : String(error));
+    logger.error('Brand reconciliation failed', { error });
+    return result;
+  }
+}
+
+/**
+ * Reconcile styles from SF sync with our existing list and pending requests
+ * REQUEST-ONLY MODE: Only adds styles that match pending requests
+ */
+export async function reconcileStyles(
+  incomingStyles: StyleItem[]
+): Promise<ReconciliationResult> {
+  const result: ReconciliationResult = {
+    success: false,
+    type: 'styles',
+    existing_updated: 0,
+    pending_added: 0,
+    new_added: 0,
+    duplicates_rejected: 0,
+    unrequested_rejected: 0,
+    requests_fulfilled: 0,
+    errors: []
+  };
+
+  try {
+    // Load existing styles.json
+    const stylesPath = path.join(process.cwd(), 'src/config/salesforce-picklists/styles.json');
+    const existingStyles: StyleItem[] = JSON.parse(fs.readFileSync(stylesPath, 'utf8'));
+
+    // De-duplicate SF data (keep first occurrence per unique name)
+    const uniqueSfStyles = new Map<string, StyleItem>();
+    const seenIds = new Set<string>();
+    
+    for (const style of incomingStyles) {
+      const nameLower = style.style_name.toLowerCase().trim();
+      const id = style.style_id;
+      
+      // Skip if duplicate name or duplicate ID
+      if (uniqueSfStyles.has(nameLower) || seenIds.has(id)) {
+        result.duplicates_rejected++;
+        continue;
+      }
+      
+      uniqueSfStyles.set(nameLower, style);
+      seenIds.add(id);
+    }
+
+    logger.info(`De-duplicated ${incomingStyles.length} SF styles → ${uniqueSfStyles.size} unique`, {
+      duplicates_rejected: result.duplicates_rejected
+    });
+
+    // Load pending style requests
+    const pendingRequests = await PendingCreationRequest.find({
+      request_type: 'style',
+      status: 'pending'
+    });
+
+    const pendingMap = new Map<string, any>();
+    for (const req of pendingRequests) {
+      pendingMap.set(req.requested_value_normalized, req);
+    }
+
+    logger.info(`Found ${pendingMap.size} pending style requests`);
+
+    // Build existing style map
+    const existingMap = new Map<string, StyleItem>();
+    existingStyles.forEach(style => {
+      existingMap.set(style.style_name.toLowerCase().trim(), style);
+    });
+
+    // Categorize SF data
+    const toUpdate: StyleItem[] = [];  // Existing items to update IDs
+    const toAdd: StyleItem[] = [];     // New items to add
+
+    for (const [nameLower, sfStyle] of uniqueSfStyles) {
+      const existing = existingMap.get(nameLower);
+      const pending = pendingMap.get(nameLower);
+
+      if (existing) {
+        // Update existing item (preserve our name and description, update ID if changed)
+        if (existing.style_id !== sfStyle.style_id) {
+          toUpdate.push({
+            style_id: sfStyle.style_id,
+            style_name: existing.style_name,  // Keep our capitalization
+            description: existing.description  // Preserve our description
+          });
+          result.existing_updated++;
+        }
+      } else {
+        // REQUEST-ONLY MODE: Only add items that match our pending requests
+        if (pending) {
+          toAdd.push(sfStyle);
+          result.pending_added++;
+        } else {
+          // Track unrequested items that were rejected
+          result.unrequested_rejected++;
+        }
+      }
+    }
+
+    // Build final list: updated existing + new items
+    const finalStyles: StyleItem[] = [];
+    const processedNames = new Set<string>();
+
+    // Add/update existing items
+    for (const existing of existingStyles) {
+      const nameLower = existing.style_name.toLowerCase().trim();
+      const updated = toUpdate.find(u => u.style_name.toLowerCase().trim() === nameLower);
+      
+      if (updated) {
+        finalStyles.push(updated);
+      } else {
+        finalStyles.push(existing);
+      }
+      processedNames.add(nameLower);
+    }
+
+    // Add truly new items (only matched requests)
+    for (const newStyle of toAdd) {
+      const nameLower = newStyle.style_name.toLowerCase().trim();
+      if (!processedNames.has(nameLower)) {
+        finalStyles.push(newStyle);
+        processedNames.add(nameLower);
+      }
+    }
+
+    // Sort alphabetically
+    finalStyles.sort((a, b) => a.style_name.localeCompare(b.style_name));
+
+    // Write back to file
+    fs.writeFileSync(stylesPath, JSON.stringify(finalStyles, null, 2), 'utf8');
+
+    logger.info(`Updated styles.json: ${existingStyles.length} → ${finalStyles.length}`, {
+      existing_updated: result.existing_updated,
+      pending_added: result.pending_added,
+      unrequested_rejected: result.unrequested_rejected
+    });
+
+    // Mark pending requests as fulfilled
+    for (const [nameLower, pending] of pendingMap) {
+      const sfStyle = uniqueSfStyles.get(nameLower);
+      if (sfStyle) {
+        pending.status = 'fulfilled';
+        pending.fulfilled_at = new Date();
+        pending.sf_id_received = sfStyle.style_id;
+        await pending.save();
+        result.requests_fulfilled++;
+      }
+    }
+
+    logger.info(`Marked ${result.requests_fulfilled} pending style requests as fulfilled`);
+
+    result.success = true;
+    return result;
+
+  } catch (error) {
+    result.errors.push(error instanceof Error ? error.message : String(error));
+    logger.error('Style reconciliation failed', { error });
+    return result;
+  }
+}
+
+// Similar function for types would go here...
 // For now, focusing on attributes (the main issue) and categories
 
 // Placeholder constant
@@ -438,7 +765,9 @@ export async function updatePendingAttributeIds(
 
 export const picklistReconciliation = {
   reconcileAttributes,
+  reconcileBrands,
   reconcileCategories,
+  reconcileStyles,
   analyzeAttributeMatches,
   updatePendingAttributeIds
 };

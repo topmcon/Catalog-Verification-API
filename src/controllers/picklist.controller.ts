@@ -815,6 +815,81 @@ export class PicklistController {
       
       await pendingSync.save();
       
+      // ============================================================
+      // AUTO-RECONCILE: Apply matches immediately (request-only mode)
+      // Only items matching pending requests get added; unrequested items rejected.
+      // This avoids delay in utilizing items SF has fulfilled.
+      // ============================================================
+      const autoReconcileResults: any[] = [];
+      let autoTotalPendingAdded = 0;
+      let autoTotalUnrequestedRejected = 0;
+      let autoTotalRequestsFulfilled = 0;
+      let autoTotalExistingUpdated = 0;
+      const autoReconcileErrors: string[] = [];
+      
+      try {
+        if (attributes && Array.isArray(attributes) && attributes.length > 0) {
+          const r = await picklistReconciliation.reconcileAttributes(attributes);
+          autoReconcileResults.push(r);
+          autoTotalPendingAdded += r.pending_added;
+          autoTotalUnrequestedRejected += r.unrequested_rejected;
+          autoTotalRequestsFulfilled += r.requests_fulfilled;
+          autoTotalExistingUpdated += r.existing_updated;
+          autoReconcileErrors.push(...r.errors);
+        }
+        if (brands && Array.isArray(brands) && brands.length > 0) {
+          const r = await picklistReconciliation.reconcileBrands(brands);
+          autoReconcileResults.push(r);
+          autoTotalPendingAdded += r.pending_added;
+          autoTotalUnrequestedRejected += r.unrequested_rejected;
+          autoTotalRequestsFulfilled += r.requests_fulfilled;
+          autoTotalExistingUpdated += r.existing_updated;
+          autoReconcileErrors.push(...r.errors);
+        }
+        if (styles && Array.isArray(styles) && styles.length > 0) {
+          const r = await picklistReconciliation.reconcileStyles(styles);
+          autoReconcileResults.push(r);
+          autoTotalPendingAdded += r.pending_added;
+          autoTotalUnrequestedRejected += r.unrequested_rejected;
+          autoTotalRequestsFulfilled += r.requests_fulfilled;
+          autoTotalExistingUpdated += r.existing_updated;
+          autoReconcileErrors.push(...r.errors);
+        }
+        if (categories && Array.isArray(categories) && categories.length > 0) {
+          const r = await picklistReconciliation.reconcileCategories(categories);
+          autoReconcileResults.push(r);
+          autoTotalExistingUpdated += r.existing_updated;
+          autoReconcileErrors.push(...r.errors);
+        }
+        
+        // Reload picklists in memory so changes are immediately usable
+        if (autoReconcileResults.length > 0) {
+          picklistMatcher.reload();
+        }
+        
+        // Mark sync as auto-applied (request-only mode handled it safely)
+        pendingSync.status = 'approved';
+        pendingSync.reviewed_at = new Date();
+        pendingSync.reviewed_by = 'auto-reconcile-request-only';
+        pendingSync.review_notes = `Auto-applied via request-only mode: ${autoTotalRequestsFulfilled} requests fulfilled, ${autoTotalPendingAdded} items added, ${autoTotalUnrequestedRejected} unrequested items rejected`;
+        await pendingSync.save();
+        
+        logger.info('Picklist sync AUTO-RECONCILED (request-only mode)', {
+          pending_id: syncId,
+          requests_fulfilled: autoTotalRequestsFulfilled,
+          pending_added: autoTotalPendingAdded,
+          existing_updated: autoTotalExistingUpdated,
+          unrequested_rejected: autoTotalUnrequestedRejected,
+          errors: autoReconcileErrors.length
+        });
+      } catch (reconcileErr) {
+        logger.error('Auto-reconcile failed - sync will remain in hold bucket for manual review', {
+          pending_id: syncId,
+          error: reconcileErr instanceof Error ? reconcileErr.message : String(reconcileErr)
+        });
+        autoReconcileErrors.push(reconcileErr instanceof Error ? reconcileErr.message : String(reconcileErr));
+      }
+      
       const processingTime = Date.now() - startTime;
       
       logger.info('Picklist sync HELD for review', {
@@ -826,20 +901,24 @@ export class PicklistController {
         processing_time_ms: processingTime
       });
       
-      // Return 202 Accepted - sync is pending review
+      // Return 202 Accepted - sync auto-reconciled (request-only mode) + held for audit
       res.status(202).json({
         success: true,
-        message: 'Picklist sync received and HELD FOR REVIEW. Changes will NOT be applied automatically.',
+        message: 'Picklist sync received. Matches auto-applied (request-only mode); unrequested items rejected.',
         pending_id: syncId,
-        status: 'pending_review',
+        status: pendingSync.status,
+        auto_reconcile: {
+          requests_fulfilled: autoTotalRequestsFulfilled,
+          items_added: autoTotalPendingAdded,
+          existing_updated: autoTotalExistingUpdated,
+          unrequested_rejected: autoTotalUnrequestedRejected,
+          errors: autoReconcileErrors
+        },
         expires_at: expiresAt.toISOString(),
         impact_assessment: impactAssessment,
         pending_changes: pendingChanges,
         review_url: `/api/picklists/sync/pending/${syncId}`,
-        approve_url: `/api/picklists/sync/pending/${syncId}/approve`,
-        reject_url: `/api/picklists/sync/pending/${syncId}/reject`,
-        processing_time_ms: processingTime,
-        note: 'To apply these changes, call the approve endpoint or use the review script during "Establish Connection".'
+        processing_time_ms: processingTime
       });
       
     } catch (error) {
@@ -963,13 +1042,14 @@ export class PicklistController {
       }
       
       // Apply reconciliation logic instead of full replacement
-      const { attributes, categories } = pendingSync.incoming_data;
+      const { attributes, brands, categories, styles } = pendingSync.incoming_data;
       
       const reconciliationResults = [];
       let totalExistingUpdated = 0;
       let totalPendingAdded = 0;
       let totalNewAdded = 0;
       let totalDuplicatesRejected = 0;
+      let totalUnrequestedRejected = 0;
       let totalRequestsFulfilled = 0;
       const reconciliationErrors: string[] = [];
       
@@ -981,15 +1061,37 @@ export class PicklistController {
         totalPendingAdded += attrResult.pending_added;
         totalNewAdded += attrResult.new_added;
         totalDuplicatesRejected += attrResult.duplicates_rejected;
+        totalUnrequestedRejected += attrResult.unrequested_rejected;
         totalRequestsFulfilled += attrResult.requests_fulfilled;
         reconciliationErrors.push(...attrResult.errors);
         
         logger.info('Attributes reconciled', {
           existing_updated: attrResult.existing_updated,
           pending_added: attrResult.pending_added,
-          new_added: attrResult.new_added,
+          unrequested_rejected: attrResult.unrequested_rejected,
           duplicates_rejected: attrResult.duplicates_rejected,
           requests_fulfilled: attrResult.requests_fulfilled
+        });
+      }
+      
+      // Reconcile brands (REQUEST-ONLY MODE)
+      if (brands && Array.isArray(brands) && brands.length > 0) {
+        const brandResult = await picklistReconciliation.reconcileBrands(brands);
+        reconciliationResults.push(brandResult);
+        totalExistingUpdated += brandResult.existing_updated;
+        totalPendingAdded += brandResult.pending_added;
+        totalNewAdded += brandResult.new_added;
+        totalDuplicatesRejected += brandResult.duplicates_rejected;
+        totalUnrequestedRejected += brandResult.unrequested_rejected;
+        totalRequestsFulfilled += brandResult.requests_fulfilled;
+        reconciliationErrors.push(...brandResult.errors);
+        
+        logger.info('Brands reconciled', {
+          existing_updated: brandResult.existing_updated,
+          pending_added: brandResult.pending_added,
+          unrequested_rejected: brandResult.unrequested_rejected,
+          duplicates_rejected: brandResult.duplicates_rejected,
+          requests_fulfilled: brandResult.requests_fulfilled
         });
       }
       
@@ -1002,6 +1104,27 @@ export class PicklistController {
         
         logger.info('Categories reconciled', {
           existing_updated: catResult.existing_updated
+        });
+      }
+      
+      // Reconcile styles (REQUEST-ONLY MODE)
+      if (styles && Array.isArray(styles) && styles.length > 0) {
+        const styleResult = await picklistReconciliation.reconcileStyles(styles);
+        reconciliationResults.push(styleResult);
+        totalExistingUpdated += styleResult.existing_updated;
+        totalPendingAdded += styleResult.pending_added;
+        totalNewAdded += styleResult.new_added;
+        totalDuplicatesRejected += styleResult.duplicates_rejected;
+        totalUnrequestedRejected += styleResult.unrequested_rejected;
+        totalRequestsFulfilled += styleResult.requests_fulfilled;
+        reconciliationErrors.push(...styleResult.errors);
+        
+        logger.info('Styles reconciled', {
+          existing_updated: styleResult.existing_updated,
+          pending_added: styleResult.pending_added,
+          unrequested_rejected: styleResult.unrequested_rejected,
+          duplicates_rejected: styleResult.duplicates_rejected,
+          requests_fulfilled: styleResult.requests_fulfilled
         });
       }
       
@@ -1019,6 +1142,7 @@ export class PicklistController {
           pending_added: totalPendingAdded,
           new_added: totalNewAdded,
           duplicates_rejected: totalDuplicatesRejected,
+          unrequested_rejected: totalUnrequestedRejected,
           requests_fulfilled: totalRequestsFulfilled
         }
       };

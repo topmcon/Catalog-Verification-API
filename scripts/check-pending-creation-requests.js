@@ -50,7 +50,9 @@ const PendingCreationRequestSchema = new mongoose.Schema({
   request_count: Number,
   context: RequestContextSchema,
   sent_to_sf_count: Number,
-  last_sent_at: Date
+  last_sent_at: Date,
+  needs_attention: Boolean,
+  attention_reason: String
 }, { collection: 'pending_creation_requests' });
 
 const PendingCreationRequest = mongoose.model('PendingCreationRequest', PendingCreationRequestSchema);
@@ -382,6 +384,37 @@ async function main() {
       }
     }
     
+    // FLAGGED FOR ATTENTION - Stale requests that need review
+    const flaggedRequests = pendingRequests.filter(r => r.needs_attention);
+    
+    if (flaggedRequests.length > 0) {
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('🚩 FLAGGED FOR ATTENTION');
+      console.log('═══════════════════════════════════════════════════════════════');
+      console.log('');
+      console.log(`  ${flaggedRequests.length} request(s) require your attention`);
+      console.log('');
+      
+      for (const req of flaggedRequests) {
+        const ageDays = Math.floor((Date.now() - new Date(req.created_at).getTime()) / (24 * 60 * 60 * 1000));
+        const jobCount = req.requested_by_jobs?.length || req.request_count || 1;
+        
+        console.log(`  🚨 ${req.request_type.toUpperCase()}: "${req.requested_value}"`);
+        console.log(`     Age: ${ageDays} days | Retry attempts: ${req.sent_to_sf_count || 1} | Jobs waiting: ${jobCount}`);
+        console.log(`     Reason: ${req.attention_reason || 'Multiple retry attempts with no SF response'}`);
+        if (req.context?.suggested_for_category) {
+          console.log(`     Category: ${req.context.suggested_for_category}`);
+        }
+        console.log('');
+      }
+      
+      console.log('  💡 ACTION: Review these requests - they may need manual intervention');
+      console.log('     • Contact SF team to investigate');
+      console.log('     • Verify SF can create these items');
+      console.log('     • Consider marking as "rejected" if SF refuses');
+      console.log('');
+    }
+    
     // Summary and recommendations
     console.log('═══════════════════════════════════════════════════════════════');
     console.log('RECOMMENDATIONS');
@@ -394,9 +427,15 @@ async function main() {
       return age > 7 * 24 * 60 * 60 * 1000; // Older than 7 days
     });
     
-    if (oldRequests.length > 0) {
+    if (oldRequests.length > 0 && flaggedRequests.length === 0) {
       console.log(`⚠️  ${oldRequests.length} request(s) pending for more than 7 days`);
-      console.log('   Consider following up with Salesforce team or rejecting stale requests.');
+      console.log('   Run stale request detection to retry:');
+      console.log('   node scripts/detect-and-retry-stale-requests.js');
+      console.log('');
+    }
+    
+    if (flaggedRequests.length > 0) {
+      console.log(`🚨 ${flaggedRequests.length} request(s) flagged for attention - see above for details`);
       console.log('');
     }
     
