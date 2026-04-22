@@ -185,6 +185,7 @@ export async function reconcileAttributes(
         pending.status = 'fulfilled';
         pending.fulfilled_at = new Date();
         pending.sf_id_received = sfAttr.attribute_id;
+        pending.awaiting_response_until = undefined;
         await pending.save();
         result.requests_fulfilled++;
       }
@@ -418,6 +419,7 @@ export async function reconcileBrands(
         pending.status = 'fulfilled';
         pending.fulfilled_at = new Date();
         pending.sf_id_received = sfBrand.brand_id;
+        pending.awaiting_response_until = undefined;
         await pending.save();
         result.requests_fulfilled++;
       }
@@ -575,6 +577,7 @@ export async function reconcileStyles(
         pending.status = 'fulfilled';
         pending.fulfilled_at = new Date();
         pending.sf_id_received = sfStyle.style_id;
+        pending.awaiting_response_until = undefined;
         await pending.save();
         result.requests_fulfilled++;
       }
@@ -731,6 +734,9 @@ export async function updatePendingAttributeIds(
               fulfilled_at: new Date(),
               sf_id_received: newId,
               updated_at: new Date()
+            },
+            $unset: {
+              awaiting_response_until: ''
             }
           }
         ).exec().catch(err => {

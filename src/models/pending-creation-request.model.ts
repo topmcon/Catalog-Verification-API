@@ -57,6 +57,7 @@ export interface IPendingCreationRequest extends Document {
   // Webhook tracking
   sent_to_sf_count: number;  // How many times we actually sent this to SF (should be 1)
   last_sent_at?: Date;
+  awaiting_response_until?: Date;  // Deadline for SF to respond after a (re)send (e.g. last_sent_at + 15 min)
   
   // Attention flags (for stale requests)
   needs_attention?: boolean;
@@ -145,6 +146,7 @@ const PendingCreationRequestSchema = new Schema<IPendingCreationRequest>({
     default: 1 
   },
   last_sent_at: { type: Date },
+  awaiting_response_until: { type: Date, index: true },
   
   needs_attention: { 
     type: Boolean, 

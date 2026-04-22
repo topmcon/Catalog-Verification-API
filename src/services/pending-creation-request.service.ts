@@ -152,7 +152,8 @@ class PendingCreationRequestService {
         request_count: 1,
         context,
         sent_to_sf_count: 1,
-        last_sent_at: new Date()
+        last_sent_at: new Date(),
+        awaiting_response_until: new Date(Date.now() + 15 * 60 * 1000) // 15-min SF response watch
       });
       
       await newRequest.save();
@@ -232,6 +233,9 @@ class PendingCreationRequestService {
           fulfilled_at: new Date(),
           sf_id_received: sfId,
           updated_at: new Date()
+        },
+        $unset: {
+          awaiting_response_until: ''  // Clear watch — SF responded
         }
       },
       { new: true }
