@@ -277,6 +277,33 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
+---
+
+When the user says **"verify batch"**, execute these steps:
+
+1. Run the batch quality & cost monitoring script on production:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
+     "cd /opt/catalog-verification-api && node scripts/verify-batch.js"
+   ```
+2. Auto-detection picks up the most recent contiguous cluster of jobs (gap >5 min ends the cluster). To override:
+   - `--size=N` — force the last N jobs
+   - `--minutes=N` — all jobs in the last N minutes
+   - `--catalog=ALT123` — single job by SF catalog name or id
+3. Display the full report covering:
+   - Status breakdown (completed / failed / processing / pending) with processing-time stats
+   - Quality metrics (manual review, final-review FAIL, empty Category Lookup, title duplication, webhook delivery, SF acknowledgment, average verification score)
+   - **AI cost breakdown** (total cost, avg per job/call, by provider, by task type, top 5 most expensive jobs) — sourced from `ai_usage` MongoDB collection
+   - Self-healing activity in the batch window
+   - Per-job issues with severity tags (CRIT / HIGH / MED / INFO)
+   - Recommendations
+4. Highlight any **HIGH/CRIT** issues that need follow-up
+5. If anomalies are found, suggest investigating specific SF Catalog IDs or running `node scripts/show-session-analytics.js` for broader context
+
+**Script location**: `scripts/verify-batch.js`
+
+---
+
 When the user says **"Run live logger"** or **"Start live logger"**, execute these steps:
 
 1. **Start a background SSH session** streaming filtered production logs:
