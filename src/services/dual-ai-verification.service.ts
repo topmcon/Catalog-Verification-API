@@ -6508,11 +6508,18 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
     : (openaiResult.categoryConfidence >= xaiResult.categoryConfidence ? openaiResult.determinedCategory : xaiResult.determinedCategory);
 
   void getCategorySchema(agreedCategory);
-  
+
+  // Determine preferred AI for text-field disagreement tiebreaking (Finding #051).
+  // Higher overall confidence wins; OpenAI by default if tied. This ensures
+  // generated text fields (titles, descriptions) get an AI-vetted value rather
+  // than falling back to legacy/raw data when AIs propose different valid wordings.
+  const preferredAi: 'openai' | 'xai' =
+    (xaiResult.confidence ?? 0) > (openaiResult.confidence ?? 0) ? 'xai' : 'openai';
+
   // Build agreed attributes first - now with semantic picklist matching
-  const agreedPrimary = buildAgreedAttributes(openaiResult.primaryAttributes, xaiResult.primaryAttributes, disagreements, agreedCategory);
-  const agreedTop15 = buildAgreedAttributes(openaiResult.top15Attributes, xaiResult.top15Attributes, disagreements, agreedCategory);
-  const agreedAdditional = buildAgreedAttributes(openaiResult.additionalAttributes, xaiResult.additionalAttributes, disagreements, agreedCategory);
+  const agreedPrimary = buildAgreedAttributes(openaiResult.primaryAttributes, xaiResult.primaryAttributes, disagreements, agreedCategory, preferredAi);
+  const agreedTop15 = buildAgreedAttributes(openaiResult.top15Attributes, xaiResult.top15Attributes, disagreements, agreedCategory, preferredAi);
+  const agreedAdditional = buildAgreedAttributes(openaiResult.additionalAttributes, xaiResult.additionalAttributes, disagreements, agreedCategory, preferredAi);
   
   // Reconcile dimensions - handle swapped depth/width and circular products
   const reconciledDims = reconcileDimensions(openaiResult.primaryAttributes, xaiResult.primaryAttributes, agreedCategory);
@@ -7007,11 +7014,35 @@ function normalizeAttributeValue(val: string): string {
     .trim();
 }
 
+/**
+ * Generated text fields where both AIs typically produce different valid wordings
+ * (e.g., two different ways to write a product title or description).
+ *
+ * UNIVERSAL FIX (Finding #051): When both AIs disagree on these fields, we MUST
+ * pick one of the AI proposals rather than leaving the field unresolved.
+ * Leaving them unresolved causes downstream code (schema title generators, response
+ * builders, Field_AI_Reviews sync) to fall back to LEGACY/RAW data — which is often
+ * the very contamination we're trying to fix (e.g., "Side By Side Refrigerator" in
+ * a legacy title for a Wine Cooler; "TOP LOAD MATCHING DRYER" merchandising strings).
+ *
+ * Even an imperfect AI title is safer than a known-bad legacy title, because the
+ * AI title was generated against the corrected/verified field hierarchy.
+ */
+const TEXT_FIELDS_PREFER_AI_ON_DISAGREEMENT = new Set([
+  'product_title',
+  'description',
+  'details',
+  'features_list',
+  'product_family',
+  'category_subcategory',
+]);
+
 function buildAgreedAttributes(
   openaiAttrs: Record<string, any>, 
   xaiAttrs: Record<string, any>, 
   disagreements: ConsensusResult['disagreements'],
-  agreedCategory: string
+  agreedCategory: string,
+  preferredAi: 'openai' | 'xai' = 'openai'
 ): Record<string, any> {
   const agreed: Record<string, any> = {};
   const allKeys = new Set([...Object.keys(openaiAttrs), ...Object.keys(xaiAttrs)]);
@@ -7057,7 +7088,33 @@ function buildAgreedAttributes(
     } else if (!openaiVal && xaiVal) {
       agreed[key] = xaiVal;
     } else {
-      // Only mark as unresolved if values are meaningfully different
+      // Both AIs have non-empty values but they disagree.
+      //
+      // UNIVERSAL FIX (Finding #051): For generated text fields, do NOT leave
+      // unresolved. Pick the preferred AI's value so downstream code uses an
+      // AI-vetted value instead of falling back to potentially-contaminated
+      // legacy/raw data. The preferred AI is chosen by overall confidence
+      // (set by buildConsensus before invoking this function).
+      const isTextField = TEXT_FIELDS_PREFER_AI_ON_DISAGREEMENT.has(key.toLowerCase());
+      if (isTextField && openaiVal && xaiVal) {
+        const winnerVal = preferredAi === 'openai' ? openaiVal : xaiVal;
+        agreed[key] = winnerVal;
+        disagreements.push({
+          field: key,
+          openaiValue: openaiVal,
+          xaiValue: xaiVal,
+          resolution: preferredAi // 'openai' | 'xai'
+        });
+        logger.debug('Text field disagreement resolved by preferred AI', {
+          field: key,
+          preferredAi,
+          chosenValue: String(winnerVal).substring(0, 80)
+        });
+        continue;
+      }
+
+      // Factual fields with meaningful disagreement remain unresolved
+      // (will be reconciled by dimensions reconciler, research, or final review).
       disagreements.push({ field: key, openaiValue: openaiVal, xaiValue: xaiVal, resolution: 'unresolved' });
     }
   }

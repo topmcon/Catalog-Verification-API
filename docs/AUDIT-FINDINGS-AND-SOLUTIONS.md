@@ -65,6 +65,7 @@
 | Claude corrections not propagating to title regeneration | Manually apply corrections from metadata back to sanitizedPrimaryAttributes | f0aab63 | #046, #001, #002, #027 |
 | Agent orchestrator abort gate (65.7% failure rate) | Surgical revert of orchestrator wiring — restore direct monolith calls | d5f215e | #047, #044 |
 | Single-cavity oven misclassified as Microwave Combo | Two-layer fix: AI prompt cavity-count rule + type-matcher `combi microwave` → Single alias | 638b31a, 0564955 | #048, #003, #015 |
+| Both AIs reject legacy text but disagree on wording → fallback to legacy contamination | Universal: `buildAgreedAttributes` picks higher-confidence AI for generated text fields instead of leaving unresolved | (this session) | #051, #049, #050, #016 |
 
 ---
 
@@ -5184,3 +5185,110 @@ Two-layer failure:
 - AI prompt now explicitly enumerates valid types AND provides decision rule (not just keyword hints)
 - Future Type-related issues should check AI prompt completeness FIRST, then matcher logic
 - Consider adding post-AI guard: if `category === Oven` AND total capacity < 3 cu ft AND type === "Microwave Combo" → flag for review
+
+---
+
+## Finding #051: Both AIs Reject Legacy Title But Disagreement Causes Fallback to Legacy Contamination
+
+### Symptom
+
+A Monogram **Wine Cooler** (model `ZIWD24PWII`) shipped with the title:
+> `"Monogram 24-Inch Built-In Panel Ready Side By Side Refrigerator 4.7 Cu. Ft. - ZIWD24PWII"`
+
+This is verbatim the `Product_Title_Legacy`. The product is a wine cooler — **not** a side-by-side refrigerator. The legacy title was wrong because it misread the spec field `"Installation: Side-by-Side Install Capable with ZIBC24PWII"` (an optional side-by-side install kit feature) as the product type.
+
+Inside the response:
+- `AI_Type`: `"Wine Cooler"` ✅ (correct)
+- `AI_Product_Title`: `"...Side By Side Refrigerator..."` ❌ (still wrong)
+- Both OpenAI and xAI proposed corrected titles in `Field_AI_Reviews.product_title`:
+  - OpenAI: `"Monogram 24-Inch Wine Cooler 4.7-Cu.-Ft. Built-In Panel Ready Refrigerator - ZIWD24PWII"`
+  - xAI: `"Monogram 24-Inch Wine Cooler Refrigerator Panel Ready - ZIWD24PWII"`
+- Both flagged `agreed: false`
+
+The system marked the field `"consensus": "disagreed", "source": "manual_needed"` and quietly used the original legacy title as `final_value`.
+
+### Root Cause
+
+`buildAgreedAttributes()` in `src/services/dual-ai-verification.service.ts` (line ~7010) had this branch:
+
+```ts
+} else {
+  // Only mark as unresolved if values are meaningfully different
+  disagreements.push({ field: key, openaiValue, xaiValue, resolution: 'unresolved' });
+}
+```
+
+When **both AIs propose non-empty values that disagree** (which is normal for generated text fields like product titles, descriptions, features lists — different valid wordings), `agreed[key]` is **never populated**. Downstream code (schema title generators, response builders, `Field_AI_Reviews` sync at line 12164) then falls back to legacy/raw data — which is precisely the contamination the AIs were trying to fix.
+
+This is the same class of bug as **Finding #049** (Stacked → Unitized) and **Finding #050** (TOP LOAD MATCHING → Top Load): legacy/retail merchandising contamination overrides correct AI signal.
+
+### Investigation Steps
+
+1. Diffed `Product_Title_Legacy` against shipped `AI_Product_Title` — verbatim match
+2. Inspected `Field_AI_Reviews.product_title` — both AIs proposed Wine Cooler titles, neither agreed
+3. Traced `consensus.agreedPrimaryAttributes.product_title` lookups — found `undefined` propagating into `pipelineCtx.consensusProductTitle`
+4. Located `buildAgreedAttributes` else branch that drops both AI proposals when they disagree
+5. Confirmed downstream sync at line 12164 labels result as `manual_needed` because shipped value (legacy) matches neither AI
+
+### Fix Applied (Universal)
+
+**File**: `src/services/dual-ai-verification.service.ts`
+
+**Change 1** (line ~7000) — Added module-level allowlist of generated text fields that should prefer an AI proposal over legacy on disagreement:
+
+```ts
+const TEXT_FIELDS_PREFER_AI_ON_DISAGREEMENT = new Set([
+  'product_title',
+  'description',
+  'details',
+  'features_list',
+  'product_family',
+  'category_subcategory',
+]);
+```
+
+**Change 2** (line ~7010) — `buildAgreedAttributes` accepts `preferredAi: 'openai' | 'xai'`. When both AIs disagree on a text field, it picks the preferred AI's value instead of leaving it unresolved:
+
+```ts
+const isTextField = TEXT_FIELDS_PREFER_AI_ON_DISAGREEMENT.has(key.toLowerCase());
+if (isTextField && openaiVal && xaiVal) {
+  const winnerVal = preferredAi === 'openai' ? openaiVal : xaiVal;
+  agreed[key] = winnerVal;
+  disagreements.push({ field: key, openaiValue: openaiVal, xaiValue: xaiVal, resolution: preferredAi });
+  continue;
+}
+```
+
+**Change 3** (line ~6520, `buildConsensus`) — Computes `preferredAi` from overall AI confidences (xAI wins only if strictly higher; OpenAI by default) and passes it to all three `buildAgreedAttributes` calls (primary, top15, additional).
+
+### Why This Is Universal
+
+The fix applies to **all generated text fields, all categories, all products** — not a category-specific patch. Whenever the two AIs propose different valid wordings for a title/description/features/details/family/subcategory, the higher-confidence AI's proposal wins instead of the system falling back to potentially-contaminated legacy data.
+
+Factual fields (dimensions, capacities, voltage) are **not** affected — they continue to be reconciled by the dimensions reconciler and research, which is correct behavior.
+
+### Scope
+
+**Universal** — applies to every product processed by `buildConsensus`. Specifically protects:
+- Wine coolers / beverage centers mislabeled as Side-by-Side refrigerators in legacy data
+- Any product where legacy title contains misread spec values (installation features, accessories)
+- Any text field where AIs unanimously reject legacy but propose different wordings
+
+### Related Findings
+
+- **#049** — "Stacked" keyword → Unitized misclassification (legacy contamination via type keyword)
+- **#050** — "TOP LOAD MATCHING DRYER" merchandising string → Top Load (legacy contamination via subcategory)
+- **#016** — AI re-categorizing instead of validating SF categories
+- **#032** — Claude smuggling category into title text
+
+### Lessons Learned
+
+1. **Legacy data is the contamination source — disagreement should never fall back to it.** When both AIs unanimously reject a legacy value, the AIs are voting *against* the legacy. Leaving the field unresolved hands victory back to the legacy. Always pick an AI proposal in that case.
+2. **"manual_needed" is a code smell when both AIs proposed values.** The label is appropriate when neither AI extracted a value, but not when both did and they merely worded it differently.
+3. **Text fields and factual fields need different consensus rules.** Factual disagreement (e.g., "24" vs "23.74" for width) deserves reconciliation; text disagreement (different valid sentences) deserves a deterministic tiebreaker.
+4. **Cascading fixes** — this is the third bug in a row (Findings #049, #050, #051) where legacy/retail merchandising data overrode correct AI judgment. The pattern is consistent enough that any new "AI right, system shipped wrong" investigation should start with: *what legacy field is the system falling back to?*
+
+### Prevention
+
+- Pre-deploy validator could spot-check that no `Primary_Attributes.AI_Product_Title` exactly equals `Product_Title_Legacy` after dual AI ran (unless both AIs agreed with it)
+- Live logger could flag responses where `Field_AI_Reviews.product_title.source === 'manual_needed'` AND both AIs had non-empty proposals
