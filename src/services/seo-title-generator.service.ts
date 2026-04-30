@@ -226,7 +226,25 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
   // Special case for Configuration - try configuration first, then fall back to type
   // This handles cases where Type matching populated input.type but AI didn't populate input.configuration
   // Example: Refrigerator Type="French Door" should appear in Configuration slot
+  //
+  // EXCEPTION (Finding #052): When Type identifies a DISTINCT SUB-PRODUCT (e.g. Wine Cooler,
+  // Beverage Center, Ice Maker), prefer Type over Configuration. The Configuration field can be
+  // contaminated by extractConfigurationFromTexts() pulling refrigerator door-config keywords
+  // ("Side by Side", "French Door") out of legacy/raw titles, even when the actual product is
+  // a wine cooler. AI-determined Type is the authoritative product identity in those cases.
   if (attribute === 'Configuration') {
+    const typeLower = (input.type || '').toLowerCase().trim();
+    const DISTINCT_SUB_PRODUCT_TYPES = new Set([
+      'wine cooler', 'wine reserve', 'wine refrigerator', 'wine cellar',
+      'beverage center', 'beverage cooler', 'beverage refrigerator',
+      'ice maker', 'ice machine',
+      'kegerator',
+      'drawer refrigerator', 'undercounter refrigerator',
+      'compact refrigerator', 'mini fridge', 'mini refrigerator',
+    ]);
+    if (typeLower && DISTINCT_SUB_PRODUCT_TYPES.has(typeLower)) {
+      return input.type;
+    }
     return input.configuration || input.type;
   }
   

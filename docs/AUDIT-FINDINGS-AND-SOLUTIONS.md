@@ -5292,3 +5292,83 @@ Factual fields (dimensions, capacities, voltage) are **not** affected — they c
 
 - Pre-deploy validator could spot-check that no `Primary_Attributes.AI_Product_Title` exactly equals `Product_Title_Legacy` after dual AI ran (unless both AIs agreed with it)
 - Live logger could flag responses where `Field_AI_Reviews.product_title.source === 'manual_needed'` AND both AIs had non-empty proposals
+
+---
+
+## Finding #052: Wine Coolers Get "Side By Side" In Title From Refrigerator Schema Configuration Slot
+
+**Discovered:** April 29, 2026 (during validation of Finding #051 fix)  
+**Symptom:** Monogram ZIWD24PWII (wine cooler) returned `AI_Product_Title = "Monogram 24-Inch Built-In Panel Ready Side By Side Refrigerator 4.7 Cu. Ft. - ZIWD24PWII"` even though both AIs correctly identified `AI_Type = "Wine Cooler"` and Finding #051's consensus fix was deployed.
+
+### Root Cause (Three-Layer Failure)
+
+1. **No wine cooler title schema** — Wine Coolers fall under the generic `refrigerator` schema in `title-schema-by-category.ts`, which has slots: `{Brand} {Width} {Installation Type} {Depth Type} {Panel Ready} {Configuration} {Category} {Finish} {Capacity} {Model Number}`. There is **no Type slot**, so "Wine Cooler" never appears in the title via Type alone.
+
+2. **Configuration extracted from contaminated legacy text** — `extractConfigurationFromTexts()` in `dual-ai-verification.service.ts` (line 9783) scans titles/descriptions for door-config keywords (`French Door`, `Side by Side`, `Top Freezer`, `Column`, etc.). The bad legacy title `"...Side By Side Refrigerator..."` matches `Side by Side`, so `input.configuration = "Side by Side"`.
+
+3. **Configuration slot prefers extracted Configuration over AI Type** — `seo-title-generator.service.ts` line 230 returned `input.configuration || input.type`. With `input.configuration = "Side by Side"` (extracted from legacy) and `input.type = "Wine Cooler"` (from AI consensus), the contaminated value won.
+
+### Why Finding #051's Consensus Fix Wasn't Enough
+
+Finding #051 made `consensus.agreedPrimaryAttributes.product_title` correctly contain the AI-proposed wine cooler title. But `AI_Product_Title` is **not** taken from that field — it is regenerated from a schema template at line 12189 (`sanitizedPrimaryAttributes.AI_Product_Title = finalSeoTitle`). The schema reconstructs the title from individual fields, and one of those fields (Configuration) was independently contaminated by legacy text extraction, bypassing the consensus title entirely.
+
+### Investigation Steps
+
+1. Re-tested ZIWD24PWII after Finding #051 deployment → still got "Side By Side Refrigerator" 
+2. Confirmed `AI_Type = "Wine Cooler"` in `Primary_Attributes` ✅
+3. Found `Verification.corrections_made` contained text_cleaner correction whose `originalValue` was OpenAI's wine cooler title — proving consensus DID pick the AI title (Finding #051 fix worked at consensus layer)
+4. Traced `AI_Product_Title` assignment to schema template regeneration (`generateSEOTitle(finalSeoTitleInput)`)
+5. Found refrigerator schema has no Type slot — Type only appears via Configuration slot fallback
+6. Found Configuration slot logic preferred extracted value over AI Type
+7. Found `extractConfigurationFromTexts` reading legacy title and matching "Side by Side" keyword
+
+### Fix Applied (Commit pending)
+
+**File:** `src/services/seo-title-generator.service.ts` lines 226-249
+
+When `input.type` identifies a **distinct sub-product** (not a refrigerator door configuration), prefer Type over Configuration in the title slot. This prevents legacy door-config contamination from masking the true product type.
+
+```typescript
+if (attribute === 'Configuration') {
+  const typeLower = (input.type || '').toLowerCase().trim();
+  const DISTINCT_SUB_PRODUCT_TYPES = new Set([
+    'wine cooler', 'wine reserve', 'wine refrigerator', 'wine cellar',
+    'beverage center', 'beverage cooler', 'beverage refrigerator',
+    'ice maker', 'ice machine',
+    'kegerator',
+    'drawer refrigerator', 'undercounter refrigerator',
+    'compact refrigerator', 'mini fridge', 'mini refrigerator',
+  ]);
+  if (typeLower && DISTINCT_SUB_PRODUCT_TYPES.has(typeLower)) {
+    return input.type;  // AI Type wins
+  }
+  return input.configuration || input.type;  // Default behavior preserved for true refrigerators
+}
+```
+
+**Why this is safe**: For genuine refrigerators where `input.type = "French Door"` or `"Side by Side"`, those values are NOT in the sub-product set, so the existing `input.configuration || input.type` behavior is preserved. The fix only intercepts the specific contamination class where AI determined a distinct sub-product type but legacy text extraction polluted the configuration slot.
+
+### Scope
+
+**Universal across all categories** for the listed sub-product types. Protects against:
+- Wine coolers / wine reserves with refrigerator-style legacy titles
+- Beverage centers mislabeled as side-by-side refrigerators
+- Ice makers, kegerators, drawer/undercounter/compact refrigerators with contaminated configuration extraction
+
+### Related Findings
+
+- **#051** — Consensus fallback to legacy on text disagreement (the previous-layer fix)
+- **#049, #050** — Same legacy-contamination pattern in different fields (type keywords, subcategory strings)
+- **#016** — AI re-categorizing vs validating
+
+### Lessons Learned
+
+1. **Schema-driven titles can defeat consensus fixes.** Even if consensus correctly captures the AI title, downstream schema regeneration that pulls from individual fields can re-contaminate the output. Both layers need to be hardened.
+2. **Text extraction from raw fields is a contamination vector.** `extractConfigurationFromTexts` reading legacy titles is a classic case — legacy titles are exactly where contamination originates.
+3. **The "schema has no Type slot" architecture forces Type into Configuration.** Refrigerator-family schemas should ideally have an explicit Type slot, or wine coolers should have their own schema. The slot-priority fix is a tactical patch; the strategic fix is a wine_cooler title schema with proper slots.
+
+### Prevention
+
+- Add a wine_cooler title schema with explicit Type slot (future work)
+- Pre-deploy validator could check that wine cooler / beverage center products don't end up with "Refrigerator" + "Side by Side" / "French Door" in their title
+- Consider scoping `extractConfigurationFromTexts` to NOT scan legacy titles — only Ferguson/Web Retailer descriptions and features
