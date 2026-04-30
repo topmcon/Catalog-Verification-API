@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v14
-  Snapshot Date: 2026-03-16 08:10:27 EDT
-  Commit:        a4fcb45 (a4fcb45d96df4cc0d16df12a2ce1633d91f1c763)
+  Version:       v34
+  Snapshot Date: 2026-04-30 10:26:23 EDT
+  Commit:        e724d94 (e724d94fe5b5c43919f871c990f266553d1b2b24)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 13084 lines
-  title-schema-by-category.ts:     7210 lines
+  dual-ai-verification.service.ts: 14894 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v13)
+  Lines added: ~0, Lines removed: ~38 (vs v33)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-a4fcb45 Fix Mirror→Bathroom Mirror misclassification, add FRD product name to deptTitles, block style values in finish field
-ca540e2 Verified data hierarchy redesign: dept-aware fallback chains for all title fields
-09e4d44 Session docs: mirror category + dimension extraction fixes, audit findings #037-#039, architecture v11
-4ec2596 Add dimension extraction from raw titles + null string sanitization
-233f174 Fix Mirror→Bathroom Mirror category correction, lighted override guard, and title Bathroom prefix
+e724d94 Finding #055: Replace stale hardcoded department/keyword maps with picklist-derived lookup
+2d1b69e fix(verification): Finding #054 - real title schema conformance validator (replaces dead code)
+d55f9ab fix(verification): Finding #053 - type-aware extractor suppression for distinct sub-products
+fc49b4a fix(title): prefer AI Type over extracted Configuration for sub-products (#052)
+f5214c7 fix(consensus): prefer AI proposal over legacy on text-field disagreement (#051)
 -->
 
 # Complete Verification Architecture

@@ -58,6 +58,9 @@
 | Shower Faucet conflates Type and Function | Type=Trim Kit/Complete System, Function=Thermostatic/Pressure Balance | (pending) | #039 |
 | Shower Accessory had no type mapping or title schema | Add 14-type mapping + title schema using existing SF IDs | (pending) | #039 |
 | Steam Shower Controller not a valid SF type | Map to Control Panel (existing SF ID a1jaZ000001lF4xQAE) | (pending) | #039 |
+| Extractors override AI's distinct sub-product type | Add DISTINCT_SUB_PRODUCT_TYPES set + safeExtractConfiguration wrapper | d55f9ab | #053, #051, #052 |
+| Title schema validator was dead code (wrong field names) | Rewrite CHECK 4 with required-slot/anti-contamination/category-presence checks | 2d1b69e | #054 |
+| Hardcoded categoryDepartmentMap drifted from picklist (silent wrong corrections) | Remove hardcoded map, call picklist-derived getDepartmentForCategory() helper | e724d94 | #055 |
 | Rough-In Valve miscategorized as Shower Faucet | Add section 1b detection for rough-in patterns | (pending) | #039 |
 | Freezer type/installation_type/panel_ready confusion | Add explicit AI clarification block separating 3 fields | eaa5cdd, b25e4ee | #043, #030, #015 |
 | CI/CD double-restart kills in-flight jobs | Disable deploy-production CI/CD job (or add graceful shutdown) | (pending) | #044 |
@@ -5372,3 +5375,108 @@ if (attribute === 'Configuration') {
 - Add a wine_cooler title schema with explicit Type slot (future work)
 - Pre-deploy validator could check that wine cooler / beverage center products don't end up with "Refrigerator" + "Side by Side" / "French Door" in their title
 - Consider scoping `extractConfigurationFromTexts` to NOT scan legacy titles — only Ferguson/Web Retailer descriptions and features
+
+---
+
+## Finding #053: Extractors Override AI's Distinct Sub-Product Type (Data Layer Contamination)
+
+**Discovered:** 2026-04-30 | **Commit:** `d55f9ab` | **Severity:** HIGH | **Scope:** Universal (all distinct sub-products)
+
+### Symptom
+Even after Findings #051/#052 hardened consensus and slot priority, regex extractors (e.g., `extractConfiguration`) were still pulling stale tokens like "Refrigerator" from raw vendor text and overriding the AI's correct sub-product classification.
+
+### Root Cause
+`extractConfigurationFromTexts` and similar extractors run *unconditionally* on raw text. When Claude correctly identifies an item as "Wine Cooler", the extractor still scans the legacy title or scraped data, finds "Refrigerator", and merges it back in — silently undoing the AI's correct work.
+
+### Fix
+- Added `DISTINCT_SUB_PRODUCT_TYPES` Set covering ~12 distinct types (Wine Cooler, Beverage Center, Kegerator, Ice Maker, Built-In Microwave, Drawer Microwave, Warming Drawer, Steam Oven, Wall Oven, Cooktop, Range Hood, etc.).
+- Added `isDistinctSubProduct(type)` predicate.
+- Added `safeExtractConfiguration(rawText, aiType)` wrapper that returns `null` whenever the AI type is in the distinct set.
+- File: `src/services/dual-ai-verification.service.ts`
+
+### Related Findings
+#051, #052 (consensus + slot layers); same root attack surface (cross-category contamination).
+
+### Prevention
+Pattern is universal — apply same wrapper around any other extractors that may pull category-conflicting tokens (e.g., extractFinish on combined-spec text).
+
+---
+
+## Finding #054: Title Schema Conformance Validator Was Dead Code
+
+**Discovered:** 2026-04-30 | **Commit:** `2d1b69e` | **Severity:** HIGH | **Scope:** All title generations
+
+### Symptom
+`performAutomatedValidation()` CHECK 4 looked authoritative but had been a silent no-op since written — it never failed any title even when slots were missing or contamination was present.
+
+### Root Cause
+CHECK 4 referenced `slot.priority === 'critical'` and `slot.source` — neither field exists on schemas. Schemas use `slot.required` (boolean) and `slot.attribute` (string). The check was always evaluating against undefined and silently passing every title.
+
+### Fix
+Rewrote CHECK 4 with three real validations:
+- **(a) Required-slot presence** — every `slot.required === true` slot must produce a non-empty token in rendered title
+- **(b) Anti-contamination** — distinct sub-products cannot contain forbidden parent-category tokens; no bare-category-name titles
+- **(c) Category presence** — title must include at least one keyword from resolved category
+
+Each failure pushes a structured issue with severity into the validation report.
+
+File: `src/services/dual-ai-verification.service.ts` → `performAutomatedValidation()`
+
+### Lessons Learned
+- **Dead code in validators is worse than no validator** — gives false confidence.
+- Field-name typos in validators are silent because property access on undefined just returns undefined; no exception thrown.
+
+### Prevention
+Pre-deploy validator should grep validators for references to fields that don't exist on the schema interface.
+
+---
+
+## Finding #055: Hardcoded categoryDepartmentMap Drift Caused Silent Wrong Department Corrections
+
+**Discovered:** 2026-04-30 | **Commit:** `e724d94` | **Severity:** HIGH | **Scope:** Every verification call (universal)
+
+### Symptom
+System was emitting "fix department from 'Plumbing & Bath' to 'Plumbing'" corrections — actively contradicting the Salesforce picklist source-of-truth. No errors logged; just bad correction data flowing back to SF.
+
+### Root Cause
+`categoryDepartmentMap` (30 hardcoded entries in `dual-ai-verification.service.ts`) had stale department names from a prior naming convention:
+- Code said: `"Faucet" → "Plumbing"` | Picklist canonical: `"Plumbing & Bath"`
+- Code said: `"Lighting" → "Lighting"` | Picklist canonical: `"Lighting & Electrical"`
+
+The picklist had been updated but the hardcoded validator map was never synced. Result: silent regression for every verification.
+
+Additionally, `categoryKeywords` map had 7 dead entries referencing categories that don't exist in `categories.json` (`'Faucet'`, `'Sink'`, `'Door Handle'`, `'Hinge'`, `'Tub Faucet'`, `'Bidet Faucet'`, `'Food Service Faucet'`). Canonical names are `'Bathroom Faucet'`, `'Bathroom Sink'`, `'Tub Filler'`, `'Bidet'`, etc.
+
+### Fix
+- **Removed** entire 30-entry hardcoded `categoryDepartmentMap`.
+- CHECK 2 (Department-Category Alignment) now calls `getDepartmentForCategory(category)` from `src/config/category-config.ts` line 407 — already picklist-derived, picklist updates flow automatically.
+- **Removed 7 dead entries** + **added 30+ canonical entries** to `categoryKeywords` map.
+- File: `src/services/dual-ai-verification.service.ts`
+
+### Related Infrastructure (NEW this finding)
+**`scripts/audit-system-alignment.js`** (348 lines, 11 cross-system checks) — surfaces drift between hardcoded maps and picklist source-of-truth. How #055 was discovered.
+
+Audit covers:
+- A1-A3: SF picklist self-consistency (departments, families, categories cross-references)
+- B1: types.json `category_usage` validity
+- C1-C2 / D1-D2: category-type-mapping / category-style-mapping integrity
+- E1: title-schema `categoryName` validity
+- F1-F2 / G1-G3: hardcoded map coverage and canonicality
+- H1, I1: coverage warnings
+
+### Lessons Learned
+1. **Hardcoded validation maps drift silently.** No error, no warning — they just emit wrong corrections forever. Picklist-derived lookups via existing helpers eliminate this entire class of bug.
+2. **`getDepartmentForCategory()` already existed** in `category-config.ts` — the bug was redundant hardcoded code that should have been calling the helper from day one.
+3. **Cross-system alignment audits surface invisible bugs.** This drift had been live for an unknown amount of time with no error logs.
+
+### Prevention
+- Wire `audit-system-alignment.js` into `pre-deploy-validate-all.sh` as Check #10 (planned Phase 4).
+- Code review rule: any hardcoded map that mirrors a picklist must instead read from the picklist via existing config helpers.
+
+### Remaining Work (NOT code bugs — Salesforce data drift)
+Audit surfaced data-side drift requiring SF coordination, deferred to phased work:
+- 5 categories reference unknown department `Industrial & Commercial`
+- 7 categories reference unknown families `Indoor Lighting`, `Plumbing & Bath`
+- 1 family references unknown department: `General → Electronics`
+- 11 types reference unknown categories (plurals/old names)
+- 7 categories used in code mappings/schemas don't exist in categories.json (`Drainage & Waste`, `Bidet Faucet`, `Food Service Faucet`, `Hot & Cold Water Dispenser`, `Backsplash Kitchen Tile`, `Kitchen Sink Combo`, `Bathroom Lighting (Bathroom)`)

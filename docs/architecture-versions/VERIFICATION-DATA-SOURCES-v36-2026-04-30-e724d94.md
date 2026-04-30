@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v16
-  Snapshot Date: 2026-03-18 00:54:56 EDT
-  Commit:        be0e4d8 (be0e4d8e1d2bae4e823d5cf16816de3646bbf112)
+  Version:       v36
+  Snapshot Date: 2026-04-30 10:26:23 EDT
+  Commit:        e724d94 (e724d94fe5b5c43919f871c990f266553d1b2b24)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 14068 lines
-  title-schema-by-category.ts:     7220 lines
+  dual-ai-verification.service.ts: 14894 lines
+  title-schema-by-category.ts:     7271 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1651
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v15)
+  Lines added: ~0, Lines removed: ~38 (vs v35)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-be0e4d8 feat: Phase 0.1A - Universal Ferguson_Raw_Data extraction into flat fields
-6bcb3d8 fix: Shower width always overrides AI with Ferguson dimension, add Shower Door Handle type
-6c88f6f fix: Split combined Tub Faucet types into separate Type + Mount slots
-f622116 fix: Skip redundant Category in title when Type already contains 'Shower'
-1dd6024 fix: Shower post-processing — sync types to attributes, fix width extraction, fix Tub Faucet duplication
+e724d94 Finding #055: Replace stale hardcoded department/keyword maps with picklist-derived lookup
+2d1b69e fix(verification): Finding #054 - real title schema conformance validator (replaces dead code)
+d55f9ab fix(verification): Finding #053 - type-aware extractor suppression for distinct sub-products
+fc49b4a fix(title): prefer AI Type over extracted Configuration for sub-products (#052)
+f5214c7 fix(consensus): prefer AI proposal over legacy on text-field disagreement (#051)
 -->
 
 # Verification Data Sources - Complete Inventory
