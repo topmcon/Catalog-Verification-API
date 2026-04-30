@@ -13436,49 +13436,158 @@ function performAutomatedValidation(
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // CHECK 4: Title Schema Verification
+  // CHECK 4: Title Schema Conformance (FINDING #054 — REWRITTEN)
   // ═══════════════════════════════════════════════════════════════
-  checksPerformed.push('title_schema_verification');
-  
-  // Get category title schema to check title structure
-  // Note: We're doing a simplified check here - just verifying title length and basic structure
-  // Full title schema validation happens in seo-title-generator.service.ts
-  // This check is just to flag obviously problematic titles
-  
-  // Import the getCategoryTitleSchema function at runtime to avoid circular dependency
+  // Validates the rendered title actually conforms to the category's
+  // declared title schema:
+  //   (a) Required slots: every slot with required=true whose value is
+  //       known must appear in the rendered title (normalized substring).
+  //   (b) Anti-contamination: distinct sub-products (Wine Cooler, Beverage
+  //       Center, Ice Maker, Kegerator) must NOT contain forbidden door-
+  //       configuration tokens that imply a different product class.
+  //   (c) Category presence: rendered title must mention the category
+  //       (or a known synonym) when category is non-empty.
+  //
+  // Previous version checked slot.priority/slot.source which don't exist
+  // on our schemas → was a silent no-op. Now uses slot.required + slot.attribute.
+  // ═══════════════════════════════════════════════════════════════
+  checksPerformed.push('title_schema_conformance');
+
+  // Lazy-load to avoid circular dependency
   const { getCategoryTitleSchema } = require('../config/title-schema-by-category');
   const titleSchema = getCategoryTitleSchema(category);
-  
-  if (titleSchema && titleSchema.slots) {
-    const generatedTitleLower = generatedTitle.toLowerCase();
-    const missingSlots: string[] = [];
 
-    // Check if critical slots appear in title
+  if (titleSchema && Array.isArray(titleSchema.slots)) {
+    const normalize = (s: string): string => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const titleNorm = normalize(generatedTitle);
+
+    // Map schema attribute name → resolved value from primary/top/raw
+    const resolveSlotValue = (attr: string): string => {
+      const tfa = topFilterAttributes as Record<string, unknown>;
+      const map: Record<string, unknown> = {
+        'Brand': primaryAttributes.AI_Brand,
+        'Category': primaryAttributes.AI_Product_Category,
+        'Type': primaryAttributes.AI_Type,
+        'Style': primaryAttributes.AI_Style,
+        'Finish': primaryAttributes.AI_Finish,
+        'Color': primaryAttributes.AI_Color,
+        'Width': primaryAttributes.AI_Width,
+        'Width (Inches)': primaryAttributes.AI_Width,
+        'Height': primaryAttributes.AI_Height,
+        'Depth': primaryAttributes.AI_Depth,
+        'Model Number': primaryAttributes.AI_Model_Number,
+        'Configuration': tfa.configuration,
+        'Installation Type': tfa.installation_type,
+        'Mount Type': tfa.mount_type,
+        'Mount': tfa.mount_type,
+        'Fuel Type': tfa.fuel_type,
+        'Bowl Shape': tfa.bowl_shape,
+        'Flush Type': tfa.flush_type,
+        'Material': tfa.material,
+        'Shape': tfa.shape,
+        'Capacity (Cu. Ft.)': tfa.total_capacity || tfa.capacity,
+        'Burner Count': tfa.number_of_burners || tfa.burner_count,
+        'Number of Burners': tfa.number_of_burners,
+        'BTU': tfa.btu,
+        'Panel Ready': tfa.panel_ready === true || tfa.panel_ready === 'Panel Ready' ? 'Panel Ready' : '',
+        'Depth Type': tfa.depth_type,
+      };
+      const v = map[attr];
+      return v === undefined || v === null ? '' : String(v).trim();
+    };
+
+    const NA_VALUES = new Set(['', 'not found', 'not applicable', 'n/a', 'procurement no results', 'false', '0']);
+    const missingRequired: string[] = [];
+
     for (const slot of titleSchema.slots) {
-      if (slot.priority === 'critical' && slot.source) {
-        const slotValue = topFilterAttributes[slot.source];
-        
-        if (slotValue && slotValue !== 'Not Found' && slotValue !== 'Not Applicable' && slotValue !== 'Procurement No Results') {
-          const normalizedValue = String(slotValue).toLowerCase().replace(/[^a-z0-9]/g, '');
-          const titleNormalized = generatedTitleLower.replace(/[^a-z0-9]/g, '');
-          
-          // Only flag if value is substantial (>3 chars) and missing
-          if (!titleNormalized.includes(normalizedValue) && normalizedValue.length > 3) {
-            missingSlots.push(slot.label);
-          }
-        }
+      if (!slot.required) continue;
+      const slotAttr = String(slot.attribute || '').trim();
+      if (!slotAttr) continue;
+      const slotValue = resolveSlotValue(slotAttr);
+      if (NA_VALUES.has(slotValue.toLowerCase())) continue;     // unknown → can't validate
+      const valueNorm = normalize(slotValue);
+      if (valueNorm.length < 2) continue;                       // too short to assert meaningfully
+      if (!titleNorm.includes(valueNorm)) {
+        missingRequired.push(`${slotAttr}="${slotValue}"`);
       }
     }
 
-    if (missingSlots.length > 0) {
+    if (missingRequired.length > 0) {
       warnings.push({
         severity: 'MEDIUM',
         field: 'title',
-        currentValue: generatedTitle.substring(0, 80),
-        issue: `Generated title may be missing critical attributes for category "${category}": ${missingSlots.join(', ')}`,
-        ruleViolated: 'TITLE_SCHEMA_COMPLETENESS'
+        currentValue: generatedTitle.substring(0, 120),
+        issue: `Generated title missing required schema slot(s) for "${category}": ${missingRequired.join(', ')}`,
+        ruleViolated: 'TITLE_SCHEMA_REQUIRED_SLOT_MISSING'
       });
-      confidenceScore -= 5;
+      confidenceScore -= 5 * Math.min(missingRequired.length, 3);
+    }
+
+    // (b) Anti-contamination: distinct sub-products must not carry refrigerator
+    // door-configuration tokens. Matches Findings #052 + #053 guarded set.
+    const DISTINCT_SUB_PRODUCT_TYPES = new Set([
+      'wine cooler', 'wine reserve', 'wine refrigerator', 'wine cellar', 'wine column',
+      'beverage center', 'beverage cooler', 'beverage refrigerator',
+      'ice maker', 'ice machine', 'icemaker',
+      'kegerator',
+    ]);
+    const FORBIDDEN_CONFIG_TOKENS = [
+      'side by side', 'side-by-side', 'french door', 'top freezer', 'bottom freezer',
+      'top-freezer', 'bottom-freezer', 'quad door', 'triple door',
+    ];
+    const productTypeLower = String(productType || '').toLowerCase().trim();
+    const categoryLower = String(category || '').toLowerCase().trim();
+    const isDistinct = DISTINCT_SUB_PRODUCT_TYPES.has(productTypeLower)
+      || categoryLower.includes('wine cooler')
+      || categoryLower.includes('beverage')
+      || categoryLower.includes('icemaker')
+      || categoryLower.includes('kegerator');
+    if (isDistinct) {
+      const titleLower = generatedTitle.toLowerCase();
+      const forbiddenHits = FORBIDDEN_CONFIG_TOKENS.filter(tok => titleLower.includes(tok));
+      if (forbiddenHits.length > 0) {
+        warnings.push({
+          severity: 'HIGH',
+          field: 'title',
+          currentValue: generatedTitle.substring(0, 120),
+          issue: `Distinct sub-product "${productType || category}" contains forbidden refrigerator-config token(s): ${forbiddenHits.join(', ')}. Indicates contamination from raw/legacy text.`,
+          ruleViolated: 'TITLE_DISTINCT_SUB_PRODUCT_CONTAMINATION'
+        });
+        confidenceScore -= 15;
+      }
+      // Also warn if title literally says "Refrigerator" while AI Type is e.g. "Wine Cooler"
+      if (productTypeLower && titleLower.includes('refrigerator')
+          && !productTypeLower.includes('refrigerator')
+          && !categoryLower.includes('refrigerator')) {
+        warnings.push({
+          severity: 'HIGH',
+          field: 'title',
+          currentValue: generatedTitle.substring(0, 120),
+          issue: `Title contains "Refrigerator" but AI Type is "${productType}" and Category is "${category}". Likely category-name contamination.`,
+          ruleViolated: 'TITLE_CATEGORY_NAME_CONTAMINATION'
+        });
+        confidenceScore -= 10;
+      }
+    }
+
+    // (c) Category presence — only assert when a Category slot exists in the schema
+    const hasCategorySlot = titleSchema.slots.some((s: { attribute?: string }) => s.attribute === 'Category');
+    if (hasCategorySlot && category) {
+      const catNorm = normalize(category);
+      // Allow a single-word substring match (e.g. "Cooler" within "Wine Cooler")
+      const catTokens = category.toLowerCase().split(/\s+/).filter(t => t.length >= 4);
+      const catPresent = titleNorm.includes(catNorm)
+        || catTokens.some(tok => titleNorm.includes(normalize(tok)));
+      if (!catPresent) {
+        warnings.push({
+          severity: 'MEDIUM',
+          field: 'title',
+          currentValue: generatedTitle.substring(0, 120),
+          issue: `Generated title does not contain category "${category}" (or any of its tokens).`,
+          ruleViolated: 'TITLE_CATEGORY_MISSING'
+        });
+        confidenceScore -= 5;
+      }
     }
   }
 
