@@ -9790,6 +9790,47 @@ async function buildFinalResponse(
     return extractKnownValueFromTexts(texts, configs);
   };
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // FINDING #053 — UNIVERSAL TYPE-AWARE EXTRACTOR SUPPRESSION
+  // ═══════════════════════════════════════════════════════════════════════
+  // When the AI consensus has identified the product as a DISTINCT SUB-PRODUCT
+  // (e.g. Wine Cooler, Beverage Center, Ice Maker, Kegerator), suppress
+  // refrigerator door-configuration extractor fallbacks. Web Retailer and
+  // Ferguson titles routinely mislabel these (e.g. a wine cooler listed under
+  // a generic refrigerator product line will inherit "Side by Side" from a
+  // sibling listing). Without suppression, that mislabel can override the
+  // empty consensus configuration and contaminate the final title.
+  //
+  // This complements Finding #052 (which fixes the title-generator slot layer).
+  // Defense-in-depth: kill contamination at both the data and rendering layers.
+  // ═══════════════════════════════════════════════════════════════════════
+  const DISTINCT_SUB_PRODUCT_TYPES = new Set([
+    'wine cooler', 'wine reserve', 'wine refrigerator', 'wine cellar', 'wine column',
+    'beverage center', 'beverage cooler', 'beverage refrigerator',
+    'ice maker', 'ice machine', 'icemaker',
+    'kegerator',
+    'drawer refrigerator', 'undercounter refrigerator',
+    'compact refrigerator', 'mini fridge', 'mini refrigerator',
+  ]);
+  const agreedTypeLower = String(
+    consensus.agreedPrimaryAttributes.type
+      || (typeMatchResult.matched && typeMatchResult.matchedValue ? typeMatchResult.matchedValue.type_name : '')
+      || aiProductType
+      || ''
+  ).toLowerCase().trim();
+  const agreedCategoryLower = String(consensus.agreedCategory || '').toLowerCase().trim();
+  const isDistinctSubProduct = DISTINCT_SUB_PRODUCT_TYPES.has(agreedTypeLower)
+    || agreedCategoryLower.includes('wine cooler')
+    || agreedCategoryLower.includes('beverage')
+    || agreedCategoryLower.includes('icemaker')
+    || agreedCategoryLower.includes('kegerator');
+
+  /** Configuration extractor with type-aware suppression for distinct sub-products */
+  const safeExtractConfiguration = (texts: string[]): string => {
+    if (isDistinctSubProduct) return '';
+    return extractConfigurationFromTexts(texts);
+  };
+
   /** Extract fuel type from texts using known fuel type values */
   const extractFuelTypeFromTexts = (texts: string[]): string => {
     const fuelTypes = [
@@ -10142,7 +10183,11 @@ async function buildFinalResponse(
       openaiResult.confidence,
       xaiResult.confidence,
       // Fallback: titles → descriptions/features → ''
-      extractConfigurationFromTexts(deptTitles) || extractConfigurationFromTexts(deptDescriptions) || extractConfigurationFromTexts(deptFeatures) || ''
+      // FINDING #053: safeExtractConfiguration suppresses door-config keywords
+      // when AI has identified a distinct sub-product (Wine Cooler, Beverage Center,
+      // Ice Maker, Kegerator). Prevents Web Retailer / Ferguson title mislabels
+      // ("Side by Side" on a wine cooler listing) from contaminating the title.
+      safeExtractConfiguration(deptTitles) || safeExtractConfiguration(deptDescriptions) || safeExtractConfiguration(deptFeatures) || ''
     ),
     
     // Appearance — AI → Title extract (dept-aware) → Desc/Features extract → Structured → ''
