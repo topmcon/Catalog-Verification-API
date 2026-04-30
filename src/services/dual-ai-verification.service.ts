@@ -13312,28 +13312,65 @@ function performAutomatedValidation(
   // ═══════════════════════════════════════════════════════════════
   // CHECK 1: Category Keyword Cross-Check
   // ═══════════════════════════════════════════════════════════════
+  // (FINDING #055) Keys MUST match canonical category_name values from
+  // src/config/salesforce-picklists/categories.json. Removed stale keys
+  // that referenced non-existent categories (Faucet/Sink/Door Handle/Hinge).
+  // Run `node scripts/audit-system-alignment.js` to verify.
+  // ═══════════════════════════════════════════════════════════════
   checksPerformed.push('category_keyword_match');
   
   const categoryKeywords: Record<string, string[]> = {
-    'Faucet': ['faucet', 'tap', 'spout'],
+    // Plumbing & Bath — faucets
+    'Bathroom Faucet': ['faucet', 'lavatory', 'tap', 'spout'],
+    'Kitchen Faucet': ['faucet', 'tap', 'spout', 'pull-down', 'pull-out'],
+    'Bar Faucet': ['faucet', 'bar tap', 'spout'],
+    'Pot Filler Faucet': ['pot filler', 'faucet'],
+    'Tub Filler': ['tub filler', 'tub faucet', 'roman tub'],
+    'Outdoor Shower Faucet': ['shower', 'outdoor', 'faucet'],
+    // Plumbing & Bath — fixtures
     'Showerheads & Accessories': ['shower', 'showerhead', 'rain head', 'hand shower', 'thermostatic', 'valve trim'],
     'Shower': ['shower', 'shower door', 'shower enclosure', 'shower base', 'shower pan'],
     'Shower Accessory': ['shower', 'arm', 'slide bar', 'escutcheon', 'drain', 'grab bar', 'niche', 'seat'],
+    'Steam Shower': ['steam', 'shower', 'generator'],
+    'Toilet': ['toilet', 'commode', 'water closet'],
+    'Toilet Seat': ['toilet seat', 'seat'],
+    'Bidet': ['bidet'],
+    'Bidet Seat': ['bidet', 'seat'],
+    'Urinal': ['urinal'],
+    'Bathtub': ['bathtub', 'tub', 'soaking', 'whirlpool', 'freestanding tub'],
+    'Bathroom Sink': ['sink', 'basin', 'lavatory', 'vessel'],
+    'Kitchen Sink': ['sink', 'basin', 'undermount', 'farmhouse', 'apron'],
+    'Bar & Prep Sink': ['sink', 'bar sink', 'prep sink', 'basin'],
+    'Bathroom Vanity': ['vanity', 'cabinet'],
+    'Bathroom Mirror': ['mirror'],
+    'Medicine Cabinet': ['medicine cabinet', 'cabinet', 'mirror'],
+    // Appliances
     'Range Hood': ['hood', 'vent', 'ventilation', 'cfm', 'exhaust'],
-    'Chandelier': ['chandelier', 'pendant light', 'hanging light', 'ceiling light'],
-    'Wall Sconce': ['sconce', 'wall light', 'wall lamp'],
-    'Pendant': ['pendant', 'hanging light', 'suspension'],
-    'Ceiling Fan': ['ceiling fan', 'fan', 'air circulator'],
     'Refrigerator': ['refrigerator', 'fridge', 'freezer'],
     'Range': ['range', 'stove', 'cooktop'],
     'Dishwasher': ['dishwasher'],
     'Oven': ['oven', 'wall oven'],
     'Cooktop': ['cooktop', 'cook top', 'burner', 'side burner', 'drop-in burner'],
     'Microwave': ['microwave'],
+    'Washer': ['washer', 'washing machine'],
+    'Dryer': ['dryer'],
+    'Freezer': ['freezer'],
+    'Icemaker': ['icemaker', 'ice maker', 'ice machine'],
+    'Chandelier': ['chandelier', 'pendant light', 'hanging light', 'ceiling light'],
+    'Wall Sconce': ['sconce', 'wall light', 'wall lamp'],
+    'Pendant': ['pendant', 'hanging light', 'suspension'],
+    'Ceiling Fan': ['ceiling fan', 'fan', 'air circulator'],
+    'Bathroom Lighting': ['bath light', 'vanity light', 'bathroom light'],
+    'Vanity Lighting': ['vanity light', 'vanity lighting'],
+    'Recessed Lighting': ['recessed', 'can light', 'downlight'],
+    // Hardware
     'Cabinet Pull': ['cabinet pull', 'drawer pull', 'cabinet handle'],
     'Cabinet Knob': ['cabinet knob', 'drawer knob'],
-    'Toilet': ['toilet', 'commode'],
-    'Sink': ['sink', 'basin']
+    'Cabinet Hardware': ['cabinet', 'pull', 'knob', 'handle'],
+    'Door Knob': ['door knob', 'knob'],
+    'Door Lever': ['door lever', 'lever'],
+    'Door Hinge': ['hinge', 'door hinge'],
+    'Cabinet Hinge': ['hinge', 'cabinet hinge'],
   };
 
   const requiredKeywords = categoryKeywords[category] || [];
@@ -13353,50 +13390,25 @@ function performAutomatedValidation(
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // CHECK 2: Department-Category Alignment
+  // CHECK 2: Department-Category Alignment (FINDING #055)
+  // ═══════════════════════════════════════════════════════════════
+  // Picklist-derived: uses getDepartmentForCategory from category-config
+  // (auto-built from categories.json — single source of truth). Replaces
+  // previously hardcoded map which had drifted (used "Plumbing"/"Lighting"
+  // instead of canonical "Plumbing & Bath"/"Lighting & Electrical") —
+  // that drift had been silently mis-correcting departments on every
+  // verification for an unknown duration.
   // ═══════════════════════════════════════════════════════════════
   checksPerformed.push('department_category_alignment');
-  
-  const categoryDepartmentMap: Record<string, string> = {
-    'Faucet': 'Plumbing',
-    'Showerheads & Accessories': 'Plumbing',
-    'Shower': 'Plumbing',
-    'Shower Accessory': 'Plumbing',
-    'Steam Shower': 'Plumbing',
-    'Outdoor Shower Faucet': 'Plumbing',
-    'Toilet': 'Plumbing',
-    'Sink': 'Plumbing',
-    'Bathtub': 'Plumbing',
-    'Range Hood': 'Appliances',
-    'Refrigerator': 'Appliances',
-    'Range': 'Appliances',
-    'Dishwasher': 'Appliances',
-    'Oven': 'Appliances',
-    'Cooktop': 'Appliances',
-    'Microwave': 'Appliances',
-    'Washer': 'Appliances',
-    'Dryer': 'Appliances',
-    'Freezer': 'Appliances',
-    'Wall Sconce': 'Lighting',
-    'Chandelier': 'Lighting',
-    'Pendant': 'Lighting',
-    'Ceiling Fan': 'Lighting',
-    'Table Lamp': 'Lighting',
-    'Floor Lamp': 'Lighting',
-    'Cabinet Pull': 'Hardware',
-    'Cabinet Knob': 'Hardware',
-    'Door Handle': 'Hardware',
-    'Hinge': 'Hardware'
-  };
 
-  const expectedDepartment = categoryDepartmentMap[category];
-  if (expectedDepartment && department !== expectedDepartment) {
+  const expectedDepartment = getDepartmentForCategory(category);
+  if (expectedDepartment && department && department !== expectedDepartment) {
     corrections.push({
       severity: 'HIGH',
       field: 'department',
       currentValue: department,
       suggestedFix: expectedDepartment,
-      issue: `Department "${department}" doesn't match category "${category}" domain (should be "${expectedDepartment}")`,
+      issue: `Department "${department}" doesn't match category "${category}" picklist mapping (should be "${expectedDepartment}")`,
       ruleViolated: 'DEPARTMENT_CATEGORY_ALIGNMENT'
     });
     confidenceScore -= 10;
