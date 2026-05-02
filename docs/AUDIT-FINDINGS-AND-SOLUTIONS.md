@@ -69,6 +69,8 @@
 | Agent orchestrator abort gate (65.7% failure rate) | Surgical revert of orchestrator wiring — restore direct monolith calls | d5f215e | #047, #044 |
 | Single-cavity oven misclassified as Microwave Combo | Two-layer fix: AI prompt cavity-count rule + type-matcher `combi microwave` → Single alias | 638b31a, 0564955 | #048, #003, #015 |
 | Both AIs reject legacy text but disagree on wording → fallback to legacy contamination | Universal: `buildAgreedAttributes` picks higher-confidence AI for generated text fields instead of leaving unresolved | (this session) | #051, #049, #050, #016 |
+| Panel Ready false-positive on stainless-steel refrigerators (text scan overrides AI 'No') | Guard: if `agreedTop15Attributes.panel_ready === 'no'` skip combinedText scan entirely | d1e40ac | #056, #043 |
+| Panel-Ready type + Panel Ready finish both rendering in title ("Panel-Ready Panel Ready") | Suppress Panel Ready slot in `getInputValue` when type is already "panel-ready" | 49f8948 | #057, #056 |
 
 ---
 
@@ -5480,3 +5482,109 @@ Audit surfaced data-side drift requiring SF coordination, deferred to phased wor
 - 1 family references unknown department: `General → Electronics`
 - 11 types reference unknown categories (plurals/old names)
 - 7 categories used in code mappings/schemas don't exist in categories.json (`Drainage & Waste`, `Bidet Faucet`, `Food Service Faucet`, `Hot & Cold Water Dispenser`, `Backsplash Kitchen Tile`, `Kitchen Sink Combo`, `Bathroom Lighting (Bathroom)`)
+
+---
+
+## Finding #056: Panel Ready False-Positive — Text Scan Fires Despite AI Consensus "No"
+
+**Discovered:** 2026-05-02 | **Commit:** `d1e40ac` | **Severity:** HIGH | **Scope:** Appliances (Refrigerator, Freezer, Dishwasher categories)
+
+### Symptom
+GE GZS22DSJSS (Stainless Steel Side-by-Side Counter-Depth Refrigerator) was sent to Salesforce with `AI_Finish: "Panel Ready"` and `AI_Color: "Panel Ready"`, and a title of *"GE 36-Inch Panel Ready Side-by-Side Refrigerator 21.9 Cu. Ft. - GZS22DSJSS"*. The product is a standard stainless steel refrigerator — not panel-ready at all.
+
+### Root Cause
+The Panel Ready detection block (`dual-ai-verification.service.ts`) evaluated AI consensus AND a `combinedText` scan of all product text fields. The logic was:
+```typescript
+if (aiConsensusPanelReady || combinedTextForPanelReady.includes('panel ready') ...) {
+  panelReadyValue = 'Panel Ready';
+}
+```
+Both AIs returned `panel_ready: "No"` in `agreedTop15Attributes` — the correct answer. But the combined product text (web retailer description for a competing panel-ready model, or feature copy mentioning panel-ready compatibility) contained the substring `"panel ready"`, so the text scan fired anyway, overriding the AI's explicit vote.
+
+**Log evidence:** `source: "ai_consensus_panel_ready"` was NOT the log source. The text scan branch triggered.
+
+### Fix Applied
+**File:** `src/services/dual-ai-verification.service.ts` (~line 10099)
+
+Added an explicit "No" guard:
+```typescript
+// If both AIs explicitly agreed panel_ready is "No", trust that consensus and skip text scan.
+const aiConsensusExplicitlyNotPanelReady =
+  String(consensus.agreedTop15Attributes?.panel_ready || '').toLowerCase() === 'no';
+
+let panelReadyValue = '';
+if (
+  !aiConsensusExplicitlyNotPanelReady && (
+    aiConsensusPanelReady ||
+    combinedTextForPanelReady.includes('panel ready') ||
+    ...text scan conditions...
+  )
+) {
+```
+
+When `agreedTop15Attributes.panel_ready === 'no'`, skips the entire block. Text scan only runs when AIs returned "Yes" or did not vote (empty string).
+
+### Investigation Steps
+1. Retrieved 4/29 logs for GZS22DSJSS: `topFilterAttributes.panel_ready: "No"` — AIs correctly voted No
+2. `source` in Panel Ready detected log pointed to `product_description` branch (text scan), not `ai_consensus`
+3. Confirmed: web retailer product copy for the GZS22DSJSS mentioned panel-ready in a comparison context
+4. ZIWD24PWII verified separately — it IS genuinely panel-ready (`panel_ready: "Yes"` in consensus), unaffected by fix
+
+### Scope
+- Products with `agreedTop15Attributes.panel_ready === 'yes'`: **unchanged behavior** (Panel Ready correctly set)
+- Products with no panel_ready vote (empty): **unchanged** (falls through to text scan as before)
+- Products with `agreedTop15Attributes.panel_ready === 'no'`: **now correctly skips Panel Ready** even if raw text mentions it
+
+### Related Findings
+- **#043**: Freezer panel_ready confusion (related: same detection block)
+- **#052**: Wine Cooler title contamination (same session — 141-product SF list audit)
+
+### Lessons Learned
+1. **AI explicit "No" votes must be respected.** A text scan should not overpower a confirmed AI consensus negative.
+2. **Partial guard is insufficient.** The original code only checked for `aiConsensusPanelReady === yes` but never checked for `=== no`. Symmetric checking prevents this class of bug.
+3. **Product feature copy is noisy.** Web retailer descriptions often mention competing/adjacent products, compatibility notes, or installation context that incidentally contains target keywords.
+
+---
+
+## Finding #057: Panel-Ready Type + Panel Ready Finish Both Render in Title
+
+**Discovered:** 2026-05-02 | **Commit:** `49f8948` | **Severity:** MEDIUM | **Scope:** Dishwasher + any appliance category with both Type and Panel Ready slots
+
+### Symptom
+MIELE G6875SCVI produced: `"MIELE 24-Inch Panel-Ready Panel Ready Dishwasher - G6875SCVI"`
+
+Two separate slots both rendered panel-ready text:
+- Slot 3 (Type) = "Panel-Ready"
+- Slot 4 (Panel Ready) = "Panel Ready"
+
+### Root Cause
+The dishwasher title schema has two relevant slots: **Type** (position 3) and **Panel Ready** (position 4). The Panel Ready slot exists for non-panel-ready types (like "Top Control" or "Front Control") when the product happens to be panel-ready. But when `type = "Panel-Ready"`, the type itself already conveys this — the Panel Ready slot is redundant.
+
+`getInputValue()` in `seo-title-generator.service.ts` had no awareness that the Panel Ready slot should be suppressed when the Type already captures the concept.
+
+### Fix Applied
+**File:** `src/services/seo-title-generator.service.ts` (in `getInputValue()`)
+
+```typescript
+// Special case for Panel Ready slot — suppress it when Type already IS "Panel-Ready".
+if (attribute === 'Panel Ready') {
+  const typeLower = (input.type || '').toLowerCase().trim();
+  if (typeLower === 'panel-ready' || typeLower === 'panel ready') {
+    return undefined;
+  }
+}
+```
+
+Before: `"MIELE 24-Inch Panel-Ready Panel Ready Dishwasher - G6875SCVI"`
+After:  `"MIELE 24-Inch Panel-Ready Dishwasher - G6875SCVI"`
+
+### Scope
+- Only affects products where `AI_Type === "Panel-Ready"` — currently primarily dishwashers
+- Does NOT affect products with other types where Panel Ready slot legitimately adds "Panel Ready" (e.g., "Top Control Panel Ready Dishwasher")
+
+### Related Findings
+- **#056**: Panel Ready false-positive on stainless steel refrigerators (same code area)
+- **#007**: Duplicate values in titles (same class of deduplication bug)
+
+### Lessons Learned
+Title schemas with overlapping semantic slots need guards to prevent co-occurrence rendering. When a schema allows both Type="Panel-Ready" and a separate Panel Ready slot, whichever fires first wins — but both will fire without a mutual-exclusion guard.

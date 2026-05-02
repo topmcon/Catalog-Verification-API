@@ -12019,7 +12019,16 @@ async function buildFinalResponse(
     numberOfBurners: String(sanitizedTopFilterAttributes.number_of_burners || seoTitleInput.numberOfBurners || ''),
     placeSettings: String(sanitizedTopFilterAttributes.place_settings || seoTitleInput.placeSettings || ''),
     installationType: String(sanitizedTopFilterAttributes.installation_type || seoTitleInput.installationType || ''),
-    fuelType: String(sanitizedTopFilterAttributes.fuel_type || seoTitleInput.fuelType || ''),
+    fuelType: (() => {
+      const rawFuelType = String(sanitizedTopFilterAttributes.fuel_type || seoTitleInput.fuelType || '');
+      // Electric is too generic for induction cooktops — if the product is specifically induction,
+      // use "Induction" even when fuel_type consensus says "Electric" (since induction IS electric).
+      const isInductionProduct =
+        String(sanitizedTopFilterAttributes.induction || '').toLowerCase() === 'yes' ||
+        (seoTitleInput.fuelType || '').toLowerCase() === 'induction' ||
+        (seoTitleInput.type || '').toLowerCase() === 'induction';
+      return (rawFuelType.toLowerCase() === 'electric' && isInductionProduct) ? 'Induction' : rawFuelType;
+    })(),
     configuration: String(sanitizedTopFilterAttributes.configuration || seoTitleInput.configuration || ''),
     controlType: String(sanitizedTopFilterAttributes.control_type || seoTitleInput.controlType || ''),
     depthType: String(sanitizedTopFilterAttributes.depth_type || ''),
