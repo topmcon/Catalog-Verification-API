@@ -10097,17 +10097,26 @@ async function buildFinalResponse(
     xaiResult.top15Attributes?.panel_ready || ''
   ).toLowerCase() === 'yes';
 
+  // If both AIs explicitly agreed panel_ready is "No", trust that consensus and skip text scan.
+  // This prevents false-positives where product text mentions "panel ready" in passing
+  // (e.g. GE stainless-steel side-by-side with "panel ready" in web-retailer description)
+  // while the AIs correctly identified the product is NOT panel-ready.
+  const aiConsensusExplicitlyNotPanelReady =
+    String(consensus.agreedTop15Attributes?.panel_ready || '').toLowerCase() === 'no';
+
   let panelReadyValue = '';
   if (
-    aiConsensusPanelReady ||
-    installationTypeLower.includes('panel ready') ||
-    installationTypeLower.includes('panel-ready') ||
-    installationTypeLower.includes('integrated') ||
-    installationTypeLower.includes('fully integrated') ||
-    combinedTextForPanelReady.includes('panel ready') ||
-    combinedTextForPanelReady.includes('panel-ready') ||
-    combinedTextForPanelReady.includes('custom panel') ||
-    combinedTextForPanelReady.includes('fully integrated')
+    !aiConsensusExplicitlyNotPanelReady && (
+      aiConsensusPanelReady ||
+      installationTypeLower.includes('panel ready') ||
+      installationTypeLower.includes('panel-ready') ||
+      installationTypeLower.includes('integrated') ||
+      installationTypeLower.includes('fully integrated') ||
+      combinedTextForPanelReady.includes('panel ready') ||
+      combinedTextForPanelReady.includes('panel-ready') ||
+      combinedTextForPanelReady.includes('custom panel') ||
+      combinedTextForPanelReady.includes('fully integrated')
+    )
   ) {
     panelReadyValue = 'Panel Ready';
     logger.info('Panel Ready detected for title', {
