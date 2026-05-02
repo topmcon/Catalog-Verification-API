@@ -10202,6 +10202,25 @@ async function buildFinalResponse(
         : (aiProductType || '')).toLowerCase();
       // Finding #059: When type is Column, clear configuration to avoid door-config contamination
       if (resolvedTypeName === 'column' || resolvedTypeName.startsWith('column ')) return '';
+      // ═══════════════════════════════════════════════════════════════════════
+      // FINDING #061 — WINE COOLER / DISTINCT SUB-PRODUCT CONFIGURATION CONTAMINATION
+      // ═══════════════════════════════════════════════════════════════════════
+      // Dual-zone wine coolers (e.g. ZIWD24PWII) are physically arranged with two
+      // compartments side-by-side. AIs return configuration="Side By Side" based on
+      // the product's physical layout or web retailer copy. Neither the #059 Column
+      // guard nor the #060 generic-door guard blocks "Side By Side", so it leaked
+      // into the title: "Side By Side Refrigerator" instead of "Wine Cooler".
+      // Fix: distinct sub-products (Wine Cooler, Beverage Center, Ice Maker,
+      // Kegerator, Undercounter) never carry a door-configuration slot in their
+      // title schema. Clear configuration entirely for these types so the title
+      // schema falls back correctly to the type name.
+      // ═══════════════════════════════════════════════════════════════════════
+      const DISTINCT_SUB_PRODUCT_CONFIG_CLEAR = new Set([
+        'wine cooler', 'beverage center', 'beverage cooler', 'beverage refrigerator',
+        'ice maker', 'kegerator', 'beer dispenser', 'wine cabinet',
+        'undercounter', 'undercounter refrigerator', 'undercounter freezer'
+      ]);
+      if (DISTINCT_SUB_PRODUCT_CONFIG_CLEAR.has(resolvedTypeName)) return '';
       const configValue = preferAIValue(
         consensus.agreedTop15Attributes?.configuration || consensus.agreedPrimaryAttributes.configuration,
         openaiResult.top15Attributes?.configuration || openaiResult.primaryAttributes.configuration,

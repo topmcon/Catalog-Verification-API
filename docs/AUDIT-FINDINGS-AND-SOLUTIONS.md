@@ -5705,3 +5705,49 @@ return configValue;
 ### Related Findings
 - **#059**: Same configuration IIFE — Column type guard (same mechanism)
 - **#004**: `getInputValue('Configuration')` → fallback to `input.type` (mechanism this fix uses)
+
+---
+
+## Finding #061: Wine Cooler Gets "Side By Side Refrigerator" in Title (Dual-Zone Layout Leaks into Configuration)
+
+### Symptom
+`ZIWD24PWII` (Monogram 24" built-in dual-zone wine cooler) consistently produced:  
+`"Monogram 24-Inch Built-In Panel Ready Side By Side Refrigerator 4.7 Cu. Ft."`  
+despite `type = "Wine Cooler"`. Reproduced on every run (March 31, April 21, April 22, April 29, 2026).
+
+### Discovery
+Found during 50-job live batch validation (April 29, 2026 ~18:26 EST). Identified via `preliminaryTitle` being wrong in TITLE REGENERATION DEBUG logs — confirming the bug is at the schema/IIFE level, not the Claude correction layer. Root cause traced by reviewing the configuration IIFE: neither #059 (Column-only guard) nor #060 (SPECIFIC_FRIDGE_TYPES × GENERIC_DOOR_CONFIGS guard) blocks "Side By Side" for Wine Cooler type.
+
+### Root Cause
+The Monogram ZIWD24PWII is a dual-zone wine cooler with two compartments arranged side-by-side. Salesforce product data and/or AIs return `configuration = "Side By Side"` based on the physical layout or web retailer copy that describes the unit relative to a paired refrigerator. The existing guards:
+- **#059**: Only clears for `resolvedTypeName === 'column'`
+- **#060**: Only clears if `resolvedTypeName ∈ SPECIFIC_FRIDGE_TYPES` AND `configValue ∈ GENERIC_DOOR_CONFIGS`
+
+`"Wine Cooler"` ∉ SPECIFIC_FRIDGE_TYPES, so #060 doesn't apply. `"Side By Side"` ∉ GENERIC_DOOR_CONFIGS (`{'single door','double door','triple door','quad door'}`), so even if Wine Cooler were in SPECIFIC_FRIDGE_TYPES the check would fail. "Side By Side" passed through as the configuration value, and the Refrigerator title schema composed `[Configuration] Refrigerator` → `"Side By Side Refrigerator"`.
+
+### Fix — `dual-ai-verification.service.ts` (configuration IIFE, after #059 guard, before `preferAIValue` call)
+```typescript
+// Finding #061: distinct sub-products never carry a door-configuration slot
+const DISTINCT_SUB_PRODUCT_CONFIG_CLEAR = new Set([
+  'wine cooler', 'beverage center', 'beverage cooler', 'beverage refrigerator',
+  'ice maker', 'kegerator', 'beer dispenser', 'wine cabinet',
+  'undercounter', 'undercounter refrigerator', 'undercounter freezer'
+]);
+if (DISTINCT_SUB_PRODUCT_CONFIG_CLEAR.has(resolvedTypeName)) return '';
+```
+
+**Before:** `"Monogram 24-Inch Built-In Panel Ready Side By Side Refrigerator 4.7 Cu. Ft."`  
+**After:**  `"Monogram 24-Inch Built-In Panel Ready Wine Cooler 4.7 Cu. Ft."`
+
+### Scope
+- Affects any product whose resolved type is a distinct Refrigerator sub-product (Wine Cooler, Beverage Center, Ice Maker, Kegerator, Undercounter)
+- These product types never use a door-configuration slot in their title schema
+- No effect on mainstream Refrigerator types (Top-Freezer, Bottom-Freezer, French Door, Side-by-Side, etc.)
+
+### Commit
+Applied in same commit as other 50-job batch validation fixes (April 29, 2026 session).
+
+### Related Findings
+- **#059**: Same configuration IIFE — Column type guard (identical pattern)
+- **#060**: Same configuration IIFE — SPECIFIC_FRIDGE_TYPES × GENERIC_DOOR_CONFIGS guard
+- **#053**: `safeExtractConfiguration` DISTINCT_SUB_PRODUCT_TYPES suppresses text-extraction contamination (this finding addresses the same types but for direct AI return values)
