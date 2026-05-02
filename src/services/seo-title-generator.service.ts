@@ -217,6 +217,16 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
   if (attribute === 'Category') {
     return input.category;
   }
+
+  // Special case for Panel Ready slot — suppress it when Type already IS "Panel-Ready".
+  // Prevents title duplication like "Panel-Ready Panel Ready Dishwasher" where the type
+  // slot (position 3) and panel-ready slot (position 4) both render the same concept.
+  if (attribute === 'Panel Ready') {
+    const typeLower = (input.type || '').toLowerCase().trim();
+    if (typeLower === 'panel-ready' || typeLower === 'panel ready') {
+      return undefined;
+    }
+  }
   
   // Special case for Collection/Style - try collection first, then style
   if (attribute === 'Collection/Style') {
