@@ -72,6 +72,7 @@
 | Panel Ready false-positive on stainless-steel refrigerators (text scan overrides AI 'No') | Guard: if `agreedTop15Attributes.panel_ready === 'no'` skip combinedText scan entirely | d1e40ac | #056, #043 |
 | Panel-Ready type + Panel Ready finish both rendering in title ("Panel-Ready Panel Ready") | Suppress Panel Ready slot in `getInputValue` when type is already "panel-ready" | 49f8948 | #057, #056 |
 | Column refrigerators get "Bottom Freezer" in title (AI config contamination from pairing language) | Clear configuration in seoTitleInput when type = "Column"; title generator falls back to type | (this session) | #059, #053, #052 |
+| Compact fridge gets "Single Door" in title when type forced to "Top-Freezer" (OpenAI config mirrors its overridden type) | After preferAIValue, clear configuration when specific fridge type + generic door-count config | (this session) | #060, #059 |
 
 ---
 
@@ -5657,3 +5658,50 @@ FINAL RESPONSE → type: "Column", title: "... Bottom Freezer Refrigerator ..."
 - **#053**: safeExtractConfiguration / DISTINCT_SUB_PRODUCT_TYPES guard (same area)
 - **#052**: Wine Cooler getting Side-by-Side from configuration contamination
 - **#004**: Configuration slot empty → fallback to type (mechanism this fix uses)
+
+---
+
+## Finding #060: Compact Refrigerator Gets "Single Door" in Title (Rejected Type Leaks into Configuration)
+
+### Symptom
+`LRONC0605V` (LG compact refrigerator) produced title: `"LG 24-Inch Counter-Depth Single Door Refrigerator Smooth 5.8 Cu. Ft."` despite `AI_Type = "Top-Freezer"`. The word "Single Door" in the Configuration slot is SEO-irrelevant and hides the meaningful type.
+
+### Discovery
+Found during live batch validation (May 2, 2026). Phase 2.5 type-forcing log confirmed:
+```
+⚠️ PHASE 2.5: AIs disagree on type → openaiType: "Single Door", xaiType: "Top-Freezer", openaiValid: false, xaiValid: true
+✅ Forcing type agreement: XAI valid, OpenAI invalid → forcedValue: "Top-Freezer"
+```
+Phase 2.5 corrected `openaiResult.primaryAttributes.product_type` to "Top-Freezer", but OpenAI's **configuration** field still carried "Single Door" (its original type value). `preferAIValue()` for the configuration slot picked OpenAI's value since OpenAI had higher overall confidence. `getInputValue('Configuration')` then returned "Single Door" instead of falling back to `input.type = "Top-Freezer"`.
+
+### Root Cause
+Phase 2.5 type-forcing only updates `product_type`. If OpenAI originally voted a generic door-count type ("Single Door", "Double Door"), that same value also appears in the `configuration` field — and `preferAIValue()` for configuration doesn't know that the type was corrected. When a specific fridge type is resolved, generic door-count descriptors in configuration are meaningless **and** harmful.
+
+### Fix — `dual-ai-verification.service.ts` (configuration IIFE)
+After computing `configValue` via `preferAIValue()`, apply:
+```typescript
+// Finding #060: clear generic door-count configs when a specific sub-type is resolved
+const SPECIFIC_FRIDGE_TYPES = new Set([
+  'top-freezer', 'top freezer', 'bottom-freezer', 'bottom freezer',
+  'french door', 'side-by-side', 'side by side', '4-door flex', 'four-door flex'
+]);
+const GENERIC_DOOR_CONFIGS = new Set([
+  'single door', 'double door', 'triple door', 'quad door'
+]);
+if (SPECIFIC_FRIDGE_TYPES.has(resolvedTypeName) && GENERIC_DOOR_CONFIGS.has((configValue || '').toLowerCase().trim())) {
+  return '';
+}
+return configValue;
+```
+
+**Before:** `"LG 24-Inch Counter-Depth Single Door Refrigerator Smooth 5.8 Cu. Ft."`  
+**After:**  `"LG 24-Inch Counter-Depth Top-Freezer Refrigerator Smooth 5.8 Cu. Ft."`
+
+### Scope
+- Affects Refrigerator products where Phase 2.5 forced a specific type over OpenAI's generic door-count type
+- No effect on products where configuration is a meaningful door-style (e.g. "Combination", "French Door")
+- SPECIFIC_FRIDGE_TYPES set deliberately excludes generic types like "Counter-Depth" that are valid config values
+
+### Related Findings
+- **#059**: Same configuration IIFE — Column type guard (same mechanism)
+- **#004**: `getInputValue('Configuration')` → fallback to `input.type` (mechanism this fix uses)

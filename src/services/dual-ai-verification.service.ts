@@ -10202,7 +10202,7 @@ async function buildFinalResponse(
         : (aiProductType || '')).toLowerCase();
       // Finding #059: When type is Column, clear configuration to avoid door-config contamination
       if (resolvedTypeName === 'column' || resolvedTypeName.startsWith('column ')) return '';
-      return preferAIValue(
+      const configValue = preferAIValue(
         consensus.agreedTop15Attributes?.configuration || consensus.agreedPrimaryAttributes.configuration,
         openaiResult.top15Attributes?.configuration || openaiResult.primaryAttributes.configuration,
         xaiResult.top15Attributes?.configuration || xaiResult.primaryAttributes.configuration,
@@ -10215,6 +10215,28 @@ async function buildFinalResponse(
         // ("Side by Side" on a wine cooler listing) from contaminating the title.
         safeExtractConfiguration(deptTitles) || safeExtractConfiguration(deptDescriptions) || safeExtractConfiguration(deptFeatures) || ''
       );
+      // ═══════════════════════════════════════════════════════════════════════
+      // FINDING #060 — GENERIC DOOR-COUNT CONFIG OVERRIDING SPECIFIC FRIDGE TYPE
+      // ═══════════════════════════════════════════════════════════════════════
+      // When OpenAI votes type="Single Door" (rejected by Phase 2.5 type-forcing in
+      // favour of xAI's "Top-Freezer"), OpenAI's configuration field ALSO carries
+      // "Single Door". preferAIValue() then returns "Single Door" for configuration,
+      // which takes precedence over the correct type in the title slot.
+      // Fix: if the resolved type is a specific fridge sub-type AND configuration is
+      // only a generic door-count descriptor, clear it so getInputValue('Configuration')
+      // falls back to input.type → produces "Top-Freezer Refrigerator" correctly.
+      // ═══════════════════════════════════════════════════════════════════════
+      const SPECIFIC_FRIDGE_TYPES = new Set([
+        'top-freezer', 'top freezer', 'bottom-freezer', 'bottom freezer',
+        'french door', 'side-by-side', 'side by side', '4-door flex', 'four-door flex'
+      ]);
+      const GENERIC_DOOR_CONFIGS = new Set([
+        'single door', 'double door', 'triple door', 'quad door'
+      ]);
+      if (SPECIFIC_FRIDGE_TYPES.has(resolvedTypeName) && GENERIC_DOOR_CONFIGS.has((configValue || '').toLowerCase().trim())) {
+        return '';
+      }
+      return configValue;
     })(),
     
     // Appearance — AI → Title extract (dept-aware) → Desc/Features extract → Structured → ''
