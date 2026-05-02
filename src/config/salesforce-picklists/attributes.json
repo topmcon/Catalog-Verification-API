@@ -6602,5 +6602,13 @@
   {
     "attribute_id": "temp_warning_signal",
     "attribute_name": "warning_signal"
+  },
+  {
+    "attribute_name": "dynamic_cool_air_distribution",
+    "attribute_id": "temp_dynamic_cool_air_distribution"
+  },
+  {
+    "attribute_name": "daily_ice_making_capacity",
+    "attribute_id": "temp_daily_ice_making_capacity"
   }
 ]
