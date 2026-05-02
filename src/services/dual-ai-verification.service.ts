@@ -10185,19 +10185,37 @@ async function buildFinalResponse(
     type: typeMatchResult.matched && typeMatchResult.matchedValue 
       ? typeMatchResult.matchedValue.type_name 
       : (aiProductType || ''),  // Use matched type or AI value
-    configuration: preferAIValue(
-      consensus.agreedTop15Attributes?.configuration || consensus.agreedPrimaryAttributes.configuration,
-      openaiResult.top15Attributes?.configuration || openaiResult.primaryAttributes.configuration,
-      xaiResult.top15Attributes?.configuration || xaiResult.primaryAttributes.configuration,
-      openaiResult.confidence,
-      xaiResult.confidence,
-      // Fallback: titles → descriptions/features → ''
-      // FINDING #053: safeExtractConfiguration suppresses door-config keywords
-      // when AI has identified a distinct sub-product (Wine Cooler, Beverage Center,
-      // Ice Maker, Kegerator). Prevents Web Retailer / Ferguson title mislabels
-      // ("Side by Side" on a wine cooler listing) from contaminating the title.
-      safeExtractConfiguration(deptTitles) || safeExtractConfiguration(deptDescriptions) || safeExtractConfiguration(deptFeatures) || ''
-    ),
+    // ═══════════════════════════════════════════════════════════════════════
+    // FINDING #059 — COLUMN REFRIGERATOR CONFIGURATION CONTAMINATION
+    // ═══════════════════════════════════════════════════════════════════════
+    // Column-type refrigerators (e.g. Thermador T30IR800SP) are often sold
+    // as part of a paired "tower" with a freezer column. Product copy refers
+    // to "bottom" (this unit) and "top" (freezer), causing AIs to return
+    // configuration = "Bottom Freezer" even when type = "Column".
+    // When type IS "Column", the Configuration slot in getInputValue() already
+    // falls back to input.type → produces "Column Refrigerator" correctly.
+    // Clearing configuration here ensures that fallback path is used.
+    // ═══════════════════════════════════════════════════════════════════════
+    configuration: (() => {
+      const resolvedTypeName = (typeMatchResult.matched && typeMatchResult.matchedValue 
+        ? typeMatchResult.matchedValue.type_name 
+        : (aiProductType || '')).toLowerCase();
+      // Finding #059: When type is Column, clear configuration to avoid door-config contamination
+      if (resolvedTypeName === 'column' || resolvedTypeName.startsWith('column ')) return '';
+      return preferAIValue(
+        consensus.agreedTop15Attributes?.configuration || consensus.agreedPrimaryAttributes.configuration,
+        openaiResult.top15Attributes?.configuration || openaiResult.primaryAttributes.configuration,
+        xaiResult.top15Attributes?.configuration || xaiResult.primaryAttributes.configuration,
+        openaiResult.confidence,
+        xaiResult.confidence,
+        // Fallback: titles → descriptions/features → ''
+        // FINDING #053: safeExtractConfiguration suppresses door-config keywords
+        // when AI has identified a distinct sub-product (Wine Cooler, Beverage Center,
+        // Ice Maker, Kegerator). Prevents Web Retailer / Ferguson title mislabels
+        // ("Side by Side" on a wine cooler listing) from contaminating the title.
+        safeExtractConfiguration(deptTitles) || safeExtractConfiguration(deptDescriptions) || safeExtractConfiguration(deptFeatures) || ''
+      );
+    })(),
     
     // Appearance — AI → Title extract (dept-aware) → Desc/Features extract → Structured → ''
     // Panel-ready: omit finish from title (Panel Ready is in its own slot, don't duplicate)

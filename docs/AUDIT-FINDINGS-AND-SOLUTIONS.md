@@ -71,6 +71,7 @@
 | Both AIs reject legacy text but disagree on wording → fallback to legacy contamination | Universal: `buildAgreedAttributes` picks higher-confidence AI for generated text fields instead of leaving unresolved | (this session) | #051, #049, #050, #016 |
 | Panel Ready false-positive on stainless-steel refrigerators (text scan overrides AI 'No') | Guard: if `agreedTop15Attributes.panel_ready === 'no'` skip combinedText scan entirely | d1e40ac | #056, #043 |
 | Panel-Ready type + Panel Ready finish both rendering in title ("Panel-Ready Panel Ready") | Suppress Panel Ready slot in `getInputValue` when type is already "panel-ready" | 49f8948 | #057, #056 |
+| Column refrigerators get "Bottom Freezer" in title (AI config contamination from pairing language) | Clear configuration in seoTitleInput when type = "Column"; title generator falls back to type | (this session) | #059, #053, #052 |
 
 ---
 
@@ -5588,3 +5589,71 @@ After:  `"MIELE 24-Inch Panel-Ready Dishwasher - G6875SCVI"`
 
 ### Lessons Learned
 Title schemas with overlapping semantic slots need guards to prevent co-occurrence rendering. When a schema allows both Type="Panel-Ready" and a separate Panel Ready slot, whichever fires first wins — but both will fire without a mutual-exclusion guard.
+
+---
+
+## Finding #059: Column Refrigerator Gets "Bottom Freezer" in Title (Configuration Contamination)
+
+**Discovered:** 2026-05-02 | **Commit:** (this session) | **Severity:** MEDIUM | **Scope:** All Column-type refrigerators (Thermador, Sub-Zero, Viking, etc.)
+
+### Symptom
+Thermador T30IR800SP (a 30" Built-In all-refrigerator Column) produced:
+```
+"Thermador 30-Inch Built-In Panel Ready Bottom Freezer Refrigerator 17 Cu. Ft. - T30IR800SP"
+```
+`type = "Column"` in every logged field, yet the Configuration slot rendered "Bottom Freezer". Present since at least April 22, 2026.
+
+Compare to VRI7240WRSS (Viking Column, same code path) that correctly produced:
+```
+"Viking 24-Inch Built-In Panel Ready Column Refrigerator 12.9 Cu. Ft. - VRI7240WRSS"
+```
+
+### Root Cause
+Column refrigerators are frequently sold in pairs — a refrigerator column (the "bottom" or "fridge" column) paired with a freezer column. Product descriptions and marketing copy say things like "pair this refrigerator column with the Bottom Freezer column" or refer to the arrangement layout.
+
+Both AIs (OpenAI and xAI) extract this language and return `configuration = "Bottom Freezer"` in their JSON output. In `finalSeoTitleInput`, the `configuration` field is built by `preferAIValue()` which checks the AI's consensus/individual responses **before** the text-extraction fallback. When both AIs agree on `configuration = "Bottom Freezer"`, the DISTINCT_SUB_PRODUCT_TYPES guard (Finding #053) does not fire (Column is not in that set), so the contaminated value passes through.
+
+The title generator's `getInputValue('Configuration')` then returns `input.configuration = "Bottom Freezer"` instead of falling back to `input.type = "Column"`.
+
+### Why VRI7240WRSS Was NOT Affected
+VRI7240WRSS (Viking 24" Column) does not have pairing language in its web data, so the AIs returned `configuration` as empty/undefined → `preferAIValue` returned `''` → `getInputValue` fell back to `input.type = "Column"` → correct title.
+
+### Fix Applied
+**File:** `src/services/dual-ai-verification.service.ts` — `finalSeoTitleInput` building (configuration IIFE)
+
+```typescript
+// FINDING #059: When type is Column, clear configuration entirely.
+// Title generator getInputValue('Configuration') falls back to input.type = "Column" → "Column Refrigerator"
+configuration: (() => {
+  const resolvedTypeName = (typeMatchResult.matched && typeMatchResult.matchedValue 
+    ? typeMatchResult.matchedValue.type_name 
+    : (aiProductType || '')).toLowerCase();
+  if (resolvedTypeName === 'column' || resolvedTypeName.startsWith('column ')) return '';
+  return preferAIValue(..., safeExtractConfiguration(...) || '');
+})(),
+```
+
+**Before:** `"Thermador 30-Inch Built-In Panel Ready Bottom Freezer Refrigerator 17 Cu. Ft."`
+**After:**  `"Thermador 30-Inch Built-In Panel Ready Column Refrigerator 17 Cu. Ft."`
+
+### Scope
+- Affects all Refrigerator (and potentially Freezer) products where `type = "Column"`
+- No effect on non-Column types — existing logic unchanged
+- VRI7240WRSS was already working correctly; this fix makes the behavior consistent
+
+### Investigation Trace
+```
+Logs (May 2, 2026):
+SEO title input prepared → type: "Column", installationType: "Built-In"
+Preliminary SEO title generated → "Thermador 30-Inch Built-In Panel Ready Bottom Freezer Refrigerator"
+TITLE REGENERATION DEBUG → finalSeoTitleInput_type: "Column", titleChanged: false
+ENRICHED ATTRIBUTES → AI_Type: "Column"
+FINAL RESPONSE → type: "Column", title: "... Bottom Freezer Refrigerator ..."
+```
+
+`input.configuration = "Bottom Freezer"` took priority over `input.type = "Column"` in `getInputValue('Configuration')`.
+
+### Related Findings
+- **#053**: safeExtractConfiguration / DISTINCT_SUB_PRODUCT_TYPES guard (same area)
+- **#052**: Wine Cooler getting Side-by-Side from configuration contamination
+- **#004**: Configuration slot empty → fallback to type (mechanism this fix uses)
