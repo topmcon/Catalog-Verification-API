@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as path from 'path';
+import axios from 'axios';
 import { 
   PendingCreationRequest, 
   IPendingCreationRequest, 
@@ -9,6 +10,10 @@ import {
   IRequestContext 
 } from '../models/pending-creation-request.model';
 import logger from '../utils/logger';
+
+// Salesforce endpoint for notifying about new picklist items we need created
+const SF_CREATE_ENDPOINT = 'https://data-nosoftware-2565.my.salesforce-sites.com/services/apexrest/category_attributes_verify';
+const SF_API_KEY = '873648276-550e8400';
 
 // Placeholder constant for attributes awaiting SF ID
 const NEEDS_SF_ID = 'NEEDS_SF_ID';
@@ -163,7 +168,11 @@ class PendingCreationRequestService {
       if (requestType === 'attribute') {
         await this.addAttributeWithPlaceholder(requestedValue);
       }
-      
+
+      // Notify Salesforce so they can create the picklist entry and send it back
+      // Fire-and-forget — does not block the return
+      this.notifySalesforce(requestType, requestedValue, context).catch(() => {});
+
       logger.info(`[PendingCreationRequest] New request created`, {
         requestId: newRequest.request_id,
         requestType,
@@ -416,6 +425,96 @@ class PendingCreationRequestService {
     return { fulfilled, items: fulfilledItems };
   }
   
+  /**
+   * Notify Salesforce that we need a new picklist item created.
+   * Sends to category_attributes_verify endpoint which SF uses to track our needs.
+   * Fire-and-forget with logging — failure does not block the request record creation.
+   */
+  async notifySalesforce(requestType: RequestType, requestedValue: string, context: IRequestContext): Promise<void> {
+    try {
+      let payload: Record<string, any>;
+
+      switch (requestType) {
+        case 'style':
+          payload = {
+            type: 'styles',
+            action: 'create_request',
+            total_count: 1,
+            styles: [{
+              style_id: `temp_${uuidv4()}`,
+              style_name: requestedValue,
+              requested_for_category: context.suggested_for_category || ''
+            }]
+          };
+          break;
+        case 'attribute':
+          payload = {
+            type: 'attributes',
+            action: 'create_request',
+            total_count: 1,
+            attributes: [{
+              attribute_id: 'NEEDS_SF_ID',
+              attribute_name: requestedValue,
+              requested_for_category: context.suggested_for_category || ''
+            }]
+          };
+          break;
+        case 'brand':
+          payload = {
+            type: 'brands',
+            action: 'create_request',
+            total_count: 1,
+            brands: [{
+              brand_id: 'NEEDS_SF_ID',
+              brand_name: requestedValue
+            }]
+          };
+          break;
+        case 'category':
+          payload = {
+            type: 'categories',
+            action: 'create_request',
+            total_count: 1,
+            categories: [{
+              category_id: 'NEEDS_SF_ID',
+              category_name: requestedValue,
+              department: context.suggested_for_category || ''
+            }]
+          };
+          break;
+        default:
+          payload = {
+            type: requestType,
+            action: 'create_request',
+            total_count: 1,
+            items: [{ name: requestedValue }]
+          };
+      }
+
+      const response = await axios.post(SF_CREATE_ENDPOINT, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': SF_API_KEY
+        },
+        timeout: 15000
+      });
+
+      logger.info(`[PendingCreationRequest] Notified Salesforce of new ${requestType} request`, {
+        requestedValue,
+        requestType,
+        sfStatus: response.status,
+        sfResponse: response.data
+      });
+
+    } catch (err) {
+      logger.warn(`[PendingCreationRequest] Failed to notify Salesforce (request still recorded)`, {
+        requestedValue,
+        requestType,
+        error: err instanceof Error ? err.message : String(err)
+      });
+    }
+  }
+
   /**
    * Add an attribute to attributes.json with NEEDS_SF_ID placeholder
    * This allows the attribute to be used in verification while awaiting the real SF ID
