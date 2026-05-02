@@ -5751,3 +5751,108 @@ Applied in same commit as other 50-job batch validation fixes (April 29, 2026 se
 - **#059**: Same configuration IIFE — Column type guard (identical pattern)
 - **#060**: Same configuration IIFE — SPECIFIC_FRIDGE_TYPES × GENERIC_DOOR_CONFIGS guard
 - **#053**: `safeExtractConfiguration` DISTINCT_SUB_PRODUCT_TYPES suppresses text-extraction contamination (this finding addresses the same types but for direct AI return values)
+
+---
+
+## Finding #062: Capacity Unit Mismatch + Niche Model-Family Misclassifications
+
+### Symptoms (two related issues solved together)
+
+**Issue A — Wine cooler capacity rendered as cubic feet:**  
+`DEC3050WR` (Sub-Zero Designer Series 30" wine column, 146-bottle capacity) produced:  
+`"SUB-ZERO 30-Inch Built-In Panel Ready Wine Cooler Refrigerator 146 Cu. Ft. - DEC3050WR"`  
+The "146 Cu. Ft." is physically impossible for a 30-inch built-in unit (a typical large refrigerator is 28 cu ft). The 146 is bottle capacity, but the title schema's `Capacity (Cu. Ft.)` slot hardcodes "Cu. Ft." units.
+
+**Issue B — SMEG FAB32UORRN misclassified as Top-Freezer:**  
+`FAB32UORRN` produced `"SMEG 24-Inch Top-Freezer Refrigerator Chrome 11.7 Cu. Ft. - FAB32UORRN"` despite the SMEG FAB32 family being a 60cm two-door retro refrigerator with **bottom freezer**. Every other FAB32U color variant in the same batch (FAB32UPBLN, FAB32ULCR3, FAB32ULPG3, FAB32UROR3, FAB32URWH3, FAB32URBL3, FAB32UWHRN) correctly resolved to "Bottom-Freezer". Both AIs agreed on the wrong type for ORRN — likely a single misleading retailer page poisoning consensus for that color variant only.
+
+### Discovery
+Both found during 50-job live batch validation (April 29, 2026). Issue B confirmed as a single-variant outlier by comparing to 8 other FAB32U variants in the same batch.
+
+### Root Cause
+
+**Issue A:**  
+The Refrigerator title schema in `title-schema-by-category.ts` has slot `Capacity (Cu. Ft.)` mapped to formatter `'capacity'`, which always appends "Cu. Ft." regardless of product type. Wine coolers, beverage centers, and kegerators store bottle counts (often > 25, beyond the realistic cu ft range for a residential appliance) but were rendered with the hardcoded unit string.
+
+**Issue B:**  
+No mechanism existed to apply known model-family corrections. AI consensus is normally trustworthy, but for niche specialty product lines with limited training data, both AIs can agree on the wrong answer based on a single misleading source.
+
+### Fix A — Type-aware capacity unit (`title-schema-by-category.ts` + `seo-title-generator.service.ts`)
+Added a new `bottleCapacity` formatter:
+```typescript
+bottleCapacity: (value: number | string): string => {
+  const num = typeof value === 'string' ? parseFloat(value) : value;
+  if (isNaN(num) || num <= 0) return '';
+  return `${Math.round(num)}-Bottle`;
+}
+```
+In `formatValue()`, intercept the `capacity` formatter when product type is wine/beverage AND value > 25 (impossible cu ft for residential appliance):
+```typescript
+const BOTTLE_CAPACITY_TYPES = new Set([
+  'wine cooler', 'wine refrigerator', 'wine cellar', 'wine column',
+  'wine reserve', 'wine cabinet', 'wine storage',
+  'beverage center', 'beverage cooler', 'beverage refrigerator',
+  'kegerator', 'beer dispenser'
+]);
+if (BOTTLE_CAPACITY_TYPES.has(typeLower)) {
+  const num = parseFloat(value);
+  if (!isNaN(num) && num > 25) return FORMATTING_RULES.bottleCapacity(value);
+}
+```
+Threshold `> 25` keeps small dual-zone wine coolers (e.g. ZIWD24PWII at 4.7 cu ft) on the cu ft path while routing large bottle counts to the bottle formatter.
+
+**Before:** `"SUB-ZERO 30-Inch Built-In Panel Ready Wine Cooler Refrigerator 146 Cu. Ft. - DEC3050WR"`  
+**After:**  `"SUB-ZERO 30-Inch Built-In Panel Ready Wine Cooler Refrigerator 146-Bottle - DEC3050WR"`
+
+### Fix B — Model-family override mechanism (new `model-family-overrides.json` + `model-family-overrides.ts`)
+Created a JSON config + loader that applies brand+model-prefix corrections AFTER all other type resolution (so it is the final authority):
+
+`src/config/model-family-overrides.json`:
+```json
+{
+  "SMEG": {
+    "FAB32": { "type": "Bottom-Freezer" },
+    "FAB28": { "type": "Top-Freezer" }
+  }
+}
+```
+
+`src/utils/model-family-overrides.ts`: Lazy-loaded loader with longest-prefix-wins matching, case-insensitive on brand and model.
+
+In `dual-ai-verification.service.ts`, after the lighted-mirror override:
+```typescript
+const familyOverride = getModelFamilyOverride(brand, modelNumber);
+if (familyOverride.type) {
+  const overrideMatch = picklistMatcher.matchType(familyOverride.type);
+  if (overrideMatch.matched) {
+    aiProductType = overrideMatch.matchedValue.type_name;
+    typeMatchResult = { matched: true, ..., similarity: 1.0 };
+  }
+}
+```
+
+**Before:** `"SMEG 24-Inch Top-Freezer Refrigerator Chrome 11.7 Cu. Ft. - FAB32UORRN"`  
+**After:**  `"SMEG 24-Inch Bottom-Freezer Refrigerator Chrome 11.7 Cu. Ft. - FAB32UORRN"`
+
+### Scope
+- **Fix A** affects all wine cooler / beverage center / wine column / kegerator products with capacity > 25 (universal, type-driven)
+- **Fix B** is a controlled, additive override list. Only SMEG FAB32 and FAB28 currently. New entries must meet criteria documented in `model-family-overrides.json` `_documentation` block: (1) AIs reliably agree on wrong value, (2) correct value documented, (3) family-wide pattern.
+
+### Adding new model-family overrides
+Edit `src/config/model-family-overrides.json` and add:
+```json
+{
+  "BRAND_NAME": {
+    "MODEL_PREFIX": {
+      "type": "Correct-Type",
+      "_note": "Reason / source documentation"
+    }
+  }
+}
+```
+Supported override fields: `type`, `configuration`, `subcategory`, `style`. Currently only `type` is wired into the pipeline.
+
+### Related Findings
+- **#053**: Same problem space — distinct sub-product contamination from web retailer copy; this finding closes the gap when AIs return wrong values directly via consensus
+- **#061**: Wine Cooler Configuration contamination — Fix A complements by ensuring capacity unit is also correct
+- **Phase 2.5 type-forcing**: Last-line correction system; model-family override applies AFTER it as the final authority for known niche families

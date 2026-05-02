@@ -78,7 +78,16 @@ export const FORMATTING_RULES = {
     const formatted = num % 1 === 0 ? num.toString() : num.toFixed(1);
     return `${formatted} Cu. Ft.`;
   },
-  
+
+  // FINDING #062: Bottle capacity for wine coolers / beverage centers
+  // Wine cooler "capacity" is bottle count (e.g., Sub-Zero DEC3050W = 146 bottles)
+  // not cubic feet. Returns "{N}-Bottle" formatted string.
+  bottleCapacity: (value: number | string): string => {
+    const num = typeof value === 'string' ? parseFloat(value) : value;
+    if (isNaN(num) || num <= 0) return '';
+    return `${Math.round(num)}-Bottle`;
+  },
+
   // BTU: Use comma separator
   btu: (value: number | string): string => {
     const num = typeof value === 'string' ? parseFloat(value.replace(/,/g, '')) : value;

@@ -341,6 +341,30 @@ function formatValue(attribute: string, value: string | number | string[] | unde
   // Check for formatter
   const formatterKey = ATTRIBUTE_FORMATTERS[attribute];
   if (formatterKey && FORMATTING_RULES[formatterKey]) {
+    // ═══════════════════════════════════════════════════════════════════════
+    // FINDING #062: Type-aware capacity unit (Cu. Ft. vs Bottle)
+    // ═══════════════════════════════════════════════════════════════════════
+    // Wine coolers and beverage centers use BOTTLE capacity, not cubic feet.
+    // Sub-Zero DEC3050W = 146 bottles (NOT 146 cu ft — physically impossible).
+    // Detect by type: wine cooler / beverage center / wine column / kegerator.
+    // Threshold: any wine/beverage product with capacity > 25 is bottles.
+    // Small dual-zone wine coolers (e.g. ZIWD24PWII at 4.7) keep Cu. Ft.
+    // ═══════════════════════════════════════════════════════════════════════
+    if (formatterKey === 'capacity' && input?.type) {
+      const typeLower = input.type.toLowerCase().trim();
+      const BOTTLE_CAPACITY_TYPES = new Set([
+        'wine cooler', 'wine refrigerator', 'wine cellar', 'wine column',
+        'wine reserve', 'wine cabinet', 'wine storage',
+        'beverage center', 'beverage cooler', 'beverage refrigerator',
+        'kegerator', 'beer dispenser'
+      ]);
+      if (BOTTLE_CAPACITY_TYPES.has(typeLower)) {
+        const num = typeof value === 'string' ? parseFloat(value) : (value as number);
+        if (!isNaN(num) && num > 25) {
+          return FORMATTING_RULES.bottleCapacity(value as number | string);
+        }
+      }
+    }
     // 🔥 SIZE CLASS INTEGRATION: Pass category and installationType for dimension formatter
     // This enables smart rounding (e.g., 47.25" → "48-Inch" for refrigerators)
     let formattedResult: string;

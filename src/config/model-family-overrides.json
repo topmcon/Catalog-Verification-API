@@ -1,0 +1,19 @@
+{
+  "_documentation": {
+    "purpose": "Brand+model-prefix overrides for products where AIs consistently misclassify due to limited training data on niche/specialty product lines.",
+    "scope": "Applied post-consensus, before title generation. Only override fields explicitly listed per family.",
+    "format": "{ BRAND: { MODEL_PREFIX: { field: value } } }",
+    "matching": "Case-insensitive prefix match on raw model number after normalization.",
+    "fields_supported": ["type", "configuration", "subcategory", "style"]
+  },
+  "SMEG": {
+    "FAB32": {
+      "type": "Bottom-Freezer",
+      "_note": "SMEG FAB32 family is a 60cm two-door retro refrigerator with bottom freezer (11.7-12.8 cu ft). FAB28 is single-door top-freezer style. AIs occasionally misclassify FAB32U color variants (e.g., FAB32UORRN) as Top-Freezer — every other FAB32U variant in the family resolves correctly."
+    },
+    "FAB28": {
+      "type": "Top-Freezer",
+      "_note": "SMEG FAB28 family is a 60cm single-door retro refrigerator (~10 cu ft) with top freezer compartment."
+    }
+  }
+}

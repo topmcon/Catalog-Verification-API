@@ -87,6 +87,7 @@ import { safeParseAIResponse, validateAIResponse } from '../utils/json-parser';
 import { normalizeCategoryName, areCategoriesEquivalent } from '../config/category-aliases';
 import { getSizeClassConfig } from '../config/category-size-classes';
 import { roundToStandardSize, formatSizeClass } from '../utils/size-class-rounder';
+import { getModelFamilyOverride } from '../utils/model-family-overrides';
 import * as lookups from '../config/lookups';
 // import ErrorRecoveryService from './error-recovery.service'; // TODO: Integrate circuit breaker
 
@@ -9019,6 +9020,57 @@ async function buildFinalResponse(
     }
   }
   // ── end lighted mirror override ──────────────────────────────────────
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // FINDING #062 — MODEL-FAMILY OVERRIDES (Brand+Model-prefix corrections)
+  // ═══════════════════════════════════════════════════════════════════════
+  // For products where AIs consistently misclassify a known family (e.g.,
+  // SMEG FAB32U color variants like FAB32UORRN getting "Top-Freezer" when
+  // every other FAB32U variant correctly resolves to "Bottom-Freezer").
+  // Applied AFTER all other type resolution so it is the final authority.
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    const brandForOverride = (consensus.agreedPrimaryAttributes.brand
+      || openaiResult.primaryAttributes.brand
+      || xaiResult.primaryAttributes.brand
+      || rawProduct.Ferguson_Brand
+      || rawProduct.Brand_Web_Retailer
+      || '') as string;
+    const modelForOverride = (consensus.agreedPrimaryAttributes.model_number
+      || openaiResult.primaryAttributes.model_number
+      || xaiResult.primaryAttributes.model_number
+      || rawProduct.SF_Catalog_Name
+      || '') as string;
+    const familyOverride = getModelFamilyOverride(brandForOverride, modelForOverride);
+    if (familyOverride.type) {
+      const overrideMatch = picklistMatcher.matchType(familyOverride.type);
+      if (overrideMatch.matched && overrideMatch.matchedValue) {
+        const previousType = typeMatchResult.matchedValue?.type_name || aiProductType || '';
+        if (previousType.toLowerCase() !== overrideMatch.matchedValue.type_name.toLowerCase()) {
+          logger.info('🔧 MODEL-FAMILY OVERRIDE: forcing type from authoritative model-family map', {
+            sessionId,
+            brand: brandForOverride,
+            modelNumber: modelForOverride,
+            previousType,
+            overrideType: overrideMatch.matchedValue.type_name,
+            source: 'model-family-overrides.json',
+            productId: rawProduct.SF_Catalog_Id
+          });
+          aiProductType = overrideMatch.matchedValue.type_name;
+          typeMatchResult = {
+            matched: true,
+            original: previousType,
+            matchedValue: {
+              type_id: overrideMatch.matchedValue.type_id,
+              type_name: overrideMatch.matchedValue.type_name
+            },
+            similarity: 1.0
+          };
+        }
+      }
+    }
+  }
+  // ── end model-family override ────────────────────────────────────────
 
   // ✅ USER DIRECTIVE: Image analysis and semantic extraction are ADVISORY ONLY
   // They CANNOT define or overwrite the Type field - only Phase 2.5 validated AI types are authoritative
