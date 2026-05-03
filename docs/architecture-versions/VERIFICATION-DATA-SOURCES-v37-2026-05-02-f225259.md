@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-DATA-SOURCES.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v17
-  Snapshot Date: 2026-03-18 00:55:02 EDT
-  Commit:        be0e4d8 (be0e4d8e1d2bae4e823d5cf16816de3646bbf112)
+  Version:       v37
+  Snapshot Date: 2026-05-02 20:11:44 EDT
+  Commit:        f225259 (f225259172c5918be8f04f5e2c17d77b4391d797)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 14068 lines
-  title-schema-by-category.ts:     7220 lines
+  dual-ai-verification.service.ts: 15023 lines
+  title-schema-by-category.ts:     7280 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1653
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v16)
+  Lines added: ~0, Lines removed: ~38 (vs v36)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-be0e4d8 feat: Phase 0.1A - Universal Ferguson_Raw_Data extraction into flat fields
-6bcb3d8 fix: Shower width always overrides AI with Ferguson dimension, add Shower Door Handle type
-6c88f6f fix: Split combined Tub Faucet types into separate Type + Mount slots
-f622116 fix: Skip redundant Category in title when Type already contains 'Shower'
-1dd6024 fix: Shower post-processing — sync types to attributes, fix width extraction, fix Tub Faucet duplication
+f225259 fix(#062): type-aware capacity unit + model-family overrides
+447e63c fix(#061): clear configuration for Wine Cooler/distinct sub-product types
+75ac44a Fix Finding #060: clear generic door-count config when specific fridge type is resolved
+0141b2f Fix Finding #059: Column refrigerators getting 'Bottom Freezer' in title
+6c00744 fix(title): induction cooktops get 'Induction' not 'Electric' in title (Finding #058)
 -->
 
 # Verification Data Sources - Complete Inventory

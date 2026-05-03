@@ -5,23 +5,23 @@
 ║  docs/VERIFICATION-ARCHITECTURE-COMPLETE.md                                             ║
 ╚══════════════════════════════════════════════════════════════════╝
 
-  Version:       v15
-  Snapshot Date: 2026-03-16 09:32:14 EDT
-  Commit:        e78781f (e78781f4858883dcf861ac23379e6a675d027f08)
+  Version:       v35
+  Snapshot Date: 2026-05-02 20:11:44 EDT
+  Commit:        f225259 (f225259172c5918be8f04f5e2c17d77b4391d797)
 
   SYSTEM METRICS AT TIME OF SNAPSHOT:
   ─────────────────────────────────────
-  dual-ai-verification.service.ts: 13111 lines
-  title-schema-by-category.ts:     7215 lines
+  dual-ai-verification.service.ts: 15023 lines
+  title-schema-by-category.ts:     7280 lines
   Brands:     385
-  Categories: 161
-  Styles:     30
-  Attributes: 1534
+  Categories: 160
+  Styles:     40
+  Attributes: 1653
   Claude Model: claude-sonnet-4-6
 
   CHANGE SUMMARY:
   ─────────────────────────────────────
-  Lines added: ~0, Lines removed: ~38 (vs v14)
+  Lines added: ~0, Lines removed: ~38 (vs v34)
 
   COMMITS SINCE LAST VERSION:
   ─────────────────────────────────────
@@ -29,11 +29,11 @@
 
   RECENT COMMITS (at snapshot time):
   ─────────────────────────────────────
-e78781f Medicine Cabinet: add Installation Type + Lighted detection to title schema
-4730d9c Universal: always use schema-generated title, never Claude's title rewrite
-fab2b00 Override Claude title for mirror categories (prevents Wall Mirror Bathroom Mirror redundancy)
-196aa08 Fix title generation: Bathroom Mirror redundancy, dimension rounding, Width×Height gap
-01fc20b Session docs: mirror category & title fixes, Finding #041, architecture v14
+f225259 fix(#062): type-aware capacity unit + model-family overrides
+447e63c fix(#061): clear configuration for Wine Cooler/distinct sub-product types
+75ac44a Fix Finding #060: clear generic door-count config when specific fridge type is resolved
+0141b2f Fix Finding #059: Column refrigerators getting 'Bottom Freezer' in title
+6c00744 fix(title): induction cooktops get 'Induction' not 'Electric' in title (Finding #058)
 -->
 
 # Complete Verification Architecture
