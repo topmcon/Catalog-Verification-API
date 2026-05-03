@@ -6,6 +6,18 @@
     "matching": "Case-insensitive prefix match on raw model number after normalization.",
     "fields_supported": ["type", "configuration", "subcategory", "style"]
   },
+  "EDGESTAR": {
+    "CWF380": {
+      "type": "Wine Cooler",
+      "_note": "CWF380 series is a dedicated dual-zone wine cooler (38-bottle capacity, red/white zones). AIs consistently classify as Beverage Center due to generic 'beverage cooling' framing in product copy, but this is a wine-only unit."
+    }
+  },
+  "KITCHENAID": {
+    "KUWR": {
+      "type": "Wine Cooler",
+      "_note": "KUWR family (e.g. KUWR314KSS) is KitchenAid's dedicated undercounter wine cellar with dual temperature zones, metal-front racks, and motion-activated LED lighting. AIs classify as Undercounter (generic) — override to Wine Cooler."
+    }
+  },
   "SMEG": {
     "FAB32": {
       "type": "Bottom-Freezer",

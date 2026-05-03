@@ -282,6 +282,7 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
       'side-by-side', 'side by side',
       '4-door flex', 'four-door flex',
       'column',
+      'outdoor',  // LYNX L500REF — type=Outdoor but config=Convertible (Finding #063 gap)
     ]);
 
     if (typeLower && SPECIFIC_APPLIANCE_TYPES.has(typeLower) && configLower) {
