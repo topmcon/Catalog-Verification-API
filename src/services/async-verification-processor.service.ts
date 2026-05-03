@@ -270,13 +270,37 @@ class AsyncVerificationProcessor {
   }
 
   /**
+   * Sanitize SF_Catalog_Name if Salesforce accidentally sent a Python dict string
+   * (e.g., "{'value': 'PYE22KYNKFS', 'context': 'large print display version'}").
+   * Extracts the 'value' key. Returns the original string if pattern doesn't match.
+   */
+  private sanitizeCatalogName(name: string): string {
+    if (!name) return name;
+    // Match Python dict-style strings: {'value': 'MODEL', ...} or {"value": "MODEL", ...}
+    const match = name.match(/['"]value['"]\s*:\s*['"]([^'"]+)['"]/);
+    if (match) {
+      logger.warn('Finding #064: SF_Catalog_Name contained Python dict string — extracted value', {
+        original: name,
+        extracted: match[1]
+      });
+      return match[1];
+    }
+    return name;
+  }
+
+  /**
    * Execute the actual verification using existing consensus service
    */
   private async executeVerification(rawPayload: any): Promise<any> {
     const sessionId = uuidv4();
     
     // Convert raw payload to expected format
-    const product: SalesforceIncomingProduct = rawPayload;
+    const product: SalesforceIncomingProduct = { ...rawPayload };
+
+    // Finding #064: Sanitize SF_Catalog_Name if Salesforce sent a Python dict string
+    if (typeof product.SF_Catalog_Name === 'string') {
+      product.SF_Catalog_Name = this.sanitizeCatalogName(product.SF_Catalog_Name);
+    }
 
     logger.info('STEP 5: Starting AI verification engines (OpenAI + Anthropic)', {
       sessionId,

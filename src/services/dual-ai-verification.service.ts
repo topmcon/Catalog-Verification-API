@@ -12108,7 +12108,10 @@ async function buildFinalResponse(
   
   const finalSeoTitleInput: SEOTitleInput = {
     brand: sanitizedPrimaryAttributes.AI_Brand || seoTitleInput.brand,
-    modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
+    // Finding #065: SF_Catalog_Name is the authoritative product identity in Salesforce.
+    // Use it first so sibling-SKU bleed (e.g. AWC243TDZLHA when catalog says AWC243TDZRHACCY)
+    // doesn't corrupt the title model number. AI_Model_Number is kept as a research field.
+    modelNumber: rawProduct.SF_Catalog_Name?.trim() || sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
     category: sanitizedPrimaryAttributes.AI_Product_Category || seoTitleInput.category,
     subCategory: consensus.agreedPrimaryAttributes.subcategory || rawProduct.Web_Retailer_SubCategory || '',
     rawTitle: getFieldByPriority(consensus.agreedCategory, rawProduct.Product_Title_Web_Retailer, rawProduct.Ferguson_Title, ''),

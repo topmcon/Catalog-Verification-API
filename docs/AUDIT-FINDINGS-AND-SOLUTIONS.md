@@ -73,6 +73,9 @@
 | Panel-Ready type + Panel Ready finish both rendering in title ("Panel-Ready Panel Ready") | Suppress Panel Ready slot in `getInputValue` when type is already "panel-ready" | 49f8948 | #057, #056 |
 | Column refrigerators get "Bottom Freezer" in title (AI config contamination from pairing language) | Clear configuration in seoTitleInput when type = "Column"; title generator falls back to type | (this session) | #059, #053, #052 |
 | Compact fridge gets "Single Door" in title when type forced to "Top-Freezer" (OpenAI config mirrors its overridden type) | After preferAIValue, clear configuration when specific fridge type + generic door-count config | (this session) | #060, #059 |
+| Configuration slot returns generic config (Combination/Single Door) despite specific verified Type | Guard in getInputValue: SPECIFIC_APPLIANCE_TYPES + GENERIC_CONFIGS suppression | 171e367 | #063, #059, #060 |
+| SF_Catalog_Name is a Python dict string from Salesforce platform bug | Sanitize at ingestion in executeVerification(); extract 'value' key via regex | session | #064 |
+| AI-researched model number in title is a sibling SKU, not the catalog model | Use SF_Catalog_Name first for finalSeoTitleInput.modelNumber | session | #065, #064 |
 
 ---
 
@@ -5856,3 +5859,144 @@ Supported override fields: `type`, `configuration`, `subcategory`, `style`. Curr
 - **#053**: Same problem space — distinct sub-product contamination from web retailer copy; this finding closes the gap when AIs return wrong values directly via consensus
 - **#061**: Wine Cooler Configuration contamination — Fix A complements by ensuring capacity unit is also correct
 - **Phase 2.5 type-forcing**: Last-line correction system; model-family override applies AFTER it as the final authority for known niche families
+
+---
+
+## Finding #063: Refrigerator Type→Title Contradiction (Configuration Slot Overrides Verified Type)
+
+### Symptoms
+- Items show "Bottom-Freezer" as AI_Type but title reads "Combination Refrigerator"
+- Items show "Column" as AI_Type but title reads "Bottom Freezer Refrigerator"
+- Items show "Top-Freezer" as AI_Type but title reads "Single Door Refrigerator"
+- Items show "French Door" as AI_Type but title reads "Convertible Refrigerator"
+- 4-Door Flex products show as "French Door" in title despite correct AI_Type
+- Affected items from 140 SF response analysis: #71, #82, #107, #125, #126, #127, #134
+
+### Root Cause
+The Refrigerator schema uses a `Configuration` slot (not a `Type` slot). The `getInputValue("Configuration")` function returns `input.configuration || input.type`. When AI extracts a `configuration` value from product descriptions (e.g., "Combination" from "combination refrigerator/freezer" copy), that config value overrides the verified AI_Type in the rendered title.
+
+Key architectural facts:
+1. Refrigerator title template: `{Brand} {Width} {Installation Type} {Depth Type} {Panel Ready} {Configuration} {Category} {Finish} {Capacity} {Model}`
+2. `getInputValue("Configuration")` is the single render chokepoint for ALL title generation paths
+3. Appliances skip Claude Phase B review — no AI post-check catches the contradiction
+4. `extractConfigurationFromTexts()` returns values like `Combination`, `Single Door`, `Double Door`, `Convertible` from raw product copy
+
+### Fix Applied
+**File**: `src/services/seo-title-generator.service.ts` — `getInputValue("Configuration")` function  
+**Commit**: `171e367`
+
+Three ordered rules added:
+
+**Rule 1** (Finding #052 preserved): Distinct sub-products (Wine Cooler, Beverage Center, Ice Maker, etc.) always use `input.type`, never configuration.
+
+**Rule 2**: If the verified type is a specific refrigerator configuration (Top-Freezer, Bottom-Freezer, French Door, Side-by-Side, 4-Door Flex, Column) AND the configuration field contains a generic door-count descriptor (Single Door, Double Door, Combination, Convertible), suppress the config and return `input.type` instead.
+
+**Rule 3**: If both type and config are specific but they differ (e.g., type=Column, config=Bottom Freezer), the verified type wins.
+
+```typescript
+const SPECIFIC_APPLIANCE_TYPES = new Set([
+  'top-freezer', 'top freezer', 'bottom-freezer', 'bottom freezer',
+  'french door', 'side-by-side', 'side by side', '4-door flex', 'four-door flex', 'column'
+]);
+const GENERIC_CONFIGS = new Set([
+  'single door', 'double door', 'triple door', 'quad door', 'combination', 'convertible'
+]);
+
+if (typeLower && SPECIFIC_APPLIANCE_TYPES.has(typeLower) && configLower) {
+  if (GENERIC_CONFIGS.has(configLower)) return input.type;           // Rule 2
+  if (SPECIFIC_APPLIANCE_TYPES.has(configLower) && configLower !== typeLower) return input.type; // Rule 3
+}
+```
+
+### Scope
+Universal — applies to all Refrigerator title generation (preliminary + final paths, via `getInputValue`).
+
+### Related Findings
+- **#052**: Distinct sub-product types (Rule 1 preserved from this finding)
+- **#059, #060, #061**: Earlier configuration contamination guards — this finding generalizes and extends them
+- **#062**: Same session — capacity unit fixes
+
+---
+
+## Finding #064: SF_Catalog_Name Carries Python Dict String (Salesforce Data Quality Issue)
+
+### Symptoms
+- `sfCatalogName` field in logs shows: `"{'value': 'PYE22KYNKFS', 'context': 'large print display version'}"`
+- This string persists across ALL verification runs for a given product (not transient)
+- SF Catalog ID `a03aZ...` (GE PYE22KYNKFS — large print display version)
+- The TITLE is actually correct (web retailer match finds the right product), but the `sfCatalogName` tracking field carries the corrupted value
+
+### Root Cause
+Salesforce sent `SF_Catalog_Name` as a Python dict literal string instead of a plain model number string. This is a Salesforce data quality/platform issue — likely caused by a SF Flow or data loader script that serialized a Python/Apex object as a string value. The API stored it as-is (no sanitization) in MongoDB and logged it throughout. 15+ callsites in `dual-ai-verification.service.ts` used `SF_Catalog_Name` unmodified.
+
+### Fix Applied
+**File**: `src/services/async-verification-processor.service.ts` — `executeVerification()` method  
+**Method added**: `sanitizeCatalogName(name: string): string`  
+**Commit**: Part of session ending this finding
+
+The sanitizer detects Python dict-style strings using the pattern `/'value'\s*:\s*'([^']+)'/` (or double-quoted variant) and extracts the `value` key. If the string doesn't match the pattern, it's returned unchanged.
+
+```typescript
+private sanitizeCatalogName(name: string): string {
+  if (!name) return name;
+  const match = name.match(/['"]value['"]\s*:\s*['"]([^'"]+)['"]/);
+  if (match) {
+    logger.warn('Finding #064: SF_Catalog_Name contained Python dict string — extracted value', {
+      original: name,
+      extracted: match[1]
+    });
+    return match[1];
+  }
+  return name;
+}
+```
+
+Applied at ingestion in `executeVerification()` before `verifyProductWithDualAI()` is called. The original `rawPayload` in MongoDB is preserved as-is for audit.
+
+### Scope
+Universal — applies to all incoming verification requests. Safe (no-op when `SF_Catalog_Name` is a normal string).
+
+### Related Findings
+- **#065**: Model number bleed — both are model number integrity issues at different stages
+
+---
+
+## Finding #065: Wrong Model Number in Title (AI Sibling-SKU Bleed)
+
+### Symptoms
+- Item 49 (Avallon `AWC243TDZRHACCY`): title ends with `- AWC243TDZLHA` (LH hinge variant) consistently
+- Item 55 (Summit `SWC530LBIST`): title sometimes ends with `- SWC530BLBIST` (extra "B") — non-deterministic
+- `AI_Model_Alias` correctly stores `AWC243TDZRHACCY` (SF catalog name), but `AI_Model_Number` is used for the title
+
+### Root Cause
+`AI_Model_Number` is built with priority: AI consensus → Ferguson → Web Retailer → SF_Catalog_Name. The AI consensus, when researching the product, finds a sibling/variant SKU on the web instead of the exact model sent by Salesforce. For `AWC243TDZRHACCY`, the AI consistently finds `AWC243TDZLHA` (the left-hand version — base model without the ACCY hinge kit suffix). For `SWC530LBIST`, web sources sometimes list the paired `SWC530BLBIST` variant.
+
+The `finalSeoTitleInput.modelNumber` was set from `AI_Model_Number` first, giving AI priority over the catalog identity.
+
+### Fix Applied
+**File**: `src/services/dual-ai-verification.service.ts` — `finalSeoTitleInput` construction (~line 12109)  
+**Commit**: Same session as #063 + #064
+
+Changed model number priority for the title from `AI_Model_Number → ...` to `SF_Catalog_Name → AI_Model_Number → ...`:
+
+```typescript
+// Before:
+modelNumber: sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
+
+// After (Finding #065):
+// SF_Catalog_Name is the authoritative product identity in Salesforce.
+// Use it first so sibling-SKU bleed doesn't corrupt the title model number.
+modelNumber: rawProduct.SF_Catalog_Name?.trim() || sanitizedPrimaryAttributes.AI_Model_Number || seoTitleInput.modelNumber || '',
+```
+
+`AI_Model_Number` is preserved as a research/export field — it still gets stored in the output attributes for enrichment purposes. Only the title model number changes.
+
+### Tradeoff Acknowledged
+In rare cases the AI finds a more complete model number (e.g., full "K-26568-CP" vs SF partial "26568-BL"). This fix sacrifices that edge case to prevent consistent sibling-SKU contamination. The `AI_Model_Number` field still carries the AI-researched value for reference.
+
+### Scope
+Final title only (`finalSeoTitleInput.modelNumber`). Preliminary title continues using `Model_Number_Web_Retailer`.
+
+### Related Findings
+- **#064**: SF_Catalog_Name integrity — #064 sanitizes dict strings so #065 uses a clean value
+- **#023**: Capacity position — both are title slot ordering/source issues
