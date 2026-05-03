@@ -6,6 +6,12 @@
     "matching": "Case-insensitive prefix match on raw model number after normalization.",
     "fields_supported": ["type", "configuration", "subcategory", "style"]
   },
+  "AVALLON": {
+    "AFR242SSOD": {
+      "type": "Outdoor",
+      "_note": "AFR242SSOD series (e.g. AFR242SSODRH, AFR242SSODLH) is Avallon's 24-inch outdoor-rated compact refrigerator, UL listed for outdoor use. AIs classify as Beverage Center or Undercounter because product copy mentions 'beverage cooling' — but this is an outdoor refrigerator, not a beverage center."
+    }
+  },
   "EDGESTAR": {
     "CWF380": {
       "type": "Wine Cooler",
