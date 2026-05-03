@@ -242,8 +242,25 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
   // contaminated by extractConfigurationFromTexts() pulling refrigerator door-config keywords
   // ("Side by Side", "French Door") out of legacy/raw titles, even when the actual product is
   // a wine cooler. AI-determined Type is the authoritative product identity in those cases.
+  //
+  // FINDING #063 — CONFIGURATION CONTRADICTS VERIFIED TYPE
+  // Root cause: The Refrigerator schema has NO Type slot — only a Configuration slot.
+  // getInputValue("Configuration") returns `input.configuration || input.type`, so any
+  // non-empty configuration value wins over the verified type. This causes non-deterministic
+  // titles: when AI returns configuration="Combination" (or "Convertible", "4-Door Flex",
+  // "Bottom Freezer") the title reflects that config instead of the verified type.
+  // Fix principle: The verified AI Type is authoritative. Configuration should only appear
+  // when it is CONSISTENT WITH or ABSENT FROM a specific verified type.
+  // Rules (applied in order):
+  //   1. Distinct sub-products (Wine Cooler, Beverage Center, etc.) → always use Type (legacy)
+  //   2. Any specific refrigerator type → suppress generic/redundant config descriptors
+  //   3. Any specific refrigerator type → suppress configuration that CONTRADICTS the type
+  //   4. Otherwise → configuration || type (existing behaviour)
   if (attribute === 'Configuration') {
     const typeLower = (input.type || '').toLowerCase().trim();
+    const configLower = (input.configuration || '').toLowerCase().trim();
+
+    // Rule 1 — Distinct sub-products always render as their Type (Finding #052 logic, preserved)
     const DISTINCT_SUB_PRODUCT_TYPES = new Set([
       'wine cooler', 'wine reserve', 'wine refrigerator', 'wine cellar',
       'beverage center', 'beverage cooler', 'beverage refrigerator',
@@ -255,6 +272,37 @@ function getInputValue(input: SEOTitleInput, attribute: string): string | number
     if (typeLower && DISTINCT_SUB_PRODUCT_TYPES.has(typeLower)) {
       return input.type;
     }
+
+    // Rule 2 & 3 — For specific refrigerator/appliance types, guard the Configuration slot
+    // so that an AI-returned configuration value cannot override or contradict the verified type.
+    const SPECIFIC_APPLIANCE_TYPES = new Set([
+      'top-freezer', 'top freezer',
+      'bottom-freezer', 'bottom freezer',
+      'french door',
+      'side-by-side', 'side by side',
+      '4-door flex', 'four-door flex',
+      'column',
+    ]);
+
+    if (typeLower && SPECIFIC_APPLIANCE_TYPES.has(typeLower) && configLower) {
+      // Rule 2: Generic/non-specific configs that add no information → use verified Type
+      const GENERIC_CONFIGS = new Set([
+        'single door', 'double door', 'triple door', 'quad door',
+        'combination',    // SMEG FAB32UL — AI returns "Combination" but type is "Bottom-Freezer"
+        'convertible',    // Convertible descriptor — type is already specific
+      ]);
+      if (GENERIC_CONFIGS.has(configLower)) {
+        return input.type;
+      }
+
+      // Rule 3: Config is itself a different specific type → verified Type wins
+      if (SPECIFIC_APPLIANCE_TYPES.has(configLower) && configLower !== typeLower) {
+        // e.g. type="Column" but config="Bottom Freezer" (Finding #059 scenario)
+        // e.g. type="French Door" but config="Side-by-Side"
+        return input.type;
+      }
+    }
+
     return input.configuration || input.type;
   }
   
