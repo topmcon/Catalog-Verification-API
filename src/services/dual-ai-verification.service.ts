@@ -3291,15 +3291,46 @@ export async function verifyProductWithDualAI(
             openaiResult.primaryAttributes.product_type = xaiType;
             determinedType = xaiType;
           } else {
-            // Both primary or both generic - no clear winner, will handle in consensus
-            logger.warn('⚠️ Both types valid with same priority - will resolve in consensus', {
-              sessionId: verificationSessionId,
-              category: determinedCategory,
-              openaiType,
-              xaiType,
-              openaiPrimary: openaiIsPrimary,
-              xaiPrimary: xaiIsPrimary
-            });
+            // Both primary or both generic — apply spec-data tiebreaker before falling back to consensus
+            const specHints25 = extractTypeSpecHints(rawProduct);
+            const controlLoc25 = (specHints25['control_location'] || '').toLowerCase().trim();
+            const openaiLower25 = openaiType.toLowerCase();
+            const xaiLower25 = xaiType.toLowerCase();
+            const specResolved25 = (() => {
+              if (!controlLoc25) return false;
+              const isRearOrTop = controlLoc25 === 'rear' || controlLoc25 === 'top';
+              const isFront = controlLoc25 === 'front';
+              if (isRearOrTop && !(openaiLower25.includes('rear') || openaiLower25.includes('top'))
+                  && (xaiLower25.includes('rear') || xaiLower25.includes('top'))) {
+                openaiResult.primaryAttributes.product_type = xaiType;
+                determinedType = xaiType;
+                logger.info('✅ Phase 2.5 spec tiebreaker: xAI type confirmed by spec', {
+                  sessionId: verificationSessionId, category: determinedCategory,
+                  specControlLocation: specHints25['control_location'], openaiType, xaiType, resolvedTo: xaiType
+                });
+                return true;
+              }
+              if (isFront && openaiLower25.includes('front') && !xaiLower25.includes('front')) {
+                xaiResult.primaryAttributes.product_type = openaiType;
+                determinedType = openaiType;
+                logger.info('✅ Phase 2.5 spec tiebreaker: OpenAI type confirmed by spec', {
+                  sessionId: verificationSessionId, category: determinedCategory,
+                  specControlLocation: specHints25['control_location'], openaiType, xaiType, resolvedTo: openaiType
+                });
+                return true;
+              }
+              return false;
+            })();
+            if (!specResolved25) {
+              logger.warn('⚠️ Both types valid with same priority - will resolve in consensus', {
+                sessionId: verificationSessionId,
+                category: determinedCategory,
+                openaiType,
+                xaiType,
+                openaiPrimary: openaiIsPrimary,
+                xaiPrimary: xaiIsPrimary
+              });
+            }
           }
         } else {
           // Both invalid - will handle below in the normal validation flow
