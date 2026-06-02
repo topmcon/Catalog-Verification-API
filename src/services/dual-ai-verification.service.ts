@@ -8978,6 +8978,11 @@ async function buildFinalResponse(
     || typeCandidates[0]
     || '';
 
+  // Normalize Range type synonyms: "Rear Control" is not the preferred picklist term — use "Top Control"
+  if (verifiedCategory === 'Range' && /^rear control$/i.test(aiProductType.trim())) {
+    aiProductType = 'Top Control';
+  }
+
   let typeMatchResult = picklistMatcher.matchType(aiProductType);
   if (!typeMatchResult.matched && aiProductType) {
     const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory, subcategoryHint);
