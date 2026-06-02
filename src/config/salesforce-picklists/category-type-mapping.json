@@ -384,6 +384,12 @@
           "primary_filter": true
         },
         {
+          "type_name": "Top Control",
+          "type_group": "Control Position",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Rear Control",
           "type_group": "Control Position",
           "status": "pending_salesforce_id",
