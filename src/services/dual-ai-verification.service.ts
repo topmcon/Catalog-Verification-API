@@ -1312,10 +1312,24 @@ function extractTypeSpecHints(rawProduct: SalesforceIncomingProduct): Record<str
   const specTable = (rawProduct as any).Specification_Table || '';
   if (specTable) {
     const controlMatch = specTable.match(/Control Location[^:]*:\s*([^<\n]+)/i);
-    if (controlMatch) {
-      hints['control_location'] = controlMatch[1].trim();
-    }
+    if (controlMatch) hints['control_location'] = controlMatch[1].trim();
+
+    // Range Configuration / Range Type fields indicate Slide-In, Freestanding, Drop-In
+    const rangeConfigMatch = specTable.match(/Range Configuration[^:]*:\s*([^<\n]+)/i);
+    if (rangeConfigMatch) hints['range_configuration'] = rangeConfigMatch[1].trim();
+
+    const rangeTypeMatch = specTable.match(/Range Type[^:]*:\s*([^<\n]+)/i);
+    if (rangeTypeMatch) hints['range_type'] = rangeTypeMatch[1].trim();
   }
+
+  // Also check structured Web_Retailer_Specs array (parallel data source)
+  const wrSpecs: Array<{name: string; value: string}> = (rawProduct as any).Web_Retailer_Specs || [];
+  for (const spec of wrSpecs) {
+    const name = (spec.name || '').toLowerCase();
+    if (name === 'range configuration') hints['range_configuration'] = hints['range_configuration'] || spec.value;
+    if (name === 'range type') hints['range_type'] = hints['range_type'] || spec.value;
+  }
+
   return hints;
 }
 
@@ -1507,6 +1521,9 @@ function resolveDisagreementSmart(
       'kitchen faucet':  ['pull-down', 'pull-out', 'single hole', 'wall mount', 'bridge', 'commercial', 'two handle', 'pot filler'],
       'tub filler':      ['roman tub', 'freestanding', 'deck mount', 'wall mounted', 'floor mounted'],
       'bar faucet':      ['pull-down', 'single handle', 'two handle'],
+      // Range: Slide-In and Pro-Style take precedence over generic control-location types
+      // (slide-in is the primary consumer differentiator; front control is implied for slide-in)
+      'range':           ['pro-style', 'slide-in', 'outdoor', 'top control', 'front control', 'rear control'],
     };
 
     const categoryLower = (_category || '').toLowerCase().trim();
@@ -1558,9 +1575,26 @@ function resolveDisagreementSmart(
       return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI provides semantic type, OpenAI provided quantity term' };
     }
     // STEP 6c: Structured spec data cross-reference
-    // When AIs still disagree, use explicit spec attributes (e.g. "Control Location") as an
-    // authoritative tiebreaker instead of arbitrarily picking the first AI.
+    // When AIs still disagree, use explicit spec attributes as an authoritative tiebreaker.
     if (specHints && Object.keys(specHints).length > 0) {
+      // Range configuration overrides control-location type (Slide-In > Front/Top Control)
+      const rangeConfig = (specHints['range_configuration'] || specHints['range_type'] || '').toLowerCase().trim();
+      if (rangeConfig.includes('slide-in') || rangeConfig.includes('slide in')) {
+        const openaiIsSlideIn = openaiLower.includes('slide');
+        const xaiIsSlideIn = xaiLower.includes('slide');
+        if (openaiIsSlideIn && !xaiIsSlideIn) {
+          return { resolvedValue: openaiValue, winner: 'openai', reason: `Spec "Range Configuration: Slide-In" — OpenAI "${openaiValue}" matches, xAI "${xaiValue}" does not` };
+        }
+        if (!openaiIsSlideIn && xaiIsSlideIn) {
+          return { resolvedValue: xaiValue, winner: 'xai', reason: `Spec "Range Configuration: Slide-In" — xAI "${xaiValue}" matches, OpenAI "${openaiValue}" does not` };
+        }
+        if (!openaiIsSlideIn && !xaiIsSlideIn) {
+          // Neither AI said Slide-In — override both with the spec value
+          return { resolvedValue: 'Slide-In', winner: 'openai', reason: `Spec "Range Configuration: Slide-In" overrides both AIs — forcing "Slide-In" type` };
+        }
+      }
+
+      // Control location tiebreaker (Rear/Top vs Front)
       const controlLocation = (specHints['control_location'] || '').toLowerCase().trim();
       if (controlLocation) {
         const isRearOrTop = controlLocation === 'rear' || controlLocation === 'top';
@@ -3293,10 +3327,23 @@ export async function verifyProductWithDualAI(
           } else {
             // Both primary or both generic — apply spec-data tiebreaker before falling back to consensus
             const specHints25 = extractTypeSpecHints(rawProduct);
-            const controlLoc25 = (specHints25['control_location'] || '').toLowerCase().trim();
             const openaiLower25 = openaiType.toLowerCase();
             const xaiLower25 = xaiType.toLowerCase();
             const specResolved25 = (() => {
+              // Range configuration takes priority over control-location type
+              const rangeConfig25 = (specHints25['range_configuration'] || specHints25['range_type'] || '').toLowerCase().trim();
+              if (rangeConfig25.includes('slide-in') || rangeConfig25.includes('slide in')) {
+                const resolvedTo = openaiLower25.includes('slide') ? openaiType : xaiLower25.includes('slide') ? xaiType : 'Slide-In';
+                openaiResult.primaryAttributes.product_type = resolvedTo;
+                xaiResult.primaryAttributes.product_type = resolvedTo;
+                determinedType = resolvedTo;
+                logger.info('✅ Phase 2.5 spec tiebreaker: Range Configuration Slide-In overrides control type', {
+                  sessionId: verificationSessionId, category: determinedCategory,
+                  rangeConfig: specHints25['range_configuration'] || specHints25['range_type'], openaiType, xaiType, resolvedTo
+                });
+                return true;
+              }
+              const controlLoc25 = (specHints25['control_location'] || '').toLowerCase().trim();
               if (!controlLoc25) return false;
               const isRearOrTop = controlLoc25 === 'rear' || controlLoc25 === 'top';
               const isFront = controlLoc25 === 'front';
@@ -9009,9 +9056,20 @@ async function buildFinalResponse(
     || typeCandidates[0]
     || '';
 
-  // Normalize Range type synonyms: "Rear Control" is not the preferred picklist term — use "Top Control"
-  if (verifiedCategory === 'Range' && /^rear control$/i.test(aiProductType.trim())) {
-    aiProductType = 'Top Control';
+  // Normalize Range type synonyms to preferred picklist terms
+  if (verifiedCategory === 'Range') {
+    if (/^rear control$/i.test(aiProductType.trim())) {
+      aiProductType = 'Top Control';
+    }
+    // If spec data says Slide-In but that wasn't resolved earlier, apply it now
+    const rangeSpecHints = extractTypeSpecHints(rawProduct);
+    const rangeConfig = (rangeSpecHints['range_configuration'] || rangeSpecHints['range_type'] || '').toLowerCase();
+    if ((rangeConfig.includes('slide-in') || rangeConfig.includes('slide in')) && !/slide/i.test(aiProductType)) {
+      logger.info('Range type override: spec confirms Slide-In, overriding type', {
+        sessionId, category: verifiedCategory, previousType: aiProductType, newType: 'Slide-In'
+      });
+      aiProductType = 'Slide-In';
+    }
   }
 
   let typeMatchResult = picklistMatcher.matchType(aiProductType);
@@ -10775,6 +10833,21 @@ async function buildFinalResponse(
         }
       }
       
+      // Normalize incomplete finish descriptors: "Brushed" alone is a surface treatment, not a finish.
+      // "Brushed Nickel", "Brushed Gold" are complete — "Brushed" alone is not.
+      // When the AI extracts only "Brushed", use the product color as the finish instead.
+      if (finish && /^brushed$/i.test(finish.trim())) {
+        const productColor = consensus.agreedPrimaryAttributes.color ||
+                             openaiResult.primaryAttributes.color ||
+                             xaiResult.primaryAttributes.color ||
+                             (rawProduct as any).Color_Finish_Web_Retailer || '';
+        const resolvedFinish = productColor || '';
+        logger.info('Normalized incomplete finish descriptor "Brushed" → color value', {
+          sessionId, oldFinish: finish, newFinish: resolvedFinish || '(empty)'
+        });
+        finish = resolvedFinish;
+      }
+
       return finish;
     })(),
     AI_Depth: preferAIValue(

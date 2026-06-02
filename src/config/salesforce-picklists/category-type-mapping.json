@@ -378,6 +378,12 @@
           "primary_filter": true
         },
         {
+          "type_name": "Slide-In",
+          "type_group": "Installation Config",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Front Control",
           "type_group": "Control Position",
           "status": "existing",
