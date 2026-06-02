@@ -6000,3 +6000,72 @@ Final title only (`finalSeoTitleInput.modelNumber`). Preliminary title continues
 ### Related Findings
 - **#064**: SF_Catalog_Name integrity — #064 sanitizes dict strings so #065 uses a clean value
 - **#023**: Capacity position — both are title slot ordering/source issues
+
+---
+
+## Finding #066: Range Type — "Front Control" vs "Top Control" (FCRG3051BS)
+
+### Symptoms
+- Frigidaire FCRG3051BS: title says "Front Control Gas Range" — should be "Top Control"
+- SF feedback: "Title is incorrect, should be top control not front control"
+- `Control Location: Rear` explicitly in Specification_Table, but AI_Type = "Front Control"
+
+### Root Cause (4-layer failure)
+1. **OpenAI anchored on `Product_Title_Legacy`** ("Front Control Gas Range") despite being told to ignore legacy data for type extraction
+2. **Phase 2.5 "both valid same priority" branch** — when both AIs return valid types at equal priority, `determinedType` defaulted to `openaiType` with no spec cross-reference
+3. **`determinedType` wins `typeCandidates`** — Phase 2.5 result is first in the array and always overrides smart resolution
+4. **"Top Control" not in Range valid types** — `isValidTypeForCategory("Top Control", "Range")` returned false (category-type-mapping only had Front Control, Rear Control, Pro-Style)
+
+### Fix Applied
+**Files**: `src/services/dual-ai-verification.service.ts`, `src/config/salesforce-picklists/category-type-mapping.json`
+**Commits**: `3113fa8`, `5af2b7e`, `eb3e3b4`, `d4c5ba4`
+
+1. **`extractTypeSpecHints()`** — new helper parses `Specification_Table` + `Web_Retailer_Specs` for `Control Location`, `Range Configuration`, `Range Type`
+2. **Phase 2.5 spec tiebreaker** — in "both valid same priority" branch, checks spec hints before falling back to consensus. `Control Location: Rear` + xAI matches → forces `determinedType = xaiType`
+3. **STEP 6c in `resolveDisagreementSmart`** — checks `specHints['control_location']` before "first AI wins" fallback
+4. **Post-consensus normalization** — "Rear Control" → "Top Control" for Range category (preferred picklist term)
+5. **AI prompt** — added Range TYPE CLARIFICATION block: `Control Location: Rear` → "Top Control"
+6. **category-type-mapping.json** — added "Top Control" as valid primary_filter type for Range (type_id: `a1jaZ000001lFC4QAM`)
+
+### Scope
+All Range products with `Control Location` in spec data. Safe — spec evidence only used when AIs disagree.
+
+### Related Findings
+- **#067**: Slide-In type — same Phase 2.5 + spec tiebreaker infrastructure extended for Slide-In
+
+---
+
+## Finding #067: Range Slide-In Type + "Brushed" Finish (WEE750H0HZ)
+
+### Symptoms
+- Whirlpool WEE750H0HZ: title says "Front Control Electric Range Brushed" — should be "Slide-In Electric Range Stainless Steel"
+- Two bugs: wrong type ("Front Control" vs "Slide-In") + wrong finish ("Brushed" vs "Stainless Steel")
+
+### Root Cause — Wrong Type
+Audit Finding #015 moved "Slide-In" out of Range Type field and into Installation Type attribute. This was correct for attribute categorization but the Range title template `{Brand} {Width} {Type} {Fuel Type} {Category} {Finish} {Model}` has no Installation Type slot. "Slide-In" therefore never appeared in titles. "Front Control" filled the Type slot by default since all slide-in ranges have front controls. `extractTypeSpecHints()` didn't parse `Range Configuration` or `Range Type` fields.
+
+### Root Cause — Brushed Finish
+AI extracted surface treatment ("brushed" metal texture) instead of color/material name ("Stainless Steel"). "Brushed" alone is an incomplete finish descriptor — "Brushed Nickel" or "Brushed Gold" are complete, "Brushed" is not. `Color_Finish_Web_Retailer = "Stainless Steel"` was available in the payload.
+
+### Fix Applied
+**Files**: `src/services/dual-ai-verification.service.ts`, `src/config/salesforce-picklists/category-type-mapping.json`
+**Commit**: `e9e94a1`
+
+**Type fix:**
+1. `extractTypeSpecHints()` extended — now parses `Range Configuration` and `Range Type` from Specification_Table and Web_Retailer_Specs array
+2. Phase 2.5 spec tiebreaker — `range_configuration: "Slide-In"` forces both AIs to "Slide-In" before control location logic runs
+3. STEP 6c — range configuration check runs before control location check; if neither AI said "Slide-In" but spec confirms it, overrides to "Slide-In"
+4. Post-consensus normalization — final catch: if spec says Slide-In and resolved type isn't Slide-In, override
+5. `TYPE_PRIORITY['range']` — `['pro-style', 'slide-in', 'outdoor', 'top control', 'front control', 'rear control']` — Slide-In outranks Front Control
+6. category-type-mapping.json — added "Slide-In" as valid primary_filter type for Range (type_id: `a1jaZ000001lFAuQAM`)
+
+**Finish fix:**
+- After AI_Finish is resolved, if value matches `/^brushed$/i` (no material suffix), replace with product color (`Color_Finish_Web_Retailer` or consensus color)
+- Log entry: "Normalized incomplete finish descriptor 'Brushed' → color value"
+
+### Scope
+- Slide-In type: all Range products with `Range Configuration`/`Range Type` spec data
+- Brushed finish: any product where AI extracts bare "Brushed" as finish
+
+### Related Findings
+- **#066**: Range type infrastructure — #066 built the spec-tiebreaker system #067 extended

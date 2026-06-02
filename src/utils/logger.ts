@@ -1,10 +1,12 @@
 import winston from 'winston';
 import path from 'path';
 import fs from 'fs';
-import config from '../config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Ensure logs directory exists
-const logsDir = config.logging.filePath;
+const logsDir = process.env.LOG_FILE_PATH || './logs';
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
@@ -60,7 +62,7 @@ const logFormat = winston.format.combine(
 );
 
 const logger = winston.createLogger({
-  level: config.logging.level,
+  level: process.env.LOG_LEVEL || 'info',
   format: logFormat,
   defaultMeta: { service: 'catalog-verification' },
   transports: [

@@ -449,14 +449,22 @@ ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "ss -tlnp | grep -E '(3001|27
 
 ### Connection Details
 ```
-Host: verify.cxc-ai.com
+Host: verify.cxc-ai.com  (IP: 134.209.123.173)
 User: root
-Key: ~/.ssh/cxc_ai_deploy
+Key: ~/.ssh/cxc_ai_deploy  (Codespaces/Linux)
+   OR
+Alias: mardeys-prod  (macOS with ~/.ssh/config alias — uses ~/.ssh/id_ed25519)
 ```
+
+> **macOS note**: If `~/.ssh/cxc_ai_deploy` does not exist, use the `mardeys-prod` host alias from `~/.ssh/config` instead. Both connect to the same server as root.
 
 ### SSH Command Template
 ```bash
+# Standard (Codespaces / Linux)
 ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "<command>"
+
+# macOS with mardeys-prod alias
+ssh mardeys-prod "<command>"
 ```
 
 ### Common SSH Commands
@@ -968,3 +976,94 @@ When user says "Save everything", perform these actions:
    - Commit hash
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
+
+---
+
+## System Architecture & AI Pipeline
+
+> Full detail in `CLAUDE.md`. This is the condensed reference for Copilot.
+
+### Request Flow
+```
+SF Webhook POST /api/verify/salesforce
+  → Controller (202 immediately, job queued)
+  → Async Processor (every 5s, 100 concurrent max in production)
+  → verifyProductWithDualAI()
+  → Result POSTed back to SF webhook URL
+```
+
+### AI Pipeline Phases
+
+| Phase | Description |
+|-------|-------------|
+| 0.0 | Canadian detection — `CA_` prefix on Web_Retailer_Key → convert CAD→USD, kg→lbs |
+| 0.1A | Unpack Ferguson_Raw_Data nested JSON |
+| 0.2 | Ferguson priority validation |
+| 0.5 | Pre-research — scrape if data missing |
+| 1 | Three-stage: Department → Category → Detailed attributes (OpenAI + xAI in parallel) |
+| 2 | Build consensus + smart disagreement resolution |
+| 3 | Cross-validation if category disagreement |
+| 4-5 | Research retries (up to 3) |
+| 6 | Final targeted web search |
+| Final A | Automated rule-based validation (always runs) |
+| Final B | **Claude review — non-appliances only** (Appliances skip — 926ad6b restore) |
+
+### Category Path Logic
+
+- **Appliances**: SF-anchored (`Web_Retailer_Category` as anchor). Both AIs disagree with SF → AI overrides SF.
+- **Non-Appliances**: Unbiased. No anchor. Agreement → use it. Disagreement → title keywords → Ferguson signal → best-guess.
+
+### Title Generation
+
+Slot order per category schema: `Brand + Primary_Spec + Configuration/Type + Installation + Category + Finish + Model`
+
+Key rules:
+- **Finding #063**: Specific types (French Door, Outdoor, etc.) suppress generic configs (Single Door, Convertible).
+- **Finding #065**: `SF_Catalog_Name` is authoritative for model number in title (prevents sibling-SKU bleed).
+- **Dimension rounding**: Category-aware (`CATEGORY_SIZE_CLASSES`). Built-ins round UP to next standard. Performance ratings (CFM/GPM/BTU) use exact value.
+- **Model-family overrides** (`config/model-family-overrides.json`): Applied post-consensus, before title.
+
+### Important Architecture Note — Claude Phase B Scope
+
+`AI_AUDIT_PROMPT.md` states Claude is used "in self-healing diagnostics only" — **this is incorrect**. Claude (Sonnet 4-6) runs Phase B final review on every non-appliance verification job. This affects cost estimates. Appliances skip Phase B by design.
+
+---
+
+## Known Issues & Active Findings
+
+> Update this section whenever a bug is fixed or a new issue is discovered. Mirror in `CLAUDE.md`.
+
+### 🔴 Claude Title Override (Active — Source of Bad Responses)
+**Issue**: When Claude's Phase B proposes a corrected title, the system always uses the schema title instead ("preserves formatting rules"). When schema fields are wrong (e.g., wrong width, wrong model number), Claude has the correct value but gets ignored.
+
+**Location**: `src/services/dual-ai-verification.service.ts` ~line 12356.
+
+**Impact**: Bad titles in SF responses for non-appliance products where schema-generated fields were wrong.
+
+**Status**: Open — not yet investigated.
+
+### 🟡 Garbage Attributes in attributes.json
+**Issue**: May 27 cagp-lot batch caused AI to add 6 garbage attributes to `src/config/salesforce-picklists/attributes.json` with `NEEDS_SF_ID` placeholder: `actual_product`, `detected_product`, `image_detected`, `serial_number_example`, `serial_example`, `listing`. 33 other NEEDS_SF_ID attributes are legitimate — do not bulk-remove.
+
+**Status**: Open — rejected in MongoDB, still in attributes.json on production.
+
+### 🟡 cagp-lot Batch (763 Jobs — SF Rejected All Webhooks)
+**Issue**: May 27 batch of ~763 jobs completed on our side but SF rejected every webhook with `"Invalid id: cagp-lot-XXX"`. Zero results applied in Salesforce.
+
+**Status**: Needs clarification — were these test jobs? Resubmission needed?
+
+### 🟡 Pending Creation Requests — 49 Stale
+**Issue**: `Freestanding` (72 days, 13 jobs waiting) and `Counter Depth` (72 days, 6 jobs waiting) are highest impact. SF follow-up needed.
+
+**Status**: Open.
+
+### ✅ Circular Dependency Fixed (June 2026)
+`src/utils/logger.ts` → `config/index.ts` → `category-aliases.ts` → `logger.ts` circular loop. Fixed by removing config import from logger.ts and reading directly from `process.env`.
+
+---
+
+## Sync Note
+
+`CLAUDE.md` (repo root) and `.github/copilot-instructions.md` (this file) must stay in sync.
+
+**Rule**: Any procedure, finding, or architectural change added to one must be added to the other.
