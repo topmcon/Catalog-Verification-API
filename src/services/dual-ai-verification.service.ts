@@ -1298,20 +1298,35 @@ const FERGUSON_ONLY_FIELDS = new Set(['model_variant_number', 'total_model_varia
 
 /**
  * Resolve a disagreement between AI responses intelligently
- * 
+ *
  * EVIDENCE-FIRST APPROACH:
  * 1. Research data validation (web scrapes, images, PDFs)
  * 2. Picklist validation (known valid values)
  * 3. Quality analysis (completeness, precision)
  * 4. Escalate unresolvable conflicts (no arbitrary defaults)
  */
+
+// Extract structured spec hints from the raw product payload (used as type-resolution tiebreaker)
+function extractTypeSpecHints(rawProduct: SalesforceIncomingProduct): Record<string, string> {
+  const hints: Record<string, string> = {};
+  const specTable = (rawProduct as any).Specification_Table || '';
+  if (specTable) {
+    const controlMatch = specTable.match(/Control Location[^:]*:\s*([^<\n]+)/i);
+    if (controlMatch) {
+      hints['control_location'] = controlMatch[1].trim();
+    }
+  }
+  return hints;
+}
+
 function resolveDisagreementSmart(
   fieldName: string,
   openaiValue: any,
   xaiValue: any,
   _category: string,
   hasFergusonData: boolean,
-  researchContext?: ResearchResult
+  researchContext?: ResearchResult,
+  specHints?: Record<string, string>
 ): DisagreementResolution {
   const normalizedField = fieldName.toLowerCase().replace(/[_\s]/g, '_');
   
@@ -1542,11 +1557,42 @@ function resolveDisagreementSmart(
     if (openaiIsQuantity && !xaiIsQuantity) {
       return { resolvedValue: xaiValue, winner: 'xai', reason: 'xAI provides semantic type, OpenAI provided quantity term' };
     }
+    // STEP 6c: Structured spec data cross-reference
+    // When AIs still disagree, use explicit spec attributes (e.g. "Control Location") as an
+    // authoritative tiebreaker instead of arbitrarily picking the first AI.
+    if (specHints && Object.keys(specHints).length > 0) {
+      const controlLocation = (specHints['control_location'] || '').toLowerCase().trim();
+      if (controlLocation) {
+        const isRearOrTop = controlLocation === 'rear' || controlLocation === 'top';
+        const isFront = controlLocation === 'front';
+        if (isRearOrTop) {
+          const openaiMatchesSpec = openaiLower.includes('rear') || openaiLower.includes('top');
+          const xaiMatchesSpec = xaiLower.includes('rear') || xaiLower.includes('top');
+          if (!openaiMatchesSpec && xaiMatchesSpec) {
+            return { resolvedValue: xaiValue, winner: 'xai', reason: `Spec "Control Location: ${specHints['control_location']}" confirms rear/top controls — xAI "${xaiValue}" matches spec, OpenAI "${openaiValue}" does not` };
+          }
+          if (openaiMatchesSpec && !xaiMatchesSpec) {
+            return { resolvedValue: openaiValue, winner: 'openai', reason: `Spec "Control Location: ${specHints['control_location']}" confirms rear/top controls — OpenAI "${openaiValue}" matches spec, xAI "${xaiValue}" does not` };
+          }
+        }
+        if (isFront) {
+          const openaiMatchesSpec = openaiLower.includes('front');
+          const xaiMatchesSpec = xaiLower.includes('front');
+          if (openaiMatchesSpec && !xaiMatchesSpec) {
+            return { resolvedValue: openaiValue, winner: 'openai', reason: `Spec "Control Location: ${specHints['control_location']}" confirms front controls — OpenAI "${openaiValue}" matches spec, xAI "${xaiValue}" does not` };
+          }
+          if (!openaiMatchesSpec && xaiMatchesSpec) {
+            return { resolvedValue: xaiValue, winner: 'xai', reason: `Spec "Control Location: ${specHints['control_location']}" confirms front controls — xAI "${xaiValue}" matches spec, OpenAI "${openaiValue}" does not` };
+          }
+        }
+      }
+    }
+
     // Both semantic or both quantity - cannot determine quality
-    return { 
-      resolvedValue: openaiValue, 
-      winner: 'openai', 
-      reason: `Type field - both similar format (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), using first for consistency` 
+    return {
+      resolvedValue: openaiValue,
+      winner: 'openai',
+      reason: `Type field - both similar format (OpenAI: "${openaiValue}", xAI: "${xaiValue}"), using first for consistency`
     };
   }
 
@@ -3780,6 +3826,7 @@ export async function verifyProductWithDualAI(
         
         // Apply SMART resolution for remaining unresolved fields instead of just marking "Not Found"
         if (retryCount >= MAX_CONSENSUS_RETRIES) {
+          const typeSpecHints = extractTypeSpecHints(rawProduct);
           for (const disagreement of consensus.disagreements.filter(d => d.resolution === 'unresolved')) {
             // Use smart resolution to pick the best value
             const resolution = resolveDisagreementSmart(
@@ -3788,7 +3835,8 @@ export async function verifyProductWithDualAI(
               disagreement.xaiValue,
               consensus.agreedCategory || 'Unknown',
               dataSourceAnalysis.hasFergusonData,
-              researchResult || undefined
+              researchResult || undefined,
+              typeSpecHints
             );
             
             logger.info(`Smart resolution for field "${disagreement.field}"`, {
@@ -4219,6 +4267,7 @@ export async function verifyProductWithDualAI(
         fields: stillUnresolved.map(d => d.field)
       });
       
+      const typeSpecHintsFinal = extractTypeSpecHints(rawProduct);
       for (const disagreement of stillUnresolved) {
         const resolution = resolveDisagreementSmart(
           disagreement.field,
@@ -4226,9 +4275,10 @@ export async function verifyProductWithDualAI(
           disagreement.xaiValue,
           consensus.agreedCategory || 'Unknown',
           dataSourceAnalysis.hasFergusonData,
-          researchResult || undefined
+          researchResult || undefined,
+          typeSpecHintsFinal
         );
-        
+
         logger.info(`Final smart resolution for "${disagreement.field}": ${resolution.winner} - ${resolution.reason}`, {
           sessionId: verificationSessionId,
           resolvedValue: resolution.resolvedValue
@@ -5355,7 +5405,26 @@ ${promptOptions.invalidTypeWarning}
       categoryTypeContext += '  ❌ Duplicating "Panel Ready" in both type and title attribute fields\n';
       categoryTypeContext += '\n  KEY: Look for CONTROL TYPE first (Top/Front Control, Drawer), not finish/integration style!';
     }
-    
+
+    // ⚠️ SPECIAL CASE: Range type clarification (prevents anchoring on legacy title for control location)
+    if (determinedCategory === 'Range') {
+      categoryTypeContext += '\n\n🔍 RANGE TYPE CLARIFICATION:\n';
+      categoryTypeContext += '  • product_type describes CONTROL LOCATION or STYLE: Front Control, Top Control, Pro-Style, Slide-In\n';
+      categoryTypeContext += '  • ⚠️ IMPORTANT: "Control Location" in Specification_Table is the authoritative source\n';
+      categoryTypeContext += '  • "Control Location: Rear" → product_type: "Top Control" (controls on rear backsplash panel, behind burners)\n';
+      categoryTypeContext += '  • "Control Location: Front" → product_type: "Front Control" (controls on front face panel)\n';
+      categoryTypeContext += '  • ⚠️ CRITICAL: Legacy titles sometimes say "Front Control" even when spec says Rear — ALWAYS trust the spec data\n';
+      categoryTypeContext += '\n  EXAMPLES:\n';
+      categoryTypeContext += '  ✅ Spec says "Control Location: Rear" → product_type: "Top Control"\n';
+      categoryTypeContext += '  ✅ Spec says "Control Location: Front" → product_type: "Front Control"\n';
+      categoryTypeContext += '  ✅ "Pro-Style" or "Professional" range → product_type: "Pro-Style"\n';
+      categoryTypeContext += '  ✅ Slide-in installation → product_type: "Slide-In"\n';
+      categoryTypeContext += '\n  🚫 COMMON MISTAKES TO AVOID:\n';
+      categoryTypeContext += '  ❌ Trusting Product_Title_Legacy to determine Front vs Top control (legacy titles are frequently mislabeled)\n';
+      categoryTypeContext += '  ❌ Returning "Rear Control" — the correct picklist term for rear-located controls is "Top Control"\n';
+      categoryTypeContext += '\n  KEY: Find "Control Location" in Specification_Table. "Rear" = Top Control. "Front" = Front Control.';
+    }
+
     // ⚠️ SPECIAL CASE: Dryer type clarification (prevents confusion with fuel type)
     if (determinedCategory === 'Dryer') {
       categoryTypeContext += '\n\n🔍 DRYER TYPE CLARIFICATION:\n';
