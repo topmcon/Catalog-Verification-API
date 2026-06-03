@@ -12264,11 +12264,29 @@ async function buildFinalResponse(
   if (hexColorMatch) {
     cleanColor = hexColorMatch[1].trim();
   }
-  // Use finish if available and not a material; fall back to color if color isn't a material
-  // Finish is preferred because it preserves qualifiers (e.g., "Brushed Brass PVD" vs color "Brass")
-  const smartAppearance = (rawFinish && !MATERIAL_COATING_PATTERNS.test(rawFinish.trim()))
+  // Color-priority rule (Finding #068): COLOR wins over FINISH for the title UNLESS the finish
+  // adds real information beyond the color. Rationale: appliances put the consumer-facing
+  // descriptor in COLOR ("Stainless Steel", "Black Stainless", "White"), while the AI sometimes
+  // mis-extracts a bare surface-treatment word into FINISH ("Brushed"), yielding wrong titles
+  // like "...Oven Brushed". Fixtures legitimately carry the descriptor in FINISH ("Brushed
+  // Nickel", "Champagne Bronze"), so a COMPLETE finish that differs from the color still wins.
+  //
+  // A finish "adds info" when it is: present, NOT a material/coating, NOT a bare incomplete
+  // surface-treatment adjective, and NOT identical to the color. Otherwise the color wins.
+  const INCOMPLETE_FINISH_WORDS = /^(brushed|matte|satin|polished|glossy|gloss|textured|smooth|honed|hammered|distressed|antique|aged|oiled)$/i;
+  const finishTrim = rawFinish.trim();
+  const colorTrim = cleanColor.trim();
+  const finishIsMaterial = MATERIAL_COATING_PATTERNS.test(finishTrim);
+  const colorIsMaterial = MATERIAL_COATING_PATTERNS.test(colorTrim);
+  const finishIsIncomplete = INCOMPLETE_FINISH_WORDS.test(finishTrim);
+  const finishEqualsColor = !!colorTrim && finishTrim.toLowerCase() === colorTrim.toLowerCase();
+  const finishAddsInfo = !!finishTrim && !finishIsMaterial && !finishIsIncomplete && !finishEqualsColor;
+
+  const smartAppearance = finishAddsInfo
     ? rawFinish
-    : (cleanColor && !MATERIAL_COATING_PATTERNS.test(cleanColor.trim()) ? cleanColor : '');
+    : (colorTrim && !colorIsMaterial)
+      ? cleanColor
+      : (finishTrim && !finishIsMaterial && !finishIsIncomplete ? rawFinish : '');
 
   // Build seoTitleInput from CORRECTED attributes
   // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
