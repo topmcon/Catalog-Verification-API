@@ -258,13 +258,18 @@ export function recordConsensusResult(
     unresolvedFields: result.unresolvedFields || [],
   };
 
-  // Add issues for consensus problems
-  if (!result.agreed) {
+  // Add issues for consensus problems.
+  // Gate on ACTUAL unresolved fields (and category disagreement), NOT the stale `agreed`
+  // boolean. `agreed` is computed once in buildConsensus BEFORE Phase-5 resolution and is
+  // never recomputed, so it stays false even when all disagreements were resolved — which
+  // produced false-positive `consensus_failure` flags on clean jobs. (Audit consensus-Finding #1)
+  const unresolvedCount = result.fieldsUnresolved || 0;
+  if (unresolvedCount > 0) {
     addIssue(trackingId, {
       type: 'consensus_failure',
       severity: 'medium',
-      description: `AIs did not reach consensus. Score: ${result.consensusScore}`,
-      suggestedAction: 'Review disagreement fields for potential data quality issues',
+      description: `AIs left ${unresolvedCount} field(s) unresolved. Score: ${result.consensusScore}`,
+      suggestedAction: 'Review unresolved fields for potential data quality issues',
     });
   }
 

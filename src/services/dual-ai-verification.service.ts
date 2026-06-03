@@ -6756,9 +6756,12 @@ function buildConsensus(openaiResult: AIAnalysisResult, xaiResult: AIAnalysisRes
   const xaiConf = Math.max(0, Math.min(1, xaiResult.confidence || 0));
   const avgAiConfidence = (openaiConf + xaiConf) / 2;
   
-  // Category match bonus: Apply if FINAL agreed category matches (even after cross-validation)
-  // This rewards agreement on the most important classification decision
-  const categoryBonus = agreedCategory ? 0.1 : 0;
+  // Category match bonus: reward only when BOTH AIs actually AGREED on the category
+  // (categoriesMatch), not merely because a final category exists. `agreedCategory` is always
+  // non-empty (a category is always chosen, even on disagreement via confidence tiebreak), so
+  // gating on it made this an unconditional +10 padding on essentially every job. (Audit
+  // scoring-Finding #3)
+  const categoryBonus = categoriesMatch ? 0.1 : 0;
   
   // Final score: 50% AI confidence + 40% agreement ratio + 10% category bonus (capped at 1.0)
   const overallConfidence = Math.min(1, avgAiConfidence * 0.5 + agreementRatio * 0.4 + categoryBonus);
@@ -8357,9 +8360,14 @@ function buildResearchAttestationSummary(
   const notFoundFields: string[] = [];
   const incompleteFields: string[] = [];
 
+  // Honest "found" accounting. The AIs/pipeline emit the literal "Not Found" (and "Not
+  // Applicable") for unresolved fields — these are NOT a value and must NOT be counted as
+  // found, or attestation over-reports completeness (e.g. claiming 39/39 while amperage is
+  // "Not Found"). (Audit scoring-Finding #4)
+  const NOT_A_VALUE = new Set(['', 'n/a', 'na', 'not found', 'not applicable', 'none', 'none identified', 'unknown', 'null', 'undefined']);
   for (const [fieldName, value] of Object.entries(allFields)) {
     const strValue = String(value || '').trim();
-    
+
     if (strValue === FIELD_STATUS_CODES.PROCUREMENT_NO_RESULTS) {
       fullyResearchedCount++;
       notFoundFields.push(fieldName);
@@ -8369,7 +8377,10 @@ function buildResearchAttestationSummary(
     } else if (strValue === FIELD_STATUS_CODES.RESEARCH_ERROR) {
       incompleteCount++;
       incompleteFields.push(fieldName);
-    } else if (strValue && strValue !== '' && strValue !== 'N/A') {
+    } else if (NOT_A_VALUE.has(strValue.toLowerCase())) {
+      // Literal "Not Found"/"Not Applicable"/empty — count as not-found, not as a value.
+      notFoundFields.push(fieldName);
+    } else {
       foundCount++;
     }
   }
@@ -11996,8 +12007,10 @@ async function buildFinalResponse(
   const unresolvedCount = factualDisagreements.filter(d => d.resolution === 'unresolved').length;
   const totalFieldsAnalyzed = totalAgreedFields + unresolvedCount;
   
-  // Category bonus applies if we have a final agreed category (even after cross-validation)
-  const hasFinalCategory = consensus.agreedCategory && consensus.agreedCategory.length > 0;
+  // Category bonus applies only when the AIs actually AGREED on the category (consistent with
+  // the score computed in buildConsensus). A final category always exists, so reporting the
+  // bonus on mere presence overstated the breakdown. (Audit scoring-Finding #3)
+  const hasFinalCategory = consensus.categoryAgreed === true;
 
   // Build data sources list based on what was actually used
   const dataSources: string[] = ['OpenAI', 'xAI'];
@@ -12269,12 +12282,19 @@ async function buildFinalResponse(
     }))
   };
 
-  // Determine final verification status
+  // Determine final verification status.
+  // Both FAIL and FLAG downgrade to needs_review. FLAG is raised by Phase A flagging and by
+  // Phase B parse/API failures ("treating as FLAG for safety"); previously only FAIL
+  // downgraded, so a failed/inconclusive safety check still shipped as `verified`. (Audit
+  // scoring-Finding #6)
   let finalVerificationStatus = status;
-  if (finalReviewResult.finalStatus === 'FAIL') {
-    finalVerificationStatus = 'needs_review';
-    logger.warn('🔴 FINAL REVIEW: Validation failed - downgrading status to needs_review', {
+  if (finalReviewResult.finalStatus === 'FAIL' || finalReviewResult.finalStatus === 'FLAG') {
+    if (finalVerificationStatus === 'verified') {
+      finalVerificationStatus = 'needs_review';
+    }
+    logger.warn(`🔴 FINAL REVIEW: status ${finalReviewResult.finalStatus} - capping verification at needs_review`, {
       sessionId,
+      finalReviewStatus: finalReviewResult.finalStatus,
       correctionsApplied: finalReviewResult.correctionsApplied.length,
       issuesFlagged: finalReviewResult.flaggedForReview.length
     });
@@ -12916,6 +12936,10 @@ function buildPriceAnalysis(rawProduct: SalesforceIncomingProduct): PriceAnalysi
 
 function determineStatus(consensus: ConsensusResult, openaiResult: AIAnalysisResult, xaiResult: AIAnalysisResult): 'verified' | 'needs_review' | 'failed' {
   if (!openaiResult.success && !xaiResult.success) return 'failed';
+  // Single-AI guard (Audit scoring-Finding #1): if ONE provider failed, there was no actual
+  // cross-verification — the surviving AI's values became "agreed" by default. Never report
+  // such a result as fully `verified`; cap at `needs_review` regardless of score.
+  if (!openaiResult.success || !xaiResult.success) return 'needs_review';
   if (consensus.overallConfidence >= 0.85) return 'verified';  // 85%+ confidence = verified (even with minor disagreements)
   if (consensus.overallConfidence >= 0.6) return 'needs_review';
   return 'failed';
