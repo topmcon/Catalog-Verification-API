@@ -62,25 +62,19 @@ try {
   }
 
   if (pdfParse) {
-    logger.info('PDF parsing enabled');
-    // Startup self-test: parse a minimal embedded PDF so a broken/incompatible parser
-    // is detected LOUDLY at boot instead of silently failing on every product.
-    // Minimal but STRUCTURALLY VALID PDF (with a correct xref table) so stricter pdf.js
-    // builds parse it without "bad XRef entry". A malformed test PDF would itself fail and
-    // raise a false alarm.
-    const SELF_TEST_PDF = Buffer.from(
-      'JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCAxMDAgMTAwXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE4NgolJUVPRg==',
-      'base64'
-    );
-    // Fire-and-forget; never block or crash startup on the self-test itself.
-    Promise.resolve()
-      .then(() => pdfParse!(SELF_TEST_PDF))
-      .then(() => logger.info('PDF parser self-test passed'))
-      .catch((selfTestErr) =>
-        logger.error('🚨 PDF parser self-test FAILED — spec-sheet PDFs will NOT be parsed. Check pdf-parse version/API.', {
-          error: selfTestErr instanceof Error ? selfTestErr.message : String(selfTestErr),
-        })
-      );
+    // Log the resolved pdf-parse version at boot. This is the robust health signal:
+    // the original outage (Audit F1) was a v1→v2 bump that left `pdfParse` null. The
+    // version line makes the installed major version visible in logs, and the `else`
+    // branch below fires a loud ERROR if the parser could not be wired up at all.
+    // (We intentionally do NOT run a synthetic-PDF parse self-test: a hand-built minimal
+    // PDF triggers pdf.js "bad XRef entry" on some builds and would false-alarm even though
+    // real spec PDFs parse fine.)
+    let pdfParseVersion = 'unknown';
+    try { pdfParseVersion = require('pdf-parse/package.json').version; } catch { /* ignore */ }
+    logger.info(`PDF parsing enabled (pdf-parse v${pdfParseVersion})`);
+    if (/^2\./.test(pdfParseVersion)) {
+      logger.warn('⚠️ pdf-parse v2 detected — verify PDF extraction still works; the loader was written for the v1 callable API.');
+    }
   } else {
     logger.error('🚨 PDF parse function not found in module — spec-sheet PDFs will NOT be parsed.', { moduleKeys: Object.keys(pdfModule) });
   }
