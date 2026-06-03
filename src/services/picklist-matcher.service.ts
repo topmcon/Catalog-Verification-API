@@ -8,6 +8,7 @@ import * as path from 'path';
 import logger from '../utils/logger';
 import { PicklistMismatch, IPicklistMismatch } from '../models/picklist-mismatch.model';
 import { normalizeCategory, getCategoryRemapping } from '../config/category-consolidation-mapping';
+import { getCategoryAttributeNames } from '../config/category-config';
 
 /**
  * PRIMARY ATTRIBUTE NAMES AND KEYS
@@ -753,7 +754,7 @@ class PicklistMatcherService {
    * @param options.forceIdLookup - When true, bypasses isPrimaryAttribute check to always look up attribute_id
    *                                Use this for Top_Filter_Attribute_Ids where we need the ID even for primary attrs
    */
-  matchAttribute(attributeName: string, options?: { forceIdLookup?: boolean }): MatchResult<Attribute> {
+  matchAttribute(attributeName: string, options?: { forceIdLookup?: boolean; categoryName?: string | null }): MatchResult<Attribute> {
     if (!attributeName || !this.initialized) {
       return { matched: false, original: attributeName, matchedValue: null, similarity: 0 };
     }
@@ -782,17 +783,35 @@ class PicklistMatcherService {
       logger.info('Using attribute alias mapping', { original: normalized, mappedTo: aliasTarget });
     }
     
-    // Try exact match (with alias)
-    const exactMatch = this.attributes.find(a => 
+    // Try exact match (with alias). An exact attribute-name match is unambiguous across
+    // categories, so it is always checked against the full set.
+    const exactMatch = this.attributes.find(a =>
       a.attribute_name.toLowerCase() === searchTerm
     );
-    
+
     if (exactMatch) {
       return { matched: true, original: attributeName, matchedValue: exactMatch, similarity: 1.0 };
     }
 
-    // Score all attributes against the search term
-    const scored = this.attributes.map(a => ({
+    // Scope FUZZY matching to attributes valid for the product's category when known.
+    // Without this, a spec fuzzy-matches an attribute from ANY category — e.g. oven
+    // "upper_cavity" → dryer "Dryer Capacity" (54%) — which is noise at best and a
+    // wrong-category attribute_id assignment at worst. (Audit picklist-Finding #1)
+    let candidatePool = this.attributes;
+    let categoryScoped = false;
+    if (options?.categoryName) {
+      const allowedNames = getCategoryAttributeNames(options.categoryName);
+      if (allowedNames && allowedNames.size > 0) {
+        const scoped = this.attributes.filter(a => allowedNames.has(a.attribute_name.toLowerCase().trim()));
+        if (scoped.length > 0) {
+          candidatePool = scoped;
+          categoryScoped = true;
+        }
+      }
+    }
+
+    // Score candidate attributes against the search term
+    const scored = candidatePool.map(a => ({
       attribute: a,
       similarity: this.calculateSimilarity(searchTerm, a.attribute_name)
     })).sort((a, b) => b.similarity - a.similarity);
@@ -800,10 +819,11 @@ class PicklistMatcherService {
     const best = scored[0];
     // Threshold of 0.6 (60%) for flexible matching
     if (best && best.similarity >= 0.6) {
-      logger.info('Attribute matched via similarity', { 
-        original: attributeName, 
+      logger.info('Attribute matched via similarity', {
+        original: attributeName,
         matched: best.attribute.attribute_name,
-        similarity: best.similarity 
+        similarity: best.similarity,
+        categoryScoped
       });
       return { 
         matched: true, 
@@ -814,8 +834,8 @@ class PicklistMatcherService {
       };
     }
     
-    // Additional fallback: partial match (one contains the other)
-    const partialMatch = this.attributes.find(a =>
+    // Additional fallback: partial match (one contains the other) — same category scope.
+    const partialMatch = candidatePool.find(a =>
       a.attribute_name.toLowerCase().includes(searchTerm) ||
       searchTerm.includes(a.attribute_name.toLowerCase())
     );

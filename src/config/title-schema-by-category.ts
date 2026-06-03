@@ -73,7 +73,16 @@ export const FORMATTING_RULES = {
   
   // Capacity: Use 'XX Cu. Ft.' with period after Cu
   capacity: (value: number | string): string => {
-    const num = typeof value === 'string' ? parseFloat(value) : value;
+    let num: number;
+    // Dual-cavity / multi-compartment values like "1.9/5.1 cu ft" (microwave-combo ovens,
+    // some double ovens) must NOT be truncated by parseFloat (which would keep only "1.9"
+    // and silently drop the second cavity). Sum the parts to yield the TOTAL capacity.
+    if (typeof value === 'string' && /\d\s*\/\s*\d/.test(value)) {
+      const parts = value.match(/\d+(?:\.\d+)?/g);
+      num = parts && parts.length > 0 ? parts.reduce((sum, p) => sum + parseFloat(p), 0) : NaN;
+    } else {
+      num = typeof value === 'string' ? parseFloat(value) : value;
+    }
     if (isNaN(num) || num <= 0) return '';
     const formatted = num % 1 === 0 ? num.toString() : num.toFixed(1);
     return `${formatted} Cu. Ft.`;

@@ -312,6 +312,21 @@ export function getCategorySchema(categoryName: string): CategorySchema | null {
 }
 
 /**
+ * Get the set of attribute names valid for a category (lowercased/trimmed), using the same
+ * category-name normalization as getCategorySchema. Used to SCOPE attribute picklist matching
+ * to the product's category so a spec doesn't fuzzy-match an attribute from another category
+ * (e.g. oven "upper_cavity" → dryer "Dryer Capacity"). Returns null if the category is unknown
+ * or has no attributes, in which case callers should fall back to global matching.
+ */
+export function getCategoryAttributeNames(categoryName: string): Set<string> | null {
+  const schema = getCategorySchema(categoryName);
+  if (!schema || !schema.top15FilterAttributes || schema.top15FilterAttributes.length === 0) {
+    return null;
+  }
+  return new Set(schema.top15FilterAttributes.map(a => a.name.toLowerCase().trim()));
+}
+
+/**
  * Category clarifications to prevent AI confusion
  * Maps category names to helpful descriptions for disambiguation
  */

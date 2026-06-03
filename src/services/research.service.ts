@@ -33,28 +33,56 @@ try {
   logger.warn('puppeteer-core not installed - JS rendering disabled', { error: err });
 }
 
-// PDF parsing - we'll use pdf-parse for extracting text
+// PDF parsing - we use pdf-parse for extracting text from manufacturer spec sheets.
+// IMPORTANT: pdf-parse v1 default-exports a callable `pdf(buffer): Promise<{text,numpages}>`.
+// pdf-parse v2 is a rewrite exposing a `PDFParse` class (new PDFParse({data}).getText()).
+// We support both export shapes so a future major bump cannot silently disable PDF parsing
+// (Finding #068-audit F1: a v1→v2 bump left every spec PDF unparsed with no error surfaced).
 let pdfParse: ((buffer: Buffer) => Promise<{ text: string; numpages: number }>) | null = null;
 try {
-  // pdf-parse exports default function - try multiple import patterns
   const pdfModule = require('pdf-parse');
-  
-  // Handle different export patterns
+
   if (typeof pdfModule === 'function') {
+    // v1: module.exports = pdf(buffer)
     pdfParse = pdfModule;
   } else if (typeof pdfModule.default === 'function') {
     pdfParse = pdfModule.default;
   } else if (typeof pdfModule.pdf === 'function') {
     pdfParse = pdfModule.pdf;
+  } else {
+    // v2 forward-compat: class-based PDFParse API
+    const PDFParseCls = pdfModule.PDFParse || pdfModule.default?.PDFParse;
+    if (typeof PDFParseCls === 'function') {
+      pdfParse = async (buffer: Buffer) => {
+        const parser = new PDFParseCls({ data: buffer });
+        const result = await parser.getText();
+        return { text: result?.text || '', numpages: result?.total ?? result?.numpages ?? 0 };
+      };
+    }
   }
-  
+
   if (pdfParse) {
     logger.info('PDF parsing enabled');
+    // Startup self-test: parse a minimal embedded PDF so a broken/incompatible parser
+    // is detected LOUDLY at boot instead of silently failing on every product.
+    const SELF_TEST_PDF = Buffer.from(
+      'JVBERi0xLjEKMSAwIG9iajw8L1R5cGUvQ2F0YWxvZy9QYWdlcyAyIDAgUj4+ZW5kb2JqCjIgMCBvYmo8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PmVuZG9iagozIDAgb2JqPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9NZWRpYUJveFswIDAgMTAwIDEwMF0+PmVuZG9iagp0cmFpbGVyPDwvUm9vdCAxIDAgUj4+',
+      'base64'
+    );
+    // Fire-and-forget; never block or crash startup on the self-test itself.
+    Promise.resolve()
+      .then(() => pdfParse!(SELF_TEST_PDF))
+      .then(() => logger.info('PDF parser self-test passed'))
+      .catch((selfTestErr) =>
+        logger.error('🚨 PDF parser self-test FAILED — spec-sheet PDFs will NOT be parsed. Check pdf-parse version/API.', {
+          error: selfTestErr instanceof Error ? selfTestErr.message : String(selfTestErr),
+        })
+      );
   } else {
-    logger.warn('PDF parse function not found in module', { moduleKeys: Object.keys(pdfModule) });
+    logger.error('🚨 PDF parse function not found in module — spec-sheet PDFs will NOT be parsed.', { moduleKeys: Object.keys(pdfModule) });
   }
 } catch (err) {
-  logger.warn('pdf-parse not installed - PDF extraction disabled', { error: err });
+  logger.error('🚨 pdf-parse not installed - PDF extraction disabled', { error: err });
 }
 
 // User agent to avoid being blocked
@@ -1881,6 +1909,23 @@ export function formatResearchForPrompt(research: ResearchResult): string {
       }
       sections.push('');
     }
+  }
+
+  // Research retrieval failures — surface so the AI does NOT treat an unread
+  // authoritative source as "no source." (Audit F2: failed PDFs were silently dropped.)
+  const failedPdfs = research.documents.filter(d => !d.success);
+  const failedPages = research.webPages.filter(p => !p.success);
+  if (failedPdfs.length > 0 || failedPages.length > 0) {
+    sections.push('## ⚠️ RESEARCH RETRIEVAL FAILURES (sources existed but could NOT be read)\n');
+    sections.push('These sources were provided but failed to load/parse. Treat affected fields as UNVERIFIED');
+    sections.push('(lower confidence / "Not Found" rather than inferring). Do NOT assume no spec sheet existed.\n');
+    for (const pdf of failedPdfs) {
+      sections.push(`- PDF FAILED: ${pdf.filename || pdf.url} — ${pdf.error || 'unknown error'}`);
+    }
+    for (const page of failedPages) {
+      sections.push(`- PAGE FAILED: ${page.url} — ${page.error || 'unknown error'}`);
+    }
+    sections.push('');
   }
 
   // Image analysis data

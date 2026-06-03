@@ -1136,32 +1136,55 @@ function analyzeDataSources(rawProduct: SalesforceIncomingProduct): DataSourceAn
     requiresConfirmationResearch = false; // Nothing to confirm
   }
 
-  // CRITICAL: Validate external data model number matches requested model
-  // If there's a mismatch, external data MUST NOT be trusted for variant-specific attributes
+  // CRITICAL: Validate external data model number matches the requested model.
+  // Validate EACH external source INDEPENDENTLY (Ferguson AND web-retailer). External data
+  // is trustworthy if EITHER source's model matches the requested model exactly.
+  // (Audit F3: previously only Ferguson was checked, so a Ferguson "not_found" produced a
+  // FALSE MODEL_NUMBER_MISMATCH even when the web-retailer model matched exactly — which also
+  // poisoned the AI prompt into discarding the correct color/finish from web-retailer data.)
   const requestedModel = rawProduct.SF_Catalog_Name || rawProduct.Model_Number_Web_Retailer || '';
-  // Check multiple possible locations for Ferguson model number
-  const externalModel = rawProduct.Ferguson_Model_Number 
-    || (rawProduct as any).Ferguson_Raw_Data?.product?.model_number 
+  // Ferguson model can live in multiple places
+  const fergusonModel = rawProduct.Ferguson_Model_Number
+    || (rawProduct as any).Ferguson_Raw_Data?.product?.model_number
     || null;
-  
-  // Also check for Ferguson_Raw_Data which may contain error information
-  const modelValidation = validateExternalDataModel(
+  const webRetailerModel = rawProduct.Model_Number_Web_Retailer || null;
+
+  const fergusonValidation = validateExternalDataModel(
     requestedModel,
-    externalModel,
-    rawProduct as any  // May contain Ferguson_Raw_Data
+    fergusonModel,
+    rawProduct as any  // May contain Ferguson_Raw_Data error info
   );
-  
-  // External data is trusted only if model numbers match exactly
-  const externalDataTrusted = modelValidation.isExactMatch;
-  
-  // If model mismatch detected and we have Ferguson data, mark it as untrusted
-  if (!externalDataTrusted && hasFergusonData) {
+  const webRetailerMatches = !!webRetailerModel && isModelNumberMatch(requestedModel, webRetailerModel);
+
+  // Trust external data if EITHER source matches the requested model exactly.
+  const externalDataTrusted = fergusonValidation.isExactMatch || webRetailerMatches;
+
+  // Surface the validation result of whichever source we actually trust, so the downstream
+  // MODEL_NUMBER_MISMATCH warning and AI-prompt suppression are driven by the trusted source.
+  let modelValidation: ModelMatchResult;
+  if (fergusonValidation.isExactMatch) {
+    modelValidation = fergusonValidation;
+  } else if (webRetailerMatches) {
+    modelValidation = {
+      isExactMatch: true,
+      requestedModel,
+      foundModel: webRetailerModel,
+      normalizedRequested: normalizeModelNumber(requestedModel),
+      normalizedFound: normalizeModelNumber(webRetailerModel || ''),
+    };
+  } else {
+    // Neither source matched. Keep Ferguson's detail, but only treat it as a real mismatch
+    // (vs. "no external model available") for warning purposes downstream.
+    modelValidation = fergusonValidation;
+  }
+
+  // If no external source matched AND we actually had external data to compare, warn.
+  if (!externalDataTrusted && (hasFergusonData || !!webRetailerModel)) {
     logger.warn('MODEL MISMATCH DETECTED - External data NOT trusted', {
       requestedModel,
-      foundModel: modelValidation.foundModel,
+      fergusonModel,
+      webRetailerModel,
       mismatchReason: modelValidation.mismatchReason,
-      normalizedRequested: modelValidation.normalizedRequested,
-      normalizedFound: modelValidation.normalizedFound,
       impact: 'External data will NOT be used for color, finish, or variant-specific attributes'
     });
   }
@@ -2396,7 +2419,14 @@ export async function verifyProductWithDualAI(
     const promptOptions: PromptOptions = {
       researchContext: preResearchContext,
       externalDataTrusted: dataSourceAnalysis.externalDataTrusted,
-      modelMismatchWarning: dataSourceAnalysis.modelValidation?.mismatchReason,
+      // Only surface a mismatch warning to the AI on a GENUINE differing model (a source
+      // returned a DIFFERENT model number). "No external model found" is not a variant
+      // mismatch and must not trigger the "discard color/finish" instruction. (Audit F3)
+      modelMismatchWarning: (dataSourceAnalysis.modelValidation
+        && !dataSourceAnalysis.modelValidation.isExactMatch
+        && !!dataSourceAnalysis.modelValidation.foundModel)
+        ? dataSourceAnalysis.modelValidation.mismatchReason
+        : undefined,
       // Pass coherence warnings to help AI identify bad data sources
       dataCoherenceWarnings: (coherenceResult.conflicts.length > 0 || coherenceResult.warnings.length > 0) ? {
         conflicts: coherenceResult.conflicts.map(c => ({
@@ -6349,8 +6379,11 @@ When you see conflicting data (e.g., URLs pointing to different products than th
 `;
   }
 
-  // Add CRITICAL model mismatch warning if detected
-  if (modelMismatchWarning || !externalDataTrusted) {
+  // Add CRITICAL model mismatch warning ONLY on a genuine differing-model mismatch.
+  // (Audit F3: previously also fired on `!externalDataTrusted`, which is true whenever there
+  // is simply no matching external model — wrongly instructing the AI to discard valid data.
+  // The softer "verify model numbers" guidance below still uses externalDataTrusted.)
+  if (modelMismatchWarning) {
     prompt += `
 
 === ⛔ CRITICAL MODEL NUMBER MISMATCH WARNING ⛔ ===
@@ -11603,8 +11636,8 @@ async function buildFinalResponse(
         });
       } else {
         // Not in category config - try fuzzy match as last resort
-        const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true });
-        
+        const attrMatch = picklistMatcher.matchAttribute(key, { forceIdLookup: true, categoryName: consensus.agreedCategory });
+
         if (attrMatch.matched && attrMatch.matchedValue) {
           const safeAttributeId = getSafeId(attrMatch.matchedValue.attribute_id);  // Filter out placeholder IDs
           topFilterAttributeIds[key] = safeAttributeId;
@@ -11712,9 +11745,9 @@ async function buildFinalResponse(
         continue;
       }
       
-      // Try to match against SF picklist
-      const attrMatch = picklistMatcher.matchAttribute(attrName);
-      
+      // Try to match against SF picklist (scoped to this product's category)
+      const attrMatch = picklistMatcher.matchAttribute(attrName, { categoryName: consensus.agreedCategory });
+
       if (attrMatch.matched && attrMatch.matchedValue) {
         // Attribute exists in SF - log for tracking
         logger.info('HTML table attribute matched to SF picklist', {
@@ -11972,8 +12005,12 @@ async function buildFinalResponse(
   if (dataSourceAnalysis?.hasFergusonData) dataSources.push('Ferguson');
   if (didResearch) dataSources.push('External_Research');
 
-  // Check if model mismatch was detected - this is a critical data quality indicator
-  const modelMismatchDetected = dataSourceAnalysis?.modelValidation && !dataSourceAnalysis.modelValidation.isExactMatch;
+  // Check if model mismatch was detected - this is a critical data quality indicator.
+  // Only a GENUINE differing model (a source returned a DIFFERENT model number) counts.
+  // "No external model found" (foundModel null) is NOT a variant mismatch. (Audit F3)
+  const modelMismatchDetected = dataSourceAnalysis?.modelValidation
+    && !dataSourceAnalysis.modelValidation.isExactMatch
+    && !!dataSourceAnalysis.modelValidation.foundModel;
   const modelMismatchWarning = modelMismatchDetected ? {
     warning: 'MODEL_NUMBER_MISMATCH',
     requested_model: dataSourceAnalysis.modelValidation?.requestedModel,
@@ -12450,7 +12487,7 @@ async function buildFinalResponse(
         if (attrId) {
           topFilterAttributeIds[key] = attrId;
         } else {
-          const attrMatch = picklistMatcher.matchAttribute(attrDef.name, { forceIdLookup: true });
+          const attrMatch = picklistMatcher.matchAttribute(attrDef.name, { forceIdLookup: true, categoryName: postPipelineCategory });
           topFilterAttributeIds[key] = attrMatch.matched && attrMatch.matchedValue
             ? getSafeId(attrMatch.matchedValue.attribute_id) : null;
         }
@@ -14858,14 +14895,25 @@ async function executeFinalReviewStage(
   const correctionsApplied: ValidationIssue[] = [];
   const flaggedForReview: ValidationIssue[] = [];
 
-  // PATH B: Skip Claude Phase B for Appliances (restores 926ad6b behavior — no Claude existed then)
+  // PATH B gating (Audit scoring-Finding #2): Claude Phase B is the final safety net.
+  // It was previously HARD-SKIPPED for the entire Appliances department (restoring pre-Claude
+  // 926ad6b behavior) — removing the net from the most attribute-dense, error-prone category.
+  // Instead, gate on real risk signals: clean Appliance jobs stay fast, flagged ones get reviewed.
   const isAppliancesDept = department === 'Appliances';
+  const hasSevereWarnings = phaseAResult.warnings.some(w => w.severity === 'HIGH' || w.severity === 'CRITICAL');
+  const hasSevereCorrections = phaseAResult.corrections.some(c => c.severity === 'HIGH' || c.severity === 'CRITICAL');
+  const unresolvedDisagreements = ((consensus as any).disagreements || []).some((d: any) => d?.resolution === 'unresolved');
+  const lowPhaseAConfidence = phaseAResult.confidence < 90;
+  const applianceRiskSignal = !phaseAResult.passed || hasSevereWarnings || hasSevereCorrections || unresolvedDisagreements || lowPhaseAConfidence;
+  // Non-appliances: review whenever Phase A asks (unchanged). Appliances: only on a real signal.
+  const shouldRunPhaseB = phaseAResult.requiresAIReview && (!isAppliancesDept || applianceRiskSignal);
 
-  // Phase B: Claude Review (only if Phase A flagged for review AND not Appliances)
-  if (phaseAResult.requiresAIReview && !isAppliancesDept) {
-    logger.info('🔍 FINAL REVIEW: Phase A flagged for Claude review', {
+  if (shouldRunPhaseB) {
+    logger.info('🔍 FINAL REVIEW: Running Claude Phase B', {
       sessionId,
-      reason: `Confidence: ${phaseAResult.confidence}%, Warnings: ${phaseAResult.warnings.length}, Corrections: ${phaseAResult.corrections.length}`
+      department,
+      isAppliancesDept,
+      reason: `Confidence: ${phaseAResult.confidence}%, Warnings: ${phaseAResult.warnings.length}, Corrections: ${phaseAResult.corrections.length}, applianceRiskSignal: ${applianceRiskSignal}`
     });
 
     phaseBResult = await performClaudeReview(
@@ -14884,12 +14932,13 @@ async function executeFinalReviewStage(
     } else if (phaseBResult.reviewStatus === 'FLAG') {
       finalStatus = 'FLAG';
     }
-  } else if (phaseAResult.requiresAIReview && isAppliancesDept) {
-    logger.info('⏭️ FINAL REVIEW: Skipping Claude Phase B for Appliances (PATH B — 926ad6b restore)', {
+  } else {
+    logger.info('⏭️ FINAL REVIEW: Phase B not triggered', {
       sessionId,
       department,
+      isAppliancesDept,
       phaseAConfidence: phaseAResult.confidence,
-      reason: 'Appliances use pre-Claude verification logic'
+      reason: isAppliancesDept ? 'Appliance job clean — no Phase A risk signal' : 'Phase A did not require review'
     });
   }
 
