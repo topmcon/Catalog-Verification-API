@@ -6069,3 +6069,84 @@ AI extracted surface treatment ("brushed" metal texture) instead of color/materi
 
 ### Related Findings
 - **#066**: Range type infrastructure — #066 built the spec-tiebreaker system #067 extended
+
+---
+
+## Finding #068: Title shows FINISH ("Brushed") instead of COLOR ("Stainless Steel") (NQ70M7770DS)
+
+**Symptom:** Samsung oven title read "...Microwave Combo Oven **Brushed**" instead of "Stainless Steel".
+**Root cause:** Title slot prefers FINISH over COLOR. AI mis-extracted bare "Brushed" (surface
+texture) into `AI_Finish` while `AI_Color` was correctly "Stainless Steel". Both title paths
+(`normalizeFinish`, `smartAppearance`) preferred finish.
+**Fix (`f8be67e`):** `smartAppearance` — COLOR wins UNLESS the finish "adds info" (present, not a
+material/coating, not a bare incomplete surface-treatment adjective, not equal to color). Complete
+multi-word finishes (Brushed Nickel, Champagne Bronze, Black Stainless) still win → fixtures
+preserved. `src/services/dual-ai-verification.service.ts` smartAppearance (~line 12324).
+**Scope:** all categories. 322 historical titles affected (`scripts/reverify-titles.js`).
+**Related:** #070 (AI extraction trust), #075 (title polish).
+
+---
+
+## Findings #069–#076: Whole-Pipeline Quality Audit (June 3, 2026)
+
+A 6-agent parallel audit produced ~45 findings. Shipped subset below; deferred items noted.
+
+### #069 — PDF spec sheets never parsed (`26fd951`, `86e8517`)
+**Symptom:** `Research_Analysis` showed every PDF failing "PDF parsing library not available".
+**Root cause:** `package.json` declared `pdf-parse ^2.4.5` (v2 = class API) but the loader uses the
+v1 callable API → `pdfParse` always null → all manufacturer spec PDFs ignored.
+**Fix:** pin `pdf-parse ^1.1.4`, add v2-class forward-compat, boot version log, surface failed
+PDFs/pages in the AI prompt (`## RESEARCH RETRIEVAL FAILURES`). `src/services/research.service.ts`.
+Verified: Samsung manual → 264 pages / 629K chars.
+
+### #070 — False MODEL_NUMBER_MISMATCH corrupting output (`26fd951`)
+**Root cause:** `analyzeDataSources` derived "found model" from Ferguson only; Ferguson `not_found`
+→ mismatch even when `Model_Number_Web_Retailer` matched exactly, AND injected a prompt block
+ordering the AIs to discard color/finish/model.
+**Fix:** per-source validation; trust if EITHER matches; warn/poison only on a genuine differing
+model (`foundModel` present and different). `dual-ai-verification.service.ts` ~line 1139, 6376, 12008.
+
+### #071 — Capacity truncation in titles (`26fd951`)
+**Root cause:** `capacity()` did `parseFloat("1.9/5.1 cu ft")` = 1.9 (dropped oven cavity).
+**Fix:** detect `A/B` pattern, sum to total. `src/config/title-schema-by-category.ts` capacity().
+
+### #072 — Cross-category attribute matching (`26fd951`)
+**Root cause:** `matchAttribute` scored against all ~1,653 global attributes (no category field) →
+oven `upper_cavity` → dryer "Dryer Capacity"; risk of wrong-category attribute_id.
+**Fix:** new `getCategoryAttributeNames(category)` scopes fuzzy pool to the product's category;
+exact matches stay global. `picklist-matcher.service.ts`, `category-config.ts`.
+
+### #073 — Phase B (Claude review) skipped for all Appliances (`26fd951`)
+**Root cause:** blanket department skip ("restore 926ad6b").
+**Fix:** signal-gated (Phase A failed, HIGH/CRITICAL warnings/corrections, unresolved
+disagreements, or confidence < 90). `dual-ai-verification.service.ts` ~line 14899.
+
+### #074 — Scoring/consensus integrity bundle (`94a4c81`)
+- consensus_failure issue gated on `fieldsUnresolved > 0`, not the stale pre-resolution `agreed`
+  flag (`tracking.service.ts`). - `category_bonus` requires `categoriesMatch`, not mere presence.
+- Attestation counts "Not Found"/"Not Applicable"/empty as NOT found (`NOT_A_VALUE`).
+- Single-AI failure caps status at `needs_review` (`determineStatus`). - Final Review `FLAG` (not
+  just `FAIL`) downgrades `verified` → `needs_review`. - `typescript` moved to dependencies.
+
+### #075 — Title polish (`a1e5493`)
+Global repeated-phrase dedup (`collapseRepeatedPhrases`, kills "Stainless Steel Stainless Steel");
+multi-value finish split ("Brushed, Glossy") + expanded `INCOMPLETE_FINISH_WORDS`; fixed broken
+`tileSize` regex (missing backslashes). `seo-title-generator.service.ts`, `title-schema-by-category.ts`.
+
+### #076 — Type-name validity guard (`a1e5493`)
+`scripts/audit-type-name-validity.js` asserts every `SEMANTIC_TYPE_PATTERNS`/`TYPE_ALIASES` type
+name is valid per `category-type-mapping.json`. **Flags 122 invalid names** for deliberate
+remediation; NOT wired into blocking validation.
+
+### DEFERRED (need dedicated, regression-tested changes — do NOT batch)
+1. **Type-system config refactor** + remediating the 122 names (#076) + `determinedType` re-sync +
+   generalize `extractTypeSpecHints` beyond Range. Root cause of recurring #066/#067/#068.
+2. **Per-field AI confidence** — single global scalar (static 85/92) drives all tiebreakers
+   (xAI always wins); needs AI prompt-schema change.
+3. **Route dropped specs** — ~47/61 web-retailer specs become free-text HTML with no
+   attribute_id/creation-request; adds SF load, review first.
+
+### Deploy hazard (recorded)
+Prod `npm install` prunes devDeps; `typescript` now a dependency, but `@types/*` still pruned →
+in-place `tsc` prints harmless `TS7016/TS2304` (noEmitOnError off → JS emits identical). Type-check
+locally; ALWAYS grep `dist/` for a marker after deploy (silent stale-dist deploys occurred).
