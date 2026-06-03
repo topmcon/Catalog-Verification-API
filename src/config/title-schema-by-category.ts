@@ -154,7 +154,9 @@ export const FORMATTING_RULES = {
   // Tile Size format
   tileSize: (value: string): string => {
     // Expected format: "12x24" or "12×24" -> "12"×24""
-    const match = value.match(/(d+)s*[x×]s*(d+)/i);
+    // NOTE: backslashes were missing here ((d+)s* matched literal letters, never digits),
+    // so tile sizes were never formatted. Correct character classes: \d and \s. (Audit #073)
+    const match = value.match(/(\d+(?:\.\d+)?)\s*[x×]\s*(\d+(?:\.\d+)?)/i);
     if (match) {
       return `${match[1]}"×${match[2]}"`;
     }

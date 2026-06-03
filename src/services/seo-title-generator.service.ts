@@ -507,6 +507,31 @@ function enforceModelAtEnd(title: string, modelNumber?: string): string {
  * Converts "15-1/2" → "16", "39-3/8" → "39", "23.5×29.5" → "24×30", etc.
  * Only targets dimension patterns — does NOT touch performance specs like "1.5 GPM".
  */
+/**
+ * Collapse consecutive duplicated words or short phrases (1–4 words), case-insensitive,
+ * keeping the first occurrence. Iterates until stable so triplets also collapse.
+ * Examples: "Stainless Steel Stainless Steel" → "Stainless Steel";
+ *           "Wall Mount Wall Mount Faucet" → "Wall Mount Faucet".
+ * The model-number segment (after the final " - ") is preserved untouched.
+ */
+function collapseRepeatedPhrases(title: string): string {
+  // Split off the model suffix so model numbers are never altered.
+  const sepIdx = title.lastIndexOf(' - ');
+  let head = sepIdx > 0 ? title.slice(0, sepIdx) : title;
+  const tail = sepIdx > 0 ? title.slice(sepIdx) : '';
+
+  const repeat = /\b([A-Za-z][\w.'’/-]*(?:\s+[A-Za-z][\w.'’/-]*){0,3})\s+\1\b/i;
+  let prev: string;
+  let guard = 0;
+  do {
+    prev = head;
+    head = head.replace(repeat, '$1');
+    guard++;
+  } while (head !== prev && guard < 10);
+
+  return (head + tail).replace(/\s+/g, ' ').trim();
+}
+
 function roundDimensionsInTitle(title: string): string {
   // Round fraction notation: "15-1/2" → "16", "39-3/8" → "39"
   title = title.replace(/(\d+)-(\d+)\/(\d+)/g, (_match, whole, num, den) => {
@@ -622,7 +647,12 @@ export function generateSEOTitle(input: SEOTitleInput): string {
   // Round any fractional/decimal dimensions in the title (title-only, not verified data)
   // "15-1/2 x 39-3/8" → "16 x 39", "23.5-Inch" → "24-Inch"
   title = roundDimensionsInTitle(title);
-  
+
+  // Collapse consecutive duplicate words/phrases that slip through slot assembly, e.g.
+  // Material "Stainless Steel" + Finish "Stainless Steel" → "Stainless Steel Stainless Steel".
+  // Generalizes the prior per-category (Tub Filler / Steam) special cases. (Audit #069)
+  title = collapseRepeatedPhrases(title);
+
   // Enforce max length (150 chars absolute max)
   if (title.length > 150) {
     // Try to cut at a sensible point (before features)

@@ -12330,8 +12330,10 @@ async function buildFinalResponse(
   //
   // A finish "adds info" when it is: present, NOT a material/coating, NOT a bare incomplete
   // surface-treatment adjective, and NOT identical to the color. Otherwise the color wins.
-  const INCOMPLETE_FINISH_WORDS = /^(brushed|matte|satin|polished|glossy|gloss|textured|smooth|honed|hammered|distressed|antique|aged|oiled)$/i;
-  const finishTrim = rawFinish.trim();
+  const INCOMPLETE_FINISH_WORDS = /^(brushed|matte|matt|satin|polished|glossy|gloss|textured|smooth|honed|hammered|distressed|antique|aged|oiled|painted|coated|powder\s*coated|lacquered|enameled|metallic|glazed|frosted|weathered|burnished|tumbled)$/i;
+  // Multi-value finishes ("Brushed, Glossy", "Matte / Satin") are not a single title descriptor.
+  // Take the first/primary token so the incomplete-word test below can catch it. (Audit #070/#071)
+  const finishTrim = rawFinish.trim().split(/\s*[,/]\s*/)[0].trim();
   const colorTrim = cleanColor.trim();
   const finishIsMaterial = MATERIAL_COATING_PATTERNS.test(finishTrim);
   const colorIsMaterial = MATERIAL_COATING_PATTERNS.test(colorTrim);
@@ -12340,10 +12342,10 @@ async function buildFinalResponse(
   const finishAddsInfo = !!finishTrim && !finishIsMaterial && !finishIsIncomplete && !finishEqualsColor;
 
   const smartAppearance = finishAddsInfo
-    ? rawFinish
+    ? finishTrim
     : (colorTrim && !colorIsMaterial)
       ? cleanColor
-      : (finishTrim && !finishIsMaterial && !finishIsIncomplete ? rawFinish : '');
+      : (finishTrim && !finishIsMaterial && !finishIsIncomplete ? finishTrim : '');
 
   // Build seoTitleInput from CORRECTED attributes
   // Bridge: Final Review value → Preliminary seoTitleInput value (which has full verified hierarchy)
