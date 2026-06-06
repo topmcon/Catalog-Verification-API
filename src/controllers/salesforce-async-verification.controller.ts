@@ -11,6 +11,7 @@ import { VerificationJob } from '../models/verification-job.model';
 import asyncVerificationProcessor from '../services/async-verification-processor.service';
 import { ApiError } from '../middleware/error.middleware';
 import config from '../config';
+import { routeVerificationToAudit } from './audit.controller';
 
 /**
  * Salesforce verification endpoint - Immediate acknowledgment
@@ -35,6 +36,16 @@ export async function verifySalesforceAsync(req: Request, res: Response): Promis
 
     if (!SF_Catalog_Name) {
       throw new ApiError(400, 'MISSING_FIELD', 'Missing required field: SF_Catalog_Name (model number)');
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // AUDIT MODE TOGGLE (server-side). When AUDIT_MODE is detect|confirm, the
+    // inbound verification request is REROUTED to the audit protocol instead of
+    // running normal verification. SF sends requests exactly as it does today.
+    // ═══════════════════════════════════════════════════════════════════════
+    if (config.audit.mode !== 'off') {
+      await routeVerificationToAudit(req, res);
+      return;
     }
 
     // Use provided webhook URL or fall back to default Salesforce webhook

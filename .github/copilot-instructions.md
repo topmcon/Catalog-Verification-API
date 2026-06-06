@@ -890,12 +890,19 @@ When user says "Establish Connection", perform these checks and report:
    - Pending syncs (count awaiting review)
    - Pending creation requests (count sent to SF)
    - Session analytics summary (jobs processed, success rate, issues)
+   - **Current `AUDIT_MODE`** (off / detect / confirm)
 
-10. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+10. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
+   ```bash
+   ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "grep -E '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo 'AUDIT_MODE=off (default)'"
+   ```
+   **Ask the user**: *"Turn Audit Mode ON for this session? `detect` = read-only audit of existing data, `confirm` = re-verify + audit-gate + push-on-pass, `off` = normal verification."* If yes, flip it (see the **Audit Mode** section) and restart. ⚠️ While ON, normal verification is rerouted.
+
+11. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
    - Show key highlights: what was completed, current state, next steps
    - Reference the session summary file by name
 
-11. **Ask**: "Would you like to continue from where we left off?"
+12. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 
@@ -971,11 +978,38 @@ When user says "Save everything", perform these actions:
    ```
 8. **Verify sync**: Confirm all three environments have same commit
 9. **Health check**: `curl -s https://verify.cxc-ai.com/health`
-10. **Report**:
+10. **Audit Mode — ALWAYS ASK**: check `AUDIT_MODE` on prod; if it is **not `off`**, ask the user: *"Audit Mode is currently `<mode>`. Turn it OFF before we finish? (recommended unless an audit session is intentionally in progress)."* If yes, set `AUDIT_MODE=off` in `/opt/catalog-verification-api/.env` and `systemctl restart catalog-verification`. **Never leave Audit Mode on unintentionally** — while on, normal verification is rerouted. See the **Audit Mode** section.
+11. **Report**:
    - Files changed
    - Commit hash
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
+   - Current `AUDIT_MODE`
+
+---
+
+## Audit Mode (server-side toggle — NO Salesforce changes)
+
+> Full detail in `CLAUDE.md`. Audits AI-verified products (**Title, Brand, Category, Type, Style, Color, Finish**) against payload evidence (**Web Retailer, Ferguson, Legacy/Verified, Specification_Table**). SF keeps sending normal verification calls; a single server-side env toggle reroutes them. **The audit is the independent gate** — the verification pipeline can't certify its own fix; only a re-audit (with evidence citation) confirms it.
+
+**Toggle** in `/opt/catalog-verification-api/.env` → `AUDIT_MODE`:
+
+| `AUDIT_MODE` | Inbound SF verification call | Writes to SF? |
+|--------------|------------------------------|---------------|
+| `off` (default) | Normal verification | ✅ normal |
+| `detect` | Audits previously-verified data vs fresh evidence; report stored **our side** | ❌ never |
+| `confirm` | Re-verify (no push) → audit gate → push corrected output **only if audit passes** | ✅ only audit-passed |
+
+**Flip** (takes effect on restart):
+```bash
+ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && sed -i '/^AUDIT_MODE=/d' .env && echo 'AUDIT_MODE=detect' >> .env && systemctl restart catalog-verification"
+```
+**Review** (results live in `audit_jobs`, not SF): `node scripts/audit-report.js --mismatches` (flags: `--mode=`, `--catalog=`, `--since=`, `--json`).
+**Targeted confirm**: `node scripts/audit-confirm.js --catalog=MODEL --execute` (needs `SALESFORCE_API_KEY`=`WEBHOOK_SECRET`).
+**Workflow**: `detect` → review → fix + deploy → `confirm` → resend → only fixed push → `off`.
+**Endpoint**: `POST /api/verify/salesforce/audit`, `GET /api/verify/salesforce/audit/status/:auditId`. `AUDIT_SEND_TO_SF` stays **false** (SF has no audit branch).
+
+> ⚠️ Always check during **"Establish Connection"** (ask to turn ON) and **"Save Everything"** (always ask to turn OFF).
 
 ---
 

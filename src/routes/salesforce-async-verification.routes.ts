@@ -10,6 +10,7 @@ import {
   checkModelNumber,
   acknowledgeReceipt
 } from '../controllers/salesforce-async-verification.controller';
+import { auditSalesforce, getAuditStatus } from '../controllers/audit.controller';
 import { apiKeyAuth } from '../middleware/auth.middleware';
 
 const router = Router();
@@ -34,6 +35,19 @@ router.get('/salesforce/status/:jobId', getVerificationStatus);
  * Get queue statistics
  */
 router.get('/salesforce/queue/stats', getQueueStats);
+
+/**
+ * POST /api/verify/salesforce/audit
+ * Audit Mode — identification-only review of previously-verified fields against payload evidence.
+ * mode=detect (default) identifies issues; mode=confirm re-audits a fresh verification before push.
+ */
+router.post('/salesforce/audit', auditSalesforce);
+
+/**
+ * GET /api/verify/salesforce/audit/status/:auditId
+ * Check status / fetch report of an audit job
+ */
+router.get('/salesforce/audit/status/:auditId', getAuditStatus);
 
 /**
  * POST /api/verify/salesforce/model-check

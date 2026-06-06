@@ -69,9 +69,14 @@ The `mardeys-prod` alias in `~/.ssh/config` maps to:
 6. **Session Analytics**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"`
 7. **Pending Picklist Syncs**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"` — never auto-approve CRITICAL severity
 8. **Pending Creation Requests**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-creation-requests.js"` — report but do NOT auto-action
-9. **Most Recent Session Summary**: Display from `session-notes/` folder
-10. **Report Status Table** (local / GitHub / production commits, service, API health, pending syncs, creation requests)
-11. **Ask**: "Would you like to continue from where we left off?"
+9. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
+   ```bash
+   ssh mardeys-prod "grep -E '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo 'AUDIT_MODE=off (default)'"
+   ```
+   **Ask the user**: *"Turn Audit Mode ON for this session? `detect` = read-only audit of existing data, `confirm` = re-verify + audit-gate + push-on-pass, `off` = normal verification."* If yes, flip it (see the **Audit Mode** section) and restart. ⚠️ While ON, normal verification is rerouted.
+10. **Most Recent Session Summary**: Display from `session-notes/` folder
+11. **Report Status Table** (local / GitHub / production commits, service, API health, pending syncs, creation requests, **current `AUDIT_MODE`**)
+12. **Ask**: "Would you like to continue from where we left off?"
 
 **Sync verification command:**
 ```bash
@@ -112,7 +117,9 @@ if [ "$LOCAL" = "$GITHUB" ] && [ "$GITHUB" = "$PROD" ]; then echo "✅ ALL SYNCE
 
 8. **Health check**: `curl -s https://verify.cxc-ai.com/health`
 
-9. **Report**: files changed, commit hash, sync status, service health
+9. **Audit Mode — ALWAYS ASK**: check `AUDIT_MODE` on prod; if it is **not `off`**, ask the user: *"Audit Mode is currently `<mode>`. Turn it OFF before we finish? (recommended unless an audit session is intentionally in progress)."* If yes, set `AUDIT_MODE=off` in `/opt/catalog-verification-api/.env` and `systemctl restart catalog-verification`. **Never leave Audit Mode on unintentionally** — while on, normal verification is rerouted. See the **Audit Mode** section.
+
+10. **Report**: files changed, commit hash, sync status, service health, **current `AUDIT_MODE`**
 
 ---
 
@@ -145,6 +152,48 @@ Proactive alerts: 🔴 title duplication, 🔴 FAIL review status, 🔴 webhook 
 ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/verification-api-accuracy-audit.js"
 ```
 Audits last 300 unique API calls from Salesforce. Checks brand, category, subcategory, style, weight, numeric fields, title length (60-80 chars), ID fields, hardcoded list sync.
+
+---
+
+## Audit Mode (server-side toggle — NO Salesforce changes)
+
+**Purpose**: audit AI-verified products for accuracy — **Title, Brand, Category, Type, Style, Color, Finish** — against the payload evidence (**Web Retailer, Ferguson, Legacy/Verified, Specification_Table**). Find AI mistakes, diagnose root cause, confirm fixes. SF keeps sending **normal** verification calls; a single server-side toggle reroutes them to the audit protocol on our end.
+
+**The audit is the independent gate**: the verification pipeline cannot certify its own fix (it "passed" the wrong answer once already). A fix is only confirmed when a re-audit flips to MATCH **with an evidence citation**. Nothing reaches SF except audit-passed verification output.
+
+**Single env toggle** in `/opt/catalog-verification-api/.env` → `AUDIT_MODE`:
+
+| `AUDIT_MODE` | Inbound SF verification call does… | Writes to SF? |
+|--------------|-------------------------------------|---------------|
+| `off` (default) | Normal verification (today's behavior) | ✅ normal |
+| `detect` | Audits our **previously-verified** data vs the **fresh** evidence SF just sent; report stored **on our side** | ❌ never |
+| `confirm` | Re-verifies fresh (no push) → independent audit gate → pushes corrected output **only if the audit passes** | ✅ only audit-passed |
+
+`detect` = pure read-only QA (no verification, no SF write; `not_found` if never verified). `confirm` = run after a fix to validate + apply.
+
+**Flip it** (takes effect on `systemctl restart`):
+```bash
+ssh mardeys-prod "cd /opt/catalog-verification-api && sed -i '/^AUDIT_MODE=/d' .env && echo 'AUDIT_MODE=detect' >> .env && systemctl restart catalog-verification"
+```
+Use `detect` | `confirm` | `off`. Check current: `ssh mardeys-prod "grep '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo off"`.
+
+**Review results** (live in the `audit_jobs` collection — NOT in Salesforce, which has no audit field):
+```bash
+ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/audit-report.js --mismatches"
+```
+Flags: `--mode=detect|confirm`, `--catalog=ID`, `--since=YYYY-MM-DD`, `--limit=N`, `--json`. Each mismatch shows claimed → correct, the evidence snippet, and a root-cause hypothesis.
+
+**Targeted confirm** (re-audit specific products after a fix without rerouting all traffic; pushes on pass). Requires `SALESFORCE_API_KEY` = the inbound key (`WEBHOOK_SECRET`):
+```bash
+ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/audit-confirm.js --catalog=MODEL"            # dry run
+ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/audit-confirm.js --catalog=MODEL --execute"  # fire
+```
+
+**Workflow**: `detect` → review mismatches → fix pipeline + deploy → `confirm` → resend the products → only fixed ones push to SF → `off`.
+
+**Endpoint**: `POST /api/verify/salesforce/audit` (explicit trigger, behind `apiKeyAuth`); `GET /api/verify/salesforce/audit/status/:auditId`. `AUDIT_SEND_TO_SF=true` would deliver audit reports to SF as `audit_mode` webhooks — leave **false** until SF builds an audit branch.
+
+> ⚠️ Always check Audit Mode during **"Establish Connection"** (ask to turn ON) and **"Save Everything"** (always ask to turn OFF). Never leave it on unintentionally.
 
 ---
 

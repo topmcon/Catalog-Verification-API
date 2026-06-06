@@ -6150,3 +6150,29 @@ remediation; NOT wired into blocking validation.
 Prod `npm install` prunes devDeps; `typescript` now a dependency, but `@types/*` still pruned →
 in-place `tsc` prints harmless `TS7016/TS2304` (noEmitOnError off → JS emits identical). Type-check
 locally; ALWAYS grep `dist/` for a marker after deploy (silent stale-dist deploys occurred).
+
+### #077 — Audit Mode (server-side toggle to audit AI-verified data for accuracy)
+**Problem**: AI-verified products in SF show wrong Title/Color/Category/Type/etc. that the product's
+own description/features/spec table clearly contradict. Needed a way to audit existing verified data
+against the evidence, diagnose *why* the pipeline erred, fix, and confirm — with **no SF changes**
+(SF side could not be built).
+
+**Solution**: single server-side env toggle `AUDIT_MODE` (off | detect | confirm) that reroutes
+inbound `/api/verify/salesforce` calls to an audit protocol.
+- **detect** — audit our previously-verified output (`verification_jobs.result.Primary_Attributes`)
+  vs the fresh inbound evidence; **identification only**, stored in `audit_jobs`, no SF write
+  (`not_found` if never verified).
+- **confirm** — re-verify the inbound payload WITHOUT pushing (direct `verifyProductWithDualAI` call
+  never fires the webhook) → run the **independent** discriminative audit (the pipeline can't certify
+  its own fix) → push corrected output via the NORMAL verification webhook **only if** the re-audit is
+  clean (`overall_status==='MATCH'`, 0 mismatches).
+
+Audits 7 fields (Brand, Category, Type, Style, Color, Finish, Title) vs 4 payload-only evidence
+sources (Web Retailer, Ferguson, Legacy/Verified, Specification_Table). Discriminative Claude prompt
+(`claude-sonnet-4-6`, temp 0.1) requires a verbatim evidence citation per verdict + root-cause on
+mismatch; strict JSON, **no `corrections` key**. Reviewed our-side (`scripts/audit-report.js`,
+`GET /api/verify/salesforce/audit/status/:auditId`); never delivered to SF unless `AUDIT_SEND_TO_SF=true`
+(SF has no audit branch). **Files**: `src/types/audit.types.ts`, `src/config/audit-prompt.ts`,
+`src/services/audit/*`, `src/models/audit-job.model.ts`, `src/controllers/audit.controller.ts`
+(+ reroute in `salesforce-async-verification.controller.ts`), `src/config/index.ts`,
+`scripts/audit-report.js`, `scripts/audit-confirm.js`. **Shipped dormant** (`AUDIT_MODE=off`).

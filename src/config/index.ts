@@ -65,6 +65,13 @@ export interface Config {
     apiKeyHeader: string;
     webhookSecret: string;
   };
+  audit: {
+    mode: 'off' | 'detect' | 'confirm'; // Server-side toggle (AUDIT_MODE). Routes inbound verification calls.
+    enabled: boolean;  // convenience: mode !== 'off'
+    sendToSf: boolean; // Send audit_mode webhooks to SF (default false — SF has no audit branch yet)
+    model: string;     // Claude model used for the discriminative audit
+    maxTokens: number;
+  };
 }
 
 const config: Config = {
@@ -138,6 +145,20 @@ const config: Config = {
     apiKeyHeader: process.env.API_KEY_HEADER || 'x-api-key',
     webhookSecret: process.env.WEBHOOK_SECRET || '',
   },
+
+  audit: (() => {
+    // AUDIT_MODE: off | detect | confirm. Back-compat: AUDIT_MODE_ENABLED=true → detect.
+    const raw = (process.env.AUDIT_MODE || (process.env.AUDIT_MODE_ENABLED === 'true' ? 'detect' : 'off')).toLowerCase();
+    const mode: 'off' | 'detect' | 'confirm' =
+      raw === 'detect' || raw === 'confirm' ? (raw as 'detect' | 'confirm') : 'off';
+    return {
+      mode,
+      enabled: mode !== 'off',
+      sendToSf: process.env.AUDIT_SEND_TO_SF === 'true', // default false: SF has no audit branch
+      model: process.env.AUDIT_MODEL || 'claude-sonnet-4-6', // Same model family as Phase B review
+      maxTokens: parseInt(process.env.AUDIT_MAX_TOKENS || '4000', 10),
+    };
+  })(),
 };
 
 export default config;
