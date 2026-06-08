@@ -7628,30 +7628,41 @@ function findAttributeInRawData(
 
 /**
  * Search the HTML Specification_Table field for a named attribute.
- * The spec table contains key-value pairs like "Color Finish: White" or "Color: Stainless Steel"
- * embedded in HTML markup. This is used as a fallback when Ferguson and Web Retailer attribute
- * arrays don't contain the field (e.g. Insignia/third-party products with spec-table-only data).
+ *
+ * Uses cell-pair matching on the raw HTML: finds <th/td>Key</th/td> immediately
+ * followed by <td>Value</td> in the same table row. This avoids the flat-text
+ * overrun problem where stripping all HTML merges adjacent field names and values
+ * into a single unparsable string.
+ *
+ * Typical spec table structure:
+ *   <tr><th>Color Finish</th><td>Stainless steel look</td></tr>
+ *   <tr><th>Product Height</th><td>56 1/8 inches</td></tr>
  */
 function findInSpecificationTable(specTableHtml: string | undefined | null, attributeNames: string[]): string | null {
   if (!specTableHtml) return null;
-  // Strip HTML and normalize whitespace to plain text
-  const text = specTableHtml
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/\s+/g, ' ')
-    .trim();
 
   for (const attrName of attributeNames) {
-    // Match "AttributeName: Value" (allows optional colon, captures up to 60 chars or end of line)
     const escaped = attrName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(escaped + '\\s*:?\\s*([^:;|\\n]{2,60})', 'i');
-    const match = text.match(regex);
-    if (match) {
-      const val = match[1].trim().replace(/\s+/g, ' ');
-      if (val && val.length >= 2) return val;
+
+    // Primary: key cell directly followed (within the row) by a value cell.
+    // <th/td>KEY</th/td>  ...whitespace/tags...  <td/dd>VALUE CONTENT</td/dd>
+    // The non-greedy [\s\S]*? ensures we land on the NEAREST value cell.
+    const cellRegex = new RegExp(
+      '<(?:th|td)[^>]*>\\s*' + escaped + '\\s*</(?:th|td)>[\\s\\S]*?<(?:td|dd)[^>]*>([\\s\\S]*?)</(?:td|dd)>',
+      'i'
+    );
+    const cellMatch = specTableHtml.match(cellRegex);
+    if (cellMatch) {
+      // Strip any nested HTML (spans, anchors) from the value cell content
+      const val = cellMatch[1]
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&amp;/gi, '&')
+        .replace(/&lt;/gi, '<')
+        .replace(/&gt;/gi, '>')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (val && val.length >= 2 && val.length <= 80) return val;
     }
   }
   return null;
