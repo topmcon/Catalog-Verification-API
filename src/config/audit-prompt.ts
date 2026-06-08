@@ -202,9 +202,14 @@ CRITICAL RULES:
 ═══════════════════════════════════════════════════════════════════════
 RESPONSE FORMAT — return ONLY this JSON object, no prose, no markdown fences:
 ═══════════════════════════════════════════════════════════════════════
+
+⚠️ FIELD ORDER IS MANDATORY: Write "evidence" and "reasoning" BEFORE "status" for each field.
+This ensures you apply the source authority rules and calculate any needed values (e.g. dimension
+gaps) BEFORE you commit to a verdict. You cannot change a "status" value once written.
+
 {
   "fields": {
-    "AI_Brand":            { "status": "MATCH|MISMATCH|UNSUPPORTED", "claimed": "<as given>", "correct": "<only if MISMATCH>", "evidence": "<verbatim snippet>", "root_cause": "<only if MISMATCH>", "note": "<only if UNSUPPORTED>" },
+    "AI_Brand":            { "claimed": "<as given>", "evidence": "<verbatim snippet>", "reasoning": "<apply source authority rules here — must come before status>", "status": "MATCH|MISMATCH|UNSUPPORTED", "correct": "<only if MISMATCH>", "root_cause": "<only if MISMATCH>", "note": "<only if UNSUPPORTED>" },
     "AI_Product_Category": { ... },
     "AI_Type":             { ... },
     "AI_Style":            { ... },
