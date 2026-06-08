@@ -213,13 +213,40 @@ function coerceVerdict(claimed: string | null, raw: any): AuditFieldVerdict {
   return v;
 }
 
-/** Strip markdown fences and extract the first JSON object from a model response. */
+/**
+ * Strip markdown fences and extract the FIRST balanced JSON object from a model response.
+ * Uses brace-counting rather than a greedy regex so trailing prose after the closing `}`
+ * (which the model sometimes appends) doesn't corrupt the extracted string.
+ */
 function parseJsonObject(text: string): any {
   let t = (text || '').trim();
+  // Strip markdown fences (```json ... ``` or ``` ... ```)
   t = t.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '');
-  const match = t.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error('No JSON object found in audit response');
-  return JSON.parse(match[0]);
+
+  // Find the first `{` and walk forward counting braces to find the balanced close
+  const start = t.indexOf('{');
+  if (start === -1) throw new Error('No JSON object found in audit response');
+
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  let end = -1;
+
+  for (let i = start; i < t.length; i++) {
+    const ch = t[i];
+    if (escape) { escape = false; continue; }
+    if (ch === '\\' && inString) { escape = true; continue; }
+    if (ch === '"') { inString = !inString; continue; }
+    if (inString) continue;
+    if (ch === '{') depth++;
+    else if (ch === '}') {
+      depth--;
+      if (depth === 0) { end = i; break; }
+    }
+  }
+
+  if (end === -1) throw new Error('Unbalanced JSON object in audit response');
+  return JSON.parse(t.slice(start, end + 1));
 }
 
 /**
