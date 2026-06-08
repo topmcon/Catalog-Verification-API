@@ -87,19 +87,55 @@ Apply this hierarchy strictly:
      as wrong for preferring Ferguson/Web Retailer over a Legacy-only value.
 
 ADDITIONAL AUTHORITY RULES:
-- MODEL NUMBER: The SF_Catalog_Name (shown as the product's catalog name) is the
+
+MODEL NUMBER:
+- The SF_Catalog_Name (the product's catalog name shown in this audit) is the
   authoritative SKU/model. It takes precedence over spec-table "Model:" entries.
   Only flag a title model number as wrong if it clearly differs from SF_Catalog_Name
   AND from all Ferguson/Web Retailer model fields.
-- PANEL READY / PANEL-READY: This is a configuration descriptor (unit accepts custom
-  panels), NOT a color. "Panel Ready" in a Color/Finish field should be treated as
-  a finish/configuration note, not the cabinet color. The actual color must come from
-  a dedicated color field (e.g. "Cabinet Color: Black" in the spec table).
-- COLOR vs FINISH: A COLOR is a visible appearance (White, Black, Stainless Steel,
-  Chrome). A FINISH is a surface treatment (Polished, Brushed, Matte). "White" is
-  always a color, never a finish. "Stainless Steel Look" is a color appearance,
-  not a finish. Only flag Color/Finish confusion when the evidence clearly shows
-  the field is being used for the wrong type of descriptor.
+
+PANEL-READY PRODUCTS (Rule 1):
+- For panel-ready or fully-integrated products, "Panel Ready", "Custom Panel Ready",
+  or "Integrated" IS an acceptable AI_Color value — it correctly indicates the unit
+  has no fixed exterior color (it accepts a custom panel).
+- EXCEPTION: If a dedicated color field (e.g., spec table "Color: Stainless Steel"
+  or "Cabinet Color: Black") explicitly states a visible color AND a higher-authority
+  source (Ferguson or Web Retailer spec table) confirms it, then that specific color
+  should be used instead. "Panel Ready" is only acceptable when no dedicated color
+  is stated by an authoritative source.
+- Never flag "Panel Ready" / "Custom Panel Ready" as a MISMATCH for AI_Color or
+  AI_Finish unless a specific authoritative color/finish is clearly stated elsewhere.
+
+COLOR WHEN IDENTIFIED (Rule 2):
+- If any authoritative source (Ferguson, Web Retailer spec attributes, or Specification
+  Table dedicated color field) explicitly states a specific visible color (White, Black,
+  Stainless Steel, etc.), that color should appear in AI_Color. An empty AI_Color is a
+  MISMATCH when the evidence clearly identifies the color.
+
+DIMENSION ROUNDING (Rule 3):
+- Titles always reflect CATEGORY STANDARD SIZES, not exact spec measurements.
+  A product measuring 32.1" wide may correctly be titled "30-Inch" if that is the
+  applicable standard size. Do NOT flag a title dimension as MISMATCH solely because
+  it differs from the raw spec table measurement.
+- Only flag a dimension as MISMATCH when it is clearly incompatible with the product's
+  actual size (e.g., a product with 54 5/8" actual width cannot round to "36-Inch" —
+  that is a 20" gap, not rounding). Use common sense: ±4 inches from a standard size
+  is acceptable rounding; more than that is an error.
+
+BRAND ALIASES (Rule 5):
+- Brigade is a trade/channel name used by Viking. Products showing "Brigade" as brand
+  in the Web Retailer or spec table should resolve to "VIKING" as the authoritative
+  brand name. If AI_Brand = "VIKING" and the Web Retailer says "Brigade", that is a
+  MATCH — not a mismatch.
+- Apply the same logic to any other known trade-name aliases where Legacy or other
+  authoritative sources consistently use a different, correct parent-brand name.
+
+COLOR vs FINISH:
+- A COLOR is a visible appearance (White, Black, Stainless Steel, Chrome).
+- A FINISH is a surface treatment (Polished, Brushed, Matte).
+- "White" is always a color, never a finish. "Stainless Steel Look" is a color.
+- Only flag Color/Finish confusion when the evidence clearly shows the field is
+  being used for the wrong type of descriptor.
 
 ═══════════════════════════════════════════════════════════════════════
 HOW TO JUDGE EACH FIELD
