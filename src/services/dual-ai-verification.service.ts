@@ -2659,10 +2659,31 @@ export async function verifyProductWithDualAI(
       // Non-Appliances take PATH B where salesforceCategory = null — but the product may still
       // have Web_Retailer_Category = "ACCESSORIES". We check the raw WR category field directly
       // as a fallback so accessories are protected regardless of which department path is taken.
+      //
+      // SAFETY: Web Retailer category = "ACCESSORIES" is NOT sufficient alone. Real appliances
+      // can be miscategorized on retailer sites (e.g., a chest freezer under "Refrigerator
+      // Accessories"). Require CORROBORATING EVIDENCE from the product text — the description or
+      // title must explicitly indicate the product is an accessory-type item rather than a
+      // standalone appliance. Without this, real products get wrongly categorized as ACCESSORIES.
       const wrCategoryRaw = (rawProduct.Web_Retailer_Category || '').trim();
-      const sfCategoryIsAccessory = salesforceCategory
+      const wrCategoryIsAccessory = salesforceCategory
         ? /accessor/i.test(salesforceCategory)
         : /accessor/i.test(wrCategoryRaw);
+
+      // Corroborating evidence: product text must contain accessory indicator phrases.
+      // "door panel for", "compatible with", "replacement", "designed for use with", etc.
+      // A product description that says "10.2 Cu. Ft. Chest Freezer" does NOT qualify.
+      const accessoryIndicatorPattern = /\b(door\s+panel|panel\s+for|filter\s+for|part\s+for|replacement\s+for|compatible\s+with|designed\s+for\s+(?:use\s+with|integrated)|accessory\s+for|bracket\s+for)\b/i;
+      const productTextForAccessoryCheck = [
+        rawProduct.Product_Title_Legacy || '',
+        rawProduct.Product_Description_Web_Retailer || '',
+        rawProduct.Ferguson_Description || '',
+        rawProduct.Ferguson_Title || '',
+        rawProduct.Features_Web_Retailer || '',
+      ].join(' ');
+      const hasAccessoryIndicators = accessoryIndicatorPattern.test(productTextForAccessoryCheck);
+
+      const sfCategoryIsAccessory = wrCategoryIsAccessory && hasAccessoryIndicators;
       // Use the most specific accessory category label available for determinedCategory
       const accessoryCategoryToUse = salesforceCategory || wrCategoryRaw;
 
