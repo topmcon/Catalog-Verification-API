@@ -56,6 +56,52 @@ Ferguson / Web Retailer / Legacy fields from the product payload):
 ${evidenceText}
 
 ═══════════════════════════════════════════════════════════════════════
+SOURCE AUTHORITY RULES — apply these BEFORE judging any field
+═══════════════════════════════════════════════════════════════════════
+The evidence contains data from multiple sources. They do NOT have equal authority.
+Apply this hierarchy strictly:
+
+1. FERGUSON data (Ferguson Brand, Ferguson Title, Ferguson Description, Ferguson Attributes)
+   → PRIMARY trusted source for non-appliance products.
+
+2. WEB RETAILER data (Brand, Title, Description, Features, Color/Finish fields)
+   → PRIMARY trusted source for appliance products (refrigerators, freezers, ovens, ranges,
+     dishwashers, washers, dryers, etc.).
+   → SECONDARY source for non-appliances (use when Ferguson is silent).
+
+3. SPECIFICATION TABLE
+   → Authoritative for technical specs (dimensions, capacity, features).
+   → INFORMATIONAL for model number — the spec table model may omit variant suffixes
+     (e.g. spec says "DFFB364" but the actual SKU is "DFFB364L"). Do NOT flag a title
+     model number as wrong solely because the spec table shows a shorter base model.
+   → A spec field labeled "Style:" describes the product's physical configuration
+     (e.g. Upright, Built-In, Counter Depth, Chest) — this is NOT the same as the
+     marketing Style picklist (Contemporary, Traditional, Transitional). Do NOT use a
+     spec-table "Style:" value as the correct AI_Style value.
+
+4. LEGACY / PREVIOUSLY-VERIFIED fields (Brand_Legacy, Category_Legacy, Product_Title_Legacy, etc.)
+   → LOW-TRUST reference data — old, manually-entered, may be stale or wrong.
+   → NEVER the sole basis for a MISMATCH verdict.
+   → Only use as a supporting signal when Ferguson AND Web Retailer are both silent.
+   → If Legacy contradicts Ferguson or Web Retailer, Legacy loses. Do not flag the AI
+     as wrong for preferring Ferguson/Web Retailer over a Legacy-only value.
+
+ADDITIONAL AUTHORITY RULES:
+- MODEL NUMBER: The SF_Catalog_Name (shown as the product's catalog name) is the
+  authoritative SKU/model. It takes precedence over spec-table "Model:" entries.
+  Only flag a title model number as wrong if it clearly differs from SF_Catalog_Name
+  AND from all Ferguson/Web Retailer model fields.
+- PANEL READY / PANEL-READY: This is a configuration descriptor (unit accepts custom
+  panels), NOT a color. "Panel Ready" in a Color/Finish field should be treated as
+  a finish/configuration note, not the cabinet color. The actual color must come from
+  a dedicated color field (e.g. "Cabinet Color: Black" in the spec table).
+- COLOR vs FINISH: A COLOR is a visible appearance (White, Black, Stainless Steel,
+  Chrome). A FINISH is a surface treatment (Polished, Brushed, Matte). "White" is
+  always a color, never a finish. "Stainless Steel Look" is a color appearance,
+  not a finish. Only flag Color/Finish confusion when the evidence clearly shows
+  the field is being used for the wrong type of descriptor.
+
+═══════════════════════════════════════════════════════════════════════
 HOW TO JUDGE EACH FIELD
 ═══════════════════════════════════════════════════════════════════════
 For every one of the 7 claimed fields, assign exactly one status:
@@ -63,7 +109,8 @@ For every one of the 7 claimed fields, assign exactly one status:
 • "MATCH"        — the EVIDENCE supports the claimed value. Provide a short verbatim "evidence"
                    snippet (quote the actual text/spec from the payload) that supports it.
 
-• "MISMATCH"     — the EVIDENCE contradicts the claimed value. You MUST provide:
+• "MISMATCH"     — the EVIDENCE contradicts the claimed value per the source authority rules
+                   above. You MUST provide:
                      - "correct": the value the evidence actually supports
                      - "evidence": a verbatim snippet from the payload proving it
                      - "root_cause": a short hypothesis for WHY the previous AI got it wrong
@@ -78,12 +125,14 @@ For every one of the 7 claimed fields, assign exactly one status:
 CRITICAL RULES:
 - Quote real text from the EVIDENCE in every "evidence" snippet. Do not paraphrase into something
   that isn't actually present. If you cannot find supporting text, the field is UNSUPPORTED, not MATCH.
+- Apply source authority rules above before calling a MISMATCH. A Legacy-only contradiction
+  is NOT sufficient for a MISMATCH verdict.
 - AI_Color vs AI_Finish: a COLOR is a visible appearance (Stainless Steel, White, Chrome). A FINISH
   is a surface treatment (Polished, Brushed, Matte). If the claimed color is actually a finish word,
   that is a MISMATCH.
 - AI_Product_Title: a MISMATCH if it misstates brand, the key spec, type, color/finish, or model
-  number relative to the evidence. If a component field is a MISMATCH, evaluate whether the title
-  inherits that error.
+  number relative to the evidence AND the authoritative sources above. If a component field is a
+  confirmed MISMATCH, evaluate whether the title inherits that error.
 - Judge ONLY the 7 fields listed. Do not invent new fields.
 
 ═══════════════════════════════════════════════════════════════════════
