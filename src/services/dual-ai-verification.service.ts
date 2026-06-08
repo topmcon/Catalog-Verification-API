@@ -2682,6 +2682,15 @@ export async function verifyProductWithDualAI(
         rawProduct.Features_Web_Retailer || '',
       ].join(' ');
       const hasAccessoryIndicators = accessoryIndicatorPattern.test(productTextForAccessoryCheck);
+      // Debug log to diagnose guard firing
+      logger.info('ACCESSORY GUARD DEBUG', {
+        sessionId: verificationSessionId,
+        productId: rawProduct.SF_Catalog_Id,
+        wrCategoryIsAccessory,
+        hasAccessoryIndicators,
+        textSnippet: productTextForAccessoryCheck.substring(0, 200),
+        matchedPhrase: (productTextForAccessoryCheck.match(accessoryIndicatorPattern) || ['none'])[0],
+      });
 
       const sfCategoryIsAccessory = wrCategoryIsAccessory && hasAccessoryIndicators;
       // Use the most specific accessory category label available for determinedCategory
