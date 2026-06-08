@@ -2581,6 +2581,10 @@ export async function verifyProductWithDualAI(
     let openaiCategoryResult: AIAnalysisResult;
     let xaiCategoryResult: AIAnalysisResult;
     let categoryConsensus: any = null;
+    // Set to true when the ACCESSORY GUARD overrides the category — bypasses the subsequent
+    // department-category validation, which would otherwise reject "ACCESSORIES" as invalid
+    // for the Appliances department and fall back to the AI's wrong appliance category.
+    let accessoryGuardFired = false;
     
     if (salesforceCategory) {
       // 🔧 FINDING #020: AI must INDEPENDENTLY verify SF's category, override when both AIs disagree
@@ -2672,6 +2676,7 @@ export async function verifyProductWithDualAI(
           xaiCategory,
         });
         determinedCategory = accessoryCategoryToUse;
+        accessoryGuardFired = true;  // bypass subsequent dept-category validation
         categoryConsensus = {
           agreed: true,
           agreedCategory: determinedCategory,
@@ -3022,8 +3027,10 @@ export async function verifyProductWithDualAI(
       validCategoriesForDept = getCategoriesForDepartment(determinedDepartment);
     }
     
-    // Check if category exists in the selected department
-    if (!validCategoriesForDept.includes(determinedCategory)) {
+    // Check if category exists in the selected department.
+    // Skip when accessoryGuardFired — the guard deliberately set a WR-sourced category
+    // (e.g. "ACCESSORIES") that won't be in the Appliances valid-category list but IS correct.
+    if (!accessoryGuardFired && !validCategoriesForDept.includes(determinedCategory)) {
       logger.error('❌ VALIDATION FAILED: Invalid category for department', {
         sessionId: verificationSessionId,
         department: determinedDepartment,
