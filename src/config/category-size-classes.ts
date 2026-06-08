@@ -113,10 +113,10 @@ export const CATEGORY_SIZE_CLASSES_BY_DEPARTMENT = [
         "has_measurement_class": true,
         "measurement_dimension": "Width",
         "measurement_unit": "inches",
-        "classes": ["18", "24", "30", "36"],
+        "classes": ["18", "24", "30", "33", "36", "40", "48", "54", "60"],
         "rounding_method": "NEAREST" as const,
         "installation_dependent": true,
-        "notes": "Standalone/column freezer width"
+        "notes": "Column/upright freezer: 18-36\"; chest freezer: 30-60\". Added 33\" (upright ~32.5\") and 40/48/54/60\" for wide chest freezers."
       },
       {
         "category_name": "Icemaker",

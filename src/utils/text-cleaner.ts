@@ -631,14 +631,16 @@ export function extractColorFinish(text: string | undefined | null): { color: st
     { pattern: /frosted\s+glass/i, color: 'Frosted Glass', finish: 'Frosted Glass' },
     { pattern: /smoked\s+glass/i, color: 'Smoked Glass', finish: 'Smoked Glass' },
     { pattern: /clear\s+glass/i, color: 'Clear Glass', finish: 'Clear Glass' },
-    { pattern: /matte\s+white/i, color: 'Matte White', finish: 'Matte White' },
-    { pattern: /matte\s+black/i, color: 'Matte Black', finish: 'Matte Black' },
-    { pattern: /white/i, color: 'White', finish: 'White' },
-    { pattern: /black/i, color: 'Black', finish: 'Black' },
-    { pattern: /bisque/i, color: 'Bisque', finish: 'Bisque' },
-    { pattern: /slate/i, color: 'Slate', finish: 'Slate' },
-    { pattern: /panel\s+ready/i, color: 'Panel Ready', finish: 'Panel Ready' },
-    { pattern: /custom\s+panel/i, color: 'Panel Ready', finish: 'Panel Ready' },
+    { pattern: /matte\s+white/i, color: 'Matte White', finish: 'Matte' },
+    { pattern: /matte\s+black/i, color: 'Matte Black', finish: 'Matte' },
+    // Plain colors are NEVER a finish — finish must be empty for these
+    { pattern: /white/i, color: 'White', finish: '' },
+    { pattern: /black/i, color: 'Black', finish: '' },
+    { pattern: /bisque/i, color: 'Bisque', finish: '' },
+    { pattern: /slate/i, color: 'Slate', finish: '' },
+    // Panel Ready / Custom Panel = configuration descriptor, not a finish
+    { pattern: /panel\s+ready/i, color: 'Panel Ready', finish: '' },
+    { pattern: /custom\s+panel/i, color: 'Panel Ready', finish: '' },
   ];
   
   for (const mat of materials) {

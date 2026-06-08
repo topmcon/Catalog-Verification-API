@@ -2646,7 +2646,28 @@ export async function verifyProductWithDualAI(
       const aiMatchesSf = openaiNormalized === sfNormalized || xaiNormalized === sfNormalized;
       const bothAisDisagreeWithSf = aisAgreeWithEachOther && !aiMatchesSf;
       
-      if (bothAisDisagreeWithSf) {
+      // Bug G fix (Finding #069): If Web Retailer explicitly categorises the product as
+      // an ACCESSORY (e.g., "ACCESSORIES", "REFRIGERATOR ACCESSORIES"), trust that over the
+      // AI. The AIs see the appliance-compatibility description and mis-classify the accessory
+      // as the appliance it's compatible with. Web_Retailer_Category is authoritative here.
+      const sfCategoryIsAccessory = salesforceCategory
+        ? /accessor/i.test(salesforceCategory)
+        : false;
+
+      if (bothAisDisagreeWithSf && sfCategoryIsAccessory) {
+        logger.info('ACCESSORY GUARD: Web Retailer category indicates accessory product — not overriding with AI appliance classification', {
+          sessionId: verificationSessionId,
+          salesforceCategory,
+          openaiCategory,
+          xaiCategory,
+        });
+        determinedCategory = salesforceCategory;
+        categoryConsensus = {
+          agreed: true,
+          agreedCategory: determinedCategory,
+          agreementReason: `ACCESSORY GUARD: SF/Web Retailer category "${salesforceCategory}" preserved (AI tried to override with appliance category)`,
+        };
+      } else if (bothAisDisagreeWithSf) {
         // 🚨 CRITICAL: Both AIs independently determined a DIFFERENT category than SF
         // This is a strong signal SF's category is wrong - OVERRIDE
         // Prefer whichever AI gave the canonical valid category name (e.g. xAI says "Drawer",
@@ -7601,8 +7622,39 @@ function findAttributeInRawData(
   if (value === null || value === '') {
     value = findInArray(rawProduct.Web_Retailer_Specs);
   }
-  
+
   return value;
+}
+
+/**
+ * Search the HTML Specification_Table field for a named attribute.
+ * The spec table contains key-value pairs like "Color Finish: White" or "Color: Stainless Steel"
+ * embedded in HTML markup. This is used as a fallback when Ferguson and Web Retailer attribute
+ * arrays don't contain the field (e.g. Insignia/third-party products with spec-table-only data).
+ */
+function findInSpecificationTable(specTableHtml: string | undefined | null, attributeNames: string[]): string | null {
+  if (!specTableHtml) return null;
+  // Strip HTML and normalize whitespace to plain text
+  const text = specTableHtml
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  for (const attrName of attributeNames) {
+    // Match "AttributeName: Value" (allows optional colon, captures up to 60 chars or end of line)
+    const escaped = attrName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escaped + '\\s*:?\\s*([^:;|\\n]{2,60})', 'i');
+    const match = text.match(regex);
+    if (match) {
+      const val = match[1].trim().replace(/\s+/g, ' ');
+      if (val && val.length >= 2) return val;
+    }
+  }
+  return null;
 }
 
 /**
@@ -10341,12 +10393,18 @@ async function buildFinalResponse(
     xaiResult.top15Attributes?.installation_type || ''
   ).toLowerCase();
   
+  // Include Specification_Table plain text so "designed for integrated use" and similar
+  // spec-table-only phrases are picked up by the panel-ready detection scan
+  const specTablePlainText = (rawProduct.Specification_Table || '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ');
   const combinedTextForPanelReady = [
     rawProduct.Product_Description_Web_Retailer || '',
     rawProduct.Ferguson_Description || '',
     rawProduct.Product_Title_Web_Retailer || '',
     rawProduct.Ferguson_Title || '',
-    rawProduct.Features_Web_Retailer || ''
+    rawProduct.Features_Web_Retailer || '',
+    specTablePlainText,
   ].join(' ').toLowerCase();
   
   // Also check AI consensus panel_ready attribute (AIs may detect panel-ready even when raw text lacks keywords)
@@ -10374,7 +10432,12 @@ async function buildFinalResponse(
       combinedTextForPanelReady.includes('panel ready') ||
       combinedTextForPanelReady.includes('panel-ready') ||
       combinedTextForPanelReady.includes('custom panel') ||
-      combinedTextForPanelReady.includes('fully integrated')
+      combinedTextForPanelReady.includes('fully integrated') ||
+      combinedTextForPanelReady.includes('designed for integrated') ||
+      combinedTextForPanelReady.includes('for integrated use') ||
+      combinedTextForPanelReady.includes('accepts custom panel') ||
+      combinedTextForPanelReady.includes('requires panel') ||
+      combinedTextForPanelReady.includes('door panel sold separately')
     )
   ) {
     panelReadyValue = 'Panel Ready';
@@ -10768,6 +10831,28 @@ async function buildFinalResponse(
     AI_Color: (() => {
       // Panel-ready appliances have no visible finish — don't extract metallic colors from accessories/legacy titles
       if (panelReadyValue === 'Panel Ready') {
+        // EXCEPTION (Finding #069 Bug B): If an authoritative source explicitly states a specific
+        // visible color (e.g., "Color: Stainless Steel" from spec table or Web Retailer attributes),
+        // use that instead of Panel Ready. Panel Ready is only correct when NO dedicated color field
+        // is present. A product can be "panel ready compatible" while having an explicit exterior color.
+        const explicitColor = String(
+          rawProduct.Ferguson_Color ||
+          rawProduct.Color_Finish_Web_Retailer ||
+          findAttributeInRawData(rawProduct, 'Color') ||
+          findInSpecificationTable(rawProduct.Specification_Table, ['Color', 'Color Finish']) ||
+          ''
+        ).trim();
+        const isExplicitColorNonPanel =
+          explicitColor.length > 0 &&
+          !/panel\s*ready/i.test(explicitColor) &&
+          !/custom\s*panel/i.test(explicitColor) &&
+          !/integrated/i.test(explicitColor);
+        if (isExplicitColorNonPanel) {
+          logger.info('Panel Ready detected but explicit authoritative color found — using explicit color', {
+            sessionId, category: consensus.agreedCategory, explicitColor
+          });
+          return explicitColor;
+        }
         logger.info('Panel Ready detected — setting color to Panel Ready (not extracting from text)', { sessionId, category: consensus.agreedCategory });
         return 'Panel Ready';
       }
@@ -10778,10 +10863,13 @@ async function buildFinalResponse(
           xaiResult.primaryAttributes.color,
           openaiResult.confidence,
           xaiResult.confidence,
-          rawProduct.Ferguson_Color || 
-          rawProduct.Color_Finish_Web_Retailer || 
+          rawProduct.Ferguson_Color ||
+          rawProduct.Color_Finish_Web_Retailer ||
           findAttributeInRawData(rawProduct, 'Color') ||
           findAttributeInRawData(rawProduct, 'Finish Color') ||
+          // Bug A fix: spec table may hold "Color Finish: White" or "Color: Stainless steel look"
+          // when Ferguson and Web Retailer attribute arrays are empty (common for third-party brands)
+          findInSpecificationTable(rawProduct.Specification_Table, ['Color Finish', 'Color', 'Finish Color']) ||
           ''
         )
       );
