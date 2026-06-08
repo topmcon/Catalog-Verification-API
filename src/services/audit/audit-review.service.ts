@@ -227,7 +227,7 @@ function parseJsonObject(text: string): any {
  */
 export async function runAudit(input: AuditInput): Promise<AuditReport> {
   const evidenceText = assembleEvidence(input.evidence);
-  const prompt = buildAuditPrompt(input.claimed, evidenceText);
+  const prompt = buildAuditPrompt(input.claimed, evidenceText, input.sfCatalogName);
 
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '' });
 
