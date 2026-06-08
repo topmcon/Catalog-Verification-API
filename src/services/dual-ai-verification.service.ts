@@ -2650,22 +2650,32 @@ export async function verifyProductWithDualAI(
       // an ACCESSORY (e.g., "ACCESSORIES", "REFRIGERATOR ACCESSORIES"), trust that over the
       // AI. The AIs see the appliance-compatibility description and mis-classify the accessory
       // as the appliance it's compatible with. Web_Retailer_Category is authoritative here.
+      //
+      // NOTE: salesforceCategory is only populated for Appliances-department products (PATH A).
+      // Non-Appliances take PATH B where salesforceCategory = null — but the product may still
+      // have Web_Retailer_Category = "ACCESSORIES". We check the raw WR category field directly
+      // as a fallback so accessories are protected regardless of which department path is taken.
+      const wrCategoryRaw = (rawProduct.Web_Retailer_Category || '').trim();
       const sfCategoryIsAccessory = salesforceCategory
         ? /accessor/i.test(salesforceCategory)
-        : false;
+        : /accessor/i.test(wrCategoryRaw);
+      // Use the most specific accessory category label available for determinedCategory
+      const accessoryCategoryToUse = salesforceCategory || wrCategoryRaw;
 
       if (bothAisDisagreeWithSf && sfCategoryIsAccessory) {
         logger.info('ACCESSORY GUARD: Web Retailer category indicates accessory product — not overriding with AI appliance classification', {
           sessionId: verificationSessionId,
           salesforceCategory,
+          wrCategoryRaw,
+          accessoryCategoryToUse,
           openaiCategory,
           xaiCategory,
         });
-        determinedCategory = salesforceCategory;
+        determinedCategory = accessoryCategoryToUse;
         categoryConsensus = {
           agreed: true,
           agreedCategory: determinedCategory,
-          agreementReason: `ACCESSORY GUARD: SF/Web Retailer category "${salesforceCategory}" preserved (AI tried to override with appliance category)`,
+          agreementReason: `ACCESSORY GUARD: Web Retailer category "${accessoryCategoryToUse}" preserved (AI tried to override with appliance category)`,
         };
       } else if (bothAisDisagreeWithSf) {
         // 🚨 CRITICAL: Both AIs independently determined a DIFFERENT category than SF
@@ -7629,14 +7639,24 @@ function findAttributeInRawData(
 /**
  * Search the HTML Specification_Table field for a named attribute.
  *
- * Uses cell-pair matching on the raw HTML: finds <th/td>Key</th/td> immediately
- * followed by <td>Value</td> in the same table row. This avoids the flat-text
- * overrun problem where stripping all HTML merges adjacent field names and values
- * into a single unparsable string.
+ * Retailer spec tables come in several distinct HTML formats — we handle all of them:
  *
- * Typical spec table structure:
- *   <tr><th>Color Finish</th><td>Stainless steel look</td></tr>
- *   <tr><th>Product Height</th><td>56 1/8 inches</td></tr>
+ *   Format A (<table><td> pairs — Ferguson/Bosch style):
+ *     <tr><td class="...">Color</td><td class="...">Stainless Steel</td></tr>
+ *
+ *   Format B (<li>Key - Value</li> — Best Buy / Insignia single-item style):
+ *     <ul><li>Color Finish - Stainless steel look</li><li>Product Height - 56 1/8 inches</li></ul>
+ *
+ *   Format C (<li>Key</li><li>Value</li> — Best Buy alternating list style):
+ *     <ul><li>Color Finish</li><li>White</li><li>Product Height</li><li>33.5 inches</li></ul>
+ *
+ *   Format D (<p>Key: Value</p> — Best Buy paragraph style):
+ *     <p>Color: White</p><p>Color Finish: White</p>
+ *
+ * The CRITICAL property of each approach: we extract the value from the HTML structure
+ * BEFORE stripping tags, so adjacent fields never bleed into each other. The flat-text
+ * approach (strip everything then regex) failed because it merged all field-value pairs
+ * into one long string with no usable delimiters.
  */
 function findInSpecificationTable(specTableHtml: string | undefined | null, attributeNames: string[]): string | null {
   if (!specTableHtml) return null;
@@ -7644,16 +7664,14 @@ function findInSpecificationTable(specTableHtml: string | undefined | null, attr
   for (const attrName of attributeNames) {
     const escaped = attrName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-    // Primary: key cell directly followed (within the row) by a value cell.
-    // <th/td>KEY</th/td>  ...whitespace/tags...  <td/dd>VALUE CONTENT</td/dd>
-    // The non-greedy [\s\S]*? ensures we land on the NEAREST value cell.
+    // --- Format A: <th/td>KEY</th/td> ... <td>VALUE</td> (Ferguson / inline_sd_table) ---
+    // Non-greedy [\s\S]*? lands on the nearest value cell after the key cell.
     const cellRegex = new RegExp(
       '<(?:th|td)[^>]*>\\s*' + escaped + '\\s*</(?:th|td)>[\\s\\S]*?<(?:td|dd)[^>]*>([\\s\\S]*?)</(?:td|dd)>',
       'i'
     );
     const cellMatch = specTableHtml.match(cellRegex);
     if (cellMatch) {
-      // Strip any nested HTML (spans, anchors) from the value cell content
       const val = cellMatch[1]
         .replace(/<[^>]+>/g, ' ')
         .replace(/&nbsp;/gi, ' ')
@@ -7662,6 +7680,39 @@ function findInSpecificationTable(specTableHtml: string | undefined | null, attr
         .replace(/&gt;/gi, '>')
         .replace(/\s+/g, ' ')
         .trim();
+      if (val && val.length >= 2 && val.length <= 80) return val;
+    }
+
+    // --- Format B: <li>KEY - VALUE</li> (key and value in the SAME list item, dash-separated) ---
+    const liDashRegex = new RegExp(
+      '<li[^>]*>\\s*' + escaped + '\\s*-\\s*([^<]{2,80})</li>',
+      'i'
+    );
+    const liDashMatch = specTableHtml.match(liDashRegex);
+    if (liDashMatch) {
+      const val = liDashMatch[1].replace(/&nbsp;/gi, ' ').replace(/\s+/g, ' ').trim();
+      if (val && val.length >= 2 && val.length <= 80) return val;
+    }
+
+    // --- Format C: <li>KEY</li><li>VALUE</li> (key and value in ALTERNATING list items) ---
+    const liAltRegex = new RegExp(
+      '<li[^>]*>\\s*' + escaped + '\\s*</li>\\s*<li[^>]*>([^<]{2,80})</li>',
+      'i'
+    );
+    const liAltMatch = specTableHtml.match(liAltRegex);
+    if (liAltMatch) {
+      const val = liAltMatch[1].replace(/&nbsp;/gi, ' ').replace(/\s+/g, ' ').trim();
+      if (val && val.length >= 2 && val.length <= 80) return val;
+    }
+
+    // --- Format D: <p>KEY: VALUE</p> or <p>KEY - VALUE</p> (paragraph with colon/dash separator) ---
+    const paraRegex = new RegExp(
+      '<p[^>]*>\\s*' + escaped + '\\s*[-:]\\s*([^<]{2,80})</p>',
+      'i'
+    );
+    const paraMatch = specTableHtml.match(paraRegex);
+    if (paraMatch) {
+      const val = paraMatch[1].replace(/&nbsp;/gi, ' ').replace(/\s+/g, ' ').trim();
       if (val && val.length >= 2 && val.length <= 80) return val;
     }
   }
@@ -10846,19 +10897,29 @@ async function buildFinalResponse(
         // visible color (e.g., "Color: Stainless Steel" from spec table or Web Retailer attributes),
         // use that instead of Panel Ready. Panel Ready is only correct when NO dedicated color field
         // is present. A product can be "panel ready compatible" while having an explicit exterior color.
-        const explicitColor = String(
-          rawProduct.Ferguson_Color ||
-          rawProduct.Color_Finish_Web_Retailer ||
-          findAttributeInRawData(rawProduct, 'Color') ||
-          findInSpecificationTable(rawProduct.Specification_Table, ['Color', 'Color Finish']) ||
-          ''
-        ).trim();
-        const isExplicitColorNonPanel =
-          explicitColor.length > 0 &&
-          !/panel\s*ready/i.test(explicitColor) &&
-          !/custom\s*panel/i.test(explicitColor) &&
-          !/integrated/i.test(explicitColor);
-        if (isExplicitColorNonPanel) {
+        //
+        // IMPORTANT: each source is checked INDEPENDENTLY. The Color_Finish_Web_Retailer combined
+        // field often contains "Custom Panel Ready" even when a dedicated "Color" attribute on the
+        // same Web Retailer page says "Stainless Steel". We filter out panel-ready source values
+        // before selecting — otherwise the ||  chain short-circuits on "Custom Panel Ready" and
+        // never reaches the spec table's definitive "Color: Stainless Steel".
+        const isPanelDescriptor = (v: unknown): boolean => {
+          const s = String(v || '').toLowerCase();
+          return /panel\s*ready/.test(s) || /custom\s*panel/.test(s) || /integrated/.test(s);
+        };
+        const explicitColorSources = [
+          rawProduct.Ferguson_Color,
+          rawProduct.Color_Finish_Web_Retailer,
+          findAttributeInRawData(rawProduct, 'Color'),
+          findInSpecificationTable(rawProduct.Specification_Table, ['Color', 'Color Finish']),
+        ];
+        const explicitColor = (
+          explicitColorSources
+            .map(v => String(v || '').trim())
+            .find(v => v.length > 0 && !isPanelDescriptor(v))
+          || ''
+        );
+        if (explicitColor) {
           logger.info('Panel Ready detected but explicit authoritative color found — using explicit color', {
             sessionId, category: consensus.agreedCategory, explicitColor
           });
@@ -10936,10 +10997,12 @@ async function buildFinalResponse(
       return color;
     })(),
     AI_Finish: (() => {
-      // Panel-ready appliances have no visible finish — don't extract metallic finishes from accessories/legacy titles
+      // Panel-ready appliances have no visible exterior — finish field must be empty.
+      // "Panel Ready" describes a color/configuration (the unit accepts a custom panel),
+      // NOT a surface treatment. Returning "Panel Ready" as finish was incorrect.
       if (panelReadyValue === 'Panel Ready') {
-        logger.info('Panel Ready detected — setting finish to Panel Ready (not extracting from text)', { sessionId, category: consensus.agreedCategory });
-        return 'Panel Ready';
+        logger.info('Panel Ready detected — finish field is empty (Panel Ready is color/config, not a surface treatment)', { sessionId, category: consensus.agreedCategory });
+        return '';
       }
       let finish = cleanEncodingIssues(
         preferAIValue(
@@ -10990,6 +11053,38 @@ async function buildFinalResponse(
         });
         finish = resolvedFinish;
       }
+
+      // ─── Post-consensus finish sanity guard ────────────────────────────────────
+      // Finish must be a surface treatment (Brushed Nickel, Matte Black, Polished Chrome, etc.).
+      // AIs frequently set finish = color (White, Black, Stainless Steel) because the spec
+      // table's "Color Finish" combined label is read as implying a finish descriptor, or because
+      // they hallucinate surface treatments (e.g. "Glossy" for white appliances with no evidence).
+      //
+      // Rules:
+      //  1. Plain color names are never finishes.
+      //  2. "Panel Ready" / "Custom Panel" are color/config descriptors, not surface treatments.
+      //  3. If finish exactly equals color, it's a duplicate — clear it.
+      if (finish) {
+        const plainColorAsFinish = /^(white|black|bisque|ivory|almond|biscuit|grey|gray|silver|slate|panel\s*ready|custom\s*panel|integrated)$/i;
+        if (plainColorAsFinish.test(finish.trim())) {
+          logger.info('Cleared invalid finish value (plain color / config descriptor, not a surface treatment)', {
+            sessionId, clearedFinish: finish
+          });
+          finish = '';
+        } else {
+          // Clear if finish duplicates color (same string, case-insensitive)
+          const resolvedColor = consensus.agreedPrimaryAttributes.color ||
+                                openaiResult.primaryAttributes.color ||
+                                xaiResult.primaryAttributes.color || '';
+          if (resolvedColor && finish.toLowerCase().trim() === resolvedColor.toLowerCase().trim()) {
+            logger.info('Cleared duplicate finish (equals color)', {
+              sessionId, clearedFinish: finish, color: resolvedColor
+            });
+            finish = '';
+          }
+        }
+      }
+      // ─────────────────────────────────────────────────────────────────────────
 
       return finish;
     })(),
