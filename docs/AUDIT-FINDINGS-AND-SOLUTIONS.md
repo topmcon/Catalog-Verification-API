@@ -24,6 +24,11 @@
 | Missing keyword for valid Type (Single Door) | Add keyword mappings to type-matcher, audit ALL types for missing keywords | 31266a3, e4d1dd6 | #014 |
 | Electric/Gas incorrectly as dryer Types (not attributes) | Restructure category-type-mapping: Remove Electric/Gas from types, add Front Load/Top Load/Unitized | 8866dc6 | #015 |
 | AI re-categorizing instead of validating SF categories | Always use Salesforce's category as authority, AI validates (doesn't override) | aa545f3 | #016 |
+| findInSpecificationTable over-captured adjacent spec fields as one value | Rewrite to match 4 distinct spec-table HTML formats (table cells, li-dash, li-alternating, p-colon) with length bounds | 1342a2f, 1d61a95 | #078 |
+| AI_Color="Panel Ready" when spec table had explicit color | Independent source filter skips panel-descriptor values, prefers explicit color | 1d61a95 | #078 |
+| AI_Finish="Panel Ready"/plain color/duplicate-of-color | Return '' for Panel Ready; post-consensus guard clears plain-color & color-duplicate finishes | 1d61a95 | #078 |
+| Real appliance miscategorized as ACCESSORIES by retailer site | ACCESSORIES guard requires WR category=accessory AND explicit accessory-indicator keywords in product text | 87789ff, 5113692 | #078 |
+| Audit-mode confirm loop will not converge | Diagnosis only — non-deterministic audit oracle, full-pipeline re-run per confirm, no regression set, 3 conflated failure classes | (none) | #078 |
 | AI extracting cutout dimensions instead of nominal | Add AI prompt guidance to distinguish cutout/nominal/overall dimensions, prefer model number for nominal | 29acc80 | #017 |
 | Type slot duplicate in Category (title generation) | Skip Type slot if value is substring of Category name | 29acc80 | #017 |
 | Dimension guidance not triggering (detection logic bug) | Check multiple fields with OR logic, fix regex pattern, add debug logging | 79e17c5 | #017-A |
@@ -6176,3 +6181,89 @@ mismatch; strict JSON, **no `corrections` key**. Reviewed our-side (`scripts/aud
 `src/services/audit/*`, `src/models/audit-job.model.ts`, `src/controllers/audit.controller.ts`
 (+ reroute in `salesforce-async-verification.controller.ts`), `src/config/index.ts`,
 `scripts/audit-report.js`, `scripts/audit-confirm.js`. **Shipped dormant** (`AUDIT_MODE=off`).
+
+---
+
+## Finding #078 — Audit-Mode `detect`→fix→`confirm` Pipeline Bugs + Loop-Convergence Diagnosis (June 8, 2026)
+
+**Context**: First real use of Audit Mode (#077). Ran `detect` on ~16 previously-verified appliance/accessory
+products (mostly Insignia chest/upright freezers from Best Buy, a Bosch panel-ready dishwasher, a Fisher &
+Paykel door-panel accessory), found mismatches, fixed pipeline code, and ran targeted `confirm` to re-verify
+behind the independent audit gate. **All fixes are in `src/services/dual-ai-verification.service.ts`** so new
+inbound SF calls benefit — not audit-prompt tuning.
+
+### Real pipeline bugs found & fixed (these WERE code defects)
+
+**Bug A — `findInSpecificationTable` over-capture** (`1342a2f`, `1d61a95`)
+The helper stripped spec-table HTML to flat text then regex-captured `[^:;|\n]{2,60}`, which swallowed
+*adjacent* spec rows. NS-UZ70SS4 got `AI_Color = "- Stainless steel look Product Height - 56 1/8 inches Produc"`
+and that polluted the title. **Fix**: rewrote to match four real spec-table HTML formats with length bounds:
+- Format A `<td/th>KEY</td/th>…<td/dd>VALUE</td/dd>` (Ferguson / inline_sd_table)
+- Format B `<li>KEY - VALUE</li>` (Best Buy single-item list)
+- Format C `<li>KEY</li><li>VALUE</li>` (Best Buy alternating list)
+- Format D `<p>KEY: VALUE</p>` (Best Buy paragraph)
+
+**Bug B — AI_Color = "Panel Ready" despite explicit color** (`1d61a95`)
+The Panel-Ready exception used a `||` chain; `Color_Finish_Web_Retailer = "Custom Panel Ready"` short-circuited
+it before the spec-table color was read. **Fix**: evaluate color sources independently, skip any value matching a
+panel descriptor (`panel ready|custom panel|integrated`), prefer the first explicit color.
+
+**Bug C — AI_Finish = "Panel Ready" / plain color / duplicate-of-color** (`1d61a95`)
+"Panel Ready" was being returned literally as a finish (it's a color/config, not a surface treatment). AIs and
+image-vision also wrote plain colors (`White`, `Black`) and hallucinated finish words into the finish slot.
+**Fix**: return `''` for Panel Ready; post-consensus guard clears any finish matching
+`white|black|bisque|ivory|almond|biscuit|grey|gray|silver|slate|panel ready|custom panel|integrated`, and clears
+finish when it equals the resolved color.
+
+**Bug D — ACCESSORIES guard** (`5113692`, `87789ff`)
+When both AIs override SF's `Web_Retailer_Category = "ACCESSORIES"` with an appliance category, a guard now
+preserves ACCESSORIES — but **only** when the product text contains explicit accessory-indicator keywords
+(`door panel|panel for|filter for|part for|replacement for|compatible with|designed for use with|accessory for|
+bracket for`). Sets `accessoryGuardFired=true` to bypass the later dept-category validation that would otherwise
+revert it. Guard also reads `rawProduct.Web_Retailer_Category` directly (non-Appliances PATH B has
+`salesforceCategory=null`).
+
+### ⚠️ Why the loop did NOT converge (the important finding)
+
+After 5 deploys the affected set still showed mismatches. Root cause is **the process, not remaining code bugs**:
+
+1. **The audit oracle is non-deterministic and we treated it as ground truth.** B18IF70NSP (Bosch panel-ready
+   dishwasher) **flipped its own verdict** between two runs the same day: 13:45 flagged `AI_Finish "Panel Ready"`,
+   14:19 flagged `AI_Color "Stainless Steel" → "Custom Panel Ready"`. Our explicit-color fix (Bug B) *caused* the
+   14:19 color mismatch — the spec-table "Stainless Steel" is for sibling SKU B18IF70SLS; this SKU's "N" suffix =
+   panel-ready. **Changing code to satisfy a verdict that moves run-to-run cannot converge.**
+
+2. **Every `confirm` re-runs the full live pipeline** (Phase 0.5 research, Phase 6 web search, image vision,
+   dual-LLM). Confirmed: NSCZ10WH6's "Glossy" finish came from `image_vision_analysis` (`source:image_vision_
+   analysis`), not the payload — it isn't in our denylist, so it leaked through. Slow (~90s+/product) and injects
+   fresh non-determinism on every iteration.
+
+3. **One product per prod-deploy, no regression set.** The ACCESSORIES guard fixed RD1884L4D (door-panel
+   accessory) but **regressed NSCZ10WH6** (a real chest freezer Best Buy miscategorized as ACCESSORIES → mapped to
+   "Bathroom Hardware and Accessories" / type "Accessory"). Fixes oscillate because each is checked against only
+   its target product.
+
+4. **Three failure classes were conflated as "pipeline bugs."** Only class 1 belongs in code:
+   - **Class 1 — real pipeline bug** (Bugs A–D above) → fix in code ✅
+   - **Class 2 — ambiguous / bad source data** (B18IF70NSP panel-vs-stainless; NSCZ10WH6 web-retailer brand =
+     MIDEA not INSIGNIA, flagged unreliable) → no deterministic code can "win"; needs a data decision
+   - **Class 3 — audit over-strictness** (`AI_Style="Contemporary"` flagged UNSUPPORTED on nearly every appliance;
+     finish-must-be-empty expectations) → the *audit* is too strict, not the pipeline
+
+### Recommended process fixes (NOT yet implemented — open decision)
+- **Local test harness on stored payloads** — load `verification_jobs.rawPayload`, run the deterministic post-LLM
+  logic (or full pipeline) locally; iterate in seconds, deploy once. Most fixes this session (`findInSpecification
+  Table`, finish guard, ACCESSORIES guard, explicitColor) are **pure functions** unit-testable with no LLM/deploy.
+- **Human golden answers per SKU** (the 7 fields from primary evidence) — test code against those, not the
+  shifting auditor verdict.
+- **Fix audit over-strictness** so UNSUPPORTED (e.g. Style) and genuinely-ambiguous fields don't block a push.
+- **Stop image-vision from populating `finish` for appliances** (root cause of the "Glossy" leak) rather than
+  extending the denylist forever.
+
+### State at end of session
+- Commits: `1342a2f`, `1d61a95`, `5113692`, `87789ff`, `414ce11` (last = debug log on ACCESSORIES guard).
+- `414ce11` adds an `ACCESSORY GUARD DEBUG` log to find what phrase matched for NSCZ10WH6 — **debug output not yet
+  read**; why the guard still fired for NSCZ10WH6 is **unconfirmed**.
+- Local/GitHub/prod all synced at `414ce11`. No products from the failing set were pushed to SF (all gated as
+  `MISMATCH_FOUND [not pushed]`). The 4 earlier clean products (NS-CZ10WH26, MF1851, SCFF1842, FFUE2024AW) were
+  pushed in prior runs.
