@@ -16,13 +16,16 @@
 | Phase | Description | Status | Last touched | Notes |
 |-------|-------------|--------|--------------|-------|
 | 0 | This guide written & methodology agreed | ✅ Done | 2026-06-09 | — |
+| G0 | Test baseline repair: jest green + tests wired into pre-deploy gate (§6.0) | ⬜ Not started | 2026-06-09 | 2 stale tests failing; `npm test` wired into nothing — prerequisite before any audit-driven fix ships |
 | 1 | Corpus-wide deterministic scans + waste mining + config coverage | ⬜ Not started | — | Read-only, ~$0 AI cost |
 | 2 | Calibrated sampled LLM audit + golden set creation | ⬜ Not started | — | Requires Phase 1 stratification data |
 | 3 | Code / architecture / security review (static, local) | ⬜ Not started | — | — |
 | 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | ⬜ Not started | — | Fixes logged as Findings |
 
-**Current next action**: Execute Phase 1 (§6.1). Build the scan scripts under `scripts/platform-audit/`,
-run them read-only against production MongoDB, write results to `audit-results/platform-audit/`.
+**Current next action**: G0 (test baseline repair, §6.0) and Phase 1 (§6.1) can run in either order —
+Phase 1 is read-only so it doesn't require G0, but **no code fix ships until G0 is done**. Phase 1: build
+the scan scripts under `scripts/platform-audit/` (with fixture self-tests per the Phase 1 gate), run them
+read-only against production MongoDB, write results to `audit-results/platform-audit/`.
 
 ---
 
@@ -171,6 +174,7 @@ Mined from `aiusage` + `verification_jobs` + logs:
 | OVS-06 | The Known Issues list in `CLAUDE.md` — unowned backlog; each item needs an owner/decision (cagp-lot resubmission?, 10 historical requeues, garbage attributes) |
 | OVS-07 | Audit results feed nothing back automatically — verdicts accumulate in `audit_jobs` with no loop into prompts, config, or alerts |
 | OVS-08 | Doc-sync compliance: `CLAUDE.md` ↔ `.github/copilot-instructions.md` drift check |
+| OVS-09 | Test suite not a functioning gate: 2 stale failures (red baseline), ~0% pipeline coverage, `npm test` absent from every deploy/validation procedure (verified 2026-06-09). Closed by G0 + G2 (§6.0) |
 
 ### 4.5 CONCERNS (`CON-*`) — risk: security, reliability, architecture
 
@@ -244,6 +248,48 @@ one-product-per-deploy loops.
 ---
 
 ## 6. Phased execution plan
+
+### 6.0 Verification gates — tests after EVERY phase (build, logic, results)
+
+> Honest baseline as of 2026-06-09 (verified, not assumed):
+> - **Build**: `npm run build`/`npm run typecheck` exist but are manual; the automated gate
+>   (`pre-deploy-validate-all.sh`, 9 checks) is **broken on prod** (tsc PATH — OVS-03).
+> - **Logic**: Jest installed, 61 tests, **59 pass / 2 fail** (stale `html-generator` assertions).
+>   Coverage = 4 utility files only. The core pipeline (~15k lines), title generation, picklist
+>   matcher, and every #078-fixed function have **zero** tests. `npm test` is wired into **no**
+>   procedure (verified absent from pre-deploy script and deploy workflow).
+> - **Results**: no deterministic gate. `verify-batch.js` is observational; the confirm audit gate
+>   is non-deterministic. No golden set yet.
+>
+> The gates below close this. **G0 is a prerequisite before any audit-driven code fix ships.**
+
+**G0 — Test baseline repair (one-time prerequisite)**
+1. Fix or quarantine the 2 stale `html-generator` tests so `npx jest` runs green (a red suite can't gate anything).
+2. Add `npm test` + `npm run typecheck` to `pre-deploy-validate-all.sh` and fix its prod PATH bug
+   (use `./node_modules/.bin/tsc`) so the gate actually executes where deploys happen.
+
+**The gate stack — applied to every code change, in every phase:**
+
+| Gate | Confirms | Command / mechanism | Pass criteria |
+|------|----------|--------------------|---------------|
+| **G1 Build** | It compiles & ships | `npm run typecheck` + `npm run build` locally; after deploy, verify `dist/` actually contains the change (grep a changed symbol on prod — the `--include=dev` prune gotcha has shipped stale dist before) | Zero tsc errors; changed code present in prod `dist/` |
+| **G2 Logic** | Functions do what we think | `npx jest` green, **plus a new unit test for every pure function touched** (fixture in, expected out — `findInSpecificationTable`, finish guard, ACCESSORIES guard, explicitColor are the first targets) | Suite green; new behavior covered by a test that fails on the old code |
+| **G3 Results** | Outputs are right at corpus scale | Golden harness diff (§5.3) once built; until then, re-run the affected L1 scan(s) and compare before/after numbers | No golden-set regressions; affected ACC/GAP metric improves, nothing else degrades |
+| **G4 Deploy** | Prod is healthy & synced | `pre-deploy-validate-all.sh` → deploy → `/health` → 3-way commit sync check | All green, ALL SYNCED |
+
+**Per-phase exit gates** (in addition to the stack above):
+- **Phase 1 gate**: the scan scripts are themselves tested — each check ID gets a small fixture test
+  (synthetic job docs with known violations → scanner must report the exact expected counts). Then
+  **manually spot-check ≥5 flagged jobs per check ID** against raw payloads before trusting any number.
+  A miscounting audit tool is worse than no tool.
+- **Phase 2 gate**: golden set entries double-reviewed (each SKU's values traced to a quoted payload
+  citation); L2 calibration FP/FN rates computed against the golden set and recorded BEFORE any L2
+  verdict enters the scorecard.
+- **Phase 3 gate**: every CON/OVS item closes with primary evidence (config line, query result, log
+  excerpt) — "verified" or "refuted", never "assumed".
+- **Phase 4 gate**: every fix passes G1→G4 **plus** the golden harness; after deploy, re-run the
+  affected L1 scans to confirm the corpus-level number actually moved. A fix without a moved metric
+  is not closed.
 
 ### Phase 1 — Corpus-wide L1 scans (read-only, ~$0 AI)
 **Build**: `scripts/platform-audit/` — one runner per dimension family:
