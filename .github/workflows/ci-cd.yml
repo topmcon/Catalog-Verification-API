@@ -1,4 +1,23 @@
-name: CI/CD Pipeline
+name: CI Pipeline
+
+# ⚠️ AUTO-DEPLOY REMOVED (2026-06-10, Finding #079 / PLATFORM-AUDIT Phase 4).
+#
+# The former `deploy-production` job SSH'd into prod on every push to main and ran:
+#   rsync -avz --delete ./ root@verify.cxc-ai.com:/opt/catalog-verification-api/
+#   npm install --production && systemctl restart catalog-verification.service
+#
+# That silently fought every documented manual operation for months:
+#   - `npm install --production` PRUNED devDependencies after each push — the true root
+#     cause of the recurring "tsc not found / @types missing on prod" failures (OVS-03)
+#   - `systemctl restart` fired on every push — killed in-flight verification/audit jobs
+#     (observed during Finding #078 confirm runs)
+#   - `rsync --delete` overwrote the prod working tree outside git (phantom "local
+#     changes") and DELETED untracked server files — including database backups
+#
+# Deployment policy (CLAUDE.md): MANUAL ONLY —
+#   ssh mardeys-prod "cd /opt/catalog-verification-api && git pull origin main && \
+#     npm install --include=dev && npm run build && systemctl restart catalog-verification"
+# gated by scripts/pre-deploy-validate-all.sh.
 
 on:
   push:
@@ -11,7 +30,7 @@ env:
 
 jobs:
   build:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,54 +48,8 @@ jobs:
       - name: Validate picklist sync
         run: node scripts/validate-picklist-sync.js
 
+      - name: Unit tests
+        run: npm test
+
       - name: Build
         run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-  deploy-production:
-    name: Deploy Production
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
-
-      - name: Add server to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H verify.cxc-ai.com >> ~/.ssh/known_hosts
-
-      - name: Deploy to Production Server
-        run: |
-          rsync -avz --delete \
-            --exclude 'node_modules' \
-            --exclude '.env' \
-            --exclude 'logs' \
-            --exclude '.git' \
-            ./ root@verify.cxc-ai.com:/opt/catalog-verification-api/
-
-      - name: Install Dependencies and Restart Service
-        run: |
-          ssh root@verify.cxc-ai.com "cd /opt/catalog-verification-api && npm install --production && systemctl restart catalog-verification.service"
-
-      - name: Verify Deployment
-        run: |
-          sleep 5
-          curl -sf https://verify.cxc-ai.com/health || exit 1

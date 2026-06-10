@@ -17,7 +17,10 @@
 ###############################################################################
 set -euo pipefail
 
-BACKUP_DIR="/opt/catalog-verification-api/backups/mongo"
+# OUTSIDE /opt/catalog-verification-api — Finding #079: the (now-removed) CI auto-deploy
+# ran `rsync --delete` over the app dir and wiped in-tree backups. Keep archives out of
+# any deploy tool's blast radius permanently.
+BACKUP_DIR="/var/backups/catalog-verification/mongo"
 RETENTION=28
 MIN_BYTES=1000000   # a healthy dump of 19k+ jobs is far larger; tiny = something broke
 
