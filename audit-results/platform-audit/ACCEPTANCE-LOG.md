@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-06-10 — spec-table extractor extraction + first pipeline unit tests + golden harness
+
+**Commit**: `fe6165b` · **Scope**: `findInSpecificationTable` extracted from
+`dual-ai-verification.service.ts` (15,528 lines) to `src/utils/spec-table-extractor.ts` (identical body,
+verified by diff during extraction); 11 jest tests added; `scripts/golden-harness/run-harness.js` built;
+`PHASE-3-REVIEW.md` published.
+
+| Gate | Result | Evidence |
+|------|--------|----------|
+| G1 build | ✅ | `tsc --noEmit` clean local; **prod dist verified**: `dist/services/dual-ai-verification.service.js` contains `require("../utils/spec-table-extractor")`, `dist/utils/spec-table-extractor.js` present |
+| G2 logic | ✅ | Suite 72/72 (was 61). New tests use REAL golden payloads: T1 per HTML format (A: B18IF70NSP Color→"Stainless Steel"; C: NS-CZ14WH2/NS-CZ70WH26L Color Finish→"White"; B/D synthetic per #078 shapes). T2: #078 Bug A regression guard (no adjacent-row bleed), absent-attr→null, null-input→null, >80-char reject, regex-escape |
+| G3 results | ✅ (scaffold) | Harness runs in draft mode: 49 entries / 343 fields awaiting review / judges only `status:"reviewed"`; `--gate` exits 1 on mismatch |
+| G4 deploy | ✅ | Validator ALL 10 PASSED pre-deploy; unpiped `npm install --include=dev` (exit 0 echoed); service active; `/health` healthy; 3-way sync `fe6165b` |
+
+**Phase 3** closed same commit — every CON/OVS item verified-or-refuted with primary evidence
+(`audit-results/platform-audit/2026-06-09/PHASE-3-REVIEW.md`). Top outcomes: CON-04 **no DB backups (CRIT)**;
+CON-08 4 critical npm vulns; CON-01 secret in 2 tracked files; CON-07 mostly refuted (live 401) except
+unauthenticated `POST /api/webhook/confirm` (live 200); CON-05 mostly refuted (`recoverStaleJobs()` exists).
+
+---
+
 ## 2026-06-09 — G0: Test baseline repair (gate prerequisite)
 
 **Commit**: (this commit) · **Scope**: jest.config.js, tsconfig.json, html-generator.test.ts,

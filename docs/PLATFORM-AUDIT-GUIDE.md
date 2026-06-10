@@ -19,14 +19,16 @@
 | G0 | Test baseline repair: jest green + tests wired into pre-deploy gate (§6.0) | ✅ Done | 2026-06-09 | 61/61 green; jest = critical CHECK #2 in `pre-deploy-validate-all.sh`; validator passes ALL 10 on prod. Evidence: `ACCEPTANCE-LOG.md` |
 | 1 | Corpus-wide deterministic scans + waste mining + config coverage | ✅ Done | 2026-06-09 | 19,113 jobs scanned; results + `PHASE-1-SUMMARY.md` in `audit-results/platform-audit/2026-06-09/` |
 | 2 | Calibrated sampled LLM audit + golden set creation | 🟡 In progress | 2026-06-09 | Selection DONE: 49 SKUs, 14 strata, payloads + draft answers in `audit-results/golden-set/`. **Blocked on human review** (workflow: `audit-results/golden-set/README.md`). Then: calibration + L2 sampling |
-| 3 | Code / architecture / security review (static, local) | ⬜ Not started | — | Can run in parallel with Phase 2 |
+| 3 | Code / architecture / security review (static, local) | ✅ Done | 2026-06-10 | All CON/OVS items closed with primary evidence: `audit-results/platform-audit/2026-06-09/PHASE-3-REVIEW.md`. CRIT: no DB backups (CON-04). Fix order proposed in the review |
 | 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | ⬜ Not started | — | Fixes logged as Findings |
 
 **Current next action**: HUMAN — review `audit-results/golden-set/golden-answers.draft.json` per the
-workflow in `audit-results/golden-set/README.md` (49 SKUs; partial review is usable). In parallel, an
-agent session can run Phase 3 (§6.3 static code/security review) and build the golden harness scaffold
-(`scripts/golden-harness/`) so it's ready the moment answers are signed off. G0 is done — the fix gate
-(G1–G4) is live; code fixes may now ship through it. **Phase 1 headlines**: 85% of all AI spend = duplicate re-verifications
+workflow in `audit-results/golden-set/README.md` (49 SKUs; partial review is usable — the harness judges
+only `status:"reviewed"` fields). The harness scaffold is BUILT (`scripts/golden-harness/run-harness.js`,
+report + `--gate` modes) and activates as soon as reviewed answers exist. Phase 3 is DONE — Phase 4 can
+begin on the no-decision-needed items: CON-04 backup cron (CRIT, first fix), CON-08 npm criticals,
+CON-07 webhook/confirm auth, OVS-05 alert digest. User decisions still pending: CON-01 secret rotation,
+cagp-lot, 49 stale picklist requests, CON-03 key pruning. **Phase 1 headlines**: 85% of all AI spend = duplicate re-verifications
 (WST-04, ≈$820); style defaulting covers 70% of corpus (ACC-12); finish==color 39.7% (ACC-05); title-length
 rule violated 56.6% (ACC-01); research efficacy unmeasured — fieldsCaptured=0 on 100% of web-search/vision
 calls (WST-02/07). Scanner TODOs for next pass: era-split tables for ACC-07a/ACC-08, GAP-03 age buckets,
