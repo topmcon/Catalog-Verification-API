@@ -1,0 +1,2350 @@
+{
+  "generated": "2026-06-10T01:19:59.406Z",
+  "scanned": 18767,
+  "eraCounts": {
+    "ai": 14943,
+    "verified": 3824,
+    "unknown": 346
+  },
+  "titleLength": {
+    "p10": 42,
+    "p50": 64,
+    "p90": 87,
+    "min": 2,
+    "max": 198
+  },
+  "summary": {
+    "ACC-01": {
+      "description": "title length outside 60–80 chars",
+      "flagged": 10616,
+      "scanned": 18767,
+      "rate": 56.57,
+      "examples": [
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "len": 96,
+          "title": "KitchenAid 30\" Smart Electric Single Wall Oven with Assisted Cooking Modes - Printshield™ "
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "len": 43,
+          "title": "KITCHENAID 30-Inch Single Oven - KOES730SPS"
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "len": 96,
+          "title": "KitchenAid 30\" Smart Electric Single Wall Oven with Assisted Cooking Modes - Printshield™ "
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "len": 96,
+          "title": "KitchenAid 30\" Smart Electric Single Wall Oven with Assisted Cooking Modes - Printshield™ "
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "len": 96,
+          "title": "KitchenAid 30\" Smart Electric Single Wall Oven with Assisted Cooking Modes - Printshield™ "
+        },
+        {
+          "sku": "GUD24ESSNWW",
+          "category": "All in One Washer / Dryer",
+          "era": "verified",
+          "len": 45,
+          "title": "GE Stackable All-in-One Washer and Dryer Unit"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop-in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop-in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "len": 94,
+          "title": "MTI Baths Andrea 17 54\" Drop in Acrylic Soaking Tub with Reversible Drain and Overflow - W"
+        },
+        {
+          "sku": "RF23B7671SR",
+          "category": "Refrigerator",
+          "era": "verified",
+          "len": 125,
+          "title": "Samsung 36\" Smart Counter Depth 4-Door Flex Refrigerator with Beverage Center and Dual Ice"
+        }
+      ]
+    },
+    "ACC-02": {
+      "description": "model number in title ≠ SF_Catalog_Name",
+      "flagged": 543,
+      "scanned": 18767,
+      "rate": 2.89,
+      "examples": [
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "titleModel": "Printshield™ Finish"
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "titleModel": "Printshield™ Finish"
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "titleModel": "Printshield™ Finish"
+        },
+        {
+          "sku": "KOES730SPS",
+          "category": "Oven",
+          "era": "verified",
+          "titleModel": "Printshield™ Finish"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "titleModel": "Panel Ready"
+        },
+        {
+          "sku": "ELFE7437AW",
+          "category": "Dryer",
+          "era": "verified",
+          "titleModel": "White"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "titleModel": "Panel Ready"
+        }
+      ]
+    },
+    "ACC-03": {
+      "description": "title dimension gap > 4\" vs all stored dimensions",
+      "flagged": 78,
+      "scanned": 18767,
+      "rate": 0.42,
+      "examples": [
+        {
+          "sku": "RES1072DTWW",
+          "category": "Microwave",
+          "era": "ai",
+          "titleInch": 22,
+          "dims": [
+            17.31,
+            10.19,
+            12.75
+          ],
+          "gap": 4.7
+        },
+        {
+          "sku": "RES1072DTWW",
+          "category": "Microwave",
+          "era": "ai",
+          "titleInch": 24,
+          "dims": [
+            17.31,
+            10.19,
+            12.75
+          ],
+          "gap": 6.7
+        },
+        {
+          "sku": "AST123DM",
+          "category": "Bathtub",
+          "era": "ai",
+          "titleInch": 66,
+          "dims": [
+            36,
+            21.75,
+            21
+          ],
+          "gap": 30
+        },
+        {
+          "sku": "5718-JH-0",
+          "category": "Bathtub",
+          "era": "ai",
+          "titleInch": 72,
+          "dims": [
+            42,
+            23.13,
+            21.06
+          ],
+          "gap": 30
+        },
+        {
+          "sku": "MAR-N-SW-OF",
+          "category": "Bathtub",
+          "era": "ai",
+          "titleInch": 75,
+          "dims": [
+            34.25,
+            28.63,
+            16.88
+          ],
+          "gap": 40.8
+        },
+        {
+          "sku": "S103-WH-UM",
+          "category": "Bathtub",
+          "era": "ai",
+          "titleInch": 66,
+          "dims": [
+            41.88,
+            22.63,
+            21.88
+          ],
+          "gap": 24.1
+        },
+        {
+          "sku": "3834.16",
+          "category": "Bathroom Lighting",
+          "era": "ai",
+          "titleInch": 44,
+          "dims": [
+            8.5,
+            18,
+            8.5
+          ],
+          "gap": 26
+        },
+        {
+          "sku": "3834.16",
+          "category": "Wall Decor",
+          "era": "ai",
+          "titleInch": 9,
+          "dims": [
+            44,
+            1.5,
+            2
+          ],
+          "gap": 7
+        },
+        {
+          "sku": "3834.16",
+          "category": "Bathroom Lighting",
+          "era": "ai",
+          "titleInch": 18,
+          "dims": [
+            44,
+            1.5,
+            2
+          ],
+          "gap": 16
+        },
+        {
+          "sku": "2220-BN",
+          "category": "Vanity Lighting",
+          "era": "ai",
+          "titleInch": 29,
+          "dims": [
+            18,
+            4.7,
+            3.7
+          ],
+          "gap": 11
+        },
+        {
+          "sku": "3834.16",
+          "category": "Bathroom Lighting",
+          "era": "ai",
+          "titleInch": 8.5,
+          "dims": [
+            44,
+            1.5,
+            2
+          ],
+          "gap": 6.5
+        },
+        {
+          "sku": "WEE750H0HZ",
+          "category": "Range",
+          "era": "ai",
+          "titleInch": 8,
+          "dims": [
+            29.88,
+            36,
+            28.63
+          ],
+          "gap": 20.6
+        },
+        {
+          "sku": "KMMS130RPS",
+          "category": "Microwave",
+          "era": "ai",
+          "titleInch": 8,
+          "dims": [
+            29.88,
+            17.13,
+            15.56
+          ],
+          "gap": 7.6
+        },
+        {
+          "sku": "K-33158-NA",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "titleInch": 32,
+          "dims": [
+            18.31,
+            5.81,
+            5.81
+          ],
+          "gap": 13.7
+        },
+        {
+          "sku": "440067",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "titleInch": 32,
+          "dims": [
+            19.5,
+            10,
+            10
+          ],
+          "gap": 12.5
+        }
+      ]
+    },
+    "ACC-04": {
+      "description": "finish is a plain color / config descriptor",
+      "flagged": 1692,
+      "scanned": 18767,
+      "rate": 9.02,
+      "examples": [
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "finish": "Panel Ready"
+        },
+        {
+          "sku": "ELFE7437AW",
+          "category": "Dryer",
+          "era": "verified",
+          "finish": "White"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "finish": "Panel Ready"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "finish": "Panel Ready"
+        },
+        {
+          "sku": "SHV53CM3N",
+          "category": "Dishwasher",
+          "era": "verified",
+          "finish": "Panel Ready"
+        },
+        {
+          "sku": "356BK",
+          "category": "Exhaust Fans #",
+          "era": "verified",
+          "finish": "Black"
+        },
+        {
+          "sku": "52006BK",
+          "category": "Bathroom Lighting #",
+          "era": "verified",
+          "finish": "Black"
+        }
+      ]
+    },
+    "ACC-05": {
+      "description": "finish duplicates color",
+      "flagged": 7458,
+      "scanned": 18767,
+      "rate": 39.74,
+      "examples": [
+        {
+          "sku": "1010-25W-BN-LED",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "finish": "Brushed Nickel",
+          "color": "Brushed Nickel"
+        },
+        {
+          "sku": "900752FMW-LWD",
+          "category": "Ceiling Fans",
+          "era": "verified",
+          "finish": "Matte White",
+          "color": "Matte White"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting #",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting #",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "LIJ42",
+          "category": "Barbeques",
+          "era": "verified",
+          "finish": "Stainless Steel",
+          "color": "Stainless Steel"
+        },
+        {
+          "sku": "E21224-BKGLD",
+          "category": "Chandeliers",
+          "era": "verified",
+          "finish": "Black / Gold",
+          "color": "Black / Gold"
+        },
+        {
+          "sku": "20020SW-LL",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "finish": "Satin White",
+          "color": "Satin White"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "finish": "Nickel",
+          "color": "Nickel"
+        }
+      ]
+    },
+    "ACC-06": {
+      "description": "color value is junk (over-capture: digits/units/HTML or >30 chars)",
+      "flagged": 735,
+      "scanned": 18767,
+      "rate": 3.92,
+      "examples": [
+        {
+          "sku": "75405",
+          "category": "Barn Door Hardware #",
+          "era": "verified",
+          "color": "Brown (wicker), Light Green (cushions)"
+        },
+        {
+          "sku": "75405",
+          "category": "Door Hardware: Knobs and Levers #",
+          "era": "verified",
+          "color": "Brown (wicker), Light Green (cushions)"
+        },
+        {
+          "sku": "75405",
+          "category": "Door Hardware: Knobs and Levers #",
+          "era": "verified",
+          "color": "Brown (wicker), Light Green (cushions)"
+        },
+        {
+          "sku": "484123",
+          "category": "Toilets #",
+          "era": "verified",
+          "color": "White (top), Light Gray (frame)"
+        },
+        {
+          "sku": "WPLED43030AWT",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "color": "ffffff (Architectural White / 3000K)"
+        },
+        {
+          "sku": "225315",
+          "category": "Kitchen Accessories #",
+          "era": "verified",
+          "color": "CFD4D9 (Stainless Steel / Maple)"
+        },
+        {
+          "sku": "YM2040SPPFN3H84",
+          "category": "Bathroom Mirrors #",
+          "era": "verified",
+          "color": "CFD4D9 (Polished Stainless Steel)"
+        },
+        {
+          "sku": "YM2040SPPFN3H84",
+          "category": "Bathroom Mirrors #",
+          "era": "verified",
+          "color": "CFD4D9 (Polished Stainless Steel)"
+        },
+        {
+          "sku": "20020SW-LL",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "color": "ffffff (Satin White / Stainless Steel)"
+        },
+        {
+          "sku": "30805875-46",
+          "category": "Kitchen Faucets",
+          "era": "verified",
+          "color": "766440 (Brushed Champagne (22kt Gold))"
+        },
+        {
+          "sku": "HR-D412-SC/WT",
+          "category": "Recessed Lighting",
+          "era": "verified",
+          "color": "White (exterior), Stainless Steel (interior)"
+        },
+        {
+          "sku": "225315",
+          "category": "Kitchen Accessories",
+          "era": "verified",
+          "color": "CFD4D9 (Stainless Steel / Maple)"
+        },
+        {
+          "sku": "G-8538-SN",
+          "category": "Tub and Shower Accessories",
+          "era": "verified",
+          "color": "B5B6B5 (Steelnox (Satin Nickel))"
+        },
+        {
+          "sku": "AWC243TDZRHACCY",
+          "category": "Refrigerator",
+          "era": "verified",
+          "color": "Black Cabinet with Stainless Steel Door"
+        },
+        {
+          "sku": "LIJ42",
+          "category": "Outdoor Kitchens",
+          "era": "verified",
+          "color": "California Poppy (CA), Desert Sage (DS), Glacier (GL), Limestone (LS), Obsidian "
+        }
+      ]
+    },
+    "ACC-07a": {
+      "description": "category not in picklist at all",
+      "flagged": 2190,
+      "scanned": 18767,
+      "rate": 11.67,
+      "examples": [
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "S107-WH-DI",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "GAR5428STO",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "GAR5428STO",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "GAR5428STO",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "GAR5428STO",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "BRAL9007M",
+          "category": "Bathtubs #",
+          "era": "verified"
+        },
+        {
+          "sku": "41 401 979-85 0010",
+          "category": "Showers #",
+          "era": "verified"
+        },
+        {
+          "sku": "09356",
+          "category": "Wall Sconces #",
+          "era": "verified"
+        }
+      ]
+    },
+    "ACC-07b": {
+      "description": "category not valid for its department",
+      "flagged": 389,
+      "scanned": 18767,
+      "rate": 2.07,
+      "examples": [
+        {
+          "sku": "100115681",
+          "category": "Commercial Lighting #",
+          "era": "verified",
+          "department": "Industrial & Commercial"
+        },
+        {
+          "sku": "100115681",
+          "category": "Commercial Lighting #",
+          "era": "verified",
+          "department": "Industrial & Commercial"
+        },
+        {
+          "sku": "100115681",
+          "category": "Commercial Lighting #",
+          "era": "verified",
+          "department": "Industrial & Commercial"
+        },
+        {
+          "sku": "100115681",
+          "category": "Commercial Lighting #",
+          "era": "verified",
+          "department": "Industrial & Commercial"
+        },
+        {
+          "sku": "100115681",
+          "category": "Commercial Lighting #",
+          "era": "verified",
+          "department": "Industrial & Commercial"
+        },
+        {
+          "sku": "A430-4-PC",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "department": "Plumbing & Bath"
+        },
+        {
+          "sku": "A430-4-PC",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "department": "Plumbing & Bath"
+        },
+        {
+          "sku": "A430-4-PC",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "department": "Plumbing & Bath"
+        },
+        {
+          "sku": "450359",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "department": "Plumbing & Bath"
+        },
+        {
+          "sku": "450359",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "department": "Plumbing & Bath"
+        },
+        {
+          "sku": "1639SK-LED",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "department": "Lighting & Electrical"
+        },
+        {
+          "sku": "WSW22020830BK",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "department": "Lighting & Electrical"
+        },
+        {
+          "sku": "WPLED43030AWT",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "department": "Lighting & Electrical"
+        },
+        {
+          "sku": "16040Z",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "department": "Lighting & Electrical"
+        },
+        {
+          "sku": "20020SW-LL",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "department": "Lighting & Electrical"
+        }
+      ]
+    },
+    "ACC-08": {
+      "description": "type not valid for category (per type mapping)",
+      "flagged": 1394,
+      "scanned": 18767,
+      "rate": 7.43,
+      "examples": [
+        {
+          "sku": "G-5955C-LM41D-PC",
+          "category": "Kitchen Faucet",
+          "era": "ai",
+          "type": "Single Handle"
+        },
+        {
+          "sku": "G-5955C-LM41D-PC",
+          "category": "Kitchen Faucet",
+          "era": "ai",
+          "type": "Single Handle"
+        },
+        {
+          "sku": "G-8301-WT",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8449-PC",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8464-SN",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8613-PN",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8660-BNi",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8680-BNi",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "G-8714-PN",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "RIK-MTSQ",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "STCMPC",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "SVSQPC",
+          "category": "Shower",
+          "era": "ai",
+          "type": "Accessory"
+        },
+        {
+          "sku": "LDFN4542S",
+          "category": "Dishwasher",
+          "era": "ai",
+          "type": "Built-In"
+        },
+        {
+          "sku": "ESW7010 OBSW/USA",
+          "category": "Kitchen Accessory",
+          "era": "ai",
+          "type": "Warming"
+        },
+        {
+          "sku": "LDFN4542S",
+          "category": "Dishwasher",
+          "era": "ai",
+          "type": "Built-In"
+        }
+      ]
+    },
+    "ACC-09": {
+      "description": "brand not in brands.json picklist",
+      "flagged": 44,
+      "scanned": 18767,
+      "rate": 0.23,
+      "examples": [
+        {
+          "sku": "A270 24X24",
+          "category": "HVAC Accessories",
+          "era": "verified",
+          "brand": "TRUaire"
+        },
+        {
+          "sku": "QU670WHPK1",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "brand": "Karran USA"
+        },
+        {
+          "sku": "587014",
+          "category": "Bathroom Vanity",
+          "era": "ai",
+          "brand": "Design House"
+        },
+        {
+          "sku": "QU670WHPK1",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "brand": "Karran"
+        },
+        {
+          "sku": "587014",
+          "category": "Bathroom Vanity",
+          "era": "ai",
+          "brand": "Design House"
+        },
+        {
+          "sku": "QU670WHPK1",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "brand": "Karran"
+        },
+        {
+          "sku": "587014",
+          "category": "Bathroom Vanity",
+          "era": "ai",
+          "brand": "Design House"
+        },
+        {
+          "sku": "QU670WHPK1",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "brand": "Karran"
+        },
+        {
+          "sku": "587014",
+          "category": "Bathroom Vanity",
+          "era": "ai",
+          "brand": "Design House"
+        },
+        {
+          "sku": "QU670WHPK1",
+          "category": "Kitchen Sink",
+          "era": "ai",
+          "brand": "Karran USA"
+        },
+        {
+          "sku": "587014",
+          "category": "Bathroom Vanity",
+          "era": "ai",
+          "brand": "Design House"
+        },
+        {
+          "sku": "MTCS771-WH-GL",
+          "category": "Bathroom Sink",
+          "era": "ai",
+          "brand": "MTI Baths"
+        },
+        {
+          "sku": "MTCS771-WH-GL",
+          "category": "Bathroom Sink",
+          "era": "ai",
+          "brand": "MTI Baths"
+        },
+        {
+          "sku": "MTCS771-WH-GL",
+          "category": "Bathroom Sink",
+          "era": "ai",
+          "brand": "MTI Baths"
+        },
+        {
+          "sku": "S153DM-WH-LH",
+          "category": "Bathtub",
+          "era": "ai",
+          "brand": "MTI Baths"
+        }
+      ]
+    },
+    "ACC-10": {
+      "description": "Canadian (CA_) jobs (informational count)",
+      "flagged": 514,
+      "scanned": 18767,
+      "rate": 2.74,
+      "examples": [
+        {
+          "sku": "DW80M9960US",
+          "category": "Dishwasher",
+          "era": "ai"
+        },
+        {
+          "sku": "CDT858P2V1S1",
+          "category": "Dishwasher",
+          "era": "ai"
+        },
+        {
+          "sku": "GYE22GYNFS",
+          "category": "Refrigerator",
+          "era": "ai"
+        },
+        {
+          "sku": "HDDB36WS",
+          "category": "Range Hood",
+          "era": "ai"
+        },
+        {
+          "sku": "ELFG7637AT",
+          "category": "Dryer",
+          "era": "ai"
+        },
+        {
+          "sku": "DW80M9960US",
+          "category": "Dishwasher",
+          "era": "ai"
+        },
+        {
+          "sku": "CDT858P2V1S1",
+          "category": "Dishwasher",
+          "era": "ai"
+        },
+        {
+          "sku": "GYE22GYNFS",
+          "category": "Refrigerator",
+          "era": "ai"
+        },
+        {
+          "sku": "HDDB36WS",
+          "category": "Range Hood",
+          "era": "ai"
+        },
+        {
+          "sku": "PT7800SHSS",
+          "category": "Oven",
+          "era": "ai"
+        },
+        {
+          "sku": "ELFG7637AT",
+          "category": "Dryer",
+          "era": "ai"
+        },
+        {
+          "sku": "JBBFR36NHL",
+          "category": "Refrigerator",
+          "era": "ai"
+        },
+        {
+          "sku": "WRS325SDHZ",
+          "category": "Refrigerator",
+          "era": "ai"
+        },
+        {
+          "sku": "FFEC3025UB",
+          "category": "Cooktop",
+          "era": "ai"
+        },
+        {
+          "sku": "WCGK5036PS00",
+          "category": "Cooktop",
+          "era": "ai"
+        }
+      ]
+    },
+    "ACC-11": {
+      "description": "repeated token in title (duplication)",
+      "flagged": 2108,
+      "scanned": 18767,
+      "rate": 11.23,
+      "examples": [
+        {
+          "sku": "WS69815CH",
+          "category": "Vanity Lighting #",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "WAC Lighting Esprit Bathroom Sconce 3000k by Wac Lighting"
+        },
+        {
+          "sku": "WS69815CH",
+          "category": "Vanity Lighting #",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "WAC LIGHTING Esprit Bathroom Sconce 3000k by Wac Lighting"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "Innovations Lighting 23-Inch Bathroom Vanity Lighting - 616-3W-PN-G51"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "Innovations Lighting 23-Inch Bathroom Vanity Lighting - 616-3W-PN-G51"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "Innovations Lighting 23-Inch Bathroom Vanity Lighting - 616-3W-PN-G51"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Vanity Lighting",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "Innovations Lighting 23-Inch Bathroom Vanity Lighting - 616-3W-PN-G51"
+        },
+        {
+          "sku": "19163",
+          "category": "Ceiling Lights #",
+          "era": "verified",
+          "dupToken": "ceiling",
+          "title": "HUNTER Flush Mount Drum Ceiling Fixture Ceiling Lights - 19164"
+        },
+        {
+          "sku": "450359",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "dupToken": "hardware",
+          "title": "SIGNATURE HARDWARE Knurled 20-Inch Bathroom Cabinet Hardware - 450357"
+        },
+        {
+          "sku": "450359",
+          "category": "Bathroom Cabinet Hardware #",
+          "era": "verified",
+          "dupToken": "hardware",
+          "title": "SIGNATURE HARDWARE Knurled 20-Inch Bathroom Cabinet Hardware - 450357"
+        },
+        {
+          "sku": "6163WPNG51",
+          "category": "Bathroom Lighting #",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "Innovations Lighting Transitional Bathroom Lighting - 616-3W-PN-G51"
+        },
+        {
+          "sku": "450359",
+          "category": "Cabinet Hardware #",
+          "era": "verified",
+          "dupToken": "hardware",
+          "title": "SIGNATURE HARDWARE Knurled 20-Inch Cabinet Hardware - 450359"
+        },
+        {
+          "sku": "296431",
+          "category": "Bathroom Hardware and Accessories #",
+          "era": "verified",
+          "dupToken": "hardware",
+          "title": "SIGNATURE HARDWARE Modern Bathroom Hardware and Accessories - 296431"
+        },
+        {
+          "sku": "HFCWT",
+          "category": "Track and Rail Lighting #",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "WAC LIGHTING Floating Power Feed Connector 4-Inch Track and Rail Lighting White - HFC-WT"
+        },
+        {
+          "sku": "JT4-WT",
+          "category": "Track and Rail Lighting #",
+          "era": "verified",
+          "dupToken": "lighting",
+          "title": "WAC LIGHTING Contemporary 2-Inch Track and Rail Lighting White - JT4-WT"
+        },
+        {
+          "sku": "1639SK-LED",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "dupToken": "outdoor",
+          "title": "HINKLEY Outdoor Wall Sconce Outdoor Lighting Satin Black - 1639SK-LED"
+        }
+      ]
+    },
+    "ACC-13": {
+      "description": "dimension non-numeric / ≤0 / >200 inches",
+      "flagged": 36,
+      "scanned": 18767,
+      "rate": 0.19,
+      "examples": [
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-6635-LM45W-T",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "width",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-1805-LM36-PC",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "width",
+          "value": "0"
+        },
+        {
+          "sku": "TLG08301U#CP",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-2305-LM31-PC",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "width",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Tub Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-2305-LM31-PC",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "width",
+          "value": "0"
+        },
+        {
+          "sku": "P34127-LV-SN",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-2305-LM31-PC",
+          "category": "Bathroom Faucets",
+          "era": "verified",
+          "dim": "depth",
+          "value": "0"
+        },
+        {
+          "sku": "G-2305-LM31-PC",
+          "category": "Bathroom Faucet",
+          "era": "verified",
+          "dim": "width",
+          "value": "0"
+        }
+      ]
+    },
+    "ACC-14": {
+      "description": "MSRP vs Ferguson price discrepancy > 30%",
+      "flagged": 34,
+      "scanned": 18767,
+      "rate": 0.18,
+      "examples": [
+        {
+          "sku": "B-35139",
+          "category": "Bathroom Hardware and Accessories #",
+          "era": "verified",
+          "msrp": 394.68,
+          "fergusonPrice": 182,
+          "ratio": 2.17
+        },
+        {
+          "sku": "R4ERDRW9CSWT",
+          "category": "Recessed Lighting #",
+          "era": "verified",
+          "msrp": 51.8,
+          "fergusonPrice": 23.95,
+          "ratio": 2.16
+        },
+        {
+          "sku": "R3BRDN930WT",
+          "category": "Recessed Lighting #",
+          "era": "verified",
+          "msrp": 219.8,
+          "fergusonPrice": 98.95,
+          "ratio": 2.22
+        },
+        {
+          "sku": "ADN1-20X48",
+          "category": "Barbeques",
+          "era": "verified",
+          "msrp": 799,
+          "fergusonPrice": 217.5,
+          "ratio": 3.67
+        },
+        {
+          "sku": "ADN1-20X48",
+          "category": "Outdoor Kitchens #",
+          "era": "verified",
+          "msrp": 799,
+          "fergusonPrice": 217.5,
+          "ratio": 3.67
+        },
+        {
+          "sku": "WS-W32516-BZ",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "msrp": 540,
+          "fergusonPrice": 373,
+          "ratio": 1.45
+        },
+        {
+          "sku": "WS-W32516-BZ",
+          "category": "Outdoor Lighting",
+          "era": "verified",
+          "msrp": 540,
+          "fergusonPrice": 373,
+          "ratio": 1.45
+        },
+        {
+          "sku": "50263LCB",
+          "category": "Bathroom Lighting",
+          "era": "verified",
+          "msrp": 486.92,
+          "fergusonPrice": 103.21,
+          "ratio": 4.72
+        },
+        {
+          "sku": "WM6998HVA",
+          "category": "All in One Washer / Dryer",
+          "era": "verified",
+          "msrp": 3629,
+          "fergusonPrice": 2099,
+          "ratio": 1.73
+        },
+        {
+          "sku": "SM-BD228",
+          "category": "Bidets",
+          "era": "verified",
+          "msrp": 335.37,
+          "fergusonPrice": 219.6,
+          "ratio": 1.53
+        },
+        {
+          "sku": "S12414",
+          "category": "Light Bulbs",
+          "era": "verified",
+          "msrp": 29.7,
+          "fergusonPrice": 4.95,
+          "ratio": 6
+        },
+        {
+          "sku": "G-8538-SN",
+          "category": "Tub and Shower Accessories",
+          "era": "verified",
+          "msrp": 1035,
+          "fergusonPrice": 675,
+          "ratio": 1.53
+        },
+        {
+          "sku": "59159",
+          "category": "Ceiling Fans",
+          "era": "verified",
+          "msrp": 549.99,
+          "fergusonPrice": 379.99,
+          "ratio": 1.45
+        },
+        {
+          "sku": "B-35139",
+          "category": "Bathroom Hardware and Accessories",
+          "era": "verified",
+          "msrp": 394.68,
+          "fergusonPrice": 182,
+          "ratio": 2.17
+        },
+        {
+          "sku": "441297",
+          "category": "Kitchen Sinks",
+          "era": "verified",
+          "msrp": 898,
+          "fergusonPrice": 612.95,
+          "ratio": 1.47
+        }
+      ]
+    },
+    "ACC-12": {
+      "description": "style value distribution (defaulting detector)",
+      "flagged": 9263,
+      "scanned": 18767,
+      "rate": 49.36,
+      "examples": [
+        {
+          "style": "Contemporary",
+          "n": 9263,
+          "pct": 49.4
+        },
+        {
+          "style": "Modern",
+          "n": 3916,
+          "pct": 20.9
+        },
+        {
+          "style": "(empty)",
+          "n": 916,
+          "pct": 4.9
+        },
+        {
+          "style": "Transitional",
+          "n": 809,
+          "pct": 4.3
+        },
+        {
+          "style": "Traditional",
+          "n": 805,
+          "pct": 4.3
+        },
+        {
+          "style": "Freestanding",
+          "n": 141,
+          "pct": 0.8
+        },
+        {
+          "style": "Pull-Down",
+          "n": 141,
+          "pct": 0.8
+        },
+        {
+          "style": "Vintage",
+          "n": 137,
+          "pct": 0.7
+        },
+        {
+          "style": "Built-In",
+          "n": 125,
+          "pct": 0.7
+        },
+        {
+          "style": "Widespread",
+          "n": 119,
+          "pct": 0.6
+        },
+        {
+          "style": "Art Deco",
+          "n": 115,
+          "pct": 0.6
+        },
+        {
+          "style": "Single Hole",
+          "n": 114,
+          "pct": 0.6
+        },
+        {
+          "style": "Wall Mounted",
+          "n": 107,
+          "pct": 0.6
+        },
+        {
+          "style": "1 Hole",
+          "n": 104,
+          "pct": 0.6
+        },
+        {
+          "style": "Industrial",
+          "n": 103,
+          "pct": 0.5
+        }
+      ]
+    }
+  },
+  "styleDistribution": [
+    {
+      "style": "Contemporary",
+      "n": 9263,
+      "pct": 49.4
+    },
+    {
+      "style": "Modern",
+      "n": 3916,
+      "pct": 20.9
+    },
+    {
+      "style": "(empty)",
+      "n": 916,
+      "pct": 4.9
+    },
+    {
+      "style": "Transitional",
+      "n": 809,
+      "pct": 4.3
+    },
+    {
+      "style": "Traditional",
+      "n": 805,
+      "pct": 4.3
+    },
+    {
+      "style": "Freestanding",
+      "n": 141,
+      "pct": 0.8
+    },
+    {
+      "style": "Pull-Down",
+      "n": 141,
+      "pct": 0.8
+    },
+    {
+      "style": "Vintage",
+      "n": 137,
+      "pct": 0.7
+    },
+    {
+      "style": "Built-In",
+      "n": 125,
+      "pct": 0.7
+    },
+    {
+      "style": "Widespread",
+      "n": 119,
+      "pct": 0.6
+    },
+    {
+      "style": "Art Deco",
+      "n": 115,
+      "pct": 0.6
+    },
+    {
+      "style": "Single Hole",
+      "n": 114,
+      "pct": 0.6
+    },
+    {
+      "style": "Wall Mounted",
+      "n": 107,
+      "pct": 0.6
+    },
+    {
+      "style": "1 Hole",
+      "n": 104,
+      "pct": 0.6
+    },
+    {
+      "style": "Industrial",
+      "n": 103,
+      "pct": 0.5
+    }
+  ],
+  "contemporaryHeavyCategories": [
+    {
+      "category": "Laundry Pedestal",
+      "n": 62,
+      "contemporaryPct": 100
+    },
+    {
+      "category": "Washer",
+      "n": 238,
+      "contemporaryPct": 81.5
+    },
+    {
+      "category": "Icemaker",
+      "n": 153,
+      "contemporaryPct": 80.4
+    },
+    {
+      "category": "Freezer",
+      "n": 235,
+      "contemporaryPct": 77
+    },
+    {
+      "category": "Outdoor Kitchen",
+      "n": 73,
+      "contemporaryPct": 76.7
+    },
+    {
+      "category": "Microwave",
+      "n": 548,
+      "contemporaryPct": 76.3
+    },
+    {
+      "category": "Rough-In Valve",
+      "n": 30,
+      "contemporaryPct": 70
+    },
+    {
+      "category": "Cooktop",
+      "n": 569,
+      "contemporaryPct": 69.2
+    },
+    {
+      "category": "Medicine Cabinet",
+      "n": 69,
+      "contemporaryPct": 66.7
+    },
+    {
+      "category": "Dryer",
+      "n": 656,
+      "contemporaryPct": 66.6
+    },
+    {
+      "category": "Bathroom Cabinet Hardware",
+      "n": 118,
+      "contemporaryPct": 64.4
+    },
+    {
+      "category": "Refrigerator",
+      "n": 3441,
+      "contemporaryPct": 62.5
+    },
+    {
+      "category": "Range",
+      "n": 493,
+      "contemporaryPct": 61.3
+    },
+    {
+      "category": "Range Hood",
+      "n": 1875,
+      "contemporaryPct": 61.3
+    },
+    {
+      "category": "All in One Washer / Dryer",
+      "n": 49,
+      "contemporaryPct": 61.2
+    },
+    {
+      "category": "Drawer",
+      "n": 132,
+      "contemporaryPct": 59.8
+    },
+    {
+      "category": "Lighting Accessory",
+      "n": 47,
+      "contemporaryPct": 57.4
+    },
+    {
+      "category": "Storage Drawer/Door",
+      "n": 54,
+      "contemporaryPct": 57.4
+    },
+    {
+      "category": "Oven",
+      "n": 929,
+      "contemporaryPct": 54.6
+    },
+    {
+      "category": "Ceiling Fan",
+      "n": 135,
+      "contemporaryPct": 53.3
+    }
+  ],
+  "byCategory": {
+    "ACC-01": [
+      {
+        "category": "Refrigerator",
+        "count": 2251
+      },
+      {
+        "category": "Range Hood",
+        "count": 825
+      },
+      {
+        "category": "Oven",
+        "count": 557
+      },
+      {
+        "category": "Dishwasher",
+        "count": 525
+      },
+      {
+        "category": "Dryer",
+        "count": 409
+      },
+      {
+        "category": "Cooktop",
+        "count": 365
+      },
+      {
+        "category": "Shower",
+        "count": 320
+      },
+      {
+        "category": "Bathroom Faucet",
+        "count": 285
+      },
+      {
+        "category": "Showerheads & Accessories",
+        "count": 265
+      },
+      {
+        "category": "Microwave",
+        "count": 258
+      }
+    ],
+    "ACC-02": [
+      {
+        "category": "Refrigerator",
+        "count": 180
+      },
+      {
+        "category": "Dishwasher",
+        "count": 52
+      },
+      {
+        "category": "Oven",
+        "count": 40
+      },
+      {
+        "category": "Range Hood",
+        "count": 27
+      },
+      {
+        "category": "Cooktop",
+        "count": 26
+      },
+      {
+        "category": "Dryer",
+        "count": 20
+      },
+      {
+        "category": "Bathtubs",
+        "count": 16
+      },
+      {
+        "category": "Outdoor Lighting",
+        "count": 15
+      },
+      {
+        "category": "Freezer",
+        "count": 15
+      },
+      {
+        "category": "Kitchen Sink",
+        "count": 14
+      }
+    ],
+    "ACC-04": [
+      {
+        "category": "Refrigerator",
+        "count": 653
+      },
+      {
+        "category": "Freezer",
+        "count": 112
+      },
+      {
+        "category": "Dryer",
+        "count": 102
+      },
+      {
+        "category": "Dishwasher",
+        "count": 94
+      },
+      {
+        "category": "Microwave",
+        "count": 77
+      },
+      {
+        "category": "Washer",
+        "count": 44
+      },
+      {
+        "category": "Outdoor Lighting",
+        "count": 43
+      },
+      {
+        "category": "Icemaker",
+        "count": 43
+      },
+      {
+        "category": "Oven",
+        "count": 39
+      },
+      {
+        "category": "Lighting Accessory",
+        "count": 36
+      }
+    ],
+    "ACC-07a": [
+      {
+        "category": "Shower Faucet",
+        "count": 441
+      },
+      {
+        "category": "Tub Faucet",
+        "count": 242
+      },
+      {
+        "category": "Bathroom Faucets",
+        "count": 221
+      },
+      {
+        "category": "Standalone Pedestal",
+        "count": 184
+      },
+      {
+        "category": "Kitchen Faucets",
+        "count": 148
+      },
+      {
+        "category": "Showerheads & Hand Showers",
+        "count": 103
+      },
+      {
+        "category": "Bathtubs",
+        "count": 98
+      },
+      {
+        "category": "Tub Faucets",
+        "count": 77
+      },
+      {
+        "category": "Outdoor Kitchen",
+        "count": 73
+      },
+      {
+        "category": "Furniture",
+        "count": 38
+      }
+    ],
+    "ACC-11": [
+      {
+        "category": "Refrigerator",
+        "count": 496
+      },
+      {
+        "category": "Range Hood",
+        "count": 302
+      },
+      {
+        "category": "Dishwasher",
+        "count": 103
+      },
+      {
+        "category": "Vanity Lighting",
+        "count": 83
+      },
+      {
+        "category": "Bathroom Faucet",
+        "count": 75
+      },
+      {
+        "category": "Outdoor Lighting",
+        "count": 68
+      },
+      {
+        "category": "Steam Shower",
+        "count": 58
+      },
+      {
+        "category": "Shower Accessory",
+        "count": 58
+      },
+      {
+        "category": "Range",
+        "count": 57
+      },
+      {
+        "category": "Oven",
+        "count": 53
+      }
+    ],
+    "ACC-07b": [
+      {
+        "category": "Outdoor Lighting",
+        "count": 164
+      },
+      {
+        "category": "Bathroom Cabinet Hardware",
+        "count": 53
+      },
+      {
+        "category": "Vanity Lighting",
+        "count": 53
+      },
+      {
+        "category": "Wall Sconce",
+        "count": 48
+      },
+      {
+        "category": "Bathroom Hardware and Accessories",
+        "count": 20
+      },
+      {
+        "category": "Post Light",
+        "count": 18
+      },
+      {
+        "category": "Commercial Lighting #",
+        "count": 5
+      },
+      {
+        "category": "Bathroom Cabinet Hardware #",
+        "count": 5
+      },
+      {
+        "category": "Bathroom Vanity",
+        "count": 5
+      },
+      {
+        "category": "Pendant",
+        "count": 3
+      }
+    ],
+    "ACC-05": [
+      {
+        "category": "Range Hood",
+        "count": 1283
+      },
+      {
+        "category": "Refrigerator",
+        "count": 1196
+      },
+      {
+        "category": "Dishwasher",
+        "count": 516
+      },
+      {
+        "category": "Oven",
+        "count": 413
+      },
+      {
+        "category": "Showerheads & Accessories",
+        "count": 365
+      },
+      {
+        "category": "Microwave",
+        "count": 291
+      },
+      {
+        "category": "Range",
+        "count": 257
+      },
+      {
+        "category": "Bathroom Faucet",
+        "count": 252
+      },
+      {
+        "category": "Shower Faucet",
+        "count": 224
+      },
+      {
+        "category": "Cooktop",
+        "count": 206
+      }
+    ],
+    "ACC-14": [
+      {
+        "category": "Showerheads & Accessories",
+        "count": 13
+      },
+      {
+        "category": "Recessed Lighting #",
+        "count": 2
+      },
+      {
+        "category": "Outdoor Lighting",
+        "count": 2
+      },
+      {
+        "category": "All in One Washer / Dryer",
+        "count": 2
+      },
+      {
+        "category": "Ceiling Fans",
+        "count": 2
+      },
+      {
+        "category": "Shower Accessory",
+        "count": 2
+      },
+      {
+        "category": "Shower",
+        "count": 2
+      },
+      {
+        "category": "Bathroom Hardware and Accessories #",
+        "count": 1
+      },
+      {
+        "category": "Barbeques",
+        "count": 1
+      },
+      {
+        "category": "Outdoor Kitchens #",
+        "count": 1
+      }
+    ],
+    "ACC-06": [
+      {
+        "category": "Refrigerator",
+        "count": 312
+      },
+      {
+        "category": "Dishwasher",
+        "count": 158
+      },
+      {
+        "category": "Range",
+        "count": 82
+      },
+      {
+        "category": "Oven",
+        "count": 27
+      },
+      {
+        "category": "Microwave",
+        "count": 25
+      },
+      {
+        "category": "(none)",
+        "count": 21
+      },
+      {
+        "category": "Range Hood",
+        "count": 18
+      },
+      {
+        "category": "Dryer",
+        "count": 12
+      },
+      {
+        "category": "Kitchen Faucet",
+        "count": 9
+      },
+      {
+        "category": "Vanity Lighting",
+        "count": 5
+      }
+    ],
+    "ACC-09": [
+      {
+        "category": "Bathtub",
+        "count": 9
+      },
+      {
+        "category": "Bathroom Vanity",
+        "count": 6
+      },
+      {
+        "category": "Kitchen Sink",
+        "count": 5
+      },
+      {
+        "category": "Bathroom Sink",
+        "count": 3
+      },
+      {
+        "category": "Refrigerator",
+        "count": 3
+      },
+      {
+        "category": "Flush and Semi-Flush",
+        "count": 2
+      },
+      {
+        "category": "Freezer",
+        "count": 2
+      },
+      {
+        "category": "Wall Decor",
+        "count": 2
+      },
+      {
+        "category": "Showerheads & Accessories",
+        "count": 2
+      },
+      {
+        "category": "Pipe Fitting",
+        "count": 2
+      }
+    ],
+    "ACC-08": [
+      {
+        "category": "Shower",
+        "count": 254
+      },
+      {
+        "category": "Dryer",
+        "count": 211
+      },
+      {
+        "category": "Shower Accessory",
+        "count": 117
+      },
+      {
+        "category": "Refrigerator",
+        "count": 101
+      },
+      {
+        "category": "Range",
+        "count": 84
+      },
+      {
+        "category": "Dishwasher",
+        "count": 67
+      },
+      {
+        "category": "Kitchen Faucet",
+        "count": 62
+      },
+      {
+        "category": "Bathroom Faucet",
+        "count": 60
+      },
+      {
+        "category": "Showerheads & Accessories",
+        "count": 58
+      },
+      {
+        "category": "Ceiling Light",
+        "count": 51
+      }
+    ],
+    "ACC-13": [
+      {
+        "category": "Bathroom Faucet",
+        "count": 10
+      },
+      {
+        "category": "Bathroom Faucets",
+        "count": 8
+      },
+      {
+        "category": "Tub Faucets",
+        "count": 6
+      },
+      {
+        "category": "Bathroom Hardware and Accessories",
+        "count": 4
+      },
+      {
+        "category": "Dishwasher",
+        "count": 2
+      },
+      {
+        "category": "Pipe Fitting",
+        "count": 2
+      },
+      {
+        "category": "Kitchen Faucet",
+        "count": 1
+      },
+      {
+        "category": "Furniture",
+        "count": 1
+      },
+      {
+        "category": "Drainage & Waste",
+        "count": 1
+      },
+      {
+        "category": "Microwave",
+        "count": 1
+      }
+    ],
+    "ACC-03": [
+      {
+        "category": "Microwave",
+        "count": 20
+      },
+      {
+        "category": "Kitchen Sink",
+        "count": 18
+      },
+      {
+        "category": "Refrigerator",
+        "count": 17
+      },
+      {
+        "category": "Bathtub",
+        "count": 8
+      },
+      {
+        "category": "Shower",
+        "count": 5
+      },
+      {
+        "category": "Bathroom Lighting",
+        "count": 3
+      },
+      {
+        "category": "Bathroom Sink",
+        "count": 3
+      },
+      {
+        "category": "Wall Decor",
+        "count": 1
+      },
+      {
+        "category": "Vanity Lighting",
+        "count": 1
+      },
+      {
+        "category": "Range",
+        "count": 1
+      }
+    ]
+  }
+}

@@ -1087,10 +1087,10 @@ golden harness exists (Finding #078 lesson). Update the Status Board before endi
 
 **Status**: Open — not yet investigated.
 
-### 🟡 Garbage Attributes in attributes.json
-**Issue**: May 27 cagp-lot batch caused AI to add 6 garbage attributes to `src/config/salesforce-picklists/attributes.json` with `NEEDS_SF_ID` placeholder: `actual_product`, `detected_product`, `image_detected`, `serial_number_example`, `serial_example`, `listing`. 33 other NEEDS_SF_ID attributes are legitimate — do not bulk-remove.
+### ✅ Garbage Attributes in attributes.json (Resolved — verified by Platform Audit Phase 1, June 9 2026)
+**Was**: May 27 cagp-lot batch caused 6 garbage `NEEDS_SF_ID` entries in `attributes.json` (plus 33 legitimate ones awaiting SF IDs).
 
-**Status**: Open — rejected in MongoDB, still in attributes.json on production.
+**Resolution**: All NEEDS_SF_ID entries are gone — `grep -c NEEDS_SF_ID` returns **0** on local, GitHub, and production (resolved via `98c17ac`). Confirmed by GAP-04 scan (`audit-results/platform-audit/2026-06-09/scan-gaps.json`). Mirror of CLAUDE.md entry.
 
 ### 🟡 cagp-lot Batch (763 Jobs — SF Rejected All Webhooks)
 **Issue**: May 27 batch of ~763 jobs completed on our side but SF rejected every webhook with `"Invalid id: cagp-lot-XXX"`. Zero results applied in Salesforce.

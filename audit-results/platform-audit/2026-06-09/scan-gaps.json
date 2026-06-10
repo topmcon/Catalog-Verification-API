@@ -1,0 +1,444 @@
+{
+  "generated": "2026-06-10T01:20:12.987Z",
+  "scanned": 18767,
+  "gap01": {
+    "overall": {
+      "brand": {
+        "n": 18767,
+        "emptyPct": 0.2
+      },
+      "category": {
+        "n": 18767,
+        "emptyPct": 0.5
+      },
+      "type": {
+        "n": 14943,
+        "emptyPct": 2.7
+      },
+      "style": {
+        "n": 18767,
+        "emptyPct": 4.9
+      },
+      "color": {
+        "n": 18767,
+        "emptyPct": 7
+      },
+      "finish": {
+        "n": 18767,
+        "emptyPct": 5.8
+      },
+      "width": {
+        "n": 18767,
+        "emptyPct": 1.4
+      },
+      "height": {
+        "n": 18767,
+        "emptyPct": 2.7
+      },
+      "depth": {
+        "n": 18767,
+        "emptyPct": 2
+      },
+      "weight": {
+        "n": 18767,
+        "emptyPct": 2.6
+      },
+      "msrp": {
+        "n": 18767,
+        "emptyPct": 1.2
+      },
+      "upc": {
+        "n": 18767,
+        "emptyPct": 0.5
+      },
+      "model": {
+        "n": 18767,
+        "emptyPct": 0.2
+      },
+      "title": {
+        "n": 18767,
+        "emptyPct": 0.2
+      }
+    },
+    "worstCategoryCells": [
+      {
+        "category": "(none)",
+        "field": "category",
+        "n": 85,
+        "emptyPct": 100
+      },
+      {
+        "category": "(none)",
+        "field": "style",
+        "n": 85,
+        "emptyPct": 100
+      },
+      {
+        "category": "Furniture",
+        "field": "msrp",
+        "n": 38,
+        "emptyPct": 84.2
+      },
+      {
+        "category": "Furniture",
+        "field": "weight",
+        "n": 38,
+        "emptyPct": 55.3
+      },
+      {
+        "category": "(none)",
+        "field": "msrp",
+        "n": 85,
+        "emptyPct": 52.9
+      },
+      {
+        "category": "Furniture",
+        "field": "height",
+        "n": 38,
+        "emptyPct": 50
+      },
+      {
+        "category": "Ceiling Fan",
+        "field": "type",
+        "n": 111,
+        "emptyPct": 48.6
+      },
+      {
+        "category": "Medicine Cabinet",
+        "field": "color",
+        "n": 69,
+        "emptyPct": 47.8
+      },
+      {
+        "category": "Bar Faucet",
+        "field": "color",
+        "n": 47,
+        "emptyPct": 44.7
+      },
+      {
+        "category": "Medicine Cabinet",
+        "field": "finish",
+        "n": 69,
+        "emptyPct": 43.5
+      },
+      {
+        "category": "(none)",
+        "field": "width",
+        "n": 85,
+        "emptyPct": 38.8
+      },
+      {
+        "category": "(none)",
+        "field": "height",
+        "n": 85,
+        "emptyPct": 38.8
+      },
+      {
+        "category": "(none)",
+        "field": "depth",
+        "n": 85,
+        "emptyPct": 38.8
+      },
+      {
+        "category": "(none)",
+        "field": "weight",
+        "n": 85,
+        "emptyPct": 38.8
+      },
+      {
+        "category": "Laundry Pedestal",
+        "field": "finish",
+        "n": 62,
+        "emptyPct": 37.1
+      },
+      {
+        "category": "Steam Shower",
+        "field": "finish",
+        "n": 87,
+        "emptyPct": 36.8
+      },
+      {
+        "category": "Rough-In Valve",
+        "field": "color",
+        "n": 30,
+        "emptyPct": 36.7
+      },
+      {
+        "category": "Tub Faucet",
+        "field": "color",
+        "n": 242,
+        "emptyPct": 35.5
+      },
+      {
+        "category": "(none)",
+        "field": "color",
+        "n": 85,
+        "emptyPct": 35.3
+      },
+      {
+        "category": "(none)",
+        "field": "finish",
+        "n": 85,
+        "emptyPct": 35.3
+      },
+      {
+        "category": "(none)",
+        "field": "brand",
+        "n": 85,
+        "emptyPct": 34.1
+      },
+      {
+        "category": "(none)",
+        "field": "upc",
+        "n": 85,
+        "emptyPct": 34.1
+      },
+      {
+        "category": "(none)",
+        "field": "model",
+        "n": 85,
+        "emptyPct": 34.1
+      },
+      {
+        "category": "(none)",
+        "field": "title",
+        "n": 85,
+        "emptyPct": 34.1
+      },
+      {
+        "category": "Ceiling Light",
+        "field": "type",
+        "n": 132,
+        "emptyPct": 32.6
+      },
+      {
+        "category": "Bar Faucet",
+        "field": "finish",
+        "n": 47,
+        "emptyPct": 31.9
+      },
+      {
+        "category": "Shower",
+        "field": "color",
+        "n": 447,
+        "emptyPct": 28.2
+      },
+      {
+        "category": "Shower Faucet",
+        "field": "color",
+        "n": 441,
+        "emptyPct": 27.2
+      },
+      {
+        "category": "Tub Filler",
+        "field": "color",
+        "n": 97,
+        "emptyPct": 26.8
+      },
+      {
+        "category": "Steam Shower",
+        "field": "color",
+        "n": 87,
+        "emptyPct": 25.3
+      }
+    ]
+  },
+  "gap03": {
+    "pendingCreationTotal": 1254,
+    "sampleKeys": [
+      "_id",
+      "request_id",
+      "request_type",
+      "requested_value",
+      "requested_value_normalized",
+      "status",
+      "expires_at",
+      "requested_by_jobs",
+      "first_requested_by",
+      "request_count",
+      "context",
+      "sent_to_sf_count",
+      "last_sent_at",
+      "created_at",
+      "updated_at",
+      "__v",
+      "fulfilled_at",
+      "sf_id_received"
+    ],
+    "byStatus": [
+      {
+        "_id": "fulfilled",
+        "n": 1165
+      },
+      {
+        "_id": "pending",
+        "n": 89
+      }
+    ],
+    "byType": [
+      {
+        "_id": "attribute",
+        "n": 1201
+      },
+      {
+        "_id": "type",
+        "n": 39
+      },
+      {
+        "_id": "brand",
+        "n": 10
+      },
+      {
+        "_id": "style",
+        "n": 4
+      }
+    ],
+    "failedMatchTotal": 1947,
+    "failedMatchSampleKeys": [
+      "_id",
+      "matchType",
+      "source",
+      "normalizedValue",
+      "__v",
+      "aiContext",
+      "attemptedValue",
+      "closestMatches",
+      "createdAt",
+      "fieldKey",
+      "firstSeen",
+      "lastSeen",
+      "matchThreshold",
+      "occurrenceCount",
+      "productContext",
+      "rawDataContext",
+      "requestDetails",
+      "requestGenerated",
+      "resolved",
+      "similarity",
+      "updatedAt"
+    ],
+    "failedMatchTopValues": [
+      {
+        "_id": "Nominal Width",
+        "n": 2
+      },
+      {
+        "_id": "Installation Type",
+        "n": 2
+      },
+      {
+        "_id": "made_in_america",
+        "n": 2
+      },
+      {
+        "_id": "ice_maker",
+        "n": 2
+      },
+      {
+        "_id": "country_of_origin",
+        "n": 2
+      },
+      {
+        "_id": "refrigerator_capacity",
+        "n": 2
+      },
+      {
+        "_id": "Location Rating",
+        "n": 2
+      },
+      {
+        "_id": "manufacturer_warranty",
+        "n": 2
+      },
+      {
+        "_id": "flush_installation_approved",
+        "n": 2
+      },
+      {
+        "_id": "outdoor_approved",
+        "n": 2
+      },
+      {
+        "_id": "control_type",
+        "n": 2
+      },
+      {
+        "_id": "sabbath_mode",
+        "n": 2
+      },
+      {
+        "_id": "installation_type",
+        "n": 2
+      },
+      {
+        "_id": "humidity_control",
+        "n": 2
+      },
+      {
+        "_id": "Not Found",
+        "n": 2
+      },
+      {
+        "_id": "energy_star",
+        "n": 2
+      },
+      {
+        "_id": "nominal_width",
+        "n": 2
+      },
+      {
+        "_id": "number_of_racks",
+        "n": 2
+      },
+      {
+        "_id": "steam_cooking",
+        "n": 2
+      },
+      {
+        "_id": "freezer_capacity",
+        "n": 2
+      }
+    ]
+  },
+  "gap04": {
+    "total": 0,
+    "knownGarbage": [],
+    "legitimate": []
+  },
+  "gap05": [
+    {
+      "scenario": "both_sources",
+      "n": 13577,
+      "pct": 72.3,
+      "avgScore": 88.6,
+      "webhookOkPct": 99.9
+    },
+    {
+      "scenario": "web_retailer_only",
+      "n": 4414,
+      "pct": 23.5,
+      "avgScore": 89.7,
+      "webhookOkPct": 100
+    },
+    {
+      "scenario": "no_sources",
+      "n": 694,
+      "pct": 3.7,
+      "avgScore": 88,
+      "webhookOkPct": 100
+    },
+    {
+      "scenario": "ferguson_only",
+      "n": 82,
+      "pct": 0.4,
+      "avgScore": 90.2,
+      "webhookOkPct": 100
+    }
+  ],
+  "gap06": {
+    "fieldsAuditedByAuditMode": 7,
+    "primaryAttributeFieldsInOutput": 26,
+    "auditJobsToDate": 84,
+    "note": "Audit Mode covers 7 of ~26 primary output fields + ~15 top-filter attributes; no QA exists for the rest."
+  }
+}

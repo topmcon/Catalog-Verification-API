@@ -17,15 +17,19 @@
 |-------|-------------|--------|--------------|-------|
 | 0 | This guide written & methodology agreed | ✅ Done | 2026-06-09 | — |
 | G0 | Test baseline repair: jest green + tests wired into pre-deploy gate (§6.0) | ⬜ Not started | 2026-06-09 | 2 stale tests failing; `npm test` wired into nothing — prerequisite before any audit-driven fix ships |
-| 1 | Corpus-wide deterministic scans + waste mining + config coverage | ⬜ Not started | — | Read-only, ~$0 AI cost |
-| 2 | Calibrated sampled LLM audit + golden set creation | ⬜ Not started | — | Requires Phase 1 stratification data |
-| 3 | Code / architecture / security review (static, local) | ⬜ Not started | — | — |
+| 1 | Corpus-wide deterministic scans + waste mining + config coverage | ✅ Done | 2026-06-09 | 19,113 jobs scanned; results + `PHASE-1-SUMMARY.md` in `audit-results/platform-audit/2026-06-09/` |
+| 2 | Calibrated sampled LLM audit + golden set creation | ⬜ Not started | — | Stratification inputs ready: Phase 1 summary §"What Phase 2 should take from this" |
+| 3 | Code / architecture / security review (static, local) | ⬜ Not started | — | Can run in parallel with Phase 2 |
 | 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | ⬜ Not started | — | Fixes logged as Findings |
 
-**Current next action**: G0 (test baseline repair, §6.0) and Phase 1 (§6.1) can run in either order —
-Phase 1 is read-only so it doesn't require G0, but **no code fix ships until G0 is done**. Phase 1: build
-the scan scripts under `scripts/platform-audit/` (with fixture self-tests per the Phase 1 gate), run them
-read-only against production MongoDB, write results to `audit-results/platform-audit/`.
+**Current next action**: G0 (test baseline repair, §6.0) is now the gating item — **no code fix ships
+until G0 is done**. Then Phase 2 (§6.2): select the golden 50–100 SKUs using the Phase 1 strata (heavy-hit
+categories, both schema eras, all 4 scenarios, the #078 product set), human-verify, calibrate the L2 auditor.
+Phase 3 (§6.3) can run in parallel. **Phase 1 headlines**: 85% of all AI spend = duplicate re-verifications
+(WST-04, ≈$820); style defaulting covers 70% of corpus (ACC-12); finish==color 39.7% (ACC-05); title-length
+rule violated 56.6% (ACC-01); research efficacy unmeasured — fieldsCaptured=0 on 100% of web-search/vision
+calls (WST-02/07). Scanner TODOs for next pass: era-split tables for ACC-07a/ACC-08, GAP-03 age buckets,
+ACC-10 conversion validation, fixture self-tests per the §6.0 Phase 1 gate (not yet written).
 
 ---
 
