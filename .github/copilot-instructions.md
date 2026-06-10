@@ -1063,6 +1063,17 @@ Key rules:
 
 ---
 
+## Platform Audit (whole-platform quality initiative)
+
+**Guide**: `docs/PLATFORM-AUDIT-GUIDE.md` — the standing methodology + execution plan for auditing the ENTIRE
+platform (gaps, enhancements, oversight, concerns, waste, inaccuracies). Contains a **Status Board** showing
+which phase is active and the exact next action. Any session asked to "audit the platform" or continue the
+audit MUST start from that guide. Core rules: deterministic corpus scans before LLM judgment, classify every
+finding (pipeline bug / bad data / audit over-strictness) before coding, no live `confirm` loops until the
+golden harness exists (Finding #078 lesson). Update the Status Board before ending an audit session.
+
+---
+
 ## Known Issues & Active Findings
 
 > Update this section whenever a bug is fixed or a new issue is discovered. Mirror in `CLAUDE.md`.
