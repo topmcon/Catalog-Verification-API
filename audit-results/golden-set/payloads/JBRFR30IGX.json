@@ -1,0 +1,1479 @@
+{
+  "sf_catalog_id": "a03Hu00001N1yutIAB",
+  "sf_catalog_name": "JBRFR30IGX",
+  "createdAt": "2026-06-04T03:04:26.228Z",
+  "era": "ai",
+  "strata": [
+    "panel_ready"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/226cebb8890ee450042f82cb33136e92.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/09/e78a0310daa390bdde073f7fb9c725a5.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/56266106c70d1325c0f946182cc50f8c.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/09/16ba882529f6107b164280e76e2d4c6e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/029ad73c07b3f05e4fc829fcb7ae7b1c.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a07bcbcaf5ecda7f3d1f668cf91c5998.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/82d07088293e37d2da34ab55aefa00fa.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/492db69dea4b8620d39bb5c702a04edc.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/2864a3c1c7bc973e41e66c869a1d5b94.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/e77ba3a6385678e9c44d7c4cf1e258ed.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/394c3268bd64926e9845f33963fd167a.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/02fbef6cdad0314a37b1ebcf0220a73e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/727552c5cd0a001c2002f65355225ce1.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/30ca3baa77fa0a883508c7ab3dd94e5e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/990aac8615bee899f395b258ad2330b0.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/92cbd7d4fc7ab51b6a3e9ce6f719ef16.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/008882c51d29d5baf8aea3d08538a993.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/65bdc1baacf5ac628fa235b9fc645988.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/610a83c102d6a394b8419236d79f45f9.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/ff03df76ca5b095f72ae68bad37e0b8d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/d9abf433ff08d01e15a647afc7dcbffa.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/c1985a6eb44e5a9035fb48cf5b9ec27b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/7f73bd458251784402620856b97af631.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/074a6533fff17ac766af6fe670cea3a7.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/1bcbcd96c40403020582e451af4d144b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/86cc2dcdd7d5c8652739baad1f9c7cf1.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/59bb978794aa147dac5cca5095a6e85b.jpg"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": "https://www.fergusonhome.com/jennair-jbrfr30ig/s1657181?uid=3919867",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Design Expression</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Panel-Ready</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Installation Option</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Built-In</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Levelers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2 Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Refrigerator Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Refrigerator</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Wheels</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4-Natural</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Exterior Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Base Grille Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cabinet Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cabinet Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Smooth</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Counter Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Panel Ready</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Textured</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Opening Direction</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Right</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Flat</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Handle Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Metal</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Handle Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Reach-Through Handle</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Hidden Hinge</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Reversible Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cabinet Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">76.20 cm, 30 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Capacity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">481.10 l, 17 cu. ft.</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cutout Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">63.50 cm, 25 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cutout Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">213.36 cm, 84 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cutout Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">76.20 cm, 30 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">62.23 cm, 24.5 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth Closed Excluding Handles</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">62.23 cm, 24.5 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth Closed Including Handles</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">68.90 cm, 27.125 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth Excluding Doors</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60.17 cm, 23.688 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth With Door Open 90 Degree</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">143.19 cm, 56.375 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Gross Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">245.70 kg, 541.68 lbs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">212.09 cm, 83.5 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height To Top Of Cabinet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">213.36 cm, 84 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">227.56 kg, 501.68 lbs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerator Capacity Volume</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">17, 17</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Total Refrigerator Capacity Volume</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">481.10 l, 17 cu. ft.</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">75.56 cm, 29.75 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Width Doors Open 90 Degrees</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">143.19 cm, 56.375 in</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Certifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>CEE Tier Rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Not Rated</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Star K Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>UL</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Smart Compatibility</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connectivity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">iOS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Smart Appliance</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Works With</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">App, Remote Access, WiFi</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dispenser Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dispenser Options</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Filtered Water</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Dispenser Pad Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dispenser Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Interior Water Only</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automatic Defrost</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Interior Up Front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Control Lockout</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Electronic Touch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooling Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Single Evaporator</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Ajar/Open Alarm</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Max Cool/Fast Cool</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Sabbath Mode</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature Range</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">33F to 45F</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Refrigerator Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Conventional Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3 Adjustable Full-Width Glass</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Deli Drawer</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Flexi-Slide Bin</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Liner Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Obsidian</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Doors</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Interior Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Pantry Drawer</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerator Door Bins</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4 Adjustable Gallon</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Refrigerator Lighting</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Strip and Tower LED Lighting</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Supplementary Containers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Herb Tender™ Container</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Temperature-Controlled Drawers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3 Full Width</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Filter Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Produce Preserver</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Water Filter Indicator/Reset</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Water Filter Part Number</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">EDR2RXD1</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Electrical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Amps</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">15</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Hz</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">60</td></tr></table>",
+    "UPC_Legacy": "883049438313",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "Open your eyes to a column that redefines refrigeration. Satisfy cravings in the quiet cool, which is controlled by precise calibration from three sensors. Revel in the daring Obsidian interior illuminated by light that comes alive as you touch the controls. Go ahead-intoxicate your senses. Open wide.",
+    "Features_Legacy": "<ul><li>Smooth Close Drawers</li><li>ENERGY STAR(R) Certified</li><li>Hushed Acoustics</li><li>Shapeshifter Drawers (Refrigerator)</li><li>Vacation Mode (app only)</li><li>Sabbath Mode</li><li>Discreet Water</li><li>Star-K Certified</li><li>Smart Integration (U.S. Only)</li><li>On-Demand Experts</li><li>United Dual Toe-Kick</li><li>Down-Low Airflow</li><li>Adaptable Installation</li><li>Door Skins</li><li>Independent Preserver</li><li>Catwalk Shelf</li><li>Filtre EveryDrop(R)</li></ul>",
+    "Weight_Legacy": 227.56,
+    "Capacity_Legacy": 17,
+    "Height_Legacy": "79 7/8",
+    "Width_Legacy": "29 3/4",
+    "Depth_Legacy": "27 1/8",
+    "Product_Title_Legacy": "30\" Panel-Ready Built-In Column Refrigerator, Right Swing",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 8849,
+    "Model_Number_Legacy": "JBRFR30IGX",
+    "Brand_Legacy": "JENNAIR",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-05-04T20:37:52.302721"
+      },
+      "search_meta_data": {
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "57pnonPvH5"
+      },
+      "performance": {
+        "total_time": "3.77s",
+        "step3_detail_time": "1.55s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.22s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/jennair-jbrfr30ig/s1657181?uid=3919867",
+          "in_stock": true,
+          "price": 8849,
+          "finish": "Panel Ready",
+          "model_number_full": "JBRFR30IGX",
+          "variant": null,
+          "parent_model_number": "JBRFR30IG"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": true,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/rec_cabhandle.gif",
+            "label": "Handle Kit Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Recommended"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free In-Home Delivery Available",
+          "Leaves the Warehouse Tomorrow, May 5th",
+          "Leaves the Warehouse Tomorrow, May 5th"
+        ],
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 12,
+        "review_count": 12,
+        "total_ratings": 12,
+        "rating": 4.7,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/jennair-shop-all/c82044271",
+            "name": "Shop All JennAir",
+            "id": 82044271
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-refrigerators/c132151",
+            "name": "Refrigerators",
+            "id": 132151
+          },
+          {
+            "url": "https://www.fergusonhome.com/jennair-freezers/c82043983",
+            "name": "Freezers",
+            "id": 82045872
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-ranges/c132186",
+            "name": "Ranges",
+            "id": 132186
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-cooktops/c132185",
+            "name": "Cooktops",
+            "id": 132185
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-wallovens/c132188",
+            "name": "Wall Ovens",
+            "id": 132188
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-dishwashers/c132194",
+            "name": "Dishwashers",
+            "id": 132194
+          }
+        ],
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-appliances/c130668",
+            "name": "JennAir"
+          },
+          {
+            "url": "https://www.fergusonhome.com/jenn-air-refrigerators/c132151",
+            "name": "Refrigerators"
+          }
+        ],
+        "resources": [
+          {
+            "id": "jennair-jbrfr30ig-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/jennair/1657181/jennair-jbrfr30ig-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "jennair-jbrfr30ig-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/jennair/1657181/jennair-jbrfr30ig-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "jennair-jbrfr30ig-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/jennair/1657181/jennair-jbrfr30ig-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "5 Year Limited, 1 Year",
+        "warranty": "",
+        "country_of_origin": "USA",
+        "certifications": [
+          "UL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "408",
+            "name": "Cutout Depth"
+          },
+          {
+            "value": "409",
+            "name": "Cutout Height"
+          },
+          {
+            "value": "412",
+            "name": "Cutout Width"
+          },
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "5131",
+            "name": "Depth without Door"
+          },
+          {
+            "value": "5132",
+            "name": "Depth without Handles"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "3890",
+            "name": "Refrigerator Capacity"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "9460",
+            "name": "Dispenser Features"
+          },
+          {
+            "value": "3513",
+            "name": "Ice Maker"
+          },
+          {
+            "value": "896",
+            "name": "Includes Freezer"
+          },
+          {
+            "value": "6946",
+            "name": "App Compatibility"
+          },
+          {
+            "value": "206",
+            "name": "Bulb Type"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "379",
+            "name": "Counter Depth"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "9172",
+            "name": "Frost Free"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "9464",
+            "name": "Shelf Type (Refrigerator)"
+          },
+          {
+            "value": "6943",
+            "name": "Smart Home"
+          },
+          {
+            "value": "9462",
+            "name": "Storage Features"
+          },
+          {
+            "value": "6945",
+            "name": "Wireless Communication"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "695",
+            "name": "Frequency"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          }
+        ],
+        "dimensions": {
+          "width": "29.75 in.",
+          "height": "79.875 in.",
+          "depth": "27.125 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "25",
+                "name": "Cutout Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "84",
+                "name": "Cutout Height"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Cutout Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "27.125",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "56.375",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the door installed, measured in inches.",
+                "units": "in.",
+                "value": "23.6875",
+                "name": "Depth without Door"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+                "units": "in.",
+                "value": "24.5",
+                "name": "Depth without Handles"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "79.875",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "27",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "80",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "501.7",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "17",
+                "name": "Refrigerator Capacity"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "17",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "29.75",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+                "units": null,
+                "value": "Internal Water Dispenser",
+                "name": "Dispenser Features"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice maker is included.",
+                "units": null,
+                "value": "No",
+                "name": "Ice Maker"
+              },
+              {
+                "featured": false,
+                "description": "Whether a freezer is included.",
+                "units": null,
+                "value": "No",
+                "name": "Includes Freezer"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The smartphone app(s) the product is compatible with.",
+                "units": null,
+                "value": "Google Assistant, Amazon Alexa",
+                "name": "App Compatibility"
+              },
+              {
+                "featured": false,
+                "description": "The type of light bulb included.",
+                "units": null,
+                "value": "LED",
+                "name": "Bulb Type"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+                "units": null,
+                "value": "Yes",
+                "name": "Counter Depth"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Automatic",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Door Alarm",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Right",
+                "name": "Door Swing"
+              },
+              {
+                "featured": false,
+                "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+                "units": null,
+                "value": "Yes",
+                "name": "Frost Free"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Built-In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "3",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": true,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "Yes",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": false,
+                "description": "The type of shelves used in the product's refrigerator.",
+                "units": null,
+                "value": "Glass",
+                "name": "Shelf Type (Refrigerator)"
+              },
+              {
+                "featured": false,
+                "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+                "units": null,
+                "value": "Yes",
+                "name": "Smart Home"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's storage.",
+                "units": null,
+                "value": "Adjustable Shelves, Crisper Bin",
+                "name": "Storage Features"
+              },
+              {
+                "featured": false,
+                "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+                "units": null,
+                "value": "WiFi",
+                "name": "Wireless Communication"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+                "units": "Hertz",
+                "value": "60",
+                "name": "Frequency"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "UL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": false,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "N/A (Regulation does not apply)",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "5 Year Limited, 1 Year",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "No",
+                "name": "Outdoor Approved"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "No"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "5 Year Limited, 1 Year"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "N/A (Regulation does not apply)"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "UL"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "frequency": {
+            "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+            "units": "Hertz",
+            "value": "60"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15"
+          },
+          "wireless_communication": {
+            "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+            "units": null,
+            "value": "WiFi"
+          },
+          "storage_features": {
+            "description": "Distinctive attributes or aspects of the product's storage.",
+            "units": null,
+            "value": "Adjustable Shelves, Crisper Bin"
+          },
+          "smart_home": {
+            "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+            "units": null,
+            "value": "Yes"
+          },
+          "shelf_type_(refrigerator)": {
+            "description": "The type of shelves used in the product's refrigerator.",
+            "units": null,
+            "value": "Glass"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "Yes"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "Yes"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "3"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Built-In"
+          },
+          "frost_free": {
+            "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+            "units": null,
+            "value": "Yes"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Right"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Door Alarm"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Automatic"
+          },
+          "counter_depth": {
+            "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+            "units": null,
+            "value": "Yes"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Touch"
+          },
+          "bulb_type": {
+            "description": "The type of light bulb included.",
+            "units": null,
+            "value": "LED"
+          },
+          "app_compatibility": {
+            "description": "The smartphone app(s) the product is compatible with.",
+            "units": null,
+            "value": "Google Assistant, Amazon Alexa"
+          },
+          "includes_freezer": {
+            "description": "Whether a freezer is included.",
+            "units": null,
+            "value": "No"
+          },
+          "ice_maker": {
+            "description": "Whether an ice maker is included.",
+            "units": null,
+            "value": "No"
+          },
+          "dispenser_features": {
+            "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+            "units": null,
+            "value": "Internal Water Dispenser"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "29.75"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "17"
+          },
+          "refrigerator_capacity": {
+            "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "17"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "501.7"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "80"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "27"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "79.875"
+          },
+          "depth_without_handles": {
+            "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+            "units": "in.",
+            "value": "24.5"
+          },
+          "depth_without_door": {
+            "description": "The measurement from back to front without the door installed, measured in inches.",
+            "units": "in.",
+            "value": "23.6875"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "56.375"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "27.125"
+          },
+          "cutout_width": {
+            "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "cutout_height": {
+            "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "84"
+          },
+          "cutout_depth": {
+            "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "25"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Technology Highlights</strong></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Daring Obsidian Interior\" src=\"//s3.img-b.com/image/private/t_base/productdescription/jennair/jbzfr18igxobsidian\" /></span><span class=\"col-xs-8\"><strong>Daring Obsidian Interior</strong>: Inspired by the beauty of volcanic glass, this industry-exclusive dark finish erupts with reflective, high-contrast style. Reject the unfeeling, lifeless vessel of harsh steel. Let fine foods and beverages emerge from the interior of your columns like vibrant art, begging to be devoured.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Ecliptic Lighting\" src=\"//s3.img-b.com/image/private/t_base/productdescription/jennair/eclipticlighting\" /></span><span class=\"col-xs-8\"><strong>Ecliptic Lighting</strong>: Live beyond the shadow. Abandoning the dark spots cast by dated puck lighting, over 650 LEDs frame and fill your column, coming alive at a touch of the controls. Each zone awakens and pulses as you mold your column to your desires.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Trinity Cooling\" src=\"//s3.img-b.com/image/private/t_base/productdescription/jennair/divinitycolling\" /></span><span class=\"col-xs-8\"><strong>Trinity Cooling</strong>: Revel in the trinity of food preservation: three zones, three precision sensors, calibrated every second. Fortified by an exposed air tower, you can conquer humidity levels and customize the temperature of each zone to your deepest desires.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Remote Access\" src=\"//s3.img-b.com/image/private/t_base/productdescription/jennair/remoteaccess\" /></span><span class=\"col-xs-8\"><strong>Remote Access</strong>: Open door. Power outages. Filter changes. Connect to WiFi for real-time notifications and control your columns from anywhere. Tap and swipe on both iOS and Android devices.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Solid Glass and Metal\" src=\"//s3.img-b.com/image/private/t_base/productdescription/jennair/solidglass\" /></span><span class=\"col-xs-8\"><strong>Solid Glass and Metal</strong>: All-metal bin and shelf frames. Thick, naturally odor-resistant solid glass. A forcefield at the edge that prevents spillovers. To hell with cheap plastic in luxury door bins, shelves and liners.</span></p>\n\n<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>With a total capacity of 17 cubic feet, you can store a variety of different foods and dishes comfortably</li>\n\t<li>All-metal bin and 3 shelf with thick, naturally odor-resistant solid glass sit flush with the sides to prevent spillovers</li>\n\t<li>With a stealth-flush door, columns go incognito until you open wide</li>\n\t<li>Venting at the base of our columns adds more usable space above and creates clean lines all around</li>\n\t<li>Over 650 LEDs frame and fill your column, coming alive at the touch of the controls</li>\n\t<li>All-metal bin and shelf frames with thick, naturally odor-resistant solid glass sit flush with the sides to prevent spillovers</li>\n\t<li>Control every zone and choose presets to coax out the flavors of your produce, meat, beverages, spirits and beyond</li>\n</ul>\n\n<p><strong>Product Technologies:</strong></p>\n\n<ul>\n\t<li><strong>Trinity Cooling: </strong>Revel in the trinity of food preservation: three zones, three precision sensors, calibrated every second. Fortified by an exposed air tower, you can conquer humidity levels and customize the temperature of each zone to your deepest desires.</li>\n</ul>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Total Capacity: 17 Cu. Ft.</li>\n\t<li>Bulb Type: LED</li>\n\t<li>Shelf Material: Tempered Glass</li>\n\t<li>Counter Depth: Yes</li>\n\t<li>Depth: 27-1/8\"</li>\n\t<li>Height: 79-7/8\"</li>\n\t<li>Width: 29-3/4\"</li>\n\t<li>Amperage: 15A</li>\n</ul>\n\n<p><strong>JennAir Column Tour</strong></p>\n\n<div class=\"wistia_responsive_padding\" style=\"padding:56.25% 0 0 0;position:relative\">\n<div class=\"wistia_responsive_wrapper\" style=\"height:100%;left:0;position:absolute;top:0;width:100%\"><iframe allowfullscreen allowtransparency=\"true\" class=\"wistia_embed\" frameborder=\"0\" height=\"100%\" mozallowfullscreen msallowfullscreen name=\"wistia_embed\" oallowfullscreen scrolling=\"no\" src=\"//fast.wistia.net/embed/iframe/1dqiysu1dk\" webkitallowfullscreen width=\"100%\"></iframe></div>\n</div>\n",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/jennair/jennair-jbrfr30igx-996319.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/jennair/jennair-jbrfr30igx-996319.jpg"
+        ],
+        "finish": "Panel Ready",
+        "color": "FFFFFF",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": false,
+        "variant_count": 1,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free In-Home Delivery Available",
+        "estimated_delivery": "Leaves the Warehouse Tomorrow, May 5th",
+        "shipping_lead_time": "Leaves the Warehouse Tomorrow, May 5th",
+        "inventory_quantity": 6,
+        "availability_status": "in_stock",
+        "in_stock": true,
+        "has_free_installation": false,
+        "shipping_fee": 79,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 8849,
+          "min": 8849
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 8849,
+        "price_min": 8849,
+        "price": 8849,
+        "application": "Full Size Refrigerators",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/jennair-jbrfr30ig/s1657181?uid=3919867",
+        "variant_number": "JBRFR30IGX",
+        "parent_model_number": "JBRFR30IG",
+        "model_number": "JBRFR30IGX",
+        "requested_model_number": "JBRFR30IGX",
+        "brand_logo": {
+          "description": "JennAir",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/jennair/Logo/jennair.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/jenn-air-appliances/c130668",
+        "brand": "JennAir",
+        "name": "30 Inch Wide 17 Cu. Ft. Energy Star Rated All Fridge Right Swing Refrigerator",
+        "family_id": 1657181,
+        "id": 1657181
+      },
+      "variant_url": "https://www.fergusonhome.com/jennair-jbrfr30ig/s1657181?uid=3919867",
+      "match_type": "exact",
+      "matched_model": "JBRFR30IGX",
+      "model_number": "JBRFR30IGX",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "62.23 cm, 24.5 in",
+        "name": "Depth"
+      },
+      {
+        "value": "30",
+        "name": "Cabinet Width"
+      },
+      {
+        "value": "63.50 cm, 25 in",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "60",
+        "name": "Hz"
+      },
+      {
+        "value": "Smooth",
+        "name": "Cabinet Finish"
+      },
+      {
+        "value": "Single Evaporator",
+        "name": "Cooling Type"
+      },
+      {
+        "value": "Refrigerator",
+        "name": "Refrigerator Type"
+      },
+      {
+        "value": "Metal",
+        "name": "Handle Material"
+      },
+      {
+        "value": "143.19 cm, 56.375 in",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "CA",
+        "name": "Prop65"
+      },
+      {
+        "value": "Not Rated",
+        "name": "CEE Tier Rating"
+      },
+      {
+        "value": "3 Full Width",
+        "name": "Temperature-Controlled Drawers"
+      },
+      {
+        "value": "Black",
+        "name": "Base Grille Color"
+      },
+      {
+        "value": "213.36 cm, 84 in",
+        "name": "Height To Top Of Cabinet"
+      },
+      {
+        "value": "68.90 cm, 27.125 in",
+        "name": "Depth Closed Including Handles"
+      },
+      {
+        "value": "24.5",
+        "name": "Product Depth"
+      },
+      {
+        "value": "23.688",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "3 Adjustable Full-Width Glass",
+        "name": "Conventional Shelves"
+      },
+      {
+        "value": "32",
+        "name": "Carton Depth"
+      },
+      {
+        "value": "3",
+        "name": "Number of Interior Shelves"
+      },
+      {
+        "value": "Yes",
+        "name": "Door Ajar/Open Alarm"
+      },
+      {
+        "value": "Interior Up Front",
+        "name": "Control Location"
+      },
+      {
+        "value": "Electronic Touch",
+        "name": "Control Type"
+      },
+      {
+        "value": "No",
+        "name": "Pantry Drawer"
+      },
+      {
+        "value": "Right",
+        "name": "Door Opening Direction"
+      },
+      {
+        "value": "17",
+        "name": "Refrigerator Capacity Volume"
+      },
+      {
+        "value": "Yes",
+        "name": "Sabbath Mode"
+      },
+      {
+        "value": "Yes",
+        "name": "Max Cool/Fast Cool"
+      },
+      {
+        "value": "17",
+        "name": "Total Refrigerator Capacity Volume"
+      },
+      {
+        "value": "Yes",
+        "name": "Smart Appliance"
+      },
+      {
+        "value": "4-Natural",
+        "name": "Wheels"
+      },
+      {
+        "value": "501.68",
+        "name": "Net Weight"
+      },
+      {
+        "value": "No",
+        "name": "Reversible Door"
+      },
+      {
+        "value": "84",
+        "name": "Cutout Height"
+      },
+      {
+        "value": "App; Remote Access; WiFi",
+        "name": "Works With"
+      },
+      {
+        "value": "Flat",
+        "name": "Door Style"
+      },
+      {
+        "value": "76.20 cm, 30 in",
+        "name": "Cabinet Width"
+      },
+      {
+        "value": "Yes",
+        "name": "Star K Certified"
+      },
+      {
+        "value": "56.375",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "25",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "1 Flexi-Slide Bin",
+        "name": "Deli Drawer"
+      },
+      {
+        "value": "84",
+        "name": "Height To Top of Cabinet"
+      },
+      {
+        "value": "Filtered Water",
+        "name": "Dispenser Options"
+      },
+      {
+        "value": "33F to 45F",
+        "name": "Temperature Range"
+      },
+      {
+        "value": "17, 17",
+        "name": "Refrigerator Capacity Volume"
+      },
+      {
+        "value": "15",
+        "name": "Amps"
+      },
+      {
+        "value": "60.17 cm, 23.688 in",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "75.56 cm, 29.75 in",
+        "name": "Width"
+      },
+      {
+        "value": "33",
+        "name": "Carton Width"
+      },
+      {
+        "value": "Yes",
+        "name": "Water Filter Indicator/Reset"
+      },
+      {
+        "value": "56.375",
+        "name": "Width Doors Open 90 Degrees"
+      },
+      {
+        "value": "Strip and Tower LED Lighting",
+        "name": "Refrigerator Lighting"
+      },
+      {
+        "value": "Panel-Ready",
+        "name": "Design Expression"
+      },
+      {
+        "value": "227.56 kg, 501.68 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "24.5",
+        "name": "Depth Closed Excluding Handles"
+      },
+      {
+        "value": "29.75",
+        "name": "Product Width"
+      },
+      {
+        "value": "481.10 l, 17 cu. ft.",
+        "name": "Total Refrigerator Capacity Volume"
+      },
+      {
+        "value": "87",
+        "name": "Carton Height"
+      },
+      {
+        "value": "ENERGY STAR(R) Qualified",
+        "name": "Energy Star(r) Qualified"
+      },
+      {
+        "value": "83.5",
+        "name": "Product Height"
+      },
+      {
+        "value": "27.125",
+        "name": "Depth Closed Including Handles"
+      },
+      {
+        "value": "76.20 cm, 30 in",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "Yes",
+        "name": "Hidden Hinge"
+      },
+      {
+        "value": "4 Adjustable Gallon",
+        "name": "Refrigerator Door Bins"
+      },
+      {
+        "value": "212.09 cm, 83.5 in",
+        "name": "Height"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic Defrost"
+      },
+      {
+        "value": "Built-In",
+        "name": "Installation Option"
+      },
+      {
+        "value": "Yes",
+        "name": "Produce Preserver"
+      },
+      {
+        "value": "62.23 cm, 24.5 in",
+        "name": "Depth Closed Excluding Handles"
+      },
+      {
+        "value": "2 Black",
+        "name": "Levelers"
+      },
+      {
+        "value": "Herb Tender(TM) Container",
+        "name": "Supplementary Containers"
+      },
+      {
+        "value": "245.70 kg, 541.68 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "Panel Ready",
+        "name": "Door Color"
+      },
+      {
+        "value": "Textured",
+        "name": "Door Finish"
+      },
+      {
+        "value": "541.68",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "Interior Water Only",
+        "name": "Dispenser Type"
+      },
+      {
+        "value": "Reach-Through Handle",
+        "name": "Handle Type"
+      },
+      {
+        "value": "Yes",
+        "name": "Counter Depth"
+      },
+      {
+        "value": "481.10 l, 17 cu. ft.",
+        "name": "Capacity"
+      },
+      {
+        "value": "Yes",
+        "name": "UL"
+      },
+      {
+        "value": "iOS",
+        "name": "Connectivity"
+      },
+      {
+        "value": "143.19 cm, 56.375 in",
+        "name": "Width Doors Open 90 Degrees"
+      },
+      {
+        "value": "30",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "EDR2RXD1",
+        "name": "Water Filter Part Number"
+      },
+      {
+        "value": "Obsidian",
+        "name": "Liner Finish"
+      },
+      {
+        "value": "Black",
+        "name": "Cabinet Color"
+      },
+      {
+        "value": "Black",
+        "name": "Dispenser Pad Color"
+      },
+      {
+        "value": "213.36 cm, 84 in",
+        "name": "Cutout Height"
+      },
+      {
+        "value": "1",
+        "name": "Number of Doors"
+      },
+      {
+        "value": "App, Remote Access, WiFi",
+        "name": "Works With"
+      },
+      {
+        "value": "Yes",
+        "name": "Control Lockout"
+      }
+    ],
+    "Web_Retailer_Key": "JEN:JBRFR30IGX",
+    "Web_Retailer_SubCategory": "NO FREEZER BUILT IN REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "Open your eyes to a column that redefines refrigeration. Satisfy cravings in the quiet cool, which is controlled by precise calibration from three sensors. Revel in the daring Obsidian interior illuminated by light that comes alive as you touch the controls. Go ahead-intoxicate your senses. Open wide.",
+    "Features_Web_Retailer": "<ul><li>Smooth Close Drawers</li><li>ENERGY STAR(R) Certified</li><li>Hushed Acoustics</li><li>Shapeshifter Drawers (Refrigerator)</li><li>Vacation Mode (app only)</li><li>Sabbath Mode</li><li>Discreet Water</li><li>Star-K Certified</li><li>Smart Integration (U.S. Only)</li><li>On-Demand Experts</li><li>United Dual Toe-Kick</li><li>Down-Low Airflow</li><li>Adaptable Installation</li><li>Door Skins</li><li>Independent Preserver</li><li>Catwalk Shelf</li><li>Filtre EveryDrop(R)</li></ul>",
+    "Weight_Web_Retailer": 227.56,
+    "Capacity_Web_Retailer": 17,
+    "Height_Web_Retailer": "79 7/8",
+    "Width_Web_Retailer": "29 3/4",
+    "Depth_Web_Retailer": "27 1/8",
+    "Product_Title_Web_Retailer": "30\" Panel-Ready Built-In Column Refrigerator, Right Swing",
+    "Color_Finish_Web_Retailer": "Custom Panel Ready",
+    "MSRP_Web_Retailer": 8849,
+    "Model_Number_Web_Retailer": "JBRFR30IGX",
+    "Brand_Web_Retailer": "JENNAIR",
+    "SF_Catalog_Name": "JBRFR30IGX",
+    "SF_Catalog_Id": "a03Hu00001N1yutIAB"
+  },
+  "currentOutput": {
+    "AI_Brand": "JENNAIR",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Column",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Panel Ready",
+    "AI_Finish": "Panel Ready",
+    "AI_Product_Title": "Jennair 30-Inch Built-In Panel Ready Column Refrigerator 17 Cu. Ft. - JBRFR30IGX"
+  }
+}

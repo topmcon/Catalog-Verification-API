@@ -1,0 +1,70 @@
+{
+  "sf_catalog_id": "a03aZ00000q5ceoQAA",
+  "sf_catalog_name": "04939000",
+  "createdAt": "2026-06-05T22:32:14.392Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough",
+    "scenario_ferguson_only",
+    "finish_eq_color",
+    "scenario_ferguson_only"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lrD7VQAU.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lpylbQAA.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lplOaQAI.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lrRqFQAU.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lrQisQAE.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.fixturesetc.com/Salem-NH/Hansgrohe-04939000-Chrome-Bar-Mounted-Hand-Shower.HTM",
+    "Ferguson_URL": null,
+    "Specification_Table": "<h3>Dimensions &amp; Measurements</h3><ul><li><strong>Width:</strong> 4.4 in.</li><li><strong>Height:</strong> 28-1/4 in.</li><li><strong>Shower Bar Diameter:</strong> 7/8 in.</li></ul><h3>Product Specifications</h3><ul><li><strong>UPC:</strong> 04059625341704</li><li><strong>Number of Settings:</strong> 3</li><li><strong>Spray Patterns:</strong> Intense, Massage, Pulsating, Rain</li></ul><h3>Design &amp; Style</h3><ul><li><strong>Theme:</strong> Contemporary / Modern</li><li><strong>Finish:</strong> Chrome / Nickel Tones</li><li><strong>Collection:</strong> Croma Select</li></ul><p><br></p>",
+    "UPC_Legacy": "4059625341704",
+    "Category_Legacy": "Shower",
+    "Product_Description_Legacy": "Are you looking for a stylish shower head with jet adjustment at the touch of a button? A large, swiveling shower head? Or a shower system that you can use to upgrade your bathroom at a later date? Then you've found what you're looking for in the Croma shower family. Choose from a wide range of shower and bath products and look forward to lots of water fun. Croma looks good and feels good to the touch. These showers represent modern designs and excellent value for money - ideal for young families.",
+    "Features_Legacy": "<ul><li>THOUGHTFUL DESIGN: Angle-adjustable holder pivots left and right, slides easily and locks in place</li><li>AT THE PERFECT HEIGHT: Overall height of 28.25-inches allows a wide positioning range of the connected hand held shower</li><li>PREMIUM FINISH: Designed to match hansgrohe Unica and Croma collection finishes</li><li>INCLUDED: Croma Select S 110 3-Jet hand shower with SoftRain, IntenseRain, and Pulsating Massage spray modes, Techniflex hose, shower bar and holder</li><li>EASY ADJUSTMENT: The included hand held shower holder slides effortlessly along the wall bar and pivots left and right</li><li>STRONG AND SECURE: Constructed using brass material and mounts to the wall using anchors and screws</li><li>EASY SHOWER ACCESS: The flexibility of a handshower makes it easy to clean your entire shower</li><li>WATER FLOW: The 2.5 GPM flow rate provides thorough water flow</li><li>INSTALLATION NOTES: Hansgrohe recommends a licensed plumber install this product</li></ul><p><br></p>",
+    "Weight_Legacy": 3.2,
+    "Capacity_Legacy": 2.5,
+    "Height_Legacy": "28 1/4",
+    "Width_Legacy": "04",
+    "Depth_Legacy": "28 1/4",
+    "Product_Title_Legacy": "Hansgrohe 04939000 Croma Select S Wallbar Set 110 3-Jet 24\", 2.5 GPM in Chrome",
+    "Color_Finish_Legacy": "Chrome",
+    "MSRP_Legacy": 351,
+    "Model_Number_Legacy": "04939000",
+    "Brand_Legacy": "hansgrohe",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: 04939000",
+      "status": "not_found",
+      "success": false
+    },
+    "SF_Catalog_Name": "04939000",
+    "SF_Catalog_Id": "a03aZ00000q5ceoQAA"
+  },
+  "currentOutput": {
+    "AI_Brand": "hansgrohe",
+    "AI_Product_Category": "Showerheads & Accessories",
+    "AI_Type": "System",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Chrome",
+    "AI_Finish": "Polished",
+    "AI_Product_Title": "Hansgrohe System Shower Chrome 2.5 GPM - 04939000"
+  }
+}

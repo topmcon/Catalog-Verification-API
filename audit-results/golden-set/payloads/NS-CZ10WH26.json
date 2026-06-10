@@ -1,0 +1,47 @@
+{
+  "sf_catalog_id": "a03aZ00000gV8pBQAS",
+  "sf_catalog_name": "NS-CZ10WH26",
+  "createdAt": "2026-06-08T13:47:53.835Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078",
+    "pinned_078"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000Y5f8cQAB.png"
+      }
+    ],
+    "Reference_URL": "https://www.bestbuy.com/product/insignia-10-2-cu-ft-garage-ready-chest-freezer-white/J2FPJKXC8Y/sku/8389389",
+    "Ferguson_URL": null,
+    "Specification_Table": "<h4>Dimensions</h4><ul><li>Product Height - 33 1/2 inches</li><li>Product Width - 43 15/16 inches</li><li>Product Depth - 26 3/8 inches</li><li>Product Weight - 88.2 pounds</li></ul><h4>Capacity</h4><ul><li>Capacity - 10.2 cubic feet</li></ul><p><br></p>",
+    "UPC_Legacy": "600603188909",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "The Insignia 10.2 Cu. Ft. Garage-Ready Chest Freezer has a removable storage basket to keep your food organized so you can find all your items. It’s easy to operate—just turn a knob to adjust the temperature.",
+    "Features_Legacy": "<h4>10.2 cu. ft. storage capacity</h4><ul><li>Gives you plenty of storage space for meat, frozen meals, treats and more.</li></ul><h4>Garage-ready</h4><ul><li>Works in temperatures from 0° to 110° F.</li></ul><h4>Counter-balanced hinge</h4><ul><li>Door can be opened and it stays at different angles from 45 degrees to 75 degrees.</li></ul><h4>Removable wire storage basket</h4><ul><li>Allows flexibility when arranging items or slides out to make extra room.</li></ul><h4>Defrost drain</h4><ul><li>Provide a path for condensate water to flow.</li></ul><h4>Adjustable leveling legs</h4><ul><li>Ensures your unit is level and helps with insulation.</li></ul><h4>Mechanical dial</h4><ul><li>Offers easy-to-use temperature control.</li></ul><h4>Power-on indicator light</h4><ul><li>Reassures you that your food is frozen and safe.</li></ul><p><br></p>",
+    "Weight_Legacy": 88.2,
+    "Capacity_Legacy": 10.2,
+    "Height_Legacy": "33 1/2",
+    "Width_Legacy": "43 15/16",
+    "Depth_Legacy": "26 3/8",
+    "Product_Title_Legacy": "Insignia 36-Inch Chest Freezer White 10.2 Cu. Ft. - NS-CZ10WH26",
+    "Color_Finish_Legacy": "White",
+    "MSRP_Legacy": 479,
+    "Model_Number_Legacy": "NS-CZ10WH26",
+    "Brand_Legacy": "INSIGNIA",
+    "SF_Catalog_Name": "NS-CZ10WH26",
+    "SF_Catalog_Id": "a03aZ00000gV8pBQAS"
+  },
+  "currentOutput": {
+    "AI_Brand": "INSIGNIA",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Chest",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "Glossy",
+    "AI_Product_Title": "Insignia 40-Inch Chest Freezer White 10.2 Cu. Ft. - NS-CZ10WH26"
+  }
+}

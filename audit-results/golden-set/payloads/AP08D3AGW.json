@@ -1,0 +1,57 @@
+{
+  "sf_catalog_id": "a03aZ00000yLCQJQA4",
+  "sf_catalog_name": "AP08D3AGW",
+  "createdAt": "2026-06-09T19:46:31.276Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000m3uDOQAY.jpeg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000m4mP2QAI.jpeg"
+      }
+    ],
+    "Reference_URL": "https://www.kbauthority.com/rohl-ap08d3ag-w-spout-antique-gold.html",
+    "Ferguson_URL": null,
+    "Specification_Table": "<p><strong>Product Type</strong></p><ul><li>Lavatory Faucets</li></ul><p><strong>Style</strong></p><ul><li>Transitional</li></ul><p><strong>Mounting Location</strong></p><ul><li>Deck</li></ul><p><strong>Shape</strong></p><ul><li>C-Spout</li></ul><p><strong>Material</strong></p><ul><li>Brass</li></ul>",
+    "UPC_Legacy": "824438625259",
+    "Category_Legacy": "Bathroom Faucet",
+    "Product_Description_Legacy": "Rohl's Antique Gold finish combines luxury craftsmanship with rich, burnished gold tones for premium kitchen and bathroom applications. This sophisticated finish features subtle aging effects that enhance its authentic vintage appeal while providing exceptional durability. The warm metallic surface complements both classic and contemporary design styles, making it perfect for luxury fixtures. Professional-grade coating ensures long-lasting beauty and performance in high-end residential installations.",
+    "Features_Legacy": "<ul><li><strong>Spout Only </strong></li><li><strong>No Handles Included </strong></li><li>Solid brass construction delivers the utmost in beauty, durability and long-lasting performance</li></ul>",
+    "Weight_Legacy": null,
+    "Capacity_Legacy": 1.2,
+    "Height_Legacy": "9 7/8",
+    "Width_Legacy": "2 1/8",
+    "Depth_Legacy": "7 1/4",
+    "Product_Title_Legacy": null,
+    "Color_Finish_Legacy": "Antique Gold",
+    "MSRP_Legacy": 715,
+    "Model_Number_Legacy": "AP08D3AGW",
+    "Brand_Legacy": "ROHL",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: AP08D3AGW",
+      "status": "not_found",
+      "success": false
+    },
+    "SF_Catalog_Name": "AP08D3AGW",
+    "SF_Catalog_Id": "a03aZ00000yLCQJQA4"
+  },
+  "currentOutput": {
+    "AI_Brand": "ROHL",
+    "AI_Product_Category": "Bathroom Faucet",
+    "AI_Type": "Widespread",
+    "AI_Style": "3 Hole",
+    "AI_Color": "Antique Gold",
+    "AI_Finish": "Antique",
+    "AI_Product_Title": "ROHL Widespread 3 Hole Bathroom Faucet Antique Gold 1.2 GPM - AP08D3AGW"
+  }
+}

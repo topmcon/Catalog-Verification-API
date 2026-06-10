@@ -1,0 +1,65 @@
+{
+  "sf_catalog_id": "a03Hu00001SY4tiIAD",
+  "sf_catalog_name": "TGM-23SDHB-N6",
+  "createdAt": "2026-05-08T13:49:53.679Z",
+  "era": "ai",
+  "strata": [
+    "finish_plain_color"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/24e82be6b77a17feba24c08b441738d2.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/065c8351624ad94fd72716df733ffc34.png"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": null,
+    "Specification_Table": "<h4>Dimensions</h4><p>Width</p><p>27 Inches</p><p>Depth</p><p>30.25 Inches</p><p>Height</p><p>77 Inches</p><h4>Details</h4><p>Amps</p><p>2.7</p><p>Compressor Location</p><p>Bottom Mount</p><p>Cubic Feet</p><p>19.4 cu ft.</p><p>Door Hinge</p><p>Right</p><p>Door Hinge</p><p>Left</p><p>Door Style</p><p>Swing Door</p><p>Door Type</p><p>Glass Door</p><p>Doors</p><p>1</p><p>ETL Listed</p><p>Yes</p><p>Energy Star</p><p>Yes</p><p>Exterior Color</p><p>White</p><p>Exterior Color</p><p>Black</p><p>Exterior Summary</p><p>Coated Steel</p><p>HP</p><p>1/5 HP</p><p>Interior Summary</p><p>Coated Steel</p><p>Pass-Through</p><p>No</p><p>Sections</p><p>1</p><p>Series</p><p>Super Deluxe Series</p><p>Shelves</p><p>4</p><p>Temperature Range</p><p>33°F to 38°F</p><p>Volts</p><p>115 Volts</p><p>Weight</p><p>325 Pounds</p>",
+    "UPC_Legacy": "400010920068",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "TURBO AIR TGM-23SDHB-N6 27 One Section Glass Door Merchandiser| (1) Right Hinge Door| ( NO HANDLE)",
+    "Features_Legacy": "<p>The Turbo Air TGM-23SDHB-N6 one-section merchandiser features a full glass door made with Low-E glass designed to reduce external heat absorption. It provides a view of the interior without opening the door. An alarm will sound when the doors are not sealed shut to prevent food spoilage. The interior space spans 19.02 cubic feet and is fitted with four adjustable wire shelves lit with LED lighting. This space can hold 405 12-ounce bottles at a time.</p><p>The exterior of the Turbo Air TGM-23SDHB-N6 refrigerated merchandiser is fitted with a digital thermometer and controller that access the unit&#39;s various systems. Refrigeration components are self-contained and are placed at the bottom of the unit. The unit performs self-diagnostics and self-cleaning as needed, reducing required maintenance. Overall, the unit holds cold temperatures ranging from 33 to 38 degrees Fahrenheit.</p>",
+    "Weight_Legacy": 325,
+    "Capacity_Legacy": 405,
+    "Height_Legacy": "77",
+    "Width_Legacy": "27",
+    "Depth_Legacy": "30 1/4",
+    "Product_Title_Legacy": "TURBO AIR 27-Inch Top-Freezer Refrigerator Black 19.4 Cu. Ft. - TGM-23SDHB-N6",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 3849.99,
+    "Model_Number_Legacy": "TGM-23SDHB-N6",
+    "Brand_Legacy": "TURBO AIR",
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "TGM-23SDHB-N6",
+    "Web_Retailer_SubCategory": null,
+    "Web_Retailer_Category": null,
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": null,
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": null,
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": null,
+    "Brand_Web_Retailer": null,
+    "SF_Catalog_Name": "TGM-23SDHB-N6",
+    "SF_Catalog_Id": "a03Hu00001SY4tiIAD"
+  },
+  "currentOutput": {
+    "AI_Brand": "TURBO AIR",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Top-Freezer",
+    "AI_Style": "Modern",
+    "AI_Color": "",
+    "AI_Finish": "White",
+    "AI_Product_Title": "TURBO AIR 28-Inch Top-Freezer Refrigerator White 19.4 Cu. Ft. - TGM-23SDHB-N6"
+  }
+}

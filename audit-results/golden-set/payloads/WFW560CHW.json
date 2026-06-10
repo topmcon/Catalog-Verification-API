@@ -1,0 +1,1115 @@
+{
+  "sf_catalog_id": "a03Hu00001N23hGIAR",
+  "sf_catalog_name": "WFW560CHW",
+  "createdAt": "2026-06-09T13:31:52.089Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/12998ef9d3653aedf66ae34b64f2f42d.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/69514534e67562bf8bd2a766b7985699.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/0febc33c186d4fae04fdfb7740d6609a.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/1be0691e278e928c276c8f91a110ece2.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/91990ab91feff8afeb3e1ca0d28b38a8.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/63427b13349ac66466ffe3e3bedf6d4e.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/d286c690296b8355e820d3b54dc5b0b6.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/78882f88c2e3b8b9011f6c2320897b16.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/e9d379449921ffa1956e677bb2246bf5.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3b516ec1becf7fbfe934e209c90b0a56.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/08b327204d29dfde6929f5ae6a765537.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b62142f039524128157845119149a574.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/af8845df18b7e9c1cafe4b9707379ae8.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/7e4cefd81c6122c34b1740ebfaae631f.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/4589a23ea0689d934bcb5967d9add13e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b253975afc61a5762a6461c46d91010c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/4d520ecc7e2b2349960ff68094392979.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/280027b4e4609dc52051d7684043afdb.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3c1e721d70acb75d9ed066de72e04938.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/90e79d2c88eb1a77c44028f81ca9007a.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/75ed00d71e3dfa198f828e1e6a5e89ba.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3d55ffb083b47a601b5705e75db861a5.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/ac0793440c7cb8cae7aaa3a455dbde89.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3631c9228f0987791b8d3c46635a7de1.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/dadbfa638e1635ae3321b0b2f1c307d5.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/97659bf9d3201bfbe8031f86e9a6fc58.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.whirlpool.com/laundry/washers/front-load/p.4.3-cu.-ft.-closet-depth-front-load-washer-with-intuitive-controls.wfw560chw.html",
+    "Ferguson_URL": "https://www.fergusonhome.com/whirlpool-wfw560ch/s1561801?uid=3708880",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Certifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>ADA Compliant</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">ADA Compliant with feet fully extended</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>CEE Tier Rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Tier I</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Energy Star Qualified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">ENERGY STAR® Qualified</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>UL</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Pedestal Options</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">WFP2715HW</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Stackable</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Water Faucet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Capacity IEC Canada</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">141.50 l, 5 cu. ft.</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">80.17 cm, 31.5625 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Gross Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">97.07 kg, 44.02 kg, 214 lbs, 97.05 lbs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">92.53 kg, 41.96 kg, 204 lbs, 92.517 lbs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">68.58 cm, 27 in</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Modifiers</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Delay Start</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Soil Levels</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Wash/Rinse Temperatures</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Pre Soak</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature Selections</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cold, Cool, Hot, Warm</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automatic Temperature Controls</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Tap Touch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>End of Cycle Signal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Feedback-Status Indicators</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Add Garment, Control Lock, Cycle Signal, Door Locked, End of Cycle Signal, Estimated Time Remaining, Sensing, Wash</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>LCD Touch Screen</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Smart Compatibility</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connectivity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Works With</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Cycles</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Wash Cycles</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">35</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Washer Cycle Selections</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bulky Items, Clean Washer with affresh, Cold Wash, Colors, Delicates, Drain &amp; Spin, Heavy Duty, Normal, Quick Wash, Regular, Sanitize with Oxi, Towels, Whites, Wrinkle Control</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Interior Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automated Dispenser</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">N/A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Automatic Load Size Sensing Technology</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dispense System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Detergent, Fabric Softener &amp; Bleach</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Motor Drive Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Direct Drive</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Out of Balance Sensing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Washer Drum Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Exterior Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Lid/Door Swing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Left</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Installation Considerations</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Hoses Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4ft 4in Drain Hose Included</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Refinements</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Features</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">ADA Compliant, Standard Washers, Sanitize Cycle</td></tr></table>",
+    "UPC_Legacy": "883049456850",
+    "Category_Legacy": "Washer",
+    "Product_Description_Legacy": "Match your family's routines and your space with a closet-depth front load washing machine that still offers plenty of room for bulky items at 4.3 cu. ft. capacity. Let the ENERGY STAR® Certified washer guide you to the right cycle combinations, like the Sanitize Cycle with Oxi, or customize up to 35 of your own with Intuitive Controls.",
+    "Features_Legacy": "<ul><li>4.3 cu. ft. Capacity: Get plenty of room for bulky items with 4.3 cu. ft. capacity.</li><li>An American Company for Over 100 Years: Whirlpool Corporation started in 1911 as a small company in Benton Harbor, Michigan. Today we are a global home appliance business selling products around the world. We are proud of our American heritage and ingenuity that have driven innovation for over 100 years.</li><li>Clean Washer with Affresh(R) Cycle: Run the Clean Washer with affresh(R) cycle every 30 washes to thoroughly clean the inside of your washer with an affresh(R) Washer Cleaner tablet or liquid chlorine bleach.</li><li>Closet-Depth Fit: Get a space-saving design with closet-depth fit that allows for more flexible installation in your laundry space.</li><li>Cold Wash Cycle: Give your most vibrant colors the care they need with the Cold Wash cycle that adjusts wash actions and time, combined with gentle temperatures, to provide optimal fabric care.</li><li>ENERGY STAR(R) Certified: ENERGY STAR(R) certified models exceed government standards to help conserve natural resources and save money on your utility bills.</li><li>Energy Star Certified</li><li>Intuitive Controls: Let the washer guide you to the right cycle combinations or customize up to 35 of your own to get the right type of fabric care for whatever you&#39;re washing.</li><li>Laundry Pedestals Compatible: Raise your washer for easier loading and unloading. Optional Laundry Pedestals also provide space-saving storage for detergent, fabric softener and other supplies. (Sold separately.)</li><li>Presoak Option: The Presoak option lets you skip soaking outside of the washer. Extra time is added in the washer before the wash cycle, which starts automatically when the option is complete.</li><li>Quick Wash Cycle: Your small, lightly soiled loads will be clean in as little as 15 minutes with the Quick Wash cycle.</li><li>Sanitize Cycle with Oxi: The Sanitize cycle with Oxi eliminates 99.9% of common household bacteria by mixing detergent with an oxi additive.</li><li>Single Load Dispenser: Add detergent, bleach and fabric softener to their designated compartments so each gets dispensed at just the right time during the cycle.</li><li>Smooth Wave Stainless Steel Wash Basket: Give clothes the care they need with the sleek pattern of the stainless steel wash basket that gently guides them.</li></ul>",
+    "Weight_Legacy": 92.53,
+    "Capacity_Legacy": 4.3,
+    "Height_Legacy": "38 5/8",
+    "Width_Legacy": "27",
+    "Depth_Legacy": "31 9/16",
+    "Product_Title_Legacy": "4.3 cu. ft. Closet-Depth Front Load Washer with Intuitive Controls",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1099,
+    "Model_Number_Legacy": "WFW560CHW",
+    "Brand_Legacy": "WHIRLPOOL",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-06-03T14:45:01.065537"
+      },
+      "search_meta_data": {
+        "business_category": null,
+        "base_category": null,
+        "corrected_search_term": null,
+        "search_engine": "BLOOMREACH",
+        "search_id": null
+      },
+      "performance": {
+        "total_time": "3.40s",
+        "step3_detail_time": "1.62s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.78s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/whirlpool-wfw560ch/s1561801?uid=3708880",
+          "in_stock": true,
+          "price": 988,
+          "finish": "White",
+          "model_number_full": "WFW560CHW",
+          "variant": null,
+          "parent_model_number": "WFW560CH"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/drain_pan_080310.gif",
+            "label": "Drain Pan Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/laundry_pedestal.gif",
+            "label": "Laundry Pedestal Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/stacking_kit.gif",
+            "label": "Stacking Kit Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/dryer-recop.gif",
+            "label": "Dryer Recommended"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free Shipping on LTL freight orders over $1,499.00!",
+          "Leaves the Warehouse Today, June 3rd",
+          "Leaves the Warehouse Today, June 3rd"
+        ],
+        "collection": null,
+        "questions_count": 4,
+        "total_reviews": 830,
+        "review_count": 830,
+        "total_ratings": 830,
+        "rating": 4.2,
+        "related_categories": [],
+        "business_category": "Laundry",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/whirlpool-appliances/c116762",
+            "name": "Whirlpool Appliances"
+          },
+          {
+            "url": "https://www.fergusonhome.com/whirlpool-laundry/c116783",
+            "name": "Laundry"
+          }
+        ],
+        "resources": [
+          {
+            "id": "whirlpool-wfw560ch-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/1561801/whirlpool-wfw560ch-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "whirlpool-wfw560ch-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/1561801/whirlpool-wfw560ch-energy-guide.pdf",
+            "name": "Energy Guide"
+          },
+          {
+            "id": "whirlpool-wfw560ch-use-and-care-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/1561801/whirlpool-wfw560ch-use-and-care-guide.pdf",
+            "name": "Use and Care Guide"
+          },
+          {
+            "id": "whirlpool-wfw560ch-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/1561801/whirlpool-wfw560ch-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": null,
+        "warranty": "",
+        "country_of_origin": "USA",
+        "certifications": [],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "9294",
+            "name": "Agitator"
+          },
+          {
+            "value": "5536",
+            "name": "Pedestal Included"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "5138",
+            "name": "End of Cycle Indicator"
+          },
+          {
+            "value": "698",
+            "name": "Front Loading"
+          },
+          {
+            "value": "5399",
+            "name": "Interior Material"
+          },
+          {
+            "value": "6943",
+            "name": "Smart Home"
+          },
+          {
+            "value": "1594",
+            "name": "Stackable"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "9280",
+            "name": "Number of Wash Cycles"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          }
+        ],
+        "dimensions": {
+          "width": "27 in.",
+          "height": "38.625 in.",
+          "depth": "31.5625 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "31.5625",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "38.625",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "32",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "39",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "27",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "210",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "4.3",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "27",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": true,
+                "description": "Whether the washing machine includes an agitator within the drum to help quickly and completely remove dirt and residue from clothing.",
+                "units": null,
+                "value": "No",
+                "name": "Agitator"
+              },
+              {
+                "featured": false,
+                "description": "Whether a pedestal is included with the product.",
+                "units": null,
+                "value": "No",
+                "name": "Pedestal Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "LCD",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Door Lock, Viewing Window",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Left",
+                "name": "Door Swing"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+                "units": null,
+                "value": "Yes",
+                "name": "End of Cycle Indicator"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product loads from the front.",
+                "units": null,
+                "value": "Yes",
+                "name": "Front Loading"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the interior construction of the product.",
+                "units": null,
+                "value": "Stainless Steel",
+                "name": "Interior Material"
+              },
+              {
+                "featured": false,
+                "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+                "units": null,
+                "value": "Yes",
+                "name": "Smart Home"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product can be stacked with similar products to save space.",
+                "units": null,
+                "value": "Yes",
+                "name": "Stackable"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "20, 15",
+                "name": "Amperage"
+              },
+              {
+                "featured": true,
+                "description": "The total number of washing cycles this product can perform.",
+                "units": null,
+                "value": "37",
+                "name": "Number of Wash Cycles"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "Yes",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": true,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "N/A (Regulation does not apply)",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "N/A (Regulation does not apply)"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "Yes"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "number_of_wash_cycles": {
+            "description": "The total number of washing cycles this product can perform.",
+            "units": null,
+            "value": "37"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "20, 15"
+          },
+          "stackable": {
+            "description": "Whether the product can be stacked with similar products to save space.",
+            "units": null,
+            "value": "Yes"
+          },
+          "smart_home": {
+            "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+            "units": null,
+            "value": "Yes"
+          },
+          "interior_material": {
+            "description": "The material used in the interior construction of the product.",
+            "units": null,
+            "value": "Stainless Steel"
+          },
+          "front_loading": {
+            "description": "Whether the product loads from the front.",
+            "units": null,
+            "value": "Yes"
+          },
+          "end_of_cycle_indicator": {
+            "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+            "units": null,
+            "value": "Yes"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Left"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Door Lock, Viewing Window"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "LCD"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Touch"
+          },
+          "pedestal_included": {
+            "description": "Whether a pedestal is included with the product.",
+            "units": null,
+            "value": "No"
+          },
+          "agitator": {
+            "description": "Whether the washing machine includes an agitator within the drum to help quickly and completely remove dirt and residue from clothing.",
+            "units": null,
+            "value": "No"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "27"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "4.3"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "210"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "27"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "39"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "32"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "38.625"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "31.5625"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Technology Highlights</strong></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Intuitive Controls\" src=\"//s3.img-b.com/image/private/t_base/productdescription/whirlpool/wp-intuitivecontrols-medium\" /></span><span class=\"col-xs-8\"><strong>Intuitive Controls</strong>: Let the washer guide you to the right cycle combinations or customize up to 35 of your own to get the right type of fabric care for whatever you're washing</span></p>\n\n<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>This washer has plenty of space for large loads with its 4.3 cu. ft. capacity</li>\n\t<li>With 37 cycles, this washer is very versatile</li>\n\t<li>Touch controls are easy to use and classy</li>\n\t<li>This closet depth washer comes with many wash cycles, including a sanitize cycle</li>\n\t<li>Easily dispense your detergent with the included dispensers</li>\n</ul>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Total Capacity: 4.3 Cu. Ft.</li>\n\t<li>Number of Cycles: 37</li>\n\t<li>Control Type: Touch</li>\n\t<li>Depth: 31-9/16\"</li>\n\t<li>Height: 38-5/8\"</li>\n\t<li>Width: 27\"</li>\n\t<li>Voltage: 120</li>\n</ul>\n",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfw560chw-7606622.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfw560chw-7606622.jpg"
+        ],
+        "finish": "White",
+        "color": "ffffff",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": false,
+        "variant_count": 1,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+        "estimated_delivery": "Leaves the Warehouse Today, June 3rd",
+        "shipping_lead_time": "Leaves the Warehouse Today, June 3rd",
+        "inventory_quantity": 412,
+        "availability_status": "in_stock",
+        "in_stock": true,
+        "has_free_installation": false,
+        "shipping_fee": 49,
+        "base_type": "Laundry Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 988,
+          "min": 988
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 988,
+        "price_min": 988,
+        "price": 988,
+        "application": "Washing Machines",
+        "product_type": "Laundry Appliances",
+        "url": "https://www.fergusonhome.com/whirlpool-wfw560ch/s1561801?uid=3708880",
+        "variant_number": "WFW560CHW",
+        "parent_model_number": "WFW560CH",
+        "model_number": "WFW560CHW",
+        "requested_model_number": "WFW560CHW",
+        "brand_logo": {
+          "description": "Whirlpool",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/whirlpool/Logo/whirlpool.gif"
+        },
+        "brand_url": null,
+        "brand": "Whirlpool",
+        "name": "27 Inch Wide 4.3 Cu Ft. Energy Star Rated Electric Front Loading Washer",
+        "family_id": 1561801,
+        "id": 1561801
+      },
+      "variant_url": "https://www.fergusonhome.com/whirlpool-wfw560ch/s1561801?uid=3708880",
+      "match_type": "exact",
+      "matched_model": "WFW560CHW",
+      "model_number": "WFW560CHW",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "Cycle Indicator Lights with Digital Time Remaining",
+        "name": "Electronic Display Type"
+      },
+      {
+        "value": "31.5625",
+        "name": "Product Depth"
+      },
+      {
+        "value": "No",
+        "name": "Eco Monitor/efficiency Monitor"
+      },
+      {
+        "value": "Cold; Cool; Hot; Warm",
+        "name": "Temperature Selections"
+      },
+      {
+        "value": "Bulky Items; Clean Washer with affresh; Cold Wash; Colors; Delicates; Drain & Spin; Heavy Duty; Normal; Quick Wash; Regular; Sanitize with Oxi; Towels; Whites; Wrinkle Control",
+        "name": "Washer Cycle Selections"
+      },
+      {
+        "value": "80.17 cm, 31-9/16 in",
+        "name": "Depth"
+      },
+      {
+        "value": "CA",
+        "name": "Prop65"
+      },
+      {
+        "value": "Tap Touch",
+        "name": "Control Type"
+      },
+      {
+        "value": "No",
+        "name": "Works With"
+      },
+      {
+        "value": "Front",
+        "name": "Control Location"
+      },
+      {
+        "value": "141.50 l, 5 cu. ft.",
+        "name": "Capacity IEC Canada"
+      },
+      {
+        "value": "2.76",
+        "name": "Imef"
+      },
+      {
+        "value": "No",
+        "name": "Water Faucet"
+      },
+      {
+        "value": "Yes",
+        "name": "UL"
+      },
+      {
+        "value": "80.17 cm, 31.5625 in",
+        "name": "Depth"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Washer Drum Material"
+      },
+      {
+        "value": "7",
+        "name": "Number of Washer Options"
+      },
+      {
+        "value": "4ft 4in Drain Hose Included",
+        "name": "Hoses Included"
+      },
+      {
+        "value": "Standard",
+        "name": "Prop65"
+      },
+      {
+        "value": "Blue",
+        "name": "LED Color"
+      },
+      {
+        "value": "35",
+        "name": "Carton Depth"
+      },
+      {
+        "value": "ADA Compliant; Sanitize Cycle; Standard Washers",
+        "name": "Washer Features"
+      },
+      {
+        "value": "Control Lock; Extra Rinse",
+        "name": "Washer Option Selections"
+      },
+      {
+        "value": "Yes",
+        "name": "Pre Soak"
+      },
+      {
+        "value": "92.53 kg, 41.96 kg, 204 lbs, 92.517 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "56.5",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "Detergent, Fabric Softener & Bleach",
+        "name": "Dispense System"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic Load Size Sensing Technology"
+      },
+      {
+        "value": "Tier I",
+        "name": "CEE Tier Rating"
+      },
+      {
+        "value": "4",
+        "name": "Number of Spin Speeds"
+      },
+      {
+        "value": "4",
+        "name": "Number of Wash/Rinse Temperatures"
+      },
+      {
+        "value": "3.2",
+        "name": "Water Factor"
+      },
+      {
+        "value": "27.0",
+        "name": "Product Width"
+      },
+      {
+        "value": "3",
+        "name": "Number of Soil Levels"
+      },
+      {
+        "value": "Yes",
+        "name": "Lid/door Lock"
+      },
+      {
+        "value": "39",
+        "name": "Carton Height"
+      },
+      {
+        "value": "Direct Drive",
+        "name": "Motor Drive Type"
+      },
+      {
+        "value": "204",
+        "name": "Net Weight"
+      },
+      {
+        "value": "Add Garment, Control Lock, Cycle Signal, Door Locked, End of Cycle Signal, Estimated Time Remaining, Sensing, Wash",
+        "name": "Feedback-Status Indicators"
+      },
+      {
+        "value": "1,160",
+        "name": "Maximum Spin Speed"
+      },
+      {
+        "value": "Yes",
+        "name": "Power Cord Included"
+      },
+      {
+        "value": "No",
+        "name": "Advanced Vibration Control"
+      },
+      {
+        "value": "Yes",
+        "name": "End of Cycle Signal"
+      },
+      {
+        "value": "ADA Compliant with feet fully extended",
+        "name": "ADA Compliant"
+      },
+      {
+        "value": "No",
+        "name": "Delay Start"
+      },
+      {
+        "value": "97.07 kg, 44.02 kg, 214 lbs, 97-1/20 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "WFP2715HW",
+        "name": "Pedestal Options"
+      },
+      {
+        "value": "5",
+        "name": "Capacity Iec Canada"
+      },
+      {
+        "value": "214",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "Left",
+        "name": "Lid/Door Swing"
+      },
+      {
+        "value": "Bulky Items, Clean Washer with affresh, Cold Wash, Colors, Delicates, Drain & Spin, Heavy Duty, Normal, Quick Wash, Regular, Sanitize with Oxi, Towels, Whites, Wrinkle Control",
+        "name": "Washer Cycle Selections"
+      },
+      {
+        "value": "CALIFORNIA RESIDENTS ONLY - WARNING: Cancer and Reproductive Harm - www.P65Warnings.ca.gov .",
+        "name": "Prop 65"
+      },
+      {
+        "value": "No",
+        "name": "LCD Touch Screen"
+      },
+      {
+        "value": "123",
+        "name": "Energy Rating (kwh/year)"
+      },
+      {
+        "value": "Yes",
+        "name": "Window"
+      },
+      {
+        "value": "Heavy; Light; Normal",
+        "name": "Washer Soil Selections"
+      },
+      {
+        "value": "35",
+        "name": "Number of Wash Cycles"
+      },
+      {
+        "value": "No",
+        "name": "Fan Type"
+      },
+      {
+        "value": "No",
+        "name": "Internal Heater"
+      },
+      {
+        "value": "Yes",
+        "name": "Stackable"
+      },
+      {
+        "value": "No",
+        "name": "Connectivity"
+      },
+      {
+        "value": "N/A",
+        "name": "Automated Dispenser"
+      },
+      {
+        "value": "ENERGY STAR(R) Qualified",
+        "name": "Energy Star Qualified"
+      },
+      {
+        "value": "92.53 kg, 41.96 kg, 204 lbs, 92-517/1000 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "ENERGY STAR(R) Qualified",
+        "name": "Energy Star(r) Qualified"
+      },
+      {
+        "value": "ADA Compliant, Standard Washers, Sanitize Cycle",
+        "name": "Features"
+      },
+      {
+        "value": "29",
+        "name": "Carton Width"
+      },
+      {
+        "value": "97.07 kg, 44.02 kg, 214 lbs, 97.05 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "2",
+        "name": "Number of Rinse Options"
+      },
+      {
+        "value": "3.2",
+        "name": "Iwf"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic Temperature Controls"
+      },
+      {
+        "value": "No",
+        "name": "Maytag Commercial Components"
+      },
+      {
+        "value": "Add Garment; Control Lock; Cycle Signal; Door Locked; End of Cycle Signal; Estimated Time Remaining; Sensing; Wash",
+        "name": "Feedback-status Indicators"
+      },
+      {
+        "value": "38.625",
+        "name": "Product Height"
+      },
+      {
+        "value": "Cold, Cool, Hot, Warm",
+        "name": "Temperature Selections"
+      },
+      {
+        "value": "Fast; Medium; Off; Slow",
+        "name": "Spin Speed Selections"
+      },
+      {
+        "value": "Yes",
+        "name": "Out of Balance Sensing"
+      },
+      {
+        "value": "68.58 cm, 27 in",
+        "name": "Width"
+      }
+    ],
+    "Web_Retailer_Key": "WHIRL:WFW560CHW",
+    "Web_Retailer_SubCategory": "FRONT LOAD WASHER",
+    "Web_Retailer_Category": "LAUNDRY",
+    "Product_Description_Web_Retailer": "Match your family's routines and your space with a closet-depth front load washing machine that still offers plenty of room for bulky items at 5.0 cu. ft. I.E.C. capacity. Let the ENERGY STAR(R) certified washer guide you to the right cycle combinations, like the Sanitize cycle with Oxi, or customize up to 35 of your own with Intuitive Controls.",
+    "Features_Web_Retailer": "<ul><li>#1 in Customer Satisfaction in the J.D. Power 2020 Laundry Appliances Satisfaction Study</li><li>5.0 cu. ft. I.E.C. Capacity</li><li>Energy Star Certified</li><li>Intuitive Controls</li><li>Sanitize Cycle with Oxi</li></ul>",
+    "Weight_Web_Retailer": 92.53,
+    "Capacity_Web_Retailer": 5,
+    "Height_Web_Retailer": "38 5/8",
+    "Width_Web_Retailer": "27",
+    "Depth_Web_Retailer": "31 9/16",
+    "Product_Title_Web_Retailer": "5.0 cu.ft I.E.C. Closet-Depth Front Load Washer with Intuitive Controls",
+    "Color_Finish_Web_Retailer": "White",
+    "MSRP_Web_Retailer": 1099,
+    "Model_Number_Web_Retailer": "WFW560CHW",
+    "Brand_Web_Retailer": "WHIRLPOOL CANADA",
+    "SF_Catalog_Name": "WFW560CHW",
+    "SF_Catalog_Id": "a03Hu00001N23hGIAR"
+  },
+  "currentOutput": {
+    "AI_Brand": "WHIRLPOOL",
+    "AI_Product_Category": "Washer",
+    "AI_Type": "Front Load",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "Glossy",
+    "AI_Product_Title": "Whirlpool 27-Inch Front Load Washer 4.3 Cu. Ft. - WFW560CHW"
+  }
+}

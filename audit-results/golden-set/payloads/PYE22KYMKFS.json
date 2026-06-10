@@ -1,0 +1,1169 @@
+{
+  "sf_catalog_id": "a03aZ00000n997wQAA",
+  "sf_catalog_name": "PYE22KYMKFS",
+  "createdAt": "2026-05-02T23:24:56.329Z",
+  "era": "ai",
+  "strata": [
+    "model_mismatch"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e2590c40444e25358d874fa4fc608bcf.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e831a1f53601cc79f8bf95041495c49e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/bdc3cafa5003287ab634fc90bdf8927e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e831a1f53601cc79f8bf95041495c49e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/0cc1e1bb552dc2454b35a9a932d0552f.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e871619b33e7bb6cf13804ae65e22077.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e871619b33e7bb6cf13804ae65e22077.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/211a382939892ba1d485cabf6dcddbd1.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4835a70a15691d8bc457118efc267f19.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/226673002cbc2d18fee12d2bd5b7ed66.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/634e87eb0b22c8542d3dbdf5c4eeb900.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/b1ea287489a6d4c438a04e5311774c07.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4fdea450a4aa0005020d137bf2aa1322.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a57dae17921fe532f27399aff3aafda4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/3157e8c9b34f3492819836193bc404c9.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/c6fb41e0515425276c44be3e78e7b861.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/02cf0dcab76487409b652ca5f42e0df2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/70c635414f9fe0ea877ea0fd94e20227.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/74d20364fdb1b824fceac3717800437b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/7f911219d149b0ef666b71246d3ff77c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/8148819ad0442208a81a8fdb608f19f0.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/31ec7cff954e35660b9b6fa36c4f03e7.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/cfbffe981c83e0e755d5b7ba53cc24ed.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/34fa25eb608705307fbfedf5486b9212.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/db465301185945b1e41d3bcc89acfc41.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/97fe34dd4f5d3d30b896641c5ddf3749.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a28d40c5b91774eda943ce194945d5c5.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/fd01e093d73ac16113424fa1a9ee965d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/44131f7f8c2137d36f3fb78fcbce1387.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/eba5a4cead818d875ffa1d62bf30579b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/c6522d57f671c1f4454fe31b6b3e2411.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/fa5917a7310fac98d1bdc294728253f6.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/da6c553cf3b614d6e47db7145c37f85d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/f0057f6157d5e8f897311f92dd2de368.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/8353bac5cf9de3d6673d7fa3839b95e8.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/31d6b755826ff0a6dbf90826b2cbcff4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/3e8fda5c5ae75db84e35e43bf7fdbd35.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/feea3b14f29244ea86ae989b279040ce.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/47d221cadc5bdf40a79bda599d39b901.png"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/PYE22KYNFS.html?srsltid=AfmBOoqkaT07kbwTgRmlGAN-bDHDXORrN5Lu90gpYYPZJPeww9Fm4mOF",
+    "Ferguson_URL": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">CAPACITY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Capacity</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">14.92 cu ft</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Total Capacity (cubic feet)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">22.1 cu ft</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freezer Capacity</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">7.16 cu ft</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">FILTER</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">App Filter - Autofill</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">App Filter - Icemaker</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">App Filter - Product Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Refer French Door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">App Filter - Capacity</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Refer Large (20-24 cu. ft.)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">App Filter - Dispenser</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">App Filter - Hot Water</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">APPEARANCE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Dispenser Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Case Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Gray</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Exterior Design</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Contoured Doors</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Door Stops</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Textured Steel Case</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Case Only - Dark Gray</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Handle Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Counter-Depth Design</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">true</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Door Swing</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">French Door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Handle Design</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Designer Style</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Color Appearance</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fingerprint Resistant Stainless</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Handle with Chrome accents</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Hidden Door Hinge(s)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">POWER / RATINGS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Energy Consumption (kWh/year)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">665</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Electrical Requirements</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120V</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Hertz</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Volts/Hertz/Amps</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120v; 60Hz; 15A</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WARRANTY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Warranty Notes</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">See written warranty for full details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Labor Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Limited 1-year entire appliance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Parts Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Limited 1-year entire appliance</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WEIGHTS &amp; DIMENSIONS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Overall Depth</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">31.25 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Height to Top of Hinge</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">69.875 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Net Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">333 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Width</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">35.75 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Back Air Clearances</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Depth with Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">31.25 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Approximate Shipping Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">363 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Depth with Door Open 90°</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">43.375 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Width w/Door Open 90 Degrees Incl. Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">44.625 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Case Depth Without Door</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">24.375 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Top Air Clearances</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Side Air Clearances</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">0.125 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Depth Without Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">29.75 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Height to Top of Case</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">69 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Overall Height</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">69.875 in</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">FEATURES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Temperature Management Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Turbo Cool setting</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dispenser Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Door Alarm <br>Hands-Free AutoFill <br>LED Dispenser Light <br>Water Filter Indicator Light</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Control Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">External Electronic Digital Temperature Display</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Showroom Power Mode</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">To Enter Demo Mode, Press and hold Freezer + Fridge + Autofill buttons simultaneously for 7 seconds. Cooling system will turn off. <br>Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Icemaker</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional 2nd Icemaker (IM5D) in Freezer <br>Space Saving Ice</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Number of Doors</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">WiFi Connect</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional (Requires part no. PBX23W00Y1)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Performance Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Easily Removable Door Gaskets</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Sabbath Mode</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Filter Location</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Left wall</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Door Alarm</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Storage Baskets</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2 Full-Width</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Temperature Management System</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">TwinChill™ Evaporators</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Door Bins</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Total</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Defrost Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Frost Guard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fresh Food Door Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dairy Compartment <br>Drop Down Tray</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Leveling System</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2 Front Leveling Legs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fresh Food Cabinet Shelves</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Quick Space Shelf <br>3 Spill Proof <br>4 Split Adjustable; 1 Full-Width <br>5 Total - Glass with Silver Trim</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Door Bins</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2 Adjustable <br>3 with Gallon Storage <br>6 Total</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Interior Lighting - LED (2) <br>Turbo Freeze</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Exterior Style</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Counter-Depth</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Temperature Display</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">External Digital</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Showcase LED Lighting 7</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Configuration</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">French Door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Refrigerant Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R600a</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dispenser</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Cubes, Crushed Ice and Water <br>External Water <br>Large Color-Matched</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Cabinet Drawers</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Full-Width, Adjustable Temperature Drawer <br>2 Adjustable Humidity <br>3 Total <br>Electronic Temperature Control w/ LED Lighting</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Water Filtration</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Find your filter here <br>Advanced Filtration System <br>Removes Pharmaceuticals <br>Water Filter Indicator Light</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Product Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Bottom Freezer Refrigerator <br>Counter Depth Refrigerator <br>French-Door Refrigerator</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">OU Certified</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">OU/CRC Enhanced Shabbos Mode, when used with Shabbos Keeper, sold separately</td></tr></table>",
+    "UPC_Legacy": "084691848738",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "36 Inch Counter Depth French Door Refrigerator with 22.1 Cu. Ft. Capacity\nThis ENERGY STAR-approved refrigerator from GE features a counter-depth design for a sleek and modern built-in look, not to mention plenty of flexible options for food storage and the power of GE's TwinChill™ system.\n\nThe fresh food section features spill-proof split glass shelves that are adjustable to accommodate items of all sizes. Two humidity-controlled crisper drawers provide the ideal climate conditions for preserving fresh produce like fruits and vegetables. Plus, another full-width deli drawer is perfect for storing meats, cheeses, and other deli items. The fresh food section also features six door bins, a dairy center, and a drop-down tray for even more storage. LED lighting gently illuminates to interior to spotlight food items.\n\nTurbo Cool and Turbo Freeze options help to manage interior temperatures when the door has been left open for a long amount of time. An extra boost of cold air restores the interiors to the set temperature for optimum food freshness. The pull-out freezer drawer features two baskets for the storage of frozen food items.\n\nThis french-door refrigerator features an external ice and water dispenser. GE's Advanced Filtration System, which removes pharmaceuticals often found in tap water, guarantees fresh ice and water. The dispenser also features AutoFill technology, which lets you walk away while the dispenser automatically fills any container with just the right amount of filtered water. Enjoy the superb cooling performance, outstanding flexibility, and the sleek, modern look of this impressive selection from GE.",
+    "Features_Legacy": "<ul><li>Fingerprint Resistant Stainless</li><li>Counter-depth design</li><li>Hands-free Autofill</li><li>Full-width electronic temperature-controlled drawer with LED lights</li><li>Second icemaker option</li><li>TwinChill(TM) evaporators</li><li>Showcase LED lighting</li><li>Quick Space shelf</li><li>Drop-down tray</li><li>Turbo Cool setting</li><li>Enhanced Shabbos Mode</li><li>Refrigerator Bin Liners</li></ul>",
+    "Weight_Legacy": 333,
+    "Capacity_Legacy": 22.1,
+    "Height_Legacy": "69 7/8",
+    "Width_Legacy": "35 3/4",
+    "Depth_Legacy": "31 1/4",
+    "Product_Title_Legacy": "GE Profile(TM) ENERGY STAR(R) 22.1 Cu. Ft. Counter-Depth Fingerprint Resistant French-Door Refrigerator with Hands-Free AutoFill",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 3899,
+    "Model_Number_Legacy": "PYE22KYMKFS",
+    "Brand_Legacy": "GE",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-25T22:27:44.798379"
+      },
+      "search_meta_data": {
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "isDJRgNijT"
+      },
+      "performance": {
+        "total_time": "3.19s",
+        "step3_detail_time": "1.50s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.68s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Recommended"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/GE%20Profile/Profile",
+          "name": "Profile"
+        },
+        "questions_count": 2,
+        "total_reviews": 4449,
+        "review_count": 4449,
+        "total_ratings": 4449,
+        "rating": 4.2,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-sale/c82045662",
+            "name": "GE Profile Sale",
+            "id": 82045662
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-refrigeration/c82044515",
+            "name": "Refrigerators",
+            "id": 82044515
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-range/c82044526",
+            "name": "Ranges",
+            "id": 82044526
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-ovens/c82044525",
+            "name": "Wall Ovens",
+            "id": 82044525
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-cooktop/c82044539",
+            "name": "Cooktops",
+            "id": 82044539
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-hoods/c82044527",
+            "name": "Range Hoods",
+            "id": 82044527
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-microwave-ovens/c82045262",
+            "name": "Microwaves",
+            "id": 82045262
+          }
+        ],
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile/c82044513",
+            "name": "GE Profile"
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-profile-refrigeration/c82044515",
+            "name": "Refrigerators"
+          }
+        ],
+        "resources": [
+          {
+            "id": "ge-profile-pye22k-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge_profile/1780125/ge-profile-pye22k-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "ge-profile-pye22k-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge_profile/1780125/ge-profile-pye22k-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "ge-profile-pye22k-use-care-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge_profile/1780125/ge-profile-pye22k-use-care-manual.pdf",
+            "name": "Use & Care Manual"
+          },
+          {
+            "id": "ge-profile-pye22k-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge_profile/1780125/ge-profile-pye22k-energy-guide.pdf",
+            "name": "Energy Guide"
+          }
+        ],
+        "manufacturer_warranty": null,
+        "warranty": "",
+        "country_of_origin": null,
+        "certifications": [
+          "UL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "409",
+            "name": "Cutout Height"
+          },
+          {
+            "value": "412",
+            "name": "Cutout Width"
+          },
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "5131",
+            "name": "Depth without Door"
+          },
+          {
+            "value": "694",
+            "name": "Freezer Capacity"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "3890",
+            "name": "Refrigerator Capacity"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "9460",
+            "name": "Dispenser Features"
+          },
+          {
+            "value": "5458",
+            "name": "Humidity Control"
+          },
+          {
+            "value": "3513",
+            "name": "Ice Maker"
+          },
+          {
+            "value": "896",
+            "name": "Includes Freezer"
+          },
+          {
+            "value": "206",
+            "name": "Bulb Type"
+          },
+          {
+            "value": "379",
+            "name": "Counter Depth"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "9172",
+            "name": "Frost Free"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "9464",
+            "name": "Shelf Type (Refrigerator)"
+          },
+          {
+            "value": "9462",
+            "name": "Storage Features"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "695",
+            "name": "Frequency"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          },
+          {
+            "value": "9470",
+            "name": "Rebate Offered"
+          }
+        ],
+        "dimensions": {
+          "width": "35.75 in.",
+          "height": "69.875 in.",
+          "depth": "31.25 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "70.875",
+                "name": "Cutout Height"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "36",
+                "name": "Cutout Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "31.25",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "43.375",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the door installed, measured in inches.",
+                "units": "in.",
+                "value": "24.375",
+                "name": "Depth without Door"
+              },
+              {
+                "featured": false,
+                "description": "The storage capacity of the product's freezer, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "7.2",
+                "name": "Freezer Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "69.875",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "70",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "36",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "333",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "15",
+                "name": "Refrigerator Capacity"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "22.2",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "35.75",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+                "units": null,
+                "value": "External Ice Dispenser, External Water Dispenser",
+                "name": "Dispenser Features"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product features humidity control.",
+                "units": null,
+                "value": "Yes",
+                "name": "Humidity Control"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice maker is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Ice Maker"
+              },
+              {
+                "featured": false,
+                "description": "Whether a freezer is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Includes Freezer"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The type of light bulb included.",
+                "units": null,
+                "value": "LED",
+                "name": "Bulb Type"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+                "units": null,
+                "value": "Yes",
+                "name": "Counter Depth"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Automatic",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "Digital",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "French Door, Sliding",
+                "name": "Door Swing"
+              },
+              {
+                "featured": false,
+                "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+                "units": null,
+                "value": "Yes",
+                "name": "Frost Free"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Free Standing",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "5",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": true,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": false,
+                "description": "The type of shelves used in the product's refrigerator.",
+                "units": null,
+                "value": "Glass",
+                "name": "Shelf Type (Refrigerator)"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's storage.",
+                "units": null,
+                "value": "Crisper Bin, Gallon Door Storage, Ice Bin",
+                "name": "Storage Features"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Industrial, Modern",
+                "name": "Theme"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+                "units": "Hertz",
+                "value": "60",
+                "name": "Frequency"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "Yes",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "UL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "No",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "Yes",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "No",
+                "name": "Outdoor Approved"
+              },
+              {
+                "featured": false,
+                "description": "Whether a rebate is offered with the purchase of this product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Rebate Offered"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "rebate_offered": {
+            "description": "Whether a rebate is offered with the purchase of this product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "No"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "Yes"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "No"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "UL"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "Yes"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "frequency": {
+            "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+            "units": "Hertz",
+            "value": "60"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Industrial, Modern"
+          },
+          "storage_features": {
+            "description": "Distinctive attributes or aspects of the product's storage.",
+            "units": null,
+            "value": "Crisper Bin, Gallon Door Storage, Ice Bin"
+          },
+          "shelf_type_(refrigerator)": {
+            "description": "The type of shelves used in the product's refrigerator.",
+            "units": null,
+            "value": "Glass"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "Yes"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "5"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Free Standing"
+          },
+          "frost_free": {
+            "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+            "units": null,
+            "value": "Yes"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "French Door, Sliding"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "Digital"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Automatic"
+          },
+          "counter_depth": {
+            "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+            "units": null,
+            "value": "Yes"
+          },
+          "bulb_type": {
+            "description": "The type of light bulb included.",
+            "units": null,
+            "value": "LED"
+          },
+          "includes_freezer": {
+            "description": "Whether a freezer is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "ice_maker": {
+            "description": "Whether an ice maker is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "humidity_control": {
+            "description": "Whether the product features humidity control.",
+            "units": null,
+            "value": "Yes"
+          },
+          "dispenser_features": {
+            "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+            "units": null,
+            "value": "External Ice Dispenser, External Water Dispenser"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "35.75"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "22.2"
+          },
+          "refrigerator_capacity": {
+            "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "15"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "333"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "36"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "70"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "69.875"
+          },
+          "freezer_capacity": {
+            "description": "The storage capacity of the product's freezer, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "7.2"
+          },
+          "depth_without_door": {
+            "description": "The measurement from back to front without the door installed, measured in inches.",
+            "units": "in.",
+            "value": "24.375"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "43.375"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "31.25"
+          },
+          "cutout_width": {
+            "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "36"
+          },
+          "cutout_height": {
+            "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "70.875"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>With a total capacity of 22.2 cu. ft., this refrigerator has plenty of room for all your refrigerated and frozen goods</li>\n\t<li>Includes LED lighting to illuminate your refrigerator interior</li>\n\t<li>Features ice and water dispensers for easy access to refreshment</li>\n\t<li>5 tempered glass shelves offer elegant, dependable storage</li>\n\t<li>Includes a 1-year manufacturer warranty on parts and labor</li>\n</ul>\n\n<p><strong>Product Highlights:</strong></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Fingerprint Resistant\" src=\"//s3.img-b.com/image/private/t_base/productdescription/geprofile/fingerprintresistant\" /></span><span class=\"col-xs-8\"><strong> Fingerprint Resistant Stainless:</strong> Easily wipe away smudges and fingerprints for a look that's always sparkling clean</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Autofill\" src=\"//s3.img-b.com/image/private/t_base/productdescription/geprofile/hfautofill\" /></span><span class=\"col-xs-8\"><strong> Hands-Free Autofill:</strong> Hands-free AutoFill uses sensors in the refrigerator dispenser to release the exact amount of filtered water you want, so you can walk away while your bottle fills up</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Counter Depth\" src=\"//s3.img-b.com/image/private/t_base/productdescription/geprofile/fdcounterdepthv2\" /></span><span class=\"col-xs-8\"><strong> Counter-Depth Design:</strong> Offers a built-in look by fitting nearly flush with surrounding cabinetry</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"TempDrawer\" src=\"//s3.img-b.com/image/private/t_base/productdescription/geprofile/tempdrawerv2\" /></span><span class=\"col-xs-8\"><strong> Electronic Temperature-Controlled Drawer:</strong> 3 accurate settings deliver the optimal temperature for your favorite foods</span></p>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Refrigerator Capacity: 15.0 cu. ft.</li>\n\t<li>Freezer Capacity: 7.2 cu. ft.</li>\n\t<li>Total Capacity: 22.2 cu. ft.</li>\n\t<li>Bulb Type: LED</li>\n\t<li>Shelf Material: Tempered Glass</li>\n\t<li>Counter Depth: Yes</li>\n\t<li>Crisper Bins: Yes</li>\n\t<li>Gallon Door Storage: Yes</li>\n\t<li>Depth: 31-1/4\"</li>\n\t<li>Height: 69-7/8\"</li>\n\t<li>Width: 35-3/4\"</li>\n\t<li>Amperage: 15</li>\n\t<li>Voltage: 120</li>\n</ul>\n\n<p><img alt=\"lifestyle\" src=\"//s3.img-b.com/image/private/t_base/productdescription/geprofile/pye22k_ls\" width=\"99%\" /></p>\n",
+        "videos": [
+          {
+            "description": "Enjoy the sleek modern look of a built in fridge.",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7868"
+          },
+          {
+            "description": "When your hands are full and you need to fill up, GE Profile has your back.",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7869"
+          }
+        ],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kynfs-5492212.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1038.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1039.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1040.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1041.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1042.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1043.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1044.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1045.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1046.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1047.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1048.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1049.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1050.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1051.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1052.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1053.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1054.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1055.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1056.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22k-alternate-image-1057.jpg"
+        ],
+        "configuration_type": "NO_CONFIGURATION",
+        "is_square_footage_based": false,
+        "is_configurable": false,
+        "in_stock_variant_count": 1,
+        "total_inventory_quantity": 159,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": true,
+        "variant_count": 3,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE Profile 36 Inch Wide 22.2 Cu. Ft. Counter Depth French Door Refrigerator with Hands-Free Autofill and TwinChill Evaporators Black Slate",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kelds-5492212.jpg"
+            },
+            "currency": "USD",
+            "price": 3300,
+            "swatch_gradient": "",
+            "title": "Black Slate",
+            "shipping_info": [
+              "Delivery date not available for 20149"
+            ],
+            "shipping_message": "",
+            "estimated_delivery": "Delivery date not available for 20149",
+            "shipping_lead_time": "",
+            "availability_status": "discontinued",
+            "in_stock": false,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "000000",
+            "inventory_quantity": 0,
+            "url": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125?uid=4205931",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kelds-5492212.jpg"
+            ],
+            "model_number": "PYE22KELDS",
+            "name": "Black Slate",
+            "id": 4205931
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE Profile 36 Inch Wide 22.2 Cu. Ft. Counter Depth French Door Refrigerator with Hands-Free Autofill and TwinChill Evaporators Black Stainless",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kblts-5492212.jpg"
+            },
+            "currency": "USD",
+            "price": 3999,
+            "swatch_gradient": "",
+            "title": "Black Stainless",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 10 to 16 weeks",
+              "Leaves the Warehouse in 10 to 16 weeks"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 10 to 16 weeks",
+            "shipping_lead_time": "Leaves the Warehouse in 10 to 16 weeks",
+            "availability_status": "in_stock",
+            "in_stock": false,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "000000",
+            "inventory_quantity": 0,
+            "url": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125?uid=4205930",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kblts-5492212.jpg"
+            ],
+            "model_number": "PYE22KBLTS",
+            "name": "Black Stainless",
+            "id": 4205930
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE Profile 36 Inch Wide 22.2 Cu. Ft. Counter Depth French Door Refrigerator with Hands-Free Autofill and TwinChill Evaporators Stainless Steel",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kynfs-5492212.jpg"
+            },
+            "currency": "USD",
+            "price": 2799.99,
+            "swatch_gradient": "",
+            "title": "Stainless Steel",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 159,
+            "url": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125?uid=4205932",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/geprofile/ge-profile-pye22kynfs-5492212.jpg"
+            ],
+            "model_number": "PYE22KYNFS",
+            "name": "Stainless Steel",
+            "id": 4205932
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 285,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 3999,
+          "min": 2799.99
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 3999,
+        "price_min": 2799.99,
+        "price": 3300,
+        "application": "Full Size Refrigerators",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125",
+        "parent_model_number": "PYE22K",
+        "model_number": "PYE22KYNFS",
+        "brand_logo": {
+          "description": "GE Profile",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/geprofile/Logo/geprofile.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/ge-profile/c82044513",
+        "brand": "GE Profile",
+        "name": "36 Inch Wide 22.2 Cu. Ft. Counter Depth French Door Refrigerator with Hands-Free Autofill and TwinChill Evaporators",
+        "family_id": 1780125,
+        "id": 1780125
+      },
+      "variant_url": "https://www.fergusonhome.com/ge-profile-pye22k/s1780125?uid=4205932",
+      "match_type": "exact",
+      "matched_model": "PYE22KYNFS",
+      "model_number": "PYE22KYNFS",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "GE:PYE22KYNFS",
+    "Web_Retailer_SubCategory": "FRENCH DOOR FREESTANDING REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "Fingerprint Resistant StainlessEasily wipe away smudges and fingerprints for a look that's always sparkling cleanCounter-depth designOffers a built-in look by fitting nearly flush with surrounding cabinetryHands-free AutofillLets you walk away while the dispenser automatically fills any container with filtered waterFull-width electronic temperature-controlled drawer with LED lights3 accurate settings deliver the optimal temperature for your favorite foodsSecond icemaker optionAlways have extra ice on hand with an optional second icemaker in the freezer (IM5D kit sold separately)TwinChill(TM) evaporatorsSeparate climates in the fresh food and freezer sections help keep foods freshShowcase LED lightingPositioned throughout the interior and under fresh food doors to spotlight foods inside the refrigerator and in the freezerQuick Space shelfQuickly slides out of the way to make room for tall itemsDrop-down trayAllows for extra door storage when you need it and tucks away when you don'tTurbo Cool settingDrops interior temperature to maintain freshness after frequent openingsEnhanced Shabbos ModeThe Shabbos Keeper connects to your refrigerator to automatically enable Shabbos compatible modes each week and before every holiday (Shabbos Keeper sold separately, visit www.zmantechnologies.com for details)Refrigerator Bin LinersIncluded with your fridge are bin liners that make cleanup easy.",
+    "Features_Web_Retailer": "<ul><li>Fingerprint Resistant Stainless</li><li>Counter-depth design</li><li>Hands-free Autofill</li><li>Full-width electronic temperature-controlled drawer with LED lights</li><li>Second icemaker option</li><li>TwinChill(TM) evaporators</li><li>Showcase LED lighting</li><li>Quick Space shelf</li><li>Drop-down tray</li><li>Turbo Cool setting</li><li>Enhanced Shabbos Mode</li><li>Refrigerator Bin Liners</li></ul>",
+    "Weight_Web_Retailer": 333,
+    "Capacity_Web_Retailer": 22.1,
+    "Height_Web_Retailer": "69 7/8",
+    "Width_Web_Retailer": "35 3/4",
+    "Depth_Web_Retailer": "31 1/4",
+    "Product_Title_Web_Retailer": "GE Profile(TM) ENERGY STAR(R) 22.1 Cu. Ft. Counter-Depth Fingerprint Resistant French-Door Refrigerator with Hands-Free AutoFill",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 3899,
+    "Model_Number_Web_Retailer": "PYE22KYNFS",
+    "Brand_Web_Retailer": "GE APPLIANCES",
+    "SF_Catalog_Name": "PYE22KYMKFS",
+    "SF_Catalog_Id": "a03aZ00000n997wQAA"
+  },
+  "currentOutput": {
+    "AI_Brand": "GE",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "French Door",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "GE 36-Inch French Door Refrigerator Stainless Steel 22.2 Cu. Ft. - PYE22KYNFS"
+  }
+}

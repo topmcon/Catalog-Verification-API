@@ -1,0 +1,165 @@
+{
+  "sf_catalog_id": "a03Hu00001N24fKIAR",
+  "sf_catalog_name": "B18IF70NSP",
+  "createdAt": "2026-04-29T20:49:11.901Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/31fa86769433124474f040d921803c43_20260416_150427.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/0eed51a934b6aed263afb6838a305a45_20260416_150428.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000fggBJQAY.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000fgatvQAA.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/B18IF70NSP.html?srsltid=AfmBOoqh978e09HcJ1M319uRIVPOP8r4DpXp3G_v81axlpsakdGhbOtg",
+    "Ferguson_URL": null,
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Product Information</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Product Category</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Integra</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Product Series</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Integra Freezers</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Product Name</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18&quot; Freezer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Model Number</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">B18IF70SLS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Also available in</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Custom Panel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freezer Capacity (cu.ft)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">8.4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Dimensions W x H x D (inch)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">18 X 84 X 24 3/4*</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Column Door Dimensions (inch)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18 X 79 7/8 X 3/4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Door Clearance (inch)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">20 21/32 X 9 7/32</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Power Connection Area</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">9</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Voltage/Frequency</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120V/60Hz</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Energy Consumption kWh/year</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">332</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Wattage</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">367W</td></tr></table>",
+    "UPC_Legacy": "825225849544",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "Bosch Integra Refrigeration introduces a new concept in cooling - customization. Fully integrated, built-in freezers, refrigerators and wine storage in various sizes offer the ultimate in storage capacity and flexibility. This enables you to create a perfectly customized system to fit both your kitchen and your family's needs. Advanced technologies like the MARKETFRESH food preservation system help keep your food at the peak of freshness. And like all Bosch appliances, they are designed to keep energy consumption to a minimum.",
+    "Features_Legacy": "<ul><li>Fully Integrated</li><li>OPTIFLEX Hinge</li><li>2 Halogen MAXBRIGHT Light System</li><li>Full-Extension Drawers</li><li>Internal Filtered Ice Maker</li><li>Water Filter for Ice Maker</li><li>Energy Star Qualified</li><li>SUPERFREEZE</li><li>Economy Mode</li><li>Sabbath Mode</li><li>Vacation Mode</li><li>Electronic controls</li></ul><p><br></p>",
+    "Weight_Legacy": 255,
+    "Capacity_Legacy": 8.5,
+    "Height_Legacy": "84",
+    "Width_Legacy": "18",
+    "Depth_Legacy": "24",
+    "Product_Title_Legacy": "BOSCH 18-Inch Built-In Panel Ready Column Freezer 8.4 Cu. Ft. - B18IF70SLS",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 7149,
+    "Model_Number_Legacy": "B18IF70NSP",
+    "Brand_Legacy": "BOSCH",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: B18IF70NSP",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "Custom Panel",
+        "name": "Color"
+      },
+      {
+        "value": "20 21/32 X 9 7/32",
+        "name": "Door Clearance (inch)"
+      },
+      {
+        "value": "18 X 79 7/8 X 3/4",
+        "name": "Column Door Dimensions (inch)"
+      },
+      {
+        "value": "B18IF70SLS",
+        "name": "Model Number"
+      },
+      {
+        "value": "Integra",
+        "name": "Product Category"
+      },
+      {
+        "value": null,
+        "name": "Technical Information"
+      },
+      {
+        "value": null,
+        "name": "Product Information"
+      },
+      {
+        "value": "18\" Freezer",
+        "name": "Product Name"
+      },
+      {
+        "value": "18 X 84 X 24*",
+        "name": "Overall Dimensions W x H x D (inch)"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Color"
+      },
+      {
+        "value": "B18IF70xxx",
+        "name": "Model Number"
+      },
+      {
+        "value": "9",
+        "name": "Power Connection Area"
+      },
+      {
+        "value": "332",
+        "name": "Energy Consumption kWh/year"
+      },
+      {
+        "value": "Custom Panel",
+        "name": "Also available in"
+      },
+      {
+        "value": "120V/60Hz",
+        "name": "Voltage/Frequency"
+      },
+      {
+        "value": "367W",
+        "name": "Wattage"
+      },
+      {
+        "value": "8.4",
+        "name": "Freezer Capacity (cu.ft)"
+      },
+      {
+        "value": "-",
+        "name": "Also available in"
+      },
+      {
+        "value": null,
+        "name": "Dimensions"
+      },
+      {
+        "value": "18 X 84 X 24 3/4*",
+        "name": "Overall Dimensions W x H x D (inch)"
+      },
+      {
+        "value": "Integra Freezers",
+        "name": "Product Series"
+      }
+    ],
+    "Web_Retailer_Key": "BOSCH:B18IF70NSP",
+    "Web_Retailer_SubCategory": "UPRIGHT FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": "<ul><li>Full Extension Drawers</li><li>Fully Integrated</li><li>ENERGY STAR(R) Qualified</li><li>OPTI FLEX(TM) Hinge</li><li>Economy, Vacation, Sabbath Mode</li><li>Quiet</li><li>MAX BRIGHT(R) Lighting System</li><li>SUPER FREEZE(TM)</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": 8.5,
+    "Height_Web_Retailer": "84",
+    "Width_Web_Retailer": "18",
+    "Depth_Web_Retailer": "24 3/4",
+    "Product_Title_Web_Retailer": "18\" Freezer left door swing Also available with right door swing (B18IF70SRS)",
+    "Color_Finish_Web_Retailer": "Custom Panel Ready",
+    "MSRP_Web_Retailer": 7149,
+    "Model_Number_Web_Retailer": "B18IF70NSP",
+    "Brand_Web_Retailer": "BOSCH",
+    "SF_Catalog_Name": "B18IF70NSP",
+    "SF_Catalog_Id": "a03Hu00001N24fKIAR"
+  },
+  "currentOutput": {
+    "AI_Brand": "BOSCH",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Column",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Panel Ready",
+    "AI_Finish": "Panel Ready",
+    "AI_Product_Title": "BOSCH 18-Inch Built-In Panel Ready Column Freezer 8.4 Cu. Ft. - B18IF70SLS"
+  }
+}

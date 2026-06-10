@@ -1,0 +1,163 @@
+{
+  "sf_catalog_id": "a03Hu00001N25CwIAJ",
+  "sf_catalog_name": "UHCP115-SS01A",
+  "createdAt": "2026-06-09T18:29:53.257Z",
+  "era": "ai",
+  "strata": [
+    "scenario_wr_only"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/5c635fd11b28973ca166eb4837d88caf.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/cd8ae615ac9d0d3d7acb7916a4b3874e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/1c015ed07a75106cc8d2a1173245e854.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/17de825c8262abd86c3e8e6099248444.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/a207ecb236158ca9ad23982a314fb179.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/6a7428eecc6bf35f2188d90ea1b86cfd.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/UHCP115SS01A.html?srsltid=AfmBOoqTvH48HzlMGKs2gaC1ZPwWJyMrWuVsiqvvPvYshIh3EcTTQQ-b",
+    "Ferguson_URL": null,
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Amps: Running</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">TBD A/TBD A HVST</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Capacity Ice</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">25 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Digital</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Dimensions: Product Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">22 1/2&quot; (572mm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dimensions: Product Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">34 1/8&quot; (867mm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Dimensions: Product Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">14 15/16&quot; (379mm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ice Production</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">55 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Ice Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Clear Ice</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerant Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R600a</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Sabbath (Star K Certified)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Shipping Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">28.5&quot; (724 mm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Shipping Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">36&quot; (914 mm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Shipping Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">101 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Shipping Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">17.13&quot; (435 mm)</td></tr></table>",
+    "UPC_Legacy": "833790058995",
+    "Category_Legacy": "Icemaker",
+    "Product_Description_Legacy": "The perfect drink awaits! Our 15\" 1 Class Clear Ice Machine provides unsurpassed performance, delivering up to 55 lbs. of ice per day and a storage capacity of 25 lbs. of ice. U-Line s 1 Class Clear Ice Machine features U-Choose(TM) ice fullness adjustability. This model is available with black, white, stainless steel or integrated door finishes that accept a custom door panel to match your surrounding cabinetry. Select models available with BrightShield antimicrobial lighting technology. Models with BrightShield not yet available in Canada.",
+    "Features_Legacy": "<ul><li>Industry Exclusive: U-Choose(TM) feature allows you to select ice fullness</li><li>Produces up to 55 lbs of ice per day</li><li>Stores up to 25 lb of ice</li><li>Silent setting temporarily suspends ice making for 3 hours</li><li>Indicator alert notifies user when cleaning is needed</li><li>Easiest clear ice machine cleaning process in the industry</li><li>White interior</li><li>Digital touch pad control</li><li>Bright white LED lighting</li><li>Stainless steel handle (7 8&quot; diameter)</li><li>Integrated model requires 3 4&quot; custom door panel and handle (not supplied by U-Line)</li><li>Field reversible door is shipped right-hand hinged</li><li>Built-in or freestanding</li><li>Four adjustable leveling legs</li><li>Factory installed drain pump model required if a gravity drain is not accessible</li><li>Clear heavy duty ice scoop included</li><li>Makes clear cubes approx. 7 8&quot; W x 7 8&quot; H x 7 8&quot; L</li></ul>",
+    "Weight_Legacy": 91,
+    "Capacity_Legacy": 1,
+    "Height_Legacy": "34 1/8",
+    "Width_Legacy": "14 15/16",
+    "Depth_Legacy": "22 1/2",
+    "Product_Title_Legacy": "U-LINE 15-Inch Panel Ready Undercounter Icemaker - UHCP115-SS01A",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 4569,
+    "Model_Number_Legacy": "UHCP115-SS01A",
+    "Brand_Legacy": "U-LINE",
+    "Web_Retailer_Specs": [
+      {
+        "value": "17.13\" (435mm)",
+        "name": "Shipping Width"
+      },
+      {
+        "value": "36\" (914mm)",
+        "name": "Shipping Height"
+      },
+      {
+        "value": "36\" (914 mm)",
+        "name": "Shipping Height"
+      },
+      {
+        "value": "Automatic",
+        "name": "Defrost Type"
+      },
+      {
+        "value": "Digital",
+        "name": "Control Type"
+      },
+      {
+        "value": "55 lb",
+        "name": "Ice Production"
+      },
+      {
+        "value": "25 lb",
+        "name": "Capacity Ice"
+      },
+      {
+        "value": "Clear Ice",
+        "name": "Ice Type"
+      },
+      {
+        "value": "28.5\" (724 mm)",
+        "name": "Shipping Depth"
+      },
+      {
+        "value": "101 lb",
+        "name": "Shipping Weight"
+      },
+      {
+        "value": "17.13\" (435 mm)",
+        "name": "Shipping Width"
+      },
+      {
+        "value": "22 1/2\" (572mm)",
+        "name": "Dimensions: Product Depth"
+      },
+      {
+        "value": "14 15/16\" (379mm)",
+        "name": "Dimensions: Product Width"
+      },
+      {
+        "value": "TBD A/TBD A HVST",
+        "name": "Amps: Running"
+      },
+      {
+        "value": "R600a",
+        "name": "Refrigerant Type"
+      },
+      {
+        "value": "28.5\" (724mm)",
+        "name": "Shipping Depth"
+      },
+      {
+        "value": "TBD A/TBD A HVST",
+        "name": "Amps: Running (115 v)"
+      },
+      {
+        "value": "Yes",
+        "name": "Sabbath (Star K Certified)"
+      },
+      {
+        "value": "4.0 A",
+        "name": "Amps: Running (115 v)"
+      },
+      {
+        "value": "34 1/8\" (867mm)",
+        "name": "Dimensions: Product Height"
+      },
+      {
+        "value": "101 lb (46 kg)",
+        "name": "Shipping Weight"
+      }
+    ],
+    "Web_Retailer_Key": "ULN:UHCP115SS01A",
+    "Web_Retailer_SubCategory": "ICE MAKERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": "The perfect drink awaits! Our 15\" 1 Class Clear Ice Machine provides unsurpassed performance, delivering up to 55 lbs. of ice per day and a storage capacity of 25 lbs. of ice. U-Line s 1 Class Clear Ice Machine features U-Choose(TM) ice fullness adjustability. This model is available with black, white, stainless steel or integrated door finishes that accept a custom door panel to match your surrounding cabinetry. Select models available with BrightShield antimicrobial lighting technology. Models with BrightShield not yet available in Canada.",
+    "Features_Web_Retailer": "<ul><li>Industry Exclusive: U-Choose(TM) feature allows you to select ice fullness</li><li>Produces up to 55 lbs of ice per day</li><li>Stores up to 25 lb of ice</li><li>Silent setting temporarily suspends ice making for 3 hours</li><li>Indicator alert notifies user when cleaning is needed</li><li>Easiest clear ice machine cleaning process in the industry</li><li>White interior</li><li>Digital touch pad control</li><li>Bright white LED lighting</li><li>Stainless steel handle (7 8&quot; diameter)</li><li>Integrated model requires 3 4&quot; custom door panel and handle (not supplied by U-Line)</li><li>Field reversible door is shipped right-hand hinged</li><li>Built-in or freestanding</li><li>Four adjustable leveling legs</li><li>Factory installed drain pump model required if a gravity drain is not accessible</li><li>Clear heavy duty ice scoop included</li><li>Makes clear cubes approx. 7 8&quot; W x 7 8&quot; H x 7 8&quot; L</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": "34 1/8",
+    "Width_Web_Retailer": "14 15/16",
+    "Depth_Web_Retailer": "22 1/2",
+    "Product_Title_Web_Retailer": "Hcl115 / Hcp115 15\" Clear Ice Machine With Stainless Solid Finish and Pump (115 V/60 Hz)",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 4569,
+    "Model_Number_Web_Retailer": "UHCP115SS01A",
+    "Brand_Web_Retailer": "U-LINE",
+    "SF_Catalog_Name": "UHCP115-SS01A",
+    "SF_Catalog_Id": "a03Hu00001N25CwIAJ"
+  },
+  "currentOutput": {
+    "AI_Brand": "U-LINE",
+    "AI_Product_Category": "Icemaker",
+    "AI_Type": "Undercounter",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "",
+    "AI_Product_Title": "U-LINE 15-Inch Panel Ready Undercounter Icemaker - UHCP115-SS01A"
+  }
+}

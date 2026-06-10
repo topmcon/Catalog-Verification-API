@@ -1,0 +1,1008 @@
+{
+  "sf_catalog_id": "a03Hu00001N2CHTIA3",
+  "sf_catalog_name": "FCM7STWW",
+  "createdAt": "2026-06-08T14:21:29.415Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078",
+    "pinned_078"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/d87b2a126cff3739cc1d2738b74f8d4d.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/917645fb4733f2b1c2baa6efee1dc5d8.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/1ecf50094369797a9b057da7b645ff92.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/917645fb4733f2b1c2baa6efee1dc5d8.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ead6f929b6303c45a0b6e4d16d34559b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/fece7205ce4439cba68528fcc4d99196.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/599803d5438f0fb71bcea2915ad43680.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e68c468e499c727b91dcf85a7c5cc98e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/053c28c0a4959f1949955cb09846c866.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/13a6132b72a3ca2ca1006c04f643162b.png"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/FCM7STWW.html?srsltid=AfmBOopYtgvryV9jLvCw0-VROLPoM_Z9sog7zz_LMxxuTFmdFJrJfdxg",
+    "Ferguson_URL": "https://www.fergusonhome.com/ge-fcm7st/s1903848",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Colour</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">White</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Temperature Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Mechanical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>On/Off Indicator Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Chest</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Defrost Water Drain</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Defrost Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Manual</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Volts; Hertz; Amps</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">115V; 60Hz; 20A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Warranty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Year Limited Parts &amp; Labour</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Handle Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr></table>",
+    "UPC_Legacy": "084691912477",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "Garage ReadyGE freezers are tested to perform from 0(degree)F to 110(degree)FPower Outage PromiseIn the event of a power outage, food remains frozen* 48 hours in the freezer (*temperature 32 degrees F or lower)The highest rated upright and chest freezer lineup in the industryBased on aggregated ratings and review data from GEA.com and leading retail websitesFind The Right FitChest and upright freezers come in a variety of sizes to fit your needsTwo Plastic Lift-Out, Sliding BasketsOffers flexibility to organize and store favorite foods for quick, easy accessExterior Power \"On\" LightEasily see if the freezer is working without having to open the doorAdjustable Temperature ControlEasy to use controls to select the temperature for your needsRecessed HandleA streamlined design offers a clean and sleek appearanceUpfront Defrost DrainThe drain is conveniently located to easily drain water during defrostingManual DefrostManually defrost the freezer on your schedule",
+    "Features_Legacy": "<ul><li>Exterior Power &quot;On&quot; Light</li><li>Power Outage Promise</li><li>The highest rated upright and chest freezer lineup in the industry</li><li>Dimensions: 33.50 H x 32.10 W x 21.70 D (in) 85.09 H x 81.53 W x 55.12 D (cm)</li></ul>",
+    "Weight_Legacy": 61.7,
+    "Capacity_Legacy": 7.02,
+    "Height_Legacy": "33 1/2",
+    "Width_Legacy": "32 7/64",
+    "Depth_Legacy": "21 45/64",
+    "Product_Title_Legacy": "GE 30-Inch Chest Freezer White 7 Cu. Ft. - FCM7STWW",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 479,
+    "Model_Number_Legacy": "FCM7STWW",
+    "Brand_Legacy": "GE",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-25T22:33:23.268521"
+      },
+      "search_meta_data": {
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "NGMkYrsP3x"
+      },
+      "performance": {
+        "total_time": "3.43s",
+        "step3_detail_time": "1.26s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.17s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 351,
+        "review_count": 351,
+        "total_ratings": 351,
+        "rating": 4.8,
+        "related_categories": [],
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-appliances/c112078",
+            "name": "GE Appliances"
+          },
+          {
+            "url": "https://www.fergusonhome.com/shop-all-ge/c131185",
+            "name": "Shop All GE"
+          }
+        ],
+        "resources": [
+          {
+            "id": "ge-fcm7st-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge/1903848/ge-fcm7st-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "ge-fcm7st-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge/1903848/ge-fcm7st-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "1 Year Limited",
+        "warranty": "",
+        "country_of_origin": null,
+        "certifications": [
+          "UL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "9460",
+            "name": "Dispenser Features"
+          },
+          {
+            "value": "757",
+            "name": "Glass Doors"
+          },
+          {
+            "value": "929",
+            "name": "Internal Ice Maker"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "379",
+            "name": "Counter Depth"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "1420",
+            "name": "Refrigerant"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "695",
+            "name": "Frequency"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "9466",
+            "name": "Product Variation"
+          }
+        ],
+        "dimensions": {
+          "width": "32.1 in.",
+          "height": "33.5 in.",
+          "depth": "21.7 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "21.7",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "33.5",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "22",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "33",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "62",
+                "name": "Product Weight"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "7.0",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "32.1",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+                "units": null,
+                "value": "No Dispenser",
+                "name": "Dispenser Features"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes glass doors.",
+                "units": null,
+                "value": "No",
+                "name": "Glass Doors"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an internal ice maker.",
+                "units": null,
+                "value": "No",
+                "name": "Internal Ice Maker"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Knob",
+                "name": "Control Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+                "units": null,
+                "value": "No",
+                "name": "Counter Depth"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Manual",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Vertical",
+                "name": "Door Swing"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Free Standing",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "0",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": false,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "The type of refrigerant used by the product in its cooling functions.",
+                "units": null,
+                "value": "R-600A",
+                "name": "Refrigerant"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15, 20",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+                "units": "Hertz",
+                "value": "60",
+                "name": "Frequency"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "115",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "UL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "N/A (Regulation does not apply)",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Limited",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "The type of product this item is.",
+                "units": null,
+                "value": "Chest Freezer",
+                "name": "Product Variation"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "product_variation": {
+            "description": "The type of product this item is.",
+            "units": null,
+            "value": "Chest Freezer"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Limited"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "N/A (Regulation does not apply)"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "UL"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "115"
+          },
+          "frequency": {
+            "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+            "units": "Hertz",
+            "value": "60"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15, 20"
+          },
+          "refrigerant": {
+            "description": "The type of refrigerant used by the product in its cooling functions.",
+            "units": null,
+            "value": "R-600A"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "0"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Free Standing"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Vertical"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Manual"
+          },
+          "counter_depth": {
+            "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+            "units": null,
+            "value": "No"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Knob"
+          },
+          "internal_ice_maker": {
+            "description": "Whether the product includes an internal ice maker.",
+            "units": null,
+            "value": "No"
+          },
+          "glass_doors": {
+            "description": "Whether the product includes glass doors.",
+            "units": null,
+            "value": "No"
+          },
+          "dispenser_features": {
+            "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+            "units": null,
+            "value": "No Dispenser"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "32.1"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "7.0"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "62"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "33"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "22"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "33.5"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "21.7"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p><ul><li>Freezer is certified for UL</li><li>The fast freeze feature restores set temperature for optimum food freshness</li><li>Freezer alarm goes off when the door is left open</li><li>3 full-width, adjustable door storage bins help with upright freezer organization</li><li>Clear slide out storage bin</li><li>This accessible freezer makes it easy to organize and find your favorite frozen foods thanks to 3 wire shelves, which are all adjustable, and 1 glass bin cover</li><li>Covered under a 1 year limited manufacturer warranty</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 7.0 Cu. Ft.</li><li>Freezer Type: Column</li><li>Defrost Type: Manual</li><li>Depth: 21-11/16\"</li><li>Height: 33-1/2\"</li><li>Width: 32-1/8\"</li><li>Amperage: 15, 20A</li><li>Voltage: 115V</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7stww-2793848.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7st-alternate-image-386.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7st-alternate-image-387.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7st-alternate-image-388.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7st-alternate-image-389.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7st-alternate-image-390.jpg"
+        ],
+        "configuration_type": "NO_CONFIGURATION",
+        "is_square_footage_based": false,
+        "is_configurable": false,
+        "in_stock_variant_count": 1,
+        "total_inventory_quantity": 1587,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": false,
+        "variant_count": 1,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE 33 Inch Wide 7.0 Cu. Ft. Free Standing Chest Freezer with Two Lift-Out Storage Baskets White",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7stww-2793848.jpg"
+            },
+            "currency": "USD",
+            "price": 479,
+            "swatch_gradient": "",
+            "title": "White",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "ffffff",
+            "inventory_quantity": 1587,
+            "url": "https://www.fergusonhome.com/ge-fcm7st/s1903848?uid=4497396",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-fcm7stww-2793848.jpg"
+            ],
+            "model_number": "FCM7STWW",
+            "name": "White",
+            "id": 4497396
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 85,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 479,
+          "min": 479
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 479,
+        "price_min": 479,
+        "price": 479,
+        "application": "Freezers",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/ge-fcm7st/s1903848",
+        "parent_model_number": "FCM7ST",
+        "model_number": "FCM7STWW",
+        "brand_logo": {
+          "description": "GE",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/ge/Logo/ge.gif"
+        },
+        "brand_url": null,
+        "brand": "GE",
+        "name": "33 Inch Wide 7.0 Cu. Ft. Free Standing Chest Freezer with Two Lift-Out Storage Baskets",
+        "family_id": 1903848,
+        "id": 1903848
+      },
+      "variant_url": "https://www.fergusonhome.com/ge-fcm7st/s1903848?uid=4497396",
+      "match_type": "exact",
+      "matched_model": "FCM7STWW",
+      "model_number": "FCM7STWW",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "115V",
+        "name": "Electrical Requirements"
+      },
+      {
+        "value": "Foam",
+        "name": "Insulation (Cabinet & Lid)"
+      },
+      {
+        "value": "53",
+        "name": "Height Needed for Lid to Raise 90 Degrees"
+      },
+      {
+        "value": "(2) Slide-Out, Wire",
+        "name": "Bulk Storage Basket"
+      },
+      {
+        "value": "3 in",
+        "name": "Back Air Clearances"
+      },
+      {
+        "value": "Yes",
+        "name": "Wrap Around Evaporator"
+      },
+      {
+        "value": "Yes",
+        "name": "Wrap Around Condenser"
+      },
+      {
+        "value": "Manual",
+        "name": "Defrost Type"
+      },
+      {
+        "value": "Manual",
+        "name": "Control Type"
+      },
+      {
+        "value": "See written warranty for full details",
+        "name": "Warranty Notes"
+      },
+      {
+        "value": "Chest",
+        "name": "Product Type"
+      },
+      {
+        "value": "7 cu ft",
+        "name": "Total Capacity (cubic feet)"
+      },
+      {
+        "value": "-6 F to 6 F",
+        "name": "Temperature Range"
+      },
+      {
+        "value": "Yes",
+        "name": "On/Off Indicator Light"
+      },
+      {
+        "value": "Recessed",
+        "name": "Handle"
+      },
+      {
+        "value": "Limited 1-year entire appliance",
+        "name": "Parts Warranty"
+      },
+      {
+        "value": "7.02 cu ft",
+        "name": "Freezer Capacity"
+      },
+      {
+        "value": "White",
+        "name": "Color Appearance"
+      },
+      {
+        "value": "Limited 1-year entire appliance",
+        "name": "Labor Warranty"
+      },
+      {
+        "value": "White",
+        "name": "Colour"
+      },
+      {
+        "value": "Yes",
+        "name": "Power \"ON\" Light"
+      },
+      {
+        "value": "250",
+        "name": "Energy Consumption (kWh/year)"
+      },
+      {
+        "value": "Metal",
+        "name": "Cabinet Liner"
+      },
+      {
+        "value": "33.5 in",
+        "name": "Overall Height"
+      },
+      {
+        "value": "32.1 in",
+        "name": "Overall Width"
+      },
+      {
+        "value": "61.7 lb",
+        "name": "Net Weight"
+      },
+      {
+        "value": "115V;60Hz",
+        "name": "Volts/Hertz/Amps"
+      },
+      {
+        "value": "Yes",
+        "name": "Door Handle Style"
+      },
+      {
+        "value": "53 in",
+        "name": "Height Needed for Lid to Raise 90 Degrees"
+      },
+      {
+        "value": "60",
+        "name": "Hertz"
+      },
+      {
+        "value": "White",
+        "name": "Handle Color"
+      },
+      {
+        "value": "21.7 in",
+        "name": "Overall Depth"
+      },
+      {
+        "value": "Mechanical",
+        "name": "Temperature Control Type"
+      },
+      {
+        "value": "3 in",
+        "name": "Side Air Clearances"
+      },
+      {
+        "value": "Adjustable",
+        "name": "Temperature Control"
+      },
+      {
+        "value": "70 lb",
+        "name": "Approximate Shipping Weight"
+      },
+      {
+        "value": "115V; 60Hz; 20A",
+        "name": "Volts; Hertz; Amps"
+      },
+      {
+        "value": "Chest",
+        "name": "Style"
+      },
+      {
+        "value": "Yes",
+        "name": "Garage Ready"
+      },
+      {
+        "value": "1 Year Limited Parts & Labour",
+        "name": "Warranty"
+      },
+      {
+        "value": "53 in",
+        "name": "Height w/Lid Open"
+      },
+      {
+        "value": "Yes",
+        "name": "Defrost Water Drain"
+      }
+    ],
+    "Web_Retailer_Key": "GE:FCM7STWW",
+    "Web_Retailer_SubCategory": "CHEST FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": "Garage ReadyGE freezers are tested to perform from 0(degree)F to 110(degree)FPower Outage PromiseIn the event of a power outage, food remains frozen* 48 hours in the freezer (*temperature 32 degrees F or lower)The highest rated upright and chest freezer lineup in the industryBased on aggregated ratings and review data from GEA.com and leading retail websitesFind The Right FitChest and upright freezers come in a variety of sizes to fit your needsTwo Plastic Lift-Out, Sliding BasketsOffers flexibility to organize and store favorite foods for quick, easy accessExterior Power \"On\" LightEasily see if the freezer is working without having to open the doorAdjustable Temperature ControlEasy to use controls to select the temperature for your needsRecessed HandleA streamlined design offers a clean and sleek appearanceUpfront Defrost DrainThe drain is conveniently located to easily drain water during defrostingManual DefrostManually defrost the freezer on your schedule",
+    "Features_Web_Retailer": "<ul><li>Exterior Power &quot;On&quot; Light</li><li>Power Outage Promise</li><li>The highest rated upright and chest freezer lineup in the industry</li><li>Dimensions: 33.50 H x 32.10 W x 21.70 D (in) 85.09 H x 81.53 W x 55.12 D (cm)</li></ul>",
+    "Weight_Web_Retailer": 61.7,
+    "Capacity_Web_Retailer": 7.02,
+    "Height_Web_Retailer": "33 1/2",
+    "Width_Web_Retailer": "32 7/64",
+    "Depth_Web_Retailer": "21 45/64",
+    "Product_Title_Web_Retailer": "GE(R) 7.0 Cu. Ft. Manual Defrost Chest Freezer White - FCM7STWW",
+    "Color_Finish_Web_Retailer": "White",
+    "MSRP_Web_Retailer": 479,
+    "Model_Number_Web_Retailer": "FCM7STWW",
+    "Brand_Web_Retailer": "GE APPLIANCES",
+    "SF_Catalog_Name": "FCM7STWW",
+    "SF_Catalog_Id": "a03Hu00001N2CHTIA3",
+    "Ferguson_Title": "33 Inch Wide 7.0 Cu. Ft. Free Standing Chest Freezer with Two Lift-Out Storage Baskets",
+    "Ferguson_Brand": "GE",
+    "Ferguson_Model_Number": "FCM7STWW",
+    "Ferguson_Description": "<p><strong>Features:</strong></p><ul><li>Freezer is certified for UL</li><li>The fast freeze feature restores set temperature for optimum food freshness</li><li>Freezer alarm goes off when the door is left open</li><li>3 full-width, adjustable door storage bins help with upright freezer organization</li><li>Clear slide out storage bin</li><li>This accessible freezer makes it easy to organize and find your favorite frozen foods thanks to 3 wire shelves, which are all adjustable, and 1 glass bin cover</li><li>Covered under a 1 year limited manufacturer warranty</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 7.0 Cu. Ft.</li><li>Freezer Type: Column</li><li>Defrost Type: Manual</li><li>Depth: 21-11/16\"</li><li>Height: 33-1/2\"</li><li>Width: 32-1/8\"</li><li>Amperage: 15, 20A</li><li>Voltage: 115V</li></ul>",
+    "Ferguson_Price": "479",
+    "Ferguson_Min_Price": "479",
+    "Ferguson_Max_Price": "479",
+    "Ferguson_Base_Type": "Refrigeration Appliances",
+    "Ferguson_Product_Type": "Refrigeration Appliances",
+    "Ferguson_Base_Category": "Appliances",
+    "Ferguson_Business_Category": "Freezers",
+    "Ferguson_Width": "32.1",
+    "Ferguson_Height": "33.5",
+    "Ferguson_Depth": "21.7",
+    "Ferguson_Finish": "White",
+    "Ferguson_Color": "ffffff",
+    "Ferguson_Categories": "Brands\nGE Appliances\nShop All GE",
+    "Ferguson_Manufacturer_Warranty": "1 Year Limited",
+    "Ferguson_Certifications": "UL",
+    "Ferguson_Attributes": [
+      {
+        "name": "Product Variation",
+        "value": "Chest Freezer"
+      },
+      {
+        "name": "Manufacturer Warranty",
+        "value": "1 Year Limited"
+      },
+      {
+        "name": "Lead Leaching Certified Nsf/Ansi 61",
+        "value": "N/A (Regulation does not apply)"
+      },
+      {
+        "name": "Certifications",
+        "value": "UL"
+      },
+      {
+        "name": "Voltage",
+        "value": "115"
+      },
+      {
+        "name": "Frequency",
+        "value": "60 Hertz"
+      },
+      {
+        "name": "Amperage",
+        "value": "15, 20"
+      },
+      {
+        "name": "Refrigerant",
+        "value": "R-600A"
+      },
+      {
+        "name": "Panel Ready",
+        "value": "No"
+      },
+      {
+        "name": "Number Of Shelves",
+        "value": "0"
+      },
+      {
+        "name": "Installation Type",
+        "value": "Free Standing"
+      },
+      {
+        "name": "Door Swing",
+        "value": "Vertical"
+      },
+      {
+        "name": "Defrost Type",
+        "value": "Manual"
+      },
+      {
+        "name": "Counter Depth",
+        "value": "No"
+      },
+      {
+        "name": "Control Type",
+        "value": "Knob"
+      },
+      {
+        "name": "Internal Ice Maker",
+        "value": "No"
+      },
+      {
+        "name": "Glass Doors",
+        "value": "No"
+      },
+      {
+        "name": "Dispenser Features",
+        "value": "No Dispenser"
+      },
+      {
+        "name": "Width",
+        "value": "32.1 in."
+      },
+      {
+        "name": "Total Capacity",
+        "value": "7.0 cu. ft."
+      },
+      {
+        "name": "Product Weight",
+        "value": "62 lbs."
+      },
+      {
+        "name": "Nominal Width",
+        "value": "33 in."
+      },
+      {
+        "name": "Nominal Height",
+        "value": "34 in."
+      },
+      {
+        "name": "Nominal Depth",
+        "value": "22 in."
+      },
+      {
+        "name": "Height",
+        "value": "33.5 in."
+      },
+      {
+        "name": "Depth",
+        "value": "21.7 in."
+      }
+    ]
+  },
+  "currentOutput": {
+    "AI_Brand": "GE",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Chest",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "",
+    "AI_Product_Title": "GE 33-Inch Chest Freezer White 7 Cu. Ft. - FCM7STWW"
+  }
+}

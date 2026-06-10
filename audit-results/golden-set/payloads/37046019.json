@@ -1,0 +1,214 @@
+{
+  "sf_catalog_id": "a03aZ00000bCy3OQAS",
+  "sf_catalog_name": "37046019",
+  "createdAt": "2026-05-12T18:50:41.336Z",
+  "era": "ai",
+  "strata": [
+    "finish_plain_color"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frfaudatntth_20260106_171626.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frkrjwbvqmaw_20260106_171627.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meendxwyqsjp_20260106_171616.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/menpkawsaiao_20260106_171618.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/medgobotqrac_20260106_171619.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meipqwhwcisk_20260106_171621.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meyvrkpcatgr_20260106_171622.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mevixsyrxrkg_20260106_171623.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meisymhfdcra_20260106_171624.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mevxeoorsiho_20260106_171625.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mexmhxeabcmy_20260106_171626.jpg"
+      }
+    ],
+    "Reference_URL": "https://eurofase.lightingnewyork.com/product/lighting/ceiling-lights/chandeliers/eurofase-albany-chandeliers-37046-019/1842177.html?srsltid=AfmBOopJaVzmlNKNy8nUPPL08dYJV1ggeOvVrC4SHf2i1JakoigbtgSb",
+    "Ferguson_URL": "https://www.fergusonhome.com/eurofase-lighting-37046-019/s1731453",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Overview/Technical Detail</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Product Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">BRASS-BLACK MIX</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Product Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">METAL</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Shade / Accent Colour</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">WHITE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Shade / Accent Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">ACRYLIC</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Diameter</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">59.5&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5.25&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Overall Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">211.25&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">40.3LBS</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Light Source Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Bulbs</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">102</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Light Source</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">LED</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Light Source Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">INTEGRATED LED</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Input Voltage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120V</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Bulb Voltage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24V</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Socket Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">INTEGRATED</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Wattage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">102 X 2.3W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Total Wattage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">230W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Delivered Lumens</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">10350LM</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Kelvin</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3000K</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>CRI</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">90</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Bulb Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">YES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dimmable</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">YES</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Technical Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Hanging Support Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">WIRE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Canopy / Backplate Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Canopy / Backplate Dia.</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">13.75&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Driver</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">YES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>IP Rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">IP22</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">DRY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Beam Angle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">360</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Maximum Hanging Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">211.25&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Minimum Hanging Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">32.25&quot;</td></tr></table>",
+    "UPC_Legacy": "773546296991",
+    "Category_Legacy": "Chandelier",
+    "Product_Description_Legacy": "A soft industrial design features LED lights that are nestled within candleholders accented with contrasting toned collars. The combinations of black and nickel and black and gold have inspired a new wave of trends that blend vintage ideology with modern styles.",
+    "Features_Legacy": "<ul><li>Constructed from metal</li><li>Comes with acrylic shades</li><li>Sloped ceiling compatible</li><li>Integrated LED lighting</li><li>Dimmable with compatible dimmers</li><li>Adjustable cord included</li><li>ETL and CSA rated for dry locations</li></ul>",
+    "Weight_Legacy": 40.3,
+    "Capacity_Legacy": 51,
+    "Height_Legacy": "5 1/4",
+    "Width_Legacy": "59 1/2",
+    "Depth_Legacy": "59 1/2",
+    "Product_Title_Legacy": "Albany 51 Light 60\" Wide LED Ring Chandelier",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 8875,
+    "Model_Number_Legacy": "37046019",
+    "Brand_Legacy": "EUROFASE LIGHTING",
+    "Web_Retailer_Specs": [
+      {
+        "value": "WHITE",
+        "name": "Shade / Accent Colour"
+      },
+      {
+        "value": "BRASS-BLACK MIX",
+        "name": "Product Color"
+      },
+      {
+        "value": "YES",
+        "name": "Bulb Included"
+      },
+      {
+        "value": "YES",
+        "name": "Dimmable"
+      },
+      {
+        "value": "YES",
+        "name": "Driver"
+      },
+      {
+        "value": "ACRYLIC",
+        "name": "Shade / Accent Material"
+      },
+      {
+        "value": "102",
+        "name": "Number of Bulbs"
+      },
+      {
+        "value": "24V",
+        "name": "Bulb Voltage"
+      },
+      {
+        "value": "59.5\"",
+        "name": "Diameter"
+      },
+      {
+        "value": "32.25\"",
+        "name": "Minimum Hanging Height"
+      },
+      {
+        "value": "INTEGRATED",
+        "name": "Socket Type"
+      },
+      {
+        "value": "211.25\"",
+        "name": "Maximum Hanging Height"
+      },
+      {
+        "value": "102 X 2.3W",
+        "name": "Wattage"
+      },
+      {
+        "value": "INTEGRATED LED",
+        "name": "Light Source Type"
+      },
+      {
+        "value": "IP22",
+        "name": "IP Rating"
+      },
+      {
+        "value": "360",
+        "name": "Beam Angle"
+      },
+      {
+        "value": "120V",
+        "name": "Input Voltage"
+      },
+      {
+        "value": "211.25\"",
+        "name": "Overall Height"
+      },
+      {
+        "value": "10350LM",
+        "name": "Delivered Lumens"
+      },
+      {
+        "value": "3000K",
+        "name": "Kelvin"
+      },
+      {
+        "value": "2\"",
+        "name": "Canopy / Backplate Height"
+      },
+      {
+        "value": "230W",
+        "name": "Total Wattage"
+      },
+      {
+        "value": "13.75\"",
+        "name": "Canopy / Backplate Dia."
+      },
+      {
+        "value": "DRY",
+        "name": "Location"
+      },
+      {
+        "value": "WIRE",
+        "name": "Hanging Support Type"
+      },
+      {
+        "value": "LED",
+        "name": "Light Source"
+      },
+      {
+        "value": "5.25\"",
+        "name": "Height"
+      },
+      {
+        "value": "40.3LBS",
+        "name": "Weight"
+      },
+      {
+        "value": "90",
+        "name": "CRI"
+      },
+      {
+        "value": "METAL",
+        "name": "Product Material"
+      }
+    ],
+    "Web_Retailer_Key": "EROFS:37046019",
+    "Web_Retailer_SubCategory": "CEILING LIGHTS",
+    "Web_Retailer_Category": "HOME ACCENTS",
+    "Product_Description_Web_Retailer": "A soft industrial design features LED lights that are nestled within candleholders accented with contrasting toned collars. The combinations of black and nickel and black and gold have inspired a new wave of trends that blend vintage ideology with modern styles.",
+    "Features_Web_Retailer": "<ul></ul>",
+    "Weight_Web_Retailer": 40.3,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": "3-TIERS 51-LIGHT 60IN INTEGRATED LED GRAND CHANDEL - BRASS-BLACK MIX",
+    "Color_Finish_Web_Retailer": "Brass",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "37046019",
+    "Brand_Web_Retailer": "EUROFASE",
+    "SF_Catalog_Name": "37046019",
+    "SF_Catalog_Id": "a03aZ00000bCy3OQAS"
+  },
+  "currentOutput": {
+    "AI_Brand": "EUROFASE LIGHTING",
+    "AI_Product_Category": "Chandelier",
+    "AI_Type": "Chandelier",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Brass",
+    "AI_Finish": "Black",
+    "AI_Product_Title": "Eurofase Lighting Chandelier Contemporary Black - 37046019"
+  }
+}

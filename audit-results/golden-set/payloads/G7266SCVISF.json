@@ -1,0 +1,1396 @@
+{
+  "sf_catalog_id": "a03aZ00000utYQdQAM",
+  "sf_catalog_name": "G7266SCVISF",
+  "createdAt": "2026-06-04T21:37:36.450Z",
+  "era": "ai",
+  "strata": [
+    "finish_eq_color"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxfylkuuohi_20260515_162058.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frbnnauiutch_20260515_162100.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frnfvvpyyrkq_20260515_162100.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fropamlklkel_20260515_162101.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxhaqigpzmh_20260515_162102.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frihdmpnkvtw_20260515_162102.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpgjlfwimzp_20260515_162050.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frulhvlblxjx_20260515_162054.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frgbaykhkrqt_20260515_162054.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/friqmzvbrspu_20260515_162057.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/freleoqbteex_20260515_162057.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frwhiiwfxdcr_20260515_162058.jpg"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": "https://www.fergusonhome.com/miele-g7266scvisf/s2033397?uid=4875501",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Type</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fully integrated dishwashers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>24 inch dishwasher</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Design</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fascia color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel.</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fascia panel version</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fully integrated fascia</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Control type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Programme selector buttons</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control panel</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1-line display with plain text</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Display color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">White</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>MultiLingua</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Convenience</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Networking with Miele@home</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door closing aid</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">ComfortClose</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Operating noise dB(A) re 1 pW</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">42</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Countdown indicator</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Delay start up to 24 hours</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>In-operation indicator</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">optical and acoustic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Display language selection</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Efficiency</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Noise emissions in dB(A)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">42</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>EcoPower Technology</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Proven hygiene</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Hot water connection</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Half load</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy Star</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Quality of results</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fresh water dishwasher</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>AutoOpen drying</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>SensorDry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Active condensation drying</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Perfect GlassCare</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Wash programs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>QuickIntenseWash</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>China &amp; Crystal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Pots &amp; Pans</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Automatic</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>SaniWash</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Extra Quiet 39 dB(A)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Appliance care</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Rinse out salt</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Rinse &amp; Hold</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dishwashing options</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>BottleClean</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Quick</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>IntenseZone</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Extra Clean</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Extra dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Baskets</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cutlery loading</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3D MultiFlex Tray</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>FlexCare glass holder</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>FlexCare cup rack</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Basket design</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">ExtraComfort</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>MultiClip</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>FlexCare Glass &amp; Bottle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>XL-Assist</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Safety</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Waterproof system</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Check filter saturation indicator</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Technical data</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Niche width min in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">23 5/8 (600)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Niche width max in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">23 5/8 (600)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Niche height min in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">33 3/4 (855)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Niche height max in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">36 1/4 (920)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Niche depth in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">22 1/2 (570)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Appliance width in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">23 5/8 (598)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Appliance height in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">33 3/4 (855)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Appliance depth in in.(mm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">22 1/2 (570)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Appliance depth with door open in in.(cm)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">47 1/2 (120.5)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net weight in lbs. (kg)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120 (54.0)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Total connected load in kW</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1.400</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Voltage in V</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fuse rating in A</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">15</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of phases</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Electrical frequency standard</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Length of water inlet hose in m</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5 (1.50)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Length of water drain hose in m</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5 (1.50)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Length of electrical wire in ft (m)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4 (1.20)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Min. front panel weight in kg</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Max. front panel weight in kg</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">10</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>[can be retrofitted by Service to min.]</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">7</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>[can be retrofitted by Service to max.]</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">14</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Standard accessories</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Voucher for 1 x box of UltraTabs (20 tabs) or 3 boxes (60 tabs in each) at a reduced price</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Available display languages</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Available display languages via MultiLingua</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">[ &quot;fran ais&quot;, &quot;deutsch&quot;, &quot; &quot;, &quot;portugu s&quot;, &quot;english (US)&quot;, &quot;espa ol&quot; ]</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">EAN</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>EAN</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4002516770824</td></tr></table>",
+    "UPC_Legacy": "04002516770824",
+    "Category_Legacy": "Dishwasher",
+    "Product_Description_Legacy": "Elevate your kitchen with this 24” Dishwasher, designed to blend seamlessly with your cabinetry. Effortlessly control your dishwasher with DirectSelect Controls, and enjoy a full wash and dry cycle in just 58 minutes with QuickIntenseWash. Experience whisper-quiet performance at 42 dBa, ensuring a peaceful home environment. The 3D MultiFlex Cutlery Tray maximizes space and provides thorough cleaning for all your utensils.",
+    "Features_Legacy": "<p>Convenient, great results and perfect for everyday use - ExtraComfort baskets</p><ul><li>Wonderful use of space - the 3D MultiFlex tray with more room for your cutlery</li><li>More information options and modern domestic appliance networking - Miele@home</li><li>QuickIntenseWash, superior cleaning and drying in under 60 min</li><li>Completely dry - Miele AutoOpen drying</li><li>Clean Touch Steel front with handle in ContourLine design</li><li>View manufacturer details: Miele &amp; Cie. KG</li><li>Safety information</li></ul>",
+    "Weight_Legacy": 120,
+    "Capacity_Legacy": 1,
+    "Height_Legacy": "33 3/4",
+    "Width_Legacy": "23 5/8",
+    "Depth_Legacy": "22 1/2",
+    "Product_Title_Legacy": "G 7266 SCVi SF Stainless Steel. - Fully integrated dishwashers in standard size 42 dB I Cutlery tray I ExtraComfort baskets I QuickIntenseWash I Miele@home",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 2199,
+    "Model_Number_Legacy": "G7266SCVISF",
+    "Brand_Legacy": "MIELE",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-06-03T14:47:10.871785"
+      },
+      "search_meta_data": {
+        "business_category": null,
+        "base_category": null,
+        "corrected_search_term": null,
+        "search_engine": "BLOOMREACH",
+        "search_id": null
+      },
+      "performance": {
+        "total_time": "10.03s",
+        "step3_detail_time": "1.30s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "8.73s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/miele-g7266scvisf/s2033397?uid=4875501",
+          "in_stock": false,
+          "price": 2199,
+          "finish": "Stainless Steel",
+          "model_number_full": "G7266SCViSF",
+          "variant": null,
+          "parent_model_number": "G7266SCViSF"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Required"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free In-Home Delivery Available",
+          "Leaves the Warehouse in 8 to 13 weeks",
+          "Leaves the Warehouse in 8 to 13 weeks"
+        ],
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 0,
+        "review_count": 0,
+        "total_ratings": 0,
+        "rating": 0,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/miele-refrigerators/c82044280",
+            "name": "Refrigerators",
+            "id": 82044280
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-coffee-makers/c82044291",
+            "name": "Coffee Makers",
+            "id": 82044291
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-dishwashers/c82044290",
+            "name": "Dishwashers",
+            "id": 82044290
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-washers/c82044289",
+            "name": "Laundry",
+            "id": 82044289
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-ovens/c82044286",
+            "name": "Ovens",
+            "id": 82044286
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-ranges/c82044283",
+            "name": "Ranges",
+            "id": 82044283
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-cooktops/c82044285",
+            "name": "Cooktops",
+            "id": 82044285
+          }
+        ],
+        "business_category": "Dishwashers",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele/c82043793",
+            "name": "Miele"
+          },
+          {
+            "url": "https://www.fergusonhome.com/miele-dishwashers/c82044290",
+            "name": "Dishwashers"
+          }
+        ],
+        "resources": [
+          {
+            "id": "miele-g7266scvisf-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/miele/2033397/miele-g7266scvisf-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "miele-g7266scvisf-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/miele/2033397/miele-g7266scvisf-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "miele-g7266scvisf-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/miele/2033397/miele-g7266scvisf-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "2 Year Parts and Labor",
+        "warranty": "",
+        "country_of_origin": "Germany",
+        "certifications": [],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "408",
+            "name": "Cutout Depth"
+          },
+          {
+            "value": "409",
+            "name": "Cutout Height"
+          },
+          {
+            "value": "412",
+            "name": "Cutout Width"
+          },
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "1077",
+            "name": "Maximum Adjustable Height"
+          },
+          {
+            "value": "6476",
+            "name": "Minimum Adjustable Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "6937",
+            "name": "Place Setting Capacity"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1815",
+            "name": "Water Pressure (Max)"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "5445",
+            "name": "Cutlery Tray"
+          },
+          {
+            "value": "5136",
+            "name": "Drying System"
+          },
+          {
+            "value": "5152",
+            "name": "Overflow Detector"
+          },
+          {
+            "value": "5121",
+            "name": "120 Degree F Inlet Water Capability"
+          },
+          {
+            "value": "5123",
+            "name": "Built-in Food Disposer"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "6439",
+            "name": "Dishwasher Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "5138",
+            "name": "End of Cycle Indicator"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "5399",
+            "name": "Interior Material"
+          },
+          {
+            "value": "1226",
+            "name": "Number of Racks"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "5155",
+            "name": "Sanitary Rinse"
+          },
+          {
+            "value": "6943",
+            "name": "Smart Home"
+          },
+          {
+            "value": "5158",
+            "name": "Spray Arms"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "5429",
+            "name": "Auto Shut Off"
+          },
+          {
+            "value": "3866",
+            "name": "dB Rating"
+          },
+          {
+            "value": "9280",
+            "name": "Number of Wash Cycles"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "3875",
+            "name": "Wattage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          },
+          {
+            "value": "9470",
+            "name": "Rebate Offered"
+          },
+          {
+            "value": "4686",
+            "name": "Title 20 Compliant"
+          }
+        ],
+        "dimensions": {
+          "width": "24 in.",
+          "height": "33.75 in.",
+          "depth": "22.5 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "22.5",
+                "name": "Cutout Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "33.75",
+                "name": "Cutout Height"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "23.625",
+                "name": "Cutout Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "22.5",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "47.5",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "33.75",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The product's maximum adjustable height, measured in inches.",
+                "units": "in.",
+                "value": "36.25",
+                "name": "Maximum Adjustable Height"
+              },
+              {
+                "featured": false,
+                "description": "The product's minimum adjustable height, measured in inches.",
+                "units": "in.",
+                "value": "33.75",
+                "name": "Minimum Adjustable Height"
+              },
+              {
+                "featured": false,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "23",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": false,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": true,
+                "description": "The total number of place setting's the dishwasher is capable of washing in a single load. A place setting contains 1 of each of the following: a dinner plate, dessert plate, glass tumbler, tea cup and saucer, knife, fork, spoon, dessert spoon, teaspoon, and bowl.",
+                "units": null,
+                "value": "16",
+                "name": "Place Setting Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "120",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The maximum water pressure the product is capable of, measured in inches.",
+                "units": "PSI",
+                "value": "145",
+                "name": "Water Pressure (Max)"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether a cutlery tray is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Cutlery Tray"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes a drying system to help aid in the removal of moisture once the wash cycle is complete.",
+                "units": null,
+                "value": "Yes",
+                "name": "Drying System"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product has a feature that indicates the product may overflow.",
+                "units": null,
+                "value": "Yes",
+                "name": "Overflow Detector"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this dishwasher is capable of using water that meets or exceeds 120 degrees Fahrenheit.",
+                "units": null,
+                "value": "Yes",
+                "name": "120 Degree F Inlet Water Capability"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product has a built-in waste disposer to remove blockages from the drainage system.",
+                "units": null,
+                "value": "No",
+                "name": "Built-in Food Disposer"
+              },
+              {
+                "featured": true,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "The type of dishwasher this product is.",
+                "units": null,
+                "value": "Top Controls",
+                "name": "Dishwasher Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "Digital",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+                "units": null,
+                "value": "Yes",
+                "name": "End of Cycle Indicator"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "No",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": false,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Built-In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the interior construction of the product.",
+                "units": null,
+                "value": "Stainless Steel",
+                "name": "Interior Material"
+              },
+              {
+                "featured": true,
+                "description": "The total number of racks.",
+                "units": null,
+                "value": "3",
+                "name": "Number of Racks"
+              },
+              {
+                "featured": false,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "No",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product includes a sanitary rinse cycle, a feature that increases the temperature of the water to fully sanitize the items.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sanitary Rinse"
+              },
+              {
+                "featured": false,
+                "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+                "units": null,
+                "value": "Yes",
+                "name": "Smart Home"
+              },
+              {
+                "featured": false,
+                "description": "The total number of spray arms included.",
+                "units": null,
+                "value": "3",
+                "name": "Spray Arms"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "Device will shut off after a certain period of inactivity.",
+                "units": null,
+                "value": "Yes",
+                "name": "Auto Shut Off"
+              },
+              {
+                "featured": true,
+                "description": "The degree of loudness this product is rated at, measured in decibels (a unit used to measure the intensity of a sound).",
+                "units": null,
+                "value": "42",
+                "name": "dB Rating"
+              },
+              {
+                "featured": false,
+                "description": "The total number of washing cycles this product can perform.",
+                "units": null,
+                "value": "4",
+                "name": "Number of Wash Cycles"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "110, 120",
+                "name": "Voltage"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+                "units": null,
+                "value": "1800",
+                "name": "Wattage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "Germany",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": true,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "2 Year Parts and Labor",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "No",
+                "name": "Outdoor Approved"
+              },
+              {
+                "featured": false,
+                "description": "Whether a rebate is offered with the purchase of this product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Rebate Offered"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+                "units": null,
+                "value": "Yes",
+                "name": "Title 20 Compliant"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "title_20_compliant": {
+            "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+            "units": null,
+            "value": "Yes"
+          },
+          "rebate_offered": {
+            "description": "Whether a rebate is offered with the purchase of this product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "No"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "2 Year Parts and Labor"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "Germany"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "wattage": {
+            "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+            "units": null,
+            "value": "1800"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "110, 120"
+          },
+          "number_of_wash_cycles": {
+            "description": "The total number of washing cycles this product can perform.",
+            "units": null,
+            "value": "4"
+          },
+          "db_rating": {
+            "description": "The degree of loudness this product is rated at, measured in decibels (a unit used to measure the intensity of a sound).",
+            "units": null,
+            "value": "42"
+          },
+          "auto_shut_off": {
+            "description": "Device will shut off after a certain period of inactivity.",
+            "units": null,
+            "value": "Yes"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15"
+          },
+          "spray_arms": {
+            "description": "The total number of spray arms included.",
+            "units": null,
+            "value": "3"
+          },
+          "smart_home": {
+            "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+            "units": null,
+            "value": "Yes"
+          },
+          "sanitary_rinse": {
+            "description": "Whether the product includes a sanitary rinse cycle, a feature that increases the temperature of the water to fully sanitize the items.",
+            "units": null,
+            "value": "Yes"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "No"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_racks": {
+            "description": "The total number of racks.",
+            "units": null,
+            "value": "3"
+          },
+          "interior_material": {
+            "description": "The material used in the interior construction of the product.",
+            "units": null,
+            "value": "Stainless Steel"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Built-In"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "No"
+          },
+          "end_of_cycle_indicator": {
+            "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+            "units": null,
+            "value": "Yes"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "Digital"
+          },
+          "dishwasher_type": {
+            "description": "The type of dishwasher this product is.",
+            "units": null,
+            "value": "Top Controls"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Touch"
+          },
+          "built-in_food_disposer": {
+            "description": "Whether the product has a built-in waste disposer to remove blockages from the drainage system.",
+            "units": null,
+            "value": "No"
+          },
+          "120_degree_f_inlet_water_capability": {
+            "description": "Whether this dishwasher is capable of using water that meets or exceeds 120 degrees Fahrenheit.",
+            "units": null,
+            "value": "Yes"
+          },
+          "overflow_detector": {
+            "description": "Whether the product has a feature that indicates the product may overflow.",
+            "units": null,
+            "value": "Yes"
+          },
+          "drying_system": {
+            "description": "Whether the product includes a drying system to help aid in the removal of moisture once the wash cycle is complete.",
+            "units": null,
+            "value": "Yes"
+          },
+          "cutlery_tray": {
+            "description": "Whether a cutlery tray is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "water_pressure_(max)": {
+            "description": "The maximum water pressure the product is capable of, measured in inches.",
+            "units": "PSI",
+            "value": "145"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "120"
+          },
+          "place_setting_capacity": {
+            "description": "The total number of place setting's the dishwasher is capable of washing in a single load. A place setting contains 1 of each of the following: a dinner plate, dessert plate, glass tumbler, tea cup and saucer, knife, fork, spoon, dessert spoon, teaspoon, and bowl.",
+            "units": null,
+            "value": "16"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "23"
+          },
+          "minimum_adjustable_height": {
+            "description": "The product's minimum adjustable height, measured in inches.",
+            "units": "in.",
+            "value": "33.75"
+          },
+          "maximum_adjustable_height": {
+            "description": "The product's maximum adjustable height, measured in inches.",
+            "units": "in.",
+            "value": "36.25"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "33.75"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "47.5"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "22.5"
+          },
+          "cutout_width": {
+            "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "23.625"
+          },
+          "cutout_height": {
+            "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "33.75"
+          },
+          "cutout_depth": {
+            "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "22.5"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>The innovative 3D MultiFlex cutlery tray features an adjustable design that creates dedicated space for utensils, small cups, and kitchen tools while maximizing interior capacity.</li>\n\t<li>ExtraComfort baskets provide flexible loading with adjustable racks and specialized holders designed to securely accommodate delicate stemware, plates, and large cookware.</li>\n\t<li>Miele ComfortClose technology allows the dishwasher door to open and close smoothly while remaining securely positioned at any angle for effortless everyday use.</li>\n\t<li>An integrated water softener helps reduce mineral buildup and protects dishes and glassware from spots and film in hard water conditions.</li>\n\t<li>Experience ultra-quiet operation at just 42 dB, ensuring your dishwasher runs silently without disturbing your home environment.</li>\n\t<li>Enjoy peace of mind with a comprehensive two year manufacturer warranty covering both parts and labor for reliable protection.</li>\n</ul>\n\n<p><b>Product Technology:</b></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"auto\" src=\"//s3.img-b.com/image/private/t_base/productdescription/miele/g5266sc_quick\" /></span><span class=\"col-xs-8\"><strong> AutoOpen Drying:</strong> Flawlessly dry dishes. The door opens automatically at the end of a cycle, letting warm air escape for perfectly dry items—even plastics—while protecting your countertops from moisture.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"quick\" src=\"//s3.img-b.com/image/private/t_base/productdescription/miele/qi\" /></span><span class=\"col-xs-8\"><strong> QuickIntenseWash Cycle:</strong> Delivers outstanding cleaning performance for normally soiled dishes in just 58 minutes — fast, efficient, and thorough.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"energy\" src=\"//s3.img-b.com/image/private/t_base/productdescription/miele/g5266sc_energy\" /></span><span class=\"col-xs-8\"><strong> Energy Efficiency:</strong> Exceptionally energy-efficient while delivering outstanding cleaning and drying performance.</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"half\" src=\"//s3.img-b.com/image/private/t_base/productdescription/miele/g5266sc_half\" /></span><span class=\"col-xs-8\"><strong> Half Load:</strong> Smart load sensing technology automatically adjusts water usage based on the amount of dishware — saving water and energy with every cycle.</span></p>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Place Setting Capacity: 16</li>\n\t<li>Number of Cycles: 4</li>\n\t<li>Number of Racks: 3</li>\n\t<li>Display Type: Digital</li>\n\t<li>Control Type: Touch</li>\n\t<li>Cutlery Tray: Yes</li>\n\t<li>Sanitary Rinse: Yes</li>\n\t<li>Spray Arms: 3</li>\n\t<li>dB Rating: 42</li>\n\t<li>Depth: 22-1/2\"</li>\n\t<li>Height: 33-3/4\"</li>\n\t<li>Width: 24\"</li>\n\t<li>Amperage: 15A</li>\n\t<li>Voltage: 110, 120V</li>\n</ul>\n\n<p><img alt=\"lifestyle\" src=\"//s3.img-b.com/image/private/t_base/productdescription/miele/g7266scvisf_gif\" width=\"99%\" /></p>\n",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/miele/miele-g7266scvisf-3903925.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/miele/miele-g7266scvisf-3903925.jpg"
+        ],
+        "finish": "Stainless Steel",
+        "color": "CFD4D9",
+        "configuration_type": "WITH_NESTED_PRODUCTS",
+        "is_configurable": true,
+        "variant_count": 1,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free In-Home Delivery Available",
+        "estimated_delivery": "Leaves the Warehouse in 8 to 13 weeks",
+        "shipping_lead_time": "Leaves the Warehouse in 8 to 13 weeks",
+        "inventory_quantity": 0,
+        "availability_status": "in_stock",
+        "in_stock": false,
+        "has_free_installation": false,
+        "shipping_fee": true,
+        "base_type": "Sanitation and Waste Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 2199,
+          "min": 2199
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 2199,
+        "price_min": 2199,
+        "price": 2199,
+        "application": "Dishwashers",
+        "product_type": "Sanitation and Waste Appliances",
+        "url": "https://www.fergusonhome.com/miele-g7266scvisf/s2033397?uid=4875501",
+        "variant_number": null,
+        "parent_model_number": "G7266SCViSF",
+        "model_number": "G7266SCViSF",
+        "requested_model_number": "G7266SCVISF",
+        "brand_logo": {
+          "description": "Miele",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/miele/Logo/miele.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/miele/c82043793",
+        "brand": "Miele",
+        "name": "24 Inch Wide 16 Place Setting Built-In Top Control Dishwasher with FlexCare Cup Rack and Automatic Load Sensing",
+        "family_id": 2033397,
+        "id": 2033397
+      },
+      "variant_url": "https://www.fergusonhome.com/miele-g7266scvisf/s2033397?uid=4875501",
+      "match_type": "exact",
+      "matched_model": "G7266SCViSF",
+      "model_number": "G7266SCVISF",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "12497150",
+        "name": "Manufacturer material number"
+      },
+      {
+        "value": "Fully integrated fascia",
+        "name": "Fascia panel version"
+      },
+      {
+        "value": "42",
+        "name": "Operating noise dB(A) re 1 pW"
+      },
+      {
+        "value": "Yes",
+        "name": "Check filter saturation indicator"
+      },
+      {
+        "value": "Yes",
+        "name": "Fresh water dishwasher"
+      },
+      {
+        "value": "Yes",
+        "name": "AutoOpen drying"
+      },
+      {
+        "value": "1.400",
+        "name": "Total connected load in kW"
+      },
+      {
+        "value": "Yes",
+        "name": "Pots & Pans"
+      },
+      {
+        "value": "23 5/8 (598)",
+        "name": "Appliance width in in.(mm)"
+      },
+      {
+        "value": "4",
+        "name": "Min. front panel weight in kg"
+      },
+      {
+        "value": "Yes",
+        "name": "Energy Star"
+      },
+      {
+        "value": "22 1/2 (570)",
+        "name": "Niche depth in in.(mm)"
+      },
+      {
+        "value": "Yes",
+        "name": "EcoPower Technology"
+      },
+      {
+        "value": "33 3/4 (855)",
+        "name": "Niche height min in in.(mm)"
+      },
+      {
+        "value": "1-line display with plain text",
+        "name": "Control panel"
+      },
+      {
+        "value": "1",
+        "name": "Number of phases"
+      },
+      {
+        "value": "Yes",
+        "name": "SensorDry"
+      },
+      {
+        "value": "Yes",
+        "name": "Active condensation drying"
+      },
+      {
+        "value": "Stainless Steel.",
+        "name": "Fascia color"
+      },
+      {
+        "value": "Yes",
+        "name": "FlexCare Glass & Bottle"
+      },
+      {
+        "value": "Yes",
+        "name": "Rinse out salt"
+      },
+      {
+        "value": "Yes",
+        "name": "Networking with Miele@home"
+      },
+      {
+        "value": "Yes",
+        "name": "Appliance care"
+      },
+      {
+        "value": "2",
+        "name": "FlexCare glass holder"
+      },
+      {
+        "value": "ComfortClose",
+        "name": "Door closing aid"
+      },
+      {
+        "value": "4 (1.20)",
+        "name": "Length of electrical wire in ft (m)"
+      },
+      {
+        "value": "120 (54.0)",
+        "name": "Net weight in lbs. (kg)"
+      },
+      {
+        "value": "optical and acoustic",
+        "name": "In-operation indicator"
+      },
+      {
+        "value": "Yes",
+        "name": "QuickIntenseWash"
+      },
+      {
+        "value": "14",
+        "name": "[can be retrofitted by Service to max.]"
+      },
+      {
+        "value": "60",
+        "name": "Electrical frequency standard"
+      },
+      {
+        "value": "Yes",
+        "name": "Fully integrated dishwashers"
+      },
+      {
+        "value": "Yes",
+        "name": "SaniWash"
+      },
+      {
+        "value": "120",
+        "name": "Voltage in V"
+      },
+      {
+        "value": "Yes",
+        "name": "Countdown indicator"
+      },
+      {
+        "value": "Yes",
+        "name": "Delay start up to 24 hours"
+      },
+      {
+        "value": "3D MultiFlex Tray",
+        "name": "Cutlery loading"
+      },
+      {
+        "value": "Yes",
+        "name": "Extra Quiet 39 dB(A)"
+      },
+      {
+        "value": "Yes",
+        "name": "Waterproof system"
+      },
+      {
+        "value": "Gold",
+        "name": "Marketing class"
+      },
+      {
+        "value": "22 1/2 (570)",
+        "name": "Appliance depth in in.(mm)"
+      },
+      {
+        "value": "Yes",
+        "name": "China & Crystal"
+      },
+      {
+        "value": "1",
+        "name": "FlexCare cup rack"
+      },
+      {
+        "value": "15",
+        "name": "Fuse rating in A"
+      },
+      {
+        "value": "Yes",
+        "name": "Hot water connection"
+      },
+      {
+        "value": "42",
+        "name": "Noise emissions in dB(A)"
+      },
+      {
+        "value": "Yes",
+        "name": "MultiClip"
+      },
+      {
+        "value": "Yes",
+        "name": "Extra Clean"
+      },
+      {
+        "value": "Yes",
+        "name": "24 inch dishwasher"
+      },
+      {
+        "value": "23 5/8 (600)",
+        "name": "Niche width min in in.(mm)"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic"
+      },
+      {
+        "value": "Yes",
+        "name": "Perfect GlassCare"
+      },
+      {
+        "value": "Yes",
+        "name": "Quick"
+      },
+      {
+        "value": "7",
+        "name": "[can be retrofitted by Service to min.]"
+      },
+      {
+        "value": "Yes",
+        "name": "MultiLingua"
+      },
+      {
+        "value": "Yes",
+        "name": "Voucher for 1 x box of UltraTabs (20 tabs) or 3 boxes (60 tabs in each) at a red"
+      },
+      {
+        "value": "Yes",
+        "name": "BottleClean"
+      },
+      {
+        "value": "White",
+        "name": "Display color"
+      },
+      {
+        "value": "Yes",
+        "name": "Rinse & Hold"
+      },
+      {
+        "value": "Yes",
+        "name": "Half load"
+      },
+      {
+        "value": "36 1/4 (920)",
+        "name": "Niche height max in in.(mm)"
+      },
+      {
+        "value": "5 (1.50)",
+        "name": "Length of water drain hose in m"
+      },
+      {
+        "value": "Programme selector buttons",
+        "name": "Control type"
+      },
+      {
+        "value": "ExtraComfort",
+        "name": "Basket design"
+      },
+      {
+        "value": "10",
+        "name": "Max. front panel weight in kg"
+      },
+      {
+        "value": "Yes",
+        "name": "Proven hygiene"
+      },
+      {
+        "value": "4002516770824",
+        "name": "EAN"
+      },
+      {
+        "value": "Yes",
+        "name": "IntenseZone"
+      },
+      {
+        "value": "Yes",
+        "name": "Extra dry"
+      },
+      {
+        "value": "33 3/4 (855)",
+        "name": "Appliance height in in.(mm)"
+      },
+      {
+        "value": "4002516770824",
+        "name": "EAN number"
+      },
+      {
+        "value": "23 5/8 (600)",
+        "name": "Niche width max in in.(mm)"
+      },
+      {
+        "value": "Yes",
+        "name": "ComfortWash"
+      },
+      {
+        "value": "47 1/2 (120.5)",
+        "name": "Appliance depth with door open in in.(cm)"
+      },
+      {
+        "value": "[ \"fran ais\", \"deutsch\", \" \", \"portugu s\", \"english (US)\", \"espa ol\" ]",
+        "name": "Available display languages via MultiLingua"
+      },
+      {
+        "value": "5 (1.50)",
+        "name": "Length of water inlet hose in m"
+      },
+      {
+        "value": "Yes",
+        "name": "Display language selection"
+      },
+      {
+        "value": "G 7266 SCVi SF",
+        "name": "Model number"
+      },
+      {
+        "value": "Yes",
+        "name": "XL-Assist"
+      }
+    ],
+    "Web_Retailer_Key": "MIE:G7266SCVISF",
+    "Web_Retailer_SubCategory": "BUILT IN DISHWASHER",
+    "Web_Retailer_Category": "DISHWASHERS",
+    "Product_Description_Web_Retailer": "What's included Voucher for 1 x box of UltraTabs (20 tabs) or 3 boxes (60 tabs in each) at a reduced price",
+    "Features_Web_Retailer": "<ul><li>Tested for the equivalent of 20 years&#39; service life</li><li>Convenient, great results and perfect for everyday use - ExtraComfort baskets</li><li>Wonderful use of space - the 3D MultiFlex tray with more room for your cutlery</li><li>More information options and modern domestic appliance networking - Miele@home</li><li>QuickIntenseWash, superior cleaning and drying in under 60 min</li><li>Completely dry - Miele AutoOpen drying</li><li>Clean Touch Steel front with handle in ContourLine design</li><li>View manufacturer details: Miele &amp; Cie. KG</li><li>Safety information</li></ul>",
+    "Weight_Web_Retailer": 120,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": "33 3/4",
+    "Width_Web_Retailer": "23 5/8",
+    "Depth_Web_Retailer": "21 3/4",
+    "Product_Title_Web_Retailer": "G 7266 SCVi SF Stainless Steel. - Fully integrated dishwashers in standard size 42 dB I Cutlery tray I ExtraComfort baskets I QuickIntenseWash I Miele@home",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "G7266SCVISF",
+    "Brand_Web_Retailer": "MIELE",
+    "SF_Catalog_Name": "G7266SCVISF",
+    "SF_Catalog_Id": "a03aZ00000utYQdQAM"
+  },
+  "currentOutput": {
+    "AI_Brand": "MIELE",
+    "AI_Product_Category": "Dishwasher",
+    "AI_Type": "Top Control",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "MIELE 24-Inch Top Control Dishwasher Stainless Steel - G7266SCVISF"
+  }
+}

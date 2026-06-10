@@ -1,0 +1,245 @@
+{
+  "sf_catalog_id": "a03aZ00000yKtU7QAK",
+  "sf_catalog_name": "RS2484FRJE1",
+  "createdAt": "2026-06-03T20:21:05.264Z",
+  "era": "ai",
+  "strata": [
+    "panel_ready",
+    "canadian"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqonvkbxqai_20260603_142946.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frtnnzeohxqy_20260603_142950.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frdgqymupsle_20260603_142954.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frmjdwrweobg_20260603_142955.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/friopvfqttjx_20260603_142956.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frebpiklhqah_20260603_143001.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frasuqaroqqn_20260603_143001.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frunqybgfnvo_20260603_143002.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frazuqobskdt_20260603_142940.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frufpkkfwljr_20260603_142944.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fryfzowhufol_20260603_142944.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frlddqhjlqxj_20260603_142945.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lTA17QAG.jpeg"
+      }
+    ],
+    "Reference_URL": "https://www.fisherpaykel.com/us/cooling/integrated/24in-series-11-integrated-column-freezer-ice-rs2484frje1-26904.html",
+    "Ferguson_URL": null,
+    "Specification_Table": "<p><strong>Appearance</strong></p><ul><li>Upright Freezer: Yes</li><li>Color: Panel Ready</li></ul><p><strong>Style</strong></p><ul><li>Column: Yes</li></ul><p><strong>Installation</strong></p><ul><li>Built-In: Yes</li><li>Flush Installation: Yes</li></ul><p><strong>Convenience Features</strong></p><ul><li>Door Open Alarm: Yes</li><li>LED Lighting: Yes</li></ul><p><strong>Features</strong></p><ul><li>Quick Freeze: Yes</li><li>Adjustable Shelves: Yes</li></ul><p><strong>Capacity</strong></p><ul><li>Total Capacity: 11.9 cu. ft.</li></ul><p><strong>Dimensions</strong></p><ul><li>Width: 23 3/4&quot;</li><li>Height: 84&quot;</li><li>Height Without Hinge: 84&quot;</li><li>Depth Without Handles: 24 3/4&quot;</li><li>Depth Without Door: 24&quot;</li></ul><p><strong>Hinge</strong></p><ul><li>Right Hinge: Yes</li></ul><p><strong>Brand Features</strong></p><ul><li>Integrated Style: Yes</li><li>Series 11: Yes</li></ul><p><strong>Defrost System</strong></p><ul><li>Automatic Defrost: Yes</li></ul><p><strong>Ice &amp; Water</strong></p><ul><li>Ice Maker: Yes</li><li>Fast Ice Production: Yes</li><li>Water Filter: FWC3 (Part #847200)</li></ul><p><strong>Electrical Specifications</strong></p><ul><li>Amperage: 10 Amps</li><li>Voltage: 115 Volts</li></ul><p><strong>Energy Efficiency</strong></p><ul><li>Energy Star Certified: Yes</li><li>Annual Energy Use: 398 kWh/year</li></ul><p><strong>Certifications</strong></p><ul><li>ADA Compliant: Yes</li><li>Sabbath Mode: Yes </li></ul><p><br></p>",
+    "UPC_Legacy": "822843269044",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "Experience the pinnacle of refrigeration design with our most advanced model. Featuring a right hinge and an elegant interior, this Column embodies premium functionality and style. Designed to optimize energy efficiency, it seamlessly integrates alone or paired with another Column.",
+    "Features_Legacy": "<ul><li><strong>ActiveSmart™ Foodcare: </strong>Our Energy Star certified ActiveSmart™ Foodcare Fridge Freezers adapt to daily use by cooling and defrosting only when needed.</li><li><strong>Variable Temperature Zones: </strong>Food is stored in two separate zones. You have the choice of three food modes: Freeze -7°F to 7°F, Soft Freeze 14°F to 18°F and Deep Freeze is fixed at -13°F.</li><li><strong>LED Lighting: </strong>Bright LEDs light up the ceiling, shelves, bins and tray in both fridge and freezer, making it easy to find your food and creating a welcoming glow in your kitchen for those midnight snacks.</li><li><strong>Mix &amp; Match:</strong> Integrated Column Refrigeration offers the flexibility to mix and match. Choose from different-sized Column Fridges and Freezers that can be installed individually or paired together. Complete the look with your own customized door panels to blend seamlessly with your kitchen cabinetry, or purchase a stainless steel door panels. </li><li><strong>Deep Freeze Mode:</strong> Deep freezing (-13°F) halts bacterial activity, allowing food to be stored safely for extended periods. Freezing food quickly helps to protect quality and retain nutrients, ensuring they are preserved when defrosted. </li></ul><p><br></p><p><br></p>",
+    "Weight_Legacy": null,
+    "Capacity_Legacy": 11.9,
+    "Height_Legacy": "84",
+    "Width_Legacy": "23 3/4",
+    "Depth_Legacy": "24",
+    "Product_Title_Legacy": "24\" Series 11 Integrated Column Freezer",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 10109,
+    "Model_Number_Legacy": "RS2484FRJE1",
+    "Brand_Legacy": "FISHER & PAYKEL",
+    "Web_Retailer_Specs": [
+      {
+        "value": "4",
+        "name": "Freezer bins"
+      },
+      {
+        "value": "AKRS4204",
+        "name": "Toe kick stainless steel 42\""
+      },
+      {
+        "value": "AKRS7804",
+        "name": "Toe kick stainless steel 78\""
+      },
+      {
+        "value": "847200 - FWC3",
+        "name": "Water filter replacement"
+      },
+      {
+        "value": "AHSRDSF",
+        "name": "Handle kit Contemporary round, aluminium"
+      },
+      {
+        "value": "84 \"",
+        "name": "Height"
+      },
+      {
+        "value": "23 3 / 4 \"",
+        "name": "Width"
+      },
+      {
+        "value": "2",
+        "name": "Variable temperature zones"
+      },
+      {
+        "value": "45.9kgCO2e/year",
+        "name": "In-use energy carbon emissions estimate Carbon Emissions Info"
+      },
+      {
+        "value": "AHP3RDSFBA",
+        "name": "Handle kit Professional round flush, Brass off-stands"
+      },
+      {
+        "value": "398kWh/year",
+        "name": "Energy usage"
+      },
+      {
+        "value": "140.4kgCO2e/year",
+        "name": "In-use energy carbon emissions estimate Carbon Emissions Info"
+      },
+      {
+        "value": "AHCLRDSF",
+        "name": "Handle kit Classic"
+      },
+      {
+        "value": "AHP3RDSFDC",
+        "name": "Handle kit Professional round flush, Dark Copper off-stands"
+      },
+      {
+        "value": "11.9cu ft",
+        "name": "Volume"
+      },
+      {
+        "value": "Energy star Most efficient",
+        "name": "Energy rating"
+      },
+      {
+        "value": "RD2484R4D",
+        "name": "Door panel stainless steel Right hinge 84\""
+      },
+      {
+        "value": "AKRS7204",
+        "name": "Toe kick stainless steel 72\""
+      },
+      {
+        "value": "AKRS2404",
+        "name": "Toe kick stainless steel 24\""
+      },
+      {
+        "value": "24 \"",
+        "name": "Depth"
+      },
+      {
+        "value": "AJ-RS84LR",
+        "name": "Joiner Kit"
+      },
+      {
+        "value": "AHD5RDSFB",
+        "name": "Handle kit Contemporary square fine, black"
+      },
+      {
+        "value": "AHP3RDSF",
+        "name": "Handle kit Professional round flush"
+      },
+      {
+        "value": "AKRS8404",
+        "name": "Toe kick stainless steel 84\""
+      },
+      {
+        "value": "10A",
+        "name": "Rated current"
+      },
+      {
+        "value": "115V",
+        "name": "Supply voltage"
+      },
+      {
+        "value": "AHD5RDSF",
+        "name": "Handle kit Contemporary square fine, aluminium"
+      },
+      {
+        "value": "AKRS5404",
+        "name": "Toe kick stainless steel 54\""
+      },
+      {
+        "value": "RD2484L4D",
+        "name": "Door panel stainless steel Left hinge 84\""
+      },
+      {
+        "value": "AKRS4804",
+        "name": "Toe kick stainless steel 48\""
+      },
+      {
+        "value": "AKRS6004",
+        "name": "Toe kick stainless steel 60\""
+      },
+      {
+        "value": "4",
+        "name": "Adjustable door shelves"
+      },
+      {
+        "value": "11.9cu ft",
+        "name": "Total gross capacity"
+      },
+      {
+        "value": "60Hz",
+        "name": "Supply frequency"
+      },
+      {
+        "value": "11.9cu ft",
+        "name": "Volume freezer"
+      },
+      {
+        "value": "AKRS6604",
+        "name": "Toe kick stainless steel 66\""
+      }
+    ],
+    "Web_Retailer_Key": "CA_FPK:RS2484FRJE1",
+    "Web_Retailer_SubCategory": "UPRIGHT FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": "Experience the pinnacle of refrigeration design with our most advanced model. Featuring a right hinge and an elegant interior, this Column embodies premium functionality and style. Designed to optimise energy efficiency, it seamlessly integrates alone or paired with another Column.Finish Panel Ready Hinge Right Hinge",
+    "Features_Web_Retailer": "<ul><li>With a premium interior for a refined look and feel, this model is the highlight of our Integrated Columns collection</li><li>Designed to optimise energy performance and efficiency</li><li>Flexible storage with two Variable Temperature Zones: choose Freeze, Soft Freeze, or Deep Freeze mode</li><li>Mix and match columns, install separately or pair, and customize with cabinetry or stainless steel panels</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": 11.9,
+    "Height_Web_Retailer": "84",
+    "Width_Web_Retailer": "23 3/4",
+    "Depth_Web_Retailer": "24",
+    "Product_Title_Web_Retailer": "24\" Series 11 Integrated Column Freezer",
+    "Color_Finish_Web_Retailer": "Custom Panel Ready",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "RS2484FRJE1",
+    "Brand_Web_Retailer": "FISHER & PAYKEL",
+    "SF_Catalog_Name": "RS2484FRJE1",
+    "SF_Catalog_Id": "a03aZ00000yKtU7QAK"
+  },
+  "currentOutput": {
+    "AI_Brand": "FISHER & PAYKEL",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Column",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Panel Ready",
+    "AI_Finish": "Panel Ready",
+    "AI_Product_Title": "Fisher & Paykel 24-Inch Built-In Panel Ready Column Freezer 11.9 Cu. Ft. - RS2484FRJE1"
+  }
+}

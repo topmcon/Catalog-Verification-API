@@ -1,0 +1,147 @@
+{
+  "sf_catalog_id": "a03aZ00000tLXEFQA4",
+  "sf_catalog_name": "WTZ1610S",
+  "createdAt": "2026-05-28T17:46:56.242Z",
+  "era": "ai",
+  "strata": [
+    "dimension_gap"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000iSwfdQAC.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000iSvmpQAC.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/WTZ1610S.html?srsltid=AfmBOoqnX4rD0IvDIetFQM0-3KrI9Catu1WAm3F_XJSO4KZrsl7Nu-7d",
+    "Ferguson_URL": null,
+    "Specification_Table": null,
+    "UPC_Legacy": "825225879282",
+    "Category_Legacy": "Laundry Pedestal",
+    "Product_Description_Legacy": "15 inch pedestal for washer or dryer increases machine hieght for easy access and includes storage drawer for even more convenience",
+    "Features_Legacy": "<h4>Elevates your washer or dryer to a more comfortable height</h4><ul><li>To reduce bending and back strain.</li></ul><h4>Built-in storage drawer</h4><ul><li>Keeps laundry supplies within easy reach.</li></ul><h4>Steel construction</h4><ul><li>Offers durability.</li></ul><p><br></p><p><br></p>",
+    "Weight_Legacy": 34,
+    "Capacity_Legacy": 1,
+    "Height_Legacy": "256",
+    "Width_Legacy": "256",
+    "Depth_Legacy": "256",
+    "Product_Title_Legacy": "Bosch 15-Inch Bosch Vision Series Silver Pedestal - WTZ1610S",
+    "Color_Finish_Legacy": "Silver",
+    "MSRP_Legacy": 299,
+    "Model_Number_Legacy": "WTZ1610S",
+    "Brand_Legacy": "BOSCH",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: WTZ1610S",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "WTZ1610S",
+        "name": "SKU"
+      },
+      {
+        "value": "Bosch",
+        "name": "Brand"
+      },
+      {
+        "value": "25.00 kg",
+        "name": "Gross weight (kg)"
+      },
+      {
+        "value": "product line supplement washing machines",
+        "name": "Product name / series name"
+      },
+      {
+        "value": "4242002527949",
+        "name": "EAN code"
+      },
+      {
+        "value": "Washing Machines",
+        "name": "Product group"
+      },
+      {
+        "value": "480 x 750 x 780 cm",
+        "name": "Dimensions of the packed product (HxWxD)"
+      },
+      {
+        "value": null,
+        "name": "Product group for which the accessory is available"
+      },
+      {
+        "value": null,
+        "name": "Color / Material"
+      },
+      {
+        "value": "4",
+        "name": "Standard number of units per pallet"
+      },
+      {
+        "value": "'!2E20AC-fchjej!",
+        "name": "EAN Barcode"
+      },
+      {
+        "value": "WTZ1610S",
+        "name": "Internal article number"
+      },
+      {
+        "value": "0",
+        "name": "Quantity per packing unit"
+      },
+      {
+        "value": null,
+        "name": "Product Description"
+      },
+      {
+        "value": "cm",
+        "name": "Dimensions of the product (mm)"
+      },
+      {
+        "value": "23.35 kg",
+        "name": "Net weight (kg)"
+      },
+      {
+        "value": "825,225,879,282",
+        "name": "UPC code"
+      },
+      {
+        "value": null,
+        "name": "ADDITIONAL_PROPERTY_15"
+      }
+    ],
+    "Web_Retailer_Key": "BOSCH:WTZ1610S",
+    "Web_Retailer_SubCategory": "LAUNDRY PEDESTALS",
+    "Web_Retailer_Category": "LAUNDRY",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": "<ul><li>15 inch pedestal for washer or dryer increases machine hieght for easy access and includes storage drawer for even more convenience</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": "256",
+    "Width_Web_Retailer": "256",
+    "Depth_Web_Retailer": "256",
+    "Product_Title_Web_Retailer": null,
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "WTZ1610S",
+    "Brand_Web_Retailer": "BOSCH",
+    "SF_Catalog_Name": "WTZ1610S",
+    "SF_Catalog_Id": "a03aZ00000tLXEFQA4"
+  },
+  "currentOutput": {
+    "AI_Brand": "BOSCH",
+    "AI_Product_Category": "Laundry Pedestal",
+    "AI_Type": "Storage",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Brushed",
+    "AI_Product_Title": "BOSCH 27-Inch Storage Laundry Pedestal Brushed - WTZ1610S"
+  }
+}

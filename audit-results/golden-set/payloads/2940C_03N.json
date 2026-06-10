@@ -1,0 +1,1258 @@
+{
+  "sf_catalog_id": "a03aZ00000LzRxaQAF",
+  "sf_catalog_name": "2940C/03N",
+  "createdAt": "2026-06-09T14:25:28.792Z",
+  "era": "ai",
+  "strata": [
+    "title_dup"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/09/b64085fa5e782caf211d94d1997cba94.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.qualitybath.com/newport-brass-2940c-taft-lavatory-faucet-11-9-16-h-product-344687.htm?sku=2940C%2F03N&srsltid=AfmBOooH3LjO1ewKti3_nT12JTP2b_Tz7nNfK-4n7DeFd4RrQjkd_lag",
+    "Ferguson_URL": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863374",
+    "Specification_Table": "<table class=\"ql-table-blob\" style=\"border-width: 3px 0px 0px; border-style: double; margin: 0px; padding: 0px; font-size: 0.875rem; width: 300px; color: rgb(48, 53, 54);\" summary=\"Product specs for Newport Brass Taft Lavatory Faucet\"><tbody style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Number of Faucet Holes</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">3</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Spout Projection</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">8-13/16&quot;</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Spout Style</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Hi Arc Spout</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Handle Style</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Lever</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Installation</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Deck Mount</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Height</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">11-9/16&quot;</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Collection</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Taft</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Drain Assembly Included</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Yes</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Flow Rate</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">1.2 GPM</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Ceramic Disc Cartridge</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Yes</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Handle Material</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Metal</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Handle Position</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Side</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Number of Handles</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">2</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Distance from Aerator to Deck</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">6-1/16&quot;</span><br style=\"\"></td></tr><tr class=\"css-1oil1cq\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\"><th colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Faucet Style</span></th><td colspan=\"1\" rowspan=\"1\" class=\"css-c7ytuw\" style=\"border: 0px; margin: 0px; padding: 10px; font-weight: inherit;\"><span class=\"css-0\" style=\"border: 0px; margin: 0px; padding: 0px; font-weight: inherit;\">Widespread</span></td></tr></tbody></table><p><br></p>",
+    "UPC_Legacy": "709180256992",
+    "Category_Legacy": "Bathroom Faucet",
+    "Product_Description_Legacy": "Two Handle Widespread Bathroom Sink Faucet in Uncoated Polished Brass.",
+    "Features_Legacy": "<ul><li>Available in more than 20 decorative finishes</li><li>Solid brass construction</li><li>ADA Compliant Lever Handles</li><li>Brass Valve bodies Valve Included</li><li>Quarter-turn washerless ceramic disc valve cartridges</li><li>Spout assembly with integral supply hoses</li><li>Push Pop-Up drain with tailpiece</li><li>6.01 (15.3 cm) spout height at outlet</li><li>7.13 (18.1 cm) spout reach (c-c)</li><li>For 8 (20.3 cm) centers - Maximum 20 (50.8 cm)</li></ul>",
+    "Weight_Legacy": 7.55,
+    "Capacity_Legacy": 1.2,
+    "Height_Legacy": "11 9/16",
+    "Width_Legacy": "8 13/16",
+    "Depth_Legacy": "15 1/4",
+    "Product_Title_Legacy": "Taft 1.2 GPM Widespread Bathroom Faucet",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1697,
+    "Model_Number_Legacy": "2940C/03N",
+    "Brand_Legacy": "NEWPORT BRASS",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-28T02:47:46.882244"
+      },
+      "search_meta_data": {
+        "business_category": "Bathroom Faucets",
+        "base_category": "Plumbing",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "jnn49npK6J"
+      },
+      "performance": {
+        "total_time": "5.19s",
+        "step3_detail_time": "1.24s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.34s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862082",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Aged Brass",
+          "model_number_full": "2940C-034",
+          "variant": "034",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4551169",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Antique Brass",
+          "model_number_full": "2940C-06",
+          "variant": "06",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862081",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Antique Copper",
+          "model_number_full": "2940C-08A",
+          "variant": "08A",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862078",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Antique Nickel",
+          "model_number_full": "2940C-15A",
+          "variant": "15A",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862086",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "English Bronze",
+          "model_number_full": "2940C-07",
+          "variant": "07",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4573672",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Flat Black",
+          "model_number_full": "2940C-56",
+          "variant": "56",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862075",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Forever Brass (PVD)",
+          "model_number_full": "2940C-01",
+          "variant": "01",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862085",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "French Gold (PVD)",
+          "model_number_full": "2940C-24A",
+          "variant": "24A",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862087",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Matte White",
+          "model_number_full": "2940C-52",
+          "variant": "52",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862088",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Midnight Chrome",
+          "model_number_full": "2940C-30",
+          "variant": "30",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862083",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Oil Rubbed Bronze",
+          "model_number_full": "2940C-10B",
+          "variant": "10B",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862079",
+          "in_stock": false,
+          "price": 949.9,
+          "finish": "Polished Chrome",
+          "model_number_full": "2940C-26",
+          "variant": "26",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862080",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Polished Gold (PVD)",
+          "model_number_full": "2940C-24",
+          "variant": "24",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4372327",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Polished Nickel",
+          "model_number_full": "2940C-15",
+          "variant": "15",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862076",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Polished Nickel (PVD)",
+          "model_number_full": "2940C-15P",
+          "variant": "15P",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863375",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Satin Brass - PVD",
+          "model_number_full": "2940C-04",
+          "variant": "04",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863376",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Satin Bronze - PVD",
+          "model_number_full": "2940C-10",
+          "variant": "10",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863378",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Satin Gold - PVD",
+          "model_number_full": "2940C-24S",
+          "variant": "24S",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863377",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Satin Nickel - PVD",
+          "model_number_full": "2940C-15S",
+          "variant": "15S",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862077",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Stainless Steel (PVD)",
+          "model_number_full": "2940C-20",
+          "variant": "20",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863374",
+          "in_stock": false,
+          "price": 1187.9,
+          "finish": "Uncoated Polished Brass - Living",
+          "model_number_full": "2940C-03N",
+          "variant": "03N",
+          "parent_model_number": "2940C"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4862084",
+          "in_stock": false,
+          "price": 1444.1,
+          "finish": "Venetian Bronze",
+          "model_number_full": "2940C-VB",
+          "variant": "VB",
+          "parent_model_number": "2940C"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": null,
+        "shipping_info": [
+          "Free Shipping!",
+          "Leaves the Warehouse in 6 to 10 weeks",
+          "Leaves the Warehouse in 6 to 10 weeks"
+        ],
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/Newport%20Brass/Taft",
+          "name": "Taft"
+        },
+        "questions_count": 0,
+        "total_reviews": null,
+        "review_count": 0,
+        "total_ratings": null,
+        "rating": null,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-kitchen-faucets/c111813",
+            "name": "Kitchen Faucets",
+            "id": 111813
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-bathroom-faucets/c111811",
+            "name": "Bathroom Faucets",
+            "id": 111811
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-shower-faucets/c111812",
+            "name": "Shower Faucets",
+            "id": 111812
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-shower-accessories/c111816",
+            "name": "Shower Components",
+            "id": 111816
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-tub-filler-faucets/c111815",
+            "name": "Tub Filler Faucets",
+            "id": 111815
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-bathroom-accessories/c111850",
+            "name": "Bathroom Accessories",
+            "id": 111850
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-kitchen-accessories/c111864",
+            "name": "Kitchen Accessories",
+            "id": 111864
+          }
+        ],
+        "business_category": "Bathroom Faucets",
+        "base_category": "Plumbing",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass/c111810",
+            "name": "Newport Brass"
+          },
+          {
+            "url": "https://www.fergusonhome.com/newport-brass-bathroom-faucets/c111811",
+            "name": "Bathroom Faucets"
+          }
+        ],
+        "resources": [
+          {
+            "id": "newport-brass-2940c-exploded-parts",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/newport_brass/1844367/newport-brass-2940c-exploded-parts.pdf",
+            "name": "Exploded Parts"
+          },
+          {
+            "id": "newport-brass-2940c-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/newport_brass/1844367/newport-brass-2940c-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "newport-brass-2940c-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/newport_brass/1844367/newport-brass-2940c-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "newport-brass-2940c-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/newport_brass/1844367/newport-brass-2940c-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "10 Year Limited, Limited Lifetime Finish",
+        "warranty": "<h3>Limited Warranty</h3><p>Brasstech, Inc. warrants to the original consumer residential purchaser (“Original Purchaser”) that if a product in its; Newport Brass®, Brasstech®, motiv®, Newport 365 or GINGER® lines of products (“Product”) is confirmed upon inspection to be defective in materials or workmanship during the warranty periods described below, Brasstech, Inc. will, at its option, either repair or replace the Product with a similar current model of the Product. If repair or replacement is not commercially practical or cannot be made in a timely manner, then Brasstech, Inc. will provide a refund for the Product.</p><p><strong>Warranty Periods and Coverage Product Finishes</strong></p><ul><li>PVD and Polished Chrome (26) finishes on Products other than Drains and Shower rods are warranted as long as the Original Purchaser owns their home.</li><li>\"Living\" finishes have no warranty*. These include 03N &amp; 08W.</li><li>Shower rods, porcelain parts and glass parts have no finish warranty.</li><li>Mirror products will be warranted from desilvering for two (2) years from the date of purchase by the original purchaser as long as desilvering is not due to chemical contact. See maintenance section for proper cleaning instructions.</li><li>All other finishes are warranted for ten (10) years from date of purchase by the Original Purchaser.</li></ul><p><strong>Drain Finishes</strong></p><ul><li>Polished Chrome (26) and PVD finishes on kitchen, bath or lavatory drains including drain baskets and components are warranted for one (1) year from date of purchase by the Original Purchaser.</li><li>All other Drain finishes have no warranty.</li></ul><p><strong>Functionality</strong></p><ul><li>All Product parts except valves are warranted for ten (10) years from date of purchase by the Original Purchaser.</li><li>Ceramic disc valves for the lavatory faucet, tub/ shower and roman tub are warranted for as long as the Original Purchaser owns the home.</li><li>All other valves (balance pressure, thermostatic, etc.) are warranted for one (1) year from date of purchase by the Original Purchaser.</li><li>Lights have no functional warranty. Soap / Lotion pump mechanisms are warranted for one (1) year from date of purchase by the Original Purchaser. Shower rods, porcelain parts and glass parts have no functional warranty.</li><li>Hot water tanks are warranted for one (1) year from the date of purchase by the original purchaser.</li></ul><p><strong>Exclusions from Coverage</strong><ul><li>This Warranty does not cover labor charges or associated costs for, or damages occurring during the removal, transportation, return or installation of Products or replacement Products.</li><li>This Warranty does not cover damage or defects due to normal wear and tear, misuse, abuse, hard water, improper storage, improper handling, improper maintenance**, improper installation*** or uses other than normal household usage****.</li><li>This warranty is non-transferable.</li><li>Products sold to customers for use as display items are not meant for resale and are not covered under any functional or finish warranty.</li></ul><h3>Limitations on Remedies</h3><p>In no event will Brasstech, Inc. be liable for incidental or consequential damages (such as labor charges), whether based on breach of express or implied warranty, breach of contract, negligence, strict liability or any other legal theory. Some states do not allow the exclusion or limitation of incidental or consequential damages, so, the above limitation or exclusion may not apply to you. Any implied warranties, including the implied warranties of merchantability and fitness for a particular purpose, are limited to the duration of this written warranty. Some states do not allow limitations on how long an implied warranty may last, so the above limitation may not apply to you.</p><h3>Warranty Service</h3><p>To obtain service under this Warranty, please contact your Product dealer. If you are unable to locate your dealer, please call 949-417-5207 or access the Brasstech, Inc. website at www.brasstech.com. Proof of purchase, such as the original receipt, is required for the dealer to issue credit to the consumer. The dealer must be an authorized dealer and the product must be purchased in the original manufacturer's packaging (display items excluded).</p><h3>State Remedies</h3><p>This Warranty gives you specific legal rights, and you may have other rights which vary from state to state.</p><h3>Product Care</h3><p>Simple care is all that is needed in maintaining this product. Abrasive cleansers, detergents and silver or brass polish may result in damage to the finish and therefore should not be used. To clean, simply wipe with a soft, water dampened cloth. GINGER® hand, deck and wall shower sprays feature easy-cleaning jets. The jets should be cleaned periodically by rubbing your thumb or a damp cloth across the jets to loosen mineral deposits. Run the shower spray briefly to purge the loosened deposits.</p><h3>* Uncoated and Living Finishes</h3><p>Uncoated and Living finishes such as Polished Brass Uncoated (03N) and living finishes such as Weathered Copper (08W), do naturally weather and change color over time. Living and uncoated finishes are not warranted.</p><h3>** Maintenance</h3><p>Proper maintenance is required to preserve all finishes. Do not use any abrasive cleaners, alcohol, ammonia, detergents, or brass or silver polish on the Products. For complete care requirements and recommendations, please visit our website at www.brasstech.com.</p><h3>*** Proper Installation</h3><p>Products must be installed in accordance with the manufacturer's installation instructions supplied with the Products. For example, pipes must be flushed before faucet installations, because solder and other debris may damage ceramic discs. You may also call 949-417-5207 for copies of the installation instructions. Many of our installation instructions are also available on our website, www.brasstech.com.</p><h3>**** Commercial Purchasers</h3><p>Brasstech, Inc. extends the above limited warranty to purchasers of Products for industrial, commercial and business use upon the same terms and conditions and exclusions applicable to residential purchasers, except that the finish and functionality warranty periods are reduced to a period of one (1) year from the date of purchase. ADDITIONALLY, with respect to commercial purchasers, all implied warranties, including the implied warranties of merchantability and fitness for a particular purpose are excluded and disclaimed.</p>",
+        "country_of_origin": "USA",
+        "certifications": [
+          "ANSI",
+          "ASME",
+          "CSA",
+          "NSF",
+          "UPC"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "634",
+            "name": "Faucet Centers"
+          },
+          {
+            "value": "635",
+            "name": "Faucet Hole Size"
+          },
+          {
+            "value": "671",
+            "name": "Flow Rate (GPM)"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "1061",
+            "name": "Max Deck Thickness"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1578",
+            "name": "Spout Height"
+          },
+          {
+            "value": "1580",
+            "name": "Spout Reach"
+          },
+          {
+            "value": "3879",
+            "name": "Water Connection"
+          },
+          {
+            "value": "3401",
+            "name": "Drain Assembly Included"
+          },
+          {
+            "value": "5449",
+            "name": "Escutcheon Included"
+          },
+          {
+            "value": "787",
+            "name": "Handles Included"
+          },
+          {
+            "value": "8818",
+            "name": "Installation Hardware Included"
+          },
+          {
+            "value": "1339",
+            "name": "Pop-Up Included"
+          },
+          {
+            "value": "1751",
+            "name": "Valve Included"
+          },
+          {
+            "value": "6434",
+            "name": "Bridge Faucet"
+          },
+          {
+            "value": "576",
+            "name": "Electronic"
+          },
+          {
+            "value": "636",
+            "name": "Faucet Holes"
+          },
+          {
+            "value": "6385",
+            "name": "Faucet Type"
+          },
+          {
+            "value": "782",
+            "name": "Handle Material"
+          },
+          {
+            "value": "784",
+            "name": "Handle Style"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1048",
+            "name": "Material"
+          },
+          {
+            "value": "4745",
+            "name": "Mounting Type"
+          },
+          {
+            "value": "1209",
+            "name": "Number Of Handles"
+          },
+          {
+            "value": "3749",
+            "name": "Spout Type"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "3800",
+            "name": "Touch Faucet"
+          },
+          {
+            "value": "3803",
+            "name": "Touchless Faucet"
+          },
+          {
+            "value": "1752",
+            "name": "Valve Type"
+          },
+          {
+            "value": "9157",
+            "name": "Vessel Faucet"
+          },
+          {
+            "value": "8882",
+            "name": "Water Connection Type"
+          },
+          {
+            "value": "6433",
+            "name": "Waterfall Faucet"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "54",
+            "name": "ANSI Certification"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "4402",
+            "name": "ASME Code"
+          },
+          {
+            "value": "6921",
+            "name": "CA Drought Compliant"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "335",
+            "name": "Collection"
+          },
+          {
+            "value": "5786",
+            "name": "Commercial Warranty"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "4411",
+            "name": "CSA Code"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "4517",
+            "name": "Low Lead Compliant"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "4667",
+            "name": "WaterSense Certified"
+          }
+        ],
+        "dimensions": {
+          "height": "11.56 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The overall distance between installation holes used for the faucet's handles, measured in inches. Single hole faucets will have a faucet center of 0\".",
+                "units": "in.",
+                "value": "10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 8, 9",
+                "name": "Faucet Centers"
+              },
+              {
+                "featured": false,
+                "description": "The straight line distance measured from edge to edge through the center of the hole required for installation, measured in inches.",
+                "units": "in.",
+                "value": "1.38",
+                "name": "Faucet Hole Size"
+              },
+              {
+                "featured": true,
+                "description": "The volume of water moved by the product per minute, measured in gallons.",
+                "units": null,
+                "value": "1.2",
+                "name": "Flow Rate (GPM)"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "11.56",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The maximum thickness that the mounting surface can be for the purpose of product installation, measured in inches.",
+                "units": "in.",
+                "value": "1.65",
+                "name": "Max Deck Thickness"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "7.55",
+                "name": "Product Weight"
+              },
+              {
+                "featured": true,
+                "description": "The vertical measurement from the mounting surface to the spouts outlet, measured in inches.",
+                "units": "in.",
+                "value": "6.01",
+                "name": "Spout Height"
+              },
+              {
+                "featured": true,
+                "description": "The horizontal measurement from the center of the faucet body to the center of the spouts outlet, measured in inches.",
+                "units": "in.",
+                "value": "7.13",
+                "name": "Spout Reach"
+              },
+              {
+                "featured": false,
+                "description": "The connection between your current water supply and the water source, measured in inches.",
+                "units": null,
+                "value": "1/2\"",
+                "name": "Water Connection"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": true,
+                "description": "Whether the necessary drain hardware (assembly) is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Drain Assembly Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether an escutcheon (mounting plate) is included to cover any visible holes or gaps when the product is installed for a clean, seamless look.",
+                "units": null,
+                "value": "No",
+                "name": "Escutcheon Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the handle(s) are included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Handles Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the necessary hardware to properly install the product is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Installation Hardware Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the included drain has a pop-up feature. The pop-up will be raised and lowered with a lift knob or lever that will connect to a lift rod that will install near or on the faucet body.",
+                "units": null,
+                "value": "No",
+                "name": "Pop-Up Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the required valve is included with purchase.",
+                "units": null,
+                "value": "Yes",
+                "name": "Valve Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Bridge faucets are one-piece constructed faucets that include 2 or 3 separate faucet holes.",
+                "units": null,
+                "value": "No",
+                "name": "Bridge Faucet"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can operate electronically or includes electronic components.",
+                "units": null,
+                "value": "No",
+                "name": "Electronic"
+              },
+              {
+                "featured": false,
+                "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+                "units": null,
+                "value": "3",
+                "name": "Faucet Holes"
+              },
+              {
+                "featured": false,
+                "description": "Indicates the configured style of the faucet.",
+                "units": null,
+                "value": "Bathroom Sink Faucet",
+                "name": "Faucet Type"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the construction of the handle.",
+                "units": null,
+                "value": "Brass",
+                "name": "Handle Material"
+              },
+              {
+                "featured": false,
+                "description": "The style of handle that the product has.",
+                "units": null,
+                "value": "Lever",
+                "name": "Handle Style"
+              },
+              {
+                "featured": false,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Deck Mounted",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The material(s) used in the construction of the product.",
+                "units": null,
+                "value": "Brass",
+                "name": "Material"
+              },
+              {
+                "featured": false,
+                "description": "The faucets mounting type is determined by where and how the handles and spout are oriented to each other.",
+                "units": null,
+                "value": "Widespread",
+                "name": "Mounting Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of handles included.",
+                "units": null,
+                "value": "2",
+                "name": "Number Of Handles"
+              },
+              {
+                "featured": false,
+                "description": "Whether the spout is fixed in one position or capable of a range of motion through a swivel action feature.",
+                "units": null,
+                "value": "Fixed",
+                "name": "Spout Type"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Contemporary",
+                "name": "Theme"
+              },
+              {
+                "featured": false,
+                "description": "Faucet feature that activates the flow of water by a touch of the hand or arm.",
+                "units": null,
+                "value": "No",
+                "name": "Touch Faucet"
+              },
+              {
+                "featured": false,
+                "description": "Faucet feature that activates the flow of water through the use of a motion sensor.",
+                "units": null,
+                "value": "No",
+                "name": "Touchless Faucet"
+              },
+              {
+                "featured": false,
+                "description": "The type of valve required by this product.",
+                "units": null,
+                "value": "Ceramic Disc, Washerless Cartridge",
+                "name": "Valve Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether a faucet is tall enough to be used with a vessel sink. ",
+                "units": null,
+                "value": "No",
+                "name": "Vessel Faucet"
+              },
+              {
+                "featured": false,
+                "description": "The type of fitting connection used by this product.",
+                "units": null,
+                "value": "NPSM",
+                "name": "Water Connection Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the faucet has a waterfall style spout.",
+                "units": null,
+                "value": "No",
+                "name": "Waterfall Faucet"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "Yes",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "The ANSI (American National Standards Institute) Certification[s] given to the product.",
+                "units": null,
+                "value": "372, 61, A117.1",
+                "name": "ANSI Certification"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "Yes",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The ASME Certification for this product.",
+                "units": null,
+                "value": "A112.18.1",
+                "name": "ASME Code"
+              },
+              {
+                "featured": false,
+                "description": "Flow rate is less than CA state regulations.",
+                "units": null,
+                "value": "Yes",
+                "name": "CA Drought Compliant"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "ANSI, ASME, CSA, NSF, UPC",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+                "units": null,
+                "value": "Taft",
+                "name": "Collection"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the commercial warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Limited",
+                "name": "Commercial Warranty"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": false,
+                "description": "The CSA Certification for this product.",
+                "units": null,
+                "value": "B125.1",
+                "name": "CSA Code"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "Yes",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product contains less than 0.25% lead to meet compliancy regulations.",
+                "units": null,
+                "value": "Yes",
+                "name": "Low Lead Compliant"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "10 Year Limited, Limited Lifetime Finish",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is WaterSense certified. WaterSense is a program enacted by the U.S. Environmental Protection Agency (EPA) to help conserve water and protect the environment.",
+                "units": null,
+                "value": "Yes",
+                "name": "WaterSense Certified"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "watersense_certified": {
+            "description": "Whether this product is WaterSense certified. WaterSense is a program enacted by the U.S. Environmental Protection Agency (EPA) to help conserve water and protect the environment.",
+            "units": null,
+            "value": "Yes"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "10 Year Limited, Limited Lifetime Finish"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "low_lead_compliant": {
+            "description": "Whether the product contains less than 0.25% lead to meet compliancy regulations.",
+            "units": null,
+            "value": "Yes"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "Yes"
+          },
+          "csa_code": {
+            "description": "The CSA Certification for this product.",
+            "units": null,
+            "value": "B125.1"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "commercial_warranty": {
+            "description": "The terms and conditions of the commercial warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Limited"
+          },
+          "collection": {
+            "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+            "units": null,
+            "value": "Taft"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "ANSI, ASME, CSA, NSF, UPC"
+          },
+          "ca_drought_compliant": {
+            "description": "Flow rate is less than CA state regulations.",
+            "units": null,
+            "value": "Yes"
+          },
+          "asme_code": {
+            "description": "The ASME Certification for this product.",
+            "units": null,
+            "value": "A112.18.1"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "Yes"
+          },
+          "ansi_certification": {
+            "description": "The ANSI (American National Standards Institute) Certification[s] given to the product.",
+            "units": null,
+            "value": "372, 61, A117.1"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "Yes"
+          },
+          "waterfall_faucet": {
+            "description": "Whether the faucet has a waterfall style spout.",
+            "units": null,
+            "value": "No"
+          },
+          "water_connection_type": {
+            "description": "The type of fitting connection used by this product.",
+            "units": null,
+            "value": "NPSM"
+          },
+          "vessel_faucet": {
+            "description": "Whether a faucet is tall enough to be used with a vessel sink. ",
+            "units": null,
+            "value": "No"
+          },
+          "valve_type": {
+            "description": "The type of valve required by this product.",
+            "units": null,
+            "value": "Ceramic Disc, Washerless Cartridge"
+          },
+          "touchless_faucet": {
+            "description": "Faucet feature that activates the flow of water through the use of a motion sensor.",
+            "units": null,
+            "value": "No"
+          },
+          "touch_faucet": {
+            "description": "Faucet feature that activates the flow of water by a touch of the hand or arm.",
+            "units": null,
+            "value": "No"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Contemporary"
+          },
+          "spout_type": {
+            "description": "Whether the spout is fixed in one position or capable of a range of motion through a swivel action feature.",
+            "units": null,
+            "value": "Fixed"
+          },
+          "number_of_handles": {
+            "description": "The total number of handles included.",
+            "units": null,
+            "value": "2"
+          },
+          "mounting_type": {
+            "description": "The faucets mounting type is determined by where and how the handles and spout are oriented to each other.",
+            "units": null,
+            "value": "Widespread"
+          },
+          "material": {
+            "description": "The material(s) used in the construction of the product.",
+            "units": null,
+            "value": "Brass"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Deck Mounted"
+          },
+          "handle_style": {
+            "description": "The style of handle that the product has.",
+            "units": null,
+            "value": "Lever"
+          },
+          "handle_material": {
+            "description": "The material used in the construction of the handle.",
+            "units": null,
+            "value": "Brass"
+          },
+          "faucet_type": {
+            "description": "Indicates the configured style of the faucet.",
+            "units": null,
+            "value": "Bathroom Sink Faucet"
+          },
+          "faucet_holes": {
+            "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+            "units": null,
+            "value": "3"
+          },
+          "electronic": {
+            "description": "Whether the product can operate electronically or includes electronic components.",
+            "units": null,
+            "value": "No"
+          },
+          "bridge_faucet": {
+            "description": "Bridge faucets are one-piece constructed faucets that include 2 or 3 separate faucet holes.",
+            "units": null,
+            "value": "No"
+          },
+          "valve_included": {
+            "description": "Whether the required valve is included with purchase.",
+            "units": null,
+            "value": "Yes"
+          },
+          "pop-up_included": {
+            "description": "Whether the included drain has a pop-up feature. The pop-up will be raised and lowered with a lift knob or lever that will connect to a lift rod that will install near or on the faucet body.",
+            "units": null,
+            "value": "No"
+          },
+          "installation_hardware_included": {
+            "description": "Whether the necessary hardware to properly install the product is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "handles_included": {
+            "description": "Whether the handle(s) are included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "escutcheon_included": {
+            "description": "Whether an escutcheon (mounting plate) is included to cover any visible holes or gaps when the product is installed for a clean, seamless look.",
+            "units": null,
+            "value": "No"
+          },
+          "drain_assembly_included": {
+            "description": "Whether the necessary drain hardware (assembly) is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "water_connection": {
+            "description": "The connection between your current water supply and the water source, measured in inches.",
+            "units": null,
+            "value": "1/2\""
+          },
+          "spout_reach": {
+            "description": "The horizontal measurement from the center of the faucet body to the center of the spouts outlet, measured in inches.",
+            "units": "in.",
+            "value": "7.13"
+          },
+          "spout_height": {
+            "description": "The vertical measurement from the mounting surface to the spouts outlet, measured in inches.",
+            "units": "in.",
+            "value": "6.01"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "7.55"
+          },
+          "max_deck_thickness": {
+            "description": "The maximum thickness that the mounting surface can be for the purpose of product installation, measured in inches.",
+            "units": "in.",
+            "value": "1.65"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "11.56"
+          },
+          "flow_rate_(gpm)": {
+            "description": "The volume of water moved by the product per minute, measured in gallons.",
+            "units": null,
+            "value": "1.2"
+          },
+          "faucet_hole_size": {
+            "description": "The straight line distance measured from edge to edge through the center of the hole required for installation, measured in inches.",
+            "units": "in.",
+            "value": "1.38"
+          },
+          "faucet_centers": {
+            "description": "The overall distance between installation holes used for the faucet's handles, measured in inches. Single hole faucets will have a faucet center of 0\".",
+            "units": "in.",
+            "value": "10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 8, 9"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>The Taft Kitchen collection juxtaposes the raw with the refined, the sleek and modern with the vintage and classic. Pared back to the essentials, Taft showcases the beautiful interplay between pure form and function while celebrating engineering and mechanical ingenuity.</p><p><strong>Newport Brass 2940C Features:</strong></p><ul><li>Covered under Newport Brass' limited 10 year functionality warranty; warranties may differ per finish – please review \"Warranty\" documentation for details</li><li>Faucet body constructed of brass</li><li>Brass is highly resistant to corrosion and an excellent choice to withstand high temperatures</li><li>Coordinates with products from the Taft line</li><li>Widespread mounting type - 3 hole faucet with 8\" to 20\" centers</li><li>Deck mounted installation - 3 hole faucet mounts directly to sink or countertop</li><li>Dual lever handles control the flow and temperature of water</li><li>Faucet includes washerless ceramic disc valve cartridges</li><li>Drain assembly included</li><li>All hardware required for installation is included</li><li>Complies with ADA standards</li><li>Low lead compliant</li><li>Made in America</li><li>NOTE: Uncoated and Living finishes such as Uncoated Polished Brass (03N) and Weathered Copper (08W) naturally weather and change color over time – Living and uncoated finishes are not warranted and are non-returnable</li></ul><p><strong>Newport Brass 2940C Specifications:</strong></p><ul><li>Height: 11-9/16\" (deck to top of faucet)</li><li>Spout Height: 6\" (deck to spout outlet)</li><li>Spout Reach: 7-1/8\" (faucet base to spout outlet)</li><li>Flow Rate: 1.2 gallons-per-minute</li><li>Faucet Centers: 8\" to 20\" (distance between centers of outside faucet holes)</li><li>Maximum Deck Thickness: 1-5/8\" (cannot mount on thicker decks)</li><li>Faucet Hole Size: 1-3/8\"</li><li>Faucet Holes: 3 (minimum number of holes required for installation)</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/newportbrass/newport-brass-2940c-03n-6224024.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/newportbrass/newport-brass-2940c-03n-6224024.jpg"
+        ],
+        "finish": "Uncoated Polished Brass - Living",
+        "color": "E1C16E",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": null,
+        "variant_count": 22,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free Shipping!",
+        "estimated_delivery": "Leaves the Warehouse in 6 to 10 weeks",
+        "shipping_lead_time": "Leaves the Warehouse in 6 to 10 weeks",
+        "inventory_quantity": 0,
+        "availability_status": "in_stock",
+        "in_stock": false,
+        "has_free_installation": false,
+        "shipping_fee": 0,
+        "base_type": "Faucet",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1444.1,
+          "min": 949.9
+        },
+        "price_type": null,
+        "unit_price": null,
+        "price_max": null,
+        "price_min": null,
+        "price": 1187.9,
+        "application": "Bathroom Sink Faucets",
+        "product_type": "Faucet",
+        "url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863374",
+        "variant_number": "03N",
+        "parent_model_number": "2940C",
+        "model_number": "2940C-03N",
+        "requested_model_number": "2940C/03N",
+        "brand_logo": {
+          "description": "Newport Brass",
+          "url": "https://www.fergusonhome.com/v1/mediabase/Manufacturers/newportbrass/Logo/newportbrass.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/newport-brass/c111810",
+        "brand": "Newport Brass",
+        "name": "Taft 1.2 GPM Widespread Bathroom Faucet",
+        "family_id": null,
+        "id": 1844367
+      },
+      "variant_url": "https://www.fergusonhome.com/newport-brass-2940c/s1844367?uid=4863374",
+      "match_type": "fallback_variation",
+      "matched_model": "2940C-03N",
+      "model_number": "2940C/03N",
+      "product_found": true,
+      "success": true
+    },
+    "SF_Catalog_Name": "2940C/03N",
+    "SF_Catalog_Id": "a03aZ00000LzRxaQAF"
+  },
+  "currentOutput": {
+    "AI_Brand": "NEWPORT BRASS",
+    "AI_Product_Category": "Bathroom Faucet",
+    "AI_Type": "Widespread",
+    "AI_Style": "3 Hole",
+    "AI_Color": "Polished Brass",
+    "AI_Finish": "Uncoated Polished Brass - Living",
+    "AI_Product_Title": "Newport Brass Widespread 3 Hole Bathroom Faucet Uncoated Polished Brass - Living 1.2 GPM - 2940C/03N"
+  }
+}

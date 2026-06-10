@@ -1,0 +1,850 @@
+{
+  "sf_catalog_id": "a03aZ00000tF1hUQAS",
+  "sf_catalog_name": "441097",
+  "createdAt": "2026-05-29T14:29:27.094Z",
+  "era": "ai",
+  "strata": [
+    "title_dup"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [],
+    "Reference_URL": "https://www.gotolee.com/buy/product/441097/354685?srsltid=AfmBOopOmy_sXIslWxITxuRZ-T61gOz2EcA8yxfIsvxXkWfTvvCh0WAZ",
+    "Ferguson_URL": "https://www.ferguson.com/product/blanco-3-1%2F2-in.-sink-waste-flange-in-biscuit-b441097/3794609.html?srsltid=AfmBOoqEGECvzzagYk5Y-JrHL1tPfDSB2bQ5MS5Sz5mulGsGSwPRyT0V",
+    "Specification_Table": "<p><strong>Product Information</strong></p><ul><li>Product: Kitchen Part &amp; Accessories</li><li>Kitchen Accessory Type: Disposal Flange</li><li>Manufacturer: Blanco America</li><li>Product Theme: Traditional</li></ul><p><strong>Material &amp; Finish</strong></p><ul><li>Material: Metal</li><li>Color: Biscuit</li></ul><p><strong>Dimensions</strong></p><ul><li>Diameter: 4-1/2&quot;</li><li>Depth: 1-5/8&quot;</li></ul><p><strong>Design</strong></p><ul><li>Shape: Round</li></ul><p><br></p>",
+    "UPC_Legacy": "074794302795",
+    "Category_Legacy": "Kitchen Accessory",
+    "Product_Description_Legacy": "A splash of personality. A dash of sophistication. And a pinch of much-needed convenience. Nothing elevates your style like adding sink accessories that perfectly blend beauty, durability and functionality. BLANCO deluxe kitchen sink drain stoppers are designed to enhance and perfectly complement our SILGRANIT II sinks. Our sink strainer baskets have the power to make prep-work more pleasing and clean up less complicated. Perfectly fitting any drain with a 3½” inside diameter the BLANCO strainer for kitchen sinks creates a tight seal to prevent food and debris clogging up your pipes, while giving you the option to allow water to drain through. Our metal sink strainers are strong and durable, as well as elegant and stylish, and the easy to maintain in sink strainers have been designed to work perfectly as Insinkerator garbage disposal stoppers.",
+    "Features_Legacy": "<ul><li>Color-coordinated to match BLANCO SILGRANIT kitchen sinks</li><li>Fit standard 3.5&quot; drain openings</li><li>Designed to work perfectly with most Insinkerator garbage disposals</li><li>Made in United States</li></ul>",
+    "Weight_Legacy": 2.08,
+    "Capacity_Legacy": 1,
+    "Height_Legacy": "1 5/8",
+    "Width_Legacy": "4 1/2",
+    "Depth_Legacy": "1 5/8",
+    "Product_Title_Legacy": "Atlas 36\" Farmhouse Single Basin Stainless Steel Kitchen Sink with Curved Apron",
+    "Color_Finish_Legacy": "Biscuit",
+    "MSRP_Legacy": 103,
+    "Model_Number_Legacy": "441097",
+    "Brand_Legacy": "Blanco",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-05-14T13:01:42.194274"
+      },
+      "search_meta_data": {
+        "business_category": "Kitchen Accessories",
+        "base_category": "Plumbing",
+        "corrected_search_term": "441091",
+        "search_engine": "FUSION",
+        "search_id": "FLtzg6U9N7"
+      },
+      "performance": {
+        "total_time": "4.01s",
+        "step3_detail_time": "1.57s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.44s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3673900",
+          "in_stock": false,
+          "price": 706.43,
+          "finish": "Bronze",
+          "model_number_full": "441094",
+          "variant": null,
+          "parent_model_number": "944661-36"
+        },
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3653690",
+          "in_stock": true,
+          "price": 680.9,
+          "finish": "Gunmetal Black",
+          "model_number_full": "441091",
+          "variant": null,
+          "parent_model_number": "944661-36"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3673898",
+          "in_stock": true,
+          "price": 680.9,
+          "finish": "Matte Gold",
+          "model_number_full": "441092",
+          "variant": null,
+          "parent_model_number": "944661-36"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3673899",
+          "in_stock": false,
+          "price": 1023.1,
+          "finish": "Pewter",
+          "model_number_full": "441093",
+          "variant": null,
+          "parent_model_number": "944661-36"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": true,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/basketstrainersmall.gif",
+            "label": "Basket Strainer Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/garbagedisposalsmall.gif",
+            "label": "Garbage Disposal Recommended"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": null,
+        "shipping_info": [
+          "Free Shipping!",
+          "Leaves the Warehouse in 1 to 2 business days",
+          "Leaves the Warehouse in 1 to 2 business days"
+        ],
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/Signature%20Hardware/Atlas",
+          "name": "Atlas"
+        },
+        "questions_count": 4,
+        "total_reviews": 13,
+        "review_count": 13,
+        "total_ratings": null,
+        "rating": 4.5,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-extra-savings/c82044110",
+            "name": "Extra Savings",
+            "id": 82044110
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-all/c132073",
+            "name": "Shop All Signature Hardware",
+            "id": 132073
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-new-products/c82042553",
+            "name": "New Products",
+            "id": 82042553
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-bathtubs/c132721",
+            "name": "Bathtubs",
+            "id": 132721
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-shower-faucets/c131891",
+            "name": "Shower Faucets",
+            "id": 131891
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-bathroom-faucets/c131890",
+            "name": "Bathroom Faucets",
+            "id": 131890
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-vanities/c132718",
+            "name": "Vanities",
+            "id": 132718
+          }
+        ],
+        "business_category": "Kitchen Sinks",
+        "base_category": "Plumbing",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware/c131874",
+            "name": "Signature Hardware"
+          },
+          {
+            "url": "https://www.fergusonhome.com/signature-hardware-kitchen-sinks/c131893",
+            "name": "Kitchen Sinks"
+          }
+        ],
+        "resources": [
+          {
+            "id": "signature-hardware-944661-36-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/signature_hardware/1556480/signature-hardware-944661-36-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "signature_hardware_944661_36_specification_sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/signature_hardware/1556480/signature_hardware_944661_36_specification_sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "25 Year Limited",
+        "warranty": "<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><strong><em>OUR GUARANTEE</em></strong></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>We proudly stand behind our products and are committed to doing things the right way. So, if you need anything, give us a call&mdash;our team of experts is here to help.</em></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><strong><em>WARRANTY POLICY</em></strong></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><em>All products are warranted to the original owner to be free of manufacturing and mechanical defects. If a defect is found, we will provide a replacement part or product, or make the appropriate adjustment.&nbsp;</em></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><em>Normal wear and tear from daily use is not covered. For example, the look of materials such as copper, bronze, nickel, teak, and bamboo without a protective varnish or finish can be expected to naturally change over time and with normal use. Other exclusions include damages incurred as a result of installation, replacement, or repair, and damages due to improper cleaning, misuse, or neglect.&nbsp;This warranty does not cover products installed outside of the United States and Canada.</em></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><em>If the product is used commercially or in a multi-unit setting, Signature Hardware warrants the product to be free of manufacturing and mechanical defects within five years from the date the product is delivered.&nbsp;</em></p>\n<p style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:107%;font-size:15px;font-family:\"Calibri\",sans-serif;text-align:center;'><strong><em>PRODUCT WARRANTY LIST</em></strong></p>\n<ul style=\"margin-bottom:0in;margin-top:0in;\" type=\"disc\">\n    <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>5 Year Warranty&nbsp;</em>\n        <ul style=\"margin-bottom:0in;margin-top:0in;\" type=\"circle\">\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Products with Electrical Components</em>\n                <ul style=\"margin-bottom:0in;margin-top:0in;\" type=\"square\">\n                    <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Air Tubs</em></li>\n                    <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Smart Toilets and Electronic Bidet Seats</em></li>\n                </ul>\n            </li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Lighting, Mirrors, Medicine Cabinets &nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Plumbing Parts, Drains &amp; Supplies&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Toilet Seats&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Outdoor Items&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Commercial and Multi-Unit Applications&nbsp;</em></li>\n        </ul>\n    </li>\n    <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>10 Year Warranty&nbsp;</em>\n        <ul style=\"margin-bottom:0in;margin-top:0in;\" type=\"circle\">\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Shower Rods, Shower Curtains &amp; Bathroom Accessories&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Hardware&nbsp;</em></li>\n        </ul>\n    </li>\n    <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>25 Year Warranty</em>\n        <ul style=\"margin-bottom:0in;margin-top:0in;\" type=\"circle\">\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Sinks&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Faucets&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Vanities&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Tubs (Non-Air/Whirlpool)&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Showering&nbsp;</em></li>\n            <li style='margin-top:0in;margin-right:0in;margin-bottom:8.0pt;margin-left:0in;line-height:normal;font-size:15px;font-family:\"Calibri\",sans-serif;'><em>Toilets <br>&nbsp;</em></li>\n        </ul>\n    </li>\n</ul>",
+        "country_of_origin": null,
+        "certifications": [],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "105",
+            "name": "Basin Depth"
+          },
+          {
+            "value": "110",
+            "name": "Basin Length"
+          },
+          {
+            "value": "115",
+            "name": "Basin Width"
+          },
+          {
+            "value": "4049",
+            "name": "Drain Connection"
+          },
+          {
+            "value": "732",
+            "name": "Gauge"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "997",
+            "name": "Length"
+          },
+          {
+            "value": "3593",
+            "name": "Minimum Cabinet Size"
+          },
+          {
+            "value": "2730",
+            "name": "Nominal Length"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "5318",
+            "name": "Basin Rack Included"
+          },
+          {
+            "value": "5466",
+            "name": "Basket Strainer Included"
+          },
+          {
+            "value": "5408",
+            "name": "Colander Included"
+          },
+          {
+            "value": "5409",
+            "name": "Cutting Board Included"
+          },
+          {
+            "value": "4521",
+            "name": "Drainboard"
+          },
+          {
+            "value": "637",
+            "name": "Faucet Included"
+          },
+          {
+            "value": "5450",
+            "name": "Soap Dispenser Included"
+          },
+          {
+            "value": "57",
+            "name": "Apron Front"
+          },
+          {
+            "value": "5407",
+            "name": "Basin Split"
+          },
+          {
+            "value": "6613",
+            "name": "Corner Sink"
+          },
+          {
+            "value": "492",
+            "name": "Drain Placement"
+          },
+          {
+            "value": "630",
+            "name": "Farmhouse"
+          },
+          {
+            "value": "636",
+            "name": "Faucet Holes"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1048",
+            "name": "Material"
+          },
+          {
+            "value": "1186",
+            "name": "Number Of Basins"
+          },
+          {
+            "value": "1535",
+            "name": "Sink Shape"
+          },
+          {
+            "value": "4925",
+            "name": "Sound Dampening"
+          },
+          {
+            "value": "6922",
+            "name": "Stainless Steel Grade"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "335",
+            "name": "Collection"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          }
+        ],
+        "dimensions": {
+          "width": "21 in.",
+          "length": "36 in.",
+          "height": "9 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the basin bottom to the basin top, measured in inches.",
+                "units": "in.",
+                "value": "8.625",
+                "name": "Basin Depth"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the left inner basin wall to the right inner basin wall, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Basin Length"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the inner basin wall to the front of the inner basin wall, measured in inches.",
+                "units": "in.",
+                "value": "17",
+                "name": "Basin Width"
+              },
+              {
+                "featured": false,
+                "description": "The straight line distance from edge to edge of the drain's connection, measured in inches.",
+                "units": "in.",
+                "value": "3.5",
+                "name": "Drain Connection"
+              },
+              {
+                "featured": false,
+                "description": "The constructed thickness of the product, measured by gauge size.",
+                "units": null,
+                "value": "16",
+                "name": "Gauge"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "9",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The distance of the product's longest side, measured in inches.",
+                "units": "in.",
+                "value": "36",
+                "name": "Length"
+              },
+              {
+                "featured": false,
+                "description": "The minimum surface space from left to right that can be used for the purpose of sink installation, measured in inches.",
+                "units": "in.",
+                "value": "39",
+                "name": "Minimum Cabinet Size"
+              },
+              {
+                "featured": false,
+                "description": "The overall length of the longest side rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "36",
+                "name": "Nominal Length"
+              },
+              {
+                "featured": false,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "21",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": true,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "21",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether a basin rack is included.",
+                "units": null,
+                "value": "No",
+                "name": "Basin Rack Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether a basket strainer is included.",
+                "units": null,
+                "value": "No",
+                "name": "Basket Strainer Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether a colander is included.",
+                "units": null,
+                "value": "No",
+                "name": "Colander Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether a cutting board is included.",
+                "units": null,
+                "value": "No",
+                "name": "Cutting Board Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether one or more drainboards are included.",
+                "units": null,
+                "value": "No",
+                "name": "Drainboard"
+              },
+              {
+                "featured": false,
+                "description": "Whether one or more faucets are included.",
+                "units": null,
+                "value": "No",
+                "name": "Faucet Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether a soap dispenser is included.",
+                "units": null,
+                "value": "No",
+                "name": "Soap Dispenser Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Tub has a finished front facing side of the bathtub when installed into an alcove, corner, or 3-wall configuration.",
+                "units": null,
+                "value": "Yes",
+                "name": "Apron Front"
+              },
+              {
+                "featured": false,
+                "description": "The proportional size of each basin. Basins without a split are known as single basin.",
+                "units": null,
+                "value": "Single Basin",
+                "name": "Basin Split"
+              },
+              {
+                "featured": false,
+                "description": "This sink is designed for installation into corner applications.",
+                "units": null,
+                "value": "No",
+                "name": "Corner Sink"
+              },
+              {
+                "featured": false,
+                "description": "The manufactured location where the drain will be installed.",
+                "units": null,
+                "value": "Rear",
+                "name": "Drain Placement"
+              },
+              {
+                "featured": false,
+                "description": "Whether the sink has a finished front-facing design that when installed will be exposed through a cutout in the cabinets face, also known as an apron front design.",
+                "units": null,
+                "value": "Yes",
+                "name": "Farmhouse"
+              },
+              {
+                "featured": true,
+                "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+                "units": null,
+                "value": "0",
+                "name": "Faucet Holes"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Farmhouse, Undermount",
+                "name": "Installation Type"
+              },
+              {
+                "featured": true,
+                "description": "The material(s) used in the construction of the product.",
+                "units": null,
+                "value": "Stainless Steel",
+                "name": "Material"
+              },
+              {
+                "featured": false,
+                "description": "The total number of sink basins included.",
+                "units": null,
+                "value": "1",
+                "name": "Number Of Basins"
+              },
+              {
+                "featured": false,
+                "description": "The constructed shape of this sink.",
+                "units": null,
+                "value": "Rectangular",
+                "name": "Sink Shape"
+              },
+              {
+                "featured": false,
+                "description": "Whether the sink includes a sound absorption feature that absorbs sound vibrations to reduce noise.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sound Dampening"
+              },
+              {
+                "featured": false,
+                "description": "This products grade of stainless steel.",
+                "units": null,
+                "value": "304",
+                "name": "Stainless Steel Grade"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Traditional",
+                "name": "Theme"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+                "units": null,
+                "value": "Atlas",
+                "name": "Collection"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "25 Year Limited",
+                "name": "Manufacturer Warranty"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "25 Year Limited"
+          },
+          "collection": {
+            "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+            "units": null,
+            "value": "Atlas"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Traditional"
+          },
+          "stainless_steel_grade": {
+            "description": "This products grade of stainless steel.",
+            "units": null,
+            "value": "304"
+          },
+          "sound_dampening": {
+            "description": "Whether the sink includes a sound absorption feature that absorbs sound vibrations to reduce noise.",
+            "units": null,
+            "value": "Yes"
+          },
+          "sink_shape": {
+            "description": "The constructed shape of this sink.",
+            "units": null,
+            "value": "Rectangular"
+          },
+          "number_of_basins": {
+            "description": "The total number of sink basins included.",
+            "units": null,
+            "value": "1"
+          },
+          "material": {
+            "description": "The material(s) used in the construction of the product.",
+            "units": null,
+            "value": "Stainless Steel"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Farmhouse, Undermount"
+          },
+          "faucet_holes": {
+            "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+            "units": null,
+            "value": "0"
+          },
+          "farmhouse": {
+            "description": "Whether the sink has a finished front-facing design that when installed will be exposed through a cutout in the cabinets face, also known as an apron front design.",
+            "units": null,
+            "value": "Yes"
+          },
+          "drain_placement": {
+            "description": "The manufactured location where the drain will be installed.",
+            "units": null,
+            "value": "Rear"
+          },
+          "corner_sink": {
+            "description": "This sink is designed for installation into corner applications.",
+            "units": null,
+            "value": "No"
+          },
+          "basin_split": {
+            "description": "The proportional size of each basin. Basins without a split are known as single basin.",
+            "units": null,
+            "value": "Single Basin"
+          },
+          "apron_front": {
+            "description": "Tub has a finished front facing side of the bathtub when installed into an alcove, corner, or 3-wall configuration.",
+            "units": null,
+            "value": "Yes"
+          },
+          "soap_dispenser_included": {
+            "description": "Whether a soap dispenser is included.",
+            "units": null,
+            "value": "No"
+          },
+          "faucet_included": {
+            "description": "Whether one or more faucets are included.",
+            "units": null,
+            "value": "No"
+          },
+          "drainboard": {
+            "description": "Whether one or more drainboards are included.",
+            "units": null,
+            "value": "No"
+          },
+          "cutting_board_included": {
+            "description": "Whether a cutting board is included.",
+            "units": null,
+            "value": "No"
+          },
+          "colander_included": {
+            "description": "Whether a colander is included.",
+            "units": null,
+            "value": "No"
+          },
+          "basket_strainer_included": {
+            "description": "Whether a basket strainer is included.",
+            "units": null,
+            "value": "No"
+          },
+          "basin_rack_included": {
+            "description": "Whether a basin rack is included.",
+            "units": null,
+            "value": "No"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "21"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "21"
+          },
+          "nominal_length": {
+            "description": "The overall length of the longest side rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "36"
+          },
+          "minimum_cabinet_size": {
+            "description": "The minimum surface space from left to right that can be used for the purpose of sink installation, measured in inches.",
+            "units": "in.",
+            "value": "39"
+          },
+          "length": {
+            "description": "The distance of the product's longest side, measured in inches.",
+            "units": "in.",
+            "value": "36"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "9"
+          },
+          "gauge": {
+            "description": "The constructed thickness of the product, measured by gauge size.",
+            "units": null,
+            "value": "16"
+          },
+          "drain_connection": {
+            "description": "The straight line distance from edge to edge of the drain's connection, measured in inches.",
+            "units": "in.",
+            "value": "3.5"
+          },
+          "basin_width": {
+            "description": "The distance from the back of the inner basin wall to the front of the inner basin wall, measured in inches.",
+            "units": "in.",
+            "value": "17"
+          },
+          "basin_length": {
+            "description": "The distance from the left inner basin wall to the right inner basin wall, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "basin_depth": {
+            "description": "The distance from the basin bottom to the basin top, measured in inches.",
+            "units": "in.",
+            "value": "8.625"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>Treat your kitchen to a stylish update with the 36\" Atlas farmhouse sink. This basin features a large, resilient bowl that is designed to withstand laborious tasks. A stylish gunmetal black finish is applied using a PVD process, which is treated with a scratch-resistant and liquid-repelling coating. Its premium construction includes 304-grade stainless steel with a 16-gauge thickness, and the outer walls feature sound-absorbing pads and a thin undercoating to prevent condensation buildup. Match an optional drain with your choice of faucet to complete the look.</p>\n\n<p><strong>Signature Hardware 944661-36 Specifications:</strong></p>\n\n<ul>\n\t<li>Covered under Signature Hardware's 25 year limited warranty</li>\n\t<li>Constructed of 16 gauge stainless steel</li>\n\t<li>Farmhouse installation</li>\n\t<li>Single basin for maximum workspace</li>\n\t<li>Sound absorbent construction to prevent dish clatter and under cabinet condensation</li>\n\t<li>Rear drain location increases available space under the sink</li>\n</ul>\n\n<p><strong>Signature Hardware 944661-36 Specifications:</strong></p>\n\n<ul>\n\t<li>Sink Width: 21\" (from front to back)</li>\n\t<li>Sink Length: 36\" (from left to right)</li>\n\t<li>Sink Width: 21\" (from front to back)</li>\n\t<li>Sink Height: 9\" (from top to bottom)</li>\n\t<li>Basin Dimensions: 34\" L x 17\" W x 8-5/8\" D</li>\n\t<li>Minimum Cabinet Size: 39\"</li>\n\t<li>Drain Connection: 3-1/2\"</li>\n</ul>\n",
+        "videos": [
+          {
+            "description": "Our selection of durable farmhouse, undermount, bar & prep sinks comes in gunmetal black, bronze, pewter & matte gold. Covered in a scratch-resistant and liquid-repellent coating, they are perfect for even the most frequently used kitchen.",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7229"
+          }
+        ],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/signaturehardware/signature-hardware-441091-7137109.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/signaturehardware/signature-hardware-441091-7137109.jpg"
+        ],
+        "finish": "Gunmetal Black",
+        "color": "000000",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": null,
+        "variant_count": 4,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free Shipping!",
+        "estimated_delivery": "Leaves the Warehouse in 1 to 2 business days",
+        "shipping_lead_time": "Leaves the Warehouse in 1 to 2 business days",
+        "inventory_quantity": 73,
+        "availability_status": "in_stock",
+        "in_stock": true,
+        "has_free_installation": false,
+        "shipping_fee": true,
+        "base_type": "Sinks",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1023.1,
+          "min": 680.9
+        },
+        "price_type": null,
+        "unit_price": null,
+        "price_max": null,
+        "price_min": null,
+        "price": 680.9,
+        "application": "Kitchen Sinks",
+        "product_type": "Sinks",
+        "url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3653690",
+        "variant_number": "441091",
+        "parent_model_number": "944661-36",
+        "model_number": "441091",
+        "requested_model_number": "441097",
+        "brand_logo": {
+          "description": "Signature Hardware",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/signaturehardware/Logo/signaturehardware.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/signature-hardware/c131874",
+        "brand": "Signature Hardware",
+        "name": "Atlas 36\" Farmhouse Single Basin Stainless Steel Kitchen Sink with Curved Apron",
+        "family_id": null,
+        "id": 1556480
+      },
+      "variant_url": "https://www.fergusonhome.com/signature-hardware-944661-36/s1556480?uid=3653690",
+      "match_type": "base_model",
+      "matched_model": "441091",
+      "model_number": "441097",
+      "product_found": true,
+      "success": true
+    },
+    "SF_Catalog_Name": "441097",
+    "SF_Catalog_Id": "a03aZ00000tF1hUQAS"
+  },
+  "currentOutput": {
+    "AI_Brand": "Blanco",
+    "AI_Product_Category": "Kitchen Sink",
+    "AI_Type": "Accessory",
+    "AI_Style": "Traditional",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "Blanco Atlas 36\" Farmhouse Single Basin Stainless Steel Kitchen Sink with Curved Apron Stainless Steel - 441097"
+  }
+}

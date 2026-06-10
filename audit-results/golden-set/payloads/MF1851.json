@@ -1,0 +1,83 @@
+{
+  "sf_catalog_id": "a03Hu00001N26MFIAZ",
+  "sf_catalog_name": "MF1851",
+  "createdAt": "2026-06-08T13:47:50.418Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/7df874018c973073bb295d67dbf422af.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/955741c50216d25c50a3bfea77969240.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/5f15d4581ed43274fa7bc9a9fc525553.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/bfeba23cbc1c544906ab5e62eba17af6.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/9a1b821b88b73f34c8775608ecbaecd3.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/ffbd271711a55a9b13714a8cb5edc917.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/c1a44a1cc17a96bee960695ff319bb80.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/7ebab2838694976bd9218942f9540cef.webp"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": null,
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">General product information</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Model type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freezer for integrated use with NoFrost</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>GTIN</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">9005382274835</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Series</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Peak</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Output and consumption</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Energy consumption in 24h</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1.128 kWh / 24h</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy consumption per year</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">412 kWh/a</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Noise level</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">39 dB</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Voltage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">115 V ~</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Frequency</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60 Hz</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Connection rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3.0 A 120 W</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Control and functions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Control</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3.5&quot; colour LCD display</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control unit</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Touch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature display</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freezer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Front frame heating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer compartment</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>SuperFrost</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Automatic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>BottleTimer</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">-</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Type of control</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3,5&quot; LCD colour display, touch and swipe</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Position of control unit</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">behind the door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Malfunction: Warning signal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">optical and acoustical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>FrostControl</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"></td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door open: Warning signal, freezer compartment</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">audible</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Freezer compartment</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Adjustable temperature range</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">+7 °F to -17 °F</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cooling technology</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">NoFrost</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Defrosting method</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">automatic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Storage time during interruptions in power supply</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">14 h</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Freezing capacity in 24 h in pounds</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">26.5 pounds</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>No. of drawers in freezer compartment</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>FrostSafe</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Drawers closed on all sides with transparent front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Interior light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Illuminated side wall</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>4-star freezer compartment</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">-</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>VarioSpace</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">-</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>IceMaker</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Ice cube capacity in 24 h</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3.5 pounds</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ice cube storage</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4.0 pounds</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Ice cube tray</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">-</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of ice cube trays</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>No. of cold storage accumulators</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Freezer tray</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Star-rating</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Design and materials</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Material adjustable shelves freezer compartment</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Glass</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Steel</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Set-up and installation</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Type of installation</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Designed for integrated use</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door assembly</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fixed door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door hinges</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Left</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door hinge replacement</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Only possible via customer service</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door opening angle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">115°</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height-adjustable feet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Levelling bars</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">-</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of levelling bars</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ventilation</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Base ventilation</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Plug type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">USA</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connector cable (length)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2,500 mm</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Specifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Net capacity, total</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">0.0 cubic feet</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Aperture height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">84 1/16 inch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Range of appliance width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18 inch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Min. depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">25 inch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Exterior dimensions: height/width/depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">83 3/4  17 3/4  24 1/16 inch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Dimensions packed hwd in inches</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">85 7/16  26 3/16  30 1/8 inch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Weight (without packaging)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">302 pounds</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Weight (with packaging)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">328.5 pounds</td></tr></table>",
+    "UPC_Legacy": "09005382274835",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "LIEBHERR",
+    "Features_Legacy": "<ul><li>ENERGY STAR(R)</li><li>SuperQuiet</li><li>InfinitySwipe</li><li>InfinityLight</li><li>SuperFrost</li><li>IceMaker</li><li>SoftSystem</li></ul>",
+    "Weight_Legacy": 328.5,
+    "Capacity_Legacy": 10.1,
+    "Height_Legacy": "83 3/4",
+    "Width_Legacy": "17 3/4",
+    "Depth_Legacy": "24",
+    "Product_Title_Legacy": "Fully integrated freezer 84'' height",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 7299,
+    "Model_Number_Legacy": "MF 1851",
+    "Brand_Legacy": "LIEBHERR",
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "LBR:MF1851",
+    "Web_Retailer_SubCategory": "UPRIGHT FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": null,
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": null,
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": null,
+    "Brand_Web_Retailer": null,
+    "SF_Catalog_Name": "MF1851",
+    "SF_Catalog_Id": "a03Hu00001N26MFIAZ"
+  },
+  "currentOutput": {
+    "AI_Brand": "LIEBHERR",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Column",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Panel Ready",
+    "AI_Finish": "Panel Ready",
+    "AI_Product_Title": "Liebherr 18-Inch Panel Ready Column Freezer - MF1851"
+  }
+}

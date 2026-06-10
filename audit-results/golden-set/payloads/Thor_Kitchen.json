@@ -1,0 +1,33 @@
+{
+  "sf_catalog_id": "cagp-lot-762",
+  "sf_catalog_name": "Thor Kitchen",
+  "createdAt": "2026-05-27T22:02:07.605Z",
+  "era": "ai",
+  "strata": [
+    "scenario_no_sources"
+  ],
+  "scenario": "no_sources",
+  "rawPayload": {
+    "SF_Catalog_Id": "cagp-lot-762",
+    "SF_Catalog_Name": "Thor Kitchen",
+    "Brand_Legacy": "Thor",
+    "Model_Number_Legacy": "Kitchen",
+    "Category_Legacy": "Dishwasher",
+    "Product_Title_Legacy": "Thor Kitchen",
+    "Product_Description_Legacy": "Kitchen HDW2401SS 24\" Built-in Dishwasher features 14 place settings, 45 dBA noise level, 6 wash cycles, Smart Wash System, Powerful Spray Arms, Adjustable Racks, Removable Utensil Basket, Fingerprint Resistant finish, Water &amp; Energy Efficiency, and Bulk Cleaning Efficiency. Serial Number: HDW2401SS24120456. $1299",
+    "Stock_Images": [
+      {
+        "url": "https://cagp.com/images/lot/3630/363024_xl.jpg"
+      }
+    ]
+  },
+  "currentOutput": {
+    "AI_Brand": "THOR KITCHEN",
+    "AI_Product_Category": "Dishwasher",
+    "AI_Type": "Top Control",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "THOR Kitchen 24-Inch Top Control Dishwasher Stainless Steel - Thor Kitchen"
+  }
+}

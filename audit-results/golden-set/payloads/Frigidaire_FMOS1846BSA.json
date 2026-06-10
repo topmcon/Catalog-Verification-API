@@ -1,0 +1,33 @@
+{
+  "sf_catalog_id": "cagp-lot-763",
+  "sf_catalog_name": "Frigidaire FMOS1846BSA",
+  "createdAt": "2026-05-27T22:02:12.452Z",
+  "era": "ai",
+  "strata": [
+    "scenario_no_sources"
+  ],
+  "scenario": "no_sources",
+  "rawPayload": {
+    "SF_Catalog_Id": "cagp-lot-763",
+    "SF_Catalog_Name": "Frigidaire FMOS1846BSA",
+    "Brand_Legacy": "Frigidaire",
+    "Model_Number_Legacy": "FMOS1846BSA",
+    "Category_Legacy": "Range",
+    "Product_Title_Legacy": "Frigidaire FMOS1846BSA",
+    "Product_Description_Legacy": "over-the-range microwave oven features 1.8 cu. ft. capacity, 1000W power, 29.88\" width, 12.4\" turntable, 10 power levels, sensor cooking, 2-speed exhaust, LED lighting, digital touch controls, 120V/60Hz, UL listed, stainless steel finish, serial: KG40400028. $479",
+    "Stock_Images": [
+      {
+        "url": "https://cagp.com/images/lot/3630/363028_xl.jpg"
+      }
+    ]
+  },
+  "currentOutput": {
+    "AI_Brand": "FRIGIDAIRE",
+    "AI_Product_Category": "Microwave",
+    "AI_Type": "Over-the-Range",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "Frigidaire 30-Inch Over-the-Range Microwave Stainless Steel 1.8 Cu. Ft. - Frigidaire FMOS1846BSA"
+  }
+}

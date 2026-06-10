@@ -1,0 +1,1176 @@
+{
+  "sf_catalog_id": "a03aZ00000n8mGCQAY",
+  "sf_catalog_name": "JB755S",
+  "createdAt": "2026-05-28T18:03:06.952Z",
+  "era": "ai",
+  "strata": [
+    "color_junk"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/70c54029852b6b38dcef691c9a61dcc8.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/ee3370c5fb85897d4f68bca06fec2a23.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/dff2a1b7277141a04fe9e16d16204261.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/c737ef2bb9d216198d082e8d24a3864e.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/637defa4fc0c4634283255c7db072a13.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/15b615a497384af47878dcd0f3396096.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/f9680436a146fe0f14846330629e0d68.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/37f577e80a2afc9d570441e7126f60e5.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/55a74fb98690bbfd4a606fa8909c3657.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/7623e2857334cc8f9aeb2ca7605c87e2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/f43ebdc817868045323f8c85d60c70bb.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/e4bfae749fe2642e7d71b8c838ca328d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/1a3a9606dfb1b12d3cb0a9133d57077e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/17e6b6552a8a7ecfb75da849fa983ef2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/998f426e0d3a84bfdda7210c6d2c0e81.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/8fbdea545d4d35afaf4dc14399238aed.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/fc1b38ca5d9aa9ced5c4e71075491d12.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/63ad95742fabd1c8c3aeb79c34ed8fd7.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/80184481848adf2a3a95d2da2926cf9a.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/773b76baf45cd3ae0c5b68227fc73b05.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b0f7a1f29cc9265f75f248308e3e78ca.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/623c1588193ebb5c1b450b4bff785cfe.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/9470825c78cfc3ddf2ad56834d1d8a23.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/db8825e72bb2863b223a1e54c0204207.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/f548f1b3cc4c0fccf09759126559e185.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/38802f8fef54cab7534155428919921e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/dd82e3c8f0246f66db9c3649a21f4bd2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b8b4542e9e03c8b85960ad4b9dda564e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/c4872ac48b24524f94b10171526425f4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/c6003f89dcdabc675c9a9b1dbb8bc63f.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/427fc96e25ac906bc1b6318a647e2a37.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/60b70d009daf10996bcc74b5713b9101.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/ba4f01a78533ca3b7ced91b211f8277c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/78dfbba2d5c53dcaaa0b0a2b92679d29.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/03e531f41e75065059bf7f5f75b850b6.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/922eb426f0dd813c860a2bc49c032909.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/c5bf71571483a50ff9933230c2ff142d.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/76951bfcb5088dc2ff1e3fd5a5734605.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/83a359890363dd392f1059528047ab7b.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/20edd3596a5e6ce07e2ea27c64bd284f.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/37f27ce47536668e2544e86b79b96eef.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/f82bb0879fde246539f162da7a56840e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/d68445500514b5d08c51e1e399394a8d.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.geappliances.com/appliance/GE-ENERGY-STAR-30-Slide-In-Electric-Convection-Range-with-No-Preheat-Air-Fry-and-EasyWash-Oven-Tray-GRS600AVFS",
+    "Ferguson_URL": "https://www.fergusonhome.com/ge-grs600av/s2013452",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">CAPACITY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Total Capacity (cubic feet)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5.3 cu ft</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">APPEARANCE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Oven Door Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Big View Oven Window <br>Clearview Glass Door <br>Full-Wrapped Stainless</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Handle Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Control Knobs</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel Appearance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Color Appearance</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fingerprint Resistant Stainless</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">POWER / RATINGS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Electrical Requirements</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">208/240V ; 60Hz ; 40A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Amp Rating at 208V</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">40</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Broiler Wattage</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">3410W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Amp Rating at 240V</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">40</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">KW Rating at 240V</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">13.2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bake Wattage</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2850W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Hertz</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">KW Rating at 208V</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">9.9</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WARRANTY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Parts Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Limited 1-year entire appliance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Labor Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Limited 1-year entire appliance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Warranty Notes</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">See written warranty for full details</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">ACCESSORIES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Air Fry Basket</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional- JXAFTRAY1VSS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Backsplash</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Optional - UX12B30PSS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">EasyWash™ Oven Tray</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Replacement - JXEZTRAY2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Extension Rack</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Optional - JXXTNRCK2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Trim Kit</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Optional - JXFILLR1SS/BB</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WEIGHTS &amp; DIMENSIONS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Net Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">144 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Depth Without Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">26.25 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Height to Cooking Surface (in.)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">35.625 - 36.5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Cabinet Width</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">30 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Approximate Shipping Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">158 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Width</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">30 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Overall Height</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">37.125 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Height to Top of Rear Vent Trim</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">36.625 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Overall Depth</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">28.625 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Depth with Door Open</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48.25 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Oven Interior Dimensions (W x H x D) (in.)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24-1/8 x 19-1/2 x 19-3/8</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">FEATURES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cooking System</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Convection</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Interior</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Black Enamel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Element - Center</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">6&quot; 80W Warming Zone</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Control Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bluetooth <br>Chef Connect (App) <br>Convection Bake <br>Convection Roast <br>Cook Time <br>Delay Start (App) <br>Hi / Low Broil <br>Timer <br>Warm Mode <br>WiFi</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Oven Rack Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2 Nickel Racks</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Element - Left Front</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">9&quot;/6&quot; 3100W Power Boil</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Power Boil Burner</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Cleaning Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Steam Clean with Easy Wash Oven Tray</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Product Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Slide-In Single Oven</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Heating Element &quot;ON&quot; Indicator Light</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cooktop Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Radiant Smoothtop</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fuel Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Electric</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Dual Ring Burners</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Element - Right Front</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">12&quot;/9&quot; 3000W Power Boil</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Interior Oven Light</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Light</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">WiFi Connect</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Built-In</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Control Location</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Front</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Express Preheat</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Control Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cap Touch Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Drawer Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Storage</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Hot Surface Indicator Lights</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Sabbath Mode</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Element - Left Rear</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">6&quot; 1200W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Cooking Technology</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Convection</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Configuration</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Range with Storage Drawer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4-Pass Bake Element <br>4-Pass Broil Element <br>Hidden Bake</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">OU Certified</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">OU/CRC Enhanced Shabbos Mode, when used with Shabbos Keeper, sold separately</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Cooking Modes</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bake <br>Convection Bake <br>Convection Roast <br>Fresh Reheat <br>No Preheat Air Fry <br>No Preheat Pizza</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cooktop Burner Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Radiant <br>Smoothtop</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Element - Right Rear</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">6&quot; 1200W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Cooktop Surface</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Black Ceramic Glass <br>Porcelain-Enamel Perimeter</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Rack Positions (Single or Upper/Lower)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">6</td></tr></table>",
+    "UPC_Legacy": "084691922643",
+    "Category_Legacy": "Range",
+    "Product_Description_Legacy": "EasyWash(TM) Oven TrayOven cleaning is easier than ever with the EasyWash(TM) Oven Tray. This enameled tray is easily removed and rinsed clean in the sink or, for bigger messes, guaranteed to fit in all GE Appliances dishwashers.Built-In WiFiThe SmartHQ app gives you oven control functions like remote preheat, the ability to monitor and change oven temperature, turn off your oven and more! See detailsNo Preheat Air FryNo preheat air frying is a great way to get crispier versions of your favorite foods in less time.Slide-In RangeEasily upgrade your kitchen with this new slide-in range that is guaranteed to fit into your existing space.No Preheat Fresh ReheatPerfect for leftovers from the night before, the to-go box from your favorite restaurant or refreshing soggy fries to ideal crispiness, this no preheat mode saves you time and delivers flawless results.No Preheat PizzaSpecifically designed to cook your frozen pizza, this no preheat option is a time saver and a great way to get dinner on the table fast.Express PreheatGet food on the table quicker thanks to a fast preheat oven. In just 7 minutes*, you have a perfectly preheated oven. *Preheats oven in just 7 minutes, bake mode to preheat beep, 350 degrees, one standard rack.9\"/6\" Power Boil BurnerEasily adjust to any size pot or pan with a convertible 6\" and 9\" element that makes it easy to boil water faster.12\"/9\" Power Boil BurnerUse this power boil burner as a 12-inch or 9-inch element for rapid heat and flexibility on all sized cookware.ConvectionCook and brown foods more evenly with convection cooking that uses a rear fan to circulate hot air.Fifth Element Warming ZoneA convenient low-heat warming zone provides convenient temperature control for foods on the cooktop.Hidden Bake ElementEnjoy a clean and sleek interior that eliminates hard-to-reach areas thanks to a concealed oven element.Oven Storage DrawerThis model features a removable oven storage drawer that offers the perfect place to store cookware and other kitchen accessories.Dual Element OvenProduce great results with every bake thanks to upper and lower elements that provide rapid, even heat.Fit GuaranteeReplace your old 30\" free-standing range with a new 30\" slide-in model. GE slide-in ranges are guaranteed for an exact fit or GE Appliances will pay up to $300 toward modifications. See offer criteria and details",
+    "Features_Legacy": "<ul><li>EasyWash(TM) Oven Tray</li><li>Built-In WiFi</li><li>No Preheat Air Fry</li><li>Slide-In Range</li><li>No Preheat Fresh Reheat</li><li>No Preheat Pizza</li><li>Express Preheat</li><li>9&quot;/6&quot; Power Boil Burner</li><li>12&quot;/9&quot; Power Boil Burner</li><li>Convection</li><li>Fifth Element Warming Zone</li><li>Hidden Bake Element</li><li>Oven Storage Drawer</li><li>Dual Element Oven</li><li>Fit Guarantee</li></ul>",
+    "Weight_Legacy": 144,
+    "Capacity_Legacy": 5.3,
+    "Height_Legacy": "37 1/8",
+    "Width_Legacy": "30",
+    "Depth_Legacy": "28 5/8",
+    "Product_Title_Legacy": "GE 30-Inch Front Control Electric Range Stainless Steel - GRS600AVFS",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1649,
+    "Model_Number_Legacy": "JB755S",
+    "Brand_Legacy": "GE",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-25T22:36:16.650723"
+      },
+      "search_meta_data": {
+        "business_category": "Ovens Ranges Cooktops",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "TWoS4pwnvN"
+      },
+      "performance": {
+        "total_time": "4.11s",
+        "step3_detail_time": "1.78s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "2.34s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/isepowercord.gif",
+            "label": "Power Cord Required"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 548,
+        "review_count": 548,
+        "total_ratings": 548,
+        "rating": 4.4,
+        "related_categories": [],
+        "business_category": "Ovens Ranges Cooktops",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/ge-appliances/c112078",
+            "name": "GE Appliances"
+          },
+          {
+            "url": "https://www.fergusonhome.com/shop-all-ge/c131185",
+            "name": "Shop All GE"
+          }
+        ],
+        "resources": [
+          {
+            "id": "ge-grs600av-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge/2013452/ge-grs600av-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "ge-grs600av-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge/2013452/ge-grs600av-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "ge-grs600av-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/ge/2013452/ge-grs600av-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "1 Year Limited Parts and Labor",
+        "warranty": "",
+        "country_of_origin": null,
+        "certifications": [],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5143",
+            "name": "Height to Top of Cook Top"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "1285",
+            "name": "Oven Capacity"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "5441",
+            "name": "Baking Element"
+          },
+          {
+            "value": "320",
+            "name": "Clock"
+          },
+          {
+            "value": "9436",
+            "name": "Interior Light"
+          },
+          {
+            "value": "6326",
+            "name": "Meat Thermometer"
+          },
+          {
+            "value": "9441",
+            "name": "Air Fry"
+          },
+          {
+            "value": "208",
+            "name": "Burner Style"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "367",
+            "name": "Convection"
+          },
+          {
+            "value": "502",
+            "name": "Drawer Type"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "840",
+            "name": "Hot Surface Indicator Lights"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1196",
+            "name": "Number Of Burners"
+          },
+          {
+            "value": "1226",
+            "name": "Number of Racks"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "1484",
+            "name": "Self Cleaning"
+          },
+          {
+            "value": "6945",
+            "name": "Wireless Communication"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "5421",
+            "name": "Back Left Burner Watts"
+          },
+          {
+            "value": "5422",
+            "name": "Back Right Burner Watts"
+          },
+          {
+            "value": "5419",
+            "name": "Front Left Burner Watts"
+          },
+          {
+            "value": "5420",
+            "name": "Front Right Burner Watts"
+          },
+          {
+            "value": "701",
+            "name": "Fuel Type"
+          },
+          {
+            "value": "5434",
+            "name": "Induction"
+          },
+          {
+            "value": "5423",
+            "name": "Middle Burner Watts"
+          },
+          {
+            "value": "6211",
+            "name": "Power Burner"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "3875",
+            "name": "Wattage"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "9466",
+            "name": "Product Variation"
+          }
+        ],
+        "dimensions": {
+          "width": "30 in.",
+          "height": "37.125 in.",
+          "depth": "28.625 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "28.625",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "48.25",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "37.125",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The height to the top of this product's cook top.",
+                "units": "in.",
+                "value": "35.625, 36.5",
+                "name": "Height to Top of Cook Top"
+              },
+              {
+                "featured": false,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "29",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": false,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "38",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The dimensional size and space of the oven, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "5.3",
+                "name": "Oven Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "144",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "5.3",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether a baking element is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Baking Element"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an integrated clock.",
+                "units": null,
+                "value": "Yes",
+                "name": "Clock"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source is included to increase visibility of the inside of the product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Interior Light"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product includes a meat thermometer.",
+                "units": null,
+                "value": "No",
+                "name": "Meat Thermometer"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the product features an air fry option.",
+                "units": null,
+                "value": "Yes",
+                "name": "Air Fry"
+              },
+              {
+                "featured": true,
+                "description": "The style of burner included with or used by this product.",
+                "units": null,
+                "value": "Radiant",
+                "name": "Burner Style"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Knob, Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "Whether the oven includes a convection feature.",
+                "units": null,
+                "value": "Yes",
+                "name": "Convection"
+              },
+              {
+                "featured": true,
+                "description": "The type of drawer the product features.",
+                "units": null,
+                "value": "Storage Drawer",
+                "name": "Drawer Type"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "No",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes hot surface indicator lights.",
+                "units": null,
+                "value": "Yes",
+                "name": "Hot Surface Indicator Lights"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Slide In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": true,
+                "description": "The total number of burners (cooking sources) included.",
+                "units": null,
+                "value": "5",
+                "name": "Number Of Burners"
+              },
+              {
+                "featured": false,
+                "description": "The total number of racks.",
+                "units": null,
+                "value": "2",
+                "name": "Number of Racks"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": true,
+                "description": "Whether the self-cleaning feature is included.",
+                "units": null,
+                "value": "No",
+                "name": "Self Cleaning"
+              },
+              {
+                "featured": false,
+                "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+                "units": null,
+                "value": "WiFi",
+                "name": "Wireless Communication"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "40",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product uses to operate the back left burner, measured in watts.",
+                "units": null,
+                "value": "1200",
+                "name": "Back Left Burner Watts"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product uses to operate the back right burner, measured in watts.",
+                "units": null,
+                "value": "1200",
+                "name": "Back Right Burner Watts"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product uses to operate the front left burner, measured in watts.",
+                "units": null,
+                "value": "3100",
+                "name": "Front Left Burner Watts"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product uses to operate the front right burner, measured in watts.",
+                "units": null,
+                "value": "3000",
+                "name": "Front Right Burner Watts"
+              },
+              {
+                "featured": true,
+                "description": "The type of fuel that powers the product.",
+                "units": null,
+                "value": "Electric",
+                "name": "Fuel Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product uses induction heating methods, which uses the cooking vessel itself as a heat source.",
+                "units": null,
+                "value": "No",
+                "name": "Induction"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product uses to operate the middle burner, measured in watts.",
+                "units": null,
+                "value": "80",
+                "name": "Middle Burner Watts"
+              },
+              {
+                "featured": false,
+                "description": "Whether a power burner (a high-heat gas stove burner that has significantly higher heat output than a traditional burner) is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Power Burner"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "208, 240",
+                "name": "Voltage"
+              },
+              {
+                "featured": false,
+                "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+                "units": null,
+                "value": "2850",
+                "name": "Wattage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Limited Parts and Labor",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "The type of product this item is.",
+                "units": null,
+                "value": "Range with Single Oven",
+                "name": "Product Variation"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "product_variation": {
+            "description": "The type of product this item is.",
+            "units": null,
+            "value": "Range with Single Oven"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Limited Parts and Labor"
+          },
+          "wattage": {
+            "description": "The measurement of electrical power this product requires to operate, measured in watts.",
+            "units": null,
+            "value": "2850"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "208, 240"
+          },
+          "power_burner": {
+            "description": "Whether a power burner (a high-heat gas stove burner that has significantly higher heat output than a traditional burner) is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "middle_burner_watts": {
+            "description": "The measurement of electrical power this product uses to operate the middle burner, measured in watts.",
+            "units": null,
+            "value": "80"
+          },
+          "induction": {
+            "description": "Whether the product uses induction heating methods, which uses the cooking vessel itself as a heat source.",
+            "units": null,
+            "value": "No"
+          },
+          "fuel_type": {
+            "description": "The type of fuel that powers the product.",
+            "units": null,
+            "value": "Electric"
+          },
+          "front_right_burner_watts": {
+            "description": "The measurement of electrical power this product uses to operate the front right burner, measured in watts.",
+            "units": null,
+            "value": "3000"
+          },
+          "front_left_burner_watts": {
+            "description": "The measurement of electrical power this product uses to operate the front left burner, measured in watts.",
+            "units": null,
+            "value": "3100"
+          },
+          "back_right_burner_watts": {
+            "description": "The measurement of electrical power this product uses to operate the back right burner, measured in watts.",
+            "units": null,
+            "value": "1200"
+          },
+          "back_left_burner_watts": {
+            "description": "The measurement of electrical power this product uses to operate the back left burner, measured in watts.",
+            "units": null,
+            "value": "1200"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "40"
+          },
+          "wireless_communication": {
+            "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+            "units": null,
+            "value": "WiFi"
+          },
+          "self_cleaning": {
+            "description": "Whether the self-cleaning feature is included.",
+            "units": null,
+            "value": "No"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "Yes"
+          },
+          "number_of_racks": {
+            "description": "The total number of racks.",
+            "units": null,
+            "value": "2"
+          },
+          "number_of_burners": {
+            "description": "The total number of burners (cooking sources) included.",
+            "units": null,
+            "value": "5"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Slide In"
+          },
+          "hot_surface_indicator_lights": {
+            "description": "Whether the product includes hot surface indicator lights.",
+            "units": null,
+            "value": "Yes"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "No"
+          },
+          "drawer_type": {
+            "description": "The type of drawer the product features.",
+            "units": null,
+            "value": "Storage Drawer"
+          },
+          "convection": {
+            "description": "Whether the oven includes a convection feature.",
+            "units": null,
+            "value": "Yes"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Knob, Touch"
+          },
+          "burner_style": {
+            "description": "The style of burner included with or used by this product.",
+            "units": null,
+            "value": "Radiant"
+          },
+          "air_fry": {
+            "description": "Whether the product features an air fry option.",
+            "units": null,
+            "value": "Yes"
+          },
+          "meat_thermometer": {
+            "description": "Whether the product includes a meat thermometer.",
+            "units": null,
+            "value": "No"
+          },
+          "interior_light": {
+            "description": "Whether a light source is included to increase visibility of the inside of the product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "clock": {
+            "description": "Whether the product includes an integrated clock.",
+            "units": null,
+            "value": "Yes"
+          },
+          "baking_element": {
+            "description": "Whether a baking element is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "5.3"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "144"
+          },
+          "oven_capacity": {
+            "description": "The dimensional size and space of the oven, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "5.3"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "38"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "29"
+          },
+          "height_to_top_of_cook_top": {
+            "description": "The height to the top of this product's cook top.",
+            "units": "in.",
+            "value": "35.625, 36.5"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "37.125"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "48.25"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "28.625"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>5.3 cu. ft. capacity meets the needs of today's busy homes</li>\n\t<li>This range comes equipped with 5 radiant burners</li>\n\t<li>Knob and touch controls are precise and easy to use</li>\n\t<li>Range includes storage drawer</li>\n\t<li>Features the enameled Easywash™ oven tray that allows you to easily keep your oven clean</li>\n\t<li>Built-in Wi-Fi and the SmartHQ™ Management app extends the value of your appliance with proactive oven maintenance tools allowing for tracking, management and control from one simple, intuitive dashboard</li>\n\t<li>No preheat air fry</li>\n\t<li>No preheat pizza mode</li>\n\t<li>Convection cooking allows you to cook and brown foods more evenly</li>\n\t<li>Dual element oven produces great results with every bake</li>\n\t<li>Fifth element warming zone provides convenient temperature control for foods on the cooktop</li>\n\t<li>Covered under a 1 year limited parts and labor manufacturer warranty</li>\n</ul>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Total Capacity: 5.3 Cu. Ft.</li>\n\t<li>Back Left Burner Watts: 1,200</li>\n\t<li>Back Right Burner Watts: 1,200</li>\n\t<li>Front Left Burner Watts: 3,100</li>\n\t<li>Front Right Burner Watts: 3,000</li>\n\t<li>Convection: Yes</li>\n\t<li>Sabbath Mode: Yes</li>\n\t<li>Self Cleaning: No</li>\n\t<li>Depth: 28-5/8\"</li>\n\t<li>Height: 37-1/8\"</li>\n\t<li>Width: 30\"</li>\n</ul>\n",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVFS_primary.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-450.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-451.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-452.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-453.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-454.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-455.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-456.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-457.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-458.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-459.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-460.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-461.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-462.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-463.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-464.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600av-alternate-image-465.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVDS_gallery1.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVES_gallery1.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVFS_gallery1.jpg"
+        ],
+        "configuration_type": "WITH_NESTED_PRODUCTS",
+        "is_square_footage_based": false,
+        "is_configurable": true,
+        "in_stock_variant_count": 4,
+        "total_inventory_quantity": 710,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": true,
+        "variant_count": 4,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE 30 Inch Wide 5.3 Cu. Ft. Slide In Electric Range with Radiant Burners and Storage Drawer Fingerprint Resistant Black Slate",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVDS_primary.jpg"
+            },
+            "currency": "USD",
+            "price": 1199,
+            "swatch_gradient": "",
+            "title": "Fingerprint Resistant Black Slate",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 160,
+            "url": "https://www.fergusonhome.com/ge-grs600av/s2013452?uid=5093465",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVDS_primary.jpg"
+            ],
+            "model_number": "GRS600AVDS",
+            "name": "Fingerprint Resistant Black Slate",
+            "id": 5093465
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE 30 Inch Wide 5.3 Cu. Ft. Slide In Electric Range with Radiant Burners and Storage Drawer Fingerprint Resistant Slate",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVES_primary.jpg"
+            },
+            "currency": "USD",
+            "price": 1199,
+            "swatch_gradient": "",
+            "title": "Fingerprint Resistant Slate",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "DEE2E6",
+            "inventory_quantity": 209,
+            "url": "https://www.fergusonhome.com/ge-grs600av/s2013452?uid=5093466",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVES_primary.jpg"
+            ],
+            "model_number": "GRS600AVES",
+            "name": "Fingerprint Resistant Slate",
+            "id": 5093466
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE 30 Inch Wide 5.3 Cu. Ft. Slide In Electric Range with Radiant Burners and Storage Drawer Fingerprint Resistant Stainless",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVFS_primary.jpg"
+            },
+            "currency": "USD",
+            "price": 949.99,
+            "swatch_gradient": "",
+            "title": "Fingerprint Resistant Stainless",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 88,
+            "url": "https://www.fergusonhome.com/ge-grs600av/s2013452?uid=5093467",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/ge/GRS600AVFS_primary.jpg"
+            ],
+            "model_number": "GRS600AVFS",
+            "name": "Fingerprint Resistant Stainless",
+            "id": 5093467
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "GE 30 Inch Wide 5.3 Cu. Ft. Slide In Electric Range with Radiant Burners and Storage Drawer White",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600avww-3011896.jpg"
+            },
+            "currency": "USD",
+            "price": 1089,
+            "swatch_gradient": "",
+            "title": "White",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 3 to 6 business days",
+              "Leaves the Warehouse in 3 to 6 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "ffffff",
+            "inventory_quantity": 253,
+            "url": "https://www.fergusonhome.com/ge-grs600av/s2013452?uid=4799705",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/ge/ge-grs600avww-3011896.jpg"
+            ],
+            "model_number": "GRS600AVWW",
+            "name": "White",
+            "id": 4799705
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 150,
+        "base_type": "Cooking Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1199,
+          "min": 949.99
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 1199,
+        "price_min": 949.99,
+        "price": 1199,
+        "application": "Ranges",
+        "product_type": "Cooking Appliances",
+        "url": "https://www.fergusonhome.com/ge-grs600av/s2013452",
+        "parent_model_number": "GRS600AV",
+        "model_number": "GRS600AVFS",
+        "brand_logo": {
+          "description": "GE",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/ge/Logo/ge.gif"
+        },
+        "brand_url": null,
+        "brand": "GE",
+        "name": "30 Inch Wide 5.3 Cu. Ft. Slide In Electric Range with Radiant Burners and Storage Drawer",
+        "family_id": 2013452,
+        "id": 2013452
+      },
+      "variant_url": "https://www.fergusonhome.com/ge-grs600av/s2013452?uid=5093467",
+      "match_type": "exact",
+      "matched_model": "GRS600AVFS",
+      "model_number": "GRS600AVFS",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "GE:GRS600AVFS",
+    "Web_Retailer_SubCategory": "SLIDE IN ELECTRIC RANGE",
+    "Web_Retailer_Category": "ELECTRIC RANGES",
+    "Product_Description_Web_Retailer": "EasyWash(TM) Oven TrayOven cleaning is easier than ever with the EasyWash(TM) Oven Tray. This enameled tray is easily removed and rinsed clean in the sink or, for bigger messes, guaranteed to fit in all GE Appliances dishwashers.Built-In WiFiThe SmartHQ app gives you oven control functions like remote preheat, the ability to monitor and change oven temperature, turn off your oven and more! See detailsNo Preheat Air FryNo preheat air frying is a great way to get crispier versions of your favorite foods in less time.Slide-In RangeEasily upgrade your kitchen with this new slide-in range that is guaranteed to fit into your existing space.No Preheat Fresh ReheatPerfect for leftovers from the night before, the to-go box from your favorite restaurant or refreshing soggy fries to ideal crispiness, this no preheat mode saves you time and delivers flawless results.No Preheat PizzaSpecifically designed to cook your frozen pizza, this no preheat option is a time saver and a great way to get dinner on the table fast.Express PreheatGet food on the table quicker thanks to a fast preheat oven. In just 7 minutes*, you have a perfectly preheated oven. *Preheats oven in just 7 minutes, bake mode to preheat beep, 350 degrees, one standard rack.9\"/6\" Power Boil BurnerEasily adjust to any size pot or pan with a convertible 6\" and 9\" element that makes it easy to boil water faster.12\"/9\" Power Boil BurnerUse this power boil burner as a 12-inch or 9-inch element for rapid heat and flexibility on all sized cookware.ConvectionCook and brown foods more evenly with convection cooking that uses a rear fan to circulate hot air.Fifth Element Warming ZoneA convenient low-heat warming zone provides convenient temperature control for foods on the cooktop.Hidden Bake ElementEnjoy a clean and sleek interior that eliminates hard-to-reach areas thanks to a concealed oven element.Oven Storage DrawerThis model features a removable oven storage drawer that offers the perfect place to store cookware and other kitchen accessories.Dual Element OvenProduce great results with every bake thanks to upper and lower elements that provide rapid, even heat.Fit GuaranteeReplace your old 30\" free-standing range with a new 30\" slide-in model. GE slide-in ranges are guaranteed for an exact fit or GE Appliances will pay up to $300 toward modifications. See offer criteria and details",
+    "Features_Web_Retailer": "<ul><li>EasyWash(TM) Oven Tray</li><li>Built-In WiFi</li><li>No Preheat Air Fry</li><li>Slide-In Range</li><li>No Preheat Fresh Reheat</li><li>No Preheat Pizza</li><li>Express Preheat</li><li>9&quot;/6&quot; Power Boil Burner</li><li>12&quot;/9&quot; Power Boil Burner</li><li>Convection</li><li>Fifth Element Warming Zone</li><li>Hidden Bake Element</li><li>Oven Storage Drawer</li><li>Dual Element Oven</li><li>Fit Guarantee</li></ul>",
+    "Weight_Web_Retailer": 144,
+    "Capacity_Web_Retailer": 5.3,
+    "Height_Web_Retailer": "37 1/8",
+    "Width_Web_Retailer": "30",
+    "Depth_Web_Retailer": "28 5/8",
+    "Product_Title_Web_Retailer": "GE(R) ENERGY STAR(R) 30\" Slide-In Electric Convection Range with No Preheat Air Fry and EasyWash(TM) Oven Tray",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 1649,
+    "Model_Number_Web_Retailer": "GRS600AVFS",
+    "Brand_Web_Retailer": "GE APPLIANCES",
+    "SF_Catalog_Name": "JB755S",
+    "SF_Catalog_Id": "a03aZ00000n8mGCQAY"
+  },
+  "currentOutput": {
+    "AI_Brand": "GE",
+    "AI_Product_Category": "Range",
+    "AI_Type": "Front Control",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Fingerprint Resistant Stainless",
+    "AI_Finish": "Fingerprint Resistant Stainless",
+    "AI_Product_Title": "GE 30-Inch Front Control Electric Range Fingerprint Resistant Stainless - JB755S"
+  }
+}

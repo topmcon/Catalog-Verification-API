@@ -1,0 +1,277 @@
+{
+  "sf_catalog_id": "a03Hu00001N1xuGIAR",
+  "sf_catalog_name": "DLGX8101V",
+  "createdAt": "2026-06-09T19:04:35.485Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/5df8fb474becdfdbe332654946a89181.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/e0d7677ad468e71a3f0e9ec0a2d9c11b.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/659cf08aa340f91437d1e1f0cd344bfb.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/4914187b384d0d91a27aab83d0d39d58.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/649d0c0349231c148c03b900dbe2a28c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/7c06d5dde0d98fc4b54ae135291be37c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/551760613f8058ce8a79408ddf0619b8.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/d78257eb45ec400f1714a627057d7085.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.lg.com/us/business/dryers/lg-DLGX8101V-gas-dryer",
+    "Ferguson_URL": null,
+    "Specification_Table": "<p><strong>Appearance</strong></p><ul><li>Design Look: On-Door Front Control Panel</li><li>Dial-A-Cycle™: Yes</li><li>Intelligent Electronic Controls with Dual LED Display: Yes</li><li>Touch Buttons: Yes</li></ul><p><strong>Materials and Finish</strong></p><ul><li>Available Colors: White (W), Graphite Steel (V)</li><li>Drum Material: Aluminized Alloy Alcosta Steel Drum</li><li>Cabinet: Painted Steel</li><li>Control Panel: Plastic (Door Assembly)</li><li>Door / Rim: Glass/Chrome</li><li>Door Cover: Dark Blue Tinted Square Cover</li><li>Tub Rear: STS</li></ul><p><strong>Capacity</strong></p><ul><li>Capacity: 9.0 cu. ft.</li></ul><p><strong>Convenience Features</strong></p><ul><li>3 Minute Installation Check: Yes</li><li>Drum Light: Yes</li><li>End of Cycle Signal: Yes</li><li>FlowSense™ Duct Clogging Sensor: Yes</li><li>Leveling Legs: 4 Adjustable Legs</li><li>LoDecibel™ Quiet Operation: Yes</li><li>Remaining Time Display/Status Indicators: Yes</li><li>Reversible Door: Yes</li><li>Venting Option: 3-Way Venting</li></ul><p><strong>Dimensions / Clearances / Weights</strong></p><ul><li>Product Dimensions (W × H × D): 29&quot; × 40 4/5&quot; × 32 1/10&quot;</li><li>Depth with Door Open: 59&quot;</li><li>Product Weight: 161 lbs</li></ul><p><strong>Dryer Programs</strong></p><ul><li>Number of Programs: 14</li><li>Drying Levels: Very Dry, More Dry, Normal Dry, Less Dry, Damp Dry</li><li>Manual Dry Times: 60 min., 50 min., 40 min., 30 min., 20 min., More Time/Less Time</li><li>Temperature Settings: High, Medium High, Medium, Low, Ultra Low</li><li>Manual Dry Programs:<ul><li>Speed Dry</li><li>Air Dry</li></ul></li><li>Sensor Dry Programs:<ul><li>Cotton/Normal</li><li>Perm Press</li><li>Towels</li><li>Delicates</li><li>Heavy Duty</li><li>SteamFresh™</li><li>SteamSanitary™</li><li>Anti-Bacterial</li><li>Jumbo Dry</li><li>Wool</li><li>Super Dry</li><li>SpotClean™</li></ul></li><li>Number of Options: 11</li><li>Options:<ul><li>More Time</li><li>Less Time</li><li>Damp Dry Signal</li><li>Wrinkle Care</li><li>Child Lock</li><li>Custom Program</li><li>PGM Save</li><li>Reduce Static</li><li>EasyIron</li><li>Rack Dry</li><li>Drum Light</li></ul></li></ul><p><strong>Fabric Care Features</strong></p><ul><li>Sensor Dry: Yes</li><li>TrueSteam® Technology: Yes</li></ul><p><strong>Power Source</strong></p><ul><li>Fuel Type: Gas</li><li>BTU: 20,000</li><li>Electrical Requirements/Type: 120V, 15 Amps</li><li>Certifications: CSA Listed</li></ul><p><strong>SmartThinQ® Technology</strong></p><ul><li>SmartDiagnosis™: Yes</li></ul><p><strong>Summary</strong></p><ul><li>Dryer Type: Gas Dryer </li></ul><p><br></p>",
+    "UPC_Legacy": "048231018074",
+    "Category_Legacy": "Dryer",
+    "Product_Description_Legacy": "With 9.0 cubic feet of capacity, this dryer from LG can accommodate huge loads of laundry while offering superb drying performance. With the power of LG's Sensor Dry technology, this dryer senses the needs of each load, measuring the moisture and humidity levels during the cycle and automatically adjusting the drying time. The power of TrueSteam technology helps fight against wrinkling, stains and odors for outstandingly crisp, clean laundry. Reduce the need for ironing and get ready-to-wear garments right out of the dryer. Plus, LG's LoDecibel Quiet Operation technology ensures that your dryer runs quietly, for a non-disruptive laundry routine. Get outstanding capacity, convenience and drying power with this TrueSteam dryer from LG.",
+    "Features_Legacy": "<ul><li><strong>9.0 cu.ft. Capacity: </strong>Towers of towels, piles of sweatshirts, and a mountain of jeans-go for it. The ultra large capacity (9.0 cu. ft.) dryer lets you do more laundry in fewer loads. That&#39;s time saved and sore backs avoided.</li><li><strong>14 Drying Programs: </strong>Cotton/Normal, Perm Press, Towels, Delicates, Heavy Duty, SteamFresh, SteamSanitary, Anti-Bacterial, Jumbo Dry, Wool, Super Dry, SpotClean, Speed Dry, Air Dry.</li><li><strong>TrueSteam Technology: </strong>Generates real steam to reduce wrinkles, stains and odors, and practically eliminates the need for ironing.</li><li><strong>Wrinkle Care: </strong>Ensures that your clothes are ready to wear straight out of the dryer.</li><li><strong>Sensor Dry: </strong>LG&#39;s Sensor Dry system measures the moisture and humidity levels during the cycle and automatically adjusts the drying time, to ensure you get dry laundry every time.</li><li><strong>LoDecibel Quiet Operation: </strong>Keeps your LG unit running quietly - do your laundry without the noise.</li><li><strong>Reversible Door: </strong>To accommodate either right or left-handed users for maximum convenience.</li></ul>",
+    "Weight_Legacy": 161,
+    "Capacity_Legacy": 9,
+    "Height_Legacy": "40 3/4",
+    "Width_Legacy": "29",
+    "Depth_Legacy": "32 1/8",
+    "Product_Title_Legacy": "9.0 cu. ft. Mega Capacity Gas Dryer w/ Steam(TM) Technology",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1919,
+    "Model_Number_Legacy": "DLGX8101V",
+    "Brand_Legacy": "LG",
+    "Ferguson_Raw_Data": {
+      "credits_used": 20,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: DLGX8101V",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "Yes",
+        "name": "Intelligent Electronic Controls with Dual LED Display"
+      },
+      {
+        "value": "161lbs",
+        "name": "Weight (Product)"
+      },
+      {
+        "value": "High, Medium High, Medium, Low, Ultra Low",
+        "name": "Temperature Settings"
+      },
+      {
+        "value": "60 min., 50 min., 40 min., 30 min., 20 min., More Time/Less Time",
+        "name": "Manual Dry Times"
+      },
+      {
+        "value": "Painted Steel",
+        "name": "Cabinet"
+      },
+      {
+        "value": "3 Way Venting",
+        "name": "Venting Option"
+      },
+      {
+        "value": "20,000",
+        "name": "BTU"
+      },
+      {
+        "value": "120V, 15 Amps",
+        "name": "Electrical Requirements/Type"
+      },
+      {
+        "value": "9.0 cu. ft.",
+        "name": "Capacity"
+      },
+      {
+        "value": "White (W), Graphite Steel (V)",
+        "name": "Available Colors"
+      },
+      {
+        "value": "Gas",
+        "name": "Dryer Type"
+      },
+      {
+        "value": "Dark Blue Tinted Square Cover",
+        "name": "Door Cover"
+      },
+      {
+        "value": "KSTK2",
+        "name": "Stacking Kit"
+      },
+      {
+        "value": "1 Year Parts & Labor",
+        "name": "Limited Warranty"
+      },
+      {
+        "value": "29\" x 14 1/8\" x 30 7/8\"",
+        "name": "Pedestal (WxHxD)"
+      },
+      {
+        "value": "Yes",
+        "name": "Remaining Time Display/Status Indicator(s)"
+      },
+      {
+        "value": "Very Dry, More Dry, Normal Dry, Less Dry, Damp Dry",
+        "name": "Drying Levels"
+      },
+      {
+        "value": "Yes",
+        "name": "Dial-A-Cycle(TM)"
+      },
+      {
+        "value": "Yes",
+        "name": "Aluminized Alloy Alcosta Steel Drum"
+      },
+      {
+        "value": "48231018074",
+        "name": "UPC"
+      },
+      {
+        "value": "On-Door Front Control Panel",
+        "name": "Design Look"
+      },
+      {
+        "value": "14",
+        "name": "No. of Programs"
+      },
+      {
+        "value": "Glass/Chrome",
+        "name": "Door / Rim"
+      },
+      {
+        "value": "STS",
+        "name": "Tub Rear"
+      },
+      {
+        "value": "Yes",
+        "name": "LoDecibel(TM) Quiet Operation"
+      },
+      {
+        "value": "Yes",
+        "name": "SmartDiagnosis(TM)"
+      },
+      {
+        "value": "WDP5W/WDP5V",
+        "name": "Pedestal"
+      },
+      {
+        "value": "Yes",
+        "name": "TrueSteam(R) Technology"
+      },
+      {
+        "value": "59\"",
+        "name": "Depth with Door Open"
+      },
+      {
+        "value": "Yes",
+        "name": "Touch Buttons"
+      },
+      {
+        "value": "29\" x 40 4/5\" x 32 1/10\"",
+        "name": "Product (WxHxD)"
+      },
+      {
+        "value": "Yes",
+        "name": "3 Minute Installation Check"
+      },
+      {
+        "value": "More Time, Less Time, Damp Dry Signal, Wrinkle Care, Child Lock, Custom Program, PGM Save, Reduce Static, EasyIron, Rack Dry, Drum Light",
+        "name": "Options"
+      },
+      {
+        "value": "CSA Listed",
+        "name": "Ratings"
+      },
+      {
+        "value": "4 Adjustable Legs",
+        "name": "Leveling Legs"
+      },
+      {
+        "value": "31 1/5\" x 45 1/5\" x 33 4/5\"",
+        "name": "Carton (WxHxD)"
+      },
+      {
+        "value": "11",
+        "name": "No. of Options"
+      },
+      {
+        "value": "Yes",
+        "name": "Reversible Door"
+      },
+      {
+        "value": "Speed Dry, Air Dry",
+        "name": "Programs (Manual Dry)"
+      },
+      {
+        "value": "Yes",
+        "name": "Drum Light"
+      },
+      {
+        "value": "Yes",
+        "name": "End of Cycle Signal"
+      },
+      {
+        "value": "Yes",
+        "name": "FlowSense(TM) Duct Clogging Sensor"
+      },
+      {
+        "value": "Cotton/Normal, Perm Press, Towels, Delicates, Heavy Duty, SteamFresh(TM), SteamSanitary(TM), Anti-Bacterial, Jumbo Dry, Wool, Super Dry, SpotClean(TM)",
+        "name": "Programs (Sensor Dry)"
+      },
+      {
+        "value": "161lbs / 178.6lbs",
+        "name": "Weight (Product/Carton)"
+      },
+      {
+        "value": "Plastic (Door Assembly)",
+        "name": "Control Panel"
+      },
+      {
+        "value": "Yes",
+        "name": "Sensor Dry"
+      }
+    ],
+    "Web_Retailer_Key": "LG:DLGX8101V",
+    "Web_Retailer_SubCategory": "FRONT LOAD GAS DRYER",
+    "Web_Retailer_Category": "LAUNDRY",
+    "Product_Description_Web_Retailer": "More Room to DryWhen it comes to laundry capacity, big is good, bigger is better, but biggest is best. With 9.0 cu ft of mega capacity, now you can fit a king size comforter and full set of bedding in a single load! You'll definitely have more room to dry.Smooth operatorA lot of those drying headaches can be a thing of the past. Our TrueSteam(TM) Technology generates real steam to reduce wrinkles and odors, and practically eliminates the need for ironing.Get wiseIf you ever experience an issue with your LG dryer, you don't have to worry. The SmartDiagnosis(TM) feature helps the service center diagnose problems over the phone, or with a simple app on your smart phone, helping you minimize costly, inconvenient service calls.The quick fixLate for the party and no time to iron your favorite outfit? The SteamFresh(TM) Cycle refreshes, and reduces wrinkles in up to five garments at a time with one 20-minute dryer cycle.See Spot RunGot a small stain or spot? Our SpotClean(TM) Cycle is designed to use the power of steam to effectively remove stains and freshen clothes right in the dryer.Wash the unwashableYou probably wish you could clean your throw pillows or children's toys. With the SteamSanitary(TM) Cycle, you can. It uses steam to safely sanitize items marked as non-washable.Get Your Laundry Savings OnGet an LG Visa(R) Prepaid Card worth up to $400 when you bundle eligible LG Laundry models from participating retailers 7/19/18 through 9/12/18.",
+    "Features_Web_Retailer": "<ul><li>9.0 cu.ft. Capacity</li><li>TrueSteam(R) Technology</li><li>SmartDiagnosis(TM)</li><li>SteamFresh(TM) Cycle</li></ul>",
+    "Weight_Web_Retailer": 161,
+    "Capacity_Web_Retailer": 9,
+    "Height_Web_Retailer": "40 13/16",
+    "Width_Web_Retailer": "29",
+    "Depth_Web_Retailer": "32 7/64",
+    "Product_Title_Web_Retailer": "9.0 cu. ft. Mega Capacity Gas Dryer w/ Steam(TM) Technology",
+    "Color_Finish_Web_Retailer": "Gray",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "DLGX8101V",
+    "Brand_Web_Retailer": "LG",
+    "SF_Catalog_Name": "DLGX8101V",
+    "SF_Catalog_Id": "a03Hu00001N1xuGIAR"
+  },
+  "currentOutput": {
+    "AI_Brand": "LG",
+    "AI_Product_Category": "Dryer",
+    "AI_Type": "Front Load",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Gray",
+    "AI_Finish": "",
+    "AI_Product_Title": "LG 29-Inch Front Load Gas Dryer 9 Cu. Ft. - DLGX8101V"
+  }
+}

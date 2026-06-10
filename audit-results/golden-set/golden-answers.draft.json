@@ -1,0 +1,3124 @@
+{
+  "generated": "2026-06-10T01:44:52.611Z",
+  "WARNING": "DRAFT — pre-filled from current pipeline output, which Phase 1 proved is often wrong. NOT ground truth until human review flips status to reviewed and fills evidence.",
+  "strataCounts": {
+    "pinned_078": 13,
+    "finish_eq_color": 8,
+    "finish_plain_color": 4,
+    "color_junk": 4,
+    "title_dup": 4,
+    "model_mismatch": 3,
+    "dimension_gap": 3,
+    "panel_ready": 3,
+    "canadian": 3,
+    "legacy_era": 3,
+    "scenario_no_sources": 3,
+    "scenario_ferguson_only": 3,
+    "scenario_wr_only": 3,
+    "clean_passthrough": 6
+  },
+  "total": 49,
+  "entries": [
+    {
+      "sf_catalog_id": "a03aZ00000zKgT4QAK",
+      "sf_catalog_name": "46020991",
+      "strata": [
+        "clean_passthrough"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "AXOR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Bathroom Faucet",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Single Hole",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "1 Hole",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Gold",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Polished Gold Optic",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "AXOR Single Hole Bathroom Faucet Polished Gold Optic 1.2 GPM - 46020991",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000yLCQJQA4",
+      "sf_catalog_name": "AP08D3AGW",
+      "strata": [
+        "clean_passthrough"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "ROHL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Bathroom Faucet",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Widespread",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "3 Hole",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Antique Gold",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Antique",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "ROHL Widespread 3 Hole Bathroom Faucet Antique Gold 1.2 GPM - AP08D3AGW",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N1xuGIAR",
+      "sf_catalog_name": "DLGX8101V",
+      "strata": [
+        "clean_passthrough"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "LG",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dryer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Load",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Gray",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "LG 29-Inch Front Load Gas Dryer 9 Cu. Ft. - DLGX8101V",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N25CwIAJ",
+      "sf_catalog_name": "UHCP115-SS01A",
+      "strata": [
+        "scenario_wr_only"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "U-LINE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Icemaker",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Undercounter",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "U-LINE 15-Inch Panel Ready Undercounter Icemaker - UHCP115-SS01A",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2BkwIAF",
+      "sf_catalog_name": "FAB32UORRN",
+      "strata": [
+        "clean_passthrough"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "SMEG",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Bottom-Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Vintage",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Orange",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Glossy",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "SMEG 24-Inch Bottom-Freezer Refrigerator Orange 11.7 Cu. Ft. - FAB32UORRN",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000LzRxaQAF",
+      "sf_catalog_name": "2940C/03N",
+      "strata": [
+        "title_dup"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "NEWPORT BRASS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Bathroom Faucet",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Widespread",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "3 Hole",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Polished Brass",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Uncoated Polished Brass - Living",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Newport Brass Widespread 3 Hole Bathroom Faucet Uncoated Polished Brass - Living 1.2 GPM - 2940C/03N",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N23hGIAR",
+      "sf_catalog_name": "WFW560CHW",
+      "strata": [
+        "clean_passthrough"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "WHIRLPOOL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Washer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Load",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Glossy",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Whirlpool 27-Inch Front Load Washer 4.3 Cu. Ft. - WFW560CHW",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2DgVIAV",
+      "sf_catalog_name": "KUBR214KSB",
+      "strata": [
+        "finish_eq_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "KITCHENAID",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Beverage Center",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Kitchenaid 24-Inch Counter-Depth Beverage Center Refrigerator Stainless Steel 4.8 Cu. Ft. - KUBR214KSB",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000o3d6UQAQ",
+      "sf_catalog_name": "NS-CZ14WH",
+      "strata": [
+        "pinned_078",
+        "pinned_078"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "INSIGNIA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chest",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Insignia 54-Inch Chest Freezer White 14 Cu. Ft. - NS-CZ14WH",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2CHTIA3",
+      "sf_catalog_name": "FCM7STWW",
+      "strata": [
+        "pinned_078",
+        "pinned_078"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "GE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chest",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "GE 33-Inch Chest Freezer White 7 Cu. Ft. - FCM7STWW",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ000005L5OVQA0",
+      "sf_catalog_name": "NS-CZ14WH2",
+      "strata": [
+        "pinned_078"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "INSIGNIA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chest",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Insignia 54-Inch Chest Freezer White 14 Cu. Ft. - NS-CZ14WH2",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ000008nv29QAA",
+      "sf_catalog_name": "SCFF1842",
+      "strata": [
+        "pinned_078"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "SUMMIT",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Undercounter",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Black",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Black",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Summit 18-Inch Undercounter Freezer Black 2.7 Cu. Ft. - SCFF1842",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000gV8pBQAS",
+      "sf_catalog_name": "NS-CZ10WH26",
+      "strata": [
+        "pinned_078",
+        "pinned_078"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "INSIGNIA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chest",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Glossy",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Insignia 40-Inch Chest Freezer White 10.2 Cu. Ft. - NS-CZ10WH26",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N26MFIAZ",
+      "sf_catalog_name": "MF1851",
+      "strata": [
+        "pinned_078"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "LIEBHERR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Column",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Liebherr 18-Inch Panel Ready Column Freezer - MF1851",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N20oNIAR",
+      "sf_catalog_name": "FFUE2024AW",
+      "strata": [
+        "pinned_078",
+        "pinned_078"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "FRIGIDAIRE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Upright",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Smooth",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Frigidaire 33-Inch Upright Freezer White 20 Cu. Ft. - FFUE2024AW",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000q5ceoQAA",
+      "sf_catalog_name": "04939000",
+      "strata": [
+        "clean_passthrough",
+        "scenario_ferguson_only",
+        "finish_eq_color",
+        "scenario_ferguson_only"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "hansgrohe",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Showerheads & Accessories",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "System",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Chrome",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Polished",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Hansgrohe System Shower Chrome 2.5 GPM - 04939000",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SYQwHIAX",
+      "sf_catalog_name": "AK9840BS",
+      "strata": [
+        "finish_eq_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "ZEPHYR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range Hood",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Insert",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Zephyr 1200 CFM 40-Inch Insert Range Hood Stainless Steel - AK9840BS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000yLCQhQAO",
+      "sf_catalog_name": "EZ42122231S46AA",
+      "strata": [
+        "finish_eq_color",
+        "scenario_ferguson_only"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "Islandaire",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Air Conditioner",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Through-Wall",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Bisque",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Bisque",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Islandaire Through-Wall Air Conditioner Bisque - EZ42122231S46AA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000ycaERQAY",
+      "sf_catalog_name": "RS3084WRUK1",
+      "strata": [
+        "finish_eq_color",
+        "panel_ready",
+        "canadian"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "FISHER & PAYKEL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Column",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Fisher & Paykel 30-Inch Built-In Panel Ready Column Refrigerator 15.9 Cu. Ft. - RS3084WRUK1",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000utYQdQAM",
+      "sf_catalog_name": "G7266SCVISF",
+      "strata": [
+        "finish_eq_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "MIELE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dishwasher",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Top Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "MIELE 24-Inch Top Control Dishwasher Stainless Steel - G7266SCVISF",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000hjWucQAE",
+      "sf_catalog_name": "UBKAA46IO",
+      "strata": [
+        "scenario_wr_only"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "VICTORIA + ALBERT",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Bathroom Sink",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Undermount",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Transitional",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Glossy",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Victoria + Albert 14-Inch Oval Undermount Bathroom Sink White - UBKAA46IO",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000BE0GfQAL",
+      "sf_catalog_name": "ZKECOM30448",
+      "strata": [
+        "scenario_wr_only"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "ZLINE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range Hood",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Island Mount",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "ZLINE 700 CFM 48-Inch Island Mount Range Hood Stainless Steel - ZKECOM30448",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2COeIAN",
+      "sf_catalog_name": "CIC36RP2VS1",
+      "strata": [
+        "finish_eq_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "CAFE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Bottom-Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "CAFE 36-Inch Built-In Bottom-Freezer Refrigerator Stainless Steel 20.2 Cu. Ft. - CIC36RP2VS1",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N28eUIAR",
+      "sf_catalog_name": "ZISS480DNSS",
+      "strata": [
+        "finish_eq_color",
+        "title_dup",
+        "title_dup"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "MONOGRAM",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Side-by-Side",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Monogram 48-Inch Built-In Side-by-Side Refrigerator Stainless Steel 28.6 Cu. Ft. - ZISS480DNSS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N1yutIAB",
+      "sf_catalog_name": "JBRFR30IGX",
+      "strata": [
+        "panel_ready"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "JENNAIR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Column",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Jennair 30-Inch Built-In Panel Ready Column Refrigerator 17 Cu. Ft. - JBRFR30IGX",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000yKtU7QAK",
+      "sf_catalog_name": "RS2484FRJE1",
+      "strata": [
+        "panel_ready",
+        "canadian"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "FISHER & PAYKEL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Column",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Fisher & Paykel 24-Inch Built-In Panel Ready Column Freezer 11.9 Cu. Ft. - RS2484FRJE1",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000tF1hUQAS",
+      "sf_catalog_name": "441097",
+      "strata": [
+        "title_dup"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "Blanco",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Kitchen Sink",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Accessory",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Traditional",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Blanco Atlas 36\" Farmhouse Single Basin Stainless Steel Kitchen Sink with Curved Apron Stainless Steel - 441097",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000n8mGCQAY",
+      "sf_catalog_name": "JB755S",
+      "strata": [
+        "color_junk"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "GE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Fingerprint Resistant Stainless",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Fingerprint Resistant Stainless",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "GE 30-Inch Front Control Electric Range Fingerprint Resistant Stainless - JB755S",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000kxA4IQAU",
+      "sf_catalog_name": "WFGS5030RZ",
+      "strata": [
+        "color_junk",
+        "canadian"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "WHIRLPOOL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Whirlpool 30-Inch Front Control Gas Range Fingerprint Resistant Stainless Steel - WFGS5030RZ",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000gtdLXQAY",
+      "sf_catalog_name": "WSGS7530RZ",
+      "strata": [
+        "color_junk"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "WHIRLPOOL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Whirlpool 30-Inch Front Control Gas Range Fingerprint Resistant Stainless Steel - WSGS7530RZ",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SXzu5IAD",
+      "sf_catalog_name": "WFGS7530RZ",
+      "strata": [
+        "color_junk"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "WHIRLPOOL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Fingerprint Resistant Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Whirlpool 30-Inch Front Control Gas Range Fingerprint Resistant Stainless Steel - WFGS7530RZ",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000tLXEFQA4",
+      "sf_catalog_name": "WTZ1610S",
+      "strata": [
+        "dimension_gap"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "BOSCH",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Laundry Pedestal",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Storage",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Brushed",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "BOSCH 27-Inch Storage Laundry Pedestal Brushed - WTZ1610S",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000hmFCAQA2",
+      "sf_catalog_name": "793163",
+      "strata": [
+        "scenario_no_sources"
+      ],
+      "scenario": "no_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "FISHER & PAYKEL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range Hood",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Accessory",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Not visible",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Not visible",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "FISHER & PAYKEL Fisher Paykel Diverter Recirculation 8 Not visible - 793163",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000AWEoiQAH",
+      "sf_catalog_name": "NS-MWR07M2",
+      "strata": [
+        "dimension_gap"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "INSIGNIA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Microwave",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Countertop",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Mint Green",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Matte",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Insignia 22-Inch Countertop Microwave Matte 0.7 Cu. Ft. - NS-MWR07M2",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SYh1lIAD",
+      "sf_catalog_name": "MSF0W100072352",
+      "strata": [
+        "dimension_gap"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "MAINSTAYS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Microwave",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Countertop",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Mainstays 22-Inch Countertop Microwave White 0.7 Cu. Ft. - MSF0W100072352",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "cagp-lot-763",
+      "sf_catalog_name": "Frigidaire FMOS1846BSA",
+      "strata": [
+        "scenario_no_sources"
+      ],
+      "scenario": "no_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "FRIGIDAIRE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Microwave",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Over-the-Range",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Frigidaire 30-Inch Over-the-Range Microwave Stainless Steel 1.8 Cu. Ft. - Frigidaire FMOS1846BSA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "cagp-lot-762",
+      "sf_catalog_name": "Thor Kitchen",
+      "strata": [
+        "scenario_no_sources"
+      ],
+      "scenario": "no_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "THOR KITCHEN",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dishwasher",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Top Control",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "THOR Kitchen 24-Inch Top Control Dishwasher Stainless Steel - Thor Kitchen",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000bCy3OQAS",
+      "sf_catalog_name": "37046019",
+      "strata": [
+        "finish_plain_color"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "EUROFASE LIGHTING",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Chandelier",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chandelier",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Brass",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Black",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Eurofase Lighting Chandelier Contemporary Black - 37046019",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2AP3IAN",
+      "sf_catalog_name": "WTMC8530UC",
+      "strata": [
+        "finish_plain_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "BOSCH",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dryer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Load",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Gray On White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "BOSCH 27-Inch Front Load Gas Dryer 6.7 Cu. Ft. - WTMC8530UC",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N2BCLIA3",
+      "sf_catalog_name": "DLE6100W",
+      "strata": [
+        "finish_plain_color"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "LG",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dryer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Front Load",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White, Monochrome Grey",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "LG 27-Inch Front Load Electric Dryer 7.3 Cu. Ft. - DLE6100W",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SY4tiIAD",
+      "sf_catalog_name": "TGM-23SDHB-N6",
+      "strata": [
+        "finish_plain_color"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "TURBO AIR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Top-Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Modern",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "TURBO AIR 28-Inch Top-Freezer Refrigerator White 19.4 Cu. Ft. - TGM-23SDHB-N6",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000n9Ep7QAE",
+      "sf_catalog_name": "PFE28KYN",
+      "strata": [
+        "model_mismatch"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "GE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "French Door",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "GE 36-Inch French Door Refrigerator Stainless Steel 27.9 Cu. Ft. - PVD28BYNFS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000n99JDQAY",
+      "sf_catalog_name": "PFE28KY",
+      "strata": [
+        "model_mismatch"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "GE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "French Door",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "GE 36-Inch French Door Refrigerator Stainless Steel 28.7 Cu. Ft. - PGE29BYTFS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000n997wQAA",
+      "sf_catalog_name": "PYE22KYMKFS",
+      "strata": [
+        "model_mismatch"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "GE",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Refrigerator",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "French Door",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "GE 36-Inch French Door Refrigerator Stainless Steel 22.2 Cu. Ft. - PYE22KYNFS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001N24fKIAR",
+      "sf_catalog_name": "B18IF70NSP",
+      "strata": [
+        "pinned_078"
+      ],
+      "scenario": "both_sources",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "BOSCH",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Column",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Panel Ready",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "BOSCH 18-Inch Built-In Panel Ready Column Freezer 8.4 Cu. Ft. - B18IF70SLS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03aZ00000i12uhQAA",
+      "sf_catalog_name": "NS-CZ70WH26L",
+      "strata": [
+        "pinned_078"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "ai",
+      "fields": {
+        "AI_Brand": {
+          "draft": "INSIGNIA",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Freezer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "Chest",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "Insignia 30-Inch Chest Freezer 7 Cu. Ft. - NS-CZ70WH26L",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SY49GIAT",
+      "sf_catalog_name": "T411VDW",
+      "strata": [
+        "legacy_era"
+      ],
+      "scenario": "both_sources",
+      "era": "verified",
+      "fields": {
+        "AI_Brand": {
+          "draft": "ASKO",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Dryer",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Modern",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "White",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Glossy",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "ASKO 5.1 Cu. Ft. Dryer - T411VDW",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SY3FkIAL",
+      "sf_catalog_name": "AK7448AS",
+      "strata": [
+        "legacy_era"
+      ],
+      "scenario": "both_sources",
+      "era": "verified",
+      "fields": {
+        "AI_Brand": {
+          "draft": "ZEPHYR",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Range Hood",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Contemporary",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "ZEPHYR 48-Inch Range Hood Stainless Steel - AK7448AS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    },
+    {
+      "sf_catalog_id": "a03Hu00001SXzu7IAD",
+      "sf_catalog_name": "WMCS7022RS",
+      "strata": [
+        "legacy_era"
+      ],
+      "scenario": "web_retailer_only",
+      "era": "verified",
+      "fields": {
+        "AI_Brand": {
+          "draft": "WHIRLPOOL",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Category": {
+          "draft": "Microwave",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Type": {
+          "draft": "",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Style": {
+          "draft": "Modern",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Color": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Finish": {
+          "draft": "Stainless Steel",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        },
+        "AI_Product_Title": {
+          "draft": "WHIRLPOOL 1.6 Cu. Ft. Microwave Stainless Steel - WMCS7022RS",
+          "correct": null,
+          "evidence": "",
+          "ambiguous": false,
+          "status": "needs_review"
+        }
+      },
+      "failure_class": null,
+      "reviewed_by": null,
+      "reviewed_date": null
+    }
+  ]
+}

@@ -1,0 +1,1627 @@
+{
+  "sf_catalog_id": "a03aZ00000kxA4IQAU",
+  "sf_catalog_name": "WFGS5030RZ",
+  "createdAt": "2026-05-28T18:02:59.481Z",
+  "era": "ai",
+  "strata": [
+    "color_junk",
+    "canadian"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meetmlyrpfak_20260310_233227.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mesxbqibfgno_20260310_233228.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mekbivcbrojt_20260310_233228.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mecohrpvixmh_20260310_233230.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mesnfkcdsfuv_20260310_233230.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mebyhnfnodls_20260310_233231.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mecnyqdxogcx_20260310_233216.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mecfvtrlnjcs_20260310_233218.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meyirobiwfvy_20260310_233218.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/memukvwqrbkv_20260310_233218.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meerhupkeegs_20260310_233219.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mejgbjvyfbol_20260310_233219.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mesgwyjgytew_20260310_233220.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meelxcbhatju_20260310_233220.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/melyirgkmdja_20260310_233221.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meaoyuuiouiu_20260310_233222.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/melspwkwklug_20260310_233222.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meskbheykeln_20260310_233223.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/merpbfwbpoaw_20260310_233224.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mexinsvaegmt_20260310_233224.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/melvehaegiuu_20260310_233225.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meureooeygva_20260310_233225.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/mevjefyifxxn_20260310_233226.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meydnbgqnsko_20260310_233226.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/meeuuqhnswwm_20260310_233227.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/melynxrqlehx_20260310_233227.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.whirlpool.com/kitchen/cooking/ranges/gas/p.30-inch-gas-range-with-air-cooking-technology,-no-preheat-air-fry-and-air-baking-and-self-clean.wfgs5030rz.html",
+    "Ferguson_URL": "https://www.fergusonhome.com/whirlpool-wfgs5030rz/s2025007",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Certifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ada Compliant</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cul</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Prop65</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">CA</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Star K Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Kosher Consumer Friendly</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ul</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Display Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Blue</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Cooktop Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Auto Re-ignition</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cooktop Control Knob Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooktop Control Knob Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Plastic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cooktop Control Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Backguard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooktop Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Knobs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cooktop Surface Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooktop Surface Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Porcelain Coated Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Griddle Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Heating Element On Indicator Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Hot Surface Indicator Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ignition Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Direct Spark Ignition</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Total Gas BTUs - Cooktop</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">58,000</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automatic Convection Conversion Temperature Adjust</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fuel Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Gas</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Installation Configuration</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-In</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Lp Convertible</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes - Kit Included</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Automatic Shut-off</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Light Switch Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oven Control</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Selections</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Audible Signal; Bake; Broil; Cancel/Off; Clock; Control Lock; Convect Modes; Cook Time Indicator; Delay Start; Frozen Bake; Keep Warm/Warm Hold; No Preheat - Air Fry; No Preheat - Frozen Lasagna; No Preheat - Frozen Pizza; Sabbath Mode; Start Time; Stop Time; Timer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Power On Indicator Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Power Outage Compatible</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Range Drawer Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Storage Drawer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Range Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freestanding</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">47.875</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Carton Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">49</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Gross Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">190</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Interior Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">18.625</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Carton Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">32</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Product Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">28.0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Interior Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">19</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth With Door Open 90 Degree</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">46.688</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth Excluding Doors</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">28</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cutout Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">24</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cutout Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">36</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth Closed Excluding Handles</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">25.313</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Carton Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">29</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cutout Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">30</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Interior Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24.25</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">174</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">29.875</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Electrical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Power Cord Included</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Element/burner Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Center Front Element-burner Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">12000 BTU</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Center Front Element-burner Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Oval Burner</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooktop Element Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Sealed Burners</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Left Front Element-burner Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">15,000 BTU</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Left Front Element-burner Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Power</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Left Rear Element-burner Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">10,000 BTU</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Left Rear Element-burner Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Standard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Cooking Element-burners</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Right Front Element-burner Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18,000 BTU</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Right Front Element-burner Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Power</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Right Rear Element-burner Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5,000 BTU</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Right Rear Element-burner Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Simmer</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Exterior Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Glass</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Handle Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Handle Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Metal</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Handle Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Reach Through Handle</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Knob Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Knob Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Plastic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Control Knob Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">N/A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Control Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Backguard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Control Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Electronic Touch</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Window Size</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Extra Large</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">General</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Range Features</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Air Fry</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Grate Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Grate Details</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Continuous; Matte Finish; Porcelain Coated Steel Grates</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Grates</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Oven Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Broiler Element Power</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1300W</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Broiler Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Top Center</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Convection Element Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fan</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Convection Functions</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Bake; Broil</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Removable</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Hidden Bake Element</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Blue Graphite</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Oven Lights</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Oven Racks</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Rack Guides</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Cleaning Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Self-Cleaning</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Cooking System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Thermal</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Oven Light Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Halogen</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Oven Rack Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2 Standard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature Probe</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Temperature Sensor</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Total Gas BTUs - Ovens</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">16,500</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Smart Compatibility</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Connectivity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Works With</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr></table>",
+    "UPC_Legacy": "883049682556",
+    "Category_Legacy": "Range",
+    "Product_Description_Legacy": "This 30-inch gas range features advanced Air Cooking Technology designed to improve cooking performance and convenience. Enjoy crispy results faster with No Preheat Air Fry, and achieve consistent results across multiple racks with Air Baking, which uses dynamic airflow for even heat distribution. With multiple cooking modes and a powerful 12,000 BTU Griddle Zone, this range expands your cooking possibilities while making it easy to prepare a wide variety of meals. A self-cleaning oven also helps simplify maintenance.",
+    "Features_Legacy": "<ul><li>Air Cooking Technology – Dynamic airflow and intense heat deliver crisp, even results with advanced Air Fry and Air Baking functions.</li><li>No Preheat Air Fry – Save up to 10 minutes with this advanced air fry mode that delivers fast, crispy results for foods like chicken wings and mozzarella sticks without preheating.</li><li>Air Baking – A high-speed fan optimizes airflow and circulates consistent heat throughout the oven, ensuring even baking on multiple racks for breads, pastries, and more.</li><li>Griddle Zone – A powerful 12,000 BTU oval burner provides a larger cooking area, perfect for preparing multiple foods at once.</li><li>SpeedHeat™ Burner – Boil up to 20% faster with high heat, helping you get meals on the table quicker.</li><li>6 Cooking Modes – Includes No Preheat Air Fry, Air Baking, No Preheat Mode, Bake, Broil, and Keep Warm for versatile cooking options.</li><li>Self Clean – Adjustable self-clean cycle helps remove baked-on spills and splatters with minimal effort.</li><li>Edge-to-Edge Cast-Iron Grates – Provides a large cooking surface and allows cookware to move easily across burners.</li><li>No Preheat Mode – Start cooking right away without waiting for the oven to preheat; the oven automatically adjusts cooking time for items like frozen pizzas.</li><li>Cooktop Flexibility – Multiple burner sizes and power levels make it easy to cook several dishes simultaneously.</li><li>Sabbath Mode – Keeps the oven in Bake mode for extended cooking or warming while disabling other functions.</li><li>Fingerprint-Resistant Stainless Steel – Durable finish resists smudges and fingerprints for easy cleaning.</li><li>Large Capacity Oven (5.0 cu. ft.) – Spacious interior accommodates large dishes such as a full-sized turkey, perfect for family meals and entertaining.</li></ul>",
+    "Weight_Legacy": 78.93,
+    "Capacity_Legacy": 5,
+    "Height_Legacy": "47 7/8",
+    "Width_Legacy": "29 7/8",
+    "Depth_Legacy": "28",
+    "Product_Title_Legacy": "Whirlpool 30-Inch Front Control Gas Range Stainless Steel - WFGS5030RZ",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1199,
+    "Model_Number_Legacy": "WFGS5030RZ",
+    "Brand_Legacy": "WHIRLPOOL",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-10T23:30:46.942014"
+      },
+      "search_meta_data": {
+        "business_category": "Ovens Ranges Cooktops",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "Dj6z3f7U8T"
+      },
+      "performance": {
+        "total_time": "3.85s",
+        "step3_detail_time": "1.97s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.88s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/isepowercord.gif",
+            "label": "Power Cord Required"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 432,
+        "review_count": 432,
+        "total_ratings": 432,
+        "rating": 4.2,
+        "related_categories": [],
+        "business_category": "Ovens Ranges Cooktops",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/whirlpool-appliances/c116762",
+            "name": "Whirlpool Appliances"
+          },
+          {
+            "url": "https://www.fergusonhome.com/whirlpool-cooking/c116881",
+            "name": "Cooking"
+          },
+          {
+            "url": "https://www.fergusonhome.com/whirlpool-ranges/c116768",
+            "name": "Ranges"
+          }
+        ],
+        "resources": [
+          {
+            "id": "whirlpool-wfgs5030rz-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/2025007/whirlpool-wfgs5030rz-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "whirlpool-wfgs5030rz-quick-reference-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/2025007/whirlpool-wfgs5030rz-quick-reference-sheet.pdf",
+            "name": "Quick Reference Sheet"
+          },
+          {
+            "id": "whirlpool-wfgs5030rz-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/2025007/whirlpool-wfgs5030rz-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "whirlpool-wfgs5030rz-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/whirlpool/2025007/whirlpool-wfgs5030rz-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "1 Year Limited Parts and Labor",
+        "warranty": "",
+        "country_of_origin": "USA",
+        "certifications": [
+          "UL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "1285",
+            "name": "Oven Capacity"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "5441",
+            "name": "Baking Element"
+          },
+          {
+            "value": "320",
+            "name": "Clock"
+          },
+          {
+            "value": "766",
+            "name": "Griddle"
+          },
+          {
+            "value": "767",
+            "name": "Grill"
+          },
+          {
+            "value": "9436",
+            "name": "Interior Light"
+          },
+          {
+            "value": "6326",
+            "name": "Meat Thermometer"
+          },
+          {
+            "value": "9441",
+            "name": "Air Fry"
+          },
+          {
+            "value": "5442",
+            "name": "Broil Element"
+          },
+          {
+            "value": "206",
+            "name": "Bulb Type"
+          },
+          {
+            "value": "208",
+            "name": "Burner Style"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "367",
+            "name": "Convection"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "502",
+            "name": "Drawer Type"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1041",
+            "name": "LP Conversion"
+          },
+          {
+            "value": "1196",
+            "name": "Number Of Burners"
+          },
+          {
+            "value": "1226",
+            "name": "Number of Racks"
+          },
+          {
+            "value": "1484",
+            "name": "Self Cleaning"
+          },
+          {
+            "value": "5164",
+            "name": "Warm Function"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "5429",
+            "name": "Auto Shut Off"
+          },
+          {
+            "value": "5426",
+            "name": "Back Left Burner BTU"
+          },
+          {
+            "value": "5427",
+            "name": "Back Right Burner BTU"
+          },
+          {
+            "value": "5424",
+            "name": "Front Left Burner BTU"
+          },
+          {
+            "value": "5425",
+            "name": "Front Right Burner BTU"
+          },
+          {
+            "value": "701",
+            "name": "Fuel Type"
+          },
+          {
+            "value": "5434",
+            "name": "Induction"
+          },
+          {
+            "value": "1687",
+            "name": "Total BTUs"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "9466",
+            "name": "Product Variation"
+          },
+          {
+            "value": "4686",
+            "name": "Title 20 Compliant"
+          }
+        ],
+        "dimensions": {
+          "width": "29.875 in.",
+          "height": "47.875 in.",
+          "depth": "28 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "28",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "47.875",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "28",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": false,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "48",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The dimensional size and space of the oven, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "5.3",
+                "name": "Oven Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "174",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "5.3",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "29.875",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether a baking element is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Baking Element"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an integrated clock.",
+                "units": null,
+                "value": "Yes",
+                "name": "Clock"
+              },
+              {
+                "featured": false,
+                "description": "Whether a griddle or griddle attachment is included.",
+                "units": null,
+                "value": "No",
+                "name": "Griddle"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes a grill.",
+                "units": null,
+                "value": "No",
+                "name": "Grill"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source is included to increase visibility of the inside of the product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Interior Light"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product includes a meat thermometer.",
+                "units": null,
+                "value": "No",
+                "name": "Meat Thermometer"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the product features an air fry option.",
+                "units": null,
+                "value": "Yes",
+                "name": "Air Fry"
+              },
+              {
+                "featured": false,
+                "description": "Whether a broiler element is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Broil Element"
+              },
+              {
+                "featured": false,
+                "description": "The type of light bulb included.",
+                "units": null,
+                "value": "Halogen",
+                "name": "Bulb Type"
+              },
+              {
+                "featured": true,
+                "description": "The style of burner included with or used by this product.",
+                "units": null,
+                "value": "Sealed",
+                "name": "Burner Style"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Knob, Touch",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "Whether the oven includes a convection feature.",
+                "units": null,
+                "value": "No",
+                "name": "Convection"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Viewing Window",
+                "name": "Door Features"
+              },
+              {
+                "featured": true,
+                "description": "The type of drawer the product features.",
+                "units": null,
+                "value": "Storage Drawer",
+                "name": "Drawer Type"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "Yes",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Free Standing",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be converted to using liquid propane as a fuel source.",
+                "units": null,
+                "value": "Yes",
+                "name": "LP Conversion"
+              },
+              {
+                "featured": true,
+                "description": "The total number of burners (cooking sources) included.",
+                "units": null,
+                "value": "5",
+                "name": "Number Of Burners"
+              },
+              {
+                "featured": false,
+                "description": "The total number of racks.",
+                "units": null,
+                "value": "2",
+                "name": "Number of Racks"
+              },
+              {
+                "featured": true,
+                "description": "Whether the self-cleaning feature is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Self Cleaning"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes warming function.",
+                "units": null,
+                "value": "Yes",
+                "name": "Warm Function"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "Device will shut off after a certain period of inactivity.",
+                "units": null,
+                "value": "Yes",
+                "name": "Auto Shut Off"
+              },
+              {
+                "featured": false,
+                "description": "The total cooking power of the back left burner of the product, measured in BTUs.",
+                "units": null,
+                "value": "10000",
+                "name": "Back Left Burner BTU"
+              },
+              {
+                "featured": false,
+                "description": "The total cooking power of the back right burner of the product, measured in BTUs.",
+                "units": null,
+                "value": "5000",
+                "name": "Back Right Burner BTU"
+              },
+              {
+                "featured": false,
+                "description": "The total amount of heat output by the front left burner, measured in BTUs (British Thermal Units).",
+                "units": null,
+                "value": "15000",
+                "name": "Front Left Burner BTU"
+              },
+              {
+                "featured": false,
+                "description": "The total amount of heat output by the front right burner, measured in BTUs (British Thermal Units).",
+                "units": null,
+                "value": "18000",
+                "name": "Front Right Burner BTU"
+              },
+              {
+                "featured": true,
+                "description": "The type of fuel that powers the product.",
+                "units": null,
+                "value": "Gas",
+                "name": "Fuel Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product uses induction heating methods, which uses the cooking vessel itself as a heat source.",
+                "units": null,
+                "value": "No",
+                "name": "Induction"
+              },
+              {
+                "featured": false,
+                "description": "The total amount of heat this product can produce or remove from the air, measured in British Thermal Units (BTU). The higher the BTU output, the more powerful the system.",
+                "units": null,
+                "value": "58000",
+                "name": "Total BTUs"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "UL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Limited Parts and Labor",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "The type of product this item is.",
+                "units": null,
+                "value": "Range with Single Oven",
+                "name": "Product Variation"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+                "units": null,
+                "value": "No",
+                "name": "Title 20 Compliant"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "title_20_compliant": {
+            "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+            "units": null,
+            "value": "No"
+          },
+          "product_variation": {
+            "description": "The type of product this item is.",
+            "units": null,
+            "value": "Range with Single Oven"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Limited Parts and Labor"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "UL"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "total_btus": {
+            "description": "The total amount of heat this product can produce or remove from the air, measured in British Thermal Units (BTU). The higher the BTU output, the more powerful the system.",
+            "units": null,
+            "value": "58000"
+          },
+          "induction": {
+            "description": "Whether the product uses induction heating methods, which uses the cooking vessel itself as a heat source.",
+            "units": null,
+            "value": "No"
+          },
+          "fuel_type": {
+            "description": "The type of fuel that powers the product.",
+            "units": null,
+            "value": "Gas"
+          },
+          "front_right_burner_btu": {
+            "description": "The total amount of heat output by the front right burner, measured in BTUs (British Thermal Units).",
+            "units": null,
+            "value": "18000"
+          },
+          "front_left_burner_btu": {
+            "description": "The total amount of heat output by the front left burner, measured in BTUs (British Thermal Units).",
+            "units": null,
+            "value": "15000"
+          },
+          "back_right_burner_btu": {
+            "description": "The total cooking power of the back right burner of the product, measured in BTUs.",
+            "units": null,
+            "value": "5000"
+          },
+          "back_left_burner_btu": {
+            "description": "The total cooking power of the back left burner of the product, measured in BTUs.",
+            "units": null,
+            "value": "10000"
+          },
+          "auto_shut_off": {
+            "description": "Device will shut off after a certain period of inactivity.",
+            "units": null,
+            "value": "Yes"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15"
+          },
+          "warm_function": {
+            "description": "Whether the product includes warming function.",
+            "units": null,
+            "value": "Yes"
+          },
+          "self_cleaning": {
+            "description": "Whether the self-cleaning feature is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "number_of_racks": {
+            "description": "The total number of racks.",
+            "units": null,
+            "value": "2"
+          },
+          "number_of_burners": {
+            "description": "The total number of burners (cooking sources) included.",
+            "units": null,
+            "value": "5"
+          },
+          "lp_conversion": {
+            "description": "Whether the product can be converted to using liquid propane as a fuel source.",
+            "units": null,
+            "value": "Yes"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Free Standing"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "Yes"
+          },
+          "drawer_type": {
+            "description": "The type of drawer the product features.",
+            "units": null,
+            "value": "Storage Drawer"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Viewing Window"
+          },
+          "convection": {
+            "description": "Whether the oven includes a convection feature.",
+            "units": null,
+            "value": "No"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Knob, Touch"
+          },
+          "burner_style": {
+            "description": "The style of burner included with or used by this product.",
+            "units": null,
+            "value": "Sealed"
+          },
+          "bulb_type": {
+            "description": "The type of light bulb included.",
+            "units": null,
+            "value": "Halogen"
+          },
+          "broil_element": {
+            "description": "Whether a broiler element is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "air_fry": {
+            "description": "Whether the product features an air fry option.",
+            "units": null,
+            "value": "Yes"
+          },
+          "meat_thermometer": {
+            "description": "Whether the product includes a meat thermometer.",
+            "units": null,
+            "value": "No"
+          },
+          "interior_light": {
+            "description": "Whether a light source is included to increase visibility of the inside of the product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "grill": {
+            "description": "Whether the product includes a grill.",
+            "units": null,
+            "value": "No"
+          },
+          "griddle": {
+            "description": "Whether a griddle or griddle attachment is included.",
+            "units": null,
+            "value": "No"
+          },
+          "clock": {
+            "description": "Whether the product includes an integrated clock.",
+            "units": null,
+            "value": "Yes"
+          },
+          "baking_element": {
+            "description": "Whether a baking element is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "29.875"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "5.3"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "174"
+          },
+          "oven_capacity": {
+            "description": "The dimensional size and space of the oven, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "5.3"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "48"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "28"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "47.875"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "28"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>Get the ultimate in Air Cooking Technology and bring fresh options to family dinner with this 30-inch, High Speed Preheat 5.3 cu. ft. gas range. Clean with just water, not harsh cleaners, with WipeClean™ coating, the easiest to clean electric cooktop coating.* Get crispy and save time with No Preheat Air Fry, and go from gooey to golden and bake evenly on multiple racks with Air Baking. Plus, you can stay on top of the latest cooking features and unlock new ones over time with Smart Feature Updates. *When compared with uncoated cooktop with same heating technology and similar wattages.</p><p><strong>Features:</strong></p><ul><li>5.3 cu. ft. capacity meets the needs of today's busy homes</li><li>This range comes equipped with 5 sealed burners</li><li>Touch controls are precise and easy to use</li><li>Range includes viewing window, broil element, and storage drawer</li><li>Easily cook multiple dishes at once with a flexible cooktop that offers a range of element sizes and power levels</li><li>Easily clean your oven with the adjustable Self Clean cycle that can be customized based on the amount of spills and splatters</li><li>Enjoy plenty of space to sauté?, boil and simmer with Edge-to-Edge Cast-Iron Grates and the flexibility of a cooktop with a range of burner sizes and power levels</li><li>Covered under a 1 year limited parts and labor manufacturer warranty</li></ul><p><strong>Product Technologies:</strong></p><ul><li><strong>Air Baking: </strong>Go from gooey to golden and get even results when baking on multiple racks with Air Baking. Whirlpool's high-speed fan optimizes air flow and drives consistent heat throughout the oven. Get golden results on breads, pastries and more.</li></ul><ul><li><strong>Air Cooking Technology: </strong>Experience the Difference* with more air flow with No Preheat Air Fry and Air Baking<br />*Compared to thermal bake</li></ul><ul><li><strong>Cooking Modes: </strong>Take your favorite meals from fresh, fridge or freezer to fabulous with No Preheat Air Fry mode, Air Baking, Bake, Broil and Keep Warm</li></ul><ul><li><strong>Griddle Zone: </strong>Bring a whole new world of cooking capabilities to your cooktop with the 12,000 BTU Griddle Zone. One long, oval-shaped burner makes it easy to cook up all that delights, all at once</li></ul><ul><li><strong>No Preheat Mode: </strong>Take preheating off your plate with No Preheat Mode. Simply place your food in the oven and start baking. The oven will adjust the cook time for frozen pizzas and more.</li></ul><ul><li><strong>SpeedHeat™ Burner: </strong>Use the SpeedHeat Burner to boil 20% faster* with high heat, so you can get dinner to the table quickly (*compared to 9.5K burner on the same model)</li></ul><ul><li><strong>Smart Range: </strong>When you’re busy elsewhere, use your smartphone to get dinner started by remotely preheating the oven. Or, when your hands are full, use your compatible voice-enabled device to adjust the cook time or temperature with a voice command.*<br /><br />*Appliance must be set to remote enable. WiFi &amp; App Required. Features subject to change. Details and privacy info at whirlpool.com/connect</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 5.3 Cu. Ft.</li><li>Back Left Burner BTU: 10,000</li><li>Back Right Burner BTU: 5,000</li><li>Front Left Burner BTU: 15,000</li><li>Front Right Burner BTU: 18,000</li><li>Broil Element: Yes</li><li>Convection: No</li><li>Self Cleaning: Yes</li><li>Depth: 28\"</li><li>Height: 47-7/8\"</li><li>Width: 29-7/8\"</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-4688837.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-395.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-396.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-397.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-398.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-399.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-400.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-401.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-402.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-403.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-404.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-405.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-406.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-407.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-408.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-409.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-410.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-411.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-412.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-413.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-alternate-image-414.jpg"
+        ],
+        "configuration_type": "WITH_NESTED_PRODUCTS",
+        "is_square_footage_based": false,
+        "is_configurable": true,
+        "in_stock_variant_count": 1,
+        "total_inventory_quantity": 74,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": false,
+        "variant_count": 2,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Whirlpool 30 Inch Wide 5.3 Cu. Ft. Free Standing Fingerprint Resistant Gas Range with Air Cooking Technology and SpeedHeat Burner Fingerprint Resistant Black Stainless",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rv-4688837.jpg"
+            },
+            "currency": "USD",
+            "price": 1309,
+            "swatch_gradient": "",
+            "title": "Fingerprint Resistant Black Stainless",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 6 to 9 weeks",
+              "Leaves the Warehouse in 6 to 9 weeks"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 6 to 9 weeks",
+            "shipping_lead_time": "Leaves the Warehouse in 6 to 9 weeks",
+            "availability_status": "in_stock",
+            "in_stock": false,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "000000",
+            "inventory_quantity": 0,
+            "url": "https://www.fergusonhome.com/whirlpool-wfgs5030rz/s2025007?uid=4839782",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rv-4688837.jpg"
+            ],
+            "model_number": "WFGS5030RV",
+            "name": "Fingerprint Resistant Black Stainless",
+            "id": 4839782
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Whirlpool 30 Inch Wide 5.3 Cu. Ft. Free Standing Fingerprint Resistant Gas Range with Air Cooking Technology and SpeedHeat Burner Fingerprint Resistant Stainless Steel",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-4688837.jpg"
+            },
+            "currency": "USD",
+            "price": 1259,
+            "swatch_gradient": "",
+            "title": "Fingerprint Resistant Stainless Steel",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse Tomorrow, March 11th",
+              "Leaves the Warehouse Tomorrow, March 11th"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse Tomorrow, March 11th",
+            "shipping_lead_time": "Leaves the Warehouse Tomorrow, March 11th",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 74,
+            "url": "https://www.fergusonhome.com/whirlpool-wfgs5030rz/s2025007?uid=4839783",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/whirlpool/whirlpool-wfgs5030rz-4688837.jpg"
+            ],
+            "model_number": "WFGS5030RZ",
+            "name": "Fingerprint Resistant Stainless Steel",
+            "id": 4839783
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 100,
+        "base_type": "Cooking Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1309,
+          "min": 1259
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 1309,
+        "price_min": 1259,
+        "price": 1309,
+        "application": "Ranges",
+        "product_type": "Cooking Appliances",
+        "url": "https://www.fergusonhome.com/whirlpool-wfgs5030rz/s2025007",
+        "parent_model_number": "WFGS5030RZ",
+        "model_number": "WFGS5030RZ",
+        "brand_logo": {
+          "description": "Whirlpool",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/whirlpool/Logo/whirlpool.gif"
+        },
+        "brand_url": null,
+        "brand": "Whirlpool",
+        "name": "30 Inch Wide 5.3 Cu. Ft. Free Standing Fingerprint Resistant Gas Range with Air Cooking Technology and SpeedHeat Burner",
+        "family_id": 2025007,
+        "id": 2025007
+      },
+      "variant_url": "https://www.fergusonhome.com/whirlpool-wfgs5030rz/s2025007?uid=4839783",
+      "match_type": "exact",
+      "matched_model": "WFGS5030RZ",
+      "model_number": "WFGS5030RZ",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "No",
+        "name": "Power Outage Compatible"
+      },
+      {
+        "value": "No",
+        "name": "Heating Element On Indicator Light"
+      },
+      {
+        "value": "Blue",
+        "name": "Display Color"
+      },
+      {
+        "value": "60",
+        "name": "Hz"
+      },
+      {
+        "value": "Direct Spark Ignition",
+        "name": "Ignition Type"
+      },
+      {
+        "value": "18.625",
+        "name": "Oven Interior Height"
+      },
+      {
+        "value": "28.0",
+        "name": "Product Depth"
+      },
+      {
+        "value": "Fan",
+        "name": "Convection Element Type"
+      },
+      {
+        "value": "Bake; Broil",
+        "name": "Convection Functions"
+      },
+      {
+        "value": "Metal",
+        "name": "Handle Material"
+      },
+      {
+        "value": "Blue Graphite",
+        "name": "Interior Color"
+      },
+      {
+        "value": "24.25",
+        "name": "Oven Interior Width"
+      },
+      {
+        "value": "1",
+        "name": "Watts"
+      },
+      {
+        "value": "118.59 cm, 46.688 in",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "CA",
+        "name": "Prop65"
+      },
+      {
+        "value": "No",
+        "name": "Works With"
+      },
+      {
+        "value": "Continuous, Matte Finish, Porcelain Coated Steel Grates",
+        "name": "Grate Details"
+      },
+      {
+        "value": "32",
+        "name": "Carton Width"
+      },
+      {
+        "value": "No",
+        "name": "Auto Re-ignition"
+      },
+      {
+        "value": "25.313",
+        "name": "Depth Closed Excluding Handles"
+      },
+      {
+        "value": "Oval Burner",
+        "name": "Center Front Element-Burner Type"
+      },
+      {
+        "value": "75.88 cm, 29.875 in",
+        "name": "Width"
+      },
+      {
+        "value": "Plastic",
+        "name": "Cooktop Control Knob Type"
+      },
+      {
+        "value": "47.31 cm, 18.625 in",
+        "name": "Oven Interior Height"
+      },
+      {
+        "value": "Black",
+        "name": "Cooktop Surface Color"
+      },
+      {
+        "value": "Grey",
+        "name": "Interior Color"
+      },
+      {
+        "value": "1",
+        "name": "Number of Oven Lights"
+      },
+      {
+        "value": "71.12 cm, 28 in",
+        "name": "Depth"
+      },
+      {
+        "value": "Halogen",
+        "name": "Oven Light Type"
+      },
+      {
+        "value": "Gas",
+        "name": "Fuel Type"
+      },
+      {
+        "value": "47.875",
+        "name": "Product Height"
+      },
+      {
+        "value": "2",
+        "name": "Number of Oven Racks"
+      },
+      {
+        "value": "12000 BTU",
+        "name": "Center Front Element-Burner Power"
+      },
+      {
+        "value": "Backguard",
+        "name": "Oven Control Location"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Cooktop Control Knob Color"
+      },
+      {
+        "value": "141.50 l, 5 cu. ft.",
+        "name": "Capacity"
+      },
+      {
+        "value": "10,000 BTU",
+        "name": "Left Rear Element-Burner Power"
+      },
+      {
+        "value": "Built-In",
+        "name": "Installation Configuration"
+      },
+      {
+        "value": "19",
+        "name": "Oven Interior Depth"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Handle Color"
+      },
+      {
+        "value": "91.44 cm, 36 in",
+        "name": "Cutout Height"
+      },
+      {
+        "value": "Kosher Consumer Friendly",
+        "name": "Star K Certified"
+      },
+      {
+        "value": "5000 BTU",
+        "name": "Right Rear Element-Burner Power"
+      },
+      {
+        "value": "Knobs",
+        "name": "Cooktop Control Type"
+      },
+      {
+        "value": "Oven Control",
+        "name": "Oven Light Switch Location"
+      },
+      {
+        "value": "Extra Large",
+        "name": "Oven Window Size"
+      },
+      {
+        "value": "Yes",
+        "name": "Oven Automatic Shut-Off"
+      },
+      {
+        "value": "Yes",
+        "name": "Hidden Bake Element"
+      },
+      {
+        "value": "Power",
+        "name": "Left Front Element-Burner Type"
+      },
+      {
+        "value": "121.60 cm, 47.875 in",
+        "name": "Maximum Height"
+      },
+      {
+        "value": "28",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "Air Fry",
+        "name": "Range Features"
+      },
+      {
+        "value": "15",
+        "name": "Amps"
+      },
+      {
+        "value": "190",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "36",
+        "name": "Cutout Height"
+      },
+      {
+        "value": "29",
+        "name": "Carton Depth"
+      },
+      {
+        "value": "71.12 cm, 28 in",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "Power",
+        "name": "Right Front Element-Burner Type"
+      },
+      {
+        "value": "3",
+        "name": "Number of Grates"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Knob Color"
+      },
+      {
+        "value": "N/A",
+        "name": "Oven Control Knob Type"
+      },
+      {
+        "value": "Yes - Kit Included",
+        "name": "LP Convertible"
+      },
+      {
+        "value": "Audible Signal; Bake; Broil; Cancel/Off; Clock; Control Lock; Convect Modes; Cook Time Indicator; Delay Start; Frozen Bake; Keep Warm/Warm Hold; No Preheat - Air Fry; No Preheat - Frozen Lasagna; No Preheat - Frozen Pizza; Sabbath Mode; Start Time; Stop T",
+        "name": "Oven Selections"
+      },
+      {
+        "value": "15,000 BTU",
+        "name": "Left Front Element-Burner Power"
+      },
+      {
+        "value": "174",
+        "name": "Net Weight"
+      },
+      {
+        "value": "5,000 BTU",
+        "name": "Right Rear Element-burner Power"
+      },
+      {
+        "value": "Continuous; Matte Finish; Porcelain Coated Steel Grates",
+        "name": "Grate Details"
+      },
+      {
+        "value": "76.20 cm, 30 in",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "64.30 cm, 25.313 in",
+        "name": "Depth Closed Excluding Handles"
+      },
+      {
+        "value": "No",
+        "name": "Hot Surface Indicator Light"
+      },
+      {
+        "value": "Yes",
+        "name": "Door Removable"
+      },
+      {
+        "value": "121.60 cm, 47.875 in",
+        "name": "Height"
+      },
+      {
+        "value": "118.11 cm, 46.5 in",
+        "name": "Minimum Height"
+      },
+      {
+        "value": "Backguard",
+        "name": "Cooktop Control Location"
+      },
+      {
+        "value": "61.60 cm, 24.25 in",
+        "name": "Oven Interior Width"
+      },
+      {
+        "value": "29.875",
+        "name": "Product Width"
+      },
+      {
+        "value": "Single-Fan",
+        "name": "Convection Element Type"
+      },
+      {
+        "value": "Yes",
+        "name": "CUL"
+      },
+      {
+        "value": "5",
+        "name": "Number of Cooking Element-Burners"
+      },
+      {
+        "value": "Electronic Touch",
+        "name": "Oven Control Type"
+      },
+      {
+        "value": "Freestanding",
+        "name": "Range Type"
+      },
+      {
+        "value": "Porcelain Coated Steel",
+        "name": "Cooktop Surface Material"
+      },
+      {
+        "value": "16,500",
+        "name": "Total Gas BTUs - Ovens"
+      },
+      {
+        "value": "Top Center",
+        "name": "Broiler Location"
+      },
+      {
+        "value": "Reach-Through Handle",
+        "name": "Handle Type"
+      },
+      {
+        "value": "Yes",
+        "name": "UL"
+      },
+      {
+        "value": "Thermal",
+        "name": "Oven Cooking System"
+      },
+      {
+        "value": "Sealed Burners",
+        "name": "Cooktop Element Style"
+      },
+      {
+        "value": "49",
+        "name": "Carton Height"
+      },
+      {
+        "value": "30",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "86.18 kg, 190 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "Reach Through Handle",
+        "name": "Handle Type"
+      },
+      {
+        "value": "78.93 kg, 174 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "No",
+        "name": "Automatic Convection Conversion Temperature Adjust"
+      },
+      {
+        "value": "Bake, Broil",
+        "name": "Convection Functions"
+      },
+      {
+        "value": "Glass",
+        "name": "Door Type"
+      },
+      {
+        "value": "58,000",
+        "name": "Total Gas BTUs - Cooktop"
+      },
+      {
+        "value": "2 Standard",
+        "name": "Oven Rack Type"
+      },
+      {
+        "value": "120",
+        "name": "Volts"
+      },
+      {
+        "value": "No",
+        "name": "Temperature Probe"
+      },
+      {
+        "value": "Yes",
+        "name": "Power Cord Included"
+      },
+      {
+        "value": "Standard",
+        "name": "Left Rear Element-Burner Type"
+      },
+      {
+        "value": "46.688",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "24",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "No",
+        "name": "Griddle Included"
+      },
+      {
+        "value": "Plastic",
+        "name": "Knob Type"
+      },
+      {
+        "value": "Self-Cleaning",
+        "name": "Oven Cleaning Type"
+      },
+      {
+        "value": "60.96 cm, 24 in",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "No",
+        "name": "Temperature Sensor"
+      },
+      {
+        "value": "5",
+        "name": "Number of Rack Guides"
+      },
+      {
+        "value": "Audible Signal, Bake, Broil, Cancel/Off, Clock, Control Lock, Convect Modes, Cook Time Indicator, Delay Start, Frozen Bake, Keep Warm/Warm Hold, No Preheat - Air Fry, No Preheat - Frozen Lasagna, No Preheat - Frozen Pizza, Sabbath Mode, Start Time, Stop T",
+        "name": "Oven Selections"
+      },
+      {
+        "value": "No",
+        "name": "ADA Compliant"
+      },
+      {
+        "value": "18,000 BTU",
+        "name": "Right Front Element-Burner Power"
+      },
+      {
+        "value": "Yes",
+        "name": "Power On Indicator Light"
+      },
+      {
+        "value": "Storage Drawer",
+        "name": "Range Drawer Type"
+      },
+      {
+        "value": "48.26 cm, 19 in",
+        "name": "Oven Interior Depth"
+      },
+      {
+        "value": "1300W",
+        "name": "Broiler Element Power"
+      },
+      {
+        "value": "Simmer",
+        "name": "Right Rear Element-Burner Type"
+      },
+      {
+        "value": "No",
+        "name": "Connectivity"
+      }
+    ],
+    "Web_Retailer_Key": "CA_WHIRL:WFGS5030RZ",
+    "Web_Retailer_SubCategory": "30\" FREE STANDING GAS RANGE",
+    "Web_Retailer_Category": "GAS RANGES",
+    "Product_Description_Web_Retailer": "Experience the difference* of Air Cooking Technology with this 30-inch gas range. Get crispy fast with No Preheat Air Fry, and bake evenly on multiple racks with the dynamic air flow of Air Baking. Make feel-good meals with a variety of cooking modes, and bring a whole new world of cooking capabilties with the 12,000 BTU Griddle Zone *Compared to Thermal Bake",
+    "Features_Web_Retailer": "<ul><li>Air Cooking technology</li><li>No Preheat Air Fry</li><li>Air Baking</li><li>Griddle Zone</li><li>SpeedHeat(TM) Burner</li></ul>",
+    "Weight_Web_Retailer": 78.93,
+    "Capacity_Web_Retailer": 5,
+    "Height_Web_Retailer": "47 7/8",
+    "Width_Web_Retailer": "29 7/8",
+    "Depth_Web_Retailer": "28",
+    "Product_Title_Web_Retailer": "30-inch Gas Range with Air Cooking Technology, No Preheat Air Fry and Air Baking and Self Clean",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 1199,
+    "Model_Number_Web_Retailer": "WFGS5030RZ",
+    "Brand_Web_Retailer": "WHIRLPOOL",
+    "SF_Catalog_Name": "WFGS5030RZ",
+    "SF_Catalog_Id": "a03aZ00000kxA4IQAU"
+  },
+  "currentOutput": {
+    "AI_Brand": "WHIRLPOOL",
+    "AI_Product_Category": "Range",
+    "AI_Type": "Front Control",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Fingerprint Resistant Stainless Steel",
+    "AI_Finish": "Fingerprint Resistant Stainless Steel",
+    "AI_Product_Title": "Whirlpool 30-Inch Front Control Gas Range Fingerprint Resistant Stainless Steel - WFGS5030RZ"
+  }
+}

@@ -1,0 +1,920 @@
+{
+  "sf_catalog_id": "a03aZ00000zKgT4QAK",
+  "sf_catalog_name": "46020991",
+  "createdAt": "2026-06-09T22:10:16.568Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000mHqq0QAC.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000mHmBBQA0.jpeg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000mJ45tQAC.jpg"
+      }
+    ],
+    "Reference_URL": "https://bourneufcorp.com/product/0-19606955",
+    "Ferguson_URL": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4299829",
+    "Specification_Table": "<p><strong>Handle Design</strong></p><ul><li>Lever Handle</li></ul><p><strong>Spray Pattern</strong></p><ul><li>Aerated Spray</li></ul><p><strong>Performance</strong></p><ul><li>Maximum Flow Rate (at 3 bar): 4.5 L/min</li></ul><p><strong>Construction</strong></p><ul><li>Ceramic Cartridge: Yes </li></ul><p><br></p>",
+    "UPC_Legacy": "4059625292587",
+    "Category_Legacy": "Bathroom Faucet",
+    "Product_Description_Legacy": "The AXOR Edge collection explores extreme refinement, inspired by the French tradition of Arts Décoratifs. Each solid brass faucet body is cut, milled, and polished to micron precision using state-of-the-art diamond-tipped tooling from the aerospace industry. This process gives the Polished Gold Optic finish an unparalleled, jewel-like smoothness and reflective brilliance.",
+    "Features_Legacy": "<ul><li>German design and engineering delivers optimal performance</li><li>Faucet body constructed of brass</li><li>Brass is highly resistant to corrosion and an excellent choice to withstand high temperatures</li><li>Coordinates with products from the Edge line</li><li>Single hole mounting type</li><li>Deck mounted installation - 1 hole faucet mounts directly to sink or countertop</li><li>Single lever handle controls the flow and temperature of water</li><li>Faucet includes a ceramic disc valve</li><li>All hardware required for installation is included</li><li>Drain assembly not included</li><li>Low lead compliant</li></ul>",
+    "Weight_Legacy": 9.26,
+    "Capacity_Legacy": 1.2,
+    "Height_Legacy": "8 5/8",
+    "Width_Legacy": "02",
+    "Depth_Legacy": "8 5/8",
+    "Product_Title_Legacy": "Edge 1.2 GPM Single Hole Bathroom Faucet 190 Less Drain Assembly - Engineered in Germany, Limited Lifetime Warranty",
+    "Color_Finish_Legacy": "Polished Gold Optic",
+    "MSRP_Legacy": 3403,
+    "Model_Number_Legacy": "46020991",
+    "Brand_Legacy": "AXOR",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-06-09T20:44:51.262589"
+      },
+      "search_meta_data": {
+        "business_category": null,
+        "base_category": null,
+        "corrected_search_term": null,
+        "search_engine": "BLOOMREACH",
+        "search_id": null
+      },
+      "performance": {
+        "total_time": "3.34s",
+        "step3_detail_time": "1.43s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.90s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4067450",
+          "in_stock": true,
+          "price": 2142.4,
+          "finish": "Chrome",
+          "model_number_full": "46020001",
+          "variant": null,
+          "parent_model_number": "46020"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4299830",
+          "in_stock": true,
+          "price": 2722.4,
+          "finish": "Polished Black Chrome",
+          "model_number_full": "46020331",
+          "variant": null,
+          "parent_model_number": "46020"
+        },
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4299829",
+          "in_stock": false,
+          "price": 2722.4,
+          "finish": "Polished Gold Optic",
+          "model_number_full": "46020991",
+          "variant": null,
+          "parent_model_number": "46020"
+        },
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4262155",
+          "in_stock": false,
+          "price": 1826.64,
+          "finish": "Polished Red Gold",
+          "model_number_full": "46020301",
+          "variant": null,
+          "parent_model_number": "46020"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free Shipping!",
+          "Leaves the Warehouse in 6 to 10 weeks",
+          "Leaves the Warehouse in 6 to 10 weeks"
+        ],
+        "collection": {
+          "description": null,
+          "url": "https://www.fergusonhome.com/collection/Axor/Edge",
+          "name": "Edge"
+        },
+        "questions_count": 0,
+        "total_reviews": 0,
+        "review_count": 0,
+        "total_ratings": 0,
+        "rating": 0,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/axor-collections/c126171",
+            "name": "AXOR Collections",
+            "id": 126171
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-kitchen-faucets/c125790",
+            "name": "AXOR Kitchen Faucets",
+            "id": 125790
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-bathroom-faucets/c125791",
+            "name": "AXOR Bathroom Faucets",
+            "id": 125791
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-showers/c125792",
+            "name": "AXOR Showers",
+            "id": 125792
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-pressure-balance-trim/c125796",
+            "name": "AXOR Pressure Balance Trim",
+            "id": 125796
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-thermostatic-valve-trim/c125793",
+            "name": "AXOR Thermostatic Valve Trim",
+            "id": 125793
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-volume-control/c125794",
+            "name": "AXOR Volume Controls",
+            "id": 125794
+          }
+        ],
+        "business_category": "Bathroom Faucets",
+        "base_category": "Plumbing",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor/c125789",
+            "name": "AXOR"
+          },
+          {
+            "url": "https://www.fergusonhome.com/axor-bathroom-faucets/c125791",
+            "name": "AXOR Bathroom Faucets"
+          }
+        ],
+        "resources": [
+          {
+            "id": "axor-46020-axor-custom-finishes",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/axor/1720644/axor-46020-axor-custom-finishes.pdf",
+            "name": "Axor Custom Finishes"
+          },
+          {
+            "id": "axor-46020-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/axor/1720644/axor-46020-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "axor-46020-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/axor/1720644/axor-46020-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "Limited Lifetime",
+        "warranty": "<p>Axor Warranty Axor products are covered by the Hansgrohe warranty. All products have been manufactured and tested to the highest quality standards. The warranty covers the product to be free from defects in workmanship and materials for as long as the original consumer owns the home where the product is installed.</p>",
+        "country_of_origin": "Germany",
+        "certifications": [
+          "UPC"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "634",
+            "name": "Faucet Centers"
+          },
+          {
+            "value": "635",
+            "name": "Faucet Hole Size"
+          },
+          {
+            "value": "671",
+            "name": "Flow Rate (GPM)"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "1578",
+            "name": "Spout Height"
+          },
+          {
+            "value": "1580",
+            "name": "Spout Reach"
+          },
+          {
+            "value": "3879",
+            "name": "Water Connection"
+          },
+          {
+            "value": "3401",
+            "name": "Drain Assembly Included"
+          },
+          {
+            "value": "5449",
+            "name": "Escutcheon Included"
+          },
+          {
+            "value": "787",
+            "name": "Handles Included"
+          },
+          {
+            "value": "8818",
+            "name": "Installation Hardware Included"
+          },
+          {
+            "value": "1339",
+            "name": "Pop-Up Included"
+          },
+          {
+            "value": "1751",
+            "name": "Valve Included"
+          },
+          {
+            "value": "6434",
+            "name": "Bridge Faucet"
+          },
+          {
+            "value": "576",
+            "name": "Electronic"
+          },
+          {
+            "value": "636",
+            "name": "Faucet Holes"
+          },
+          {
+            "value": "6385",
+            "name": "Faucet Type"
+          },
+          {
+            "value": "784",
+            "name": "Handle Style"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1048",
+            "name": "Material"
+          },
+          {
+            "value": "4745",
+            "name": "Mounting Type"
+          },
+          {
+            "value": "1209",
+            "name": "Number Of Handles"
+          },
+          {
+            "value": "3749",
+            "name": "Spout Type"
+          },
+          {
+            "value": "1657",
+            "name": "Theme"
+          },
+          {
+            "value": "3803",
+            "name": "Touchless Faucet"
+          },
+          {
+            "value": "1752",
+            "name": "Valve Type"
+          },
+          {
+            "value": "9157",
+            "name": "Vessel Faucet"
+          },
+          {
+            "value": "6433",
+            "name": "Waterfall Faucet"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "6921",
+            "name": "CA Drought Compliant"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "335",
+            "name": "Collection"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "4517",
+            "name": "Low Lead Compliant"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "4667",
+            "name": "WaterSense Certified"
+          }
+        ],
+        "dimensions": {
+          "height": "8.661 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The overall distance between installation holes used for the faucet's handles, measured in inches. Single hole faucets will have a faucet center of 0\".",
+                "units": "in.",
+                "value": "0",
+                "name": "Faucet Centers"
+              },
+              {
+                "featured": false,
+                "description": "The straight line distance measured from edge to edge through the center of the hole required for installation, measured in inches.",
+                "units": "in.",
+                "value": "1.25",
+                "name": "Faucet Hole Size"
+              },
+              {
+                "featured": true,
+                "description": "The volume of water moved by the product per minute, measured in gallons.",
+                "units": null,
+                "value": "1.2",
+                "name": "Flow Rate (GPM)"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "8.661",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The vertical measurement from the mounting surface to the spouts outlet, measured in inches.",
+                "units": "in.",
+                "value": "7.83",
+                "name": "Spout Height"
+              },
+              {
+                "featured": true,
+                "description": "The horizontal measurement from the center of the faucet body to the center of the spouts outlet, measured in inches.",
+                "units": "in.",
+                "value": "6.87",
+                "name": "Spout Reach"
+              },
+              {
+                "featured": false,
+                "description": "The connection between your current water supply and the water source, measured in inches.",
+                "units": null,
+                "value": "3/8\"",
+                "name": "Water Connection"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": true,
+                "description": "Whether the necessary drain hardware (assembly) is included.",
+                "units": null,
+                "value": "No",
+                "name": "Drain Assembly Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether an escutcheon (mounting plate) is included to cover any visible holes or gaps when the product is installed for a clean, seamless look.",
+                "units": null,
+                "value": "No",
+                "name": "Escutcheon Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the handle(s) are included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Handles Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the necessary hardware to properly install the product is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Installation Hardware Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the included drain has a pop-up feature. The pop-up will be raised and lowered with a lift knob or lever that will connect to a lift rod that will install near or on the faucet body.",
+                "units": null,
+                "value": "No",
+                "name": "Pop-Up Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether the required valve is included with purchase.",
+                "units": null,
+                "value": "Yes",
+                "name": "Valve Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Bridge faucets are one-piece constructed faucets that include 2 or 3 separate faucet holes.",
+                "units": null,
+                "value": "No",
+                "name": "Bridge Faucet"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can operate electronically or includes electronic components.",
+                "units": null,
+                "value": "No",
+                "name": "Electronic"
+              },
+              {
+                "featured": false,
+                "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+                "units": null,
+                "value": "1",
+                "name": "Faucet Holes"
+              },
+              {
+                "featured": false,
+                "description": "Indicates the configured style of the faucet.",
+                "units": null,
+                "value": "Bathroom Sink Faucet",
+                "name": "Faucet Type"
+              },
+              {
+                "featured": false,
+                "description": "The style of handle that the product has.",
+                "units": null,
+                "value": "Lever",
+                "name": "Handle Style"
+              },
+              {
+                "featured": false,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Deck Mounted",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The material(s) used in the construction of the product.",
+                "units": null,
+                "value": "Brass",
+                "name": "Material"
+              },
+              {
+                "featured": false,
+                "description": "The faucets mounting type is determined by where and how the handles and spout are oriented to each other.",
+                "units": null,
+                "value": "Single Hole",
+                "name": "Mounting Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of handles included.",
+                "units": null,
+                "value": "1",
+                "name": "Number Of Handles"
+              },
+              {
+                "featured": false,
+                "description": "Whether the spout is fixed in one position or capable of a range of motion through a swivel action feature.",
+                "units": null,
+                "value": "Fixed",
+                "name": "Spout Type"
+              },
+              {
+                "featured": false,
+                "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+                "units": null,
+                "value": "Modern",
+                "name": "Theme"
+              },
+              {
+                "featured": false,
+                "description": "Faucet feature that activates the flow of water through the use of a motion sensor.",
+                "units": null,
+                "value": "No",
+                "name": "Touchless Faucet"
+              },
+              {
+                "featured": false,
+                "description": "The type of valve required by this product.",
+                "units": null,
+                "value": "Ceramic Disc",
+                "name": "Valve Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether a faucet is tall enough to be used with a vessel sink. ",
+                "units": null,
+                "value": "No",
+                "name": "Vessel Faucet"
+              },
+              {
+                "featured": false,
+                "description": "Whether the faucet has a waterfall style spout.",
+                "units": null,
+                "value": "No",
+                "name": "Waterfall Faucet"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "Yes",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "Flow rate is less than CA state regulations.",
+                "units": null,
+                "value": "Yes",
+                "name": "CA Drought Compliant"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "UPC",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+                "units": null,
+                "value": "Edge",
+                "name": "Collection"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "Germany",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "Yes",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product contains less than 0.25% lead to meet compliancy regulations.",
+                "units": null,
+                "value": "No",
+                "name": "Low Lead Compliant"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "Limited Lifetime",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is WaterSense certified. WaterSense is a program enacted by the U.S. Environmental Protection Agency (EPA) to help conserve water and protect the environment.",
+                "units": null,
+                "value": "Yes",
+                "name": "WaterSense Certified"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "watersense_certified": {
+            "description": "Whether this product is WaterSense certified. WaterSense is a program enacted by the U.S. Environmental Protection Agency (EPA) to help conserve water and protect the environment.",
+            "units": null,
+            "value": "Yes"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "Limited Lifetime"
+          },
+          "low_lead_compliant": {
+            "description": "Whether the product contains less than 0.25% lead to meet compliancy regulations.",
+            "units": null,
+            "value": "No"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "Germany"
+          },
+          "collection": {
+            "description": "A manufacturer's grouping of items that match, coordinate, or complement each other.",
+            "units": null,
+            "value": "Edge"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "UPC"
+          },
+          "ca_drought_compliant": {
+            "description": "Flow rate is less than CA state regulations.",
+            "units": null,
+            "value": "Yes"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "Yes"
+          },
+          "waterfall_faucet": {
+            "description": "Whether the faucet has a waterfall style spout.",
+            "units": null,
+            "value": "No"
+          },
+          "vessel_faucet": {
+            "description": "Whether a faucet is tall enough to be used with a vessel sink. ",
+            "units": null,
+            "value": "No"
+          },
+          "valve_type": {
+            "description": "The type of valve required by this product.",
+            "units": null,
+            "value": "Ceramic Disc"
+          },
+          "touchless_faucet": {
+            "description": "Faucet feature that activates the flow of water through the use of a motion sensor.",
+            "units": null,
+            "value": "No"
+          },
+          "theme": {
+            "description": "The collective style or motif of which this product is based, as determined by its distinctive traits and features. Theme's can be subjective, so some products may include more than one theme.",
+            "units": null,
+            "value": "Modern"
+          },
+          "spout_type": {
+            "description": "Whether the spout is fixed in one position or capable of a range of motion through a swivel action feature.",
+            "units": null,
+            "value": "Fixed"
+          },
+          "number_of_handles": {
+            "description": "The total number of handles included.",
+            "units": null,
+            "value": "1"
+          },
+          "mounting_type": {
+            "description": "The faucets mounting type is determined by where and how the handles and spout are oriented to each other.",
+            "units": null,
+            "value": "Single Hole"
+          },
+          "material": {
+            "description": "The material(s) used in the construction of the product.",
+            "units": null,
+            "value": "Brass"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Deck Mounted"
+          },
+          "handle_style": {
+            "description": "The style of handle that the product has.",
+            "units": null,
+            "value": "Lever"
+          },
+          "faucet_type": {
+            "description": "Indicates the configured style of the faucet.",
+            "units": null,
+            "value": "Bathroom Sink Faucet"
+          },
+          "faucet_holes": {
+            "description": "The number of holes required to install the faucet or the number of pre-drilled holes included to install a faucet.",
+            "units": null,
+            "value": "1"
+          },
+          "electronic": {
+            "description": "Whether the product can operate electronically or includes electronic components.",
+            "units": null,
+            "value": "No"
+          },
+          "bridge_faucet": {
+            "description": "Bridge faucets are one-piece constructed faucets that include 2 or 3 separate faucet holes.",
+            "units": null,
+            "value": "No"
+          },
+          "valve_included": {
+            "description": "Whether the required valve is included with purchase.",
+            "units": null,
+            "value": "Yes"
+          },
+          "pop-up_included": {
+            "description": "Whether the included drain has a pop-up feature. The pop-up will be raised and lowered with a lift knob or lever that will connect to a lift rod that will install near or on the faucet body.",
+            "units": null,
+            "value": "No"
+          },
+          "installation_hardware_included": {
+            "description": "Whether the necessary hardware to properly install the product is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "handles_included": {
+            "description": "Whether the handle(s) are included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "escutcheon_included": {
+            "description": "Whether an escutcheon (mounting plate) is included to cover any visible holes or gaps when the product is installed for a clean, seamless look.",
+            "units": null,
+            "value": "No"
+          },
+          "drain_assembly_included": {
+            "description": "Whether the necessary drain hardware (assembly) is included.",
+            "units": null,
+            "value": "No"
+          },
+          "water_connection": {
+            "description": "The connection between your current water supply and the water source, measured in inches.",
+            "units": null,
+            "value": "3/8\""
+          },
+          "spout_reach": {
+            "description": "The horizontal measurement from the center of the faucet body to the center of the spouts outlet, measured in inches.",
+            "units": "in.",
+            "value": "6.87"
+          },
+          "spout_height": {
+            "description": "The vertical measurement from the mounting surface to the spouts outlet, measured in inches.",
+            "units": "in.",
+            "value": "7.83"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "8.661"
+          },
+          "flow_rate_(gpm)": {
+            "description": "The volume of water moved by the product per minute, measured in gallons.",
+            "units": null,
+            "value": "1.2"
+          },
+          "faucet_hole_size": {
+            "description": "The straight line distance measured from edge to edge through the center of the hole required for installation, measured in inches.",
+            "units": "in.",
+            "value": "1.25"
+          },
+          "faucet_centers": {
+            "description": "The overall distance between installation holes used for the faucet's handles, measured in inches. Single hole faucets will have a faucet center of 0\".",
+            "units": "in.",
+            "value": "0"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>Unique and differentiating. AXOR Edge faucets transcend boundaries: The cube as a formative design element. High-gloss surfaces that maximize the distinctiveness of the collection. No matter which variant, an AXOR Edge faucet is that something extra for people with discerning taste.</p><p><strong>Axor 46020 Features:</strong></p><ul><li>Saves water, energy and money: The flow rate is automatically restricted to max. 1.2 GPM, even when the water pressure varies (EcoRight)</li><li>Particularly durable: equipped with high-quality, smooth-running ceramic mixing system from AXOR</li><li>Fuller, lighter, softer droplets: This faucet enriches the water with air for a nicer feeling (AirPower)</li><li>More freedom of movement: the distance between the spout and the sink provides space for comfortable use (ComfortZone)</li><li>Stronger handle: The boltic lever lock allows for repeated use of your faucet without getting loose after time</li><li>Easy to install: The faucet is attached to the water connections via flexible connection hoses (3/8-inch)</li><li>Spray type: This faucet features an aerated spray which causes less splashing than traditional faucets</li><li>Easy-care and long-lasting chrome finish: The shiny chrome finish boasts a lasting shine</li><li>Installation notes: Hansgrohe recommends a licensed plumber install this product</li><li>Limited lifetime consumer warranty: Consumer purchases of AXOR products from authorized sellers are covered by a limited lifetime manufacturer warranty applicable to the original purchaser</li></ul><p><strong>Axor 46020 Specifications:</strong></p><ul><li>Height: 8-11/16\" (deck to top of faucet)</li><li>Spout Height: 7-13/16\" (deck to spout outlet)</li><li>Spout Reach: 6-7/8\" (faucet base to spout outlet)</li><li>Flow Rate: 1.2 gallons-per-minute</li><li>Faucet Hole Size: 1-1/4\"</li><li>Faucet Holes: 1 (minimum number of holes required for installation)</li></ul>",
+        "videos": [
+          {
+            "description": "AXOR Edge: Brilliant. Refined. Beyond Extraordinary",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7536"
+          }
+        ],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/axor/axor-46020991-8783533.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/axor/axor-46020991-8783533.jpg"
+        ],
+        "finish": "Polished Gold Optic",
+        "color": "D4AF37",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": false,
+        "variant_count": 4,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free Shipping!",
+        "estimated_delivery": "Leaves the Warehouse in 6 to 10 weeks",
+        "shipping_lead_time": "Leaves the Warehouse in 6 to 10 weeks",
+        "inventory_quantity": 0,
+        "availability_status": "in_stock",
+        "in_stock": false,
+        "has_free_installation": false,
+        "shipping_fee": 0,
+        "base_type": "Faucet",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 2722.4,
+          "min": 1826.64
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 2722.4,
+        "price_min": 2142.4,
+        "price": 2722.4,
+        "application": "Bathroom Sink Faucets",
+        "product_type": "Faucet",
+        "url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4299829",
+        "variant_number": "46020991",
+        "parent_model_number": "46020",
+        "model_number": "46020991",
+        "requested_model_number": "46020991",
+        "brand_logo": {
+          "description": "Axor",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/axor/Logo/axor.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/axor/c125789",
+        "brand": "Axor",
+        "name": "Edge 1.2 GPM Single Hole Bathroom Faucet 190 Less Drain Assembly - Engineered in Germany, Limited Lifetime Warranty",
+        "family_id": 1720644,
+        "id": 1720644
+      },
+      "variant_url": "https://www.fergusonhome.com/axor-46020/s1720644?uid=4299829",
+      "match_type": "exact",
+      "matched_model": "46020991",
+      "model_number": "46020991",
+      "product_found": true,
+      "success": true
+    },
+    "SF_Catalog_Name": "46020991",
+    "SF_Catalog_Id": "a03aZ00000zKgT4QAK"
+  },
+  "currentOutput": {
+    "AI_Brand": "AXOR",
+    "AI_Product_Category": "Bathroom Faucet",
+    "AI_Type": "Single Hole",
+    "AI_Style": "1 Hole",
+    "AI_Color": "Gold",
+    "AI_Finish": "Polished Gold Optic",
+    "AI_Product_Title": "AXOR Single Hole Bathroom Faucet Polished Gold Optic 1.2 GPM - 46020991"
+  }
+}

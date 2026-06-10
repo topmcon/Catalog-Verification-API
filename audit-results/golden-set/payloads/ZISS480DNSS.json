@@ -1,0 +1,1606 @@
+{
+  "sf_catalog_id": "a03Hu00001N28eUIAR",
+  "sf_catalog_name": "ZISS480DNSS",
+  "createdAt": "2026-06-04T03:04:29.328Z",
+  "era": "ai",
+  "strata": [
+    "finish_eq_color",
+    "title_dup",
+    "title_dup"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/a1e8aea21acbe644f7cf00eec4cabb87_20251027_135851.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/adf4926498c4fb794d030f886629b11c_20251027_135852.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/91961030656f07c3a6c78d6ef268aa4f_20251027_135853.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/1afb1a9b306c67d06d188d06eae890b2_20251027_135853.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/4b3f5ee0520d943bec08ffc34526e356.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b0a2e844f91e3006146b85319a15823e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/85134c234e156af375d21fe111e679c6.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/eee4162962c1ee429abb99aab20b7a4c.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/5aa58f952a847f6e9c5cb1ad523a335f.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/38f577ea303492145e6360fefd80977d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/886274e06f0d3b4bb52e7f54d31d265f.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/4431866d6e454b1d62f2e3bb2787a2ee.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/58971cb350a0ca304414b45fdbba2770.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/062b89cfc927da8951b3188c8213126e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/14963a0deb511cbac9c728077330da55.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/35e3de8ac357fa58f03ffaa9d0c8ecfa.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b98dc6822b745e7a116233a04e1978d4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/e40ec52468d6b041122455a2b26a0b62.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/84ee46dbeb2838d90544dc72f7d1e6d0.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/87ca30eb8923da013925ae6516341fbe.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/8440b3026d6fdd0fedbb9b6c359c230b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/dc9c7432c4838c40f3386c57f5f3866b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/092347086cbc3b9c3defad6f14ae6758.jpg"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": "https://www.fergusonhome.com/monogram-ziss480dn/s1692581?uid=3994443",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">CAPACITY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Capacity</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">17.18 cu ft</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Total Capacity (cubic feet)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">28.6 cu ft</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freezer Capacity</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">11.44 cu ft</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">FILTER</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">App Filter - WiFi Connect</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-In</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">APPEARANCE</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Adjustable Rollers</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dispenser Color</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Wrapped Stainless Steel Door and Grill</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Master Light Control Switch</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Door Stops</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">90 Degree and 130 Degree</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Design Style</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Universal: Statement or Minimalist Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Handle Purchased Separately</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Requires Statement Handle Kit (ZKSS2H2PNSS) or Minimalist Handle Kit (ZKSS2H2CNSS)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Easy Access Hinged Grille</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Installation</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Standard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Color Appearance</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Handle</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Separate Purchase Required</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Hidden Door Hinge(s)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">POWER / RATINGS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Energy Consumption (kWh/year)</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">884</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Electrical Requirements</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">115V; 60Hz; 20A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Hertz</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">60</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WARRANTY</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Warranty Notes</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Extended 12-Year Sealed System Parts Only <br>Limited 5-Year Sealed System <br>See written warranty for full Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Labor Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Limited 2-year entire appliance</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Parts Warranty</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Limited 2-year entire appliance</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">ECONOMICAL / QUIET</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Quiet Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Sealed Adjustable Toe Kick</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">WEIGHTS &amp; DIMENSIONS</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Overall Depth</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">25.75 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Height to Top of Hinge</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">84 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Net Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">738 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Width</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48 in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Approximate Shipping Weight</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">775 lb</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Overall Height</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">84 in</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">FEATURES</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Temperature Management Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Electronic Sensors <br>Multi-Shelf Air Management Tower</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Deli Drawer</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Adjustable Sealed w/ Full Extension Slides</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Control Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Upfront Electronic Digital Temperature Display</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dispenser Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Child Lock <br>Disappearing Electronic Glass Touch with Proximity Sensor <br>Dispenser Light <br>Door Alarm <br>Extra-Tall w/ Cubes, Crushed Ice &amp; Chilled Water <br>Water Filter Indicator Light</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Icemaker</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Factory-Installed</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Cabinet Shelves</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">5 Adjustable <br>5 Total <br>Wire</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">WiFi Connect</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-In</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Sabbath Mode</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Optional</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Filter Location</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Upper right corner</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Clear Lexan Bins, Drawers and Pans</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Interior Lighting</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">LED Light Towers, Top LED and Pan LED Lighting</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Short Description</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48&quot; Built-In Side-By-Side Refrigerator with Dispenser</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Connected Capabilities</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Amazon Alexa <br>Google Home <br>IFTTT</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Door Bins</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3 Total</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Defrost Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Auto</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fresh Food Door Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Adjustable <br>Gallon Storage</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Leveling System</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4 Point</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fresh Food Cabinet Shelves</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4 Total</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Door Bins</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Utility Baskets</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Exterior Style</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-In</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Produce Drawer</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">High-Humidity Sealed w/ Full Extension Slides</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Climate Control Drawer</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Express Chill, Express Thaw, Select Temp</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fresh Food Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dairy Compartment - Sealed</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Refrigerant Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R600a</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dispenser</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">External Dispenser</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Fresh Food Cabinet Shelf Features</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Adjustable</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Collection</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Minimalist <br>Statement</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Water Filtration</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">GE Water Filtration 1 Year <br>MWFP <br>Water Filter Indicator Light</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Product Type</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Side-by-Side Refrigerator</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">OU Certified</td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">OU/CRC Enhanced Shabbos Mode, when used with Shabbos Keeper, sold separately</td></tr></table>",
+    "UPC_Legacy": "084691845195",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "Advanced temperature management system with multi-shelf air towerProvides even distribution of air throughout the refrigeratorStatement and Minimalist Collection Refrigerator Handles (sold separately)Designed to enhance choice and customization, Statement and Minimalist Collection refrigerators do not come with handles. Handles must be chosen separately and ordered through a Monogram representativeClimate-control drawerAllows you to express-chill beverages, express-thaw meats and select specific temperatures for perishable foodsWiFi powered by SmartHQ(TM)Enjoy the convenience and freedom of wirelessly controlling functions from your smartphoneLED lightingLight columns in the freezer and fresh food compartments extend the full length of the interior and LED lighting located inside the vegetable and climate-control drawers illuminate contents without compromising spaceTrue stainless dispenserDesigned to accommodate glassware of all sizes, from pitchers to tumblersGE(R) water filterHas been moved from the fresh food compartment to the overhead cabinet, where it is discreetly out of sightDeli drawer on full-extension slidesKeeps meats, cheeses and other everyday foods within easy reachSealed vegetable drawerHelps preserve the freshness of foodsAdjustable glass shelvesEasily accommodate party trays and plattersGallon-size door binHolds milk containers, two-liter bottles and pitchersAdjustable door binsCan be moved to one of two positions in seven locationsDairy bin with center dividerHas a unique magnetic seal that locks in freshnessFilter-change indicator lightLocated on the upfront control panel, provides a visual reminder when it's time to replace the filter for the water dispenserSabbath modeDesigned to disable functions in accordance with Sabbath-observing practice",
+    "Features_Legacy": "<ul><li>LED Lighting</li><li>Light columns in the freezer and fresh food compartments extend the full length of the interior and LED lighting located inside the vegetable and climate-control drawers illuminate contents without compromising space.</li><li>WIFI Connect</li><li>WIFI CONNECT Enjoy the convenience and freedom of wirelessly controlling functions from your smartphone.</li><li>True Stainless Dispenser</li><li>Designed to accommodate glassware of all sizes, from pitchers to tumblers.</li><li>Statement and Minimalist Collection Refrigerator Handles (sold separately)</li><li>Designed to enhance choice and customization, Statement and Minimalist Collection refrigerators do not come with handles. Handles must be chosen separately and ordered through a Monogram representative</li></ul>",
+    "Weight_Legacy": 738,
+    "Capacity_Legacy": 28.6,
+    "Height_Legacy": "84",
+    "Width_Legacy": "48",
+    "Depth_Legacy": "25 3/4",
+    "Product_Title_Legacy": "Monogram 48\" Built In Side By Side Stainless Steel Dispenser Refrigerator - ZISS480DNSS",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 15070,
+    "Model_Number_Legacy": "ZISS480DNSS",
+    "Brand_Legacy": "MONOGRAM",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-05-04T20:38:51.073684"
+      },
+      "search_meta_data": {
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "lQJVDnAGSp"
+      },
+      "performance": {
+        "total_time": "2.59s",
+        "step3_detail_time": "1.19s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.41s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/monogram-ziss480dn/s1692581?uid=3994443",
+          "in_stock": true,
+          "price": 13700,
+          "finish": "Stainless Steel",
+          "model_number_full": "ZISS480DNSS",
+          "variant": null,
+          "parent_model_number": "ZISS480DN"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/supplylines.gif",
+            "label": "Supply Lines Recommended"
+          },
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/rec_cabhandle.gif",
+            "label": "Handle Kit Required"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free In-Home Delivery Available",
+          "Leaves the Warehouse in 3 to 6 business days",
+          "Leaves the Warehouse in 3 to 6 business days"
+        ],
+        "collection": null,
+        "questions_count": 1,
+        "total_reviews": 8,
+        "review_count": 8,
+        "total_ratings": 8,
+        "rating": 2.5,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/shop-all-monogram/c82045163",
+            "name": "Shop All Monogram",
+            "id": 82045163
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-refrigerators/c82042800",
+            "name": "Refrigerators",
+            "id": 82042800
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-range/c82042872",
+            "name": "Ranges",
+            "id": 82042872
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-oven/c82042882",
+            "name": "Wall Ovens",
+            "id": 82042882
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-cooktops/c82042883",
+            "name": "Cooktops",
+            "id": 82042883
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-freezers/c82042889",
+            "name": "Freezers",
+            "id": 82042889
+          },
+          {
+            "url": "https://www.fergusonhome.com/mon0gram-microwaves/c82042885",
+            "name": "Microwave Ovens",
+            "id": 82042885
+          }
+        ],
+        "business_category": "Refrigerators",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram/c82042791",
+            "name": "Monogram"
+          },
+          {
+            "url": "https://www.fergusonhome.com/monogram-refrigerators/c82042800",
+            "name": "Refrigerators"
+          }
+        ],
+        "resources": [
+          {
+            "id": "monogram-ziss480dn-use-care-installation-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/monogram/1692581/monogram-ziss480dn-use-care-installation-guide.pdf",
+            "name": "Use Care & Installation Guide"
+          },
+          {
+            "id": "monogram-ziss480dn-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/monogram/1692581/monogram-ziss480dn-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "monogram-ziss480dn-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/monogram/1692581/monogram-ziss480dn-energy-guide.pdf",
+            "name": "Energy Guide"
+          },
+          {
+            "id": "monogram-ziss480dn-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/monogram/1692581/monogram-ziss480dn-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "monogram-ziss480dn-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/monogram/1692581/monogram-ziss480dn-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "2 Year Limited, 5 Year Sealed System",
+        "warranty": "",
+        "country_of_origin": null,
+        "certifications": [],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "408",
+            "name": "Cutout Depth"
+          },
+          {
+            "value": "409",
+            "name": "Cutout Height"
+          },
+          {
+            "value": "412",
+            "name": "Cutout Width"
+          },
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "5131",
+            "name": "Depth without Door"
+          },
+          {
+            "value": "5132",
+            "name": "Depth without Handles"
+          },
+          {
+            "value": "694",
+            "name": "Freezer Capacity"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5144",
+            "name": "Height to Top of Case"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "3890",
+            "name": "Refrigerator Capacity"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "9460",
+            "name": "Dispenser Features"
+          },
+          {
+            "value": "5458",
+            "name": "Humidity Control"
+          },
+          {
+            "value": "3513",
+            "name": "Ice Maker"
+          },
+          {
+            "value": "896",
+            "name": "Includes Freezer"
+          },
+          {
+            "value": "6946",
+            "name": "App Compatibility"
+          },
+          {
+            "value": "206",
+            "name": "Bulb Type"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "379",
+            "name": "Counter Depth"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "9172",
+            "name": "Frost Free"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "9463",
+            "name": "Shelf Type (Freezer)"
+          },
+          {
+            "value": "9464",
+            "name": "Shelf Type (Refrigerator)"
+          },
+          {
+            "value": "6943",
+            "name": "Smart Home"
+          },
+          {
+            "value": "9462",
+            "name": "Storage Features"
+          },
+          {
+            "value": "6945",
+            "name": "Wireless Communication"
+          },
+          {
+            "value": "1867",
+            "name": "With Casters"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "695",
+            "name": "Frequency"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "9473",
+            "name": "Lead Leaching Certified NSF/ANSI 61"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "9470",
+            "name": "Rebate Offered"
+          }
+        ],
+        "dimensions": {
+          "width": "48 in.",
+          "height": "84 in.",
+          "depth": "25.75 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Cutout Depth"
+              },
+              {
+                "featured": false,
+                "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "83.5",
+                "name": "Cutout Height"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+                "units": "in.",
+                "value": "47.5",
+                "name": "Cutout Width"
+              },
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "25.75",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "52.13",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the door installed, measured in inches.",
+                "units": "in.",
+                "value": "23.5",
+                "name": "Depth without Door"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+                "units": "in.",
+                "value": "25.75",
+                "name": "Depth without Handles"
+              },
+              {
+                "featured": false,
+                "description": "The storage capacity of the product's freezer, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "11.44",
+                "name": "Freezer Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "84",
+                "name": "Height"
+              },
+              {
+                "featured": false,
+                "description": "The height of the product to the top of its case, measured in inches.",
+                "units": "in.",
+                "value": "84",
+                "name": "Height to Top of Case"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "26",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "84",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "48",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "738",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "17.18",
+                "name": "Refrigerator Capacity"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "28.6",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "48",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+                "units": null,
+                "value": "External Ice Dispenser, External Water Dispenser",
+                "name": "Dispenser Features"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product features humidity control.",
+                "units": null,
+                "value": "Yes",
+                "name": "Humidity Control"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice maker is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Ice Maker"
+              },
+              {
+                "featured": false,
+                "description": "Whether a freezer is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Includes Freezer"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The smartphone app(s) the product is compatible with.",
+                "units": null,
+                "value": "Amazon Alexa, Google Assistant, IFTTT",
+                "name": "App Compatibility"
+              },
+              {
+                "featured": false,
+                "description": "The type of light bulb included.",
+                "units": null,
+                "value": "LED",
+                "name": "Bulb Type"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Electronic",
+                "name": "Control Type"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+                "units": null,
+                "value": "Yes",
+                "name": "Counter Depth"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Automatic",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "Digital",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Door Alarm",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "French Door",
+                "name": "Door Swing"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "No",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": false,
+                "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+                "units": null,
+                "value": "Yes",
+                "name": "Frost Free"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Built-In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "4",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": true,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "No",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": false,
+                "description": "The type of shelves used in the product's freezer.",
+                "units": null,
+                "value": "Glass",
+                "name": "Shelf Type (Freezer)"
+              },
+              {
+                "featured": false,
+                "description": "The type of shelves used in the product's refrigerator.",
+                "units": null,
+                "value": "Glass",
+                "name": "Shelf Type (Refrigerator)"
+              },
+              {
+                "featured": false,
+                "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+                "units": null,
+                "value": "Yes",
+                "name": "Smart Home"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's storage.",
+                "units": null,
+                "value": "Adjustable Shelves, Crisper Bin, Gallon Door Storage, Ice Bin",
+                "name": "Storage Features"
+              },
+              {
+                "featured": false,
+                "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+                "units": null,
+                "value": "WiFi",
+                "name": "Wireless Communication"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product comes with casters. Casters are wheels mounted in such a way to allow free 360 degree movement for easier transportation of the product.",
+                "units": null,
+                "value": "No",
+                "name": "With Casters"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "20",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+                "units": "Hertz",
+                "value": "60",
+                "name": "Frequency"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "115",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "No",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+                "units": null,
+                "value": "Yes",
+                "name": "Lead Leaching Certified NSF/ANSI 61"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "2 Year Limited, 5 Year Sealed System",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether a rebate is offered with the purchase of this product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Rebate Offered"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "rebate_offered": {
+            "description": "Whether a rebate is offered with the purchase of this product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "2 Year Limited, 5 Year Sealed System"
+          },
+          "lead_leaching_certified_nsf/ansi_61": {
+            "description": "Whether this product is has been tested by a third party laboratory and certified as meeting the Lead Leaching Standards outlined in NSF/ANSI 61. The regulation also states that the product packaging must be marked to identify compliance.",
+            "units": null,
+            "value": "Yes"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "115"
+          },
+          "frequency": {
+            "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+            "units": "Hertz",
+            "value": "60"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "20"
+          },
+          "with_casters": {
+            "description": "Whether the product comes with casters. Casters are wheels mounted in such a way to allow free 360 degree movement for easier transportation of the product.",
+            "units": null,
+            "value": "No"
+          },
+          "wireless_communication": {
+            "description": "The wireless protocols that this device uses to communicate with other wireless devices on the same network such as Wi-Fi or Bluetooth.",
+            "units": null,
+            "value": "WiFi"
+          },
+          "storage_features": {
+            "description": "Distinctive attributes or aspects of the product's storage.",
+            "units": null,
+            "value": "Adjustable Shelves, Crisper Bin, Gallon Door Storage, Ice Bin"
+          },
+          "smart_home": {
+            "description": "Whether a product is classified as a smart product. Smart products allow the product to be connected and controlled by smart devices such as phones, tablets, or other compatible devices.",
+            "units": null,
+            "value": "Yes"
+          },
+          "shelf_type_(refrigerator)": {
+            "description": "The type of shelves used in the product's refrigerator.",
+            "units": null,
+            "value": "Glass"
+          },
+          "shelf_type_(freezer)": {
+            "description": "The type of shelves used in the product's freezer.",
+            "units": null,
+            "value": "Glass"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "No"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "4"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Built-In"
+          },
+          "frost_free": {
+            "description": "Frost free is the popular term used for a refrigerator/freezer that includes an automatic defrost system. If a refrigerator/freezer specifies that it has an automatic defrost system, it will also be considered \"frost free\", as the defroster will prevent the build up of any frost within the unit.",
+            "units": null,
+            "value": "Yes"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "No"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "French Door"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Door Alarm"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "Digital"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Automatic"
+          },
+          "counter_depth": {
+            "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+            "units": null,
+            "value": "Yes"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Electronic"
+          },
+          "bulb_type": {
+            "description": "The type of light bulb included.",
+            "units": null,
+            "value": "LED"
+          },
+          "app_compatibility": {
+            "description": "The smartphone app(s) the product is compatible with.",
+            "units": null,
+            "value": "Amazon Alexa, Google Assistant, IFTTT"
+          },
+          "includes_freezer": {
+            "description": "Whether a freezer is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "ice_maker": {
+            "description": "Whether an ice maker is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "humidity_control": {
+            "description": "Whether the product features humidity control.",
+            "units": null,
+            "value": "Yes"
+          },
+          "dispenser_features": {
+            "description": "Whether or not the product features an ice and/or water dispenser and whether it is located in the interior or exterior of the product.",
+            "units": null,
+            "value": "External Ice Dispenser, External Water Dispenser"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "48"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "28.6"
+          },
+          "refrigerator_capacity": {
+            "description": "The capacity of the product's refrigerated fresh food storage space, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "17.18"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "738"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "48"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "84"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "26"
+          },
+          "height_to_top_of_case": {
+            "description": "The height of the product to the top of its case, measured in inches.",
+            "units": "in.",
+            "value": "84"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "84"
+          },
+          "freezer_capacity": {
+            "description": "The storage capacity of the product's freezer, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "11.44"
+          },
+          "depth_without_handles": {
+            "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+            "units": "in.",
+            "value": "25.75"
+          },
+          "depth_without_door": {
+            "description": "The measurement from back to front without the door installed, measured in inches.",
+            "units": "in.",
+            "value": "23.5"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "52.13"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "25.75"
+          },
+          "cutout_width": {
+            "description": "The horizontal distance from left to right of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "47.5"
+          },
+          "cutout_height": {
+            "description": "The vertical distance from bottom to top of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "83.5"
+          },
+          "cutout_depth": {
+            "description": "The horizontal distance from back to front of the cutout that's needed to properly install the product, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p>\n\n<ul>\n\t<li>With 17.18 cubic feet refrigerator space and 11.44 cubic feet freezer space, you can store all your fresh and frozen foods</li>\n\t<li>Light columns in the freezer and fresh food compartments extend the full length of the interior and LED lighting located inside the vegetable and climate-control drawers illuminate contents without compromising space</li>\n\t<li>WiFi capable smart device allows control from your smart phone</li>\n\t<li>Adjustable glass shelves easily accommodate party trays and platters</li>\n\t<li>External water and ice dispenser for on-demand refreshment</li>\n\t<li>Covered under 2 year limited 5 year sealed system manufacturer warranties</li>\n\t<li>Requires the Minimalist (<strong>ZKSS2H2CNSS</strong>) or Statement (<strong>ZKSS2H2PNSS</strong>) handle for proper use (sold separately)</li>\n</ul>\n\n<p><strong>Product Highlights:</strong></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Advanced temperature management system with multi-shelf air tower\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/fridge3\" /></span><span class=\"col-xs-8\"><strong>Advanced temperature management system with multi-shelf air tower:</strong> Provides even distribution of air throughout the refrigerator</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Statement and Minimalist Collection Refrigerator Handles (sold separately)\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/handles2\" /></span><span class=\"col-xs-8\"><strong>Statement and Minimalist Collection Refrigerator Handles (sold separately):</strong> Designed to enhance choice and customization, Statement and Minimalist Collection refrigerators do not come with handles. Handles must be chosen and ordered separately</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Climate-control drawer\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/climate\" /></span><span class=\"col-xs-8\"><strong>Climate-control drawer:</strong> Allows you to express-chill beverages, express-thaw meats and select specific temperatures for perishable foods</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"LED lighting\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/fridge2\" /></span><span class=\"col-xs-8\"><strong>LED lighting:</strong> Light columns in the freezer and fresh food compartments extend the full length of the interior and LED lighting located inside the vegetable and climate-control drawers illuminate contents without compromising space</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"True stainless dispenser\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/fridge4\" /></span><span class=\"col-xs-8\"><strong>True stainless dispenser:</strong> Designed to accommodate glassware of all sizes, from pitchers to tumblers</span></p>\n\n<p class=\"col-xs-12\"><span class=\"col-xs-3\"><img alt=\"Deli drawer on full-extension slides\" src=\"//s3.img-b.com/image/private/t_base/productdescription/monogram/deli\" /></span><span class=\"col-xs-8\"><strong>Deli drawer on full-extension slides:</strong> Keeps meats, cheeses and other everyday foods within easy reach</span></p>\n\n<p><strong>Specifications:</strong></p>\n\n<ul>\n\t<li>Refrigerator Capacity: 17.18 Cu. Ft.</li>\n\t<li>Freezer Capacity: 11.44 Cu. Ft.</li>\n\t<li>Total Capacity: 28.6 Cu. Ft.</li>\n\t<li>Bulb Type: LED</li>\n\t<li>Counter Depth: Yes</li>\n\t<li>Crisper Bins: Yes</li>\n\t<li>Gallon Door Storage: Yes</li>\n\t<li>Height: 84\"</li>\n\t<li>Depth: 25-3/4\"</li>\n\t<li>Width: 48\"</li>\n\t<li>Amperage: 20A</li>\n\t<li>Voltage: 115V</li>\n</ul>\n",
+        "videos": [
+          {
+            "description": "Keep your food at the right temperature and fresher longer.",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7881"
+          },
+          {
+            "description": "Use express thaw or express chill to save time.",
+            "url": "https://www.fergusonhome.com/content/dam/ferguson/7882"
+          }
+        ],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/monogram/monogram-ziss480dnss-7410699.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/monogram/monogram-ziss480dnss-7410699.jpg"
+        ],
+        "finish": "Stainless Steel",
+        "color": "CFD4D9",
+        "configuration_type": "WITH_NESTED_PRODUCTS",
+        "is_configurable": true,
+        "variant_count": 1,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free In-Home Delivery Available",
+        "estimated_delivery": "Leaves the Warehouse in 3 to 6 business days",
+        "shipping_lead_time": "Leaves the Warehouse in 3 to 6 business days",
+        "inventory_quantity": 56,
+        "availability_status": "in_stock",
+        "in_stock": true,
+        "has_free_installation": false,
+        "shipping_fee": 445,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": false,
+          "max": 13700,
+          "min": 13700
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 13700,
+        "price_min": 13700,
+        "price": 13700,
+        "application": "Full Size Refrigerators",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/monogram-ziss480dn/s1692581?uid=3994443",
+        "variant_number": "ZISS480DNSS",
+        "parent_model_number": "ZISS480DN",
+        "model_number": "ZISS480DNSS",
+        "requested_model_number": "ZISS480DNSS",
+        "brand_logo": {
+          "description": "Monogram",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/monogram/Logo/monogram.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/monogram/c82042791",
+        "brand": "Monogram",
+        "name": "48 Inch Wide 28.6 Cu. Ft. Side By Side Refrigerator with External Dispenser",
+        "family_id": 1692581,
+        "id": 1692581
+      },
+      "variant_url": "https://www.fergusonhome.com/monogram-ziss480dn/s1692581?uid=3994443",
+      "match_type": "exact",
+      "matched_model": "ZISS480DNSS",
+      "model_number": "ZISS480DNSS",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "Auto",
+        "name": "Defrost Type"
+      },
+      {
+        "value": "Amazon Alexa <br>Google Home <br>IFTTT",
+        "name": "Connected Capabilities"
+      },
+      {
+        "value": "Minimalist Collection<br>Statement Collection",
+        "name": "Design Style"
+      },
+      {
+        "value": "Limited 2-year entire appliance<br>Limited 5-year sealed refrigerating system",
+        "name": "Labor Warranty"
+      },
+      {
+        "value": "5 Total(BR)Wire(BR)5 Adjustable",
+        "name": "Freezer Cabinet Shelves"
+      },
+      {
+        "value": "Electronic Sensors(BR)Multi-Shelf Air Management Tower",
+        "name": "Temperature Management Features"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Dispenser Color"
+      },
+      {
+        "value": "4 Point",
+        "name": "Leveling System"
+      },
+      {
+        "value": "48",
+        "name": "Overall Width"
+      },
+      {
+        "value": "See written warranty for full details",
+        "name": "Warranty Notes"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Colour"
+      },
+      {
+        "value": "11.44 cu ft",
+        "name": "Freezer Capacity"
+      },
+      {
+        "value": "LED Light Towers(BR)Top LED and Pan LED Lighting",
+        "name": "Interior Lighting"
+      },
+      {
+        "value": "Built-In",
+        "name": "Exterior Style"
+      },
+      {
+        "value": "GE Water Filtration 1 Year<br>Water Filter Indicator Light<br>MWFP",
+        "name": "Water Filtration System"
+      },
+      {
+        "value": "2",
+        "name": "Freezer Utility Baskets"
+      },
+      {
+        "value": "Universal: Statement or Minimalist Stainless Steel",
+        "name": "Design Style"
+      },
+      {
+        "value": "4 Bins",
+        "name": "Fresh Food Door Bins"
+      },
+      {
+        "value": "Adjustable (BR)Gallon Storage",
+        "name": "Fresh Food Door Features"
+      },
+      {
+        "value": "48 in",
+        "name": "Overall Width"
+      },
+      {
+        "value": "High-Humidity Sealed w/ Full Extension Slides",
+        "name": "Produce Drawer"
+      },
+      {
+        "value": "84 in",
+        "name": "Overall Height"
+      },
+      {
+        "value": "Electronic Sensors <br>Multi-Shelf Air Management Tower",
+        "name": "Temperature Management Features"
+      },
+      {
+        "value": "17.18",
+        "name": "Fresh Food Capacity"
+      },
+      {
+        "value": "Stainless Sealed Adjustable Toe Kick",
+        "name": "Quiet Features"
+      },
+      {
+        "value": "Express Chill, Express Thaw, Select Temp",
+        "name": "Climate Control Drawer"
+      },
+      {
+        "value": "48\" Built-In Side-By-Side Refrigerator with Dispenser",
+        "name": "Short Description"
+      },
+      {
+        "value": "Statement Collection<br>Minimalist Collection",
+        "name": "Collection"
+      },
+      {
+        "value": "LED Light Towers, Top LED and Pan LED Lighting",
+        "name": "Interior Lighting"
+      },
+      {
+        "value": "Amazon Alexa (BR)Google Home (BR)IFTTT",
+        "name": "Connected Capabilities"
+      },
+      {
+        "value": "Extended 12-Year Sealed System Parts Only (BR)Limited 5-Year Sealed System (BR)See written warranty for full Details",
+        "name": "Warranty Notes"
+      },
+      {
+        "value": "Minimalist (BR)Statement",
+        "name": "Collection"
+      },
+      {
+        "value": "Built-In Refrigerator <br>Side-by-Side Refrigerator",
+        "name": "Product Type"
+      },
+      {
+        "value": "28.6 cu ft",
+        "name": "Total Capacity (cubic feet)"
+      },
+      {
+        "value": "Extended 12-Year Sealed System Parts Only <br>Limited 5-Year Sealed System <br>See written warranty for full Details",
+        "name": "Warranty Notes"
+      },
+      {
+        "value": "Limited 2-year entire appliance(BR)Limited 5-year sealed refrigerating system",
+        "name": "Labor Warranty"
+      },
+      {
+        "value": "Side-by-Side Refrigerator",
+        "name": "Product Type"
+      },
+      {
+        "value": "Separate Purchase Required",
+        "name": "Handle"
+      },
+      {
+        "value": "4",
+        "name": "Fresh Food Door Bins"
+      },
+      {
+        "value": "Child Lock <br>Disappearing Electronic Glass Touch with Proximity Sensor <br>Dispenser Light <br>Door Alarm <br>Extra-Tall w/ Cubes, Crushed Ice & Chilled Water <br>Water Filter Indicator Light",
+        "name": "Dispenser Features"
+      },
+      {
+        "value": "Minimalist Collection(BR)Statement Collection",
+        "name": "Design Style"
+      },
+      {
+        "value": "Side-by-Side Refrigerator<br>Built-In Refrigerator",
+        "name": "Product Type"
+      },
+      {
+        "value": "R600a",
+        "name": "Refrigerant Type"
+      },
+      {
+        "value": "84 in",
+        "name": "Height to Top of Hinge"
+      },
+      {
+        "value": "84",
+        "name": "Overall Height"
+      },
+      {
+        "value": "GE Water Filtration 1 Year (BR)MWFP (BR)Water Filter Indicator Light",
+        "name": "Water Filtration"
+      },
+      {
+        "value": "Adjustable<br>Gallon Storage",
+        "name": "Fresh Food Door Features"
+      },
+      {
+        "value": "Butter Dish - Glass, Covered <br>Dairy Compartment - Sealed",
+        "name": "Fresh Food Features"
+      },
+      {
+        "value": "Yes",
+        "name": "Easy Access Hinged Grille"
+      },
+      {
+        "value": "Built-In",
+        "name": "App Filter - WiFi Connect"
+      },
+      {
+        "value": "Adjustable(BR)Gallon Storage",
+        "name": "Fresh Food Door Features"
+      },
+      {
+        "value": "4",
+        "name": "Adjustable Rollers"
+      },
+      {
+        "value": "Upper right corner",
+        "name": "Filter Location"
+      },
+      {
+        "value": "Butter Dish - Glass, Covered<br>Dairy Compartment - Sealed",
+        "name": "Fresh Food Features"
+      },
+      {
+        "value": "738",
+        "name": "Net Weight"
+      },
+      {
+        "value": "Adjustable <br>Gallon Storage",
+        "name": "Fresh Food Door Features"
+      },
+      {
+        "value": "42\" Built-In Side-By-Side Refrigerator with Dispenser",
+        "name": "Short Description"
+      },
+      {
+        "value": "738 lb",
+        "name": "Net Weight"
+      },
+      {
+        "value": "GE Water Filtration 1 Year(BR)Water Filter Indicator Light(BR)MWFP",
+        "name": "Water Filtration System"
+      },
+      {
+        "value": "Google Home",
+        "name": "Connected Capabilities"
+      },
+      {
+        "value": "5 Adjustable (BR)5 Total (BR)Wire",
+        "name": "Freezer Cabinet Shelves"
+      },
+      {
+        "value": "Requires Statement Handle Kit (ZKSP1H1PNSS) or Minimalist Handle Kit (ZKSP1H1CNSS)",
+        "name": "Handle Purchased Separately"
+      },
+      {
+        "value": "Yes",
+        "name": "Master Light Control Switch"
+      },
+      {
+        "value": "Extra-Tall w/ Cubes, Crushed Ice & Chilled Water<br>Disappearing Electronic Glass Touch with Proximity Sensor<br>Child Lock<br>Dispenser Light<br>Door Alarm<br>Water Filter Indicator Light",
+        "name": "Dispenser Features"
+      },
+      {
+        "value": "5 Adjustable <br>5 Total <br>Wire",
+        "name": "Freezer Cabinet Shelves"
+      },
+      {
+        "value": "Factory-Installed",
+        "name": "Icemaker"
+      },
+      {
+        "value": "Built-In",
+        "name": "WiFi Connect"
+      },
+      {
+        "value": "Yes",
+        "name": "Clear Lexan Bins, Drawers and Pans"
+      },
+      {
+        "value": "Electronic Sensors<br>Multi-Shelf Air Management Tower",
+        "name": "Temperature Management Features"
+      },
+      {
+        "value": "60",
+        "name": "Hertz"
+      },
+      {
+        "value": "Butter Dish - Glass, Covered(BR)Dairy Compartment - Sealed",
+        "name": "Fresh Food Features"
+      },
+      {
+        "value": "775",
+        "name": "Approximate Shipping Weight"
+      },
+      {
+        "value": "Adjustable",
+        "name": "Fresh Food Cabinet Shelf Features"
+      },
+      {
+        "value": "Adjustable Sealed w/ Full Extension Slides",
+        "name": "Deli Drawer"
+      },
+      {
+        "value": "Minimalist <br>Statement",
+        "name": "Collection"
+      },
+      {
+        "value": "25 3/4",
+        "name": "Overall Depth"
+      },
+      {
+        "value": "Requires Statement Handle Kit (ZKSS2H2PNSS) or Minimalist Handle Kit (ZKSS2H2CNSS)",
+        "name": "Handle Purchased Separately"
+      },
+      {
+        "value": "External Dispenser",
+        "name": "Dispenser"
+      },
+      {
+        "value": "4 Total",
+        "name": "Fresh Food Cabinet Shelves"
+      },
+      {
+        "value": "Limited 2-year entire appliance",
+        "name": "Parts Warranty"
+      },
+      {
+        "value": "17.18 cu ft",
+        "name": "Fresh Food Capacity"
+      },
+      {
+        "value": "25.75 in",
+        "name": "Overall Depth"
+      },
+      {
+        "value": "Limited 2-year entire appliance",
+        "name": "Labor Warranty"
+      },
+      {
+        "value": "LED Light Towers<br>Top LED and Pan LED Lighting",
+        "name": "Interior Lighting"
+      },
+      {
+        "value": "Statement Collection(BR)Minimalist Collection",
+        "name": "Collection"
+      },
+      {
+        "value": "Limited 2-year entire appliance(BR)Limited 12-year sealed refrigerating system parts(BR)Limited lifetime full extension slides",
+        "name": "Parts Warranty"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Color Appearance"
+      },
+      {
+        "value": "Child Lock (BR)Disappearing Electronic Glass Touch with Proximity Sensor (BR)Dispenser Light (BR)Door Alarm (BR)Extra-Tall w/ Cubes, Crushed Ice & Chilled Water (BR)Water Filter Indicator Light",
+        "name": "Dispenser Features"
+      },
+      {
+        "value": "3 Total",
+        "name": "Freezer Door Bins"
+      },
+      {
+        "value": "884",
+        "name": "Energy Consumption (kWh/year)"
+      },
+      {
+        "value": "28.6",
+        "name": "Total Capacity"
+      },
+      {
+        "value": "Electronic Sensors (BR)Multi-Shelf Air Management Tower",
+        "name": "Temperature Management Features"
+      },
+      {
+        "value": "115V; 60Hz; 20A",
+        "name": "Electrical Requirements"
+      },
+      {
+        "value": "Upfront Electronic Digital Temperature Display",
+        "name": "Control Type"
+      },
+      {
+        "value": "Optional",
+        "name": "Sabbath Mode"
+      },
+      {
+        "value": "Standard",
+        "name": "Installation"
+      },
+      {
+        "value": "84",
+        "name": "Height to Top of Hinge"
+      },
+      {
+        "value": "Yes",
+        "name": "Wrapped Stainless Steel Door and Grill"
+      },
+      {
+        "value": "Side-by-Side Refrigerator(BR)Built-In Refrigerator",
+        "name": "Product Type"
+      },
+      {
+        "value": "5 Total<br>Wire<br>5 Adjustable",
+        "name": "Freezer Cabinet Shelves"
+      },
+      {
+        "value": "11.41",
+        "name": "Freezer Capacity"
+      },
+      {
+        "value": "GE Water Filtration 1 Year <br>MWFP <br>Water Filter Indicator Light",
+        "name": "Water Filtration"
+      },
+      {
+        "value": "Dairy Compartment - Sealed",
+        "name": "Fresh Food Features"
+      },
+      {
+        "value": "Yes",
+        "name": "Hidden Door Hinge(s)"
+      },
+      {
+        "value": "Limited 2-year entire appliance<br>Limited 12-year sealed refrigerating system parts<br>Limited lifetime full extension slides",
+        "name": "Parts Warranty"
+      },
+      {
+        "value": "90 Degree and 130 Degree",
+        "name": "Door Stops"
+      },
+      {
+        "value": "775 lb",
+        "name": "Approximate Shipping Weight"
+      },
+      {
+        "value": "OU/CRC Enhanced Shabbos Mode, when used with Shabbos Keeper, sold separately",
+        "name": "OU Certified"
+      },
+      {
+        "value": "Extra-Tall w/ Cubes, Crushed Ice & Chilled Water(BR)Disappearing Electronic Glass Touch with Proximity Sensor(BR)Child Lock(BR)Dispenser Light(BR)Door Alarm(BR)Water Filter Indicator Light",
+        "name": "Dispenser Features"
+      }
+    ],
+    "Web_Retailer_Key": "MONOGRAM:ZISS480DNSS",
+    "Web_Retailer_SubCategory": "SIDE BY SIDE BUILT IN REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "Advanced temperature management system with multi-shelf air towerProvides even distribution of air throughout the refrigeratorStatement and Minimalist Collection Refrigerator Handles (sold separately)Designed to enhance choice and customization, Statement and Minimalist Collection refrigerators do not come with handles. Handles must be chosen separately and ordered through a Monogram representativeClimate-control drawerAllows you to express-chill beverages, express-thaw meats and select specific temperatures for perishable foodsWiFi powered by SmartHQ(TM)Enjoy the convenience and freedom of wirelessly controlling functions from your smartphoneLED lightingLight columns in the freezer and fresh food compartments extend the full length of the interior and LED lighting located inside the vegetable and climate-control drawers illuminate contents without compromising spaceTrue stainless dispenserDesigned to accommodate glassware of all sizes, from pitchers to tumblersGE(R) water filterHas been moved from the fresh food compartment to the overhead cabinet, where it is discreetly out of sightDeli drawer on full-extension slidesKeeps meats, cheeses and other everyday foods within easy reachSealed vegetable drawerHelps preserve the freshness of foodsAdjustable glass shelvesEasily accommodate party trays and plattersGallon-size door binHolds milk containers, two-liter bottles and pitchersAdjustable door binsCan be moved to one of two positions in seven locationsDairy bin with center dividerHas a unique magnetic seal that locks in freshnessFilter-change indicator lightLocated on the upfront control panel, provides a visual reminder when it's time to replace the filter for the water dispenserSabbath modeDesigned to disable functions in accordance with Sabbath-observing practice",
+    "Features_Web_Retailer": "<ul><li>Advanced temperature management system with multi-shelf air tower</li><li>Statement and Minimalist Collection Refrigerator Handles (sold separately)</li><li>Climate-control drawer</li><li>WiFi powered by SmartHQ(TM)</li><li>LED lighting</li><li>True stainless dispenser</li><li>GE(R) water filter</li><li>Deli drawer on full-extension slides</li><li>Sealed vegetable drawer</li><li>Adjustable glass shelves</li><li>Gallon-size door bin</li><li>Adjustable door bins</li><li>Dairy bin with center divider</li><li>Filter-change indicator light</li><li>Sabbath mode</li></ul>",
+    "Weight_Web_Retailer": 738,
+    "Capacity_Web_Retailer": 28.6,
+    "Height_Web_Retailer": "84",
+    "Width_Web_Retailer": "48",
+    "Depth_Web_Retailer": "25 3/4",
+    "Product_Title_Web_Retailer": "Monogram 48\" Built-In Side-by-Side Refrigerator with Dispenser",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 15070,
+    "Model_Number_Web_Retailer": "ZISS480DNSS",
+    "Brand_Web_Retailer": "MONOGRAM",
+    "SF_Catalog_Name": "ZISS480DNSS",
+    "SF_Catalog_Id": "a03Hu00001N28eUIAR"
+  },
+  "currentOutput": {
+    "AI_Brand": "MONOGRAM",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Side-by-Side",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "Monogram 48-Inch Built-In Side-by-Side Refrigerator Stainless Steel 28.6 Cu. Ft. - ZISS480DNSS"
+  }
+}

@@ -1,0 +1,1282 @@
+{
+  "sf_catalog_id": "a03Hu00001N20oNIAR",
+  "sf_catalog_name": "FFUE2024AW",
+  "createdAt": "2026-06-08T13:47:38.878Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078",
+    "pinned_078"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/ffc1bb8f3f0259f9beabe8ebb2a3cf14.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/6377b0320561ecada000168c779352d0.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/f6c7adbf46899313c38648cb2262d137.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/c052c67162ec380680f3cedc0e501956.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/46b45fe1da93f7a9b15f3f3b2e8eef4d.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/e48f569513f2375b6adf4fa2974348d2.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/7d4d39c6cc625812c806956d550147b4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/624d3a971b213cd9eacab9c3ba10c9e7.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/cd1d4f239c2c70696abf6231683ec6f4.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/2e3f2dd6e5e2325acedceaa819618d87.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/4fe1af82cb1513deed250f2b9d14e663.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/55941d7053cec8dd218ce23bcd1b168a.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/d36a328b6a33e292ee6437d2e9bde752.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/cc28eb9fcd75ee4ed6baca20245f218b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/02/57b9c8b544b74259f203d0f5257ffa60.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/1fc9a490ceb305fd0d0dba9516e80a96.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/a1ccb6aa09f190c973ad87f6260aa482.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/c4e2681b29d5e9703d8c726de45cd090.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/FFUE2024AW.html?srsltid=AfmBOoo8OehpkiklpQ7bcwKNps0pomscudPfN54UqJgUusrE2LoPGHar",
+    "Ferguson_URL": "https://www.fergusonhome.com/frigidaire-ffue2024a/s1863574",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Line</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Upright Freezer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Power Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Electric 120v</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Size</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">20</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Installation Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Free-Standing</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Factory</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Anderson</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">White</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Freezer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automatic Defrost</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Bin Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Clear</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Frost Free</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Interior Lighting</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">LED</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Shelf Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Glass</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Baskets / Bins</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Fixed Door Bins</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Adjustable Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Total Number of Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Garage Ready</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Garage Ready</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Digital Display</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Ajar Alarm</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>High Temp Alarm</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Power On/Off</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Sabbath Mode</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Exterior</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Smooth</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Swing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Reversible</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Rear Rollers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Reversible Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions and Volume</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height With Hinge</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">71 3/4&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">32 5/8&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth of Cabinet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24 1/4&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth With Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">28 1/4&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth With Door 90° Open</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">58&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth With Door and Handle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">29 7/8&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Freezer Capacity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">20 Cu. Ft.</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Electrical Specifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Minimum Circuit Required</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">15 Amps</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">General Specifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Annual Energy</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">424 kWh</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Condenser Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Dynamic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooling System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Single Evaporator</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Leveling Legs</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">170 lbs</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Prop 65 Label</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerant Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R-600A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Warranty - Labor</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Year</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Warranty - Parts</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Year</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Safety Certifications and Approvals</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>CSA Listed</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>ENERGY STAR Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>ENERGY STAR Most Efficient</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr></table>",
+    "UPC_Legacy": "012505648427",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "This Frigidaire 20 cubic foot upright freezer includes a superior tight seal that locks in cold air, keeping food frozen for two days if there is a power outage, and the EvenTemp(TM) Cooling System, with a variable speed compressor that constantly circulates cold air throughout the freezer with smart sensing technology that adjusts air flow to maintain a uniform temperature. The flexible interior organization system enables you to easily organize your family's frozen favorites with four adjustable, full-width glass shelves, deep bottom basket, and five spacious door bins.",
+    "Features_Legacy": "<ul><li>Power Outage Assurance</li><li>Keep food frozen for two days if there is a power outage with our superior tight seal that locks in cold air.</li><li>EvenTemp(TM) Cooling System</li><li>Reduce freezer burn with our cooling system that reacts quickly to temperature fluctuations and constantly circulates cold air throughout the compartment.</li><li>Flexible Interior Organization System</li><li>Easily organize your family&#39;s favorite foods with our organization system that allows you to make the most of every available square inch of your refrigerator.</li><li>ENERGY STAR(R) Most Efficient</li><li>Recognized as Most Efficient 20 cu. ft. Upright Freezer by Energy Star.</li><li>Door Ajar and High Temp Alarm</li><li>Monitor the ideal environment for your frozen foods with our audible temperature alarm that alerts you if the door is left open or the temperature rises.</li><li>Auto-Close Doors</li><li>Ensures your doors are never left slightly open by automatically closing once the door is ajar 5&quot; or less.</li><li>Frost-Free Design</li><li>Never waste time chipping away ice in your freezer again with our frost-free design that does the work for you.</li><li>More Capacity, Same Footprint</li><li>With this 20 cu. ft. upright freezer, you can fit into the same space as a traditional 17 cu. ft. model, but enjoy more capacity without sacrificing floor space.</li><li>Quality Assurance</li><li>Each freezer has gone through a 42-point quality check to guarantee strong performance for years to come.</li><li>Garage Ready</li><li>Place this unit in your garage without worry. This unit is designed to perform in temperatures ranging from 0(degree)F to 110(degree)F.</li><li>Reversible Door</li><li>Door can be installed to open left or right based on your needs.</li></ul>",
+    "Weight_Legacy": 170,
+    "Capacity_Legacy": 20,
+    "Height_Legacy": "71 3/4",
+    "Width_Legacy": "32 5/8",
+    "Depth_Legacy": "28 1/4",
+    "Product_Title_Legacy": "33\" Freestanding Upright Freezer with 20 Cu. Ft. Capacity",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1349,
+    "Model_Number_Legacy": "FFUE2024AW",
+    "Brand_Legacy": "FRIGIDAIRE",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-05-28T17:39:49.217231"
+      },
+      "search_meta_data": {
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "DIGXJ4Jz7Y"
+      },
+      "performance": {
+        "total_time": "3.13s",
+        "step3_detail_time": "1.21s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.92s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "related_variants": [
+        {
+          "matched": false,
+          "url": "https://www.fergusonhome.com/frigidaire-ffue2024a/s1863574?uid=4405356",
+          "in_stock": false,
+          "price": 1039,
+          "finish": "Carbon",
+          "model_number_full": "FFUE2024AN",
+          "variant": null,
+          "parent_model_number": "FFUE2024A"
+        },
+        {
+          "matched": true,
+          "url": "https://www.fergusonhome.com/frigidaire-ffue2024a/s1863574?uid=4405357",
+          "in_stock": true,
+          "price": 1009,
+          "finish": "White",
+          "model_number_full": "FFUE2024AW",
+          "variant": null,
+          "parent_model_number": "FFUE2024A"
+        }
+      ],
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": false,
+        "shipping_info": [
+          "Free Shipping on LTL freight orders over $1,499.00!",
+          "Leaves the Warehouse in 5 to 10 business days",
+          "Leaves the Warehouse in 5 to 10 business days"
+        ],
+        "collection": null,
+        "questions_count": 5,
+        "total_reviews": 3086,
+        "review_count": 3086,
+        "total_ratings": 3086,
+        "rating": 4.8,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-refrigeration/c116843",
+            "name": "Refrigeration",
+            "id": 116843
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-range/c82045498",
+            "name": "Ranges",
+            "id": 82045498
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-dishwashers/c111108",
+            "name": "Dishwashers",
+            "id": 111108
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-microwave-oven/c82045503",
+            "name": "Microwave Ovens",
+            "id": 82045503
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-wall-oven/c82045500",
+            "name": "Wall Ovens",
+            "id": 82045500
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-cooktop/c82045499",
+            "name": "Cooktops",
+            "id": 82045499
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-range-hood/c82045501",
+            "name": "Range Hoods",
+            "id": 82045501
+          }
+        ],
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-appliances/c111099",
+            "name": "Frigidaire"
+          },
+          {
+            "url": "https://www.fergusonhome.com/frigidaire-refrigeration/c116843",
+            "name": "Refrigeration"
+          }
+        ],
+        "resources": [],
+        "manufacturer_warranty": "1 Year Parts and Labor",
+        "warranty": "<p>This is a sample of the warranty information you will get with your appliance. All information is subject to change and can be verified by calling the manufacturer directly. \"Your appliance is covered by a one year limited warranty. For one year from your original date of purchase, Electrolux will pay all costs for repairing or replacing any parts of this appliance that prove to be defective in materials or workmanship when such appliance is installed, used and maintained in accordance with the provided instructions.\"</p>",
+        "country_of_origin": "USA",
+        "certifications": [
+          "CSA"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "5129",
+            "name": "Depth with Handles"
+          },
+          {
+            "value": "5132",
+            "name": "Depth without Handles"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "757",
+            "name": "Glass Doors"
+          },
+          {
+            "value": "3513",
+            "name": "Ice Maker"
+          },
+          {
+            "value": "9436",
+            "name": "Interior Light"
+          },
+          {
+            "value": "1007",
+            "name": "Light Included"
+          },
+          {
+            "value": "5456",
+            "name": "Automatic Door Closer"
+          },
+          {
+            "value": "206",
+            "name": "Bulb Type"
+          },
+          {
+            "value": "379",
+            "name": "Counter Depth"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "1202",
+            "name": "Number Of Drawers"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "1420",
+            "name": "Refrigerant"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "5157",
+            "name": "Shelf Material"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "5459",
+            "name": "Annual Energy Consumption (kWh)"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "9466",
+            "name": "Product Variation"
+          }
+        ],
+        "dimensions": {
+          "width": "32.63 in.",
+          "height": "71.75 in.",
+          "depth": "24.25 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "24.25",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "58",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front after the door and handle(s) are installed, measured in inches.",
+                "units": "in.",
+                "value": "29.875",
+                "name": "Depth with Handles"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+                "units": "in.",
+                "value": "28.25",
+                "name": "Depth without Handles"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "71.75",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "25",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "72",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "33",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "170",
+                "name": "Product Weight"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "20",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "32.63",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the product includes glass doors.",
+                "units": null,
+                "value": "No",
+                "name": "Glass Doors"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice maker is included.",
+                "units": null,
+                "value": "No",
+                "name": "Ice Maker"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source is included to increase visibility of the inside of the product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Interior Light"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source component is included.",
+                "units": null,
+                "value": "Yes",
+                "name": "Light Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the door of the product has a system in place to close its open door automatically without manual intervention.",
+                "units": null,
+                "value": "Yes",
+                "name": "Automatic Door Closer"
+              },
+              {
+                "featured": false,
+                "description": "The type of light bulb included.",
+                "units": null,
+                "value": "LED",
+                "name": "Bulb Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+                "units": null,
+                "value": "No",
+                "name": "Counter Depth"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Automatic",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Door Alarm, Reversible Door, Self-Close",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Left, Reversible, Right",
+                "name": "Door Swing"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Free Standing",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "The total number of drawers included.",
+                "units": null,
+                "value": "5",
+                "name": "Number Of Drawers"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "4",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": false,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "The type of refrigerant used by the product in its cooling functions.",
+                "units": null,
+                "value": "R-600A",
+                "name": "Refrigerant"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the construction of the shelf.",
+                "units": null,
+                "value": "Glass",
+                "name": "Shelf Material"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "15",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The annual energy consumption of the product, measured in kilowatt hours.",
+                "units": null,
+                "value": "478",
+                "name": "Annual Energy Consumption (kWh)"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "120",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "CSA",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": true,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Parts and Labor",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "The type of product this item is.",
+                "units": null,
+                "value": "Upright Freezer",
+                "name": "Product Variation"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "product_variation": {
+            "description": "The type of product this item is.",
+            "units": null,
+            "value": "Upright Freezer"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Parts and Labor"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "CSA"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "120"
+          },
+          "annual_energy_consumption_(kwh)": {
+            "description": "The annual energy consumption of the product, measured in kilowatt hours.",
+            "units": null,
+            "value": "478"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "15"
+          },
+          "shelf_material": {
+            "description": "The material used in the construction of the shelf.",
+            "units": null,
+            "value": "Glass"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "Yes"
+          },
+          "refrigerant": {
+            "description": "The type of refrigerant used by the product in its cooling functions.",
+            "units": null,
+            "value": "R-600A"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "4"
+          },
+          "number_of_drawers": {
+            "description": "The total number of drawers included.",
+            "units": null,
+            "value": "5"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Free Standing"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Left, Reversible, Right"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Door Alarm, Reversible Door, Self-Close"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Automatic"
+          },
+          "counter_depth": {
+            "description": "Whether the product is considered to align with standard depth kitchen cabinets / counters to create a more flush or seamless look when installed.",
+            "units": null,
+            "value": "No"
+          },
+          "bulb_type": {
+            "description": "The type of light bulb included.",
+            "units": null,
+            "value": "LED"
+          },
+          "automatic_door_closer": {
+            "description": "Whether the door of the product has a system in place to close its open door automatically without manual intervention.",
+            "units": null,
+            "value": "Yes"
+          },
+          "light_included": {
+            "description": "Whether a light source component is included.",
+            "units": null,
+            "value": "Yes"
+          },
+          "interior_light": {
+            "description": "Whether a light source is included to increase visibility of the inside of the product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "ice_maker": {
+            "description": "Whether an ice maker is included.",
+            "units": null,
+            "value": "No"
+          },
+          "glass_doors": {
+            "description": "Whether the product includes glass doors.",
+            "units": null,
+            "value": "No"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "32.63"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "20"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "170"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "33"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "72"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "25"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "71.75"
+          },
+          "depth_without_handles": {
+            "description": "The measurement from back to front without the handle(s) installed, measured in inches.",
+            "units": "in.",
+            "value": "28.25"
+          },
+          "depth_with_handles": {
+            "description": "The measurement from back to front after the door and handle(s) are installed, measured in inches.",
+            "units": "in.",
+            "value": "29.875"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "58"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "24.25"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>This Frigidaire 20 cubic foot upright freezer includes a superior tight seal that locks in cold air, keeping food frozen for two days if there is a power outage, and the EvenTemp™ Cooling System, with a variable speed compressor that constantly circulates cold air throughout the freezer with smart sensing technology that adjusts air flow to maintain a uniform temperature. The flexible interior organization system enables you to easily organize your family's frozen favorites with four adjustable, full-width glass shelves, deep bottom basket, and five spacious door bins. Additionally, enjoy the ability to maintain the ideal environment for your frozen foods with our audible temperature alarm that alerts you if the door is left open or the freezer's temperature rises, and auto-close doors, which ensure that your freezer is never left slightly open by mistake.</p><p><strong>Features:</strong></p><ul><li>Power Outage Assurance</li><li>EvenTemp™ Cooling System</li><li>Flexible Interior Organization System</li><li>Door Ajar and High Temp Alarm</li><li>Auto-Close Doors</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 20 Cu. Ft.</li><li>Bulb Type: LED</li><li>Shelf Material: Glass</li><li>Freezer Type: Upright</li><li>Defrost Type: Automatic</li><li>Depth: 24-1/4\"</li><li>Height: 71-3/4\"</li><li>Width: 32-5/8\"</li><li>Amperage: 15A</li><li>Voltage: 120V</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/frigidaire/frigidaire-ffue2024aw-6465418.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/frigidaire/frigidaire-ffue2024aw-6465418.jpg"
+        ],
+        "finish": "White",
+        "color": "ffffff",
+        "configuration_type": "NO_CONFIGURATION",
+        "is_configurable": false,
+        "variant_count": 2,
+        "is_quick_ship": false,
+        "is_made_to_order": false,
+        "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+        "estimated_delivery": "Leaves the Warehouse in 5 to 10 business days",
+        "shipping_lead_time": "Leaves the Warehouse in 5 to 10 business days",
+        "inventory_quantity": 190,
+        "availability_status": "in_stock",
+        "in_stock": true,
+        "has_free_installation": false,
+        "shipping_fee": 90,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1039,
+          "min": 1009
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 1039,
+        "price_min": 1009,
+        "price": 1009,
+        "application": "Freezers",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/frigidaire-ffue2024a/s1863574?uid=4405357",
+        "variant_number": "FFUE2024AW",
+        "parent_model_number": "FFUE2024A",
+        "model_number": "FFUE2024AW",
+        "requested_model_number": "FFUE2024AW",
+        "brand_logo": {
+          "description": "Frigidaire",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/frigidaire/Logo/frigidaire.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/frigidaire-appliances/c111099",
+        "brand": "Frigidaire",
+        "name": "33 Inch Wide 20 Cu. Ft. Free Standing Energy Star Upright Full Size Freezer with EvenTemp",
+        "family_id": 1863574,
+        "id": 1863574
+      },
+      "variant_url": "https://www.fergusonhome.com/frigidaire-ffue2024a/s1863574?uid=4405357",
+      "match_type": "exact",
+      "matched_model": "FFUE2024AW",
+      "model_number": "FFUE2024AW",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "Upright Freezer",
+        "name": "Product Line"
+      },
+      {
+        "value": "29 7/8\"",
+        "name": "Depth With Door and Handle"
+      },
+      {
+        "value": "Yes",
+        "name": "ENERGY STAR Certified"
+      },
+      {
+        "value": "Dynamic",
+        "name": "Condenser Type"
+      },
+      {
+        "value": "424 kWh",
+        "name": "Annual Energy"
+      },
+      {
+        "value": "170 lbs",
+        "name": "Product Weight"
+      },
+      {
+        "value": "1 Year",
+        "name": "Warranty - Labor"
+      },
+      {
+        "value": "Partially Available - Visit frigidaire.ca/right-to-repair for more information",
+        "name": "Right to Repair"
+      },
+      {
+        "value": "Yes",
+        "name": "ENERGY STAR Most Efficient"
+      },
+      {
+        "value": "Yes",
+        "name": "Prop 65 Label"
+      },
+      {
+        "value": "1",
+        "name": "Number of Baskets / Bins"
+      },
+      {
+        "value": "28 1/4\"",
+        "name": "Depth With Door"
+      },
+      {
+        "value": "20",
+        "name": "Size"
+      },
+      {
+        "value": "58\"",
+        "name": "Depth With Door 90(degree) Open"
+      },
+      {
+        "value": "Single Evaporator",
+        "name": "Cooling System"
+      },
+      {
+        "value": "Anderson",
+        "name": "Factory"
+      },
+      {
+        "value": "White",
+        "name": "Color"
+      },
+      {
+        "value": "32 5/8\"",
+        "name": "Width"
+      },
+      {
+        "value": "R-600A",
+        "name": "Refrigerant Type"
+      },
+      {
+        "value": "71 3/4\"",
+        "name": "Height With Hinge"
+      },
+      {
+        "value": "Reversible",
+        "name": "Door Swing"
+      },
+      {
+        "value": "Free-Standing",
+        "name": "Installation Type"
+      },
+      {
+        "value": "Yes",
+        "name": "High Temp Alarm"
+      },
+      {
+        "value": "Electric 120v",
+        "name": "Power Type"
+      },
+      {
+        "value": "4",
+        "name": "Number of Adjustable Shelves"
+      },
+      {
+        "value": "Yes",
+        "name": "Power On/Off"
+      },
+      {
+        "value": "Yes",
+        "name": "Frost Free"
+      },
+      {
+        "value": "Smooth",
+        "name": "Door Finish"
+      },
+      {
+        "value": "Yes",
+        "name": "Rear Rollers"
+      },
+      {
+        "value": "20 Cu. Ft.",
+        "name": "Freezer Capacity"
+      },
+      {
+        "value": "15 Amps",
+        "name": "Minimum Circuit Required"
+      },
+      {
+        "value": "5",
+        "name": "Number of Fixed Door Bins"
+      },
+      {
+        "value": "Glass",
+        "name": "Shelf Material"
+      },
+      {
+        "value": "24 1/4\"",
+        "name": "Depth of Cabinet"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic Defrost"
+      },
+      {
+        "value": "LED",
+        "name": "Interior Lighting"
+      },
+      {
+        "value": "Yes",
+        "name": "Leveling Legs"
+      },
+      {
+        "value": "Clear",
+        "name": "Door Bin Color"
+      },
+      {
+        "value": "Yes",
+        "name": "Reversible Door"
+      },
+      {
+        "value": "Yes",
+        "name": "Sabbath Mode"
+      },
+      {
+        "value": "4",
+        "name": "Total Number of Shelves"
+      },
+      {
+        "value": "Yes",
+        "name": "Garage Ready"
+      },
+      {
+        "value": "Yes",
+        "name": "CSA Listed"
+      },
+      {
+        "value": "No",
+        "name": "Digital Display"
+      },
+      {
+        "value": "1 Year",
+        "name": "Warranty - Parts"
+      },
+      {
+        "value": "Yes",
+        "name": "Door Ajar Alarm"
+      }
+    ],
+    "Web_Retailer_Key": "FRIG:FFUE2024AW",
+    "Web_Retailer_SubCategory": "UPRIGHT FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": "This Frigidaire 20 cubic foot upright freezer includes a superior tight seal that locks in cold air, keeping food frozen for two days if there is a power outage, and the EvenTemp(TM) Cooling System, with a variable speed compressor that constantly circulates cold air throughout the freezer with smart sensing technology that adjusts air flow to maintain a uniform temperature. The flexible interior organization system enables you to easily organize your family's frozen favorites with four adjustable, full-width glass shelves, deep bottom basket, and five spacious door bins.",
+    "Features_Web_Retailer": "<ul><li>Power Outage Assurance</li><li>Keep food frozen for two days if there is a power outage with our superior tight seal that locks in cold air.</li><li>EvenTemp(TM) Cooling System</li><li>Reduce freezer burn with our cooling system that reacts quickly to temperature fluctuations and constantly circulates cold air throughout the compartment.</li><li>Flexible Interior Organization System</li><li>Easily organize your family&#39;s favorite foods with our organization system that allows you to make the most of every available square inch of your refrigerator.</li><li>ENERGY STAR(R) Most Efficient</li><li>Recognized as Most Efficient 20 cu. ft. Upright Freezer by Energy Star.</li><li>Door Ajar and High Temp Alarm</li><li>Monitor the ideal environment for your frozen foods with our audible temperature alarm that alerts you if the door is left open or the temperature rises.</li><li>Auto-Close Doors</li><li>Ensures your doors are never left slightly open by automatically closing once the door is ajar 5&quot; or less.</li><li>Frost-Free Design</li><li>Never waste time chipping away ice in your freezer again with our frost-free design that does the work for you.</li><li>More Capacity, Same Footprint</li><li>With this 20 cu. ft. upright freezer, you can fit into the same space as a traditional 17 cu. ft. model, but enjoy more capacity without sacrificing floor space.</li><li>Quality Assurance</li><li>Each freezer has gone through a 42-point quality check to guarantee strong performance for years to come.</li><li>Garage Ready</li><li>Place this unit in your garage without worry. This unit is designed to perform in temperatures ranging from 0(degree)F to 110(degree)F.</li><li>Reversible Door</li><li>Door can be installed to open left or right based on your needs.</li></ul>",
+    "Weight_Web_Retailer": 170,
+    "Capacity_Web_Retailer": 20,
+    "Height_Web_Retailer": "71 3/4",
+    "Width_Web_Retailer": "32 5/8",
+    "Depth_Web_Retailer": "28 1/4",
+    "Product_Title_Web_Retailer": "20 Cu. Ft. Garage Ready Upright Freezer",
+    "Color_Finish_Web_Retailer": "White",
+    "MSRP_Web_Retailer": 1349,
+    "Model_Number_Web_Retailer": "FFUE2024AW",
+    "Brand_Web_Retailer": "FRIGIDAIRE",
+    "SF_Catalog_Name": "FFUE2024AW",
+    "SF_Catalog_Id": "a03Hu00001N20oNIAR",
+    "Ferguson_Title": "33 Inch Wide 20 Cu. Ft. Free Standing Energy Star Upright Full Size Freezer with EvenTemp",
+    "Ferguson_Brand": "Frigidaire",
+    "Ferguson_Model_Number": "FFUE2024AW",
+    "Ferguson_Description": "<p>This Frigidaire 20 cubic foot upright freezer includes a superior tight seal that locks in cold air, keeping food frozen for two days if there is a power outage, and the EvenTemp™ Cooling System, with a variable speed compressor that constantly circulates cold air throughout the freezer with smart sensing technology that adjusts air flow to maintain a uniform temperature. The flexible interior organization system enables you to easily organize your family's frozen favorites with four adjustable, full-width glass shelves, deep bottom basket, and five spacious door bins. Additionally, enjoy the ability to maintain the ideal environment for your frozen foods with our audible temperature alarm that alerts you if the door is left open or the freezer's temperature rises, and auto-close doors, which ensure that your freezer is never left slightly open by mistake.</p><p><strong>Features:</strong></p><ul><li>Power Outage Assurance</li><li>EvenTemp™ Cooling System</li><li>Flexible Interior Organization System</li><li>Door Ajar and High Temp Alarm</li><li>Auto-Close Doors</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 20 Cu. Ft.</li><li>Bulb Type: LED</li><li>Shelf Material: Glass</li><li>Freezer Type: Upright</li><li>Defrost Type: Automatic</li><li>Depth: 24-1/4\"</li><li>Height: 71-3/4\"</li><li>Width: 32-5/8\"</li><li>Amperage: 15A</li><li>Voltage: 120V</li></ul>",
+    "Ferguson_Price": "1009",
+    "Ferguson_Min_Price": "1009",
+    "Ferguson_Max_Price": "1039",
+    "Ferguson_Base_Type": "Refrigeration Appliances",
+    "Ferguson_Product_Type": "Refrigeration Appliances",
+    "Ferguson_Base_Category": "Appliances",
+    "Ferguson_Business_Category": "Freezers",
+    "Ferguson_Width": "32.63",
+    "Ferguson_Height": "71.75",
+    "Ferguson_Depth": "24.25",
+    "Ferguson_Categories": "Brands\nFrigidaire\nRefrigeration",
+    "Ferguson_Related_Categories": "Refrigeration\nRanges\nDishwashers\nMicrowave Ovens\nWall Ovens\nCooktops\nRange Hoods",
+    "Ferguson_Manufacturer_Warranty": "1 Year Parts and Labor",
+    "Ferguson_Certifications": "CSA",
+    "Ferguson_Attributes": [
+      {
+        "name": "Product Variation",
+        "value": "Upright Freezer"
+      },
+      {
+        "name": "Manufacturer Warranty",
+        "value": "1 Year Parts and Labor"
+      },
+      {
+        "name": "Made In America",
+        "value": "Yes"
+      },
+      {
+        "name": "Energy Star",
+        "value": "Yes"
+      },
+      {
+        "name": "Country Of Origin",
+        "value": "USA"
+      },
+      {
+        "name": "Certifications",
+        "value": "CSA"
+      },
+      {
+        "name": "Voltage",
+        "value": "120"
+      },
+      {
+        "name": "Annual Energy Consumption (Kwh)",
+        "value": "478"
+      },
+      {
+        "name": "Amperage",
+        "value": "15"
+      },
+      {
+        "name": "Shelf Material",
+        "value": "Glass"
+      },
+      {
+        "name": "Sabbath Mode",
+        "value": "Yes"
+      },
+      {
+        "name": "Refrigerant",
+        "value": "R-600A"
+      },
+      {
+        "name": "Panel Ready",
+        "value": "No"
+      },
+      {
+        "name": "Number Of Shelves",
+        "value": "4"
+      },
+      {
+        "name": "Number Of Drawers",
+        "value": "5"
+      },
+      {
+        "name": "Installation Type",
+        "value": "Free Standing"
+      },
+      {
+        "name": "Door Swing",
+        "value": "Left, Reversible, Right"
+      },
+      {
+        "name": "Door Features",
+        "value": "Door Alarm, Reversible Door, Self-Close"
+      },
+      {
+        "name": "Defrost Type",
+        "value": "Automatic"
+      },
+      {
+        "name": "Counter Depth",
+        "value": "No"
+      },
+      {
+        "name": "Bulb Type",
+        "value": "LED"
+      },
+      {
+        "name": "Automatic Door Closer",
+        "value": "Yes"
+      },
+      {
+        "name": "Light Included",
+        "value": "Yes"
+      },
+      {
+        "name": "Interior Light",
+        "value": "Yes"
+      },
+      {
+        "name": "Ice Maker",
+        "value": "No"
+      },
+      {
+        "name": "Glass Doors",
+        "value": "No"
+      },
+      {
+        "name": "Width",
+        "value": "32.63 in."
+      },
+      {
+        "name": "Total Capacity",
+        "value": "20 cu. ft."
+      },
+      {
+        "name": "Product Weight",
+        "value": "170 lbs."
+      },
+      {
+        "name": "Nominal Width",
+        "value": "33 in."
+      },
+      {
+        "name": "Nominal Height",
+        "value": "72 in."
+      },
+      {
+        "name": "Nominal Depth",
+        "value": "25 in."
+      },
+      {
+        "name": "Height",
+        "value": "71.75 in."
+      },
+      {
+        "name": "Depth Without Handles",
+        "value": "28.25 in."
+      },
+      {
+        "name": "Depth With Handles",
+        "value": "29.875 in."
+      },
+      {
+        "name": "Depth With Door Open",
+        "value": "58 in."
+      },
+      {
+        "name": "Depth",
+        "value": "24.25 in."
+      }
+    ]
+  },
+  "currentOutput": {
+    "AI_Brand": "FRIGIDAIRE",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Upright",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "Smooth",
+    "AI_Product_Title": "Frigidaire 33-Inch Upright Freezer White 20 Cu. Ft. - FFUE2024AW"
+  }
+}

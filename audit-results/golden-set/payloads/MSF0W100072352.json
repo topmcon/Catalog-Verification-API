@@ -1,0 +1,64 @@
+{
+  "sf_catalog_id": "a03Hu00001SYh1lIAD",
+  "sf_catalog_name": "MSF0W100072352",
+  "createdAt": "2026-05-28T17:43:19.883Z",
+  "era": "ai",
+  "strata": [
+    "dimension_gap"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/fb3dfbbeae9654a326530dc34e2f4434.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/a9e55bb66847676ef454ce597668b255.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/1ff86f1c830dbfdf38df7c69a1d43f3a.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/0c09bfa71bcd7f8f3fc1f823eb068312.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/2242fcbf4dfe610de7e15a48fec417e1.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/d3a6243eb63cdce17aef58b5e719cf96.webp"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/4a353647c0585aae0833de9d9a398623.webp"
+      }
+    ],
+    "Reference_URL": "https://www.walmart.com/ip/Mainstays-0-7-Cu-ft-Countertop-Microwave-Oven-700-Watts-White/5101086862",
+    "Ferguson_URL": null,
+    "Specification_Table": "<h3>Volume capacity</h3><p>0.7 cu ft</p><h3>Watts</h3><p>700 W</p><h3>Microwave turntable diameter</h3><p>9.65 in</p><h3>Height</h3><p>9.57 in</p><h3>Features</h3><p>Control Lockout, Digital Display, Timer</p><h3>Cooking appliance functions</h3><p>Defrost</p><h3>Brand</h3><p>Mainstays</p><h3>Microwave oven type</h3><p>Countertop Microwave Ovens</p><h3>Color</h3><p>White</p><h3>Assembled product weight</h3><p>20.06 lb</p><h3>Oven feature</h3><p>One Touch Cooking, Programmed Cooking Modes, Safety Lock, Turntable Plate</p><h3>Door opening side</h3><p>Left Swing</p><h3>Has written warranty</h3><p>Yes - Warranty Text</p><h3>Oven cleaning method</h3><p>Manual-Clean</p>",
+    "UPC_Legacy": "0190873008798",
+    "Category_Legacy": "Microwave",
+    "Product_Description_Legacy": "Mainstays 0.7 Cu ft 700-Watt Compact Countertop Microwave Oven is available in 3 colors including Black, Red or White. Each color is designed to complement your kitchen, dorm room, office or rec room. Features include LED display, kitchen timer & clock, 10 different power levels for cooking a variety of foods, weight & time defrost, 6 convenient quick-set menu buttons, 30 second one-touch option, child safety lockout and a push-button door. The Mainstays 0.7 Cu ft 700-Watt Compact Countertop Microwave Oven is the perfect addition to any home.",
+    "Features_Legacy": "<ul><li>Mainstays 0.7 Cu ft Countertop Microwave Oven, White</li><li>Capacity 0.7 Cu ft</li><li>700-Watt Power</li><li>LED display</li><li>Kitchen timer &amp; clock</li><li>10 Power levels</li><li>Weight &amp; time defrost</li><li>6 Quick-set menu buttons</li><li>30 Second one-touch option</li><li>Child-safe lockout</li><li>Push-button door opening</li></ul>",
+    "Weight_Legacy": 20.06,
+    "Capacity_Legacy": 0.7,
+    "Height_Legacy": "9 9/16",
+    "Width_Legacy": "12 3/4",
+    "Depth_Legacy": "13 7/16",
+    "Product_Title_Legacy": "13\" Mainstays 0.7 Cu ft Countertop Microwave Oven, 700 Watts, White",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 55,
+    "Model_Number_Legacy": "MSF0W100072352",
+    "Brand_Legacy": "MAINSTAYS",
+    "SF_Catalog_Name": "MSF0W100072352",
+    "SF_Catalog_Id": "a03Hu00001SYh1lIAD"
+  },
+  "currentOutput": {
+    "AI_Brand": "MAINSTAYS",
+    "AI_Product_Category": "Microwave",
+    "AI_Type": "Countertop",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "White",
+    "AI_Product_Title": "Mainstays 22-Inch Countertop Microwave White 0.7 Cu. Ft. - MSF0W100072352"
+  }
+}

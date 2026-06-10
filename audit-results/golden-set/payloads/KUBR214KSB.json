@@ -1,0 +1,423 @@
+{
+  "sf_catalog_id": "a03Hu00001N2DgVIAV",
+  "sf_catalog_name": "KUBR214KSB",
+  "createdAt": "2026-06-09T13:23:59.486Z",
+  "era": "ai",
+  "strata": [
+    "finish_eq_color"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/08/9d7e3f85faa8559ed80b21a7270c0f50.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/e9e7549f65879031c3dfa289c8458491.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/44bc587b1917e0b02121c43a7ef126f9.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/9f3ad47370314304f38ca05bf17a7c00.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/34ff72ce154b610f1a52a9b8f7d60e86.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/9627b23eed952300b773904354a8628d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/dc629e90c3f1a85ca0b08117635ed423.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/ce3cbf58f8264a44f9ae3b7f8828aebc.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/609dd684967ab803eb4a679e4c16740b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/1aa8e893efeca342290c7d6f5a6906ca.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/010443c5c246d5b14e19a93e2bf9f913.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/d9bb91e100c4f442b61de71ade33d7de.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/e7ce29246a07698bff54d1d169d1e1e2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/7ae7f0c0443ca76469d4837a892332b5.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.kitchenaid.com/major-appliances/refrigeration/undercounter/beverage-center/p.24-beverage-center-with-glass-door-and-wood-front-racks.kubr214ksb.html",
+    "Ferguson_URL": "https://www.fergusonhome.com/kitchenaid-kubr214ksb/s1774576",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Certifications</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ada Compliant</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Prop65</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">CA</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Star K Certified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Automatic Defrost</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Control Lockout</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cooling On/off</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Ajar/open Alarm</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Max Cool/fast Cool</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Sabbath Mode</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Opening Direction</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Right</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Racks</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Number of Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Rack Front Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Wood</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerator Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Beverage Center</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Shelf Description</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Fixed Full Depth Shelf; 1 Fixed Half Depth Shelf</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Zone 1 Description</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Upper</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Zone 1 Temperature Range</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">33F to 40F</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Zone 2 Capacity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">14 Bottles</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Zone 2 Description</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Lower</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Zone 2 Temperature Range</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">42F to 64F</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Dimensions</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">34.37</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height To Top of Door Hinge</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">34.375</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Carton Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">35.88</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Gross Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">119.5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height To Top of Cabinet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">34.188</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Carton Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">25.75</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">23.62</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth With Door Open 90 Degree</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth Excluding Doors</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">21.688</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cutout Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">24</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth Closed Including Handles</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">26.438</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Carton Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">29.63</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cutout Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Net Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">108.5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Product Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">23.875</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Exterior Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Cabinet Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cabinet Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Textured</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Handle Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Vertical</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Handle Material</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Metal</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Handle Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Reach Through Handle</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Reversible Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Window</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Filter Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Water Filter Indicator/reset</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">General</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Energy Star® Qualified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Icemaker Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Ice Maker On/off</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Oven Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Light</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">LED</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Refrigerator Details</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Liner Finish</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Plastic</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Number of Temperature Controlled Zones</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2</td></tr></table>",
+    "UPC_Legacy": "883049592923",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "This Undercounter Beverage Center with Full-Extension Wood-Front Racks holds 14 wine bottles below with room for drinks and food on the full-width shelves above. Separate temperature controls for the two zones adjust for what you re storing, and a Temperature Monitoring System with sensor alert adds peace of mind. Fully Flush Installation with Hidden Hinges provides a built-in look within cabinetry.",
+    "Features_Legacy": "<ul><li>4.8 Cu. Ft. Capacity: features two lower racks for up to 14 bottles of wine and two full-width upper shelves for drinks and food. Now you can stash sodas, seltzers and syrups along with cheese plates and charcuterie boards.</li><li>Automatic Defrost: cycles automatically to help reduce frost build-up, freeing you from having to regularly empty the appliance and manually defrost.</li><li>Backlit Touch Controls: located on the divider between the two temperature zones make it easy to choose settings for what you&#39;re storing. The lighted control panel displays current temperatures for each zone and other status alerts.</li><li>Door Alarm: alerts you if the door has been left open for five minutes or more and repeats every two minutes until you close the door or touch the controls.</li><li>Fully Flush Installation with Hidden Hinges: provides a built-in look within a standard 24&quot; base cabinet, so your style stands out, not the appliance. Hidden hinges allow the beverage center door to sit flush with surrounding cabinet fronts when closed yet easily swing open a full 115 degrees.</li><li>Glass Shelves: bring distinctive style inside with a solid glass design that makes it easy to wipe up spills.</li><li>Max Cool: sets both zones to their lowest temperature for up to 24 hours, so you can turn up the cold when the beverage center door will be open while serving or restocking.</li><li>Motion-Activated LED Lighting: turns on inside as you approach, so you can see what&#39;s inside without opening the door. Lights will gradually dim and turn off when no longer needed.</li><li>Sabbath Mode (Star-K Certified): to meet kosher requirements for use on the Jewish Sabbath and other religious holidays. Turning on Sabbath Mode disables automatic lights and alarm tones.</li><li>SatinGlide(R) Full-Extension Wood-Front Racks: pull all the way out, making it easy to load bottles in when restocking and find just the one you want when serving. Wood fronts let you coordinate with your home decor.</li><li>Temperature Monitoring System: Uses sensors to monitor temperatures inside the beverage center for added peace of mind. If the system detects temperatures above 70(degree)F for more than 4 hours, an over-temp alarm and indicator light will alert you that service is needed.</li><li>Two Temperature-Controlled Zones: allow you to chill red and white wines between 42-64(degree)F in the lower zone and keep sodas, seltzers and craft brews at colder temperatures in the upper zone, which adjusts from a low of 33(degree)F for cold drinks up to 40(degree)F for cheese and charcuterie.</li></ul>",
+    "Weight_Legacy": 109.01,
+    "Capacity_Legacy": 4.8,
+    "Height_Legacy": "34 3/8",
+    "Width_Legacy": "23 7/8",
+    "Depth_Legacy": "23 5/8",
+    "Product_Title_Legacy": "Kitchenaid 24-Inch Counter-Depth Stainless Steel Beverage Center Refrigerator 4.8 Cu. Ft. - KUBR214KSB",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 3349,
+    "Model_Number_Legacy": "KUBR214KSB",
+    "Brand_Legacy": "KITCHENAID",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: KUBR214KSB",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "33F to 40F",
+        "name": "Zone 1 Temperature Range"
+      },
+      {
+        "value": "2",
+        "name": "Number of Temperature Controlled Zones"
+      },
+      {
+        "value": "Plastic",
+        "name": "Liner Finish"
+      },
+      {
+        "value": "Metal",
+        "name": "Handle Material"
+      },
+      {
+        "value": "CA",
+        "name": "Prop65"
+      },
+      {
+        "value": "25.75",
+        "name": "Carton Width"
+      },
+      {
+        "value": "Vertical",
+        "name": "Handle Location"
+      },
+      {
+        "value": "138.39 l, 4.89 cu. ft.",
+        "name": "Capacity"
+      },
+      {
+        "value": "87.31 cm, 34.375 in",
+        "name": "Height To Top Of Door Hinge"
+      },
+      {
+        "value": "21.688",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "Black",
+        "name": "Cabinet Color"
+      },
+      {
+        "value": "No",
+        "name": "Ice Maker On/Off"
+      },
+      {
+        "value": "48",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "Reach Through Handle",
+        "name": "Handle Type"
+      },
+      {
+        "value": "LED",
+        "name": "Interior Light"
+      },
+      {
+        "value": "Textured",
+        "name": "Cabinet Finish"
+      },
+      {
+        "value": "Yes",
+        "name": "Control Lockout"
+      },
+      {
+        "value": "23.62",
+        "name": "Product Depth"
+      },
+      {
+        "value": "Yes",
+        "name": "Door Ajar/Open Alarm"
+      },
+      {
+        "value": "2",
+        "name": "Number of Racks"
+      },
+      {
+        "value": "34.188",
+        "name": "Height To Top of Cabinet"
+      },
+      {
+        "value": "Stainless Steel",
+        "name": "Door Color"
+      },
+      {
+        "value": "108.5",
+        "name": "Net Weight"
+      },
+      {
+        "value": "Right",
+        "name": "Door Opening Direction"
+      },
+      {
+        "value": "60.64 cm, 23-7/8 in",
+        "name": "Width"
+      },
+      {
+        "value": "Beverage Center",
+        "name": "Refrigerator Type"
+      },
+      {
+        "value": "1 Fixed Full Depth Shelf, 1 Fixed Half Depth Shelf",
+        "name": "Shelf Description"
+      },
+      {
+        "value": "55.09 cm, 21-86/125 in",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "Yes",
+        "name": "Sabbath Mode"
+      },
+      {
+        "value": "109.1",
+        "name": "Net Weight"
+      },
+      {
+        "value": "88.06 cm, 34-67/100 in",
+        "name": "Height"
+      },
+      {
+        "value": "54.48 kg, 120.1 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "24",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "Wood",
+        "name": "Rack Front Material"
+      },
+      {
+        "value": "34.37",
+        "name": "Product Height"
+      },
+      {
+        "value": "No",
+        "name": "Reversible Door"
+      },
+      {
+        "value": "29.63",
+        "name": "Carton Depth"
+      },
+      {
+        "value": "60.96 cm, 24 in",
+        "name": "Cutout Depth"
+      },
+      {
+        "value": "34.375",
+        "name": "Height To Top of Door Hinge"
+      },
+      {
+        "value": "86.84 cm, 34-47/250 in",
+        "name": "Height To Top Of Cabinet"
+      },
+      {
+        "value": "88.06 cm, 34.67 in",
+        "name": "Height"
+      },
+      {
+        "value": "Yes",
+        "name": "Star K Certified"
+      },
+      {
+        "value": "No",
+        "name": "Max Cool/Fast Cool"
+      },
+      {
+        "value": "115",
+        "name": "Volts"
+      },
+      {
+        "value": "54.48 kg, 120-1/10 lbs",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "No",
+        "name": "ADA Compliant"
+      },
+      {
+        "value": "60.64 cm, 23.875 in",
+        "name": "Width"
+      },
+      {
+        "value": "Yes",
+        "name": "Cooling On/Off"
+      },
+      {
+        "value": "42F to 64F",
+        "name": "Zone 2 Temperature Range"
+      },
+      {
+        "value": "Yes",
+        "name": "Window"
+      },
+      {
+        "value": "15",
+        "name": "Amps"
+      },
+      {
+        "value": "2",
+        "name": "Number of Shelves"
+      },
+      {
+        "value": "49.49 kg, 109-1/10 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "67.15 cm, 26.438 in",
+        "name": "Depth Closed Including Handles"
+      },
+      {
+        "value": "24",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "Upper",
+        "name": "Zone 1 Description"
+      },
+      {
+        "value": "49.49 kg, 109.1 lbs",
+        "name": "Net Weight"
+      },
+      {
+        "value": "35.88",
+        "name": "Carton Height"
+      },
+      {
+        "value": "No",
+        "name": "Water Filter Indicator/Reset"
+      },
+      {
+        "value": "60.96 cm, 24 in",
+        "name": "Cutout Width"
+      },
+      {
+        "value": "67.15 cm, 26-219/500 in",
+        "name": "Depth Closed Including Handles"
+      },
+      {
+        "value": "121.92 cm, 48 in",
+        "name": "Depth With Door Open 90 Degree"
+      },
+      {
+        "value": "119.5",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "55.09 cm, 21.688 in",
+        "name": "Depth Excluding Doors"
+      },
+      {
+        "value": "Lower",
+        "name": "Zone 2 Description"
+      },
+      {
+        "value": "59.99 cm, 23.62 in",
+        "name": "Depth"
+      },
+      {
+        "value": "No",
+        "name": "Energy Star(R) Qualified"
+      },
+      {
+        "value": "59.99 cm, 23-31/50 in",
+        "name": "Depth"
+      },
+      {
+        "value": "Yes",
+        "name": "Automatic Defrost"
+      },
+      {
+        "value": "120.1",
+        "name": "Gross Weight"
+      },
+      {
+        "value": "26.438",
+        "name": "Depth Closed Including Handles"
+      },
+      {
+        "value": "1 Fixed Full Depth Shelf; 1 Fixed Half Depth Shelf",
+        "name": "Shelf Description"
+      },
+      {
+        "value": "14 Bottles",
+        "name": "Zone 2 Capacity"
+      },
+      {
+        "value": "87.31 cm, 34-3/8 in",
+        "name": "Height To Top Of Door Hinge"
+      },
+      {
+        "value": "Plastic",
+        "name": "Interior Liner Finish"
+      },
+      {
+        "value": "23.875",
+        "name": "Product Width"
+      },
+      {
+        "value": "86.84 cm, 34.188 in",
+        "name": "Height To Top Of Cabinet"
+      },
+      {
+        "value": "Reach-Through Handle",
+        "name": "Handle Type"
+      }
+    ],
+    "Web_Retailer_Key": "KTA:KUBR214KSB",
+    "Web_Retailer_SubCategory": "WINE COOLERS",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "This Undercounter Beverage Center with Full-Extension Wood-Front Racks holds 14 wine bottles below with room for drinks and food on the full-width shelves above. Separate temperature controls for the two zones adjust for what you re storing, and a Temperature Monitoring System with sensor alert adds peace of mind. Fully Flush Installation with Hidden Hinges provides a built-in look within cabinetry.",
+    "Features_Web_Retailer": "<ul><li>Fully Flush Installation with Hidden Hinges</li><li>Two Temperature-Controlled Zones</li><li>Panel-Ready Design</li><li>Temperature Monitoring System</li><li>Motion-Activated LED Lighting</li></ul>",
+    "Weight_Web_Retailer": 49.49,
+    "Capacity_Web_Retailer": 4.8,
+    "Height_Web_Retailer": "34 3/8",
+    "Width_Web_Retailer": "23 7/8",
+    "Depth_Web_Retailer": "23 5/8",
+    "Product_Title_Web_Retailer": "24\" Beverage Center with Glass Door and Wood-Front Racks",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 3049,
+    "Model_Number_Web_Retailer": "KUBR214KSB",
+    "Brand_Web_Retailer": "KITCHENAID",
+    "SF_Catalog_Name": "KUBR214KSB",
+    "SF_Catalog_Id": "a03Hu00001N2DgVIAV"
+  },
+  "currentOutput": {
+    "AI_Brand": "KITCHENAID",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Beverage Center",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "Kitchenaid 24-Inch Counter-Depth Beverage Center Refrigerator Stainless Steel 4.8 Cu. Ft. - KUBR214KSB"
+  }
+}

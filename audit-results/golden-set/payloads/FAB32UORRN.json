@@ -1,0 +1,89 @@
+{
+  "sf_catalog_id": "a03Hu00001N2BkwIAF",
+  "sf_catalog_name": "FAB32UORRN",
+  "createdAt": "2026-06-09T17:13:13.396Z",
+  "era": "ai",
+  "strata": [
+    "clean_passthrough"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/695ad7694a86747a1b68ddd8a7bdf018_20260416_160018.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/98c3e3dabf305ba94c78dd2c439362a8_20260416_160019.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/1d9879abd1c2edbf9c5b1e28abbea61f_20260416_160019.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/66ca88f21b57b44abbca1a66a9b7bc5b_20260416_160013.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/4a113385c92ceae96d6ea3640fba20da_20260416_160016.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/01a1656710e4948ffb2caf4ca0606f43_20260416_160017.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/2ce22cb47d7a76706d20295c0b3cc8e0_20260416_160018.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/FAB32UORRN.html?srsltid=AfmBOopmVlR4brZp_If8p5BEQpAAtkF7gw23Q9jIOvA9vyZUZK70D3AJ",
+    "Ferguson_URL": null,
+    "Specification_Table": null,
+    "UPC_Legacy": "08017709219307",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "This refrigerator combines style and functionality. Not only is this unit a statement piece in your home but it also provides efficient refrigeration solutions. With 11 cu. ft. of capacity, adjustable shelves, and a pull-down flap compartment, you can perfectly store and organize your food and beverages. Within the freezer is a Fast-Freezing compartment which freezes your food quicker than ever at the touch of a button.",
+    "Features_Legacy": "<ul><li>Vibrant Color: The Smeg Retro Refrigerator is available in 10 different color tones from a subtle cream to a vibrant green. Smeg coloured 50&#39;s Retro Style refrigerators are truly iconic. Famous worldwide, they enliven any environment, creating a conversation piece.</li><li>Statement Piece: Sleek rounded edges and high gloss finish make this Italian made retro style refrigerator an attention grabber.</li><li>Compact Size: At 9.22 cu. ft, the fridge is perfect for smaller homes, apartments, and even offices.</li><li>Spacious Interior: The interior is designed to allow full use of the space available, the door and internal shelves can be adjusted to different heights, and are easily removable for cleaning. The generous interior provides satisfactory storage space for fresh food and includes a small icebox for convenience.</li><li>50&#39;s Retro Style: Color and retro lines for style icons: appliances that embody the glamour and rounded forms of the 1950&#39;s. Smeg 50&#39;s Retro Style products, a series of refrigerators and freezers, fires, dishwashers and washing machines, that have become recognized as cult objects.</li></ul>",
+    "Weight_Legacy": 258,
+    "Capacity_Legacy": 11.7,
+    "Height_Legacy": "75 53/64",
+    "Width_Legacy": "23 39/64",
+    "Depth_Legacy": "26 21/32",
+    "Product_Title_Legacy": "SMEG 24-Inch Top-Freezer Refrigerator Orange 11.7 Cu. Ft. - FAB32UORRN",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 3199,
+    "Model_Number_Legacy": "FAB32UORRN",
+    "Brand_Legacy": "SMEG",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: FAB32UORRN",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "SMEG:FAB32UORRN",
+    "Web_Retailer_SubCategory": "COMPACT REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "2 adjustable thermostatsFreezing capacity: 22 lbs./24 - 10kg/24hThaw time: 18hAvailable in right and left hingesREFRIGERATOR:Fresh food capacity: 8.1 cu ft net capacityFresh food capacity: 8.2 cu ft gross capacityAutomatic defrost3 adjustable glass shelves1 fruit and vegetable container1 covered storage box1 chrome wine rackFREEZER ****:3 adjustable shelves1 bottle rackFrost-freeFrozen food capacity: 2.65 cu ft net capacityFrozen food capacity: 3.43 cu ft gross capacity2 drawers1 fast-freezing drawerFast-freezing bottomIce cube trayA gap of 5\" must be left on the hinged side of theproduct to allow the door to open fully.Voltage: 120V 60HzCurrent: 10 AmpsNoise level: 41 dB(A) RE 1 pWDIMENSIONS:Dimensions HxWxD:75 13/16\" x 23 5/8\" x 26 5/8\"Door thickness: 4 1/2\" (door+handle: 6\")Gross weight: 241 lbsNet weight: 210 lbsWhen positioning these appliances adjacent to a kitchenunit, a gap of 6 7/8\" must be left on the hinged sideof the product to allow the door to open. Whenpositioning next to a wall, it is recommended to leave a larger gap of 12 1/2\".",
+    "Features_Web_Retailer": "<ul></ul>",
+    "Weight_Web_Retailer": 258,
+    "Capacity_Web_Retailer": 11.7,
+    "Height_Web_Retailer": "75 53/64",
+    "Width_Web_Retailer": "23 39/64",
+    "Depth_Web_Retailer": "26 21/32",
+    "Product_Title_Web_Retailer": "Approx 24\" 50'S Style refrigerator with automatic freezer, Orange, Right hand hinge",
+    "Color_Finish_Web_Retailer": "Orange",
+    "MSRP_Web_Retailer": 3199,
+    "Model_Number_Web_Retailer": "FAB32UORRN",
+    "Brand_Web_Retailer": "SMEG",
+    "SF_Catalog_Name": "FAB32UORRN",
+    "SF_Catalog_Id": "a03Hu00001N2BkwIAF"
+  },
+  "currentOutput": {
+    "AI_Brand": "SMEG",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Bottom-Freezer",
+    "AI_Style": "Vintage",
+    "AI_Color": "Orange",
+    "AI_Finish": "Glossy",
+    "AI_Product_Title": "SMEG 24-Inch Bottom-Freezer Refrigerator Orange 11.7 Cu. Ft. - FAB32UORRN"
+  }
+}

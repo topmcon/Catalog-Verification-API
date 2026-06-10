@@ -1,0 +1,147 @@
+{
+  "sf_catalog_id": "a03aZ00000n99JDQAY",
+  "sf_catalog_name": "PFE28KY",
+  "createdAt": "2026-05-02T23:24:58.467Z",
+  "era": "ai",
+  "strata": [
+    "model_mismatch"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/9faa90a9a827af411c7a8dfb70076001.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/94d692da2bd49d71e146480b65489708.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/7811584dd7d21c7d00e3da30155ef236.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/94d692da2bd49d71e146480b65489708.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/91f9a8fc462580e0d06df5860afbcbe9.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ec5a2ec3c6b01e8422e27e2e7d966cf7.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/5a020d9d3cbd31200af01a7896f935d3.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ba20bfbadcc54d27f87928ffe152647e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/b6350cc8a8ba23bbb1756d7318e0d479.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/41452b8a5c5f3084a642a956790fd323.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ba2d3b8f71186c004dca51b4e153f482.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ef13129b6a0a9f57b0db369eefae2f2e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/d0ce1e481f61c4a69d9a2a30bb949887.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a31b61466ee7eebfa2b208073a724601.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/2b12a40f0c962bba56e2f58d3a0864dd.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/bd28554d2831f799159624ee3303e359.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/af51232d1f309a10c319fd7caaaa9228.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/1be28333d6dfb35404c9c66c3e738021.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/c05a5c3901244e031da44383b44b01bc.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/747698e51b23a87633eaeb0afd92ce16.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/0bfe8e6c1290e709cc3cc0e63534d26d.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/ceee2e959f6148913429649837a687a3.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/80a814c31fa91bc04b0ba6858c1b6c51.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a9759203231cb548c5b50f215c84d6d4.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/b815948391b2c3fa8379c551ed41f079.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/908250e09cbe00ad3d736b71f34f12ef.gif"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/30912758d5c635752c9ea8f1f7740dd2.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e26f0953a6bcb9f42d9e37e185fffa8e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/6959b1df2b29a41c3c7beda8d6b43f7e.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.geappliances.com/appliance/GE-Profile-ENERGY-STAR-28-7-Cu-Ft-Smart-Fingerprint-Resistant-4-Door-French-Door-Refrigerator-With-Dual-Dispense-AutoFill-Pitcher-PGE29BYTFS",
+    "Ferguson_URL": "https://www.fergusonhome.com/ge-profile-pge29bfs/s1935243",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Air Clearances Back (in.)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Air Clearances Each Side (in.)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">0.125</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Air Clearances Top (in.)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Total Capacity (cubic feet)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">28.7 L</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Features</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Dairy Compartment Door Alarm Autofill Pitcher Water Filter Indicator Light Dual Evaporators Easily Removable Door Gaskets Multiflow Air System GE water filtering system</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth without Door Handle (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">34.25</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Case Depth without Door (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">29.5</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Colour</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Fingerprint Resistant Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">34.1&quot; or more</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth with FF Door open 90 deg (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">48.375</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dispenser</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Internal Water</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Handle Colour</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Stainless Steel</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Handle Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Designer Style</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Door Stops</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Swing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Hinges on Right</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy Star</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Style</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Freestanding Standard Depth Bottom Freezer French Door</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Ice Maker</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Factory-Installed</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Water Filter</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Freezer Capacity (cubic feet)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">8.57</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Freezer Door Bins</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Tilt-Out</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Freezer Storage Baskets</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">2 Sliding</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fresh Food Capacity (cubic feet)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">16.51</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fresh Food Door Bins</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">6 Total</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">65 - 69&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height to Top of Case (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">68.625</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Height to Top of Hinge (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">69.75</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Interior Lighting</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer LED Lighting</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Levelling System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2-Point</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fresh Food Cabinet Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Quick Space Shelf</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerant Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R600A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Textured Steel Case</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Case Only- Dark Grey</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Fresh Food Cabinet Drawers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Sealed High Humidity 2 Total 1 Sealed Low Humidity</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Controls and Display</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Upfront Electronic Temperature Controls</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Defrost Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Frost Guard</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Volts / Hertz / Amps</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">120 v / 60 Hz / 15A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Warranty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1 Year Limited Parts &amp; Labour</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">36&quot;</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Width with Door Open 90 deg Including Handle (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">44.875</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Overall Depth (in)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">36.75</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Center Drawer Features</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Electronic Temp Control with 5 Settings (Soft Freezer, Meats, Beverages, Snacks, Wine &amp; Control Lock) Full-Extension Slides Convertible Drawer Removable Drawer Liner</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Convertible Drawer Capacity (cubic feet)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3.62</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature Management System</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">TwinChill Evaporators</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Sabbath Mode</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Wifi Connect</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Built-in</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Freezer Feature</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Freezer Drawer with Full Extension Slides</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Exterior Design</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Contoured Doors</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Filter Location</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Left wall</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Hidden Door Hinges</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Mobility Rollers</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr></table>",
+    "UPC_Legacy": "084691936053",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "36 Inch Freestanding 4-Door Smart French Door Refrigerator with 28.7 cu. ft. Capacity\nPerfect for any home, this 4-Door French Door Refrigerator offers a spacious 28.7 cubic feet of storage space. With four glass shelves, gallon storage, an adjustable temperature drawer, and a freezer drawer, this unit can easily hold all of your food items. This Smart French Door Refrigerator includes a removable bin caddy, soft close drawers, an LED light wall, and Turbo Cool & Turbo Freeze to make your life simpler. Plus, it offers an internal water dispenser, an automatic ice maker, and more.",
+    "Features_Legacy": "<ul><li>Adjustable Temperature Drawer</li><li>Advanced Water Filtration</li><li>Built-In WiFi</li><li>Dimensions: 69.87 H x 35.63 W x 36.75 D (in) 177.48 H x 90.49 W x 93.35 D (cm)</li></ul>",
+    "Weight_Legacy": 335,
+    "Capacity_Legacy": 16.51,
+    "Height_Legacy": "69 3/4",
+    "Width_Legacy": "36",
+    "Depth_Legacy": "36 3/4",
+    "Product_Title_Legacy": "GE Profile 28.7 Cu. Ft. Fingerprint Resistant Stainless Steel 4-door French-Door Refrigerator - PGE29BYTFS",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 4199,
+    "Model_Number_Legacy": "PFE28KY",
+    "Brand_Legacy": "GE",
+    "Web_Retailer_Specs": [],
+    "Web_Retailer_Key": "CA_GE:PGE29BYTFS",
+    "Web_Retailer_SubCategory": "FRENCH DOOR FREESTANDING REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "Dual-Dispense AutoFill PitcherEnjoy chilled, filtered water for yourself or a group with an innovative pitcher that automatically refills from a docking station and offers two convenient pouring options.LED Light WallEasily find even the smallest items in your refrigerator thanks to a showcase LED Light Wall. Engineered to shed bright, uniform lighting throughout the interior, every shelf is illuminated for enhanced visibility.Adjustable Temperature DrawerThis innovative drawer has 4 settings to store specific types of food and drinks at the best temperature, including meat, beverages, snacks or wine.Removable Bin CaddyEnjoy more storage flexibility and better organization with an innovative refrigerator caddy that can be used as an adjustable drawer divider and store a range of items.Built-In WiFiThis refrigerator utilizes built-in Wi-Fi powered by the SmartHQ app to send instant alerts to your smart device, allowing you to conveniently customize your interior settings.Turbo Cool & Turbo FreezeThe Turbo Cooling Setting, which is accessed through the SmartHQ app, drops the internal temperature to intelligently maintain a climate-controlled environment and optimize food freshness after frequent door openings.Soft Close DrawersEnjoy easy access to fruits and vegetables thanks to intelligently designed, crisper drawers that keep your fresh favorites at your fingertips for convenient snacking.TwinChill(TM) Dual EvaporatorsThis advanced technology refrigerator features TwinChill(TM) Dual Evaporators to create separate climate zones in the fresh food and freezer sections, keeping foods at their optimum freshness.Advanced Water FiltrationThe included refrigerator water filter reduces 50+ impurities including lead, chlorine, microplastics, and PFOA/PFOS; providing clean, safe drinking water and ice (replacement water filters sold separately - check refrigerator filter compartment for compatible model)Filtered Water CapacityThe 60-ounce Dual-Dispense AutoFill Pitcher makes it easy with two ways to pour, no matter if you are filling one water bottle or several.Advanced Filtered IceFactory-installed icemaker in the freezerMonitor Ounces DispensedTrack your environmental impact by seeing how many plastic water bottles you have eliminated from the environment today, this week, this month, or this year from using a reusable water bottle.Dual-Dispense AutoFill PitcherThe Dual-Dispense AutoFill Pitcher is dishwasher safe and BPA-free.Refills Throughout the HomeHave access to filtered water throughout the home by removing the Dual-Dispense AutoFill Pitcher from the dock to have refills on hand, whether gathering on the patio, the dining room, or anywhere in-between.Dimensions69 7/8 H x 35 5/8 W x 36 3/4 D",
+    "Features_Web_Retailer": "<ul><li>Adjustable Temperature Drawer</li><li>Advanced Water Filtration</li><li>Built-In WiFi</li><li>Dimensions: 69.87 H x 35.63 W x 36.75 D (in) 177.48 H x 90.49 W x 93.35 D (cm)</li></ul>",
+    "Weight_Web_Retailer": 335,
+    "Capacity_Web_Retailer": 16.51,
+    "Height_Web_Retailer": "69 3/4",
+    "Width_Web_Retailer": "36",
+    "Depth_Web_Retailer": "36 3/4",
+    "Product_Title_Web_Retailer": "GE Profile 28.7 Cu. Ft. Fingerprint Resistant Stainless Steel 4-door French-Door Refrigerator - PGE29BYTFS",
+    "Color_Finish_Web_Retailer": "Stainless Steel",
+    "MSRP_Web_Retailer": 4199,
+    "Model_Number_Web_Retailer": "PGE29BYTFS",
+    "Brand_Web_Retailer": "GE APPLIANCES",
+    "SF_Catalog_Name": "PFE28KY",
+    "SF_Catalog_Id": "a03aZ00000n99JDQAY"
+  },
+  "currentOutput": {
+    "AI_Brand": "GE",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "French Door",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "Stainless Steel",
+    "AI_Product_Title": "GE 36-Inch French Door Refrigerator Stainless Steel 28.7 Cu. Ft. - PGE29BYTFS"
+  }
+}

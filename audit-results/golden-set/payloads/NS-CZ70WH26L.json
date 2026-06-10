@@ -1,0 +1,58 @@
+{
+  "sf_catalog_id": "a03aZ00000i12uhQAA",
+  "sf_catalog_name": "NS-CZ70WH26L",
+  "createdAt": "2026-04-29T20:39:08.382Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000YuAhAQAV.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000YuDaBQAV.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000YuZxFQAV.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000YuL6OQAV.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000YuOQlQAN.png"
+      }
+    ],
+    "Reference_URL": "https://www.bestbuy.com/product/insignia-7-cu-ft-garage-ready-chest-freezer-white/J2FPJK9PJ6",
+    "Ferguson_URL": null,
+    "Specification_Table": "<h4>Key Specs</h4><ul><li>Color Finish</li><li>White</li><li>Product Height</li><li>33.5 inches</li><li>Product Width</li><li>30.3 inches</li><li>Product Depth</li><li>22 inches</li><li>Capacity</li><li>7 cubic feet</li><li>App Compatible</li><li>No</li></ul><h4>General</h4><ul><li>Brand</li><li>Insignia™</li><li>Model Number</li><li>NS-CZ70WH26L</li><li>Product Name</li><li>7 Cu. Ft. Garage-Ready Chest Freezer</li><li>Color</li><li>White</li><li>Color Finish</li><li>White</li></ul><h4>Dimensions</h4><ul><li>Product Height</li><li>33.5 inches</li><li>Product Width</li><li>30.3 inches</li><li>Product Depth</li><li>22 inches</li><li>Product Weight</li><li>58.6 pounds</li></ul><h4>Capacity</h4><ul><li>Capacity</li><li>7 cubic feet</li></ul><h4>Features</h4><ul><li>Freezer Type</li><li>Chest</li><li>Convertible To Refrigerator</li><li>Yes</li><li>Defrost Type</li><li>Manual</li><li>Defrost Indicator</li><li>No</li><li>Temperature Control Type</li><li>Mechanical Dial</li><li>Control Location</li><li>Exterior</li><li>Garage Ready</li><li>Yes</li><li>Quick Freeze</li><li>No</li><li>Soft Freeze Zone</li><li>No</li><li>Sabbath Mode</li><li>No</li><li>Child Lock</li><li>No</li><li>Power-On Indicator Light(s)</li><li>Yes</li><li>Interior Light(s)</li><li>Yes</li><li>Adjustable Leveling Legs</li><li>Yes</li></ul><h4>Included</h4><ul><li>Number of Bulk Storage Baskets</li><li>1</li><li>Storage Basket Type</li><li>Lift-out</li><li>Drain Included</li><li>Yes</li><li>Power Cord Included</li><li>Yes</li></ul><h4>Performance</h4><ul><li>Temperature Range (Freezer)</li><li>10.4°F to -11.2°F</li><li>Temperature Range (Refrigerator)</li><li>33.8°F to 50°F</li><li>Minimum Operating Temperature</li><li>0 degrees fahrenheit</li><li>Maximum Operating Temperature</li><li>110 degrees fahrenheit</li></ul><h4>Electrical Specification</h4><ul><li>Amperage</li><li>1.2 amperes</li><li>Voltage</li><li>115 volts</li></ul><h4>Certifications Listings &amp; Approvals</h4><ul><li>ENERGY STAR Certified</li><li>No</li><li>Consortium for Energy Efficiency (CEE) Rating</li><li>Not Available</li></ul><p><br></p>",
+    "UPC_Legacy": "600603318788",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "Insignia™ - 7 Cu. Ft. Garage-Ready Chest Freezer - White",
+    "Features_Legacy": "<ul><li><strong>LED interior light</strong> for visibility in low-light spaces. </li><li><strong>Removable storage basket</strong> helps organize smaller items. </li><li><strong>Front-mounted control dial</strong> for easy adjustments. </li><li><strong>Adjustable leveling legs</strong> for stable placement on uneven floors. </li><li><strong>Defrost drain</strong> makes manual defrosting easier. </li><li><strong>Power-on indicator light</strong> shows it’s running. </li></ul><p><br></p>",
+    "Weight_Legacy": 58.6,
+    "Capacity_Legacy": 7,
+    "Height_Legacy": "33 1/2",
+    "Width_Legacy": "30 5/16",
+    "Depth_Legacy": "22",
+    "Product_Title_Legacy": "Insignia 30-Inch Chest Freezer White 7 Cu. Ft. - NS-CZ70WH26L",
+    "Color_Finish_Legacy": "White",
+    "MSRP_Legacy": 249.99,
+    "Model_Number_Legacy": "NS-CZ70WH26L",
+    "Brand_Legacy": "INSIGNIA",
+    "SF_Catalog_Name": "NS-CZ70WH26L",
+    "SF_Catalog_Id": "a03aZ00000i12uhQAA"
+  },
+  "currentOutput": {
+    "AI_Brand": "INSIGNIA",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Chest",
+    "AI_Style": "Contemporary",
+    "AI_Color": "",
+    "AI_Finish": "",
+    "AI_Product_Title": "Insignia 30-Inch Chest Freezer 7 Cu. Ft. - NS-CZ70WH26L"
+  }
+}

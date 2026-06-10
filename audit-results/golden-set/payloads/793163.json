@@ -1,0 +1,46 @@
+{
+  "sf_catalog_id": "a03aZ00000hmFCAQA2",
+  "sf_catalog_name": "793163",
+  "createdAt": "2026-05-28T17:45:38.453Z",
+  "era": "ai",
+  "strata": [
+    "scenario_no_sources"
+  ],
+  "scenario": "no_sources",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000d4ZWzQAM.jpeg"
+      }
+    ],
+    "Reference_URL": "https://encompass.com/item/12932763/Fisher___Paykel/793163/",
+    "Ferguson_URL": null,
+    "Specification_Table": null,
+    "UPC_Legacy": "822843965960",
+    "Category_Legacy": "Range Hood",
+    "Product_Description_Legacy": "793163, DIVERTER RECIRCULATION 8\", Fisher / Paykel Parts and Accessories.",
+    "Features_Legacy": null,
+    "Weight_Legacy": 1,
+    "Capacity_Legacy": null,
+    "Height_Legacy": null,
+    "Width_Legacy": null,
+    "Depth_Legacy": null,
+    "Product_Title_Legacy": "Fisher Paykel Diverter Recirculation 8",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 237.6,
+    "Model_Number_Legacy": "793163",
+    "Brand_Legacy": "FISHER & PAYKEL",
+    "SF_Catalog_Name": "793163",
+    "SF_Catalog_Id": "a03aZ00000hmFCAQA2"
+  },
+  "currentOutput": {
+    "AI_Brand": "FISHER & PAYKEL",
+    "AI_Product_Category": "Range Hood",
+    "AI_Type": "Accessory",
+    "AI_Style": "Not Applicable",
+    "AI_Color": "Not visible",
+    "AI_Finish": "Not visible",
+    "AI_Product_Title": "FISHER & PAYKEL Fisher Paykel Diverter Recirculation 8 Not visible - 793163"
+  }
+}

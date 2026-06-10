@@ -1,0 +1,1265 @@
+{
+  "sf_catalog_id": "a03aZ000008nv29QAA",
+  "sf_catalog_name": "SCFF1842",
+  "createdAt": "2026-06-08T13:47:55.898Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/39092e09071329ff0f5f193761c699cc_20251028_182928.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/995ebaf266c7fcf24b2cc88b0ac692f6_20251028_182929.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/bb804e174bf100d4289562f4c8337b2c_20251028_182930.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/dc698e1804ed1f4c4b0a6c89d625d63a_20251028_182930.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/4eb415be94cec92455e229cf1a3b0601.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/914856be57bd473223c95239d0fee5c3.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/e00249f3521e80cc2746efc4761f5ed5.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/d4d208e9c0236d1cd73df5ecb50b4a4c.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/SCFF1842.html?srsltid=AfmBOoo2v2nUyEumC42FIebmNNCcHRs72BNH6zLCfIQTTS4cYHvDsuN7",
+    "Ferguson_URL": "https://www.fergusonhome.com/summit-scff1842/s1303085",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Overview</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Nominal Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">35.0&quot; (89 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Height of Cabinet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">34.25&quot; (87 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Nominal Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">18.0&quot; (46 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">17.75&quot; (45 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Nominal Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">24.0&quot; (61 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">24.0&quot; (61 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Depth with Handle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">25.75&quot; (65 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Depth with door at 90°</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">40.0&quot; (102 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Capacity</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">2.7 cu.ft. (76 L)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Defrost Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Frost-Free</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Cabinet</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Black</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>US Electrical Safety</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">ETL</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Canadian Electrical Safety</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">ETL-C</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Sanitation</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">ETL-S</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy Usage/Year</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">346.0kWh/year</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Amps</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">1.25</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Voltage/Frequency</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">115 V AC/60 Hz</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Weight</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">82.0 lbs. (37 kg)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Parts &amp; Labor Warranty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1 Year</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Compressor Warranty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">5 Years</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>UPC</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">761101045078</td></tr><tr class=\"inline_sd_row\"><td colspan=\"2\" rowspan=\"1\" class=\"inline_sd_header\">Freezer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Door Swing</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">RHD</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Reversible</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">23.5&quot; (60 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Interior Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">12.75&quot; (32 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Interior Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">16.75&quot; (43 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Shelf Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Chrome</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Shelf Qty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Adjustable Shelves</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Thermostat Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Digital</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Fan Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Interior and Exterior</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Refrigerant Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">R600a</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Refrigerant Amount</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">1.06 oz.</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>High Side PSI</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">150.0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Low Side PSI</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">50.0</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Level Legs</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">4</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Compressor Step Height</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4.5&quot; (11 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Compressor Step Width</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">12.75&quot; (32 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Compressor Step Depth</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">4.5&quot; (11 cm)</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Temperature Range</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">-22 to 14 °F</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Sound Level</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">35.1 dB</td></tr></table>",
+    "UPC_Legacy": "761101045078",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "SUMMIT brings true convenience to small kitchen spaces with the SCFF1842, an 18\" wide fully frost-free all-freezer. The SCFF1842 is front-breathing for built-in use under counters, but also features a fully finished cabinet to allow freestanding use. The reversible door includes a factory installed lock and professional handle in stainless steel. This unit comes in a jet black finish. Inside, the SCFF1842 is fully frost-free to minimize user maintenance, with slide-out chrome shelves that can be adjusted to accommodate a variety of items in the 2.7 cu.ft. interior. This unit includes a digital thermostat for easy and intuitive temperature control. With a uniquely slim size and user-friendly features, the SCFF1842 is the ideal freezer for space-challenged spaces. This model meets UL-471 standards and is ETL-S listed to NSF-7 for use in commercial environments.",
+    "Features_Legacy": "<ul><li>18&quot; Wide Undercounter Freezer</li><li>Frost-free all-freezer for built-in installation or freestanding use</li><li>Built-in capable</li><li>Make the best use of space by installing your appliance under the counter</li><li>Fully finished black cabinet</li><li>Allows the unit to be used freestanding</li><li>Factory installed lock</li><li>Keyed security on the door</li><li>Commercially listed</li><li>ETL-S listed to NSF-7 Standards for use in commercial establishments</li><li>Digital thermostat</li><li>Electronic controls for precise temperature management. </li><li>Digital display</li><li>Temperature readout can be shown in Celsius or Fahrenheit</li><li>Frost-free operation</li><li>Eliminates the need to manually defrost the interior</li><li>Adjustable chrome shelves</li><li>Rearrange interior space to accommodate all sizes or remove shelves for simple cleanup</li><li>Reversible door</li><li>User-reversible door swing for added flexibility</li><li>Professional handle</li><li>Stainless steel handle completes the professional look</li><li>Flush back</li><li>Space saving design</li><li>100% CFC Free</li><li>Environmentally friendly design with no ozone-damaging chemicals</li><li>CARB Compliant</li><li>Eco-friendly hydrocarbon-based refrigerant for a greener footprint that meets current CARB regulations</li></ul>",
+    "Weight_Legacy": 82,
+    "Capacity_Legacy": 2.7,
+    "Height_Legacy": "34 1/4",
+    "Width_Legacy": "17 3/4",
+    "Depth_Legacy": "25 3/4",
+    "Product_Title_Legacy": "Summit 18-Inch Undercounter Freezer Black 2.7 Cu. Ft. - SCFF1842",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 1700,
+    "Model_Number_Legacy": "SCFF1842",
+    "Brand_Legacy": "SUMMIT",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-02-03T04:19:27.679690"
+      },
+      "search_meta_data": {
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "73FyeffuTA"
+      },
+      "performance": {
+        "total_time": "8.23s",
+        "step3_detail_time": "2.14s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "6.09s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [],
+        "has_recommended_options": false,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 1,
+        "review_count": 1,
+        "total_ratings": 1,
+        "rating": 5,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/summit-beverage-centers/c131647",
+            "name": "Beverage Centers",
+            "id": 131647
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-refrigerators/c131537",
+            "name": "Refrigerators",
+            "id": 131537
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-compact-refrigerators/c133805",
+            "name": "Compact Refrigerators",
+            "id": 133805
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-ranges/c131539",
+            "name": "Ranges",
+            "id": 131539
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-wine-coolers/c131646",
+            "name": "Wine Coolers",
+            "id": 131646
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-kegerators/c131648",
+            "name": "Kegerators",
+            "id": 131648
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-combo-kitchens/c134063",
+            "name": "Combo Kitchens",
+            "id": 134063
+          }
+        ],
+        "business_category": "Freezers",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/summit-appliances/c130976",
+            "name": "Summit"
+          },
+          {
+            "url": "https://www.fergusonhome.com/shop-all-summit/c131649",
+            "name": "Shop all Summit"
+          }
+        ],
+        "resources": [
+          {
+            "id": "summit-scff1842-energy-guide",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/summit/1303085/summit-scff1842-energy-guide.pdf",
+            "name": "Energy Guide"
+          },
+          {
+            "id": "summit-scff1842-use-and-care",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/summit/1303085/summit-scff1842-use-and-care.pdf",
+            "name": "Use and Care"
+          },
+          {
+            "id": "summit-scff1842-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/summit/1303085/summit-scff1842-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "summit-scff1842-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/summit/1303085/summit-scff1842-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": null,
+        "warranty": "<h3>Summit Warranty</h3><p>SUMMIT Appliances are manufactured to provide outstanding value, and your satisfaction is our goal on every product. All SUMMIT major appliances carry a one year limited guaranty on both parts and labor. All refrigerators and freezers carry an additional four years on the compressor. Certain exclusions may apply.</p><p>Certain models (including SUMMIT Ranges, wall ovens, and cooktops) are manufactured for us in the U.S. and carry the manufacturer's warranty (also one year parts and on-site labor).</p><p>For details on specific warranty issues, please refer to the warranty packed with the product, or call our service department at 718-328-8700.</p><p>Your warranty rights are protected by mailing back the registration card packed with each refrigerator or freezer.</p></p>",
+        "country_of_origin": null,
+        "certifications": [
+          "ETL",
+          "NSF",
+          "UL"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5128",
+            "name": "Depth with Door"
+          },
+          {
+            "value": "5129",
+            "name": "Depth with Handles"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "757",
+            "name": "Glass Doors"
+          },
+          {
+            "value": "5458",
+            "name": "Humidity Control"
+          },
+          {
+            "value": "5170",
+            "name": "Ice Bin Included"
+          },
+          {
+            "value": "3513",
+            "name": "Ice Maker"
+          },
+          {
+            "value": "9436",
+            "name": "Interior Light"
+          },
+          {
+            "value": "1007",
+            "name": "Light Included"
+          },
+          {
+            "value": "5456",
+            "name": "Automatic Door Closer"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "435",
+            "name": "Defrost Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "919",
+            "name": "Installation Type"
+          },
+          {
+            "value": "5457",
+            "name": "Leveling Legs"
+          },
+          {
+            "value": "1227",
+            "name": "Number Of Shelves"
+          },
+          {
+            "value": "9373",
+            "name": "Panel Ready"
+          },
+          {
+            "value": "6324",
+            "name": "Sabbath Mode"
+          },
+          {
+            "value": "5157",
+            "name": "Shelf Material"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "5459",
+            "name": "Annual Energy Consumption (kWh)"
+          },
+          {
+            "value": "695",
+            "name": "Frequency"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "1274",
+            "name": "Outdoor Approved"
+          }
+        ],
+        "dimensions": {
+          "width": "17.75 in.",
+          "height": "34 in.",
+          "depth": "24 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front after the door is installed, measured in inches.",
+                "units": "in.",
+                "value": "40",
+                "name": "Depth with Door"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front after the door and handle(s) are installed, measured in inches.",
+                "units": "in.",
+                "value": "25.75",
+                "name": "Depth with Handles"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "24",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "34",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "18",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "82",
+                "name": "Product Weight"
+              },
+              {
+                "featured": true,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "2.7",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "17.75",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the product includes glass doors.",
+                "units": null,
+                "value": "No",
+                "name": "Glass Doors"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product features humidity control.",
+                "units": null,
+                "value": "Yes",
+                "name": "Humidity Control"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice bin for storing ice is included.",
+                "units": null,
+                "value": "No",
+                "name": "Ice Bin Included"
+              },
+              {
+                "featured": false,
+                "description": "Whether an ice maker is included.",
+                "units": null,
+                "value": "No",
+                "name": "Ice Maker"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source is included to increase visibility of the inside of the product.",
+                "units": null,
+                "value": "Yes",
+                "name": "Interior Light"
+              },
+              {
+                "featured": false,
+                "description": "Whether a light source component is included.",
+                "units": null,
+                "value": "No, Yes",
+                "name": "Light Included"
+              }
+            ],
+            "name": "Included Components"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether the door of the product has a system in place to close its open door automatically without manual intervention.",
+                "units": null,
+                "value": "No",
+                "name": "Automatic Door Closer"
+              },
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Electronic",
+                "name": "Control Type"
+              },
+              {
+                "featured": false,
+                "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+                "units": null,
+                "value": "Frost-Free",
+                "name": "Defrost Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "Digital",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Reversible Door",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Reversible",
+                "name": "Door Swing"
+              },
+              {
+                "featured": true,
+                "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+                "units": null,
+                "value": "Built-In",
+                "name": "Installation Type"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes legs that will keep the product level after installation.",
+                "units": null,
+                "value": "Yes",
+                "name": "Leveling Legs"
+              },
+              {
+                "featured": false,
+                "description": "The total number of shelves included.",
+                "units": null,
+                "value": "4",
+                "name": "Number Of Shelves"
+              },
+              {
+                "featured": false,
+                "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+                "units": null,
+                "value": "No",
+                "name": "Panel Ready"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product includes a Sabbath mode feature.",
+                "units": null,
+                "value": "No",
+                "name": "Sabbath Mode"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the construction of the shelf.",
+                "units": null,
+                "value": "Metal",
+                "name": "Shelf Material"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "1.1",
+                "name": "Amperage"
+              },
+              {
+                "featured": false,
+                "description": "The annual energy consumption of the product, measured in kilowatt hours.",
+                "units": null,
+                "value": "378",
+                "name": "Annual Energy Consumption (kWh)"
+              },
+              {
+                "featured": false,
+                "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+                "units": "Hertz",
+                "value": "60",
+                "name": "Frequency"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "115",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "ETL, NSF, UL",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+                "units": null,
+                "value": "No",
+                "name": "Outdoor Approved"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "outdoor_approved": {
+            "description": "Whether the product can be used, stored, and/or installed in an environment exposed to outside conditions and elements.",
+            "units": null,
+            "value": "No"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "ETL, NSF, UL"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "115"
+          },
+          "frequency": {
+            "description": "The number of cycles per second of alternating current (AC), measured in Hertz.",
+            "units": "Hertz",
+            "value": "60"
+          },
+          "annual_energy_consumption_(kwh)": {
+            "description": "The annual energy consumption of the product, measured in kilowatt hours.",
+            "units": null,
+            "value": "378"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "1.1"
+          },
+          "shelf_material": {
+            "description": "The material used in the construction of the shelf.",
+            "units": null,
+            "value": "Metal"
+          },
+          "sabbath_mode": {
+            "description": "Whether this product includes a Sabbath mode feature.",
+            "units": null,
+            "value": "No"
+          },
+          "panel_ready": {
+            "description": "A panel ready product allows for a custom cover (generally a cabinet panel on an appliance) to be installed on the face or the front of the product. For example, this would allow for a panel-ready refrigerator to match the existing kitchen cabinets for a consistent and streamlined look across the whole kitchen or for a personalized look that can be refined as often as desired.",
+            "units": null,
+            "value": "No"
+          },
+          "number_of_shelves": {
+            "description": "The total number of shelves included.",
+            "units": null,
+            "value": "4"
+          },
+          "leveling_legs": {
+            "description": "Whether the product includes legs that will keep the product level after installation.",
+            "units": null,
+            "value": "Yes"
+          },
+          "installation_type": {
+            "description": "The intended configuration for the products installed application as determined by the manufacturer.",
+            "units": null,
+            "value": "Built-In"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Reversible"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Reversible Door"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "Digital"
+          },
+          "defrost_type": {
+            "description": "Indicates if the freezer has an automatic or semi-automatic defrost feature, or if frost removal must be completed manually by the owner.",
+            "units": null,
+            "value": "Frost-Free"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Electronic"
+          },
+          "automatic_door_closer": {
+            "description": "Whether the door of the product has a system in place to close its open door automatically without manual intervention.",
+            "units": null,
+            "value": "No"
+          },
+          "light_included": {
+            "description": "Whether a light source component is included.",
+            "units": null,
+            "value": "No, Yes"
+          },
+          "interior_light": {
+            "description": "Whether a light source is included to increase visibility of the inside of the product.",
+            "units": null,
+            "value": "Yes"
+          },
+          "ice_maker": {
+            "description": "Whether an ice maker is included.",
+            "units": null,
+            "value": "No"
+          },
+          "ice_bin_included": {
+            "description": "Whether an ice bin for storing ice is included.",
+            "units": null,
+            "value": "No"
+          },
+          "humidity_control": {
+            "description": "Whether the product features humidity control.",
+            "units": null,
+            "value": "Yes"
+          },
+          "glass_doors": {
+            "description": "Whether the product includes glass doors.",
+            "units": null,
+            "value": "No"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "17.75"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "2.7"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "82"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "18"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "34"
+          },
+          "depth_with_handles": {
+            "description": "The measurement from back to front after the door and handle(s) are installed, measured in inches.",
+            "units": "in.",
+            "value": "25.75"
+          },
+          "depth_with_door": {
+            "description": "The measurement from back to front after the door is installed, measured in inches.",
+            "units": "in.",
+            "value": "40"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "24"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p>A slim 18\" width makes the Summit Built-In Freezer (<strong>SCFF1842SS</strong>) perfect for small homes, micro-kitchens, and small bars. Fully-finished, its flexible design means that it can fit neatly into a built-in space or stand on its own as a free-standing unit. Grab hold of its professional handle and open its sleek full-width door to reveal a 2.7 cubic-foot capacity complete with adjustable chrome shelves that'll suit your personal storage preference. Additionally, this freezer arrives equipped with a factory-installed lock for security, as well as a digital thermostat with a clear, easy-to-read LED display.</p><p> <strong>Slim 18\" Width:</strong>This freezer features a slim 18\" width that makes it perfect for smaller spaces</p><p> <strong>Clean, Sleek Finish:</strong>The fully finished cabinet features a clean, sleek exterior that will look great in any situation</p><p> <strong>Digital Temperature Controls:</strong>An easy-to-read LED display always shows you the temperature, set by digital controls</p>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2793.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2792.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2790.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2788.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2789.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2794.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2795.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842-alternate-view-2791.jpg"
+        ],
+        "configuration_type": "NO_CONFIGURATION",
+        "is_square_footage_based": false,
+        "is_configurable": false,
+        "in_stock_variant_count": 2,
+        "total_inventory_quantity": 20,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": true,
+        "variant_count": 2,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Summit 18 Built-In Freezer with Lock - Stainless Steel Black",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842.jpg"
+            },
+            "currency": "USD",
+            "price": 1412.5,
+            "swatch_gradient": "",
+            "title": "Black",
+            "shipping_info": [
+              "Free Shipping on LTL freight orders over $1,499.00!",
+              "Leaves the Warehouse in 1 to 3 business days",
+              "Leaves the Warehouse in 1 to 3 business days"
+            ],
+            "shipping_message": "Free Shipping on LTL freight orders over $1,499.00!",
+            "estimated_delivery": "Leaves the Warehouse in 1 to 3 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 1 to 3 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "000000",
+            "inventory_quantity": 10,
+            "url": "https://www.fergusonhome.com/summit-scff1842/s1303085?uid=3097648",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842.jpg"
+            ],
+            "model_number": "SCFF1842",
+            "name": "Black",
+            "id": 3097648
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "Summit 18 Built-In Freezer with Lock - Stainless Steel Stainless Steel",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842ss.jpg"
+            },
+            "currency": "USD",
+            "price": 1856.94,
+            "swatch_gradient": "",
+            "title": "Stainless Steel",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 1 to 3 business days",
+              "Leaves the Warehouse in 1 to 3 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 1 to 3 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 1 to 3 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "CFD4D9",
+            "inventory_quantity": 10,
+            "url": "https://www.fergusonhome.com/summit-scff1842/s1303085?uid=3097649",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/summit/summit-scff1842ss.jpg"
+            ],
+            "model_number": "SCFF1842SS",
+            "name": "Stainless Steel",
+            "id": 3097649
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 49,
+        "base_type": "Refrigeration Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 1856.94,
+          "min": 1412.5
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 1856.94,
+        "price_min": 1412.5,
+        "price": 1412.5,
+        "application": "Freezers",
+        "product_type": "Refrigeration Appliances",
+        "url": "https://www.fergusonhome.com/summit-scff1842/s1303085",
+        "parent_model_number": "SCFF1842",
+        "model_number": "SCFF1842",
+        "brand_logo": {
+          "description": "Summit",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/summit/Logo/summit.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/summit-appliances/c130976",
+        "brand": "Summit",
+        "name": "18 Built-In Freezer with Lock - Stainless Steel",
+        "family_id": 1303085,
+        "id": 1303085
+      },
+      "variant_url": "https://www.fergusonhome.com/summit-scff1842/s1303085?uid=3097648",
+      "match_type": "exact",
+      "matched_model": "SCFF1842",
+      "model_number": "SCFF1842",
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "4.5\" (11 cm)",
+        "name": "Compressor Step Depth"
+      },
+      {
+        "value": "1 Year",
+        "name": "Parts & Labor Warranty"
+      },
+      {
+        "value": "34.25\" (87 cm)",
+        "name": "Height of Cabinet"
+      },
+      {
+        "value": "ETL-S",
+        "name": "Sanitation"
+      },
+      {
+        "value": "ETL",
+        "name": "US Electrical Safety"
+      },
+      {
+        "value": "40.0\" (102 cm)",
+        "name": "Depth with door at 90(degree)"
+      },
+      {
+        "value": "Interior and Exterior",
+        "name": "Fan Type"
+      },
+      {
+        "value": "18.0\" (46 cm)",
+        "name": "Nominal Width"
+      },
+      {
+        "value": "Frost-Free",
+        "name": "Defrost Type"
+      },
+      {
+        "value": "1.25",
+        "name": "Amps"
+      },
+      {
+        "value": "1.06 oz.",
+        "name": "Refrigerant Amount"
+      },
+      {
+        "value": "35.1 dB",
+        "name": "Sound Level"
+      },
+      {
+        "value": "2.7 cu.ft. (76 L)",
+        "name": "Capacity"
+      },
+      {
+        "value": "4",
+        "name": "Shelf Qty"
+      },
+      {
+        "value": "4.5\" (11 cm)",
+        "name": "Compressor Step Height"
+      },
+      {
+        "value": "346.0kWh/year",
+        "name": "Energy Usage/Year"
+      },
+      {
+        "value": "Yes",
+        "name": "Adjustable Shelves"
+      },
+      {
+        "value": "R600a",
+        "name": "Refrigerant Type"
+      },
+      {
+        "value": "Black",
+        "name": "Cabinet"
+      },
+      {
+        "value": "82.0 lbs. (37 kg)",
+        "name": "Weight"
+      },
+      {
+        "value": "115 V AC/60 Hz",
+        "name": "Voltage/Frequency"
+      },
+      {
+        "value": "761101045078",
+        "name": "UPC"
+      },
+      {
+        "value": "ETL-C",
+        "name": "Canadian Electrical Safety"
+      },
+      {
+        "value": "23.5\" (60 cm)",
+        "name": "Interior Height"
+      },
+      {
+        "value": "Yes",
+        "name": "Reversible"
+      },
+      {
+        "value": "RHD",
+        "name": "Door Swing"
+      },
+      {
+        "value": "50.0",
+        "name": "Low Side PSI"
+      },
+      {
+        "value": "-22 to 14 (degree)F",
+        "name": "Temperature Range"
+      },
+      {
+        "value": "24.0\" (61 cm)",
+        "name": "Nominal Depth"
+      },
+      {
+        "value": "Chrome",
+        "name": "Shelf Type"
+      },
+      {
+        "value": "35.0\" (89 cm)",
+        "name": "Nominal Height"
+      },
+      {
+        "value": "Digital",
+        "name": "Thermostat Type"
+      },
+      {
+        "value": "24.0\" (61 cm)",
+        "name": "Depth"
+      },
+      {
+        "value": "25.75\" (65 cm)",
+        "name": "Depth with Handle"
+      },
+      {
+        "value": "5 Years",
+        "name": "Compressor Warranty"
+      },
+      {
+        "value": "12.75\" (32 cm)",
+        "name": "Interior Width"
+      },
+      {
+        "value": "150.0",
+        "name": "High Side PSI"
+      },
+      {
+        "value": "17.75\" (45 cm)",
+        "name": "Width"
+      },
+      {
+        "value": "4",
+        "name": "Level Legs"
+      },
+      {
+        "value": "12.75\" (32 cm)",
+        "name": "Compressor Step Width"
+      },
+      {
+        "value": "Black",
+        "name": "Door"
+      },
+      {
+        "value": "16.75\" (43 cm)",
+        "name": "Interior Depth"
+      }
+    ],
+    "Web_Retailer_Key": "SUM:SCFF1842",
+    "Web_Retailer_SubCategory": "UPRIGHT FREEZERS",
+    "Web_Retailer_Category": "FREEZERS",
+    "Product_Description_Web_Retailer": "SUMMIT brings true convenience to small kitchen spaces with the SCFF1842, an 18\" wide fully frost-free all-freezer. The SCFF1842 is front-breathing for built-in use under counters, but also features a fully finished cabinet to allow freestanding use. The reversible door includes a factory installed lock and professional handle in stainless steel. This unit comes in a jet black finish. Inside, the SCFF1842 is fully frost-free to minimize user maintenance, with slide-out chrome shelves that can be adjusted to accommodate a variety of items in the 2.7 cu.ft. interior. This unit includes a digital thermostat for easy and intuitive temperature control. With a uniquely slim size and user-friendly features, the SCFF1842 is the ideal freezer for space-challenged spaces. This model meets UL-471 standards and is ETL-S listed to NSF-7 for use in commercial environments.",
+    "Features_Web_Retailer": "<ul><li>18&quot; Wide Undercounter Freezer</li><li>Frost-free all-freezer for built-in installation or freestanding use</li><li>Built-in capable</li><li>Make the best use of space by installing your appliance under the counter</li><li>Fully finished black cabinet</li><li>Allows the unit to be used freestanding</li><li>Factory installed lock</li><li>Keyed security on the door</li><li>Commercially listed</li><li>ETL-S listed to NSF-7 Standards for use in commercial establishments</li><li>Digital thermostat</li><li>Electronic controls for precise temperature management. </li><li>Digital display</li><li>Temperature readout can be shown in Celsius or Fahrenheit</li><li>Frost-free operation</li><li>Eliminates the need to manually defrost the interior</li><li>Adjustable chrome shelves</li><li>Rearrange interior space to accommodate all sizes or remove shelves for simple cleanup</li><li>Reversible door</li><li>User-reversible door swing for added flexibility</li><li>Professional handle</li><li>Stainless steel handle completes the professional look</li><li>Flush back</li><li>Space saving design</li><li>100% CFC Free</li><li>Environmentally friendly design with no ozone-damaging chemicals</li><li>CARB Compliant</li><li>Eco-friendly hydrocarbon-based refrigerant for a greener footprint that meets current CARB regulations</li></ul>",
+    "Weight_Web_Retailer": 82,
+    "Capacity_Web_Retailer": 2.7,
+    "Height_Web_Retailer": "34 1/4",
+    "Width_Web_Retailer": "17 3/4",
+    "Depth_Web_Retailer": "25 3/4",
+    "Product_Title_Web_Retailer": "18\" Built-in All-freezer",
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": 1700,
+    "Model_Number_Web_Retailer": "SCFF1842",
+    "Brand_Web_Retailer": "SUMMIT",
+    "SF_Catalog_Name": "SCFF1842",
+    "SF_Catalog_Id": "a03aZ000008nv29QAA",
+    "Ferguson_Title": "18 Built-In Freezer with Lock - Stainless Steel",
+    "Ferguson_Brand": "Summit",
+    "Ferguson_Model_Number": "SCFF1842",
+    "Ferguson_Description": "<p>A slim 18\" width makes the Summit Built-In Freezer (<strong>SCFF1842SS</strong>) perfect for small homes, micro-kitchens, and small bars. Fully-finished, its flexible design means that it can fit neatly into a built-in space or stand on its own as a free-standing unit. Grab hold of its professional handle and open its sleek full-width door to reveal a 2.7 cubic-foot capacity complete with adjustable chrome shelves that'll suit your personal storage preference. Additionally, this freezer arrives equipped with a factory-installed lock for security, as well as a digital thermostat with a clear, easy-to-read LED display.</p><p> <strong>Slim 18\" Width:</strong>This freezer features a slim 18\" width that makes it perfect for smaller spaces</p><p> <strong>Clean, Sleek Finish:</strong>The fully finished cabinet features a clean, sleek exterior that will look great in any situation</p><p> <strong>Digital Temperature Controls:</strong>An easy-to-read LED display always shows you the temperature, set by digital controls</p>",
+    "Ferguson_Price": "1412.5",
+    "Ferguson_Min_Price": "1412.5",
+    "Ferguson_Max_Price": "1856.94",
+    "Ferguson_Base_Type": "Refrigeration Appliances",
+    "Ferguson_Product_Type": "Refrigeration Appliances",
+    "Ferguson_Base_Category": "Appliances",
+    "Ferguson_Business_Category": "Freezers",
+    "Ferguson_Width": "17.75",
+    "Ferguson_Height": "34",
+    "Ferguson_Depth": "24",
+    "Ferguson_Finish": "Black",
+    "Ferguson_Color": "000000",
+    "Ferguson_Categories": "Brands\nSummit\nShop all Summit",
+    "Ferguson_Related_Categories": "Beverage Centers\nRefrigerators\nCompact Refrigerators\nRanges\nWine Coolers\nKegerators\nCombo Kitchens",
+    "Ferguson_Certifications": "ETL, NSF, UL",
+    "Ferguson_Attributes": [
+      {
+        "name": "Outdoor Approved",
+        "value": "No"
+      },
+      {
+        "name": "Certifications",
+        "value": "ETL, NSF, UL"
+      },
+      {
+        "name": "Ada",
+        "value": "No"
+      },
+      {
+        "name": "Voltage",
+        "value": "115"
+      },
+      {
+        "name": "Frequency",
+        "value": "60 Hertz"
+      },
+      {
+        "name": "Annual Energy Consumption (Kwh)",
+        "value": "378"
+      },
+      {
+        "name": "Amperage",
+        "value": "1.1"
+      },
+      {
+        "name": "Shelf Material",
+        "value": "Metal"
+      },
+      {
+        "name": "Sabbath Mode",
+        "value": "No"
+      },
+      {
+        "name": "Panel Ready",
+        "value": "No"
+      },
+      {
+        "name": "Number Of Shelves",
+        "value": "4"
+      },
+      {
+        "name": "Leveling Legs",
+        "value": "Yes"
+      },
+      {
+        "name": "Installation Type",
+        "value": "Built-In"
+      },
+      {
+        "name": "Door Swing",
+        "value": "Reversible"
+      },
+      {
+        "name": "Door Features",
+        "value": "Reversible Door"
+      },
+      {
+        "name": "Display Type",
+        "value": "Digital"
+      },
+      {
+        "name": "Defrost Type",
+        "value": "Frost-Free"
+      },
+      {
+        "name": "Control Type",
+        "value": "Electronic"
+      },
+      {
+        "name": "Automatic Door Closer",
+        "value": "No"
+      },
+      {
+        "name": "Light Included",
+        "value": "No, Yes"
+      },
+      {
+        "name": "Interior Light",
+        "value": "Yes"
+      },
+      {
+        "name": "Ice Maker",
+        "value": "No"
+      },
+      {
+        "name": "Ice Bin Included",
+        "value": "No"
+      },
+      {
+        "name": "Humidity Control",
+        "value": "Yes"
+      },
+      {
+        "name": "Glass Doors",
+        "value": "No"
+      },
+      {
+        "name": "Width",
+        "value": "17.75 in."
+      },
+      {
+        "name": "Total Capacity",
+        "value": "2.7 cu. ft."
+      },
+      {
+        "name": "Product Weight",
+        "value": "82 lbs."
+      },
+      {
+        "name": "Nominal Width",
+        "value": "18 in."
+      },
+      {
+        "name": "Nominal Height",
+        "value": "34 in."
+      },
+      {
+        "name": "Nominal Depth",
+        "value": "24 in."
+      },
+      {
+        "name": "Height",
+        "value": "34 in."
+      },
+      {
+        "name": "Depth With Handles",
+        "value": "25.75 in."
+      },
+      {
+        "name": "Depth With Door",
+        "value": "40 in."
+      },
+      {
+        "name": "Depth",
+        "value": "24 in."
+      }
+    ]
+  },
+  "currentOutput": {
+    "AI_Brand": "SUMMIT",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Undercounter",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Black",
+    "AI_Finish": "Black",
+    "AI_Product_Title": "Summit 18-Inch Undercounter Freezer Black 2.7 Cu. Ft. - SCFF1842"
+  }
+}

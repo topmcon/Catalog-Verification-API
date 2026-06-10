@@ -1,0 +1,71 @@
+{
+  "sf_catalog_id": "a03aZ00000yLCQhQAO",
+  "sf_catalog_name": "EZ42122231S46AA",
+  "createdAt": "2026-06-05T19:49:27.447Z",
+  "era": "ai",
+  "strata": [
+    "finish_eq_color",
+    "scenario_ferguson_only"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "/sfc/servlet.shepherd/version/download/068aZ00000lpZomQAE?operationContext=S1"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lqUWnQAM.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lpao3QAA.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lpzT2QAI.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lpHqGQAU.jpeg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000lpfkVQAQ.jpeg"
+      }
+    ],
+    "Reference_URL": "https://www.greentoe.com/product/Islandaire_EZ42122231S46AA?srsltid=AfmBOopedElDMwHHs9QF2n13O07Hw5Y08gEqasx5M9Rn5Hl1RLVHjcMK",
+    "Ferguson_URL": "https://www.ferguson.com/product/islandaire-12%2C000-btu---ptac-heat-pump---dual-stage-3.4kw-electric-heat---208%2F230v---20a-iez42122231s46aa/8339719.html?searchIndex=0",
+    "Specification_Table": "<h2>Performance</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Cooling Capacity</td><td colspan=\"1\" rowspan=\"1\">12,500 BTU</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Heating Capacity (Heat Pump)</td><td colspan=\"1\" rowspan=\"1\">11,400 BTU</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Electric Heat Backup</td><td colspan=\"1\" rowspan=\"1\">3.4 kW</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Energy Efficiency Ratio (EER)</td><td colspan=\"1\" rowspan=\"1\">11.7</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Maximum Airflow</td><td colspan=\"1\" rowspan=\"1\">375 CFM</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Cooling Speeds</td><td colspan=\"1\" rowspan=\"1\">2</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Sound Level</td><td colspan=\"1\" rowspan=\"1\">45 dBA</td></tr></tbody></table><p><br></p><hr></hr><h2>Electrical Requirements</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Voltage</td><td colspan=\"1\" rowspan=\"1\">208/230 Volts</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Frequency</td><td colspan=\"1\" rowspan=\"1\">60 Hz</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Amperage</td><td colspan=\"1\" rowspan=\"1\">20 Amps</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Plug Type</td><td colspan=\"1\" rowspan=\"1\">NEMA 6-20P</td></tr></tbody></table><p><br></p><hr></hr><h2>Dimensions &amp; Weight</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Width</td><td colspan=\"1\" rowspan=\"1\">42&quot;</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Depth</td><td colspan=\"1\" rowspan=\"1\">19 7/8&quot;</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Height</td><td colspan=\"1\" rowspan=\"1\">16&quot;</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Shipping Weight</td><td colspan=\"1\" rowspan=\"1\">132 lbs</td></tr></tbody></table><p><br></p><hr></hr><h2>Design &amp; Construction</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Series</td><td colspan=\"1\" rowspan=\"1\">EZ 42</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Color</td><td colspan=\"1\" rowspan=\"1\">Bisque</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Chassis Type</td><td colspan=\"1\" rowspan=\"1\">Slide-Out</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Filter Type</td><td colspan=\"1\" rowspan=\"1\">Washable</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Air Filter Included</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Vented Outside</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Window Compatible</td><td colspan=\"1\" rowspan=\"1\">No</td></tr></tbody></table><p><br></p><hr></hr><h2>Certifications</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">AHRI Certified</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Energy Star Certified</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">NEMA Certified</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">UL Listed</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">cUL Listed</td><td colspan=\"1\" rowspan=\"1\">No</td></tr></tbody></table><p><br></p><hr></hr><h2>Additional Information</h2><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Specification</th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\">Value</th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Wi-Fi Enabled</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Thermostat Included</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Refrigerant Type</td><td colspan=\"1\" rowspan=\"1\">R410A</td></tr><tr><td colspan=\"1\" rowspan=\"1\">UPC</td><td colspan=\"1\" rowspan=\"1\">000008440900</td></tr></tbody></table><p><br></p>",
+    "UPC_Legacy": "000008440900",
+    "Category_Legacy": "Air Conditioner",
+    "Product_Description_Legacy": "The EZ42 Series units are designed and manufactured for new construction or the replacement of existing Amana, GE, LG, Friedrich, Gree, Trane and all other 42” by 16” PTACs & PTHPs. The product is designed for individually-zoned, comfort-controlled heating and cooling. The unit width is an industry standard 42”. We offer our cooling chassis to operate with cooling only or heat pump with back up electric heat, or just straight electric heat. The design standards, heavy duty construction and the focus on indoor noise reduction has created our unit as the premier unit of the future.",
+    "Features_Legacy": "<ul><li>EZ42122231S46AA EZ Series 42 PTAC Air Conditioner</li><li>12500 BTU Cooling Capacity, 11400 BTU Heat Pump, 3.4 kW Dual Stage Electric Heat, Dual Fan Motors</li><li>Washable Filters in Bisque</li><li>Gold Standard in Efficiency</li><li>Engineered for Tranquility</li><li>Effortless Humidity Control</li></ul>",
+    "Weight_Legacy": 132,
+    "Capacity_Legacy": 1,
+    "Height_Legacy": "16",
+    "Width_Legacy": "42",
+    "Depth_Legacy": "19 7/8",
+    "Product_Title_Legacy": null,
+    "Color_Finish_Legacy": "Bisque",
+    "MSRP_Legacy": null,
+    "Model_Number_Legacy": "EZ42122231S46AA",
+    "Brand_Legacy": "Islandaire",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: EZ42122231S46AA",
+      "status": "not_found",
+      "success": false
+    },
+    "SF_Catalog_Name": "EZ42122231S46AA",
+    "SF_Catalog_Id": "a03aZ00000yLCQhQAO"
+  },
+  "currentOutput": {
+    "AI_Brand": "Islandaire",
+    "AI_Product_Category": "Air Conditioner",
+    "AI_Type": "Through-Wall",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Bisque",
+    "AI_Finish": "Bisque",
+    "AI_Product_Title": "Islandaire Through-Wall Air Conditioner Bisque - EZ42122231S46AA"
+  }
+}

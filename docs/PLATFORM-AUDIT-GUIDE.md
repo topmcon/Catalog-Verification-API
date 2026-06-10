@@ -18,14 +18,15 @@
 | 0 | This guide written & methodology agreed | ✅ Done | 2026-06-09 | — |
 | G0 | Test baseline repair: jest green + tests wired into pre-deploy gate (§6.0) | ✅ Done | 2026-06-09 | 61/61 green; jest = critical CHECK #2 in `pre-deploy-validate-all.sh`; validator passes ALL 10 on prod. Evidence: `ACCEPTANCE-LOG.md` |
 | 1 | Corpus-wide deterministic scans + waste mining + config coverage | ✅ Done | 2026-06-09 | 19,113 jobs scanned; results + `PHASE-1-SUMMARY.md` in `audit-results/platform-audit/2026-06-09/` |
-| 2 | Calibrated sampled LLM audit + golden set creation | ⬜ Not started | — | Stratification inputs ready: Phase 1 summary §"What Phase 2 should take from this" |
+| 2 | Calibrated sampled LLM audit + golden set creation | 🟡 In progress | 2026-06-09 | Selection DONE: 49 SKUs, 14 strata, payloads + draft answers in `audit-results/golden-set/`. **Blocked on human review** (workflow: `audit-results/golden-set/README.md`). Then: calibration + L2 sampling |
 | 3 | Code / architecture / security review (static, local) | ⬜ Not started | — | Can run in parallel with Phase 2 |
 | 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | ⬜ Not started | — | Fixes logged as Findings |
 
-**Current next action**: Phase 2 (§6.2) — select the golden 50–100 SKUs using the Phase 1 strata (heavy-hit
-categories, both schema eras, all 4 scenarios, the #078 product set), export their stored payloads, draft
-golden answers for human sign-off, then calibrate the L2 auditor. Phase 3 (§6.3) can run in parallel.
-G0 is done — the fix gate (G1–G4) is live; code fixes may now ship through it. **Phase 1 headlines**: 85% of all AI spend = duplicate re-verifications
+**Current next action**: HUMAN — review `audit-results/golden-set/golden-answers.draft.json` per the
+workflow in `audit-results/golden-set/README.md` (49 SKUs; partial review is usable). In parallel, an
+agent session can run Phase 3 (§6.3 static code/security review) and build the golden harness scaffold
+(`scripts/golden-harness/`) so it's ready the moment answers are signed off. G0 is done — the fix gate
+(G1–G4) is live; code fixes may now ship through it. **Phase 1 headlines**: 85% of all AI spend = duplicate re-verifications
 (WST-04, ≈$820); style defaulting covers 70% of corpus (ACC-12); finish==color 39.7% (ACC-05); title-length
 rule violated 56.6% (ACC-01); research efficacy unmeasured — fieldsCaptured=0 on 100% of web-search/vision
 calls (WST-02/07). Scanner TODOs for next pass: era-split tables for ACC-07a/ACC-08, GAP-03 age buckets,

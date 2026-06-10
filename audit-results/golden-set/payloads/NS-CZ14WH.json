@@ -1,0 +1,59 @@
+{
+  "sf_catalog_id": "a03aZ00000o3d6UQAQ",
+  "sf_catalog_name": "NS-CZ14WH",
+  "createdAt": "2026-06-08T14:21:39.248Z",
+  "era": "ai",
+  "strata": [
+    "pinned_078",
+    "pinned_078"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000L7fwrQAB_20260216_104314.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000L7YgwQAF_20260216_104316.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000L7tlFQAR_20260216_104317.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000L7cR7QAJ_20260216_104317.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000L79CMQAZ_20260216_104318.jpg"
+      }
+    ],
+    "Reference_URL": "https://www.bestbuy.com/product/insignia-14-0-cu-ft-garage-ready-chest-freezer-white/J2FPJKY9X5",
+    "Ferguson_URL": null,
+    "Specification_Table": "<h4>Key Specs</h4><ul><li>Color Finish</li><li>White</li><li>Product Height</li><li>32 5/16 inches</li><li>Product Width</li><li>54 5/8 inches</li><li>Product Depth</li><li>28 1/4 inches</li><li>Capacity</li><li>14 cubic feet</li></ul><h4>General</h4><ul><li>Brand</li><li>Insignia™</li><li>Model Number</li><li>NS-CZ14WH2</li><li>Product Name</li><li>14.0 Cu. Ft. Garage-Ready Chest Freezer</li><li>Color</li><li>White</li><li>Color Finish</li><li>White</li></ul><h4>Dimensions</h4><ul><li>Product Height</li><li>32 5/16 inches</li><li>Product Width</li><li>54 5/8 inches</li><li>Product Depth</li><li>28 1/4 inches</li><li>Product Weight</li><li>112.4 pounds</li></ul><h4>Capacity</h4><ul><li>Capacity</li><li>14 cubic feet</li></ul><h4>Features</h4><ul><li>Freezer Type</li><li>Chest</li><li>Convertible To Refrigerator</li><li>No</li><li>Defrost Type</li><li>Manual</li><li>Temperature Control Type</li><li>Adjustable, Mechanical Dial</li><li>Control Location</li><li>Exterior</li><li>Garage Ready</li><li>Yes</li><li>Child Lock</li><li>Yes</li><li>Power-On Indicator Light(s)</li><li>Yes</li><li>Interior Light(s)</li><li>Yes</li><li>Adjustable Leveling Legs</li><li>Yes</li></ul><h4>Included</h4><ul><li>Number of Bulk Storage Baskets</li><li>3</li><li>Storage Basket Type</li><li>Lift-out</li><li>Drain Included</li><li>No</li><li>Power Cord Included</li><li>Yes</li></ul><h4>Performance</h4><ul><li>Temperature Range (Freezer)</li><li>*-11° to 10° F (-24° to -12° C)</li><li>Minimum Operating Temperature</li><li>0 degrees fahrenheit</li><li>Maximum Operating Temperature</li><li>110 degrees fahrenheit</li></ul><h4>Electrical Specification</h4><ul><li>Estimated Annual Operating Cost</li><li>40 United States dollars</li><li>Amperage</li><li>2 amperes</li><li>Voltage</li><li>115 volts</li></ul><h4>Certifications Listings &amp; Approvals</h4><ul><li>ENERGY STAR Certified</li><li>No</li><li>Consortium for Energy Efficiency (CEE) Rating</li><li>CEE Not Qualified</li></ul><h4>Warranty</h4><ul><li>Warranty - Parts</li><li>1 year limited</li><li>Warranty - Labor</li><li>1 year limited</li></ul><p><br></p>",
+    "UPC_Legacy": "600603273247",
+    "Category_Legacy": "Freezer",
+    "Product_Description_Legacy": "The Insignia 14.0 Cu. Ft. Garage-Ready Chest Freezer has three removable wire baskets allowing you to keep plenty of bulky foods at the bottom and smaller foods organized on top. An interior LED light makes it simple for you to find the items you’re looking for, and when you’re done, simply lock the freezer to keep both your children and your food safe. It’s easy to operate—just turn a knob to adjust the temperature. A defrost drain easily removes the water for when your freezer needs cleaning.",
+    "Features_Legacy": "<h4>14 cu. ft. storage capacity</h4><ul><li>Gives you plenty of storage space for meat, frozen meals, treats and more.</li></ul><h4>Garage ready</h4><ul><li>Works in temperatures from 0° to 110° F.</li></ul><h4>Organized storage</h4><ul><li>Three wire baskets keep smaller frozen foods on top for easy reach.</li></ul><h4>Lit interior</h4><ul><li>An interior LED light makes it easier for you to find what you are looking for.</li></ul><h4>Defrost drain</h4><ul><li>Easily removes water while defrosting your freezer.</li></ul><h4>Protective lock</h4><ul><li>Keeps your children out of the freezer and its contents safe.</li></ul><h4>Temperature control</h4><ul><li>With just a turn of a knob, easily adjust the temperature from -11° to 10° F.</li></ul><h4>Energy efficient</h4><ul><li>DOE certifications help reduce your environmental impact while saving money.</li></ul>",
+    "Weight_Legacy": 112.4,
+    "Capacity_Legacy": 14,
+    "Height_Legacy": "32 5/16",
+    "Width_Legacy": "54 5/8",
+    "Depth_Legacy": "28 1/4",
+    "Product_Title_Legacy": "Insignia 36-Inch Chest Freezer White 14 Cu. Ft. - NS-CZ14WH2",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 749.99,
+    "Model_Number_Legacy": "NS-CZ14WH",
+    "Brand_Legacy": "THERMADOR",
+    "SF_Catalog_Name": "NS-CZ14WH",
+    "SF_Catalog_Id": "a03aZ00000o3d6UQAQ"
+  },
+  "currentOutput": {
+    "AI_Brand": "INSIGNIA",
+    "AI_Product_Category": "Freezer",
+    "AI_Type": "Chest",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White",
+    "AI_Finish": "",
+    "AI_Product_Title": "Insignia 54-Inch Chest Freezer White 14 Cu. Ft. - NS-CZ14WH"
+  }
+}

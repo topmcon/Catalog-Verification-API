@@ -1,0 +1,1401 @@
+{
+  "sf_catalog_id": "a03Hu00001N2BCLIA3",
+  "sf_catalog_name": "DLE6100W",
+  "createdAt": "2026-05-08T14:06:25.513Z",
+  "era": "ai",
+  "strata": [
+    "finish_plain_color"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2023/10/51833b284983d1c92eb149ac743c5ed6.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2024/07/33c2bbdc7bbed1b25a46c28c0c1b8c13.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/c3f9d2d6439a37b4965c58fa9e7ef2ba.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/fed12e8444fc1b26734cdaa0e1b14169.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/8db105b23515e747932113f2cbf6b2b6.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/eb4d87a753eb71a4cdf02570faab5614.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/d4c9677eb277e0c1b47638164fc34161.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/ee88739c9b58142fd571bcebfddcca9b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/827f87b1c4f04d752080c043163d153b.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/52526d7c3c553cc1e19c03366a0e995e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/1922e7f8bf9d53cbf9e144828ee4046e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/07/ae82e76ef905d4f25c349fe765e608cd.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/06/6a1d44957c680bff885d930833e5a1d9.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/0f5fab6f48ffd68c8d9e6ca3fdfc6a2e.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3d60134d7daf5a2d2dbd0d0381fcfc67.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/3101f68d33f26d7541489b23407bec97.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/670eee8b759f5d52139d51a823098b65.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/35a8a945421b55b83d08cefe836f9287.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/05/b783c9ac267b64adfa4b2628cc6ff4a7.jpg"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": "https://www.fergusonhome.com/lg-dle6100/s1898002",
+    "Specification_Table": "<table class=\"inline_sd_table\"><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Body Color</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">White</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Drum Side</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Alcosta</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Capacity(cu. ft.)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">7.3</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Display Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Full Touch LED</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Delay Timer</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Type</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Vented Dryer</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>DUAL Inverter HeatPump</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Inverter DirectDrive</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>AI Sensor Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Auto Cleaning Condenser</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>TurboSteam</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>SteamFresh</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>EasyLoad Door</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>FlowSense Duct Clogging Indicator</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>3 Minute Installation Check</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>End of Cycle Signal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>LoadSense</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Empty Water Indicator</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>NeveRust Stainless Steel Drum (drum side)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>ENERGY STAR® Qualified</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>ENERGY STAR® Most Efficient</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>AI Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Heavy Duty</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Small Load</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Steam Sanitary</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Perm. Press</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Air Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Freshen Up</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Heated Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Delicates</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">Yes</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Rack Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Power Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dry Mode</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Temp.</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">3 Levels</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>More Time</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Wrinkle Care</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Steam</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Signal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Remote Start</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Condenser Care</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Reduce Static</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Damp Dry Signal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Rack Dry</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>ThinQ(Wi-Fi)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Download Cycle</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Energy Monitoring</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Proactive Customer Care</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">No</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Electrical Requirements</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">115/230V, 60Hz, 24A</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Dimensions (WxHxD inch)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">27 x 44 1/2 x 29 1/2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Carton Dimensions (WxHxD inch)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">29 x 31 27/64 x 46 1/2</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Weight include packing (lbs)</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">114.6</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\"><b>Matching Pedestal</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_odd_cell\">NA</td></tr><tr class=\"inline_sd_cell_row\"><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\"><b>Bar Code</b></td><td colspan=\"1\" rowspan=\"1\" class=\"inline_sd_even_cell\">195174056479</td></tr></table>",
+    "UPC_Legacy": "195174056479",
+    "Category_Legacy": "Dryer",
+    "Product_Description_Legacy": "Eliminate the Guesswork with Sensor Dry A built-in sensor detects moisture & adjusts drying time - saving energy with less wear & tear. Warranty / Certifications ENERGY STAR(R) Certified Smooth, Quiet Performance Designed for quiet operation, run the dryer without interrupting naptime or your favorite show. Get It All Done In Less Time Ultra Large Capacity (7.3 cu.ft.) means you have even more room to do laundry in fewer loads. Reversible Door for Installation Options When space is tight, the reversible door can go from right swing to left to fit almost any space. Measure First, Order Right. Nothing is more frustrating than an appliance that doesn't fit. We'll help you find the right one for your space. Watch the Full Movie with Audio Descriptions Watch the Full Movie FlowSense(R) Duct Clogging Indicator Know when it's time to clean the ducts to ensure great drying & lower utility bills. Here to help Smart Diagnosis helps the service center diagnose problems over the phone, or with the ThinQ app on your smartphone , helping you minimize inconvenient service calls.",
+    "Features_Legacy": "<ul><li>Built-in sensor detects moisture and auto adjusts drying time to save energy.ENERGY STAR Certified.</li><li>7.3 cu. ft. Ultra Large Capacity means you have even more room to do laundry in fewer loads.</li><li>FlowSense(R) Duct Clogged Indicator</li><li>Dial-A-Cycle(R) control knob with LED Display Electronic Control Panel</li><li>LG Smart Diagnosis Dryer</li><li>Reversible Door, LP Conversion Kit &amp; Side Venting Kit available</li></ul>",
+    "Weight_Legacy": 121.6,
+    "Capacity_Legacy": 7.3,
+    "Height_Legacy": "44 1/2",
+    "Width_Legacy": "27",
+    "Depth_Legacy": "29 1/2",
+    "Product_Title_Legacy": "7.3 cu. ft. Ultra Large Capacity Rear Control Electric Energy Star Dryer with Sensor Dry",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 989,
+    "Model_Number_Legacy": "DLE6100W",
+    "Brand_Legacy": "LG",
+    "Ferguson_Raw_Data": {
+      "metadata": {
+        "data_sources": "merged_search_and_detail",
+        "api_version": "ferguson_complete_v1",
+        "timestamp": "2026-03-03T14:18:53.416576"
+      },
+      "search_meta_data": {
+        "business_category": "Laundry",
+        "base_category": "Appliances",
+        "corrected_search_term": null,
+        "search_engine": "FUSION",
+        "search_id": "btDU7iBt64"
+      },
+      "performance": {
+        "total_time": "3.30s",
+        "step3_detail_time": "1.38s",
+        "step2_match_time": "0.00s",
+        "step1_search_time": "1.92s"
+      },
+      "steps_completed": {
+        "3_detail_fetch": "✓",
+        "2_variant_match": "✓",
+        "1_search": "✓"
+      },
+      "credits_used": 20,
+      "product": {
+        "is_by_appointment_only": false,
+        "replacement_parts_url": null,
+        "has_replacement_parts": false,
+        "has_accessories": false,
+        "recommended_options": [
+          {
+            "image_url": "https://s1.img-b.com/build.com/storemedia/requiredicons/isepowercord.gif",
+            "label": "Power Cord Required"
+          }
+        ],
+        "has_recommended_options": true,
+        "is_appointment_only_brand": false,
+        "shipping_info": "",
+        "is_quick_ship": false,
+        "collection": null,
+        "questions_count": 0,
+        "total_reviews": 312,
+        "review_count": 312,
+        "total_ratings": 312,
+        "rating": 4.2,
+        "related_categories": [
+          {
+            "url": "https://www.fergusonhome.com/lg-sales/c112935",
+            "name": "LG Sale!",
+            "id": 112935
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-washer-dryer-combos/c130069",
+            "name": "Washer/Dryer Combos",
+            "id": 130069
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-washers/c110884",
+            "name": "Washers",
+            "id": 110884
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-dryers/c110885",
+            "name": "Dryers",
+            "id": 110885
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-laundry-packages/c82045898",
+            "name": "Laundry Packages",
+            "id": 82045898
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-refrigerators/c110878",
+            "name": "Refrigerators",
+            "id": 110878
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-ranges/c110881",
+            "name": "Ranges",
+            "id": 110881
+          }
+        ],
+        "business_category": "Laundry",
+        "base_category": "Appliances",
+        "categories": [
+          {
+            "url": "https://www.fergusonhome.com/brands/c109293",
+            "name": "Brands"
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-appliances/c110874",
+            "name": "LG"
+          },
+          {
+            "url": "https://www.fergusonhome.com/lg-dryers/c110885",
+            "name": "Dryers"
+          }
+        ],
+        "resources": [
+          {
+            "id": "lg-dle6100-warranty",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/lg/1898002/lg-dle6100-warranty.pdf",
+            "name": "Warranty"
+          },
+          {
+            "id": "lg-dle6100-owners-manual",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/lg/1898002/lg-dle6100-owners-manual.pdf",
+            "name": "Owner's Manual"
+          },
+          {
+            "id": "lg-dle6100-installation-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/lg/1898002/lg-dle6100-installation-sheet.pdf",
+            "name": "Installation Sheet"
+          },
+          {
+            "id": "lg-dle6100-specification-sheet",
+            "url": "https://s1.img-b.com/build.com/mediabase/specifications/lg/1898002/lg-dle6100-specification-sheet.pdf",
+            "name": "Specification Sheet"
+          }
+        ],
+        "manufacturer_warranty": "1 Year Parts and Labor, 3 Year Drum",
+        "warranty": "",
+        "country_of_origin": "USA",
+        "certifications": [
+          "CSA"
+        ],
+        "barcode": null,
+        "upc": null,
+        "attribute_ids": [
+          {
+            "value": "440",
+            "name": "Depth"
+          },
+          {
+            "value": "5130",
+            "name": "Depth with Door Open"
+          },
+          {
+            "value": "803",
+            "name": "Height"
+          },
+          {
+            "value": "5035",
+            "name": "Nominal Depth"
+          },
+          {
+            "value": "5036",
+            "name": "Nominal Height"
+          },
+          {
+            "value": "2735",
+            "name": "Nominal Width"
+          },
+          {
+            "value": "3665",
+            "name": "Product Weight"
+          },
+          {
+            "value": "1688",
+            "name": "Total Capacity"
+          },
+          {
+            "value": "1837",
+            "name": "Width"
+          },
+          {
+            "value": "4641",
+            "name": "Control Type"
+          },
+          {
+            "value": "4639",
+            "name": "Display Type"
+          },
+          {
+            "value": "9461",
+            "name": "Door Features"
+          },
+          {
+            "value": "482",
+            "name": "Door Swing"
+          },
+          {
+            "value": "5138",
+            "name": "End of Cycle Indicator"
+          },
+          {
+            "value": "9171",
+            "name": "Fingerprint Resistant"
+          },
+          {
+            "value": "5399",
+            "name": "Interior Material"
+          },
+          {
+            "value": "1489",
+            "name": "Sensor Dry"
+          },
+          {
+            "value": "1594",
+            "name": "Stackable"
+          },
+          {
+            "value": "5921",
+            "name": "Steam Technology"
+          },
+          {
+            "value": "1765",
+            "name": "Vent Type"
+          },
+          {
+            "value": "40",
+            "name": "Amperage"
+          },
+          {
+            "value": "701",
+            "name": "Fuel Type"
+          },
+          {
+            "value": "9279",
+            "name": "Number of Dry Cycles"
+          },
+          {
+            "value": "1655",
+            "name": "Temperature Settings"
+          },
+          {
+            "value": "1775",
+            "name": "Voltage"
+          },
+          {
+            "value": "22",
+            "name": "ADA"
+          },
+          {
+            "value": "3884",
+            "name": "Approved for Commercial Use"
+          },
+          {
+            "value": "6122",
+            "name": "Certifications"
+          },
+          {
+            "value": "384",
+            "name": "Country Of Origin"
+          },
+          {
+            "value": "584",
+            "name": "Energy Star"
+          },
+          {
+            "value": "5676",
+            "name": "Made in America"
+          },
+          {
+            "value": "2592",
+            "name": "Manufacturer Warranty"
+          },
+          {
+            "value": "4686",
+            "name": "Title 20 Compliant"
+          }
+        ],
+        "dimensions": {
+          "width": "27 in.",
+          "height": "44.5 in.",
+          "depth": "29.5 in."
+        },
+        "feature_groups": [
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The distance from the back of the product to the front of the product, measured in inches.",
+                "units": "in.",
+                "value": "29.5",
+                "name": "Depth"
+              },
+              {
+                "featured": false,
+                "description": "The measurement from back to front with the door open, measured in inches.",
+                "units": "in.",
+                "value": "49.6",
+                "name": "Depth with Door Open"
+              },
+              {
+                "featured": false,
+                "description": "The vertical measurement from bottom to top, measured in inches.",
+                "units": "in.",
+                "value": "44.5",
+                "name": "Height"
+              },
+              {
+                "featured": true,
+                "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "30",
+                "name": "Nominal Depth"
+              },
+              {
+                "featured": true,
+                "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "44",
+                "name": "Nominal Height"
+              },
+              {
+                "featured": true,
+                "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+                "units": "in.",
+                "value": "27",
+                "name": "Nominal Width"
+              },
+              {
+                "featured": false,
+                "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+                "units": "lbs.",
+                "value": "111.3",
+                "name": "Product Weight"
+              },
+              {
+                "featured": false,
+                "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+                "units": "cu. ft.",
+                "value": "7.3",
+                "name": "Total Capacity"
+              },
+              {
+                "featured": false,
+                "description": "The horizontal measurement from left to right, measured in inches.",
+                "units": "in.",
+                "value": "27",
+                "name": "Width"
+              }
+            ],
+            "name": "Dimensions and Measurements"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Indicates how the user will control the operational features for this product.",
+                "units": null,
+                "value": "Knob",
+                "name": "Control Type"
+              },
+              {
+                "featured": false,
+                "description": "The type of display this product has.",
+                "units": null,
+                "value": "LED",
+                "name": "Display Type"
+              },
+              {
+                "featured": false,
+                "description": "Distinctive attributes or aspects of the product's door.",
+                "units": null,
+                "value": "Door Lock",
+                "name": "Door Features"
+              },
+              {
+                "featured": false,
+                "description": "The direction the door will swing when opening.",
+                "units": null,
+                "value": "Left, Reversible, Right",
+                "name": "Door Swing"
+              },
+              {
+                "featured": false,
+                "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+                "units": null,
+                "value": "Yes",
+                "name": "End of Cycle Indicator"
+              },
+              {
+                "featured": false,
+                "description": "Finish will resist fingerprints and other smudges.",
+                "units": null,
+                "value": "No",
+                "name": "Fingerprint Resistant"
+              },
+              {
+                "featured": false,
+                "description": "The material used in the interior construction of the product.",
+                "units": null,
+                "value": "Aluminized Steel",
+                "name": "Interior Material"
+              },
+              {
+                "featured": false,
+                "description": "Whether the dryer includes a sensor to alert the user their item's are dry.",
+                "units": null,
+                "value": "Yes",
+                "name": "Sensor Dry"
+              },
+              {
+                "featured": true,
+                "description": "Whether the product can be stacked with similar products to save space.",
+                "units": null,
+                "value": "No",
+                "name": "Stackable"
+              },
+              {
+                "featured": true,
+                "description": "Whether this product includes steam technology. Steam technology is often used in cleaning applications and helps remove heavy stains without the need for harsh chemicals.",
+                "units": null,
+                "value": "No",
+                "name": "Steam Technology"
+              },
+              {
+                "featured": false,
+                "description": "The type of vent that the product uses.",
+                "units": null,
+                "value": "4 Way Venting",
+                "name": "Vent Type"
+              }
+            ],
+            "name": "Characteristics and Features"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+                "units": null,
+                "value": "30",
+                "name": "Amperage"
+              },
+              {
+                "featured": true,
+                "description": "The type of fuel that powers the product.",
+                "units": null,
+                "value": "Electric",
+                "name": "Fuel Type"
+              },
+              {
+                "featured": true,
+                "description": "The total number of drying cycles this product can perform.",
+                "units": null,
+                "value": "5",
+                "name": "Number of Dry Cycles"
+              },
+              {
+                "featured": false,
+                "description": "The number of temperature settings that this product is capable of.",
+                "units": null,
+                "value": "3",
+                "name": "Temperature Settings"
+              },
+              {
+                "featured": false,
+                "description": "The electrical requirement to power this product, measured in volts.",
+                "units": null,
+                "value": "240",
+                "name": "Voltage"
+              }
+            ],
+            "name": "Electrical and Operational Information"
+          },
+          {
+            "features": [
+              {
+                "featured": false,
+                "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+                "units": null,
+                "value": "No",
+                "name": "ADA"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is rated for use in commercial applications.",
+                "units": null,
+                "value": "No",
+                "name": "Approved for Commercial Use"
+              },
+              {
+                "featured": false,
+                "description": "The certifications this product has received.",
+                "units": null,
+                "value": "CSA",
+                "name": "Certifications"
+              },
+              {
+                "featured": false,
+                "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+                "units": null,
+                "value": "USA",
+                "name": "Country Of Origin"
+              },
+              {
+                "featured": true,
+                "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+                "units": null,
+                "value": "Yes",
+                "name": "Energy Star"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product was manufactured in the United States of America.",
+                "units": null,
+                "value": "Yes",
+                "name": "Made in America"
+              },
+              {
+                "featured": false,
+                "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+                "units": null,
+                "value": "1 Year Parts and Labor, 3 Year Drum",
+                "name": "Manufacturer Warranty"
+              },
+              {
+                "featured": false,
+                "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+                "units": null,
+                "value": "Yes",
+                "name": "Title 20 Compliant"
+              }
+            ],
+            "name": "Warranty and Product Information"
+          }
+        ],
+        "specifications": {
+          "title_20_compliant": {
+            "description": "Whether this product is Title 20 compliant as listed by the Appliance Efficiency Program.",
+            "units": null,
+            "value": "Yes"
+          },
+          "manufacturer_warranty": {
+            "description": "The terms and conditions of the warranty provided for the product from the manufacturer.",
+            "units": null,
+            "value": "1 Year Parts and Labor, 3 Year Drum"
+          },
+          "made_in_america": {
+            "description": "Whether this product was manufactured in the United States of America.",
+            "units": null,
+            "value": "Yes"
+          },
+          "energy_star": {
+            "description": "The product has been independently certified to ensure it meets ENERGY STAR's requirements.",
+            "units": null,
+            "value": "Yes"
+          },
+          "country_of_origin": {
+            "description": "The country of manufacture or assembly for the product, before it was shipped to the USA for sale.",
+            "units": null,
+            "value": "USA"
+          },
+          "certifications": {
+            "description": "The certifications this product has received.",
+            "units": null,
+            "value": "CSA"
+          },
+          "approved_for_commercial_use": {
+            "description": "Whether this product is rated for use in commercial applications.",
+            "units": null,
+            "value": "No"
+          },
+          "ada": {
+            "description": "Whether this product is certified as meeting the guidelines set forth by the Americans with Disabilities Act (ADA), which allow users with physical or other disabilities to use the product independently.",
+            "units": null,
+            "value": "No"
+          },
+          "voltage": {
+            "description": "The electrical requirement to power this product, measured in volts.",
+            "units": null,
+            "value": "240"
+          },
+          "temperature_settings": {
+            "description": "The number of temperature settings that this product is capable of.",
+            "units": null,
+            "value": "3"
+          },
+          "number_of_dry_cycles": {
+            "description": "The total number of drying cycles this product can perform.",
+            "units": null,
+            "value": "5"
+          },
+          "fuel_type": {
+            "description": "The type of fuel that powers the product.",
+            "units": null,
+            "value": "Electric"
+          },
+          "amperage": {
+            "description": "The strength of the electrical current that will be drawn by this product, measured in amperes.",
+            "units": null,
+            "value": "30"
+          },
+          "vent_type": {
+            "description": "The type of vent that the product uses.",
+            "units": null,
+            "value": "4 Way Venting"
+          },
+          "steam_technology": {
+            "description": "Whether this product includes steam technology. Steam technology is often used in cleaning applications and helps remove heavy stains without the need for harsh chemicals.",
+            "units": null,
+            "value": "No"
+          },
+          "stackable": {
+            "description": "Whether the product can be stacked with similar products to save space.",
+            "units": null,
+            "value": "No"
+          },
+          "sensor_dry": {
+            "description": "Whether the dryer includes a sensor to alert the user their item's are dry.",
+            "units": null,
+            "value": "Yes"
+          },
+          "interior_material": {
+            "description": "The material used in the interior construction of the product.",
+            "units": null,
+            "value": "Aluminized Steel"
+          },
+          "fingerprint_resistant": {
+            "description": "Finish will resist fingerprints and other smudges.",
+            "units": null,
+            "value": "No"
+          },
+          "end_of_cycle_indicator": {
+            "description": "Whether the product includes an alarm or notification to indicate that the cycle has ended.",
+            "units": null,
+            "value": "Yes"
+          },
+          "door_swing": {
+            "description": "The direction the door will swing when opening.",
+            "units": null,
+            "value": "Left, Reversible, Right"
+          },
+          "door_features": {
+            "description": "Distinctive attributes or aspects of the product's door.",
+            "units": null,
+            "value": "Door Lock"
+          },
+          "display_type": {
+            "description": "The type of display this product has.",
+            "units": null,
+            "value": "LED"
+          },
+          "control_type": {
+            "description": "Indicates how the user will control the operational features for this product.",
+            "units": null,
+            "value": "Knob"
+          },
+          "width": {
+            "description": "The horizontal measurement from left to right, measured in inches.",
+            "units": "in.",
+            "value": "27"
+          },
+          "total_capacity": {
+            "description": "The total dimensional size and space of the interior or storage portion of the product, measured in cubic feet.",
+            "units": "cu. ft.",
+            "value": "7.3"
+          },
+          "product_weight": {
+            "description": "The actual weight of the product without any shipping materials, measured in pounds.",
+            "units": "lbs.",
+            "value": "111.3"
+          },
+          "nominal_width": {
+            "description": "The overall horizontal left to right measurement rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "27"
+          },
+          "nominal_height": {
+            "description": "The height of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "44"
+          },
+          "nominal_depth": {
+            "description": "The depth of the product rounded to the nearest industry standard size, measured in inches.",
+            "units": "in.",
+            "value": "30"
+          },
+          "height": {
+            "description": "The vertical measurement from bottom to top, measured in inches.",
+            "units": "in.",
+            "value": "44.5"
+          },
+          "depth_with_door_open": {
+            "description": "The measurement from back to front with the door open, measured in inches.",
+            "units": "in.",
+            "value": "49.6"
+          },
+          "depth": {
+            "description": "The distance from the back of the product to the front of the product, measured in inches.",
+            "units": "in.",
+            "value": "29.5"
+          }
+        },
+        "is_discontinued": false,
+        "description": "<p><strong>Features:</strong></p><ul><li>Dryer has a total capacity of 7.3 cu. ft.</li><li>Choose from 5 cycle options and 3 temperature settings</li><li>Led display with knob controls</li><li>Dryer is Energy Star Certified</li><li>When space is tight, the reversible door can go from right swing to left to fit almost any space</li><li>Built-in sensor detects moisture levels and automatically adjusts drying time for loads of all sizes</li><li>FlowSense Duct Clogging and Lint Filter Indicators let you know when your ducts and filter need cleaning to avoid lint buildup, improve the dryer’s performance for greater efficiency and lower utility bills, and help give you safer, worry-free operation with fewer service calls</li><li>High efficiency sensor drying and low-heat settings save energy and money by using about 20% less energy than conventional models without sacrificing features or performance</li><li>An advanced aluminized alloy coating is added to the steel dryer drum to enhance durability and maintain its luster and attractive finish. Helps keep nicks and chips at bay so your dryer looks like new even after years of use</li><li>Covered under 1 year parts and labor and 3 year drum manufacturer warranties</li></ul><p><strong>Specifications:</strong></p><ul><li>Total Capacity: 7.3 Cu. Ft.</li><li>Number of Dry Cycles: 5</li><li>Number of Temperature Settings: 3</li><li>Dryer Type: Electric</li><li>Sensor Dry: Yes</li><li>Reversible Door: Yes</li><li>Depth: 29-1/2\"</li><li>Height: 44-1/2\"</li><li>Width: 27\"</li></ul>",
+        "videos": [],
+        "thumbnail": "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100w-4940912.jpg",
+        "images": [
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-93.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-94.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-95.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-96.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-97.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-98.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-99.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-100.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-101.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-102.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-103.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-104.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-105.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-106.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-107.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-alternate-image-108.jpg",
+          "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100-at-4071-109.jpg"
+        ],
+        "configuration_type": "WITH_NESTED_PRODUCTS",
+        "is_square_footage_based": false,
+        "is_configurable": true,
+        "in_stock_variant_count": 1,
+        "total_inventory_quantity": 2573,
+        "all_variants_restricted": false,
+        "all_variants_in_stock": true,
+        "has_in_stock_variants": true,
+        "has_variant_groups": false,
+        "variant_count": 2,
+        "variants": [
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "LG 27 Inch Wide 7.3 Cu. Ft. Energy Star Certified Electric Dryer with Sensor Dry and Lint Filter Indicator Grey",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100m-8417017.jpg"
+            },
+            "currency": "USD",
+            "price": 829,
+            "swatch_gradient": "",
+            "title": "Grey",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 3 to 6 weeks",
+              "Leaves the Warehouse in 3 to 6 weeks"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 3 to 6 weeks",
+            "shipping_lead_time": "Leaves the Warehouse in 3 to 6 weeks",
+            "availability_status": "in_stock",
+            "in_stock": false,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "DEE2E6",
+            "inventory_quantity": 0,
+            "url": "https://www.fergusonhome.com/lg-dle6100/s1898002?uid=4837619",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100m-8417017.jpg"
+            ],
+            "model_number": "DLE6100M",
+            "name": "Grey",
+            "id": 4837619
+          },
+          {
+            "bundle_items": [],
+            "image_info": {
+              "description": "LG 27 Inch Wide 7.3 Cu. Ft. Energy Star Certified Electric Dryer with Sensor Dry and Lint Filter Indicator White",
+              "type": "private",
+              "url": "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100w-4940912.jpg"
+            },
+            "currency": "USD",
+            "price": 609,
+            "swatch_gradient": "",
+            "title": "White",
+            "shipping_info": [
+              "Free Shipping!",
+              "Leaves the Warehouse in 5 to 7 business days",
+              "Leaves the Warehouse in 5 to 7 business days"
+            ],
+            "shipping_message": "Free Shipping!",
+            "estimated_delivery": "Leaves the Warehouse in 5 to 7 business days",
+            "shipping_lead_time": "Leaves the Warehouse in 5 to 7 business days",
+            "availability_status": "in_stock",
+            "in_stock": true,
+            "is_quick_ship": false,
+            "is_made_to_order": false,
+            "has_free_shipping": false,
+            "color": "ffffff",
+            "inventory_quantity": 2573,
+            "url": "https://www.fergusonhome.com/lg-dle6100/s1898002?uid=4484601",
+            "images": [
+              "https://www.fergusonhome.com/content/dam/ferguson/product/lg/lg-dle6100w-4940912.jpg"
+            ],
+            "model_number": "DLE6100W",
+            "name": "White",
+            "id": 4484601
+          }
+        ],
+        "has_free_installation": false,
+        "shipping_fee": 0,
+        "base_type": "Laundry Appliances",
+        "currency": "USD",
+        "price_range": {
+          "has_range": true,
+          "max": 829,
+          "min": 609
+        },
+        "price_type": "STANDARD",
+        "unit_price": null,
+        "price_max": 829,
+        "price_min": 609,
+        "price": 829,
+        "application": "Dryers",
+        "product_type": "Laundry Appliances",
+        "url": "https://www.fergusonhome.com/lg-dle6100/s1898002",
+        "parent_model_number": "DLE6100",
+        "model_number": "DLE6100W",
+        "brand_logo": {
+          "description": "LG",
+          "url": "https://www.fergusonhome.com/mediabase/Manufacturers/lg/Logo/lg.gif"
+        },
+        "brand_url": "https://www.fergusonhome.com/lg-appliances/c110874",
+        "brand": "LG",
+        "name": "27 Inch Wide 7.3 Cu. Ft. Energy Star Certified Electric Dryer with Sensor Dry and Lint Filter Indicator",
+        "family_id": 1898002,
+        "id": 1898002
+      },
+      "variant_url": "https://www.fergusonhome.com/lg-dle6100/s1898002?uid=4484601",
+      "match_type": "exact",
+      "matched_model": "DLE6100W",
+      "model_number": "DLE6100W",
+      "product_found": true,
+      "success": true
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": "27\" x 44 1/2\" x 29 1/2\"",
+        "name": "Product (WxHxD)"
+      },
+      {
+        "value": "No",
+        "name": "Empty Water Indicator"
+      },
+      {
+        "value": "No",
+        "name": "Heated Dry"
+      },
+      {
+        "value": "Yes",
+        "name": "ENERGY STAR(R) Most Efficient"
+      },
+      {
+        "value": "No",
+        "name": "Small Load"
+      },
+      {
+        "value": "High, Medium, Low",
+        "name": "Temperature Settings"
+      },
+      {
+        "value": "No",
+        "name": "Auto Cleaning Condenser"
+      },
+      {
+        "value": "Solid / White",
+        "name": "Door / Rim"
+      },
+      {
+        "value": "Yes",
+        "name": "FlowSense(TM) Duct Clogging Indicator"
+      },
+      {
+        "value": "No",
+        "name": "ThinQ UP(TM)"
+      },
+      {
+        "value": "No",
+        "name": "Condenser Care"
+      },
+      {
+        "value": "No",
+        "name": "Reduce Static"
+      },
+      {
+        "value": "Yes",
+        "name": "4 Adjustable Legs"
+      },
+      {
+        "value": "White",
+        "name": "Body Color"
+      },
+      {
+        "value": "Yes",
+        "name": "Perm. Press"
+      },
+      {
+        "value": "Yes",
+        "name": "LoDecibel(TM) Quiet Operation"
+      },
+      {
+        "value": "White",
+        "name": "Product Color"
+      },
+      {
+        "value": "Yes",
+        "name": "Touch Buttons"
+      },
+      {
+        "value": "Yes",
+        "name": "Delicates"
+      },
+      {
+        "value": "Yes",
+        "name": "3 Minute Installation Check"
+      },
+      {
+        "value": "No",
+        "name": "Download Cycle"
+      },
+      {
+        "value": "3.94",
+        "name": "CEF"
+      },
+      {
+        "value": "CSA Listed",
+        "name": "Ratings"
+      },
+      {
+        "value": "Yes",
+        "name": "Leveling Legs"
+      },
+      {
+        "value": "Yes",
+        "name": "SmartDiagnosis(TM) (v3.0)"
+      },
+      {
+        "value": "No",
+        "name": "Remote Start"
+      },
+      {
+        "value": "Control Lock, Damp Dry Signal, Energy Saver",
+        "name": "Dryer Options"
+      },
+      {
+        "value": "Yes",
+        "name": "Precise Temperature Control with Variable Heater"
+      },
+      {
+        "value": "114.6",
+        "name": "Weight include packing (lbs)"
+      },
+      {
+        "value": "3 Years",
+        "name": "Drum"
+      },
+      {
+        "value": "No",
+        "name": "DUAL Inverter HeatPump"
+      },
+      {
+        "value": "20 min., 40 min., 60min.",
+        "name": "Manual Dry Times"
+      },
+      {
+        "value": "No",
+        "name": "Steam"
+      },
+      {
+        "value": "Yes",
+        "name": "End of Cycle Signal"
+      },
+      {
+        "value": "No",
+        "name": "LoadSense"
+      },
+      {
+        "value": "Painted",
+        "name": "Tub Rear"
+      },
+      {
+        "value": "N/A",
+        "name": "LP Conversion Kit"
+      },
+      {
+        "value": "121.6 lbs",
+        "name": "Weight (Carton)"
+      },
+      {
+        "value": "No",
+        "name": "TurboSteam"
+      },
+      {
+        "value": "No",
+        "name": "Signal"
+      },
+      {
+        "value": "27\"",
+        "name": "Width"
+      },
+      {
+        "value": "3",
+        "name": "No. of Dryer Options"
+      },
+      {
+        "value": "No",
+        "name": "ThinQ Care(TM)"
+      },
+      {
+        "value": "Yes",
+        "name": "Sensor Dry"
+      },
+      {
+        "value": "No",
+        "name": "Drum Light"
+      },
+      {
+        "value": "No",
+        "name": "Steam Sanitary"
+      },
+      {
+        "value": "Yes",
+        "name": "Remaining Time Display/Status Indicator(s)"
+      },
+      {
+        "value": "No",
+        "name": "Cycle Monitoring and Notification"
+      },
+      {
+        "value": "No",
+        "name": "SteamFresh"
+      },
+      {
+        "value": "Air Dry (Manual Dry), Perm. Press, Delicates, Heavy Duty, Normal",
+        "name": "Dryer Programs"
+      },
+      {
+        "value": "No",
+        "name": "Rack Dry"
+      },
+      {
+        "value": "No",
+        "name": "ThinQ(R) Smart Technology"
+      },
+      {
+        "value": "27 x 44 1/2 x 29 1/2",
+        "name": "Dimensions (WxHxD inch)"
+      },
+      {
+        "value": "195174056479",
+        "name": "UPC"
+      },
+      {
+        "value": "No",
+        "name": "Proactive Customer Care"
+      },
+      {
+        "value": "Yes",
+        "name": "SmartDiagnosis(TM)"
+      },
+      {
+        "value": "No",
+        "name": "Wifi"
+      },
+      {
+        "value": "Yes",
+        "name": "ENERGY STAR(R) Qualified"
+      },
+      {
+        "value": "No",
+        "name": "Remote Start and Cycle Monitor"
+      },
+      {
+        "value": "No",
+        "name": "NeveRust Stainless Steel Drum (drum side)"
+      },
+      {
+        "value": "No",
+        "name": "Wrinkle Care"
+      },
+      {
+        "value": "No",
+        "name": "EasyLoad Door"
+      },
+      {
+        "value": "195174056479",
+        "name": "Bar Code"
+      },
+      {
+        "value": "Electric",
+        "name": "Dryer Power Source Type"
+      },
+      {
+        "value": "No",
+        "name": "Power Dry"
+      },
+      {
+        "value": "White (W)",
+        "name": "All Available Colors"
+      },
+      {
+        "value": "111.3 lbs",
+        "name": "Weight (Product)"
+      },
+      {
+        "value": "No",
+        "name": "Freshen Up"
+      },
+      {
+        "value": "No",
+        "name": "ThinQ(Wi-Fi)"
+      },
+      {
+        "value": "115/230V, 60Hz, 24A",
+        "name": "Electrical Requirements"
+      },
+      {
+        "value": "DLG6101W",
+        "name": "Gas Dryer Option"
+      },
+      {
+        "value": "Yes",
+        "name": "Heavy Duty"
+      },
+      {
+        "value": "No",
+        "name": "AI Sensor Dry"
+      },
+      {
+        "value": "Painted Steel",
+        "name": "Cabinet"
+      },
+      {
+        "value": "Yes",
+        "name": "ENERGY STAR Certified"
+      },
+      {
+        "value": "No",
+        "name": "Inverter DirectDrive"
+      },
+      {
+        "value": "N/A",
+        "name": "Dryer BTU Rating"
+      },
+      {
+        "value": "Yes",
+        "name": "Transparent Door Glass"
+      },
+      {
+        "value": "No",
+        "name": "Steam Technology"
+      },
+      {
+        "value": "240V, 26 Amps",
+        "name": "Dryer Electrical Requirements"
+      },
+      {
+        "value": "7.3",
+        "name": "Capacity(cu. ft.)"
+      },
+      {
+        "value": "7.3 cu.ft.",
+        "name": "Dryer Capacity"
+      },
+      {
+        "value": "DLE6100W",
+        "name": "Electric Dryer Option"
+      },
+      {
+        "value": "Yes",
+        "name": "Dial-A-Cycle(TM)"
+      },
+      {
+        "value": "LED",
+        "name": "Type of Display"
+      },
+      {
+        "value": "NA",
+        "name": "Matching Pedestal"
+      },
+      {
+        "value": "Alcosta",
+        "name": "Drum Side"
+      },
+      {
+        "value": "Vented Dryer",
+        "name": "Type"
+      },
+      {
+        "value": "WT6105CW",
+        "name": "Matching Washer"
+      },
+      {
+        "value": "No",
+        "name": "AI Sensor Dry(TM)"
+      },
+      {
+        "value": "No",
+        "name": "Energy Monitoring"
+      },
+      {
+        "value": "Full Touch LED",
+        "name": "Display Type"
+      },
+      {
+        "value": "No",
+        "name": "Delay Timer"
+      },
+      {
+        "value": "No",
+        "name": "Dry Mode"
+      },
+      {
+        "value": "5",
+        "name": "No. of Dryer Programs"
+      },
+      {
+        "value": "No",
+        "name": "Dry Modes"
+      },
+      {
+        "value": "No",
+        "name": "NeveRust(TM) Stainless Steel Drum"
+      },
+      {
+        "value": "1 Year",
+        "name": "Parts and Labor"
+      },
+      {
+        "value": "4 Way Venting",
+        "name": "Venting Option"
+      },
+      {
+        "value": "Yes",
+        "name": "Reversible Door"
+      },
+      {
+        "value": "No",
+        "name": "AI Dry"
+      },
+      {
+        "value": "Yes",
+        "name": "Control Lock"
+      },
+      {
+        "value": "3 Levels",
+        "name": "Temp."
+      },
+      {
+        "value": "Yes",
+        "name": "Aluminized Alloy Steel Drum"
+      },
+      {
+        "value": "No",
+        "name": "Damp Dry Signal"
+      },
+      {
+        "value": "50 1/4\"",
+        "name": "Depth with Door Open"
+      },
+      {
+        "value": "383EEL9001B",
+        "name": "Side Venting Kit"
+      },
+      {
+        "value": "No",
+        "name": "More Time"
+      },
+      {
+        "value": "Painted",
+        "name": "Drum Rear"
+      },
+      {
+        "value": "Vented",
+        "name": "Vent Type"
+      },
+      {
+        "value": "Damp Dry, Normal Dry, Very Dry",
+        "name": "Drying Levels"
+      },
+      {
+        "value": "29 x 31 27/64 x 46 1/2",
+        "name": "Carton Dimensions (WxHxD inch)"
+      },
+      {
+        "value": "Yes",
+        "name": "FlowSense Duct Clogging Indicator"
+      },
+      {
+        "value": "Yes",
+        "name": "Air Dry"
+      }
+    ],
+    "Web_Retailer_Key": "LG:DLE6100W",
+    "Web_Retailer_SubCategory": "TOP LOAD MATCHING ELECTRIC DRYER",
+    "Web_Retailer_Category": "LAUNDRY",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": null,
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": null,
+    "Height_Web_Retailer": null,
+    "Width_Web_Retailer": null,
+    "Depth_Web_Retailer": null,
+    "Product_Title_Web_Retailer": null,
+    "Color_Finish_Web_Retailer": null,
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": null,
+    "Brand_Web_Retailer": null,
+    "SF_Catalog_Name": "DLE6100W",
+    "SF_Catalog_Id": "a03Hu00001N2BCLIA3"
+  },
+  "currentOutput": {
+    "AI_Brand": "LG",
+    "AI_Product_Category": "Dryer",
+    "AI_Type": "Front Load",
+    "AI_Style": "Contemporary",
+    "AI_Color": "White, Monochrome Grey",
+    "AI_Finish": "White",
+    "AI_Product_Title": "LG 27-Inch Front Load Electric Dryer 7.3 Cu. Ft. - DLE6100W"
+  }
+}

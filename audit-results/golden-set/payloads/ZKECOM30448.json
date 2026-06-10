@@ -1,0 +1,61 @@
+{
+  "sf_catalog_id": "a03aZ00000BE0GfQAL",
+  "sf_catalog_name": "ZKECOM30448",
+  "createdAt": "2026-06-04T03:04:39.903Z",
+  "era": "ai",
+  "strata": [
+    "scenario_wr_only"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/a0fe842a1bef94aa21d075356bb4d435.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/45da80c9c57284a681a6636c1632c5f9.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/f81071578c724e9ef00ebed27d8df873.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/345014c280bd1830e14c34711b30e780.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/002e0e8ad092fd706f84962024d0938a.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/wp-content/uploads/2025/04/f6a696ce058fc9071a171c42bbc5cada.png"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/KECOMI30448.html?srsltid=AfmBOooOpjd7qe9p9ZV1xjU6_UzvaY8xGYCXNtP2RpU7k2HqivLACmwd",
+    "Ferguson_URL": null,
+    "Specification_Table": "<p><strong>Product Specifications</strong></p><p><strong>Mount Type: </strong></p><p>Island Mounted (Ceiling)</p><p><strong>Airflow (Q/L/M/H): </strong></p><p>280/420/560/700 CFM</p><p><strong>Speeds: </strong></p><p>4 Speeds</p><p><strong>Motor: </strong></p><p>High Performance 700 CFM/4-Speed Motor</p><p><strong>Lighting: </strong></p><p>LED Lights</p><p><strong>Control Panel: </strong></p><p>Push Button Control Panel</p><p><strong>3 Minute Auto Timer with Delayed Shutoff: </strong></p><p>Yes</p><p><strong>Filters: </strong></p><p>Stainless Steel Baffle Filters (Dishwasher Safe)</p><p><strong>Material: </strong></p><p>19g #304 Stainless Steel</p><p><strong>Dimensions</strong></p><p><strong>Width: </strong></p><p>48&quot;</p><p><strong>Depth: </strong></p><p>23 43/64&quot;</p><p><strong>Height: </strong></p><p>5&quot;</p><p><strong>Chimney Dimensions: </strong></p><p>20 3/4&quot; W x 12&quot; D x 16&quot; H (x2) (Telescoping)</p><p><strong>Venting Size: </strong></p><p>8&quot; Outlet (Transition Piece with Round Ducting Included)</p><p><strong>Warranty &amp; Certifications</strong></p><p><strong>3 Year Warranty: </strong></p><p>Parts Only</p><p><strong>Certifications: </strong></p><p>ETL Certified</p>",
+    "UPC_Legacy": "817299022213",
+    "Category_Legacy": "Range Hood",
+    "Product_Description_Legacy": "Professional 48 Inch Outdoor Island Chimney Hood with 700 CFM Internal Blower\r\nThe ZLINE KECOMi-304-48 Outdoor Range Hoods is professionally crafted from outdoor-approved 304-grade stainless steel to elevate your outdoor kitchen's potential. This hood's high-performance, 700 CFM 4-speed motor will provide all the power you need to quietly and efficiently ventilate your stove while cooking. This Island Mount Range Hood has a ducted vent with easy and simple installation. Often the center attraction of a kitchen, ZLINE Range Hoods can add surprising value to your property by providing an impressive and aesthetic look to your home, excellent ventilation, and additional kitchen lighting.",
+    "Features_Legacy": "<p><strong>700 CFM Internal Blower</strong></p><ul><li>This hood&#39;s high-performance will provide all the power you need to quietly and efficiently ventilate your stove while cooking.</li></ul><p><strong>Push Button Controls</strong></p><ul><li>Lets you easily control fan speed and lighting.</li></ul><p><strong>Stainless Steel Baffle Filters</strong></p><ul><li>Reduce cleaning time with durable stainless steel baffle filters that are dishwasher safe.</li></ul><p><strong>LED Lighting</strong></p><ul><li>Illuminate your cooking space with bright built-in LED lights.</li></ul><p><strong>4 Fan Speed Settings</strong></p><ul><li>4 Fan Speed Settings let you choose the perfect air flow power for any cooking situation.</li></ul><p><strong>Lifetime Motor Warranty</strong></p><ul><li>Enjoy the high performance of your ZLINE range hood motor for years to come with an industry-first lifetime motor warranty.</li></ul><p><br></p>",
+    "Weight_Legacy": 85,
+    "Capacity_Legacy": 700,
+    "Height_Legacy": "5 1/16",
+    "Width_Legacy": "48",
+    "Depth_Legacy": "23 43/64",
+    "Product_Title_Legacy": "48\" Outdoor Island Chimney Hood with 700 CFM Internal Blower",
+    "Color_Finish_Legacy": "Stainless Steel",
+    "MSRP_Legacy": 1949.99,
+    "Model_Number_Legacy": "ZKECOM30448",
+    "Brand_Legacy": "ZLINE",
+    "SF_Catalog_Name": "ZKECOM30448",
+    "SF_Catalog_Id": "a03aZ00000BE0GfQAL"
+  },
+  "currentOutput": {
+    "AI_Brand": "ZLINE",
+    "AI_Product_Category": "Range Hood",
+    "AI_Type": "Island Mount",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Stainless Steel",
+    "AI_Finish": "",
+    "AI_Product_Title": "ZLINE 700 CFM 48-Inch Island Mount Range Hood Stainless Steel - ZKECOM30448"
+  }
+}

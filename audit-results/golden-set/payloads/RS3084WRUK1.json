@@ -1,0 +1,267 @@
+{
+  "sf_catalog_id": "a03aZ00000ycaERQAY",
+  "sf_catalog_name": "RS3084WRUK1",
+  "createdAt": "2026-06-05T12:57:40.090Z",
+  "era": "ai",
+  "strata": [
+    "finish_eq_color",
+    "panel_ready",
+    "canadian"
+  ],
+  "scenario": "web_retailer_only",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frpdxujkbgxy_20260604_201826.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frisghaaguwt_20260604_201827.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frsznirosxvf_20260604_201828.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frxlrqaxskgb_20260604_201829.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frotktwcrail_20260604_201831.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/fraxpgynwumz_20260604_201832.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frunqybgfnvo_20260604_201833.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqhwiewvxog_20260604_201816.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frdmneuwcuqm_20260604_201818.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frzlbqvdauky_20260604_201818.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frbeivfnhfdo_20260604_201819.png"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/frqhmuosktlj_20260604_201819.png"
+      }
+    ],
+    "Reference_URL": null,
+    "Ferguson_URL": null,
+    "Specification_Table": "<h3>Overview</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Category</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Specification</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Brand</td><td colspan=\"1\" rowspan=\"1\">Fisher &amp; Paykel</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Series</td><td colspan=\"1\" rowspan=\"1\">Series 9</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Model</td><td colspan=\"1\" rowspan=\"1\">RS3084WRUK1</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Installation Type</td><td colspan=\"1\" rowspan=\"1\">Built-In / Integrated Column</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Style</td><td colspan=\"1\" rowspan=\"1\">Bottom Freezer</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Configuration</td><td colspan=\"1\" rowspan=\"1\">Refrigerator with Freezer</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Color</td><td colspan=\"1\" rowspan=\"1\">Panel Ready</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Accepts Custom Panels</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Hinge Side</td><td colspan=\"1\" rowspan=\"1\">Right</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Counter Depth</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Flush Installation</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Wi-Fi Connectivity</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Energy Star Certified</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Sabbath Mode</td><td colspan=\"1\" rowspan=\"1\">Yes (STAR-K Certified)</td></tr></tbody></table><p><br></p><h3>Dimensions</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Dimensions &amp; Weight</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Specification</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Width</td><td colspan=\"1\" rowspan=\"1\">29 3/4&quot;</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Depth</td><td colspan=\"1\" rowspan=\"1\">24&quot;</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Height</td><td colspan=\"1\" rowspan=\"1\">84&quot;</td></tr></tbody></table><p><br></p><h3>Refrigerator Features</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Feature</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Details</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">ActiveSmart™ Foodcare</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Variable Temperature Modes</td><td colspan=\"1\" rowspan=\"1\">Pantry, Fridge, Soft Freeze, Freezer</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Humidity Control System</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Dual Evaporators</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Adaptive Defrost</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Inverter Compressor</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Adjustable Glass Shelves</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Cantilever Shelving</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Adjustable Door Bins</td><td colspan=\"1\" rowspan=\"1\">4</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Covered Door Shelf</td><td colspan=\"1\" rowspan=\"1\">1</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Gallon Door Storage</td><td colspan=\"1\" rowspan=\"1\">1 Shelf</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Soft-Close Produce Bins</td><td colspan=\"1\" rowspan=\"1\">2</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Drawer Divider</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Touch Controls</td><td colspan=\"1\" rowspan=\"1\">SmartTouch Interface</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Door Alarm</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Stackable Bottle Holders</td><td colspan=\"1\" rowspan=\"1\">8 Total (4 Clip-In, 4 Flexible)</td></tr></tbody></table><p><br></p><h3>Freezer Features</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Feature</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Details</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Frost-Free Operation</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Quick Freeze</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Ice Boost Function</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Freezer Bins</td><td colspan=\"1\" rowspan=\"1\">2</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Automatic Ice Maker</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Door Alarm</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr></tbody></table><p><br></p><h3>Water &amp; Ice System</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Feature</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Details</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Water Dispenser</td><td colspan=\"1\" rowspan=\"1\">Internal Ultra-Slim Design</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Water Filtration</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Ice Maker</td><td colspan=\"1\" rowspan=\"1\">Automatic</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Ice Dispenser</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Hot Water Dispenser</td><td colspan=\"1\" rowspan=\"1\">No</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Sparkling Water Dispenser</td><td colspan=\"1\" rowspan=\"1\">No</td></tr></tbody></table><p><br></p><h3>Interior Lighting</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Lighting</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Details</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">LED Ceiling Lighting</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">LED Side Lighting</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr><tr><td colspan=\"1\" rowspan=\"1\">LED Bin Lighting</td><td colspan=\"1\" rowspan=\"1\">Yes</td></tr></tbody></table><p><br></p><h3>Electrical Requirements</h3><table class=\"ql-table-blob\"><thead><tr><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Electrical</strong></th><th colspan=\"1\" rowspan=\"1\" class=\"last:pe-10\"><strong>Specification</strong></th></tr></thead><tbody><tr><td colspan=\"1\" rowspan=\"1\">Voltage</td><td colspan=\"1\" rowspan=\"1\">115 Volts</td></tr><tr><td colspan=\"1\" rowspan=\"1\">Amperage</td><td colspan=\"1\" rowspan=\"1\">10 Amps</td></tr></tbody></table><p><br></p>",
+    "UPC_Legacy": "822843256877",
+    "Category_Legacy": "Refrigerator",
+    "Product_Description_Legacy": "This refrigerator with bottom freezer and variable temperature drawer seamlessly integrates into your kitchen, fitting flush into your cabinetry. Variable temperature drawer operates separately from the fridge and freezer, for optimal care of different types of food. Customize with your own kitchen cabinetry, or purchase our stainless steel door panel. Spacious bottom freezer with full extension drawer and storage bins.",
+    "Features_Legacy": "<p><strong>Internal Water Dispenser and Ice Maker</strong></p><ul><li>Both the water dispenser and ice maker are located inside this Integrated model, leaving an uninterrupted exterior.</li><li>Internal storage space is maximized thanks to a flush-fit slimline water dispenser.</li><li>The dual valve system instantly stops water flow to prevent drips and spills.</li></ul><p><strong>ActiveSmart™ Foodcare</strong></p><ul><li>ActiveSmart™ Foodcare learns how you live. It&#39;s technology which understands how you use your refrigerator and adjusts temperature, airflow and humidity inside to help keep food fresher for longer.</li></ul><p><strong>Variable Temperature Zone</strong></p><ul><li>Create the perfect climate and store each type of food at optimal temperature and humidity with Variable Temperature Zone, reducing food waste due to spoiling.</li></ul><p><strong>Flexible Storage</strong></p><ul><li>Designed to make it simple for you to store, access and remove food, this refrigerator includes LED-lit adjustable cantilevered shelving and full extension bins in the freezer.</li></ul><p><strong>Child-Safe Design</strong></p><ul><li>The door and veggie bins are family safe, allowing for hands-free operation thanks to its soft close mechanism</li></ul><p><strong>Complementary Design</strong></p><ul><li>The Integrated Refrigerator Freezers can be installed separately or paired with a Column Refrigerator, Freezer or Wine Column.</li></ul><p><strong>Perfect Fit</strong></p><ul><li>Our Integrated models can be seamlessly hidden behind your cabinetry for an understated and clean look with any kitchen layout.</li></ul><p><strong>Efficient, without Compromising on Food Care</strong></p><ul><li>With an Energy Star Most Efficient rating, your refrigerator adapts to daily use by cooling and defrosting only when needed.</li></ul><p><br></p>",
+    "Weight_Legacy": 304,
+    "Capacity_Legacy": 15.9,
+    "Height_Legacy": "84",
+    "Width_Legacy": "29 3/4",
+    "Depth_Legacy": "24",
+    "Product_Title_Legacy": "30\" Series 9 Integrated Refrigerator Freezer",
+    "Color_Finish_Legacy": null,
+    "MSRP_Legacy": 8799,
+    "Model_Number_Legacy": "RS3084WRUK1",
+    "Brand_Legacy": "FISHER & PAYKEL",
+    "Web_Retailer_Specs": [
+      {
+        "value": "AKRS7804",
+        "name": "Toe kick stainless steel 78\""
+      },
+      {
+        "value": "847200 - FWC3",
+        "name": "Water filter replacement"
+      },
+      {
+        "value": "RD3084WLD",
+        "name": "Door panel stainless steel Left hinge 84\""
+      },
+      {
+        "value": "AHP3RD3084WDC",
+        "name": "Handle kit Professional round flush, Dark Copper off-stands"
+      },
+      {
+        "value": "AHP3RD3084WBA",
+        "name": "Handle kit Professional round flush, Brass off-stands"
+      },
+      {
+        "value": "AHCLRD3084W",
+        "name": "Handle kit Classic"
+      },
+      {
+        "value": "AHD5RD3084W",
+        "name": "Handle kit Contemporary square fine, aluminium"
+      },
+      {
+        "value": "2",
+        "name": "Freezer bins"
+      },
+      {
+        "value": "10.5cu ft",
+        "name": "Volume refrigerator"
+      },
+      {
+        "value": "478kWh/year",
+        "name": "Energy usage"
+      },
+      {
+        "value": "AHP3RD3084W",
+        "name": "Handle kit Professional round flush"
+      },
+      {
+        "value": "AKRS7204",
+        "name": "Toe kick stainless steel 72\""
+      },
+      {
+        "value": "2",
+        "name": "Fruit and vegetable bins"
+      },
+      {
+        "value": "AHSRD3084W",
+        "name": "Handle kit Contemporary round, aluminium"
+      },
+      {
+        "value": "15.87cu ft",
+        "name": "Total gross capacity"
+      },
+      {
+        "value": "24 \"",
+        "name": "Depth"
+      },
+      {
+        "value": "Energy Star",
+        "name": "Energy rating"
+      },
+      {
+        "value": "1",
+        "name": "Gallon door shelves"
+      },
+      {
+        "value": "AKRS3004",
+        "name": "Toe kick stainless steel 30\""
+      },
+      {
+        "value": "AJ-RS84LR",
+        "name": "Joiner kit"
+      },
+      {
+        "value": "1",
+        "name": "Freezer trays"
+      },
+      {
+        "value": "AKRS8404",
+        "name": "Toe kick stainless steel 84\""
+      },
+      {
+        "value": "10A",
+        "name": "Rated current"
+      },
+      {
+        "value": "115V",
+        "name": "Supply voltage"
+      },
+      {
+        "value": "304lbs",
+        "name": "Unpackaged weight"
+      },
+      {
+        "value": "15.9cu ft",
+        "name": "Volume"
+      },
+      {
+        "value": "4",
+        "name": "Stackable bottle holders"
+      },
+      {
+        "value": "AKRS5404",
+        "name": "Toe kick stainless steel 54\""
+      },
+      {
+        "value": "AKRS4804",
+        "name": "Toe kick stainless steel 48\""
+      },
+      {
+        "value": "AKRS6004",
+        "name": "Toe kick stainless steel 60\""
+      },
+      {
+        "value": "4",
+        "name": "Adjustable door shelves"
+      },
+      {
+        "value": "5.4cu ft",
+        "name": "Volume freezer"
+      },
+      {
+        "value": "60Hz",
+        "name": "Supply frequency"
+      },
+      {
+        "value": "Pantry; Fridge; Soft freeze; Freezer",
+        "name": "Variable food modes"
+      },
+      {
+        "value": "406lbs",
+        "name": "Packaged weight"
+      },
+      {
+        "value": "29 3 / 4 \"",
+        "name": "Width"
+      },
+      {
+        "value": "AKRS6604",
+        "name": "Toe kick stainless steel 66\""
+      },
+      {
+        "value": "1",
+        "name": "Covered door shelves"
+      },
+      {
+        "value": "84 \"",
+        "name": "Height"
+      },
+      {
+        "value": "2",
+        "name": "Variable temperature zones"
+      },
+      {
+        "value": "RD3084WRD",
+        "name": "Door panel stainless steel Right hinge 84\""
+      },
+      {
+        "value": "AHD5RD3084WB",
+        "name": "Handle kit Contemporary square fine, black"
+      }
+    ],
+    "Web_Retailer_Key": "CA_FPK:RS3084WRUK1",
+    "Web_Retailer_SubCategory": "BOTTOM FREEZER BUILT IN REFRIGERATOR",
+    "Web_Retailer_Category": "REFRIGERATORS",
+    "Product_Description_Web_Retailer": "A slim profile, perfect for compact kitchens, or pair it with other Integrated models for generous chilled and frozen storage.Finish Panel Ready Hinge Right Hinge",
+    "Features_Web_Retailer": "<ul><li>Variable Temperature Zone</li><li>Create the perfect climate and store each type of food at optimal temperature and humidity with Variable Temperature Zone, reducing food waste due to spoiling. You have the choice of four food modes: Pantry, Fridge, Soft Freeze or Freezer. Use the Max cold feature for periods of high refrigerator or freezer use, or full grocery loads.</li><li>Activesmart(TM) Foodcare</li><li>ActiveSmart(TM) Foodcare learns how you live. It&#39;s technology which understands how you use your refrigerator and adjusts temperature, airflow and humidity inside to help keep food fresher for longer.</li><li>Internal Water Dispenser And Ice Maker</li><li>Both the water dispenser and ice maker are located inside this Integrated model, leaving an uninterrupted exterior. Internal storage space is maximized thanks to a flush-fit slimline water dispenser that gives a continuous flow of temperature-controlled chilled water to fill almost any size or shape of vessel. The dual valve system instantly stops water flow to prevent drips and spills.</li><li>Flexible Storage</li><li>Designed to make it simple for you to store, access and remove food, this refrigerator includes LED-lit adjustable cantilevered shelving and full extension bins in the freezer. The door and veggie bins are family safe, allowing for hands-free operation thanks to its soft close mechanism</li><li>Complementary Design</li><li>Both the 24&quot; and 30&quot; Integrated Refrigerator Freezers can be installed separately or paired with a Column Refrigerator, Freezer or Wine Column. Customize with your own kitchen cabinetry and handles, or purchase our stainless steel door panel and handle options.</li><li>Perfect Fit</li><li>These models fit flush and have only 1/8&quot; gaps around them with no visible hinges or grilles. Our Integrated models can be seamlessly hidden behind your cabinetry for an understated and clean look with any kitchen layout.</li><li>Design Quality</li><li>The premium design and finish includes a steel interior lining as well as full extension metal shelf runners for easy access, robust glass shelving and quality hinges designed for daily use.</li></ul>",
+    "Weight_Web_Retailer": null,
+    "Capacity_Web_Retailer": 15.9,
+    "Height_Web_Retailer": "84",
+    "Width_Web_Retailer": "29 3/4",
+    "Depth_Web_Retailer": "24",
+    "Product_Title_Web_Retailer": "30\" Series 9 Integrated Refrigerator Freezer",
+    "Color_Finish_Web_Retailer": "Custom Panel Ready",
+    "MSRP_Web_Retailer": null,
+    "Model_Number_Web_Retailer": "RS3084WRUK1",
+    "Brand_Web_Retailer": "FISHER & PAYKEL",
+    "SF_Catalog_Name": "RS3084WRUK1",
+    "SF_Catalog_Id": "a03aZ00000ycaERQAY"
+  },
+  "currentOutput": {
+    "AI_Brand": "FISHER & PAYKEL",
+    "AI_Product_Category": "Refrigerator",
+    "AI_Type": "Column",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Panel Ready",
+    "AI_Finish": "Panel Ready",
+    "AI_Product_Title": "Fisher & Paykel 30-Inch Built-In Panel Ready Column Refrigerator 15.9 Cu. Ft. - RS3084WRUK1"
+  }
+}

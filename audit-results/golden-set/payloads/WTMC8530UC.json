@@ -1,0 +1,328 @@
+{
+  "sf_catalog_id": "a03Hu00001N2AP3IAN",
+  "sf_catalog_name": "WTMC8530UC",
+  "createdAt": "2026-05-11T20:46:54.845Z",
+  "era": "ai",
+  "strata": [
+    "finish_plain_color"
+  ],
+  "scenario": "both_sources",
+  "rawPayload": {
+    "Documents": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/4c7f6da2df5a3d2584a93217d489817d_20260424_161018.pdf"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000gd2plQAA.pdf"
+      }
+    ],
+    "Stock_Images": [
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000gcodCQAQ.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000gcm6kQAA.jpg"
+      },
+      {
+        "url": "https://stagmardeysmedia.s3.amazonaws.com/media/2025/10/068aZ00000ggV0nQAE.png"
+      }
+    ],
+    "Reference_URL": "https://www.ajmadison.com/cgi-bin/ajmadison/WTMC8530UC.html?srsltid=AfmBOoqH5UTVlr1v_Go3bbZ8Y7c1f1lFJRrqN-NIaTpb9v5BApsBRcbo",
+    "Ferguson_URL": null,
+    "Specification_Table": "<p>Core Features</p><ul><li>Silver/White Duo-Tone finish</li><li>6.7 Cu. Ft. drum capacity</li><li>64 dBA quiet operation</li><li>ECOSENSOR technology</li><li>Stainless steel drum</li><li>WRINKLEBLOCK up to 3 hours</li></ul><p>Design Elements</p><ul><li>Chrome dial</li><li>Deluxe chrome door handle strip</li><li>Chrome buttons</li><li>See-through door</li><li>Chrome outer bull’s eye ring</li><li>Reversible door (right-hinged)</li><li>LCD display</li></ul><p>Cycles</p><ul><li>MISTCARE Refresh</li><li>MISTCARE Wrinkle Relax</li><li>MISTCARE Touch Up</li><li>Regular Cotton (Extra Dry, Very Dry, Regular Dry, Damp Dry)</li><li>Permanent Press (Very Dry, Regular Dry, Damp Dry)</li><li>Quick cycle</li><li>Timed Dry (up to 2 hours, 10-minute increments)</li><li>Air Fluff / No Heat</li></ul><p>Optional Settings</p><ul><li>ECOACTION</li><li>Delicates / Low Temperature</li><li>End-of-cycle signal</li><li>Extended WRINKLEBLOCK</li><li>Child lock-out function</li></ul><p>Technical Data</p><ul><li>120V power supply</li><li>60 Hz frequency</li><li>15A amperage</li><li>UL Listed</li><li>18,500 BTU</li><li>290 CFM</li></ul><p>Dimensions</p><ul><li>Width: 27&quot;</li><li>Depth: 31 9/16&quot;</li><li>Height: 36 15/16&quot;</li></ul><p><br></p>",
+    "UPC_Legacy": "825225874423",
+    "Category_Legacy": "Dryer",
+    "Product_Description_Legacy": "The Bosch WTMC8530UC from the Nexxt 800 Series is a high-performance 27-inch gas dryer engineered for efficient, fabric-friendly drying with advanced control and quiet operation. Designed with a spacious 6.7 cu. ft. capacity, it accommodates large loads while delivering consistent results through intelligent moisture sensing and precision drying programs.\nFeaturing 15 specialized drying cycles, including MISTCARE™ refresh options, this model helps reduce wrinkles, eliminate odors, and maintain garment quality without excessive heat exposure. Bosch’s ECOSENSOR™ technology automatically adjusts drying time based on moisture levels, optimizing energy efficiency and preventing over-drying.",
+    "Features_Legacy": "<ul><li><strong style=\"font-size: 8pt;\">MIST</strong><span style=\"font-size: 8pt;\">CARETM</span></li><li><strong style=\"font-size: 8pt;\">ECO</strong><span style=\"font-size: 8pt;\">ACTIONTM</span></li><li><strong style=\"font-size: 8pt;\">ECO</strong><span style=\"font-size: 8pt;\">SENSOR Moisture Sensor, C</span>ontrols Heat and Saves Energy</li><li>Extended <strong style=\"font-size: 8pt;\">WRINKLE</strong><span style=\"font-size: 8pt;\">BLOCK® </span>- Extended Tumbling up to 3 Hours Prevents Wrinkles</li><li>One Piece Stainless Steel Drum • 6.7 cu.ft. Capacity</li><li>Quick Cycle Drys Small Loads in as Little as 20 Min.</li><li>Delicate Option to Dry Items Usually Only Line Dried</li></ul>",
+    "Weight_Legacy": 126,
+    "Capacity_Legacy": 6.7,
+    "Height_Legacy": "36 15/16",
+    "Width_Legacy": "27",
+    "Depth_Legacy": "31 9/16",
+    "Product_Title_Legacy": "BOSCH 27-Inch Front Load Gas Dryer 6.7 Cu. Ft. - WTMC8530UC",
+    "Color_Finish_Legacy": "Silver/White",
+    "MSRP_Legacy": 1649,
+    "Model_Number_Legacy": "WTMC8530UC",
+    "Brand_Legacy": "BOSCH",
+    "Ferguson_Raw_Data": {
+      "credits_used": 30,
+      "variations_tried": 2,
+      "details": "No match found after searching 2 variations. The product may not exist in Ferguson's catalog.",
+      "message": "Product not found: WTMC8530UC",
+      "status": "not_found",
+      "success": false
+    },
+    "Web_Retailer_Specs": [
+      {
+        "value": null,
+        "name": "Technical Data"
+      },
+      {
+        "value": "126 lbs",
+        "name": "Net weight (lbs)"
+      },
+      {
+        "value": "No",
+        "name": "Extended wrinkleblock"
+      },
+      {
+        "value": "No",
+        "name": "Jeans"
+      },
+      {
+        "value": null,
+        "name": "Product Information"
+      },
+      {
+        "value": "Reversible, Right-hand",
+        "name": "Door hinge"
+      },
+      {
+        "value": "Chrome",
+        "name": "Door Frame"
+      },
+      {
+        "value": "No",
+        "name": "ActiveWear"
+      },
+      {
+        "value": "electric",
+        "name": "Energy Source"
+      },
+      {
+        "value": "60 Hz",
+        "name": "Frequency (Hz)"
+      },
+      {
+        "value": "At rear",
+        "name": "Location of venting exit"
+      },
+      {
+        "value": "No",
+        "name": "Stackability"
+      },
+      {
+        "value": "15 A",
+        "name": "Amperage"
+      },
+      {
+        "value": "Yes",
+        "name": "Interior light"
+      },
+      {
+        "value": "Yes",
+        "name": "UL"
+      },
+      {
+        "value": null,
+        "name": "Dimensions"
+      },
+      {
+        "value": "Yes",
+        "name": "Adjustable drying temperature"
+      },
+      {
+        "value": "Yes",
+        "name": "Cord Included"
+      },
+      {
+        "value": "Nexxt Full Size Dryers",
+        "name": "Product Category"
+      },
+      {
+        "value": "Silver/White Duo-Tone",
+        "name": "Color"
+      },
+      {
+        "value": "Yes",
+        "name": "Blocked filter indicator"
+      },
+      {
+        "value": "120 V",
+        "name": "Voltage (V)"
+      },
+      {
+        "value": "5",
+        "name": "Number of Options"
+      },
+      {
+        "value": "60 Hz",
+        "name": "Frequency"
+      },
+      {
+        "value": "Eco-Sensor",
+        "name": "Moisture monitoring system"
+      },
+      {
+        "value": "Yes",
+        "name": "Display"
+      },
+      {
+        "value": "Yes",
+        "name": "Delicates"
+      },
+      {
+        "value": "64 dB",
+        "name": "Noise level (dB (A) re 1 pW)"
+      },
+      {
+        "value": "138 lbs",
+        "name": "Gross weight (lbs)"
+      },
+      {
+        "value": "WTMC8530UC",
+        "name": "SKU"
+      },
+      {
+        "value": "38.97 x 29.52 x 34.25 \"",
+        "name": "Dimensions of the packed product (in)"
+      },
+      {
+        "value": "Yes",
+        "name": "Air fluff / no heat"
+      },
+      {
+        "value": "72'' \"",
+        "name": "Length of electrical supply cord (in)"
+      },
+      {
+        "value": "Bosch",
+        "name": "Brand"
+      },
+      {
+        "value": "800 Series",
+        "name": "Product Series"
+      },
+      {
+        "value": "Gas 800 Series Dryer with MIST CARE",
+        "name": "Product Name"
+      },
+      {
+        "value": "825225862666",
+        "name": "Universal Product Code"
+      },
+      {
+        "value": "18,500",
+        "name": "BTU"
+      },
+      {
+        "value": "120 V",
+        "name": "Supply Voltage"
+      },
+      {
+        "value": "UL",
+        "name": "Approval certificates"
+      },
+      {
+        "value": "8 kg",
+        "name": "Capacity cotton (Kg)"
+      },
+      {
+        "value": "continous",
+        "name": "Delay Start Option"
+      },
+      {
+        "value": "No",
+        "name": "Signal"
+      },
+      {
+        "value": "12 h",
+        "name": "Start delay time max (h)"
+      },
+      {
+        "value": "36 15/16\" x 27\" x 31 9/16\" \"",
+        "name": "Appliance Dimensions (h x w x d) (in)"
+      },
+      {
+        "value": "-",
+        "name": "Also available in"
+      },
+      {
+        "value": "chrome",
+        "name": "Buttons"
+      },
+      {
+        "value": "Yes",
+        "name": "Timed Dry"
+      },
+      {
+        "value": "290",
+        "name": "CFM"
+      },
+      {
+        "value": "120V-3 prong",
+        "name": "Plug type"
+      },
+      {
+        "value": null,
+        "name": "ADDITIONAL_PROPERTY_15"
+      },
+      {
+        "value": "\"",
+        "name": "Length outlet hose (in)"
+      },
+      {
+        "value": "LED",
+        "name": "Status Indicator"
+      },
+      {
+        "value": "Stainless steel",
+        "name": "Drum material"
+      },
+      {
+        "value": "WTMC853xUC",
+        "name": "Model Number"
+      },
+      {
+        "value": "Yes",
+        "name": "Drying time selector"
+      },
+      {
+        "value": "chrome",
+        "name": "Dial"
+      },
+      {
+        "value": "Vented",
+        "name": "Dryer Type"
+      },
+      {
+        "value": "1,080 W",
+        "name": "Connection Rating (W)"
+      },
+      {
+        "value": "10 A",
+        "name": "Current (A)"
+      },
+      {
+        "value": "\"",
+        "name": "Length inlet hose (in)"
+      }
+    ],
+    "Web_Retailer_Key": "BOSCH:WTMC8530UC",
+    "Web_Retailer_SubCategory": "FRONT LOAD GAS DRYER",
+    "Web_Retailer_Category": "LAUNDRY",
+    "Product_Description_Web_Retailer": null,
+    "Features_Web_Retailer": "<ul><li>15 Drying Programs</li><li>6.7 Cubic Foot Drum</li><li>LCD-display</li><li>High Quality, Snag Free Stainless Steel Drum</li><li>High Volume Air Flow and Moderate Heat for Gentle Drying</li><li>Quick Cycle Drys Small Loads in as Little as 20 Min.</li><li>Heavy Load Drying Cycle for Extra Large Loads</li><li>Signal Option Adjusts Volume of End-of-Cycle Signal</li><li>Backed by Good Housekeeping Seal - Two Year Limited Warranty</li><li>ECOSENSOR(R) Monitors Moisture, Controls Heat and Saves Energy</li><li>ECOACTION Option Reduces Energy Usage by up to 10%</li><li>MISTCARE Refresh Cycle Designed to Rejuvinate Clothing - 20 Min</li><li>MISTCARE Touch Up Cycle Eases Wrinkles and Remove Odors - 12 Min</li><li>MISTCARE Wrinkle Relax Cycle Designed to Relax Wrinkles - 16 Min</li><li>Extended WRINKLEBLOCK(R) - Extended Tumbling up to 3 Hours Prevents Wrinkles</li><li>Jeans Cycle Prevents Fading and Extends Fabric Life</li><li>Wool Cycle to Dry Extremely Delicate Fabrics</li><li>Delicate Option to Dry Items Usually Only Line Dried</li><li>SYNCROTECHNOLOGYSYNCHROTECHNOLOGY Syncronizes Dryer Cycle with Washer Cycle</li></ul>",
+    "Weight_Web_Retailer": 138,
+    "Capacity_Web_Retailer": 6.7,
+    "Height_Web_Retailer": "36 15/16",
+    "Width_Web_Retailer": "27",
+    "Depth_Web_Retailer": "31 9/16",
+    "Product_Title_Web_Retailer": "Nexxt 800 Series Gas with MistCare Silver and White Duo-Tone",
+    "Color_Finish_Web_Retailer": "Gray On White",
+    "MSRP_Web_Retailer": 1299,
+    "Model_Number_Web_Retailer": "WTMC8530UC",
+    "Brand_Web_Retailer": "BOSCH",
+    "SF_Catalog_Name": "WTMC8530UC",
+    "SF_Catalog_Id": "a03Hu00001N2AP3IAN"
+  },
+  "currentOutput": {
+    "AI_Brand": "BOSCH",
+    "AI_Product_Category": "Dryer",
+    "AI_Type": "Front Load",
+    "AI_Style": "Contemporary",
+    "AI_Color": "Gray On White",
+    "AI_Finish": "White",
+    "AI_Product_Title": "BOSCH 27-Inch Front Load Gas Dryer 6.7 Cu. Ft. - WTMC8530UC"
+  }
+}
