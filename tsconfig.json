@@ -34,5 +34,5 @@
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "src/config/salesforce-picklists/backups", "src/picklist-master"]
+  "exclude": ["node_modules", "dist", "src/__tests__", "**/*.test.ts", "**/*.spec.ts", "src/config/salesforce-picklists/backups", "src/picklist-master"]
 }

@@ -65,14 +65,15 @@ describe('HTML Generator Utility', () => {
       expect(html).toContain('medium');
     });
 
-    it('should include styles by default', () => {
+    it('should use inline styles, never a <style> tag (Salesforce field compatibility)', () => {
       const html = generateAttributeTable({ color: 'red' });
-      expect(html).toContain('<style>');
+      expect(html).toContain('<table style=');
+      expect(html).not.toContain('<style>');
     });
 
-    it('should exclude styles when disabled', () => {
-      const html = generateAttributeTable({ color: 'red' }, { includeStyles: false });
-      expect(html).not.toContain('<style>');
+    it('should not emit a <style> tag even when includeStyles is passed (legacy option, ignored)', () => {
+      expect(generateAttributeTable({ color: 'red' }, { includeStyles: true })).not.toContain('<style>');
+      expect(generateAttributeTable({ color: 'red' }, { includeStyles: false })).not.toContain('<style>');
     });
 
     it('should show empty message for empty attributes', () => {
@@ -96,12 +97,13 @@ describe('HTML Generator Utility', () => {
       expect(html).not.toContain('Material');
     });
 
-    it('should use custom table class', () => {
+    it('should ignore the legacy tableClass option (inline-style era)', () => {
       const html = generateAttributeTable(
         { color: 'red' },
         { tableClass: 'custom-table', includeStyles: false }
       );
-      expect(html).toContain('class="custom-table"');
+      expect(html).not.toContain('class="custom-table"');
+      expect(html).toContain('<table style=');
     });
   });
 });

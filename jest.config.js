@@ -3,10 +3,12 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
+  // Only *.test.ts / *.spec.ts are suites — setup.ts and __tests__/manual/ demo
+  // scripts must not be collected as test suites (G0, PLATFORM-AUDIT-GUIDE §6.0)
   testMatch: [
-    '**/__tests__/**/*.ts',
     '**/?(*.)+(spec|test).ts'
   ],
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/manual/'],
   transform: {
     '^.+\\.ts$': ['ts-jest', {
       tsconfig: {

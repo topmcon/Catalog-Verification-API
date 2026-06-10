@@ -9,7 +9,7 @@
  * 5. Our picklist updates with new IDs
  */
 
-import picklistMatcher from '../services/picklist-matcher.service';
+import picklistMatcher from '../../services/picklist-matcher.service';
 
 /**
  * Scenario: Product with a custom attribute "Royal Cut" style

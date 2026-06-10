@@ -60,9 +60,19 @@ run_check() {
 
 # ============================================================================
 # CHECK 1: TypeScript Compilation
+# Uses ./node_modules/.bin/tsc directly — bare `tsc` is not on PATH on production
+# and `npm run build` fails there whenever devDeps were pruned (OVS-03 / G0 fix).
 # ============================================================================
-run_check "TypeScript Compilation" \
-  "npm run build" \
+run_check "TypeScript Compilation (typecheck)" \
+  "./node_modules/.bin/tsc --noEmit" \
+  "true"
+
+# ============================================================================
+# CHECK 1b: Unit Tests (jest) — G0: a red suite can't gate anything;
+# this wires `npm test` into the deploy procedure for the first time.
+# ============================================================================
+run_check "Unit Tests (jest)" \
+  "npx jest --silent" \
   "true"
 
 # ============================================================================
