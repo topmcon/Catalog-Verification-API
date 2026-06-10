@@ -277,6 +277,23 @@ one-product-per-deploy loops.
 | **G3 Results** | Outputs are right at corpus scale | Golden harness diff (§5.3) once built; until then, re-run the affected L1 scan(s) and compare before/after numbers | No golden-set regressions; affected ACC/GAP metric improves, nothing else degrades |
 | **G4 Deploy** | Prod is healthy & synced | `pre-deploy-validate-all.sh` → deploy → `/health` → 3-way commit sync check | All green, ALL SYNCED |
 
+**The 5-Test Contract — the shape every G2/G3 verification takes** (ported 2026-06-09 from
+`Coco-AI/docs/AGENTIC_LOOP_BUILD_PLAN.md`, the user's standing cross-project rule; adapted to this platform):
+
+| # | Test | Proves (here) |
+|---|------|---------------|
+| **T1** | **True-positive** — the bad case the fix/check targets | It catches what it claims to catch (e.g. ACCESSORIES guard fires for the RD1884L4D door panel; a scanner flags a fixture with a known violation) |
+| **T2** | **True-negative / passthrough** — a normal product | **No false positives.** The #078 lesson: the guard was never passthrough-tested, so it silently misclassified the NSCZ10WH6 chest freezer. Every fix MUST include the sibling/normal case |
+| **T3** | **Mode-gating** — dry-run vs execute | `detect` writes nothing to SF; `confirm` pushes only on clean MATCH; scanners are read-only; `--execute` vs default behave as documented |
+| **T4** | **Safety / bounds** — adverse input | No runaway retries, AI cost within budget, restart-safe, nothing reaches SF outside the gate |
+| **T5** | **Observability** — check the review surface after T1–T4 | Scan output / `audit-report.js` / scorecard reflect reality, AND the targeted corpus metric actually moved |
+
+Rules carried over from the source contract: tests run against the **real system or real stored payloads —
+no mocks**; they are **scripted and reproducible** (fixed inputs, asserted outputs, non-zero exit on failure);
+and every phase's 5-test results are recorded in an **evidence log**:
+`audit-results/platform-audit/ACCEPTANCE-LOG.md` (date, commit, T1–T5 pass/fail, evidence pointer per test).
+5 per phase is the floor — apply the full contract per fix where practical.
+
 **Per-phase exit gates** (in addition to the stack above):
 - **Phase 1 gate**: the scan scripts are themselves tested — each check ID gets a small fixture test
   (synthetic job docs with known violations → scanner must report the exact expected counts). Then
