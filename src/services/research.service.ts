@@ -1035,7 +1035,7 @@ export async function analyzeImage(imageUrl: string, sessionId?: string): Promis
         validateStatus: (status) => status >= 200 && status < 400
       });
       
-      const contentType = headResponse.headers['content-type'] || '';
+      const contentType = String(headResponse.headers['content-type'] || '');
       if (!contentType.includes('image')) {
         logger.warn('URL does not appear to be an image', { imageUrl, contentType });
       }
