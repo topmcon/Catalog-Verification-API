@@ -153,5 +153,5 @@ Evidence-backed:
 
 - SSH: `ssh mardeys-prod` (root@134.209.123.173). Prod path `/opt/catalog-verification-api/`.
 - `SALESFORCE_API_KEY` for `audit-confirm.js --execute` = inbound `WEBHOOK_SECRET`
-  (`af3d3fd8e8487c5a21abba91005f8c8700edca516f755dec9c1e2f140811aacd`).
+  (`<WEBHOOK_SECRET — value lives in prod /opt/catalog-verification-api/.env only>`).
 - Audit results live in MongoDB `audit_jobs` (NOT in Salesforce).

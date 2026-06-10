@@ -287,7 +287,7 @@ After successfully receiving and processing the webhook, Salesforce MUST call ou
 
 **Headers:**
 ```
-X-API-Key: af3d3fd8e8487c5a21abba91005f8c8700edca516f755dec9c1e2f140811aacd
+X-API-Key: <WEBHOOK_SECRET — value lives in prod /opt/catalog-verification-api/.env only>
 Content-Type: application/json
 ```
 
@@ -389,7 +389,7 @@ global class CatalogVerificationWebhook {
         request.setEndpoint(endpoint);
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('X-API-Key', 'af3d3fd8e8487c5a21abba91005f8c8700edca516f755dec9c1e2f140811aacd');
+        request.setHeader('X-API-Key', '<WEBHOOK_SECRET — value lives in prod /opt/catalog-verification-api/.env only>');
         
         Map<String, Object> body = new Map<String, Object>{
             'received' => true,
@@ -416,7 +416,7 @@ global class CatalogVerificationWebhook {
 1. **Use Job Status Endpoint:**
    ```bash
    curl https://verify.cxc-ai.com/api/verify/salesforce/status/87da7453-943b-4e5a-8d15-b736a47747e8 \
-     -H "X-API-Key: af3d3fd8e8487c5a21abba91005f8c8700edca516f755dec9c1e2f140811aacd"
+     -H "X-API-Key: <WEBHOOK_SECRET — value lives in prod /opt/catalog-verification-api/.env only>"
    ```
 
 2. **Check `webhookDelivery` Object:**
