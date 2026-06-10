@@ -78,9 +78,9 @@ async function main() {
     : { dupCatalogIds: 0, excessJobs: 0 };
   out.wst04.topDuplicated = await jobs.aggregate([
     { $match: { status: 'completed' } },
-    { $group: { _id: { id: '$sfCatalogId', name: { $first: '$sfCatalogName' } }, n: { $sum: 1 } } },
+    { $group: { _id: '$sfCatalogId', name: { $first: '$sfCatalogName' }, n: { $sum: 1 } } },
     { $sort: { n: -1 } }, { $limit: 10 },
-  ]).toArray().then((rows) => rows.map((r) => ({ sku: r._id.name, runs: r.n })));
+  ]).toArray().then((rows) => rows.map((r) => ({ sku: r.name, runs: r.n })));
 
   // ── WST-05: completed but never accepted by SF ──
   out.wst05 = {
