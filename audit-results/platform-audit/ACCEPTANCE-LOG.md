@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-06-10 — Phase 4 wave 2: webhook/confirm auth (CON-07), health digest (OVS-05), SCORECARD
+
+**Scope**: `apiKeyAuth` on `POST /api/webhook/confirm` + `GET /api/webhook/status`; `scripts/ops/health-digest.sh`
+(+ 06:30 cron); initial `SCORECARD.md` (Phase 1+3+4 synthesis).
+
+| Test | Result | Evidence |
+|------|--------|----------|
+| T1 true-positive | ✅ | `POST /api/webhook/confirm` no key → **401** (was 200 pre-fix, live-tested both states) |
+| T2 passthrough | ✅ | Main SF inbound `/api/verify/salesforce` behavior unchanged (401 without key = its pre-existing auth, SF sends the key); endpoint had **zero legitimate traffic ever** (0 `sf_save_confirmed` audit logs in DB history) so no SF flow can break |
+| T3 mode-gating | n/a | — |
+| T4 safety | ✅ | digest is read-only; `set -uo pipefail`; mongo section degrades to "UNAVAILABLE" |
+| T5 observability | ✅ | digest live run: service active, health OK, backup 0h/1242MB, jobs/pending counts, disk; cron count = 2 (backup + digest) |
+
+Gates: typecheck clean · 72/72 · validator ALL 10 PASSED · deployed, service active · digest verified on prod.
+
+---
+
 ## 2026-06-10 — Phase 4 wave 1: backups (CON-04), secret scrub (CON-01), npm fixes (CON-08), Finding #079
 
 **Commits**: backup script → scrub → `npm audit fix` (92→12 vulns, criticals 4→2; axios type fix) →
