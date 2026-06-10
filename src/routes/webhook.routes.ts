@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { webhookController } from '../controllers';
-import { asyncHandler, validate, webhookPayloadSchema, verifySalesforceWebhook } from '../middleware';
+import { asyncHandler, validate, webhookPayloadSchema, verifySalesforceWebhook, apiKeyAuth } from '../middleware';
 
 const router = Router();
 
@@ -19,20 +19,25 @@ router.post(
 /**
  * @route   POST /api/webhook/confirm
  * @desc    Receive confirmation from SF that data was saved
- * @access  Public (SF calls this after saving)
+ * @access  Protected (apiKeyAuth) — CON-07 hardening. Endpoint had ZERO legitimate
+ *          traffic in the platform's entire history (0 sf_save_confirmed audit logs);
+ *          SF uses the authenticated /api/verify/salesforce/confirm instead. Was
+ *          previously public and accepted unauthenticated writes to AuditLog.
  */
 router.post(
   '/confirm',
+  apiKeyAuth,
   asyncHandler(webhookController.handleSaveConfirmation)
 );
 
 /**
  * @route   GET /api/webhook/status/:sessionId
  * @desc    Get webhook processing status
- * @access  Protected
+ * @access  Protected (apiKeyAuth)
  */
 router.get(
   '/status/:sessionId',
+  apiKeyAuth,
   asyncHandler(webhookController.getWebhookStatus)
 );
 
