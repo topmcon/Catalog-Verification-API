@@ -36,4 +36,15 @@ deliberately ignores), plus `setup.ts` and a zero-test demo script collected as 
 | T4 safety/bounds | ✅ | Jest runs with no DB/network (unit scope); validator unchanged in failure semantics (critical → ABORT) |
 | T5 observability | ✅ (local) / prod run below | CHECK #1/#2 lines appear in validator output; prod execution recorded in this entry after deploy |
 
-**Prod execution**: see addendum below (validator must pass on prod where deploys happen).
+**Prod execution (the G0 acid test)**: first prod run FAILED checks #1–#3 — devDependencies (ts-jest,
+@types/*) were absent despite the deploy running `npm install --include=dev`. Root cause of the masking:
+the deploy command piped install output through `| tail -1`, which **swallows npm's exit code** (no
+pipefail), so a failed install chained on to a "successful" deploy. Re-running `npm install --include=dev`
+unpiped installed everything; second validator run on prod: **ALL 10 CHECKS PASSED — SAFE TO DEPLOY**
+(2026-06-09 ~21:45 EST).
+
+**Lesson (added to deploy discipline)**: never pipe deploy-critical commands through `tail`/`grep` without
+`set -o pipefail`; the canonical deploy already uses plain `npm install --include=dev` — keep it unpiped.
+This also explains the historical "tsc not in PATH on prod" reports (OVS-03): pruned/incomplete devDeps,
+not a PATH problem. CHECK #1 now uses `./node_modules/.bin/tsc --noEmit` which both works and fails loudly
+when typescript is genuinely missing.
