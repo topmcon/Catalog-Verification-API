@@ -5,6 +5,27 @@
 
 ---
 
+## 2026-06-10 — Phase 4 wave 1: backups (CON-04), secret scrub (CON-01), npm fixes (CON-08), Finding #079
+
+**Commits**: backup script → scrub → `npm audit fix` (92→12 vulns, criticals 4→2; axios type fix) →
+**`631fa7d` Finding #079** (CI auto-deploy removed, backups relocated).
+
+| Verification | Result | Evidence |
+|------|--------|----------|
+| Backup T1 (produces archive) | ✅ | 1.3GB archive, traced run (`bash -x`) every step green |
+| Backup T2 (restorable) | ✅ | mongorestore to scratch DB: **19,267/19,267** verification_jobs round-trip exact; scratch dropped |
+| Backup T4 (safety) | ✅ | MIN_BYTES sanity check; retention prunes to 28; relocated to `/var/backups/` after #079 rsync deletion |
+| Secret scrub | ✅ | `git grep <secret>` → no tracked file matches (history/rotation pending user) |
+| npm fixes G1/G2/G4 | ✅ | typecheck clean, 72/72 tests, validator ALL 10 PASSED local AND prod post-repair |
+| #079 fix effective | ✅ | Post-fix push: CI run = build+test only (39s, no deploy); devDeps intact on prod afterwards; 3-way sync `631fa7d` |
+
+**Finding #079 discovery chain**: devDeps vanished between verified states → npm debug logs showed
+`npm install --production` runs correlated with pushes → `ci-cd.yml` deploy job (rsync --delete + prune +
+restart on every push). Explains OVS-03 history, #078 mid-job restarts, phantom prod local changes, and
+the deletion of the first backup. Full writeup: AUDIT-FINDINGS-AND-SOLUTIONS.md #079.
+
+---
+
 ## 2026-06-10 — spec-table extractor extraction + first pipeline unit tests + golden harness
 
 **Commit**: `fe6165b` · **Scope**: `findInSpecificationTable` extracted from

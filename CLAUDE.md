@@ -341,9 +341,13 @@ golden harness exists (Finding #078 lesson). Update the Status Board before endi
 **Issue**: Jobs processed before Finding #066/#067 fixes have bad type/finish in SF. Identified by `audit-recent-jobs.js` script: WFES5030RZ, WFES3030RB, ZAZE42DS, CGSR366L, AK7136BSBF, INLX35SSV2, WF53BB8900A, Z1C0178, LSIS6338FE, ZRGM90BS.
 **Fix**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/audit-recent-jobs.js --size=50 --requeue"`
 
-### 🟡 Pre-Deploy Validation Script Broken on Production
-**Issue**: `bash scripts/pre-deploy-validate-all.sh` fails CHECK #1/#2 because `tsc` is not in system PATH on production. `npm run build` works fine. GPM format check also fails (pre-existing).
-**Fix needed**: Update validation script to use `./node_modules/.bin/tsc`.
+### ✅ Pre-Deploy Validation + devDeps Pruning (Resolved June 10, 2026 — Finding #079)
+**Was**: validation script failed on prod ("tsc not in PATH"); devDeps kept vanishing after deploys.
+**Root cause**: an undocumented GitHub Actions `deploy-production` job ran `rsync --delete` +
+`npm install --production` + service restart on EVERY push to main — pruning devDeps, restarting
+mid-job, overwriting prod files, and deleting in-app-dir backups. **Removed in `631fa7d`** (CI now
+build+test only; deploys are manual per policy). Validator runs green on prod (all 10 checks; jest
+is CHECK #2). DB backups: cron every 6h → `/var/backups/catalog-verification/mongo/` (restore-tested).
 
 ### ✅ Circular Dependency Fixed (June 2026)
 **Fix**: `src/utils/logger.ts` was importing `config` from `../config` which re-exported `category-aliases.ts` which imported `logger` → infinite loop on startup. Fixed by removing config import from logger.ts and reading directly from `process.env`.

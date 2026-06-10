@@ -6267,3 +6267,42 @@ After 5 deploys the affected set still showed mismatches. Root cause is **the pr
 - Local/GitHub/prod all synced at `414ce11`. No products from the failing set were pushed to SF (all gated as
   `MISMATCH_FOUND [not pushed]`). The 4 earlier clean products (NS-CZ10WH26, MF1851, SCFF1842, FFUE2024AW) were
   pushed in prior runs.
+
+---
+
+## Finding #079 — Undocumented CI Auto-Deploy Fighting All Manual Operations (June 10, 2026) 🔴 CRIT
+
+**Discovery path**: Phase 4 of the platform audit. devDependencies kept vanishing from prod between
+verified-good states (~25 min apart) with no cron/timer responsible. npm debug logs showed
+`npm install --production` running in `/opt/catalog-verification-api` minutes after every git push.
+Source: `.github/workflows/ci-cd.yml` `deploy-production` job — on every push to main, GitHub Actions
+SSH'd into prod and ran:
+
+```
+rsync -avz --delete ./ root@verify.cxc-ai.com:/opt/catalog-verification-api/   # only node_modules/.env/logs/.git excluded
+npm install --production && systemctl restart catalog-verification.service
+```
+
+**Symptoms it caused (months of mystery, all now explained)**:
+1. **OVS-03 / "tsc not in PATH on prod"** — `npm install --production` pruned devDeps after every push;
+   every manual `npm install --include=dev` was undone minutes later. The reverify-titles runbook gotcha
+   and repeated #078 deploy failures trace here.
+2. **Mid-job service restarts** — every push restarted the service, killing in-flight verification and
+   audit-confirm jobs (observed during Finding #078; wrongly attributed to manual restarts).
+3. **Phantom prod "local changes"** — rsync wrote files outside git's knowledge, making `git pull` abort
+   with "would be overwritten by merge".
+4. **Deleted server files** — `rsync --delete` removed anything in the app dir not in the repo: confirmed
+   deletion of the first 1.3GB MongoDB backup (CON-04 fix) ~70 minutes after creation.
+
+**Fix** (commit `631fa7d`):
+- `deploy-production` job removed from `ci-cd.yml`; CI keeps build + `npm test` (G0 gate now runs in CI too).
+  Policy per CLAUDE.md stands: **manual deploy only**, gated by `pre-deploy-validate-all.sh`.
+- Backup script moved out of the blast radius permanently: `/var/backups/catalog-verification/mongo/`
+  (defense in depth — never store server state inside any deploy tool's target dir). Backup re-created
+  and verified (1.3GB; restore test had already passed 19,267/19,267 docs).
+- Prod repaired: clean manual deploy, validator ALL 10 PASSED.
+
+**Lesson**: when state keeps reverting on a server, look for a second writer before blaming the procedure.
+The audit's evidence chain (npm debug logs → timestamps correlated with pushes → workflow file) found in
+one session what symptom-level fixes had been patching around for months.
+

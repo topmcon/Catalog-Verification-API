@@ -20,7 +20,7 @@
 | 1 | Corpus-wide deterministic scans + waste mining + config coverage | ✅ Done | 2026-06-09 | 19,113 jobs scanned; results + `PHASE-1-SUMMARY.md` in `audit-results/platform-audit/2026-06-09/` |
 | 2 | Calibrated sampled LLM audit + golden set creation | 🟡 In progress | 2026-06-09 | Selection DONE: 49 SKUs, 14 strata, payloads + draft answers in `audit-results/golden-set/`. **Blocked on human review** (workflow: `audit-results/golden-set/README.md`). Then: calibration + L2 sampling |
 | 3 | Code / architecture / security review (static, local) | ✅ Done | 2026-06-10 | All CON/OVS items closed with primary evidence: `audit-results/platform-audit/2026-06-09/PHASE-3-REVIEW.md`. CRIT: no DB backups (CON-04). Fix order proposed in the review |
-| 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | ⬜ Not started | — | Fixes logged as Findings |
+| 4 | Synthesis → ranked scorecard → prioritized fixes via golden harness | 🟡 In progress | 2026-06-10 | DONE: CON-04 backups (restore-tested, `/var/backups/`), CON-01 scrub, CON-08 npm 92→12, **Finding #079 CI auto-deploy removed (CRIT discovery)**. REMAINING: CON-07 webhook/confirm hardening, OVS-05 digest, SCORECARD.md, then golden-harness-gated pipeline fixes once answers reviewed |
 
 **Current next action**: HUMAN — review `audit-results/golden-set/golden-answers.draft.json` per the
 workflow in `audit-results/golden-set/README.md` (49 SKUs; partial review is usable — the harness judges

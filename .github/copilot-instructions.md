@@ -1078,6 +1078,13 @@ golden harness exists (Finding #078 lesson). Update the Status Board before endi
 
 > Update this section whenever a bug is fixed or a new issue is discovered. Mirror in `CLAUDE.md`.
 
+### ✅ CI Auto-Deploy Removed (Resolved June 10, 2026 — Finding #079) 🔴 was CRIT
+**Was**: an undocumented GitHub Actions `deploy-production` job ran `rsync --delete` +
+`npm install --production` + service restart on EVERY push to main — pruning devDeps (the recurring
+"tsc not in PATH" failures), restarting the service mid-job, overwriting prod files, and deleting
+in-app-dir backups. **Removed in `631fa7d`**; CI is now build+test only. Deploys are MANUAL per policy.
+DB backups: cron every 6h → `/var/backups/catalog-verification/mongo/` (restore-tested).
+
 ### 🔴 Claude Title Override (Active — Source of Bad Responses)
 **Issue**: When Claude's Phase B proposes a corrected title, the system always uses the schema title instead ("preserves formatting rules"). When schema fields are wrong (e.g., wrong width, wrong model number), Claude has the correct value but gets ignored.
 
