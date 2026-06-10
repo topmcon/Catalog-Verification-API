@@ -57,3 +57,4 @@ generated/
 
 # Optional eslint cache
 .eslintcache
+backups/
