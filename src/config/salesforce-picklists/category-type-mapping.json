@@ -140,6 +140,11 @@
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
+        },
+        {
+          "type_name": "Undercounter",
+          "status": "existing",
+          "primary_filter": true
         }
       ],
       "styles_apply": true
@@ -410,6 +415,26 @@
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
+        },
+        {
+          "type_name": "Gas",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Electric",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Induction",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Dual Fuel",
+          "status": "existing",
+          "primary_filter": true
         }
       ],
       "styles_apply": true,
@@ -2587,6 +2612,16 @@
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": false
+        },
+        {
+          "type_name": "Soap Dispenser",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Soap Dish",
+          "status": "existing",
+          "primary_filter": true
         }
       ]
     },
@@ -3024,7 +3059,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3084,7 +3119,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mounted",
+          "type_name": "Wall-Mounted",
           "type_id": "a1jaZ000001lFD4QAM",
           "status": "existing",
           "primary_filter": true
@@ -3152,12 +3187,12 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mounted",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Deck Mount",
+          "type_name": "Deck Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3258,6 +3293,16 @@
           "type_id": "a1jaZ000001lFD7QAM",
           "status": "existing",
           "primary_filter": true
+        },
+        {
+          "type_name": "Showerhead",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
         }
       ]
     },
@@ -3270,12 +3315,12 @@
       "logic": "Mount location",
       "types": [
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Deck Mount",
+          "type_name": "Deck Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3305,7 +3350,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3325,12 +3370,12 @@
       "logic": "Mount configuration",
       "types": [
         {
-          "type_name": "Deck Mount",
+          "type_name": "Deck Mounted",
           "status": "existing",
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3355,7 +3400,7 @@
       "logic": "Installation configuration",
       "types": [
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3527,7 +3572,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3599,6 +3644,11 @@
           "type_id": "a1IaZ0000019zbZUAQ",
           "status": "existing",
           "primary_filter": false
+        },
+        {
+          "type_name": "Soaking",
+          "status": "existing",
+          "primary_filter": true
         }
       ],
       "styles_apply": true
@@ -3658,6 +3708,11 @@
           "type_id": "a1jaZ000001lF6dQAE",
           "status": "existing",
           "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
         }
       ],
       "styles_apply": true
@@ -3759,6 +3814,11 @@
           "type_id": "a1jaZ00000243cTQAQ",
           "status": "existing",
           "primary_filter": true
+        },
+        {
+          "type_name": "Accessory",
+          "status": "existing",
+          "primary_filter": false
         }
       ]
     },
@@ -3856,7 +3916,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -3982,7 +4042,7 @@
       "logic": "Mount and flush type",
       "types": [
         {
-          "type_name": "Wall Mount",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },
@@ -4069,42 +4129,6 @@
         {
           "type_name": "Semi-Flush",
           "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Passage",
-          "type_group": "Function",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Privacy",
-          "type_group": "Function",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Keyed Entry",
-          "type_group": "Function",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Dummy",
-          "type_group": "Function",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Single Cylinder",
-          "type_group": "Lock Type",
-          "status": "existing",
-          "primary_filter": true
-        },
-        {
-          "type_name": "Double Cylinder",
-          "type_group": "Lock Type",
-          "status": "pending_salesforce_id",
           "primary_filter": true
         },
         {
@@ -6084,6 +6108,11 @@
           "type_name": "Accessory",
           "status": "existing",
           "primary_filter": true
+        },
+        {
+          "type_name": "Strainer",
+          "status": "existing",
+          "primary_filter": true
         }
       ]
     },
@@ -6136,7 +6165,7 @@
           "primary_filter": true
         },
         {
-          "type_name": "Wall Mounted",
+          "type_name": "Wall-Mounted",
           "status": "existing",
           "primary_filter": true
         },

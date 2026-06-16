@@ -835,6 +835,10 @@
         {
           "style_name": "Modern",
           "style_id": "a1IaZ000001TWAPUA4"
+        },
+        {
+          "style_name": "Traditional",
+          "style_id": "a1IaZ000001TLjdUAG"
         }
       ]
     },
@@ -873,6 +877,10 @@
         {
           "style_name": "Traditional",
           "style_id": "a1IaZ000001TLjdUAG"
+        },
+        {
+          "style_name": "Transitional",
+          "style_id": "a1IaZ000001TVXhUAO"
         }
       ]
     },
@@ -1240,6 +1248,10 @@
         {
           "style_name": "Modern",
           "style_id": "a1IaZ000001TWAPUA4"
+        },
+        {
+          "style_name": "Traditional",
+          "style_id": "a1IaZ000001TLjdUAG"
         }
       ]
     },
@@ -1445,6 +1457,10 @@
         {
           "style_name": "Traditional",
           "style_id": "a1IaZ000001TLjdUAG"
+        },
+        {
+          "style_name": "Transitional",
+          "style_id": "a1IaZ000001TVXhUAO"
         }
       ]
     },
@@ -1487,6 +1503,14 @@
         {
           "style_name": "Traditional",
           "style_id": "a1IaZ000001TLjdUAG"
+        },
+        {
+          "style_name": "Transitional",
+          "style_id": "a1IaZ000001TVXhUAO"
+        },
+        {
+          "style_name": "Vintage",
+          "style_id": "a1IaZ000001TW2LUAW"
         }
       ]
     },
