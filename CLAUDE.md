@@ -62,24 +62,46 @@ The `mardeys-prod` alias in `~/.ssh/config` maps to:
 ### "Establish Connection"
 
 1. **SSH Connectivity**: `ssh mardeys-prod "echo connected"`
-2. **Commit Sync Check**: Compare local / GitHub / production commits
-3. **Service Health**: `ssh mardeys-prod "systemctl status catalog-verification | head -15"`
-4. **Port Check**: `ssh mardeys-prod "ss -tlnp | grep -E '(3001|27017|443|80)'"` — all 4 must be listening
-5. **API Health**: `curl -s https://verify.cxc-ai.com/health` → expect `{"status":"healthy"}`
-6. **Session Analytics**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"`
-7. **Pending Picklist Syncs**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"` — never auto-approve CRITICAL severity
-8. **Pending Creation Requests**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-creation-requests.js"` — report but do NOT auto-action
-9. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
+2. **Commit Sync Check**: Compare local / GitHub / production commits (run sync verification command below — `git fetch --prune --quiet` runs first)
+3. **Scan for in-flight work on branches / open PRs**:
    ```bash
-   ssh mardeys-prod "grep -E '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo 'AUDIT_MODE=off (default)'"
+   # List open PRs (gh CLI):
+   gh pr list --state open --json number,title,headRefName,isDraft,updatedAt
+   # Fallback if gh unavailable:
+   git branch -r --no-merged origin/main | grep -v 'HEAD'
+
+   # Branches ahead of main with recency:
+   git for-each-ref --sort=-committerdate refs/remotes/origin \
+     --format='%(refname:short) %(committerdate:relative)' \
+     | grep -v 'origin/main' | head -10
    ```
-   **Ask the user**: *"Turn Audit Mode ON for this session? `detect` = read-only audit of existing data, `confirm` = re-verify + audit-gate + push-on-pass, `off` = normal verification."* If yes, flip it (see the **Audit Mode** section) and restart. ⚠️ While ON, normal verification is rerouted.
-10. **Most Recent Session Summary**: Display from `session-notes/` folder
-11. **Report Status Table** (local / GitHub / production commits, service, API health, pending syncs, creation requests, **current `AUDIT_MODE`**)
-12. **Ask**: "Would you like to continue from where we left off?"
+   For each branch / PR found, peek at the stranded handoff:
+   ```bash
+   # Status Board on that branch:
+   git show origin/<branch>:docs/PLATFORM-AUDIT-GUIDE.md 2>/dev/null | head -40
+   # Newest session note on that branch:
+   git log --oneline origin/<branch> -- session-notes/ | head -1
+   # Then: git show origin/<branch>:session-notes/<file> 2>/dev/null | head -40
+   ```
+   ⚠️ Do **not** assume "where we left off" = main's HEAD. If in-flight work exists on a branch, treat that branch's session note and Status Board as the active context.
+4. **Service Health**: `ssh mardeys-prod "systemctl status catalog-verification | head -15"`
+5. **Port Check**: `ssh mardeys-prod "ss -tlnp | grep -E '(3001|27017|443|80)'"` — all 4 must be listening
+6. **API Health**: `curl -s https://verify.cxc-ai.com/health` → expect `{"status":"healthy"}`
+7. **Session Analytics**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"`
+8. **Pending Picklist Syncs**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"` — never auto-approve CRITICAL severity
+9. **Pending Creation Requests**: `ssh mardeys-prod "cd /opt/catalog-verification-api && node scripts/check-pending-creation-requests.js"` — report but do NOT auto-action
+10. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
+    ```bash
+    ssh mardeys-prod "grep -E '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo 'AUDIT_MODE=off (default)'"
+    ```
+    **Ask the user**: *"Turn Audit Mode ON for this session? `detect` = read-only audit of existing data, `confirm` = re-verify + audit-gate + push-on-pass, `off` = normal verification."* If yes, flip it (see the **Audit Mode** section) and restart. ⚠️ While ON, normal verification is rerouted.
+11. **Most Recent Session Summary**: Display from `session-notes/` folder
+12. **Report Status Table** (local / GitHub / production commits, service, API health, pending syncs, creation requests, **current `AUDIT_MODE`**, **in-flight branches / open PRs** (none, or list: PR #, branch name, draft flag))
+13. **Ask**: "Would you like to continue from where we left off?"
 
 **Sync verification command:**
 ```bash
+git fetch --prune --quiet && \
 LOCAL=$(git rev-parse --short HEAD) && \
 GITHUB=$(git ls-remote origin main | cut -c1-7) && \
 PROD=$(ssh mardeys-prod "cat /opt/catalog-verification-api/.git/refs/heads/main | cut -c1-7") && \
@@ -106,7 +128,10 @@ if [ "$LOCAL" = "$GITHUB" ] && [ "$GITHUB" = "$PROD" ]; then echo "✅ ALL SYNCE
    bash scripts/version-architecture-docs.sh
    ```
 
-5. `git status` → `git add -A` → commit with descriptive message → `git push origin main`
+5. `git status` → stage relevant files → commit with descriptive message → then:
+   - **Landing on `main`** (default): `git push origin main` → proceed to step 6 (deploy).
+   - **Merging a feature branch**: merge into `main`, push, proceed to step 6.
+   - **Staying on a branch (not ready for prod)**: `git push origin <branch>` → ensure an open PR (`gh pr view` or `gh pr create --draft`). **Skip steps 6–7.** Report: *"on branch `<branch>` / PR #N — unmerged, prod unchanged at `<hash>`"*. Update `docs/PLATFORM-AUDIT-GUIDE.md` Status Board on the branch so the next "Establish Connection" branch scan finds the in-flight context.
 
 6. **Deploy to production**:
    ```bash
@@ -120,6 +145,10 @@ if [ "$LOCAL" = "$GITHUB" ] && [ "$GITHUB" = "$PROD" ]; then echo "✅ ALL SYNCE
 9. **Audit Mode — ALWAYS ASK**: check `AUDIT_MODE` on prod; if it is **not `off`**, ask the user: *"Audit Mode is currently `<mode>`. Turn it OFF before we finish? (recommended unless an audit session is intentionally in progress)."* If yes, set `AUDIT_MODE=off` in `/opt/catalog-verification-api/.env` and `systemctl restart catalog-verification`. **Never leave Audit Mode on unintentionally** — while on, normal verification is rerouted. See the **Audit Mode** section.
 
 10. **Report**: files changed, commit hash, sync status, service health, **current `AUDIT_MODE`**
+
+⚠️ **Procedure is NOT complete until:**
+- **Landed on `main`**: all 3 environments show same commit + service healthy + `AUDIT_MODE` confirmed.
+- **Staying on branch**: branch pushed + open PR exists + `docs/PLATFORM-AUDIT-GUIDE.md` Status Board updated on branch + report states branch name, PR #, and "prod unchanged at `<hash>`".
 
 ---
 

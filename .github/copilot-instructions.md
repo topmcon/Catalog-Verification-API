@@ -84,17 +84,18 @@ When running commands, checking logs, testing APIs, or gathering data:
 
 When the user says **"Establish Connection"** or **"Connect to production"**, execute these steps:
 1. Verify SSH connectivity to production server
-2. Compare local, GitHub, and production commits
-3. Check production service health
-4. **Verify all required ports and processes are running:**
+2. Compare local, GitHub, and production commits (`git fetch --prune --quiet` first)
+3. **Scan for in-flight work**: `gh pr list --state open --json number,title,headRefName,isDraft,updatedAt` + `git for-each-ref --sort=-committerdate refs/remotes/origin --format='%(refname:short) %(committerdate:relative)' | grep -v 'origin/main' | head -10`; for each branch peek at `docs/PLATFORM-AUDIT-GUIDE.md` and newest `session-notes/` file on that branch (see full procedure for commands)
+4. Check production service health
+5. **Verify all required ports and processes are running:**
    - Port 3001: Node.js API (catalog-verification service)
    - Port 27017: MongoDB (Docker container)
    - Port 443: HTTPS (nginx)
    - Port 80: HTTP redirect (nginx)
-5. Report sync status and system health
-6. **Check for recent picklist updates from Salesforce** (last sync, any pending changes)
-7. **Find and display the most recent session summary** from `session-notes/` folder
-8. Ask user if they want to continue from where we left off
+6. Report sync status and system health
+7. **Check for recent picklist updates from Salesforce** (last sync, any pending changes)
+8. **Find and display the most recent session summary** from `session-notes/` folder
+9. Ask user if they want to continue from where we left off
 
 When the user says **"Save everything"** or **"Save all"**, execute these steps:
 1. **Create comprehensive handoff session summary** in `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`:
@@ -243,7 +244,10 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
 3. Check for any uncommitted changes (`git status`)
 4. Stage all changes including session summary (`git add -A`)
 5. Commit with descriptive message (ask user or auto-generate based on changed files)
-6. Push to GitHub (`git push origin main`)
+6. **Push to GitHub** — choose the right landing:
+   - **Landing on `main`** (default): `git push origin main` → proceed to step 7 (deploy).
+   - **Merging a feature branch**: merge into `main`, push, proceed to step 7.
+   - **Staying on a branch (not ready for prod)**: `git push origin <branch>` → ensure an open PR (`gh pr view` or `gh pr create --draft`). **Skip steps 7–8.** Report: *"on branch `<branch>` / PR #N — unmerged, prod unchanged at `<hash>`"*. Update `docs/PLATFORM-AUDIT-GUIDE.md` Status Board on the branch so the next "Establish Connection" branch scan finds the in-flight context.
 7. Deploy to production:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com \
@@ -273,7 +277,9 @@ When the user says **"Save everything"** or **"Save all"**, execute these steps:
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
 
-**⚠️ The "Save everything" procedure is NOT complete until step 8 shows ALL SYNCED.**
+⚠️ **Procedure is NOT complete until:**
+- **Landed on `main`**: all 3 environments show same commit + service healthy + `AUDIT_MODE` confirmed.
+- **Staying on branch**: branch pushed + open PR exists + `docs/PLATFORM-AUDIT-GUIDE.md` Status Board updated on branch + report states branch name, PR #, and "prod unchanged at `<hash>`".
 
 When creating **session summaries**, save to `session-notes/SESSION-SUMMARY-YYYY-MM-DD[-DESCRIPTOR].md`
 
@@ -833,13 +839,35 @@ When user says "Establish Connection", perform these checks and report:
 
 1. **SSH Connectivity**: `ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "echo connected"`
 
-2. **Commit Sync Check**: Compare commits across local, GitHub, and production
+2. **Commit Sync Check**: Compare commits across local, GitHub, and production (`git fetch --prune --quiet` runs first — see CLAUDE.md sync verification command)
 
-3. **Service Health**: Check `systemctl status catalog-verification`
+3. **Scan for in-flight work on branches / open PRs**:
+   ```bash
+   # List open PRs (gh CLI):
+   gh pr list --state open --json number,title,headRefName,isDraft,updatedAt
+   # Fallback if gh unavailable:
+   git branch -r --no-merged origin/main | grep -v 'HEAD'
 
-4. **API Health**: `curl -s https://verify.cxc-ai.com/health`
+   # Branches ahead of main with recency:
+   git for-each-ref --sort=-committerdate refs/remotes/origin \
+     --format='%(refname:short) %(committerdate:relative)' \
+     | grep -v 'origin/main' | head -10
+   ```
+   For each branch / PR found, peek at the stranded handoff:
+   ```bash
+   # Status Board on that branch:
+   git show origin/<branch>:docs/PLATFORM-AUDIT-GUIDE.md 2>/dev/null | head -40
+   # Newest session note on that branch:
+   git log --oneline origin/<branch> -- session-notes/ | head -1
+   # Then: git show origin/<branch>:session-notes/<file> 2>/dev/null | head -40
+   ```
+   ⚠️ Do **not** assume "where we left off" = main's HEAD. If in-flight work exists on a branch, treat that branch's session note and Status Board as the active context.
 
-5. **Session Analytics**: Run comprehensive analytics dashboard:
+4. **Service Health**: Check `systemctl status catalog-verification`
+
+5. **API Health**: `curl -s https://verify.cxc-ai.com/health`
+
+6. **Session Analytics**: Run comprehensive analytics dashboard:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/show-session-analytics.js"
    ```
@@ -851,7 +879,7 @@ When user says "Establish Connection", perform these checks and report:
    - System performance metrics (success rates, throughput)
    - **Actionable recommendations** based on detected issues
 
-6. **Pending Picklist Syncs (HOLD BUCKET)**: Check for syncs awaiting review:
+7. **Pending Picklist Syncs (HOLD BUCKET)**: Check for syncs awaiting review:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-picklist-syncs.js"
    ```
@@ -864,7 +892,7 @@ When user says "Establish Connection", perform these checks and report:
      - For each pending sync, show severity and ask: "Approve, Reject, or Skip?"
      - **NEVER auto-approve CRITICAL severity syncs**
 
-7. **Pending Creation Requests (OUTBOUND TO SF)**: Check for items we requested SF to create:
+8. **Pending Creation Requests (OUTBOUND TO SF)**: Check for items we requested SF to create:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-pending-creation-requests.js"
    ```
@@ -876,33 +904,34 @@ When user says "Establish Connection", perform these checks and report:
    - **Report this to user** but **DO NOT auto-action** - visibility only
    - If many requests pending for 7+ days, suggest following up with SF team
 
-8. **Picklist Sync History** (optional): If user wants to see applied syncs:
+9. **Picklist Sync History** (optional): If user wants to see applied syncs:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && node scripts/check-picklist-sync-status.js"
    ```
 
-9. **Report Status Table**:
-   - Local commit
-   - GitHub commit  
-   - Production commit
-   - Service status (running/stopped)
-   - API health (healthy/unhealthy)
-   - Pending syncs (count awaiting review)
-   - Pending creation requests (count sent to SF)
-   - Session analytics summary (jobs processed, success rate, issues)
-   - **Current `AUDIT_MODE`** (off / detect / confirm)
+10. **Report Status Table**:
+    - Local commit
+    - GitHub commit  
+    - Production commit
+    - Service status (running/stopped)
+    - API health (healthy/unhealthy)
+    - Pending syncs (count awaiting review)
+    - Pending creation requests (count sent to SF)
+    - Session analytics summary (jobs processed, success rate, issues)
+    - **Current `AUDIT_MODE`** (off / detect / confirm)
+    - **In-flight branches / open PRs** (none, or list: PR #, branch name, draft flag)
 
-10. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
+11. **Audit Mode Status & Ask**: report the current toggle, then ask whether to enable it:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "grep -E '^AUDIT_MODE=' /opt/catalog-verification-api/.env || echo 'AUDIT_MODE=off (default)'"
    ```
    **Ask the user**: *"Turn Audit Mode ON for this session? `detect` = read-only audit of existing data, `confirm` = re-verify + audit-gate + push-on-pass, `off` = normal verification."* If yes, flip it (see the **Audit Mode** section) and restart. ⚠️ While ON, normal verification is rerouted.
 
-11. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
+12. **Show Most Recent Session Summary**: Display contents from `session-notes/` folder
    - Show key highlights: what was completed, current state, next steps
    - Reference the session summary file by name
 
-12. **Ask**: "Would you like to continue from where we left off?"
+13. **Ask**: "Would you like to continue from where we left off?"
 
 ---
 
@@ -971,7 +1000,10 @@ When user says "Save everything", perform these actions:
 5. **Commit changes**: 
    - Auto-generate message from changed files, OR
    - Ask user for commit message if changes are significant
-6. **Push to GitHub**: `git push origin main`
+6. **Push to GitHub** — choose the right landing:
+   - **Landing on `main`** (default): `git push origin main` → proceed to step 7 (deploy).
+   - **Merging a feature branch**: merge into `main`, push, proceed to step 7.
+   - **Staying on a branch (not ready for prod)**: `git push origin <branch>` → ensure an open PR (`gh pr view` or `gh pr create --draft`). **Skip steps 7–8.** Report: *"on branch `<branch>` / PR #N — unmerged, prod unchanged at `<hash>`"*. Update `docs/PLATFORM-AUDIT-GUIDE.md` Status Board on the branch so the next "Establish Connection" branch scan finds the in-flight context.
 7. **Deploy to production**:
    ```bash
    ssh -i ~/.ssh/cxc_ai_deploy root@verify.cxc-ai.com "cd /opt/catalog-verification-api && git pull origin main && npm install && npm run build && systemctl restart catalog-verification"
@@ -985,6 +1017,10 @@ When user says "Save everything", perform these actions:
    - Sync status (✅ ALL SYNCED or ⚠️ OUT OF SYNC)
    - Service health
    - Current `AUDIT_MODE`
+
+⚠️ **Procedure is NOT complete until:**
+- **Landed on `main`**: all 3 environments show same commit + service healthy + `AUDIT_MODE` confirmed.
+- **Staying on branch**: branch pushed + open PR exists + `docs/PLATFORM-AUDIT-GUIDE.md` Status Board updated on branch + report states branch name, PR #, and "prod unchanged at `<hash>`".
 
 ---
 
