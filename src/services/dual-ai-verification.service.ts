@@ -9222,8 +9222,9 @@ async function buildFinalResponse(
   // Example bug: Validated "Freezer" → product_family="Specialty Refrigerators" → overwrote to "Refrigerator" ❌
   const verifiedCategory = determinedCategory;
   
-  // Match validated category to picklist for category_id (but don't change the category name)
-  const categoryMatch = picklistMatcher.matchCategory(verifiedCategory);
+  // Match validated category to picklist — constrain to confirmed department so fuzzy matching
+  // cannot land on a category from a different department (e.g. Appliances → Bathroom Hardware).
+  const categoryMatch = picklistMatcher.matchCategory(verifiedCategory, determinedDepartment);
   
   const normalizeTypeCandidate = (value?: string | null): string => String(value || '').trim();
   const isNAType = (value: string): boolean => /^(not applicable|n\/?a|not found|none)$/i.test(value.trim());

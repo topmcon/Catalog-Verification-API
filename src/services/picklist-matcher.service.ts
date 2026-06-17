@@ -452,10 +452,12 @@ class PicklistMatcherService {
   }
 
   /**
-   * Match a category name to SF picklist
-   * Now includes automatic remapping of deprecated subcategories to parent categories
+   * Match a category name to SF picklist.
+   * When departmentConstraint is provided, matching is restricted to categories within that
+   * department. Cross-department matches are rejected entirely — a confirmed department must
+   * never yield a category from a different department regardless of fuzzy score.
    */
-  matchCategory(categoryName: string): MatchResult<Category> {
+  matchCategory(categoryName: string, departmentConstraint?: string): MatchResult<Category> {
     if (!categoryName || !this.initialized) {
       return { matched: false, original: categoryName, matchedValue: null, similarity: 0 };
     }
@@ -463,7 +465,7 @@ class PicklistMatcherService {
     // First, check if this category was removed/consolidated and needs remapping
     const normalization = normalizeCategory(categoryName);
     let effectiveCategoryName = categoryName;
-    
+
     if (normalization.wasRemapped) {
       const remapInfo = getCategoryRemapping(categoryName);
       logger.info(`Category remapped: "${categoryName}" → "${normalization.category}" (${remapInfo?.reason || 'consolidated category'})`);
@@ -471,18 +473,32 @@ class PicklistMatcherService {
     }
 
     const normalized = effectiveCategoryName.toLowerCase().trim();
-    
+
+    // When a department is confirmed, restrict the candidate pool to that department only.
+    // This prevents "Refrigerator Accessories" from fuzzy-matching into "Bathroom Hardware"
+    // when the product is confirmed Appliances.
+    const departmentLower = departmentConstraint ? departmentConstraint.toLowerCase().trim() : null;
+    const candidatePool = departmentLower
+      ? this.categories.filter(c => c.department.toLowerCase() === departmentLower)
+      : this.categories;
+
+    if (departmentLower && candidatePool.length === 0) {
+      // Unknown department — fall back to unconstrained search with a warning
+      logger.warn(`matchCategory: no categories found for department "${departmentConstraint}", falling back to unconstrained search`, { categoryName });
+      return this.matchCategory(categoryName);
+    }
+
     // Try exact match first
-    const exactMatch = this.categories.find(c => 
+    const exactMatch = candidatePool.find(c =>
       c.category_name.toLowerCase() === normalized
     );
-    
+
     if (exactMatch) {
       return { matched: true, original: categoryName, matchedValue: exactMatch, similarity: 1.0 };
     }
 
-    // Find closest matches
-    const scored = this.categories.map(c => ({
+    // Find closest matches within the candidate pool
+    const scored = candidatePool.map(c => ({
       category: c,
       similarity: this.calculateSimilarity(effectiveCategoryName, c.category_name)
     })).sort((a, b) => b.similarity - a.similarity);
@@ -490,17 +506,17 @@ class PicklistMatcherService {
     const best = scored[0];
     // Lowered threshold from 0.75 to 0.7 for more flexible matching
     if (best && best.similarity >= 0.7) {
-      return { 
-        matched: true, 
-        original: categoryName, 
-        matchedValue: best.category, 
+      return {
+        matched: true,
+        original: categoryName,
+        matchedValue: best.category,
         similarity: best.similarity,
         suggestions: scored.slice(1, 4).map(s => s.category)
       };
     }
-    
-    // Additional fallback: partial match
-    const partialMatch = this.categories.find(c =>
+
+    // Additional fallback: partial match within candidate pool
+    const partialMatch = candidatePool.find(c =>
       c.category_name.toLowerCase().includes(effectiveCategoryName.toLowerCase()) ||
       effectiveCategoryName.toLowerCase().includes(c.category_name.toLowerCase())
     );
@@ -515,11 +531,11 @@ class PicklistMatcherService {
     }
 
     this.logMismatch('category', effectiveCategoryName, scored.slice(0, 3).map(s => s.category.category_name), best?.similarity);
-    
-    return { 
-      matched: false, 
-      original: categoryName, 
-      matchedValue: null, 
+
+    return {
+      matched: false,
+      original: categoryName,
+      matchedValue: null,
       similarity: best?.similarity || 0,
       suggestions: scored.slice(0, 3).map(s => s.category)
     };
