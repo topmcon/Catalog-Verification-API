@@ -17,6 +17,11 @@
       "logic": "Brewing method",
       "types": [
         {
+          "type_name": "Built-In",
+          "status": "existing",
+          "primary_filter": true
+        },
+        {
           "type_name": "Countertop",
           "status": "existing",
           "primary_filter": true

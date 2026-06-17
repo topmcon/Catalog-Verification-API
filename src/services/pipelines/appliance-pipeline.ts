@@ -189,7 +189,7 @@ function buildApplianceFeatures(
     (rawProduct.Ferguson_Description || '')
   ).toLowerCase();
 
-  // built_in (ONLY for Oven and Refrigerator)
+  // built_in (Oven, Refrigerator, and Coffee Maker/System)
   let built_in = false;
   if (categoryLower === 'oven') {
     built_in = (
@@ -203,6 +203,12 @@ function buildApplianceFeatures(
       installLower.includes('built-in') || installLower.includes('built in') ||
       combinedText.includes('built-in refrigerator') || combinedText.includes('built in refrigerator')
     );
+  } else if (categoryLower === 'coffee maker' || categoryLower === 'coffee system') {
+    const specTable = (rawProduct as any).Specification_Table || '';
+    const builtInSpec = /Built-In[^:]*:\s*Yes/i.test(specTable);
+    const flushInstallSpec = /Flush Installation[^:]*:\s*Yes/i.test(specTable);
+    const aiTypeIsBuiltIn = /built.in/i.test(primaryAttributes.AI_Type || '');
+    built_in = builtInSpec || flushInstallSpec || aiTypeIsBuiltIn;
   }
 
   // panel_ready

@@ -1344,6 +1344,12 @@ function extractTypeSpecHints(rawProduct: SalesforceIncomingProduct): Record<str
 
     const rangeTypeMatch = specTable.match(/Range Type[^:]*:\s*([^<\n]+)/i);
     if (rangeTypeMatch) hints['range_type'] = rangeTypeMatch[1].trim();
+
+    // Coffee Maker / Coffee System built-in detection from spec Installation section
+    const builtInMatch = specTable.match(/Built-In[^:]*:\s*(Yes|No|True)/i);
+    if (builtInMatch && /yes|true/i.test(builtInMatch[1])) hints['coffee_built_in'] = 'yes';
+    const flushInstallMatch = specTable.match(/Flush Installation[^:]*:\s*(Yes|No|True)/i);
+    if (flushInstallMatch && /yes|true/i.test(flushInstallMatch[1])) hints['coffee_built_in'] = hints['coffee_built_in'] || 'yes';
   }
 
   // Also check structured Web_Retailer_Specs array (parallel data source)
@@ -1352,6 +1358,8 @@ function extractTypeSpecHints(rawProduct: SalesforceIncomingProduct): Record<str
     const name = (spec.name || '').toLowerCase();
     if (name === 'range configuration') hints['range_configuration'] = hints['range_configuration'] || spec.value;
     if (name === 'range type') hints['range_type'] = hints['range_type'] || spec.value;
+    // "Has Flush Inset Option: Yes" from Web Retailer Specs also indicates a built-in coffee maker
+    if (name === 'has flush inset option' && /yes/i.test(spec.value || '')) hints['coffee_built_in'] = hints['coffee_built_in'] || 'yes';
   }
 
   return hints;
@@ -1615,6 +1623,22 @@ function resolveDisagreementSmart(
         if (!openaiIsSlideIn && !xaiIsSlideIn) {
           // Neither AI said Slide-In — override both with the spec value
           return { resolvedValue: 'Slide-In', winner: 'openai', reason: `Spec "Range Configuration: Slide-In" overrides both AIs — forcing "Slide-In" type` };
+        }
+      }
+
+      // Coffee Maker Built-In override: spec table explicitly says Built-In: Yes
+      const coffeeBuiltIn = specHints['coffee_built_in'];
+      if (coffeeBuiltIn === 'yes' && _category.toLowerCase().includes('coffee')) {
+        const openaiIsBuiltIn = openaiLower.includes('built-in') || openaiLower.includes('built in');
+        const xaiIsBuiltIn = xaiLower.includes('built-in') || xaiLower.includes('built in');
+        if (openaiIsBuiltIn && !xaiIsBuiltIn) {
+          return { resolvedValue: openaiValue, winner: 'openai', reason: `Spec "Built-In: Yes" — OpenAI "${openaiValue}" matches, xAI "${xaiValue}" does not` };
+        }
+        if (!openaiIsBuiltIn && xaiIsBuiltIn) {
+          return { resolvedValue: xaiValue, winner: 'xai', reason: `Spec "Built-In: Yes" — xAI "${xaiValue}" matches, OpenAI "${openaiValue}" does not` };
+        }
+        if (!openaiIsBuiltIn && !xaiIsBuiltIn) {
+          return { resolvedValue: 'Built-In', winner: 'openai', reason: `Spec "Built-In: Yes" overrides both AIs — forcing "Built-In" type for Coffee Maker` };
         }
       }
 
@@ -9189,6 +9213,17 @@ async function buildFinalResponse(
     }
   }
 
+  // Coffee Maker / Coffee System: spec Built-In: Yes overrides any AI-agreed type
+  if (verifiedCategory === 'Coffee Maker' || verifiedCategory === 'Coffee System') {
+    const coffeeSpecHints = extractTypeSpecHints(rawProduct);
+    if (coffeeSpecHints['coffee_built_in'] === 'yes' && !/built/i.test(aiProductType)) {
+      logger.info('Coffee Maker type override: spec confirms Built-In, overriding type', {
+        sessionId, category: verifiedCategory, previousType: aiProductType, newType: 'Built-In'
+      });
+      aiProductType = 'Built-In';
+    }
+  }
+
   let typeMatchResult = picklistMatcher.matchType(aiProductType);
   if (!typeMatchResult.matched && aiProductType) {
     const categoryAwareMatch = matchTypeToPicklist(aiProductType, verifiedCategory, subcategoryHint);
@@ -10912,6 +10947,23 @@ async function buildFinalResponse(
             color = img.detectedColor;
             logger.info('Extracted color from image analysis', { color, source: 'image_vision_analysis', sessionId });
             break;
+          }
+        }
+      }
+
+      // Spec-table single-color override: if the AI extracted multiple comma-separated colors
+      // (likely image contamination — e.g., vision model detecting the touchscreen as "Matte Black"
+      // alongside the product body color) and the spec table has a single unambiguous Color value,
+      // use the spec table value if it appears among the AI's color parts.
+      if (color && color.includes(',')) {
+        const specTableColor = findInSpecificationTable(rawProduct.Specification_Table, ['Color']);
+        if (specTableColor && !specTableColor.includes(',')) {
+          const aiParts = color.split(',').map((p: string) => p.trim().toLowerCase());
+          if (aiParts.some((p: string) => p === specTableColor.toLowerCase().trim())) {
+            logger.info('Color: spec table single-value overrides multi-value AI color (image contamination likely)', {
+              sessionId, aiColor: color, specTableColor
+            });
+            color = specTableColor;
           }
         }
       }
