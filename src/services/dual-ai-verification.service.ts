@@ -1393,7 +1393,24 @@ function resolveDisagreementSmart(
   }
   
   // Both AIs have values - need to determine which is correct
-  
+
+  // STEP 0B: BRAND SUB-BRAND PREFERENCE
+  // When one AI returns a corporate parent name (GE, GE APPLIANCES) and the other returns
+  // a known GE sub-brand (MONOGRAM, CAFE, etc.), prefer the sub-brand — it is the actual
+  // product brand and is more specific than the legal manufacturer entity name.
+  if (normalizedField === 'brand') {
+    const GE_PARENT_NAMES = new Set(['ge', 'ge appliances', 'ge profile']);
+    const GE_SUBBRANDS = new Set(['monogram', 'cafe', 'hotpoint', 'haier']);
+    const openaiLowerBrand = String(openaiValue || '').toLowerCase().trim();
+    const xaiLowerBrand = String(xaiValue || '').toLowerCase().trim();
+    if (GE_PARENT_NAMES.has(openaiLowerBrand) && GE_SUBBRANDS.has(xaiLowerBrand)) {
+      return { resolvedValue: xaiValue, winner: 'xai', reason: `Sub-brand preference: "${xaiValue}" is more specific than parent brand "${openaiValue}"` };
+    }
+    if (GE_PARENT_NAMES.has(xaiLowerBrand) && GE_SUBBRANDS.has(openaiLowerBrand)) {
+      return { resolvedValue: openaiValue, winner: 'openai', reason: `Sub-brand preference: "${openaiValue}" is more specific than parent brand "${xaiValue}"` };
+    }
+  }
+
   // STEP 1: RESEARCH VALIDATION FIRST (evidence-based)
   // Skip research validation for product_type — research text often contains incidental
   // mounting terms (e.g., "single-hole" in URLs) that override the correct semantic type.
@@ -3064,6 +3081,47 @@ export async function verifyProductWithDualAI(
         validCategoriesForDept = getCategoriesForDepartment('Plumbing & Bath');
         Object.assign(categoryConsensus, { agreedCategory: 'Bathroom Mirror', agreementReason: 'Source-signal override: source data says bathroom product' });
         Object.assign(departmentConsensus, { agreedDepartment: 'Plumbing & Bath' });
+      }
+    }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // SOURCE-SIGNAL OVERRIDE: Appliance accessories landing in wrong category
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // When the department is Appliances but the category resolved to a non-appliance
+    // category (e.g., "Bathroom Hardware and Accessories"), and Web_Retailer_SubCategory
+    // explicitly identifies an appliance subcategory (e.g., "REFRIGERATOR ACCESSORIES"),
+    // override to the correct appliance category. Type = "Accessory" is valid in all
+    // target categories and will be picked up by the post-consensus type logic.
+    if (determinedDepartment === 'Appliances') {
+      const wrSubCatLower = (rawProduct.Web_Retailer_SubCategory || '').toLowerCase();
+      const APPLIANCE_SUBCATEGORY_MAP: Array<[RegExp, string]> = [
+        [/refrigerator\s+accessories?/i, 'Refrigerator'],
+        [/dishwasher\s+accessories?/i, 'Dishwasher'],
+        [/range\s+accessories?/i, 'Range'],
+        [/oven\s+accessories?/i, 'Oven'],
+        [/washer\s+accessories?/i, 'Washer'],
+        [/dryer\s+accessories?/i, 'Dryer'],
+        [/freezer\s+accessories?/i, 'Freezer'],
+        [/cooktop\s+accessories?/i, 'Cooktop'],
+        [/microwave\s+accessories?/i, 'Microwave'],
+      ];
+      const APPLIANCE_CATEGORIES = /^(refrigerator|dishwasher|range|oven|washer|dryer|freezer|cooktop|microwave|coffee maker|ice maker|wine cooler)$/i;
+      if (!APPLIANCE_CATEGORIES.test(determinedCategory)) {
+        for (const [pattern, targetCategory] of APPLIANCE_SUBCATEGORY_MAP) {
+          if (pattern.test(wrSubCatLower)) {
+            logger.warn(`🔧 SOURCE-SIGNAL OVERRIDE: "${determinedCategory}" → "${targetCategory}" (Web_Retailer_SubCategory: "${rawProduct.Web_Retailer_SubCategory}")`, {
+              sessionId: verificationSessionId,
+              originalCategory: determinedCategory,
+              correctedCategory: targetCategory,
+              webRetailerSubCategory: rawProduct.Web_Retailer_SubCategory,
+              reason: 'Appliances department + subcategory keyword override'
+            });
+            determinedCategory = targetCategory;
+            validCategoriesForDept = getCategoriesForDepartment('Appliances');
+            Object.assign(categoryConsensus, { agreedCategory: targetCategory, agreementReason: `Source-signal override: Web_Retailer_SubCategory "${rawProduct.Web_Retailer_SubCategory}" → ${targetCategory} Accessory` });
+            break;
+          }
+        }
       }
     }
 
@@ -9211,6 +9269,17 @@ async function buildFinalResponse(
       });
       aiProductType = 'Slide-In';
     }
+  }
+
+  // Appliance accessories: force "Accessory" type when the subcategory override fired
+  // (Web_Retailer_SubCategory said "REFRIGERATOR ACCESSORIES" etc. but AIs may have said other types)
+  const wrSubCatUpper = (rawProduct.Web_Retailer_SubCategory || '').toUpperCase();
+  const ACCESSORY_SUBCATS = /REFRIGERATOR|DISHWASHER|RANGE|OVEN|WASHER|DRYER|FREEZER|COOKTOP|MICROWAVE/;
+  if (ACCESSORY_SUBCATS.test(wrSubCatUpper) && wrSubCatUpper.includes('ACCESSOR') && !/accessory/i.test(aiProductType)) {
+    logger.info('Appliance accessory type override: forcing "Accessory"', {
+      sessionId, category: verifiedCategory, previousType: aiProductType, webRetailerSubCategory: rawProduct.Web_Retailer_SubCategory
+    });
+    aiProductType = 'Accessory';
   }
 
   // Coffee Maker / Coffee System: spec Built-In: Yes overrides any AI-agreed type
